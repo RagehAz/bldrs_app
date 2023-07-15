@@ -9,7 +9,6 @@ import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/xxx_slide_editor_controllers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/super_image/super_image.dart';
 
 class SlideEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -31,11 +30,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey globalKey = GlobalKey();
   // --------------------
-  final List<ImageFilterModel> _allFilters = ImageFilterModel.bldrsImageFilters;
-  // --------------------
   final ValueNotifier<DraftSlide?> _draftNotifier = ValueNotifier(null);
   final ValueNotifier<Matrix4?> _matrix = ValueNotifier(null);
-  final ValueNotifier<ImageFilterModel?> _filterModel = ValueNotifier(null);
   final ValueNotifier<bool> _isTransforming = ValueNotifier(false);
   final ValueNotifier<bool> _canResetMatrix = ValueNotifier(false);
   final ValueNotifier<bool> _isPlayingAnimation = ValueNotifier(false);
@@ -50,7 +46,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 
     /// INITIALIZE TEMP SLIDE
     final DraftSlide? _initialSlide = widget.slide?.copyWith(
-      filter: widget.slide?.filter ?? _allFilters[0],
       matrix: initializeMatrix(slide: widget.slide),
     );
 
@@ -66,13 +61,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
       notifier: _matrix,
       mounted: mounted,
       value: _initialSlide?.matrix,
-    );
-
-    /// SET FILTER
-    setNotifier(
-      notifier: _filterModel,
-      mounted: mounted,
-      value: _initialSlide?.filter ?? _allFilters[0],
     );
 
     final bool _initialMatrixIsIdentity = Trinity.checkMatrixesAreIdentical(
@@ -130,7 +118,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     _draftNotifier.dispose();
     _isTransforming.dispose();
     _matrix.dispose();
-    _filterModel.dispose();
     _canResetMatrix.dispose();
     _isPlayingAnimation.dispose();
     super.dispose();
@@ -153,11 +140,12 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
           /// SLIDE
           SlideEditorSlidePart(
             globalKey: globalKey,
+            bzModel: widget.draftFlyer.value!.bzModel!,
+            authorID: widget.draftFlyer.value!.authorID!,
             appBarType: AppBarType.non,
             height: _slideZoneHeight,
             draftSlide: _draftNotifier,
             matrix: _matrix,
-            filterModel: _filterModel,
             isTransforming: _isTransforming,
             mounted: mounted,
             onSlideTap: (){
@@ -193,14 +181,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               matrix: _matrix,
               mounted: mounted,
             ),
-            onToggleFilter: () => onToggleFilter(
-              draftNotifier: _draftNotifier,
-              currentFilter: _filterModel,
-              mounted: mounted,
-            ),
             onCrop: () => onCropSlide(
               draftNotifier: _draftNotifier,
-              filterNotifier: _filterModel,
               matrixNotifier: _matrix,
               bzID: widget.draftFlyer.value?.bzID,
               mounted: mounted,
@@ -208,7 +190,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             onConfirm: () => onConfirmSlideEdits(
               context: context,
               draftNotifier: _draftNotifier,
-              filter: _filterModel,
               matrix: _matrix,
             ),
           ),

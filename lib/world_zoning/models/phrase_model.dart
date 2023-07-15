@@ -654,13 +654,13 @@ class Phrase {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getPhrasesIDs(List<Phrase> phrases){
+  static List<String> getPhrasesIDs(List<Phrase>? phrases){
 
     List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(phrases) == true){
 
-      for (final Phrase phrase in phrases){
+      for (final Phrase phrase in phrases!){
 
         _output = Stringer.addStringToListIfDoesNotContainIt(
           strings: _output,

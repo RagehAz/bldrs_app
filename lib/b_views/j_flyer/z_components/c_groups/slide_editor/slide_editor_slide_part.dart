@@ -2,13 +2,16 @@
 import 'package:basics/animators/widgets/animate_widget_to_matrix.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
+import 'package:basics/super_box/super_box.dart';
+import 'package:basics/super_image/super_image.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/b_header_template.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/d_footer_template.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_back_cover_image.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/d_static_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_headline_text_field.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_transformer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
@@ -16,8 +19,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/super_image/super_image.dart';
 
 class SlideEditorSlidePart extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -27,12 +28,13 @@ class SlideEditorSlidePart extends StatelessWidget {
     required this.onSlideTap,
     required this.isTransforming,
     required this.matrix,
-    required this.filterModel,
     required this.appBarType,
     required this.globalKey,
     required this.mounted,
     required this.isPlayingAnimation,
     required this.onSlideDoubleTap,
+    required this.bzModel,
+    required this.authorID,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -43,10 +45,11 @@ class SlideEditorSlidePart extends StatelessWidget {
   final ValueNotifier<bool> isPlayingAnimation;
   final ValueNotifier<bool> isTransforming;
   final ValueNotifier<Matrix4?> matrix;
-  final ValueNotifier<ImageFilterModel?> filterModel;
   final AppBarType appBarType;
   final GlobalKey globalKey;
   final bool mounted;
+  final BzModel bzModel;
+  final String authorID;
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
@@ -91,11 +94,10 @@ class SlideEditorSlidePart extends StatelessWidget {
             ValueListenableBuilder(
               valueListenable: draftSlide,
               builder: (_, DraftSlide? _slide, Widget? child) {
-                return SlideBackCoverImage(
-                  filterModel: filterModel,
-                  flyerBoxWidth: _flyerBoxWidth,
-                  flyerBoxHeight: _flyerBoxHeight,
-                  slide: _slide,
+                return SuperFilteredImage(
+                  width: _flyerBoxWidth,
+                  height: _flyerBoxHeight,
+                  pic: _slide?.picModel?.bytes,
                 );
               },
             ),
@@ -115,7 +117,6 @@ class SlideEditorSlidePart extends StatelessWidget {
               builder: (_, DraftSlide? _slide, Widget? child) {
                 return SlideTransformer(
                   matrix: matrix,
-                  filterModel: filterModel,
                   flyerBoxWidth: _flyerBoxWidth,
                   flyerBoxHeight: _flyerBoxHeight,
                   slide: _slide,
@@ -166,7 +167,6 @@ class SlideEditorSlidePart extends StatelessWidget {
                                 width: _flyerBoxWidth,
                                 height: _flyerBoxHeight,
                                 pic: draft?.picModel?.bytes,
-                                filterModel: ImageFilterModel.getFilterByID(draft?.filter?.id),
                                 boxFit: draft?.picFit ?? BoxFit.cover,
                                 // canUseFilter: false,
                               ),
@@ -214,18 +214,28 @@ class SlideEditorSlidePart extends StatelessWidget {
               flyerBoxWidth: _flyerBoxWidth,
             ),
 
-            /// STATIC FOOTER
-            IgnorePointer(
-              child: FooterTemplate(
+            /// FOOTER
+            Disabler(
+              isDisabled: true,
+              disabledOpacity: 0.2,
+              child: StaticFooter(
                 flyerBoxWidth: _flyerBoxWidth,
+                flyerID: 'x',
+                optionsButtonIsOn: false,
+                showAllButtons: true,
               ),
             ),
 
-            /// STATIC HEADER
-            IgnorePointer(
-              child: HeaderTemplate(
+            /// HEADER
+            Disabler(
+              isDisabled: true,
+              disabledOpacity: 0.2,
+              child: StaticHeader(
                 flyerBoxWidth: _flyerBoxWidth,
-                opacity: 0.5,
+                bzModel: bzModel,
+                authorID: authorID,
+                flyerShowsAuthor: true,
+                showHeaderLabels: true,
               ),
             ),
 

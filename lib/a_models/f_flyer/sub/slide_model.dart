@@ -21,7 +21,6 @@ class SlideModel {
     required this.dimensions,
     required this.midColor,
     required this.matrix,
-    required this.filterID,
     required this.animationCurve,
     required this.slideIndex,
     this.picPath,
@@ -39,7 +38,6 @@ class SlideModel {
   final Dimensions? dimensions;
   final Color? midColor;
   final String? flyerID;
-  final String? filterID;
   final ui.Image? uiImage;
   final Curve? animationCurve;
   // -----------------------------------------------------------------------------
@@ -58,7 +56,6 @@ class SlideModel {
       'dimensions': dimensions?.toMap(),
       'midColor': Colorizer.cipherColor(midColor),
       'matrix' : Trinity.cipherMatrix(matrix),
-      'filterID' : filterID,
       'animationCurve': Trinity.cipherAnimationCurve(animationCurve),
     };
   }
@@ -75,9 +72,9 @@ class SlideModel {
       dimensions: Dimensions.decipherDimensions(map['dimensions']),
       midColor: Colorizer.decipherColor(map['midColor']),
       matrix: Trinity.decipherMatrix(map['matrix']),
-      filterID: map['filterID'],
       animationCurve: Trinity.decipherAnimationCurve(map['animationCurve']),
     );
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -132,7 +129,6 @@ class SlideModel {
     Dimensions? dimensions,
     Color? midColor,
     String? flyerID,
-    String? filterID,
     ui.Image? uiImage,
     Curve? animationCurve,
   }) {
@@ -145,7 +141,6 @@ class SlideModel {
       picFit: picFit ?? this.picFit,
       midColor: midColor ?? this.midColor,
       matrix: matrix ?? this.matrix,
-      filterID: filterID ?? this.filterID,
       uiImage: uiImage ?? this.uiImage,
       animationCurve: animationCurve ?? this.animationCurve,
     );
@@ -161,7 +156,6 @@ class SlideModel {
     blog('  slideIndex : ($slideIndex ): flyerID : ($flyerID)  : pic : ($picPath) : uiImage : ($uiImage) ');
     blog('  headline : ($headline) : description : ($description)');
     blog('  midColor : ($midColor) : '
-        'filterID : ($filterID) : '
         'picFit : ($picFit) : '
         'hasCustomMatrix : (${matrix != Matrix4.identity()}) : '
         'animationCurve : ($animationCurve) : '
@@ -232,9 +226,6 @@ class SlideModel {
     }
     if (slide1?.flyerID != slide2?.flyerID){
       blog('slide1.flyerID != slide2.flyerID');
-    }
-    if (slide1?.filterID != slide2?.filterID){
-      blog('slide1.filterID != slide2.filterID');
     }
     if (Floaters.checkUiImagesAreIdentical(slide1?.uiImage, slide2?.uiImage) == false){
       blog('slide1.uiImage != slide2.uiImage');
@@ -483,7 +474,6 @@ class SlideModel {
       dimensions: const Dimensions(height: 900, width: 600),
       midColor: Colorz.black255,
       matrix: Matrix4.identity(),
-      filterID: 'phid_filter_normal',
       animationCurve: null,
     );
   }
@@ -534,7 +524,6 @@ class SlideModel {
           Dimensions.checkDimensionsAreIdentical(dim1: slide1.dimensions, dim2: slide2.dimensions) == true &&
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&
           slide1.flyerID == slide2.flyerID &&
-          slide1.filterID == slide2.filterID &&
           Floaters.checkUiImagesAreIdentical(slide1.uiImage, slide2.uiImage) == true
       ){
         _identical = true;
@@ -639,7 +628,6 @@ class SlideModel {
       midColor.hashCode^
       matrix.hashCode^
       animationCurve.hashCode^
-      filterID.hashCode^
       slideIndex.hashCode^
       picPath.hashCode^
       headline.hashCode^

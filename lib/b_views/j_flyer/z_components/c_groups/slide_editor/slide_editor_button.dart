@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -57,6 +58,7 @@ class SlideEditorButton extends StatelessWidget {
             iconSizeFactor: 0.6,
             margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
             isDisabled: isDisabled,
+            color: Colorz.white20,
             onTap: onTap,
           ),
 
