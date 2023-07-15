@@ -19,7 +19,6 @@ class SpecsSelectorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SpecsSelectorBubble({
     required this.draft,
-    required this.draftNotifier,
     required this.bzModel,
     required this.onSpecTap,
     required this.onDeleteSpec,
@@ -28,7 +27,6 @@ class SpecsSelectorBubble extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final DraftFlyer? draft;
-  final ValueNotifier<DraftFlyer?> draftNotifier;
   final BzModel? bzModel;
   final Function({required SpecModel? value, required SpecModel? unit})? onSpecTap; // onAddSpecsToDraftTap
   final Function({required SpecModel? value, required SpecModel? unit})? onDeleteSpec;

@@ -4,12 +4,12 @@ import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
+import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/delete_draft_slide_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/e_slide_headline.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/b_header_template.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
@@ -37,10 +37,14 @@ class DraftShelfSlide extends StatefulWidget {
   static const double flyerBoxWidth = 150;
   static const double slideNumberBoxHeight = 20;
   // -----------------------------------------------------------------------------
-  static double shelfSlideZoneHeight(){
-    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
+  static double flyerBoxHeight(){
+    return FlyerDim.flyerHeightByFlyerWidth(
       flyerBoxWidth: flyerBoxWidth,
     );
+  }
+// --------------------
+  static double shelfSlideZoneHeight(){
+    final double _flyerBoxHeight = flyerBoxHeight();
     return _flyerBoxHeight + slideNumberBoxHeight + (Ratioz.appBarPadding * 3);
   }
   // -----------------------------------------------------------------------------
@@ -77,7 +81,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
     return Container(
       width: DraftShelfSlide.flyerBoxWidth,
       height: DraftShelfSlide.shelfSlideZoneHeight(),
-      margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding,),
+      margin: const EdgeInsets.only(left: Ratioz.appBarMargin),
       child: Column(
         children: <Widget>[
 
@@ -182,17 +186,18 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                     flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                   ),
 
-                // /// STATIC FOOTER
-                // if (widget.mutableSlide != null)
-                // const StaticFooter(
-                //   flyerBoxWidth: ShelfSlide.flyerBoxWidth,
-                // ),
-
                 /// STATIC HEADER
                 if (widget.draftSlide != null)
-                  const HeaderTemplate(
-                    flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
-                    opacity: 0.5,
+                  ReorderableDragStartListener(
+                    index: widget.draftSlide?.slideIndex ?? 0,
+                    child: TapLayer(
+                      width: DraftShelfSlide.flyerBoxWidth,
+                      height: FlyerDim.headerSlateHeight(DraftShelfSlide.flyerBoxWidth),
+                      corners: FlyerDim.headerSlateCorners(flyerBoxWidth: DraftShelfSlide.flyerBoxWidth),
+                      boxColor: Colorz.black80,
+                      splashColor: Colorz.white20,
+                      onTap: null,
+                    ),
                   ),
 
                 /// HEADLINE
