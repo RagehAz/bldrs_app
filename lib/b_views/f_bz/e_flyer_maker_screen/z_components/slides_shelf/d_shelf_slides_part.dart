@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
@@ -67,6 +68,7 @@ class ShelfSlidesPart extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           columnChildren: [
 
+            if (Mapper.checkCanLoopList(draft?.draftSlides) == true)
             slides!,
 
             /// ADD NEW SLIDE

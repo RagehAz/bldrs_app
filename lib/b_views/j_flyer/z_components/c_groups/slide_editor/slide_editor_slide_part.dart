@@ -27,7 +27,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     required this.height,
     required this.onSlideTap,
     required this.isTransforming,
-    required this.matrix,
+    required this.matrixNotifier,
     required this.appBarType,
     required this.globalKey,
     required this.mounted,
@@ -44,7 +44,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   final Function? onSlideDoubleTap;
   final ValueNotifier<bool> isPlayingAnimation;
   final ValueNotifier<bool> isTransforming;
-  final ValueNotifier<Matrix4?> matrix;
+  final ValueNotifier<Matrix4?> matrixNotifier;
   final AppBarType appBarType;
   final GlobalKey globalKey;
   final bool mounted;
@@ -99,7 +99,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                   height: _flyerBoxHeight,
                   pic: _slide?.picModel?.bytes,
                 );
-              },
+                },
             ),
 
             /// BLUR LAYER
@@ -115,75 +115,73 @@ class SlideEditorSlidePart extends StatelessWidget {
             ValueListenableBuilder(
               valueListenable: draftSlide,
               builder: (_, DraftSlide? _slide, Widget? child) {
-                return SlideTransformer(
-                  matrix: matrix,
-                  flyerBoxWidth: _flyerBoxWidth,
-                  flyerBoxHeight: _flyerBoxHeight,
-                  slide: _slide,
-                  isTransforming: isTransforming,
-                  mounted: mounted,
-                );
-              },
-            ),
 
-            /// SLIDE ANIMATION PREVIEW
-            ValueListenableBuilder(
-                valueListenable: isPlayingAnimation,
-                builder: (_, bool isPlaying, Widget? child) {
+                return ValueListenableBuilder(
+                  valueListenable: isPlayingAnimation,
+                  builder: (_, bool isPlaying, Widget? animationPlayer) {
 
-                  if (isPlaying == true) {
-                    return ValueListenableBuilder(
-                      valueListenable: draftSlide,
-                      builder: (_, DraftSlide? draft, Widget? child) {
+                    /// WHILE PLAYING ANIMATION
+                    if (isPlaying == true) {
 
-                        Trinity.blogMatrix(draft?.matrix);
+                      Trinity.blogMatrix(_slide?.matrix);
 
-                        return Stack(
-                          children: <Widget>[
+                      return Stack(
+                        children: <Widget>[
 
-                            /// BLUR LAYER
-                            BlurLayer(
+                          /// BLUR LAYER
+                          BlurLayer(
+                            width: _flyerBoxWidth,
+                            height: _flyerBoxHeight,
+                            blurIsOn: true,
+                            blur: 20,
+                            borders: FlyerDim.flyerCorners(_flyerBoxWidth),
+                          ),
+
+                          /// SLIDE ANIMATOR
+                          AnimateWidgetToMatrix(
+                            matrix: Trinity.renderSlideMatrix(
+                              matrix: _slide?.matrix,
+                              flyerBoxWidth: _flyerBoxWidth,
+                              flyerBoxHeight: _flyerBoxHeight,
+                            ),
+                            // canAnimate: true,
+                            curve: _slide?.animationCurve ?? Curves.easeIn,
+                            replayOnRebuild: true,
+                            onAnimationEnds: () {
+                              setNotifier(
+                                  notifier: isPlayingAnimation, mounted: mounted, value: false);
+                              },
+                            child: SuperFilteredImage(
                               width: _flyerBoxWidth,
                               height: _flyerBoxHeight,
-                              blurIsOn: true,
-                              blur: 20,
-                              borders: FlyerDim.flyerCorners(_flyerBoxWidth),
+                              pic: _slide?.picModel?.bytes,
+                              boxFit: _slide?.picFit ?? BoxFit.cover,
+                              // canUseFilter: false,
                             ),
+                          ),
 
-                            AnimateWidgetToMatrix(
-                              matrix: Trinity.renderSlideMatrix(
-                                matrix: draft?.matrix,
-                                flyerBoxWidth: _flyerBoxWidth,
-                                flyerBoxHeight: _flyerBoxHeight,
-                              ),
-                              // canAnimate: true,
-                              curve: draft?.animationCurve ?? Curves.easeIn,
-                              replayOnRebuild: true,
-                              onAnimationEnds: () {
-                                setNotifier(
-                                    notifier: isPlayingAnimation, mounted: mounted, value: false);
-                                },
-                              child: SuperFilteredImage(
-                                width: _flyerBoxWidth,
-                                height: _flyerBoxHeight,
-                                pic: draft?.picModel?.bytes,
-                                boxFit: draft?.picFit ?? BoxFit.cover,
-                                // canUseFilter: false,
-                              ),
-                            ),
+                        ],
+                      );
 
-                          ],
-                        );
+                    }
 
-                      },
-                    );
-                  }
+                    /// WHILE TRANSFORMING SLIDE
+                    else {
+                      return SlideTransformer(
+                        matrixNotifier: matrixNotifier,
+                        flyerBoxWidth: _flyerBoxWidth,
+                        flyerBoxHeight: _flyerBoxHeight,
+                        slide: _slide,
+                        isTransforming: isTransforming,
+                        mounted: mounted,
+                      );
+                    }
 
-                  else {
-                    return const SizedBox();
-                  }
+                    },
+                );
 
-                }),
+                },
+            ),
 
             /// SLIDE SHADOW
             SlideShadow(

@@ -52,8 +52,8 @@ class Standards {
 
   // --------------------
   /// MAX SLIDES PER BZ ACCOUNT TYPE
-  static const int maxFlyerSlidesFreeAccount = 50;
-  static const int maxFlyerSlidesPremiumAccount = 7;
+  static const int maxFlyerSlidesFreeAccount = 3;
+  static const int maxFlyerSlidesPremiumAccount = 10;
   static const int maxFlyerSlidesFreeSuper = 25;
   // --------------------
   static const int flyerMaxDaysToUpdate = 3; // 3 days to update flyer

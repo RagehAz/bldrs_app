@@ -1,10 +1,11 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:async';
-
+import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
@@ -23,11 +24,14 @@ import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_confir
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class NewFlyerEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -415,6 +419,31 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
         bodyVerse: const Verse(id: 'phid_draft_is_temp_stored', translate: true),
         confirmButtonVerse: const Verse(id: 'phid_exit', translate: true),
       ),
+      appBarRowWidgets: <Widget>[
+
+        Selector<BzzProvider, BzModel?>(
+          selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
+          builder: (BuildContext context, BzModel? bzModel, Widget? child){
+
+            return AppBarButton(
+              icon: bzModel?.logoPath,
+              bigIcon: true,
+              bubble: false,
+              onTap: () async {
+
+                Sliders.snapTo(
+                  pageController: _pageController,
+                  toIndex: 0,
+                );
+
+                },
+            );
+
+            },
+
+        ),
+
+      ],
       child: ValueListenableBuilder(
         valueListenable: _draftNotifier,
         builder: (_, DraftFlyer? draft, Widget? child){
@@ -502,10 +531,10 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                     blog('phidSelectorBubble : onPhidTap : phid: $phid');
                     },
                   onAddSpecsToDraft: () => onAddSpecsToDraftTap(
-                          context: context,
-                          mounted: mounted,
-                          draft: _draftNotifier,
-                        ),
+                    context: context,
+                    mounted: mounted,
+                    draft: _draftNotifier,
+                  ),
                   onDeleteSpec: ({SpecModel? value, SpecModel? unit}){
 
                           blog('on Delete spec');

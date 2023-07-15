@@ -124,7 +124,6 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
           );
 
           return ObeliskLayout(
-            initiallyExpanded: true,
             zGridController: _zGridController,
             canGoBack: true,
             appBarIcon: _bzModel?.logoPath,

@@ -12,6 +12,7 @@
 10. flyer gallery slide scrolling and exit bounce fixed
 11. transparent pyramids are non clickable now
 12. flyer slides re-ordering issue fixed
+13. flyer specification selection issue fixed
 
 ### 1.0.5 changelog
 1. Optimized gallery flyer animation

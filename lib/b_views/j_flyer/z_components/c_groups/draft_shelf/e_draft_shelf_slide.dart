@@ -156,6 +156,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                               flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                               flyerBoxHeight: _flyerBoxHeight
                           ),
+                          canAnimate: widget.draftSlide?.animationCurve != null,
                           replayOnRebuild: true,
                           child: child!,
                         );
