@@ -233,7 +233,7 @@ Future<void> onAddSpecsToDraftTap({
       )
   );
 
-  final List<SpecModel> _receivedSpecs = _result;
+  final List<SpecModel>? _receivedSpecs = _result;
 
   if (Mapper.checkCanLoopList(_receivedSpecs) == true){
 

@@ -94,17 +94,37 @@ class _PyramidsSwitcher extends StatelessWidget {
   final bool? listenToHideLayout;
   final void Function()? onPyramidDoubleTap;
   // -----------------------------------------------------------------------------
+  static bool pyramidCanBeTapped(PyramidType type){
+
+    switch(type){
+
+      case PyramidType.yellow:        return true;
+      case PyramidType.white:         return true;
+
+      case PyramidType.crystalYellow: return false;
+      case PyramidType.crystalWhite:  return false;
+      case PyramidType.crystalBlue:   return false;
+      case PyramidType.glass:         return false;
+      case PyramidType.non:           return false;
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     if (listenToHideLayout == false){
-      return _PyramidsWidgetTree(
-        pyramidType: pyramidType,
-        loading: loading,
-        onPyramidTap: onPyramidTap,
-        color: color,
-        putInCorner: putInCorner,
-        onPyramidDoubleTap: onPyramidDoubleTap,
+      return IgnorePointer(
+        ignoring: pyramidCanBeTapped(pyramidType) == false,
+        child: _PyramidsWidgetTree(
+          pyramidType: pyramidType,
+          loading: loading,
+          onPyramidTap: onPyramidTap,
+          color: color,
+          putInCorner: putInCorner,
+          onPyramidDoubleTap: onPyramidDoubleTap,
+        ),
       );
     }
 
@@ -115,7 +135,7 @@ class _PyramidsSwitcher extends StatelessWidget {
         builder: (_, bool isVisible, Widget? child) {
 
           return IgnorePointer(
-            ignoring: !isVisible,
+            ignoring: (!isVisible) || pyramidCanBeTapped(pyramidType) == false,
             child: WidgetFader(
               fadeType: isVisible == false ? FadeType.fadeOut : FadeType.fadeIn,
               duration: const Duration(milliseconds: 300),

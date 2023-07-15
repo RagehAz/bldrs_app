@@ -20,7 +20,6 @@ class PhidsSelectorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PhidsSelectorBubble({
     required this.draft,
-    required this.draftNotifier,
     required this.bzModel,
     required this.onPhidTap,
     required this.onPhidLongTap,
@@ -30,7 +29,6 @@ class PhidsSelectorBubble extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final DraftFlyer? draft;
-  final ValueNotifier<DraftFlyer?> draftNotifier;
   final BzModel? bzModel;
   final Function(String phid) onPhidTap;
   final Function(String phid) onPhidLongTap;
@@ -66,6 +64,7 @@ class PhidsSelectorBubble extends StatelessWidget {
         width: Bubble.bubbleWidth(context: context),
         columnChildren: <Widget>[
 
+          /// BULLETS
           const BldrsBulletPoints(
             showBottomLine: false,
             bulletPoints: <Verse>[
@@ -77,26 +76,14 @@ class PhidsSelectorBubble extends StatelessWidget {
           ),
 
           /// SELECTED PHIDS
-          ValueListenableBuilder(
-              valueListenable: draftNotifier,
-              builder: (_, DraftFlyer? draft, Widget? child){
-
-                if (Mapper.checkCanLoopList(draft?.phids) == true){
-                  return PhidsViewer(
+          if (Mapper.checkCanLoopList(draft?.phids) == true)
+          PhidsViewer(
                     pageWidth: _bubbleClearWidth,
                     phids: draft?.phids ?? [],
                     onPhidLongTap: onPhidLongTap,
                     onPhidTap: onPhidTap,
 
-                  );
-                }
-
-                else {
-                  return const SizedBox();
-                }
-
-              },
-          ),
+                  ),
 
           /// ADD BUTTON
           BldrsBox(
