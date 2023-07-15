@@ -38,7 +38,6 @@ class FlightFlyer extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
     final SlideModel? slideModel = renderedFlyer?.slides?.first;
-    final ImageFilterModel? filterModel = ImageFilterModel.getFilterByID(slideModel?.filterID);
     final double footerHeight = FlyerDim.footerBoxHeight(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
@@ -103,7 +102,6 @@ class FlightFlyer extends StatelessWidget {
                                   width: flyerBoxWidth,
                                   height: flyerBoxHeight,
                                   pic: slideModel?.uiImage,
-                                  filterModel: filterModel,
                                   corners: flyerBorders,
                                 ),
 
@@ -121,7 +119,6 @@ class FlightFlyer extends StatelessWidget {
                                   width: flyerBoxWidth,
                                   height: flyerBoxHeight,
                                   pic: slideModel?.uiImage,
-                                  filterModel: filterModel,
                                   boxFit: slideModel?.picFit ?? BoxFit.cover,
                                   corners: flyerBorders,
                                 ),

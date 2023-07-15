@@ -200,6 +200,7 @@ class Continent {
   /// LISTS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static const List<Map<String, dynamic>> continentsMaps = <Map<String, dynamic>>[
     <String, dynamic>{
       'name': 'Africa',
@@ -226,6 +227,25 @@ class Continent {
       'icon': Iconz.contSouthAmerica,
     },
   ];
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? getContinentIconByID(String? id){
+    String? _output;
+
+    if (id != null){
+
+      final Map<String, dynamic>? _map = continentsMaps.singleWhereOrNull(
+            (Map<String, dynamic> map) => map['name'] == id
+      );
+
+      if (_map != null){
+        _output = _map['icon'];
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// BLOGGING

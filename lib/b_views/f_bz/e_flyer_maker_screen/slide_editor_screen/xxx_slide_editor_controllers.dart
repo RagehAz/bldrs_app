@@ -8,7 +8,6 @@ import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/super_image/super_image.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -78,7 +77,6 @@ Future<void> onResetMatrix({
         mounted: mounted,
         value: originalDraft?.copyWith(
           matrix: Matrix4.identity(),
-          filter: ImageFilterModel.noFilter(),
         )
     );
 
@@ -202,7 +200,6 @@ void stopAnimation({
 /// TESTED : WORKS PERFECT
 Future<void> onCropSlide({
   required ValueNotifier<DraftSlide?> draftNotifier,
-  required ValueNotifier<ImageFilterModel?> filterNotifier,
   required ValueNotifier<Matrix4?> matrixNotifier,
   required String? bzID,
   required bool mounted,
@@ -234,7 +231,8 @@ Future<void> onCropSlide({
 /// COLOR FILTER
 
 // --------------------
-/// TESTED : WORKS PERFECT
+/// DEPRECATED
+/*
 void onToggleFilter({
   required ValueNotifier<DraftSlide?> draftNotifier,
   required ValueNotifier<ImageFilterModel?> currentFilter,
@@ -269,6 +267,7 @@ void onToggleFilter({
   );
 
 }
+ */
 // -----------------------------------------------------------------------------
 
 /// HEADLINE
@@ -299,14 +298,12 @@ void onSlideHeadlineChanged({
 Future<void> onConfirmSlideEdits({
   required BuildContext context,
   required ValueNotifier<DraftSlide?> draftNotifier,
-  required ValueNotifier<ImageFilterModel?> filter,
   required ValueNotifier<Matrix4?> matrix,
 }) async {
 
 
   final DraftSlide? _slide = draftNotifier.value?.copyWith(
     matrix: matrix.value,
-    filter: filter.value,
   );
 
   await Nav.goBack(

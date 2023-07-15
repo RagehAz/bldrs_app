@@ -22,7 +22,6 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:basics/super_image/super_image.dart';
 /// => TAMAM
 @immutable
 class GtaModel {
@@ -352,7 +351,6 @@ class GtaModel {
               opacity: 1,
               matrix: Matrix4.identity(),
               animationCurve: null,
-              filter: ImageFilterModel.noFilter(),
             );
             _output.add(_draft);
 

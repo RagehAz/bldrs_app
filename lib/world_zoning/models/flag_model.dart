@@ -545,6 +545,34 @@ class Flag {
   }
   // -----------------------------------------------------------------------------
 
+  /// STRING GENERATORS
+
+  // --------------------
+  static String generateDemographicsLine({
+    required Flag? flag,
+  }){
+
+    String? counterCaliber(int? x){
+      return Numeric.formatNumToCounterCaliber(
+        x: x,
+        thousand: Verse.transBake('phid_thousand')!,
+        million: Verse.transBake('phid_million')!,
+      );
+    }
+
+    final String? _areaNumbers = counterCaliber(flag?.areaSqKm);
+    final String? _population = counterCaliber(flag?.population);
+    final double? _popDensityValue = (flag?.population ?? 0) / (flag?.areaSqKm ?? 0);
+    final String? _popDensity = Numeric.formatNumToSeparatedKilos(
+      number: _popDensityValue,
+      fractions: 0,
+    );
+
+    final String _areaLine = '🧍 $_population person / 🌉 $_areaNumbers km² = 👪 $_popDensity person/km²';
+    return _areaLine;
+  }
+  // -----------------------------------------------------------------------------
+
   /// EQUALITY
 
   // --------------------
