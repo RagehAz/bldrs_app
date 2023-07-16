@@ -14,6 +14,7 @@
 12. flyer slides re-ordering issue fixed
 13. flyer specification selection issue fixed
 14. fixed Main menu sizing and screen size responsiveness
+15. fixed intro screen
 
 ### 1.0.5 changelog
 1. Optimized gallery flyer animation
