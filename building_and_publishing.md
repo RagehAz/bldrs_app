@@ -1,3 +1,17 @@
+---
+### ANDROID PUBLISHING INSTRUCTIONS
+
+
+1. run 
+flutter build appbundle
+
+2. drag file in this location to play store
+D:\projects\bldrs\bldrs_app\build\app\outputs\bundle\release
+\app-release.aab
+
+3. go to https://play.google.com/console/u/0/developers/6309889359528388528/app-list
+4. go to select the app => click Production on the left => click Create Release Button on top right
+5. upload new bundle
 
 ---
 
