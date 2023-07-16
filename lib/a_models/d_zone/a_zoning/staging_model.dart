@@ -326,8 +326,8 @@ class StagingModel {
 
     const Map<String, dynamic> _localUser = {
       'homeView' : { /// USER BROWSING HOME PAGE FLYERS AND BZZ
-        'user':           {'country' : StageType.flyersStage, 'city' : StageType.flyersStage},
-        'author':         {'country' : StageType.flyersStage, 'city' : StageType.flyersStage},
+        'user':           {'country' : StageType.bzzStage, 'city' : StageType.bzzStage},
+        'author':         {'country' : StageType.bzzStage, 'city' : StageType.bzzStage},
         'global_user':    {'country' : StageType.flyersStage, 'city' : StageType.publicStage},
         'global_author':  {'country' : StageType.flyersStage, 'city' : StageType.flyersStage},
       },
