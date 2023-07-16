@@ -25,9 +25,9 @@ class ObeliskVersesBuilder extends StatelessWidget {
   CrossAxisAlignment _getCrossAlignment(BuildContext context) {
     CrossAxisAlignment _crossAlignment;
 
-    final bool _isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final bool _isWideScreen = Obelisk.isWideScreenObelisk(context);
 
-    if (_isLandscape == true) {
+    if (_isWideScreen == true) {
       _crossAlignment = CrossAxisAlignment.end;
     } else {
       if (UiProvider.checkAppIsLeftToRight() == true) {
@@ -43,7 +43,7 @@ class ObeliskVersesBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final bool _isWideScreen = Obelisk.isWideScreenObelisk(context);
     final CrossAxisAlignment _crossAlignment = _getCrossAlignment(context);
 
     return Selector<UiProvider, bool>(
@@ -63,7 +63,7 @@ class ObeliskVersesBuilder extends StatelessWidget {
 
               return Transform.scale(
                 scaleX: value,
-                alignment: _isLandscape == true ? Alignment.centerRight : Alignment.centerLeft,
+                alignment: _isWideScreen == true ? Alignment.centerRight : Alignment.centerLeft,
                 child: child,
               );
 

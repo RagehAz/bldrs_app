@@ -199,13 +199,13 @@ class PhraseProvider extends ChangeNotifier {
 
     String? _translation;
 
-    if (Mapper.checkCanLoopList(_mainPhrases) == true){
+    if (Mapper.checkCanLoopList(_mainPhrases) == true && phid != null){
 
       final Phrase? _phrase = _mainPhrases.firstWhereOrNull(
               (phrase) => phrase.id == phid,
       );
 
-      if (_phrase != null){
+      if (_phrase != null && _phrase.value?.toLowerCase() != 'null'){
         _translation = _phrase.value;
       }
     }
