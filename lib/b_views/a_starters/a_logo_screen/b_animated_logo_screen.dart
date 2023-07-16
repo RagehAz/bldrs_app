@@ -455,8 +455,6 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                     child: LoadingVerse(
                       builder: (Verse? verse){
 
-                        blog('verse is : ${verse?.id}');
-
                         return AnimatedLine(
                           curvedAnimation: _linesControllers[0],
                           tween: _tween,
