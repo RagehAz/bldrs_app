@@ -127,7 +127,7 @@ class Obelisk extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getMaxHeight(BuildContext context){
-    return Scale.screenWidth(context) * 0.82;
+    return Scale.screenWidth(context) * 0.816; // reverse engineered
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -136,9 +136,9 @@ class Obelisk extends StatelessWidget {
     required List<NavModel?> navModels,
   }){
 
-    final bool _isLandScape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final bool _isWideScreen = isWideScreenObelisk(context);
 
-    if (_isLandScape == true){
+    if (_isWideScreen == true){
       return getContentsHeight(
                  context: context,
                  navModels: navModels
@@ -157,14 +157,19 @@ class Obelisk extends StatelessWidget {
              ) + 40;
     }
   }
+
+  static bool isWideScreenObelisk(BuildContext context){
+    final bool _isWideScreen = MediaQuery.of(context).size.aspectRatio > 0.55;
+    return _isWideScreen;
+  }
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final bool _isLandScape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final bool _isWideScreen = isWideScreenObelisk(context);
 
-    if (_isLandScape == true){
-      return _LandscapeObelisk(
+    if (_isWideScreen == true){
+      return _WideObelisk(
           onRowTap: onRowTap,
           progressBarModel: progressBarModel,
           navModels: navModels
@@ -172,7 +177,7 @@ class Obelisk extends StatelessWidget {
     }
 
     else {
-      return _PortraitObelisk(
+      return _NarrowObelisk(
         progressBarModel: progressBarModel,
         navModels: navModels,
         onRowTap: onRowTap,
@@ -183,9 +188,9 @@ class Obelisk extends StatelessWidget {
 }
 
 
-class _LandscapeObelisk extends StatelessWidget {
+class _WideObelisk extends StatelessWidget {
   // --------------------------------------------------------------------------
-  const _LandscapeObelisk({
+  const _WideObelisk({
     required this.onRowTap,
     required this.progressBarModel,
     required this.navModels,
@@ -202,7 +207,7 @@ class _LandscapeObelisk extends StatelessWidget {
     return Positioned(
         key: const ValueKey<String>('Obelisk'),
         right: Ratioz.appBarMargin,
-        bottom: 15,
+        bottom: 0,
         child: Selector<UiProvider, bool>(
           selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
           builder: (_, bool? expanded, Widget? child) {
@@ -215,7 +220,7 @@ class _LandscapeObelisk extends StatelessWidget {
             );
           },
           child: SizedBox(
-            height: 300,
+            height: 324,
             child: MaxBounceNavigator(
               onNavigate: () => UiProvider.proSetPyramidsAreExpanded(
                 setTo: false,
@@ -266,9 +271,9 @@ class _LandscapeObelisk extends StatelessWidget {
   // --------------------------------------------------------------------------
 }
 
-class _PortraitObelisk extends StatelessWidget {
+class _NarrowObelisk extends StatelessWidget {
   // --------------------------------------------------------------------------
-  const _PortraitObelisk({
+  const _NarrowObelisk({
     required this.onRowTap,
     required this.progressBarModel,
     required this.navModels,
