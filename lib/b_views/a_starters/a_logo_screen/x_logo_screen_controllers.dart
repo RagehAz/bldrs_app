@@ -141,10 +141,16 @@ Future<void> initializeLogoScreen({
           await _refreshLDB();
 
           // blog('7 - initializeLogoScreen : daily refresh is done');
+
+          UiProvider.proSetLoadingVerse(
+            verse: Verse.plain(Words.loading()),
+          );
+
         }
 
         // blog('8 - initializeLogoScreen : END');
       }
+
 
       UiProvider.clearLoadingVerse();
 

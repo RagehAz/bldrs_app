@@ -27,7 +27,7 @@ class ObeliskVerse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final bool _isWideScreen = Obelisk.isWideScreenObelisk(context);
 
     return ValueListenableBuilder(
       key: const ValueKey<String>('ObeliskVerse'),
@@ -42,7 +42,7 @@ class ObeliskVerse extends StatelessWidget {
             onTap: () => onTap.call(),
             child: Container(
               height: Obelisk.circleWidth,
-              alignment: _isLandscape == true ? Alignment.centerRight : Alignment.centerLeft,
+              alignment: _isWideScreen == true ? Alignment.centerRight : Alignment.centerLeft,
               color: Colorz.nothing,
               child: BldrsText(
                 verse: Verse(

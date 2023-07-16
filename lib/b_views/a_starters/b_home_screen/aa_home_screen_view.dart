@@ -51,10 +51,11 @@ class HomeFlyersGrid extends StatelessWidget {
         if (Mapper.checkCanLoopList(_wallFlyers) == false){
 
           if (isLoading == true){
-            return const FlyersGrid(
+            return FlyersGrid(
               gridType: FlyerGridType.loading,
               hasResponsiveSideMargin: true,
               screenName: 'userHomeScreen',
+              numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 3 : 2,
             );
           }
 
