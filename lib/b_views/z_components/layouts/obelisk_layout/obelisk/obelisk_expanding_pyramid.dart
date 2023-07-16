@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
+import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +17,9 @@ class ObeliskExpandingPyramid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _isLandScape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final bool _isWideScreen = Obelisk.isWideScreenObelisk(context);
 
-    if (_isLandScape == true){
+    if (_isWideScreen == true){
       return Positioned(
         bottom: 100.0 * 5 * -1,
         right: 500,

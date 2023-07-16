@@ -1,26 +1,32 @@
 import 'dart:async';
+
+import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/animators/widgets/widget_waiter.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
+import 'package:bldrs/b_views/z_components/buttons/something_wrong_restart_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
+import 'package:bldrs/b_views/z_components/texting/customs/leading_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_sounder.dart';
-import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:websafe_svg/websafe_svg.dart';
-import 'package:basics/animators/widgets/widget_fader.dart';
 
 class AnimatedLogoScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -31,7 +37,7 @@ class AnimatedLogoScreen extends StatefulWidget {
   @override
   State<AnimatedLogoScreen> createState() => _AnimatedLogoScreenState();
   /// --------------------------------------------------------------------------
-  static const double trackLength = 8775; // milli seconds
+  static const int trackLength = 8500; // milli seconds
   /// --------------------------------------------------------------------------
   static double getBeatRatio(double milliSecond) {
     return milliSecond / trackLength;
@@ -72,12 +78,87 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   void initState() {
     super.initState();
 
+    _createLinesMap();
+
+    _initializeAnimationControllers();
+  }
+  // --------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+
+    if (_isInit && mounted) {
+      _isInit = false; // good
+
+      asyncInSync(() async {
+
+        Keyboard.closeKeyboard();
+
+        await Future.delayed(const Duration(milliseconds: 500), () async {
+
+          await Future.wait(<Future<void>>[
+
+            Future.delayed(const Duration(milliseconds: AnimatedLogoScreen.trackLength),() async {
+              await _triggerLoading(setTo: true);
+            }),
+
+            initializeLogoScreen(
+              context: context,
+              mounted: mounted,
+            ),
+
+            _startAnimationSequence(),
+
+          ]);
+
+          await Nav.pushNamedAndRemoveAllBelow(
+            context: context,
+            goToRoute: Routing.home,
+          );
+
+        });
+
+      });
+    }
+
+    super.didChangeDependencies();
+  }
+  // --------------------
+  @override
+  void dispose() {
+    _loading.dispose();
+    _sloganCurvedAnimation.dispose();
+    _logoAniController.dispose();
+    _logoCurvedAnimation.dispose();
+
+    if (Mapper.checkCanLoopList(_linesControllers) == true) {
+      for (final CurvedAnimation cont in _linesControllers) {
+        cont.dispose();
+      }
+    }
+
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
+  final Tween<double> _tween = Tween<double>(begin: 0, end: 1);
+  late AnimationController _logoAniController;
+  late CurvedAnimation _logoCurvedAnimation;
+  late CurvedAnimation _sloganCurvedAnimation;
+  late List<CurvedAnimation> _linesControllers;
+  // -----------------------------------------------------------------------------
+
+  /// INITIALIZATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _createLinesMap(){
     _linesMap = <Map<String, dynamic>>[
       AnimatedLogoScreen.createBeat(
           start: 1900,
           duration: 200,
           text: xPhrase('phid_search'),
-          color: Colorz.white200),
+          color: Colorz.white200
+      ),
       // 1
       AnimatedLogoScreen.createBeat(
           start: 2800,
@@ -86,7 +167,11 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
           color: Colorz.white200),
       // 5
       AnimatedLogoScreen.createBeat(
-          start: 2700, duration: 200, text: xPhrase('phid_ask'), color: Colorz.white200),
+          start: 2700,
+          duration: 200,
+          text: xPhrase('phid_ask'),
+          color: Colorz.white200,
+      ),
       // 4
       AnimatedLogoScreen.createBeat(
           start: 2350,
@@ -116,75 +201,15 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
           start: 5450, duration: 300, text: '- ${xPhrase('phid_artisans')}'),
       // 9
     ];
-
-    _initializeAnimationControllers();
   }
   // --------------------
-  bool _isInit = true;
-  @override
-  void didChangeDependencies() {
-
-    if (_isInit && mounted) {
-      _isInit = false; // good
-
-      _triggerLoading(setTo: true).then((_) async {
-        Keyboard.closeKeyboard();
-
-        await Future.delayed(const Duration(milliseconds: 500), () async {
-          await Future.wait(<Future<void>>[
-
-            initializeLogoScreen(
-              context: context,
-              mounted: mounted,
-            ),
-
-            _startAnimationSequence(),
-          ]);
-
-          await Nav.pushNamedAndRemoveAllBelow(
-            context: context,
-            goToRoute: Routing.home,
-          );
-
-        });
-
-        await _triggerLoading(setTo: false);
-      });
-    }
-
-    super.didChangeDependencies();
-  }
-  // --------------------
-  @override
-  void dispose() {
-    _loading.dispose();
-    // _sloganAniController.dispose();
-    _sloganCurvedAnimation.dispose();
-    _logoAniController.dispose();
-    _logoCurvedAnimation.dispose();
-
-    if (Mapper.checkCanLoopList(_linesControllers) == true) {
-      for (final CurvedAnimation cont in _linesControllers) {
-        cont.dispose();
-      }
-    }
-
-    super.dispose();
-  }
-  // -----------------------------------------------------------------------------
-  final Tween<double> _tween = Tween<double>(begin: 0, end: 1);
-  late AnimationController _logoAniController;
-  late CurvedAnimation _logoCurvedAnimation;
-  late CurvedAnimation _sloganCurvedAnimation;
-  late List<CurvedAnimation> _linesControllers;
-  // -----------------------------------------------------------------------------
-
-  /// INITIALIZATION
-
-  // --------------------
+  /// TESTED : WORKS PERFECT
   void _initializeAnimationControllers() {
     /// LOGO CONTROLLERS
-    _logoAniController = AnimationController(duration: const Duration(milliseconds: 8500), vsync: this);
+    _logoAniController = AnimationController(
+        duration: const Duration(milliseconds: AnimatedLogoScreen.trackLength),
+        vsync: this
+    );
 
     _logoCurvedAnimation = CurvedAnimation(
       parent: _logoAniController,
@@ -193,6 +218,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
         AnimatedLogoScreen.getBeatRatio(1800),
         curve: Curves.easeInOutExpo,
       ),
+      // reverseCurve: Curves.easeOut,
     );
 
     _sloganCurvedAnimation = CurvedAnimation(
@@ -202,11 +228,13 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
         AnimatedLogoScreen.getBeatRatio(4500),
         curve: Curves.easeInOutExpo,
       ),
+      // reverseCurve: Curves.easeOut,
     );
 
     _linesControllers = _initializedLinesAnimations();
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   List<CurvedAnimation> _initializedLinesAnimations() {
     final List<CurvedAnimation> _animations = <CurvedAnimation>[];
 
@@ -220,6 +248,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
           map['second'],
           curve: Curves.easeInOutExpo,
         ),
+        // reverseCurve: Curves.easeOut,
       );
       _animations.add(_curvedAni);
     }
@@ -243,10 +272,11 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   // --------------------
   Future<void> _animateLogoLine() async {
     await _logoAniController.forward(from: 0);
+    await _logoAniController.reverse(from: 1);
   }
   // -----------------------------------------------------------------------------
 
-  /// RESTARTING ( FOR TESTING ONLY)
+  /// RESTARTING ( FOR_DEV_ONLY )
 
   // --------------------
   /*
@@ -270,18 +300,24 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
       pyramidsAreOn: true,
       pyramidType: PyramidType.yellow,
       appBarType: AppBarType.non,
-      // onBack: () async {
-      //
-      //   await Nav.replaceScreen(
-      //       context: context,
-      //       screen: const AnimatedLogoScreen(),
-      //   );
-      //
-      // },
+      loading: _loading,
       canGoBack: false,
+      /// FOR_DEV_ONLY
+      // pyramidButtons: [
+      //
+      //   if (UsersProvider.userIsRage7() == true)
+      //   PyramidFloatingButton(
+      //     icon: Iconz.bz,
+      //     onTap: () async {
+      //     await BldrsNav.goToLogoScreenAndRemoveAllBelow(animatedLogoScreen: false);
+      //     },
+      //   ),
+      //
+      // ],
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
+
           /// FADING SPLASH LOGO
           const WidgetFader(
             fadeType: FadeType.fadeOut,
@@ -358,7 +394,6 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                             child: Container(
                               width: 700,
                               height: 50,
-                              // color: Colorz.bloodTest,
                               alignment: Alignment.bottomCenter,
                               padding: EdgeInsets.only(right: _val * 300),
                               child: const BldrsText(
@@ -401,6 +436,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
 
+                /// LINES
                 if (Mapper.checkCanLoopList(_linesMap) == true)
                 ...List.generate(_linesControllers.length, (index) {
                   return AnimatedLine(
@@ -409,13 +445,42 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                     verse: _linesMap![index]['verse'],
                     verseColor: _linesMap![index]['color'],
                   );
-                })
+                }),
+
+                /// LOADING
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: WidgetWaiter(
+                    waitDuration: const Duration(milliseconds: AnimatedLogoScreen.trackLength),
+                    child: LoadingVerse(
+                      builder: (Verse? verse){
+
+                        blog('verse is : ${verse?.id}');
+
+                        return AnimatedLine(
+                          curvedAnimation: _linesControllers[0],
+                          tween: _tween,
+                          verse: verse?.id == null ?
+                          Words.loading()
+                              :
+                          Verse.bakeVerseToString(verse: verse) ?? Words.loading(),
+                          verseColor: Colorz.white255,
+                        );
+                        },
+                    ),
+                  ),
+                ),
 
               ],
             ),
           ),
 
-          /// FOR DEV ONLY
+          /// RESTART
+          const SomethingWrongRestartButton(
+            waitSeconds: Standards.loadingScreenTimeOut,
+          ),
+
+          /// FOR_DEV_ONLY
           // Container(
           //   width: Scale.screenWidth(context),
           //   height: Scale.screenHeight(context),
@@ -425,7 +490,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
           //     children: [
           //
           //       /// REPLAY
-          //       DreamBox(
+          //       BldrsBox(
           //         width: 50,
           //         height: 50,
           //         icon: Iconz.play,
@@ -438,13 +503,13 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
           //       ),
           //
           //       /// CHANGE LANG
-          //       DreamBox(
+          //       BldrsBox(
           //         width: 50,
           //         height: 50,
           //         icon: Iconz.language,
           //         iconSizeFactor: 0.6,
           //         onTap: () async {
-          //           WaitDialog.showUnawaitedWaitDialog(context: context);
+          //           WaitDialog.showUnawaitedWaitDialog();
           //
           //           final PhraseProvider _phraseProvider =
           //               Provider.of<PhraseProvider>(context, listen: false);
@@ -459,7 +524,6 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
           //           await Localizer.changeAppLanguage(context, langCode);
           //
           //           await _phraseProvider.fetchSetCurrentLangAndAllPhrases(
-          //             context: context,
           //             setLangCode: langCode,
           //           );
           //
@@ -470,6 +534,15 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
           //             screen: const AnimatedLogoScreen(),
           //           );
           //         },
+          //       ),
+          //
+          //       /// GO BACK
+          //       BldrsBox(
+          //         width: 50,
+          //         height: 50,
+          //         icon: Iconz.arrowWhiteLeft,
+          //         iconSizeFactor: 0.6,
+          //         onTap: () => BldrsNav.goToLogoScreenAndRemoveAllBelow(animatedLogoScreen: false),
           //       ),
           //
           //     ],
@@ -483,14 +556,6 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   }
   // -----------------------------------------------------------------------------
 }
-
-/// PLAN : NEED TO PUT THESE STATEMENTS FOR BZZ
-///  - NO SUBSCRIPTION FEES
-///  - NO SALES COMMISSION
-///  - SHARE YOUR WORK AND YOUR SOCIAL MEDIA LINKS
-///  - BLDRS COMMUNITY IS REFERRAL COMMUNITY
-///  - NO VIOLATIONS ALLOWED
-///  ...
 
 class AnimatedLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -533,7 +598,6 @@ class AnimatedLine extends StatelessWidget {
                   child: Container(
                     width: _screenWidth * 2,
                     height: 35,
-                    // color: Colorz.bloodTest,
                     padding: EdgeInsets.only(left: _val * _screenWidth * 1.1),
                     alignment: Alignment.centerLeft,
                     child: child,
