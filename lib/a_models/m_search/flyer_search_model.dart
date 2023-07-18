@@ -7,14 +7,14 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 class FlyerSearchModel {
   // -----------------------------------------------------------------------------
   const FlyerSearchModel({
-    required this.flyerType,
-    required this.onlyShowingAuthors,
-    required this.onlyWithPrices,
-    required this.onlyWithPDF,
-    required this.onlyAmazonProducts,
-    required this.phid,
-    required this.publishState,
-    required this.auditState,
+    this.flyerType,
+    this.onlyShowingAuthors,
+    this.onlyWithPrices,
+    this.onlyWithPDF,
+    this.onlyAmazonProducts,
+    this.phid,
+    this.publishState,
+    this.auditState,
   });
   // -----------------------------------------------------------------------------
   final FlyerType? flyerType;

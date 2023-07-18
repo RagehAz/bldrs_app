@@ -1,4 +1,7 @@
 import 'dart:async';
+
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
@@ -6,14 +9,12 @@ import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dar
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:provider/provider.dart';
 
 /*
@@ -55,17 +56,23 @@ class ZoneSelection {
     required String? viewerCountryID,
   }) async {
 
+    blog('aa7aaa 1');
+
     final ZoneModel? _output = await _goToCountriesScreen(
       zoneViewingEvent: zoneViewingEvent,
       depth: depth,
       viewerCountryID: viewerCountryID,
     );
 
+    blog('aa7aaa 2');
+
     if (settingCurrentZone == true && _output != null){
       await setCurrentZoneAndNavHome(
         zone: _output,
       );
     }
+
+    blog('aa7aaa 3');
 
     return _output;
   }
@@ -83,6 +90,7 @@ class ZoneSelection {
         zoneViewingEvent: zoneViewingEvent,
         depth: depth,
         viewerCountryID: viewerCountryID,
+        canSetPlanetAsCurrentZone: false,
       ),
     );
 
@@ -235,12 +243,12 @@ class ZoneSelection {
 
 
       // /// SET CHAINS
-      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-      await _chainsProvider.changeHomeWallFlyerType(
-        notify: true,
-        flyerType: null,
-        phid: null,
-      );
+      // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+      // await _chainsProvider.changeHomeWallFlyerType(
+      //   notify: true,
+      //   flyerType: null,
+      //   phid: null,
+      // );
       // await _chainsProvider.reInitializeZoneChains();
 
   }

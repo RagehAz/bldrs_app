@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/animators/widgets/widget_waiter.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -222,7 +225,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
           paginationController: _paginationController,
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget? child){
 
-            if (Mapper.checkCanLoopList(maps) == true && isLoading == false){
+            if (Mapper.checkCanLoopList(maps) == true){
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 controller: _paginationController?.scrollController,
@@ -244,9 +247,10 @@ class _BzNotesPageState extends State<BzNotesPage>{
             }
 
             else {
-              return const NoNotificationsYet();
-            }
 
+              return const NoNotificationsYet();
+
+            }
           }
       ),
 
@@ -265,21 +269,30 @@ class NoNotificationsYet extends StatelessWidget {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: BldrsText(
-        width: MainButton.getButtonWidth(context: context),
-        verse: const Verse(
-          id: 'phid_no_notes_yet',
-          translate: true,
-          casing: Casing.upperCase,
+
+    return WidgetWaiter(
+      waitDuration: const Duration(milliseconds: 1500),
+      child: WidgetFader(
+        fadeType: FadeType.fadeIn,
+        duration: Ratioz.duration1000ms,
+        child: Center(
+          child: BldrsText(
+            width: MainButton.getButtonWidth(context: context),
+            verse: const Verse(
+              id: 'phid_no_notes_yet',
+              translate: true,
+              casing: Casing.upperCase,
+            ),
+            size: 4,
+            color: Colorz.white80,
+            weight: VerseWeight.black,
+            italic: true,
+            maxLines: 3,
+          ),
         ),
-        size: 4,
-        color: Colorz.white80,
-        weight: VerseWeight.black,
-        italic: true,
-        maxLines: 3,
       ),
     );
+
   }
   // -----------------------------------------------------------------------------
 }

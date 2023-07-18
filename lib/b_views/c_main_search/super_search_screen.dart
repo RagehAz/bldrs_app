@@ -186,8 +186,9 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
       if (_searchType == ModelType.flyer) {
         _flyersQuery = FlyerSearch.createQuery(
-          searchModel: _searchModel,
-          title: _getSearchText(),
+          searchModel: _searchModel?.copyWith(
+            text: _getSearchText(),
+          ),
           gtaLink: _getSearchURL(),
           // orderBy: ,
           // descending:,
@@ -270,27 +271,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     if (_searchType == ModelType.flyer){
      return FlyersSearchFiltersList(
        searchModel: _searchModel,
-       onZoneSwitchTap: (bool value) async {
-          if (value == true){
-
-              _searchModel = _searchModel?.copyWith(
-                zone:  ZoneProvider.proGetCurrentZone(
-                  context: context,
-                  listen: false,
-                ),
-              );
-              await _generateQuery();
-
-          }
-          else {
-
-              _searchModel = _searchModel?.nullifyField(
-                zone: true,
-              );
-              await _generateQuery();
-
-          }
-          },
+       onZoneSwitchTap: _onZoneSwitchTap,
        onZoneTap: () async {
 
           final ZoneModel? _newZone = await ZoneSelection.goBringAZone(
@@ -300,17 +281,23 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             viewerCountryID: UsersProvider.proGetUserZone()?.countryID,
           );
 
-          if (_newZone != null){
-            await ZoneSelection.setCurrentZoneProtocol(
+          await ZoneSelection.setCurrentZoneProtocol(
+            zone: _newZone,
+          );
+
+          if (_newZone == null){
+            _searchModel = _searchModel?.nullifyField(
+              zone: true,
+            );
+          }
+
+          else {
+            _searchModel = _searchModel?.copyWith(
               zone: _newZone,
             );
-
-              _searchModel = _searchModel?.copyWith(
-                zone: _newZone,
-              );
-              await _generateQuery();
-
           }
+
+          await _generateQuery();
 
           },
        onFlyerTypeSwitchTap: (bool value) async {
@@ -405,6 +392,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
          },
        onOnlyAmazonProductsSwitchTap: (bool value) async {
 
+         // blog('value : $value');
+
          _searchModel = _searchModel?.copyWith(
            flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
              onlyAmazonProducts: value,
@@ -467,50 +456,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     else if (_searchType == ModelType.bz){
       return BzSearchFiltersList(
         searchModel: _searchModel,
-        onZoneSwitchTap: (bool value) async {
-          if (value == true){
-
-              _searchModel = _searchModel?.copyWith(
-                zone:  ZoneProvider.proGetCurrentZone(
-                  context: context,
-                  listen: false,
-                ),
-              );
-              await _generateQuery();
-
-          }
-          else {
-
-              _searchModel = _searchModel?.nullifyField(
-                zone: true,
-              );
-
-              await _generateQuery();
-
-          }
-          },
-        onZoneTap: () async {
-
-          final ZoneModel? _newZone = await ZoneSelection.goBringAZone(
-            depth: ZoneDepth.city,
-            settingCurrentZone: false,
-            zoneViewingEvent: ViewingEvent.homeView,
-            viewerCountryID: UsersProvider.proGetUserZone()?.countryID,
-          );
-
-          if (_newZone != null){
-            await ZoneSelection.setCurrentZoneProtocol(
-              zone: _newZone,
-            );
-
-              _searchModel = _searchModel?.copyWith(
-                zone: _newZone,
-              );
-              await _generateQuery();
-
-          }
-
-          },
+        onZoneSwitchTap: _onZoneSwitchTap,
+        onZoneTap: _goBringBzZone,
         onBzIsVerifiedSwitchTap: (bool value) async {
 
             _searchModel = _searchModel?.copyWith(
@@ -652,27 +599,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       return UserSearchFiltersList(
         searchModel: _searchModel,
         userSearchModel: _userSearchModel,
-        onZoneSwitchTap: (bool value) async {
-          if (value == true){
-
-              _searchModel = _searchModel?.copyWith(
-                zone:  ZoneProvider.proGetCurrentZone(
-                  context: context,
-                  listen: false,
-                ),
-              );
-              await _generateQuery();
-
-          }
-          else {
-
-              _searchModel = _searchModel?.nullifyField(
-                zone: true,
-              );
-              await _generateQuery();
-
-          }
-          },
+        onZoneSwitchTap: _onZoneSwitchTap,
         onZoneTap: () async {
 
           final ZoneModel? _newZone = await ZoneSelection.goBringAZone(
@@ -682,17 +609,24 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             viewerCountryID: UsersProvider.proGetUserZone()?.countryID,
           );
 
-          if (_newZone != null){
-            await ZoneSelection.setCurrentZoneProtocol(
+
+          await ZoneSelection.setCurrentZoneProtocol(
+            zone: _newZone,
+          );
+
+          if (_newZone == null){
+            _searchModel = _searchModel?.nullifyField(
+              zone: true,
+            );
+          }
+
+          else {
+            _searchModel = _searchModel?.copyWith(
               zone: _newZone,
             );
-
-              _searchModel = _searchModel?.copyWith(
-                zone: _newZone,
-              );
-              await _generateQuery();
-
           }
+
+          await _generateQuery();
 
           },
         onUserSearchTypeSwitchTap: (bool value) async {
@@ -784,6 +718,65 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     }
 
   }
+  // --------------------
+  Future<void> _onZoneSwitchTap(bool value) async {
+
+    if (value == true){
+
+      final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(
+        context: context,
+        listen: false,
+      );
+
+      if (_currentZone == null && _searchModel?.zone == null){
+        await _goBringBzZone();
+      }
+      else {
+        _searchModel = _searchModel?.copyWith(
+          zone: _currentZone,
+        );
+        await _generateQuery();
+
+      }
+
+    }
+
+    else {
+      _searchModel = _searchModel?.nullifyField(
+        zone: true,
+      );
+      await _generateQuery();
+    }
+
+  }
+  // --------------------
+  Future<void> _goBringBzZone() async {
+
+    final ZoneModel? _newZone = await ZoneSelection.goBringAZone(
+      depth: ZoneDepth.city,
+      settingCurrentZone: false,
+      zoneViewingEvent: ViewingEvent.homeView,
+      viewerCountryID: UsersProvider.proGetUserZone()?.countryID,
+    );
+
+    await ZoneSelection.setCurrentZoneProtocol(
+      zone: _newZone,
+    );
+
+    if (_newZone == null){
+      _searchModel = _searchModel?.nullifyField(
+        zone: true,
+      );
+    }
+
+    else {
+      _searchModel = _searchModel?.copyWith(
+        zone: _newZone,
+      );
+    }
+
+    await _generateQuery();
+  }
   // -----------------------------------------------------------------------------
   /// SEARCH HISTORY PROTOCOLS
   // --------------------
@@ -803,8 +796,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   Future<SearchModel?> _composeOrRenovateSearchHistoryModel() async {
     SearchModel? _output;
 
-    blog('SearchHistoryModels: ${_searchHistoryModels.length} models');
-    blog(_searchModel);
+    // blog('SearchHistoryModels: ${_searchHistoryModels.length} models');
+    // blog(_searchModel);
 
     if (_searchModel?.id == null){
 

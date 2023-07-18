@@ -86,7 +86,6 @@ class _BzTeamPageState extends State<BzTeamPage> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    blog('a77a ba2a');
     return Selector<BzzProvider, BzModel?>(
       selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
       shouldRebuild: (oldModel, newModel){

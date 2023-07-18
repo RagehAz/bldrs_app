@@ -20,6 +20,7 @@ import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:bldrs/super_dev_test.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -38,38 +39,12 @@ class AppSettingsScreen extends StatelessWidget {
     return FloatingLayout(
       pyramidButtons: UsersProvider.userIsRage7() == false ? null : [
 
-        // /// TEST
-        // PyramidFloatingButton(
-        //   icon: Iconz.lab,
-        //   color: Colorz.red255,
-        //   onTap: () async {
-        //
-        //     /// READ CHAINS TEST
-        //     // final Map<String, dynamic> map = await Real.readPath(
-        //     //     path: 'bldrsChains',
-        //     // );
-        //     //
-        //     // blog('{');
-        //     // for (final String key in map.keys.toList()){
-        //     //
-        //     //   blog('"$key": "${map[key]}",');
-        //     //
-        //     // }
-        //     // blog('}');
-        //
-        //     // UiProvider.proSetLoadingVerse(
-        //     //   verse: const Verse(id: 'phid_loading', translate: true),
-        //     // );
-        //     //
-        //     // /// LOADING SCREEN TEST
-        //     // await BldrsNav.goToLogoScreenAndRemoveAllBelow(
-        //     //     animatedLogoScreen: true,
-        //     // );
-        //
-        //     // UiProvider.proSetLoadingVerse(verse: Verse.plain(null));
-        //
-        //   },
-        // ),
+        /// TEST
+        const PyramidFloatingButton(
+          icon: Iconz.lab,
+          color: Colorz.red255,
+          onTap: superDevTest,
+        ),
 
         /// LAUNCH APP STORE
         PyramidFloatingButton(
