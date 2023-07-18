@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 /// ALL FLYERS PAGINATION
 
 // --------------------
-///
+/// TAMAM : WORKS PERFECT
 FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
 
     return FlyerSearch.createQuery(
@@ -21,30 +21,32 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
         userID: Authing.getUserID(),
         id: 'homeWallFlyersPaginationQuery',
         flyerSearchModel: FlyerSearchModel(
-          flyerType: ChainsProvider.proGetHomeWallFlyerType(
-            context: context,
-            listen: true,
-          ),
+          // flyerType: null,
+          // flyerType: ChainsProvider.proGetHomeWallFlyerType(
+          //   context: context,
+          //   listen: true,
+          // ),
           phid: ChainsProvider.proGetHomeWallPhid(
             context: context,
             listen: true,
           ),
           auditState: AuditState.verified,
-          publishState: null,
-          onlyAmazonProducts: null,
-          onlyWithPDF: null,
-          onlyShowingAuthors: null,
-          onlyWithPrices: null,
+          publishState: PublishState.published,
+          // onlyAmazonProducts: null,
+          // onlyWithPDF: null,
+          // onlyShowingAuthors: null,
+          // onlyWithPrices: null,
         ),
-        bzSearchModel: null,
-        text: null,
-        time: null,
+        // bzSearchModel: null,
+        // text: null,
+        // time: null,
       ),
       limit: 12,
       // gtaLink: ,
       // title: ,
       // descending: true,
       orderBy: 'times.published',
+      // orderBy: 'score',
     );
 
 }

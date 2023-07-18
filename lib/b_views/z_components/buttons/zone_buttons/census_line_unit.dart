@@ -54,7 +54,7 @@ class CensusLineUnit extends StatelessWidget {
       width: width,
       height: _totalHeight,
       decoration: const BoxDecoration(
-        // color: Colorz.white10,
+        // color: isActive == true ? Colorz.white10 : Colorz.nothing,
         borderRadius: Borderers.constantCornersAll12,
       ),
       child: Row(
@@ -67,6 +67,7 @@ class CensusLineUnit extends StatelessWidget {
             width: _iconZoneWidth,
             height: stripHeight,
             scale: 0.6,
+            greyscale: !isActive,
           ),
 
           /// NUMBER AND TITLE
@@ -85,6 +86,7 @@ class CensusLineUnit extends StatelessWidget {
                   size: 1,
                   centered: false,
                   textDirection: UiProvider.getAppTextDir(),
+                  color: isActive == true ? Colorz.white255 : Colorz.white80,
                 ),
 
                 /// TITLE
@@ -96,6 +98,7 @@ class CensusLineUnit extends StatelessWidget {
                   size: 1,
                   centered: false,
                   textDirection: UiProvider.getAppTextDir(),
+                  color: isActive == true ? Colorz.white255 : Colorz.white80,
                 ),
 
               ],

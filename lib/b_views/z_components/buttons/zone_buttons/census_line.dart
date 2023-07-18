@@ -89,8 +89,8 @@ class CensusLine extends StatelessWidget {
               appIsLTR: UiProvider.checkAppIsLeftToRight(),
             enLeft: hasFlagSpace == true ? _flagBoxSize : 0
           ),
-          decoration: const BoxDecoration(
-            color: Colorz.white10,
+          decoration: BoxDecoration(
+            color: isActive == true ? Colorz.white10 : Colorz.nothing,
             borderRadius: Borderers.constantCornersAll12,
           ),
           child: Row(

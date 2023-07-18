@@ -1,6 +1,8 @@
 import 'dart:async';
+
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/b_notes_page/x2_user_notes_page_controllers.dart';
@@ -14,7 +16,6 @@ import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class UserNotesPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -209,7 +210,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget? child){
 
 
-            if (Mapper.checkCanLoopList(maps) == true && isLoading == false){
+            if (Mapper.checkCanLoopList(maps) == true){
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 controller: _paginationController?.scrollController,

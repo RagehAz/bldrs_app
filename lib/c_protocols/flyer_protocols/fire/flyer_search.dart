@@ -17,7 +17,6 @@ class FlyerSearch {
   /// TESTED : WORKS PERFECT
   static FireQueryModel createQuery({
     SearchModel? searchModel,
-    String? title,
     String? orderBy,
     bool descending = true,
     int limit = 4,
@@ -63,18 +62,18 @@ class FlyerSearch {
         /// BY PHID
         if (searchModel?.flyerSearchModel?.phid != null)
           FireFinder(
-            field: 'phids.${searchModel?.flyerSearchModel?.phid}',
-            comparison: FireComparison.equalTo,
-            value: true,
+            field: 'phids',
+            comparison: FireComparison.arrayContains,
+            value: searchModel?.flyerSearchModel?.phid,
           ),
 
         /// TITLE
-        if (TextCheck.isEmpty(title?.trim()) == false)
+        if (TextCheck.isEmpty(searchModel?.text?.trim()) == false)
           FireFinder(
               field: 'trigram',
               comparison: FireComparison.arrayContains,
               value: TextMod.removeAllCharactersAfterNumberOfCharacters(
-                text: title!.trim(),
+                text: searchModel!.text!.trim(),
                 numberOfChars: Standards.maxTrigramLength,
               )),
 

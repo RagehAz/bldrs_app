@@ -1,7 +1,10 @@
 
 ### 1.3.0
-1. Fixed home screen spacings
-2. 
+1. Minor Fixes in home screen UI
+2. Fixed Country / city / keyword selection behaviour
+3. Updated home screen flyers sorting algorithm
+4. Minor behavioural fixes in flyers search filters panel in search screen
+5. Updated the flyer's sequential image loading algorithm for faster flyer images loading
 
 ### 1.2.0
 1. Ui fixes in number of screens
