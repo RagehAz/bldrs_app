@@ -130,6 +130,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                     width: DraftShelfSlide.flyerBoxWidth,
                     height: _flyerBoxHeight,
                     pic: widget.draftSlide?.picModel?.bytes,
+                    loading: false,
                   ),
 
                 /// BLUR LAYER
@@ -172,6 +173,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                       // bytes: widget.draftSlide.picModel.bytes,
                       pic: widget.draftSlide?.picModel?.bytes,
                       boxFit: widget.draftSlide?.picFit ?? BoxFit.cover,
+                      loading: false,
                     ),
                   ),
 

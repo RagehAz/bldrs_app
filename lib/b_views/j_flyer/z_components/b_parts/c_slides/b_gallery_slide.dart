@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -35,16 +36,19 @@ class GallerySlide extends StatelessWidget {
       onNavigate: onMaxBounce,
       boxDistance: flyerBoxHeight - _headerAndProgressHeights,
       slideLimitRatio: 0.1,
-      child: FlyersGrid(
-        gridWidth: flyerBoxWidth,
-        gridHeight: flyerBoxHeight,
-        flyersIDs: bzModel.flyersIDs,
-        gridType: FlyerGridType.heroic,
-        topPadding: _headerAndProgressHeights,
-        // numberOfColumns: 2,
-        screenName: heroTag ?? '',
-        // scrollController: _scrollController,
-        hasResponsiveSideMargin: false,
+      child: Container(
+        color: Colorz.blackSemi255,
+        child: FlyersGrid(
+          gridWidth: flyerBoxWidth,
+          gridHeight: flyerBoxHeight,
+          flyersIDs: bzModel.flyersIDs,
+          gridType: FlyerGridType.heroic,
+          topPadding: _headerAndProgressHeights,
+          // numberOfColumns: 2,
+          screenName: heroTag ?? '',
+          // scrollController: _scrollController,
+          hasResponsiveSideMargin: false,
+        ),
       ),
     );
 

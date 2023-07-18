@@ -98,6 +98,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                   width: _flyerBoxWidth,
                   height: _flyerBoxHeight,
                   pic: _slide?.picModel?.bytes,
+                  loading: false,
                 );
                 },
             ),
@@ -156,6 +157,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                               height: _flyerBoxHeight,
                               pic: _slide?.picModel?.bytes,
                               boxFit: _slide?.picFit ?? BoxFit.cover,
+                              loading: false,
                               // canUseFilter: false,
                             ),
                           ),

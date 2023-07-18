@@ -75,12 +75,19 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
           if (_flyerModel != null){
 
             _flyerModel = await FlyerProtocols.renderBigFlyer(
-              flyerModel: _flyerModel,
-            );
+                flyerModel: _flyerModel,
+                onRenderEachSlide: (FlyerModel flyer){
+                  if (mounted == true){
+                    setState(() {_renderedFlyer = _flyerModel;});
+                  }
+                }
+                );
 
-            setState(() {
-              _renderedFlyer = _flyerModel;
-            });
+            if (mounted == true){
+              setState(() {
+                _renderedFlyer = _flyerModel;
+              });
+            }
 
           }
 

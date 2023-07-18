@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:basics/animators/helpers/animators.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -14,6 +15,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/a
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 
 class FlyerHeader extends StatefulWidget {
@@ -125,18 +127,21 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     /// HEADER CORNERS
 
     //--------------------------------o
-    /*
-    final BorderRadius _headerMinCorners = FlyerDim.headerSlateCorners(
-      context: context,
+    final BorderRadius _headerStartCorners = FlyerDim.headerSlateCorners(
       flyerBoxWidth: widget.flyerBoxWidth,
     );
-     */
+    final BorderRadius _headerEndCorners = Borderers.cornerOnly(
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+      enTopLeft: _headerStartCorners.topLeft.x,
+      enTopRight: _headerStartCorners.topRight.x,
+      enBottomLeft: 0,
+      enBottomRight: 0,
+    );
+
     //--------------------------------o
     _headerCornerTween = BorderRadiusTween(
-      begin: FlyerDim.headerSlateCorners(
-        flyerBoxWidth: widget.flyerBoxWidth,
-      ),
-      end: FlyerDim.flyerCorners(widget.flyerBoxWidth),
+      begin: _headerStartCorners,
+      end: _headerEndCorners,
     );
     // -----------------------------------------------------------------------
 

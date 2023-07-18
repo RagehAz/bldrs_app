@@ -1,10 +1,10 @@
 import 'dart:async';
 
-
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
@@ -27,7 +27,6 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class LightBigFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -274,16 +273,23 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
 
       final FlyerModel? _rendered = await FlyerProtocols.renderBigFlyer(
         flyerModel: _flyer.value,
+        onRenderEachSlide: (FlyerModel flyer){
+          setNotifier(
+            notifier: _flyer,
+            mounted: mounted,
+            value: flyer,
+          );
+        }
       );
-
-      // assert(_rendered != null, 'received flyer with imagified slides is null');
-      // assert(_rendered.slides[_rendered.slides.length - 1].uiImage != null, 'last slide uiImage is null');
 
       setNotifier(
         notifier: _flyer,
         mounted: mounted,
         value: _rendered,
       );
+
+      // assert(_rendered != null, 'received flyer with imagified slides is null');
+      // assert(_rendered.slides[_rendered.slides.length - 1].uiImage != null, 'last slide uiImage is null');
 
     }
 
@@ -551,7 +557,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
       valueListenable: _flyer,
       builder: (_, FlyerModel? flyerModel, Widget? savingNotice) {
 
-        // blog('light big flyer is rebuilding : ${flyerModel.id}');
+        blog('light big flyer is rebuilding : ${flyerModel?.id}');
 
         return FlyerBox(
           key: const ValueKey<String>('FullScreenFlyer'),
