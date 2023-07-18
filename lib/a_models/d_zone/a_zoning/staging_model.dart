@@ -326,10 +326,10 @@ class StagingModel {
 
     const Map<String, dynamic> _localUser = {
       'homeView' : { /// USER BROWSING HOME PAGE FLYERS AND BZZ
-        'user':           {'country' : StageType.bzzStage, 'city' : StageType.bzzStage},
+        'user':           {'country' : StageType.flyersStage, 'city' : StageType.flyersStage},
         'author':         {'country' : StageType.bzzStage, 'city' : StageType.bzzStage},
         'global_user':    {'country' : StageType.flyersStage, 'city' : StageType.publicStage},
-        'global_author':  {'country' : StageType.flyersStage, 'city' : StageType.flyersStage},
+        'global_author':  {'country' : StageType.bzzStage, 'city' : StageType.flyersStage},
       },
       'userEditor' : { /// SO USER CAN BE CREATED HERE
         'user':           {'country' : StageType.emptyStage, 'city' : StageType.emptyStage},
@@ -345,9 +345,9 @@ class StagingModel {
       },
       'flyerEditor' : { /// AND FLYER CAN BE CREATED HERE
         // 'user':           {'country' : StageType.bzzStage, 'city' : StageType.emptyStage}, /// NOT USED
-        'author':         {'country' : StageType.bzzStage, 'city' : StageType.emptyStage},
+        'author':         {'country' : StageType.emptyStage, 'city' : StageType.emptyStage},
         // 'global_user':    {'country' : StageType.bzzStage, 'city' : StageType.flyersStage}, /// NOT USED
-        'global_author':  {'country' : StageType.bzzStage, 'city' : StageType.flyersStage},
+        'global_author':  {'country' : StageType.emptyStage, 'city' : StageType.emptyStage},
       },
     };
 
@@ -357,6 +357,8 @@ class StagingModel {
       viewerCountryID: viewerCountryID,
     );
     final String _zoneLevel = countryID == null ? 'country' : 'city';
+
+    // blog('_view : $_view : _userType : $_userType : _zoneLevel : $_zoneLevel  = ${_localUser[_view][_userType][_zoneLevel]}');
 
     return _localUser[_view][_userType][_zoneLevel];
   }

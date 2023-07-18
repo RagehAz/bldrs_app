@@ -78,6 +78,7 @@ class ShelfSlidesPart extends StatelessWidget {
                 onTap: onAddSlides,
               ),
 
+
             /// LOADING WIDGET
             if (isLoading == true)
               Container(

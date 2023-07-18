@@ -150,7 +150,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
           countryID: widget.countryID,
           viewerCountryID: widget.viewerCountryID,
         );
-        /// SHOWN CITIES MODELS
+        /// SHOWN CITIES MODEL
         final List<CityModel> _orderedShownCities = CityModel.sortCitiesAlphabetically(
           cities: CityModel.getCitiesFromCitiesByIDs(
             citiesModels: _cities,

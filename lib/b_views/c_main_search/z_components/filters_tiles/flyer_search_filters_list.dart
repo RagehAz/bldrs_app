@@ -165,7 +165,7 @@ class FlyersSearchFiltersList extends StatelessWidget {
           id: 'phid_only_amazon_products',
           translate: true,
         ),
-        switchValue: searchModel?.flyerSearchModel?.onlyAmazonProducts != null,
+        switchValue: searchModel?.flyerSearchModel?.onlyAmazonProducts,
         onSwitchTap: onOnlyAmazonProductsSwitchTap,
       ),
 
