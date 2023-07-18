@@ -30,6 +30,8 @@ class BzSettingsPage extends StatelessWidget {
     );
     // --------------------
     return BldrsFloatingList(
+      mainAxisAlignment: MainAxisAlignment.center,
+      boxAlignment: Alignment.center,
       columnChildren: <Widget>[
 
         const DotSeparator(color: Colorz.yellow80,),

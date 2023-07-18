@@ -18,13 +18,13 @@ import 'package:basics/helpers/classes/time/timers.dart';
 class SearchModel {
   // -----------------------------------------------------------------------------
   const SearchModel({
-    required this.id,
-    required this.userID,
-    required this.text,
-    required this.zone,
-    required this.time,
-    required this.flyerSearchModel,
-    required this.bzSearchModel,
+    this.id,
+    this.userID,
+    this.text,
+    this.zone,
+    this.time,
+    this.flyerSearchModel,
+    this.bzSearchModel,
   });
   // -----------------------------------------------------------------------------
   final String? id;
@@ -45,9 +45,9 @@ class SearchModel {
   }){
 
     return SearchModel(
-      id: null,
+      // id: null,
       userID: Authing.getUserID(),
-      text: null,
+      // text: null,
       zone: ZoneProvider.proGetCurrentZone(context: getMainContext(), listen: false),
       time: DateTime.now(),
       flyerSearchModel: searchType != ModelType.flyer ? null : const FlyerSearchModel(
@@ -55,10 +55,10 @@ class SearchModel {
         onlyWithPDF: false,
         onlyShowingAuthors: false,
         onlyAmazonProducts: false,
-        phid: null,
-        publishState: null,
-        auditState: null,
-        flyerType: null,
+        // phid: null,
+        // publishState: null,
+        // auditState: null,
+        // flyerType: null,
       ),
       bzSearchModel:  searchType != ModelType.bz ? null : const BzSearchModel(
         scopePhid: null,

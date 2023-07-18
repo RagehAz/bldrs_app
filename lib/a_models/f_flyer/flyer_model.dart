@@ -183,7 +183,7 @@ class FlyerModel {
       'flyerType' : FlyerTyper.cipherFlyerType(flyerType),
       'publishState' : cipherPublishState(publishState),
       'auditState' : cipherAuditState(auditState),
-      'phids' : cipherPhids(phids: phids),
+      'phids' : phids,
       'showsAuthor' : showsAuthor,
       'zone' : zone?.toMap(),
       // -------------------------
@@ -247,7 +247,7 @@ class FlyerModel {
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
         publishState: decipherPublishState(map['publishState']),
         auditState: decipherAuditState(map['auditState']),
-        phids: decipherPhids(map: map['phids']),
+        phids: Stringer.getStringsFromDynamics(dynamics: map['phids']),
         showsAuthor: map['showsAuthor'],
         zone: ZoneModel.decipherZone(map['zone']),
         // -------------------------

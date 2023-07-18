@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -8,12 +9,11 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_selection_layer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class FlyerSelectionStack extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -37,6 +37,21 @@ class FlyerSelectionStack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    /// SCORE_NUMBER_TESTING_WIDGET
+    // return Stack(
+    //   alignment: Alignment.center,
+    //   children: [
+    //     flyerWidget,
+    //     BldrsText(
+    //       verse: Verse.plain(flyerModel?.score?.toString() ?? 'x'),
+    //       labelColor: Colorz.black255,
+    //       weight: VerseWeight.black,
+    //       size: 6,
+    //       scaleFactor: 3,
+    //     ),
+    //   ],
+    // );
+    //
     final bool _selectionMode = selectionMode ?? false;
 
     final bool _showAuditLayer = FlyerAuditLayer.showAuditLayer(flyerModel?.auditState);

@@ -26,12 +26,14 @@ class CountriesScreen extends StatefulWidget {
     required this.zoneViewingEvent,
     required this.depth,
     required this.viewerCountryID,
+    this.canSetPlanetAsCurrentZone = true,
     super.key
   });
   /// --------------------------------------------------------------------------
   final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
   final String? viewerCountryID;
+  final bool canSetPlanetAsCurrentZone;
   /// --------------------------------------------------------------------------
   @override
   _CountriesScreenState createState() => _CountriesScreenState();
@@ -340,7 +342,11 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 planetCensus: _planetCensus,
                 onPlanetTap: () async {
 
-                  final bool _isSettingCurrentZone =  widget.zoneViewingEvent == ViewingEvent.homeView;
+                  final bool _isSettingCurrentZone =
+                      widget.zoneViewingEvent == ViewingEvent.homeView
+                      &&
+                      widget.canSetPlanetAsCurrentZone == true;
+
 
                   if (_isSettingCurrentZone == true){
                     await ZoneSelection.setCurrentZoneAndNavHome(

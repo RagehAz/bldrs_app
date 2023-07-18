@@ -26,8 +26,8 @@ class BldrsFloatingList extends StatelessWidget {
       columnChildren: columnChildren,
       padding: hasMargins == true ?
       const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon)
-      :
-          EdgeInsets.zero
+          :
+      EdgeInsets.zero
       ,
       crossAxisAlignment: crossAxisAlignment,
       mainAxisAlignment: mainAxisAlignment,
