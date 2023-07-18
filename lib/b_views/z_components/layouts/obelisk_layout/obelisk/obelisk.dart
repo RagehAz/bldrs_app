@@ -157,9 +157,10 @@ class Obelisk extends StatelessWidget {
              ) + 40;
     }
   }
-
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static bool isWideScreenObelisk(BuildContext context){
-    final bool _isWideScreen = MediaQuery.of(context).size.aspectRatio > 0.55;
+    final bool _isWideScreen = MediaQuery.of(context).size.aspectRatio > 0.61;
     return _isWideScreen;
   }
   /// --------------------------------------------------------------------------

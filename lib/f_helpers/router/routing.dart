@@ -18,7 +18,7 @@ class Routing {
   /// ROUTE NAMES
 
   // --------------------
-  static const String staticLogoScreen = '/';
+  static const String staticLogoScreen = '/staticLogoScreen';
   static const String animatedLogoScreen = '/animatedLogoScreen';
   // --------------------
   static const String home = '/HomeScreen';

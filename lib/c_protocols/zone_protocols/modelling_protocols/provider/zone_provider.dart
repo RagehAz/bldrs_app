@@ -1,4 +1,3 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -142,7 +141,7 @@ class ZoneProvider extends ChangeNotifier {
     required String invoker,
   }){
 
-    blog('setCurrentZone START : zone = $zone : invoker : $invoker : setCountryOnly : $setCountryOnly');
+    // blog('setCurrentZone START : zone = $zone : invoker : $invoker : setCountryOnly : $setCountryOnly');
 
     // zone?.blogZone(invoker: 'setCurrentZone');
 
