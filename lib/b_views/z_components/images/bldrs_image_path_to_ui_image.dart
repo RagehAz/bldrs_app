@@ -21,19 +21,8 @@ class BldrsImagePathToUiImage extends StatefulWidget {
 
 class _BldrsImagePathToUiImageState extends State<BldrsImagePathToUiImage> {
   // -----------------------------------------------------------------------------
-  bool _isFetching = true;
+  bool _isLoading = true;
   ui.Image? _uiImage;
-  // -----------------------------------------------------------------------------
-  /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false);
-  // --------------------
-  Future<void> _triggerLoading({required bool setTo}) async {
-    setNotifier(
-      notifier: _loading,
-      mounted: mounted,
-      value: setTo,
-    );
-  }
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -47,7 +36,13 @@ class _BldrsImagePathToUiImageState extends State<BldrsImagePathToUiImage> {
     if (_isInit && mounted) {
       _isInit = false; // good
 
-      _triggerLoading(setTo: true).then((_) async {
+      asyncInSync(() async {
+
+        if (_isLoading == false && mounted == true){
+          setState(() {
+            _isLoading = true;
+          });
+        }
 
         final ui.Image? _image = await PicProtocols.fetchPicUiImage(
           path: widget.imagePath,
@@ -56,11 +51,10 @@ class _BldrsImagePathToUiImageState extends State<BldrsImagePathToUiImage> {
         if (mounted == true){
           setState(() {
             _uiImage = _image;
-            _isFetching = false;
+            _isLoading = false;
           });
         }
 
-        await _triggerLoading(setTo: false);
       });
 
     }
@@ -80,7 +74,6 @@ class _BldrsImagePathToUiImageState extends State<BldrsImagePathToUiImage> {
   // --------------------
   @override
   void dispose() {
-    _loading.dispose();
     // _uiImage?.dispose();
     super.dispose();
   }
@@ -88,7 +81,7 @@ class _BldrsImagePathToUiImageState extends State<BldrsImagePathToUiImage> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    return widget.builder(_isFetching, _uiImage);
+    return widget.builder(_isLoading, _uiImage);
     // --------------------
   }
 // -----------------------------------------------------------------------------

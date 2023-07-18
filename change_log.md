@@ -1,4 +1,8 @@
 
+### 1.3.0
+1. Fixed home screen spacings
+2. 
+
 ### 1.2.0
 1. Ui fixes in number of screens
 2. updated app versioning sequence

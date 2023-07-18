@@ -67,6 +67,7 @@ class ImagifyFlyerProtocols {
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel?> renderBigFlyer({
     required FlyerModel? flyerModel,
+    required Function(FlyerModel flyer) onRenderEachSlide,
   }) async {
 
     FlyerModel? _output = flyerModel;
@@ -76,8 +77,10 @@ class ImagifyFlyerProtocols {
       await Future.wait(<Future>[
 
         /// FIRST SLIDE
-        _imagifySlides(flyerModel: flyerModel)
-            .then((FlyerModel? flyer){
+        _imagifySlides(
+          flyerModel: flyerModel,
+          onRenderSlide: onRenderEachSlide,
+        ).then((FlyerModel? flyer){
           _output = _output?.copyWith(
             slides: flyer?.slides,
           );
@@ -220,6 +223,7 @@ class ImagifyFlyerProtocols {
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel?> _imagifySlides({
     required FlyerModel? flyerModel,
+    required Function(FlyerModel flyer) onRenderSlide,
   }) async {
     FlyerModel? _output;
 
@@ -229,11 +233,11 @@ class ImagifyFlyerProtocols {
 
       if (Mapper.checkCanLoopList(flyerModel.slides) == true){
 
-        final List<SlideModel> _flyerSlides = <SlideModel>[];
+        List<SlideModel> _flyerSlides = SlideModel.sortSlidesByIndexes(flyerModel.slides!);
 
-        for (int i = 0; i < flyerModel.slides!.length; i++){
+        for (int i = 0; i < _flyerSlides.length; i++){
 
-          final SlideModel _slide = flyerModel.slides![i];
+          SlideModel _slide = _flyerSlides[i];
 
           /// UI IMAGE IS MISSING
           if (_slide.uiImage == null){
@@ -242,19 +246,20 @@ class ImagifyFlyerProtocols {
               path: _slide.picPath,
             );
 
-            final SlideModel _updatedSlide = _slide.copyWith(
+            _slide = _slide.copyWith(
               uiImage: _image,
             );
 
-            _flyerSlides.add(_updatedSlide);
           }
 
-          /// UI IMAGE IS DEFINED
-          else {
-
-            _flyerSlides.add(_slide);
-
-          }
+          _flyerSlides = SlideModel.replaceSlideInSlides(
+            slides: _flyerSlides,
+            slide: _slide,
+          );
+          _output = _output!.copyWith(
+            slides: _flyerSlides,
+          );
+          onRenderSlide(_output);
 
         }
 

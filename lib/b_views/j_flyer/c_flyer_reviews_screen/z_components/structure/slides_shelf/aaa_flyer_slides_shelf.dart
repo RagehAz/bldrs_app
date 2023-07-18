@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
@@ -28,53 +29,91 @@ class FlyerSlidesShelf extends StatelessWidget {
       flyerBoxHeight: _flyerBoxHeight,
     );
     // --------------------
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
+    return FloatingList(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       scrollDirection: Axis.horizontal,
-      child: Container(
-        height: shelfHeight,
-        constraints: BoxConstraints(
-          minWidth: _screenWidth + 10,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+      width: _screenWidth,
+      height: shelfHeight,
+      mainAxisAlignment: MainAxisAlignment.center,
+      columnChildren: <Widget>[
 
-            if (Mapper.checkCanLoopList(flyerModel?.slides) == true)
-            ...List.generate(flyerModel!.slides!.length, (index){
+        if (Mapper.checkCanLoopList(flyerModel?.slides) == true)
+          ...List.generate(flyerModel!.slides!.length, (index){
 
-              return Container(
-                margin: Scale.superInsets(
-                  context: context,
-                  appIsLTR: UiProvider.checkAppIsLeftToRight(),
-                  enRight: 5,
-                ),
-                alignment: Alignment.center,
-                child: SingleSlide(
-                  flyerBoxWidth: _flyerBoxWidth,
-                  flyerBoxHeight: _flyerBoxHeight,
-                  slideModel: flyerModel!.slides![index],
-                  tinyMode: false,
-                  onSlideNextTap: null,
-                  onSlideBackTap: null,
-                  onDoubleTap: null,
-                  canTapSlide: false,
-                  // canAnimateMatrix: true,
-                  slideShadowIsOn: true,
-                  blurLayerIsOn: true,
-                  canUseFilter: false,
-                  canPinch: false,
-                ),
-              );
+            return Container(
+              margin: Scale.superInsets(
+                context: context,
+                appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                enRight: 5,
+              ),
+              alignment: Alignment.center,
+              child: SingleSlide(
+                flyerBoxWidth: _flyerBoxWidth,
+                flyerBoxHeight: _flyerBoxHeight,
+                slideModel: flyerModel!.slides![index],
+                tinyMode: false,
+                onSlideNextTap: null,
+                onSlideBackTap: null,
+                onDoubleTap: null,
+                canTapSlide: false,
+                // canAnimateMatrix: true,
+                slideShadowIsOn: true,
+                blurLayerIsOn: true,
+                canUseFilter: false,
+                canPinch: false,
+              ),
+            );
 
-            }),
-
-
-          ],
-        ),
-      ),
+          }),
+      ],
     );
-    // --------------------
+
+    // return SingleChildScrollView(
+    //   physics: const BouncingScrollPhysics(),
+    //   scrollDirection: Axis.horizontal,
+    //   child: Container(
+    //     height: shelfHeight,
+    //     constraints: BoxConstraints(
+    //       minWidth: _screenWidth + 10,
+    //     ),
+    //     child: Row(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: <Widget>[
+    //
+    //         if (Mapper.checkCanLoopList(flyerModel?.slides) == true)
+    //         ...List.generate(flyerModel!.slides!.length, (index){
+    //
+    //           return Container(
+    //             margin: Scale.superInsets(
+    //               context: context,
+    //               appIsLTR: UiProvider.checkAppIsLeftToRight(),
+    //               enRight: 5,
+    //             ),
+    //             alignment: Alignment.center,
+    //             child: SingleSlide(
+    //               flyerBoxWidth: _flyerBoxWidth,
+    //               flyerBoxHeight: _flyerBoxHeight,
+    //               slideModel: flyerModel!.slides![index],
+    //               tinyMode: false,
+    //               onSlideNextTap: null,
+    //               onSlideBackTap: null,
+    //               onDoubleTap: null,
+    //               canTapSlide: false,
+    //               // canAnimateMatrix: true,
+    //               slideShadowIsOn: true,
+    //               blurLayerIsOn: true,
+    //               canUseFilter: false,
+    //               canPinch: false,
+    //             ),
+    //           );
+    //
+    //         }),
+    //
+    //
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 /// --------------------------------------------------------------------------
 }

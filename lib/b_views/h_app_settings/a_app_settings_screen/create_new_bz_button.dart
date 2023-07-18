@@ -43,6 +43,7 @@ class CreateNewBzButton extends StatelessWidget {
               height: 300,
               pic: Iconz.bz,
               iconColor: Colorz.yellow20,
+              loading: false,
             ),
           ),
 

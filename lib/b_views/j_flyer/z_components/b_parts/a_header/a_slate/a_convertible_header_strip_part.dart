@@ -52,7 +52,6 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     return MiniHeaderStripBoxPart(
       key: const ValueKey<String>('ConvertibleHeaderStripPart_MiniHeaderStripBoxPart'),
       flyerBoxWidth: flyerBoxWidth,

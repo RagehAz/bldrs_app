@@ -3,6 +3,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/b_slide_tap_areas.dart';
+import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/super_image/super_image.dart';
 
@@ -55,12 +56,13 @@ class SlideImage extends StatelessWidget {
           ),
           canAnimate: canAnimateMatrix,
           repeat: false,
-          child: SuperFilteredImage(
+          child: BldrsImage(
             width: flyerBoxWidth,
             height: flyerBoxHeight,
-            pic: slideModel?.uiImage,
-            boxFit: slideModel?.picFit ?? BoxFit.cover,
-            canUseFilter: canUseFilter,
+            pic: slideModel?.uiImage ?? slideModel?.picPath,
+            fit: slideModel?.picFit ?? BoxFit.cover,
+            // canUseFilter: canUseFilter,
+            // loading: false,
           ),
         ),
       ),

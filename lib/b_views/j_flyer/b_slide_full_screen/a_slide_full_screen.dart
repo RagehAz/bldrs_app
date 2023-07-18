@@ -57,6 +57,7 @@ class SlideFullScreen extends StatelessWidget {
             height: Scale.screenHeight(context),
             filterModel: filter,
             canUseFilter: false, // filter != null,
+            loading: false,
           ),
         ),
       ),
