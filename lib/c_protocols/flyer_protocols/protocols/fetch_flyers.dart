@@ -221,6 +221,7 @@ class FetchFlyerProtocols {
 
           _flyer = await FlyerProtocols.renderBigFlyer(
             flyerModel: _flyer,
+            onRenderEachSlide: (FlyerModel flyer){}
           );
 
         }

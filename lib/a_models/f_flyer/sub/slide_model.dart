@@ -1,16 +1,17 @@
 import 'dart:ui' as ui;
+
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
-import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
 /// => TAMAM
 @immutable
 class SlideModel {
@@ -379,6 +380,31 @@ class SlideModel {
     return _outputSlides;
   }
    */
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<SlideModel> replaceSlideInSlides({
+    required List<SlideModel>? slides,
+    required SlideModel? slide,
+  }){
+    final List<SlideModel> _output = [...?slides];
+
+    if (slide != null && Mapper.checkCanLoopList(_output) == true){
+
+      final int _index = _output.indexWhere((SlideModel x){
+        return x.picPath == slide.picPath;
+      });
+
+      if (_index != -1){
+
+        _output.removeAt(_index);
+        _output.insert(_index, slide);
+
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// GETTERS

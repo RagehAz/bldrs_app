@@ -81,7 +81,7 @@ class ZGridController {
   /// MICRO ZOOMING CONTROLLERS
 
   // --------------------
-  static Future<void> _scrollToRow({
+  static Future<void> scrollToRow({
     required int itemIndex,
     required double gridWidth,
     required double gridHeight,
@@ -159,7 +159,7 @@ class ZGridController {
       await onZoomInStart();
     }
 
-    unawaited(_scrollToRow(
+    unawaited(scrollToRow(
       itemIndex: itemIndex,
       columnCount: gridScale.columnCount,
       gridWidth: gridScale.gridWidth,

@@ -74,21 +74,27 @@ class ZGrid extends StatelessWidget {
                       children: <Widget>[
 
                         /// BLUR LAYER
-                        BlurLayer(
-                          width: gridScale.gridWidth,
-                          height: gridScale.gridHeight,
-                          color: Colorz.black125,
-                          blurIsOn: blurBackgroundOnZoomedIn,
-                        ),
-
-                        /// BACKGROUND BLACK FOOTPRINT
                         if (bigItemFootprint != null)
-                        Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
-                          width: gridScale.bigItemWidth,
-                          height: gridScale.bigItemHeight,
-                          margin: _topPaddingOnZoomedIn,
-                          alignment: Alignment.topCenter,
-                          child: bigItemFootprint,
+                        WidgetWaiter(
+                          waitDuration: const Duration(milliseconds: 1000),
+                          child: WidgetFader(
+                            fadeType: FadeType.fadeIn,
+                            duration: const Duration(milliseconds: 1000),
+                            child: BlurLayer(
+                              width: gridScale.gridWidth,
+                              height: gridScale.gridHeight,
+                              color: Colorz.black125,
+                              blurIsOn: blurBackgroundOnZoomedIn,
+                              alignment: Alignment.topCenter,
+                              child: Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
+                                width: gridScale.bigItemWidth,
+                                height: gridScale.bigItemHeight,
+                                margin: _topPaddingOnZoomedIn,
+                                alignment: Alignment.topCenter,
+                                child: bigItemFootprint,
+                              ),
+                            ),
+                          ),
                         ),
 
                         /// BIG FLYER

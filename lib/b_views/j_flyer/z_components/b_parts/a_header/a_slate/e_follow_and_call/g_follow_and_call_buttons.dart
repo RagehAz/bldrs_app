@@ -37,40 +37,43 @@ class FollowAndCallButtons extends StatelessWidget {
     // --------------------
     else {
 
+      final double _padding = FlyerDim.headerSlatePaddingValue(flyerBoxWidth);
+      final double _slateHeight = FlyerDim.headerSlateHeight(flyerBoxWidth);
+
       return Container(
         width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
-        height: logoMinWidth * (logoSizeRatioTween?.value ?? 1),
+        height: _slateHeight * (logoSizeRatioTween?.value ?? 1),
         alignment: Alignment.topCenter,
-        // color: Colorz.bloodTest,
-        child: SizedBox(
-          height: FlyerDim.followAndCallBoxHeight(flyerBoxWidth),
-          width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
-          child: ListView(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            padding: EdgeInsets.zero,
-            physics: const NeverScrollableScrollPhysics(),
-            children: <Widget>[
+        child: ListView(
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          padding: EdgeInsets.zero,
+          physics: const NeverScrollableScrollPhysics(),
+          children: <Widget>[
 
-              /// FOLLOW BUTTON
-              FollowButton(
-                flyerBoxWidth: flyerBoxWidth,
-                onFollowTap: onFollowTap,
-                isOn: followIsOn,
-              ),
+            /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
+            SizedBox(
+              height: _padding,
+            ),
 
-              /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
-              SizedBox(
-                height: FlyerDim.headerSlatePaddingValue(flyerBoxWidth),
-              ),
+            /// FOLLOW BUTTON
+            FollowButton(
+              flyerBoxWidth: flyerBoxWidth,
+              onFollowTap: onFollowTap,
+              isOn: followIsOn,
+            ),
 
-              /// CALL BUTTON
-              CallButton(
-                flyerBoxWidth: flyerBoxWidth,
-                onCallTap: onCallTap,
-              ),
+            /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
+            SizedBox(
+              height: _padding,
+            ),
 
-            ],
-          ),
+            /// CALL BUTTON
+            CallButton(
+              flyerBoxWidth: flyerBoxWidth,
+              onCallTap: onCallTap,
+            ),
+
+          ],
         ),
       );
     }
