@@ -11,7 +11,6 @@ import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review_bubble/b_review_view_bubble.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/reviews_queries.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -135,11 +134,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   @override
   Widget build(BuildContext context) {
 
-    final UserModel? _user = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
-    );
-
     return SizedBox(
       key: const ValueKey<String>('SubmittedReviews'),
       width: widget.pageWidth,
@@ -176,15 +170,8 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
               itemBuilder: (_, int index){
 
                 /// REVIEW CREATOR
-                if (index == reviews.length){
+                if (reviews.isEmpty || index == reviews.length){
 
-                  /// USER IS NOT SIGNED IN
-                  if (Authing.userIsSignedUp(_user?.signInMethod) == false){
-                    return const SizedBox();
-                  }
-
-                  /// USER IS SIGNED IN
-                  else {
                     return ReviewCreatorBubble(
                       pageWidth: widget.pageWidth,
                       reviewTextController: _reviewTextController,
@@ -202,7 +189,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                         userModel: userModel,
                       ),
                     );
-                  }
 
                 }
 

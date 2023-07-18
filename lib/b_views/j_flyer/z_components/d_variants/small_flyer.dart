@@ -1,13 +1,19 @@
+import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_affiliate_button.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/d_static_footer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/b_views/z_components/loading/loading.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/animators/widgets/widget_fader.dart';
 
 class SmallFlyer extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -22,6 +28,7 @@ class SmallFlyer extends StatelessWidget {
     this.canUseFilter = true,
     this.optionsButtonIsOn = false,
     this.slideIndex = 0,
+    this.isRendering = false,
     super.key
   });
   // -----------------------------------------------------------------------------
@@ -35,6 +42,7 @@ class SmallFlyer extends StatelessWidget {
   final bool canUseFilter;
   final bool optionsButtonIsOn;
   final int slideIndex;
+  final bool isRendering;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -58,6 +66,7 @@ class SmallFlyer extends StatelessWidget {
           shadowIsOn: flyerShadowIsOn,
           onTap: onTap,
           stackWidgets: <Widget>[
+
             /// STATIC SINGLE SLIDE
             if (Mapper.checkCanLoopList(flyerModel?.slides) == true)
               SingleSlide(
@@ -105,10 +114,85 @@ class SmallFlyer extends StatelessWidget {
               inStack: true,
             ),
 
+            if (isRendering == true)
+            FlyerLoading(
+              flyerBoxWidth: flyerBoxWidth,
+              animate: true,
+              direction: Axis.vertical,
+            ),
+
+            if (isRendering == true)
+            RenderingIndicator(
+              flyerBoxWidth: flyerBoxWidth,
+            ),
+
           ],
         ),
       );
     }
   }
 // -----------------------------------------------------------------------------
+}
+
+
+class RenderingIndicator extends StatelessWidget {
+  // -----------------------------------------------------------------------------
+  const RenderingIndicator({
+    required this.flyerBoxWidth,
+    super.key
+  });
+  // -----------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    final double _margin = FlyerDim.infoButtonCollapsedMarginValue(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+      );
+
+    final double _height = FlyerDim.infoButtonHeight(
+      context: context,
+      flyerBoxWidth: flyerBoxWidth,
+      tinyMode: false,
+      isExpanded: false,
+    );
+
+    return SuperPositioned(
+      enAlignment: Alignment.bottomLeft,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+      horizontalOffset: _margin,
+      verticalOffset: _margin,
+      child: Row(
+        children: <Widget>[
+
+          LoadingBlackHole(
+            size: _height,
+            rpm: 500,
+          ),
+
+          WidgetFader(
+            fadeType: FadeType.repeatAndReverse,
+            duration: const Duration(milliseconds: 500),
+            child: BldrsText(
+              verse: const Verse(
+                id: 'phid_loading',
+                translate: true,
+                casing: Casing.upperCase,
+              ),
+              height: _height,
+              size: 1,
+              margin: const EdgeInsets.symmetric(horizontal: 5),
+              italic: true,
+            ),
+          ),
+
+        ],
+      ),
+
+    );
+
+  }
+  // -----------------------------------------------------------------------------
 }

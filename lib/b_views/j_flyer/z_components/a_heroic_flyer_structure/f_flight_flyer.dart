@@ -103,6 +103,7 @@ class FlightFlyer extends StatelessWidget {
                                   height: flyerBoxHeight,
                                   pic: slideModel?.uiImage,
                                   corners: flyerBorders,
+                                  loading: false,
                                 ),
 
                                 /// BLUR LAYER
@@ -121,6 +122,7 @@ class FlightFlyer extends StatelessWidget {
                                   pic: slideModel?.uiImage,
                                   boxFit: slideModel?.picFit ?? BoxFit.cover,
                                   corners: flyerBorders,
+                                  loading: false,
                                 ),
 
                                 /// SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE

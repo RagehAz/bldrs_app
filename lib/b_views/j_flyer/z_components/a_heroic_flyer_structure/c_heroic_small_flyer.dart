@@ -119,6 +119,7 @@ class _HeroicSmallFlyerState extends State<HeroicSmallFlyer> {
 
       final FlyerModel? _renderBigFlyer = await FlyerProtocols.renderBigFlyer(
         flyerModel: widget.renderedFlyer,
+        onRenderEachSlide: (FlyerModel flyer){},
       );
 
       await _triggerLoading(setTo: false);

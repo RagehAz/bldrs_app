@@ -198,7 +198,13 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
         else if (widget.renderFlyer == RenderFlyer.allSlides && mounted) {
           _flyer = await FlyerProtocols.renderBigFlyer(
             flyerModel: _flyer,
-          );
+            onRenderEachSlide: (FlyerModel flyer){
+              if (mounted == true){
+                setState(() {
+                  _flyerModel = _flyer;
+                });}
+            }
+            );
         }
 
         // ignore: invariant_booleans

@@ -11,6 +11,8 @@ class BlurLayer extends StatelessWidget {
     this.height = double.infinity,
     this.color,
     this.blurIsOn = false,
+    this.child,
+    this.alignment,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -20,6 +22,8 @@ class BlurLayer extends StatelessWidget {
   final double height;
   final Color? color;
   final bool blurIsOn;
+  final Widget? child;
+  final Alignment? alignment;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -40,6 +44,8 @@ class BlurLayer extends StatelessWidget {
                 color: color,
                 borderRadius: borders,
               ),
+              alignment: alignment,
+              child: child,
             ),
           ),
         ),
