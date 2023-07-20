@@ -43,10 +43,10 @@ class SlideHeadline extends StatelessWidget {
       child: Container(
         width: flyerBoxWidth,
         height: flyerBoxWidth * 0.5,
-        // color: Colorz.bloodTest,
         margin: EdgeInsets.only(top: _headlineTopMargin),
         alignment: Alignment.topCenter,
         padding: EdgeInsets.symmetric(horizontal: flyerBoxWidth * 0.03),
+        // color: Colorz.bloodTest,
         child: BldrsText(
           width: flyerBoxWidth,
           verse: Verse.plain(text),

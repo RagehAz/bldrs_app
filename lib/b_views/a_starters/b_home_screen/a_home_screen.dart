@@ -213,6 +213,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
       // blog('building home screen with Layoutttt');
 
+
       return MainLayout(
         key: const ValueKey<String>('mainLayout'),
         sectionButtonIsOn: true,

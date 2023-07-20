@@ -70,13 +70,16 @@ class FlyerLoading extends StatelessWidget {
             stackWidgets: <Widget>[
 
               if (animate == true)
-                RotatedBox(
-                  quarterTurns: _getRotation(context),
-                  child: LinearProgressIndicator(
-                    color: loadingColor,
-                    backgroundColor: Colorz.nothing,
-                    minHeight: FlyerDim.flyerHeightByFlyerWidth(
-                      flyerBoxWidth: flyerBoxWidth,
+                ClipRRect(
+                  borderRadius: FlyerDim.flyerCorners(flyerBoxWidth),
+                  child: RotatedBox(
+                    quarterTurns: _getRotation(context),
+                    child: LinearProgressIndicator(
+                      color: loadingColor,
+                      backgroundColor: Colorz.nothing,
+                      minHeight: FlyerDim.flyerHeightByFlyerWidth(
+                        flyerBoxWidth: flyerBoxWidth,
+                      ),
                     ),
                   ),
                 ),

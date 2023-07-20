@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/super_image/super_image.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -18,6 +21,7 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page_
 import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_screen.dart';
+import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoomable_flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
@@ -589,6 +593,29 @@ class BldrsNav {
   // --------------------
   static Future<void> goToBldrsUnderConstructionScreen() async {
     await Nav.goToNewScreen(context: getMainContext(), screen: const BldrsUnderConstructionScreen());
+  }
+  // -----------------------------------------------------------------------------
+
+  /// IMAGE
+
+  // --------------------
+  static Future<void> goToImageFullScreen({
+    required BuildContext context,
+    required Uint8List bytes,
+    required Dimensions dims,
+    required String title,
+  }) async {
+
+    await Nav.goToNewScreen(
+        context: context,
+        screen: SlideFullScreen(
+          image: bytes,
+          imageSize: dims,
+          filter: ImageFilterModel.noFilter(),
+          title: Verse.plain(title),
+        ),
+    );
+
   }
   // -----------------------------------------------------------------------------
 }
