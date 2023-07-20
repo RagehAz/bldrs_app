@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/bldrs_theme/classes/shadowers.dart';
+import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
 
@@ -34,26 +34,20 @@ class FlyerBox extends StatelessWidget {
     );
     // --------------------
     return Center(
-      key: const ValueKey<String>('flyer_box'),
-      child: InkWell(
+      key: const ValueKey<String>('flyerBoxWidget'),
+      child: TapLayer(
         onTap: onTap,
         splashColor: boxColor?.withOpacity(0.2),
-        borderRadius: _flyerBorders,
-        child: Container(
-          width: flyerBoxWidth,
-          height: _flyerBoxHeight,
-          alignment: Alignment.topCenter,
-          decoration: BoxDecoration(
-            color: boxColor,
-            borderRadius: _flyerBorders,
-            boxShadow: shadowIsOn == true ? Shadower.flyerZoneShadow : null,
-          ),
-          child: ClipRRect(
-            borderRadius: _flyerBorders,
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: stackWidgets ?? <Widget>[],
-            ),
+        corners: _flyerBorders,
+        width: flyerBoxWidth,
+        height: _flyerBoxHeight,
+        boxColor: boxColor,
+        alignment: Alignment.topCenter,
+        child: ClipRRect(
+          borderRadius: FlyerDim.flyerCorners(flyerBoxWidth),
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: stackWidgets ?? <Widget>[],
           ),
         ),
       ),

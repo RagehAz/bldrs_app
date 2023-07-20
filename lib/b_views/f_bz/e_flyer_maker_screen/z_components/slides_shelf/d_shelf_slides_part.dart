@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/layouts/views/floating_list.dart';
@@ -9,6 +10,7 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/z_add_flyer_slides_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -54,18 +56,19 @@ class ShelfSlidesPart extends StatelessWidget {
     final int _numberOfSlides = draft?.draftSlides?.length ?? 0;
     const double _spacing = Ratioz.appBarMargin;
     final double _shelfSlidesZoneWidth = (_flyerBoxWidth + _spacing) * _numberOfSlides + 10;
-    final double _allShelfSlidesWidth = (_flyerBoxWidth + _spacing) + _shelfSlidesZoneWidth;
+    // final double _allShelfSlidesWidth = (_flyerBoxWidth + _spacing) + _shelfSlidesZoneWidth;
 
     return ValueListenableBuilder(
       valueListenable: loading,
       builder: (_, bool isLoading, Widget? slides){
 
         return FloatingList(
-          width: _allShelfSlidesWidth,
+          width: Bubble.clearWidth(context: context),
           height: _shelfSlideZoneHeight,
           scrollDirection: Axis.horizontal,
           boxCorners: 5,
           mainAxisAlignment: MainAxisAlignment.start,
+          boxAlignment: BldrsAligners.superCenterAlignment(context),
           columnChildren: [
 
             if (Mapper.checkCanLoopList(draft?.draftSlides) == true)

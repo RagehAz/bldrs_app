@@ -199,7 +199,6 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                       corners: FlyerDim.headerSlateCorners(flyerBoxWidth: DraftShelfSlide.flyerBoxWidth),
                       boxColor: Colorz.black80,
                       splashColor: Colorz.white20,
-                      onTap: null,
                     ),
                   ),
 

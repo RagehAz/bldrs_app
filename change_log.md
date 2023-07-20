@@ -1,3 +1,5 @@
+### 1.4.0
+1. removed flyer outer shadow to increase performance
 
 ### 1.3.0
 1. Minor Fixes in home screen UI
