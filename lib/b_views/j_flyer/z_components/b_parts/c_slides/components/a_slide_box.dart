@@ -1,4 +1,4 @@
-import 'package:basics/bldrs_theme/classes/shadowers.dart';
+import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
 
@@ -34,8 +34,21 @@ class SlideBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final BorderRadius _flyerBorders = FlyerDim.flyerCorners(flyerBoxWidth);
+    return TapLayer(
+      isDisabled: !_canTapSlide(),
+      width: flyerBoxWidth,
+      height: flyerBoxHeight,
+      alignment: Alignment.topCenter,
+      boxColor: slideMidColor,
+      corners: FlyerDim.flyerCorners(flyerBoxWidth),
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: stackChildren,
+      ),
+    );
 
+    /// DEPRECATED : WORKED PERFECT
+    /*
     return AbsorbPointer(
       absorbing: !_canTapSlide(),
       child: SizedBox(
@@ -53,7 +66,7 @@ class SlideBox extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: _flyerBorders,
                 color: slideMidColor,
-                boxShadow: shadowIsOn == true ? Shadower.flyerZoneShadow : null,
+                // boxShadow: shadowIsOn == true ? Shadower.flyerZoneShadow : null,
                 // image: slideModel.pic,
               ),
               child: ClipRRect(
@@ -70,6 +83,7 @@ class SlideBox extends StatelessWidget {
       ),
 
     );
+     */
     
   }
 // -----------------------------------------------------------------------------
