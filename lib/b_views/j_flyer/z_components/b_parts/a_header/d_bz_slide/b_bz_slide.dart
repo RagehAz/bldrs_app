@@ -125,7 +125,7 @@ class BzSlide extends StatelessWidget {
               BzPgCounter(
                 key: const ValueKey<String>('max_header_BzPgCounter_flyers'),
                 flyerBoxWidth: flyerBoxWidth,
-                count: bzModel?.flyersIDs?.length,
+                count: bzModel?.publication.published.length,
                 verse: const Verse(
                   id: 'phid_published_flyers',
                   translate: true,

@@ -1,8 +1,14 @@
 import 'dart:typed_data';
+
 import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:basics/helpers/classes/files/file_size_unit.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
@@ -10,18 +16,13 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/colors/colorizer.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 @immutable
 class GtaModel {
@@ -259,8 +260,7 @@ class GtaModel {
         description: TextEditingController(text: gtaModel.about),
         descriptionNode: FocusNode(),
         flyerType: flyerType,
-        publishState: OldPublishState.draft,
-        auditState: AuditState.verified,
+        publishState: PublishState.draft,
         phids: const <String>[],
         showsAuthor: false,
         zone: bzModel?.zone,
@@ -273,7 +273,7 @@ class GtaModel {
         specs: _specs,
         times: <PublishTime>[
           PublishTime(
-            state: OldPublishState.unpublished,
+            state: PublishState.draft,
             time: DateTime.now(),
           ),
         ],

@@ -129,10 +129,10 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                     id: '${_counter.allSlides} '
                         '${xPhrase('phid_slidesPublished')} '
                         '${xPhrase('phid_inn')} '
-                        '${_bzModel?.flyersIDs?.length} '
+                        '${_bzModel?.publication.published.length} '
                         '${xPhrase('phid_flyers')}',
                     translate: false,
-                    variables: [_counter.allSlides, _bzModel?.flyersIDs?.length]
+                    variables: [_counter.allSlides, _bzModel?.publication.published.length]
                   ),
                   icon: Iconz.gallery,
                 ),

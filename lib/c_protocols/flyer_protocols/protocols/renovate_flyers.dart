@@ -30,7 +30,7 @@ class RenovateFlyerProtocols {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<void> renovate({
+  static Future<void> renovateDraft({
     required BuildContext context,
     required DraftFlyer? newDraft,
     required FlyerModel? oldFlyer,
@@ -124,6 +124,35 @@ class RenovateFlyerProtocols {
     }
 
     blog('RenovateFlyerProtocols.renovate : END');
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> renovateFlyer({
+    required FlyerModel? newFlyer,
+    required FlyerModel? oldFlyer,
+  }) async {
+
+    final bool _identical = FlyerModel.checkFlyersAreIdentical(
+        flyer1: newFlyer,
+        flyer2: oldFlyer,
+    );
+
+    if (_identical == false){
+
+      await Future.wait([
+
+        FlyerFireOps.updateFlyerDoc(newFlyer),
+
+        updateLocally(
+          flyerModel: newFlyer,
+          notifyFlyerPro: true,
+          resetActiveBz: false,
+        ),
+
+      ]);
+
+    }
+
   }
   // --------------------
   /// TASK : TEST ME

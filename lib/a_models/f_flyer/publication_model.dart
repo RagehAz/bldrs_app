@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:flutter/material.dart';
@@ -93,6 +94,71 @@ class PublicationModel {
     }
 
     return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// PUBLISH STATE CYPHERS
+
+  // --------------------
+  ///  TESTED : WORKS PERFECT
+  static String? cipherPublishState (PublishState? x){
+    switch (x){
+      case PublishState.draft         :     return  'draft'       ;
+      case PublishState.pending       :     return  'pending'     ;
+      case PublishState.published     :     return  'published'   ;
+      case PublishState.unpublished   :     return  'unpublished' ;
+      case PublishState.suspended     :     return  'suspended'   ;
+      default : return null;
+    }
+  }
+  // --------------------
+  ///  TESTED : WORKS PERFECT
+  static PublishState decipherPublishState (String? x){
+    switch (x){
+      case 'draft'        :   return  PublishState.draft;
+      case 'pending'      :   return  PublishState.pending;
+      case 'published'    :   return  PublishState.published;
+      case 'unpublished'  :   return  PublishState.unpublished;
+      case 'suspended'    :   return  PublishState.suspended;
+      default : return   PublishState.draft;
+    }
+  }
+  // --------------------
+  ///  TESTED : WORKS PERFECT
+  static const List<PublishState> publishStates = <PublishState>[
+    PublishState.draft,
+    PublishState.pending,
+    PublishState.published,
+    PublishState.unpublished,
+    PublishState.suspended,
+  ];
+  // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+  // --------------------
+  /// TASK : TEST ME
+  static String? getPublishStatePhid(PublishState? state){
+    // 'phid_verified_flyer' deprecated
+    switch (state){
+      case PublishState.draft         :     return  'phid_draft_flyer'        ;
+      case PublishState.pending       :     return  'phid_pending_flyer'      ;
+      case PublishState.published     :     return  'phid_published'          ;
+      case PublishState.unpublished   :     return  'phid_unpublished_flyer'  ;
+      case PublishState.suspended     :     return  'phid_suspended_flyer'    ;
+      default : return null;
+    }
+  }
+  // --------------------
+  /// TASK : TEST ME
+  List<String> getAllFlyersIDs(){
+    return [
+      ...drafts,
+      ...pendings,
+      ...published,
+      ...unpublished,
+      ...suspended,
+    ];
   }
   // --------------------------------------------------------------------------
 
@@ -308,6 +374,142 @@ class PublicationModel {
 
     return _output;
   }
+  // --------------------
+  /// TASK : TEST ME
+  static PublicationModel removeFlyerID({
+    required PublicationModel pub,
+    required String flyerID,
+  }){
+
+    final PublishState? _state = getFlyerState(
+      pub: pub,
+      flyerID: flyerID,
+    );
+
+    if (_state == null){
+      return pub;
+    }
+    else {
+
+      List<String> _newList = getFlyersIDsByState(
+        pub: pub,
+        state: _state,
+      );
+
+      _newList = Stringer.removeStringsFromStrings(
+          removeFrom: _newList,
+          removeThis: [flyerID],
+      );
+
+      return replaceFlyersIDsInState(
+        pub: pub,
+        state: _state,
+        newList: _newList,
+      );
+
+
+    }
+
+  }
+  // --------------------------------------------------------------------------
+
+  /// CONCLUDERS
+
+  // --------------------
+  /// TASK : TEST ME
+  static PublishState concludeFlyerStateOnUpload({
+    required PublishState? existingState,
+    required bool isPublishing,
+    required bool bzIsVerified,
+  }){
+
+    // draft,
+    // pending,
+    // published,
+    // unpublished,
+    // suspended,
+
+    if (existingState == PublishState.suspended){
+      return PublishState.suspended;
+    }
+
+    else {
+
+      /// IS PUBLISHING
+      if (isPublishing == true){
+
+        /// BZ IS VERIFIED
+        if (bzIsVerified == true){
+          return PublishState.published;
+        }
+
+        /// BZ IS NOT VERIFIED
+        else {
+          return PublishState.pending;
+        }
+
+      }
+
+      /// IS DRAFTING
+      else {
+
+        if (existingState == PublishState.unpublished){
+          return PublishState.unpublished;
+        }
+        else {
+          return PublishState.draft;
+        }
+
+      }
+
+
+    }
+
+  }
+  // --------------------------------------------------------------------------
+
+  /// BLOGGING
+
+  // --------------------
+  ///  TESTED : WORKS PERFECT
+  static void blogPublications({
+    required PublicationModel publication,
+  }){
+
+    blog('publication : ${publication.drafts.length} drafts : ${publication.drafts}');
+    blog('publication : ${publication.pendings.length} pendings : ${publication.pendings}');
+    blog('publication : ${publication.published.length} published : ${publication.published}');
+    blog('publication : ${publication.unpublished.length} unpublished : ${publication.unpublished}');
+    blog('publication : ${publication.suspended.length} suspended : ${publication.suspended}');
+
+  }
+  // --------------------------------------------------------------------------
+
+  /// CHECKS
+
+  // --------------------
+  /// TASK : TEST ME
+  static bool checkPublicationIsEmpty({
+    required PublicationModel? publication,
+  }){
+
+    if (publication == null){
+      return true;
+    }
+    else if (
+        publication.drafts.isEmpty == true &&
+        publication.pendings.isEmpty == true &&
+        publication.published.isEmpty == true &&
+        publication.unpublished.isEmpty == true &&
+        publication.suspended.isEmpty == true
+    ){
+      return true;
+    }
+    else {
+      return false;
+    }
+
+  }
   // --------------------------------------------------------------------------
 
   /// EQUALITY
@@ -377,3 +579,54 @@ class PublicationModel {
       suspended.hashCode;
   // -----------------------------------------------------------------------------
 }
+
+/*
+
+  /// AUDIT STATE CYPHERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? cipherAuditState(AuditState? auditState){
+    switch(auditState){
+      case AuditState.verified:     return 'verified';
+      case AuditState.suspended:    return 'suspended';
+      case AuditState.pending:      return 'pending';
+      default: return null;
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static AuditState? decipherAuditState(String? state){
+    switch(state){
+      case 'verified':  return AuditState.verified;
+      case 'suspended': return AuditState.suspended;
+      case 'pending':   return AuditState.pending;
+      default: return null;
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const List<AuditState> auditStates = <AuditState>[
+    AuditState.verified,
+    AuditState.suspended,
+    AuditState.pending,
+  ];
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? getAuditStatePhid(AuditState? state){
+    switch (state){
+      case AuditState.verified  : return 'phid_verified_flyer'  ;
+      case AuditState.suspended : return 'phid_suspended_flyer' ;
+      case AuditState.pending   : return 'phid_pending_flyer'   ;
+      default : return null;
+    }
+  }
+  // -----------------------------------------------------------------------------
+
+ */
+
+/*
+      final bool _bzIsVerified = bzModel.isVerified != null && bzModel.isVerified! == true;
+        auditState: _bzIsVerified == true ? AuditState.verified : AuditState.pending,
+
+ */

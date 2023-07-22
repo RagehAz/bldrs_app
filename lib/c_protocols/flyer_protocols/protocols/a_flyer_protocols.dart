@@ -38,7 +38,10 @@ class FlyerProtocols  {
 
   // --------------------
   /// TASK : TEST ME
-  static const renovate = RenovateFlyerProtocols.renovate;
+  static const renovateDraft = RenovateFlyerProtocols.renovateDraft;
+  // --------------------
+  /// TASK : TEST ME
+  static const renovateFlyer = RenovateFlyerProtocols.renovateFlyer;
   // --------------------
   /// TESTED : WORKS PERFECT
   static const updateFlyerLocally = RenovateFlyerProtocols.updateLocally;

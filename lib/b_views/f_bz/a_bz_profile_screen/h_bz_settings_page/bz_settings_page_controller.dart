@@ -1,10 +1,9 @@
 import 'dart:async';
-
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/fcm_topics_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -135,7 +134,7 @@ Future<bool> _preDeleteBzAccountChecks({
     if (_confirmedDeleteBz == true){
 
       /// IF BZ HAS NO FLYERS
-      if (Mapper.checkCanLoopList(bzModel?.flyersIDs) == false) {
+      if (PublicationModel.checkPublicationIsEmpty(publication: bzModel?.publication) == false) {
         _canContinue = true;
       }
 
@@ -227,7 +226,7 @@ Future<bool> _showConfirmDeleteAllBzFlyersDialog({
       translate: true,
       variables: bzModel?.name,
     ),
-    flyersIDs: bzModel?.flyersIDs,
+    flyersIDs: bzModel?.publication.getAllFlyersIDs(),
   );
 
   return _result;

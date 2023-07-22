@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
@@ -6,7 +7,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/a_models/m_search/user_search_model.dart';
@@ -31,7 +32,6 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 
 class SuperSearchScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -405,29 +405,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
          await _generateQuery();
 
          },
-       onAuditStateSwitchTap: (bool value) async {
-            if (value == false) {
-
-                _searchModel = _searchModel?.copyWith(
-                  flyerSearchModel: _searchModel?.flyerSearchModel?.nullifyField(
-                    auditState: true,
-                  ),
-                );
-
-                await _generateQuery();
-
-            }
-          },
-       onAuditStateTap: (AuditState state) async {
-
-              _searchModel = _searchModel?.copyWith(
-                flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
-                  auditState: state,
-                ),
-              );
-              await _generateQuery();
-
-            },
        onPublishStateSwitchTap: (bool value) async {
          if (value == false) {
 
@@ -440,7 +417,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
          }
          },
-       onPublishStateTap: (OldPublishState state) async {
+       onPublishStateTap: (PublishState state) async {
 
          _searchModel = _searchModel?.copyWith(
            flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(

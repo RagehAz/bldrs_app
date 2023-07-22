@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -14,7 +14,6 @@ class FlyerSearchModel {
     this.onlyAmazonProducts,
     this.phid,
     this.publishState,
-    this.auditState,
   });
   // -----------------------------------------------------------------------------
   final FlyerType? flyerType;
@@ -23,8 +22,7 @@ class FlyerSearchModel {
   final bool? onlyWithPDF;
   final bool? onlyAmazonProducts;
   final String? phid;
-  final OldPublishState? publishState;
-  final AuditState? auditState;
+  final PublishState? publishState;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -38,8 +36,7 @@ class FlyerSearchModel {
     bool? onlyWithPDF,
     bool? onlyAmazonProducts,
     String? phid,
-    OldPublishState? publishState,
-    AuditState? auditState,
+    PublishState? publishState,
   }){
     return FlyerSearchModel(
       flyerType: flyerType ?? this.flyerType,
@@ -49,7 +46,6 @@ class FlyerSearchModel {
       onlyAmazonProducts: onlyAmazonProducts ?? this.onlyAmazonProducts,
       phid: phid ?? this.phid,
       publishState: publishState ?? this.publishState,
-      auditState: auditState ?? this.auditState,
     );
   }
   // --------------------
@@ -62,7 +58,6 @@ class FlyerSearchModel {
     bool onlyAmazonProducts = false,
     bool phid = false,
     bool publishState = false,
-    bool auditState = false,
   }){
 
     return FlyerSearchModel(
@@ -73,7 +68,6 @@ class FlyerSearchModel {
       onlyAmazonProducts: onlyAmazonProducts == true ? null : this.onlyAmazonProducts,
       phid: phid == true ? null : this.phid,
       publishState: publishState == true ? null : this.publishState,
-      auditState: auditState == true ? null : this.auditState,
     );
 
   }
@@ -94,8 +88,7 @@ class FlyerSearchModel {
         'onlyWithPDF': flyerSearchModel.onlyWithPDF,
         'onlyAmazonProducts': flyerSearchModel.onlyAmazonProducts,
         'phid': flyerSearchModel.phid,
-        'publishState': FlyerModel.cipherPublishState(flyerSearchModel.publishState),
-        'auditState': FlyerModel.cipherAuditState(flyerSearchModel.auditState)
+        'publishState': PublicationModel.cipherPublishState(flyerSearchModel.publishState),
       };
     }
 
@@ -114,8 +107,7 @@ class FlyerSearchModel {
         onlyWithPDF: map['onlyWithPDF'],
         onlyAmazonProducts: map['onlyAmazonProducts'],
         phid: map['phid'],
-        auditState: FlyerModel.decipherAuditState(map['auditState']),
-        publishState: FlyerModel.decipherPublishState(map['publishState'])
+        publishState: PublicationModel.decipherPublishState(map['publishState'])
       );
     }
 
@@ -147,8 +139,7 @@ class FlyerSearchModel {
           model1.onlyWithPDF == model2.onlyWithPDF &&
           model1.onlyAmazonProducts == model2.onlyAmazonProducts &&
           model1.phid == model2.phid &&
-          model1.publishState == model2.publishState &&
-          model1.auditState == model2.auditState;
+          model1.publishState == model2.publishState;
     }
 
     return _output;
@@ -189,7 +180,6 @@ class FlyerSearchModel {
       onlyWithPDF.hashCode^
       onlyAmazonProducts.hashCode^
       phid.hashCode^
-      publishState.hashCode^
-      auditState.hashCode;
+      publishState.hashCode;
   // -----------------------------------------------------------------------------
 }
