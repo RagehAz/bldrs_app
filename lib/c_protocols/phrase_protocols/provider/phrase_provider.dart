@@ -37,11 +37,14 @@ class PhraseProvider extends ChangeNotifier {
         ),
       );
 
+      await Localizer.changeAppLanguage(
+          context: getMainContext(),
+          code: langCode,
+      );
+
       await fetchSetCurrentLangAndAllPhrases(
         setLangCode: langCode,
       );
-
-      await Localizer.changeAppLanguage(getMainContext(), langCode);
 
       final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
       await _chainsProvider.fetchSortSetBldrsChains(
