@@ -5,8 +5,10 @@ import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
@@ -64,11 +66,13 @@ class NotesProvider extends ChangeNotifier {
   // -------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> proInitializeObeliskBadges({
+    required BuildContext context,
     required bool notify,
   }) async {
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
     await _notesProvider._initializeObeliskBadges(
-        notify: notify
+        context: context,
+        notify: notify,
     );
   }
   // --------------------
@@ -102,6 +106,7 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _initializeObeliskBadges({
+    required BuildContext context,
     required bool notify,
   }) async {
 
@@ -123,6 +128,19 @@ class NotesProvider extends ChangeNotifier {
         value: 0,
       );
       _initialList.add(_mapModel);
+    }
+
+    /// UPDATE APP
+    final bool _appNeedUpdate = await AppStateProtocols.shouldUpdateApp(
+        context: context,
+    );
+
+    if (_appNeedUpdate == true){
+      final MapModel _updateModel = MapModel(
+        key: 'settings',
+        value: xPhrase('phid_update'),
+      );
+      MapModel.replaceMapModel(mapModels: _initialList, mapModel: _updateModel);
     }
 
     _obeliskBadges = _initialList;
@@ -236,8 +254,10 @@ class NotesProvider extends ChangeNotifier {
 
       for (final dynamic value in _values){
 
-        final int _addOn = value?.toInt() ?? 0;
-        _totalCount = _totalCount + _addOn;
+        if (value is! String){
+          final int _addOn = value?.toInt() ?? 0;
+          _totalCount = _totalCount + _addOn;
+        }
 
       }
 
@@ -310,7 +330,7 @@ class NotesProvider extends ChangeNotifier {
 
         for (final dynamic value in _values){
 
-          if (value != null){
+          if (value != null && value is! String){
             final int _addOn = value.toInt();
             _totalCount = _totalCount + _addOn;
           }
@@ -362,7 +382,7 @@ class NotesProvider extends ChangeNotifier {
     final List<dynamic> _values = MapModel.getValuesFromMapModels(_obeliskBadges);
     if (Mapper.checkCanLoopList(_values) == true){
       for (final dynamic value in _values){
-        if (value != null){
+        if (value != null && value is! String){
           final int _addOn = value.toInt();
           _obeliskTotal = _obeliskTotal + _addOn;
         }
@@ -399,7 +419,6 @@ class NotesProvider extends ChangeNotifier {
     await _rebuildObeliskNumbers(
         notify: notify,
     );
-
 
   }
   // -----

@@ -157,7 +157,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   /// TESTED : WORKS PERFECT
   Future<void> initializeNotesListeners() async{
     if (mounted){
-      await initializeObeliskNumbers();
+      await initializeObeliskNumbers(
+        context: context,
+      );
       _userNotesStreamSub = listenToUserUnseenNotes();
       _bzzNotesStreamsSubs = listenToMyBzzUnseenNotes();
     }
@@ -218,6 +220,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         appBarType: AppBarType.main,
         listenToHideLayout: true,
         onBack: () => BldrsNav.onLastGoBackInHomeScreen(
+          context: context,
           zGridController: _zGridController,
         ),
         // pyramidButtons: const <Widget>[
