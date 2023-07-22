@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/country_tile_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -17,6 +18,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
     required this.showPlanetButton,
     required this.planetCensus,
     required this.onPlanetTap,
+    required this.selectedZone,
     this.padding,
     super.key
   });
@@ -30,6 +32,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
   final bool showPlanetButton;
   final CensusModel? planetCensus;
   final Function onPlanetTap;
+  final ZoneModel? selectedZone;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -55,6 +58,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
             isActive: true,
             censusModel: planetCensus,
             onTap: onPlanetTap,
+            isSelected: selectedZone == null,
             verse: const Verse(
               id: 'phid_the_entire_world',
               translate: true,
@@ -81,6 +85,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
             countryID: _countryID,
             isActive: Stringer.checkStringsContainString(strings: shownCountriesIDs, string: _countryID),
             censusModel: _census,
+            isSelected: selectedZone?.countryID == _countryID,
             onTap: () => onCountryTap(_countryID),
             onDeactivatedTap: onDeactivatedCountryTap == null ? null :
                 () => onDeactivatedCountryTap?.call(_countryID),

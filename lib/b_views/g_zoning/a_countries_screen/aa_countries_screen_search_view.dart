@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/country_tile_button.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
@@ -19,6 +20,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
     required this.foundCountries,
     required this.shownCountriesIDs,
     required this.countriesCensus,
+    required this.selectedZone,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -28,6 +30,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
   final ValueNotifier<List<Phrase>?> foundCountries;
   final List<String> shownCountriesIDs;
   final List<CensusModel>? countriesCensus;
+  final ZoneModel? selectedZone;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -77,6 +80,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
                               string: _countryPhrase?.id,
                           ),
                           censusModel: _census,
+                          isSelected: _countryPhrase != null && selectedZone?.countryID == _countryPhrase.id,
                           onTap: () => onCountryTap(_countryPhrase?.id),
                           onDeactivatedTap: () => onDeactivatedCountryTap(_countryPhrase?.id),
                         );

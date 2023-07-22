@@ -16,6 +16,7 @@ class WideCityButton extends StatelessWidget {
     required this.isActive,
     required this.censusModel,
     required this.onDeactivatedTap,
+    required this.isSelected,
     this.verse,
     super.key
   });
@@ -26,6 +27,7 @@ class WideCityButton extends StatelessWidget {
   final Function? onDeactivatedTap;
   final CensusModel? censusModel;
   final Verse? verse;
+  final bool isSelected;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class WideCityButton extends StatelessWidget {
       onTap: onSingleTap == null ? null : () => onSingleTap?.call(),
       onDeactivatedTap: onDeactivatedTap,
       isActive: isActive,
+      isSelected: isSelected,
       columnChildren: <Widget>[
 
         /// CITY WIDE TILE

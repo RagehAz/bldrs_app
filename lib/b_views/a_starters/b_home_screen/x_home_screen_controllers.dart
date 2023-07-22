@@ -38,9 +38,9 @@ import 'package:provider/provider.dart';
 wall order logic		        scoring logic
 order dependencies		      scoring dependencies
 following		                views
-user interets		            sliding depth
+user interests		            sliding depth
 ads - boosted flyers		    saves
-trending		                bcard taps
+trending		                bz card taps
 time stamp		              follows
 keywords relevancy		      calls
 		                        reports
@@ -171,6 +171,7 @@ List<NavModel?> generateMainNavModels({
         zoneViewingEvent: ViewingEvent.homeView,
         settingCurrentZone: true,
         viewerCountryID: userModel?.zone?.countryID,
+        selectedZone: ZoneProvider.proGetCurrentZone(context: getMainContext(), listen: false),
       ),
       iconSizeFactor: 1,
       iconColor: Colorz.nothing,

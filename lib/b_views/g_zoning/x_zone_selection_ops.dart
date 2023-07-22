@@ -54,6 +54,7 @@ class ZoneSelection {
     required bool settingCurrentZone,
     required ViewingEvent zoneViewingEvent,
     required String? viewerCountryID,
+    required ZoneModel? selectedZone,
   }) async {
 
     blog('aa7aaa 1');
@@ -62,11 +63,12 @@ class ZoneSelection {
       zoneViewingEvent: zoneViewingEvent,
       depth: depth,
       viewerCountryID: viewerCountryID,
+      selectedZone: selectedZone,
     );
 
-    blog('aa7aaa 2');
+    blog('aa7aaa 2 : $_output');
 
-    if (settingCurrentZone == true && _output != null){
+    if (settingCurrentZone == true){
       await setCurrentZoneAndNavHome(
         zone: _output,
       );
@@ -82,6 +84,7 @@ class ZoneSelection {
     required ViewingEvent zoneViewingEvent,
     required ZoneDepth depth,
     required String? viewerCountryID,
+    required ZoneModel? selectedZone,
   }) async {
 
     final ZoneModel? _zone = await Nav.goToNewScreen(
@@ -91,6 +94,7 @@ class ZoneSelection {
         depth: depth,
         viewerCountryID: viewerCountryID,
         canSetPlanetAsCurrentZone: false,
+        selectedZone: selectedZone,
       ),
     );
 
@@ -114,6 +118,7 @@ class ZoneSelection {
     required ZoneDepth depth,
     required ViewingEvent zoneViewingEvent,
     required String? viewerCountryID,
+    required ZoneModel? selectedZone,
   }) async {
 
     Keyboard.closeKeyboard();
@@ -146,6 +151,7 @@ class ZoneSelection {
             countryID: countryID,
             depth: depth,
             viewerCountryID: viewerCountryID,
+            selectedZone: selectedZone,
           )
       );
 
@@ -240,7 +246,6 @@ class ZoneSelection {
         zone: zone,
         notify: true,
       );
-
 
       // /// SET CHAINS
       // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
