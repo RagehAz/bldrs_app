@@ -109,6 +109,7 @@ class NoFlyersView extends StatelessWidget {
               zoneViewingEvent: ViewingEvent.homeView,
               settingCurrentZone: true,
               viewerCountryID: userModel?.zone?.countryID,
+              selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
             );
 
             _newZone?.blogZone(

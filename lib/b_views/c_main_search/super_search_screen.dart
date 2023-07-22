@@ -279,6 +279,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             settingCurrentZone: false,
             zoneViewingEvent: ViewingEvent.homeView,
             viewerCountryID: UsersProvider.proGetUserZone()?.countryID,
+            selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
           );
 
           await ZoneSelection.setCurrentZoneProtocol(
@@ -607,6 +608,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             settingCurrentZone: false,
             zoneViewingEvent: ViewingEvent.homeView,
             viewerCountryID: UsersProvider.proGetUserZone()?.countryID,
+            selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
           );
 
 
@@ -757,6 +759,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       settingCurrentZone: false,
       zoneViewingEvent: ViewingEvent.homeView,
       viewerCountryID: UsersProvider.proGetUserZone()?.countryID,
+      selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
     );
 
     await ZoneSelection.setCurrentZoneProtocol(
