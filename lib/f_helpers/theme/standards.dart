@@ -43,7 +43,7 @@ class Standards {
   /// LOADING SCREEN
 
   // --------------------
-  static const int loadingScreenTimeOut = 50;
+  static const int loadingScreenTimeOut = 55;
   // -----------------------------------------------------------------------------
 
   /// EDITORS STANDARDS
