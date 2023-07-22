@@ -440,7 +440,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
          }
          },
-       onPublishStateTap: (PublishState state) async {
+       onPublishStateTap: (OldPublishState state) async {
 
          _searchModel = _searchModel?.copyWith(
            flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(

@@ -259,7 +259,7 @@ class GtaModel {
         description: TextEditingController(text: gtaModel.about),
         descriptionNode: FocusNode(),
         flyerType: flyerType,
-        publishState: PublishState.draft,
+        publishState: OldPublishState.draft,
         auditState: AuditState.verified,
         phids: const <String>[],
         showsAuthor: false,
@@ -273,7 +273,7 @@ class GtaModel {
         specs: _specs,
         times: <PublishTime>[
           PublishTime(
-            state: PublishState.unpublished,
+            state: OldPublishState.unpublished,
             time: DateTime.now(),
           ),
         ],

@@ -200,7 +200,7 @@ class FetchFlyerProtocols {
             trigram: const [],
             description: null,
             flyerType: null,
-            publishState: PublishState.published,
+            publishState: OldPublishState.published,
             auditState: AuditState.verified,
             phids: const [],
             zone: bzModel.zone,

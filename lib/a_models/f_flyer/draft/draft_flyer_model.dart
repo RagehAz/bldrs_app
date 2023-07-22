@@ -68,7 +68,7 @@ class DraftFlyer{
   final TextEditingController? description;
   final FocusNode? descriptionNode;
   final FlyerType? flyerType;
-  final PublishState? publishState;
+  final OldPublishState? publishState;
   final AuditState? auditState;
   final List<String>? phids;
   final bool? showsAuthor;
@@ -142,7 +142,7 @@ class DraftFlyer{
         description: TextEditingController(),
         descriptionNode: FocusNode(),
         flyerType: getPossibleFlyerType(bzModel),
-        publishState: PublishState.draft,
+        publishState: OldPublishState.draft,
         auditState: _bzIsVerified == true ? AuditState.verified : AuditState.pending,
         phids: const <String>[],
         showsAuthor: FlyerModel.canShowFlyerAuthor(
@@ -254,7 +254,7 @@ class DraftFlyer{
     }
     if (isPublishing == true){
       _publishTimes.add(PublishTime(
-        state: PublishState.published,
+        state: OldPublishState.published,
         time: DateTime.now(),
       ));
     }
@@ -272,7 +272,7 @@ class DraftFlyer{
       trigram: Stringer.createTrigram(input: draft.headline?.text),
       description: draft.description?.text,
       flyerType: draft.flyerType,
-      publishState: isPublishing == true ? PublishState.published : draft.publishState,
+      publishState: isPublishing == true ? OldPublishState.published : draft.publishState,
       auditState: _auditState,
       phids: draft.phids,
       showsAuthor: draft.showsAuthor,
@@ -409,7 +409,7 @@ class DraftFlyer{
     TextEditingController? description,
     FocusNode? descriptionNode,
     FlyerType? flyerType,
-    PublishState? publishState,
+    OldPublishState? publishState,
     AuditState? auditState,
     List<String>? phids,
     bool? showsAuthor,
@@ -565,7 +565,7 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String generateShelfTitle({
-    required PublishState publishState,
+    required OldPublishState publishState,
     required List<PublishTime> times,
     required int shelfNumber,
   }){
@@ -871,7 +871,7 @@ class DraftFlyer{
 
         final PublishTime? _publishTime = PublishTime.getPublishTimeFromTimes(
           times: draft.times,
-          state: PublishState.published,
+          state: OldPublishState.published,
         );
 
         final int _days = Timers.calculateTimeDifferenceInDays(

@@ -31,7 +31,7 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
             listen: true,
           ),
           auditState: AuditState.verified,
-          publishState: PublishState.published,
+          publishState: OldPublishState.published,
           // onlyAmazonProducts: null,
           // onlyWithPDF: null,
           // onlyShowingAuthors: null,
