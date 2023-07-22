@@ -1,3 +1,4 @@
+import 'package:basics/animators/helpers/app_scroll_behavior.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
@@ -96,6 +97,7 @@ class _PagerBuilderState extends State<PagerBuilder> {
       height: Scale.screenHeight(context),
       child: PageView(
         physics: const BouncingScrollPhysics(),
+        scrollBehavior: const AppScrollBehavior(),
         controller: _pageController,
         onPageChanged: (int index) => ProgressBarModel.onSwipe(
           context: context,

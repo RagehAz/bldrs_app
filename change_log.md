@@ -1,5 +1,7 @@
 ### 1.4.0
 1. removed flyer outer shadow to increase performance
+2. fixed home page flyers flickering
+3. 
 
 ### 1.3.0
 1. Minor Fixes in home screen UI

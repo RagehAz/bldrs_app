@@ -1,3 +1,4 @@
+import 'package:basics/animators/helpers/app_scroll_behavior.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
@@ -95,6 +96,7 @@ class SlidesBuilder extends StatelessWidget {
         child: PageView.builder(
           key: const ValueKey<String>('FlyerSlides_PageView'),
           controller: horizontalController,
+          scrollBehavior: const AppScrollBehavior(),
           physics: tinyMode ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
           onPageChanged: (int i) => onSwipeSlide(i),
           itemCount: _numberOfStrips,

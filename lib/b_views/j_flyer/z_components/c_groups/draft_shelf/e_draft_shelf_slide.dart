@@ -86,9 +86,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
         children: <Widget>[
 
           /// SPACER
-          const SizedBox(
-            height: Ratioz.appBarPadding,
-          ),
+          const SizedBox(height: Ratioz.appBarPadding),
 
           /// FLYER NUMBER
           ReorderableDragStartListener(
@@ -112,7 +110,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
           ),
 
           /// SPACER
-          const SizedBox(height: Ratioz.appBarPadding,),
+          const SizedBox(height: Ratioz.appBarPadding),
 
           /// SLIDE
           GestureDetector(
@@ -219,7 +217,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
           ),
 
           /// SPACER
-          const SizedBox(height: Ratioz.appBarPadding,),
+          const SizedBox(height: Ratioz.appBarPadding),
 
         ],
       ),
