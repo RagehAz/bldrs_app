@@ -16,6 +16,7 @@ class CountryTileButton extends StatelessWidget {
     required this.onDeactivatedTap,
     required this.countryID,
     required this.isActive,
+    required this.isSelected,
     this.width,
     this.height,
     this.censusModel,
@@ -33,6 +34,7 @@ class CountryTileButton extends StatelessWidget {
   final CensusModel? censusModel;
   final Verse? verse;
   final bool verseCentered;
+  final bool isSelected;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool canShowCensus({
@@ -67,6 +69,7 @@ class CountryTileButton extends StatelessWidget {
       onTap: onTap,
       onDeactivatedTap: onDeactivatedTap,
       isActive: isActive,
+      isSelected: isSelected,
       columnChildren: <Widget>[
 
         /// FLAG & COUNTRY NAME

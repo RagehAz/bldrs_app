@@ -32,6 +32,7 @@ class CitiesScreen extends StatefulWidget {
     required this.depth,
     required this.countryID,
     required this.viewerCountryID,
+    required this.selectedZone,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -39,6 +40,7 @@ class CitiesScreen extends StatefulWidget {
   final ZoneDepth depth;
   final String? countryID;
   final String? viewerCountryID;
+  final ZoneModel? selectedZone;
   /// --------------------------------------------------------------------------
   @override
   State<CitiesScreen> createState() => _NewSelectCityScreen();
@@ -345,6 +347,9 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       depth: ZoneDepth.country,
       zoneViewingEvent: widget.zoneViewingEvent,
       viewerCountryID: widget.viewerCountryID,
+      selectedZone: ZoneModel(
+        countryID: widget.countryID,
+      ),
     );
 
   }
@@ -432,6 +437,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 shownCitiesIDs: _shownCitiesIDs,
                 citiesCensuses: _censuses,
                 onDeactivatedCityTap: _onDeactivatedTap,
+                selectedZone: widget.selectedZone,
               );
 
             }
@@ -447,6 +453,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 onDeactivatedCityTap: _onDeactivatedTap,
                 countryCensus: _countryCensus,
                 onTapAllCities: _onTapAllCities,
+                selectedZone: widget.selectedZone,
                 showAllCitiesButton: StagingModel.checkMayShowViewAllZonesButton(
                   zoneViewingEvent: widget.zoneViewingEvent,
                 ),
