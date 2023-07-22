@@ -20,6 +20,7 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -71,6 +72,16 @@ Future<void> initializeLogoScreen({
 
       /// USER MODEL
       await initializeUserModel(context);
+
+      final String? _ldbLangCode = await Localizer.readLDBLangCode();
+
+      if (_ldbLangCode == null){
+        final String? _selectedLangCode = await Dialogs.languageDialog();
+        await Localizer.changeAppLanguage(
+          code: _selectedLangCode,
+          context: getMainContext(),
+        );
+      }
 
       /// APP STATE
       await initializeAppState(
@@ -376,6 +387,7 @@ Future<void> initializeLocalAssetsPaths() async {
 // -------------------: WORKS PERFECT
 Future<void> initializeAppLanguage() async {
   // blog('_initializeAppLanguage : START');
+
 
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
   await _phraseProvider.fetchSetCurrentLangAndAllPhrases();

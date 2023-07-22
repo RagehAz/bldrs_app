@@ -30,6 +30,8 @@ class Words {
   static String no() => Localizer.translate('no')!;
   static String yes() => Localizer.translate('yes')!;
   static String ok() => Localizer.translate('ok')!;
+  static String changeLanguage() => Localizer.translate('changeLanguage')!;
+
   // -----------------------------------------------------------------------------
   static String pleaseWait(){
 
@@ -211,7 +213,6 @@ class Words {
 // String inviteFriends () => Localizer.translate('inviteFriends');
 // String inviteBusinesses () => Localizer.translate('inviteBusinesses');
 // String changeCountry () => Localizer.translate('changeCountry');
-// String changeLanguage () => Localizer.translate('changeLanguage');
 // String feedback () => Localizer.translate('feedback');
 // String termsRegulations () => Localizer.translate('termsRegulations');
 // String advertiseOnBldrs () => Localizer.translate('advertiseOnBldrs');
