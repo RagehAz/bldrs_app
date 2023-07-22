@@ -23,7 +23,7 @@ class FlyerSearchModel {
   final bool? onlyWithPDF;
   final bool? onlyAmazonProducts;
   final String? phid;
-  final PublishState? publishState;
+  final OldPublishState? publishState;
   final AuditState? auditState;
   // -----------------------------------------------------------------------------
 
@@ -38,7 +38,7 @@ class FlyerSearchModel {
     bool? onlyWithPDF,
     bool? onlyAmazonProducts,
     String? phid,
-    PublishState? publishState,
+    OldPublishState? publishState,
     AuditState? auditState,
   }){
     return FlyerSearchModel(

@@ -114,21 +114,21 @@ class HeroicFlyersGrid extends StatelessWidget {
               renderFlyer: RenderFlyer.firstSlide,
               builder: (FlyerModel? smallFlyer) {
 
-
-                return FlyerSelectionStack(
-                  flyerModel: smallFlyer,
-                  flyerBoxWidth: _gridScale.smallItemWidth,
-                  onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer!(smallFlyer!),
-                  onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap!(smallFlyer!),
-                  selectionMode: selectionMode,
-                  flyerWidget: HeroicFlyer(
+                  return FlyerSelectionStack(
                     flyerModel: smallFlyer,
                     flyerBoxWidth: _gridScale.smallItemWidth,
-                    screenName: screenName,
-                    gridHeight: gridHeight,
-                    gridWidth: gridWidth,
-                  ),
-                );
+                    onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer!(smallFlyer!),
+                    onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap!(smallFlyer!),
+                    selectionMode: selectionMode,
+                    flyerWidget: HeroicFlyer(
+                      flyerModel: smallFlyer,
+                      flyerBoxWidth: _gridScale.smallItemWidth,
+                      screenName: screenName,
+                      gridHeight: gridHeight,
+                      gridWidth: gridWidth,
+                    ),
+                  );
+
               },
             );
 

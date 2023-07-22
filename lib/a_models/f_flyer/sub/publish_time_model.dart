@@ -13,7 +13,7 @@ class PublishTime {
     required this.time,
   });
   // --------------------------------------------------------------------------
-  final PublishState? state;
+  final OldPublishState? state;
   final DateTime? time;
   // -----------------------------------------------------------------------------
 
@@ -65,7 +65,7 @@ class PublishTime {
       if (Mapper.checkCanLoopList(_keys) == true && Mapper.checkCanLoopList(_values) == true) {
         for (int i = 0; i < _keys.length; i++) {
 
-          final PublishState? _flyerStateString = FlyerModel.decipherPublishState(_keys[i]);
+          final OldPublishState? _flyerStateString = FlyerModel.decipherPublishState(_keys[i]);
 
           final DateTime? _time = Timers.decipherTime(
               time: _values[i],
@@ -189,7 +189,7 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static PublishTime? getPublishTimeFromTimes({
-    required PublishState? state,
+    required OldPublishState? state,
     required List<PublishTime>? times,
   }) {
 
