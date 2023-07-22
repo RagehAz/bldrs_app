@@ -294,7 +294,7 @@ class ZGridScale {
         itemAspectRatio: itemAspectRatio,
     );
 
-    final double _remaining = gridHeight - _bigItemHeight;
+    final double _remaining = Scale.screenHeight(getMainContext()) - _bigItemHeight;
 
     return _remaining / 2;
   }

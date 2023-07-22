@@ -275,7 +275,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
               // home: ,
               // useInheritedMediaQuery: ,
               // shortcuts: ,
-              scrollBehavior: AppScrollBehavior(),
+              scrollBehavior: const AppScrollBehavior(),
 
               /// DEBUG
               debugShowCheckedModeBanner: false,

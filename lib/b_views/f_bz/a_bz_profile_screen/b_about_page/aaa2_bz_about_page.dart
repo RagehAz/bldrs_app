@@ -225,6 +225,7 @@ class AboutBzBubbles extends StatelessWidget {
             scrollable: false,
             gridType: FlyerGridType.heroic,
             hasResponsiveSideMargin: true,
+            numberOfColumnsOrRows: 2,
           ),
 
         // const Horizon(),

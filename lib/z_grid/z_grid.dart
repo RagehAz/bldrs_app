@@ -1,5 +1,6 @@
 library z_grid;
 // -----------------------------------------------------------------------------
+import 'package:basics/animators/helpers/app_scroll_behavior.dart';
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/animators/widgets/widget_waiter.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';

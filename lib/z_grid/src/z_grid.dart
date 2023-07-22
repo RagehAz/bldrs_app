@@ -167,30 +167,33 @@ class ZGrid extends StatelessWidget {
             /// THE GRID
             return IgnorePointer(
               ignoring: zoomed,
-              child: GridView.builder(
-                  key: const ValueKey<String>('ZGrid'),
-                  controller: controller.scrollController,
-                  gridDelegate: ZGridScale.getGridDelegate(
-                    gridWidth: gridScale.gridWidth,
-                    gridHeight: gridScale.gridHeight,
-                    columnCount: gridScale.columnCount,
-                    itemAspectRatio: gridScale.itemAspectRatio,
-                    hasResponsiveSideMargin: gridScale.hasResponsiveSideMargin,
-                  ),
-                  padding: ZGridScale.getGridPadding(
-                    topPaddingOnZoomOut: gridScale.topPaddingOnZoomOut,
-                    gridWidth: gridScale.gridWidth,
-                    gridHeight: gridScale.gridHeight,
-                    columnCount: gridScale.columnCount,
-                    itemAspectRatio: gridScale.itemAspectRatio,
-                    context: context,
-                    isZoomed: zoomed,
-                    bottomPaddingOnZoomedOut: gridScale.bottomPaddingOnZoomedOut,
-                    hasResponsiveSideMargin: gridScale.hasResponsiveSideMargin,
-                  ),
-                  itemCount: itemCount,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (_, int index) => builder(index)
+              child: ScrollConfiguration(
+                behavior: const AppScrollBehavior(),
+                child: GridView.builder(
+                    key: const ValueKey<String>('ZGrid'),
+                    controller: controller.scrollController,
+                    gridDelegate: ZGridScale.getGridDelegate(
+                      gridWidth: gridScale.gridWidth,
+                      gridHeight: gridScale.gridHeight,
+                      columnCount: gridScale.columnCount,
+                      itemAspectRatio: gridScale.itemAspectRatio,
+                      hasResponsiveSideMargin: gridScale.hasResponsiveSideMargin,
+                    ),
+                    padding: ZGridScale.getGridPadding(
+                      topPaddingOnZoomOut: gridScale.topPaddingOnZoomOut,
+                      gridWidth: gridScale.gridWidth,
+                      gridHeight: gridScale.gridHeight,
+                      columnCount: gridScale.columnCount,
+                      itemAspectRatio: gridScale.itemAspectRatio,
+                      context: context,
+                      isZoomed: zoomed,
+                      bottomPaddingOnZoomedOut: gridScale.bottomPaddingOnZoomedOut,
+                      hasResponsiveSideMargin: gridScale.hasResponsiveSideMargin,
+                    ),
+                    itemCount: itemCount,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (_, int index) => builder(index)
+                ),
               ),
             );
 
