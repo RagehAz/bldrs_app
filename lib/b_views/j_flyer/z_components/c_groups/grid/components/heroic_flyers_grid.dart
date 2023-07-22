@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_stack.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
 
 class HeroicFlyersGrid extends StatelessWidget {
@@ -51,25 +52,36 @@ class HeroicFlyersGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _gridSlotWidth = FlyerDim.flyerGridFlyerBoxWidth(
-      context: context,
-      scrollDirection: scrollDirection,
-      numberOfColumnsOrRows: numberOfColumnsOrRows,
-      gridHeight: gridHeight,
+    // final double _gridSlotWidth = FlyerDim.flyerGridFlyerBoxWidth(
+    //   context: context,
+    //   scrollDirection: scrollDirection,
+    //   numberOfColumnsOrRows: numberOfColumnsOrRows,
+    //   gridHeight: gridHeight,
+    //   gridWidth: gridWidth,
+    //   hasResponsiveSideMargin: hasResponsiveSideMargin,
+    // );
+
+    final ZGridScale _gridScale = ZGridScale.initialize(
       gridWidth: gridWidth,
+      gridHeight: gridHeight,
+      columnCount: numberOfColumnsOrRows,
+      bottomPaddingOnZoomedOut: bottomPadding,
+      topPaddingOnZoomOut: topPadding,
+      itemAspectRatio: FlyerDim.flyerAspectRatio(),
       hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
+
     // --------------------
     return FlyersGridBuilder(
-        gridWidth: gridWidth,
-        gridHeight: gridHeight,
+        gridWidth: _gridScale.gridWidth,
+        gridHeight: _gridScale.gridHeight,
         scrollController: scrollController,
         scrollable: scrollable,
         topPadding: topPadding,
         bottomPadding: bottomPadding,
-        numberOfColumnsOrRows: numberOfColumnsOrRows,
+        numberOfColumnsOrRows: _gridScale.columnCount,
         scrollDirection: scrollDirection,
-        hasResponsiveSideMargin: hasResponsiveSideMargin,
+        hasResponsiveSideMargin: _gridScale.hasResponsiveSideMargin,
         itemCount: FlyerDim.flyerGridNumberOfSlots(
           flyersCount: flyersIDs?.length ?? flyers?.length ?? 0,
           addFlyerButtonIsOn: showAddFlyerButton,
@@ -81,7 +93,7 @@ class HeroicFlyersGrid extends StatelessWidget {
           /// AUTHOR MODE FOR FIRST INDEX ADD FLYER BUTTON
           if (showAddFlyerButton == true && index == 0){
             return AddFlyerButton(
-              flyerBoxWidth: _gridSlotWidth,
+              flyerBoxWidth: _gridScale.smallItemWidth,
             );
           }
           // ---------------------------------------------
@@ -96,7 +108,7 @@ class HeroicFlyersGrid extends StatelessWidget {
               key: const ValueKey<String>('FlyerBuilder_inGrid'),
               flyerID: _flyerID,
               flyerModel: _flyer,
-              flyerBoxWidth: _gridSlotWidth,
+              flyerBoxWidth: _gridScale.smallItemWidth,
               onFlyerNotFound: onFlyerNotFound == null || _flyerID == null ?
               null : (String? flyerID) => onFlyerNotFound?.call(_flyerID),
               renderFlyer: RenderFlyer.firstSlide,
@@ -105,13 +117,13 @@ class HeroicFlyersGrid extends StatelessWidget {
 
                 return FlyerSelectionStack(
                   flyerModel: smallFlyer,
-                  flyerBoxWidth: _gridSlotWidth,
+                  flyerBoxWidth: _gridScale.smallItemWidth,
                   onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer!(smallFlyer!),
                   onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap!(smallFlyer!),
                   selectionMode: selectionMode,
                   flyerWidget: HeroicFlyer(
                     flyerModel: smallFlyer,
-                    flyerBoxWidth: _gridSlotWidth,
+                    flyerBoxWidth: _gridScale.smallItemWidth,
                     screenName: screenName,
                     gridHeight: gridHeight,
                     gridWidth: gridWidth,
