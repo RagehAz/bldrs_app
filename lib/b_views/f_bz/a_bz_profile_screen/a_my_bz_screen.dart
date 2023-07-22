@@ -148,7 +148,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
                   );
 
                   await zoomOutFlyer(
-                    flyerNotifier: null,
+                    context: context,
                     mounted: true,
                     controller: _zGridController,
                   );

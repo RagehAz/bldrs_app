@@ -214,7 +214,7 @@ class Launcher {
   /// LAUNCH APP
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> launchStoreApp({
     required String? iosAppID,
     required String? androidPackageID,

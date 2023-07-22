@@ -1,9 +1,11 @@
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
+import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_icon.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -47,29 +49,47 @@ class ObeliskIconsBuilder extends StatelessWidget{
           context: context,
           navModels: navModels,
         ),
-        child: FloatingList(
-          height: Obelisk.gotContentsScrollableHeight(
-            context: context,
-            navModels: navModels,
-          ),
-          mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
-          physics: const NeverScrollableScrollPhysics(),
-          columnChildren: <Widget>[
-            ...List.generate(navModels.length, (index){
-              return SingleChildScrollView(
-                physics: const NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.zero,
-                child: ObeliskIcon(
-                  onTap: () => onRowTap(index),
-                  progressBarModel: progressBarModel,
-                  navModelIndex: index,
-                  navModel: navModels[index],
+        child: Selector<NotesProvider, List<MapModel>>(
+            selector: (_, NotesProvider notesProvider) => notesProvider.obeliskBadges,
+            builder: (_, List<MapModel>? badges, Widget? child){
+
+
+              return FloatingList(
+                height: Obelisk.gotContentsScrollableHeight(
+                  context: context,
+                  navModels: navModels,
                 ),
+                mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
+                physics: const NeverScrollableScrollPhysics(),
+                columnChildren: <Widget>[
+
+                  ...List.generate(navModels.length, (index){
+
+                    final NavModel? _navModel = navModels[index];
+
+                    final MapModel? _badge = MapModel.getModelByKey(
+                      models: badges,
+                      key: _navModel?.id,
+                    );
+
+                    return SingleChildScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.zero,
+                      child: ObeliskIcon(
+                        onTap: () => onRowTap(index),
+                        progressBarModel: progressBarModel,
+                        navModelIndex: index,
+                        navModel: _navModel,
+                        badge: _badge,
+                      ),
+                    );
+                  }),
+
+                ],
               );
+
             }),
-          ],
-        ),
       ),
 
       // child: ListView(

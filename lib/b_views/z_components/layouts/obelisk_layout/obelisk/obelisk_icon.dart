@@ -7,10 +7,9 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/red_dot_badge.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
-import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ObeliskIcon extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -19,6 +18,7 @@ class ObeliskIcon extends StatelessWidget {
     required this.progressBarModel,
     required this.navModelIndex,
     required this.onTap,
+    required this.badge,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -26,14 +26,13 @@ class ObeliskIcon extends StatelessWidget {
   final ValueNotifier<ProgressBarModel?> progressBarModel;
   final int navModelIndex;
   final Function onTap;
+  final MapModel? badge;
   /// --------------------------------------------------------------------------
-
-
   @override
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
-        key: const ValueKey<String>('ObeliskIcon'),
+        key: const ValueKey<String>('ObeliskIconz'),
         valueListenable: progressBarModel,
         builder: (_, ProgressBarModel? progressBarModel, Widget? child){
 
@@ -41,6 +40,23 @@ class ObeliskIcon extends StatelessWidget {
 
           /// BUTTON CIRCLE
           if (Mapper.boolIsTrue(navModel?.canShow) == true){
+            // ---->
+            final int? count = badge == null ? null
+                :
+            badge?.value is int ? badge?.value
+                :
+            null;
+            final bool _hasCount = count != null && count > 0;
+            // ---->
+            final Verse? verse = badge == null ? null
+                :
+            badge?.value is String ? Verse.plain(badge?.value)
+                :
+            null;
+            final bool _hasVerse = verse != null;
+            // ---->
+            final bool _hasDot = badge != null && (_hasCount || _hasVerse);
+            // ---->
             return GestureDetector(
               onTap: () => onTap.call(),
               child: Container(
@@ -48,33 +64,14 @@ class ObeliskIcon extends StatelessWidget {
                 width: Obelisk.circleWidth,
                 color: Colorz.nothing,
                 alignment: Alignment.centerLeft,
-                child: Selector<NotesProvider, int?>(
-                  selector: (_, NotesProvider notesProvider){
-
-                    final List<MapModel> _mapModels = notesProvider.obeliskBadges;
-
-                    final MapModel? _mapModel = MapModel.getModelByKey(
-                        models: _mapModels,
-                        key: navModel?.id,
-                    );
-
-                    return _mapModel?.value;
-                  },
-                  shouldRebuild: (int? last, int? next){
-                    return last != next;
-                  },
-                  builder: (_, int? count, Widget? child){
-
-                    return RedDotBadge(
-                      redDotIsOn: Mapper.boolIsTrue(navModel?.forceRedDot) == true || (count != null && count > 0),
+                child: RedDotBadge(
+                      redDotIsOn: Mapper.boolIsTrue(navModel?.forceRedDot) == true || _hasDot,
                       count: count,
+                      verse: verse,
                       childWidth: Obelisk.circleWidth,
                       shrinkChild: true,
-                      child: child!,
-                    );
-
-                  },
-                  child: BldrsBox(
+                      isNano: _hasVerse,
+                      child: BldrsBox(
                     width: Obelisk.circleWidth,
                     height: Obelisk.circleWidth,
                     corners: Obelisk.circleWidth * 0.5,
@@ -84,7 +81,7 @@ class ObeliskIcon extends StatelessWidget {
                     iconSizeFactor: navModel?.iconSizeFactor ?? 0.45,
                     // margins: const EdgeInsets.only(bottom: 5),
                   ),
-                ),
+                    ),
               ),
             );
           }
@@ -132,5 +129,5 @@ class ObeliskIcon extends StatelessWidget {
     );
 
   }
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
