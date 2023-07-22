@@ -4,7 +4,7 @@ import 'package:basics/bubbles/model/bubble_header_vm.dart';
 import 'package:basics/bubbles/tile_bubble/tile_bubble.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/building_blocks/history_line.dart';
@@ -161,24 +161,12 @@ class SearchHistoryView extends StatelessWidget {
                               translate: true,
                             )),
 
-                      /// AUDIT STATE
-                      if (_model.flyerSearchModel?.auditState != null)
-                        HistoryLine(
-                          icon: Iconz.verifyFlyer,
-                          verse: Verse(
-                            id: FlyerModel.getAuditStatePhid(
-                                _model.flyerSearchModel?.auditState),
-                            translate: true,
-                          ),
-                        ),
-
                       /// PUBLISH STATE
                       if (_model.flyerSearchModel?.publishState != null)
                         HistoryLine(
                           icon: Iconz.verifyFlyer,
                           verse: Verse(
-                            id: FlyerModel.getPublishStatePhid(
-                                _model.flyerSearchModel?.publishState),
+                            id: PublicationModel.getPublishStatePhid(_model.flyerSearchModel?.publishState),
                             translate: true,
                           ),
                         ),

@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -70,12 +71,25 @@ class FlyerFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> readBzFlyers({
-    required BzModel? bzModel
+    required BzModel? bzModel,
+    required PublishState? publishState,
   }) async {
     final List<FlyerModel> _flyers = <FlyerModel>[];
 
-    if (Mapper.checkCanLoopList(bzModel?.flyersIDs) == true) {
-      for (final String id in bzModel!.flyersIDs!) {
+    final List<String>? _allIDs = bzModel?.publication.getAllFlyersIDs();
+
+    if (Mapper.checkCanLoopList(_allIDs) == true) {
+
+      final List<String> _flyersIDs =
+      publishState == null ?
+      _allIDs!
+          :
+      PublicationModel.getFlyersIDsByState(
+        pub: bzModel!.publication,
+        state: publishState,
+      );
+
+      for (final String id in _flyersIDs) {
         final FlyerModel? _flyer = await readFlyer(
           flyerID: id,
         );
@@ -92,19 +106,23 @@ class FlyerFireOps {
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> readBzzFlyers({
     required List<BzModel>? bzzModels,
+    required PublishState publishState,
   }) async {
     final List<FlyerModel> _allFlyers = <FlyerModel>[];
 
     if (Mapper.checkCanLoopList(bzzModels) == true) {
 
       for (final BzModel bz in bzzModels!) {
+
         final List<FlyerModel> _bzFlyers = await FlyerFireOps.readBzFlyers(
+          publishState: publishState,
           bzModel: bz,
         );
 
         if (Mapper.checkCanLoopList(_bzFlyers)) {
           _allFlyers.addAll(_bzFlyers);
         }
+
       }
     }
 

@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/draft/gta_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
@@ -14,6 +15,7 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
@@ -37,7 +39,6 @@ class DraftFlyer{
     required this.descriptionNode,
     required this.flyerType,
     required this.publishState,
-    required this.auditState,
     required this.phids,
     required this.showsAuthor,
     required this.zone,
@@ -68,8 +69,7 @@ class DraftFlyer{
   final TextEditingController? description;
   final FocusNode? descriptionNode;
   final FlyerType? flyerType;
-  final OldPublishState? publishState;
-  final AuditState? auditState;
+  final PublishState? publishState;
   final List<String>? phids;
   final bool? showsAuthor;
   final ZoneModel? zone;
@@ -131,8 +131,6 @@ class DraftFlyer{
 
     else {
 
-      final bool _bzIsVerified = bzModel.isVerified != null && bzModel.isVerified! == true;
-
       return DraftFlyer(
         bzModel: bzModel,
         id: newDraftID,
@@ -142,8 +140,7 @@ class DraftFlyer{
         description: TextEditingController(),
         descriptionNode: FocusNode(),
         flyerType: getPossibleFlyerType(bzModel),
-        publishState: OldPublishState.draft,
-        auditState: _bzIsVerified == true ? AuditState.verified : AuditState.pending,
+        publishState: PublishState.draft,
         phids: const <String>[],
         showsAuthor: FlyerModel.canShowFlyerAuthor(
           bzModel: bzModel,
@@ -210,7 +207,6 @@ class DraftFlyer{
         descriptionNode: FocusNode(),
         flyerType: flyer.flyerType,
         publishState: flyer.publishState,
-        auditState: flyer.auditState,
         phids: flyer.phids,
         showsAuthor: flyer.showsAuthor,
         zone: flyer.zone,
@@ -248,61 +244,61 @@ class DraftFlyer{
 
     if (draft != null){
 
-       final List<PublishTime> _publishTimes = <PublishTime>[];
-    if (Mapper.checkCanLoopList(draft.times) == true){
-      _publishTimes.addAll(draft.times!);
-    }
-    if (isPublishing == true){
-      _publishTimes.add(PublishTime(
-        state: OldPublishState.published,
-        time: DateTime.now(),
-      ));
-    }
+      final BzModel? _bzModel = await BzProtocols.fetchBz(bzID: draft.bzID);
 
-    final AuditState? _auditState =
-    draft.auditState == AuditState.verified ? AuditState.verified
-        :
-    isPublishing == true ? AuditState.pending
-        :
-    draft.auditState;
+      if (_bzModel != null){
 
-    _output = FlyerModel(
-      id: draft.id,
-      headline: draft.headline?.text,
-      trigram: Stringer.createTrigram(input: draft.headline?.text),
-      description: draft.description?.text,
-      flyerType: draft.flyerType,
-      publishState: isPublishing == true ? OldPublishState.published : draft.publishState,
-      auditState: _auditState,
-      phids: draft.phids,
-      showsAuthor: draft.showsAuthor,
-      zone: draft.zone,
-      authorID: draft.authorID,
-      bzID: draft.bzID,
-      position: draft.position,
-      slides: await DraftSlide.draftsToSlides(draft.draftSlides),
-      specs: draft.specs,
-      times: _publishTimes,
-      hasPriceTag: Speccer.checkSpecsHavePrice(draft.specs),
-      isAmazonFlyer: GtaModel.isAmazonAffiliateLink(draft.affiliateLink),
-      hasPDF: draft.pdfModel != null,
-      score: draft.score,
-      pdfPath: draft.pdfModel == null ? null : StoragePath.flyers_flyerID_pdf(draft.id),
-      shareLink: null,
-      affiliateLink: draft.affiliateLink,
-      gtaLink: draft.gtaLink,
-      bzModel: await BzProtocols.fetchBz(bzID: draft.bzID,),
-      authorImage: await PicProtocols.fetchPicUiImage(
-        path: StoragePath.bzz_bzID_authorID(
-          bzID: draft.bzID,
+        final List<PublishTime> _publishTimes = <PublishTime>[...?draft.times];
+
+        final PublishState _newState = PublicationModel.concludeFlyerStateOnUpload(
+          existingState: draft.publishState,
+          isPublishing: isPublishing,
+          bzIsVerified: Mapper.boolIsTrue(_bzModel.isVerified),
+        );
+
+        _publishTimes.add(PublishTime(
+          state: _newState,
+          time: DateTime.now(),
+        ));
+
+        _output = FlyerModel(
+          id: draft.id,
+          headline: draft.headline?.text,
+          trigram: Stringer.createTrigram(input: draft.headline?.text),
+          description: draft.description?.text,
+          flyerType: draft.flyerType,
+          publishState: _newState,
+          phids: draft.phids,
+          showsAuthor: draft.showsAuthor,
+          zone: draft.zone,
           authorID: draft.authorID,
-        ),
-      ),
-      bzLogoImage: await PicProtocols.fetchPicUiImage(
-        path: StoragePath.bzz_bzID_logo(draft.bzID),
-      ),
-      // docSnapshot: ,
-    );
+          bzID: draft.bzID,
+          position: draft.position,
+          slides: await DraftSlide.draftsToSlides(draft.draftSlides),
+          specs: draft.specs,
+          times: _publishTimes,
+          hasPriceTag: Speccer.checkSpecsHavePrice(draft.specs),
+          isAmazonFlyer: GtaModel.isAmazonAffiliateLink(draft.affiliateLink),
+          hasPDF: draft.pdfModel != null,
+          score: draft.score,
+          pdfPath: draft.pdfModel == null ? null : StoragePath.flyers_flyerID_pdf(draft.id),
+          shareLink: null,
+          affiliateLink: draft.affiliateLink,
+          gtaLink: draft.gtaLink,
+          bzModel: _bzModel,
+          authorImage: await PicProtocols.fetchPicUiImage(
+            path: StoragePath.bzz_bzID_authorID(
+              bzID: draft.bzID,
+              authorID: draft.authorID,
+            ),
+          ),
+          bzLogoImage: await PicProtocols.fetchPicUiImage(
+            path: StoragePath.bzz_bzID_logo(draft.bzID),
+          ),
+          // docSnapshot: ,
+        );
+
+      }
 
     }
 
@@ -324,8 +320,7 @@ class DraftFlyer{
         'trigram' : Stringer.createTrigram(input: draft.headline?.text),
         'description' : draft.description?.text,
         'flyerType' : FlyerTyper.cipherFlyerType(draft.flyerType),
-        'publishState' : FlyerModel.cipherPublishState(draft.publishState),
-        'auditState' : FlyerModel.cipherAuditState(draft.auditState),
+        'publishState' : PublicationModel.cipherPublishState(draft.publishState),
         'phids' : draft.phids,
         'showsAuthor' : draft.showsAuthor,
         'zone' : draft.zone?.toMap(),
@@ -365,8 +360,7 @@ class DraftFlyer{
         trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
         description: TextEditingController(text: map['description']),
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
-        publishState: FlyerModel.decipherPublishState(map['publishState']),
-        auditState: FlyerModel.decipherAuditState(map['auditState']),
+        publishState: PublicationModel.decipherPublishState(map['publishState']),
         phids: Stringer.getStringsFromDynamics(dynamics: map['phids']),
         showsAuthor: map['showsAuthor'],
         zone: ZoneModel.decipherZone(map['zone']),
@@ -409,8 +403,7 @@ class DraftFlyer{
     TextEditingController? description,
     FocusNode? descriptionNode,
     FlyerType? flyerType,
-    OldPublishState? publishState,
-    AuditState? auditState,
+    PublishState? publishState,
     List<String>? phids,
     bool? showsAuthor,
     ZoneModel? zone,
@@ -443,7 +436,6 @@ class DraftFlyer{
       descriptionNode: descriptionNode ?? this.descriptionNode,
       flyerType: flyerType ?? this.flyerType,
       publishState: publishState ?? this.publishState,
-      auditState: auditState ?? this.auditState,
       phids: phids ?? this.phids,
       showsAuthor: showsAuthor ?? this.showsAuthor,
       zone: zone ?? this.zone,
@@ -477,7 +469,6 @@ class DraftFlyer{
     bool descriptionNode = false,
     bool flyerType = false,
     bool publishState = false,
-    bool auditState = false,
     bool phids = false,
     bool showsAuthor = false,
     bool zone = false,
@@ -509,7 +500,6 @@ class DraftFlyer{
       descriptionNode: descriptionNode == true ? null : this.descriptionNode,
       flyerType: flyerType == true ? null : this.flyerType,
       publishState: publishState == true ? null : this.publishState,
-      auditState: auditState == true ? null : this.auditState,
       phids: phids == true ? [] : this.phids,
       showsAuthor: showsAuthor == true ? null : this.showsAuthor,
       zone: zone == true ? null : this.zone,
@@ -558,14 +548,15 @@ class DraftFlyer{
     final String? _timeString = BldrsTimers.generateString_hh_i_mm_ampm_day_dd_month_yyyy(
       time: publishTime?.time,
     );
-    final String? _stateString = FlyerModel.getPublishStatePhid(publishTime?.state);
+    final String? _statePhid = PublicationModel.getPublishStatePhid(publishTime?.state);
+    final String? _stateString = xPhrase(_statePhid);
 
     return '$_stateString @ $_timeString';
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static String generateShelfTitle({
-    required OldPublishState publishState,
+    required PublishState publishState,
     required List<PublishTime> times,
     required int shelfNumber,
   }){
@@ -703,7 +694,6 @@ class DraftFlyer{
       blog('description : $description');
       blog('flyerType : $flyerType');
       blog('publishState : $publishState');
-      blog('auditState : auditState');
       blog('keywordsIDs : $phids');
       blog('showsAuthor : $showsAuthor');
       zone?.blogZone();
@@ -761,9 +751,6 @@ class DraftFlyer{
       }
       if (draft1.publishState != draft2.publishState){
         blog('publishStates are not identical');
-      }
-      if (draft1.auditState != draft2.auditState){
-        blog('auditStates are not identical');
       }
       if (Mapper.checkListsAreIdentical(list1: draft1.phids, list2: draft2.phids) == false){
         blog('keywordsIDs are not identical');
@@ -871,7 +858,7 @@ class DraftFlyer{
 
         final PublishTime? _publishTime = PublishTime.getPublishTimeFromTimes(
           times: draft.times,
-          state: OldPublishState.published,
+          state: PublishState.published,
         );
 
         final int _days = Timers.calculateTimeDifferenceInDays(
@@ -954,7 +941,6 @@ class DraftFlyer{
           // FocusNode descriptionNode,
           draft1.flyerType == draft2.flyerType &&
           draft1.publishState == draft2.publishState &&
-          draft1.auditState == draft2.auditState &&
           Mapper.checkListsAreIdentical(list1: draft1.phids, list2: draft2.phids) == true &&
           draft1.showsAuthor == draft2.showsAuthor &&
           ZoneModel.checkZonesAreIdentical(zone1: draft1.zone, zone2: draft2.zone) == true &&
@@ -1025,7 +1011,6 @@ class DraftFlyer{
       descriptionNode.hashCode^
       flyerType.hashCode^
       publishState.hashCode^
-      auditState.hashCode^
       phids.hashCode^
       showsAuthor.hashCode^
       zone.hashCode^

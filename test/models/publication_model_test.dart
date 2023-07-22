@@ -542,7 +542,7 @@ void main() {
         state: PublishState.pending,
       );
 
-      expect(result, PublicationModel(drafts: [], pendings: ['newFlyer'], published: [], unpublished: [], suspended: []));
+      expect(result, const PublicationModel(drafts: [], pendings: ['newFlyer'], published: [], unpublished: [], suspended: []));
     });
   });
 

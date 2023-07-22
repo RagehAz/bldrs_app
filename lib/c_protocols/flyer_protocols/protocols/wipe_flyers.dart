@@ -160,69 +160,79 @@ class WipeFlyerProtocols {
         bzID: bzID,
       );
 
-      Future<void> _wipeAFlyer(String? flyerID) async {
+      if (_oldBz != null){
 
-        final FlyerModel? _flyerModel = await FlyerProtocols.fetchFlyer(
-          context: getMainContext(),
-          flyerID: flyerID,
-        );
+        Future<void> _wipeAFlyer(String? flyerID) async {
 
-        if (_flyerModel != null && _flyerModel.id != null){
+          final FlyerModel? _flyerModel = await FlyerProtocols.fetchFlyer(
+            context: getMainContext(),
+            flyerID: flyerID,
+          );
 
-          await Future.wait(<Future>[
+          if (_flyerModel != null && _flyerModel.id != null){
 
-            /// REMOVE SPECS FROM CITY CHAIN USAGE
-            ZonePhidsRealOps.incrementFlyerCityPhids(
-              flyerModel: _flyerModel,
-              isIncrementing: false,
-            ),
+            await Future.wait(<Future>[
 
-            /// DELETE SLIDES PICS + PDF + POSTER
-            BldrsCloudFunctions.deleteStorageDirectory(
-              context: getMainContext(),
-              path: StoragePath.flyers_flyerID(flyerID: flyerID),
-            ),
+              /// REMOVE SPECS FROM CITY CHAIN USAGE
+              ZonePhidsRealOps.incrementFlyerCityPhids(
+                flyerModel: _flyerModel,
+                isIncrementing: false,
+              ),
 
-            /// DELETE LDB SLIDES AND POSTER PICS + PDF
-            PicLDBOps.deletePics(FlyerModel.getPicsPaths(_flyerModel)),
-            PicLDBOps.deletePic(StoragePath.flyers_flyerID_poster(_flyerModel.id)),
-            PDFLDBOps.delete(_flyerModel.pdfPath),
+              /// DELETE SLIDES PICS + PDF + POSTER
+              BldrsCloudFunctions.deleteStorageDirectory(
+                context: getMainContext(),
+                path: StoragePath.flyers_flyerID(flyerID: flyerID),
+              ),
 
-            /// CENSUS
-            CensusListener.onWipeFlyer(_flyerModel),
+              /// DELETE LDB SLIDES AND POSTER PICS + PDF
+              PicLDBOps.deletePics(FlyerModel.getPicsPaths(_flyerModel)),
+              PicLDBOps.deletePic(StoragePath.flyers_flyerID_poster(_flyerModel.id)),
+              PDFLDBOps.delete(_flyerModel.pdfPath),
 
-            /// REMOVE FLYER DOC
-            FlyerFireOps.deleteFlyerDoc(
-              flyerID: _flyerModel.id,
-            ),
+              /// CENSUS
+              CensusListener.onWipeFlyer(_flyerModel),
 
-            /// REMOVE FLYER LOCALLY
-            deleteFlyersLocally(
-              flyersIDs: <String>[_flyerModel.id!],
-            ),
+              /// REMOVE FLYER DOC
+              FlyerFireOps.deleteFlyerDoc(
+                flyerID: _flyerModel.id,
+              ),
 
-          ]);
+              /// REMOVE FLYER LOCALLY
+              deleteFlyersLocally(
+                flyersIDs: <String>[_flyerModel.id!],
+              ),
+
+            ]);
+
+          }
 
         }
 
+        final List<String> _flyersIDs = _oldBz.publication.getAllFlyersIDs();
+
+        await Future.wait(<Future>[
+
+          /// WIPE FLYERS
+          if (Mapper.checkCanLoopList(_flyersIDs) == true)
+            ...List.generate(_flyersIDs.length, (index){
+
+              final String _flyerID = _flyersIDs[index];
+
+              return _wipeAFlyer(_flyerID);
+
+            }),
+
+          /// WIPE FLYER REVIEWS
+          ReviewProtocols.onWipeBz(
+            flyersIDs: _flyersIDs,
+            bzID: _oldBz.id,
+          ),
+
+        ]);
+
       }
 
-      await Future.wait(<Future>[
-
-        /// WIPE FLYERS
-        if (Mapper.checkCanLoopList(_oldBz?.flyersIDs) == true)
-          ...List.generate(_oldBz!.flyersIDs!.length, (index){
-            final String _flyerID = _oldBz.flyersIDs![index];
-            return _wipeAFlyer(_flyerID);
-          }),
-
-        /// WIPE FLYER REVIEWS
-        ReviewProtocols.onWipeBz(
-          flyersIDs: _oldBz?.flyersIDs,
-          bzID: _oldBz?.id,
-        ),
-
-      ]);
 
     }
 
@@ -263,7 +273,7 @@ class WipeFlyerProtocols {
       if (_bzModel != null){
 
        await deleteFlyersLocally(
-           flyersIDs: _bzModel.flyersIDs,
+           flyersIDs: _bzModel.publication.getAllFlyersIDs(),
        );
 
       }

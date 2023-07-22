@@ -54,7 +54,7 @@ class FlyerSelectionStack extends StatelessWidget {
     //
     final bool _selectionMode = selectionMode ?? false;
 
-    final bool _showAuditLayer = FlyerAuditLayer.showAuditLayer(flyerModel?.auditState);
+    final bool _showAuditLayer = FlyerAuditLayer.showAuditLayer(flyerModel?.publishState);
     final bool _showOptionsButton = onFlyerOptionsTap != null;
 
     final bool _canBuildSelectionStack =
@@ -97,7 +97,7 @@ class FlyerSelectionStack extends StatelessWidget {
           if (_showAuditLayer == true && _tinyMode == true)
             FlyerAuditLayer(
               flyerBoxWidth: flyerBoxWidth,
-              auditState: flyerModel?.auditState,
+              publishState: flyerModel?.publishState,
             ),
 
           /// IS-SELECTED GRAPHIC LAYER

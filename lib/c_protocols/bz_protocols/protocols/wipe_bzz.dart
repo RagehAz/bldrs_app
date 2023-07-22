@@ -131,7 +131,7 @@ class WipeBzProtocols {
   }) async {
 
       final String _text =  '${Verse.transBake('phid_deleting')} '
-                            '${bzModel?.flyersIDs?.length} '
+                            '${bzModel?.publication.getAllFlyersIDs().length} '
                             '${Verse.transBake('phid_flyers')}';
 
       pushWaitDialog(
@@ -169,7 +169,7 @@ class WipeBzProtocols {
 
       /// DELETE ALL BZ FLYERS LOCALLY
       FlyerProtocols.deleteFlyersLocally(
-        flyersIDs: _bzModel?.flyersIDs,
+        flyersIDs: _bzModel?.publication.getAllFlyersIDs(),
       ),
 
       /// DELETE BZ ON LDB
