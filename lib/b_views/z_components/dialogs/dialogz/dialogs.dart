@@ -1046,5 +1046,60 @@ class Dialogs {
 
   }
   // --------------------
+  static Future<String?> languageDialog() async {
+    String? _output;
 
+    final BuildContext context = getMainContext();
+    final double _screenHeight = Scale.screenHeight(context);
+    final double _dialogHeight = _screenHeight * 0.6;
+    final double _buttonWidth = CenterDialog.getWidth(context);
+
+    await CenterDialog.showCenterDialog(
+      titleVerse: Verse.plain('Select You preferred app language'),
+      bodyVerse: Verse.plain('حدد لغة التطبيق التي تفضلها'),
+      height: _dialogHeight,
+      boolDialog: null,
+      // copyOnTap: false,
+      child: Container(
+        width: _buttonWidth,
+        alignment: Alignment.center,
+        child: Column(
+          children: <Widget>[
+
+            BldrsBox(
+              height: 50,
+              width: _buttonWidth * 0.6,
+              verseScaleFactor: 0.8,
+              verseWeight: VerseWeight.thin,
+              verse: Verse.plain('English'),
+              margins: const EdgeInsets.only(bottom: 10, top: 10),
+              color: Colorz.white10,
+              onTap: () async {
+                _output = 'en';
+                await Nav.goBack(context: context);
+              },
+            ),
+
+            BldrsBox(
+              height: 50,
+              width: _buttonWidth * 0.6,
+              verseScaleFactor: 0.8,
+              verseWeight: VerseWeight.thin,
+              verse: Verse.plain('العربية'),
+              margins: const EdgeInsets.only(bottom: 10),
+              color: Colorz.white10,
+              onTap: () async {
+                _output = 'ar';
+                await Nav.goBack(context: context);
+              },
+            ),
+
+          ],
+        ),
+      ),
+    );
+
+    return _output;
+  }
+  // --------------------
 }

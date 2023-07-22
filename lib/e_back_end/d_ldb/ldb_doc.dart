@@ -289,7 +289,7 @@ class LDBDoc {
       reviewEditor: true,
       theLastWipe: true,
       appState: true,
-      langCode: true,
+      langCode: false, // lets always keep user language for life
       gta: true,
     );
 
