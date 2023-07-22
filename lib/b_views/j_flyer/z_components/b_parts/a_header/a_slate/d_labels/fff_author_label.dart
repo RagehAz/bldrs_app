@@ -127,7 +127,7 @@ class AuthorLabel extends StatelessWidget {
                         verse: FlyerVerses.followersCounters(
                           followersCount: 0,
                           authorGalleryCount: _author?.flyersIDs?.length ?? 0,
-                          bzGalleryCount: bzModel?.flyersIDs?.length ?? 0,
+                          bzGalleryCount: bzModel?.publication.published.length ?? 0,
                           showLabel: showLabel,
                         ),
                         italic: true,

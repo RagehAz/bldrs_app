@@ -9,6 +9,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
@@ -20,17 +21,17 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 
-enum OldPublishState{
-  draft,
-  published,
-  unpublished,
-}
-
-enum AuditState{
-  verified,
-  suspended,
-  pending,
-}
+// enum OldPublishState{
+//   draft,
+//   published,
+//   unpublished,
+// }
+//
+// enum AuditState{
+//   verified,
+//   suspended,
+//   pending,
+// }
 
 /// TAMAM
 @immutable
@@ -43,7 +44,6 @@ class FlyerModel {
     required this.description,
     required this.flyerType,
     required this.publishState,
-    required this.auditState,
     required this.phids,
     required this.zone,
     required this.authorID,
@@ -72,8 +72,7 @@ class FlyerModel {
   final List<String>? trigram;
   final String? description;
   final FlyerType? flyerType;
-  final OldPublishState? publishState;
-  final AuditState? auditState;
+  final PublishState publishState;
   final List<String>? phids;
   final bool? showsAuthor;
   final ZoneModel? zone;
@@ -107,8 +106,7 @@ class FlyerModel {
     List<String>? trigram,
     String? description,
     FlyerType? flyerType,
-    OldPublishState? publishState,
-    AuditState? auditState,
+    PublishState? publishState,
     List<String>? phids,
     bool? showsAuthor,
     ZoneModel? zone,
@@ -140,7 +138,6 @@ class FlyerModel {
       description: description ?? this.description,
       flyerType: flyerType ?? this.flyerType,
       publishState: publishState ?? this.publishState,
-      auditState: auditState ?? this.auditState,
       phids: phids ?? this.phids,
       showsAuthor: showsAuthor ?? this.showsAuthor,
       zone: zone ?? this.zone,
@@ -181,8 +178,7 @@ class FlyerModel {
       'description' : description,
       // -------------------------
       'flyerType' : FlyerTyper.cipherFlyerType(flyerType),
-      'publishState' : cipherPublishState(publishState),
-      'auditState' : cipherAuditState(auditState),
+      'publishState' : PublicationModel.cipherPublishState(publishState),
       'phids' : phids,
       'showsAuthor' : showsAuthor,
       'zone' : zone?.toMap(),
@@ -245,8 +241,7 @@ class FlyerModel {
         description: map['description'],
         // -------------------------
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
-        publishState: decipherPublishState(map['publishState']),
-        auditState: decipherAuditState(map['auditState']),
+        publishState: PublicationModel.decipherPublishState(map['publishState']),
         phids: Stringer.getStringsFromDynamics(dynamics: map['phids']),
         showsAuthor: map['showsAuthor'],
         zone: ZoneModel.decipherZone(map['zone']),
@@ -389,88 +384,6 @@ class FlyerModel {
   }
   // -----------------------------------------------------------------------------
 
-  /// PUBLISH STATE CYPHERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String? cipherPublishState (OldPublishState? x){
-    switch (x){
-      case OldPublishState.draft         :     return  'draft'       ;
-      case OldPublishState.published     :     return  'published'   ;
-      case OldPublishState.unpublished   :     return  'unpublished' ;
-      default : return null;
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static OldPublishState? decipherPublishState (String? x){
-    switch (x){
-      case 'draft'       :   return  OldPublishState.draft;
-      case 'published'   :   return  OldPublishState.published;
-      case 'unpublished' :   return  OldPublishState.unpublished;
-      default : return   null;
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const List<OldPublishState> publishStates = <OldPublishState>[
-    OldPublishState.draft,
-    OldPublishState.published,
-    OldPublishState.unpublished,
-  ];
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String? getPublishStatePhid(OldPublishState? state){
-    switch (state){
-      case OldPublishState.published     :     return  'phid_published'          ;
-      case OldPublishState.draft         :     return  'phid_draft_flyer'        ;
-      case OldPublishState.unpublished   :     return  'phid_unpublished_flyer'  ;
-      default : return null;
-    }
-  }
-  // -----------------------------------------------------------------------------
-
-  /// AUDIT STATE CYPHERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String? cipherAuditState(AuditState? auditState){
-    switch(auditState){
-      case AuditState.verified:     return 'verified';
-      case AuditState.suspended:    return 'suspended';
-      case AuditState.pending:      return 'pending';
-      default: return null;
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static AuditState? decipherAuditState(String? state){
-    switch(state){
-      case 'verified':  return AuditState.verified;
-      case 'suspended': return AuditState.suspended;
-      case 'pending':   return AuditState.pending;
-      default: return null;
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const List<AuditState> auditStates = <AuditState>[
-    AuditState.verified,
-    AuditState.suspended,
-    AuditState.pending,
-  ];
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String? getAuditStatePhid(AuditState? state){
-    switch (state){
-      case AuditState.verified  : return 'phid_verified_flyer'  ;
-      case AuditState.suspended : return 'phid_suspended_flyer' ;
-      case AuditState.pending   : return 'phid_pending_flyer'   ;
-      default : return null;
-    }
-  }
-  // -----------------------------------------------------------------------------
-
   /// FLYER BLOGGING
 
   // --------------------
@@ -491,7 +404,6 @@ class FlyerModel {
     blog('description : $description');
     blog('flyerType : $flyerType');
     blog('publishState : $publishState');
-    blog('auditState : $auditState');
     blog('phids : $phids');
     blog('showsAuthor : $showsAuthor');
     blog('zone : $zone');
@@ -563,9 +475,6 @@ class FlyerModel {
       }
       if (flyer1.publishState != flyer2.publishState){
         blog('flyers publishStates are not identical');
-      }
-      if (flyer1.auditState != flyer2.auditState){
-        blog('flyers auditStates are not identical');
       }
       if (Mapper.checkListsAreIdentical(list1: flyer1.phids, list2: flyer2.phids) == false){
         blog('flyers keywordsIDs are not identical');
@@ -645,8 +554,7 @@ class FlyerModel {
       description: 'This is a dummy flyer',
       authorID: 'x',
       flyerType : FlyerType.property,
-      publishState : OldPublishState.published,
-      auditState: AuditState.verified,
+      publishState : PublishState.published,
       phids : const <String>[],
       showsAuthor : true,
       bzID: 'br1',
@@ -656,7 +564,7 @@ class FlyerModel {
       ],
       specs : SpecModel.dummySpecs(),
       times : <PublishTime>[
-        PublishTime(state: OldPublishState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
+        PublishTime(state: PublishState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
       ],
       hasPriceTag: false,
       hasPDF: false,
@@ -1119,7 +1027,6 @@ class FlyerModel {
           flyer1.description == flyer2.description &&
           flyer1.flyerType == flyer2.flyerType &&
           flyer1.publishState == flyer2.publishState &&
-          flyer1.auditState == flyer2.auditState &&
           Mapper.checkListsAreIdentical(list1: flyer1.phids, list2: flyer2.phids) == true &&
           flyer1.showsAuthor == flyer2.showsAuthor &&
           ZoneModel.checkZonesIDsAreIdentical(zone1: flyer1.zone, zone2: flyer2.zone) == true &&
@@ -1194,7 +1101,6 @@ class FlyerModel {
       description.hashCode^
       flyerType.hashCode^
       publishState.hashCode^
-      auditState.hashCode^
       phids.hashCode^
       zone.hashCode^
       authorID.hashCode^

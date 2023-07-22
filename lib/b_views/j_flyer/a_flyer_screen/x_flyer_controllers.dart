@@ -309,9 +309,9 @@ bool canShowGalleryPage({
   if (canShowGallerySlide == true){
     // if (bzModel != null){
 
-      if (Mapper.checkCanLoopList(bzModel?.flyersIDs) == true){
+      if (Mapper.checkCanLoopList(bzModel?.publication.published) == true){
 
-        final bool _bzHasMoreThanOneFlyer = (bzModel?.flyersIDs?.length ?? 0) > 1;
+        final bool _bzHasMoreThanOneFlyer = (bzModel?.publication.published.length ?? 0) > 1;
 
         // final bool isGalleryFlyer = checkFlyerHeroTagHasGalleryFlyerID(heroPath);
 
@@ -415,7 +415,7 @@ Future<List<FlyerModel>> fetchMoreFlyers({
     flyerModel: flyerModel,
     heroTag: heroTag,
     allFlyersIDsWithoutParentFlyerID: Stringer.removeStringsFromStrings(
-        removeFrom: bzModel.flyersIDs,
+        removeFrom: bzModel.publication.published,
         removeThis: flyerModel.id == null ? [] : [flyerModel.id!],
     ),
     loadedFlyersIDs: _loadedFlyersIDs,

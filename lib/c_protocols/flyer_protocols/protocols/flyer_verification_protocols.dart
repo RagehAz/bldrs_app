@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -35,21 +37,29 @@ class FlyerVerificationProtocols {
     if (
         flyerModel?.id != null &&
         flyerModel?.bzID != null &&
-        flyerModel?.auditState != AuditState.verified
+        flyerModel?.publishState != PublishState.published
     ) {
 
       if (showWaitAndSuccessDialogs == true){
         pushWaitDialog();
       }
 
+      final List<PublishTime> _publishTimes = <PublishTime>[...?flyerModel!.times];
+      _publishTimes.add(PublishTime(
+        state: PublishState.published,
+        time: DateTime.now(),
+      ));
+
+      final FlyerModel _newFlyer = flyerModel.copyWith(
+        publishState: PublishState.published,
+        times: _publishTimes,
+      );
+
       await Future.wait(<Future>[
 
-        /// UPDATE FIELD
-        Fire.updateDocField(
-          coll: FireColl.flyers,
-          doc: flyerModel!.id!,
-          field: 'auditState',
-          input: FlyerModel.cipherAuditState(AuditState.verified),
+        FlyerProtocols.renovateFlyer(
+          oldFlyer: flyerModel,
+          newFlyer: _newFlyer,
         ),
 
         /// SEND VERIFICATION NOTE
@@ -61,15 +71,6 @@ class FlyerVerificationProtocols {
         ),
 
       ]);
-
-      /// LOCAL UPDATE
-      await FlyerProtocols.updateFlyerLocally(
-        notifyFlyerPro: true,
-        resetActiveBz: false,
-        flyerModel: flyerModel.copyWith(
-          auditState: AuditState.verified,
-        ),
-      );
 
       if (showWaitAndSuccessDialogs == true){
 
@@ -158,9 +159,9 @@ class FlyerVerificationProtocols {
           ),
 
           FireFinder(
-            field: 'auditState',
+            field: 'publishState',
             comparison: FireComparison.equalTo,
-            value: FlyerModel.cipherAuditState(AuditState.pending),
+            value: PublicationModel.cipherPublishState(PublishState.pending),
           ),
 
         ],

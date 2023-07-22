@@ -1,7 +1,7 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/m_search/bz_search_model.dart';
 import 'package:bldrs/a_models/m_search/flyer_search_model.dart';
@@ -318,8 +318,7 @@ class SearchModel {
         onlyWithPDF: true,
         onlyAmazonProducts: true,
         phid: 'phid_k_prd_app_drink_blender',
-        publishState: OldPublishState.draft,
-        auditState: AuditState.pending,
+        publishState: PublishState.draft,
       ),
       bzSearchModel: const BzSearchModel(
         bzType: BzType.contractor,
@@ -403,7 +402,6 @@ class SearchModel {
       ),
       flyerSearchModel: FlyerSearchModel(
         flyerType: ${flyerSearchModel?.flyerType},
-        auditState: ${flyerSearchModel?.auditState},
         publishState: ${flyerSearchModel?.publishState},
         phid: ${flyerSearchModel?.phid},
         onlyAmazonProducts: ${flyerSearchModel?.onlyAmazonProducts},

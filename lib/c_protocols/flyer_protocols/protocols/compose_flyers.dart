@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
@@ -24,7 +25,6 @@ import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 
 class ComposeFlyerProtocols {
@@ -152,30 +152,36 @@ class ComposeFlyerProtocols {
         bzID: newFlyerToAdd.bzID,
       );
 
-      final List<String> _newBzFlyersIDs = Stringer.addStringToListIfDoesNotContainIt(
-        strings: _oldBz?.flyersIDs,
-        stringToAdd: newFlyerToAdd.id,
-      );
+      if (_oldBz != null ){
 
-      final List<AuthorModel> _newAuthors = AuthorModel.addFlyerIDToAuthor(
-        flyerID: newFlyerToAdd.id,
-        authorID: newFlyerToAdd.authorID,
-        oldAuthors: _oldBz?.authors,
-      );
+        final PublicationModel _pub = PublicationModel.insertFlyerInPublications(
+            pub: _oldBz.publication,
+            flyerID: newFlyerToAdd.id!,
+            toState: newFlyerToAdd.publishState,
+        );
 
-      final BzModel? _newBz = _oldBz?.copyWith(
-        flyersIDs: _newBzFlyersIDs,
-        authors: _newAuthors,
-      );
+        final List<AuthorModel> _newAuthors = AuthorModel.addFlyerIDToAuthor(
+          flyerID: newFlyerToAdd.id,
+          authorID: newFlyerToAdd.authorID,
+          oldAuthors: _oldBz.authors,
+        );
 
-      // final BzModel _uploadedBzModel =
-      await BzProtocols.renovateBz(
-        context: getMainContext(),
-        newBz: _newBz,
-        oldBz: _oldBz,
-        showWaitDialog: false,
-        newLogo: null,
-      );
+        final BzModel? _newBz = _oldBz.copyWith(
+          publication: _pub,
+          authors: _newAuthors,
+        );
+
+        // final BzModel _uploadedBzModel =
+        await BzProtocols.renovateBz(
+          context: getMainContext(),
+          newBz: _newBz,
+          oldBz: _oldBz,
+          showWaitDialog: false,
+          newLogo: null,
+        );
+
+      }
+
 
     }
 

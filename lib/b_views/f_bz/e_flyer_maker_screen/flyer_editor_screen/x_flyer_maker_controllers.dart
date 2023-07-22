@@ -619,7 +619,7 @@ Future<void> _updateFlyerOps({
     bzID: draft?.bzID,
   );
 
-  await FlyerProtocols.renovate(
+  await FlyerProtocols.renovateDraft(
     context: context,
     newDraft: draft,
     oldFlyer: oldFlyer,

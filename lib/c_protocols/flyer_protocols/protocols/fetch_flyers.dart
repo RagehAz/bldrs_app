@@ -1,6 +1,7 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
@@ -158,71 +159,76 @@ class FetchFlyerProtocols {
           bzID: bzID,
       );
 
-      if (Mapper.checkCanLoopList(bzModel?.flyersIDs) == true){
+      if (bzModel != null){
 
-        final List<SlideModel> _bzSlides = <SlideModel>[];
+        final List<String>? _ids = bzModel.publication.published;
 
-        for (int i = 0; i < bzModel!.flyersIDs!.length; i++){
+        if (Mapper.checkCanLoopList(_ids) == true){
 
-          final String _flyerID = bzModel.flyersIDs![i];
+          final List<SlideModel> _bzSlides = <SlideModel>[];
 
-          final FlyerModel? _flyer = await fetchFlyer(
-            context: context,
-            flyerID: _flyerID,
-          );
+          for (int i = 0; i < _ids!.length; i++){
 
-          if (Mapper.checkCanLoopList(_flyer?.slides) == true){
+            final String _flyerID = _ids[i];
 
-            for (final SlideModel _slide in _flyer!.slides!) {
-              _bzSlides.add(_slide);
+            final FlyerModel? _flyer = await fetchFlyer(
+              context: context,
+              flyerID: _flyerID,
+            );
 
-              blog('added slide with index ${_slide.slideIndex}');
+            if (Mapper.checkCanLoopList(_flyer?.slides) == true){
+
+              for (final SlideModel _slide in _flyer!.slides!) {
+                _bzSlides.add(_slide);
+
+                blog('added slide with index ${_slide.slideIndex}');
+
+                if (_bzSlides.length >= maxSlides) {
+                  blog('breaking _bzSlides.length ${_bzSlides.length} : maxSlides $maxSlides : ${_bzSlides.length >= maxSlides}');
+                  break;
+                }
+              }
 
               if (_bzSlides.length >= maxSlides) {
-                blog('breaking _bzSlides.length ${_bzSlides.length} : maxSlides $maxSlides : ${_bzSlides.length >= maxSlides}');
                 break;
               }
-            }
 
-            if (_bzSlides.length >= maxSlides) {
-              break;
             }
 
           }
 
-        }
+          if (_bzSlides.isNotEmpty == true){
 
-        if (_bzSlides.isNotEmpty == true){
+            _flyer = FlyerModel(
+              id: 'combinedSlidesInOneFlyer_${bzModel.id}',
+              headline: _bzSlides[0].headline,
+              trigram: const [],
+              description: null,
+              flyerType: null,
+              publishState: PublishState.published,
+              phids: const [],
+              zone: bzModel.zone,
+              authorID: null,
+              bzID: bzModel.id,
+              position: null,
+              slides: _bzSlides,
+              specs: const [],
+              times: const [],
+              hasPriceTag: false,
+              hasPDF: false,
+              shareLink: null,
+              isAmazonFlyer: false,
+              showsAuthor: false,
+              score: null,
+              pdfPath: null,
+            );
 
-          _flyer = FlyerModel(
-            id: 'combinedSlidesInOneFlyer_${bzModel.id}',
-            headline: _bzSlides[0].headline,
-            trigram: const [],
-            description: null,
-            flyerType: null,
-            publishState: OldPublishState.published,
-            auditState: AuditState.verified,
-            phids: const [],
-            zone: bzModel.zone,
-            authorID: null,
-            bzID: bzModel.id,
-            position: null,
-            slides: _bzSlides,
-            specs: const [],
-            times: const [],
-            hasPriceTag: false,
-            hasPDF: false,
-            shareLink: null,
-            isAmazonFlyer: false,
-            showsAuthor: false,
-            score: null,
-            pdfPath: null,
-          );
+            _flyer = await FlyerProtocols.renderBigFlyer(
+                flyerModel: _flyer,
+                onRenderEachSlide: (FlyerModel flyer){}
+            );
 
-          _flyer = await FlyerProtocols.renderBigFlyer(
-            flyerModel: _flyer,
-            onRenderEachSlide: (FlyerModel flyer){}
-          );
+          }
 
         }
 

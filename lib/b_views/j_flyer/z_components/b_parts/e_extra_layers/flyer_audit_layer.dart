@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -12,18 +12,18 @@ class FlyerAuditLayer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerAuditLayer({
     required this.flyerBoxWidth,
-    required this.auditState,
+    required this.publishState,
     super.key
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final AuditState? auditState;
+  final PublishState? publishState;
   /// --------------------------------------------------------------------------
-  static bool showAuditLayer(AuditState? auditState){
+  static bool showAuditLayer(PublishState? state){
     final bool _shouldHide =
-            auditState == null
+            state == null
             ||
-            auditState == AuditState.verified;
+            state == PublishState.published;
 
     return !_shouldHide;
   }
@@ -32,7 +32,7 @@ class FlyerAuditLayer extends StatelessWidget {
   Widget build(BuildContext context) {
 
     /// IF VERIFIED 0R NULL
-    if (showAuditLayer(auditState) == false) {
+    if (showAuditLayer(publishState) == false) {
       return const SizedBox();
     }
 
@@ -40,9 +40,9 @@ class FlyerAuditLayer extends StatelessWidget {
     else {
 
       final String? _phid =
-      auditState == AuditState.pending ? 'phid_waiting_verification'
+      publishState == PublishState.pending ? 'phid_waiting_verification'
           :
-      auditState == AuditState.suspended ? 'phid_suspended'
+      publishState == PublishState.suspended ? 'phid_suspended'
           :
           null;
 

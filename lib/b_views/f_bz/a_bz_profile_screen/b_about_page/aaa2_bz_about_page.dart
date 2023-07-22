@@ -112,7 +112,7 @@ class AboutBzBubbles extends StatelessWidget {
     final double _flyerHeight = FlyerDim.flyerHeightByFlyerWidth(
       flyerBoxWidth: flyerBoxWidth,
     );
-    final int _numberOfFlyers = bzModel?.flyersIDs?.length ?? 0;
+    final int _numberOfFlyers = bzModel?.publication.published.length ?? 0;
     final double _gridHeight = (_flyerHeight + _spacing) * (_numberOfFlyers / 2).ceil();
 
 
@@ -218,7 +218,7 @@ class AboutBzBubbles extends StatelessWidget {
         /// BZ FLYERS
         if (showGallery == true)
           FlyersGrid(
-            flyersIDs: bzModel?.flyersIDs,
+            flyersIDs: bzModel?.publication.published,
             topPadding: 0,
             screenName: 'BzAboutPageFlyersGrid',
             gridHeight: _gridHeight,

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/m_search/flyer_search_model.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
@@ -30,8 +30,7 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
             context: context,
             listen: true,
           ),
-          auditState: AuditState.verified,
-          publishState: OldPublishState.published,
+          publishState: PublishState.published,
           // onlyAmazonProducts: null,
           // onlyWithPDF: null,
           // onlyShowingAuthors: null,
@@ -68,16 +67,10 @@ FireQueryModel flyerAuditingPaginationQuery(){
     finders: <FireFinder>[
 
       FireFinder(
-        field: 'auditState',
+        field: 'publishState',
         comparison: FireComparison.equalTo,
-        value: FlyerModel.cipherAuditState(AuditState.pending),
+        value: PublicationModel.cipherPublishState(PublishState.pending),
       ),
-
-      // FireFinder(
-      //   field: 'publishState',
-      //   comparison: FireComparison.equalTo,
-      //   value: FlyerModel.cipherAuditState(AuditState.),
-      // ),
 
     ],
   );

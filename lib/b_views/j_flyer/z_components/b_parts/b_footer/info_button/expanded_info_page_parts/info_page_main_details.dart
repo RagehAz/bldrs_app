@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/stats_line.dart';
@@ -60,7 +61,7 @@ class InfoPageMainDetails extends StatelessWidget {
     // --------------------
     final DateTime? _from = PublishTime.getPublishTimeFromTimes(
         times: flyerModel?.times,
-        state: OldPublishState.published
+        state: PublishState.published
     )?.time;
     // --------------------
     final String _timeDifferance = BldrsTimers.calculateSuperTimeDifferenceString(
