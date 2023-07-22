@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 
 class SomethingWrongRestartButton extends StatelessWidget {
@@ -35,9 +36,9 @@ class SomethingWrongRestartButton extends StatelessWidget {
           child: BldrsBox(
             height: Scale.screenShortestSide(context) * 0.12,
             corners: 35,
-            verse: const Verse(
-              id: 'phid_something_went_wrong',
-              translate: true,
+            verse: Verse(
+              id: Words.somethingWentWrong(),
+              translate: false,
             ),
             icon: Iconz.yellowAlert,
             iconSizeFactor: 0.6,
@@ -45,10 +46,11 @@ class SomethingWrongRestartButton extends StatelessWidget {
             secondLineScaleFactor: 0.7,
             verseCentered: false,
             verseWeight: VerseWeight.thin,
-            secondLine: const Verse(
-              id: 'phid_clean_and_restart',
-              translate: true,
-            ),
+            verseMaxLines: 3,
+            // secondLine: const Verse(
+            //   id: 'phid_clean_and_restart',
+            //   translate: true,
+            // ),
             onTap: () => BldrsNav.goToLogoScreenAndRemoveAllBelow(animatedLogoScreen: false),
           ),
         ),
