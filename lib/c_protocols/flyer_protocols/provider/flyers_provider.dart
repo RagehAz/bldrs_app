@@ -136,7 +136,50 @@ class FlyersProvider extends ChangeNotifier {
 
     return _bzFlyers;
   }
+  // -----------------------------------------------------------------------------
 
+  /// ZOOMED FLYER
+
+  // --------------------
+  FlyerModel? _zoomedFlyer;
+  FlyerModel? get zoomedFlyer => _zoomedFlyer;
+  // --------------------
+  static FlyerModel? proGetZoomedFlyer({
+    required bool listen,
+    required BuildContext context,
+  }){
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    return _flyersProvider.zoomedFlyer;
+  }
+  // --------------------
+  static void proSetZoomedFlyer({
+    required BuildContext context,
+    required FlyerModel? flyerModel,
+    required bool notify,
+  }){
+
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    _flyersProvider.setZoomedFlyer(
+        flyerModel: flyerModel,
+        notify: notify
+    );
+
+  }
+  // --------------------
+  void setZoomedFlyer({
+    required FlyerModel? flyerModel,
+    required bool notify,
+  }) {
+
+    if (_zoomedFlyer != flyerModel){
+      _zoomedFlyer = flyerModel;
+      if (notify == true){
+        notifyListeners();
+      }
+    }
+
+
+  }
   // -----------------------------------------------------------------------------
 
   /// SELECTED FLYERS
@@ -211,8 +254,11 @@ class FlyersProvider extends ChangeNotifier {
 
     /// _selectedFlyers
     _flyersProvider.clearSelectedFlyers(
-      notify: true,
+      notify: false,
     );
+
+    /// _zoomedFLyer
+    _flyersProvider.setZoomedFlyer(flyerModel: null, notify: notify);
 
   }
   // -----------------------------------------------------------------------------

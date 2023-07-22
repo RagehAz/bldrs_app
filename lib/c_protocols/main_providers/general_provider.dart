@@ -2,6 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
+import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -20,6 +21,39 @@ import 'package:provider/provider.dart';
 class GeneralProvider extends ChangeNotifier {
   // -----------------------------------------------------------------------------
 
+  /// GLOBAL APP STATE
+
+  // --------------------
+  AppStateModel? _globalAppState;
+  AppStateModel? get globalAppState => _globalAppState;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static AppStateModel? proGetGlobalAppState({
+    required BuildContext context,
+    required bool listen,
+  }){
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: listen);
+    return _generalProvider.globalAppState;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void proSetGlobalAppState({
+    required AppStateModel? state,
+    required BuildContext context,
+  }){
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+    _generalProvider._setGlobalAppState(state);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _setGlobalAppState(AppStateModel? state){
+    if (state != _globalAppState){
+      _globalAppState = state;
+      notifyListeners();
+    }
+  }
+  // -----------------------------------------------------------------------------
+
   /// CONNECTIVITY
 
   // --------------------
@@ -27,6 +61,7 @@ class GeneralProvider extends ChangeNotifier {
   // --------------------
   bool get isConnected => _isConnected;
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> getSetConnectivity({
     required bool mounted,
     required bool notify,

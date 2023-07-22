@@ -26,6 +26,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoom
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
@@ -237,6 +238,7 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onLastGoBackInHomeScreen({
+    required BuildContext context,
     required ZGridController? zGridController,
   }) async {
 
@@ -251,16 +253,16 @@ class BldrsNav {
     /// NORMAL CASE WHEN ON BACK WHILE IN HO
     else {
 
-      final bool _flyerIsOpen = UiProvider.proGetLayoutIsVisible(
+      final bool _flyerIsOpen = !UiProvider.proGetLayoutIsVisible(
           context: getMainContext(),
           listen: false,
       );
 
       /// CLOSE FLYER
-      if (_flyerIsOpen == false){
+      if (_flyerIsOpen == true){
 
         await zoomOutFlyer(
-          flyerNotifier: null,
+          context: context,
           mounted: true,
           controller: zGridController,
         );
@@ -269,33 +271,56 @@ class BldrsNav {
 
       /// CLOSE APP
       else {
-        final bool _result = await Dialogs.goBackDialog(
-          titleVerse: const Verse(
-            id: 'phid_exit_app_?',
-            translate: true,
-          ),
-          bodyVerse: const Verse(
-            id: 'phid_exit_app_notice',
-            translate: true,
-          ),
-          confirmButtonVerse: const Verse(
-            id: 'phid_exit',
-            translate: true,
-          ),
+
+        final String? _currentPhid = ChainsProvider.proGetHomeWallPhid(
+            context: context,
+            listen: false,
         );
 
-        if (_result == true) {
+        /// WHILE WALL HAS PHID
+        if (_currentPhid != null){
 
-          await CenterDialog.closeCenterDialog();
-
-          await Future.delayed(
-            const Duration(milliseconds: 500),
-            () async {
-              await Nav.closeApp();
-            },
-          );
+            final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+            await _chainsProvider.changeHomeWallFlyerType(
+              notify: true,
+              flyerType: null,
+              phid: null,
+            );
 
         }
+
+        else {
+
+          final bool _result = await Dialogs.goBackDialog(
+            titleVerse: const Verse(
+              id: 'phid_exit_app_?',
+              translate: true,
+            ),
+            bodyVerse: const Verse(
+              id: 'phid_exit_app_notice',
+              translate: true,
+            ),
+            confirmButtonVerse: const Verse(
+              id: 'phid_exit',
+              translate: true,
+            ),
+          );
+
+          if (_result == true) {
+
+            await CenterDialog.closeCenterDialog();
+
+            await Future.delayed(
+              const Duration(milliseconds: 500),
+              () async {
+                await Nav.closeApp();
+              },
+            );
+
+          }
+
+        }
+
       }
 
     }

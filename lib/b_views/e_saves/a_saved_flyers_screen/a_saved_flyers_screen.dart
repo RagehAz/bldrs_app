@@ -95,7 +95,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
     /// CLOSE FLYER
     if (_flyerIsOpen == false) {
       await zoomOutFlyer(
-        flyerNotifier: null,
+        context: context,
         mounted: true,
         controller: _zGridController,
       );

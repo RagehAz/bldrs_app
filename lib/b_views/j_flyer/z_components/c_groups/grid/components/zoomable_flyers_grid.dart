@@ -9,9 +9,11 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_stack.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/small_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FlyersZGrid extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -57,7 +59,6 @@ class FlyersZGrid extends StatefulWidget {
 
 class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStateMixin{
   // -----------------------------------------------------------------------------
-  final ValueNotifier<FlyerModel?> _zoomedFlyer = ValueNotifier(null);
   late ZGridController _controller;
   ZGridScale? _gridScale;
   // -----------------------------------------------------------------------------
@@ -102,7 +103,6 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
     if (widget.zGridController == null){
       _controller.dispose();
     }
-    _zoomedFlyer.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -129,10 +129,10 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
   Future<void> _onZoomOutEnd() async {
     blog('onZoomOutEnd');
 
-    setNotifier(
-      notifier: _zoomedFlyer,
-      mounted: mounted,
-      value: null,
+    FlyersProvider.proSetZoomedFlyer(
+        context: context,
+        flyerModel: null,
+        notify: true
     );
 
     UiProvider.proSetLayoutIsVisible(
@@ -156,12 +156,17 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
 
       else {
 
-        if (_zoomedFlyer.value == null){
+        final FlyerModel? _zoomedFlyer = FlyersProvider.proGetZoomedFlyer(
+            listen: false,
+            context: context,
+        );
 
-          setNotifier(
-            notifier: _zoomedFlyer,
-            mounted: mounted,
-            value: flyerModel,
+        if (_zoomedFlyer == null){
+
+          FlyersProvider.proSetZoomedFlyer(
+              context: context,
+              flyerModel: flyerModel,
+              notify: true,
           );
 
           await ZGridController.zoomIn(
@@ -270,8 +275,8 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
           flyerBoxWidth: _gridScale!.bigItemWidth,
           boxColor: Colorz.black255,
         ),
-        bigItem: ValueListenableBuilder(
-          valueListenable: _zoomedFlyer,
+        bigItem: Selector<FlyersProvider, FlyerModel?>(
+          selector: (_, FlyersProvider flyersProvider) => flyersProvider.zoomedFlyer,
           builder: (_, FlyerModel? flyerModel, Widget? child) {
 
             // blog('what is this ????');
@@ -289,11 +294,10 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
                 // );
               },
               onVerticalExit: () async {
-                blog('should exit this zoomed flyer now');
                 await zoomOutFlyer(
                   mounted: mounted,
                   controller: _controller,
-                  flyerNotifier: _zoomedFlyer,
+                  context: context,
                 );
                 },
             );
@@ -307,9 +311,9 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
 }
 
 Future<void> zoomOutFlyer({
+  required BuildContext context,
   required bool mounted,
   required ZGridController? controller,
-  required ValueNotifier<FlyerModel?>? flyerNotifier,
 }) async {
 
   if (controller != null) {
@@ -320,13 +324,11 @@ Future<void> zoomOutFlyer({
         onZoomOutStart: () {},
         onZoomOutEnd: () async {
 
-          // if (flyerNotifier != null) {
-            setNotifier(
-              notifier: flyerNotifier,
-              mounted: mounted,
-              value: null,
-            );
-          // }
+          FlyersProvider.proSetZoomedFlyer(
+              context: context,
+              flyerModel: null,
+              notify: true,
+          );
 
           UiProvider.proSetLayoutIsVisible(
             setTo: true,
