@@ -96,7 +96,7 @@ class CenterDialog extends StatelessWidget {
   static Future<bool> showCenterDialog({
     Verse? bodyVerse,
     Verse? titleVerse,
-    bool boolDialog = false,
+    bool? boolDialog = false,
     double? height,
     Widget? child,
     Verse? confirmButtonVerse,
@@ -125,8 +125,6 @@ class CenterDialog extends StatelessWidget {
         child: child,
       ),
     );
-
-    blog('showCenterDialog result : $_result');
 
     return Mapper.boolIsTrue(_result);
   }

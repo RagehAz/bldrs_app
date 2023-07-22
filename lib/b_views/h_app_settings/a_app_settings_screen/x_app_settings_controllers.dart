@@ -170,7 +170,7 @@ Future<bool> rebootLogic() async {
 
   }
 
-  return true;
+  return _result;
 }
 // -----------------------------------------------------------------------------
 

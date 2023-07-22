@@ -98,14 +98,36 @@ class Localizer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Locale?> getCurrentLocaleFromLDB() async {
-    final String? _langCode = await LDBOps.readField(
-      id: LDBDoc.langCode,
-      docName: LDBDoc.langCode,
-      fieldName: LDBDoc.langCode,
-      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.langCode),
-    );
+    final String? _langCode = await readLDBLangCode();
     final String? _languageCode = _langCode ?? Lang.englishLingo.code;
     return _concludeLocaleByLingoCode(_languageCode);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String?> readLDBLangCode() async {
+    final String? _langCode = await LDBOps.readField(
+      id: 'userSelectedLang',
+      docName: LDBDoc.langCode,
+      fieldName: 'code',
+      primaryKey: 'id',
+    );
+    return _langCode;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _setLDBLangCode({
+    required String langCode,
+  }) async {
+
+    await LDBOps.insertMap(
+      docName: LDBDoc.langCode,
+      primaryKey: 'id',
+      input: {
+        'id': 'userSelectedLang',
+        'code': langCode,
+      },
+    );
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -229,38 +251,56 @@ class Localizer {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> changeAppLanguage(BuildContext context, String code) async {
+  static Future<void> changeAppLanguage({
+    required BuildContext context,
+    required String? code,
+  }) async {
 
-    final Locale? _temp = await setLocale(code);
+    if (code != null){
 
-    BldrsAppStarter.setLocale(context, _temp);
-
-    final UserModel? _user = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
-    );
-
-    if (Authing.userIsSignedUp(_user?.signInMethod) == true) {
-      await Fire.updateDocField(
-        coll: FireColl.users,
-        doc: Authing.getUserID()!,
-        field: 'language',
-        input: code,
+      await _setLDBLangCode(
+        langCode: code,
       );
 
-      blog("changed local language and firestore.user['language']  updated to $code");
+      final Locale? _temp = await setLocale(code);
+
+      BldrsAppStarter.setLocale(context, _temp);
+
+      final UserModel? _user = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
+      );
+
+      if (Authing.userIsSignedUp(_user?.signInMethod) == true) {
+        await Fire.updateDocField(
+          coll: FireColl.users,
+          doc: Authing.getUserID()!,
+          field: 'language',
+          input: code,
+        );
+
+        blog("changed local language and firestore.user['language']  updated to $code");
+      }
+
     }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> switchBetweenArabicAndEnglish(BuildContext context) async {
 
     if (getCurrentLangCode() == Lang.englishLingo.code){
-      await changeAppLanguage(context, Lang.arabicLingo.code);
+      await changeAppLanguage(
+          context: context,
+          code: Lang.arabicLingo.code,
+      );
     }
 
     else {
-      await changeAppLanguage(context, Lang.englishLingo.code);
+      await changeAppLanguage(
+          context: context,
+          code: Lang.englishLingo.code,
+      );
     }
 
   }
