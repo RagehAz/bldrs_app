@@ -20,11 +20,10 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 
-enum PublishState{
+enum OldPublishState{
   draft,
   published,
   unpublished,
-  deleted,
 }
 
 enum AuditState{
@@ -32,6 +31,7 @@ enum AuditState{
   suspended,
   pending,
 }
+
 /// TAMAM
 @immutable
 class FlyerModel {
@@ -72,7 +72,7 @@ class FlyerModel {
   final List<String>? trigram;
   final String? description;
   final FlyerType? flyerType;
-  final PublishState? publishState;
+  final OldPublishState? publishState;
   final AuditState? auditState;
   final List<String>? phids;
   final bool? showsAuthor;
@@ -107,7 +107,7 @@ class FlyerModel {
     List<String>? trigram,
     String? description,
     FlyerType? flyerType,
-    PublishState? publishState,
+    OldPublishState? publishState,
     AuditState? auditState,
     List<String>? phids,
     bool? showsAuthor,
@@ -393,42 +393,38 @@ class FlyerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String? cipherPublishState (PublishState? x){
+  static String? cipherPublishState (OldPublishState? x){
     switch (x){
-      case PublishState.draft         :     return  'draft'       ;
-      case PublishState.published     :     return  'published'   ;
-      case PublishState.unpublished   :     return  'unpublished' ;
-      case PublishState.deleted       :     return  'deleted'     ;
+      case OldPublishState.draft         :     return  'draft'       ;
+      case OldPublishState.published     :     return  'published'   ;
+      case OldPublishState.unpublished   :     return  'unpublished' ;
       default : return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PublishState? decipherPublishState (String? x){
+  static OldPublishState? decipherPublishState (String? x){
     switch (x){
-      case 'draft'       :   return  PublishState.draft;
-      case 'published'   :   return  PublishState.published;
-      case 'unpublished' :   return  PublishState.unpublished;
-      case 'deleted'     :   return  PublishState.deleted;
+      case 'draft'       :   return  OldPublishState.draft;
+      case 'published'   :   return  OldPublishState.published;
+      case 'unpublished' :   return  OldPublishState.unpublished;
       default : return   null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const List<PublishState> publishStates = <PublishState>[
-    PublishState.draft,
-    PublishState.published,
-    PublishState.unpublished,
-    PublishState.deleted,
+  static const List<OldPublishState> publishStates = <OldPublishState>[
+    OldPublishState.draft,
+    OldPublishState.published,
+    OldPublishState.unpublished,
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String? getPublishStatePhid(PublishState? state){
+  static String? getPublishStatePhid(OldPublishState? state){
     switch (state){
-      case PublishState.published     :     return  'phid_published'          ;
-      case PublishState.draft         :     return  'phid_draft_flyer'        ;
-      case PublishState.deleted       :     return  'phid_deleted_flyer'      ;
-      case PublishState.unpublished   :     return  'phid_unpublished_flyer'  ;
+      case OldPublishState.published     :     return  'phid_published'          ;
+      case OldPublishState.draft         :     return  'phid_draft_flyer'        ;
+      case OldPublishState.unpublished   :     return  'phid_unpublished_flyer'  ;
       default : return null;
     }
   }
@@ -649,7 +645,7 @@ class FlyerModel {
       description: 'This is a dummy flyer',
       authorID: 'x',
       flyerType : FlyerType.property,
-      publishState : PublishState.published,
+      publishState : OldPublishState.published,
       auditState: AuditState.verified,
       phids : const <String>[],
       showsAuthor : true,
@@ -660,7 +656,7 @@ class FlyerModel {
       ],
       specs : SpecModel.dummySpecs(),
       times : <PublishTime>[
-        PublishTime(state: PublishState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
+        PublishTime(state: OldPublishState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
       ],
       hasPriceTag: false,
       hasPDF: false,

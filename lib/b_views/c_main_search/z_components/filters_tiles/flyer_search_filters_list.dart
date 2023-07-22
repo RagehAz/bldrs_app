@@ -52,7 +52,7 @@ class FlyersSearchFiltersList extends StatelessWidget {
   final Function(bool value) onAuditStateSwitchTap;
   final Function(AuditState state) onAuditStateTap;
   final Function(bool value) onPublishStateSwitchTap;
-  final Function(PublishState state) onPublishStateTap;
+  final Function(OldPublishState state) onPublishStateTap;
   // --------------------
   @override
   Widget build(BuildContext context) {
@@ -208,7 +208,7 @@ class FlyersSearchFiltersList extends StatelessWidget {
           selectedItem: searchModel?.flyerSearchModel?.publishState,
           itemVerse: (dynamic state) => Verse(id: FlyerModel.getPublishStatePhid(state), translate: true,),
           onItemTap: (dynamic item){
-            final PublishState _state = item;
+            final OldPublishState _state = item;
             onPublishStateTap(_state);
             },
         ),
