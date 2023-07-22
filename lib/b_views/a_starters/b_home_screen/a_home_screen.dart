@@ -1,5 +1,8 @@
 import 'dart:async';
+
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -9,12 +12,11 @@ import 'package:bldrs/b_views/a_starters/b_home_screen/aa_home_screen_view.dart'
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_initialization_controllers.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_notes_controllers.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/super_pyramids.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
@@ -27,8 +29,6 @@ import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -211,9 +211,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         currentZone: _currentZone,
       );
 
-      // blog('building home screen with Layoutttt');
-
-
       return MainLayout(
         key: const ValueKey<String>('mainLayout'),
         sectionButtonIsOn: true,
@@ -232,32 +229,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           children: <Widget>[
 
             /// PAGE CONTENTS
-            ValueListenableBuilder(
-              valueListenable: _loading,
-              builder: (_, bool loading, Widget? homeFlyersGrid){
-
-                /// LOADING
-                if (loading == true) {
-                  return const FlyersGrid(
-                    key: ValueKey<String>('flyersGrid_loading_home'),
-                    gridType: FlyerGridType.loading,
-                    screenName: 'Home_Screen_Flyers_Loading_Grid',
-                    hasResponsiveSideMargin: true,
-                  );
-                }
-
-                /// HOME FLYERS
-                else {
-                  return homeFlyersGrid!;
-                }
-
-              },
-              child: HomeFlyersGrid(
+            HomeFlyersGrid(
                 paginationController: _paginationController,
                 zGridController: _zGridController,
                 loading: _loading,
               ),
-            ),
 
             /// PYRAMIDS NAVIGATOR
             SuperPyramids(

@@ -1,21 +1,17 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
+import 'package:bldrs/test_screen.dart';
 import 'package:fire/super_fire.dart';
 
 /// SUPER_DEV_TEST
 Future<void> superDevTest() async {
 
-  blog('a77a');
+  blog('a77aaaa wtff');
 
-  // final List<FlyerModel> flyers = await  readAllFlyers(limit: 1000);
-  //
-  // for (final FlyerModel flyer in flyers){
-  //
-  //
-  //   blog('done with ${flyer.id} : ${flyer.bzModel?.name}');
-  //
-  // }
+  await Nav.goToNewScreen(context: getMainContext(), screen: const TheTestScreen());
 
 }
   // -----------------------------------------------------------------------------

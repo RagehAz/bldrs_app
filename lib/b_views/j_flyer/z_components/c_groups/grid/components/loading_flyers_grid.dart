@@ -8,11 +8,11 @@ class LoadingFlyersGrid extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const LoadingFlyersGrid({
     required this.hasResponsiveSideMargin,
+    required this.numberOfColumnsOrRows,
     this.gridWidth,
     this.gridHeight,
     this.scrollController,
     this.topPadding = Ratioz.stratosphere,
-    this.numberOfColumnsOrRows = 2,
     this.scrollDirection = Axis.vertical,
     this.scrollable = true,
     super.key

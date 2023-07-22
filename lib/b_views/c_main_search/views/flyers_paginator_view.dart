@@ -49,6 +49,7 @@ class FlyersPaginatorView extends StatelessWidget {
             ),
             bottomPadding: Ratioz.horizon,
             hasResponsiveSideMargin: hasResponsiveSideMargin,
+            numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 3 : 2,
             // numberOfColumns: 2,
           );
 

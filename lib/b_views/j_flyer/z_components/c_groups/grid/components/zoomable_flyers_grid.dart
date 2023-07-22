@@ -64,17 +64,6 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
   @override
   void initState() {
 
-    _gridScale = ZGridScale.initialize(
-      gridWidth: widget.gridWidth,
-      gridHeight: widget.gridHeight,
-      columnCount: widget.columnCount,
-      bottomPaddingOnZoomedOut: widget.bottomPaddingOnZoomedOut,
-      topPaddingOnZoomOut: widget.topPadding,
-      itemAspectRatio: FlyerDim.flyerAspectRatio(),
-      hasResponsiveSideMargin: widget.hasResponsiveSideMargin,
-    );
-
-
     _controller = widget.zGridController ?? ZGridController.initialize(
       vsync: this,
       scrollController: widget.scrollController, // can be null or passed from top
@@ -195,6 +184,16 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    _gridScale = ZGridScale.initialize(
+      gridWidth: widget.gridWidth,
+      gridHeight: widget.gridHeight,
+      columnCount: widget.columnCount,
+      bottomPaddingOnZoomedOut: widget.bottomPaddingOnZoomedOut,
+      topPaddingOnZoomOut: widget.topPadding,
+      itemAspectRatio: FlyerDim.flyerAspectRatio(),
+      hasResponsiveSideMargin: widget.hasResponsiveSideMargin,
+    );
 
     if (_gridScale == null){
       return const SizedBox();
