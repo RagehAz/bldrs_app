@@ -1,8 +1,6 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -99,43 +97,6 @@ class FlyersProvider extends ChangeNotifier {
     return _flyers;
   }
    */
-  // --------------------
-  ///
-  Future<List<FlyerModel>> fetchFirstFlyersByBzModel({
-    required BuildContext context,
-    required BzModel? bz,
-    int limit = 3,
-  }) async {
-
-    final List<String> _flyersIDs = <String>[];
-    final List<FlyerModel> _bzFlyers = <FlyerModel>[];
-
-    if (bz != null && Mapper.checkCanLoopList(bz.flyersIDs) == true){
-
-      final int _limit = bz.flyersIDs!.length > limit ? limit : bz.flyersIDs!.length;
-
-      for (int i = 0; i < _limit; i++){
-        _flyersIDs.add(bz.flyersIDs![i]);
-      }
-
-
-      for (final String flyerID in _flyersIDs){
-
-        final FlyerModel? _flyer = await FlyerProtocols.fetchFlyer(
-          context: context,
-          flyerID: flyerID,
-        );
-
-        if (_flyer != null){
-          _bzFlyers.add(_flyer);
-        }
-
-      }
-
-    }
-
-    return _bzFlyers;
-  }
   // -----------------------------------------------------------------------------
 
   /// ZOOMED FLYER

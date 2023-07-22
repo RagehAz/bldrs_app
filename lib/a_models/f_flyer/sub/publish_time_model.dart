@@ -1,7 +1,7 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -13,7 +13,7 @@ class PublishTime {
     required this.time,
   });
   // --------------------------------------------------------------------------
-  final OldPublishState? state;
+  final PublishState? state;
   final DateTime? time;
   // -----------------------------------------------------------------------------
 
@@ -25,7 +25,7 @@ class PublishTime {
     required bool toJSON,
   }) {
     return <String, dynamic>{
-      'state': FlyerModel.cipherPublishState(state),
+      'state': PublicationModel.cipherPublishState(state),
       'time': Timers.cipherTime(time: time, toJSON: toJSON),
     };
   }
@@ -41,7 +41,7 @@ class PublishTime {
       for (final PublishTime time in times!) {
         _outPut = Mapper.insertPairInMap(
           map: _outPut,
-          key: FlyerModel.cipherPublishState(time.state),
+          key: PublicationModel.cipherPublishState(time.state),
           value: Timers.cipherTime(time: time.time, toJSON: toJSON),
           overrideExisting: true,
         );
@@ -65,7 +65,7 @@ class PublishTime {
       if (Mapper.checkCanLoopList(_keys) == true && Mapper.checkCanLoopList(_values) == true) {
         for (int i = 0; i < _keys.length; i++) {
 
-          final OldPublishState? _flyerStateString = FlyerModel.decipherPublishState(_keys[i]);
+          final PublishState? _flyerStateString = PublicationModel.decipherPublishState(_keys[i]);
 
           final DateTime? _time = Timers.decipherTime(
               time: _values[i],
@@ -189,7 +189,7 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static PublishTime? getPublishTimeFromTimes({
-    required OldPublishState? state,
+    required PublishState? state,
     required List<PublishTime>? times,
   }) {
 

@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
@@ -38,7 +39,7 @@ class BzModel{
     required this.showsTeam,
     required this.isVerified,
     required this.bzState,
-    required this.flyersIDs,
+    required this.publication,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
@@ -60,7 +61,7 @@ class BzModel{
   final bool? showsTeam;
   final bool? isVerified;
   final BzState? bzState;
-  final List<String>? flyersIDs;
+  final PublicationModel publication;
   final dynamic docSnapshot;
   // -----------------------------------------------------------------------------
 
@@ -87,7 +88,7 @@ class BzModel{
     bool? showsTeam,
     bool? isVerified,
     BzState? bzState,
-    List<String>? flyersIDs,
+    PublicationModel? publication,
     dynamic docSnapshot,
   }){
 
@@ -110,7 +111,7 @@ class BzModel{
       showsTeam : showsTeam ?? this.showsTeam,
       isVerified : isVerified ?? this.isVerified,
       bzState : bzState ?? this.bzState,
-      flyersIDs : flyersIDs ?? this.flyersIDs,
+      publication : publication ?? this.publication,
       docSnapshot: docSnapshot ?? this.docSnapshot,
     );
   }
@@ -135,7 +136,7 @@ class BzModel{
     bool showsTeam = false,
     bool isVerified = false,
     bool bzState = false,
-    bool flyersIDs = false,
+    bool publication = false,
     bool docSnapshot = false,
   }){
     return BzModel(
@@ -157,7 +158,7 @@ class BzModel{
       showsTeam : showsTeam == true ? null : this.showsTeam,
       isVerified : isVerified == true ? null : this.isVerified,
       bzState : bzState == true ? null : this.bzState,
-      flyersIDs : flyersIDs == true ? [] : this.flyersIDs,
+      publication : publication == true ? PublicationModel.emptyModel : this.publication,
       docSnapshot : docSnapshot == true ? null : this.docSnapshot,
     );
   }
@@ -193,7 +194,7 @@ class BzModel{
       'isVerified': isVerified,
       'bzState': BzTyper.cipherBzState(bzState),
       // -------------------------
-      'flyersIDs': flyersIDs,
+      'publication': publication.toMap(),
     };
   }
   // --------------------
@@ -249,7 +250,7 @@ class BzModel{
         isVerified: map['isVerified'],
         bzState: BzTyper.decipherBzState(map['bzState']),
         // -------------------------
-        flyersIDs: Stringer.getStringsFromDynamics(dynamics: map['flyersIDs']),
+        publication: PublicationModel.decipher(map['publication']),
         docSnapshot: map['docSnapshot'],
       );
     }
@@ -379,7 +380,7 @@ class BzModel{
   /// BZ MODIFIERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static BzModel? removeFlyerIDFromBzAndAuthor({
     required BzModel? oldBz,
     required FlyerModel? flyer,
@@ -388,9 +389,9 @@ class BzModel{
 
     if (flyer?.id != null && oldBz != null) {
 
-      final List<String> _bzFlyersIDs = Stringer.removeStringsFromStrings(
-        removeFrom: oldBz.flyersIDs,
-        removeThis: <String>[flyer!.id!],
+      final PublicationModel _publication = PublicationModel.removeFlyerID(
+        pub: oldBz.publication,
+        flyerID: flyer!.id!,
       );
 
       final List<AuthorModel>? _newAuthors = AuthorModel.removeFlyerIDFromAuthor(
@@ -400,7 +401,7 @@ class BzModel{
       );
 
       _newBz = oldBz.copyWith(
-        flyersIDs: _bzFlyersIDs,
+        publication: _publication,
         authors: _newAuthors,
       );
 
@@ -531,7 +532,7 @@ class BzModel{
       zone: ZoneModel.dummyZone(),
       bzState: BzState.online,
       position: Atlas.dummyLocation(),
-      flyersIDs: const <String>[],
+      publication: PublicationModel.emptyModel,
       authors: <AuthorModel>[
         AuthorModel.dummyAuthor(),
       ],
@@ -576,7 +577,7 @@ class BzModel{
     blog('about : $about');
     blog('position : $position');
     blog('showsTeam : $showsTeam : isVerified : $isVerified : bzState : $bzState');
-    blog('flyersIDs : $flyersIDs');
+    PublicationModel.blogPublications(publication: publication);
     PendingAuthor.blogPendingAuthors(pendingAuthors);
     zone?.blogZone(invoker: 'BZ MODEL ($id)');
     AuthorModel.blogAuthors(authors: authors, invoker: 'BZ MODEL ($id)');
@@ -673,7 +674,7 @@ class BzModel{
       if (bz1.bzState != bz2.bzState){
         blog('bzStates are not identical');
       }
-      if (Mapper.checkListsAreIdentical(list1: bz1.flyersIDs, list2: bz2.flyersIDs) == false){
+      if (PublicationModel.checkPublicationsAreIdentical(pub1: bz1.publication, pub2: bz2.publication) == false){
         blog('flyersIDs are not identical');
       }
 
@@ -873,7 +874,7 @@ class BzModel{
           bz1.showsTeam == bz2.showsTeam &&
           bz1.isVerified == bz2.isVerified &&
           bz1.bzState == bz2.bzState &&
-          Mapper.checkListsAreIdentical(list1: bz1.flyersIDs, list2: bz2.flyersIDs) == true
+          PublicationModel.checkPublicationsAreIdentical(pub1: bz1.publication, pub2: bz2.publication) == true
       ){
         _areIdentical = true;
       }
@@ -1064,7 +1065,7 @@ class BzModel{
       showsTeam.hashCode^
       isVerified.hashCode^
       bzState.hashCode^
-      flyersIDs.hashCode^
+      publication.hashCode^
       docSnapshot.hashCode;
 // -----------------------------------------------------------------------------
 }

@@ -93,8 +93,9 @@ class FlyerVerses {
           '${Numeric.formatNumToSeparatedKilos(number: authorGalleryCount)} '
           '${xPhrase('phid_flyers')}'
           :
-          '${counterCaliber(followersCount)} '
-          '${xPhrase('phid_followers')} . '
+          /// FIX_FOLLOWERS_NUMBERS
+          // '${counterCaliber(followersCount)} '
+          // '${xPhrase('phid_followers')} . '
           '$_galleryCountCalibrated '
           '${xPhrase('phid_flyers')}';
 

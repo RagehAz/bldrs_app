@@ -41,7 +41,7 @@ class BzFlyersPage extends StatelessWidget {
       screenName: 'bzFlyersPage',
       zGridController: zGridController,
       scrollController: scrollController,
-      flyersIDs: bzModel?.flyersIDs?.reversed.toList(),
+      flyersIDs: bzModel?.publication.published.reversed.toList(),
       gridWidth: width ?? Scale.screenWidth(context),
       gridHeight: height ?? Scale.screenHeight(context),
       numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 4 : 2,

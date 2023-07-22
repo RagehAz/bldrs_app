@@ -41,7 +41,7 @@ class GallerySlide extends StatelessWidget {
         child: FlyersGrid(
           gridWidth: flyerBoxWidth,
           gridHeight: flyerBoxHeight,
-          flyersIDs: bzModel.flyersIDs,
+          flyersIDs: bzModel.publication.published,
           gridType: FlyerGridType.heroic,
           topPadding: _headerAndProgressHeights,
           // numberOfColumns: 2,

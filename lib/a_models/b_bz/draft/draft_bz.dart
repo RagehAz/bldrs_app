@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -36,7 +37,7 @@ class DraftBz {
     required this.showsTeam,
     required this.isVerified,
     required this.bzState,
-    required this.flyersIDs,
+    required this.publication,
     required this.bzSection,
     required this.bzTypes,
     required this.inactiveBzTypes,
@@ -70,7 +71,7 @@ class DraftBz {
   final bool? showsTeam;
   final bool? isVerified;
   final BzState? bzState;
-  final List<String>? flyersIDs;
+  final PublicationModel publication;
   final BzSection? bzSection;
   final List<BzType>? bzTypes;
   final List<BzType>? inactiveBzTypes;
@@ -173,7 +174,7 @@ class DraftBz {
       showsTeam: true,
       isVerified: false,
       bzState: BzState.offline,
-      flyersIDs: const [],
+      publication: PublicationModel.emptyModel,
       bzSection: null,
       bzTypes: const [],
       inactiveBzTypes: BzTyper.concludeDeactivatedBzTypesBySection(
@@ -226,7 +227,7 @@ class DraftBz {
       showsTeam: bzModel.showsTeam,
       isVerified: bzModel.isVerified,
       bzState: bzModel.bzState,
-      flyersIDs: bzModel.flyersIDs,
+      publication: bzModel.publication,
       bzSection: _bzSection,
       bzTypes: bzModel.bzTypes,
       inactiveBzTypes: BzTyper.concludeDeactivatedBzTypesBySection(
@@ -307,7 +308,7 @@ class DraftBz {
       showsTeam: draft.showsTeam,
       isVerified: draft.isVerified,
       bzState: draft.bzState,
-      flyersIDs: draft.flyersIDs,
+      publication: draft.publication,
     );
     }
 
@@ -331,7 +332,7 @@ class DraftBz {
       'showsTeam': showsTeam,
       'isVerified': isVerified,
       'bzState': BzTyper.cipherBzState(bzState),
-      'flyersIDs': flyersIDs,
+      'publication': publication,
       'bzSection': BzTyper.cipherBzSection(bzSection),
       'bzTypes': BzTyper.cipherBzTypes(bzTypes),
       'inactiveBzTypes': BzTyper.cipherBzTypes(inactiveBzTypes),
@@ -380,7 +381,7 @@ class DraftBz {
       showsTeam: map['showsTeam'],
       isVerified: map['isVerified'],
       bzState: BzTyper.decipherBzState(map['bzState']),
-      flyersIDs: Stringer.getStringsFromDynamics(dynamics: map['flyersIDs']),
+      publication: PublicationModel.decipher(map['publication']),
       bzSection: _bzSection,
       bzTypes: _bzTypes,
       inactiveBzTypes: BzTyper.concludeDeactivatedBzTypesBySection(
@@ -425,7 +426,7 @@ class DraftBz {
     bool? showsTeam,
     bool? isVerified,
     BzState? bzState,
-    List<String>? flyersIDs,
+    PublicationModel? publication,
     BzSection? bzSection,
     List<BzType>? bzTypes,
     List<BzType>? inactiveBzTypes,
@@ -459,7 +460,7 @@ class DraftBz {
       showsTeam: showsTeam ?? this.showsTeam,
       isVerified: isVerified ?? this.isVerified,
       bzState: bzState ?? this.bzState,
-      flyersIDs: flyersIDs ?? this.flyersIDs,
+      publication: publication ?? this.publication,
       bzSection: bzSection ?? this.bzSection,
       bzTypes: bzTypes ?? this.bzTypes,
       inactiveBzTypes: inactiveBzTypes ?? this.inactiveBzTypes,
@@ -496,7 +497,7 @@ class DraftBz {
     bool showsTeam = false,
     bool isVerified = false,
     bool bzState = false,
-    bool flyersIDs = false,
+    bool publication = false,
     bool bzSection = false,
     bool bzTypes = false,
     bool inactiveBzTypes = false,
@@ -530,7 +531,7 @@ class DraftBz {
       showsTeam: showsTeam == true ? null : this.showsTeam,
       isVerified: isVerified == true ? null : this.isVerified,
       bzState: bzState == true ? null : this.bzState,
-      flyersIDs: flyersIDs == true ? [] : this.flyersIDs,
+      publication: publication == true ? PublicationModel.emptyModel : this.publication,
       bzSection: bzSection == true ? null : this.bzSection,
       bzTypes: bzTypes == true ? [] : this.bzTypes,
       inactiveBzTypes: inactiveBzTypes == true ? [] : this.inactiveBzTypes,
@@ -647,7 +648,7 @@ class DraftBz {
     blog('showsTeam : $showsTeam');
     blog('isVerified : $isVerified');
     blog('bzState : ${BzTyper.cipherBzState(bzState)}');
-    blog('flyersIDs : $flyersIDs');
+    PublicationModel.blogPublications(publication: publication);
     blog('bzSection : ${BzTyper.cipherBzSection(bzSection)}');
     blog('bzTypes : ${BzTyper.cipherBzTypes(bzTypes)}');
     blog('inactiveBzTypes : ${BzTyper.cipherBzTypes(inactiveBzTypes)}');
@@ -711,7 +712,7 @@ class DraftBz {
           draft1.showsTeam == draft2.showsTeam &&
           draft1.isVerified == draft2.isVerified &&
           draft1.bzState == draft2.bzState &&
-          Mapper.checkListsAreIdentical(list1: draft1.flyersIDs, list2: draft2.flyersIDs) == true &&
+          PublicationModel.checkPublicationsAreIdentical(pub1: draft1.publication, pub2: draft2.publication) == true &&
           draft1.bzSection == draft2.bzSection &&
           Mapper.checkListsAreIdentical(list1: draft1.bzTypes, list2: draft2.bzTypes) == true &&
           Mapper.checkListsAreIdentical(list1: draft1.inactiveBzTypes, list2: draft2.inactiveBzTypes) == true &&
@@ -784,7 +785,7 @@ class DraftBz {
       showsTeam.hashCode^
       isVerified.hashCode^
       bzState.hashCode^
-      flyersIDs.hashCode^
+      publication.hashCode^
       bzSection.hashCode^
       bzTypes.hashCode^
       inactiveBzTypes.hashCode^

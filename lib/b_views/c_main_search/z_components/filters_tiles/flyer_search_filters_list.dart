@@ -2,7 +2,8 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/tile_bubble/tile_bubble.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:basics/super_box/super_box.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
@@ -17,7 +18,6 @@ import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart'
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/super_box/super_box.dart';
 
 class FlyersSearchFiltersList extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -32,8 +32,6 @@ class FlyersSearchFiltersList extends StatelessWidget {
     required this.onOnlyWithPriceSwitchTap,
     required this.onOnlyWithPDFSwitchTap,
     required this.onOnlyAmazonProductsSwitchTap,
-    required this.onAuditStateSwitchTap,
-    required this.onAuditStateTap,
     required this.onPublishStateSwitchTap,
     required this.onPublishStateTap,
     super.key
@@ -49,10 +47,8 @@ class FlyersSearchFiltersList extends StatelessWidget {
   final Function(bool value) onOnlyWithPriceSwitchTap;
   final Function(bool value) onOnlyWithPDFSwitchTap;
   final Function(bool value) onOnlyAmazonProductsSwitchTap;
-  final Function(bool value) onAuditStateSwitchTap;
-  final Function(AuditState state) onAuditStateTap;
   final Function(bool value) onPublishStateSwitchTap;
-  final Function(OldPublishState state) onPublishStateTap;
+  final Function(PublishState state) onPublishStateTap;
   // --------------------
   @override
   Widget build(BuildContext context) {
@@ -173,26 +169,6 @@ class FlyersSearchFiltersList extends StatelessWidget {
       if (UsersProvider.userIsAdmin() == true)
       const DotSeparator(),
 
-      /// AUDIT STATE
-      if (UsersProvider.userIsAdmin() == true)
-        FilterMultiButtonTile(
-          bubbleColor: Colorz.yellow50,
-          icon: Iconz.verifyFlyer,
-          verse: const Verse(
-            id: 'phid_audit_state',
-            translate: true,
-          ),
-          switchValue: searchModel?.flyerSearchModel?.auditState != null,
-          onSwitchTap: onAuditStateSwitchTap,
-          items: FlyerModel.auditStates,
-          selectedItem: searchModel?.flyerSearchModel?.auditState,
-          itemVerse: (dynamic state) => Verse(id: FlyerModel.getAuditStatePhid(state), translate: true,),
-          onItemTap: (dynamic item){
-            final AuditState _state = item;
-            onAuditStateTap(_state);
-            },
-        ),
-
       /// PUBLISH STATE
       if (UsersProvider.userIsAdmin() == true)
         FilterMultiButtonTile(
@@ -204,11 +180,11 @@ class FlyersSearchFiltersList extends StatelessWidget {
           ),
           switchValue: searchModel?.flyerSearchModel?.publishState != null,
           onSwitchTap: onPublishStateSwitchTap,
-          items: FlyerModel.publishStates,
+          items: PublicationModel.publishStates,
           selectedItem: searchModel?.flyerSearchModel?.publishState,
-          itemVerse: (dynamic state) => Verse(id: FlyerModel.getPublishStatePhid(state), translate: true,),
+          itemVerse: (dynamic state) => Verse(id: PublicationModel.getPublishStatePhid(state), translate: true,),
           onItemTap: (dynamic item){
-            final OldPublishState _state = item;
+            final PublishState _state = item;
             onPublishStateTap(_state);
             },
         ),
