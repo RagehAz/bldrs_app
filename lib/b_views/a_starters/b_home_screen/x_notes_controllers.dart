@@ -11,15 +11,18 @@ import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
 /// OBELISK
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeObeliskNumbers() async {
+Future<void> initializeObeliskNumbers({
+  required BuildContext context,
+}) async {
   await NotesProvider.proInitializeObeliskBadges(
-
+    context: context,
     notify: false,
   );
 }

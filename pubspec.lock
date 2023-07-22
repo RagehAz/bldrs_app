@@ -87,7 +87,7 @@ packages:
       path: "D:/projects/packages/helpers/basics"
       relative: false
     source: path
-    version: "3.0.19"
+    version: "3.0.20"
   bldrs_keywords:
     dependency: "direct main"
     description:
@@ -1080,10 +1080,10 @@ packages:
     dependency: transitive
     description:
       name: image_picker_platform_interface
-      sha256: "7c7b96bb9413a9c28229e717e6fd1e3edd1cc5569c1778fcca060ecf729b65ee"
+      sha256: c1134543ae2187e85299996d21c526b2f403854994026d575ae4cf30d7bb2a32
       url: "https://pub.dev"
     source: hosted
-    version: "2.8.0"
+    version: "2.9.0"
   image_picker_windows:
     dependency: transitive
     description:
@@ -1336,10 +1336,10 @@ packages:
     dependency: transitive
     description:
       name: permission_handler_android
-      sha256: c0c9754479a4c4b1c1f3862ddc11930c9b3f03bef2816bb4ea6eed1e13551d6f
+      sha256: "2ffaf52a21f64ac9b35fe7369bb9533edbd4f698e5604db8645b1064ff4cf221"
       url: "https://pub.dev"
     source: hosted
-    version: "10.3.2"
+    version: "10.3.3"
   permission_handler_apple:
     dependency: transitive
     description:
@@ -1392,10 +1392,10 @@ packages:
     dependency: transitive
     description:
       name: plugin_platform_interface
-      sha256: "6a2128648c854906c53fa8e33986fc0247a1116122f9534dd20e3ab9e16a32bc"
+      sha256: "43798d895c929056255600343db8f049921cbec94d31ec87f1dc5c16c01935dd"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.4"
+    version: "2.1.5"
   pointycastle:
     dependency: transitive
     description:
@@ -1448,10 +1448,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: da8dd3774b6001bde09378da28e94c40bd4daecde32adb44837517c12e991321
+      sha256: "85ff944434f7b566fdc388be4f85b23e954736b7d6e51f965f4f419d966c15b1"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.9"
+    version: "3.5.0+1"
   sembast_web:
     dependency: transitive
     description:
@@ -1597,10 +1597,10 @@ packages:
     dependency: transitive
     description:
       name: stop_watch_timer
-      sha256: "7d06b0cc6608987c4b627a957325261d83181ebd81a3036519590dd51b94ad68"
+      sha256: "3fe040c5bf04004f6d21a454a859e90b0d3e2323d24d2d9e80d5d9df9ff614cc"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
   stream_channel:
     dependency: transitive
     description:
@@ -1685,10 +1685,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: "15f5acbf0dce90146a0f5a2c4a002b1814a6303c4c5c075aa2623b2d16156f03"
+      sha256: "78cb6dea3e93148615109e58e42c35d1ffbf5ef66c44add673d0ab75f12ff3af"
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.36"
+    version: "6.0.37"
   url_launcher_ios:
     dependency: transitive
     description:

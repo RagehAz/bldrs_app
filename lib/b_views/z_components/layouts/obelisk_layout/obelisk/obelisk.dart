@@ -184,6 +184,7 @@ class Obelisk extends StatelessWidget {
         onRowTap: onRowTap,
       );
     }
+
   }
   // -----------------------------------------------------------------------------
 }
@@ -287,6 +288,7 @@ class _NarrowObelisk extends StatelessWidget {
   // --------------------
   @override
   Widget build(BuildContext context) {
+
     return Positioned(
         key: const ValueKey<String>('Obelisk'),
         left: Ratioz.appBarMargin,
@@ -340,6 +342,7 @@ class _NarrowObelisk extends StatelessWidget {
                         progressBarModel: progressBarModel,
                         onRowTap: onRowTap,
                       ),
+
                   ],
                 ),
               ),
@@ -347,6 +350,7 @@ class _NarrowObelisk extends StatelessWidget {
           ),
         ),
       );
+
   }
   // --------------------------------------------------------------------------
 }

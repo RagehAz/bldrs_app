@@ -1,19 +1,23 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/widgets/buttons/stores_buttons/store_button.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
+import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/create_new_bz_button.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramid_floating_button.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/red_dot_badge.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
+import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
@@ -23,6 +27,7 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_dev_test.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AppSettingsScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -183,17 +188,104 @@ class AppSettingsScreen extends StatelessWidget {
           color: Colorz.yellow80,
         ),
 
+        /// APP VERSION
         AppVersionBuilder(
-          builder: (context, String version) {
-            return BldrsText(
-              verse: Verse.plain(version),
-              size: 1,
-              italic: true,
-              color: Colorz.white125,
-              weight: VerseWeight.thin,
-            );
-          }
-        ),
+            versionShouldBe: null,
+            builder: (_, bool shouldUpdate, String version) {
+
+              return BldrsText(
+                verse: Verse.plain(version),
+                size: 1,
+                italic: true,
+                color: Colorz.white125,
+                weight: VerseWeight.thin,
+              );
+
+            }),
+
+        /// UPDATE APP BUTTON
+        Selector<GeneralProvider, AppStateModel?>(
+            selector: (_, GeneralProvider pro) => pro.globalAppState,
+            builder: (_, AppStateModel? globalState, Widget? child) {
+
+              return AppVersionBuilder(
+                  versionShouldBe: globalState?.appVersion,
+                  builder: (_, bool shouldUpdate, String version) {
+
+                    if (shouldUpdate == true){
+
+                      final double _buttonWidth = StoreButton.getWidth(
+                        context: context,
+                        heightOverride: SettingsWideButton.height,
+                      );
+
+                      return SizedBox(
+                        width: _buttonWidth,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+
+                            /// STORE BUTTON
+                            Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: RedDotBadge(
+                                childWidth: _buttonWidth,
+                                redDotIsOn: true,
+                                verse: const Verse(
+                                  id: 'phid_update',
+                                  translate: true,
+                                ),
+                                shrinkChild: true,
+                                child: StoreButton(
+                                  storeType: StoreButton.getStoreType(),
+                                  height: SettingsWideButton.height,
+                                  onTap: () => Launcher.launchBldrsAppLinkOnStore(),
+                                ),
+                              ),
+                            ),
+
+                            /// NOTICE
+                            BldrsText(
+                              verse: const Verse(
+                                id: 'phid_update_to_new_version_now',
+                                translate: true,
+                              ),
+                              color: Colorz.red255,
+                              width: _buttonWidth,
+                              size: 1,
+                              italic: true,
+                              weight: VerseWeight.thin,
+                              centered: false,
+                              maxLines: 3,
+                            ),
+
+                            /// NEW VERSION NUMBER
+                            BldrsText(
+                              verse: Verse(
+                                id: globalState?.appVersion,
+                                translate: false,
+                              ),
+                              color: Colorz.red255,
+                              width: _buttonWidth,
+                              size: 1,
+                              italic: true,
+                              weight: VerseWeight.thin,
+                              centered: false,
+                            ),
+
+                          ],
+                        ),
+                      );
+                    }
+
+                    else {
+                      return const SizedBox();
+                    }
+
+                  });
+
+            }
+            ),
 
       ],
     );

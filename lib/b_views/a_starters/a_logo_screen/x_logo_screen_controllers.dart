@@ -11,7 +11,7 @@ import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
@@ -35,7 +35,9 @@ Future<void> initializeLogoScreen({
   required bool mounted,
 }) async {
 
-  final AppStateModel? _globalState = await AppStateRealOps.readGlobalAppState();
+  final AppStateModel? _globalState = await AppStateProtocols.fetchGlobalAppState(
+    context: context,
+  );
 
   /// APP IS OFFLINE / COULD NOT GET REAL GLOBAL STATE
   if (_globalState == null) {
@@ -71,7 +73,10 @@ Future<void> initializeLogoScreen({
       await initializeUserModel(context);
 
       /// APP STATE
-      await initializeAppState(globalState: _globalState);
+      await initializeAppState(
+        globalState: _globalState,
+        context: context,
+      );
 
       UiProvider.proSetLoadingVerse(
         verse: Verse.plain(Words.pleaseWait()),
@@ -80,6 +85,7 @@ Future<void> initializeLogoScreen({
       // blog('2 - initializeLogoScreen : ${Authing.getUserID()}');
 
       await Future.wait(<Future<void>>[
+
         /// LOCAL ASSETS PATHS
         initializeLocalAssetsPaths(),
 
@@ -249,13 +255,14 @@ Future<void> setUserModelAndCompleteUserZoneLocally({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> initializeAppState({
+  required BuildContext context,
   required AppStateModel? globalState,
 }) async {
 
   if (globalState != null){
 
     final UserModel? _userModel = UsersProvider.proGetMyUserModel(
-      context: getMainContext(),
+      context: context,
       listen: false,
     );
 
@@ -281,9 +288,8 @@ Future<void> initializeAppState({
           }
 
           final String _detectedAppVersion = await AppVersionBuilder.detectAppVersion();
-          final bool _userNeedToUpdateTheApp = AppStateModel.userNeedToUpdateApp(
-            globalVersion: globalState.appVersion,
-            localVersion: _detectedAppVersion,
+          final bool _userNeedToUpdateTheApp = await AppStateProtocols.shouldUpdateApp(
+            context: context,
           );
 
           /// DETECTED APP VERSION IS INCORRECT

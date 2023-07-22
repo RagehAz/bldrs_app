@@ -186,13 +186,17 @@ class AppStateModel {
   // --------------------
   /// AI TESTED
   static bool appVersionIsValid(String? version) {
+
     if (version == null) {
       return false;
-    } else {
+    }
+
+    else {
       const pattern = r'^\d+\.\d+\.\d+(\+\d+)?$';
       final regex = RegExp(pattern);
       return regex.hasMatch(version);
     }
+
   }
   // -----------------------------------------------------------------------------
 
