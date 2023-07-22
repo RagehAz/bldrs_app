@@ -159,6 +159,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
         zoneViewingEvent: widget.zoneViewingEvent,
         depth: widget.depth,
         viewerCountryID: widget.viewerCountryID,
+        selectedZone: widget.currentZone,
       ),
     );
 
@@ -203,6 +204,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
             depth: widget.depth,
             countryID: _selectedZone.value?.countryID,
             viewerCountryID: widget.viewerCountryID,
+            selectedZone: widget.currentZone,
           )
       );
 

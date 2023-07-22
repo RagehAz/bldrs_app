@@ -4,6 +4,7 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
@@ -26,6 +27,7 @@ class CountriesScreen extends StatefulWidget {
     required this.zoneViewingEvent,
     required this.depth,
     required this.viewerCountryID,
+    required this.selectedZone,
     this.canSetPlanetAsCurrentZone = true,
     super.key
   });
@@ -34,6 +36,7 @@ class CountriesScreen extends StatefulWidget {
   final ZoneDepth depth;
   final String? viewerCountryID;
   final bool canSetPlanetAsCurrentZone;
+  final ZoneModel? selectedZone;
   /// --------------------------------------------------------------------------
   @override
   _CountriesScreenState createState() => _CountriesScreenState();
@@ -272,6 +275,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
       depth: widget.depth,
       zoneViewingEvent: widget.zoneViewingEvent,
       viewerCountryID: widget.viewerCountryID,
+      selectedZone: ZoneModel(countryID: countryID,),
     );
 
   }
@@ -321,6 +325,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 foundCountries: _foundCountries,
                 shownCountriesIDs: _shownCountriesIDs,
                 countriesCensus: _censuses,
+                selectedZone: widget.selectedZone,
                 onCountryTap: _onCountryTap,
                 onDeactivatedCountryTap: _onDeactivatedCountryTap,
               );
@@ -340,6 +345,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
                   zoneViewingEvent: widget.zoneViewingEvent,
                 ),
                 planetCensus: _planetCensus,
+                selectedZone: widget.selectedZone,
                 onPlanetTap: () async {
 
                   final bool _isSettingCurrentZone =

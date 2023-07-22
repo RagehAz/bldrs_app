@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/city_tile_button.dart';
@@ -20,6 +21,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
     required this.countryCensus,
     required this.onTapAllCities,
     required this.showAllCitiesButton,
+    required this.selectedZone,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -31,6 +33,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
   final CensusModel? countryCensus;
   final Function onTapAllCities;
   final bool showAllCitiesButton;
+  final ZoneModel? selectedZone;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -72,6 +75,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
                     isActive: true,
                     censusModel: countryCensus,
                     onTap: onTapAllCities,
+                    isSelected: selectedZone?.countryID != null && selectedZone?.cityID == null,
                     onDeactivatedTap: (){
                       blog(
                           'onDeactivatedTap : for country : $_countryID '
@@ -101,6 +105,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
                   city: _city,
                   isActive: _isActive,
                   censusModel: _census,
+                  isSelected: selectedZone?.cityID == _city.cityID,
                   onSingleTap: () => onCityTap(_city.cityID),
                   onDeactivatedTap: () => onDeactivatedCityTap(_city.cityID),
                 );

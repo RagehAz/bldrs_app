@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/city_tile_button.dart';
@@ -19,6 +20,7 @@ class CitiesScreenSearchView extends StatelessWidget {
     required this.foundCities,
     required this.shownCitiesIDs,
     required this.citiesCensuses,
+    required this.selectedZone,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -28,6 +30,7 @@ class CitiesScreenSearchView extends StatelessWidget {
   final ValueNotifier<List<CityModel>?> foundCities;
   final List<String>? shownCitiesIDs;
   final List<CensusModel>? citiesCensuses;
+  final ZoneModel? selectedZone;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -79,6 +82,7 @@ class CitiesScreenSearchView extends StatelessWidget {
                           city: _city,
                           isActive: _isActive,
                           censusModel: _census,
+                          isSelected: selectedZone?.countryID != null && selectedZone?.cityID == _city?.cityID,
                           onSingleTap: onCityTap == null ? null : () => onCityTap?.call(_city?.cityID),
                           onDeactivatedTap: () => onDeactivatedCityTap(_city?.cityID),
                         );
