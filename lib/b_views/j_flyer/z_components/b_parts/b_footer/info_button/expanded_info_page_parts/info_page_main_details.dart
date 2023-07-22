@@ -60,7 +60,7 @@ class InfoPageMainDetails extends StatelessWidget {
     // --------------------
     final DateTime? _from = PublishTime.getPublishTimeFromTimes(
         times: flyerModel?.times,
-        state: PublishState.published
+        state: OldPublishState.published
     )?.time;
     // --------------------
     final String _timeDifferance = BldrsTimers.calculateSuperTimeDifferenceString(

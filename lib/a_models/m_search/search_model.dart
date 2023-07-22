@@ -318,7 +318,7 @@ class SearchModel {
         onlyWithPDF: true,
         onlyAmazonProducts: true,
         phid: 'phid_k_prd_app_drink_blender',
-        publishState: PublishState.deleted,
+        publishState: OldPublishState.draft,
         auditState: AuditState.pending,
       ),
       bzSearchModel: const BzSearchModel(

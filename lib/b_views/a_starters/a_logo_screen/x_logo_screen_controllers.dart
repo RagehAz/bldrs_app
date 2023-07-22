@@ -26,6 +26,7 @@ import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:fire/super_fire.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -53,7 +54,7 @@ Future<void> initializeLogoScreen({
   else {
 
     /// bldrsIsOnline AND CAN WORK NORMALLY
-    if (Mapper.boolIsTrue(_globalState.bldrsIsOnline) == true) {
+    if (Mapper.boolIsTrue(_globalState.bldrsIsOnline) == true || kDebugMode == true) {
 
       // if (kDebugMode == true && DeviceChecker.deviceIsWindows() == true){
       //   await signInAsRage7();
