@@ -704,7 +704,7 @@ void main() {
       );
       const flyerID = 'draft2';
 
-      final result = PublicationModel.bringIDToStart(
+      final result = PublicationModel.bringIDToEnd(
         pub: pub,
         flyerID: flyerID,
         toState: PublishState.draft,
@@ -730,7 +730,7 @@ void main() {
       );
       const flyerID = 'pending2';
 
-      final result = PublicationModel.bringIDToStart(
+      final result = PublicationModel.bringIDToEnd(
         pub: pub,
         flyerID: flyerID,
         toState: PublishState.pending,
@@ -756,7 +756,7 @@ void main() {
       );
       const flyerID = 'published2';
 
-      final result = PublicationModel.bringIDToStart(
+      final result = PublicationModel.bringIDToEnd(
         pub: pub,
         flyerID: flyerID,
         toState: PublishState.published,
@@ -782,7 +782,7 @@ void main() {
       );
       const flyerID = 'unpublished2';
 
-      final result = PublicationModel.bringIDToStart(
+      final result = PublicationModel.bringIDToEnd(
         pub: pub,
         flyerID: flyerID,
         toState: PublishState.unpublished,
@@ -808,7 +808,7 @@ void main() {
       );
       const flyerID = 'suspended2';
 
-      final result = PublicationModel.bringIDToStart(
+      final result = PublicationModel.bringIDToEnd(
         pub: pub,
         flyerID: flyerID,
         toState: PublishState.suspended,
