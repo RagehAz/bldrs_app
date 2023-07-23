@@ -238,7 +238,7 @@ class PublicationModel {
 
       /// SAME STATE
       if (_fromState == toState){
-        return bringIDToStart(
+        return bringIDToEnd(
           pub: pub,
           toState: toState,
           flyerID: flyerID,
@@ -290,13 +290,13 @@ class PublicationModel {
     return replaceFlyersIDsInState(
       pub: pub,
       state: toState,
-      newList: [flyerID, ...toStateIDs],
+      newList: [...toStateIDs, flyerID],
     );
 
   }
   // --------------------
   /// AI TESTED
-  static PublicationModel bringIDToStart({
+  static PublicationModel bringIDToEnd({
     required PublicationModel pub,
     required String flyerID,
     required PublishState toState,
@@ -315,7 +315,7 @@ class PublicationModel {
     return replaceFlyersIDsInState(
       pub: pub,
       state: toState,
-      newList: [flyerID, ..._withoutInputID],
+      newList: [..._withoutInputID, flyerID],
     );
 
   }
@@ -356,7 +356,7 @@ class PublicationModel {
         removeThis: [flyerID],
       );
 
-      toStateIDs = [flyerID, ...toStateIDs];
+      toStateIDs = [...toStateIDs, flyerID];
 
       final PublicationModel _pub = replaceFlyersIDsInState(
           pub: pub,
