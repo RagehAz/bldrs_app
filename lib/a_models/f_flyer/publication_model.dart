@@ -33,6 +33,7 @@ class PublicationModel {
   /// CONSTANTS
 
   // --------------------
+  ///  TESTED : WORKS PERFECT
   static const PublicationModel emptyModel = PublicationModel(
       drafts: [],
       pendings: [],
@@ -137,7 +138,7 @@ class PublicationModel {
   /// GETTERS
 
   // --------------------
-  /// TASK : TEST ME
+  ///  TESTED : WORKS PERFECT
   static String? getPublishStatePhid(PublishState? state){
     // 'phid_verified_flyer' deprecated
     switch (state){
@@ -150,7 +151,7 @@ class PublicationModel {
     }
   }
   // --------------------
-  /// TASK : TEST ME
+  ///  TESTED : WORKS PERFECT
   List<String> getAllFlyersIDs(){
     return [
       ...drafts,
@@ -375,8 +376,8 @@ class PublicationModel {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
-  static PublicationModel removeFlyerID({
+  /// TESTED : WORKS PERFECT
+  static PublicationModel removeFlyerIDFromPublication({
     required PublicationModel pub,
     required String flyerID,
   }){
@@ -416,7 +417,7 @@ class PublicationModel {
   /// CONCLUDERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static PublishState concludeFlyerStateOnUpload({
     required PublishState? existingState,
     required bool isPublishing,
@@ -488,7 +489,7 @@ class PublicationModel {
   /// CHECKS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool checkPublicationIsEmpty({
     required PublicationModel? publication,
   }){
