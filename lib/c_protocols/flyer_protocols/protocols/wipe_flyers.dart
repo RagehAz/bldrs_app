@@ -47,7 +47,7 @@ class WipeFlyerProtocols {
   /// WIPE SINGLE FLYER
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onWipeSingleFlyer({
     required FlyerModel? flyerModel,
   }) async {
@@ -117,7 +117,7 @@ class WipeFlyerProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs({
     required BuildContext context,
     required FlyerModel? flyer,
