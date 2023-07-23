@@ -380,7 +380,7 @@ class BzModel{
   /// BZ MODIFIERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static BzModel? removeFlyerIDFromBzAndAuthor({
     required BzModel? oldBz,
     required FlyerModel? flyer,
@@ -389,7 +389,7 @@ class BzModel{
 
     if (flyer?.id != null && oldBz != null) {
 
-      final PublicationModel _publication = PublicationModel.removeFlyerID(
+      final PublicationModel _publication = PublicationModel.removeFlyerIDFromPublication(
         pub: oldBz.publication,
         flyerID: flyer!.id!,
       );
