@@ -13,11 +13,13 @@ class AppStateModel {
   // -----------------------------------------------------------------------------
   const AppStateModel({
     required this.appVersion,
+    required this.minVersion,
     required this.ldbVersion,
     required this.bldrsIsOnline,
   });
   // -----------------------------------------------------------------------------
   final String? appVersion;
+  final String? minVersion;
   final int? ldbVersion;
   final bool bldrsIsOnline;
   // -----------------------------------------------------------------------------
@@ -28,11 +30,13 @@ class AppStateModel {
   /// TESTED : WORKS PERFECT
   AppStateModel copyWith({
     String? appVersion,
+    String? minVersion,
     int? ldbVersion,
     bool? bldrsIsOnline,
   }){
     return AppStateModel(
       appVersion: appVersion ?? this.appVersion,
+      minVersion: minVersion ?? this.minVersion,
       ldbVersion: ldbVersion?? this.ldbVersion,
       bldrsIsOnline: bldrsIsOnline ?? this.bldrsIsOnline,
     );
@@ -50,6 +54,7 @@ class AppStateModel {
 
     return AppStateModel(
       appVersion : _detectedAppVersion,
+      minVersion: '0.0.0',
       ldbVersion : _globalState?.ldbVersion ?? 0,
       bldrsIsOnline: true,
     );
@@ -64,6 +69,7 @@ class AppStateModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'appVersion' : appVersion,
+      'minVersion': minVersion,
       'ldbVersion' : ldbVersion,
       'bldrsIsOnline' : bldrsIsOnline,
     };
@@ -80,6 +86,7 @@ class AppStateModel {
 
       return AppStateModel(
         appVersion : map['appVersion'],
+        minVersion: map['minVersion'],
         ldbVersion : map['ldbVersion']?.toInt(),
         bldrsIsOnline : map['bldrsIsOnline'] ?? true,
       );
@@ -207,6 +214,7 @@ class AppStateModel {
   static AppStateModel dummyAppState(){
     return const AppStateModel(
       appVersion: '0.0.0',
+      minVersion: '0.0.0',
       ldbVersion: 0,
       bldrsIsOnline: true,
     );

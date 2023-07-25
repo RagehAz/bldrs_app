@@ -1,14 +1,17 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/b_slide_editor_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -17,12 +20,11 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -87,7 +89,7 @@ Future<void> onAddNewSlides({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TASK : TEST ME
 Future<void> _addImagesForNewFlyer({
   required bool mounted,
   required ValueNotifier<DraftFlyer?> draftFlyer,
@@ -96,61 +98,46 @@ Future<void> _addImagesForNewFlyer({
   required PicMakerType imagePickerType,
 }) async {
 
-  List<Uint8List> _picked = <Uint8List>[];
+  if(mounted == true && draftFlyer.value?.id != null && draftFlyer.value?.bzID != null){
 
-  if(mounted == true){
+    final List<String> _ownersIDs = await FlyerModel.generateFlyerOwners(
+      bzID: draftFlyer.value?.bzID,
+    );
 
-    if (imagePickerType == PicMakerType.galleryImage){
-
-      final List<Uint8List> _bytezz = await BldrsPicMaker.pickAndCropMultiplePics(
-        // maxAssets: 10,
-        aspectRatio: FlyerDim.flyerAspectRatio(),
-        cropAfterPick: false,
-        resizeToWidth: Standards.slideWidthPixels,
-      );
-
-      if (Mapper.checkCanLoopList(_bytezz) == true){
-        _picked = _bytezz;
-      }
-
-    }
-
-    else if (imagePickerType == PicMakerType.cameraImage){
-
-      final Uint8List? _bytes = await PicMaker.shootAndCropCameraPic(
-        context: getMainContext(),
-        // maxAssets: 10,
-        aspectRatio: FlyerDim.flyerAspectRatio(),
-        cropAfterPick: false,
-        resizeToWidth: Standards.slideWidthPixels,
-      );
-
-      if (_bytes != null){
-        _picked = <Uint8List>[_bytes];
-      }
-
-    }
-
+    final List<PicModel> _pics = await BldrsPicMaker.makePics(
+      cropAfterPick: false,
+      aspectRatio: FlyerDim.flyerAspectRatio(),
+      compressionQuality: Standards.slideMediumQuality,
+      finalWidth: Standards.slideMediumWidth,
+      assignPath: (int index) => StoragePath.flyers_flyerID_slideIndex(
+        flyerID: draftFlyer.value!.id,
+        slideIndex: index,
+      )!,
+      ownersIDs: _ownersIDs,
+      groupName: 'flyer_by_${draftFlyer.value?.bzID}',
+      maxAssets: 10,
+    );
 
     /// B - if didn't pick more images
-    if(_picked.isEmpty){
+    if(_pics.isEmpty){
       // will do nothing
     }
 
     /// B - if made new picks
     else {
 
-      blog('the thing is : ${_picked.length} bytes');
-
       final List<DraftSlide> _newMutableSlides = await DraftSlide.createDrafts(
-        bytezz: _picked,
+        pics: _pics,
         existingDrafts: draftFlyer.value?.draftSlides ?? [],
         headline: draftFlyer.value?.headline?.text,
         bzID: draftFlyer.value?.bzID,
         flyerID: draftFlyer.value?.id,
       );
 
-      final List<DraftSlide> _combinedSlides = <DraftSlide>[...?draftFlyer.value?.draftSlides, ..._newMutableSlides];
+      final List<DraftSlide> _combinedSlides = <DraftSlide>[
+        ...?draftFlyer.value?.draftSlides,
+        ..._newMutableSlides
+      ];
 
       final DraftFlyer? _newDraft = draftFlyer.value?.copyWith(
         draftSlides: _combinedSlides,

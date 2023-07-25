@@ -1,7 +1,8 @@
 import 'dart:async';
-import 'dart:typed_data';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/files/file_size_unit.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
@@ -13,17 +14,11 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -149,83 +144,69 @@ Future<void> saveAuthorEditorSession({
 /// AUTHOR PROFILE EDITOR
 
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TASK : TEST ME
 Future<void> takeAuthorImage({
   required ValueNotifier<AuthorModel?> author,
   required BzModel? bzModel,
-  required PicMakerType imagePickerType,
+  required PicMakerType picMakerType,
   required ValueNotifier<bool> canPickImage,
   required bool mounted,
 }) async {
 
   if (canPickImage.value  == true) {
 
-    setNotifier(
-        notifier: canPickImage,
-        mounted: mounted,
-        value: false,
+    final String? _path = StoragePath.bzz_bzID_authorID(bzID: bzModel?.id, authorID: author.value?.userID);
+    final List<String>? _ownersIDs = AuthorModel.getAuthorPicOwnersIDs(
+      bzModel: bzModel,
+      authorModel: author.value,
     );
 
-    Uint8List? _bytes;
-
-    if(imagePickerType == PicMakerType.galleryImage){
-      _bytes = await BldrsPicMaker.pickAndCropSinglePic(
-        cropAfterPick: true,
-        aspectRatio: 1,
-        resizeToWidth: Standards.userPictureWidthPixels,
-      );
-    }
-    else if (imagePickerType == PicMakerType.cameraImage){
-      _bytes = await PicMaker.shootAndCropCameraPic(
-        context: getMainContext(),
-        cropAfterPick: true,
-        aspectRatio: 1,
-        resizeToWidth: Standards.userPictureWidthPixels,
-      );
-    }
-
-    /// IF DID NOT PIC ANY IMAGE
-    if (_bytes == null) {
+    if (_path != null && _ownersIDs != null){
 
       setNotifier(
           notifier: canPickImage,
           mounted: mounted,
-          value: true
+          value: false,
       );
 
-    }
+      final PicModel? _pic = await BldrsPicMaker.makePic(
+          picMakerType: picMakerType,
+          cropAfterPick: true,
+          aspectRatio: 1,
+          compressionQuality: Standards.authorPicQuality,
+          finalWidth: Standards.authorPicWidth,
+          assignPath: _path,
+          ownersIDs: _ownersIDs,
+          name: 'author_pic',
+      );
 
-    /// IF PICKED AN IMAGE
-    else {
+      /// IF DID NOT PIC ANY IMAGE
+      if (_pic == null) {
+        setNotifier(
+            notifier: canPickImage,
+            mounted: mounted,
+            value: true
+        );
+      }
 
-      final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
-      final double? _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
+      /// IF PICKED AN IMAGE
+      else {
 
-      setNotifier(
+        setNotifier(
           notifier: author,
           mounted: mounted,
           value: author.value?.copyWith(
-            picModel: PicModel(
-              bytes: _bytes,
-              path: StoragePath.bzz_bzID_authorID(bzID: bzModel?.id, authorID: author.value?.userID),
-              meta: StorageMetaModel(
-                sizeMB: _mega,
-                ownersIDs: AuthorModel.getAuthorPicOwnersIDs(
-                  bzModel: bzModel,
-                  authorModel: author.value,
-                ),
-                width: _dims?.width,
-                height: _dims?.height,
-              ),
-            ),
+            picModel: _pic,
           ),
-      );
+        );
 
-      setNotifier(
-          notifier: canPickImage,
-          mounted: mounted,
-          value: true,
-      );
+        setNotifier(
+            notifier: canPickImage,
+            mounted: mounted,
+            value: true,
+        );
+
+      }
 
     }
 

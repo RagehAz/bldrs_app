@@ -1,5 +1,6 @@
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 
+/// WHEN YOU START TRANSLATION : TRANSLATE_THE_WORLD IN BASICS
 class Words {
   // -----------------------------------------------------------------------------
 
