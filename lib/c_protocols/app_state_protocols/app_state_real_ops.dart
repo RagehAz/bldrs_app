@@ -57,13 +57,30 @@ class AppStateRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateGlobalAppVersion({
-    required String newAppVersion,
+    required String newGlobalAppVersion,
   }) async {
 
     final AppStateModel? _appState = await readGlobalAppState();
 
     final AppStateModel? _newAppState = _appState?.copyWith(
-      appVersion: newAppVersion,
+      appVersion: newGlobalAppVersion,
+    );
+
+    await _updateGlobalAppState(
+      newAppState: _newAppState,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> updateMinAppVersion({
+    required String newMinAppVersion,
+  }) async {
+
+    final AppStateModel? _appState = await readGlobalAppState();
+
+    final AppStateModel? _newAppState = _appState?.copyWith(
+      minVersion: newMinAppVersion,
     );
 
     await _updateGlobalAppState(

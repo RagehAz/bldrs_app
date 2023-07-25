@@ -430,7 +430,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       onAddPicture: (PicMakerType imagePickerType) => takeAuthorImage(
                         author: _draftAuthor,
                         bzModel: widget.bzModel,
-                        imagePickerType: imagePickerType,
+                        picMakerType: imagePickerType,
                         canPickImage: _canPickImage,
                         mounted: mounted,
                       ),

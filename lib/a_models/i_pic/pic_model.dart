@@ -1,12 +1,15 @@
-import 'dart:typed_data';
+import 'dart:io';
+
+import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/file_size_unit.dart';
-import 'package:basics/helpers/classes/files/floaters.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
-import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:flutter/material.dart';
+import 'package:basics/helpers/classes/files/floaters.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
+import 'package:fire/super_fire.dart';
+import 'package:flutter/foundation.dart';
 /// => TAMAM
 @immutable
 class PicModel {
@@ -107,6 +110,73 @@ class PicModel {
     FileSizeUnit fileSizeUnit = FileSizeUnit.megaByte,
   }){
     return Filers.calculateSize(bytes?.length, fileSizeUnit);
+  }
+  // -----------------------------------------------------------------------------
+
+  /// COMBINERS
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<PicModel?> combinePicModel({
+    required Uint8List? bytes,
+    required PicMakerType picMakerType,
+    required int compressionQuality,
+    required String assignPath,
+    required List<String> ownersIDs,
+    required String name,
+  }) async {
+    PicModel? _output;
+
+    if (bytes != null){
+
+      final Dimensions? _dims =  await Dimensions.superDimensions(bytes);
+      final double? _aspectRatio = _dims?.getAspectRatio();
+      final double? _mega = Filers.calculateSize(bytes.length, FileSizeUnit.megaByte);
+      final double? _kilo = Filers.calculateSize(bytes.length, FileSizeUnit.kiloByte);
+      final String? _deviceID = await DeviceChecker.getDeviceID();
+      final String? _deviceName = await DeviceChecker.getDeviceName();
+      final String _devicePlatform = kIsWeb == true ? 'web' : Platform.operatingSystem;
+
+      /// SOMETHING IS MISSING
+      if (
+          _dims == null ||
+          _aspectRatio == null ||
+          _mega == null ||
+          _kilo == null ||
+          _deviceID == null ||
+          _deviceName == null
+      ){
+        _output = null;
+      }
+
+      /// ALL IS GOOD
+      else {
+        _output = PicModel(
+          bytes: bytes,
+          path: assignPath,
+          meta: StorageMetaModel(
+            sizeMB: _mega,
+            width: _dims.width,
+            height: _dims.height,
+            name: name,
+            ownersIDs: ownersIDs,
+            data: {
+              'aspectRatio': _aspectRatio.toString(),
+              'sizeB': bytes.length.toString(),
+              'sizeKB': _kilo.toString(),
+              'compressionQuality': compressionQuality.toString(),
+              'source': PicMaker.cipherPicMakerType(picMakerType),
+              'deviceID': _deviceID,
+              'deviceName': _deviceName,
+              'platform': _devicePlatform,
+            },
+          ),
+        );
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

@@ -1,11 +1,7 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/files/file_size_unit.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
@@ -19,7 +15,6 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
@@ -27,7 +22,6 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -365,78 +359,60 @@ void onChangeBzForm({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TASK : TEST ME
 Future<void> onChangeBzLogo({
   required ValueNotifier<DraftBz?> draftNotifier,
   required PicMakerType imagePickerType,
   required bool mounted,
 }) async {
 
-  if (Mapper.boolIsTrue(draftNotifier.value?.canPickImage) == true) {
+  if (draftNotifier.value != null && Mapper.boolIsTrue(draftNotifier.value?.canPickImage) == true) {
 
-    setNotifier(
+    final String? _path = draftNotifier.value!.getLogoPath();
+    final List<String>? _ownersIDs = draftNotifier.value?.getLogoOwners();
+
+    if (_path != null && _ownersIDs != null){
+
+      setNotifier(
         notifier: draftNotifier,
         mounted: mounted,
         value: draftNotifier.value?.copyWith(
           canPickImage: false,
         ),
-    );
+      );
 
-    Uint8List? _bytes;
-
-    if(imagePickerType == PicMakerType.galleryImage){
-      _bytes = await BldrsPicMaker.pickAndCropSinglePic(
+      final PicModel? _pic = await BldrsPicMaker.makePic(
+        picMakerType: imagePickerType,
         cropAfterPick: true,
         aspectRatio: 1,
-        resizeToWidth: Standards.userPictureWidthPixels,
-      );
-    }
-
-    else if (imagePickerType == PicMakerType.cameraImage){
-      _bytes = await PicMaker.shootAndCropCameraPic(
-        context: getMainContext(),
-        cropAfterPick: true,
-        aspectRatio: 1,
-        resizeToWidth: Standards.userPictureWidthPixels,
-      );
-    }
-
-    /// IF DID NOT PIC ANY IMAGE
-    if (_bytes == null) {
-
-      setNotifier(
-        notifier: draftNotifier,
-        mounted: mounted,
-        value: draftNotifier.value?.copyWith(canPickImage: true,),
+        compressionQuality: Standards.bzLogoPicQuality,
+        finalWidth: Standards.bzLogoPicWidth,
+        assignPath: _path,
+        ownersIDs: _ownersIDs,
+        name: 'bz_logo',
       );
 
-    }
+      /// IF DID NOT PIC ANY IMAGE
+      if (_pic == null) {
+        setNotifier(
+          notifier: draftNotifier,
+          mounted: mounted,
+          value: draftNotifier.value?.copyWith(canPickImage: true,),
+        );
+      }
 
-    /// IF PICKED AN IMAGE
-    else {
-
-      final String? _path = draftNotifier.value?.getLogoPath();
-      final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
-      final double? _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
-
-      setNotifier(
+      /// IF PICKED AN IMAGE
+      else {
+        setNotifier(
           notifier: draftNotifier,
           mounted: mounted,
           value: draftNotifier.value?.copyWith(
             canPickImage: true,
             hasNewLogo: true,
-            logoPicModel: PicModel(
-                bytes: _bytes,
-                path: _path,
-                meta: StorageMetaModel(
-                    sizeMB: _mega,
-                    width: _dims?.width,
-                    height: _dims?.height,
-                    ownersIDs: draftNotifier.value?.getLogoOwners() ?? [],
-                )
-            ),
+            logoPicModel: _pic,
           ),
-      );
+        );
+      }
 
     }
 
