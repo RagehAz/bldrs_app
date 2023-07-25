@@ -1,20 +1,17 @@
 import 'dart:typed_data';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 /// => TAMAM
 @immutable
@@ -48,9 +45,9 @@ class DraftSlide {
   /// CREATION
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<List<DraftSlide>> createDrafts({
-    required List<Uint8List>? bytezz,
+    required List<PicModel>? pics,
     required List<DraftSlide> existingDrafts,
     required String? headline,
     required String? flyerID,
@@ -58,17 +55,17 @@ class DraftSlide {
   }) async {
     final List<DraftSlide> _output = <DraftSlide>[];
 
-    if (Mapper.checkCanLoopList(bytezz) == true){
+    if (Mapper.checkCanLoopList(pics) == true){
 
-      for (int i = 0; i < bytezz!.length; i++){
+      for (int i = 0; i < pics!.length; i++){
 
-        final Uint8List _bytes = bytezz[i];
+        final PicModel _pic = pics[i];
 
         final int _newSlideIndex = i + existingDrafts.length;
 
         /// B1 - CREATE NEW DRAFT SLIDE
         final DraftSlide? _newSlide = await createDraft(
-          bytes: _bytes,
+          pic: _pic,
           index: _newSlideIndex,
           headline: _newSlideIndex  == 0 ? headline : null,
           flyerID: flyerID,
@@ -87,9 +84,9 @@ class DraftSlide {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<DraftSlide?> createDraft({
-    required Uint8List? bytes,
+    required PicModel? pic,
     required int index,
     required String? headline,
     required String? flyerID,
@@ -97,40 +94,23 @@ class DraftSlide {
   }) async {
     DraftSlide? _slide;
 
-    if (bytes != null){
+    if (pic != null){
 
-      final Dimensions? _dimensions = await Dimensions.superDimensions(bytes);
-      final Color? _midColor = await Colorizer.getAverageColor(bytes);
+      final Color? _midColor = await Colorizer.getAverageColor(pic.bytes);
 
       _slide = DraftSlide(
         flyerID: flyerID,
-        picModel: PicModel(
-          bytes: bytes,
-          path: StoragePath.flyers_flyerID_slideIndex(flyerID: flyerID, slideIndex: index),
-          meta: StorageMetaModel(
-            width: _dimensions?.width,
-            height: _dimensions?.height,
-            ownersIDs: await FlyerModel.generateFlyerOwners(
-                bzID: bzID,
-            ),
-          ),
-        ),
+        picModel: pic,
         headline: '',
         description: '',
         midColor: _midColor,
         opacity: 1,
         slideIndex: index,
         picFit: Dimensions.concludeBoxFit(
-          picWidth: _dimensions?.width ?? 1,
-          picHeight: _dimensions?.height ?? 0,
-          viewWidth: FlyerDim.flyerWidthByFactor(
-            gridWidth: Scale.screenWidth(getMainContext()),
-            flyerSizeFactor: 1,
-          ),
-          viewHeight: FlyerDim.heightBySizeFactor(
-            flyerSizeFactor: 1,
-            gridWidth: Scale.screenWidth(getMainContext()),
-          ),
+          picWidth: pic.meta?.width ?? 1,
+          picHeight: pic.meta?.height ?? 0,
+          viewWidth: pic.meta?.width ?? 100,
+          viewHeight: FlyerDim.flyerHeightByFlyerWidth(flyerBoxWidth: pic.meta?.width ?? 100,),
         ),
         matrix: Matrix4.identity(),
         animationCurve: null,

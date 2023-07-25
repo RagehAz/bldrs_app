@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/files/file_size_unit.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -19,11 +18,7 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -145,14 +140,14 @@ Future<void> loadUserEditorLastSession({
 /// EDITORS
 
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TASK : TEST ME
 Future<void> takeUserPicture({
   required ValueNotifier<DraftUser?> draft,
   required PicMakerType picMakerType,
   required bool mounted,
 }) async {
 
-  if (Mapper.boolIsTrue(draft.value?.canPickImage) == true) {
+  if (draft.value?.id != null && Mapper.boolIsTrue(draft.value?.canPickImage) == true) {
 
     DraftUser.triggerCanPickImage(
       draftUser: draft,
@@ -160,55 +155,34 @@ Future<void> takeUserPicture({
       setTo: false,
     );
 
-    Uint8List? _bytes;
-
-    if(picMakerType == PicMakerType.galleryImage){
-      _bytes = await BldrsPicMaker.pickAndCropSinglePic(
+    final PicModel? _picModel = await BldrsPicMaker.makePic(
+        picMakerType: picMakerType,
         cropAfterPick: true,
         aspectRatio: 1,
-        resizeToWidth: Standards.userPictureWidthPixels,
-      );
-    }
-    else if (picMakerType == PicMakerType.cameraImage){
-      _bytes = await PicMaker.shootAndCropCameraPic(
-        context: getMainContext(),
-        cropAfterPick: true,
-        aspectRatio: 1,
-        resizeToWidth: Standards.userPictureWidthPixels,
-      );
-    }
+        compressionQuality: Standards.userPicQuality,
+        finalWidth: Standards.userPicWidth,
+        assignPath: StoragePath.users_userID_pic(draft.value?.id)!,
+        ownersIDs: [draft.value!.id!],
+        name: 'user_pic',
+    );
 
     /// IF DID NOT PIC ANY IMAGE
-    if (_bytes == null) {
-      blog('takeUserPicture : did not take user picture');
+    if (_picModel == null) {
       // picture.value  = null;
       DraftUser.triggerCanPickImage(draftUser: draft, mounted: mounted, setTo: true,);
     }
 
     /// IF PICKED AN IMAGE
     else {
-      blog('takeUserPicture : we got the pic in : ${_bytes.length} bytes');
-
-      final Dimensions? _dims =  await Dimensions.superDimensions(_bytes);
-      final double? _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
 
       setNotifier(
-          notifier: draft,
-          mounted: mounted,
-          value: draft.value?.copyWith(
-              picModel: PicModel(
-                bytes: _bytes,
-                path: StoragePath.users_userID_pic(draft.value?.id),
-                meta: StorageMetaModel(
-                  sizeMB: _mega,
-                  width: _dims?.width,
-                  height: _dims?.height,
-                  ownersIDs: draft.value?.id == null ? [] : [draft.value!.id!],
-                ),
-              ),
-              hasNewPic: true,
-              canPickImage: true
-          ),
+        notifier: draft,
+        mounted: mounted,
+        value: draft.value?.copyWith(
+            picModel: _picModel,
+            hasNewPic: true,
+            canPickImage: true
+        ),
       );
 
     }
