@@ -261,7 +261,10 @@ Future<void> onDeleteSlide({
 
   Keyboard.closeKeyboard();
 
-  final SlideModel? _slide = await DraftSlide.draftToSlide(draftSlide);
+  final SlideModel? _slide = await DraftSlide.draftToSlide(
+    draft: draftSlide,
+    slidePicType: SlidePicType.small,
+  );
 
   final bool _continue = await Dialogs.slideDialog(
       slideModel: _slide,
@@ -288,7 +291,8 @@ Future<void> onDeleteSlide({
         ),
     );
 
-    _slide?.uiImage?.dispose();
+    _slide?.frontImage?.dispose();
+    _slide?.backImage?.dispose();
 
   }
 

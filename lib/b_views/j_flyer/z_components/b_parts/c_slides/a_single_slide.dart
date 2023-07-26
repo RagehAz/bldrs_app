@@ -23,7 +23,6 @@ class SingleSlide extends StatelessWidget {
     required this.canTapSlide,
     // required this.canAnimateMatrix,
     required this.slideShadowIsOn,
-    required this.blurLayerIsOn,
     required this.canUseFilter,
     required this.canPinch,
     super.key
@@ -39,7 +38,6 @@ class SingleSlide extends StatelessWidget {
   final Function? onSlideBackTap;
   final Function? onDoubleTap;
   final bool slideShadowIsOn;
-  final bool blurLayerIsOn;
   final bool canTapSlide;
   // final bool canAnimateMatrix;
   final bool canUseFilter;
@@ -68,26 +66,6 @@ class SingleSlide extends StatelessWidget {
           ),
           loading: false,
         ),
-
-        // // /// BACK GROUND COVER PIC
-        // if (blurLayerIsOn == true)
-        //   SuperFilteredImage(
-        //     key: const ValueKey<String>('BACKGROUND_SLIDE_BLUR_PIC'),
-        //     width: flyerBoxWidth,
-        //     height: flyerBoxHeight,
-        //     pic: slideModel?.uiImage,
-        //     loading: false,
-        //   ),
-        //
-        // /// BLUR LAYER
-        // if (blurLayerIsOn == true)
-        //   BlurLayer(
-        //     width: flyerBoxWidth,
-        //     height: flyerBoxHeight,
-        //     blurIsOn: true,
-        //     blur: 20,
-        //     borders: FlyerDim.flyerCorners(flyerBoxWidth),
-        //   ),
 
         /// ANIMATED SLIDE
         SlideImage(
