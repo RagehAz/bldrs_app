@@ -340,13 +340,13 @@ class GtaModel {
 
           final PicModel? _bigPic = await createPicModelByGtaUrl(_url);
           final PicModel? _medPic = await BldrsPicMaker.compressSlideBigPicTo(
-              bigPic: _bigPic,
+              slidePic: _bigPic,
               flyerID: DraftFlyer.newDraftID,
               slideIndex: i,
               type: SlidePicType.med,
           );
           final PicModel? _smallPic = await BldrsPicMaker.compressSlideBigPicTo(
-              bigPic: _bigPic,
+              slidePic: _bigPic,
               flyerID: DraftFlyer.newDraftID,
               slideIndex: i,
               type: SlidePicType.small,

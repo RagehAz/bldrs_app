@@ -480,7 +480,7 @@ class SlideModel {
   }
    */
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static List<String> generateSlidesPicsPaths({
     required List<SlideModel>? slides,
     required SlidePicType type,
@@ -508,14 +508,14 @@ class SlideModel {
     return _paths;
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static String? generateSlidePicPath({
     required String? flyerID,
     required int? slideIndex,
     required SlidePicType type,
   }){
 
-    if (flyerID != null && slideIndex != null){
+    if (flyerID == null || slideIndex == null){
       return null;
     }
     else {

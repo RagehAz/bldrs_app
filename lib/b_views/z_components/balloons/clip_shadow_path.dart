@@ -11,7 +11,7 @@ class ClipShadowPath extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Shadow shadow;
+  final Shadow? shadow;
   final CustomClipper<Path>? clipper;
   final bool shadowIsOn;
   final Widget child;
@@ -19,12 +19,12 @@ class ClipShadowPath extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (shadowIsOn == true){
+    if (shadowIsOn == true && shadow != null){
       return CustomPaint(
         key: UniqueKey(),
         painter: _ClipShadowPainter(
           clipper: clipper,
-          shadow: shadow,
+          shadow: shadow!,
         ),
         child: ClipPath(
             clipper: clipper,

@@ -130,26 +130,6 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                     loading: false,
                   ),
 
-                // /// BACK GROUND COVER PIC
-                // if (widget.draftSlide != null)
-                //   SuperFilteredImage(
-                //     width: DraftShelfSlide.flyerBoxWidth,
-                //     height: _flyerBoxHeight,
-                //     pic: widget.draftSlide?.bigPic?.bytes,
-                //     loading: false,
-                //   ),
-                //
-                // /// BLUR LAYER
-                // if (widget.draftSlide != null)
-                //   BlurLayer(
-                //     key: const ValueKey<String>('blur_layer'),
-                //     width: DraftShelfSlide.flyerBoxWidth,
-                //     height: _flyerBoxHeight,
-                //     blurIsOn: true,
-                //     blur: 20,
-                //     borders: FlyerDim.flyerCorners(DraftShelfSlide.flyerBoxWidth),
-                //   ),
-
                 /// IMAGE
                 if (widget.draftSlide != null)
                   ValueListenableBuilder(

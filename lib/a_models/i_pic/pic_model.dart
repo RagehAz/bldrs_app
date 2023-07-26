@@ -6,6 +6,7 @@ import 'package:basics/helpers/classes/files/file_size_unit.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:fire/super_fire.dart';
@@ -123,10 +124,15 @@ class PicModel {
   }) async {
     PicModel? _output;
 
+    // blog('  1.combinePicModel start : ${bytes?.length} bytes : picMakerType $picMakerType : '
+    //     'assignPath : $assignPath : name : $name');
+
     if (bytes != null){
 
+      // blog('  2.combinePicModel bytes exists ${bytes != null}');
+
       final Dimensions? _dims =  await Dimensions.superDimensions(bytes);
-      final double? _aspectRatio = _dims?.getAspectRatio();
+      final double? _aspectRatio = Numeric.roundFractions(_dims?.getAspectRatio(), 2);
       final double? _mega = Filers.calculateSize(bytes.length, FileSizeUnit.megaByte);
       final double? _kilo = Filers.calculateSize(bytes.length, FileSizeUnit.kiloByte);
       final String? _deviceID = await DeviceChecker.getDeviceID();
@@ -143,6 +149,13 @@ class PicModel {
           _deviceName == null
       ){
         _output = null;
+        // blog('  3.dims : $_dims');
+        // blog('  3.aspectRatio : $_aspectRatio');
+        // blog('  3.mega : $_mega');
+        // blog('  3.kilo : $_kilo');
+        // blog('  3.deviceID : $_deviceID');
+        // blog('  3.deviceName : $_deviceName');
+        // blog('  3.devicePlatform : $_devicePlatform');
       }
 
       /// ALL IS GOOD
@@ -171,6 +184,8 @@ class PicModel {
       }
 
     }
+
+    // blog('  3.combinePicModel _output is null ${_output == null}');
 
     return _output;
   }

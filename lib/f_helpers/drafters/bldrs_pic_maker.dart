@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:basics/super_image/super_image.dart';
@@ -261,22 +262,26 @@ class BldrsPicMaker {
   // --------------------
   /// TASK : TEST ME VERIFY_ME
   static Future<PicModel?> compressSlideBigPicTo({
-    required PicModel? bigPic,
+    required PicModel? slidePic,
     required String? flyerID,
     required int? slideIndex,
     required SlidePicType type,
   }) async {
     PicModel? _output;
 
-    if (flyerID != null && slideIndex != null && bigPic != null && bigPic.meta?.data != null){
+    blog('1.compressSlideBigPicTo : flyerID $flyerID : slideIndex : $slideIndex : type : $type');
 
-      final Uint8List? _smallBytes = await PicMaker.compressPic(
-        bytes: bigPic.bytes,
-        quality: Standards.slideSmallQuality,
-        compressToWidth: Standards.slideSmallWidth,
+    if (flyerID != null && slideIndex != null && slidePic != null && slidePic.meta?.data != null){
+
+      final Uint8List? _compressed = await PicMaker.compressPic(
+        bytes: slidePic.bytes,
+        quality: getSlidePicCompressionQuality(type),
+        compressToWidth: getSlidePicWidth(type),
       );
 
-      if (_smallBytes != null){
+      // blog('2.compressSlideBigPicTo : _compressed ${_compressed?.length}');
+
+      if (_compressed != null){
 
         final String? _slideID = SlideModel.generateSlideID(
           flyerID: flyerID,
@@ -290,16 +295,25 @@ class BldrsPicMaker {
           type: type,
         );
 
+        // blog('3.compressSlideBigPicTo : _slideID $_slideID : $_slidePath');
+
         if (_slideID != null && _slidePath != null){
 
+          final String? _source = slidePic.meta?.data?['source'];
+          final PicMakerType _type = _source == null ? PicMakerType.generated
+              :
+          PicMaker.decipherPicMakerType(_source) ?? PicMakerType.generated;
+
           _output = await PicModel.combinePicModel(
-            bytes: _smallBytes,
-            picMakerType: PicMaker.decipherPicMakerType(bigPic.meta!.data!['source'])!,
+            bytes: _compressed,
+            picMakerType: _type,
             compressionQuality: getSlidePicCompressionQuality(type),
             assignPath: _slidePath,
-            ownersIDs: bigPic.meta!.ownersIDs,
+            ownersIDs: slidePic.meta!.ownersIDs,
             name: _slideID,
           );
+
+          // blog('4.compressSlideBigPicTo : _output $_output');
 
         }
 
@@ -330,7 +344,7 @@ class BldrsPicMaker {
     }
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+/// TESTED : WORKS PERFECT
   static Future<PicModel?> createSlideBackground({
     required PicModel? bigPic,
     required String? flyerID,
