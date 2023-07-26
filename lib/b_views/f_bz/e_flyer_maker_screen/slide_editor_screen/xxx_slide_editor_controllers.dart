@@ -218,14 +218,14 @@ Future<void> onCropSlide({
     if (_croppedBig != null){
 
       final PicModel? _med = await BldrsPicMaker.compressSlideBigPicTo(
-          bigPic: _croppedBig,
+          slidePic: _croppedBig,
           flyerID: draftNotifier.value!.flyerID,
           slideIndex: draftNotifier.value!.slideIndex,
           type: SlidePicType.med,
       );
 
       final PicModel? _small = await BldrsPicMaker.compressSlideBigPicTo(
-          bigPic: _croppedBig,
+          slidePic: _croppedBig,
           flyerID: draftNotifier.value!.flyerID,
           slideIndex: draftNotifier.value!.slideIndex,
           type: SlidePicType.small,

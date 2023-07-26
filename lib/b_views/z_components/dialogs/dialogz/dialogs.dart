@@ -4,11 +4,15 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/layouts/views/floating_list.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/super_image/super_image.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/password_screen.dart';
@@ -1101,6 +1105,62 @@ class Dialogs {
     );
 
     return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> picsDialog({
+    required List<PicModel> pics,
+    required Verse titleVerse,
+    Verse? bodyVerse,
+    Verse? confirmButtonVerse,
+    bool boolDialog = true,
+    bool invertButtons = false,
+  }) async {
+
+    final BuildContext context = getMainContext();
+    final double _screenHeight = Scale.screenHeight(context);
+    final double _dialogHeight = _screenHeight * 0.7;
+    final double _dialogWidth = CenterDialog.getWidth(context);
+    final double _flyerBoxHeight = _dialogHeight * 0.5;
+
+    final bool _result = await CenterDialog.showCenterDialog(
+      titleVerse: titleVerse,
+      bodyVerse: bodyVerse,
+      boolDialog: boolDialog,
+      confirmButtonVerse: confirmButtonVerse,
+      height: _dialogHeight,
+      invertButtons: invertButtons,
+      // copyOnTap: false,
+      child: FloatingList(
+        scrollDirection: Axis.horizontal,
+        height: _flyerBoxHeight,
+        width: _dialogWidth,
+        columnChildren: <Widget>[
+
+          ...List.generate(pics.length, (index){
+
+            final PicModel _pic = pics[index];
+            final Dimensions _dims = Dimensions(width: _pic.meta?.width, height: _pic.meta?.height);
+            final double aspectRatio = _dims.getAspectRatio() ?? 1;
+            final double _height = _flyerBoxHeight;
+            final double _width = aspectRatio * _height;
+
+            return SuperImage(
+              width:_width,
+              height: _height,
+              pic: _pic.bytes,
+              loading: false,
+              corners: _height * 0.1,
+            );
+
+          }),
+
+        ],
+      ),
+    );
+
+    return _result;
+
   }
   // --------------------
 }

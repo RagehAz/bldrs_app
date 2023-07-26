@@ -446,13 +446,6 @@ class BottomDialog extends StatelessWidget {
               ),
             ),
 
-            // /// --- BLUR LAYER
-            // BlurLayer(
-            //   width: _dialogWidth,
-            //   height: _dialogHeight,
-            //   borders: _dialogCorners,
-            // ),
-
             /// --- DIALOG CONTENTS
             SizedBox(
               width: _dialogWidth,

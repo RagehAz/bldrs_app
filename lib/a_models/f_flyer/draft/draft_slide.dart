@@ -104,13 +104,13 @@ class DraftSlide {
 
       final Color? _midColor = await Colorizer.getAverageColor(bigPic.bytes);
       final PicModel? _medPic = await BldrsPicMaker.compressSlideBigPicTo(
-        bigPic: bigPic,
+        slidePic: bigPic,
         flyerID: flyerID,
         slideIndex: index,
         type: SlidePicType.med,
       );
       final PicModel? _smallPic = await BldrsPicMaker.compressSlideBigPicTo(
-        bigPic: bigPic,
+        slidePic: bigPic,
         flyerID: flyerID,
         slideIndex: index,
         type: SlidePicType.small,
