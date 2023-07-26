@@ -629,7 +629,6 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
                 progressBarModel: _progressBarModel,
                 flightDirection: FlightDirection.non,
                 canTapSlides: true,
-                showSlidesBlurLayers: true,
                 showSlidesShadows: true,
                 canAnimateSlides: true,
                 onHorizontalExit: (){

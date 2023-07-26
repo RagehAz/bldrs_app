@@ -237,6 +237,7 @@ class DraftFlyer{
   static Future<FlyerModel?> draftToFlyer({
     required DraftFlyer? draft,
     required bool toLDB,
+    required SlidePicType slidePicType,
     /// CORRECTS PUBLISH STATE AND ADDS NEW PUBLISH TIME RECORD
     bool isPublishing = false,
   }) async {
@@ -275,7 +276,10 @@ class DraftFlyer{
           authorID: draft.authorID,
           bzID: draft.bzID,
           position: draft.position,
-          slides: await DraftSlide.draftsToSlides(draft.draftSlides),
+          slides: await DraftSlide.draftsToSlides(
+            drafts: draft.draftSlides,
+            slidePicType: slidePicType,
+          ),
           specs: draft.specs,
           times: _publishTimes,
           hasPriceTag: Speccer.checkSpecsHavePrice(draft.specs),

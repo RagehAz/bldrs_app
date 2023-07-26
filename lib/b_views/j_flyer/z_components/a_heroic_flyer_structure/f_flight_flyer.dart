@@ -10,7 +10,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/e
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_affiliate_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -96,30 +95,19 @@ class FlightFlyer extends StatelessWidget {
                               alignment: Alignment.topCenter,
                               children: <Widget>[
 
-                                /// BACK GROUND COVER PIC
-                                SuperFilteredImage(
-                                  key: const ValueKey<String>('BACKGROUND_SLIDE_BLUR_PIC'),
+                                /// BACKGROUND
+                                SuperImage(
                                   width: flyerBoxWidth,
                                   height: flyerBoxHeight,
-                                  pic: slideModel?.uiImage,
-                                  corners: flyerBorders,
+                                  pic: slideModel?.backImage,
                                   loading: false,
-                                ),
-
-                                /// BLUR LAYER
-                                BlurLayer(
-                                  width: flyerBoxWidth,
-                                  height: flyerBoxHeight,
-                                  blurIsOn: true,
-                                  blur: 20,
-                                  borders: flyerBorders,
                                 ),
 
                                 /// IMAGE
                                 SuperFilteredImage(
                                   width: flyerBoxWidth,
                                   height: flyerBoxHeight,
-                                  pic: slideModel?.uiImage,
+                                  pic: slideModel?.frontImage,
                                   boxFit: slideModel?.picFit ?? BoxFit.cover,
                                   corners: flyerBorders,
                                   loading: false,

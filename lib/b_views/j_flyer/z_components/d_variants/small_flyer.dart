@@ -23,7 +23,6 @@ class SmallFlyer extends StatelessWidget {
     required this.flyerBoxWidth,
     required this.onTap,
     this.flyerShadowIsOn = true,
-    this.bluerLayerIsOn = true,
     this.slideShadowIsOn = true,
     this.canAnimateMatrix = true,
     this.canUseFilter = true,
@@ -37,7 +36,6 @@ class SmallFlyer extends StatelessWidget {
   final double flyerBoxWidth;
   final void Function()? onTap;
   final bool flyerShadowIsOn;
-  final bool bluerLayerIsOn;
   final bool slideShadowIsOn;
   final bool canAnimateMatrix;
   final bool canUseFilter;
@@ -82,7 +80,6 @@ class SmallFlyer extends StatelessWidget {
                 onSlideNextTap: null,
                 onSlideBackTap: null,
                 onDoubleTap: null,
-                blurLayerIsOn: bluerLayerIsOn,
                 canTapSlide: false,
                 slideShadowIsOn: slideShadowIsOn,
                 // canAnimateMatrix: canAnimateMatrix,

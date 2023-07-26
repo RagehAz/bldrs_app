@@ -251,7 +251,10 @@ class FlyerModel {
         // -------------------------
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
         // -------------------------
-        slides: SlideModel.decipherSlides(map['slides']),
+        slides: SlideModel.decipherSlides(
+          maps: map['slides'],
+          flyerID: map['id'],
+        ),
         // -------------------------
         specs: SpecModel.decipherSpecs(map['specs']),
         hasPriceTag: map['hasPriceTag'],

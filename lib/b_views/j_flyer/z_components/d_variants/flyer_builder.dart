@@ -44,11 +44,11 @@ class FlyerBuilder extends StatelessWidget {
       }
       /// WHEN RENDER FIRST SLIDE
       else if (renderFlyer == RenderFlyer.firstSlide){
-        _shouldBuildByFlyer = flyerModel?.slides?.first.uiImage != null;
+        _shouldBuildByFlyer = flyerModel?.slides?.first.frontImage != null;
       }
       /// WHEN RENDER ALL SLIDES
       else {
-        final bool? _allSlidesAreRendered = flyerModel?.slides?.every((slide) => slide.uiImage != null);
+        final bool? _allSlidesAreRendered = flyerModel?.slides?.every((slide) => slide.frontImage != null);
         _shouldBuildByFlyer = _allSlidesAreRendered ?? false;
       }
 
