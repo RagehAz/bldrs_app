@@ -1145,12 +1145,15 @@ class Dialogs {
             final double _height = _flyerBoxHeight;
             final double _width = aspectRatio * _height;
 
-            return SuperImage(
-              width:_width,
-              height: _height,
-              pic: _pic.bytes,
-              loading: false,
-              corners: _height * 0.1,
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2.5),
+              child: SuperImage(
+                width:_width,
+                height: _height,
+                pic: _pic.bytes,
+                loading: false,
+                corners: _height * 0.1,
+              ),
             );
 
           }),
