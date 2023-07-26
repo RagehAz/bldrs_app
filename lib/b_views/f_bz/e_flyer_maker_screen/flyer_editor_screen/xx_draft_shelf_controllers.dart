@@ -89,7 +89,7 @@ Future<void> onAddNewSlides({
 
 }
 // --------------------
-/// TASK : TEST ME VERIFY_ME
+/// TESTED : WORKS PERFECT
 Future<void> _addImagesForNewFlyer({
   required bool mounted,
   required ValueNotifier<DraftFlyer?> draftFlyer,

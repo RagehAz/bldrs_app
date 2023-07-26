@@ -8,10 +8,12 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 
+/// => TAMAM
 class ImagifyFlyerProtocols {
   // -----------------------------------------------------------------------------
 
   const ImagifyFlyerProtocols();
+
   // -----------------------------------------------------------------------------
 
   /// SMALL FLYER IMAGIFIED
@@ -123,7 +125,7 @@ class ImagifyFlyerProtocols {
   /// DISPOSING
 
   // --------------------
-  /// TASK : TEST ME
+  /// ???
   static void disposeRenderedFlyer({
     required FlyerModel? flyerModel,
     required bool mounted,
@@ -178,7 +180,7 @@ class ImagifyFlyerProtocols {
   /// IMAGIFY SLIDES
 
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel?> _imagifyFirstSlide({
     required FlyerModel? flyerModel,
   }) async {
@@ -198,7 +200,10 @@ class ImagifyFlyerProtocols {
             path: SlideModel.generateSlidePicPath(
                 flyerID: flyerModel.id,
                 slideIndex: 0,
-                type: SlidePicType.small,
+                type: SlideModel.getSmallSlidePicTypeIfAnimated(
+                  slideModel: _firstSlide,
+                  ifStatic: SlidePicType.small,
+                ),
             ),
           );
           final ui.Image? _back = await PicProtocols.fetchPicUiImage(
@@ -232,7 +237,7 @@ class ImagifyFlyerProtocols {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel?> _imagifySlides({
     required FlyerModel? flyerModel,
     required Function(FlyerModel flyer) onRenderSlide,
@@ -258,7 +263,10 @@ class ImagifyFlyerProtocols {
               path: SlideModel.generateSlidePicPath(
                   flyerID: _slide.flyerID,
                   slideIndex: _slide.slideIndex,
-                  type: SlidePicType.med,
+                  type: SlideModel.getSmallSlidePicTypeIfAnimated(
+                      slideModel: _slide,
+                      ifStatic: SlidePicType.med,
+                  ),
               ),
             );
 
