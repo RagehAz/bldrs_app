@@ -89,7 +89,7 @@ Future<void> onAddNewSlides({
 
 }
 // --------------------
-/// TASK : TEST ME
+/// TASK : TEST ME VERIFY_ME
 Future<void> _addImagesForNewFlyer({
   required bool mounted,
   required ValueNotifier<DraftFlyer?> draftFlyer,
@@ -104,22 +104,28 @@ Future<void> _addImagesForNewFlyer({
       bzID: draftFlyer.value?.bzID,
     );
 
-    final List<PicModel> _pics = await BldrsPicMaker.makePics(
+    final List<PicModel> _bigPics = await BldrsPicMaker.makePics(
       cropAfterPick: false,
       aspectRatio: FlyerDim.flyerAspectRatio(),
-      compressionQuality: Standards.slideMediumQuality,
-      finalWidth: Standards.slideMediumWidth,
-      assignPath: (int index) => StoragePath.flyers_flyerID_slideIndex(
+      compressionQuality: Standards.slideBigQuality,
+      finalWidth: Standards.slideBigWidth,
+      assignPath: (int index) => StoragePath.flyers_flyerID_index_big(
         flyerID: draftFlyer.value!.id,
         slideIndex: index,
       )!,
       ownersIDs: _ownersIDs,
-      groupName: 'flyer_by_${draftFlyer.value?.bzID}',
-      maxAssets: 10,
+      picNameGenerator: (int index){
+        return SlideModel.generateSlideID(
+            flyerID: draftFlyer.value!.id,
+            slideIndex: index,
+            type: SlidePicType.big,
+        )!;
+      },
+      maxAssets: 5,
     );
 
     /// B - if didn't pick more images
-    if(_pics.isEmpty){
+    if(_bigPics.isEmpty){
       // will do nothing
     }
 
@@ -127,7 +133,7 @@ Future<void> _addImagesForNewFlyer({
     else {
 
       final List<DraftSlide> _newMutableSlides = await DraftSlide.createDrafts(
-        pics: _pics,
+        bigPics: _bigPics,
         existingDrafts: draftFlyer.value?.draftSlides ?? [],
         headline: draftFlyer.value?.headline?.text,
         bzID: draftFlyer.value?.bzID,

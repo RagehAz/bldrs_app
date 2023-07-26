@@ -255,7 +255,7 @@ class FlyerDeck extends StatelessWidget {
       if (_slide.uiImage == null){
 
         final DraftSlide? _draft = draft?.draftSlides?.firstWhere((element) => element.slideIndex == _slide.slideIndex);
-        final ui.Image? _image = await Floaters.getUiImageFromUint8List(_draft?.picModel?.bytes);
+        final ui.Image? _image = await Floaters.getUiImageFromUint8List(_draft?.bigPic?.bytes);
         final SlideModel _updatedSlide = _slide.copyWith(
           uiImage: _image,
         );
@@ -427,6 +427,8 @@ class _TheDeck extends StatelessWidget {
                   flyerBoxWidth: _flyerBoxWidth,
                 ),
                 slideModel: flyerModel!.slides![_reverseIndex!],
+                slidePicType: SlidePicType.small,
+                loading: false,
                 tinyMode: false,
                 onSlideNextTap: null,
                 onSlideBackTap: null,

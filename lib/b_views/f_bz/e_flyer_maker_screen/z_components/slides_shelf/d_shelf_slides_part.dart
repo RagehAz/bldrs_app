@@ -123,7 +123,7 @@ class ShelfSlidesPart extends StatelessWidget {
             final DraftSlide _draftSlide = draft!.draftSlides![index];
 
             return DraftShelfSlide(
-                key: ValueKey<String>('son_${_draftSlide.picModel.hashCode}'),
+                key: ValueKey<String>('son_${_draftSlide.bigPic.hashCode}'),
                 draftSlide: _draftSlide,
                 number: index + 1,
                 onTap: () => onSlideTap(_draftSlide),

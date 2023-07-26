@@ -925,17 +925,19 @@ class FlyerModel {
     return _owners;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> getPicsPaths(FlyerModel? flyer){
-    final List<String> _output = <String>[];
+  /// TASK : TEST ME VERIFY_ME
+  static List<String> getPicsPaths({
+    required FlyerModel? flyer,
+    required SlidePicType type,
+  }){
+    List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(flyer?.slides) == true){
 
-      for (final SlideModel slide in flyer!.slides!){
-        if (slide.picPath != null){
-          _output.add(slide.picPath!);
-        }
-      }
+      _output = SlideModel.generateSlidesPicsPaths(
+          slides: flyer?.slides,
+          type: type,
+      );
 
     }
 

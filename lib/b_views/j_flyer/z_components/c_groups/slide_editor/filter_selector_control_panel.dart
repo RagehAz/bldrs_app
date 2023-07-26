@@ -117,7 +117,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                                   filterModel: _filter,
                                   width: _boxWidth,
                                   height: _boxHeight,
-                                  pic: _slide.picModel?.bytes,
+                                  pic: _slide.bigPic?.bytes,
                                   loading: false,
                                   // boxFit: BoxFit.cover,
                                 );

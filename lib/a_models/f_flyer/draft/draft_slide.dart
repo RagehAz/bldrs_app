@@ -10,7 +10,7 @@ import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:flutter/material.dart';
 
 /// => TAMAM
@@ -20,7 +20,10 @@ class DraftSlide {
   const DraftSlide({
     required this.flyerID,
     required this.slideIndex,
-    required this.picModel,
+    required this.bigPic,
+    required this.medPic,
+    required this.smallPic,
+    required this.backPic,
     required this.picFit,
     required this.headline,
     required this.description,
@@ -32,7 +35,10 @@ class DraftSlide {
   // --------------------------------------------------------------------------
   final String? flyerID;
   final int slideIndex;
-  final PicModel? picModel;
+  final PicModel? bigPic;
+  final PicModel? medPic;
+  final PicModel? smallPic;
+  final PicModel? backPic;
   final BoxFit? picFit;
   final String? headline;
   final String? description;
@@ -45,9 +51,9 @@ class DraftSlide {
   /// CREATION
 
   // --------------------
-  /// TASK : TEST ME
+  /// TASK : TEST ME VERIFY_ME
   static Future<List<DraftSlide>> createDrafts({
-    required List<PicModel>? pics,
+    required List<PicModel>? bigPics,
     required List<DraftSlide> existingDrafts,
     required String? headline,
     required String? flyerID,
@@ -55,17 +61,17 @@ class DraftSlide {
   }) async {
     final List<DraftSlide> _output = <DraftSlide>[];
 
-    if (Mapper.checkCanLoopList(pics) == true){
+    if (Mapper.checkCanLoopList(bigPics) == true){
 
-      for (int i = 0; i < pics!.length; i++){
+      for (int i = 0; i < bigPics!.length; i++){
 
-        final PicModel _pic = pics[i];
+        final PicModel _bigPic = bigPics[i];
 
         final int _newSlideIndex = i + existingDrafts.length;
 
         /// B1 - CREATE NEW DRAFT SLIDE
         final DraftSlide? _newSlide = await createDraft(
-          pic: _pic,
+          bigPic: _bigPic,
           index: _newSlideIndex,
           headline: _newSlideIndex  == 0 ? headline : null,
           flyerID: flyerID,
@@ -84,9 +90,9 @@ class DraftSlide {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TASK : TEST ME VERIFY_ME
   static Future<DraftSlide?> createDraft({
-    required PicModel? pic,
+    required PicModel? bigPic,
     required int index,
     required String? headline,
     required String? flyerID,
@@ -94,23 +100,43 @@ class DraftSlide {
   }) async {
     DraftSlide? _slide;
 
-    if (pic != null){
+    if (bigPic != null){
 
-      final Color? _midColor = await Colorizer.getAverageColor(pic.bytes);
+      final Color? _midColor = await Colorizer.getAverageColor(bigPic.bytes);
+      final PicModel? _medPic = await BldrsPicMaker.compressSlideBigPicTo(
+        bigPic: bigPic,
+        flyerID: flyerID,
+        slideIndex: index,
+        type: SlidePicType.med,
+      );
+      final PicModel? _smallPic = await BldrsPicMaker.compressSlideBigPicTo(
+        bigPic: bigPic,
+        flyerID: flyerID,
+        slideIndex: index,
+        type: SlidePicType.small,
+      );
+      final PicModel? _backPic = await BldrsPicMaker.createSlideBackground(
+        bigPic: bigPic,
+        flyerID: flyerID,
+        slideIndex: index,
+      );
 
       _slide = DraftSlide(
         flyerID: flyerID,
-        picModel: pic,
+        bigPic: bigPic,
+        medPic: _medPic,
+        smallPic: _smallPic,
+        backPic: _backPic,
         headline: '',
         description: '',
         midColor: _midColor,
         opacity: 1,
         slideIndex: index,
         picFit: Dimensions.concludeBoxFit(
-          picWidth: pic.meta?.width ?? 1,
-          picHeight: pic.meta?.height ?? 0,
-          viewWidth: pic.meta?.width ?? 100,
-          viewHeight: FlyerDim.flyerHeightByFlyerWidth(flyerBoxWidth: pic.meta?.width ?? 100,),
+          picWidth: bigPic.meta?.width ?? 1,
+          picHeight: bigPic.meta?.height ?? 0,
+          viewWidth: bigPic.meta?.width ?? 100,
+          viewHeight: FlyerDim.flyerHeightByFlyerWidth(flyerBoxWidth: bigPic.meta?.width ?? 100,),
         ),
         matrix: Matrix4.identity(),
         animationCurve: null,
@@ -125,7 +151,7 @@ class DraftSlide {
   /// CYPHERS - SLIDE MODEL
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME VERIFY_ME
   static Future<SlideModel?> draftToSlide(DraftSlide? draft) async {
     SlideModel? slide;
 
@@ -140,12 +166,11 @@ class DraftSlide {
         midColor: draft.midColor,
         matrix: draft.matrix,
         animationCurve: draft.animationCurve,
-        picPath: draft.picModel?.path,
         dimensions: Dimensions(
-          width: draft.picModel?.meta?.width,
-          height: draft.picModel?.meta?.height,
+          width: draft.bigPic?.meta?.width,
+          height: draft.bigPic?.meta?.height,
         ),
-        uiImage: await Floaters.getUiImageFromUint8List(draft.picModel?.bytes),
+        uiImage: await Floaters.getUiImageFromUint8List(draft.bigPic?.bytes),
       );
 
     }
@@ -171,7 +196,7 @@ class DraftSlide {
     return SlideModel.sortSlidesByIndexes(_slides);
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME VERIFY_ME
   static Future<DraftSlide?> draftFromSlide(SlideModel? slide) async {
     DraftSlide? _draft;
 
@@ -179,7 +204,10 @@ class DraftSlide {
       _draft = DraftSlide(
         flyerID: slide.flyerID,
         slideIndex: slide.slideIndex,
-        picModel: await PicProtocols.fetchPic(slide.picPath),
+        bigPic: await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.big),
+        medPic: await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.med),
+        smallPic: await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.small),
+        backPic: await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.back),
         picFit: slide.picFit,
         headline: slide.headline,
         description: slide.description,
@@ -236,7 +264,7 @@ class DraftSlide {
   /// CYPHERS - LDB
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME VERIFY_ME
   static Map<String, dynamic>? draftToLDB(DraftSlide? draft){
     Map<String, dynamic>? _map;
 
@@ -244,7 +272,10 @@ class DraftSlide {
       _map = {
         'flyerID': draft.flyerID,
         'slideIndex': draft.slideIndex,
-        'picModel': PicModel.cipherToLDB(draft.picModel),
+        'bigPic': PicModel.cipherToLDB(draft.bigPic),
+        'medPic': PicModel.cipherToLDB(draft.medPic),
+        'smallPic': PicModel.cipherToLDB(draft.smallPic),
+        'backPic': PicModel.cipherToLDB(draft.backPic),
         'picFit': Dimensions.cipherBoxFit(draft.picFit),
         'headline': draft.headline,
         'description': draft.description,
@@ -278,7 +309,7 @@ class DraftSlide {
     return _maps;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME VERIFY_ME
   static DraftSlide? draftFromLDB(Map<String, dynamic>? map){
     DraftSlide? _draft;
 
@@ -286,7 +317,10 @@ class DraftSlide {
       _draft = DraftSlide(
         flyerID: map['flyerID'],
         slideIndex: map['slideIndex'],
-        picModel: PicModel.decipherFromLDB(map['picModel']),
+        bigPic: PicModel.decipherFromLDB(map['bigPic']),
+        medPic: PicModel.decipherFromLDB(map['medPic']),
+        smallPic: PicModel.decipherFromLDB(map['smallPic']),
+        backPic: PicModel.decipherFromLDB(map['backPic']),
         picFit: Dimensions.decipherBoxFit(map['picFit']),
         headline: map['headline'],
         description: map['description'],
@@ -327,7 +361,10 @@ class DraftSlide {
   DraftSlide copyWith({
     String? flyerID,
     int? slideIndex,
-    PicModel? picModel,
+    PicModel? bigPic,
+    PicModel? medPic,
+    PicModel? smallPic,
+    PicModel? backPic,
     BoxFit? picFit,
     String? headline,
     String? description,
@@ -339,7 +376,10 @@ class DraftSlide {
     return DraftSlide(
       flyerID: flyerID ?? this.flyerID,
       slideIndex: slideIndex ?? this.slideIndex,
-      picModel: picModel ?? this.picModel,
+      bigPic: bigPic ?? this.bigPic,
+      medPic: medPic ?? this.medPic,
+      smallPic: smallPic ?? this.smallPic,
+      backPic: backPic ?? this.backPic,
       picFit: picFit ?? this.picFit,
       headline: headline ?? this.headline,
       description: description ?? this.description,
@@ -354,7 +394,10 @@ class DraftSlide {
   DraftSlide nullifyField({
     bool flyerID = false,
     // bool slideIndex = false,
-    bool picModel = false,
+    bool bigPic = false,
+    bool medPic = false,
+    bool smallPic = false,
+    bool backPic = false,
     bool picFit = false,
     bool headline = false,
     bool description = false,
@@ -366,7 +409,10 @@ class DraftSlide {
     return DraftSlide(
       flyerID: flyerID == true ? null : this.flyerID,
       slideIndex: slideIndex, // == true ? null : this.slideIndex,
-      picModel: picModel == true ? null : this.picModel,
+      bigPic: bigPic == true ? null : this.bigPic,
+      medPic: medPic == true ? null : this.medPic,
+      smallPic: smallPic == true ? null : this.smallPic,
+      backPic: backPic == true ? null : this.backPic,
       picFit: picFit == true ? null : this.picFit,
       headline: headline == true ? null : this.headline,
       description: description == true ? null : this.description,
@@ -381,32 +427,87 @@ class DraftSlide {
   /// GETTERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME VERIFY_ME
   static List<Uint8List> getBytezzFromDraftSlides({
     required List<DraftSlide> drafts,
+    required SlidePicType slidePicType,
   }) {
 
     final List<Uint8List> _output = <Uint8List>[];
 
     for (final DraftSlide draft in drafts) {
-      if (draft.picModel?.bytes != null) {
-        _output.add(draft.picModel!.bytes!);
+
+      switch (slidePicType){
+
+        case SlidePicType.big:
+          if (draft.bigPic?.bytes != null) {
+            _output.add(draft.bigPic!.bytes!);
+          } break;
+
+        case SlidePicType.med:
+          if (draft.medPic?.bytes != null) {
+            _output.add(draft.medPic!.bytes!);
+          } break;
+
+        case SlidePicType.small:
+          if (draft.smallPic?.bytes != null) {
+            _output.add(draft.smallPic!.bytes!);
+          } break;
+
+        case SlidePicType.back:
+          if (draft.backPic?.bytes != null) {
+            _output.add(draft.backPic!.bytes!);
+          } break;
+
       }
+
+
     }
 
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<PicModel> getPicModels(List<DraftSlide>? drafts){
+  /// TASK : TEST ME VERIFY_ME
+  static List<PicModel> getPicModels({
+    required List<DraftSlide>? drafts,
+    required SlidePicType slidePicType,
+  }){
     final List<PicModel> _output = <PicModel>[];
 
     if (Mapper.checkCanLoopList(drafts) == true){
 
       for (final DraftSlide draft in drafts!){
-        if (draft.picModel != null){
-          _output.add(draft.picModel!);
+
+        switch (slidePicType){
+
+          case SlidePicType.big:
+            if (draft.bigPic != null) {
+              _output.add(draft.bigPic!);
+            } break;
+
+            case SlidePicType.med:
+              if (draft.medPic != null) {
+                _output.add(draft.medPic!);
+              } break;
+
+              case SlidePicType.small:
+                if (draft.smallPic != null) {
+                  _output.add(draft.smallPic!);
+                } break;
+
+                case SlidePicType.back:
+                  if (draft.backPic != null) {
+                    _output.add(draft.backPic!);
+                  } break;
+
         }
+
+
+
+
+
+
+
       }
 
     }
@@ -490,7 +591,7 @@ class DraftSlide {
     blog('headline : $headline : description : $description');
     blog('midColor : $midColor : opacity : $opacity : picFit : $picFit'
         ' hasCustomMatrix : ${matrix != Matrix4.identity()} : animationCurve L $animationCurve');
-    picModel?.blogPic();
+    bigPic?.blogPic();
 
   }
   // --------------------
@@ -531,8 +632,17 @@ class DraftSlide {
     if (slide1?.slideIndex != slide2?.slideIndex){
       blog('MutableSlidesDifferences : slideIndexes are not Identical');
     }
-    if (PicModel.checkPicsAreIdentical(pic1: slide1?.picModel, pic2: slide2?.picModel) == false){
-      blog('MutableSlidesDifferences : picModels are not Identical');
+    if (PicModel.checkPicsAreIdentical(pic1: slide1?.bigPic, pic2: slide2?.bigPic) == false){
+      blog('MutableSlidesDifferences : bigPics are not Identical');
+    }
+    if (PicModel.checkPicsAreIdentical(pic1: slide1?.medPic, pic2: slide2?.medPic) == false){
+      blog('MutableSlidesDifferences : medPics are not Identical');
+    }
+    if (PicModel.checkPicsAreIdentical(pic1: slide1?.smallPic, pic2: slide2?.smallPic) == false){
+      blog('MutableSlidesDifferences : smallPics are not Identical');
+    }
+    if (PicModel.checkPicsAreIdentical(pic1: slide1?.backPic, pic2: slide2?.backPic) == false){
+      blog('MutableSlidesDifferences : backPics are not Identical');
     }
     if (slide1?.picFit != slide2?.picFit){
       blog('MutableSlidesDifferences : picFits are not Identical');
@@ -601,7 +711,7 @@ class DraftSlide {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME VERIFY_ME
   static List<DraftSlide> overrideDraftsFlyerID({
     required List<DraftSlide>? drafts,
     required String? flyerID,
@@ -614,11 +724,25 @@ class DraftSlide {
 
         final DraftSlide _updated = draft.copyWith(
           flyerID: flyerID,
-          picModel: draft.picModel?.copyWith(
-            path: StoragePath.flyers_flyerID_slideIndex(
-                flyerID: flyerID,
-                slideIndex: draft.slideIndex,
-            ),
+
+          bigPic: draft.bigPic?.copyWith(
+            meta: draft.bigPic?.meta?.copyWith(name: SlideModel.generateSlideID(flyerID: flyerID, slideIndex: draft.slideIndex, type: SlidePicType.big)),
+            path: SlideModel.generateSlidePicPath(type: SlidePicType.big, flyerID: flyerID, slideIndex: draft.slideIndex,),
+          ),
+
+          medPic: draft.medPic?.copyWith(
+            meta: draft.medPic?.meta?.copyWith(name: SlideModel.generateSlideID(flyerID: flyerID, slideIndex: draft.slideIndex, type: SlidePicType.med)),
+            path: SlideModel.generateSlidePicPath(type: SlidePicType.med, flyerID: flyerID, slideIndex: draft.slideIndex,),
+          ),
+
+          smallPic: draft.smallPic?.copyWith(
+            meta: draft.smallPic?.meta?.copyWith(name: SlideModel.generateSlideID(flyerID: flyerID, slideIndex: draft.slideIndex, type: SlidePicType.small)),
+            path: SlideModel.generateSlidePicPath(type: SlidePicType.small, flyerID: flyerID, slideIndex: draft.slideIndex,),
+          ),
+
+          backPic: draft.backPic?.copyWith(
+            meta: draft.backPic?.meta?.copyWith(name: SlideModel.generateSlideID(flyerID: flyerID, slideIndex: draft.slideIndex, type: SlidePicType.back)),
+            path: SlideModel.generateSlidePicPath(type: SlidePicType.back, flyerID: flyerID, slideIndex: draft.slideIndex,),
           ),
 
         );
@@ -677,7 +801,10 @@ class DraftSlide {
       if (
           slide1.flyerID == slide2.flyerID &&
           slide1.slideIndex == slide2.slideIndex &&
-          PicModel.checkPicsAreIdentical(pic1: slide1.picModel, pic2: slide2.picModel) == true &&
+          PicModel.checkPicsAreIdentical(pic1: slide1.bigPic, pic2: slide2.bigPic) == true &&
+          PicModel.checkPicsAreIdentical(pic1: slide1.medPic, pic2: slide2.medPic) == true &&
+          PicModel.checkPicsAreIdentical(pic1: slide1.smallPic, pic2: slide2.smallPic) == true &&
+          PicModel.checkPicsAreIdentical(pic1: slide1.backPic, pic2: slide2.backPic) == true &&
           slide1.picFit == slide2.picFit &&
           slide1.headline == slide2.headline &&
           slide1.description == slide2.description &&
@@ -798,7 +925,10 @@ class DraftSlide {
   int get hashCode =>
       flyerID.hashCode^
       slideIndex.hashCode^
-      picModel.hashCode^
+      bigPic.hashCode^
+      medPic.hashCode^
+      smallPic.hashCode^
+      backPic.hashCode^
       picFit.hashCode^
       headline.hashCode^
       description.hashCode^

@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -29,7 +30,7 @@ class RenovateFlyerProtocols {
   /// FLYER RENOVATION
 
   // --------------------
-  /// TASK : TEST ME
+  /// TASK : TEST ME VERIFY_ME
   static Future<void> renovateDraft({
     required BuildContext context,
     required DraftFlyer? newDraft,
@@ -74,7 +75,23 @@ class RenovateFlyerProtocols {
 
         await Future.wait(<Future>[
           /// RENOVATE SLIDES PICS
-          PicProtocols.renovatePics(DraftSlide.getPicModels(newDraft.draftSlides)),
+          PicProtocols.renovatePics(DraftSlide.getPicModels(
+            drafts: newDraft.draftSlides,
+            slidePicType: SlidePicType.big,
+          )),
+          PicProtocols.renovatePics(DraftSlide.getPicModels(
+            drafts: newDraft.draftSlides,
+            slidePicType: SlidePicType.med,
+          )),
+          PicProtocols.renovatePics(DraftSlide.getPicModels(
+            drafts: newDraft.draftSlides,
+            slidePicType: SlidePicType.small,
+          )),
+          PicProtocols.renovatePics(DraftSlide.getPicModels(
+            drafts: newDraft.draftSlides,
+            slidePicType: SlidePicType.back,
+          )),
+
           /// WIPE UN-USED PICS
           _wipeUnusedSlidesPics(
             draft: newDraft,
@@ -193,7 +210,7 @@ class RenovateFlyerProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TASK : TEST ME VERIFY_ME
   static Future<void> _wipeUnusedSlidesPics({
     required DraftFlyer? draft,
     required FlyerModel? oldFlyer,
@@ -210,10 +227,43 @@ class RenovateFlyerProtocols {
       final List<String> _picsPathsToBeDeleted = <String>[];
 
       for (int i = _newLength; i < _oldLength; i++) {
-        final String? _path = oldFlyer!.slides![i].picPath;
 
-        if (_path != null){
-          _picsPathsToBeDeleted.add(_path);
+        final SlideModel _slideToDelete = oldFlyer!.slides![i];
+
+        final String? _bigPicPath = SlideModel.generateSlidePicPath(
+            flyerID: _slideToDelete.flyerID,
+            slideIndex: _slideToDelete.slideIndex,
+            type: SlidePicType.big,
+        );
+        if (_bigPicPath != null){
+          _picsPathsToBeDeleted.add(_bigPicPath);
+        }
+
+        final String? _medPicPath = SlideModel.generateSlidePicPath(
+            flyerID: _slideToDelete.flyerID,
+            slideIndex: _slideToDelete.slideIndex,
+            type: SlidePicType.med,
+        );
+        if (_medPicPath != null){
+          _picsPathsToBeDeleted.add(_medPicPath);
+        }
+
+        final String? _smallPicPath = SlideModel.generateSlidePicPath(
+            flyerID: _slideToDelete.flyerID,
+            slideIndex: _slideToDelete.slideIndex,
+            type: SlidePicType.small,
+        );
+        if (_smallPicPath != null){
+          _picsPathsToBeDeleted.add(_smallPicPath);
+        }
+
+        final String? _backPicPath = SlideModel.generateSlidePicPath(
+            flyerID: _slideToDelete.flyerID,
+            slideIndex: _slideToDelete.slideIndex,
+            type: SlidePicType.back,
+        );
+        if (_backPicPath != null){
+          _picsPathsToBeDeleted.add(_backPicPath);
         }
 
       }

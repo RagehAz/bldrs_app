@@ -19,7 +19,9 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
@@ -322,7 +324,7 @@ class GtaModel {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME VERIFY_ME
   static Future<List<DraftSlide>> createDraftSlidesByGtaProduct({
     required GtaModel? product,
   }) async {
@@ -336,22 +338,43 @@ class GtaModel {
 
         if (ObjectCheck.isAbsoluteURL(_url) == true) {
 
-          final PicModel? _picModel = await createPicModelByGtaUrl(_url);
+          final PicModel? _bigPic = await createPicModelByGtaUrl(_url);
+          final PicModel? _medPic = await BldrsPicMaker.compressSlideBigPicTo(
+              bigPic: _bigPic,
+              flyerID: DraftFlyer.newDraftID,
+              slideIndex: i,
+              type: SlidePicType.med,
+          );
+          final PicModel? _smallPic = await BldrsPicMaker.compressSlideBigPicTo(
+              bigPic: _bigPic,
+              flyerID: DraftFlyer.newDraftID,
+              slideIndex: i,
+              type: SlidePicType.small,
+          );
+          final PicModel? _backPic = await BldrsPicMaker.createSlideBackground(
+              bigPic: _bigPic,
+              flyerID: DraftFlyer.newDraftID,
+              slideIndex: i,
+          );
 
-          if (_picModel != null) {
+          if (_bigPic != null && _medPic != null && _smallPic != null && _backPic != null) {
 
             final DraftSlide _draft = DraftSlide(
               flyerID: DraftFlyer.newDraftID,
               slideIndex: i,
-              picModel: _picModel,
+              bigPic: _bigPic,
+              medPic: _medPic,
+              smallPic: _smallPic,
+              backPic: _backPic,
               picFit: BoxFit.fitWidth,
               headline: i == 0 ? product.title : null,
               description: null,
-              midColor: await Colorizer.getAverageColor(_picModel.bytes),
+              midColor: await Colorizer.getAverageColor(_bigPic.bytes),
               opacity: 1,
               matrix: Matrix4.identity(),
               animationCurve: null,
             );
+
             _output.add(_draft);
 
           }
@@ -391,7 +414,6 @@ class GtaModel {
       );
 
       }
-
 
     }
 

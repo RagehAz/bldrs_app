@@ -1028,6 +1028,8 @@ class Dialogs {
           ),
           flyerBoxHeight: _flyerBoxHeight,
           slideModel: slideModel,
+          slidePicType: SlidePicType.small,
+          loading: false,
           tinyMode: true,
           slideShadowIsOn: true,
           onDoubleTap: null,
