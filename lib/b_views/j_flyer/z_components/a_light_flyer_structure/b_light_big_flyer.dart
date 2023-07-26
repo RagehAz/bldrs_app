@@ -584,7 +584,6 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
               onHorizontalExit: widget.onHorizontalExit,
               canTapSlides: true,
               showSlidesShadows: true,
-              showSlidesBlurLayers: true,
               canAnimateSlides: true,
               canPinch: false,
               canUseFilter: false,

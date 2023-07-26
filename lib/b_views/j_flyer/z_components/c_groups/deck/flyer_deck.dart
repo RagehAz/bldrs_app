@@ -241,7 +241,11 @@ class FlyerDeck extends StatelessWidget {
     required DraftFlyer? draft,
   }) async {
 
-    final FlyerModel? _flyer = await DraftFlyer.draftToFlyer(draft: draft, toLDB: false);
+    final FlyerModel? _flyer = await DraftFlyer.draftToFlyer(
+      draft: draft,
+      slidePicType: SlidePicType.small,
+      toLDB: false,
+    );
 
     final List<SlideModel> _flyerSlides = <SlideModel>[];
 
@@ -252,12 +256,14 @@ class FlyerDeck extends StatelessWidget {
       final SlideModel _slide = _flyer.slides![i];
 
       /// UI IMAGE IS MISSING
-      if (_slide.uiImage == null){
+      if (_slide.frontImage == null){
 
         final DraftSlide? _draft = draft?.draftSlides?.firstWhere((element) => element.slideIndex == _slide.slideIndex);
-        final ui.Image? _image = await Floaters.getUiImageFromUint8List(_draft?.bigPic?.bytes);
+        final ui.Image? _front = await Floaters.getUiImageFromUint8List(_draft?.smallPic?.bytes);
+        final ui.Image? _back = await Floaters.getUiImageFromUint8List(_draft?.backPic?.bytes);
         final SlideModel _updatedSlide = _slide.copyWith(
-          uiImage: _image,
+          frontImage: _front,
+          backImage: _back,
         );
         // blog('UI IMAGE IS MISSING : ${_updatedSlide.uiImage} : ${_updatedSlide.uiImage.runtimeType}');
         _flyerSlides.add(_updatedSlide);
@@ -434,7 +440,6 @@ class _TheDeck extends StatelessWidget {
                 onSlideBackTap: null,
                 onDoubleTap: null,
                 slideShadowIsOn: true,
-                blurLayerIsOn: true,
                 canTapSlide: false,
                 // canAnimateMatrix: true,
                 canUseFilter: false,

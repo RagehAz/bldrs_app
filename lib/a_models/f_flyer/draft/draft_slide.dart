@@ -152,10 +152,22 @@ class DraftSlide {
 
   // --------------------
   /// TASK : TEST ME VERIFY_ME
-  static Future<SlideModel?> draftToSlide(DraftSlide? draft) async {
+  static Future<SlideModel?> draftToSlide({
+    required DraftSlide? draft,
+    required SlidePicType slidePicType,
+  }) async {
     SlideModel? slide;
 
     if (draft != null){
+
+      final PicModel? _picModel = getPicModel(
+          draft: draft,
+          slidePicType: slidePicType
+      );
+      final PicModel? _backPic = getPicModel(
+          draft: draft,
+          slidePicType: SlidePicType.back,
+      );
 
       slide = SlideModel(
         flyerID: draft.flyerID,
@@ -170,7 +182,8 @@ class DraftSlide {
           width: draft.bigPic?.meta?.width,
           height: draft.bigPic?.meta?.height,
         ),
-        uiImage: await Floaters.getUiImageFromUint8List(draft.bigPic?.bytes),
+        frontImage: await Floaters.getUiImageFromUint8List(_picModel?.bytes),
+        backImage: await Floaters.getUiImageFromUint8List(_backPic?.bytes),
       );
 
     }
@@ -178,17 +191,26 @@ class DraftSlide {
     return slide;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<SlideModel>> draftsToSlides(List<DraftSlide>? drafts) async {
+  /// TASK : TEST ME VERIFY_ME
+  static Future<List<SlideModel>> draftsToSlides({
+    required List<DraftSlide>? drafts,
+    required SlidePicType slidePicType,
+  }) async {
     final List<SlideModel> _slides = <SlideModel>[];
 
     if (Mapper.checkCanLoopList(drafts) == true){
 
       for (final DraftSlide draft in drafts!){
-        final SlideModel? _slide = await draftToSlide(draft);
+
+        final SlideModel? _slide = await draftToSlide(
+          draft: draft,
+          slidePicType: slidePicType,
+        );
+
         if (_slide != null){
           _slides.add(_slide);
         }
+
       }
 
     }
@@ -426,6 +448,26 @@ class DraftSlide {
 
   /// GETTERS
 
+  // --------------------
+  /// TASK : TEST ME VERIFY_ME
+  static PicModel? getPicModel({
+    required DraftSlide? draft,
+    required SlidePicType slidePicType,
+  }){
+    PicModel? _output;
+
+    if (draft != null){
+      switch (slidePicType){
+        case SlidePicType.big:    _output = draft.bigPic; break;
+        case SlidePicType.med:    _output = draft.medPic; break;
+        case SlidePicType.small:  _output = draft.smallPic; break;
+        case SlidePicType.back:    _output = draft.backPic; break;
+      }
+
+    }
+
+    return _output;
+  }
   // --------------------
   /// TASK : TEST ME VERIFY_ME
   static List<Uint8List> getBytezzFromDraftSlides({

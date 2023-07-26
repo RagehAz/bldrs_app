@@ -1035,7 +1035,6 @@ class Dialogs {
           onDoubleTap: null,
           onSlideBackTap: null,
           onSlideNextTap: null,
-          blurLayerIsOn: true,
           canTapSlide: false,
           canPinch: false,
           // canAnimateMatrix: true,

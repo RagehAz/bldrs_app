@@ -196,7 +196,6 @@ class _HeroicSmallFlyerState extends State<HeroicSmallFlyer> {
           onSlideBackTap: null,
           onDoubleTap: null,
           canTapSlide: false,
-          blurLayerIsOn: true,
           slideShadowIsOn: true,
           // canAnimateMatrix: true,
           canUseFilter: false,

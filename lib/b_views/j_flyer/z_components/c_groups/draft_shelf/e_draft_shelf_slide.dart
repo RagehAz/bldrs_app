@@ -12,7 +12,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/e_slide_headline.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
@@ -122,25 +121,34 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
               boxColor: widget.draftSlide?.midColor ?? Colorz.white10,
               stackWidgets: <Widget>[
 
-                /// BACK GROUND COVER PIC
+                /// BACKGROUND
                 if (widget.draftSlide != null)
-                  SuperFilteredImage(
+                  SuperImage(
                     width: DraftShelfSlide.flyerBoxWidth,
                     height: _flyerBoxHeight,
-                    pic: widget.draftSlide?.bigPic?.bytes,
+                    pic: widget.draftSlide?.backPic?.bytes,
                     loading: false,
                   ),
 
-                /// BLUR LAYER
-                if (widget.draftSlide != null)
-                  BlurLayer(
-                    key: const ValueKey<String>('blur_layer'),
-                    width: DraftShelfSlide.flyerBoxWidth,
-                    height: _flyerBoxHeight,
-                    blurIsOn: true,
-                    blur: 20,
-                    borders: FlyerDim.flyerCorners(DraftShelfSlide.flyerBoxWidth),
-                  ),
+                // /// BACK GROUND COVER PIC
+                // if (widget.draftSlide != null)
+                //   SuperFilteredImage(
+                //     width: DraftShelfSlide.flyerBoxWidth,
+                //     height: _flyerBoxHeight,
+                //     pic: widget.draftSlide?.bigPic?.bytes,
+                //     loading: false,
+                //   ),
+                //
+                // /// BLUR LAYER
+                // if (widget.draftSlide != null)
+                //   BlurLayer(
+                //     key: const ValueKey<String>('blur_layer'),
+                //     width: DraftShelfSlide.flyerBoxWidth,
+                //     height: _flyerBoxHeight,
+                //     blurIsOn: true,
+                //     blur: 20,
+                //     borders: FlyerDim.flyerCorners(DraftShelfSlide.flyerBoxWidth),
+                //   ),
 
                 /// IMAGE
                 if (widget.draftSlide != null)

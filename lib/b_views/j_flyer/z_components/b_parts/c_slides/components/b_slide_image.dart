@@ -63,7 +63,7 @@ class SlideImage extends StatelessWidget {
           child: BldrsImage(
             width: flyerBoxWidth,
             height: flyerBoxHeight,
-            pic: slideModel?.uiImage ?? SlideModel.generateSlidePicPath(
+            pic: slideModel?.frontImage ?? SlideModel.generateSlidePicPath(
                 flyerID: slideModel?.flyerID,
                 slideIndex: slideModel?.slideIndex,
                 type: slidePicType,
