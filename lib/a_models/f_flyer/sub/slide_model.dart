@@ -588,6 +588,22 @@ class SlideModel {
     return _foundSlides;
   }
    */
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static SlidePicType getSmallSlidePicTypeIfAnimated({
+    required SlideModel slideModel,
+    required SlidePicType ifStatic,
+  }){
+
+    final bool _hasAnimation = slideModel.animationCurve != null;
+    if (_hasAnimation == true){
+      return ifStatic;
+    }
+    else {
+      return SlidePicType.big;
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// DUMMIES

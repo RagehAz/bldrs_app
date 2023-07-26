@@ -1,10 +1,10 @@
-import 'package:basics/super_image/super_image.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/a_slide_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/b_slide_image.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/e_slide_headline.dart';
+import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:flutter/material.dart';
 
 /// THE OLD
@@ -56,18 +56,20 @@ class SingleSlide extends StatelessWidget {
       stackChildren: <Widget>[
 
         /// BACKGROUND
-        SuperImage(
+        if (slideModel != null)
+        BldrsImage(
           width: flyerBoxWidth,
           height: flyerBoxHeight,
-          pic: SlideModel.generateSlidePicPath(
+          pic: slideModel?.backImage ?? SlideModel.generateSlidePicPath(
               flyerID: slideModel?.flyerID,
               slideIndex: slideModel?.slideIndex,
               type: SlidePicType.back,
           ),
-          loading: false,
+          // loading: false,
         ),
 
         /// ANIMATED SLIDE
+        if (slideModel != null)
         SlideImage(
           canPinch: canPinch,
           flyerBoxWidth: flyerBoxWidth,
@@ -75,7 +77,10 @@ class SingleSlide extends StatelessWidget {
           onDoubleTap: onDoubleTap,
           canAnimateMatrix: slideModel?.animationCurve != null,
           slideModel: slideModel,
-          slidePicType: slidePicType,
+          slidePicType: SlideModel.getSmallSlidePicTypeIfAnimated(
+            slideModel: slideModel!,
+            ifStatic: slidePicType,
+          ),
           loading: loading,
           canUseFilter: canUseFilter,
           canTapSlide: canTapSlide,

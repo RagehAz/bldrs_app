@@ -16,6 +16,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_e
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_transformer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -93,11 +94,11 @@ class SlideEditorSlidePart extends StatelessWidget {
             ValueListenableBuilder(
               valueListenable: draftSlide,
               builder: (_, DraftSlide? _slide, Widget? child) {
-                return SuperImage(
+                return BldrsImage(
                   width: _flyerBoxWidth,
                   height: _flyerBoxHeight,
                   pic: _slide?.backPic?.bytes,
-                  loading: false,
+                  // loading: false,
                   // corners: FlyerDim.flyerCorners(_flyerBoxWidth),
                 );
               }
@@ -120,13 +121,12 @@ class SlideEditorSlidePart extends StatelessWidget {
                       return Stack(
                         children: <Widget>[
 
-
                           /// BACKGROUND
-                          SuperImage(
+                          BldrsImage(
                             width: _flyerBoxWidth,
                             height: _flyerBoxHeight,
                             pic: _slide?.backPic?.bytes,
-                            loading: false,
+                            // loading: false,
                             // corners: FlyerDim.flyerCorners(_flyerBoxWidth),
                           ),
 

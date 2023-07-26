@@ -11,6 +11,7 @@ import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/storage/pic_storage_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 
+/// => TAMAM
 class PicProtocols {
   // -----------------------------------------------------------------------------
 
@@ -38,7 +39,7 @@ class PicProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> composePics(List<PicModel> pics) async {
 
     if (Mapper.checkCanLoopList(pics) == true){
@@ -80,7 +81,7 @@ class PicProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<PicModel>> fetchPics(List<String>? paths) async {
     final List<PicModel> _output = <PicModel>[];
 
@@ -107,7 +108,7 @@ class PicProtocols {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<ui.Image?> fetchPicUiImage({
     required String? path,
   }) async {
@@ -149,7 +150,7 @@ class PicProtocols {
     return _theImage;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<PicModel>> refetchPics(List<String> paths) async {
 
     List<PicModel> _output = <PicModel>[];
@@ -169,7 +170,7 @@ class PicProtocols {
   /// FETCH FLYER PICS
 
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<PicModel?> fetchSlidePic({
     required SlideModel slide,
     required SlidePicType type,
@@ -185,7 +186,7 @@ class PicProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<List<PicModel>> fetchFlyerPics({
     required FlyerModel? flyerModel,
     required SlidePicType type,
@@ -237,7 +238,7 @@ class PicProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> downloadPics(List<String> paths) async {
 
     if (Mapper.checkCanLoopList(paths) == true){
@@ -265,7 +266,7 @@ class PicProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> renovatePic(PicModel? picModel) async {
 
-    blog('1 - renovatePic : picModel : $picModel');
+    // blog('1 - reno.vatePic : picModel : $picModel');
 
     if (picModel != null){
 
@@ -276,7 +277,7 @@ class PicProtocols {
           pic2: picModel,
       );
 
-      blog('2 - renovatePic : _areIdentical : $_areIdentical');
+      // blog('2 - renovate.Pic : _areIdentical : $_areIdentical');
 
       if (_areIdentical == false){
 
@@ -292,10 +293,10 @@ class PicProtocols {
 
     }
 
-      blog('3 - done');
+      // blog('3 - .done');
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> renovatePics(List<PicModel> picModels) async {
 
     if (Mapper.checkCanLoopList(picModels) == true){
@@ -333,7 +334,7 @@ class PicProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> wipePics(List<String> paths) async {
 
     if (Mapper.checkCanLoopList(paths) == true){

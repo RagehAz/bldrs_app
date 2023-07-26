@@ -1,6 +1,4 @@
 import 'dart:typed_data';
-
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:basics/super_image/super_image.dart';
@@ -98,7 +96,7 @@ class BldrsPicMaker {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<List<PicModel>> makePics({
     required bool cropAfterPick,
     required double aspectRatio,
@@ -192,75 +190,10 @@ class BldrsPicMaker {
   }
   // -----------------------------------------------------------------------------
 
-  /// COMPRESSION
-
-  // --------------------
-  /// TASK : TEST ME VERIFY_ME
-  static Future<PicModel?> compressPic({
-    required PicModel pic,
-    required double compressToWidth,
-    required int quality,
-  }) async {
-    PicModel? _output;
-
-    final Uint8List? _bytes = await PicMaker.compressPic(
-      bytes: pic.bytes,
-      compressToWidth: compressToWidth,
-      quality: quality,
-    );
-
-    if (_bytes != null){
-
-      _output = pic.copyWith(
-        bytes: _bytes,
-      );
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /*
-  ///
-  static Future<List<PicModel>> compressPics({
-    required List<PicModel> pics,
-    required double compressToWidth,
-    required int quality,
-  }) async {
-    final List<PicModel> _output = <PicModel>[];
-
-    if (Mapper.checkCanLoopList(pics) == true){
-
-      for (final PicModel _pic in pics){
-
-        final Uint8List? _bytes = await PicMaker.compressPic(
-          bytes: _pic.bytes,
-          compressToWidth: compressToWidth,
-          quality: quality,
-        );
-
-        if (_bytes != null){
-
-          final PicModel _updated = _pic.copyWith(
-            bytes: _bytes,
-          );
-
-          _output.add(_updated);
-        }
-
-      }
-
-    }
-
-    return _output;
-  }
-   */
-  // -----------------------------------------------------------------------------
-
   /// SLIDES CREATORS
 
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<PicModel?> compressSlideBigPicTo({
     required PicModel? slidePic,
     required String? flyerID,
@@ -269,7 +202,7 @@ class BldrsPicMaker {
   }) async {
     PicModel? _output;
 
-    blog('1.compressSlideBigPicTo : flyerID $flyerID : slideIndex : $slideIndex : type : $type');
+    // blog('1.compressSlideBigPicTo : flyerID $flyerID : slideIndex : $slideIndex : type : $type');
 
     if (flyerID != null && slideIndex != null && slidePic != null && slidePic.meta?.data != null){
 
@@ -344,7 +277,7 @@ class BldrsPicMaker {
     }
   }
   // --------------------
-/// TESTED : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static Future<PicModel?> createSlideBackground({
     required PicModel? bigPic,
     required String? flyerID,
@@ -361,7 +294,7 @@ class BldrsPicMaker {
 
       // final double _posterHeight = NotePosterBox.getBoxHeight(width);
 
-      final Uint8List? _bytes = await _controller?.captureFromWidget(
+      Uint8List? _bytes = await _controller?.captureFromWidget(
         SizedBox(
           width: _width,
           height: _height,
@@ -394,6 +327,12 @@ class BldrsPicMaker {
 
       if (_bytes != null){
 
+        _bytes = await PicMaker.compressPic(
+          bytes: _bytes,
+          compressToWidth: Standards.slideSmallWidth,
+          quality: Standards.slideSmallQuality,
+        );
+
         final String? _path = SlideModel.generateSlidePicPath(
             flyerID: flyerID,
             slideIndex: slideIndex,
@@ -406,9 +345,9 @@ class BldrsPicMaker {
           type: SlidePicType.back,
         );
 
-        if (_path != null && _slideID != null){
+        if (_bytes != null && _path != null && _slideID != null){
 
-          final PicModel? _pic = await PicModel.combinePicModel(
+          _output = await PicModel.combinePicModel(
               bytes: _bytes,
               picMakerType: PicMakerType.generated,
               compressionQuality: Standards.slideSmallQuality,
@@ -416,14 +355,6 @@ class BldrsPicMaker {
               ownersIDs: bigPic.meta!.ownersIDs,
               name: _slideID,
           );
-
-          if (_pic != null){
-            _output = await compressPic(
-              pic: _pic,
-              compressToWidth: Standards.slideSmallWidth,
-              quality: Standards.slideSmallQuality,
-            );
-          }
 
         }
 
