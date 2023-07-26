@@ -19,10 +19,6 @@ class PicModel {
     required this.path,
     required this.meta,
   });
-      // :
-      //   assert(bytes != null, 'bytes is null'),
-      //   assert(path != null, 'path is null'),
-      //   assert(meta != null, 'meta is null');
   // -----------------------------------------------------------------------------
   final Uint8List? bytes;
   /// collectionName/subCollectionName/fileName
@@ -116,7 +112,7 @@ class PicModel {
   /// COMBINERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<PicModel?> combinePicModel({
     required Uint8List? bytes,
     required PicMakerType picMakerType,
@@ -201,7 +197,7 @@ class PicModel {
   /// EQUALITY
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME VERIFY_ME
   static bool checkPicsAreIdentical({
     required PicModel? pic1,
     required PicModel? pic2,
@@ -215,11 +211,9 @@ class PicModel {
 
       if (
           pic1.path == pic2.path &&
-          Mapper.checkListsAreIdentical(list1: pic1.meta?.ownersIDs, list2: pic2.meta?.ownersIDs) == true &&
-          pic1.meta?.width == pic2.meta?.width &&
-          pic1.meta?.height == pic2.meta?.height &&
           pic1.bytes?.length == pic2.bytes?.length &&
-          Mapper.checkListsAreIdentical(list1: pic1.bytes, list2: pic2.bytes) == true
+          Mapper.checkListsAreIdentical(list1: pic1.bytes, list2: pic2.bytes) == true &&
+          StorageMetaModel.checkMetaDatasAreIdentical(meta1: pic1.meta, meta2: pic2.meta) == true
       ){
         _identical = true;
       }

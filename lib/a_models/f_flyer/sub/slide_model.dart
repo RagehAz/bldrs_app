@@ -1,7 +1,6 @@
 import 'dart:ui' as ui;
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
@@ -11,7 +10,16 @@ import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:flutter/material.dart';
+
+enum SlidePicType {
+  big,
+  med,
+  small,
+  back,
+}
+
 /// => TAMAM
 @immutable
 class SlideModel {
@@ -24,14 +32,12 @@ class SlideModel {
     required this.matrix,
     required this.animationCurve,
     required this.slideIndex,
-    this.picPath,
     this.headline,
     this.flyerID,
     this.uiImage,
   });
   /// --------------------------------------------------------------------------
   final int slideIndex;
-  final String? picPath;
   final String? headline;
   final String? description;
   final Matrix4? matrix;
@@ -50,7 +56,6 @@ class SlideModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'slideIndex': slideIndex,
-      'picPath': picPath is String == true ? picPath : null,
       'headline': headline,
       'description': description,
       'picFit': Dimensions.cipherBoxFit(picFit),
@@ -66,7 +71,6 @@ class SlideModel {
 
     return SlideModel(
       slideIndex: map['slideIndex'],
-      picPath: map['picPath'],
       headline: map['headline'],
       description: map['description'],
       picFit: Dimensions.decipherBoxFit(map['picFit']),
@@ -135,7 +139,6 @@ class SlideModel {
   }) {
     return SlideModel(
       slideIndex: slideIndex ?? this.slideIndex,
-      picPath: picPath ?? this.picPath,
       headline: headline ?? this.headline,
       description: description ?? this.description,
       dimensions: dimensions ?? this.dimensions,
@@ -154,7 +157,7 @@ class SlideModel {
   /// TESTED : WORKS PERFECT
   void blogSlide() {
     blog(' >> SLIDE [ $slideIndex ] --------------------------------------- []');
-    blog('  slideIndex : ($slideIndex ): flyerID : ($flyerID)  : pic : ($picPath) : uiImage : ($uiImage) ');
+    blog('  slideIndex : ($slideIndex ): flyerID : ($flyerID) : uiImage : ($uiImage) ');
     blog('  headline : ($headline) : description : ($description)');
     blog('  midColor : ($midColor) : '
         'picFit : ($picFit) : '
@@ -203,9 +206,6 @@ class SlideModel {
 
     if (slide1?.slideIndex != slide2?.slideIndex){
       blog('slide1.slideIndex != slide2.slideIndex');
-    }
-    if (slide1?.picPath != slide2?.picPath){
-      blog('slide1.pic != slide2.pic');
     }
     if (slide1?.headline != slide2?.headline){
       blog('slide1.headline != slide2.headline');
@@ -295,6 +295,7 @@ class SlideModel {
   static String? generateSlideID({
     required String? flyerID,
     required int? slideIndex,
+    required SlidePicType type,
   }) {
 
     String? _output;
@@ -303,7 +304,8 @@ class SlideModel {
       /// NOTE : slide index shall never have more than two digits
       /// as flyer should never be more than 10 slides long
       final String _slideIndexString = slideIndex <= 9 ? '0$slideIndex' : '$slideIndex';
-      _output = '${flyerID}_$_slideIndexString'; // no
+      final String _type = cipherSlidePicType(type);
+      _output = '${flyerID}_${_slideIndexString}_$_type';
 
     }
 
@@ -315,6 +317,7 @@ class SlideModel {
   static List<String> generateSlidesIDs({
     required String flyerID,
     required int numberOfSlides,
+    required SlidePicType type,
   }) {
     final List<String> _slidesIDs = <String>[];
 
@@ -323,12 +326,12 @@ class SlideModel {
       final String? _slideID = SlideModel.generateSlideID(
         flyerID: flyerID,
         slideIndex: i,
+        type: type,
       );
 
       if (_slideID != null){
         _slidesIDs.add(_slideID);
       }
-
 
     }
 
@@ -350,6 +353,31 @@ class SlideModel {
         specialCharacter: '_',
     );
     return _flyerID;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// SLIDE PIC TYPES CIPHERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String cipherSlidePicType(SlidePicType type){
+    switch(type){
+      case SlidePicType.big:    return 'big';
+      case SlidePicType.med:    return 'med';
+      case SlidePicType.small:  return 'small';
+      case SlidePicType.back:   return 'back';
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static SlidePicType? decipherSlidePicType(String type){
+    switch(type){
+      case 'big': return SlidePicType.big;
+      case 'med': return SlidePicType.med;
+      case 'small': return SlidePicType.small;
+      case 'back': return SlidePicType.back;
+      default: return null;
+    }
   }
   // -----------------------------------------------------------------------------
 
@@ -391,7 +419,7 @@ class SlideModel {
     if (slide != null && Mapper.checkCanLoopList(_output) == true){
 
       final int _index = _output.indexWhere((SlideModel x){
-        return x.picPath == slide.picPath;
+        return x.slideIndex == slide.slideIndex;
       });
 
       if (_index != -1){
@@ -427,21 +455,72 @@ class SlideModel {
   }
    */
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> getSlidePicsPaths(List<SlideModel>? slides){
+  /// TASK : TEST ME VERIFY_ME
+  static List<String> generateSlidesPicsPaths({
+    required List<SlideModel>? slides,
+    required SlidePicType type,
+  }){
     final List<String> _paths = <String>[];
 
     if (Mapper.checkCanLoopList(slides) == true){
 
       for (final SlideModel slide in slides!){
-        if (slide.picPath != null){
-          _paths.add(slide.picPath!);
+
+        final String? _path = generateSlidePicPath(
+            flyerID: slide.flyerID,
+            slideIndex: slide.slideIndex,
+            type: type
+        );
+
+        if (_path != null){
+          _paths.add(_path);
         }
+
       }
 
     }
 
     return _paths;
+  }
+  // --------------------
+  /// TASK : TEST ME VERIFY_ME
+  static String? generateSlidePicPath({
+    required String? flyerID,
+    required int? slideIndex,
+    required SlidePicType type,
+  }){
+
+    if (flyerID != null && slideIndex != null){
+      return null;
+    }
+    else {
+
+      switch (type){
+
+        case SlidePicType.big: return StoragePath.flyers_flyerID_index_big(
+            flyerID: flyerID,
+            slideIndex: slideIndex,
+        );
+
+        case SlidePicType.med: return StoragePath.flyers_flyerID_index_med(
+            flyerID: flyerID,
+            slideIndex: slideIndex,
+        );
+
+        case SlidePicType.small: return StoragePath.flyers_flyerID_index_small(
+            flyerID: flyerID,
+            slideIndex: slideIndex,
+        );
+
+        case SlidePicType.back: return StoragePath.flyers_flyerID_index_back(
+            flyerID: flyerID,
+            slideIndex: slideIndex,
+        );
+
+      }
+
+    }
+
   }
   // --------------------
   /// NOT USED
@@ -493,7 +572,6 @@ class SlideModel {
   static SlideModel dummySlide() {
     return SlideModel(
       slideIndex: 0,
-      picPath: Iconz.power,
       headline: 'Headliner',
       description: 'Descriptor',
       picFit: BoxFit.cover,
@@ -541,8 +619,7 @@ class SlideModel {
     else if (slide1 != null && slide2 != null){
 
       if (
-      slide1.slideIndex == slide2.slideIndex &&
-          slide1.picPath == slide2.picPath &&
+          slide1.slideIndex == slide2.slideIndex &&
           slide1.headline == slide2.headline &&
           slide1.description == slide2.description &&
           Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == true &&
@@ -655,7 +732,6 @@ class SlideModel {
       matrix.hashCode^
       animationCurve.hashCode^
       slideIndex.hashCode^
-      picPath.hashCode^
       headline.hashCode^
       uiImage.hashCode^
       flyerID.hashCode;

@@ -58,7 +58,7 @@ class PicProtocols {
   }
   // -----------------------------------------------------------------------------
 
-  /// FETCH
+  /// FETCH PICS
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -164,16 +164,40 @@ class PicProtocols {
 
     return _output;
   }
+  // -----------------------------------------------------------------------------
+
+  /// FETCH FLYER PICS
+
   // --------------------
-  /// TASK : TEST ME
+  /// TASK : TEST ME VERIFY_ME
+  static Future<PicModel?> fetchSlidePic({
+    required SlideModel slide,
+    required SlidePicType type,
+  }) async {
+
+    final String? _path = SlideModel.generateSlidePicPath(
+        flyerID: slide.flyerID,
+        slideIndex: slide.slideIndex,
+        type: type
+    );
+
+    return fetchPic(_path);
+
+  }
+  // --------------------
+  /// TASK : TEST ME VERIFY_ME
   static Future<List<PicModel>> fetchFlyerPics({
     required FlyerModel? flyerModel,
+    required SlidePicType type,
   }) async {
     List<PicModel> _output = <PicModel>[];
 
     if (flyerModel != null){
 
-      final List<String> _slidesPicsPaths = SlideModel.getSlidePicsPaths(flyerModel.slides);
+      final List<String> _slidesPicsPaths = SlideModel.generateSlidesPicsPaths(
+        slides: flyerModel.slides,
+        type: type,
+      );
       _output = await PicProtocols.fetchPics(_slidesPicsPaths);
 
     }

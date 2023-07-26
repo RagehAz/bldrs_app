@@ -18,6 +18,7 @@ class SlidesBuilder extends StatelessWidget {
     required this.flyerBoxHeight,
     required this.tinyMode,
     required this.flyerModel,
+    required this.slidePicType,
     required this.horizontalController,
     required this.onSwipeSlide,
     required this.onSlideNextTap,
@@ -42,6 +43,7 @@ class SlidesBuilder extends StatelessWidget {
   final double flyerBoxHeight;
   final bool tinyMode;
   final FlyerModel? flyerModel;
+  final SlidePicType slidePicType;
   final PageController horizontalController;
   final ValueChanged<int> onSwipeSlide;
   final Function onSlideNextTap;
@@ -112,6 +114,8 @@ class SlidesBuilder extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 flyerBoxHeight: flyerBoxHeight,
                 slideModel: _slide,
+                slidePicType: slidePicType,
+                loading: false,
                 tinyMode: tinyMode,
                 onSlideNextTap: onSlideNextTap,
                 onSlideBackTap: onSlideBackTap,

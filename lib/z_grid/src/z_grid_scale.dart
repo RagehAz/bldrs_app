@@ -296,7 +296,9 @@ class ZGridScale {
 
     final double _remaining = Scale.screenHeight(getMainContext()) - _bigItemHeight;
 
-    return _remaining / 2;
+    // blog('the remaining is $_remaining');
+
+    return (_remaining / 2) < 0 ? 0 : _remaining / 2;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

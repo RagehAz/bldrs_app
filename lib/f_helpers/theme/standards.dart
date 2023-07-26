@@ -128,20 +128,20 @@ class Standards {
   /// IMAGES WIDTHS & QUALITIES
 
   // --------------------
-  static const double bzLogoPicWidth = 200;
+  static const double bzLogoPicWidth = 350;
   static const int bzLogoPicQuality = 80;
   // --------------------
   static const double userPicWidth = 170;
-  static const int userPicQuality = 70;
+  static const int userPicQuality = 80;
   // --------------------
   static const double authorPicWidth = 170;
-  static const int authorPicQuality = 70;
+  static const int authorPicQuality = 80;
   // --------------------
   static const double slideSmallWidth = 300;
-  static const int slideSmallQuality = 70;
+  static const int slideSmallQuality = 75;
   // --------------------
   static const double slideMediumWidth = 500;
-  static const int slideMediumQuality = 70;
+  static const int slideMediumQuality = 75;
   // --------------------
   static const double slideBigWidth = 700;
   static const int slideBigQuality = 80;
