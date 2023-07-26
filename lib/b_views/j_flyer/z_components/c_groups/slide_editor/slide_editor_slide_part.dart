@@ -97,7 +97,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                 return SuperFilteredImage(
                   width: _flyerBoxWidth,
                   height: _flyerBoxHeight,
-                  pic: _slide?.picModel?.bytes,
+                  pic: _slide?.bigPic?.bytes,
                   loading: false,
                 );
                 },
@@ -155,7 +155,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                             child: SuperFilteredImage(
                               width: _flyerBoxWidth,
                               height: _flyerBoxHeight,
-                              pic: _slide?.picModel?.bytes,
+                              pic: _slide?.bigPic?.bytes,
                               boxFit: _slide?.picFit ?? BoxFit.cover,
                               loading: false,
                               // canUseFilter: false,

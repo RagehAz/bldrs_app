@@ -102,7 +102,7 @@ class StoragePath {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String? flyers_flyerID_slideIndex({
+  static String? flyers_flyerID_index_big({
     required String? flyerID,
     required int? slideIndex,
   }){
@@ -113,7 +113,61 @@ class StoragePath {
 
     else {
 
-      return '${StorageColl.flyers}/$flyerID/$slideIndex';
+      return '${StorageColl.flyers}/$flyerID/${slideIndex}_big';
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? flyers_flyerID_index_med({
+    required String? flyerID,
+    required int? slideIndex,
+  }){
+
+    if (flyerID == null || slideIndex == null){
+      return null;
+    }
+
+    else {
+
+      return '${StorageColl.flyers}/$flyerID/${slideIndex}_med';
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? flyers_flyerID_index_small({
+    required String? flyerID,
+    required int? slideIndex,
+  }){
+
+    if (flyerID == null || slideIndex == null){
+      return null;
+    }
+
+    else {
+
+      return '${StorageColl.flyers}/$flyerID/${slideIndex}_small';
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? flyers_flyerID_index_back({
+    required String? flyerID,
+    required int? slideIndex,
+  }){
+
+    if (flyerID == null || slideIndex == null){
+      return null;
+    }
+
+    else {
+
+      return '${StorageColl.flyers}/$flyerID/${slideIndex}_back';
 
     }
 

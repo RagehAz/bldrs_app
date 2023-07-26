@@ -108,7 +108,7 @@ class FetchFlyerProtocols {
   /// RE-FETCH
 
   // --------------------
-  /// TASK : TEST ME
+  /// TASK : TEST ME VERIFY_ME
   static Future<FlyerModel?> refetch({
     required BuildContext context,
     required String? flyerID,
@@ -127,7 +127,20 @@ class FetchFlyerProtocols {
 
         FlyerLDBOps.deleteFlyers(<String>[flyerID]),
 
-        PicProtocols.refetchPics(FlyerModel.getPicsPaths(_flyerModel)),
+        PicProtocols.refetchPics(FlyerModel.getPicsPaths(
+          flyer: _flyerModel,
+          type: SlidePicType.med,
+        )),
+
+        PicProtocols.refetchPics(FlyerModel.getPicsPaths(
+          flyer: _flyerModel,
+          type: SlidePicType.small,
+        )),
+
+        PicProtocols.refetchPics(FlyerModel.getPicsPaths(
+          flyer: _flyerModel,
+          type: SlidePicType.back,
+        )),
 
       ]);
 

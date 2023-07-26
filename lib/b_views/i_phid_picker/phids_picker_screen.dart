@@ -10,6 +10,7 @@ import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/xx_pickers_search_controller.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_builder_page.dart';
@@ -506,6 +507,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
         FlyerSlidesShelf(
           flyerModel: widget.flyerModel,
           shelfWidth: BldrsAppBar.clearWidth(context),
+          slidePicType: SlidePicType.small,
         ),
 
         /// SELECTED PHIDS PANEL

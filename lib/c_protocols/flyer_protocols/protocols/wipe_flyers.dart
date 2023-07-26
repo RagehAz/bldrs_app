@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
@@ -93,7 +94,10 @@ class WipeFlyerProtocols {
         ),
 
         /// DELETE LDB SLIDES AND POSTER PICS + PDF
-        PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyerModel)),
+        PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.big)),
+        PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.med)),
+        PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.small)),
+        PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.back)),
         PicLDBOps.deletePic(StoragePath.flyers_flyerID_poster(flyerModel.id)),
         PDFLDBOps.delete(flyerModel.pdfPath),
 
@@ -149,7 +153,7 @@ class WipeFlyerProtocols {
   /// WIPE MULTIPLE FLYERS ON WIPE BZ
 
   // --------------------
-  /// TASK : TEST ME
+  /// TASK : TEST ME VERIFY_ME
   static Future<void> onWipeBz({
     required String? bzID,
   }) async {
@@ -186,7 +190,10 @@ class WipeFlyerProtocols {
               ),
 
               /// DELETE LDB SLIDES AND POSTER PICS + PDF
-              PicLDBOps.deletePics(FlyerModel.getPicsPaths(_flyerModel)),
+              PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.big)),
+              PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.med)),
+              PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.small)),
+              PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.back)),
               PicLDBOps.deletePic(StoragePath.flyers_flyerID_poster(_flyerModel.id)),
               PDFLDBOps.delete(_flyerModel.pdfPath),
 

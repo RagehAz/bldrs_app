@@ -13,6 +13,8 @@ class SlideImage extends StatelessWidget {
     required this.flyerBoxWidth,
     required this.flyerBoxHeight,
     required this.slideModel,
+    required this.loading,
+    required this.slidePicType,
     required this.onSlideNextTap,
     required this.onSlideBackTap,
     required this.onDoubleTap,
@@ -26,6 +28,8 @@ class SlideImage extends StatelessWidget {
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   final SlideModel? slideModel;
+  final SlidePicType slidePicType;
+  final bool loading;
   final Function? onSlideNextTap;
   final Function? onSlideBackTap;
   final Function? onDoubleTap;
@@ -59,10 +63,15 @@ class SlideImage extends StatelessWidget {
           child: BldrsImage(
             width: flyerBoxWidth,
             height: flyerBoxHeight,
-            pic: slideModel?.uiImage ?? slideModel?.picPath,
+            pic: slideModel?.uiImage ?? SlideModel.generateSlidePicPath(
+                flyerID: slideModel?.flyerID,
+                slideIndex: slideModel?.slideIndex,
+                type: slidePicType,
+            ),
             fit: slideModel?.picFit ?? BoxFit.cover,
+            loading: loading,
             // canUseFilter: canUseFilter,
-            // loading: false,
+
           ),
         ),
       ),
