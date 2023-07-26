@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:basics/helpers/classes/checks/error_helpers.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -230,11 +231,25 @@ class BldrsCloudFunctions{
 
     if (TextCheck.isEmpty(path) == false){
 
+      String? _path = path;
+
+      final String? _storage = TextMod.removeTextAfterFirstSpecialCharacter(
+          text: path,
+          specialCharacter: '/',
+      );
+
+      if (_storage !=null && _storage == 'storage'){
+        _path = TextMod.removeTextBeforeFirstSpecialCharacter(
+            text: path,
+            specialCharacter: '/',
+        );
+      }
+
       await CloudFunction.call(
         context: context,
         functionName: CloudFunction.callDeleteStorageDirectory,
         mapToPass: {
-          'path' : path,
+          'path' : _path,
         },
         onFinish: onFinish,
       );

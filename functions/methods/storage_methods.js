@@ -21,7 +21,7 @@ const callDeleteStorageDirectory = functions.https.onCall((path, context) => {
 
 // --------------------
 // TESTED : WORKS PERFECT
-const deleteAllPathFiles = (data) => {
+const deleteAllPathFiles = async (data) => {
   functions.logger.log(`deleteAllPathFiles : 1 - START : data is : [${data}] : `);
   const bucket = admin.storage().bucket();
   functions.logger.log(`deleteAllPathFiles : 2 - got Bucket : path is : [${data.path}]`);
