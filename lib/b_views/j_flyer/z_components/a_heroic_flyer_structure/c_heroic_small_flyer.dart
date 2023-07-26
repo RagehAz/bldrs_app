@@ -182,13 +182,13 @@ class _HeroicSmallFlyerState extends State<HeroicSmallFlyer> {
       stackWidgets: <Widget>[
 
         /// STATIC SINGLE SLIDE
-        if (_flyerIsBigNow == false)
+        if (_flyerIsBigNow == false && widget.renderedFlyer?.slides?.first != null)
         SingleSlide(
           flyerBoxWidth: widget.flyerBoxWidth,
           flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
             flyerBoxWidth: widget.flyerBoxWidth,
           ),
-          slideModel: widget.renderedFlyer?.slides?.first,
+          slideModel: widget.renderedFlyer!.slides!.first,
           slidePicType: SlidePicType.small,
           loading: false,
           tinyMode: false,

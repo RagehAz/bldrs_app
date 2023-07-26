@@ -12,6 +12,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 
+/// => TAMAM
 class FetchFlyerProtocols {
   // -----------------------------------------------------------------------------
 
@@ -108,7 +109,7 @@ class FetchFlyerProtocols {
   /// RE-FETCH
 
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel?> refetch({
     required BuildContext context,
     required String? flyerID,
