@@ -22,48 +22,6 @@ import 'package:flutter/material.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
-/// INITIALIZATION
-
-// --------------------
-/// DEPRECATED
-/*
-///
-void initializeUserEditorLocalVariables({
-  required BuildContext context,
-  required UserModel oldUser,
-  required ValueNotifier<UserModel> tempUser,
-}){
-  
-  tempUser.value  = oldUser;
-
-}
- */
-// --------------------
-/// DEPRECATED
-/*
-/// TESTED : WORKS PERFECT
-Future<void> prepareUserForEditing({
-  required BuildContext context,
-  required ValueNotifier<UserModel> tempUser,
-  required UserModel oldUser,
-  required bool mounted,
-}) async {
-
-  final UserModel _userModel = await UserModel.prepareUserForEditing(
-    context: context,
-    oldUser: oldUser,
-  );
-
-  setNotifier(
-    notifier: tempUser,
-    mounted: mounted,
-    value: _userModel,
-  );
-
-}
- */
-// -----------------------------------------------------------------------------
-
 /// LAST SESSION
 
 // --------------------
@@ -140,7 +98,7 @@ Future<void> loadUserEditorLastSession({
 /// EDITORS
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> takeUserPicture({
   required ValueNotifier<DraftUser?> draft,
   required PicMakerType picMakerType,

@@ -9,6 +9,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
@@ -668,8 +669,8 @@ class DraftFlyer{
     if (Mapper.checkCanLoopList(draft?.draftSlides) == true){
 
       for (final DraftSlide _slide in draft!.draftSlides!){
-        if (_slide.picModel != null){
-          _output.add(_slide.picModel!);
+        if (_slide.bigPic != null){
+          _output.add(_slide.bigPic!);
         }
       }
 
@@ -881,7 +882,7 @@ class DraftFlyer{
     return _canAddMoreSlides;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME VERIFY_ME
   static Future<bool> checkPosterHasChanged({
     required DraftFlyer? draft,
     required FlyerModel? oldFlyer,
@@ -901,6 +902,7 @@ class DraftFlyer{
       final List<PicModel> _draftPics = getPics(draft);
       final List<PicModel> _oldPics = await PicProtocols.fetchFlyerPics(
         flyerModel: oldFlyer,
+        type: SlidePicType.small,
       );
 
       /// [identical = true] => [hasChanged = false] ya zaki

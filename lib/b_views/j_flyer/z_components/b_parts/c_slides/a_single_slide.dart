@@ -5,8 +5,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/b
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/e_slide_headline.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:flutter/material.dart';
 
 /// THE OLD
@@ -16,6 +14,8 @@ class SingleSlide extends StatelessWidget {
     required this.flyerBoxWidth,
     required this.flyerBoxHeight,
     required this.slideModel,
+    required this.slidePicType,
+    required this.loading,
     required this.tinyMode,
     required this.onSlideNextTap,
     required this.onSlideBackTap,
@@ -32,6 +32,8 @@ class SingleSlide extends StatelessWidget {
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   final SlideModel? slideModel;
+  final SlidePicType slidePicType;
+  final bool loading;
   final bool tinyMode;
   final Function? onSlideNextTap;
   final Function? onSlideBackTap;
@@ -55,25 +57,37 @@ class SingleSlide extends StatelessWidget {
       shadowIsOn: slideShadowIsOn,
       stackChildren: <Widget>[
 
-        // /// BACK GROUND COVER PIC
-        if (blurLayerIsOn == true)
-          SuperFilteredImage(
-            key: const ValueKey<String>('BACKGROUND_SLIDE_BLUR_PIC'),
-            width: flyerBoxWidth,
-            height: flyerBoxHeight,
-            pic: slideModel?.uiImage,
-            loading: false,
+        /// BACKGROUND
+        SuperImage(
+          width: flyerBoxWidth,
+          height: flyerBoxHeight,
+          pic: SlideModel.generateSlidePicPath(
+              flyerID: slideModel?.flyerID,
+              slideIndex: slideModel?.slideIndex,
+              type: SlidePicType.back,
           ),
+          loading: false,
+        ),
 
-        /// BLUR LAYER
-        if (blurLayerIsOn == true)
-          BlurLayer(
-            width: flyerBoxWidth,
-            height: flyerBoxHeight,
-            blurIsOn: true,
-            blur: 20,
-            borders: FlyerDim.flyerCorners(flyerBoxWidth),
-          ),
+        // // /// BACK GROUND COVER PIC
+        // if (blurLayerIsOn == true)
+        //   SuperFilteredImage(
+        //     key: const ValueKey<String>('BACKGROUND_SLIDE_BLUR_PIC'),
+        //     width: flyerBoxWidth,
+        //     height: flyerBoxHeight,
+        //     pic: slideModel?.uiImage,
+        //     loading: false,
+        //   ),
+        //
+        // /// BLUR LAYER
+        // if (blurLayerIsOn == true)
+        //   BlurLayer(
+        //     width: flyerBoxWidth,
+        //     height: flyerBoxHeight,
+        //     blurIsOn: true,
+        //     blur: 20,
+        //     borders: FlyerDim.flyerCorners(flyerBoxWidth),
+        //   ),
 
         /// ANIMATED SLIDE
         SlideImage(
@@ -83,6 +97,8 @@ class SingleSlide extends StatelessWidget {
           onDoubleTap: onDoubleTap,
           canAnimateMatrix: slideModel?.animationCurve != null,
           slideModel: slideModel,
+          slidePicType: slidePicType,
+          loading: loading,
           canUseFilter: canUseFilter,
           canTapSlide: canTapSlide,
           onSlideNextTap: onSlideNextTap,

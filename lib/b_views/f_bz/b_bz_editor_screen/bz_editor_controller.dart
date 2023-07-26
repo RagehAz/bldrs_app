@@ -359,7 +359,7 @@ void onChangeBzForm({
 
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> onChangeBzLogo({
   required ValueNotifier<DraftBz?> draftNotifier,
   required PicMakerType imagePickerType,

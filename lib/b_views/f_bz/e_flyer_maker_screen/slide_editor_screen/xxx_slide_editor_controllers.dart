@@ -1,13 +1,15 @@
-import 'dart:typed_data';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
-import 'package:basics/helpers/classes/colors/colorizer.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -197,7 +199,7 @@ void stopAnimation({
 /// CROPPING
 
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TASK : TEST ME VERIFY_ME
 Future<void> onCropSlide({
   required ValueNotifier<DraftSlide?> draftNotifier,
   required ValueNotifier<Matrix4?> matrixNotifier,
@@ -205,23 +207,52 @@ Future<void> onCropSlide({
   required bool mounted,
 }) async {
 
-  final Uint8List? _bytes = await BldrsPicMaker.cropPic(
-    bytes: draftNotifier.value?.picModel?.bytes,
-    aspectRatio: FlyerDim.flyerAspectRatio(),
-  );
+  if (draftNotifier.value != null){
 
-  if (_bytes != null){
-
-    setNotifier(
-        notifier: draftNotifier,
-        mounted: mounted,
-        value: draftNotifier.value?.copyWith(
-          midColor: await Colorizer.getAverageColor(_bytes),
-          picModel: draftNotifier.value?.picModel?.copyWith(
-            bytes: _bytes,
-          ),
-        ),
+    final PicModel? _croppedBig = await BldrsPicMaker.cropPic(
+      pic: draftNotifier.value?.bigPic,
+      compressionQuality: Standards.slideBigQuality,
+      aspectRatio: FlyerDim.flyerAspectRatio(),
     );
+
+    if (_croppedBig != null){
+
+      final PicModel? _med = await BldrsPicMaker.compressSlideBigPicTo(
+          bigPic: _croppedBig,
+          flyerID: draftNotifier.value!.flyerID,
+          slideIndex: draftNotifier.value!.slideIndex,
+          type: SlidePicType.med,
+      );
+
+      final PicModel? _small = await BldrsPicMaker.compressSlideBigPicTo(
+          bigPic: _croppedBig,
+          flyerID: draftNotifier.value!.flyerID,
+          slideIndex: draftNotifier.value!.slideIndex,
+          type: SlidePicType.small,
+      );
+
+      final PicModel? _back = await BldrsPicMaker.createSlideBackground(
+          bigPic: _croppedBig,
+          flyerID: draftNotifier.value!.flyerID,
+          slideIndex: draftNotifier.value!.slideIndex,
+      );
+
+      if (_med != null && _small != null && _back != null){
+        setNotifier(
+            notifier: draftNotifier,
+            mounted: mounted,
+            value: draftNotifier.value?.copyWith(
+              midColor: await Colorizer.getAverageColor(_small.bytes),
+              bigPic: _croppedBig,
+              medPic: _med,
+              smallPic: _small,
+              backPic: _back,
+            ),
+        );
+      }
+
+
+    }
 
   }
 

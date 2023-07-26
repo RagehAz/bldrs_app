@@ -178,7 +178,7 @@ class ImagifyFlyerProtocols {
   /// IMAGIFY SLIDES
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME VERIFY_ME
   static Future<FlyerModel?> _imagifyFirstSlide({
     required FlyerModel? flyerModel,
   }) async {
@@ -195,7 +195,11 @@ class ImagifyFlyerProtocols {
         if (_firstSlide.uiImage == null){
 
           final ui.Image? _image = await PicProtocols.fetchPicUiImage(
-            path: _firstSlide.picPath,
+            path: SlideModel.generateSlidePicPath(
+                flyerID: flyerModel.id,
+                slideIndex: 0,
+                type: SlidePicType.small,
+            ),
           );
 
           _firstSlide = _firstSlide.copyWith(
@@ -220,7 +224,7 @@ class ImagifyFlyerProtocols {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME VERIFY_ME
   static Future<FlyerModel?> _imagifySlides({
     required FlyerModel? flyerModel,
     required Function(FlyerModel flyer) onRenderSlide,
@@ -243,7 +247,11 @@ class ImagifyFlyerProtocols {
           if (_slide.uiImage == null){
 
             final ui.Image? _image = await PicProtocols.fetchPicUiImage(
-              path: _slide.picPath,
+              path: SlideModel.generateSlidePicPath(
+                  flyerID: _slide.flyerID,
+                  slideIndex: _slide.slideIndex,
+                  type: SlidePicType.med,
+              ),
             );
 
             _slide = _slide.copyWith(

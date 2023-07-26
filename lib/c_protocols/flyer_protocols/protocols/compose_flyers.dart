@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
@@ -37,7 +38,7 @@ class ComposeFlyerProtocols {
   /// COMPOSE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TASK : TEST ME VERIFY_ME
   static Future<void> compose({
     required BuildContext context,
     required DraftFlyer? draftFlyer,
@@ -94,7 +95,22 @@ class ComposeFlyerProtocols {
           FlyerFireOps.updateFlyerDoc(_flyerToPublish),
 
           /// UPLOAD SLIDES PICS
-          PicProtocols.composePics(DraftSlide.getPicModels(_draftWithID?.draftSlides)),
+          PicProtocols.composePics(DraftSlide.getPicModels(
+            drafts: _draftWithID?.draftSlides,
+            slidePicType: SlidePicType.big,
+          )),
+          PicProtocols.composePics(DraftSlide.getPicModels(
+            drafts: _draftWithID?.draftSlides,
+            slidePicType: SlidePicType.med,
+          )),
+          PicProtocols.composePics(DraftSlide.getPicModels(
+            drafts: _draftWithID?.draftSlides,
+            slidePicType: SlidePicType.small,
+          )),
+          PicProtocols.composePics(DraftSlide.getPicModels(
+            drafts: _draftWithID?.draftSlides,
+            slidePicType: SlidePicType.back,
+          )),
 
           /// UPLOAD PDF
           PDFProtocols.compose(_draftWithID?.pdfModel),
