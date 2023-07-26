@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
@@ -492,6 +493,7 @@ Future<bool> _preFlyerUpdateCheck({
 
   final FlyerModel? flyerFromDraft = await DraftFlyer.draftToFlyer(
     draft: draft,
+    slidePicType: SlidePicType.small,
     toLDB: false,
 
   );

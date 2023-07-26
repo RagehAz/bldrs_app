@@ -90,27 +90,40 @@ class SlideEditorSlidePart extends StatelessWidget {
           boxColor: draftSlide.value?.midColor,
           stackWidgets: <Widget>[
 
-            /// BACK GROUND COVER SLIDE
+            /// BACKGROUND
             ValueListenableBuilder(
               valueListenable: draftSlide,
               builder: (_, DraftSlide? _slide, Widget? child) {
-                return SuperFilteredImage(
+                return SuperImage(
                   width: _flyerBoxWidth,
                   height: _flyerBoxHeight,
-                  pic: _slide?.bigPic?.bytes,
+                  pic: _slide?.backPic?.bytes,
                   loading: false,
                 );
-                },
+              }
             ),
 
-            /// BLUR LAYER
-            BlurLayer(
-              width: _flyerBoxWidth,
-              height: _flyerBoxHeight,
-              blurIsOn: true,
-              blur: 20,
-              borders: FlyerDim.flyerCorners(_flyerBoxWidth),
-            ),
+            // /// BACK GROUND COVER SLIDE
+            // ValueListenableBuilder(
+            //   valueListenable: draftSlide,
+            //   builder: (_, DraftSlide? _slide, Widget? child) {
+            //     return SuperFilteredImage(
+            //       width: _flyerBoxWidth,
+            //       height: _flyerBoxHeight,
+            //       pic: _slide?.bigPic?.bytes,
+            //       loading: false,
+            //     );
+            //     },
+            // ),
+            //
+            // /// BLUR LAYER
+            // BlurLayer(
+            //   width: _flyerBoxWidth,
+            //   height: _flyerBoxHeight,
+            //   blurIsOn: true,
+            //   blur: 20,
+            //   borders: FlyerDim.flyerCorners(_flyerBoxWidth),
+            // ),
 
             /// SLIDE
             ValueListenableBuilder(

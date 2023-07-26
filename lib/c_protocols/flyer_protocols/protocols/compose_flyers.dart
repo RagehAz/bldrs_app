@@ -62,6 +62,7 @@ class ComposeFlyerProtocols {
 
         FlyerModel? _flyerToPublish = await DraftFlyer.draftToFlyer(
           draft: _draftWithID,
+          slidePicType: SlidePicType.big,
           toLDB: false,
           isPublishing: true,
         );

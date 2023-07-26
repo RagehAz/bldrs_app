@@ -32,9 +32,10 @@ class SlideModel {
     required this.matrix,
     required this.animationCurve,
     required this.slideIndex,
+    required this.frontImage,
+    required this.backImage,
+    required this.flyerID,
     this.headline,
-    this.flyerID,
-    this.uiImage,
   });
   /// --------------------------------------------------------------------------
   final int slideIndex;
@@ -45,7 +46,8 @@ class SlideModel {
   final Dimensions? dimensions;
   final Color? midColor;
   final String? flyerID;
-  final ui.Image? uiImage;
+  final ui.Image? frontImage;
+  final ui.Image? backImage;
   final Curve? animationCurve;
   // -----------------------------------------------------------------------------
 
@@ -67,7 +69,10 @@ class SlideModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static SlideModel decipherSlide(dynamic map) {
+  static SlideModel decipherSlide({
+    required Map<String, dynamic> map,
+    required String flyerID,
+  }) {
 
     return SlideModel(
       slideIndex: map['slideIndex'],
@@ -78,6 +83,9 @@ class SlideModel {
       midColor: Colorizer.decipherColor(map['midColor']),
       matrix: Trinity.decipherMatrix(map['matrix']),
       animationCurve: Trinity.decipherAnimationCurve(map['animationCurve']),
+      frontImage: null,
+      backImage: null,
+      flyerID: flyerID,
     );
 
   }
@@ -101,7 +109,10 @@ class SlideModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<SlideModel> decipherSlides(Map<String, dynamic> maps) {
+  static List<SlideModel> decipherSlides({
+    required String flyerID,
+    required Map<String, dynamic> maps,
+  }) {
     final List<SlideModel> _slides = <SlideModel>[];
     final List<String>? _keys = maps.keys.toList();
 
@@ -110,9 +121,16 @@ class SlideModel {
       final List<String> _sorted = Stringer.sortAlphabetically(_keys);
 
       for (final String key in _sorted) {
+
         final Map<String, dynamic> _slideMap = maps[key];
-        final SlideModel _slide = decipherSlide(_slideMap);
+
+        final SlideModel _slide = decipherSlide(
+          map: _slideMap,
+          flyerID: flyerID,
+        );
+
         _slides.add(_slide);
+
       }
     }
 
@@ -134,7 +152,8 @@ class SlideModel {
     Dimensions? dimensions,
     Color? midColor,
     String? flyerID,
-    ui.Image? uiImage,
+    ui.Image? frontImage,
+    ui.Image? backImage,
     Curve? animationCurve,
   }) {
     return SlideModel(
@@ -145,8 +164,10 @@ class SlideModel {
       picFit: picFit ?? this.picFit,
       midColor: midColor ?? this.midColor,
       matrix: matrix ?? this.matrix,
-      uiImage: uiImage ?? this.uiImage,
+      frontImage: frontImage ?? this.frontImage,
+      backImage: backImage ?? this.backImage,
       animationCurve: animationCurve ?? this.animationCurve,
+      flyerID: flyerID ?? this.flyerID,
     );
   }
   // -----------------------------------------------------------------------------
@@ -157,7 +178,7 @@ class SlideModel {
   /// TESTED : WORKS PERFECT
   void blogSlide() {
     blog(' >> SLIDE [ $slideIndex ] --------------------------------------- []');
-    blog('  slideIndex : ($slideIndex ): flyerID : ($flyerID) : uiImage : ($uiImage) ');
+    blog('  slideIndex : ($slideIndex ): flyerID : ($flyerID)');
     blog('  headline : ($headline) : description : ($description)');
     blog('  midColor : ($midColor) : '
         'picFit : ($picFit) : '
@@ -166,7 +187,8 @@ class SlideModel {
         'width : (${dimensions?.width}) : '
         'height : (${dimensions?.height}) : '
     );
-    blog('  has ui.Image : (${uiImage != null})');
+    blog('  has ui.frontPic : (${frontImage != null})');
+    blog('  has ui.backPic : (${backImage != null})');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -228,8 +250,11 @@ class SlideModel {
     if (slide1?.flyerID != slide2?.flyerID){
       blog('slide1.flyerID != slide2.flyerID');
     }
-    if (Floaters.checkUiImagesAreIdentical(slide1?.uiImage, slide2?.uiImage) == false){
-      blog('slide1.uiImage != slide2.uiImage');
+    if (Floaters.checkUiImagesAreIdentical(slide1?.frontImage, slide2?.frontImage) == false){
+      blog('slide1.frontPic != slide2.frontPic');
+    }
+    if (Floaters.checkUiImagesAreIdentical(slide1?.backImage, slide2?.backImage) == false){
+      blog('slide1.backPic != slide2.backPic');
     }
     if (slide1?.animationCurve != slide2?.animationCurve){
       blog('slide1.animationCurve != slide2.animationCurve');
@@ -571,6 +596,7 @@ class SlideModel {
   /// TESTED : WORKS PERFECT
   static SlideModel dummySlide() {
     return SlideModel(
+      flyerID: 'flyerID_dummy',
       slideIndex: 0,
       headline: 'Headliner',
       description: 'Descriptor',
@@ -579,6 +605,8 @@ class SlideModel {
       midColor: Colorz.black255,
       matrix: Matrix4.identity(),
       animationCurve: null,
+      frontImage: null,
+      backImage: null,
     );
   }
   // -----------------------------------------------------------------------------
@@ -627,7 +655,8 @@ class SlideModel {
           Dimensions.checkDimensionsAreIdentical(dim1: slide1.dimensions, dim2: slide2.dimensions) == true &&
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&
           slide1.flyerID == slide2.flyerID &&
-          Floaters.checkUiImagesAreIdentical(slide1.uiImage, slide2.uiImage) == true
+          Floaters.checkUiImagesAreIdentical(slide1.frontImage, slide2.frontImage) == true &&
+          Floaters.checkUiImagesAreIdentical(slide1.backImage, slide2.backImage) == true
       ){
         _identical = true;
       }
@@ -733,7 +762,8 @@ class SlideModel {
       animationCurve.hashCode^
       slideIndex.hashCode^
       headline.hashCode^
-      uiImage.hashCode^
+      frontImage.hashCode^
+      backImage.hashCode^
       flyerID.hashCode;
   // -----------------------------------------------------------------------------
 }

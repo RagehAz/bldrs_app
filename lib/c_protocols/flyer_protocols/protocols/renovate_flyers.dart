@@ -56,6 +56,7 @@ class RenovateFlyerProtocols {
 
       final FlyerModel? _flyerToUpload = await DraftFlyer.draftToFlyer(
         draft: newDraft,
+        slidePicType: SlidePicType.small,
         toLDB: false,
       );
 

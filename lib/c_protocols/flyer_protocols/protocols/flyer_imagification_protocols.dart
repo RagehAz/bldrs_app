@@ -139,7 +139,7 @@ class ImagifyFlyerProtocols {
         for (int i = 0; i < flyerModel.slides!.length; i++){
           blog('disposeRenderedFlyer ($invoker) : ${flyerModel.id} => disposing flyer[$i] SLIDE '
               'IMAGE : '
-              '${flyerModel.slides![i].uiImage == null ? 'null' : 'not null'}');
+              '${flyerModel.slides![i].frontImage == null ? 'null' : 'not null'}');
           // flyerModel.slides[i]?.uiImage?.dispose();
           // UiProvider.proDisposeCacher(
           //   context: context,
@@ -192,18 +192,26 @@ class ImagifyFlyerProtocols {
 
         SlideModel _firstSlide = flyerModel.slides![0];
 
-        if (_firstSlide.uiImage == null){
+        if (_firstSlide.frontImage == null){
 
-          final ui.Image? _image = await PicProtocols.fetchPicUiImage(
+          final ui.Image? _front = await PicProtocols.fetchPicUiImage(
             path: SlideModel.generateSlidePicPath(
                 flyerID: flyerModel.id,
                 slideIndex: 0,
                 type: SlidePicType.small,
             ),
           );
+          final ui.Image? _back = await PicProtocols.fetchPicUiImage(
+            path: SlideModel.generateSlidePicPath(
+                flyerID: flyerModel.id,
+                slideIndex: 0,
+                type: SlidePicType.back,
+            ),
+          );
 
           _firstSlide = _firstSlide.copyWith(
-            uiImage: _image,
+            frontImage: _front,
+            backImage: _back
           );
 
           final List<SlideModel> _slides = <SlideModel>[...?flyerModel.slides];
@@ -244,9 +252,9 @@ class ImagifyFlyerProtocols {
           SlideModel _slide = _flyerSlides[i];
 
           /// UI IMAGE IS MISSING
-          if (_slide.uiImage == null){
+          if (_slide.frontImage == null){
 
-            final ui.Image? _image = await PicProtocols.fetchPicUiImage(
+            final ui.Image? _front = await PicProtocols.fetchPicUiImage(
               path: SlideModel.generateSlidePicPath(
                   flyerID: _slide.flyerID,
                   slideIndex: _slide.slideIndex,
@@ -254,8 +262,17 @@ class ImagifyFlyerProtocols {
               ),
             );
 
+            final ui.Image? _back = await PicProtocols.fetchPicUiImage(
+              path: SlideModel.generateSlidePicPath(
+                  flyerID: _slide.flyerID,
+                  slideIndex: _slide.slideIndex,
+                  type: SlidePicType.back,
+              ),
+            );
+
             _slide = _slide.copyWith(
-              uiImage: _image,
+              frontImage: _front,
+              backImage: _back
             );
 
           }
