@@ -21,18 +21,6 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 
-// enum OldPublishState{
-//   draft,
-//   published,
-//   unpublished,
-// }
-//
-// enum AuditState{
-//   verified,
-//   suspended,
-//   pending,
-// }
-
 /// TAMAM
 @immutable
 class FlyerModel {
@@ -928,7 +916,7 @@ class FlyerModel {
     return _owners;
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static List<String> getPicsPaths({
     required FlyerModel? flyer,
     required SlidePicType type,

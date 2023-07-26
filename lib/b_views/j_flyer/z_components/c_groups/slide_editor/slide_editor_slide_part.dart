@@ -16,7 +16,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_e
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_transformer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -99,31 +98,10 @@ class SlideEditorSlidePart extends StatelessWidget {
                   height: _flyerBoxHeight,
                   pic: _slide?.backPic?.bytes,
                   loading: false,
+                  // corners: FlyerDim.flyerCorners(_flyerBoxWidth),
                 );
               }
             ),
-
-            // /// BACK GROUND COVER SLIDE
-            // ValueListenableBuilder(
-            //   valueListenable: draftSlide,
-            //   builder: (_, DraftSlide? _slide, Widget? child) {
-            //     return SuperFilteredImage(
-            //       width: _flyerBoxWidth,
-            //       height: _flyerBoxHeight,
-            //       pic: _slide?.bigPic?.bytes,
-            //       loading: false,
-            //     );
-            //     },
-            // ),
-            //
-            // /// BLUR LAYER
-            // BlurLayer(
-            //   width: _flyerBoxWidth,
-            //   height: _flyerBoxHeight,
-            //   blurIsOn: true,
-            //   blur: 20,
-            //   borders: FlyerDim.flyerCorners(_flyerBoxWidth),
-            // ),
 
             /// SLIDE
             ValueListenableBuilder(
@@ -142,13 +120,14 @@ class SlideEditorSlidePart extends StatelessWidget {
                       return Stack(
                         children: <Widget>[
 
-                          /// BLUR LAYER
-                          BlurLayer(
+
+                          /// BACKGROUND
+                          SuperImage(
                             width: _flyerBoxWidth,
                             height: _flyerBoxHeight,
-                            blurIsOn: true,
-                            blur: 20,
-                            borders: FlyerDim.flyerCorners(_flyerBoxWidth),
+                            pic: _slide?.backPic?.bytes,
+                            loading: false,
+                            // corners: FlyerDim.flyerCorners(_flyerBoxWidth),
                           ),
 
                           /// SLIDE ANIMATOR
@@ -168,7 +147,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                             child: SuperFilteredImage(
                               width: _flyerBoxWidth,
                               height: _flyerBoxHeight,
-                              pic: _slide?.bigPic?.bytes,
+                              pic: _slide?.medPic?.bytes,
                               boxFit: _slide?.picFit ?? BoxFit.cover,
                               loading: false,
                               // canUseFilter: false,
