@@ -143,7 +143,7 @@ class Standards {
   static const double slideMediumWidth = 500;
   static const int slideMediumQuality = 75;
   // --------------------
-  static const double slideBigWidth = 700;
+  static const double slideBigWidth = 1000;
   static const int slideBigQuality = 80;
   // --------------------
   static const bool onlyCompressOnResizing = true;
