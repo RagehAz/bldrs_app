@@ -165,30 +165,30 @@ class AppStateModel {
   }
   // --------------------
   /// AI TESTED
-  static bool userNeedToUpdateApp({
-    required String? globalVersion,
-    required String? localVersion,
+  static bool versionIsBigger({
+    required String? thisIsBigger,
+    required String? thanThis,
   }){
 
     /// THEY COME IN THIS FORM 0.0.0
     /// AND ONLY NEED TO UPDATE IF GLOBAL IS BIGGER THAN THE SMALLER
 
-    bool _shouldUpdate = false;
+    bool _isBigger = false;
 
-    final bool _globalVersionIsValid = appVersionIsValid(globalVersion);
-    final bool _localVersionIsValid = appVersionIsValid(localVersion);
+    final bool _globalVersionIsValid = appVersionIsValid(thisIsBigger);
+    final bool _localVersionIsValid = appVersionIsValid(thanThis);
 
     if (_globalVersionIsValid == true && _localVersionIsValid == true){
 
-      final int _global = getAppVersionNumbered(globalVersion!)!;
-      final int _local = getAppVersionNumbered(localVersion!)!;
+      final int _bigger = getAppVersionNumbered(thisIsBigger!)!;
+      final int _thanThis = getAppVersionNumbered(thanThis!)!;
 
-      _shouldUpdate = _global > _local;
+      _isBigger = _bigger > _thanThis;
 
     }
 
 
-    return _shouldUpdate;
+    return _isBigger;
   }
   // --------------------
   /// AI TESTED
@@ -226,7 +226,7 @@ class AppStateModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogAppState({String invoker = ''}){
-    blog('APP STATE : appVersion : $appVersion : ldbVersion : $ldbVersion : bldrsIsOnline : $bldrsIsOnline');
+    blog('APP STATE : appVersion : $appVersion : minVersion : $minVersion : ldbVersion : $ldbVersion : bldrsIsOnline : $bldrsIsOnline');
   }
   // -----------------------------------------------------------------------------
 
@@ -248,6 +248,7 @@ class AppStateModel {
 
       if (
           state1.appVersion == state2.appVersion &&
+          state1.minVersion == state2.minVersion &&
           state1.ldbVersion == state2.ldbVersion &&
           state1.bldrsIsOnline == state2.bldrsIsOnline
       ){

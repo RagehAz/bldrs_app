@@ -15,6 +15,9 @@ class UserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static const compose = ComposeUserProtocols.compose;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const composeAnonymous = ComposeUserProtocols.composeAnonymous;
   // -----------------------------------------------------------------------------
 
   /// FETCH
@@ -51,9 +54,6 @@ class UserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static const savingFlyerProtocol = RenovateUserProtocols.savingFlyerProtocol;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const refreshUserDeviceModel = RenovateUserProtocols.refreshUserDeviceModel;
   // --------------------
   /// TESTED : WORKS PERFECT
   static const updateMyUserTopics = RenovateUserProtocols.updateMyUserTopics;

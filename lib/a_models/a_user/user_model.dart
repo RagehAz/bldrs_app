@@ -1,6 +1,11 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs/a_models/a_user/sub/agenda_model.dart';
 import 'package:bldrs/a_models/a_user/sub/deck_model.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
@@ -12,16 +17,14 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 enum Gender {
   male,
@@ -1124,7 +1127,12 @@ class UserModel {
     return _user;
   }
    */
+  // -----------------------------------------------------------------------------
+
+  /// ANONYMOUS
+
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<UserModel?> anonymousUser({
     required AuthModel? authModel,
   }) async {
@@ -1135,10 +1143,7 @@ class UserModel {
 
     else {
 
-      final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(
-        context: getMainContext(),
-        listen: false,
-      );
+      final ZoneModel? _currentZone = await ZoneProtocols.getZoneByIP();
 
       return UserModel(
         id: authModel.id,
@@ -1167,12 +1172,47 @@ class UserModel {
         fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
         savedFlyers: DeckModel.newDeck(),
         followedBzz: AgendaModel.newAgenda(),
-        appState: await AppStateRealOps.readGlobalAppState(),
-      );
+        appState: await AppStateProtocols.fetchGlobalAppState(),
+    );
 
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String createAnonymousEmail(){
+    final int _uniqueKey = Numeric.createUniqueID(maxDigitsCount: 10);
+    return 'bldr_$_uniqueKey@bldrs.net';
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String createAnonymousPassword(){
+    return Numeric.createUniqueID(maxDigitsCount: 8).toString();
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkIsAnonymousEmail({
+    required String? email,
+  }){
+
+    if (email == null){
+      return false;
+    }
+    else {
+
+      final String? _bldr_ = TextMod.removeTextAfterFirstSpecialCharacter(
+        text: email,
+        specialCharacter: '_',
+      );
+
+      return _bldr_ == 'bldr';
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CHECKUPS
+
   // --------------------
    /// TESTED : WORKS PERFECT
   static bool usersAreIdentical({

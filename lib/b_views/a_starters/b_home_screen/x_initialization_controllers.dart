@@ -208,7 +208,7 @@ Future<void> initializeCurrentZone() async {
     );
 
     /// USER ZONE IS DEFINED
-    if (_myUserModel?.zone != null && Authing.userIsSignedUp(_myUserModel?.signInMethod) == true){
+    if (_myUserModel?.zone != null){// && Authing.userIsSignedUp(_myUserModel?.signInMethod) == true){
 
       await _zoneProvider.fetchSetCurrentCompleteZone(
         zone: _myUserModel?.zone,

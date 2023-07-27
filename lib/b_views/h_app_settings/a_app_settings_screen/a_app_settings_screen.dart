@@ -39,7 +39,7 @@ class AppSettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final UserModel? _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
-    final bool _userIsOnline = Authing.userIsSignedUp(_userModel?.signInMethod);
+    final bool _userIsSignedUp = Authing.userIsSignedUp(_userModel?.signInMethod);
 
     return FloatingLayout(
       pyramidButtons: UsersProvider.userIsRage7() == false ? null : [
@@ -138,7 +138,7 @@ class AppSettingsScreen extends StatelessWidget {
         SettingsWideButton(
           verse: const Verse(id: 'phid_feedback', translate: true),
           icon: Iconz.balloonThinking,
-          isOn: _userIsOnline,
+          isOn: _userIsSignedUp,
           onTap: () => onFeedbackTap(),
         ),
 
@@ -180,7 +180,7 @@ class AppSettingsScreen extends StatelessWidget {
         SettingsWideButton(
           verse: const Verse(id: 'phid_signOut', translate: true),
           icon: Iconz.exit,
-          isOn: _userIsOnline,
+          isOn: _userIsSignedUp,
           onTap: () => onSignOut(),
         ),
 

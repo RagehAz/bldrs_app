@@ -96,9 +96,9 @@ void main() {
     test('Both versions are valid, local version needs update', () {
       const globalVersion = '2.0.0';
       const localVersion = '1.5.0';
-      final shouldUpdate = AppStateModel.userNeedToUpdateApp(
-        globalVersion: globalVersion,
-        localVersion: localVersion,
+      final shouldUpdate = AppStateModel.versionIsBigger(
+        thisIsBigger: globalVersion,
+        thanThis: localVersion,
       );
       expect(shouldUpdate, true);
     });
@@ -106,9 +106,9 @@ void main() {
     test('Both versions are valid, local version does not need update', () {
       const globalVersion = '2.0.0';
       const localVersion = '2.5.0';
-      final shouldUpdate = AppStateModel.userNeedToUpdateApp(
-        globalVersion: globalVersion,
-        localVersion: localVersion,
+      final shouldUpdate = AppStateModel.versionIsBigger(
+        thisIsBigger: globalVersion,
+        thanThis: localVersion,
       );
       expect(shouldUpdate, false);
     });
@@ -116,9 +116,9 @@ void main() {
     test('Invalid global version format, local version is valid', () {
       const globalVersion = '2.a.0';
       const localVersion = '1.5.0';
-      final shouldUpdate = AppStateModel.userNeedToUpdateApp(
-        globalVersion: globalVersion,
-        localVersion: localVersion,
+      final shouldUpdate = AppStateModel.versionIsBigger(
+        thisIsBigger: globalVersion,
+        thanThis: localVersion,
       );
       expect(shouldUpdate, false);
     });
@@ -126,9 +126,9 @@ void main() {
     test('Valid global version format, invalid local version format', () {
       const globalVersion = '2.0.0';
       const localVersion = '1.b.0';
-      final shouldUpdate = AppStateModel.userNeedToUpdateApp(
-        globalVersion: globalVersion,
-        localVersion: localVersion,
+      final shouldUpdate = AppStateModel.versionIsBigger(
+        thisIsBigger: globalVersion,
+        thanThis: localVersion,
       );
       expect(shouldUpdate, false);
     });
@@ -136,9 +136,9 @@ void main() {
     test('test', () {
       const globalVersion = '2.3.4';
       const localVersion = '2.3.3';
-      final shouldUpdate = AppStateModel.userNeedToUpdateApp(
-        globalVersion: globalVersion,
-        localVersion: localVersion,
+      final shouldUpdate = AppStateModel.versionIsBigger(
+        thisIsBigger: globalVersion,
+        thanThis: localVersion,
       );
       expect(shouldUpdate, true);
     });
@@ -146,9 +146,9 @@ void main() {
     test('Missing global version, valid local version', () {
       const globalVersion = null;
       const localVersion = '1.5.0';
-      final shouldUpdate = AppStateModel.userNeedToUpdateApp(
-        globalVersion: globalVersion,
-        localVersion: localVersion,
+      final shouldUpdate = AppStateModel.versionIsBigger(
+        thisIsBigger: globalVersion,
+        thanThis: localVersion,
       );
       expect(shouldUpdate, false);
     });
@@ -156,9 +156,9 @@ void main() {
     test('Valid global version, missing local version', () {
       const globalVersion = '1.2.3';
       const localVersion = '2.1.5';
-      final shouldUpdate = AppStateModel.userNeedToUpdateApp(
-        globalVersion: globalVersion,
-        localVersion: localVersion,
+      final shouldUpdate = AppStateModel.versionIsBigger(
+        thisIsBigger: globalVersion,
+        thanThis: localVersion,
       );
       expect(shouldUpdate, false);
     });

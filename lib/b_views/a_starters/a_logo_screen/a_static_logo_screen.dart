@@ -1,11 +1,12 @@
 import 'dart:async';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/aa_static_logo_screen_view.dart';
-import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/c_protocols/app_initialization_protocols/a_initializer.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 
@@ -62,9 +63,8 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
 
         Keyboard.closeKeyboard();
 
-        await initializeLogoScreen(
-          context: getMainContext(),
-          mounted: mounted,
+        await Initializer.logoScreenInitialize(
+          context: context,
         );
 
         await Nav.pushNamedAndRemoveAllBelow(

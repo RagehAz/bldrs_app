@@ -66,12 +66,10 @@ class NotesProvider extends ChangeNotifier {
   // -------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> proInitializeObeliskBadges({
-    required BuildContext context,
     required bool notify,
   }) async {
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
     await _notesProvider._initializeObeliskBadges(
-        context: context,
         notify: notify,
     );
   }
@@ -106,7 +104,6 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _initializeObeliskBadges({
-    required BuildContext context,
     required bool notify,
   }) async {
 
@@ -131,9 +128,7 @@ class NotesProvider extends ChangeNotifier {
     }
 
     /// UPDATE APP
-    final bool _appNeedUpdate = await AppStateProtocols.shouldUpdateApp(
-        context: context,
-    );
+    final bool _appNeedUpdate = await AppStateProtocols.shouldUpdateApp();
 
     if (_appNeedUpdate == true){
       final MapModel _updateModel = MapModel(

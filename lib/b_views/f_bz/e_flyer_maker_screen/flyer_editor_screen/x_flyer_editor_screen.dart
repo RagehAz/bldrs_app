@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:async';
+
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
@@ -600,24 +601,11 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                   onNextTap: _onNextTap,
                   onPreviousTap: _onPreviousTap,
                   canGoNext: _canGoFrom5To6(draft: draft),
-                  onPosterCreated: (PicModel? pic) async {
-
-                    final bool _identical = PicModel.checkPicsAreIdentical(
-                        pic1: pic,
-                        pic2: draft?.poster
-                    );
-
-                    if (pic != null && draft != null && _identical == false){
-                      setNotifier(
-                        notifier: _draftNotifier,
-                        mounted: mounted,
-                        value: draft.copyWith(
-                          poster: pic,
-                        ),
-                      );
-                    }
-
-                    },
+                  onPosterCreated: (PicModel? pic) => onPosterChanged(
+                    poster: pic,
+                    mounted: mounted,
+                    draftNotifier: _draftNotifier,
+                  ),
                 ),
 
                 /// 6 - CONFIRM

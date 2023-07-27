@@ -9,6 +9,7 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
@@ -317,6 +318,32 @@ void onSwitchFlyerShowsAuthor({
         showsAuthor: value,
       ),
   );
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onPosterChanged({
+  required ValueNotifier<DraftFlyer?> draftNotifier,
+  required PicModel? poster,
+  required bool mounted,
+}) async {
+
+  final bool _identical = PicModel.checkPicsAreIdentical(
+      pic1: poster,
+      pic2: draftNotifier.value?.poster,
+  );
+
+  if (poster != null && draftNotifier.value != null && _identical == false){
+
+    setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value?.copyWith(
+        poster: poster,
+      ),
+    );
+
+  }
 
 }
 // --------------------
