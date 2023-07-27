@@ -68,7 +68,7 @@ class SlideImage extends StatelessWidget {
                 slideIndex: slideModel?.slideIndex,
                 type: slidePicType,
             ),
-            fit: slideModel?.picFit ?? BoxFit.cover,
+            fit: BoxFit.fitWidth,
             loading: loading,
             // canUseFilter: canUseFilter,
 

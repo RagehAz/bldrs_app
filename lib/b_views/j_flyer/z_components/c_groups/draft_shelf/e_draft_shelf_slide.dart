@@ -159,7 +159,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                       height: _flyerBoxHeight,
                       // bytes: widget.draftSlide.picModel.bytes,
                       pic: widget.draftSlide?.bigPic?.bytes,
-                      boxFit: widget.draftSlide?.picFit ?? BoxFit.cover,
+                      boxFit: BoxFit.fitWidth,
                       loading: false,
                     ),
                   ),

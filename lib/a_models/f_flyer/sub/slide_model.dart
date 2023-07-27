@@ -9,7 +9,6 @@ import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:flutter/material.dart';
 
@@ -26,8 +25,6 @@ class SlideModel {
   /// --------------------------------------------------------------------------
   const SlideModel({
     required this.description,
-    required this.picFit,
-    required this.dimensions,
     required this.midColor,
     required this.matrix,
     required this.animationCurve,
@@ -42,8 +39,6 @@ class SlideModel {
   final String? headline;
   final String? description;
   final Matrix4? matrix;
-  final BoxFit? picFit;
-  final Dimensions? dimensions;
   final Color? midColor;
   final String? flyerID;
   final ui.Image? frontImage;
@@ -60,8 +55,6 @@ class SlideModel {
       'slideIndex': slideIndex,
       'headline': headline,
       'description': description,
-      'picFit': Dimensions.cipherBoxFit(picFit),
-      'dimensions': dimensions?.toMap(),
       'midColor': Colorizer.cipherColor(midColor),
       'matrix' : Trinity.cipherMatrix(matrix),
       'animationCurve': Trinity.cipherAnimationCurve(animationCurve),
@@ -78,8 +71,6 @@ class SlideModel {
       slideIndex: map['slideIndex'],
       headline: map['headline'],
       description: map['description'],
-      picFit: Dimensions.decipherBoxFit(map['picFit']),
-      dimensions: Dimensions.decipherDimensions(map['dimensions']),
       midColor: Colorizer.decipherColor(map['midColor']),
       matrix: Trinity.decipherMatrix(map['matrix']),
       animationCurve: Trinity.decipherAnimationCurve(map['animationCurve']),
@@ -148,8 +139,6 @@ class SlideModel {
     String? headline,
     String? description,
     Matrix4? matrix,
-    BoxFit? picFit,
-    Dimensions? dimensions,
     Color? midColor,
     String? flyerID,
     ui.Image? frontImage,
@@ -160,8 +149,6 @@ class SlideModel {
       slideIndex: slideIndex ?? this.slideIndex,
       headline: headline ?? this.headline,
       description: description ?? this.description,
-      dimensions: dimensions ?? this.dimensions,
-      picFit: picFit ?? this.picFit,
       midColor: midColor ?? this.midColor,
       matrix: matrix ?? this.matrix,
       frontImage: frontImage ?? this.frontImage,
@@ -181,11 +168,8 @@ class SlideModel {
     blog('  slideIndex : ($slideIndex ): flyerID : ($flyerID)');
     blog('  headline : ($headline) : description : ($description)');
     blog('  midColor : ($midColor) : '
-        'picFit : ($picFit) : '
         'hasCustomMatrix : (${matrix != Matrix4.identity()}) : '
         'animationCurve : ($animationCurve) : '
-        'width : (${dimensions?.width}) : '
-        'height : (${dimensions?.height}) : '
     );
     blog('  has ui.frontPic : (${frontImage != null})');
     blog('  has ui.backPic : (${backImage != null})');
@@ -237,12 +221,6 @@ class SlideModel {
     }
     if (Trinity.checkMatrixesAreIdentical(matrix1: slide1?.matrix, matrixReloaded: slide2?.matrix) == false){
       blog('slide1.matrix != slide2.matrix');
-    }
-    if (slide1?.picFit != slide2?.picFit){
-      blog('slide1.picFit != slide2.picFit');
-    }
-    if (Dimensions.checkDimensionsAreIdentical(dim1: slide1?.dimensions, dim2: slide2?.dimensions) == false){
-      blog('slide1.dimensions != slide2.dimensions');
     }
     if (Colorizer.checkColorsAreIdentical(slide1?.midColor, slide2?.midColor) == false){
       blog('slide1.midColor !=  slideB.midColor');
@@ -616,8 +594,6 @@ class SlideModel {
       slideIndex: 0,
       headline: 'Headliner',
       description: 'Descriptor',
-      picFit: BoxFit.cover,
-      dimensions: const Dimensions(height: 900, width: 600),
       midColor: Colorz.black255,
       matrix: Matrix4.identity(),
       animationCurve: null,
@@ -667,8 +643,6 @@ class SlideModel {
           slide1.headline == slide2.headline &&
           slide1.description == slide2.description &&
           Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == true &&
-          slide1.picFit == slide2.picFit &&
-          Dimensions.checkDimensionsAreIdentical(dim1: slide1.dimensions, dim2: slide2.dimensions) == true &&
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&
           slide1.flyerID == slide2.flyerID &&
           Floaters.checkUiImagesAreIdentical(slide1.frontImage, slide2.frontImage) == true &&
@@ -771,8 +745,6 @@ class SlideModel {
   @override
   int get hashCode =>
       description.hashCode^
-      picFit.hashCode^
-      dimensions.hashCode^
       midColor.hashCode^
       matrix.hashCode^
       animationCurve.hashCode^
