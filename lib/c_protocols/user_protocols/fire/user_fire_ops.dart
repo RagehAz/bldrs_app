@@ -22,7 +22,6 @@ class UserFireOps {
   /// TESTED : WORKS PERFECT
   static Future<void> createUser({
     required UserModel? userModel,
-    required SignInMethod? signInMethod,
   }) async {
 
     if (userModel?.id != null){

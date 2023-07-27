@@ -30,6 +30,7 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
 
 class BzEditorScreen extends StatefulWidget {
@@ -863,6 +864,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         draftNotifier: draftNotifier,
                         mounted: mounted,
                       ),
+                      hintVerse: Verse.plain(
+                        '${Flag.getCountryPhoneCode(draft?.zone?.countryID) ?? '00'} 000 00 ...'
+                      ),
                     ),
 
                     /// EMAIL
@@ -900,6 +904,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         draftNotifier: draftNotifier,
                         mounted: mounted,
                       ),
+                      hintVerse: Verse.plain('bldr@bldrs.net'),
                     ),
 
                     /// WEBSITE

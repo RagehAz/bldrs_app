@@ -897,7 +897,7 @@ class DraftFlyer{
     return _canAddMoreSlides;
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> checkPosterHasChanged({
     required DraftFlyer? draft,
     required FlyerModel? oldFlyer,

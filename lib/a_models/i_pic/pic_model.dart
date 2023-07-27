@@ -212,7 +212,7 @@ class PicModel {
   /// EQUALITY
 
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static bool checkPicsAreIdentical({
     required PicModel? pic1,
     required PicModel? pic2,

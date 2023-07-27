@@ -1,10 +1,10 @@
 import 'dart:async';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
@@ -16,13 +16,10 @@ import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/debuggers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class RenovateUserProtocols {
   // -----------------------------------------------------------------------------
@@ -368,166 +365,6 @@ class RenovateUserProtocols {
       oldUser: _oldUser,
       invoker: 'updateMyUserTopics',
     );
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// UPDATE DEVICE MODEL
-
-  // --------------------
-  /// TASK : TEST ME
-  static Future<void> refreshUserDeviceModel({
-    required BuildContext context,
-  }) async {
-
-    // blog('refreshUserDeviceModel START');
-      /// USER DEVICE MODEL
-      final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
-        context: context,
-        listen: false,
-      );
-
-    if (Authing.userIsSignedUp(_oldUser?.signInMethod) == true){
-
-      /// TASK : UNSUBSCRIBING FROM TOKEN INSTRUCTIONS
-      /*
-         - Unsubscribe stale tokens from topics
-         Managing topics subscriptions to remove stale registration
-         tokens is another consideration. It involves two steps:
-
-         - Your app should resubscribe to topics once per month and/or
-          whenever the registration token changes. This forms a self-healing
-          solution, where the subscriptions reappear automatically
-          when an app becomes active again.
-
-         - If an app instance is idle for 2 months (or your own staleness window)
-         you should unsubscribe it from topics using the Firebase Admin
-         SDK to delete the token/topic mapping from the FCM backend.
-
-         - The benefit of these two steps is that your fan outs will occur
-         faster since there are fewer stale tokens to fan out to, and your
-          stale app instances will automatically resubscribe once they are active again.
-
-     */
-
-      /// THIS DEVICE MODEL
-      final DeviceModel _thisDevice = await DeviceModel.generateDeviceModel();
-
-      /// TASK : ACTUALLY SHOULD REBOOT SYSTEM IF DEVICE CHANGED
-      final bool _userIsUsingSameDevice = DeviceModel.checkDevicesAreIdentical(
-        device1: _thisDevice,
-        device2: _oldUser?.device,
-      );
-
-      final bool _shouldRefreshDevice = _oldUser?.device == null || _userIsUsingSameDevice == false;
-
-      // blog(
-      //     'refreshUserDeviceModel | '
-      //     '_userIsUsingSameDevice : $_userIsUsingSameDevice | '
-      //     '_oldUser.device : ${_oldUser?.device?.name} | '
-      //     '_shouldRefreshDevice : $_shouldRefreshDevice'
-      // );
-
-      if (_shouldRefreshDevice == true){
-
-        /// SHOULD REFETCH, and I will explain why
-        /// user using device A renovated his user model and updated firebase
-        /// closed device A and opens device B
-        /// which did not listen to firebase but has an old model in LDB
-        /// while checking this device has been changed
-        /// we should get the most updated version of his model
-        /// so we refetch model
-        /// cheers
-        UserModel? _newUser = await UserProtocols.refetch(
-            context: context,
-            userID: _oldUser?.id,
-        );
-
-        if (_newUser != null){
-
-          _newUser = _newUser.copyWith(
-            device: _thisDevice,
-          );
-
-          /// TAKES TOO LONG AND NOTHING DEPENDS ON IT
-          unawaited(_resubscribeToAllMyTopics(
-            context: context,
-            myUserModel: _newUser,
-          ));
-
-          await renovateUser(
-            context: context,
-            newPic: null,
-            newUser: _newUser,
-            oldUser: _oldUser,
-            invoker: 'refreshUserDeviceModel',
-          );
-
-        }
-
-      }
-
-    }
-
-    // blog('refreshUserDeviceModel END');
-
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static Future<void> _resubscribeToAllMyTopics({
-    required BuildContext context,
-    required UserModel? myUserModel,
-  }) async {
-
-    if (myUserModel != null){
-
-      final List<String>? _userTopics = myUserModel.fcmTopics;
-
-      final List<String> _topicsIShouldSubscribeTo = <String>[];
-      for (final String topicID in [...?_userTopics]){
-
-        final bool _containUnderscore = TextCheck.stringContainsSubString(
-          string: topicID,
-          subString: '_',
-        );
-
-        if (_containUnderscore == true){
-          _topicsIShouldSubscribeTo.add(topicID);
-        }
-
-      }
-
-      if (Mapper.checkCanLoopList(_topicsIShouldSubscribeTo) == true){
-
-        /// UNSUBSCRIBE
-        await Future.wait(<Future>[
-
-          ...List.generate(_topicsIShouldSubscribeTo.length, (index){
-
-            return FCM.unsubscribeFromTopic(
-              topicID: _topicsIShouldSubscribeTo[index],
-            );
-
-          }),
-
-        ]);
-
-        /// SUBSCRIBE AGAIN
-        await Future.wait(<Future>[
-
-          ...List.generate(_topicsIShouldSubscribeTo.length, (index){
-
-            return FCM.subscribeToTopic(
-              topicID: _topicsIShouldSubscribeTo[index],
-            );
-
-          }),
-
-        ]);
-
-      }
-
-    }
 
   }
   // -----------------------------------------------------------------------------

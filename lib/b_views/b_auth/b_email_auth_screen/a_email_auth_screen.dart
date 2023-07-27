@@ -77,7 +77,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
-        final List<AccountModel> myAccounts = await AccountLDBOps.realAllAccounts();
+        final List<AccountModel> myAccounts = await AccountLDBOps.readAllAccounts();
 
         if (Mapper.checkCanLoopList(myAccounts) == true){
 

@@ -45,7 +45,49 @@ class ComposeUserProtocols {
       /// CREATE FIRE USER
       await UserFireOps.createUser(
         userModel: _output,
-        signInMethod: authModel.signInMethod,
+      );
+
+      await Future.wait(<Future>[
+
+        /// CENSUS
+        CensusListener.onComposeUser(_output),
+
+        /// INSERT IN LDB
+        UserLDBOps.insertUserModel(_output),
+
+      ]);
+
+      UsersProvider.proSetMyUserModel(
+        userModel: _output,
+        notify: true,
+      );
+
+    }
+
+    // AuthModel.blogAuthModel(
+    //   authModel: authModel,
+    //   invoker: 'ComposeUserProtocols.compose',
+    // );
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+  /// TASK : TEST ME
+  static Future<UserModel?> composeAnonymous({
+    required AuthModel? authModel,
+  }) async {
+    UserModel? _output;
+
+    if (authModel != null){
+
+      /// CREATE INITIAL USER MODEL
+      _output = await UserModel.anonymousUser(
+        authModel: authModel,
+      );
+
+      /// CREATE FIRE USER
+      await UserFireOps.createUser(
+        userModel: _output,
       );
 
       await Future.wait(<Future>[

@@ -157,9 +157,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   /// TESTED : WORKS PERFECT
   Future<void> initializeNotesListeners() async{
     if (mounted){
-      await initializeObeliskNumbers(
-        context: context,
-      );
+      await initializeObeliskNumbers();
       _userNotesStreamSub = listenToUserUnseenNotes();
       _bzzNotesStreamsSubs = listenToMyBzzUnseenNotes();
     }
