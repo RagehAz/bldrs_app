@@ -148,7 +148,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                               width: _flyerBoxWidth,
                               height: _flyerBoxHeight,
                               pic: _slide?.medPic?.bytes,
-                              boxFit: _slide?.picFit ?? BoxFit.cover,
+                              boxFit: BoxFit.fitWidth,
                               loading: false,
                               // canUseFilter: false,
                             ),
