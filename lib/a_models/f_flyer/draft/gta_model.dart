@@ -24,7 +24,6 @@ import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:screenshot/screenshot.dart';
 /// => TAMAM
 @immutable
 class GtaModel {
@@ -239,8 +238,9 @@ class GtaModel {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<DraftFlyer?> createDraftFlyerByGtaProduct({
+    required BuildContext context,
     required GtaModel? gtaModel,
     required BzModel? bzModel,
     required FlyerType flyerType,
@@ -252,6 +252,10 @@ class GtaModel {
       final List<SpecModel> _specs = _createPriceSpecs(
         gtaModel: gtaModel,
       );
+
+      final List<DraftSlide> _draftSlides = await createDraftSlidesByGtaProduct(
+          product: gtaModel,
+        );
 
       _output = DraftFlyer(
         bzModel: bzModel,
@@ -269,9 +273,7 @@ class GtaModel {
         authorID: Authing.getUserID(),
         bzID: bzModel?.id,
         position: null,
-        draftSlides: await createDraftSlidesByGtaProduct(
-          product: gtaModel,
-        ),
+        draftSlides: _draftSlides,
         specs: _specs,
         times: <PublishTime>[
           PublishTime(
@@ -287,10 +289,21 @@ class GtaModel {
         canPickImage: true,
         formKey: GlobalKey<FormState>(),
         firstTimer: false,
-        posterController: ScreenshotController(),
+        poster: null,
         affiliateLink: gtaModel.affiliateLink,
         gtaLink: gtaModel.url,
       );
+
+      // final PicModel? _poster = await BldrsPicMaker.createFlyerPoster(
+      //   context: context,
+      //   draftFlyer: _output,
+      //   controller: ScreenshotController() // this should reside in statuful widget,, takle care,
+      // );
+
+      // _output = _output.copyWith(
+      //   poster: _poster,
+      // );
+
     }
 
     return _output;

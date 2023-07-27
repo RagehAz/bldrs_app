@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/super_image/super_image.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image_path_to_ui_image.dart';
 import 'package:flutter/material.dart';
 
@@ -114,6 +115,16 @@ class BldrsImage extends StatelessWidget {
             );
 
           },
+        );
+      }
+
+      /// IS PIC MODEL
+      else if (pic is PicModel){
+        final PicModel _picModel = pic;
+        return getChild(
+            context: context,
+            theIcon: _picModel.bytes,
+            isLoading: loading
         );
       }
 
