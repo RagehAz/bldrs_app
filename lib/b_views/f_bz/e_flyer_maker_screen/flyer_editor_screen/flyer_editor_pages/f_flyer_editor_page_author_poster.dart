@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/flyer_poster_creator/flyer_poster_creator_bubble.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/show_author_switcher/show_author_switch_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
@@ -14,6 +15,7 @@ class FlyerEditorPage5AuthorPoster extends StatelessWidget {
     required this.canGoNext,
     required this.onNextTap,
     required this.onPreviousTap,
+    required this.onPosterCreated,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -23,6 +25,7 @@ class FlyerEditorPage5AuthorPoster extends StatelessWidget {
   final Function onNextTap;
   final Function onPreviousTap;
   final Function(bool show) onSwitchFlyerShowsAuthor;
+  final Function(PicModel? poster) onPosterCreated;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -44,6 +47,7 @@ class FlyerEditorPage5AuthorPoster extends StatelessWidget {
           onSwitch: (bool value){
             // blog('value of poster blah is : $value');
           },
+          onPosterCreated: onPosterCreated,
         ),
 
         /// SWIPING BUTTONS

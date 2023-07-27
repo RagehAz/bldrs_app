@@ -613,7 +613,10 @@ class DraftSlide {
     blog('headline : $headline : description : $description');
     blog('midColor : $midColor : opacity : $opacity :'
         ' hasCustomMatrix : ${matrix != Matrix4.identity()} : animationCurve L $animationCurve');
-    bigPic?.blogPic();
+    bigPic?.blogPic(invoker: 'draftSlide big pic');
+    medPic?.blogPic(invoker: 'draftSlide med pic');
+    smallPic?.blogPic(invoker: 'draftSlide small pic');
+    backPic?.blogPic(invoker: 'draftSlide back pic');
 
   }
   // --------------------
