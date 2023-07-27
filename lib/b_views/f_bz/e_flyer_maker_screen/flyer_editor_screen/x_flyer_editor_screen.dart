@@ -10,6 +10,7 @@ import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/flyer_editor_pages/a_flyer_editor_page_slides_headline.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/flyer_editor_pages/b_flyer_editor_page_type_description.dart';
@@ -421,6 +422,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
       ),
       appBarRowWidgets: <Widget>[
 
+        /// BZ LOGO ON TOP
         Selector<BzzProvider, BzModel?>(
           selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
           builder: (BuildContext context, BzModel? bzModel, Widget? child){
@@ -435,6 +437,8 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                   pageController: _pageController,
                   toIndex: 0,
                 );
+
+                _draftNotifier.value?.blogDraft(invoker: 'current');
 
                 },
             );
@@ -586,16 +590,34 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
 
                 /// 5 - SHOW AUTHOR - POSTER
                 FlyerEditorPage5AuthorPoster(
-                    draft: draft,
-                    onSwitchFlyerShowsAuthor: (bool value) => onSwitchFlyerShowsAuthor(
-                        value: value,
-                        draftNotifier: _draftNotifier,
+                  draft: draft,
+                  onSwitchFlyerShowsAuthor: (bool value) => onSwitchFlyerShowsAuthor(
+                    value: value,
+                    draftNotifier: _draftNotifier,
+                    mounted: mounted,
+                  ),
+                  canValidate: _canValidate,
+                  onNextTap: _onNextTap,
+                  onPreviousTap: _onPreviousTap,
+                  canGoNext: _canGoFrom5To6(draft: draft),
+                  onPosterCreated: (PicModel? pic) async {
+
+                    final bool _identical = PicModel.checkPicsAreIdentical(
+                        pic1: pic,
+                        pic2: draft?.poster
+                    );
+
+                    if (pic != null && draft != null && _identical == false){
+                      setNotifier(
+                        notifier: _draftNotifier,
                         mounted: mounted,
-                      ),
-                    canValidate: _canValidate,
-                    onNextTap: _onNextTap,
-                    onPreviousTap: _onPreviousTap,
-                    canGoNext: _canGoFrom5To6(draft: draft),
+                        value: draft.copyWith(
+                          poster: pic,
+                        ),
+                      );
+                    }
+
+                    },
                 ),
 
                 /// 6 - CONFIRM

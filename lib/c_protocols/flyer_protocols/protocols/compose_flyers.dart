@@ -1,6 +1,4 @@
-import 'dart:typed_data';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/files/file_size_unit.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
@@ -8,9 +6,6 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/a_models/j_poster/poster_type.dart';
-import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
@@ -22,11 +17,7 @@ import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
 
 class ComposeFlyerProtocols {
   // -----------------------------------------------------------------------------
@@ -71,80 +62,78 @@ class ComposeFlyerProtocols {
         assert (_flyerToPublish != null, 'Flyer is null');
         assert (_flyerToPublish?.id != null, 'Flyer ID is null');
 
-        /// CREATE FLYER POSTER
-        // NOTE : when this is put among the below methods in Future.wait,
-        // the pic does not get generated, and it works here out of the Future.wait
-        await createFlyerPoster(
-          context: context,
-          flyerID: flyerID,
-          draftFlyer: draftFlyer,
-        );
+        if (_draftWithID != null && _flyerToPublish != null){
 
-        /// CREATE SHARE LINK
-        _flyerToPublish = _flyerToPublish?.copyWith(
-          shareLink: await BldrsShareLink.generateFlyerLink(
-            flyerID: _flyerToPublish.id,
-            flyerType: _flyerToPublish.flyerType,
-            headline: _flyerToPublish.headline,
-          ),
-        );
+          /// CREATE FLYER POSTER
+          await PicProtocols.composePic(_draftWithID.poster);
 
+          /// CREATE SHARE LINK
+          _flyerToPublish = _flyerToPublish.copyWith(
+            shareLink: await BldrsShareLink.generateFlyerLink(
+              flyerID: _flyerToPublish.id,
+              flyerType: _flyerToPublish.flyerType,
+              headline: _flyerToPublish.headline,
+            ),
+          );
 
-        await Future.wait(<Future>[
+          await Future.wait(<Future>[
 
-          /// UPDATE FLYER DOC
-          FlyerFireOps.updateFlyerDoc(_flyerToPublish),
+            /// UPDATE FLYER DOC
+            FlyerFireOps.updateFlyerDoc(_flyerToPublish),
 
-          /// UPLOAD SLIDES PICS
-          PicProtocols.composePics(DraftSlide.getPicModels(
-            drafts: _draftWithID?.draftSlides,
-            slidePicType: SlidePicType.big,
-          )),
-          PicProtocols.composePics(DraftSlide.getPicModels(
-            drafts: _draftWithID?.draftSlides,
-            slidePicType: SlidePicType.med,
-          )),
-          PicProtocols.composePics(DraftSlide.getPicModels(
-            drafts: _draftWithID?.draftSlides,
-            slidePicType: SlidePicType.small,
-          )),
-          PicProtocols.composePics(DraftSlide.getPicModels(
-            drafts: _draftWithID?.draftSlides,
-            slidePicType: SlidePicType.back,
-          )),
+            /// UPLOAD SLIDES PICS
+            PicProtocols.composePics(DraftSlide.getPicModels(
+              drafts: _draftWithID.draftSlides,
+              slidePicType: SlidePicType.big,
+            )),
+            PicProtocols.composePics(DraftSlide.getPicModels(
+              drafts: _draftWithID.draftSlides,
+              slidePicType: SlidePicType.med,
+            )),
+            PicProtocols.composePics(DraftSlide.getPicModels(
+              drafts: _draftWithID.draftSlides,
+              slidePicType: SlidePicType.small,
+            )),
+            PicProtocols.composePics(DraftSlide.getPicModels(
+              drafts: _draftWithID.draftSlides,
+              slidePicType: SlidePicType.back,
+            )),
 
-          /// UPLOAD PDF
-          PDFProtocols.compose(_draftWithID?.pdfModel),
+            /// UPLOAD PDF
+            PDFProtocols.compose(_draftWithID.pdfModel),
 
-          /// ADD FLYER TO LDB
-          FlyerLDBOps.insertFlyer(_flyerToPublish),
+            /// ADD FLYER TO LDB
+            FlyerLDBOps.insertFlyer(_flyerToPublish),
 
-          /// ADD FLYER ID TO BZ MODEL
-          _addFlyerIDToBzAndAuthorAndRenovateBz(
-            newFlyerToAdd: _flyerToPublish,
-          ),
+            /// ADD FLYER ID TO BZ MODEL
+            _addFlyerIDToBzAndAuthorAndRenovateBz(
+              newFlyerToAdd: _flyerToPublish,
+            ),
 
-          /// INCREMENT BZ COUNTER (allSlides) COUNT
-          RecorderProtocols.onComposeFlyer(
-            bzID: _flyerToPublish?.bzID,
-            numberOfSlides: _flyerToPublish?.slides?.length,
-          ),
+            /// INCREMENT BZ COUNTER (allSlides) COUNT
+            RecorderProtocols.onComposeFlyer(
+              bzID: _flyerToPublish.bzID,
+              numberOfSlides: _flyerToPublish.slides?.length,
+            ),
 
-          /// INCREMENT CITY FLYER CHAIN USAGE
-          ZonePhidsRealOps.incrementFlyerCityPhids(
-              flyerModel: _flyerToPublish,
-              isIncrementing: true
-          ),
+            /// INCREMENT CITY FLYER CHAIN USAGE
+            ZonePhidsRealOps.incrementFlyerCityPhids(
+                flyerModel: _flyerToPublish,
+                isIncrementing: true
+            ),
 
-          /// CENSUS
-          CensusListener.onComposeFlyer(_flyerToPublish),
+            /// CENSUS
+            CensusListener.onComposeFlyer(_flyerToPublish),
 
-        ]);
+          ]);
 
-        await StagingLeveller.levelUpZone(
-          context: context,
-          zoneModel: _flyerToPublish?.zone,
-        );
+          await StagingLeveller.levelUpZone(
+            context: context,
+            zoneModel: _flyerToPublish.zone,
+          );
+
+        }
+
 
       }
 
@@ -207,40 +196,41 @@ class ComposeFlyerProtocols {
     // return _uploadedBzModel;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> createFlyerPoster({
-    required BuildContext context,
-    required String flyerID,
-    required DraftFlyer draftFlyer,
-  }) async {
-
-    final Uint8List? _bytes = await PosterDisplay.capturePoster(
-      posterType: PosterType.flyer,
-      model: draftFlyer,
-      helperModel: draftFlyer.bzModel,
-      // finalDesiredPicWidth: Standards.posterDimensions.width,
-    );
-
-    final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
-    final double? _mega = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
-
-    final PicModel _posterPicModel = PicModel(
-      bytes: _bytes,
-      path: StoragePath.flyers_flyerID_poster(flyerID),
-      meta: StorageMetaModel(
-          sizeMB: _mega,
-          width: _dims?.width,
-          height: _dims?.height,
-          ownersIDs: await FlyerModel.generateFlyerOwners(
-            bzID: draftFlyer.bzID,
-          )
-      ),
-    );
-
-    await PicProtocols.composePic(_posterPicModel);
-
-    _posterPicModel.blogPic(invoker: 'createFlyerPoster : is done');
-
-  }
+  // /// TESTED : WORKS PERFECT
+  // static Future<void> createFlyerPoster({
+  //   required BuildContext context,
+  //   required String flyerID,
+  //   required DraftFlyer draftFlyer,
+  // }) async {
+  //
+  //   final Uint8List? _bytes = await PosterDisplay.capturePoster(
+  //     context: context,
+  //     posterType: PosterType.flyer,
+  //     model: draftFlyer,
+  //     helperModel: draftFlyer.bzModel,
+  //     // finalDesiredPicWidth: Standards.posterDimensions.width,
+  //   );
+  //
+  //   final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
+  //   final double? _mega = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
+  //
+  //   final PicModel _posterPicModel = PicModel(
+  //     bytes: _bytes,
+  //     path: StoragePath.flyers_flyerID_poster(flyerID),
+  //     meta: StorageMetaModel(
+  //         sizeMB: _mega,
+  //         width: _dims?.width,
+  //         height: _dims?.height,
+  //         ownersIDs: await FlyerModel.generateFlyerOwners(
+  //           bzID: draftFlyer.bzID,
+  //         )
+  //     ),
+  //   );
+  //
+  //   await PicProtocols.composePic(_posterPicModel);
+  //
+  //   _posterPicModel.blogPic(invoker: 'createFlyerPoster : is done');
+  //
+  // }
   // -----------------------------------------------------------------------------
 }

@@ -10,6 +10,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/storage/pic_storage_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 
 /// => TAMAM
 class PicProtocols {
@@ -184,6 +185,21 @@ class PicProtocols {
 
     return fetchPic(_path);
 
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<PicModel?> fetchFlyerPoster({
+    required String? flyerID,
+  }) async {
+    PicModel? _output;
+
+    final String? _path = StoragePath.flyers_flyerID_poster(flyerID);
+
+    if (_path != null){
+      _output = await fetchPic(_path);
+    }
+
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
