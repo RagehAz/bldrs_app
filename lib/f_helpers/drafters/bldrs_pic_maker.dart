@@ -153,7 +153,7 @@ class BldrsPicMaker {
   /// CROPPERS
 
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// NOT USED : NOT TESTED
   static Future<PicModel?> cropPic({
     required PicModel? pic,
     required double aspectRatio,

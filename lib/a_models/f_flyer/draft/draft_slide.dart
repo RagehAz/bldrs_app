@@ -5,10 +5,8 @@ import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +22,6 @@ class DraftSlide {
     required this.medPic,
     required this.smallPic,
     required this.backPic,
-    required this.picFit,
     required this.headline,
     required this.description,
     required this.midColor,
@@ -39,7 +36,6 @@ class DraftSlide {
   final PicModel? medPic;
   final PicModel? smallPic;
   final PicModel? backPic;
-  final BoxFit? picFit;
   final String? headline;
   final String? description;
   final Color? midColor;
@@ -51,7 +47,7 @@ class DraftSlide {
   /// CREATION
 
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<List<DraftSlide>> createDrafts({
     required List<PicModel>? bigPics,
     required List<DraftSlide> existingDrafts,
@@ -90,7 +86,7 @@ class DraftSlide {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<DraftSlide?> createDraft({
     required PicModel? bigPic,
     required int index,
@@ -132,12 +128,6 @@ class DraftSlide {
         midColor: _midColor,
         opacity: 1,
         slideIndex: index,
-        picFit: Dimensions.concludeBoxFit(
-          picWidth: bigPic.meta?.width ?? 1,
-          picHeight: bigPic.meta?.height ?? 0,
-          viewWidth: bigPic.meta?.width ?? 100,
-          viewHeight: FlyerDim.flyerHeightByFlyerWidth(flyerBoxWidth: bigPic.meta?.width ?? 100,),
-        ),
         matrix: Matrix4.identity(),
         animationCurve: null,
       );
@@ -151,7 +141,7 @@ class DraftSlide {
   /// CYPHERS - SLIDE MODEL
 
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<SlideModel?> draftToSlide({
     required DraftSlide? draft,
     required SlidePicType slidePicType,
@@ -174,14 +164,9 @@ class DraftSlide {
         slideIndex: draft.slideIndex,
         headline: draft.headline,
         description: draft.description,
-        picFit: draft.picFit,
         midColor: draft.midColor,
         matrix: draft.matrix,
         animationCurve: draft.animationCurve,
-        dimensions: Dimensions(
-          width: draft.bigPic?.meta?.width,
-          height: draft.bigPic?.meta?.height,
-        ),
         frontImage: await Floaters.getUiImageFromUint8List(_picModel?.bytes),
         backImage: await Floaters.getUiImageFromUint8List(_backPic?.bytes),
       );
@@ -191,7 +176,7 @@ class DraftSlide {
     return slide;
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<List<SlideModel>> draftsToSlides({
     required List<DraftSlide>? drafts,
     required SlidePicType slidePicType,
@@ -218,7 +203,7 @@ class DraftSlide {
     return SlideModel.sortSlidesByIndexes(_slides);
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<DraftSlide?> draftFromSlide(SlideModel? slide) async {
     DraftSlide? _draft;
 
@@ -230,7 +215,6 @@ class DraftSlide {
         medPic: await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.med),
         smallPic: await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.small),
         backPic: await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.back),
-        picFit: slide.picFit,
         headline: slide.headline,
         description: slide.description,
         midColor: slide.midColor,
@@ -286,7 +270,7 @@ class DraftSlide {
   /// CYPHERS - LDB
 
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic>? draftToLDB(DraftSlide? draft){
     Map<String, dynamic>? _map;
 
@@ -298,7 +282,6 @@ class DraftSlide {
         'medPic': PicModel.cipherToLDB(draft.medPic),
         'smallPic': PicModel.cipherToLDB(draft.smallPic),
         'backPic': PicModel.cipherToLDB(draft.backPic),
-        'picFit': Dimensions.cipherBoxFit(draft.picFit),
         'headline': draft.headline,
         'description': draft.description,
         'midColor': Colorizer.cipherColor(draft.midColor),
@@ -331,7 +314,7 @@ class DraftSlide {
     return _maps;
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static DraftSlide? draftFromLDB(Map<String, dynamic>? map){
     DraftSlide? _draft;
 
@@ -343,7 +326,6 @@ class DraftSlide {
         medPic: PicModel.decipherFromLDB(map['medPic']),
         smallPic: PicModel.decipherFromLDB(map['smallPic']),
         backPic: PicModel.decipherFromLDB(map['backPic']),
-        picFit: Dimensions.decipherBoxFit(map['picFit']),
         headline: map['headline'],
         description: map['description'],
         midColor: Colorizer.decipherColor(map['midColor']),
@@ -402,7 +384,6 @@ class DraftSlide {
       medPic: medPic ?? this.medPic,
       smallPic: smallPic ?? this.smallPic,
       backPic: backPic ?? this.backPic,
-      picFit: picFit ?? this.picFit,
       headline: headline ?? this.headline,
       description: description ?? this.description,
       midColor: midColor ?? this.midColor,
@@ -435,7 +416,6 @@ class DraftSlide {
       medPic: medPic == true ? null : this.medPic,
       smallPic: smallPic == true ? null : this.smallPic,
       backPic: backPic == true ? null : this.backPic,
-      picFit: picFit == true ? null : this.picFit,
       headline: headline == true ? null : this.headline,
       description: description == true ? null : this.description,
       midColor: midColor == true ? null : this.midColor,
@@ -631,7 +611,7 @@ class DraftSlide {
 
     blog('[$invoker] : ($slideIndex)=> DraftSlide : flyerID : $flyerID : index : $slideIndex');
     blog('headline : $headline : description : $description');
-    blog('midColor : $midColor : opacity : $opacity : picFit : $picFit'
+    blog('midColor : $midColor : opacity : $opacity :'
         ' hasCustomMatrix : ${matrix != Matrix4.identity()} : animationCurve L $animationCurve');
     bigPic?.blogPic();
 
@@ -685,9 +665,6 @@ class DraftSlide {
     }
     if (PicModel.checkPicsAreIdentical(pic1: slide1?.backPic, pic2: slide2?.backPic) == false){
       blog('MutableSlidesDifferences : backPics are not Identical');
-    }
-    if (slide1?.picFit != slide2?.picFit){
-      blog('MutableSlidesDifferences : picFits are not Identical');
     }
     if (slide1?.headline != slide2?.headline){
       blog('MutableSlidesDifferences : headlines are not Identical');
@@ -753,7 +730,7 @@ class DraftSlide {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static List<DraftSlide> overrideDraftsFlyerID({
     required List<DraftSlide>? drafts,
     required String? flyerID,
@@ -847,7 +824,6 @@ class DraftSlide {
           PicModel.checkPicsAreIdentical(pic1: slide1.medPic, pic2: slide2.medPic) == true &&
           PicModel.checkPicsAreIdentical(pic1: slide1.smallPic, pic2: slide2.smallPic) == true &&
           PicModel.checkPicsAreIdentical(pic1: slide1.backPic, pic2: slide2.backPic) == true &&
-          slide1.picFit == slide2.picFit &&
           slide1.headline == slide2.headline &&
           slide1.description == slide2.description &&
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&
@@ -971,7 +947,6 @@ class DraftSlide {
       medPic.hashCode^
       smallPic.hashCode^
       backPic.hashCode^
-      picFit.hashCode^
       headline.hashCode^
       description.hashCode^
       midColor.hashCode^
