@@ -67,6 +67,7 @@ class BldrsBubbleHeaderVM {
     VerseWeight weight = VerseWeight.black,
     TextDirection? textDirection,
     bool? appIsLTR,
+    bool loading = false,
   }){
 
         final double _textSizeValue = BldrsText.superVerseRealHeight(context: context, size: 2, sizeFactor: 1, hasLabelBox: false);
@@ -77,6 +78,7 @@ class BldrsBubbleHeaderVM {
           leadingIconSizeFactor: leadingIconSizeFactor,
           leadingIconBoxColor: leadingIconBoxColor,
           leadingIconIsBubble: leadingIconIsBubble,
+          loading: loading,
           onLeadingIconTap: onLeadingIconTap,
           hasSwitch: hasSwitch,
           hasMoreButton: hasMoreButton,

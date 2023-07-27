@@ -6,17 +6,17 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
-import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
+import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/compose_flyers.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
+import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
+import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
+import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -54,7 +54,7 @@ class RenovateFlyerProtocols {
         bzID: newDraft.bzID,
       );
 
-      final FlyerModel? _flyerToUpload = await DraftFlyer.draftToFlyer(
+      FlyerModel? _flyerToUpload = await DraftFlyer.draftToFlyer(
         draft: newDraft,
         slidePicType: SlidePicType.small,
         toLDB: false,
@@ -68,10 +68,19 @@ class RenovateFlyerProtocols {
           oldFlyer: oldFlyer,
         );
 
-        /// RENOVATE POSTER PIC
-        if (_posterHasChanged == true) {
-          await ComposeFlyerProtocols.createFlyerPoster(
-              flyerID: oldFlyer.id!, context: context, draftFlyer: newDraft);
+        if (_posterHasChanged == true){
+
+          await PicProtocols.renovatePic(newDraft.poster);
+
+          /// CREATE SHARE LINK
+          _flyerToUpload = _flyerToUpload.copyWith(
+            shareLink: await BldrsShareLink.generateFlyerLink(
+              flyerID: _flyerToUpload.id,
+              flyerType: _flyerToUpload.flyerType,
+              headline: _flyerToUpload.headline,
+            ),
+          );
+
         }
 
         await Future.wait(<Future>[

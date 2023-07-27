@@ -1,5 +1,8 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -23,10 +26,6 @@ import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 @immutable
 class DraftFlyer{
@@ -58,7 +57,7 @@ class DraftFlyer{
     required this.formKey,
     required this.canPickImage,
     required this.firstTimer,
-    required this.posterController,
+    required this.poster,
     required this.affiliateLink,
     required this.gtaLink,
   });
@@ -89,7 +88,7 @@ class DraftFlyer{
   final GlobalKey<FormState>? formKey;
   final bool? canPickImage;
   final bool? firstTimer;
-  final ScreenshotController? posterController;
+  final PicModel? poster;
   final String? affiliateLink;
   final String? gtaLink;
   // -----------------------------------------------------------------------------
@@ -162,7 +161,7 @@ class DraftFlyer{
         canPickImage: true,
         formKey: GlobalKey<FormState>(),
         firstTimer: true,
-        posterController: ScreenshotController(),
+        poster: null,
         affiliateLink: null,
         gtaLink: null,
       );
@@ -225,7 +224,7 @@ class DraftFlyer{
         firstTimer: false,
         formKey: GlobalKey<FormState>(),
         canPickImage: true,
-        posterController: ScreenshotController(),
+        poster: await PicProtocols.fetchFlyerPoster(flyerID: flyer.id),
         affiliateLink: flyer.affiliateLink,
         gtaLink: flyer.gtaLink,
       );
@@ -346,6 +345,7 @@ class DraftFlyer{
         'headlineNode': null,
         'descriptionNode': null,
         'formKey': null,
+        'poster': PicModel.cipherToLDB(draft.poster),
         'affiliateLink': draft.affiliateLink,
         'gtaLink': draft.gtaLink,
       };
@@ -386,7 +386,7 @@ class DraftFlyer{
         headlineNode: null,
         descriptionNode: null,
         formKey: null,
-        posterController: ScreenshotController(),
+        poster: PicModel.decipherFromLDB(map['poster']),
         affiliateLink: map['affiliateLink'],
         gtaLink: map['gtaLink'],
       );
@@ -427,7 +427,7 @@ class DraftFlyer{
     bool? canPickImage,
     GlobalKey<FormState>? formKey,
     bool? firstTimer,
-    ScreenshotController? posterController,
+    PicModel? poster,
     String? affiliateLink,
     String? gtaLink,
   }){
@@ -458,7 +458,7 @@ class DraftFlyer{
       canPickImage: canPickImage ?? this.canPickImage,
       formKey: formKey ?? this.formKey,
       firstTimer: firstTimer ?? this.firstTimer,
-      posterController: posterController ?? this.posterController,
+      poster: poster ?? this.poster,
       affiliateLink: affiliateLink ?? this.affiliateLink,
       gtaLink: gtaLink ?? this.gtaLink,
     );
@@ -492,7 +492,7 @@ class DraftFlyer{
     bool formKey = false,
     bool canPickImage = false,
     bool firstTimer = false,
-    bool posterController = false,
+    bool poster = false,
     bool affiliateLink = false,
     bool gtaLink = false,
   }){
@@ -523,7 +523,7 @@ class DraftFlyer{
       formKey: formKey == true ? null : this.formKey,
       canPickImage: canPickImage == true ? null : this.canPickImage,
       firstTimer: firstTimer == true ? null : this.firstTimer,
-      posterController: posterController == true ? null : this.posterController,
+      poster: poster == true ? null : this.poster,
       affiliateLink: affiliateLink == true ? null : this.affiliateLink,
       gtaLink: gtaLink == true ? null : this.gtaLink,
     );
@@ -647,6 +647,12 @@ class DraftFlyer{
         pdfModel: draft.pdfModel?.copyWith(
           path: StoragePath.flyers_flyerID_pdf(flyerID),
         ),
+        poster: draft.poster?.copyWith(
+          path: StoragePath.flyers_flyerID_poster(flyerID),
+          meta: draft.poster?.meta?.copyWith(
+            name: '${flyerID}_poster',
+          ),
+        ),
       );
 
     }
@@ -719,6 +725,7 @@ class DraftFlyer{
         invoker: 'the_draft-flyer-slides'
       );
       pdfModel?.blogPDFModel(invoker: 'BLOGGING DRAFT');
+      poster?.blogPic(invoker: 'BLOGGING POSTER');
       bzModel?.blogBz(invoker: 'BLOGGING DRAFT');
 
       blog('[$invoker] : BLOGGING DRAFT FLYER MODEL ---------------------------------------- END');
@@ -799,6 +806,9 @@ class DraftFlyer{
       if (PDFModel.checkPDFModelsAreIdentical(pdf1: draft1.pdfModel, pdf2: draft2.pdfModel) == false){
         blog('pdfs are not identical');
       }
+      if (PicModel.checkPicsAreIdentical(pic1: draft1.poster, pic2: draft2.poster) == false){
+        blog('posters are not identical');
+      }
       if (BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == false){
         blog('bzzModels are not identical');
       }
@@ -837,8 +847,9 @@ class DraftFlyer{
           draft.draftSlides!.isNotEmpty == true
           &&
           headlineController.text.length >= Standards.flyerHeadlineMinLength
+          &&
+          draft.poster != null
       ){
-
         _canPublish = true;
       }
 
@@ -903,17 +914,32 @@ class DraftFlyer{
 
     else {
 
-      final List<PicModel> _draftPics = getPics(draft);
-      final List<PicModel> _oldPics = await PicProtocols.fetchFlyerPics(
-        flyerModel: oldFlyer,
-        type: SlidePicType.small,
-      );
+      final PicModel? _poster = await PicProtocols.fetchFlyerPoster(flyerID: oldFlyer?.id);
 
-      /// [identical = true] => [hasChanged = false] ya zaki
-      _hasChanged = !PicModel.checkPicsListsAreIdentical(
-        list1: _draftPics,
-        list2: _oldPics,
-      );
+      if (_poster == null){
+        _hasChanged = true;
+      }
+      else {
+
+        _hasChanged = !PicModel.checkPicsAreIdentical(pic1: draft?.poster, pic2: _poster);
+
+        if (_hasChanged == false){
+
+          final List<PicModel> _draftPics = getPics(draft);
+          final List<PicModel> _oldPics = await PicProtocols.fetchFlyerPics(
+            flyerModel: oldFlyer,
+            type: SlidePicType.small,
+          );
+
+          /// [identical = true] => [hasChanged = false] ya zaki
+          _hasChanged = !PicModel.checkPicsListsAreIdentical(
+            list1: _draftPics,
+            list2: _oldPics,
+          );
+
+        }
+
+      }
 
     }
 
@@ -961,6 +987,7 @@ class DraftFlyer{
           draft1.isAmazonFlyer == draft2.isAmazonFlyer &&
           draft1.score == draft2.score &&
           PDFModel.checkPDFModelsAreIdentical(pdf1: draft1.pdfModel, pdf2: draft2.pdfModel) == true &&
+          PicModel.checkPicsAreIdentical(pic1: draft1.poster, pic2: draft2.poster) == true &&
           BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == true &&
           draft1.affiliateLink == draft2.affiliateLink &&
           draft1.gtaLink == draft2.gtaLink
@@ -1030,7 +1057,7 @@ class DraftFlyer{
       hasPDF.hashCode^
       isAmazonFlyer.hashCode^
       score.hashCode^
-      posterController.hashCode^
+      poster.hashCode^
       affiliateLink.hashCode^
       gtaLink.hashCode^
       pdfModel.hashCode;
