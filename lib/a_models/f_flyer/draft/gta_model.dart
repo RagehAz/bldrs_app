@@ -366,7 +366,6 @@ class GtaModel {
               medPic: _medPic,
               smallPic: _smallPic,
               backPic: _backPic,
-              picFit: BoxFit.fitWidth,
               headline: i == 0 ? product.title : null,
               description: null,
               midColor: await Colorizer.getAverageColor(_bigPic.bytes),

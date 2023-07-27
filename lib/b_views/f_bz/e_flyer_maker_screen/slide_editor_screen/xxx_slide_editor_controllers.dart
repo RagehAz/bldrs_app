@@ -199,7 +199,7 @@ void stopAnimation({
 /// CROPPING
 
 // --------------------
-/// TASK : TEST ME VERIFY_ME
+/// NOT USED ANYMORE
 Future<void> onCropSlide({
   required ValueNotifier<DraftSlide?> draftNotifier,
   required ValueNotifier<Matrix4?> matrixNotifier,
