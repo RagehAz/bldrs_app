@@ -1,7 +1,8 @@
-import 'package:bldrs/a_models/a_user/account_model.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:bldrs/a_models/a_user/account_model.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 
 class AccountLDBOps {
   // -----------------------------------------------------------------------------
@@ -45,7 +46,7 @@ class AccountLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<AccountModel>> realAllAccounts() async {
+  static Future<List<AccountModel>> readAllAccounts() async {
     final List<AccountModel> _output = <AccountModel>[];
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
@@ -59,6 +60,32 @@ class AccountLDBOps {
           _output.add(_model);
         }
       }
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<AccountModel?> readAnonymousAccount() async {
+    AccountModel? _output;
+
+    final List<AccountModel> _all = await readAllAccounts();
+
+    if (Mapper.checkCanLoopList(_all) == true){
+
+      for (final AccountModel account in _all){
+
+        final bool _isAnonymousEMail = UserModel.checkIsAnonymousEmail(
+            email: account.email,
+        );
+
+        if (_isAnonymousEMail == true){
+          _output = account;
+          break;
+        }
+
+      }
+
     }
 
     return _output;

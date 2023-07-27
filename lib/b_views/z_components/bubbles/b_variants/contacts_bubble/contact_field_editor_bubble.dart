@@ -245,6 +245,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
                 autoValidate: widget.autoValidate,
                 textDirection: TextDirection.ltr,
 
+
               ),
 
               if (widget.canPaste == true)

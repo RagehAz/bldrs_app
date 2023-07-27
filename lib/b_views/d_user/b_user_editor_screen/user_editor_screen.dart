@@ -32,6 +32,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
 
 enum UserEditorTab{
@@ -783,6 +784,9 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         isMandatory: false,
                         // focusNode: draft?.phoneNode,
                       ),
+                      hintVerse: Verse.plain(
+                          '${Flag.getCountryPhoneCode(draft.zone?.countryID) ?? '00'} 000 00 ...'
+                      ),
                     ),
 
                     /// EMAIL
@@ -828,6 +832,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         canValidate: _canValidate,
                         // focusNode: draft?.emailNode,
                       ),
+                      hintVerse: Verse.plain('bldr@bldrs.net'),
                     ),
 
                     /// SWIPING BUTTONS

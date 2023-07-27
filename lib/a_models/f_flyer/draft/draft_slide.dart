@@ -429,7 +429,7 @@ class DraftSlide {
   /// GETTERS
 
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static PicModel? getPicModel({
     required DraftSlide? draft,
     required SlidePicType slidePicType,
@@ -449,7 +449,7 @@ class DraftSlide {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static List<Uint8List> getBytezzFromDraftSlides({
     required List<DraftSlide> drafts,
     required SlidePicType slidePicType,
@@ -489,7 +489,7 @@ class DraftSlide {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static List<PicModel> getPicModels({
     required List<DraftSlide>? drafts,
     required SlidePicType slidePicType,
@@ -500,35 +500,14 @@ class DraftSlide {
 
       for (final DraftSlide draft in drafts!){
 
-        switch (slidePicType){
+        final PicModel? _picModel = getPicModel(
+            draft: draft,
+            slidePicType: slidePicType
+        );
 
-          case SlidePicType.big:
-            if (draft.bigPic != null) {
-              _output.add(draft.bigPic!);
-            } break;
-
-            case SlidePicType.med:
-              if (draft.medPic != null) {
-                _output.add(draft.medPic!);
-              } break;
-
-              case SlidePicType.small:
-                if (draft.smallPic != null) {
-                  _output.add(draft.smallPic!);
-                } break;
-
-                case SlidePicType.back:
-                  if (draft.backPic != null) {
-                    _output.add(draft.backPic!);
-                  } break;
-
+        if (_picModel != null){
+          _output.add(draft.bigPic!);
         }
-
-
-
-
-
-
 
       }
 

@@ -102,7 +102,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                 verse: Verse.plain('${widget.number}'),
                 height: DraftShelfSlide.slideNumberBoxHeight,
                 // color: Colorz.white255,
-                color: widget.draftSlide?.midColor?.withAlpha(80) ?? Colorz.white10,
+                color: Colorz.white10,
                 bubble: DeviceChecker.deviceIsWindows(),
                 onTap: (){},
               ),
