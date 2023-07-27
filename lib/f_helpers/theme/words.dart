@@ -32,8 +32,8 @@ class Words {
   static String yes() => Localizer.translate('yes')!;
   static String ok() => Localizer.translate('ok')!;
   static String changeLanguage() => Localizer.translate('changeLanguage')!;
-
-  // -----------------------------------------------------------------------------
+  static String skip() => Localizer.translate('skip')!;
+  // --------------------
   static String pleaseWait(){
 
     final String _langCode = Localizer.getCurrentLangCode();
@@ -46,7 +46,7 @@ class Words {
     }
 
   }
-
+  // --------------------
   static String thisIsBabyApp(){
 
     final String _langCode = Localizer.getCurrentLangCode();
@@ -59,7 +59,7 @@ class Words {
     }
 
   }
-
+  // --------------------
   static String thankYouForWaiting(){
 
       final String _langCode = Localizer.getCurrentLangCode();
@@ -72,7 +72,7 @@ class Words {
       }
 
   }
-
+  // -----------------------------------------------------------------------------
 }
 
 // String xxx3 () => Localizer.translate('xxx3');
@@ -139,7 +139,6 @@ class Words {
 // String continueFacebook () => Localizer.translate('continueFacebook');
 // String continueLinkedIn () => Localizer.translate('continueLinkedIn');
 // String continueEmail () => Localizer.translate('continueEmail');
-// String skip () => Localizer.translate('skip');
 // String emailAddress () => Localizer.translate('emailAddress');
 // String password () => Localizer.translate('password');
 // String confirmPassword () => Localizer.translate('confirmPassword');

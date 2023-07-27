@@ -24,7 +24,7 @@ class AuthProtocols {
   /// SIGN IN
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> signInBldrsByEmail({
     required String? email,
     required String? password,
@@ -53,7 +53,7 @@ class AuthProtocols {
   /// REGISTER
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> registerInBldrsByEmail({
     required String? email,
     required String? password,
@@ -82,7 +82,7 @@ class AuthProtocols {
   /// AFTER AUTH
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> composeOrUpdateUser({
     required AuthModel? authModel,
     required String? authError,
@@ -124,7 +124,7 @@ class AuthProtocols {
     return _success;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> onAuthError({
     required String? error,
   }) async {
@@ -137,7 +137,7 @@ class AuthProtocols {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> _onNewUser({
     required AuthModel? authModel,
   }) async {
@@ -149,7 +149,7 @@ class AuthProtocols {
     return userModel != null;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> _onExistingUser({
     required UserModel userModel,
     required AuthModel authModel,
@@ -167,7 +167,7 @@ class AuthProtocols {
   /// SIGN OUT
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> signOutBldrs() async {
 
     final bool _success = await Authing.signOut(
@@ -192,6 +192,7 @@ class AuthProtocols {
   /// RAGEH SIGN IN
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> signInAsRage7({
     required BuildContext context,
   }) async {

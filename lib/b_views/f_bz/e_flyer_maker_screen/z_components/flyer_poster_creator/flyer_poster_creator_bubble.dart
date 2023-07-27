@@ -126,8 +126,7 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
 
 
   }
-  /// --------------------------------------------------------------------------
-
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

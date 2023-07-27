@@ -9,7 +9,6 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/z_add_flyer_slides_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -84,17 +83,7 @@ class ShelfSlidesPart extends StatelessWidget {
 
             /// LOADING WIDGET
             if (isLoading == true)
-              Container(
-                key: const ValueKey<String>('Loading_flyer'),
-                width: DraftShelfSlide.flyerBoxWidth,
-                height: DraftShelfSlide.shelfSlideZoneHeight(),
-                alignment: Alignment.bottomCenter,
-                padding: const EdgeInsets.all(Ratioz.appBarPadding),
-                child: const FlyerLoading(
-                  flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
-                  animate: false,
-                ),
-              ),
+              const LoadingShelfSlide(),
 
           ],
         );
