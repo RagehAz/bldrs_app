@@ -68,6 +68,8 @@ class CensusLineUnit extends StatelessWidget {
             height: stripHeight,
             scale: 0.6,
             greyscale: !isActive,
+            solidGreyScale: true,
+
           ),
 
           /// NUMBER AND TITLE

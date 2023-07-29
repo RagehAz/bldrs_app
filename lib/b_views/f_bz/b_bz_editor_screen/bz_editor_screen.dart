@@ -842,6 +842,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       ),
                       keyboardTextInputType: TextInputType.phone,
                       keyboardTextInputAction: TextInputAction.next,
+                      contactsArePublic: true,
                       initialTextValue: ContactModel.getInitialContactValue(
                         type: ContactType.phone,
                         countryID: draft?.zone?.countryID,
@@ -893,6 +894,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       ),
 
                       canPaste: false,
+                      contactsArePublic: true,
                       // autoValidate: true,
                       validator: (String? text) => Formers.contactsEmailValidator(
                         contacts: draft?.contacts,
@@ -921,6 +923,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       focusNode: draft?.websiteNode,
                       appBarType: AppBarType.basic,
                       isFormField: true,
+                      contactsArePublic: true,
                       // keyboardTextInputType: TextInputType.url,
                       keyboardTextInputAction: TextInputAction.done,
                       initialTextValue: ContactModel.getInitialContactValue(

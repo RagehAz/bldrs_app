@@ -78,6 +78,7 @@ class UserInitializer {
   /// USER MODEL
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> _initializeUserModel() async {
 
     /// USER HAS ID
@@ -108,7 +109,7 @@ class UserInitializer {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> _logInByThisID({
     required String? userID,
   }) async {
@@ -146,7 +147,7 @@ class UserInitializer {
   //
   // }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> _composeNewAnonymousUser() async {
 
     /// DEPRECATED

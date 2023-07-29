@@ -101,7 +101,7 @@ class CenterDialog extends StatelessWidget {
     Widget? child,
     Verse? confirmButtonVerse,
     Verse? noVerse,
-    Color? color = Colorz.skyDarkBlue,
+    Color? color = Colorz.blackSemi230,
     Function? onOk,
     bool invertButtons = false,
     bool copyOnTap = false,
@@ -206,6 +206,18 @@ class CenterDialog extends StatelessWidget {
       casing: Casing.capitalizeFirstChar,
     );
     // --------------------
+    final bool _hasLeftNoButton = boolDialog! == true && invertButtons == false;
+    final bool _hasRightNoButton = Mapper.boolIsTrue(boolDialog) == true && invertButtons == true;
+    final bool _hasOnlyOneButton = _hasLeftNoButton == false && _hasRightNoButton == false;
+
+    final double? _yesButtonWidth = _hasOnlyOneButton == true ? clearWidth(context)
+        :
+        invertButtons == true ? 80
+        :
+      120;
+
+    final double _noButtonWidth = invertButtons == true ? 120 : 80;
+    // --------------------
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colorz.black80,
@@ -215,9 +227,7 @@ class CenterDialog extends StatelessWidget {
           // shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderAll(context, 20)),
           contentPadding: EdgeInsets.zero,
           elevation: 10,
-
           insetPadding: EdgeInsets.zero,
-
           content: Builder(
             builder: (BuildContext xxx) {
 
@@ -363,8 +373,9 @@ class CenterDialog extends StatelessWidget {
                                       children: <Widget>[
 
                                         /// NO BUTTON
-                                        if (boolDialog! == true && invertButtons == false)
+                                        if (_hasLeftNoButton == true)
                                           DialogButton(
+                                            width: 80,
                                             verse: noVerse ?? _noVerse,
                                             color: defaultButtonColor,
                                             onTap: () => Nav.goBack(
@@ -376,26 +387,38 @@ class CenterDialog extends StatelessWidget {
 
                                         /// YES BUTTON
                                         DialogButton(
+                                          width: _yesButtonWidth,
                                           verse: _getConfirmButtonVerse(),
                                           verseColor: invertButtons == true ? Colorz.white255 : Colorz.black230,
                                           color: invertButtons == true ? defaultButtonColor : activeButtonColor,
-                                          onTap: Mapper.boolIsTrue(boolDialog) == true ? () => Nav.goBack(
-                                            context: xxx,
-                                            invoker: 'CenterDialog.yes',
-                                            passedData: true,
-                                            addPostFrameCallback: true,
-                                          )
-                                              :
-                                          onOk ?? () => Nav.goBack(
-                                            context: xxx,
-                                            invoker: 'CenterDialog.ok',
-                                            addPostFrameCallback: true,
-                                          ),
+                                          onTap: () async {
+
+                                            onOk?.call();
+
+                                            if (Mapper.boolIsTrue(boolDialog) == true){
+                                              await Nav.goBack(
+                                                context: xxx,
+                                                invoker: 'CenterDialog.yes',
+                                                passedData: true,
+                                                addPostFrameCallback: true,
+                                              );
+                                            }
+
+                                            else {
+                                              await Nav.goBack(
+                                                context: xxx,
+                                                invoker: 'CenterDialog.ok',
+                                                addPostFrameCallback: true,
+                                              );
+                                            }
+
+                                          },
                                         ),
 
                                         /// NO BUTTON
-                                        if (Mapper.boolIsTrue(boolDialog) == true && invertButtons == true)
+                                        if (_hasRightNoButton == true)
                                           DialogButton(
+                                            width: _noButtonWidth,
                                             verse: noVerse ?? _noVerse,
                                             verseColor: Colorz.black230,
                                             color: activeButtonColor,
@@ -415,6 +438,7 @@ class CenterDialog extends StatelessWidget {
                             ),
                           ),
                         ),
+
                       ),
                     ),
                   ),

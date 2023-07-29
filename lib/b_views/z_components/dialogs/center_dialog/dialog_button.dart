@@ -18,7 +18,7 @@ class DialogButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final Verse? verse;
   final Color verseColor;
-  final double width;
+  final double? width;
   final Color? color;
   final Function? onTap;
   static const double height = 50;
@@ -27,7 +27,7 @@ class DialogButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BldrsBox(
       height: height,
-      width: width,
+      width: width ?? 100,
       margins: const EdgeInsets.all(Ratioz.appBarPadding),
       verse: verse,
       verseWeight: VerseWeight.black,
