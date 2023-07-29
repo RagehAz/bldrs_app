@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
@@ -66,13 +67,26 @@ class AppStateModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+  Map<String, dynamic> toMap({
+    required bool toUserModel,
+  }) {
+
+    Map<String, dynamic> _map = <String, dynamic>{
       'appVersion' : appVersion,
-      'minVersion': minVersion,
       'ldbVersion' : ldbVersion,
-      'bldrsIsOnline' : bldrsIsOnline,
     };
+
+    if (toUserModel == false){
+      _map = Mapper.insertMapInMap(
+        baseMap: _map,
+        insert: <String, dynamic>{
+          'minVersion': minVersion,
+          'bldrsIsOnline' : bldrsIsOnline,
+        },
+      );
+    }
+
+    return _map;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

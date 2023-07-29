@@ -382,7 +382,7 @@ class DraftUser {
       'fcmTopics': fcmTopics,
       'savedFlyers': savedFlyers?.toMap(),
       'followedBzzIDs': followedBzz?.toMap(),
-      'appState' : appState?.toMap(),
+      'appState' : appState?.toMap(toUserModel: true),
       'hasNewPic' : hasNewPic,
     };
   }
