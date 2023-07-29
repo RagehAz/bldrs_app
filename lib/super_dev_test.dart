@@ -1,34 +1,41 @@
-// import 'package:basics/bldrs_theme/classes/colorz.dart';
-// import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-// import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-// import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
-// import 'package:fire/super_fire.dart';
-// import 'package:firebase_auth/firebase_auth.dart' as f_a;
 
 /// SUPER_DEV_TEST
 Future<void> superDevTest() async {
 
-  // const String _email = 'rageh-@hotmail.com';//'rageh.az@gmail.com';
-  //   final f_a.FirebaseAuth? _auth = OfficialFirebase.getAuth();
+  // final List<Map<String, dynamic>> _maps = await Fire.readAllColl(coll: FireColl.users);
   //
-  //   if (_auth != null){
+  // for (final Map<String, dynamic> map in _maps){
   //
-  //     final bool _good = await EmailAuthing.sendPasswordResetEmail(
-  //       email: _email,
-  //       onError: (String? error) async {
-  //         await AuthProtocols.onAuthError(error: error);
-  //         },
+  //   final UserModel? _user = UserModel.decipherUser(map: map, fromJSON: false);
+  //
+  //   if (_user != null){
+  //
+  //     final AppStateModel? _newState = _user.appState?.copyWith(
+  //       appVersion: '0.0.0',
+  //       ldbVersion: 0,
+  //       // minVersion: '1.4.0',
+  //       // bldrsIsOnline: true,
   //     );
   //
-  //     if (_good == true){
-  //       await Dialogs.topNotice(verse: Verse.plain('TAMAM for $_email'));
-  //     }
-  //     else {
-  //       await Dialogs.topNotice(verse: Verse.plain('NO'), color: Colorz.red255);
+  //     if (_newState != null){
+  //
+  //       final UserModel _new = _user.copyWith(
+  //         appState: _newState,
+  //       );
+  //
+  //       await UserFireOps.updateUser(
+  //           oldUser: _user,
+  //           newUser: _new,
+  //       );
+  //
+  //       blog('tamam with ${_user.id} : ${_user.name}');
+  //
   //     }
   //
   //   }
-
+  //
+  // }
+  //
 
 
 }

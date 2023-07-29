@@ -41,7 +41,28 @@ class AccountModel {
     }
   }
   // -----------------------------------------------------------------------------
+
   /// CHECKER
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkCanTrySign(AccountModel? account){
+    bool _output = false;
+
+    if (
+        account != null &&
+        account.id != null &&
+        account.email != null &&
+        account.password != null
+    ){
+      _output  = true;
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
 
   // --------------------
   /// TESTED : WORKS PERFECT
