@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -56,6 +58,50 @@ class UserFireOps {
           map: _userMap,
           fromJSON: false,
         );
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<UserModel?> readAnonymousUserByDeviceID() async {
+    UserModel? _output;
+
+    final DeviceModel _device = await DeviceModel.generateDeviceModel();
+
+    if (_device.id != null){
+
+      final List<Map<String, dynamic>> _maps = await Fire.readColl(
+        queryModel: FireQueryModel(
+          coll: FireColl.users,
+          limit: 1,
+          finders: <FireFinder>[
+
+            FireFinder(
+                field: 'device.id',
+                comparison: FireComparison.equalTo,
+                value: _device.id,
+            ),
+
+            FireFinder(
+                field: 'signInMethod',
+                comparison: FireComparison.equalTo,
+                value: AuthModel.cipherSignInMethod(SignInMethod.anonymous),
+            ),
+
+          ],
+        ),
+    );
+
+      if (Mapper.checkCanLoopList(_maps) == true){
+
+        _output = UserModel.decipherUser(
+            map: _maps.first,
+            fromJSON: false,
+        );
+
       }
 
     }

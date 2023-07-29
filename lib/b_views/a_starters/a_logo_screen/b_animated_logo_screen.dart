@@ -304,7 +304,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
     // -----------------------------------------------------------------------------
     return MainLayout(
       pyramidsAreOn: true,
-      pyramidType: PyramidType.yellow,
+      pyramidType: PyramidType.crystalYellow,
       appBarType: AppBarType.non,
       skyType: SkyType.non,
       loading: _loading,
