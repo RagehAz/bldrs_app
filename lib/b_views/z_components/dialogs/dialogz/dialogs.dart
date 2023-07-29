@@ -1115,13 +1115,14 @@ class Dialogs {
     Verse? confirmButtonVerse,
     bool boolDialog = true,
     bool invertButtons = false,
+    double? picsHeights,
   }) async {
 
     final BuildContext context = getMainContext();
     final double _screenHeight = Scale.screenHeight(context);
-    final double _dialogHeight = _screenHeight * 0.7;
+    final double _dialogHeight = _screenHeight * 0.75;
     final double _dialogWidth = CenterDialog.getWidth(context);
-    final double _flyerBoxHeight = _dialogHeight * 0.5;
+    final double _flyerBoxHeight = picsHeights ?? (_dialogHeight * 0.5);
 
     final bool _result = await CenterDialog.showCenterDialog(
       titleVerse: titleVerse,
@@ -1148,7 +1149,7 @@ class Dialogs {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 2.5),
               child: SuperImage(
-                width:_width,
+                width: _width,
                 height: _height,
                 pic: _pic.bytes,
                 loading: false,

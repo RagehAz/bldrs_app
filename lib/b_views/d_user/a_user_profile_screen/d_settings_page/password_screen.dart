@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/password_bubble/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -118,6 +119,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
 
                         },
                         isObscured: _isObscured,
+                        onForgetPassword: onForgotPassword,
                         // isTheSuperKeyboardField: false,
                       ),
                     ),

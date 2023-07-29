@@ -19,6 +19,7 @@ class EmailAndPasswordBubbles extends StatelessWidget {
     required this.isObscured,
     required this.onSubmitted,
     required this.bubbleWidth,
+    required this.onForgetPassword,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -33,6 +34,7 @@ class EmailAndPasswordBubbles extends StatelessWidget {
   final ValueNotifier<bool> isObscured;
   final void Function(String?)? onSubmitted;
   final double bubbleWidth;
+  final Function onForgetPassword;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -81,6 +83,7 @@ class EmailAndPasswordBubbles extends StatelessWidget {
             passwordConfirmationValidator: null,
             onSubmitted: onSubmitted,
             isObscured: isObscured,
+            onForgetPassword: onForgetPassword,
           ),
 
         ],

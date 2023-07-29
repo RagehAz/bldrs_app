@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/aa_static_logo_screen_view.dart';
@@ -63,14 +64,16 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
 
         Keyboard.closeKeyboard();
 
-        await Initializer.logoScreenInitialize(
+        final bool _loadApp = await Initializer.logoScreenInitialize(
           context: context,
         );
 
-        await Nav.pushNamedAndRemoveAllBelow(
-          context: getMainContext(),
-          goToRoute: Routing.home,
-        );
+        if (_loadApp == true){
+          await Nav.pushNamedAndRemoveAllBelow(
+            context: getMainContext(),
+            goToRoute: Routing.home,
+          );
+        }
 
         await _triggerLoading(setTo: false);
       });
@@ -94,6 +97,7 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.non,
+      skyType: SkyType.non,
       loading: _loading,
       canGoBack: false,
       onBack: () async {

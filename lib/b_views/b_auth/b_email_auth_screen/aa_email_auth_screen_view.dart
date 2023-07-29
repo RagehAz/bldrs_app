@@ -1,5 +1,8 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/legalizer/legalizer.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -17,8 +20,8 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class EmailAuthScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -42,6 +45,7 @@ class EmailAuthScreenView extends StatelessWidget {
     required this.onSelectAccount,
     required this.myAccounts,
     required this.isObscured,
+    required this.onForgotPassword,
     this.hasMargins = true,
     super.key
   });
@@ -66,6 +70,7 @@ class EmailAuthScreenView extends StatelessWidget {
   final List<AccountModel> myAccounts;
   final ValueNotifier<bool> isObscured;
   final bool hasMargins;
+  final Function onForgotPassword;
   /// --------------------------------------------------------------------------
   void _onSubmitted({
     required bool signingIn,
@@ -141,9 +146,14 @@ class EmailAuthScreenView extends StatelessWidget {
                 columnChildren: <Widget>[
 
                   if (Mapper.checkCanLoopList(myAccounts) == true)
-                  Row(
+                  FloatingList(
                     mainAxisAlignment:  MainAxisAlignment.end,
-                    children: <Widget>[
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    boxAlignment: BldrsAligners.superInverseCenterAlignment(context),
+                    width: Bubble.clearWidth(context: context),
+                    height: 45,
+                    scrollDirection: Axis.horizontal,
+                    columnChildren: <Widget>[
 
                         ...List.generate(myAccounts.length, (index) {
                           final AccountModel _account = myAccounts[index];
@@ -164,19 +174,25 @@ class EmailAuthScreenView extends StatelessWidget {
                               return ValueListenableBuilder(
                                   valueListenable: emailController,
                                   builder: (_, TextEditingValue currentEmail, Widget? child) {
+
+                                    final bool _isSelected = _userEmail == currentEmail.text;
+
                                     return BldrsBox(
                                       height: 35,
                                       width: 35,
                                       icon: _userModel?.picPath,
                                       margins: 5,
-                                      greyscale: _userEmail != currentEmail.text,
+                                      greyscale: !_isSelected,
+                                      borderColor: _isSelected == true ? Colorz.white200 : null,
                                       onTap: () => onSelectAccount(index),
                                     );
                                   });
                             },
                           );
+
                         }),
-                      ],
+
+                    ],
                     ),
 
                 ],
@@ -197,6 +213,7 @@ class EmailAuthScreenView extends StatelessWidget {
                   signingIn: _isSigningIn,
                   isOnConfirmPassword: false,
                 ),
+                onForgetPassword: onForgotPassword,
                 isObscured: isObscured,
               ),
 
@@ -228,14 +245,17 @@ class EmailAuthScreenView extends StatelessWidget {
               /// SIGN IN BUTTON
               if (_isSigningIn == true)
               BldrsBox(
+                width: Bubble.bubbleWidth(context: context),
                 height: _buttonHeight,
                 verseScaleFactor: _verseScaleFactor,
                 color: _isSigningIn ? Colorz.yellow255 : Colorz.white20,
                 verse: const Verse(
                   id: 'phid_signIn',
                   translate: true,
+                  casing: Casing.upperCase,
                 ),
                 verseColor: _isSigningIn ? Colorz.black255 : Colorz.white255,
+                verseItalic: true,
                 verseWeight: VerseWeight.black,
                 margins: const EdgeInsets.only(bottom: 5),
                 onTap: _isSigningIn ? onSignin : switchSignIn,
@@ -244,7 +264,7 @@ class EmailAuthScreenView extends StatelessWidget {
               /// REGISTER BUTTON
               // if (isSigningIn == true)
               BldrsBox(
-                height: _buttonHeight,
+                height: _buttonHeight * 0.7,
                 width: 150,
                 verseScaleFactor: _verseScaleFactor,
                 verseMaxLines: 2,
@@ -259,7 +279,11 @@ class EmailAuthScreenView extends StatelessWidget {
                 verseColor: _isSigningIn ? Colorz.white255 : Colorz.black255,
                 secondLineColor: _isSigningIn ? Colorz.white255 : Colorz.black255,
                 color: _isSigningIn ? Colorz.white20 : Colorz.yellow255,
-                margins: const EdgeInsets.only(bottom: 5),
+                margins: const EdgeInsets.only(
+                  bottom: 5,
+                  left: 10,
+                  right: 10,
+                ),
                 onTap: _isSigningIn ? switchSignIn : onSignup,
               ),
 
