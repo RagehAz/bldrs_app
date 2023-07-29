@@ -1,7 +1,12 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +23,7 @@ class PasswordBubbles extends StatelessWidget {
     required this.passwordNode,
     required this.confirmPasswordNode,
     required this.isObscured,
+    required this.onForgetPassword,
     this.bubbleWidth,
     this.isTheSuperKeyboardField = false,
     this.goOnKeyboardGo = true,
@@ -39,6 +45,7 @@ class PasswordBubbles extends StatelessWidget {
   final bool goOnKeyboardGo;
   final ValueNotifier<bool> isObscured;
   final MainAxisAlignment? mainAxisAlignment;
+  final Function onForgetPassword;
   /// --------------------------------------------------------------------------
   TextInputAction _getTextInputAction(){
 
@@ -94,6 +101,28 @@ class PasswordBubbles extends StatelessWidget {
 
           },
           isFloatingField: isTheSuperKeyboardField,
+          columnChildren: [
+
+            if (showPasswordOnly == true)
+            Container(
+              width: Bubble.clearWidth(context: context) - 35,
+              alignment: BldrsAligners.superInverseCenterAlignment(context),
+              child: BldrsBox(
+                height: 30,
+                verse: const Verse(
+                  id: 'phid_forgot_password',
+                  translate: true,
+                ),
+                color: Colorz.white10,
+                verseScaleFactor: 0.95,
+                verseWeight: VerseWeight.thin,
+                corners: 5,
+                bubble: false,
+                onTap: onForgetPassword,
+              ),
+            ),
+
+          ],
         ),
 
         /// CONFIRM PASSWORD

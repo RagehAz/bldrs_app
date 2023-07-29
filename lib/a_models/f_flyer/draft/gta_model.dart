@@ -403,7 +403,7 @@ class GtaModel {
 
     if (ObjectCheck.isAbsoluteURL(url) == true) {
 
-      final Uint8List? _bytes = await Floaters.getUint8ListFromURL(url);
+      final Uint8List? _bytes = await Floaters.getBytesFromURL(url);
 
       if (_bytes != null && _bytes.isNotEmpty){
 

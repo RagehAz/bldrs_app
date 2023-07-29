@@ -216,6 +216,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         sectionButtonIsOn: true,
         // navBarIsOn: false,
         appBarType: AppBarType.main,
+        skyType: SkyType.non,
         listenToHideLayout: true,
         onBack: () => BldrsNav.onLastGoBackInHomeScreen(
           context: context,

@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -9,6 +10,7 @@ import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/foundation.dart';
 
+/// => TAMAM
 class AppStateInitializer {
   // -----------------------------------------------------------------------------
 
@@ -19,7 +21,7 @@ class AppStateInitializer {
   /// APP STATE INITIALIZATION
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> initialize() async {
     bool _canLoadApp = false;
 
@@ -76,7 +78,7 @@ class AppStateInitializer {
   /// CHECK OPS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> _globalStateExistsOps({
     required AppStateModel? globalState,
   }) async {
@@ -101,7 +103,7 @@ class AppStateInitializer {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> _appIsOnlineCheckOps({
     required AppStateModel globalState,
   }) async {
@@ -120,7 +122,7 @@ class AppStateInitializer {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> _forceUpdateCheckOps({
     required AppStateModel globalState,
     required String detectedVersion,
@@ -160,7 +162,7 @@ new version : ${globalState.appVersion}
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> _endorseUpdateCheckOps({
     required AppStateModel globalState,
     required String detectedVersion,
@@ -188,6 +190,7 @@ new version : ${globalState.appVersion}
         boolDialog: true,
         noVerse: Verse.plain(Words.skip()),
         onOk: () async {
+          blog('wtf is this why no work');
           _output = false;
           await Launcher.launchBldrsAppLinkOnStore();
         },

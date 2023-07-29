@@ -20,6 +20,7 @@ class ContactFieldEditorBubble extends StatefulWidget {
     required this.appBarType,
     required this.headerViewModel,
     required this.formKey,
+    required this.contactsArePublic,
     this.hintVerse,
     // this.textController,
     this.textOnChanged,
@@ -66,6 +67,7 @@ class ContactFieldEditorBubble extends StatefulWidget {
   final FocusNode? focusNode;
   final bool autoValidate;
   final TextEditingController? textController;
+  final bool contactsArePublic;
   /// --------------------------------------------------------------------------
   @override
   _ContactFieldEditorBubbleState createState() => _ContactFieldEditorBubbleState();
@@ -123,7 +125,10 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
   @override
   void didUpdateWidget(covariant ContactFieldEditorBubble oldWidget) {
 
-    if (oldWidget.headerViewModel != widget.headerViewModel){
+    if (
+    oldWidget.headerViewModel != widget.headerViewModel ||
+    oldWidget.contactsArePublic != widget.contactsArePublic
+    ){
       setState(() {});
     }
 
@@ -159,6 +164,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    blog('wtf');
     // --------------------
     /// TEXT FIELD HEIGHT
     final double _textFieldHeight = BldrsTextField.getFieldHeight(
@@ -190,7 +196,9 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
         - _pasteButtonSpacer;
     // --------------------
     return Bubble(
-        bubbleColor: Formers.validatorBubbleColor(
+        bubbleColor: widget.contactsArePublic == false ? Colorz.white255.withOpacity(0.01)
+            :
+        Formers.validatorBubbleColor(
           validator: () => widget.validator?.call(_textController.text),
         ),
         bubbleHeaderVM: widget.headerViewModel,
@@ -244,8 +252,8 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
                 validator: widget.validator,
                 autoValidate: widget.autoValidate,
                 textDirection: TextDirection.ltr,
-
-
+                textColor: widget.contactsArePublic == true ? Colorz.white255 : Colorz.white80,
+                fieldColor: widget.contactsArePublic == true ? Colorz.white10 : Colorz.white255.withOpacity(0.02),
               ),
 
               if (widget.canPaste == true)

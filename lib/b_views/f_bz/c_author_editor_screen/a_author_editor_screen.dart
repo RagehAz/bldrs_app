@@ -542,6 +542,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       focusNode: _phoneNode,
                       appBarType: AppBarType.basic,
                       isFormField: true,
+                      contactsArePublic: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
                         context: context,
                         headlineVerse: const Verse(
@@ -584,6 +585,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       focusNode: _emailNode,
                       appBarType: AppBarType.basic,
                       isFormField: true,
+                      contactsArePublic: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
                         context: context,
                         headlineVerse: const Verse(
