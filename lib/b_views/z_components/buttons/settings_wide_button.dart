@@ -113,7 +113,7 @@ class SettingsToSettingsButtons extends StatelessWidget {
                   translate: true,
                   casing: Casing.upperCase,
                 ),
-                verseScaleFactor: 0.5,
+                verseScaleFactor: 0.4,
                 icon: _userModel?.picPath,
                 verseMaxLines: 3,
                 verseCentered: false,
@@ -130,7 +130,6 @@ class SettingsToSettingsButtons extends StatelessWidget {
             const SizedBox(
               width: _spacing,
             ),
-
 
             /// BZZ SETTINGS BUTTONS
             if (_userHasBzz == true)
@@ -153,7 +152,7 @@ class SettingsToSettingsButtons extends StatelessWidget {
                   ),
                   pics: _logos,
                   verseItalic: true,
-                  verseScaleFactor: 0.5,
+                  verseScaleFactor: 0.4,
                   onTap: () async {
 
                     BzModel? _bzModel;

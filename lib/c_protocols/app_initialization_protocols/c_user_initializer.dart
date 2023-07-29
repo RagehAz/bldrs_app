@@ -7,11 +7,13 @@ import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
@@ -29,62 +31,68 @@ class UserInitializer {
   /// USER MODEL
 
   // --------------------
-  ///
-  static Future<void> initializeUser() async {
+  /// TESTED : WORKS PERFECT
+  static Future<bool> initializeUser() async {
 
     final BuildContext context = getMainContext();
 
     /// CREATE - FETCH USER MODEL
-    await _initializeUserModel();
+    final bool _continue = await _initializeUserModel();
 
-    /// GET USER MODEL
-    final UserModel? _old = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
-    );
+    if (_continue == true){
 
-    /// USER DEVICE MODEL
-    UserModel? _new = await _userDeviceModelOps(
-      userModel: _old,
-    );
-
-    /// USER APP STATE
-    _new = await _userAppStateOps(
-      userModel: _new,
-    );
-
-    /// IDENTICAL ?
-    final bool _identical = UserModel.usersAreIdentical(
-        user1: _old,
-        user2: _new,
-    );
-
-    /// RENOVATE USER MODEL
-    if (_identical == false){
-
-      await UserProtocols.renovate(
-        invoker: 'UserInitializer.initializeUser',
+      /// GET USER MODEL
+      final UserModel? _old = UsersProvider.proGetMyUserModel(
         context: context,
-        oldUser: _old,
-        newUser: _new,
-        newPic: null,
+        listen: false,
       );
+
+      /// USER DEVICE MODEL
+      UserModel? _new = await _userDeviceModelOps(
+        userModel: _old,
+      );
+
+      /// USER APP STATE
+      _new = await _userAppStateOps(
+        userModel: _new,
+      );
+
+      /// IDENTICAL ?
+      final bool _identical = UserModel.usersAreIdentical(
+          user1: _old,
+          user2: _new,
+      );
+
+      /// RENOVATE USER MODEL
+      if (_identical == false){
+
+        await UserProtocols.renovate(
+          invoker: 'UserInitializer.initializeUser',
+          context: context,
+          oldUser: _old,
+          newUser: _new,
+          newPic: null,
+        );
+
+      }
 
     }
 
+    return _continue;
   }
   // -----------------------------------------------------------------------------
 
   /// USER MODEL
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> _initializeUserModel() async {
+  /// TASK : TEST ME
+  static Future<bool> _initializeUserModel() async {
+    bool _continue = false;
 
     /// USER HAS ID
     if (Authing.getUserID() != null){
 
-      await _logInByThisID(
+      _continue = await _fetchSetUser(
         userID: Authing.getUserID(),
       );
 
@@ -95,24 +103,101 @@ class UserInitializer {
 
       final AccountModel? _anonymousAccount = await AccountLDBOps.readAnonymousAccount();
 
-      if (_anonymousAccount == null){
-        await _composeNewAnonymousUser();
+      /// HAS ANONYMOUS ACCOUNT
+      if (_anonymousAccount != null){
+        _continue = await _signInAccount(account: _anonymousAccount);
       }
 
+      /// NO ANONYMOUS ACCOUNT IN LDB FOUND
       else {
-        await _logInByThisID(
-          userID: _anonymousAccount.id,
-        );
+
+        final UserModel? _anonymousUserOfThisDevice = await UserFireOps.readAnonymousUserByDeviceID();
+
+        /// NO ANON. ACCOUNT FOUND IN FIREBASE
+        if (_anonymousUserOfThisDevice == null){
+          _continue = await _composeNewAnonymousUser();
+        }
+
+        /// FOUND ANON. ACCOUNT IN FIREBASE
+        else {
+          _continue = await _reSignInAnonymousUser(
+            userModel: _anonymousUserOfThisDevice,
+          );
+        }
+
       }
 
     }
 
+    return _continue;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<bool> _reSignInAnonymousUser({
+    required UserModel? userModel,
+  }) async {
+    bool _continue = false;
+
+    if (userModel != null){
+
+      final String? _email = ContactModel.getValueFromContacts(
+        contacts: userModel.contacts,
+        contactType: ContactType.email,
+      );
+
+      final String? _password = UserModel.createAnonymousPassword(
+        anonymousEmail: _email,
+      );
+
+      final AccountModel _account = AccountModel(
+        id: userModel.id,
+        email: _email,
+        password: _password,
+      );
+
+      _continue = await _signInAccount(account: _account);
+
+    }
+
+    return _continue;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<bool> _signInAccount({
+    required AccountModel? account,
+  }) async {
+    bool _continue = false;
+
+    if (AccountModel.checkCanTrySign(account) == true){
+
+      final bool _success = await AuthProtocols.signInBldrsByEmail(
+        email: account!.email,
+        password: account.password,
+      );
+
+      if (_success == true){
+
+        await rememberOrForgetAccount(
+          rememberMe: true,
+          account: account,
+        );
+
+        _continue = await _fetchSetUser(
+          userID: account.id,
+        );
+
+      }
+
+    }
+
+    return _continue;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> _logInByThisID({
+  static Future<bool> _fetchSetUser({
     required String? userID,
   }) async {
+    bool _continue = false;
 
     if (userID != null){
 
@@ -121,34 +206,25 @@ class UserInitializer {
         userID: userID,
         );
 
-      UsersProvider.proSetMyUserModel(
-        userModel: _userModel,
-        notify: true,
-      );
+      if (_userModel != null){
+
+        UsersProvider.proSetMyUserModel(
+          userModel: _userModel,
+          notify: true,
+        );
+
+        _continue = true;
+
+      }
 
     }
 
-
+    return _continue;
   }
-  // // --------------------
-  // /// TESTED : WORKS PERFECT
-  // static Future<void> _setUserModelAndCompleteUserZoneLocally({
-  //   required UserModel? userModel,
-  //   required bool notify,
-  // }) async {
-  //
-  //   UsersProvider.proSetMyUserModel(
-  //     userModel: userModel,
-  //     notify: notify,
-  //   );
-  //
-  //   /// INSERT AUTH AND USER MODEL IN LDB
-  //   await UserLDBOps.updateUserModel(userModel);
-  //
-  // }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> _composeNewAnonymousUser() async {
+  static Future<bool> _composeNewAnonymousUser() async {
+    bool _continue = false;
 
     /// DEPRECATED
     // final AuthModel? _anonymousAuth = await Authing.anonymousSignin();
@@ -158,38 +234,46 @@ class UserInitializer {
     // );
 
     final String _email = UserModel.createAnonymousEmail();
-    final String _password = UserModel.createAnonymousPassword();
+    final String? _password = UserModel.createAnonymousPassword(
+      anonymousEmail: _email,
+    );
 
     final AuthModel? _authModel = await EmailAuthing.register(
       email: _email,
       password: _password,
-      onError: (String? error) async {
-        await AuthProtocols.onAuthError(error: error,);
-        },
     );
 
-    final UserModel? userModel = await UserProtocols.composeAnonymous(
-      authModel: _authModel,
-    );
+    if (_authModel != null){
 
-    if (userModel != null){
-      await rememberOrForgetAccount(
-        rememberMe: true,
-        account: AccountModel(
-          id: userModel.id,
-          email: _email,
-          password: _password,
-        ),
+      final UserModel? userModel = await UserProtocols.composeAnonymous(
+        authModel: _authModel,
       );
+
+      if (userModel != null){
+
+        await rememberOrForgetAccount(
+          rememberMe: true,
+          account: AccountModel(
+            id: userModel.id,
+            email: _email,
+            password: _password,
+          ),
+        );
+
+        _continue = true;
+
+      }
+
     }
 
+    return _continue;
   }
   // -----------------------------------------------------------------------------
 
   /// USER DEVICE MODEL
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<UserModel?> _userDeviceModelOps({
     required UserModel? userModel,
   }) async {
@@ -330,7 +414,7 @@ class UserInitializer {
   /// USER APP STATE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<UserModel?> _userAppStateOps({
     required UserModel? userModel,
   }) async {

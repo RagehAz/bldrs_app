@@ -46,19 +46,19 @@ class Initializer {
         /// LOADING
         UiInitializer.setLoadingVerse(Words.thankYouForWaiting());
 
-        // await Future.wait([
-
           /// USER MODEL
-          await UserInitializer.initializeUser();
+          _canLoadApp = await UserInitializer.initializeUser();
 
-          UiInitializer.setLoadingVerse(Words.loading());
+          if (_canLoadApp == true){
 
-          /// UI - ICONS - PHRASES
-          await UiInitializer.initializeIconsAndPhrases();
+            UiInitializer.setLoadingVerse(Words.loading());
 
-        // ]);
+            /// UI - ICONS - PHRASES
+            await UiInitializer.initializeIconsAndPhrases();
 
-        await UiInitializer.avoidMissingPhrasesOps();
+            await UiInitializer.avoidMissingPhrasesOps();
+
+          }
 
       }
 

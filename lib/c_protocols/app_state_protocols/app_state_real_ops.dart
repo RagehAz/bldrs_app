@@ -20,7 +20,7 @@ class AppStateRealOps {
       await Real.createDoc(
         coll: RealColl.app,
         doc: RealDoc.app_appState,
-        map: newAppState.toMap(),
+        map: newAppState.toMap(toUserModel: false),
       );
     }
   }

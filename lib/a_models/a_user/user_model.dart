@@ -22,7 +22,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -177,7 +176,7 @@ class UserModel {
       'fcmTopics': fcmTopics,
       'savedFlyers': savedFlyers?.toMap(),
       'followedBzz': followedBzz?.toMap(),
-      'appState' : appState?.toMap(),
+      'appState' : appState?.toMap(toUserModel: true),
     };
   }
   // --------------------
@@ -1152,7 +1151,7 @@ class UserModel {
         need: NeedModel.createInitialNeed(userZone: _currentZone),
         name: authModel.name,
         trigram: const [],
-        picPath: Standards.anonymousUserPicPath,
+        picPath: Iconz.anonymousUser,
         title: '',
         company: '',
         gender: null,
@@ -1186,8 +1185,49 @@ class UserModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String createAnonymousPassword(){
-    return Numeric.createUniqueID(maxDigitsCount: 8).toString();
+  static String? createAnonymousPassword({
+    required String? anonymousEmail,
+  }){
+    String? _pass;
+
+    final bool _isAnonymous = checkIsAnonymousEmail(
+      email: anonymousEmail,
+    );
+
+    if (_isAnonymous == true){
+
+      String? _source = TextMod.removeTextAfterLastSpecialCharacter(
+          text: anonymousEmail,
+          specialCharacter: '@',
+      );
+
+      _source = TextMod.removeTextBeforeFirstSpecialCharacter(
+          text: _source,
+          specialCharacter: '_',
+      );
+
+      final int? _num = Numeric.transformStringToInt(_source);
+
+      if (_num != null){
+
+        double? _figure = (_num * 2) / 7;
+        _figure = Numeric.removeFractions(number: _figure);
+
+        if (_figure != null){
+          _figure = Numeric.removeFractions(number: _figure / 2);
+          final String _stringified = Numeric.formatNumToSeparatedKilos(
+            number: _figure,
+            fractions: 0,
+            separator: '&',
+          );
+          _pass = 'Bojo@$_stringified';
+        }
+
+      }
+
+    }
+
+    return _pass;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
