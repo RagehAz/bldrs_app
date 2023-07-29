@@ -752,6 +752,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         leadingIconSizeFactor: 0.7,
                         leadingIconBoxColor: Colorz.nothing,
                       ),
+                      contactsArePublic : _contactsArePublic,
                       keyboardTextInputType: TextInputType.phone,
                       bulletPoints: [
 
@@ -811,6 +812,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       bulletPoints: ContactFieldEditorBubble.privacyPoint(
                         contactsArePublic: _contactsArePublic,
                       ),
+                      contactsArePublic: _contactsArePublic,
                       keyboardTextInputType: TextInputType.emailAddress,
                       keyboardTextInputAction: TextInputAction.done,
                       // initialTextValue: ContactModel.getInitialContactValue(

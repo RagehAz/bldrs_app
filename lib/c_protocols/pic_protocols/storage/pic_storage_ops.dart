@@ -9,7 +9,7 @@ import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
-
+/// => TAMAM
 class PicStorageOps {
   // -----------------------------------------------------------------------------
 
@@ -59,7 +59,7 @@ class PicStorageOps {
 
       /// GET BYTES
       if (_pathIsURL == true){
-        _bytes = await Floaters.getUint8ListFromURL(path);
+        _bytes = await Floaters.getBytesFromURL(path);
       }
       else {
         _bytes = await Storage.readBytesByPath(
@@ -100,7 +100,7 @@ class PicStorageOps {
   /// UPDATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<PicModel?> updatePic({
     required PicModel? picModel,
   }) async {
@@ -114,7 +114,7 @@ class PicStorageOps {
   /// DELETE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deletePic(String? path) async {
     blog('deletePic : START');
 
@@ -128,7 +128,7 @@ class PicStorageOps {
     blog('deletePic : END');
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deletePics(List<String>? paths) async {
 
     if (Authing.getUserID() != null && Mapper.checkCanLoopList(paths) == true){

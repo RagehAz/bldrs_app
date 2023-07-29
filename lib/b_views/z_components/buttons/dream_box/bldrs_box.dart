@@ -53,6 +53,8 @@ class BldrsBox extends StatelessWidget {
     this.verseHighlightColor = Colorz.bloodTest,
     this.onLongTap,
     this.onDoubleTap,
+    this.borderColor,
+    this.solidGreyScale = false,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -99,6 +101,8 @@ class BldrsBox extends StatelessWidget {
   final Color? verseHighlightColor;
   final Function? onLongTap;
   final Function? onDoubleTap;
+  final Color? borderColor;
+  final bool solidGreyScale;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Widget getChild({
@@ -106,9 +110,12 @@ class BldrsBox extends StatelessWidget {
     required dynamic theIcon,
     bool? isLoading = false,
   }) {
+
+    final double _borderFix = borderColor == null ? 0 : 1;
+
     return SuperBox(
       // package: 'bldrs_theme',
-      height: height,
+      height: height - _borderFix,
       width: width,
       icon: theIcon,
       iconSizeFactor: iconSizeFactor,
@@ -158,6 +165,8 @@ class BldrsBox extends StatelessWidget {
             iconSizeFactor: iconSizeFactor,
             textScaleFactor: verseScaleFactor,
           )),
+      borderColor: borderColor,
+      solidGreyScale: solidGreyScale,
       subChild: subChild,
     );
   }

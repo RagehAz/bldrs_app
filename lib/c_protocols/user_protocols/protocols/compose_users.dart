@@ -22,6 +22,10 @@ class ComposeUserProtocols {
   const ComposeUserProtocols();
 
   // -----------------------------------------------------------------------------
+
+  /// USER
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel?> compose({
     required AuthModel? authModel,
@@ -31,7 +35,7 @@ class ComposeUserProtocols {
     if (authModel != null){
 
       /// CREATE INITIAL USER MODEL
-      _output = await _createInitialUserModel(
+      _output = await UserModel.createNewUserModelFromAuthModel(
         authModel: authModel,
       );
 
@@ -70,61 +74,6 @@ class ComposeUserProtocols {
     // );
 
     return _output;
-  }
-  // -----------------------------------------------------------------------------
-  /// TASK : TEST ME
-  static Future<UserModel?> composeAnonymous({
-    required AuthModel? authModel,
-  }) async {
-    UserModel? _output;
-
-    if (authModel != null){
-
-      /// CREATE INITIAL USER MODEL
-      _output = await UserModel.anonymousUser(
-        authModel: authModel,
-      );
-
-      /// CREATE FIRE USER
-      await UserFireOps.createUser(
-        userModel: _output,
-      );
-
-      await Future.wait(<Future>[
-
-        /// CENSUS
-        CensusListener.onComposeUser(_output),
-
-        /// INSERT IN LDB
-        UserLDBOps.insertUserModel(_output),
-
-      ]);
-
-      UsersProvider.proSetMyUserModel(
-        userModel: _output,
-        notify: true,
-      );
-
-    }
-
-    // AuthModel.blogAuthModel(
-    //   authModel: authModel,
-    //   invoker: 'ComposeUserProtocols.compose',
-    // );
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<UserModel> _createInitialUserModel({
-    required AuthModel authModel,
-  }) async {
-
-    final UserModel _initialUserModel = await UserModel.createNewUserModelFromAuthModel(
-      authModel: authModel,
-    );
-
-    return _initialUserModel;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -168,6 +117,53 @@ class ComposeUserProtocols {
       }
 
     }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// ANONYMOUS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<UserModel?> composeAnonymous({
+    required AuthModel? authModel,
+  }) async {
+    UserModel? _output;
+
+    if (authModel != null){
+
+      /// CREATE INITIAL USER MODEL
+      _output = await UserModel.anonymousUser(
+        authModel: authModel,
+      );
+
+      /// CREATE FIRE USER
+      await UserFireOps.createUser(
+        userModel: _output,
+      );
+
+      await Future.wait(<Future>[
+
+        /// CENSUS
+        CensusListener.onComposeUser(_output),
+
+        /// INSERT IN LDB
+        UserLDBOps.insertUserModel(_output),
+
+      ]);
+
+      UsersProvider.proSetMyUserModel(
+        userModel: _output,
+        notify: true,
+      );
+
+    }
+
+    // AuthModel.blogAuthModel(
+    //   authModel: authModel,
+    //   invoker: 'ComposeUserProtocols.compose',
+    // );
 
     return _output;
   }

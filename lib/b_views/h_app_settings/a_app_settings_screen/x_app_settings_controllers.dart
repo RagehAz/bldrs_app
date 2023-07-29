@@ -180,41 +180,56 @@ Future<bool> rebootLogic() async {
 /// TESTED : WORKS PERFECT
 Future<void> onSignOut() async {
 
-  /// CLEAR KEYWORDS
-  final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
-  // _keywordsProvider.clearKeywordsChain();
-  _keywordsProvider.clearWallFlyerTypeAndPhid(notify: true);
-
-  /// CLEAR BZZ
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
-  _bzzProvider.clearMyBzz(notify: false,);
-  _bzzProvider.clearFollowedBzz(notify: false,);
-  _bzzProvider.clearSponsors(notify: false,);
-  _bzzProvider.clearMyActiveBz(notify: false);
-
-  /// CLEAR USER
-  final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
-  _usersProvider.clearMyUserModel(
-    notify: true,
+  final bool _go = await Dialogs.confirmProceed(
+    titleVerse: const Verse(
+      id: 'phid_confirm_signout',
+      translate: true,
+    ),
+    yesVerse: const Verse(
+      id: 'phid_signOut',
+      translate: true,
+    ),
   );
 
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
+  if (_go == true){
 
-  // _zoneProvider.clearAllSearchesAndSelections();
-  // _zoneProvider.clearCurrentContinent(notify: false);
-  _zoneProvider.clearCurrentZone(notify: false);
-  _zoneProvider.clearCurrentCurrencyAndAllCurrencies(notify: false);
+    /// CLEAR KEYWORDS
+    final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
+    // _keywordsProvider.clearKeywordsChain();
+    _keywordsProvider.clearWallFlyerTypeAndPhid(notify: false);
 
-  final String? _userID = Authing.getUserID();
-  await UserLDBOps.deleteUserOps(_userID);
-  await BzLDBOps.wipeOut();
-  await FlyerLDBOps.wipeOut();
+    /// CLEAR BZZ
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
+    _bzzProvider.clearMyBzz(notify: false);
+    _bzzProvider.clearFollowedBzz(notify: false);
+    _bzzProvider.clearSponsors(notify: false);
+    _bzzProvider.clearMyActiveBz(notify: false);
 
-  await AuthProtocols.signOutBldrs();
+    /// CLEAR USER
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
+    _usersProvider.clearMyUserModel(
+      notify: false,
+    );
 
-  await BldrsNav.goToLogoScreenAndRemoveAllBelow(
-    animatedLogoScreen: true,
-  );
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
+
+    // _zoneProvider.clearAllSearchesAndSelections();
+    // _zoneProvider.clearCurrentContinent(notify: false);
+    _zoneProvider.clearCurrentZone(notify: false);
+    _zoneProvider.clearCurrentCurrencyAndAllCurrencies(notify: false);
+
+    final String? _userID = Authing.getUserID();
+    await UserLDBOps.deleteUserOps(_userID);
+    await BzLDBOps.wipeOut();
+    await FlyerLDBOps.wipeOut();
+
+    await AuthProtocols.signOutBldrs();
+
+    await BldrsNav.goToLogoScreenAndRemoveAllBelow(
+      animatedLogoScreen: true,
+    );
+
+  }
 
 }
 // -----------------------------------------------------------------------------

@@ -53,7 +53,7 @@ class PicModel {
 
     if (picModel != null){
       _map = {
-        'bytes': Floaters.getIntsFromUint8List(picModel.bytes),
+        'bytes': Floaters.getIntsFromBytes(picModel.bytes),
         'path': picModel.path,
         'meta': picModel.meta?.cipherToLDB()
       };
@@ -107,6 +107,42 @@ class PicModel {
     FileSizeUnit fileSizeUnit = FileSizeUnit.megaByte,
   }){
     return Filers.calculateSize(bytes?.length, fileSizeUnit);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<PicModel>> createPicsFromLocalAssets({
+    required List<String> assets,
+    required int width,
+  }) async {
+    final List<PicModel> _output = [];
+
+    if (Mapper.checkCanLoopList(assets) == true){
+
+      for (final String asset in assets){
+        
+        final Uint8List? _bytes = await Floaters.getBytesFromLocalAsset(
+            localAsset: asset,
+            width: width,
+        );
+
+        final PicModel? _pic = await combinePicModel(
+            bytes: _bytes,
+            picMakerType: PicMakerType.generated,
+            compressionQuality: 80,
+            assignPath: '',
+            ownersIDs: [],
+            name: ''
+        );
+
+        if (_pic != null){
+          _output.add(_pic);
+        }
+
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

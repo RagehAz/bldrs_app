@@ -1,6 +1,10 @@
 import 'dart:async';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -398,5 +402,95 @@ Future<void> rememberOrForgetAccount({
     }
 
   }
+}
+// -----------------------------------------------------------------------------
+
+/// FORGOT PASSWORD
+
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onForgotPassword({
+  required GlobalKey<FormState> formKey,
+  required String email,
+}) async {
+
+  /// MINIMIZE KEYBOARD
+  Keyboard.closeKeyboard();
+
+  Formers.validateForm(formKey);
+
+  final bool _emailIsGood = Formers.emailValidator(
+    email: email,
+    canValidate: true,
+  ) == null;
+
+  if (_emailIsGood == true){
+
+    final Verse _body = Verse.plain('${xPhrase('phid_reset_pass_email_will_be_sent_to')}\n$email');
+
+    final bool _go = await Dialogs.confirmProceed(
+      titleVerse: const Verse(
+        id: 'phid_send_reset_password_email',
+        translate: true,
+      ),
+      bodyVerse: _body,
+      yesVerse: const Verse(
+        id: 'phid_send',
+        translate: true,
+      ),
+    );
+
+    if (_go == true){
+
+      WaitDialog.showUnawaitedWaitDialog();
+
+      final bool _good = await EmailAuthing.sendPasswordResetEmail(
+        email: email,
+        onError: (String? error) async {
+          await AuthProtocols.onAuthError(error: error);
+          },
+      );
+
+      await WaitDialog.closeWaitDialog();
+
+      if (_good == true){
+
+        await Dialogs.centerNotice(
+          verse: const Verse(
+            id: 'phid_success',
+            translate: true,
+          ),
+        );
+
+        await Dialogs.picsDialog(
+          titleVerse: const Verse(
+            id: 'phid_check_spam_folder',
+            translate: true,
+          ),
+          bodyVerse: const Verse(
+            id: 'phid_email_sent_successfully',
+            translate: true,
+          ),
+          boolDialog: false,
+          picsHeights: 120,
+          pics: await PicModel.createPicsFromLocalAssets(
+            width: 300,
+            assets: [
+              Iconz.mailJunkScreenshot,
+              Iconz.mailSpamScreenshot,
+            ],
+          ),
+          confirmButtonVerse: const Verse(
+            id: 'phid_ok_i_will_check_spam',
+            translate: true,
+          ),
+        );
+
+      }
+
+    }
+
+  }
+
 }
 // -----------------------------------------------------------------------------

@@ -189,7 +189,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   /// TESTED : WORKS PERFECT
   void _setAccount(AccountModel? account){
 
-    _emailController.text = account?.email ?? '';
+    _emailController.text = account?.email?.toLowerCase() ?? '';
     _passwordController.text = account?.password ?? '';
 
     setNotifier(
@@ -197,6 +197,22 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         mounted: mounted,
         value: true,
     );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onForgotPassword() async {
+
+    if (mounted == true){
+
+      _switchOnValidation();
+
+      await onForgotPassword(
+        formKey: _formKey,
+        email: _emailController.text,
+      );
+
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -247,6 +263,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         isRememberingMe: _isRememberingMe,
         onSwitchRememberMe: _onSwitchRememberMe,
         onSelectAccount: _onSelectAccount,
+        onForgotPassword: _onForgotPassword,
         myAccounts: _myAccounts,
         isObscured: _isObscured,
       ),

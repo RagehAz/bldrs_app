@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/b_auth/a_auth_screen/aa_auth_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,7 @@ class _AuthScreenState extends State<AuthScreen> {
     return const MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
+      skyType: SkyType.black,
       child: AuthScreenView(),
     );
 

@@ -61,7 +61,6 @@ dependencies:
   http: ^0.13.6
   dismissible_page: ^1.0.2
   firebase_dynamic_links: ^5.3.3
-  share: ^2.0.4
   url_launcher: ^6.1.11
   firebase_messaging: ^14.6.4 # should remove this
   flutter_local_notifications: ^15.1.0+1 # should remove this
@@ -83,6 +82,8 @@ dependencies:
   photo_manager: ^2.6.0
   intl: ^0.18.0
   firebase_core: ^2.14.0
+#  share: ^2.0.4
+  share_plus: ^7.0.2
 # --------------------------------------------------------------------------------
 dev_dependencies:
   flutter_test:

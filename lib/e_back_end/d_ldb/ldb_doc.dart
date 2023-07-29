@@ -271,26 +271,34 @@ class LDBDoc {
       pics: true,
       pdfs: true,
       users: true,
-      authModel: true,
-      accounts: true,
-      searches: true,
-      bldrsChains: true,
       pickers: true,
       countries: true,
-      cities: true,
       staging: true,
       census: true,
       mainPhrases: true,
-      countriesPhrases: true,
-      userEditor: true,
-      bzEditor: true,
-      authorEditor: true,
-      flyerMaker: true,
-      reviewEditor: true,
-      theLastWipe: true,
       appState: true,
-      langCode: false, // lets always keep user language for life
+
       gta: true,
+      cities: true,
+      searches: true,
+      bldrsChains: true,
+      countriesPhrases: true,
+
+
+
+      
+      authModel: false,
+      accounts: false,
+
+      langCode: false, // lets always keep user language for life
+
+      userEditor: false,
+      bzEditor: false,
+      authorEditor: false,
+      flyerMaker: false,
+      reviewEditor: false,
+
+      theLastWipe: false,
     );
 
   }

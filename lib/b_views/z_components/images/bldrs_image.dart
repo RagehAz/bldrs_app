@@ -19,6 +19,7 @@ class BldrsImage extends StatelessWidget {
     this.backgroundColor,
     this.corners,
     this.greyscale = false,
+    this.solidGreyScale = false,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -32,6 +33,7 @@ class BldrsImage extends StatelessWidget {
   final Color? backgroundColor;
   final dynamic corners;
   final bool greyscale;
+  final bool solidGreyScale;
   /// --------------------------------------------------------------------------
   static DecorationImage? decorationImage({
     required String? picture,
@@ -63,6 +65,7 @@ class BldrsImage extends StatelessWidget {
       backgroundColor: backgroundColor,
       corners: corners,
       greyscale: greyscale,
+      solidGreyScale: solidGreyScale,
       pic: theIcon,
       iconColor: iconColor,
       loading: isLoading,

@@ -32,6 +32,7 @@ class FooterShadow extends StatelessWidget {
           height: _height,
           corners: FlyerDim.footerBoxCorners(context: context, flyerBoxWidth: flyerBoxWidth),
           boxFit: BoxFit.fitWidth,
+
           child: WebsafeSvg.asset(
             Iconz.footerShadow,
             fit: BoxFit.fitWidth,
