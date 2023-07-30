@@ -83,7 +83,7 @@ class EmailAndPasswordBubbles extends StatelessWidget {
             passwordConfirmationValidator: null,
             onSubmitted: onSubmitted,
             isObscured: isObscured,
-            onForgetPassword: onForgetPassword,
+            onForgotPassword: onForgetPassword,
           ),
 
         ],

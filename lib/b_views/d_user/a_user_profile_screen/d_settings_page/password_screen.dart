@@ -119,7 +119,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
 
                         },
                         isObscured: _isObscured,
-                        onForgetPassword: onForgotPassword,
+                        onForgotPassword: onForgotPassword,
                         // isTheSuperKeyboardField: false,
                       ),
                     ),

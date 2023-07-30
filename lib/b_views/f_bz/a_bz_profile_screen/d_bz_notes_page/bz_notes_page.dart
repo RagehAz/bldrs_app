@@ -157,7 +157,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
         notify: true
     );
 
-    pushWaitDialog(
+    WaitDialog.showUnawaitedWaitDialog(
       verse: const Verse(id: 'phid_reloading', translate: true,),
     );
 
@@ -184,7 +184,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
 
     });
 
-    closeWaitDialog();
+    await WaitDialog.closeWaitDialog();
 
   }
   // --------------------

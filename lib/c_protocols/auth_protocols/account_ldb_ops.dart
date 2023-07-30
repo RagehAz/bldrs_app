@@ -27,6 +27,51 @@ class AccountLDBOps {
       );
     }
   }
+  // --------------------
+  /// TASK TEST ME
+  static Future<void> insertUserModels({
+    required List<UserModel> users,
+  }) async {
+
+    if (Mapper.checkCanLoopList(users) == true){
+
+      final List<AccountModel> _accounts = [];
+      for (final UserModel user in users){
+
+        final String? _email = UserModel.getUserEmail(user);
+
+        if (_email != null){
+
+          final AccountModel _account = AccountModel(
+            id: user.id,
+            email: _email,
+            password: null,
+          );
+
+          _accounts.add(_account);
+
+        }
+
+
+      }
+
+      if (Mapper.checkCanLoopList(_accounts) == true){
+
+        final List<Map<String, dynamic>> _maps = AccountModel.cipherAccounts(
+          accounts: _accounts,
+        );
+
+        await LDBOps.insertMaps(
+          docName: LDBDoc.accounts,
+          primaryKey: LDBDoc.getPrimaryKey(LDBDoc.accounts),
+          inputs: _maps,
+        );
+
+      }
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// READ

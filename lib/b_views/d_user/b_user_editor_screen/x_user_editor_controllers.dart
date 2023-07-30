@@ -302,7 +302,7 @@ Future<void> confirmEdits({
         value: true
     );
 
-    pushWaitDialog(
+    WaitDialog.showUnawaitedWaitDialog(
       verse: const Verse(
         id: 'phid_updating_profile',
         translate: true,
