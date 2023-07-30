@@ -51,7 +51,7 @@ class AppStateModel {
   static Future<AppStateModel> createInitialModel() async {
 
     final String _detectedAppVersion = await AppVersionBuilder.detectAppVersion();
-    final AppStateModel? _globalState = await AppStateRealOps.readGlobalAppState();
+    final AppStateModel? _globalState = await AppStateFireOps.readGlobalAppState();
 
     return AppStateModel(
       appVersion : _detectedAppVersion,

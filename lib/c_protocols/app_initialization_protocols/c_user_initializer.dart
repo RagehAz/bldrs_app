@@ -16,7 +16,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/cupertino.dart';
@@ -85,7 +84,7 @@ class UserInitializer {
   /// USER MODEL
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> _initializeUserModel() async {
     bool _continue = false;
 
@@ -101,10 +100,21 @@ class UserInitializer {
     /// USER HAS NO ID
     else {
 
-      final AccountModel? _anonymousAccount = await AccountLDBOps.readAnonymousAccount();
+      final List<AccountModel> _accounts = await AccountLDBOps.readAllAccounts();
+      final List<AccountModel> _withoutAnonymous = AccountModel.removeAnonymousAccounts(
+          accounts: _accounts,
+      );
+      final AccountModel? _anonymousAccount = AccountModel.getAnonymousAccountFromAccounts(
+          accounts: _accounts,
+      );
+
+      /// HAS SOME ACCOUNT ALREADY
+      if (Mapper.checkCanLoopList(_withoutAnonymous) == true){
+        _continue = await _signInAccount(account: _withoutAnonymous.first);
+      }
 
       /// HAS ANONYMOUS ACCOUNT
-      if (_anonymousAccount != null){
+      else if (_anonymousAccount != null){
         _continue = await _signInAccount(account: _anonymousAccount);
       }
 
@@ -132,7 +142,7 @@ class UserInitializer {
     return _continue;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> _reSignInAnonymousUser({
     required UserModel? userModel,
   }) async {
@@ -162,7 +172,7 @@ class UserInitializer {
     return _continue;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> _signInAccount({
     required AccountModel? account,
   }) async {
@@ -419,55 +429,61 @@ class UserInitializer {
     required UserModel? userModel,
   }) async {
     UserModel? _output = userModel;
-    AppStateModel? _userState = _output?.appState;
+    // AppStateModel? _userState = _output?.appState;
 
-    if (_output != null && _userState != null){
+    if (_output != null){
 
       /// GET GLOBAL STATE
       final AppStateModel? _globalState = await AppStateProtocols.fetchGlobalAppState();
 
       if (_globalState != null){
 
-        /// STATES IDENTICAL
-        final bool _statesAreIdentical = AppStateModel.checkAppStatesAreIdentical(
-            state1: _userState,
-            state2: _globalState,
+        final String _detectedVersion = await AppVersionBuilder.detectAppVersion();
+
+        _output = _output.copyWith(
+          appState: _globalState.copyWith(
+            appVersion: _detectedVersion,
+          ),
         );
-        if (_statesAreIdentical == false){
 
-          /// LDB CHECK
-          if (_globalState.ldbVersion != _userState.ldbVersion){
-
-            unawaited(LDBDoc.wipeOutEntireLDB());
-
-            _userState = _userState.copyWith(
-              ldbVersion: _globalState.ldbVersion,
-            );
-
-            _output = _output.copyWith(
-              appState: _userState,
-            );
-
-          }
-
-          /// APP VERSION CHECK
-          final String _detectedVersion = await AppVersionBuilder.detectAppVersion();
-          if (_detectedVersion != _userState.appVersion){
-
-            _userState = _userState.copyWith(
-              appVersion: _detectedVersion,
-              minVersion: _detectedVersion,
-            );
-
-            _output = _output.copyWith(
-              appState: _userState,
-            );
-
-          }
-
-        }
-
-
+        // /// STATES IDENTICAL
+        // final bool _statesAreIdentical = AppStateModel.checkAppStatesAreIdentical(
+        //     state1: _userState,
+        //     state2: _globalState,
+        // );
+        // if (_statesAreIdentical == false){
+        //
+        //   /// LDB CHECK
+        //   if (_globalState.ldbVersion != _userState?.ldbVersion){
+        //
+        //     unawaited(LDBDoc.wipeOutEntireLDB());
+        //
+        //     _userState = _userState.copyWith(
+        //       ldbVersion: _globalState.ldbVersion,
+        //     );
+        //
+        //     _output = _output.copyWith(
+        //       appState: _userState,
+        //     );
+        //
+        //   }
+        //
+        //   /// APP VERSION CHECK
+        //   final String _detectedVersion = await AppVersionBuilder.detectAppVersion();
+        //   if (_detectedVersion != _userState.appVersion){
+        //
+        //     _userState = _userState.copyWith(
+        //       appVersion: _detectedVersion,
+        //       minVersion: _detectedVersion,
+        //     );
+        //
+        //     _output = _output.copyWith(
+        //       appState: _userState,
+        //     );
+        //
+        //   }
+        //
+        // }
 
       }
 

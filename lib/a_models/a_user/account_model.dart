@@ -1,3 +1,5 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
@@ -39,6 +41,66 @@ class AccountModel {
         password: map['password'],
       );
     }
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static AccountModel? getAnonymousAccountFromAccounts({
+    required List<AccountModel> accounts,
+  }){
+    AccountModel? _output;
+
+    if (Mapper.checkCanLoopList(accounts) == true){
+
+      for (final AccountModel account in accounts){
+
+        final bool _isAnonymous = UserModel.checkIsAnonymousEmail(
+            email: account.email,
+        );
+
+        if (_isAnonymous == true){
+          _output = account;
+          break;
+        }
+
+      }
+
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<AccountModel> removeAnonymousAccounts({
+    required List<AccountModel> accounts,
+  }){
+    final List<AccountModel> _output = [];
+
+    if (Mapper.checkCanLoopList(accounts) == true){
+
+      for (final AccountModel account in accounts){
+
+        final bool _isAnonymous = UserModel.checkIsAnonymousEmail(
+            email: account.email,
+        );
+
+        if (_isAnonymous == false){
+          _output.add(account);
+        }
+
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

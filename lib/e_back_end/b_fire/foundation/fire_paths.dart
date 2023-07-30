@@ -98,6 +98,7 @@ abstract class FireColl{
 abstract class FireDoc {
 
   static const String admin_backups = 'backups';
+  static const String admin_appState = 'appState';
 
   static const String zones_cities = 'cities';
   static const String zones_usa = 'usa'; /// TASK : temp
