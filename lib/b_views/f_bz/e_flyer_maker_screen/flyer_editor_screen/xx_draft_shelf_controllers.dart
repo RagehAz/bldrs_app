@@ -315,7 +315,6 @@ Future<void> onMoreTap({
 
         /// DELETE
         BottomDialog.wideButton(
-          context: context,
           verse: const Verse(id: 'phid_delete', translate: true),
           verseCentered: true,
           onTap: () async {
@@ -329,7 +328,6 @@ Future<void> onMoreTap({
 
         /// SAVE DRAFT
         BottomDialog.wideButton(
-          context: context,
           verse: const Verse(id: 'phid_save_draft', translate: true,),
           verseCentered: true,
           onTap: () async {
@@ -343,7 +341,6 @@ Future<void> onMoreTap({
 
         /// PUBLISH
         BottomDialog.wideButton(
-          context: context,
           verse: const Verse(id: 'phid_publish', translate: true),
           verseCentered: true,
           onTap: () async {

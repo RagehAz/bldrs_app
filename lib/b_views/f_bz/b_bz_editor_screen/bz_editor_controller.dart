@@ -15,6 +15,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
@@ -104,7 +105,6 @@ Future<void> saveBzEditorSession({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmBzEdits({
-  required BuildContext context,
   required ValueNotifier<DraftBz?> draftNotifier,
   required BzModel? oldBz,
   required bool mounted,
@@ -119,14 +119,12 @@ Future<void> onConfirmBzEdits({
   Keyboard.closeKeyboard();
 
   final bool _canContinue = await _preUploadCheckups(
-    context: context,
     draftNotifier: draftNotifier,
   );
 
   if (_canContinue == true){
 
     await _uploadDraftBz(
-      context: context,
       draftNotifier: draftNotifier,
       oldBz: oldBz,
     );
@@ -146,7 +144,6 @@ Future<void> onConfirmBzEdits({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _preUploadCheckups({
-  required BuildContext context,
   required ValueNotifier<DraftBz?> draftNotifier,
 }) async {
 
@@ -170,7 +167,6 @@ Future<bool> _preUploadCheckups({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<BzModel?> _uploadDraftBz({
-  required BuildContext context,
   required ValueNotifier<DraftBz?> draftNotifier,
   required BzModel? oldBz,
 }) async {
@@ -180,10 +176,9 @@ Future<BzModel?> _uploadDraftBz({
   /// CREATING NEW BZ
   if (Mapper.boolIsTrue(draftNotifier.value?.firstTimer) == true){
     _output = await BzProtocols.composeBz(
-      context: context,
       newDraft: draftNotifier.value,
       userModel: UsersProvider.proGetMyUserModel(
-        context: context,
+        context: getMainContext(),
         listen: false,
       ),
     );
@@ -197,7 +192,6 @@ Future<BzModel?> _uploadDraftBz({
     // blog('draftNotifier.value.logoPicModel.bytes.length : ${draftNotifier.value?.logoPicModel?.bytes?.length}');
 
     _output = await BzProtocols.renovateBz(
-      context: context,
       newBz: DraftBz.toBzModel(draftNotifier.value),
       oldBz: oldBz,
       showWaitDialog: true,

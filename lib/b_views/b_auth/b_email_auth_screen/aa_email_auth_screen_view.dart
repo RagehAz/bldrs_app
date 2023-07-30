@@ -159,10 +159,7 @@ class EmailAuthScreenView extends StatelessWidget {
                           final AccountModel _account = myAccounts[index];
 
                           return FutureBuilder<UserModel?>(
-                            future: UserProtocols.fetch(
-                              context: context,
-                              userID: _account.id,
-                            ),
+                            future: UserProtocols.fetch(userID: _account.id),
                             builder: (_, AsyncSnapshot<UserModel?> snap) {
 
                               final UserModel? _userModel = snap.data;

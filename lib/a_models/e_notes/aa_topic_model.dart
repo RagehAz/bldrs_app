@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 
@@ -319,7 +318,6 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> getTopicSubscribersPics({
-    required BuildContext context,
     required String? topicID,
     required List<dynamic>? receiversModels,
     required PartyType? receiversType,
@@ -330,7 +328,6 @@ class TopicModel {
     /// RECEIVERS BZZ
     if (receiversType == PartyType.bz){
       _output = await _getAuthorsPicsSubscribedToTopic(
-        context: context,
         topicID: topicID,
         bzzModels: receiversModels as List<BzModel>,
       );
@@ -338,7 +335,6 @@ class TopicModel {
     /// RECEIVERS USERS
     else {
       _output = await _getUsersPicsSubscribedToTopic(
-        context: context,
         topicID: topicID,
         usersModels: receiversModels as List<UserModel>,
       );
@@ -349,7 +345,6 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> _getAuthorsPicsSubscribedToTopic({
-    required BuildContext context,
     required String? topicID,
     required List<BzModel>? bzzModels,
   }) async {
@@ -369,7 +364,6 @@ class TopicModel {
 
           for (final AuthorModel _author in bz.authors!) {
             final bool _isSubscribed = await _checkUserIsSubscribedToTopic(
-              context: context,
               topicID: _topicID,
               userID: _author.userID,
             );
@@ -392,7 +386,6 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> _getUsersPicsSubscribedToTopic({
-    required BuildContext context,
     required String? topicID,
     required List<UserModel> usersModels,
   }) async {
@@ -403,7 +396,6 @@ class TopicModel {
       for (final UserModel user in usersModels){
 
         final bool _isSubscribed = await _checkUserIsSubscribedToTopic(
-          context: context,
           topicID: topicID,
           userID: user.id,
         );
@@ -421,7 +413,6 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> _checkUserIsSubscribedToTopic({
-    required BuildContext context,
     required String? userID,
     required String? topicID,
   }) async {
@@ -430,7 +421,6 @@ class TopicModel {
   if (userID != null && topicID != null){
 
     final UserModel? _userModel = await UserProtocols.fetch(
-      context: context,
       userID: userID,
     );
 

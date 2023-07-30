@@ -7,7 +7,6 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:flutter/material.dart';
 /// => TAMAM
 class AuthorshipSendingProtocols {
   // -----------------------------------------------------------------------------
@@ -21,13 +20,11 @@ class AuthorshipSendingProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendRequest({
-    required BuildContext context,
     required BzModel? oldBz,
     required UserModel? userModelToSendTo,
   }) async {
 
     final NoteModel? noteModel = await NoteEvent.sendAuthorshipInvitationNote(
-      context: context,
       bzModel: oldBz,
       userModelToSendTo: userModelToSendTo,
     );
@@ -43,7 +40,6 @@ class AuthorshipSendingProtocols {
     );
 
     await BzProtocols.renovateBz(
-      context: context,
       oldBz: oldBz,
       newBz: _newBz,
       showWaitDialog: false,
@@ -58,7 +54,6 @@ class AuthorshipSendingProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> cancelRequest({
-    required BuildContext context,
     required BzModel bzModel,
     required String pendingUserID
   }) async {
@@ -67,21 +62,18 @@ class AuthorshipSendingProtocols {
 
       /// REMOVE PENDING AUTHOR & RENOVATE BZ
       BzProtocols.wipePendingAuthor(
-        context: context,
         bzID: bzModel.id,
         pendingUserID: pendingUserID,
       ),
 
       /// RENOVATE REPLY OF SENT REQUEST
       _renovateReplyOfSentRequestToCancel(
-        context: context,
         bzModel: bzModel,
         pendingUserID: pendingUserID,
       ),
 
       /// SEND HIM NEW NOTE OF CANCELLATION
       _sendAuthorshipCancellationNote(
-        context: context,
         bzModel: bzModel,
         pendingUserID: pendingUserID,
       ),
@@ -92,7 +84,6 @@ class AuthorshipSendingProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _renovateReplyOfSentRequestToCancel({
-    required BuildContext context,
     required BzModel bzModel,
     required String pendingUserID,
   }) async {
@@ -122,19 +113,16 @@ class AuthorshipSendingProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _sendAuthorshipCancellationNote({
-    required BuildContext context,
     required BzModel bzModel,
     required String pendingUserID
   }) async {
 
     /// get that user to send him cancellation note
     final UserModel? userModelToSendTo = await UserProtocols.fetch(
-      context: context,
       userID: pendingUserID,
     );
 
     await NoteEvent.sendAuthorshipCancellationNote(
-      context: context,
       bzModel: bzModel,
       userModelToSendTo: userModelToSendTo,
     );

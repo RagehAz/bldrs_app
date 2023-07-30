@@ -538,7 +538,6 @@ class BldrsShareLink{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String?> generateUserLink({
-    required BuildContext context,
     required String? userID,
   }) async {
 
@@ -547,7 +546,6 @@ class BldrsShareLink{
     if (userID != null){
 
       final UserModel? _userModel = await UserProtocols.fetch(
-        context: context,
         userID: userID,
       );
 

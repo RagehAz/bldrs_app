@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
@@ -303,7 +304,6 @@ void onAuthorContactChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmAuthorUpdates({
-  required BuildContext context,
   required AuthorModel? oldAuthor,
   required ValueNotifier<AuthorModel?> draftAuthor,
   required BzModel? oldBz,
@@ -341,7 +341,6 @@ Future<void> onConfirmAuthorUpdates({
     );
 
     final BzModel? _newBz = await BzProtocols.renovateAuthorProtocol(
-      context: context,
       oldBz: oldBz,
       newAuthor: _newAuthor,
     );
@@ -351,7 +350,7 @@ Future<void> onConfirmAuthorUpdates({
     await WaitDialog.closeWaitDialog();
 
     await Nav.goBack(
-      context: context,
+      context: getMainContext(),
       invoker: 'onConfirmAuthorUpdates',
       passedData: _newBz,
     );
@@ -365,7 +364,6 @@ Future<void> onConfirmAuthorUpdates({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeAuthorRoleOps({
-  required BuildContext context,
   required ValueNotifier<AuthorRole?> draftRole,
   required AuthorModel? oldAuthor,
   required bool mounted,
@@ -410,7 +408,7 @@ Future<void> onChangeAuthorRoleOps({
       );
 
       final BzModel? _oldBz = BzzProvider.proGetActiveBzModel(
-        context: context,
+        context: getMainContext(),
         listen: false,
       );
 
@@ -421,13 +419,11 @@ Future<void> onChangeAuthorRoleOps({
       await Future.wait(<Future>[
 
         BzProtocols.renovateAuthorProtocol(
-          context: context,
           oldBz: _oldBz,
           newAuthor: _newAuthor,
         ),
 
         NoteEvent.sendAuthorRoleChangeNote(
-          context: context,
           bzID: _oldBz?.id,
           author: _newAuthor,
         )
@@ -437,7 +433,7 @@ Future<void> onChangeAuthorRoleOps({
       await WaitDialog.closeWaitDialog();
 
       await Nav.goBack(
-        context: context,
+        context: getMainContext(),
         invoker: 'onChangeAuthorRoleOps',
       );
 
@@ -451,7 +447,6 @@ Future<void> onChangeAuthorRoleOps({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> setAuthorRole({
-  required BuildContext context,
   required AuthorRole selectedRole,
   required ValueNotifier<AuthorRole?> tempRole,
   required AuthorModel? oldAuthor,
@@ -459,7 +454,6 @@ Future<void> setAuthorRole({
 }) async {
 
   final bool _canChangeRole = await _checkCanChangeRole(
-    context: context,
     role: selectedRole,
     oldAuthor: oldAuthor,
   );
@@ -473,7 +467,6 @@ Future<void> setAuthorRole({
     );
 
     await onChangeAuthorRoleOps(
-      context: context,
       draftRole: tempRole,
       oldAuthor: oldAuthor,
       mounted: mounted,
@@ -485,7 +478,6 @@ Future<void> setAuthorRole({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _checkCanChangeRole({
-  required BuildContext context,
   required AuthorModel? oldAuthor,
   required AuthorRole role,
 }) async {

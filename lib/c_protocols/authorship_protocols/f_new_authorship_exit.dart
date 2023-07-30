@@ -61,7 +61,6 @@ class NewAuthorshipExit {
 
       /// (only i can) : SEND authorExit NOTES
       await NoteEvent.sendAuthorDeletionNotes(
-        context: getMainContext(),
         bzModel: bzModel,
         deletedAuthor: authorModel,
         sendToUserAuthorExitNote: false,
@@ -116,7 +115,6 @@ class NewAuthorshipExit {
 
       /// (only i can) : SEND authorExit NOTES
       await NoteEvent.sendAuthorDeletionNotes(
-        context: getMainContext(),
         bzModel: bzModel,
         deletedAuthor: authorModel,
         sendToUserAuthorExitNote: false,
@@ -172,7 +170,6 @@ class NewAuthorshipExit {
 
       /// SEND authorKick NOTES
       await NoteEvent.sendAuthorDeletionNotes(
-        context: getMainContext(),
         bzModel: bzModel,
         deletedAuthor: authorModel,
         sendToUserAuthorExitNote: true,
@@ -288,7 +285,6 @@ class NewAuthorshipExit {
 
       /// RENOVATE BZ
       BzProtocols.renovateBz(
-        context: getMainContext(),
         newBz: _newBz,
         oldBz: bzModel,
         showWaitDialog: false,
@@ -336,7 +332,6 @@ class NewAuthorshipExit {
   }) async {
 
     FlyerModel? _flyer = await FlyerProtocols.fetchFlyer(
-      context: getMainContext(),
       flyerID: flyerID,
     );
 
@@ -375,7 +370,6 @@ class NewAuthorshipExit {
       /// (only i can) : UNSUBSCRIBE FROM BZ FCM TOPICS
       NoteProtocols.unsubscribeFromAllBzTopics(
         bzID: bzID,
-        context: getMainContext(),
         renovateUser: false,
       ),
 
@@ -387,7 +381,6 @@ class NewAuthorshipExit {
 
       /// (only i can) : RENOVATE MY USER MODEL
       UserProtocols.renovate(
-        context: getMainContext(),
         newUser: _newUser,
         oldUser: _oldUser,
         newPic: null,

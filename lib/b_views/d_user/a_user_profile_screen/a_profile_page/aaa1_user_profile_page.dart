@@ -23,7 +23,6 @@ class UserProfilePage extends StatelessWidget {
       onRefresh: () async {
 
         final UserModel? _userModel = await UserProtocols.refetch(
-            context: context,
             userID: Authing.getUserID(),
         );
 

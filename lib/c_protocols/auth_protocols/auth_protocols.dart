@@ -1,8 +1,10 @@
+import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
@@ -74,6 +76,83 @@ class AuthProtocols {
         authModel: _authModel,
         authError: _authError
     );
+
+    return _success;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<bool> upgradeAnonymous({
+    required AccountModel? oldAccount,
+    required AccountModel? newAccount,
+  }) async {
+    bool _success = false;
+
+    if (oldAccount != null && newAccount != null && newAccount.email != null){
+
+      /// RESIGN IN TO BE ABLE TO RESET EMAIL
+      final AuthModel? _authModel = await EmailAuthing.signIn(
+        email: oldAccount.email?.trim(),
+        password: oldAccount.password,
+        // onError: (String? error) => onAuthError(error: error),
+      );
+
+      if (_authModel != null){
+
+        /// CHANGE EMAIL IN FIRE AUTH
+        _success = await EmailAuthing.updateUserEmail(
+          newEmail: newAccount.email!,
+        );
+
+        if (_success == true){
+
+          /// CHANGE PASSWORD IN FIRE AUTH
+          _success = await EmailAuthing.sendPasswordResetEmail(
+              email: oldAccount.email,
+              // onError: (String? error) => onAuthError(error: error),
+          );
+
+          if (_success == true){
+
+            /// CHANGE SIGNIN METHOD & EMAIL IN FIRE DOC
+            final UserModel? _oldUser = await UserProtocols.fetch(
+              userID: oldAccount.id,
+            );
+
+            if (_oldUser != null){
+
+              /// UPDATE ACCOUNT MODEL IN LDB
+              await AccountLDBOps.insertAccount(
+                account: newAccount,
+              );
+
+              await UserProtocols.renovate(
+                invoker: 'upgradeAnonymous',
+                oldUser: _oldUser,
+                newPic: null,
+                newUser: _oldUser.copyWith(
+                  contacts: ContactModel.insertOrReplaceContact(
+                      contacts: _oldUser.contacts,
+                      contactToReplace: ContactModel(
+                        type: ContactType.email,
+                        value: newAccount.email!,
+                      ),
+                  ),
+                  signInMethod: SignInMethod.password,
+                ),
+              );
+
+            }
+
+
+          }
+
+
+        }
+      }
+
+
+
+    }
 
     return _success;
   }
@@ -156,7 +235,6 @@ class AuthProtocols {
   }) async {
 
     await UserProtocols.updateLocally(
-      context: getMainContext(),
       newUser: userModel,
     );
 

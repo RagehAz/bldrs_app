@@ -15,6 +15,7 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
 
@@ -28,7 +29,6 @@ class AddFlyerButton extends StatelessWidget {
   final double flyerBoxWidth;
   /// --------------------------------------------------------------------------
   Future<void> _goToFlyerMaker({
-    required BuildContext context,
     required BzModel? bzModel,
   }) async {
 
@@ -41,13 +41,12 @@ class AddFlyerButton extends StatelessWidget {
       );
 
       final bool? _result = await Nav.goToNewScreen(
-        context: context,
+        context: getMainContext(),
         screen: NewFlyerEditorScreen(
           draftFlyer: _draft,
           onConfirm: (DraftFlyer? draft) async {
 
             await onConfirmPublishFlyerButtonTap(
-              context: context,
               oldFlyer: null,
               draft: draft,
             );
@@ -78,7 +77,6 @@ class AddFlyerButton extends StatelessWidget {
     return FlyerBox(
       flyerBoxWidth: flyerBoxWidth,
       onTap: () => _goToFlyerMaker(
-        context: context,
         bzModel: _bzModel,
       ),
       stackWidgets: <Widget>[

@@ -70,13 +70,11 @@ class WipeBzProtocols {
           id: bzModel.id,
         ),
         NoteProtocols.unsubscribeFromAllBzTopics(
-          context: getMainContext(),
           bzID: bzModel.id,
           renovateUser: true,
         ),
         /// DELETE BZ STORAGE DIRECTORY
         BldrsCloudFunctions.deleteStorageDirectory(
-          context: getMainContext(),
           path: StoragePath.bzz_bzID(bzModel.id),
         ),
         /// DELETE BZ LOGO & AUTHORS PICS
@@ -109,7 +107,6 @@ class WipeBzProtocols {
 
       /// SEND DELETION NOTES TO AUTHORS
       await NoteEvent.sendBzDeletionNoteToAllAuthors(
-        context: getMainContext(),
         bzModel: bzModel,
         includeMyself: includeMyselfInBzDeletionNote,
       );
@@ -186,7 +183,7 @@ class WipeBzProtocols {
     ]);
 
 
-    blog('WipeBzProtocol.deleteLocally : ops should reach here ba2aaaaa');
+    blog('WipeBzProtocol.deleteLocally : ops should reach here ba2a');
 
     /// DELETE BZ ON PROVIDER
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
@@ -204,7 +201,6 @@ class WipeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipePendingAuthor({
-    required BuildContext context,
     required String? bzID,
     required String? pendingUserID,
   }) async {
@@ -228,7 +224,6 @@ class WipeBzProtocols {
 
       /// RENOVATE BZ
       await BzProtocols.renovateBz(
-        context: context,
         newBz: _newBz,
         oldBz: _oldBz,
         showWaitDialog: false,

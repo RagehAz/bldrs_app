@@ -407,21 +407,18 @@ Future<void> onFlyerPhidTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmPublishFlyerButtonTap({
-  required BuildContext context,
   required DraftFlyer? draft,
   required FlyerModel? oldFlyer,
 }) async {
 
   if (Mapper.boolIsTrue(draft?.firstTimer) == true){
     await onPublishNewFlyerTap(
-      context: context,
       draft: draft,
     );
   }
 
   else {
     await _onPublishFlyerUpdatesTap(
-      context: context,
       draft: draft,
       originalFlyer: oldFlyer,
     );
@@ -431,12 +428,10 @@ Future<void> onConfirmPublishFlyerButtonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onPublishNewFlyerTap({
-  required BuildContext context,
   required DraftFlyer? draft,
 }) async {
 
   final bool _canContinue = await _preFlyerUpdateCheck(
-    context: context,
     draft: draft,
     originalFlyer: null,
   );
@@ -444,7 +439,6 @@ Future<void> onPublishNewFlyerTap({
   if (_canContinue == true){
 
     await _publishFlyerOps(
-      context: context,
       draft: draft,
     );
 
@@ -466,13 +460,11 @@ Future<void> onPublishNewFlyerTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onPublishFlyerUpdatesTap({
-  required BuildContext context,
   required DraftFlyer? draft,
   required FlyerModel? originalFlyer,
 }) async {
 
   final bool _canContinue = await _preFlyerUpdateCheck(
-    context: context,
     draft: draft,
     originalFlyer: originalFlyer,
   );
@@ -480,7 +472,6 @@ Future<void> _onPublishFlyerUpdatesTap({
   if (_canContinue == true){
 
     await _updateFlyerOps(
-      context: context,
       draft: draft,
       oldFlyer: originalFlyer,
     );
@@ -488,7 +479,7 @@ Future<void> _onPublishFlyerUpdatesTap({
     await FlyerLDBOps.deleteFlyerMakerSession(flyerID: draft?.id);
 
     await Nav.goBack(
-      context: context,
+      context: getMainContext(),
       invoker: 'onPublishFlyerUpdatesTap',
       passedData: true,
     );
@@ -513,7 +504,6 @@ Future<void> _onPublishFlyerUpdatesTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _preFlyerUpdateCheck({
-  required BuildContext context,
   required DraftFlyer? draft,
   required FlyerModel? originalFlyer,
 }) async {
@@ -610,7 +600,6 @@ Future<bool> _preFlyerUpdateCheck({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _publishFlyerOps({
-  required BuildContext context,
   required DraftFlyer? draft,
 }) async {
 
@@ -622,7 +611,6 @@ Future<void> _publishFlyerOps({
   );
 
   await FlyerProtocols.composeFlyer(
-    context: context,
     draftFlyer: draft,
   );
 
@@ -632,7 +620,6 @@ Future<void> _publishFlyerOps({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _updateFlyerOps({
-  required BuildContext context,
   required DraftFlyer? draft,
   required FlyerModel? oldFlyer,
 }) async {
@@ -649,7 +636,6 @@ Future<void> _updateFlyerOps({
   );
 
   await FlyerProtocols.renovateDraft(
-    context: context,
     newDraft: draft,
     oldFlyer: oldFlyer,
     sendFlyerUpdateNoteToItsBz: !_imALoneAuthor,

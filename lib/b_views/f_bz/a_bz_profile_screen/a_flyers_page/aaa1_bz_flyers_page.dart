@@ -54,7 +54,6 @@ class BzFlyersPage extends StatelessWidget {
       bottomPadding: Ratioz.horizon,
       showAddFlyerButton: true,
       onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerBzOptionsTap(
-        context: context,
         flyer: flyerModel,
       ),
       onFlyerNotFound: (String flyerID){

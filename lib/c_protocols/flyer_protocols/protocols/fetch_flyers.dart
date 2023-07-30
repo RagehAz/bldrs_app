@@ -10,7 +10,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:flutter/material.dart';
 
 /// => TAMAM
 class FetchFlyerProtocols {
@@ -25,7 +24,6 @@ class FetchFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel?> fetchFlyer({
-    required BuildContext context,
     required String? flyerID,
   }) async {
 
@@ -71,7 +69,6 @@ class FetchFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> fetchFlyers({
-    required BuildContext context,
     required List<String>? flyersIDs,
   }) async {
     // blog('FetchFlyerProtocol.fetchFlyersByIDs : START');
@@ -85,7 +82,6 @@ class FetchFlyerProtocols {
         ...List.generate(flyersIDs!.length, (index){
 
           return fetchFlyer(
-            context: context,
             flyerID: flyersIDs[index],
           ).then((FlyerModel? flyer){
 
@@ -111,7 +107,6 @@ class FetchFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel?> refetch({
-    required BuildContext context,
     required String? flyerID,
   }) async {
 
@@ -120,7 +115,6 @@ class FetchFlyerProtocols {
     if (flyerID != null){
 
       final FlyerModel? _flyerModel = await fetchFlyer(
-        context: context,
         flyerID: flyerID,
       );
 
@@ -145,10 +139,7 @@ class FetchFlyerProtocols {
 
       ]);
 
-      _output = await fetchFlyer(
-          context: context,
-          flyerID: flyerID
-      );
+      _output = await fetchFlyer(flyerID: flyerID);
 
     }
 
@@ -161,7 +152,6 @@ class FetchFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel?> fetchAndCombineBzSlidesInOneFlyer({
-    required BuildContext context,
     required String? bzID,
     required int? maxSlides,
   }) async {
@@ -186,7 +176,6 @@ class FetchFlyerProtocols {
             final String _flyerID = _ids[i];
 
             final FlyerModel? _flyer = await fetchFlyer(
-              context: context,
               flyerID: _flyerID,
             );
 

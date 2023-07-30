@@ -68,7 +68,6 @@ Future<void> autoRemoveSavedFlyerThatIsNotFound({
   /// NOT TESTED : BUT IT WAS REPEATING AFTER DELETING SOME BZ FOR EACH FLYER AND TOOK TOO LONG
   /// FOR EACH FLYER TO DELETE AND RENOVATE
   unawaited(UserProtocols.renovate(
-    context: getMainContext(),
     newPic: null,
     newUser: _myUpdatedModel,
     oldUser: _userModel,

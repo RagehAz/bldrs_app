@@ -364,7 +364,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       _switchOnValidation();
 
       await onConfirmAuthorUpdates(
-        context: context,
         draftAuthor: _draftAuthor,
         oldBz: widget.bzModel,
         oldAuthor: _originalDraft,

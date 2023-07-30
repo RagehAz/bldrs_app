@@ -94,6 +94,8 @@ Future<void> authByEmailRegister({
       ),
     );
 
+    ///
+
     final bool _success = await AuthProtocols.registerInBldrsByEmail(
       email: email,
       password: password,
