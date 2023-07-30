@@ -108,6 +108,44 @@ class UserFireOps {
 
     return _output;
   }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<List<UserModel>> readDeviceUsers() async {
+    List<UserModel> _output = [];
+
+    final DeviceModel _device = await DeviceModel.generateDeviceModel();
+
+    if (_device.id != null){
+
+      final List<Map<String, dynamic>> _maps = await Fire.readColl(
+        queryModel: FireQueryModel(
+          coll: FireColl.users,
+          limit: 5,
+          finders: <FireFinder>[
+
+            FireFinder(
+                field: 'device.id',
+                comparison: FireComparison.equalTo,
+                value: _device.id,
+            ),
+
+          ],
+        ),
+    );
+
+      if (Mapper.checkCanLoopList(_maps) == true){
+
+        _output = UserModel.decipherUsers(
+            maps: _maps,
+            fromJSON: false,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// UPDATE

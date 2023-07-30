@@ -23,6 +23,36 @@ class AuthProtocols {
   static const bool showSocialAuthButtons = false;
   // -----------------------------------------------------------------------------
 
+  /// FETCHES
+
+  // --------------------
+  /// TASK TEST ME
+  static Future<AccountModel?> fetchAnonymousAccount() async {
+
+    AccountModel? _output = await AccountLDBOps.readAnonymousAccount();
+
+    if (_output == null){
+
+      final UserModel? _user = await UserFireOps.readAnonymousUserByDeviceID();
+
+      if (_user != null){
+
+        _output = AccountModel.createAccountByUser(
+          userModel: _user,
+        );
+
+        await AccountLDBOps.insertAccount(
+            account: _output,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
   /// SIGN IN
 
   // --------------------
@@ -63,19 +93,25 @@ class AuthProtocols {
   }) async {
 
     String? _authError;
+    bool _success = false;
 
     final AuthModel? _authModel = await EmailAuthing.register(
       email: email,
       password: password,
+      autoSendVerificationEmail: true,
       onError: (String? error){
         _authError = error;
       },
     );
 
-    final bool _success = await composeOrUpdateUser(
-        authModel: _authModel,
-        authError: _authError
-    );
+    if (_authModel != null){
+
+      _success = await composeOrUpdateUser(
+          authModel: _authModel,
+          authError: _authError
+      );
+
+    }
 
     return _success;
   }
@@ -146,11 +182,8 @@ class AuthProtocols {
 
           }
 
-
         }
       }
-
-
 
     }
 
@@ -176,7 +209,7 @@ class AuthProtocols {
 
     else if (authModel != null) {
 
-      final UserModel? _userModel = await UserFireOps.readUser(
+      final UserModel? _userModel = await UserProtocols.fetch(
         userID: authModel.id,
       );
 
@@ -193,7 +226,6 @@ class AuthProtocols {
       else {
         _success = await _onExistingUser(
           userModel: _userModel,
-          authModel: authModel,
         );
       }
 
@@ -231,7 +263,6 @@ class AuthProtocols {
   /// TESTED : WORKS PERFECT
   static Future<bool> _onExistingUser({
     required UserModel userModel,
-    required AuthModel authModel,
   }) async {
 
     await UserProtocols.updateLocally(

@@ -1,5 +1,6 @@
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
@@ -14,6 +15,64 @@ class AccountModel {
   final String? id;
   final String? email;
   final String? password;
+  // -----------------------------------------------------------------------------
+
+  /// CREATION
+
+  // --------------------
+  static AccountModel? createAccountByUser({
+    required UserModel? userModel,
+  }){
+    AccountModel? _output;
+
+    if (userModel != null){
+
+      final String? _email = UserModel.getUserEmail(userModel);
+      final bool _isAnonymousEmail = UserModel.checkIsAnonymousEmail(email: _email);
+
+      if (_isAnonymousEmail == true && userModel.signInMethod == SignInMethod.anonymous){
+
+        final String? _password = UserModel.createAnonymousPassword(
+            anonymousEmail: _email,
+        );
+
+        _output = AccountModel(
+          id: userModel.id,
+          email: _email,
+          password: _password,
+        );
+
+      }
+
+      else {
+        _output = AccountModel(
+          id: userModel.id,
+          email: UserModel.getUserEmail(userModel),
+          password: null,
+        );
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CLONING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  AccountModel copyWith({
+    String? id,
+    String? email,
+    String? password,
+  }){
+    return AccountModel(
+        id: id ?? this.id,
+        email: email ?? this.email,
+        password: password ?? this.password,
+    );
+  }
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -41,6 +100,26 @@ class AccountModel {
         password: map['password'],
       );
     }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Map<String, dynamic>> cipherAccounts({
+    required List<AccountModel> accounts,
+  }){
+    final List<Map<String, dynamic>> _output = [];
+
+    if (Mapper.checkCanLoopList(accounts) == true){
+
+      for (final AccountModel account in accounts){
+
+        final Map<String, dynamic> _map = account.toMap();
+        _output.add(_map);
+
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

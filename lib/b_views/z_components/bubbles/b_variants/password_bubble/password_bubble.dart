@@ -23,7 +23,7 @@ class PasswordBubbles extends StatelessWidget {
     required this.passwordNode,
     required this.confirmPasswordNode,
     required this.isObscured,
-    required this.onForgetPassword,
+    required this.onForgotPassword,
     this.bubbleWidth,
     this.isTheSuperKeyboardField = false,
     this.goOnKeyboardGo = true,
@@ -45,7 +45,7 @@ class PasswordBubbles extends StatelessWidget {
   final bool goOnKeyboardGo;
   final ValueNotifier<bool> isObscured;
   final MainAxisAlignment? mainAxisAlignment;
-  final Function onForgetPassword;
+  final Function onForgotPassword;
   /// --------------------------------------------------------------------------
   TextInputAction _getTextInputAction(){
 
@@ -118,7 +118,7 @@ class PasswordBubbles extends StatelessWidget {
                 verseWeight: VerseWeight.thin,
                 corners: 5,
                 bubble: false,
-                onTap: onForgetPassword,
+                onTap: onForgotPassword,
               ),
             ),
 

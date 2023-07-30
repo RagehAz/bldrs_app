@@ -1,24 +1,23 @@
 import 'dart:async';
-import 'package:basics/bldrs_theme/classes/iconz.dart';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:fire/super_fire.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 
 // -----------------------------------------------------------------------------
 
@@ -41,7 +40,9 @@ Future<void> authByEmailSignIn({
 
   if (_allFieldsAreValid == true) {
 
-    pushWaitDialog(
+
+
+    WaitDialog.showUnawaitedWaitDialog(
       verse: const Verse(
         id: 'phid_signing_in',
         translate: true,
@@ -71,13 +72,9 @@ Future<void> authByEmailSignIn({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> authByEmailRegister({
-  required BuildContext context,
   required String email,
   required String password,
-  required String passwordConfirmation,
   required GlobalKey<FormState> formKey,
-  required bool rememberMe,
-  required bool mounted,
 }) async {
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY
@@ -87,27 +84,40 @@ Future<void> authByEmailRegister({
 
   if (_allFieldsAreValid == true) {
 
-    pushWaitDialog(
+    WaitDialog.showUnawaitedWaitDialog(
       verse: const Verse(
         id: 'phid_creating_new_account',
         translate: true,
       ),
     );
 
-    ///
+    /// HAS ANONYMOUS
+    final AccountModel? _anonymousAccount = await AuthProtocols.fetchAnonymousAccount();
+    bool _success = false;
 
-    final bool _success = await AuthProtocols.registerInBldrsByEmail(
-      email: email,
-      password: password,
-    );
+    if (_anonymousAccount != null){
+      _success = await AuthProtocols.upgradeAnonymous(
+          oldAccount: _anonymousAccount,
+          newAccount: _anonymousAccount.copyWith(
+            email: email,
+            password: password,
+          ),
+      );
+    }
+    else {
+      _success = await AuthProtocols.registerInBldrsByEmail(
+        email: email,
+        password: password,
+      );
+    }
 
-    await _rememberEmailAndNav(
-      email: email,
-      success: _success,
-      mounted: mounted,
-      password: password,
-      rememberMe: rememberMe,
-    );
+    await WaitDialog.closeWaitDialog();
+
+    if (_success == true){
+      await Dialogs.emailSentSuccessfullyDialogs(
+        email: email,
+      );
+    }
 
   }
 
@@ -126,7 +136,7 @@ Future<void> authBySocialMedia({
 
   if (authModel != null) {
 
-    pushWaitDialog(
+    WaitDialog.showUnawaitedWaitDialog(
       verse: const Verse(
         id: 'phid_creating_new_account',
         translate: true,
@@ -457,35 +467,8 @@ Future<void> onForgotPassword({
 
       if (_good == true){
 
-        await Dialogs.centerNotice(
-          verse: const Verse(
-            id: 'phid_success',
-            translate: true,
-          ),
-        );
-
-        await Dialogs.picsDialog(
-          titleVerse: const Verse(
-            id: 'phid_check_spam_folder',
-            translate: true,
-          ),
-          bodyVerse: const Verse(
-            id: 'phid_email_sent_successfully',
-            translate: true,
-          ),
-          boolDialog: false,
-          picsHeights: 120,
-          pics: await PicModel.createPicsFromLocalAssets(
-            width: 300,
-            assets: [
-              Iconz.mailJunkScreenshot,
-              Iconz.mailSpamScreenshot,
-            ],
-          ),
-          confirmButtonVerse: const Verse(
-            id: 'phid_ok_i_will_check_spam',
-            translate: true,
-          ),
+        await Dialogs.emailSentSuccessfullyDialogs(
+          email: email,
         );
 
       }

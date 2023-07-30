@@ -48,7 +48,7 @@ class WipeBzProtocols {
     if (bzModel != null){
 
       if (showWaitDialog == true){
-        pushWaitDialog(
+        WaitDialog.showUnawaitedWaitDialog(
           verse: Verse(
             id: '${Verse.transBake('phid_deleting')} ${bzModel.name}',
             translate: false,
@@ -131,7 +131,7 @@ class WipeBzProtocols {
                             '${bzModel?.publication.getAllFlyersIDs().length} '
                             '${Verse.transBake('phid_flyers')}';
 
-      pushWaitDialog(
+      WaitDialog.showUnawaitedWaitDialog(
         verse: Verse.plain(_text),
       );
 

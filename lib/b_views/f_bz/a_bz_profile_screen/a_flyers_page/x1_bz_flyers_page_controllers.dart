@@ -201,7 +201,7 @@ Future<void> _onDeleteFlyerButtonTap({
       invoker: '_onDeleteFlyerButtonTap',
     );
 
-    pushWaitDialog(
+    WaitDialog.showUnawaitedWaitDialog(
       verse: const Verse(
         id: 'phid_deleting_flyer',
         translate: true,

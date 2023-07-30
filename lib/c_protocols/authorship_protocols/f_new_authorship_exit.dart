@@ -509,7 +509,7 @@ class NewAuthorshipExit {
       :
     Verse.transBake('phid_removing_author');
 
-    pushWaitDialog(
+    WaitDialog.showUnawaitedWaitDialog(
         verse: Verse(
           id: _waitText,
           translate: false,

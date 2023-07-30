@@ -170,7 +170,7 @@ class PhraseProtocols {
     if (Mapper.checkCanLoopList(updatedMixedMainPhrases) == true){
 
       if (showWaitDialog == true){
-        pushWaitDialog(
+        WaitDialog.showUnawaitedWaitDialog(
           verse: const Verse(
               id: 'phid_uploading',
               translate: true,
