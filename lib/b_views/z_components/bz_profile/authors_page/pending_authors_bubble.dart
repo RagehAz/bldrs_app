@@ -56,7 +56,6 @@ class PendingAuthorsBubble extends StatelessWidget {
                 translate: true,
               ),
               onSideButtonTap: () => onCancelSentAuthorshipInvitation(
-                context: context,
                 bzModel: _bzModel,
                 userID: _userID,
               ),

@@ -11,6 +11,7 @@ import 'package:bldrs/b_views/z_components/notes/topics_editor/topics_expanding_
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
@@ -26,13 +27,12 @@ class BzFCMTopicsScreenView extends StatelessWidget {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onSwitchAuthorSubscriptionToTopic({
-    required BuildContext context,
     required String? topicID,
     required bool value,
   }) async {
 
     final BzModel? _activeBz = BzzProvider.proGetActiveBzModel(
-      context: context,
+      context: getMainContext(),
       listen: false,
     );
 
@@ -45,7 +45,6 @@ class BzFCMTopicsScreenView extends StatelessWidget {
     await Future.wait(<Future>[
 
       UserProtocols.updateMyUserTopics(
-        context: context,
         topicID: _customTopicID,
       ),
 
@@ -65,12 +64,11 @@ class BzFCMTopicsScreenView extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onSwitchAll({
-    required BuildContext context,
     required bool value,
   }) async {
 
     final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
-      context: context,
+      context: getMainContext(),
       listen: false,
     );
 
@@ -78,13 +76,11 @@ class BzFCMTopicsScreenView extends StatelessWidget {
     if (value == true){
 
       await NoteProtocols.unsubscribeFromAllBzTopics(
-          context: context,
           bzID: _bzModel?.id,
           renovateUser: false
       );
 
       await NoteProtocols.subscribeToAllBzTopics(
-          context: context,
           bzID: _bzModel?.id,
           renovateUser: true,
       );
@@ -94,7 +90,6 @@ class BzFCMTopicsScreenView extends StatelessWidget {
     else {
 
       await NoteProtocols.unsubscribeFromAllBzTopics(
-          context: context,
           bzID: _bzModel?.id,
           renovateUser: true,
       );
@@ -156,12 +151,10 @@ class BzFCMTopicsScreenView extends StatelessWidget {
             hasSwitch: true,
             switchValue: _allIsOn,
             onSwitchTap: (bool value) => _onSwitchAll(
-              context: context,
               value: !_allIsOn,
             ),
           ),
           onTileTap: () => _onSwitchAll(
-            context: context,
             value: !_allIsOn,
           ),
         ),
@@ -191,13 +184,11 @@ class BzFCMTopicsScreenView extends StatelessWidget {
                   hasSwitch: true,
                   switchValue: _isSelected,
                   onSwitchTap: (bool value) => _onSwitchAuthorSubscriptionToTopic(
-                    context: context,
                     value: value,
                     topicID: topic.id,
                   ),
                 ),
                 onTileTap: () => _onSwitchAuthorSubscriptionToTopic(
-                  context: context,
                   value: !_isSelected,
                   topicID: topic.id,
                 ),

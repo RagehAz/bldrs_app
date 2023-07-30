@@ -244,7 +244,6 @@ bool checkFollowIsOn({
 // --------------------
 /// ON FOLLOW
 Future<void> onFollowTap({
-  required BuildContext context,
   required BzModel? bzModel,
   required String? flyerID,
   required ValueNotifier<bool> followIsOn,
@@ -252,7 +251,7 @@ Future<void> onFollowTap({
 }) async {
 
   final UserModel? _user = UsersProvider.proGetMyUserModel(
-    context: context,
+    context: getMainContext(),
     listen: false,
   );
 
@@ -278,7 +277,6 @@ Future<void> onFollowTap({
     );
 
     await UserProtocols.followingProtocol(
-      context: context,
       bzToFollow: bzModel,
       followIsOn: followIsOn.value,
     );

@@ -203,7 +203,6 @@ class BzFireOps {
               return <Widget>[
                 /// INAPPROPRIATE CONTENT
                 BottomDialog.wideButton(
-                    context: context,
                     verse: const Verse(
                       pseudo: 'This Account published Inappropriate content',
                       id: 'phid_account_published_inapp_content',
@@ -219,7 +218,6 @@ class BzFireOps {
 
                 /// COPY RIGHTS
                 BottomDialog.wideButton(
-                    context: context,
                     verse: const Verse(
                       pseudo: 'This Account violates copyrights',
                       id: 'phid_account_published_copyright_violation',

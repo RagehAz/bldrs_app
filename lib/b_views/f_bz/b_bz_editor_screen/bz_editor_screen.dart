@@ -438,7 +438,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
   Future<void> _onConfirmTap() async {
 
     await onConfirmBzEdits(
-      context: context,
       draftNotifier: draftNotifier,
       oldBz: widget.bzModel,
       mounted: mounted,

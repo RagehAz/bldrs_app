@@ -128,7 +128,6 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
       );
 
       await UserProtocols.renovate(
-        context: context,
         newPic: null,
         newUser: _newUser,
         oldUser: _oldUser,
@@ -137,7 +136,10 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
 
       await WaitDialog.closeWaitDialog();
 
-      await Nav.goBack(context: context, invoker: 'onConfirmEditingNeed');
+      await Nav.goBack(
+          context: context,
+          invoker: 'onConfirmEditingNeed',
+      );
 
     }
 

@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 
@@ -402,7 +401,6 @@ List<String> getNextFlyersIDs({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<List<FlyerModel>> fetchMoreFlyers({
-  required BuildContext context,
   required List<FlyerModel> loadedFlyers,
   required FlyerModel flyerModel,
   required String heroTag,
@@ -423,7 +421,6 @@ Future<List<FlyerModel>> fetchMoreFlyers({
   );
 
   final List<FlyerModel> _moreFlyers = await FlyerProtocols.fetchFlyers(
-    context:  context,
     flyersIDs: _nextFlyersIDs,
   );
 

@@ -17,7 +17,6 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RenovateFlyerProtocols {
@@ -32,7 +31,6 @@ class RenovateFlyerProtocols {
   // --------------------
   /// TASK : TEST ME VERIFY_ME
   static Future<void> renovateDraft({
-    required BuildContext context,
     required DraftFlyer? newDraft,
     required FlyerModel? oldFlyer,
     required bool sendFlyerUpdateNoteToItsBz,
@@ -133,7 +131,6 @@ class RenovateFlyerProtocols {
           /// SEND UPDATE NOTE TO BZ TEAM
           if (sendFlyerUpdateNoteToItsBz == true)
             NoteEvent.sendFlyerUpdateNoteToItsBz(
-              context: context,
               bzModel: _bzModel,
               flyerID: newDraft.id,
             ),

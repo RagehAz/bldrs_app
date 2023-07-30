@@ -68,7 +68,6 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
         if (widget.flyerID != null) {
 
           FlyerModel? _flyerModel = await FlyerProtocols.fetchFlyer(
-            context: context,
             flyerID: widget.flyerID,
           );
 

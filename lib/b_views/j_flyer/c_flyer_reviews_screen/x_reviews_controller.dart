@@ -260,7 +260,6 @@ Future<void> onReviewOptions({
 
           /// EDIT REVIEW
           BottomDialog.wideButton(
-              context: context,
               verse: const Verse(
                 id: 'phid_edit',
                 translate: true,
@@ -285,7 +284,6 @@ Future<void> onReviewOptions({
 
           /// DELETE REVIEW
           BottomDialog.wideButton(
-              context: context,
               verse: const Verse(
                 id: 'phid_delete',
                 translate: true,
@@ -566,7 +564,6 @@ Future<void> onBzReply({
           );
 
           await ReviewProtocols.composeReviewReply(
-            context: getMainContext(),
             updatedReview: _updated,
             bzID: bzID,
           );
@@ -604,7 +601,6 @@ Future<void> onReplyOptions({
 
           /// EDIT REPLY
           BottomDialog.wideButton(
-              context: context,
               verse: const Verse(id: 'phid_edit', translate: true),
               verseCentered: true,
               onTap: () async {
@@ -625,7 +621,6 @@ Future<void> onReplyOptions({
 
           /// DELETE REPLY
           BottomDialog.wideButton(
-              context: context,
               verse: const Verse(id: 'phid_delete', translate: true),
               verseCentered: true,
               onTap: () async {

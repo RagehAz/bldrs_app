@@ -60,7 +60,6 @@ Future<void> onShowNoteOptions({
         return <Widget>[
 
           BottomDialog.wideButton(
-              context: context,
               verse: const Verse(
                 id: 'phid_delete',
                 translate: true,

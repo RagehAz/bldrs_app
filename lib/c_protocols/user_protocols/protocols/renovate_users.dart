@@ -9,6 +9,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
@@ -19,7 +20,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/f_helpers/drafters/debuggers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
 
 class RenovateUserProtocols {
   // -----------------------------------------------------------------------------
@@ -33,7 +33,6 @@ class RenovateUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel?> renovateUser({
-    required BuildContext context,
     required UserModel? oldUser,
     required UserModel? newUser,
     required PicModel? newPic,
@@ -48,7 +47,6 @@ class RenovateUserProtocols {
       _output = oldUser;
 
       final UserModel? _oldUser = await UserProtocols.refetch(
-          context: context,
           userID: oldUser?.id,
       );
 
@@ -82,7 +80,6 @@ class RenovateUserProtocols {
 
           /// UPDATE LOCALLY
           updateLocally(
-            context: context,
             newUser: _output,
           ),
 
@@ -96,13 +93,11 @@ class RenovateUserProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> updateLocally({
     required UserModel? newUser,
-    required BuildContext context,
   }) async {
 
     // blog('RenovateUserProtocols.updateLocally : START');
 
     final UserModel? _oldUser = await UserProtocols.fetch(
-      context: context,
       userID: newUser?.id,
     );
 
@@ -163,7 +158,6 @@ class RenovateUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> followingProtocol({
-    required BuildContext context,
     required bool followIsOn,
     required BzModel? bzToFollow,
   }) async {
@@ -173,7 +167,7 @@ class RenovateUserProtocols {
     if (bzToFollow != null){
 
       final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
-        context: context,
+        context: getMainContext(),
         listen: false,
       );
 
@@ -191,7 +185,6 @@ class RenovateUserProtocols {
           ),
 
           renovateUser(
-            context: context,
             newPic: null,
             newUser: _newUser,
             oldUser: _oldUser,
@@ -222,7 +215,6 @@ class RenovateUserProtocols {
           ),
 
           renovateUser(
-            context: context,
             newPic: null,
             newUser: _newUser,
             oldUser: _oldUser,
@@ -246,7 +238,6 @@ class RenovateUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> savingFlyerProtocol({
-    required BuildContext context,
     required bool flyerIsSaved,
     required FlyerModel? flyerModel,
     required int slideIndex,
@@ -256,7 +247,7 @@ class RenovateUserProtocols {
     if (flyerModel != null){
 
       final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
-        context: context,
+        context: getMainContext(),
         listen: false,
       );
 
@@ -285,7 +276,6 @@ class RenovateUserProtocols {
 
             /// RENOVATE USER
             UserProtocols.renovate(
-              context: context,
               newPic: null,
               newUser: _newUser,
               oldUser: _oldUser,
@@ -314,7 +304,6 @@ class RenovateUserProtocols {
             ),
 
             renovateUser(
-              context: context,
               newUser: _newUser,
               newPic: null,
               oldUser: _oldUser,
@@ -341,12 +330,11 @@ class RenovateUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateMyUserTopics({
-    required BuildContext context,
     required String? topicID,
   }) async {
 
     final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
-      context: context,
+      context: getMainContext(),
       listen: false,
     );
     final List<String>? _userSubscribedTopics = _oldUser?.fcmTopics;
@@ -359,7 +347,6 @@ class RenovateUserProtocols {
     );
 
     await renovateUser(
-      context: context,
       newUser: _newUser,
       newPic: null,
       oldUser: _oldUser,

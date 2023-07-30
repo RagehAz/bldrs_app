@@ -169,7 +169,6 @@ class NoteEvent {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerReviewReceivedBzReply({
-    required BuildContext context,
     required ReviewModel? reviewModel,
     required BzModel? bzModel,
     // required String reviewCreatorID
@@ -181,7 +180,6 @@ class NoteEvent {
     );
 
     final UserModel? _userModel = await UserProtocols.fetch(
-      context: context,
       userID: _myAuthorModel?.userID,
     );
 
@@ -233,14 +231,12 @@ class NoteEvent {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendBzIsVerifiedNote({
-    required BuildContext context,
     required BzModel? bzModel,
   }) async {
 
     // assert(bzModel != null, 'bzModel is null');
 
     final UserModel? _userModel = await UserProtocols.fetch(
-      context: context,
       userID: bzModel?.authors?.first.userID,
     );
 

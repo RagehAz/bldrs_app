@@ -450,7 +450,6 @@ class BldrsNav {
     if (userID != null){
 
       final UserModel? _userModel = await UserProtocols.fetch(
-        context: getMainContext(),
         userID: userID,
       );
 

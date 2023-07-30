@@ -81,7 +81,6 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
   Future<void> _setAuthorRole(AuthorRole role) async {
 
     await setAuthorRole(
-      context: context,
       oldAuthor: widget.authorModel,
       selectedRole: role,
       tempRole: _tempRole,
