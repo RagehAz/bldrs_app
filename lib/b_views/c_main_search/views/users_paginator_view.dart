@@ -12,11 +12,13 @@ class UsersPaginatorView extends StatelessWidget {
   const UsersPaginatorView({
     required this.paginationController,
     required this.fireQueryModel,
+    this.onUserTap,
     super.key
   });
   // --------------------
   final FireQueryModel? fireQueryModel;
   final PaginationController paginationController;
+  final Function(UserModel userModel)? onUserTap;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ class UsersPaginatorView extends StatelessWidget {
                 context: context,
                 appBarType: AppBarType.search,
             ),
+            onTap: onUserTap,
           );
 
         },

@@ -91,7 +91,7 @@ class ChainProtocols {
           showWaitDialog: false,
         ),
 
-        AppStateRealOps.updateGlobalLDBVersion(),
+        AppStateFireOps.updateGlobalLDBVersion(),
 
       ]);
 

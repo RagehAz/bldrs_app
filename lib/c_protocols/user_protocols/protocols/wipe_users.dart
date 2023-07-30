@@ -21,7 +21,7 @@ import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-///
+/// => TAMAM
 class WipeUserProtocols {
   // -----------------------------------------------------------------------------
 
@@ -314,7 +314,7 @@ class WipeUserProtocols {
       /// DELETE ACCOUNT MODEL
       AccountLDBOps.deleteAccount(id: userModel?.id),
 
-      /// TASK : SHOULD DELETE USER SEARCHES LOCALLY
+      /// WILL KEEP USER SEARCHES TO
 
     ]);
 

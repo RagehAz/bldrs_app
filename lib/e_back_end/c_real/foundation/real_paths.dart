@@ -42,8 +42,8 @@ class RealDoc {
   // -----------------------------------------------------------------------------
   /// APP STATE
   // --------------------
-  static const String app_appState = 'appState';
   static const String app_tests = 'tests';
+  static const String app_history = 'history';
   // -----------------------------------------------------------------------------
   /// PICKERS
   // --------------------
@@ -108,12 +108,6 @@ class RealPath {
     required String reviewID,
     required String userID,
   }) => '${RealColl.agrees}/$bzID/$flyerID/$reviewID/$userID';
-  // -----------------------------------------------------------------------------
-
-  /// app
-
-  // --------------------
-  static String app_appState() => '${RealColl.app}/${RealDoc.app_appState}';
   // -----------------------------------------------------------------------------
 
   /// bldrsChains

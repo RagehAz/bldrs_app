@@ -484,15 +484,18 @@ class BottomDialog extends StatelessWidget {
                     ),
 
                   /// --- DIALOG CONTENT
-                  Container(
-                    width: _dialogClearWidth,
-                    height: _dialogClearHeight,
-                    decoration: BoxDecoration(
-                      color: Colorz.white10,
-                      borderRadius: _dialogClearCorners,
-                      // gradient: Colorizer.superHeaderStripGradient(Colorz.White20)
+                  ClipRRect(
+                    borderRadius: _dialogClearCorners,
+                    child: Container(
+                      width: _dialogClearWidth,
+                      height: _dialogClearHeight,
+                      decoration: BoxDecoration(
+                        color: Colorz.white10,
+                        borderRadius: _dialogClearCorners,
+                        // gradient: Colorizer.superHeaderStripGradient(Colorz.White20)
+                      ),
+                      child: child,
                     ),
-                    child: child,
                   ),
 
                 ],

@@ -206,7 +206,7 @@ class CenterDialog extends StatelessWidget {
       casing: Casing.capitalizeFirstChar,
     );
     // --------------------
-    final bool _hasLeftNoButton = boolDialog! == true && invertButtons == false;
+    final bool _hasLeftNoButton = Mapper.boolIsTrue(boolDialog) == true && invertButtons == false;
     final bool _hasRightNoButton = Mapper.boolIsTrue(boolDialog) == true && invertButtons == true;
     final bool _hasOnlyOneButton = _hasLeftNoButton == false && _hasRightNoButton == false;
 
