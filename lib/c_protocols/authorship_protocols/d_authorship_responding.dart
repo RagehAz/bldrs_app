@@ -127,7 +127,7 @@ class AuthorshipRespondingProtocols{
 
       blog('_acceptAuthorshipInvitation : accepted ');
 
-      pushWaitDialog(
+      WaitDialog.showUnawaitedWaitDialog(
         verse: Verse(
           id: 'phid_adding_you_to_bz',
           translate: true,

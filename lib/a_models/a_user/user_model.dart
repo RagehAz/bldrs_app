@@ -580,6 +580,49 @@ class UserModel {
       )?.value;
     }
   }
+  // --------------------
+  /// TASK TEST ME
+  static List<UserModel> getSignedUpUsersOnly({
+    required List<UserModel> users,
+  }){
+    final List<UserModel> _output = [];
+
+    if (Mapper.checkCanLoopList(users) == true){
+
+      for (final UserModel user in users){
+
+        if (user.signInMethod != SignInMethod.anonymous){
+          _output.add(user);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK TEST ME
+  static UserModel? getFirstAnonymousUserFromUsers({
+    required List<UserModel> users,
+  }){
+    UserModel? _output;
+
+    if (Mapper.checkCanLoopList(users) == true){
+
+      for (final UserModel user in users){
+
+        if (user.signInMethod == SignInMethod.anonymous){
+          _output = user;
+          break;
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// USERS MODIFIERS

@@ -158,13 +158,9 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
       _switchOnValidation();
 
       await authByEmailRegister(
-        context: context,
         email: _emailController.text,
         password: _passwordController.text,
-        passwordConfirmation: _confirmPasswordController.text,
         formKey: _formKey,
-        rememberMe: _isRememberingMe.value,
-        mounted: mounted,
       );
 
     }

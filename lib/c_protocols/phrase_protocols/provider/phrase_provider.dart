@@ -30,7 +30,7 @@ class PhraseProvider extends ChangeNotifier {
 
     if (langCode != null) {
 
-      pushWaitDialog(
+      WaitDialog.showUnawaitedWaitDialog(
         verse: const Verse(
           id: 'phid_change_app_lang_description',
           translate: true,

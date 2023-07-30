@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/b_views/b_auth/b_email_auth_screen/a_email_auth_screen.dart';
 import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
@@ -105,7 +107,7 @@ class UserInitializer {
           accounts: _accounts,
       );
 
-      /// HAS SOME ACCOUNT ALREADY
+      /// HAS NORMAL ACCOUNT IN LDB ALREADY
       if (Mapper.checkCanLoopList(_withoutAnonymous) == true){
         _continue = await _signInAccount(account: _withoutAnonymous.first);
       }
@@ -115,22 +117,101 @@ class UserInitializer {
         _continue = await _signInAccount(account: _anonymousAccount);
       }
 
-      /// NO ANONYMOUS ACCOUNT IN LDB FOUND
+      /// NO ACCOUNTS IN LDB FOUND
       else {
 
-        final UserModel? _anonymousUserOfThisDevice = await UserFireOps.readAnonymousUserByDeviceID();
+        final List<UserModel> _deviceUsers = await UserFireOps.readDeviceUsers();
+        final List<UserModel> _signedUpUsers = UserModel.getSignedUpUsersOnly(
+          users: _deviceUsers,
+        );
+        // final UserModel? _anonymousUserOfThisDevice = await UserFireOps.readAnonymousUserByDeviceID();
 
-        /// NO ANON. ACCOUNT FOUND IN FIREBASE
-        if (_anonymousUserOfThisDevice == null){
-          _continue = await _composeNewAnonymousUser();
-        }
+        /// HAS A FIRE USER MODELS LOST FROM LDB
+        if (Mapper.checkCanLoopList(_signedUpUsers) == true){
 
-        /// FOUND ANON. ACCOUNT IN FIREBASE
-        else {
-          _continue = await _reSignInAnonymousUser(
-            userModel: _anonymousUserOfThisDevice,
+          await AccountLDBOps.insertUserModels(
+            users: _signedUpUsers,
           );
+
+          await Nav.goToNewScreen(
+              context: getMainContext(),
+              screen: const EmailAuthScreen(),
+          );
+
         }
+
+        /// DID NOT SIGN IN BY SIGNUP ACCOUNTS
+        else {
+
+          final UserModel? _anonymousUser = UserModel.getFirstAnonymousUserFromUsers(
+            users: _deviceUsers,
+          );
+
+          /// NO ANON. ACCOUNT FOUND IN FIREBASE
+          if (_anonymousUser == null){
+            _continue = await _composeNewAnonymousUser();
+          }
+
+          /// FOUND ANON. ACCOUNT IN FIREBASE
+          else {
+            _continue = await _reSignInAnonymousUser(
+              userModel: _anonymousUser,
+            );
+          }
+
+        }
+
+      }
+
+    }
+
+    return _continue;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> _composeNewAnonymousUser() async {
+    bool _continue = false;
+
+    /// DEPRECATED
+    // final AuthModel? _anonymousAuth = await Authing.anonymousSignin();
+    //
+    // final UserModel? _anonymousUser = await UserModel.anonymousUser(
+    //   authModel: _anonymousAuth,
+    // );
+
+    final String _email = UserModel.createAnonymousEmail();
+    final String? _password = UserModel.createAnonymousPassword(
+      anonymousEmail: _email,
+    );
+
+    final AuthModel? _authModel = await EmailAuthing.register(
+      email: _email,
+      password: _password,
+      autoSendVerificationEmail: false,
+    );
+
+    if (_authModel != null){
+
+      final UserModel? userModel = await UserProtocols.composeAnonymous(
+        authModel: _authModel,
+      );
+
+      if (userModel != null){
+
+        final AccountModel _newAccount = AccountModel(
+            id: userModel.id,
+            email: _email,
+            password: _password,
+          );
+
+        await rememberOrForgetAccount(
+          rememberMe: true,
+          account: _newAccount,
+        );
+
+        _continue = await _signInAccount(
+          account: _newAccount,
+        );
 
       }
 
@@ -228,52 +309,6 @@ class UserInitializer {
     return _continue;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> _composeNewAnonymousUser() async {
-    bool _continue = false;
-
-    /// DEPRECATED
-    // final AuthModel? _anonymousAuth = await Authing.anonymousSignin();
-    //
-    // final UserModel? _anonymousUser = await UserModel.anonymousUser(
-    //   authModel: _anonymousAuth,
-    // );
-
-    final String _email = UserModel.createAnonymousEmail();
-    final String? _password = UserModel.createAnonymousPassword(
-      anonymousEmail: _email,
-    );
-
-    final AuthModel? _authModel = await EmailAuthing.register(
-      email: _email,
-      password: _password,
-    );
-
-    if (_authModel != null){
-
-      final UserModel? userModel = await UserProtocols.composeAnonymous(
-        authModel: _authModel,
-      );
-
-      if (userModel != null){
-
-        await rememberOrForgetAccount(
-          rememberMe: true,
-          account: AccountModel(
-            id: userModel.id,
-            email: _email,
-            password: _password,
-          ),
-        );
-
-        _continue = true;
-
-      }
-
-    }
-
-    return _continue;
-  }
   // -----------------------------------------------------------------------------
 
   /// USER DEVICE MODEL

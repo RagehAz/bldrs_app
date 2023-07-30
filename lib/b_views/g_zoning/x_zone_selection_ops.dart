@@ -202,7 +202,7 @@ class ZoneSelection {
     required ZoneModel? zone,
   }) async {
 
-      pushWaitDialog(
+      WaitDialog.showUnawaitedWaitDialog(
         verse: const Verse(
           id: 'phid_loading',
           translate: true,

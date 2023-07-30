@@ -42,7 +42,7 @@ class WipeUserProtocols {
 
     /// START WAITING : DIALOG IS CLOSED INSIDE BELOW DELETION OPS
     if (showWaitDialog == true){
-      pushWaitDialog(
+      WaitDialog.showUnawaitedWaitDialog(
         verse: const Verse(
           id: 'phid_deleting_your_account',
           translate: true,

@@ -39,7 +39,7 @@ class FlyerVerificationProtocols {
     ) {
 
       if (showWaitAndSuccessDialogs == true){
-        pushWaitDialog();
+        WaitDialog.showUnawaitedWaitDialog();
       }
 
       final List<PublishTime> _publishTimes = <PublishTime>[...?flyerModel!.times];
@@ -98,7 +98,7 @@ class FlyerVerificationProtocols {
 
     if (bzID != null){
 
-      pushWaitDialog();
+      WaitDialog.showUnawaitedWaitDialog();
 
       final BzModel? _bzModel = await BzProtocols.fetchBz(
           bzID: bzID,
