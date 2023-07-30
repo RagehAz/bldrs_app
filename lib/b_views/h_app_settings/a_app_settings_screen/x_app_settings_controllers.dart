@@ -148,7 +148,7 @@ Future<bool> rebootLogic() async {
 
   if (_result == true) {
 
-    pushWaitDialog(
+    WaitDialog.showUnawaitedWaitDialog(
       verse: const Verse(
         id: 'phid_restarting',
         translate: true,

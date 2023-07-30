@@ -327,7 +327,7 @@ Future<void> onConfirmAuthorUpdates({
 
   if (_result == true){
 
-    pushWaitDialog(
+    WaitDialog.showUnawaitedWaitDialog(
       verse: const Verse(
         id: 'phid_updating_author_profile',
         translate: true,
@@ -400,7 +400,7 @@ Future<void> onChangeAuthorRoleOps({
 
     else {
 
-      pushWaitDialog(
+      WaitDialog.showUnawaitedWaitDialog(
         verse: const Verse(
           id: 'phid_updating_author_profile',
           translate: true,

@@ -210,7 +210,7 @@ class EmailAuthScreenView extends StatelessWidget {
                   signingIn: _isSigningIn,
                   isOnConfirmPassword: false,
                 ),
-                onForgetPassword: onForgotPassword,
+                onForgotPassword: onForgotPassword,
                 isObscured: isObscured,
               ),
 

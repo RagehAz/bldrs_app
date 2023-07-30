@@ -11,20 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 
-void pushWaitDialog({
-  Verse? verse,
-  bool canManuallyGoBack = false,
-}){
-  WaitDialog.showUnawaitedWaitDialog(
-    verse: verse,
-    canManuallyGoBack: canManuallyGoBack,
-  );
-}
-
-void closeWaitDialog(){
-  unawaited(WaitDialog.closeWaitDialog());
-}
-
 class WaitDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const WaitDialog({

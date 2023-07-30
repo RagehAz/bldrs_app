@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
@@ -1048,6 +1049,10 @@ class Dialogs {
     return _result;
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// LANG DIALOG
+
   // --------------------
   static Future<String?> languageDialog() async {
     String? _output;
@@ -1104,6 +1109,10 @@ class Dialogs {
 
     return _output;
   }
+  // -----------------------------------------------------------------------------
+
+  /// PIC DIALOG
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> picsDialog({
@@ -1162,6 +1171,48 @@ class Dialogs {
     );
 
     return _result;
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EMAIL DIALOGS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> emailSentSuccessfullyDialogs({
+    required String email,
+  }) async {
+
+    await Dialogs.centerNotice(
+      verse: const Verse(
+        id: 'phid_email_sent_successfully',
+        translate: true,
+      ),
+    );
+
+    await Dialogs.picsDialog(
+      titleVerse: const Verse(
+        id: 'phid_check_spam_folder',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        id: 'phid_email_sent_successfully',
+        translate: true,
+      ),
+      boolDialog: false,
+      picsHeights: 120,
+      pics: await PicModel.createPicsFromLocalAssets(
+        width: 300,
+        assets: [
+          Iconz.mailJunkScreenshot,
+          Iconz.mailSpamScreenshot,
+        ],
+      ),
+      confirmButtonVerse: const Verse(
+        id: 'phid_ok_i_will_check_spam',
+        translate: true,
+      ),
+    );
 
   }
   // --------------------

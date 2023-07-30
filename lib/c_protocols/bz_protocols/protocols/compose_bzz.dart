@@ -43,7 +43,7 @@ class ComposeBzProtocols {
     if (newDraft?.logoPicModel != null){
 
       /// WAIT DIALOG
-      pushWaitDialog(
+      WaitDialog.showUnawaitedWaitDialog(
         verse: const Verse(
           id: 'phid_creating_new_bz_account',
           translate: true,

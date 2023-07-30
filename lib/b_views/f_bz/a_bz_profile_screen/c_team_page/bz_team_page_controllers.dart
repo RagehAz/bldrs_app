@@ -352,7 +352,7 @@ Future<void> onSendAuthorshipInvitation({
 
     if (_result == true){
 
-      pushWaitDialog();
+      WaitDialog.showUnawaitedWaitDialog();
 
       await AuthorshipProtocols.sendRequest(
         oldBz: bzModel,

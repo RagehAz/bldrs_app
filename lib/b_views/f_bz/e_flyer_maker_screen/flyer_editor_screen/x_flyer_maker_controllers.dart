@@ -603,7 +603,7 @@ Future<void> _publishFlyerOps({
   required DraftFlyer? draft,
 }) async {
 
-  pushWaitDialog(
+  WaitDialog.showUnawaitedWaitDialog(
     verse: const Verse(
       id: 'phid_uploading_flyer',
       translate: true,
@@ -624,7 +624,7 @@ Future<void> _updateFlyerOps({
   required FlyerModel? oldFlyer,
 }) async {
 
-  pushWaitDialog(
+  WaitDialog.showUnawaitedWaitDialog(
     verse: const Verse(
       id: 'phid_uploading_flyer',
       translate: true,
