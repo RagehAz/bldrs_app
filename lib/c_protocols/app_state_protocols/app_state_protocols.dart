@@ -26,7 +26,7 @@ class AppStateProtocols {
       listen: false,
     );
 
-    _globalAppState ??= await AppStateRealOps.readGlobalAppState();
+    _globalAppState ??= await AppStateFireOps.readGlobalAppState();
 
     GeneralProvider.proSetGlobalAppState(
       state: _globalAppState,

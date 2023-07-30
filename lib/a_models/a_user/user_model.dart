@@ -17,7 +17,6 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
@@ -567,6 +566,19 @@ class UserModel {
     }
 
     return _pics;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? getUserEmail(UserModel? user){
+    if (user == null){
+      return null;
+    }
+    else {
+      return ContactModel.getContactFromContacts(
+        contacts: user.contacts,
+        type: ContactType.email,
+      )?.value;
+    }
   }
   // -----------------------------------------------------------------------------
 
@@ -1171,7 +1183,8 @@ class UserModel {
         fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
         savedFlyers: DeckModel.newDeck(),
         followedBzz: AgendaModel.newAgenda(),
-        appState: await AppStateProtocols.fetchGlobalAppState(),
+        /// BY THE TIME WE ARE CREATING AN ANONYMOUS USER, WE DON'T HAVE PERMISSION TO READ THIS
+        appState: null, //await AppStateProtocols.fetchGlobalAppState(),
     );
 
     }
@@ -1268,7 +1281,7 @@ class UserModel {
     else if (user1 != null && user2 != null){
 
       if (
-      user1.id == user2.id &&
+          user1.id == user2.id &&
           user1.signInMethod == user2.signInMethod &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) == true &&
           NeedModel.checkNeedsAreIdentical(user1.need, user2.need) == true &&

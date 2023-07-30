@@ -106,7 +106,7 @@ class PickerProtocols {
           showWaitDialog: false,
         ),
 
-        AppStateRealOps.updateGlobalLDBVersion(),
+        AppStateFireOps.updateGlobalLDBVersion(),
 
       ]);
 

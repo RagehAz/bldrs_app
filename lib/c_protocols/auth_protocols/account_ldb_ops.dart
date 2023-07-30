@@ -3,7 +3,7 @@ import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-
+/// => TAMAM
 class AccountLDBOps {
   // -----------------------------------------------------------------------------
 
@@ -23,6 +23,7 @@ class AccountLDBOps {
         docName: LDBDoc.accounts,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.accounts),
         input: account.toMap(),
+        // allowDuplicateIDs: false,
       );
     }
   }
@@ -65,7 +66,7 @@ class AccountLDBOps {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<AccountModel?> readAnonymousAccount() async {
     AccountModel? _output;
 
@@ -95,7 +96,7 @@ class AccountLDBOps {
   /// DELETE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteAccount({
     required String? id,
   }) async {
@@ -108,7 +109,7 @@ class AccountLDBOps {
     }
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteAllAccounts() async {
 
     await LDBOps.deleteAllMapsAtOnce(

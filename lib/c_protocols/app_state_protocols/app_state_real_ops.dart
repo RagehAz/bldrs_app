@@ -1,11 +1,11 @@
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:fire/super_fire.dart';
 /// => TAMAM
-class AppStateRealOps {
+class AppStateFireOps {
   // -----------------------------------------------------------------------------
 
-  const AppStateRealOps();
+  const AppStateFireOps();
 
   // -----------------------------------------------------------------------------
 
@@ -17,11 +17,13 @@ class AppStateRealOps {
     required AppStateModel? newAppState,
   }) async {
     if (newAppState != null) {
-      await Real.createDoc(
-        coll: RealColl.app,
-        doc: RealDoc.app_appState,
-        map: newAppState.toMap(toUserModel: false),
+
+      await Fire.createDoc(
+        coll: FireColl.admin,
+        doc: FireDoc.admin_appState,
+        input: newAppState.toMap(toUserModel: false),
       );
+
     }
   }
   // -----------------------------------------------------------------------------
@@ -32,9 +34,9 @@ class AppStateRealOps {
   /// TESTED : WORKS PERFECT
   static Future<AppStateModel?> readGlobalAppState() async {
 
-    final Map<String, dynamic>? _map = await Real.readDoc(
-      coll: RealColl.app,
-      doc: RealDoc.app_appState,
+    final Map<String, dynamic>? _map = await Fire.readDoc(
+      coll: FireColl.admin,
+      doc: FireDoc.admin_appState,
     );
 
     return AppStateModel.fromMap(_map);
