@@ -206,7 +206,7 @@ class PhraseProtocols {
           newMainPhrases: updatedMixedMainPhrases,
         ),
 
-        AppStateRealOps.updateGlobalLDBVersion(),
+        AppStateFireOps.updateGlobalLDBVersion(),
 
       ]);
 
