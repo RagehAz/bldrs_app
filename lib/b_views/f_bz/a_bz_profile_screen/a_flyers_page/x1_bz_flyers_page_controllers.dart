@@ -33,7 +33,6 @@ import 'package:basics/layouts/nav/nav.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onFlyerBzOptionsTap({
-  required BuildContext context,
   required FlyerModel flyer,
 }) async {
 
@@ -45,12 +44,12 @@ Future<void> onFlyerBzOptionsTap({
     flyer: flyer,
     myID: Authing.getUserID(),
     bzModel: BzzProvider.proGetActiveBzModel(
-      context: context,
+      context: getMainContext(),
       listen: false,
     ),
   );
 
-  final double _posterWidth = BottomDialog.clearWidth(context);
+  final double _posterWidth = BottomDialog.clearWidth();
   final double _posterHeight = NotePosterBox.getBoxHeight(_posterWidth);
   final double _clearHeight = _posterHeight + (BottomDialog.wideButtonHeight * 2) + (5 * 2) + 10;
 
@@ -75,11 +74,9 @@ Future<void> onFlyerBzOptionsTap({
 
           /// EDIT FLYER BUTTON
           BottomDialog.wideButton(
-            context: context,
             verse: const Verse(id: 'phid_edit_flyer', translate: true),
             verseCentered: true,
             onTap: () => _onEditFlyerButtonTap(
-              context: context,
               flyer: flyer,
             ),
           ),
@@ -91,14 +88,12 @@ Future<void> onFlyerBzOptionsTap({
 
           /// DELETE FLYER BUTTON
           BottomDialog.wideButton(
-            context: context,
             verseCentered: true,
             isDeactivated: !_canDeleteFlyer,
             onDeactivatedTap: () => _onCanNotDeleteFlyerDialog(),
             /// --->
             verse: const Verse(id: 'phid_delete_flyer', translate: true),
             onTap: () => _onDeleteFlyerButtonTap(
-              context: context,
               flyer: flyer,
             ),
             /// --->
@@ -128,13 +123,12 @@ Future<void> onFlyerBzOptionsTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onEditFlyerButtonTap({
-  required BuildContext context,
   required FlyerModel flyer,
 }) async {
 
   /// CLOSE BOTTOM DIALOG
   await Nav.goBack(
-    context: context,
+    context: getMainContext(),
     invoker: '_onEditFlyerButtonTap',
   );
 
@@ -143,7 +137,7 @@ Future<void> _onEditFlyerButtonTap({
   );
 
   final bool? _result = await Nav.goToNewScreen(
-    context: context,
+    context: getMainContext(),
     screen: NewFlyerEditorScreen(
       draftFlyer: _draft,
       onConfirm: (DraftFlyer? draft) async {
@@ -151,7 +145,6 @@ Future<void> _onEditFlyerButtonTap({
         draft?.blogDraft(invoker: 'New Flyer Editor Test');
 
         await onConfirmPublishFlyerButtonTap(
-          context: context,
           oldFlyer: flyer,
           draft: draft,
         );
@@ -194,7 +187,6 @@ Future<void> _onCanNotDeleteFlyerDialog() async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onDeleteFlyerButtonTap({
-  required BuildContext context,
   required FlyerModel flyer,
 }) async {
 
@@ -205,7 +197,7 @@ Future<void> _onDeleteFlyerButtonTap({
   if (_result == true){
 
     await Nav.goBack(
-      context: context,
+      context: getMainContext(),
       invoker: '_onDeleteFlyerButtonTap',
     );
 

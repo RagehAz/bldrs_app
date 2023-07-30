@@ -4,7 +4,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:flutter/material.dart';
 
 class FetchUserProtocols {
   // -----------------------------------------------------------------------------
@@ -18,7 +17,6 @@ class FetchUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel?> fetchUser({
-    required BuildContext context,
     required String? userID
   }) async {
 
@@ -62,7 +60,6 @@ class FetchUserProtocols {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<UserModel>> fetchUsers({
-    required BuildContext context,
     required List<String> usersIDs,
   }) async {
     blog('FetchUserProtocols.fetchUsers : START');
@@ -74,7 +71,6 @@ class FetchUserProtocols {
       for (final String userID in usersIDs){
 
         final UserModel? _userModel = await fetchUser(
-          context: context,
           userID: userID,
         );
 
@@ -98,11 +94,10 @@ class FetchUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel?> refetch({
-    required BuildContext context,
     required String? userID
   }) async {
     await UserLDBOps.deleteUserOps(userID);
-    final UserModel? _user = await fetchUser(context: context, userID: userID);
+    final UserModel? _user = await fetchUser(userID: userID);
     return _user;
   }
   // -----------------------------------------------------------------------------

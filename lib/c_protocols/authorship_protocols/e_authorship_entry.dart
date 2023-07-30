@@ -50,14 +50,12 @@ class AuthorshipEntryProtocols {
 
     /// SUBSCRIBE TO BZ TOPICS
     await NoteProtocols.subscribeToAllBzTopics(
-      context: getMainContext(),
       bzID: bzID,
       renovateUser: false,
     );
 
     /// UPDATE MY USER MODEL EVERY WHERE --------------------------
     final UserModel? _uploadedUser = await UserProtocols.renovate(
-      context: getMainContext(),
       newUser: _newUser,
       oldUser: _oldUser,
       newPic: null,
@@ -92,7 +90,6 @@ class AuthorshipEntryProtocols {
     /// UPDATE BZ EVERYWHERE PROTOCOL --------------------------
     // final BzModel _uploadedBzModel =
     await BzProtocols.renovateBz(
-      context: getMainContext(),
       oldBz: _oldBz,
       newBz: _newBz,
       showWaitDialog: false,

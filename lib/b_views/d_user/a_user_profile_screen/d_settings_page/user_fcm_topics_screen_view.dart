@@ -24,13 +24,11 @@ class UserFCMTopicsScreenView extends StatelessWidget {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onSwitch({
-    required BuildContext context,
     required String? topicID,
     required bool value,
   }) async {
 
     await UserProtocols.updateMyUserTopics(
-      context: context,
       topicID: topicID,
     );
 
@@ -38,7 +36,6 @@ class UserFCMTopicsScreenView extends StatelessWidget {
   // --------------------
   ///
   Future<void> _onSwitchAll({
-    required BuildContext context,
     required bool value,
   }) async {
 
@@ -56,7 +53,6 @@ class UserFCMTopicsScreenView extends StatelessWidget {
       );
 
       await UserProtocols.renovate(
-          context: context,
           newPic: null,
           oldUser: _userModel,
           newUser: _userModel?.copyWith(
@@ -76,7 +72,6 @@ class UserFCMTopicsScreenView extends StatelessWidget {
       );
 
       await UserProtocols.renovate(
-        context: context,
         newPic: null,
         newUser: _userModel?.copyWith(
           fcmTopics: _updatedTopics,
@@ -130,12 +125,10 @@ class UserFCMTopicsScreenView extends StatelessWidget {
             hasSwitch: true,
             switchValue: _allIsOn,
             onSwitchTap: (bool value) => _onSwitchAll(
-              context: context,
               value: !_allIsOn,
             ),
           ),
           onTileTap: () => _onSwitchAll(
-            context: context,
             value: !_allIsOn,
           ),
         ),
@@ -165,13 +158,11 @@ class UserFCMTopicsScreenView extends StatelessWidget {
                 hasSwitch: true,
                 switchValue: _isSelected,
                 onSwitchTap: (bool value) => _onSwitch(
-                  context: context,
                   value: value,
                   topicID: topic.id,
                 ),
               ),
               onTileTap: () => _onSwitch(
-                context: context,
                 value: !_isSelected,
                 topicID: topic.id,
               ),

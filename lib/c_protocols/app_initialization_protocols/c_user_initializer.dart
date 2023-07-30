@@ -18,7 +18,6 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/cupertino.dart';
 
 class UserInitializer {
   // -----------------------------------------------------------------------------
@@ -33,7 +32,6 @@ class UserInitializer {
   /// TESTED : WORKS PERFECT
   static Future<bool> initializeUser() async {
 
-    final BuildContext context = getMainContext();
 
     /// CREATE - FETCH USER MODEL
     final bool _continue = await _initializeUserModel();
@@ -42,7 +40,7 @@ class UserInitializer {
 
       /// GET USER MODEL
       final UserModel? _old = UsersProvider.proGetMyUserModel(
-        context: context,
+        context: getMainContext(),
         listen: false,
       );
 
@@ -67,7 +65,6 @@ class UserInitializer {
 
         await UserProtocols.renovate(
           invoker: 'UserInitializer.initializeUser',
-          context: context,
           oldUser: _old,
           newUser: _new,
           newPic: null,
@@ -212,7 +209,6 @@ class UserInitializer {
     if (userID != null){
 
       final UserModel? _userModel = await UserProtocols.fetch(
-        context: getMainContext(),
         userID: userID,
         );
 
@@ -326,8 +322,6 @@ class UserInitializer {
       /// REFRESH DEVICE MODEL
       if (_shouldRefreshDevice == true){
 
-        final BuildContext context = getMainContext();
-
         /// SHOULD REFETCH, and I will explain why
         /// user using device A renovated his user model and updated firebase
         /// closed device A and opens device B
@@ -337,7 +331,6 @@ class UserInitializer {
         /// so we refetch model
         /// cheers
         _output = await UserProtocols.refetch(
-            context: context,
             userID: _output.id,
         );
 
@@ -349,7 +342,6 @@ class UserInitializer {
 
           /// TAKES TOO LONG AND NOTHING DEPENDS ON IT
           unawaited(_resubscribeToAllMyTopics(
-            context: context,
             myUserModel: _output,
           ));
 
@@ -364,7 +356,6 @@ class UserInitializer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _resubscribeToAllMyTopics({
-    required BuildContext context,
     required UserModel? myUserModel,
   }) async {
 

@@ -14,7 +14,6 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
 
 class FlyerVerificationProtocols {
   // -----------------------------------------------------------------------------
@@ -28,7 +27,6 @@ class FlyerVerificationProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> verifyFlyer({
-    required BuildContext context,
     required FlyerModel? flyerModel,
     bool showWaitAndSuccessDialogs = true,
     bool sendNote = true,
@@ -65,7 +63,6 @@ class FlyerVerificationProtocols {
         /// SEND VERIFICATION NOTE
         if (sendNote == true)
         NoteEvent.sendFlyerIsVerifiedNoteToBz(
-          context: context,
           flyerID: flyerModel.id!,
           bzID: flyerModel.bzID!,
         ),
@@ -94,7 +91,6 @@ class FlyerVerificationProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> verifyBz({
-    required BuildContext context,
     required String? bzID,
   }) async {
 
@@ -112,17 +108,14 @@ class FlyerVerificationProtocols {
 
         await Future.wait(<Future>[
           _verifyAllBzFlyers(
-            context: context,
             bzModel: _bzModel!,
           ).then((List<FlyerModel> flyers) {
             _output = flyers;
           }),
           _verifyBzDoc(
-            context: context,
             bzModel: _bzModel,
           ),
           NoteEvent.sendBzIsVerifiedNote(
-            context: context,
             bzModel: _bzModel,
           ),
         ]);
@@ -142,7 +135,6 @@ class FlyerVerificationProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> _verifyAllBzFlyers({
-    required BuildContext context,
     required BzModel bzModel,
   }) async {
 
@@ -175,7 +167,6 @@ class FlyerVerificationProtocols {
         ...List.generate(_nonVerifiedFlyers!.length, (index){
 
           return verifyFlyer(
-            context: context,
             flyerModel: _nonVerifiedFlyers[index],
             sendNote: false,
             showWaitAndSuccessDialogs: false,
@@ -193,12 +184,10 @@ class FlyerVerificationProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _verifyBzDoc({
-    required BuildContext context,
     required BzModel bzModel,
   }) async {
 
     await BzProtocols.renovateBz(
-        context: context,
         showWaitDialog: false,
         oldBz: bzModel,
         newLogo: null,

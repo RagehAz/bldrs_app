@@ -21,7 +21,6 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 /// => TAMAM
@@ -33,7 +32,6 @@ class ComposeBzProtocols {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel?> compose({
-    required BuildContext context,
     required DraftBz? newDraft,
     required UserModel? userModel,
   }) async {
@@ -70,7 +68,6 @@ class ComposeBzProtocols {
 
       /// UPDATE MY USER MODEL
       await _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics(
-        context: context,
         bzID: _bzModel?.id,
       );
 
@@ -105,7 +102,6 @@ class ComposeBzProtocols {
       ]);
 
       await StagingLeveller.levelUpZone(
-        context: context,
         zoneModel: _bzModel?.zone,
       );
 
@@ -164,12 +160,11 @@ class ComposeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics({
-    required BuildContext context,
     required String? bzID,
   }) async {
 
     final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
-      context: context,
+      context: getMainContext(),
       listen: false,
     );
 
@@ -186,13 +181,11 @@ class ComposeBzProtocols {
     await Future.wait(<Future>[
 
       NoteProtocols.subscribeToAllBzTopics(
-        context: context,
         bzID: bzID,
         renovateUser: false,
       ),
 
       UserProtocols.renovate(
-        context: context,
         newPic: null,
         newUser: _newUser,
         oldUser: _oldUser,

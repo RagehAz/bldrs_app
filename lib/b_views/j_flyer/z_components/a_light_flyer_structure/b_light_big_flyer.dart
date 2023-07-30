@@ -376,7 +376,6 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   Future<void> _onFollowTap() async {
     await onFollowTap(
-      context: context,
       bzModel: _flyer.value?.bzModel,
       flyerID: _flyer.value?.id,
       followIsOn: _followIsOn,
@@ -479,7 +478,6 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
         await Future.wait(<Future>[
           _triggerAnimation(!_flyerIsSaved.value),
           onSaveFlyer(
-            context: context,
             flyerModel: _flyer.value,
             slideIndex: _progressBarModel.value?.index ?? 0,
             flyerIsSaved: _flyerIsSaved,

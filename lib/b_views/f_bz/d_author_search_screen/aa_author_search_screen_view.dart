@@ -80,7 +80,6 @@ class AuthorSearchScreenView extends StatelessWidget {
                           ... PendingAuthor.getPendingsUsersIDs(bzModel?.pendingAuthors)
                         ],
                         onSideButtonTap: (UserModel userModel) => onSendAuthorshipInvitation(
-                          context: context,
                           selectedUser: userModel,
                           bzModel: bzModel,
                         ),

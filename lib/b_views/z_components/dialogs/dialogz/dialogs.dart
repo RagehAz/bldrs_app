@@ -260,7 +260,7 @@ class Dialogs {
       ),
       titleVerse: titleVerse,
       child: SizedBox(
-        width: BottomDialog.clearWidth(context),
+        width: BottomDialog.clearWidth(),
         height: 70,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -272,7 +272,7 @@ class Dialogs {
               width: Scale.getUniformRowItemWidth(
                 context: context,
                 numberOfItems: 2,
-                boxWidth: BottomDialog.clearWidth(context),
+                boxWidth: BottomDialog.clearWidth(),
               ),
               // color: Colorz.bloodTest,
               verse: const Verse(
@@ -292,7 +292,7 @@ class Dialogs {
               width: Scale.getUniformRowItemWidth(
                 context: context,
                 numberOfItems: 2,
-                boxWidth: BottomDialog.clearWidth(context),
+                boxWidth: BottomDialog.clearWidth(),
               ),
               color: Colorz.green125,
               verse: const Verse(
@@ -503,7 +503,7 @@ class Dialogs {
 
     const double _ratioOfScreenHeight = 0.8;
     final double _overridingDialogHeight = BottomDialog.dialogHeight(getMainContext(), ratioOfScreenHeight: _ratioOfScreenHeight);
-    final double _clearWidth = BottomDialog.clearWidth(getMainContext());
+    final double _clearWidth = BottomDialog.clearWidth();
     final double _clearHeight = BottomDialog.clearHeight(
         context: getMainContext(),
         overridingDialogHeight: _overridingDialogHeight,
@@ -656,7 +656,6 @@ class Dialogs {
               );
 
               return BottomDialog.wideButton(
-                  context: getMainContext(),
                   verse: Verse(
                     id: _foundCityName,
                     translate: false,
@@ -832,7 +831,6 @@ class Dialogs {
               final BzModel _bzModel = bzzModels[index];
 
               return BottomDialog.wideButton(
-                context: context,
                 verse: Verse.plain(_bzModel.name),
                 icon: _bzModel.logoPath,
                 bigIcon: true,

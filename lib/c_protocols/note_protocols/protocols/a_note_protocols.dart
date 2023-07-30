@@ -121,7 +121,6 @@ class NoteProtocols {
 
       /// SEND FCM
       await _sendFCMToOneReceiver(
-        context: getMainContext(),
         noteModel: _note,
       );
 
@@ -274,7 +273,6 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _sendFCMToOneReceiver({
-    required BuildContext context,
     required NoteModel? noteModel,
   }) async {
 
@@ -288,14 +286,12 @@ class NoteProtocols {
       }
 
       final bool _receiverCanReceive = await _checkReceiverCanReceiveFCM(
-        context: context,
         noteModel: _note,
       );
 
       if (_receiverCanReceive == true){
 
         final NoteModel? _note = await _adjustNoteToken(
-            context: context,
             noteModel: noteModel
         );
 
@@ -307,7 +303,6 @@ class NoteProtocols {
             blog('should send TO DEVICE aho note to ${_note?.parties?.receiverID}');
 
             await CloudFunction.call(
-                context: context,
                 functionName: CloudFunction.callSendFCMToDevice,
                 mapToPass: _note?.toMap(toJSON: true),
                 onFinish: (dynamic result){
@@ -325,7 +320,6 @@ class NoteProtocols {
           blog('should send TO DEVICE aho note to ${_note?.parties?.receiverID}');
 
           await CloudFunction.call(
-              context: context,
               functionName: CloudFunction.callSendFCMToTopic,
               mapToPass: _note?.toMap(toJSON: true),
               onFinish: (dynamic result){
@@ -345,7 +339,6 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> _checkReceiverCanReceiveFCM({
-    required BuildContext context,
     required NoteModel? noteModel,
   }) async {
     bool _canReceive = false;
@@ -356,7 +349,6 @@ class NoteProtocols {
       if (noteModel!.parties?.receiverType == PartyType.user){
 
         final UserModel? _userModel = await UserProtocols.refetch(
-          context: context,
           userID: noteModel.parties?.receiverID,
         );
 
@@ -383,7 +375,6 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<NoteModel?> _adjustNoteToken({
-    required BuildContext context,
     required NoteModel? noteModel,
   }) async {
     NoteModel? _note = noteModel;
@@ -394,7 +385,6 @@ class NoteProtocols {
       if (noteModel.parties?.receiverType == PartyType.user){
 
         final UserModel? _user = await UserProtocols.fetch(
-          context: context,
           userID: noteModel.parties?.receiverID,
         );
 
@@ -650,7 +640,6 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> subscribeToAllBzTopics({
-    required BuildContext context,
     required String? bzID,
     required bool renovateUser,
   }) async {
@@ -666,7 +655,6 @@ class NoteProtocols {
         /// RENOVATE USER MODEL FCM TOPICS FIELD
         if (renovateUser == true)
           _addAllBzTopicsToMyTopicsAndRenovate(
-            context: context,
             bzID: bzID,
           ),
 
@@ -690,12 +678,11 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _addAllBzTopicsToMyTopicsAndRenovate({
-    required BuildContext context,
     required String bzID,
   }) async {
 
     final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
-      context: context,
+      context: getMainContext(),
       listen: false,
     );
 
@@ -707,7 +694,6 @@ class NoteProtocols {
       );
 
       await UserProtocols.renovate(
-        context: context,
         newPic: null,
         newUser: _newUser,
         oldUser: _oldUser,
@@ -720,7 +706,6 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> unsubscribeFromAllBzTopics({
-    required BuildContext context,
     required String? bzID,
     required bool renovateUser,
   }) async {
@@ -736,7 +721,6 @@ class NoteProtocols {
         /// RENOVATE USER MODEL
         if (renovateUser == true)
           _removeAllBzTopicsFromMyTopicsAndRenovate(
-            context: context,
             bzID: bzID,
           ),
 
@@ -755,12 +739,11 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _removeAllBzTopicsFromMyTopicsAndRenovate({
-    required BuildContext context,
     required String bzID,
   }) async {
 
     final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
-      context: context,
+      context: getMainContext(),
       listen: false,
     );
 
@@ -772,7 +755,6 @@ class NoteProtocols {
       );
 
       await UserProtocols.renovate(
-        context: context,
         newPic: null,
         newUser: _newUser,
         oldUser: _oldUser,
@@ -785,7 +767,6 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> unsubscribeFromAllBzzTopics({
-    required BuildContext context,
     required List<String> bzzIDs,
     required bool renovateUser,
   }) async {
@@ -797,7 +778,6 @@ class NoteProtocols {
         ...List.generate(bzzIDs.length, (index) {
 
           return unsubscribeFromAllBzTopics(
-            context: context,
             bzID: bzzIDs[index],
             renovateUser: renovateUser,
           );

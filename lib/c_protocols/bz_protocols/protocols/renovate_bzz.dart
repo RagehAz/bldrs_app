@@ -14,7 +14,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 class RenovateBzProtocols {
@@ -29,7 +28,6 @@ class RenovateBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel?> renovateBz({
-    required BuildContext context,
     required BzModel? newBz,
     required BzModel? oldBz,
     required bool showWaitDialog,
@@ -207,7 +205,6 @@ class RenovateBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel?> renovateAuthor({
-    required BuildContext context,
     required BzModel? oldBz,
     required AuthorModel? newAuthor,
   }) async {
@@ -224,7 +221,6 @@ class RenovateBzProtocols {
 
     /// UPDATE BZ ON FIREBASE
     await renovateBz(
-      context: context,
       newBz: _newBz,
       oldBz: oldBz,
       showWaitDialog: false,

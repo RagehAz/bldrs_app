@@ -243,7 +243,6 @@ Future<void> onUnitSelectorButtonTap({
                 final String _unitID = _units[index];
 
                 return BottomDialog.wideButton(
-                  context: context,
                   verse: Verse(
                     id: Phider.removeIndexFromPhid(phid: _unitID),
                     translate: true,

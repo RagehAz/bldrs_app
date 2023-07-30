@@ -14,7 +14,6 @@ import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.da
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:flutter/material.dart';
 /// => TAMAM
 class NoteEventsOfBzFlyersManagement {
   // -----------------------------------------------------------------------------
@@ -28,7 +27,6 @@ class NoteEventsOfBzFlyersManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerUpdateNoteToItsBz({
-    required BuildContext context,
     required BzModel? bzModel,
     required String? flyerID,
   }) async {
@@ -38,12 +36,10 @@ class NoteEventsOfBzFlyersManagement {
     if (bzModel != null && flyerID != null) {
 
       final UserModel? _userModel = await UserProtocols.fetch(
-        context: context,
         userID: bzModel.authors?.first.userID,
       );
 
       final FlyerModel? _flyer = await FlyerProtocols.fetchFlyer(
-        context: context,
         flyerID: flyerID,
       );
 
@@ -95,7 +91,6 @@ class NoteEventsOfBzFlyersManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerIsVerifiedNoteToBz({
-    required BuildContext context,
     required String flyerID,
     required String bzID,
   }) async {
@@ -107,7 +102,6 @@ class NoteEventsOfBzFlyersManagement {
     );
 
     final UserModel? _userModel = await UserProtocols.fetch(
-      context: context,
       userID: _bzModel?.authors?.first.userID,
     );
 

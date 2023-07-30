@@ -17,7 +17,6 @@ import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols
 import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
 
@@ -63,7 +62,6 @@ class WipeFlyerProtocols {
 
         /// UPDATE BZ AND AUTHOR MODELS
         _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs(
-          context: getMainContext(),
           oldBz: _oldBz,
           flyer: flyerModel,
         ),
@@ -89,7 +87,6 @@ class WipeFlyerProtocols {
 
         /// DELETE SLIDES PICS + PDF + POSTER
         BldrsCloudFunctions.deleteStorageDirectory(
-          context: getMainContext(),
           path: StoragePath.flyers_flyerID(flyerID: flyerModel.id),
         ),
 
@@ -123,7 +120,6 @@ class WipeFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs({
-    required BuildContext context,
     required FlyerModel? flyer,
     required BzModel? oldBz,
   }) async {
@@ -137,7 +133,6 @@ class WipeFlyerProtocols {
       );
 
       await BzProtocols.renovateBz(
-          context: context,
           newBz: _newBz,
           oldBz: oldBz,
           showWaitDialog: false,
@@ -169,7 +164,6 @@ class WipeFlyerProtocols {
         Future<void> _wipeAFlyer(String? flyerID) async {
 
           final FlyerModel? _flyerModel = await FlyerProtocols.fetchFlyer(
-            context: getMainContext(),
             flyerID: flyerID,
           );
 
@@ -185,7 +179,6 @@ class WipeFlyerProtocols {
 
               /// DELETE SLIDES PICS + PDF + POSTER
               BldrsCloudFunctions.deleteStorageDirectory(
-                context: getMainContext(),
                 path: StoragePath.flyers_flyerID(flyerID: flyerID),
               ),
 
