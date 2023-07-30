@@ -93,8 +93,8 @@ class BottomDialog extends StatelessWidget {
     return _topZoneHeight;
   }
   // --------------------
-  static double dialogWidth(BuildContext context) {
-    return Bubble.bubbleWidth(context: context);
+  static double dialogWidth() {
+    return Bubble.bubbleWidth(context: getMainContext());
   }
   // --------------------
   static const double dialogMarginValue = Ratioz.appBarMargin + Ratioz.appBarPadding;
@@ -103,8 +103,8 @@ class BottomDialog extends StatelessWidget {
       horizontal: dialogMarginValue
   );
   // --------------------
-  static double clearWidth(BuildContext context) {
-    final double _dialogClearWidth = dialogWidth(context) - (dialogMarginValue * 2);
+  static double clearWidth() {
+    final double _dialogClearWidth = dialogWidth() - (dialogMarginValue * 2);
     return _dialogClearWidth;
   }
   // --------------------
@@ -144,7 +144,7 @@ class BottomDialog extends StatelessWidget {
     return _dialogClearHeight;
   }
   // --------------------
-  static BorderRadius dialogCorners(BuildContext context) {
+  static BorderRadius dialogCorners() {
     final BorderRadius _dialogCorners = Borderers.cornerOnly(
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
       enTopLeft: Ratioz.bottomSheetCorner,
@@ -159,7 +159,7 @@ class BottomDialog extends StatelessWidget {
     return corner ?? Ratioz.appBarCorner;
   }
   // --------------------
-  static BorderRadius dialogClearCorners(BuildContext context) {
+  static BorderRadius dialogClearCorners() {
     final BorderRadius _corners = Borderers.cornerOnly(
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
       enBottomRight: 0,
@@ -196,7 +196,7 @@ class BottomDialog extends StatelessWidget {
         isScrollControlled: true,
         context: context,
         constraints: BoxConstraints(
-          maxWidth: dialogWidth(context),
+          maxWidth: dialogWidth(),
         ),
         builder: (_) {
 
@@ -282,7 +282,7 @@ class BottomDialog extends StatelessWidget {
 
     await showModalBottomSheet(
       shape: RoundedRectangleBorder(
-        borderRadius: BottomDialog.dialogCorners(getMainContext()),
+        borderRadius: BottomDialog.dialogCorners(),
       ),
       backgroundColor: Colorz.blackSemi255,
       barrierColor: Colorz.black150,
@@ -353,7 +353,6 @@ class BottomDialog extends StatelessWidget {
   static const double wideButtonHeight = 45;
   // --------------------
   static Widget wideButton({
-    required BuildContext context,
     Verse? verse,
     Function? onTap,
     String? icon,
@@ -367,7 +366,7 @@ class BottomDialog extends StatelessWidget {
 
     return BldrsBox(
       height: height,
-      width: clearWidth(context),
+      width: clearWidth(),
       verse: verse,
       verseScaleFactor: bigIcon == true ? 0.7 : 0.7 /0.6,
       verseWeight: VerseWeight.thin,
@@ -401,9 +400,9 @@ class BottomDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _dialogWidth = dialogWidth(context);
+    final double _dialogWidth = dialogWidth();
     final double _dialogHeight = dialogHeight(context, overridingDialogHeight: height);
-    final BorderRadius _dialogCorners = dialogCorners(context);
+    final BorderRadius _dialogCorners = dialogCorners();
     // --------------------
     final double _draggerZoneHeight = draggerZoneHeight();
     final double _draggerHeight = draggerHeight();
@@ -414,14 +413,14 @@ class BottomDialog extends StatelessWidget {
     final bool _titleIsOn = _titleIsOnCheck();
     final double _titleZoneHeight = titleZoneHeight(titleIsOn: _titleIsOn);
     // --------------------
-    final double _dialogClearWidth = clearWidth(context);
+    final double _dialogClearWidth = clearWidth();
     final double _dialogClearHeight = clearHeight(
         context: context,
         titleIsOn: _titleIsOn,
         overridingDialogHeight: height,
     );
     // --------------------
-    final BorderRadius _dialogClearCorners = dialogClearCorners(context);
+    final BorderRadius _dialogClearCorners = dialogClearCorners();
     // --------------------
     return Center(
       child: Container(

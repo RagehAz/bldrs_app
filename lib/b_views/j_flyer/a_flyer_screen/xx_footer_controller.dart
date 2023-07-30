@@ -19,7 +19,6 @@ import 'package:basics/layouts/nav/nav.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSaveFlyer({
-  required BuildContext context,
   required FlyerModel? flyerModel,
   required ValueNotifier<bool> flyerIsSaved,
   required int slideIndex,
@@ -33,7 +32,6 @@ Future<void> onSaveFlyer({
   );
 
   await UserProtocols.savingFlyerProtocol(
-    context: context,
     flyerModel: flyerModel,
     flyerIsSaved: flyerIsSaved.value,
     slideIndex: slideIndex,

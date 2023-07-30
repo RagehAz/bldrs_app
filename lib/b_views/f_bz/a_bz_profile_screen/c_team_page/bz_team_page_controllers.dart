@@ -77,7 +77,7 @@ Future<void> onAuthorOptionsTap({
     ability: _itIsMine ? AuthorAbility.canRemoveSelf : AuthorAbility.canRemoveOtherAuthor,
   );
 
-  blog('it is meee : $_itIsMine : _canRemoveAuthor : $_canRemoveAuthor');
+  blog('it is me : $_itIsMine : _canRemoveAuthor : $_canRemoveAuthor');
 
   final String _authorName = authorModel?.name ?? '...';
 
@@ -85,7 +85,6 @@ Future<void> onAuthorOptionsTap({
 
     /// CHANGE ROLE
     BottomDialog.wideButton(
-      context: context,
       verse: const Verse(
         id: 'phid_change_team_role',
         translate: true,
@@ -114,7 +113,6 @@ Future<void> onAuthorOptionsTap({
 
     /// EDIT AUTHOR
     BottomDialog.wideButton(
-      context: context,
       verse: const Verse(
         id: 'phid_edit_author_details',
         translate: true,
@@ -143,7 +141,6 @@ Future<void> onAuthorOptionsTap({
 
     /// REMOVE AUTHOR
     BottomDialog.wideButton(
-      context: context,
       verse: const Verse(
         id: 'phid_remove_author_from_the_team',
         translate: true,
@@ -324,7 +321,6 @@ Future<void> _onShowCanNotChangeAuthorRoleDialog({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSendAuthorshipInvitation({
-  required BuildContext context,
   required UserModel selectedUser,
   required BzModel? bzModel,
 }) async {
@@ -359,7 +355,6 @@ Future<void> onSendAuthorshipInvitation({
       pushWaitDialog();
 
       await AuthorshipProtocols.sendRequest(
-        context: context,
         oldBz: bzModel,
         userModelToSendTo: selectedUser,
       );
@@ -413,7 +408,6 @@ Future<void> onSendAuthorshipInvitation({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onCancelSentAuthorshipInvitation({
-  required BuildContext context,
   required BzModel? bzModel,
   required String? userID,
 }) async {
@@ -423,7 +417,6 @@ Future<void> onCancelSentAuthorshipInvitation({
   if (bzModel != null && userID != null){
 
     final UserModel? _receiverModel = await UserProtocols.fetch(
-      context: context,
       userID: userID,
     );
 
@@ -450,7 +443,6 @@ Future<void> onCancelSentAuthorshipInvitation({
     if (_result == true){
 
       await AuthorshipProtocols.cancelRequest(
-        context: context,
         bzModel: bzModel,
         pendingUserID: userID,
       );

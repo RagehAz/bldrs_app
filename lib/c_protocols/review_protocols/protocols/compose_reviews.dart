@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/review_protocols/fire/review_fire_ops.dart';
@@ -64,13 +65,12 @@ class ComposeReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> composeReviewReply({
-    required BuildContext context,
     required String bzID,
     required ReviewModel updatedReview,
   }) async {
 
     final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
-      context: context,
+      context: getMainContext(),
       listen: false,
     );
 
@@ -94,7 +94,6 @@ class ComposeReviewProtocols {
         ),
 
         NoteEvent.sendFlyerReviewReceivedBzReply(
-          context: context,
           reviewModel: updatedReview,
           bzModel: _bzModel,
         ),

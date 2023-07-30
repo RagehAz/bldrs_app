@@ -8,7 +8,6 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 /// http trigger -> ( callable function - end point request )
@@ -75,7 +74,6 @@ class CloudFunction {
   // --------------------
   /// TESTED : WORKS
   static Future<dynamic> call({
-    required BuildContext context,
     required String functionName,
     Map<String, dynamic>? mapToPass,
     Function(dynamic)? onFinish,
@@ -224,7 +222,6 @@ class BldrsCloudFunctions{
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteStorageDirectory({
-    required BuildContext context,
     required String? path,
     Function(dynamic)? onFinish,
   }) async {
@@ -246,7 +243,6 @@ class BldrsCloudFunctions{
       }
 
       await CloudFunction.call(
-        context: context,
         functionName: CloudFunction.callDeleteStorageDirectory,
         mapToPass: {
           'path' : _path,

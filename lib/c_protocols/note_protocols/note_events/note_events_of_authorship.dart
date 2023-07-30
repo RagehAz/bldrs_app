@@ -26,7 +26,6 @@ class NoteEventsOfAuthorship {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<NoteModel?> sendAuthorshipInvitationNote({
-    required BuildContext context,
     required BzModel? bzModel,
     required UserModel? userModelToSendTo,
   }) async {
@@ -94,7 +93,6 @@ class NoteEventsOfAuthorship {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipCancellationNote({
-    required BuildContext context,
     required BzModel? bzModel,
     required UserModel? userModelToSendTo,
   }) async {

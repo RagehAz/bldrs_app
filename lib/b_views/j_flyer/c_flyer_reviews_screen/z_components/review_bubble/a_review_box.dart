@@ -52,10 +52,7 @@ class ReviewBox extends StatelessWidget {
       width: pageWidth,
       margin: const EdgeInsets.only(bottom: spacer),
       child: FutureBuilder(
-        future: UserProtocols.fetch(
-          context: context,
-          userID: userID,
-        ),
+        future: UserProtocols.fetch(userID: userID),
         builder: (_, AsyncSnapshot<UserModel?> snap){
 
           final UserModel? _userModel = snap.data;

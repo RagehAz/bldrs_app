@@ -30,12 +30,12 @@ class BottomDialogButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _dialogClearWidth = BottomDialog.clearWidth(context);
+    final double _dialogClearWidth = BottomDialog.clearWidth();
     final double _dialogCleanHeight = BottomDialog.clearHeight(
         context: context,
         titleIsOn: true,
         overridingDialogHeight: dialogHeight);
-    final BorderRadius _dialogClearCorners = BottomDialog.dialogClearCorners(context);
+    final BorderRadius _dialogClearCorners = BottomDialog.dialogClearCorners();
     // --------------------
     final double _buttonWidth = _dialogClearWidth - 20;
     // --------------------

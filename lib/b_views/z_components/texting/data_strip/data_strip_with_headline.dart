@@ -39,7 +39,7 @@ class DataStripWithHeadline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _rowWidth = width ?? BottomDialog.clearWidth(context) - DataStrip.verticalMargin * 2;
+    final double _rowWidth = width ?? BottomDialog.clearWidth() - DataStrip.verticalMargin * 2;
     final bool _valueIsPercentage = isPercent == true && dataValue is double;
     final String _valueString = _valueIsPercentage == true ? '$dataValue %' : dataValue.toString();
     // --------------------

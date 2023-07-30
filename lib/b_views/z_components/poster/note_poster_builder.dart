@@ -85,7 +85,6 @@ class NotePosterBuilder extends StatelessWidget {
 
                 return FutureBuilder(
                   future: FlyerProtocols.fetchAndCombineBzSlidesInOneFlyer(
-                    context: context,
                     bzID: noteModel?.poster?.modelID,
                     maxSlides: 7,
                   ),

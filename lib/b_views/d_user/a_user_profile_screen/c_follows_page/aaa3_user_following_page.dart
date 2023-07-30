@@ -67,7 +67,6 @@ class UserFollowingPage extends StatelessWidget {
 
                   /// NOTE : WHEN BZ MODEL IS NULL (DELETED) ITS ID IS STILL IN [_followedBzzIds]
                   unawaited(autoDeleteThisBzIDFromMyFollowedBzzIDs(
-                    context: context,
                     bzID: _bzID,
                   ));
 

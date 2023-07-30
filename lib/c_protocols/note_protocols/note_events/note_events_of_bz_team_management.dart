@@ -30,7 +30,6 @@ class NoteEventsOfBzTeamManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorRoleChangeNote({
-    required BuildContext context,
     required String? bzID,
     required AuthorModel? author,
   }) async {
@@ -44,7 +43,6 @@ class NoteEventsOfBzTeamManagement {
       );
 
       final UserModel? _userModel = await UserProtocols.fetch(
-        context: context,
         userID: author.userID,
       );
 
@@ -103,7 +101,6 @@ class NoteEventsOfBzTeamManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorDeletionNotes({
-    required BuildContext context,
     required BzModel? bzModel,
     required AuthorModel? deletedAuthor,
     required bool sendToUserAuthorExitNote,
@@ -111,7 +108,6 @@ class NoteEventsOfBzTeamManagement {
     blog('NoteEventsOfBzTeamManagement.sendAuthorDeletionNotes : START');
 
     await _authorDeletionNoteToBz(
-      context: context,
       bzModel: bzModel,
       deletedAuthor: deletedAuthor,
     );
@@ -119,7 +115,6 @@ class NoteEventsOfBzTeamManagement {
     /// NOTE TO DELETED AUTHOR
     if (sendToUserAuthorExitNote == true){
       await _authorDeletionNoteToUser(
-        context: context,
         bzModel: bzModel,
         deletedAuthor: deletedAuthor,
       );
@@ -130,7 +125,6 @@ class NoteEventsOfBzTeamManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _authorDeletionNoteToBz({
-    required BuildContext context,
     required BzModel? bzModel,
     required AuthorModel? deletedAuthor,
   }) async {
@@ -138,7 +132,6 @@ class NoteEventsOfBzTeamManagement {
     if (bzModel?.id != null && deletedAuthor != null) {
 
       final UserModel? _user = await UserProtocols.fetch(
-        context: context,
         userID: deletedAuthor.userID,
       );
 
@@ -185,13 +178,11 @@ class NoteEventsOfBzTeamManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _authorDeletionNoteToUser({
-    required BuildContext context,
     required BzModel? bzModel,
     required AuthorModel? deletedAuthor,
   }) async {
 
     final UserModel? _userModel = await UserProtocols.fetch(
-      context: context,
       userID: deletedAuthor?.userID,
     );
 
@@ -233,7 +224,6 @@ class NoteEventsOfBzTeamManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendBzDeletionNoteToAllAuthors({
-    required BuildContext context,
     required BzModel? bzModel,
     /// send bz deletion note to myself
     required bool includeMyself,
@@ -263,7 +253,6 @@ class NoteEventsOfBzTeamManagement {
             final AuthorModel author = _authors![index];
 
             final UserModel? _userModel = await UserProtocols.fetch(
-              context: context,
               userID: author.userID,
             );
 

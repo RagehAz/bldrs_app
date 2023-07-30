@@ -1,5 +1,4 @@
 import 'package:basics/helpers/classes/strings/text_mod.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
@@ -8,7 +7,6 @@ import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dar
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class NoteFunProtocols {
@@ -160,7 +158,6 @@ class NoteFunProtocols {
     ){
 
       await _triggerSwitcher(
-        context: getMainContext(),
         trigger: noteModel.function!,
       );
 
@@ -186,7 +183,6 @@ class NoteFunProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _triggerSwitcher({
-    required BuildContext context,
     required TriggerModel? trigger,
   }) async {
 
@@ -224,7 +220,6 @@ class NoteFunProtocols {
         case funRefetchFlyer:
           // blog('2--> Switcher : FIRING : REFETCH FLYER FOR (${trigger.argument}) : START');
           await FlyerProtocols.refetch(
-            context: context,
             flyerID: trigger.argument,
           );
           // blog('3--> Switcher : FIRING : END');
@@ -244,7 +239,6 @@ class NoteFunProtocols {
           // blog('2--> Switcher : FIRING : WIPE PENDING AUTHOR (${trigger.argument}) : START');
           // argument: '${userID}_$bzID',
           await BzProtocols.wipePendingAuthor(
-            context: context,
             pendingUserID: TextMod.removeTextAfterFirstSpecialCharacter(
                 text: trigger.argument,
                 specialCharacter: '_',

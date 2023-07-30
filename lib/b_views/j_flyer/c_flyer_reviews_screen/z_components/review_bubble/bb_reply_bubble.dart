@@ -49,7 +49,6 @@ class BzReplyBubble extends StatelessWidget {
       width: boxWidth,
       child: FutureBuilder(
         future: BzProtocols.fetchBzByFlyerID(
-            context: context,
             flyerID: reviewModel?.flyerID,
         ),
         builder: (_, AsyncSnapshot<BzModel?> snapshot){

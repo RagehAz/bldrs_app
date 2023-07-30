@@ -96,10 +96,7 @@ class _UserProfileView extends StatelessWidget {
         circleColor: Colorz.yellow255,
         onRefresh: () async {
 
-          final UserModel? _userModel = await UserProtocols.refetch(
-              context: context,
-              userID: userModel.id,
-          );
+          final UserModel? _userModel = await UserProtocols.refetch(userID: userModel.id);
 
           final bool _identical = UserModel.usersAreIdentical(
               user1: userModel,

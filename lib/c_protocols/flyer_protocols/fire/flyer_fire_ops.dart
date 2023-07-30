@@ -213,7 +213,6 @@ class FlyerFireOps {
 
             /// INAPPROPRIATE CONTENT
             BottomDialog.wideButton(
-                context: context,
                 verse: const Verse(
                   id: 'phid_flyer_has_inapp_content',
                   translate: true,
@@ -230,7 +229,6 @@ class FlyerFireOps {
 
             /// CONTENT IS NOT RELEVANT TO BLDRS
             BottomDialog.wideButton(
-                context: context,
                 verse: const Verse(
                   pseudo: 'Flyer content is not relevant to Bldrs.net',
                   id: 'phid_flyer_has_irrelevant_content',
@@ -247,7 +245,6 @@ class FlyerFireOps {
 
             /// COPY RIGHTS
             BottomDialog.wideButton(
-                context: context,
                 verse: const Verse(
                   pseudo: 'content violates copyrights',
                   id: 'phid_flyer_has_copyright_violation',

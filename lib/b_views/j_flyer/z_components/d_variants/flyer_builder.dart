@@ -183,7 +183,6 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
     if (mounted == true){
 
       FlyerModel? _flyer = widget.flyerModel ?? await FlyerProtocols.fetchFlyer(
-        context: context,
         flyerID: widget.flyerID,
       );
 

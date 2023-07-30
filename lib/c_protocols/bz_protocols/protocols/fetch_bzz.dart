@@ -5,7 +5,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:flutter/material.dart';
 
 class FetchBzProtocols {
   // -----------------------------------------------------------------------------
@@ -80,7 +79,6 @@ class FetchBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel?> fetchBzByFlyerID({
-    required BuildContext context,
     required String? flyerID,
   }) async {
     BzModel? _bzModel;
@@ -88,7 +86,6 @@ class FetchBzProtocols {
     if (flyerID != null){
 
       final FlyerModel? _flyerModel = await FlyerProtocols.fetchFlyer(
-        context: context,
         flyerID: flyerID,
       );
 
