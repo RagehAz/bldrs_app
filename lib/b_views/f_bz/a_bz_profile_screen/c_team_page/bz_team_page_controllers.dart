@@ -403,7 +403,6 @@ Future<void> onSendAuthorshipInvitation({
 
   }
 
-
 }
 // --------------------
 /// TESTED : WORKS PERFECT
