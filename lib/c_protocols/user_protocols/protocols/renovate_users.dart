@@ -20,7 +20,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/f_helpers/drafters/debuggers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:fire/super_fire.dart';
-
+/// => TAMAM
 class RenovateUserProtocols {
   // -----------------------------------------------------------------------------
 
@@ -46,16 +46,16 @@ class RenovateUserProtocols {
 
       _output = oldUser;
 
-      final UserModel? _oldUser = await UserProtocols.refetch(
-          userID: oldUser?.id,
-      );
+      // final UserModel? _oldUser = await UserProtocols.refetch(
+      //     userID: oldUser?.id,
+      // );
 
         await Future.wait(<Future>[
 
           /// FIRE UPDATE USER
           UserFireOps.updateUser(
             newUser: newUser,
-            oldUser: _oldUser,
+            oldUser: oldUser,
           ).then((UserModel? uploadedModel){
             if (uploadedModel != null){
               _output = uploadedModel;
@@ -75,7 +75,7 @@ class RenovateUserProtocols {
           /// UPDATE CENSUS
           CensusListener.onRenovateUser(
               newUser: _output,
-              oldUser: _oldUser,
+              oldUser: oldUser,
           ),
 
           /// UPDATE LOCALLY

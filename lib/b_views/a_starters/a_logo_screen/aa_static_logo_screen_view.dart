@@ -1,8 +1,6 @@
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
-import 'package:bldrs/b_views/z_components/buttons/something_wrong_restart_button.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/leading_verse.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
 class LogoScreenView extends StatelessWidget {
@@ -58,10 +56,10 @@ class LogoScreenView extends StatelessWidget {
             ],
           ),
 
-          /// RESTART
-          const SomethingWrongRestartButton(
-            waitSeconds: Standards.loadingScreenTimeOut,
-          ),
+          // /// RESTART
+          // const SomethingWrongRestartButton(
+          //   waitSeconds: Standards.loadingScreenTimeOut,
+          // ),
 
         ],
       ),

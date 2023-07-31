@@ -11,7 +11,6 @@ import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_setting
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/password_bubble/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
@@ -214,28 +213,29 @@ class EmailAuthScreenView extends StatelessWidget {
                 isObscured: isObscured,
               ),
 
-              /// REMEMBER ME
-              if (isRememberingMe != null)
-              ValueListenableBuilder(
-                valueListenable: isRememberingMe!,
-                builder: (_, bool rememberMe, Widget? child){
-
-                  return BldrsTileBubble(
-                    bubbleWidth: _bubbleWidth,
-                    bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-                      context: context,
-                      headlineVerse: const Verse(
-                        id: 'phid_remember_me',
-                        translate: true,
-                      ),
-                      switchValue: rememberMe,
-                      hasSwitch: true,
-                      onSwitchTap: onSwitchRememberMe,
-                    ),
-                  );
-
-                  },
-              ),
+              /// DEPRECATED : REMEMBER ME BUBBLE
+              // /// REMEMBER ME
+              // if (isRememberingMe != null)
+              // ValueListenableBuilder(
+              //   valueListenable: isRememberingMe!,
+              //   builder: (_, bool rememberMe, Widget? child){
+              //
+              //     return BldrsTileBubble(
+              //       bubbleWidth: _bubbleWidth,
+              //       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              //         context: context,
+              //         headlineVerse: const Verse(
+              //           id: 'phid_remember_me',
+              //           translate: true,
+              //         ),
+              //         switchValue: rememberMe,
+              //         hasSwitch: true,
+              //         onSwitchTap: onSwitchRememberMe,
+              //       ),
+              //     );
+              //
+              //     },
+              // ),
 
               const SizedBox(height: 5),
 

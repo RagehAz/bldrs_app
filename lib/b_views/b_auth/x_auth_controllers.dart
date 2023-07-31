@@ -1,14 +1,11 @@
 import 'dart:async';
 
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
@@ -24,7 +21,7 @@ import 'package:flutter/material.dart';
 /// AUTHENTICATORS
 
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TASK : TEST ME
 Future<void> authByEmailSignIn({
   required String email,
   required String password,
@@ -34,13 +31,11 @@ Future<void> authByEmailSignIn({
 }) async {
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY
-  final bool _allFieldsAreValid = _prepareForEmailAuthOps(
+  final bool _allFieldsAreValid = _validateForm(
     formKey: formKey,
   );
 
   if (_allFieldsAreValid == true) {
-
-
 
     WaitDialog.showUnawaitedWaitDialog(
       verse: const Verse(
@@ -54,31 +49,28 @@ Future<void> authByEmailSignIn({
       password: password,
     );
 
-    await _rememberEmailAndNav(
-      email: email,
-      success: _success,
-      mounted: mounted,
-      password: password,
-      rememberMe: rememberMe,
-    );
+    if (_success == true && mounted == true) {
 
-  }
+      await WaitDialog.closeWaitDialog();
 
-  else {
-    blog('controlEmailSignin : _allFieldsAreValid : $_allFieldsAreValid');
+      await _navAfterAuth(
+        firstTimer: false,
+      );
+
+    }
+
   }
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TASK : TEST ME
 Future<void> authByEmailRegister({
   required String email,
   required String password,
   required GlobalKey<FormState> formKey,
 }) async {
 
-  /// A - PREPARE FOR AUTH AND CHECK VALIDITY
-  final bool _allFieldsAreValid = _prepareForEmailAuthOps(
+  final bool _allFieldsAreValid = _validateForm(
     formKey: formKey,
   );
 
@@ -91,43 +83,25 @@ Future<void> authByEmailRegister({
       ),
     );
 
-    /// HAS ANONYMOUS
-    final AccountModel? _anonymousAccount = await AuthProtocols.fetchAnonymousAccount();
-    bool _success = false;
-
-    if (_anonymousAccount != null){
-      _success = await AuthProtocols.upgradeAnonymous(
-          oldAccount: _anonymousAccount,
-          newAccount: _anonymousAccount.copyWith(
-            email: email,
-            password: password,
-          ),
-      );
-    }
-    else {
-      _success = await AuthProtocols.registerInBldrsByEmail(
+    final bool _success = await AuthProtocols.registerUser(
         email: email,
         password: password,
-      );
-    }
+    );
 
     await WaitDialog.closeWaitDialog();
 
+    /// GO BACK TO EMAIL SIGN IN PAGE
     if (_success == true){
-      await Dialogs.emailSentSuccessfullyDialogs(
-        email: email,
+      await _navAfterAuth(
+        firstTimer: true,
       );
     }
 
-  }
-
-  ///
-  else {
-    blog('_allFieldsAreValid : controlEmailRegister : $_allFieldsAreValid');
   }
 
 }
 // --------------------
+/*
 /// TESTED : WORKS PERFECT
 Future<void> authBySocialMedia({
   required AuthModel? authModel,
@@ -159,52 +133,7 @@ Future<void> authBySocialMedia({
   }
 
 }
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> _rememberEmailAndNav({
-  required bool success,
-  required bool rememberMe,
-  required String? email,
-  required String? password,
-  required bool mounted,
-}) async {
-
-  /// ON SUCCESS
-  if (success == true) {
-
-    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
-      context: getMainContext(),
-      listen: false,
-    );
-
-    await rememberOrForgetAccount(
-      rememberMe: rememberMe,
-      account: AccountModel(
-        id: _userModel?.id,
-        email: email,
-        password: password,
-      ),
-    );
-
-    if (mounted == true) {
-      await WaitDialog.closeWaitDialog();
-    }
-
-    await _navAfterAuth(
-      userModel: _userModel,
-      firstTimer: false,
-    );
-
-  }
-
-  /// ON FAILURE
-  else {
-    if (mounted == true) {
-      await WaitDialog.closeWaitDialog();
-    }
-  }
-
-}
+ */
 // -----------------------------------------------------------------------------
 
 /// CONTROLLING AUTH RESULT
@@ -212,9 +141,13 @@ Future<void> _rememberEmailAndNav({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _navAfterAuth({
-  required UserModel? userModel,
   required bool firstTimer,
 }) async {
+
+  final UserModel? userModel = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
+      listen: false,
+    );
 
   if (userModel != null){
 
@@ -241,12 +174,9 @@ Future<void> _navAfterAuth({
 
   }
 
-  else {
-    blog('controlAuthResult : something went wrong');
-  }
-
 }
 // --------------------
+/// DEPRECATED
 /*
 Future<void> setUserAndAuthModelsLocallyAndOnLDB({
   required BuildContext context,
@@ -362,7 +292,6 @@ Future<void> _goToUserEditorForFirstTime({
 
   );
 
-
 }
 // -----------------------------------------------------------------------------
 
@@ -370,7 +299,7 @@ Future<void> _goToUserEditorForFirstTime({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-bool _prepareForEmailAuthOps({
+bool _validateForm({
   required GlobalKey<FormState> formKey,
 }) {
 
@@ -378,42 +307,10 @@ bool _prepareForEmailAuthOps({
   Keyboard.closeKeyboard();
 
   /// CHECK VALIDITY
-  final bool? _allFieldsAreValid = formKey.currentState?.validate();
+  final bool? _allFieldsAreValid = Formers.validateForm(formKey);
 
 
   return _allFieldsAreValid ?? false;
-}
-// -----------------------------------------------------------------------------
-
-/// REMEMBERING ME
-
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> rememberOrForgetAccount({
-  required AccountModel? account,
-  required bool rememberMe,
-}) async {
-  if (
-      account != null
-      &&
-      account.password != null
-      &&
-      account.email != null
-  ) {
-
-    if (rememberMe == true) {
-      await AccountLDBOps.insertAccount(
-        account: account,
-      );
-    }
-
-    else {
-      await AccountLDBOps.deleteAccount(
-        id: account.id,
-      );
-    }
-
-  }
 }
 // -----------------------------------------------------------------------------
 
@@ -426,10 +323,9 @@ Future<void> onForgotPassword({
   required String email,
 }) async {
 
-  /// MINIMIZE KEYBOARD
-  Keyboard.closeKeyboard();
-
-  Formers.validateForm(formKey);
+  _validateForm(
+    formKey: formKey,
+  );
 
   final bool _emailIsGood = Formers.emailValidator(
     email: email,
