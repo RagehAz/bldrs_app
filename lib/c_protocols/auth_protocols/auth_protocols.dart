@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -5,6 +7,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
@@ -23,22 +26,246 @@ class AuthProtocols {
   static const bool showSocialAuthButtons = false;
   // -----------------------------------------------------------------------------
 
+  /// SIGN IN
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<bool> signInBldrsByEmail({
+    required String? email,
+    required String? password,
+  }) async {
+    bool _success = false;
+
+    final AuthModel? _authModel = await EmailAuthing.signIn(
+      email: email?.trim(),
+      password: password,
+      onError: (String? error) => onAuthError(error: error),
+    );
+
+    if (_authModel != null){
+
+      await AccountLDBOps.insertAccount(
+        account: AccountModel(
+          id: _authModel.id,
+          email: email,
+          password: password,
+        ),
+      );
+
+      final UserModel? _userModel = await UserProtocols.fetch(
+        userID: _authModel.id,
+      );
+
+      UsersProvider.proSetMyUserModel(
+        userModel: _userModel,
+        notify: true,
+      );
+
+      _success = true;
+    }
+
+    return _success;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// REGISTER
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<bool> registerUser({
+    required String email,
+    required String password
+  }) async {
+    bool _success = false;
+
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
+        context: getMainContext(),
+        listen: false,
+    );
+
+    if (_userModel != null){
+
+    final AccountModel? _anonymousAccount = await _fetchAnonymousAccount();
+
+      /// HAS ANONYMOUS ACCOUNT
+      if (_anonymousAccount != null){
+        _success = await _upgradeAnonymous(
+          oldAccount: _anonymousAccount,
+          newAccount: _anonymousAccount.copyWith(
+            email: email,
+            password: password,
+          ),
+        );
+      }
+
+      /// NO ANONYMOUS ACCOUNTS FOUND TO UPGRADE
+      else {
+        _success = await _registerNewUser(
+          email: email,
+          password: password,
+        );
+      }
+
+    }
+
+    return _success;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<bool> _upgradeAnonymous({
+    required AccountModel? oldAccount,
+    required AccountModel? newAccount,
+  }) async {
+    bool _success = false;
+
+    if (
+        oldAccount != null &&
+        newAccount != null &&
+        newAccount.email != null &&
+        newAccount.password != null
+    ){
+
+      /// RESIGN IN TO BE ABLE TO RESET EMAIL
+      final AuthModel? _authModel = await EmailAuthing.signIn(
+        email: oldAccount.email?.trim(),
+        password: oldAccount.password,
+        // onError: (String? error) => onAuthError(error: error),
+      );
+
+      if (_authModel != null){
+
+        /// CHANGE EMAIL IN FIRE AUTH
+        _success = await EmailAuthing.updateUserEmail(
+          newEmail: newAccount.email!,
+          onError: (String? error) => onAuthError(error: error),
+        );
+
+        if (_success == true){
+
+          _success = await EmailAuthing.sendVerificationEmail(
+            email: newAccount.email,
+          );
+
+          if (_success == true){
+
+            unawaited(Dialogs.emailSentSuccessfullyDialogs(
+              email: newAccount.email!,
+            ));
+
+            /// CHANGE PASSWORD IN FIRE AUTH
+            _success = await EmailAuthing.updateUserPassword(
+              newPassword: newAccount.password!,
+              onError: (String? error) => onAuthError(error: error),
+            );
+
+            if (_success == true){
+
+              /// CHANGE SIGNIN METHOD & EMAIL IN FIRE DOC
+              final UserModel? _oldUser = await UserProtocols.fetch(
+                userID: oldAccount.id,
+              );
+
+              if (_oldUser != null){
+
+                /// UPDATE ACCOUNT MODEL IN LDB
+                await AccountLDBOps.insertAccount(
+                  account: newAccount,
+                );
+
+                await UserProtocols.renovate(
+                  invoker: 'upgradeAnonymous',
+                  oldUser: _oldUser,
+                  newPic: null,
+                  newUser: _oldUser.copyWith(
+                    contacts: ContactModel.insertOrReplaceContact(
+                      contacts: _oldUser.contacts,
+                      contactToReplace: ContactModel(
+                        type: ContactType.email,
+                        value: newAccount.email!,
+                      ),
+                    ),
+                    signInMethod: SignInMethod.password,
+                  ),
+                );
+
+              }
+            }
+
+          }
+
+        }
+
+      }
+    }
+
+    return _success;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<bool> _registerNewUser({
+    required String? email,
+    required String? password,
+  }) async {
+
+    bool _success = false;
+
+    if (email != null && password != null){
+
+      final AuthModel? _authModel = await EmailAuthing.register(
+        email: email,
+        password: password,
+        autoSendVerificationEmail: true,
+        onError: (String? error) => onAuthError(error: error),
+      );
+
+      if (_authModel != null){
+
+        final UserModel? userModel = await UserProtocols.compose(
+          authModel: _authModel,
+        );
+
+        if (userModel != null){
+
+          /// UPDATE ACCOUNT MODEL IN LDB
+          await AccountLDBOps.insertAccount(
+            account: AccountModel.createAccountByUser(
+                userModel: userModel,
+                passwordOverride: password,
+            ),
+          );
+
+          await Dialogs.emailSentSuccessfullyDialogs(
+            email: email,
+          );
+          _success = true;
+
+        }
+
+      }
+
+    }
+
+    return _success;
+  }
+  // -----------------------------------------------------------------------------
+
   /// FETCHES
 
   // --------------------
   /// TASK TEST ME
-  static Future<AccountModel?> fetchAnonymousAccount() async {
+  static Future<AccountModel?> _fetchAnonymousAccount() async {
 
     AccountModel? _output = await AccountLDBOps.readAnonymousAccount();
 
     if (_output == null){
 
-      final UserModel? _user = await UserFireOps.readAnonymousUserByDeviceID();
+      final UserModel? _user = await UserFireOps.readDeviceAnonymousUser();
 
       if (_user != null){
 
         _output = AccountModel.createAccountByUser(
           userModel: _user,
+          passwordOverride: null,
         );
 
         await AccountLDBOps.insertAccount(
@@ -53,223 +280,21 @@ class AuthProtocols {
   }
   // -----------------------------------------------------------------------------
 
-  /// SIGN IN
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> signInBldrsByEmail({
-    required String? email,
-    required String? password,
-  }) async {
-    String? _authError;
-
-    final AuthModel? _authModel = await EmailAuthing.signIn(
-      email: email?.trim(),
-      password: password,
-      onError: (String? error) {
-        _authError = error;
-      },
-    );
-
-    // AuthModel.blogAuthModel(authModel: _authModel, invoker: 'signInBldrsByEmail');
-
-    final bool _success = await composeOrUpdateUser(
-      authModel: _authModel,
-      authError: _authError,
-    );
-
-    return _success;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// REGISTER
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> registerInBldrsByEmail({
-    required String? email,
-    required String? password,
-    // required ZoneModel currentZone,
-  }) async {
-
-    String? _authError;
-    bool _success = false;
-
-    final AuthModel? _authModel = await EmailAuthing.register(
-      email: email,
-      password: password,
-      autoSendVerificationEmail: true,
-      onError: (String? error){
-        _authError = error;
-      },
-    );
-
-    if (_authModel != null){
-
-      _success = await composeOrUpdateUser(
-          authModel: _authModel,
-          authError: _authError
-      );
-
-    }
-
-    return _success;
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static Future<bool> upgradeAnonymous({
-    required AccountModel? oldAccount,
-    required AccountModel? newAccount,
-  }) async {
-    bool _success = false;
-
-    if (oldAccount != null && newAccount != null && newAccount.email != null){
-
-      /// RESIGN IN TO BE ABLE TO RESET EMAIL
-      final AuthModel? _authModel = await EmailAuthing.signIn(
-        email: oldAccount.email?.trim(),
-        password: oldAccount.password,
-        // onError: (String? error) => onAuthError(error: error),
-      );
-
-      if (_authModel != null){
-
-        /// CHANGE EMAIL IN FIRE AUTH
-        _success = await EmailAuthing.updateUserEmail(
-          newEmail: newAccount.email!,
-        );
-
-        if (_success == true){
-
-          /// CHANGE PASSWORD IN FIRE AUTH
-          _success = await EmailAuthing.sendPasswordResetEmail(
-              email: oldAccount.email,
-              // onError: (String? error) => onAuthError(error: error),
-          );
-
-          if (_success == true){
-
-            /// CHANGE SIGNIN METHOD & EMAIL IN FIRE DOC
-            final UserModel? _oldUser = await UserProtocols.fetch(
-              userID: oldAccount.id,
-            );
-
-            if (_oldUser != null){
-
-              /// UPDATE ACCOUNT MODEL IN LDB
-              await AccountLDBOps.insertAccount(
-                account: newAccount,
-              );
-
-              await UserProtocols.renovate(
-                invoker: 'upgradeAnonymous',
-                oldUser: _oldUser,
-                newPic: null,
-                newUser: _oldUser.copyWith(
-                  contacts: ContactModel.insertOrReplaceContact(
-                      contacts: _oldUser.contacts,
-                      contactToReplace: ContactModel(
-                        type: ContactType.email,
-                        value: newAccount.email!,
-                      ),
-                  ),
-                  signInMethod: SignInMethod.password,
-                ),
-              );
-
-            }
-
-
-          }
-
-        }
-      }
-
-    }
-
-    return _success;
-  }
-  // -----------------------------------------------------------------------------
-
   /// AFTER AUTH
 
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> composeOrUpdateUser({
-    required AuthModel? authModel,
-    required String? authError,
-  }) async {
-    bool _success = false;
-
-    if (authError != null) {
-      await onAuthError(
-          error: authError
-      );
-    }
-
-    else if (authModel != null) {
-
-      final UserModel? _userModel = await UserProtocols.fetch(
-        userID: authModel.id,
-      );
-
-    // _userModel.blogUserModel(invoker: 'composeOrUpdateUser');
-
-      /// NEW USER
-      if (_userModel == null){
-        _success = await _onNewUser(
-          authModel: authModel,
-        );
-      }
-
-      /// EXISTING USER
-      else {
-        _success = await _onExistingUser(
-          userModel: _userModel,
-        );
-      }
-
-
-    }
-
-    return _success;
-  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onAuthError({
     required String? error,
   }) async {
 
+    /// TASK : TRANSLATE_ME
     final String _errorMessage = error ?? 'Something went wrong, please try again';
 
     await Dialogs.authErrorDialog(
         result: _errorMessage,
     );
 
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> _onNewUser({
-    required AuthModel? authModel,
-  }) async {
-
-    final UserModel? userModel = await UserProtocols.compose(
-      authModel: authModel,
-    );
-
-    return userModel != null;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> _onExistingUser({
-    required UserModel userModel,
-  }) async {
-
-    await UserProtocols.updateLocally(
-      newUser: userModel,
-    );
-
-    return true;
   }
   // -----------------------------------------------------------------------------
 
@@ -334,5 +359,75 @@ class AuthProtocols {
       );
     }
   }
-  /// --------------------------------------------------------------------------
+  // --------------------
 }
+
+/// OLD JUNK
+/*
+  // --------------------
+  /// DEPRECATED
+  // /// TESTED : WORKS PERFECT
+  // static Future<bool> _onNewUser({
+  //   required AuthModel? authModel,
+  // }) async {
+  //
+  //   final UserModel? userModel = await UserProtocols.compose(
+  //     authModel: authModel,
+  //   );
+  //
+  //   return userModel != null;
+  // }
+  // --------------------
+  /// DEPRECATED
+  // /// TESTED : WORKS PERFECT
+  // static Future<bool> _onExistingUser({
+  //   required UserModel userModel,
+  // }) async {
+  //
+  //   await UserProtocols.updateLocally(
+  //     newUser: userModel,
+  //   );
+  //
+  //   return true;
+  // }
+    /// TESTED : WORKS PERFECT
+  static Future<bool> composeOrUpdateUser({
+    required AuthModel? authModel,
+    required String? authError,
+  }) async {
+    bool _success = false;
+
+    if (authError != null) {
+      await onAuthError(
+          error: authError
+      );
+    }
+
+    else if (authModel != null) {
+
+      final UserModel? _userModel = await UserProtocols.fetch(
+        userID: authModel.id,
+      );
+
+    // _userModel.blogUserModel(invoker: 'composeOrUpdateUser');
+
+      /// NEW USER
+      if (_userModel == null){
+        _success = await _onNewUser(
+          authModel: authModel,
+        );
+      }
+
+      /// EXISTING USER
+      else {
+        _success = await _onExistingUser(
+          userModel: _userModel,
+        );
+      }
+
+
+    }
+
+    return _success;
+  }
+ */

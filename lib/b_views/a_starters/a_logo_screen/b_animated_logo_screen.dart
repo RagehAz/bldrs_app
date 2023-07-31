@@ -12,7 +12,6 @@ import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
-import 'package:bldrs/b_views/z_components/buttons/something_wrong_restart_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/leading_verse.dart';
@@ -23,8 +22,8 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_sounder.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -121,6 +120,10 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
               goToRoute: Routing.home,
             );
           }
+          else {
+            await BldrsNav.goToLogoScreenAndRemoveAllBelow(animatedLogoScreen: false);
+          }
+
 
         });
 
@@ -480,10 +483,10 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
             ),
           ),
 
-          /// RESTART
-          const SomethingWrongRestartButton(
-            waitSeconds: Standards.loadingScreenTimeOut,
-          ),
+          // /// RESTART
+          // const SomethingWrongRestartButton(
+          //   waitSeconds: Standards.loadingScreenTimeOut,
+          // ),
 
           /// FOR_DEV_ONLY
           // Container(

@@ -22,6 +22,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
@@ -371,7 +372,7 @@ void onFlyerHeadlineChanged({
 }){
 
   /// DO YOU NEED THIS ?
-  formKey.currentState?.validate();
+  Formers.validateForm(formKey);
 
   setNotifier(
       notifier: draftFlyer,

@@ -66,7 +66,7 @@ class UserFireOps {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<UserModel?> readAnonymousUserByDeviceID() async {
+  static Future<UserModel?> readDeviceAnonymousUser() async {
     UserModel? _output;
 
     final DeviceModel _device = await DeviceModel.generateDeviceModel();
@@ -110,7 +110,9 @@ class UserFireOps {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<List<UserModel>> readDeviceUsers() async {
+  static Future<List<UserModel>> readDeviceUsers({
+    int limit = 5,
+}) async {
     List<UserModel> _output = [];
 
     final DeviceModel _device = await DeviceModel.generateDeviceModel();
@@ -120,7 +122,7 @@ class UserFireOps {
       final List<Map<String, dynamic>> _maps = await Fire.readColl(
         queryModel: FireQueryModel(
           coll: FireColl.users,
-          limit: 5,
+          limit: limit,
           finders: <FireFinder>[
 
             FireFinder(
