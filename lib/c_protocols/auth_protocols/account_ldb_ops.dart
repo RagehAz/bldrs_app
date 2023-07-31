@@ -18,7 +18,13 @@ class AccountLDBOps {
   static Future<void> insertAccount({
     required AccountModel? account,
   }) async {
-    if (account != null && account.id != null) {
+    if (
+        account != null
+        &&
+        account.id != null
+        &&
+        account.email != null
+    ) {
       await LDBOps.insertMap(
         docName: LDBDoc.accounts,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.accounts),

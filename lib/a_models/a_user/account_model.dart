@@ -20,8 +20,10 @@ class AccountModel {
   /// CREATION
 
   // --------------------
+  /// TASK : TEST ME
   static AccountModel? createAccountByUser({
     required UserModel? userModel,
+    required String? passwordOverride,
   }){
     AccountModel? _output;
 
@@ -32,7 +34,7 @@ class AccountModel {
 
       if (_isAnonymousEmail == true && userModel.signInMethod == SignInMethod.anonymous){
 
-        final String? _password = UserModel.createAnonymousPassword(
+        final String? _password = passwordOverride ?? UserModel.createAnonymousPassword(
             anonymousEmail: _email,
         );
 
@@ -48,7 +50,7 @@ class AccountModel {
         _output = AccountModel(
           id: userModel.id,
           email: UserModel.getUserEmail(userModel),
-          password: null,
+          password: passwordOverride,
         );
       }
 

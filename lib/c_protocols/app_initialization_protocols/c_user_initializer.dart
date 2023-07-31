@@ -10,7 +10,6 @@ import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/b_auth/b_email_auth_screen/a_email_auth_screen.dart';
-import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
@@ -112,7 +111,7 @@ class UserInitializer {
         _continue = await _signInAccount(account: _withoutAnonymous.first);
       }
 
-      /// HAS ANONYMOUS ACCOUNT
+      /// HAS ANONYMOUS ACCOUNT IN LDB
       else if (_anonymousAccount != null){
         _continue = await _signInAccount(account: _anonymousAccount);
       }
@@ -204,11 +203,6 @@ class UserInitializer {
             password: _password,
           );
 
-        await rememberOrForgetAccount(
-          rememberMe: true,
-          account: _newAccount,
-        );
-
         _continue = await _signInAccount(
           account: _newAccount,
         );
@@ -261,13 +255,13 @@ class UserInitializer {
       final bool _success = await AuthProtocols.signInBldrsByEmail(
         email: account!.email,
         password: account.password,
+
       );
 
       if (_success == true){
 
-        await rememberOrForgetAccount(
-          rememberMe: true,
-          account: account,
+         await AccountLDBOps.insertAccount(
+            account: account,
         );
 
         _continue = await _fetchSetUser(
@@ -308,7 +302,6 @@ class UserInitializer {
 
     return _continue;
   }
-  // --------------------
   // -----------------------------------------------------------------------------
 
   /// USER DEVICE MODEL
@@ -519,3 +512,11 @@ class UserInitializer {
   }
   // -----------------------------------------------------------------------------
 }
+
+/*
+02 2308 5290
+
+we complain
+444-11-36
+
+ */
