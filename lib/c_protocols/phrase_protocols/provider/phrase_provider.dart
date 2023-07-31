@@ -65,14 +65,14 @@ class PhraseProvider extends ChangeNotifier {
     String? setLangCode,
   }) async {
 
-    // blog('---> fetchSetCurrentLangAndAllPhrases : START');
+    blog('---> fetchSetCurrentLangAndAllPhrases : START');
 
     await getSetCurrentLangCode(
       notify: false,
       setLangCode: setLangCode,
     );
 
-    // blog('---> fetchSetCurrentLangAndAllPhrases : _currentLangCode : $_currentLangCode');
+    blog('---> fetchSetCurrentLangAndAllPhrases : _currentLangCode : $_currentLangCode');
 
     /// THIS GENERATES COUNTRIES PHRASES AND INSERTS THEM IN LDB TO FACILITATE COUNTRY SEARCH BY NAME
     await PhraseProtocols.composeCountriesMixedLangPhrases(
@@ -80,13 +80,13 @@ class PhraseProvider extends ChangeNotifier {
       langCodes: <String>['en', 'ar'],
     );
 
-    // blog('---> fetchSetCurrentLangAndAllPhrases : countriesPhrases : ${phrases.length}');
+    blog('---> fetchSetCurrentLangAndAllPhrases : countriesPhrases');
 
     await fetchSetMainPhrases(
         notify: true
     );
 
-    // blog('---> fetchSetCurrentLangAndAllPhrases : END');
+    blog('---> fetchSetCurrentLangAndAllPhrases : END');
 
   }
   // -----------------------------------------------------------------------------
