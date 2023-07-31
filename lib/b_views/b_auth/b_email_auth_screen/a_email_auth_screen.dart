@@ -226,7 +226,10 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
       onBack: () async {
 
         if (_isSigningIn.value == true){
-          await Nav.goBack(context: context);
+          await Nav.goBack(
+            context: context,
+            passedData: false,
+          );
         }
 
         else {
