@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/a_initializer.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 
@@ -76,9 +75,9 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
             goToRoute: Routing.home,
           );
         }
-        else {
-          await BldrsNav.goToLogoScreenAndRemoveAllBelow(animatedLogoScreen: false);
-        }
+        // else {
+        //   await BldrsNav.goToLogoScreenAndRemoveAllBelow(animatedLogoScreen: false);
+        // }
 
         await _triggerLoading(setTo: false);
       });

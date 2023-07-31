@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
@@ -32,7 +33,6 @@ class UserInitializer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> initializeUser() async {
-
 
     /// CREATE - FETCH USER MODEL
     final bool _continue = await _initializeUserModel();
@@ -86,6 +86,8 @@ class UserInitializer {
   static Future<bool> _initializeUserModel() async {
     bool _continue = false;
 
+    _report('start : Authing.getUserID() : ${Authing.getUserID()}');
+
     /// USER HAS ID
     if (Authing.getUserID() != null){
 
@@ -106,24 +108,35 @@ class UserInitializer {
           accounts: _accounts,
       );
 
+      _report('noID : _accounts : ${_accounts.length}');
+      _report('noID : _withoutAnonymous : ${_withoutAnonymous.length}');
+
       /// HAS NORMAL ACCOUNT IN LDB ALREADY
       if (Mapper.checkCanLoopList(_withoutAnonymous) == true){
         _continue = await _signInAccount(account: _withoutAnonymous.first);
       }
 
+      _report('noID : _withoutAnonymous _continue : $_continue');
+
       /// HAS ANONYMOUS ACCOUNT IN LDB
-      else if (_anonymousAccount != null){
+      if (_continue == false && _anonymousAccount != null){
         _continue = await _signInAccount(account: _anonymousAccount);
       }
 
+      _report('noID : _anonymousAccount _continue : $_continue');
+
+
       /// NO ACCOUNTS IN LDB FOUND
-      else {
+      if (_continue == false){
 
         final List<UserModel> _deviceUsers = await UserFireOps.readDeviceUsers();
         final List<UserModel> _signedUpUsers = UserModel.getSignedUpUsersOnly(
           users: _deviceUsers,
         );
         // final UserModel? _anonymousUserOfThisDevice = await UserFireOps.readAnonymousUserByDeviceID();
+
+        _report('noLDB : _deviceUsers _continue : ${_deviceUsers.length}');
+        _report('noLDB : _signedUpUsers _continue : ${_signedUpUsers.length}');
 
         /// HAS A FIRE USER MODELS LOST FROM LDB
         if (Mapper.checkCanLoopList(_signedUpUsers) == true){
@@ -132,15 +145,17 @@ class UserInitializer {
             users: _signedUpUsers,
           );
 
-          await Nav.goToNewScreen(
+          _continue = await Nav.goToNewScreen(
               context: getMainContext(),
               screen: const EmailAuthScreen(),
           );
 
         }
 
+        _report('noID : bardo _continue : $_continue');
+
         /// DID NOT SIGN IN BY SIGNUP ACCOUNTS
-        else {
+        if (_continue == false){
 
           final UserModel? _anonymousUser = UserModel.getFirstAnonymousUserFromUsers(
             users: _deviceUsers,
@@ -159,6 +174,8 @@ class UserInitializer {
           }
 
         }
+
+        _report('noID : fi eh _continue : $_continue');
 
       }
 
@@ -509,6 +526,10 @@ class UserInitializer {
     }
 
     return _output;
+  }
+  // -----------------------------------------------------------------------------
+  static void _report(String text){
+    blog('  User--> $text');
   }
   // -----------------------------------------------------------------------------
 }

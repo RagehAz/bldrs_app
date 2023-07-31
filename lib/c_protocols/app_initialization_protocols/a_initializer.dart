@@ -27,7 +27,11 @@ class Initializer {
   }) async {
     bool _canLoadApp = false;
 
+    _report('start');
+
     final bool _isConnected = await DeviceChecker.checkConnectivity();
+
+    _report('_isConnected : $_isConnected');
 
     if (_isConnected == false){
 
@@ -39,14 +43,20 @@ class Initializer {
 
       unawaited(UiInitializer.refreshLDB());
 
+      _report('refreshLDB : started');
+
       /// LOADING
       UiInitializer.setLoadingVerse(Words.pleaseWait());
 
       /// APP LANGUAGE
       await UiInitializer.initializeAppLanguage();
 
+      _report('refreshLDB : app land ${Words.languageCode()}');
+
       /// APP STATE
       _canLoadApp = await AppStateInitializer.initialize();
+
+      _report('refreshLDB : after app state can continue : $_canLoadApp');
 
       /// LOADING
       UiInitializer.setLoadingVerse(Words.thisIsBabyApp());
@@ -56,6 +66,8 @@ class Initializer {
         /// CLOCK
         _canLoadApp = await UiInitializer.initializeClock();
 
+        _report('refreshLDB : after clock can continue : $_canLoadApp');
+
         if (_canLoadApp == true){
 
           /// LOADING
@@ -64,6 +76,8 @@ class Initializer {
             /// USER MODEL
             _canLoadApp = await UserInitializer.initializeUser();
 
+            _report('refreshLDB : after user can continue : $_canLoadApp');
+
             if (_canLoadApp == true){
 
               UiInitializer.setLoadingVerse(Words.loading());
@@ -71,13 +85,15 @@ class Initializer {
               /// UI - ICONS - PHRASES
               await UiInitializer.initializeIconsAndPhrases();
 
-              await UiInitializer.avoidMissingPhrasesOps();
+              _report('refreshLDB : done with phrases');
 
             }
 
         }
 
       }
+
+      await UiInitializer.avoidMissingPhrasesOps();
 
       UiProvider.clearLoadingVerse();
 
@@ -87,5 +103,8 @@ class Initializer {
     return _canLoadApp;
   }
   // -----------------------------------------------------------------------------
-
+  static void _report(String text){
+    // blog('  --> logoScreenInitialize : $text');
+  }
+  // -----------------------------------------------------------------------------
 }
