@@ -24,7 +24,7 @@ class Initializer {
   }) async {
     bool _canLoadApp = false;
 
-    _report('start');
+    // _report('start');
 
     // final bool _isConnected = await DeviceChecker.checkConnectivity();
     //
@@ -40,20 +40,20 @@ class Initializer {
 
       unawaited(UiInitializer.refreshLDB());
 
-      _report('refreshLDB : started');
+      // _report('refreshLDB : started');
 
       /// LOADING
-      UiInitializer.setLoadingVerse(getWord('pleaseWait'));
+      UiInitializer.setLoadingVerse(getWord('phid_please_wait'));
 
       /// APP LANGUAGE
       await UiInitializer.initializeAppLanguage(context);
 
-      _report('refreshLDB : app land ${Localizer.getCurrentLangCode()}');
+      // _report('refreshLDB : app land ${Localizer.getCurrentLangCode()}');
 
       /// APP STATE
       _canLoadApp = await AppStateInitializer.initialize();
 
-      _report('refreshLDB : after app state can continue : $_canLoadApp');
+      // _report('refreshLDB : after app state can continue : $_canLoadApp');
 
       /// LOADING
       UiInitializer.setLoadingVerse(getWord('phid_thisIsBabyApp'));
@@ -63,7 +63,7 @@ class Initializer {
         /// CLOCK
         _canLoadApp = await UiInitializer.initializeClock();
 
-        _report('refreshLDB : after clock can continue : $_canLoadApp');
+        // _report('refreshLDB : after clock can continue : $_canLoadApp');
 
         if (_canLoadApp == true){
 
@@ -73,7 +73,7 @@ class Initializer {
             /// USER MODEL
             _canLoadApp = await UserInitializer.initializeUser();
 
-            _report('refreshLDB : after user can continue : $_canLoadApp');
+            // _report('refreshLDB : after user can continue : $_canLoadApp');
 
             if (_canLoadApp == true){
 
@@ -82,7 +82,7 @@ class Initializer {
               /// UI - ICONS - PHRASES
               await UiInitializer.initializeIconsAndPhrases();
 
-              _report('refreshLDB : done with phrases');
+              // _report('refreshLDB : done with phrases');
 
             }
 
@@ -94,12 +94,11 @@ class Initializer {
 
     // }
 
-
     return _canLoadApp;
   }
-  // -----------------------------------------------------------------------------
-  static void _report(String text){
+  /// -----------------------------------------------------------------------------
+  // static void _report(String text){
     // blog('  --> logoScreenInitialize : $text');
-  }
-  // -----------------------------------------------------------------------------
+  // }
+  /// -----------------------------------------------------------------------------
 }

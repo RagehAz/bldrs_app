@@ -8,11 +8,11 @@ import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 class AppLangsScreen extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const AppLangsScreen({
     super.key
   });
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   Future<void> _tapLanguage({
     required BuildContext context,
     required String? langCode,

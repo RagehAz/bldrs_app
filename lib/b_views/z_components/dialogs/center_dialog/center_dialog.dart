@@ -2,7 +2,6 @@ import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bldrs_theme/classes/shadowers.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
@@ -153,9 +152,9 @@ class CenterDialog extends StatelessWidget {
   Verse? _getConfirmButtonVerse(){
 
     Verse? _verse = Mapper.boolIsTrue(boolDialog) ?
-    getVerse('yes')
+    getVerse('phid_yes')
         :
-    getVerse('ok');
+    getVerse('phid_ok');
 
     if (confirmButtonVerse != null){
       _verse = confirmButtonVerse;
@@ -194,7 +193,7 @@ class CenterDialog extends StatelessWidget {
     final bool _keyboardIsOn = Keyboard.keyboardIsOn();
     final double _keyboardHeight = _keyboardIsOn == true ? MediaQuery.of(context).viewInsets.bottom : 0;
     // --------------------
-    final Verse? _noVerse = getVerse('no', casing: Casing.capitalizeFirstChar);
+    final Verse? _noVerse = getVerse('phid_no', casing: Casing.capitalizeFirstChar);
     // --------------------
     final bool _hasLeftNoButton = Mapper.boolIsTrue(boolDialog) == true && invertButtons == false;
     final bool _hasRightNoButton = Mapper.boolIsTrue(boolDialog) == true && invertButtons == true;
@@ -259,7 +258,6 @@ class CenterDialog extends StatelessWidget {
                         color: Colorz.nothing, // to let parent gesture detector detect this container
                         child: GestureDetector(
                           onTap: (){
-                            blog('tapping on dialog bubble');
 
                             if (copyOnTap == true){
                               Keyboard.copyToClipboardAndNotify(copy: title?.id);

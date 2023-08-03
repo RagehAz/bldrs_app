@@ -104,7 +104,6 @@ class AppSettingsScreen extends StatelessWidget {
           ),
         ),
 
-
       ],
       columnChildren: <Widget>[
 
