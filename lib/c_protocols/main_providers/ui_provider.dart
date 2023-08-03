@@ -638,7 +638,54 @@ class UiProvider extends ChangeNotifier {
       notify: notify,
     );
   }
+  // -----------------------------------------------------------------------------
 
+  /// CURRENT LANGUAGE : USED TO LIVE LISTEN TO CHANGES IN LOADING SCREEN
+
+  // --------------------
+  String _currentLangCode = 'en';
+  String get currentLangCode => _currentLangCode;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String proGetCurrentLangCode({
+    required BuildContext context,
+    required bool listen,
+  }){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
+    return _uiProvider.currentLangCode;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void proSetCurrentLangCode({
+    required BuildContext context,
+    required String langCode,
+    required bool notify,
+  }){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    _uiProvider._setCurrentLangCode(
+      notify: notify,
+      langCode: langCode,
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _setCurrentLangCode({
+    required bool notify,
+    required String? langCode,
+  }) {
+
+    /// A. DETECT DEVICE LANGUAGE
+    final String _langCode = langCode ?? Localizer.getCurrentLangCode();
+
+    /// C. SET CURRENT LANGUAGE
+    _currentLangCode = _langCode;
+
+    if (notify == true){
+      blog('_setCurrentLangCode NOTIFYING UNIVERSE');
+      notifyListeners();
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// WIPE OUT

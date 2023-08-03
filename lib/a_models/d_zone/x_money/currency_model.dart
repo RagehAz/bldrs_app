@@ -250,34 +250,39 @@ class CurrencyModel {
   }) async {
     final List<Phrase> _output = [];
 
-    final Map<String, dynamic> _langMap = await Localizer.getLangMap(
+    final Map<String, dynamic>? _langMap = await Localizer.getLangMap(
       langCode: langCode,
     );
 
-    final List<String> _phids = _langMap.keys.toList();
+    if (_langMap != null){
 
-    if (Mapper.checkCanLoopList(_phids) == true){
+      final List<String> _phids = _langMap.keys.toList();
 
-      for (final String phid in _phids){
+      if (Mapper.checkCanLoopList(_phids) == true){
 
-        final bool _isCurrency = Phider.checkVerseIsCurrency(phid);
+        for (final String phid in _phids){
 
-        if (_langMap[phid] != null && _isCurrency == true){
+          final bool _isCurrency = Phider.checkVerseIsCurrency(phid);
 
-          final Phrase _phrase = Phrase(
-            id: phid,
-            value: _langMap[phid],
-            langCode: langCode,
-            trigram: Stringer.createTrigram(input: _langMap[phid]),
-          );
+          if (_langMap[phid] != null && _isCurrency == true){
 
-          _output.add(_phrase);
+            final Phrase _phrase = Phrase(
+              id: phid,
+              value: _langMap[phid],
+              langCode: langCode,
+              trigram: Stringer.createTrigram(input: _langMap[phid]),
+            );
+
+            _output.add(_phrase);
+
+          }
 
         }
 
       }
 
     }
+
 
     return _output;
   }
