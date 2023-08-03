@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -199,10 +200,8 @@ Future<void> _showOnlyCreatorCanDeleteBzDialog({
       translate: true,
     ),
     bodyVerse: Verse(
-      id: '$_creatorAuthorsString\n'
-            '${Verse.transBake('phid_is_only_who_can_delete_this_bz')}',
+      id: '$_creatorAuthorsString\n${getWord('phid_is_only_who_can_delete_this_bz')}',
       translate: false,
-      variables: _creatorAuthorsString,
     ),
   );
 

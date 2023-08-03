@@ -6,9 +6,8 @@ import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 
 class SomethingWrongRestartButton extends StatelessWidget {
@@ -36,10 +35,7 @@ class SomethingWrongRestartButton extends StatelessWidget {
           child: BldrsBox(
             height: Scale.screenShortestSide(context) * 0.12,
             corners: 35,
-            verse: Verse(
-              id: Words.somethingWentWrong(),
-              translate: false,
-            ),
+            verse: getVerse('phid_somethingWentWrong'),
             icon: Iconz.yellowAlert,
             iconSizeFactor: 0.6,
             verseScaleFactor: 0.5 / 0.6,

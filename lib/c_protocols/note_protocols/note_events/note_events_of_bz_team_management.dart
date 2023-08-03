@@ -1,6 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:fire/super_fire.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -11,12 +10,13 @@ import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class NoteEventsOfBzTeamManagement {
   // -----------------------------------------------------------------------------
@@ -46,21 +46,14 @@ class NoteEventsOfBzTeamManagement {
         userID: author.userID,
       );
 
-      final String? _title = await PhraseProtocols.translate(
-        phid: 'phid_member_role_changed',
-        langCode: _userModel?.language,
+      final Map<String, dynamic> _map = await Localizer.getLangMap(
+          langCode: _userModel?.language,
       );
 
+      final String? _title = _map['phid_member_role_changed'];
       /// TASK : ARABIC TRANSLATION IS MESSED UP IN ORDER
-      final String? _hasNewRole = await PhraseProtocols.translate(
-        phid: 'phid_has_new_role',
-        langCode: _userModel?.language,
-      );
-
-      final String? _role = await PhraseProtocols.translate(
-        phid: _authorRolePhid,
-        langCode: _userModel?.language,
-      );
+      final String? _hasNewRole = _map['phid_has_new_role'];
+      final String? _role = _map[_authorRolePhid];
 
       final String _body =  '${author.name}\n$_hasNewRole $_role';
 
@@ -135,7 +128,7 @@ class NoteEventsOfBzTeamManagement {
         userID: deletedAuthor.userID,
       );
 
-      final String? _title = await PhraseProtocols.translate(
+      final String? _title = await Localizer.translateByLangCode(
         phid: 'phid_a_member_exited_the_team',
         langCode: _user?.language,
       );
@@ -188,7 +181,7 @@ class NoteEventsOfBzTeamManagement {
 
     if (bzModel != null && _userModel != null){
 
-      final String? _title = await PhraseProtocols.translate(
+      final String? _title = await Localizer.translateByLangCode(
         phid: 'phid_you_have_exited_bz',
         langCode: _userModel.language,
       );
@@ -256,7 +249,7 @@ class NoteEventsOfBzTeamManagement {
               userID: author.userID,
             );
 
-            final String? _title = await PhraseProtocols.translate(
+            final String? _title = await Localizer.translateByLangCode(
               phid: 'phid_bz_has_been_deleted',
               langCode: _userModel?.language,
             );
@@ -314,12 +307,12 @@ class NoteEventsOfBzTeamManagement {
 
     if (bzModel != null && userModel != null){
 
-          final String? _title = await PhraseProtocols.translate(
+          final String? _title = await Localizer.translateByLangCode(
       phid: 'has_tried_to_contact_you',
       langCode: userModel.language,
     );
 
-    final String? _hasTriedToContactYou = await PhraseProtocols.translate(
+    final String? _hasTriedToContactYou = await Localizer.translateByLangCode(
         phid: 'has_tried_to_contact_you',
         langCode: userModel.language,
     );

@@ -117,7 +117,7 @@ class AppSettingsScreen extends StatelessWidget {
         /// CHANGE LANGUAGE
         SettingsWideButton(
           verse: const Verse(
-            id: 'Language . اللغة', //'phid_changeLanguage',
+            id: 'Language . اللغة . Idioma . Lingua . Sprache . Langue . 语言',
             translate: false,
           ),
           onTap: () => onChangeAppLanguageTap(),

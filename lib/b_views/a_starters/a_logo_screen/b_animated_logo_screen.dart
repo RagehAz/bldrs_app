@@ -19,12 +19,11 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/a_initializer.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_sounder.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
@@ -165,49 +164,49 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
       AnimatedLogoScreen.createBeat(
           start: 1900,
           duration: 200,
-          text: xPhrase('phid_search'),
+          text: getWord('phid_search'),
           color: Colorz.white200
       ),
       // 1
       AnimatedLogoScreen.createBeat(
           start: 2800,
           duration: 200,
-          text: xPhrase('phid_connect'),
+          text: getWord('phid_connect'),
           color: Colorz.white200),
       // 5
       AnimatedLogoScreen.createBeat(
           start: 2700,
           duration: 200,
-          text: xPhrase('phid_ask'),
+          text: getWord('phid_ask'),
           color: Colorz.white200,
       ),
       // 4
       AnimatedLogoScreen.createBeat(
           start: 2350,
           duration: 450,
-          text: xPhrase('phid_answer'),
+          text: getWord('phid_answer'),
           color: Colorz.white200),
       // 3
       AnimatedLogoScreen.createBeat(
-          start: 2000, duration: 450, text: xPhrase('phid_grow'), color: Colorz.white200),
+          start: 2000, duration: 450, text: getWord('phid_grow'), color: Colorz.white200),
       // 2
       AnimatedLogoScreen.createBeat(
-          start: 4700, duration: 300, text: xPhrase('phid_on'), color: Colorz.white200),
+          start: 4700, duration: 300, text: getWord('phid_on'), color: Colorz.white200),
       // 6
       AnimatedLogoScreen.createBeat(
           start: 5550,
           duration: 1000,
-          text: xPhrase('phid_bldrsFullName'),
+          text: getWord('phid_bldrsFullName'),
           color: Colorz.yellow255),
       // 10
       AnimatedLogoScreen.createBeat(
-          start: 4800, duration: 300, text: '- ${xPhrase('phid_designers')}'),
+          start: 4800, duration: 300, text: '- ${getWord('phid_designers')}'),
       // 7
       AnimatedLogoScreen.createBeat(
-          start: 5150, duration: 300, text: '- ${xPhrase('phid_contractors')}'),
+          start: 5150, duration: 300, text: '- ${getWord('phid_contractors')}'),
       // 8
       AnimatedLogoScreen.createBeat(
-          start: 5450, duration: 300, text: '- ${xPhrase('phid_artisans')}'),
+          start: 5450, duration: 300, text: '- ${getWord('phid_artisans')}'),
       // 9
     ];
   }
@@ -465,13 +464,15 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                     child: LoadingVerse(
                       builder: (Verse? verse){
 
+                        final String _loading = getWord('loading')!;
+
                         return AnimatedLine(
                           curvedAnimation: _linesControllers[0],
                           tween: _tween,
                           verse: verse?.id == null ?
-                          Words.loading()
+                          _loading
                               :
-                          Verse.bakeVerseToString(verse: verse) ?? Words.loading(),
+                          Verse.bakeVerseToString(verse: verse) ?? _loading,
                           verseColor: Colorz.white255,
                         );
                         },

@@ -7,7 +7,7 @@ import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/super_text/super_text.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 enum VerseWeight {
@@ -408,15 +408,15 @@ class BldrsText extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   static String superVerseFont(VerseWeight? weight) {
     final String _verseFont =
-    weight == VerseWeight.thin ? Words.bodyFont()
+    weight == VerseWeight.thin ? Localizer.bodyFont()
         :
-    weight == VerseWeight.regular ? Words.bodyFont()
+    weight == VerseWeight.regular ? Localizer.bodyFont()
         :
-    weight == VerseWeight.bold ? Words.headlineFont()
+    weight == VerseWeight.bold ? Localizer.headlineFont()
         :
-    weight == VerseWeight.black ? Words.headlineFont()
+    weight == VerseWeight.black ? Localizer.headlineFont()
         :
-    Words.bodyFont();
+    Localizer.bodyFont();
     return _verseFont;
   }
   // -----------------------------------------------------------------------------

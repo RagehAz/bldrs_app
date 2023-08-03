@@ -20,6 +20,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 class EmailAuthScreenView extends StatelessWidget {
@@ -290,15 +291,15 @@ class EmailAuthScreenView extends StatelessWidget {
               LegalDisclaimerLine(
                 onPolicyTap: () => onPrivacyTap(),
                 onTermsTap: () => onTermsAndTap(),
-                disclaimerLine: Verse.transBake(
+                disclaimerLine: getWord(
                   _isSigningIn == true ?
                   'phid_by_using_bldrs_you_agree_to_our'
                       :
                   'phid_by_signing_up_you_agree_to_our',
                 )!,
-                andLine: Verse.transBake('phid_and')!,
-                policyLine: Verse.transBake('phid_privacy_policy')!,
-                termsLine: Verse.transBake('phid_terms_of_service')!,
+                andLine: getWord('phid_and')!,
+                policyLine: getWord('phid_privacy_policy')!,
+                termsLine: getWord('phid_terms_of_service')!,
               ),
 
               const Horizon(),

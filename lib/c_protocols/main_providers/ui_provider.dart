@@ -1,15 +1,16 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/a_models/x_ui/ui_image_cache_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
@@ -35,7 +36,7 @@ class UiProvider extends ChangeNotifier {
   /// TESTED : WORKS PERFECT
   static bool checkAppIsLeftToRight() {
 
-    if (Words.textDirection() == 'ltr') {
+    if (Localizer.textDirection() == 'ltr') {
       return true;
     }
 
@@ -48,7 +49,7 @@ class UiProvider extends ChangeNotifier {
   /// TESTED : WORKS PERFECT
   static TextDirection getAppTextDir() {
 
-    if (Provider.of<PhraseProvider>(getMainContext(), listen: false).currentLangCode == 'en') {
+    if (Localizer.textDirection() == 'ltr') {
       return TextDirection.ltr;
     }
 
@@ -702,5 +703,22 @@ String? getLocalAssetPath({
   );
 
   return _path;
+}
+// -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
+String? getCounterCaliber(int? x){
+  return Numeric.formatNumToCounterCaliber(
+    x: x,
+    thousand: getWord('phid_thousand')!,
+    million: getWord('phid_million')!,
+  );
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+String? phidIcon(dynamic icon){
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
+  return _chainsProvider.getPhidIcon(
+    son: icon,
+  );
 }
 // -----------------------------------------------------------------------------

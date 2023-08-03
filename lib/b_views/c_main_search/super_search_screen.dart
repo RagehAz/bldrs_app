@@ -30,6 +30,7 @@ import 'package:bldrs/c_protocols/search_protocols/search_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_search.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -900,7 +901,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     final String _countryName = _zone?.countryName ?? '';
     final String _cityName = _zone?.cityName ?? '...';
 
-    final String _hintText =  '${Verse.transBake('phid_search_flyers_in')} '
+    final String _hintText =  '${getWord('phid_search_flyers_in')} '
                               '$_cityName, $_countryName';
 
     return Verse(

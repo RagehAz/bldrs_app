@@ -1,9 +1,9 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class LogoSlogan extends StatelessWidget {
@@ -48,11 +48,7 @@ class LogoSlogan extends StatelessWidget {
         if (showSlogan == true)
           BldrsText(
             width: _logoWidth,
-            verse: Verse(
-              id: Words.bldrsTagLine(),
-              translate: false,
-              casing: Casing.upperCase,
-            ),
+            verse: getVerse('phid_bldrsTagLine', casing: Casing.upperCase),
             size: 3,
             shadow: true,
             weight: VerseWeight.black,
@@ -66,10 +62,7 @@ class LogoSlogan extends StatelessWidget {
         if (showTagLine == true)
           BldrsText(
             width: _logoWidth,
-            verse: Verse(
-              translate: false,
-              id: Words.bldrsDescription(),
-            ),
+            verse: getVerse('phid_bldrsDescription'),
             size: 3,
             weight: VerseWeight.thin,
             shadow: true,

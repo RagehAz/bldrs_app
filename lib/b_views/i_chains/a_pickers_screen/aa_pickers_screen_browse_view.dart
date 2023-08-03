@@ -2,6 +2,8 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -12,11 +14,9 @@ import 'package:bldrs/b_views/i_chains/z_components/pickers/picker_splitter.dart
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class PickersScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -61,11 +61,11 @@ class PickersScreenBrowseView extends StatelessWidget {
     // ------
     final String _instructions =
         onlyUseZoneChains == true ?
-            '${xPhrase('phid_showing_only_keywords_used_in')}\n'
+            '${getWord('phid_showing_only_keywords_used_in')}\n'
             '${_zone?.cityName}, ${_zone?.countryName}'
             // '$_flyerTypesStringWithNewLineIfNotNull'
                 :
-            '${xPhrase('phid_showing_all_available_keywords')}\n'
+            '${getWord('phid_showing_all_available_keywords')}\n'
             '$_flyerTypesString';
     // ------
     return Verse(

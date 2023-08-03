@@ -1,9 +1,9 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:flutter/material.dart';
 
 enum BzSection {
   realestate,
@@ -363,14 +363,14 @@ class BzTyper {
 
     // Stringer.blogStrings(strings: _bzTypesPhids, invoker: 'translateBzTypesIntoString');
 
-    final List<String> _typesTranslated = xPhrases(_bzTypesPhids);
+    final List<String> _typesTranslated = getWords(_bzTypesPhids);
 
     final String _bzTypesOneString = Stringer.generateStringFromStrings(
       strings: _typesTranslated,
     ) ?? '';
 
     final String? _bzFormPhid = getBzFormPhid(bzForm)!;
-    final String _formTranslated = xPhrase(_bzFormPhid) ?? '';
+    final String _formTranslated = getWord(_bzFormPhid) ?? '';
 
     String _output = '$_bzTypesOneString\n$_formTranslated';
 

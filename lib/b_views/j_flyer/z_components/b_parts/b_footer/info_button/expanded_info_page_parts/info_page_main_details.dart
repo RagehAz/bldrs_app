@@ -6,7 +6,6 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/stats_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -44,7 +43,7 @@ class InfoPageMainDetails extends StatelessWidget {
           countryID: zone.countryID,
       );
 
-      _output = '${xPhrase('phid_targeting')} : $_city $_country';
+      _output = '${getWord('phid_targeting')} : $_city $_country';
 
     }
 
@@ -78,7 +77,7 @@ class InfoPageMainDetails extends StatelessWidget {
         StatsLine(
           bubbleWidth: pageWidth - 20,
           verse: Verse(
-            id: '${xPhrase('phid_flyer_type')} : ${xPhrase(_flyerTypePhid)}',
+            id: '${getWord('phid_flyer_type')} : ${getWord(_flyerTypePhid)}',
             translate: false,
           ),
           icon: FlyerTyper.flyerTypeIcon(flyerType: flyerModel?.flyerType, isOn: false),
@@ -89,7 +88,7 @@ class InfoPageMainDetails extends StatelessWidget {
         StatsLine(
           bubbleWidth: pageWidth - 20,
           verse: Verse(
-            id: '${xPhrase('phid_since')} $_timeDifferance',
+            id: '${getWord('phid_since')} $_timeDifferance',
             translate: false,
           ),
           icon: Iconz.calendar,

@@ -27,7 +27,7 @@ class ZoneButton extends StatelessWidget {
         onTap: onTap,
         isOn: isOn,
         icon: Iconz.planet,
-        firstRow: Verse.transBake('phid_the_world'),
+        firstRow: getWord('phid_the_world'),
         secondRow: null,
         height: height,
       );

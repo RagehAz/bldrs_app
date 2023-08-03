@@ -7,9 +7,9 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_head
 import 'package:bldrs/b_views/z_components/texting/customs/stats_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 class BzStatsBubble extends StatefulWidget {
@@ -108,7 +108,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// FOLLOWERS
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.follows} ${xPhrase('phid_followers')}',
+                    id: '${_counter.follows} ${getWord('phid_followers')}',
                     translate: false,
                   ),
                   icon: Iconz.follow,
@@ -117,7 +117,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// CALLS
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.calls} ${xPhrase('phid_callsReceived')}',
+                    id: '${_counter.calls} ${getWord('phid_callsReceived')}',
                     translate: false,
                   ),
                   icon: Iconz.comPhone,
@@ -127,10 +127,10 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 StatsLine(
                   verse: Verse(
                     id: '${_counter.allSlides} '
-                        '${xPhrase('phid_slidesPublished')} '
-                        '${xPhrase('phid_inn')} '
+                        '${getWord('phid_slidesPublished')} '
+                        '${getWord('phid_inn')} '
                         '${_bzModel?.publication.published.length} '
-                        '${xPhrase('phid_flyers')}',
+                        '${getWord('phid_flyers')}',
                     translate: false,
                     variables: [_counter.allSlides, _bzModel?.publication.published.length]
                   ),
@@ -140,7 +140,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// SAVES
                 StatsLine(
                   verse: Verse(
-                    id:  '${_counter.allSaves} ${xPhrase('phid_totalSaves')}',
+                    id:  '${_counter.allSaves} ${getWord('phid_totalSaves')}',
                     translate: false,
                   ),
                   icon: Iconz.saveOn,
@@ -149,7 +149,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// VIEWS
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.allViews} ${xPhrase('phid_total_flyer_views')}',
+                    id: '${_counter.allViews} ${getWord('phid_total_flyer_views')}',
                     translate: false,
                   ),
                   icon: Iconz.viewsIcon,
@@ -158,7 +158,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// SHARES
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.allShares} ${xPhrase('phid_totalShares')}',
+                    id: '${_counter.allShares} ${getWord('phid_totalShares')}',
                     translate: false,
                   ),
                   icon: Iconz.share,

@@ -65,7 +65,7 @@ class TopDialog extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showTopDialog({
-    required Verse firstVerse,
+    required Verse? firstVerse,
     Verse? secondVerse,
     Color color = Colorz.yellow255,
     Color textColor = Colorz.black255,

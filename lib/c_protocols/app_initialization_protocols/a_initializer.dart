@@ -7,7 +7,7 @@ import 'package:bldrs/c_protocols/app_initialization_protocols/b_app_state_inita
 import 'package:bldrs/c_protocols/app_initialization_protocols/c_user_initializer.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/e_ui_initializer.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/cupertino.dart';
 
 /// => TAMAM
@@ -46,12 +46,12 @@ class Initializer {
       _report('refreshLDB : started');
 
       /// LOADING
-      UiInitializer.setLoadingVerse(Words.pleaseWait());
+      UiInitializer.setLoadingVerse(getWord('pleaseWait'));
 
       /// APP LANGUAGE
       await UiInitializer.initializeAppLanguage();
 
-      _report('refreshLDB : app land ${Words.languageCode()}');
+      _report('refreshLDB : app land ${Localizer.getCurrentLangCode()}');
 
       /// APP STATE
       _canLoadApp = await AppStateInitializer.initialize();
@@ -59,7 +59,7 @@ class Initializer {
       _report('refreshLDB : after app state can continue : $_canLoadApp');
 
       /// LOADING
-      UiInitializer.setLoadingVerse(Words.thisIsBabyApp());
+      UiInitializer.setLoadingVerse(getWord('phid_thisIsBabyApp'));
 
       if (_canLoadApp == true){
 
@@ -71,7 +71,7 @@ class Initializer {
         if (_canLoadApp == true){
 
           /// LOADING
-          UiInitializer.setLoadingVerse(Words.thankYouForWaiting());
+          UiInitializer.setLoadingVerse(getWord('phid_thankYouForWaiting'));
 
             /// USER MODEL
             _canLoadApp = await UserInitializer.initializeUser();
@@ -80,7 +80,7 @@ class Initializer {
 
             if (_canLoadApp == true){
 
-              UiInitializer.setLoadingVerse(Words.loading());
+              UiInitializer.setLoadingVerse(getWord('loading')!);
 
               /// UI - ICONS - PHRASES
               await UiInitializer.initializeIconsAndPhrases();
@@ -92,8 +92,6 @@ class Initializer {
         }
 
       }
-
-      await UiInitializer.avoidMissingPhrasesOps();
 
       UiProvider.clearLoadingVerse();
 

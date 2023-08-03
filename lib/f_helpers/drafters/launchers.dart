@@ -1,11 +1,12 @@
 import 'dart:async';
+import 'dart:io';
+
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -152,7 +153,7 @@ class Launcher {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String _generateDefaultEmailSubject(){
-    return ''; //xPhrase('phid_bldrs');
+    return ''; //word('phid_bldrs');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -310,6 +311,41 @@ class Launcher {
     }
 
   }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> shareFile({
+    required File? file,
+    required String? subject,
+  }) async {
+
+    if (file == null){
+
+    }
+
+    else {
+      final XFile _xFile = XFile(file.path);
+      final RenderBox? _box = getMainContext().findRenderObject() as RenderBox;
+      final ShareResult _result = await Share.shareXFiles(
+        <XFile>[_xFile],
+        subject: subject,
+        sharePositionOrigin: _box!.localToGlobal(Offset.zero) & _box.size,
+      );
+
+      blogShareResult(_result);
+
+
+    }
+
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+  // --------------------
+  static void blogShareResult(ShareResult result){
+    blog('share status : ${result.status} : raw : ${result.raw}');
+  }
   // -----------------------------------------------------------------------------
 
   /// BLDRS SPECIFIC
@@ -318,14 +354,9 @@ class Launcher {
   /// TESTED : WORKS PERFECT
   static Future<void> shareBldrsWebsiteURL() async {
 
-    final String? _tagLine = await PhraseProtocols.translate(
-        langCode: Localizer.getCurrentLangCode(),
-        phid: 'phid_bldrsTagLine',
-    );
-
     await shareURL(
       url: Standards.bldrsWebSiteURL,
-      subject: _tagLine,
+      subject: getWord('phid_bldrsTagLine'),
     );
 
   }

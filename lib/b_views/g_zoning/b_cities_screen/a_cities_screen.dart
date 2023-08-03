@@ -1,10 +1,13 @@
 // ignore_for_file: invariant_booleans
 import 'package:basics/animators/widgets/scroller.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_browse_view.dart';
@@ -13,7 +16,6 @@ import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b_zone_search_protocols.dart';
@@ -21,9 +23,6 @@ import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/sta
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class CitiesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -378,7 +377,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         invoker: 'SelectCityScreen',
       ),
       searchHintVerse: Verse(
-        id: '${xPhrase('phid_search_cities_of')} ${_countryName ?? '...'}',
+        id: '${getWord('phid_search_cities_of')} ${_countryName ?? '...'}',
         translate: false,
       ),
       loading: _loading,

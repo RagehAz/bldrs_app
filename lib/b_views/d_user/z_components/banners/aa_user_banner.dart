@@ -1,5 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -13,13 +15,11 @@ import 'package:bldrs/b_views/z_components/texting/customs/zone_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class UserBanner extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -51,7 +51,7 @@ class UserBanner extends StatelessWidget {
       _string = _title;
     }
     else if (_title != null && _company != null){
-      _string = '$_title ${xPhrase('phid_at')} $_company';
+      _string = '$_title ${getWord('phid_at')} $_company';
     }
     else {
       _string = null;
