@@ -13,11 +13,17 @@ class AppLangsScreen extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  Future<void> _tapLanguage(String? langCode) async {
+  Future<void> _tapLanguage({
+    required BuildContext context,
+    required String? langCode,
+  }) async {
 
-    await PhraseProtocols.changeAppLang(
-      langCode: langCode,
-    );
+    if (langCode != null){
+      await PhraseProtocols.changeAppLang(
+        context: context,
+        langCode: langCode,
+      );
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -39,7 +45,10 @@ class AppLangsScreen extends StatelessWidget {
           return SettingsWideButton(
             verse: Verse.plain(_langName),
             isOn: _currentLang != _langCode,
-            onTap: () => _tapLanguage(_langCode),
+            onTap: () => _tapLanguage(
+              context: context,
+              langCode: _langCode,
+            ),
           );
 
         }),

@@ -6,6 +6,7 @@ import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/mediator/sounder/sounder.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
+import 'package:bldrs/c_protocols/app_initialization_protocols/e_ui_initializer.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
@@ -129,12 +130,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
           await AuthProtocols.signInAsRage7(context: context);
         }
 
-        /// LOCALE
-        await Localizer.initializeLocale(
-          locale: _locale,
-          mounted: mounted,
-        );
-
         /// INITIALIZE NOOTS
         await FCMStarter.initializeNootsInBldrsAppStarter(
           channelModel: ChannelModel.bldrsChannel,
@@ -154,8 +149,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   @override
   void dispose() {
     _loading.dispose();
-    _locale.dispose();
-
     // Sembast.dispose(); async function,, and no need to close sembast I guess
     Sounder.dispose();
     _closeNootListeners();
@@ -195,15 +188,13 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   /// LOCALE
 
   // --------------------
-  final ValueNotifier<Locale?> _locale = ValueNotifier<Locale?>(null);
+  Locale? _locale;
   // --------------------
   void _setLocale(Locale locale) {
 
-    setNotifier(
-        notifier: _locale,
-        mounted: mounted,
-        value: locale
-    );
+    setState(() {
+      _locale = locale;
+    });
 
   }
   // -----------------------------------------------------------------------------
@@ -211,10 +202,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   Widget build(BuildContext context) {
 
       return BldrsProviders(
-        child: ValueListenableBuilder<Locale?>(
-          valueListenable: _locale,
-          builder: (BuildContext ctx, Locale? value, Widget? child) {
-            return MaterialApp(
+        child: MaterialApp(
               /// KEYS
               // key: ,
               // scaffoldMessengerKey: ,
@@ -302,7 +290,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
               ),
 
               /// LOCALE
-              locale: value,
+              locale: _locale,
               supportedLocales: Localizer.getSupportedLocales(),
               localizationsDelegates: Localizer.getLocalizationDelegates(),
               localeResolutionCallback: Localizer.localeResolutionCallback,
@@ -317,9 +305,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
               // onGenerateRoute: Routing.allRoutes,
               initialRoute: Routing.staticLogoScreen,
               routes: Routing.routesMap,
-            );
-          },
-        ),
+            ),
       );
 
   }

@@ -46,7 +46,7 @@ class Initializer {
       UiInitializer.setLoadingVerse(getWord('pleaseWait'));
 
       /// APP LANGUAGE
-      await UiInitializer.initializeAppLanguage();
+      await UiInitializer.initializeAppLanguage(context);
 
       _report('refreshLDB : app land ${Localizer.getCurrentLangCode()}');
 
@@ -77,7 +77,7 @@ class Initializer {
 
             if (_canLoadApp == true){
 
-              UiInitializer.setLoadingVerse(getWord('loading')!);
+              UiInitializer.setLoadingVerse(getWord('phid_loading')!);
 
               /// UI - ICONS - PHRASES
               await UiInitializer.initializeIconsAndPhrases();

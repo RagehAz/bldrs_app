@@ -1,14 +1,17 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/aa_static_logo_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramid_floating_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/a_initializer.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +54,6 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
       duration: const Duration(milliseconds: _fadeCycleDuration),
     );
 
-
   }
   // --------------------
   bool _isInit = true;
@@ -71,13 +73,14 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
 
         if (_loadApp == true){
           await Nav.pushNamedAndRemoveAllBelow(
-            context: getMainContext(),
+            context: context,
             goToRoute: Routing.home,
           );
         }
-        // else {
-        //   await BldrsNav.goToLogoScreenAndRemoveAllBelow(animatedLogoScreen: false);
-        // }
+
+        /// else {
+        ///   await BldrsNav.goToLogoScreenAndRemoveAllBelow(animatedLogoScreen: false);
+        /// }
 
         await _triggerLoading(setTo: false);
       });
@@ -105,6 +108,23 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
       pyramidType: PyramidType.crystalYellow,
       loading: _loading,
       canGoBack: false,
+      pyramidButtons: [
+
+        PyramidFloatingButton(
+          icon: Iconz.dvBlackHole,
+          onTap: () async {
+
+            // blog('current lang was : ${Localizer.getCurrentLangCode()}');
+
+            final String _lang = Localizer.getCurrentLangCode() == 'en' ? 'ar' : 'en';
+            await Localizer.changeAppLanguage(context: context, code: _lang);
+
+            // blog('current lang is : ${Localizer.getCurrentLangCode()}');
+
+          },
+        ),
+
+      ],
       onBack: () async {
 
         await Nav.replaceScreen(
