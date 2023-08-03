@@ -464,7 +464,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                     child: LoadingVerse(
                       builder: (Verse? verse){
 
-                        final String _loading = getWord('loading')!;
+                        final String _loading = getWord('phid_loading')!;
 
                         return AnimatedLine(
                           curvedAnimation: _linesControllers[0],

@@ -1,7 +1,9 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -19,6 +21,9 @@ class LogoSlogan extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final String _code = UiProvider.proGetCurrentLangCode(context: context, listen: true);
+    blog(' XXX---------> current lang is : x$_code : ${Localizer.getCurrentLangCode()} : ${Localizer.of(context)?.locale}');
     // --------------------
     final double _shortest = Scale.screenShortestSide(context);
     final double _logoWidth = _shortest * 0.5;//_screenHeight * 22 * 0.016 * sizeFactor;

@@ -61,7 +61,7 @@ class SettingsWideButton extends StatelessWidget {
       isDisabled: !isOn,
       verseCentered: icon == null,
       verseItalic: true,
-      verseScaleFactor: 0.6,
+      verseScaleFactor: 0.55,
       // verseWeight: VerseWeight.bold,
       // splashColor: Colorz.yellow255,
     );

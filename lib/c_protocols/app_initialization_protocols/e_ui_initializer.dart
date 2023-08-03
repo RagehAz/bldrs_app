@@ -31,7 +31,7 @@ class UiInitializer {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> initializeAppLanguage() async {
+  static Future<void> initializeAppLanguage(BuildContext context) async {
 
     final String? _ldbLangCode = await Localizer.readLDBLangCode();
 
@@ -39,7 +39,18 @@ class UiInitializer {
         final String? _selectedLangCode = await Dialogs.languageDialog();
         await Localizer.changeAppLanguage(
           code: _selectedLangCode,
-          context: getMainContext(),
+          context: context,
+        );
+
+        if (_selectedLangCode == null){
+          await initializeAppLanguage(context);
+        }
+
+      }
+      else {
+        await Localizer.changeAppLanguage(
+          code: _ldbLangCode,
+          context: context,
         );
       }
 

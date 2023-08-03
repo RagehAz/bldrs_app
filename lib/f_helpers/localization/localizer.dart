@@ -72,17 +72,36 @@ class Localizer {
 
   // --------------------
   static Future<void> initializeLocale({
+    required BuildContext context,
     required ValueNotifier<Locale?> locale,
     required bool mounted,
   }) async {
 
     final Locale? _locale = await Localizer._getCurrentLocaleFromLDB();
 
-    setNotifier(
+    blog('LDB _locale : ${_locale?.languageCode}');
+
+    if (_locale != null){
+
+      setNotifier(
         notifier: locale,
         mounted: mounted,
         value: _locale,
-    );
+      );
+
+      await _setLDBLangCode(langCode: _locale.languageCode);
+
+      final Locale? _temp = _concludeLocaleByLingoCode(_locale.languageCode);
+
+      BldrsAppStarter.setLocale(context, _temp);
+
+      UiProvider.proSetCurrentLangCode(
+          context: getMainContext(),
+          langCode: _locale.languageCode,
+          notify: true,
+      );
+
+    }
 
   }
   // --------------------
@@ -147,6 +166,7 @@ class Localizer {
       case 'it': return 'Italiano';
       case 'de': return 'Deutsche';
       case 'fr': return 'Français';
+      case 'zh': return '中文';
       // case "ru": return "русский";
       default: return '';
     }
@@ -196,15 +216,19 @@ class Localizer {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Map<String, String>> getLangMap({
+  static Future<Map<String, String>?> getLangMap({
     required String? langCode
   }) async {
 
     Map<String, String>? _output;
 
-    final String _langFilePath = BldrsThemeLangs.getLangFilePath(
+    final String? _langFilePath = BldrsThemeLangs.getLangFilePath(
       langCode: langCode,
     );
+
+    if (_langFilePath == null){
+      return null;
+    }
 
     await tryAndCatch(
       invoker: 'getJSONLangMap',
@@ -286,9 +310,15 @@ class Localizer {
         langCode: code,
       );
 
-      final Locale? _temp = await _setLocale(code);
+      final Locale? _temp  = _concludeLocaleByLingoCode(code);
 
       BldrsAppStarter.setLocale(context, _temp);
+
+      UiProvider.proSetCurrentLangCode(
+        context: context,
+        langCode: code,
+        notify: true,
+      );
 
       final UserModel? _user = UsersProvider.proGetMyUserModel(
         context: context,
@@ -310,20 +340,20 @@ class Localizer {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<Locale?> _setLocale(String languageCode) async {
-
-    await LDBOps.insertMap(
-        docName: LDBDoc.langCode,
-        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.langCode),
-        input: {
-          'id': LDBDoc.langCode,
-          LDBDoc.langCode: languageCode,
-        },
-    );
-
-    return _concludeLocaleByLingoCode(languageCode);
-  }
+  // /// TESTED : WORKS PERFECT
+  // static Future<Locale?> _setLocale(String languageCode) async {
+  //
+  //   await LDBOps.insertMap(
+  //       docName: LDBDoc.langCode,
+  //       primaryKey: LDBDoc.getPrimaryKey(LDBDoc.langCode),
+  //       input: {
+  //         'id': LDBDoc.langCode,
+  //         LDBDoc.langCode: languageCode,
+  //       },
+  //   );
+  //
+  //   return _concludeLocaleByLingoCode(languageCode);
+  // }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Locale? _concludeLocaleByLingoCode(String? langCode) {
@@ -367,8 +397,7 @@ class _DemoLocalizationDelegate extends LocalizationsDelegate<Localizer> {
   // --------------------
   @override
   bool isSupported(Locale locale) {
-    return <String>['en', 'ar', 'es', 'fr', 'zh', 'de', 'it']
-        .contains(locale.languageCode);
+    return Localizer.supportedLangCodes.contains(locale.languageCode);
   }
   // --------------------
   @override
@@ -379,7 +408,7 @@ class _DemoLocalizationDelegate extends LocalizationsDelegate<Localizer> {
   }
   // --------------------
   @override
-  bool shouldReload(LocalizationsDelegate old) => false;
+  bool shouldReload(LocalizationsDelegate old) => true;
   // -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
