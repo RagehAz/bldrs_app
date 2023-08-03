@@ -423,7 +423,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
       ),
       appBarRowWidgets: <Widget>[
 
-        /// BZ LOGO ON TOP
+        /// BZ LOGO IN APP BAR
         Selector<BzzProvider, BzModel?>(
           selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
           builder: (BuildContext context, BzModel? bzModel, Widget? child){
@@ -434,9 +434,11 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
               bubble: false,
               onTap: () async {
 
-                Sliders.snapTo(
+                await Sliders.slideToIndex(
                   pageController: _pageController,
                   toIndex: 0,
+                  duration: const Duration(milliseconds: 700),
+                  curve: Curves.easeInOutExpo,
                 );
 
                 _draftNotifier.value?.blogDraft(invoker: 'current');
@@ -522,7 +524,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                   onPreviousTap: _onPreviousTap,
                   canValidate: _canValidate,
                   canGoNext: _canGoFrom2to3(draft: draft),
-                  onAddPhidsTap: () => onFlyerPhidTap(
+                  onAddPhidsTap: () => onAddPhidsToFlyerTap(
                         context: context,
                         mounted: mounted,
                         draftNotifier: _draftNotifier,

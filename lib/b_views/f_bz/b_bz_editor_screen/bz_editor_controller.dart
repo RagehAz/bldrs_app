@@ -456,6 +456,7 @@ Future<void> onChangeBzScope({
     event: ViewingEvent.bzEditor,
     onlyUseZoneChains: false,
     selectedPhids: draftNotifier.value.scope,
+    slideScreenFromEnLeftToRight: false,
   );
 
   if (Mapper.checkCanLoopList(_phids) == true){

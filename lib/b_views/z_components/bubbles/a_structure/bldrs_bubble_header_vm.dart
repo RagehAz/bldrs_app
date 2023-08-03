@@ -102,8 +102,14 @@ class BldrsBubbleHeaderVM {
           switchFocusColor: Colorz.white255,
           switchTrackColor: Colorz.yellow80,
 
-          wordSpacing: BldrsText.superVerseWordSpacing(_textSizeValue),
-          letterSpacing: BldrsText.superVerseWordSpacing(_textSizeValue),
+          wordSpacing: BldrsText.superVerseWordSpacing(
+            verseSize: _textSizeValue,
+            weight: weight,
+          ),
+          letterSpacing: BldrsText.superVerseWordSpacing(
+            verseSize: _textSizeValue,
+            weight: weight,
+          ),
           
         );
       }

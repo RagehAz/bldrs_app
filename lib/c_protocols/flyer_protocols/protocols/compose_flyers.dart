@@ -16,7 +16,7 @@ import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
-
+/// => TAMAM
 class ComposeFlyerProtocols {
   // -----------------------------------------------------------------------------
 
@@ -27,7 +27,7 @@ class ComposeFlyerProtocols {
   /// COMPOSE
 
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<void> compose({
     required DraftFlyer? draftFlyer,
   }) async {
@@ -55,7 +55,6 @@ class ComposeFlyerProtocols {
           isPublishing: true,
         );
 
-        /// TASK : SHOULD ASSERT FLYER IS COMPOSABLE METHOD
         assert (_flyerToPublish != null, 'Flyer is null');
         assert (_flyerToPublish?.id != null, 'Flyer ID is null');
 
@@ -130,7 +129,6 @@ class ComposeFlyerProtocols {
 
         }
 
-
       }
 
     }
@@ -190,42 +188,5 @@ class ComposeFlyerProtocols {
 
     // return _uploadedBzModel;
   }
-  // --------------------
-  // /// TESTED : WORKS PERFECT
-  // static Future<void> createFlyerPoster({
-  //   required BuildContext context,
-  //   required String flyerID,
-  //   required DraftFlyer draftFlyer,
-  // }) async {
-  //
-  //   final Uint8List? _bytes = await PosterDisplay.capturePoster(
-  //     context: context,
-  //     posterType: PosterType.flyer,
-  //     model: draftFlyer,
-  //     helperModel: draftFlyer.bzModel,
-  //     // finalDesiredPicWidth: Standards.posterDimensions.width,
-  //   );
-  //
-  //   final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
-  //   final double? _mega = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
-  //
-  //   final PicModel _posterPicModel = PicModel(
-  //     bytes: _bytes,
-  //     path: StoragePath.flyers_flyerID_poster(flyerID),
-  //     meta: StorageMetaModel(
-  //         sizeMB: _mega,
-  //         width: _dims?.width,
-  //         height: _dims?.height,
-  //         ownersIDs: await FlyerModel.generateFlyerOwners(
-  //           bzID: draftFlyer.bzID,
-  //         )
-  //     ),
-  //   );
-  //
-  //   await PicProtocols.composePic(_posterPicModel);
-  //
-  //   _posterPicModel.blogPic(invoker: 'createFlyerPoster : is done');
-  //
-  // }
   // -----------------------------------------------------------------------------
 }
