@@ -13,6 +13,7 @@ class BldrsBulletPoints extends StatelessWidget {
     this.centered = false,
     this.showBottomLine = true,
     this.verseSizeFactor = 1,
+    this.showDots = true,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -21,6 +22,7 @@ class BldrsBulletPoints extends StatelessWidget {
   final bool centered;
   final bool showBottomLine;
   final double verseSizeFactor;
+  final bool showDots;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,7 @@ class BldrsBulletPoints extends StatelessWidget {
       textDirection: UiProvider.getAppTextDir(),
       centered: centered,
       font: BldrsText.superVerseFont(VerseWeight.thin),
+      showDots: showDots,
       showBottomLine: showBottomLine,
       // textColor: Colorz.blue255,
     );
