@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
@@ -110,8 +111,11 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
   Future<void> _preparations() async {
     if (widget.flyerModel != null) {
       if (mounted == true) {
+
         final FlyerModel? _renderedSmallFlyer = await FlyerProtocols.renderSmallFlyer(
           flyerModel: widget.flyerModel,
+          slidePicType: SlidePicType.small,
+          onlyFirstSlide: true,
         );
 
         // await Future.wait(<Future>[

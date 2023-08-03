@@ -23,6 +23,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:fire/super_fire.dart';
@@ -253,7 +254,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
     if (_flyer.value?.id  != null){
 
-      // unawaited(_imagifySlidesAndAuthorPic());
+      unawaited(_imagifyFlyer());
 
       setNotifier(
         notifier: _bzCounters,
@@ -271,47 +272,49 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
   }
   // --------------------
-  /*
-  Future<void> _imagifySlidesAndAuthorPic() async {
-
-    FlyerModel _imagified = _flyer.value;
+  ///
+  Future<void> _imagifyFlyer() async {
 
     if (_flyer.value != null){
 
-      await Future.wait(<Future>[
-
-        /// IMAGIFY REMAINING SLIDES
-        FlyerProtocols._imagifySlides(_flyer.value)
-            .then((FlyerModel flyer){
-          _imagified = _imagified.copyWith(
-            slides: flyer.slides,
+      /// SMALL
+      FlyerModel? _rendered = await FlyerProtocols.renderBigFlyer(
+        flyerModel: _flyer.value,
+        slidePicType: SlidePicType.small,
+        onRenderEachSlide: (FlyerModel flyer){
+          setNotifier(
+            notifier: _flyer,
+            mounted: mounted,
+            value: flyer,
           );
-        }),
+        }
+      );
 
-        /// IMAGIFY AUTHOR PIC
-        if (_imagified.showsAuthor == true)
-          FlyerProtocols._imagifyAuthorPic(_flyer.value)
-              .then((FlyerModel flyer){
-            _imagified = _imagified.copyWith(
-              authorImage: flyer.authorImage,
-            );
-          }),
-
-      ]);
-
-      assert(_imagified != null, 'received flyer with imagified slides is null');
-      assert(_imagified.slides[_imagified.slides.length - 1].uiImage != null, 'last slide uiImage is null');
+      /// BIG
+      _rendered = await FlyerProtocols.renderBigFlyer(
+        flyerModel: _rendered,
+        slidePicType: SlidePicType.med,
+        onRenderEachSlide: (FlyerModel flyer){
+          setNotifier(
+            notifier: _flyer,
+            mounted: mounted,
+            value: flyer,
+          );
+        }
+      );
 
       setNotifier(
         notifier: _flyer,
         mounted: mounted,
-        value: _imagified,
+        value: _rendered,
       );
+
+      // assert(_rendered != null, 'received flyer with imagified slides is null');
+      // assert(_rendered.slides[_rendered.slides.length - 1].uiImage != null, 'last slide uiImage is null');
 
     }
 
   }
-   */
   // -----------------------------------------------------------------------------
 
   /// DISPOSING
