@@ -1,8 +1,5 @@
 import 'dart:async';
 
-import 'package:basics/helpers/classes/checks/device_checker.dart';
-import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/b_app_state_initailizer.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/c_user_initializer.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/e_ui_initializer.dart';
@@ -29,17 +26,17 @@ class Initializer {
 
     _report('start');
 
-    final bool _isConnected = await DeviceChecker.checkConnectivity();
+    // final bool _isConnected = await DeviceChecker.checkConnectivity();
+    //
+    // _report('_isConnected : $_isConnected');
 
-    _report('_isConnected : $_isConnected');
-
-    if (_isConnected == false){
-
-      await Nav.goToNewScreen(context: context, screen: const AppSettingsScreen());
-
-    }
-
-    else {
+    // if (_isConnected == false){
+    //
+    //   // await Nav.goToNewScreen(context: context, screen: const AppSettingsScreen());
+    //
+    // }
+    //
+    // else {
 
       unawaited(UiInitializer.refreshLDB());
 
@@ -95,7 +92,7 @@ class Initializer {
 
       UiProvider.clearLoadingVerse();
 
-    }
+    // }
 
 
     return _canLoadApp;
