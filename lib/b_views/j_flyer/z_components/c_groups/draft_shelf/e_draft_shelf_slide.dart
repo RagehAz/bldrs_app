@@ -34,7 +34,7 @@ class DraftShelfSlide extends StatefulWidget {
   final Function? onTap;
   final Function? onDeleteSlide;
   /// --------------------------------------------------------------------------
-  static const double flyerBoxWidth = 150;
+  static const double flyerBoxWidth = 110;
   static const double slideNumberBoxHeight = 20;
   // -----------------------------------------------------------------------------
   static double flyerBoxHeight(){
@@ -196,6 +196,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                     text: widget.draftSlide?.headline,
                   ),
 
+                /// DELETE SLIDE
                 if (widget.draftSlide != null)
                   DeleteDraftSlideButton(
                     onTap: () => widget.onDeleteSlide?.call(),

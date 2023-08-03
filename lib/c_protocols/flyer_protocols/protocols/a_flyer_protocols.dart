@@ -14,7 +14,7 @@ class FlyerProtocols  {
   /// COMPOSE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const composeFlyer = ComposeFlyerProtocols.compose;
   // -----------------------------------------------------------------------------
 
@@ -37,10 +37,10 @@ class FlyerProtocols  {
   /// RENOVATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const renovateDraft = RenovateFlyerProtocols.renovateDraft;
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const renovateFlyer = RenovateFlyerProtocols.renovateFlyer;
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -50,7 +50,7 @@ class FlyerProtocols  {
   /// WIPE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const onWipeSingleFlyer = WipeFlyerProtocols.onWipeSingleFlyer;
   // --------------------
   /// TASK : TEST ME

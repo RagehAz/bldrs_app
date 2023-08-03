@@ -13,7 +13,7 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-
+/// => TAMAM
 class FlyerFireOps {
   // -----------------------------------------------------------------------------
 
@@ -193,7 +193,7 @@ class FlyerFireOps {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> onReportFlyer({
     required BuildContext context,
     required FlyerModel? flyer,

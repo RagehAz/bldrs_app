@@ -314,7 +314,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
       flyerType: flyerType,
       event: ViewingEvent.homeView,
       onlyUseZoneChains: true,
-      slideScreenFromEnLeftToRight: false,
+      slideScreenFromEnLeftToRight: true,
       // selectedPhids:
     );
 

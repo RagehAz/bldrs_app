@@ -325,7 +325,10 @@ class BldrsText extends StatelessWidget {
     final double _scalingFactor = scaleFactor ?? 1;
     final double _verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
     final double _verseLetterSpacing = superVerseLetterSpacing(weight, _verseSizeValue);
-    final double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
+    final double _verseWordSpacing = superVerseWordSpacing(
+      verseSize: _verseSizeValue,
+      weight: weight,
+    );
     final FontWeight _verseWeight = superVerseWeight(weight);
 
     /// --- SHADOWS -----------------------------------------------
@@ -433,19 +436,22 @@ class BldrsText extends StatelessWidget {
         :
     weight == VerseWeight.bold ? verseSizeValue * 0.05
         :
-    weight == VerseWeight.black ? verseSizeValue * 0.07
+    weight == VerseWeight.black ? verseSizeValue * 0.03
         :
     verseSizeValue * 0;
     return _verseLetterSpacing;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double superVerseWordSpacing(double verseSize) {
+  static double superVerseWordSpacing({
+    required double verseSize,
+    required VerseWeight weight,
+  }) {
     final double _verseWordSpacing =
-    // weight == VerseWeight.thin ? verseSize * 0.1 :
-    // weight == VerseWeight.regular ? verseSize * 0.1 :
-    // weight == VerseWeight.bold ? verseSize * 0.1 :
-    // weight == VerseWeight.black ? verseSize * 0.1 :
+    weight == VerseWeight.thin ? verseSize * 0.0 :
+    weight == VerseWeight.regular ? verseSize * 0.0 :
+    weight == VerseWeight.bold ? verseSize * 0.0 :
+    weight == VerseWeight.black ? verseSize * 0.0 :
     verseSize * 0;
     return _verseWordSpacing;
   }
@@ -556,7 +562,10 @@ class BldrsText extends StatelessWidget {
       textHeight: _verseSizeValue * 1.42,
       maxLines: maxLines,
       margins: margin,
-      wordSpacing: superVerseWordSpacing(_verseSizeValue),
+      wordSpacing: superVerseWordSpacing(
+        verseSize: _verseSizeValue,
+        weight: weight,
+      ),
       letterSpacing: BldrsText.superVerseLetterSpacing(weight, _verseSizeValue),
       textColor: color,
       boxColor: labelColor,

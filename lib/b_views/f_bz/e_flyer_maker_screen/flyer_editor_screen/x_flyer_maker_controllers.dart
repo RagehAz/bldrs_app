@@ -371,7 +371,7 @@ void onFlyerPhidLongTap({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onFlyerPhidTap({
+Future<void> onAddPhidsToFlyerTap({
   required BuildContext context,
   required ValueNotifier<DraftFlyer?> draftNotifier,
   required bool mounted,
@@ -380,11 +380,12 @@ Future<void> onFlyerPhidTap({
   Keyboard.closeKeyboard();
 
   final List<String> _phids = await PhidsPickerScreen.goPickPhids(
-      context: context,
-      flyerType: draftNotifier.value?.flyerType,
-      event: ViewingEvent.flyerEditor,
-      onlyUseZoneChains: false,
-      selectedPhids: draftNotifier.value?.phids,
+    context: context,
+    flyerType: draftNotifier.value?.flyerType,
+    event: ViewingEvent.flyerEditor,
+    onlyUseZoneChains: false,
+    selectedPhids: draftNotifier.value?.phids,
+    slideScreenFromEnLeftToRight: true,
   );
 
   if (Mapper.checkCanLoopList(_phids) == true){
