@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,8 @@ class FlyerBuilder extends StatelessWidget {
     required this.builder,
     required this.flyerBoxWidth,
     required this.renderFlyer,
+    required this.slidePicType,
+    required this.onlyFirstSlide,
     this.flyerModel,
     this.onFlyerNotFound,
     this.loadingWidget,
@@ -24,6 +27,8 @@ class FlyerBuilder extends StatelessWidget {
   final Function(String? flyerID)? onFlyerNotFound;
   final FlyerModel? flyerModel;
   final RenderFlyer renderFlyer;
+  final SlidePicType slidePicType;
+  final bool onlyFirstSlide;
   final Widget Function(FlyerModel? flyerModel) builder;
   final Widget? loadingWidget;
   // -----------------------------------------------------------------------------
@@ -74,6 +79,8 @@ class FlyerBuilder extends StatelessWidget {
         flyerBoxWidth: flyerBoxWidth,
         onFlyerNotFound: onFlyerNotFound,
         renderFlyer: renderFlyer,
+        slidePicType: slidePicType,
+        onlyFirstSlide: onlyFirstSlide,
         builder: builder,
         loadingWidget: loadingWidget,
       );
@@ -91,6 +98,8 @@ class _FutureFlyerBuilder extends StatefulWidget {
     required this.builder,
     required this.flyerBoxWidth,
     required this.renderFlyer,
+    required this.slidePicType,
+    required this.onlyFirstSlide,
     required this.flyerModel,
     required this.onFlyerNotFound,
     required this.loadingWidget,
@@ -101,6 +110,8 @@ class _FutureFlyerBuilder extends StatefulWidget {
   final double flyerBoxWidth;
   final Function(String? flyerID)? onFlyerNotFound;
   final RenderFlyer renderFlyer;
+  final SlidePicType slidePicType;
+  final bool onlyFirstSlide;
   final Widget Function(FlyerModel? flyerModel) builder;
   final FlyerModel? flyerModel;
   final Widget? loadingWidget;
@@ -191,19 +202,45 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
         if (widget.renderFlyer == RenderFlyer.firstSlide && mounted) {
           _flyer = await FlyerProtocols.renderSmallFlyer(
             flyerModel: _flyer,
-          );
-        }
-
-        else if (widget.renderFlyer == RenderFlyer.allSlides && mounted) {
-          _flyer = await FlyerProtocols.renderBigFlyer(
-            flyerModel: _flyer,
+            slidePicType: widget.slidePicType,
+            onlyFirstSlide: widget.onlyFirstSlide,
             onRenderEachSlide: (FlyerModel flyer){
               if (mounted == true){
                 setState(() {
                   _flyerModel = _flyer;
                 });}
             }
-            );
+          );
+        }
+
+        else if (widget.renderFlyer == RenderFlyer.allSlides && mounted) {
+
+          /// SMALL
+          _flyer = await FlyerProtocols.renderBigFlyer(
+              flyerModel: _flyer,
+              slidePicType: SlidePicType.small,
+              onRenderEachSlide: (FlyerModel flyer){
+                if (mounted == true){
+                  setState(() {
+                    _flyerModel = _flyer;
+                  });}
+              }
+              );
+
+          /// BIG
+          if (widget.slidePicType != SlidePicType.small){
+            _flyer = await FlyerProtocols.renderBigFlyer(
+                flyerModel: _flyer,
+                slidePicType: widget.slidePicType,
+                onRenderEachSlide: (FlyerModel flyer){
+                  if (mounted == true){
+                    setState(() {
+                      _flyerModel = _flyer;
+                    });}
+                }
+                );
+          }
+
         }
 
         // ignore: invariant_booleans

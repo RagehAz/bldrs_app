@@ -4,6 +4,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/a_flyer_reviews_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/d_heroic_flyer_big_view.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
@@ -73,14 +74,25 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
 
           if (_flyerModel != null){
 
+            /// SMALL
             _flyerModel = await FlyerProtocols.renderBigFlyer(
                 flyerModel: _flyerModel,
+                slidePicType: SlidePicType.small,
                 onRenderEachSlide: (FlyerModel flyer){
                   if (mounted == true){
                     setState(() {_renderedFlyer = _flyerModel;});
                   }
-                }
-                );
+                });
+
+            /// BIG
+            _flyerModel = await FlyerProtocols.renderBigFlyer(
+                flyerModel: _flyerModel,
+                slidePicType: SlidePicType.med,
+                onRenderEachSlide: (FlyerModel flyer){
+                  if (mounted == true){
+                    setState(() {_renderedFlyer = _flyerModel;});
+                  }
+                });
 
             if (mounted == true){
               setState(() {

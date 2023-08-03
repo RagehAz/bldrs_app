@@ -272,8 +272,23 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
 
     if (_flyer.value != null){
 
-      final FlyerModel? _rendered = await FlyerProtocols.renderBigFlyer(
+      /// SMALL
+      FlyerModel? _rendered = await FlyerProtocols.renderBigFlyer(
         flyerModel: _flyer.value,
+        slidePicType: SlidePicType.small,
+        onRenderEachSlide: (FlyerModel flyer){
+          setNotifier(
+            notifier: _flyer,
+            mounted: mounted,
+            value: flyer,
+          );
+        }
+      );
+
+      /// BIG
+      _rendered = await FlyerProtocols.renderBigFlyer(
+        flyerModel: _rendered,
+        slidePicType: SlidePicType.med,
         onRenderEachSlide: (FlyerModel flyer){
           setNotifier(
             notifier: _flyer,

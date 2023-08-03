@@ -106,21 +106,43 @@ class DynamicLinks {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> initDynamicLinks() async {
+
     if (DeviceChecker.deviceIsWindows() == false) {
-      // blog('DynamicLinks.initDynamicLinks : starting to listen to onLink');
 
+      /// FOR APP WHEN WAS TERMINATED
+      final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
+      if (initialLink != null) {
+        await _onDynamicLink(initialLink);
+      }
+
+      /// WHILE APP IN BACKGROUND OR FOREGROUND
       getFireDynamicLinks().onLink.listen((PendingDynamicLinkData? dynamicLinkData) async {
-        final String? _link = dynamicLinkData?.link.path;
 
-        blogPendingDynamicLinkData(dynamicLinkData);
+        await _onDynamicLink(dynamicLinkData);
 
-        await _jumpByReceivedDynamicLink(
-          link: _link,
-        );
-      }).onError((Object error) {
+      }).onError((Object error) async {
         blog('initDynamicLinks : error : ${error.runtimeType} : $error');
       });
+
     }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _onDynamicLink(PendingDynamicLinkData? dynamicLinkData) async {
+
+    if (dynamicLinkData != null){
+
+      final String? _link = dynamicLinkData.link.path;
+
+      blogPendingDynamicLinkData(dynamicLinkData);
+
+      await _jumpByReceivedDynamicLink(
+        link: _link,
+      );
+
+    }
+
   }
   // -----------------------------------------------------------------------------
 

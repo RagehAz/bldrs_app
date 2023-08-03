@@ -1,5 +1,7 @@
+import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/a_heroic_flyer.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_grid_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
@@ -103,16 +105,24 @@ class HeroicFlyersGrid extends StatelessWidget {
             final int _flyerIndex = showAddFlyerButton == true ? index-1 : index;
             final String? _flyerID = (flyersIDs?.length ?? 0) == 0 ? null : flyersIDs![_flyerIndex];
             final FlyerModel? _flyer = (flyers?.length ?? 0) == 0 ? null : flyers![_flyerIndex];
+            final String _heroPath = '$screenName/$_flyerID/';
 
-            return FlyerBuilder(
-              key: const ValueKey<String>('FlyerBuilder_inGrid'),
-              flyerID: _flyerID,
-              flyerModel: _flyer,
-              flyerBoxWidth: _gridScale.smallItemWidth,
-              onFlyerNotFound: onFlyerNotFound == null || _flyerID == null ?
-              null : (String? flyerID) => onFlyerNotFound?.call(_flyerID),
-              renderFlyer: RenderFlyer.firstSlide,
-              builder: (FlyerModel? smallFlyer) {
+            /// NEW
+            return WidgetFader(
+              fadeType: FadeType.fadeIn,
+              duration: const Duration(milliseconds: 300),
+              child: FlyerBuilder(
+                key: const ValueKey<String>('FlyerBuilder_inGrid'),
+                flyerID: _flyerID,
+                flyerModel: _flyer,
+                flyerBoxWidth: _gridScale.smallItemWidth,
+                onFlyerNotFound: onFlyerNotFound == null || _flyerID == null ?
+                null : (String? flyerID) => onFlyerNotFound?.call(_flyerID),
+                renderFlyer: RenderFlyer.firstSlide,
+                onlyFirstSlide: true,
+                slidePicType: SlidePicType.small,
+                builder: (FlyerModel? smallFlyer) {
+
 
                   return FlyerSelectionStack(
                     flyerModel: smallFlyer,
@@ -120,17 +130,49 @@ class HeroicFlyersGrid extends StatelessWidget {
                     onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer!(smallFlyer!),
                     onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap!(smallFlyer!),
                     selectionMode: selectionMode,
-                    flyerWidget: HeroicFlyer(
-                      flyerModel: smallFlyer,
+                    flyerWidget: FlyerHero(
+                      renderedFlyer: smallFlyer,
+                      canBuildBigFlyer: false,
                       flyerBoxWidth: _gridScale.smallItemWidth,
-                      screenName: screenName,
-                      gridHeight: gridHeight,
+                      heroPath: _heroPath,
+                      invoker: 'Flyer',
                       gridWidth: gridWidth,
+                      gridHeight: gridHeight,
                     ),
-                  );
-
-              },
+                  );},
+              ),
             );
+
+            /// OLD
+            // return FlyerBuilder(
+            //   key: const ValueKey<String>('FlyerBuilder_inGrid'),
+            //   flyerID: _flyerID,
+            //   flyerModel: _flyer,
+            //   flyerBoxWidth: _gridScale.smallItemWidth,
+            //   onFlyerNotFound: onFlyerNotFound == null || _flyerID == null ?
+            //   null : (String? flyerID) => onFlyerNotFound?.call(_flyerID),
+            //   renderFlyer: RenderFlyer.firstSlide,
+            //   onlyFirstSlide: true,
+            //   slidePicType: SlidePicType.small,
+            //   builder: (FlyerModel? smallFlyer) {
+            //
+            //       return FlyerSelectionStack(
+            //         flyerModel: smallFlyer,
+            //         flyerBoxWidth: _gridScale.smallItemWidth,
+            //         onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer!(smallFlyer!),
+            //         onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap!(smallFlyer!),
+            //         selectionMode: selectionMode,
+            //         flyerWidget: HeroicFlyer(
+            //           flyerModel: smallFlyer,
+            //           flyerBoxWidth: _gridScale.smallItemWidth,
+            //           screenName: screenName,
+            //           gridHeight: gridHeight,
+            //           gridWidth: gridWidth,
+            //         ),
+            //       );
+            //
+            //   },
+            // );
 
           }
           // ---------------------------------------------
