@@ -1,5 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
@@ -18,11 +20,9 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class BzAboutPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -206,7 +206,7 @@ class AboutBzBubbles extends StatelessWidget {
         if (showGallery == true)
           BldrsText(
             verse: Verse(
-              id: '${xPhrase('phid_published_flyers_by')} ${bzModel?.name}',
+              id: '${getWord('phid_published_flyers_by')} ${bzModel?.name}',
               translate: false,
             ),
             centered: false,

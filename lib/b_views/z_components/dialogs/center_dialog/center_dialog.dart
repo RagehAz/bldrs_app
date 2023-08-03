@@ -5,6 +5,7 @@ import 'package:basics/bldrs_theme/classes/shadowers.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/separators/separator_line.dart';
@@ -13,9 +14,8 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class CenterDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -153,15 +153,9 @@ class CenterDialog extends StatelessWidget {
   Verse? _getConfirmButtonVerse(){
 
     Verse? _verse = Mapper.boolIsTrue(boolDialog) ?
-    Verse(
-      id: Words.yes(),
-      translate: false,
-    )
+    getVerse('yes')
         :
-    Verse(
-      id: Words.ok(),
-      translate: false,
-    );
+    getVerse('ok');
 
     if (confirmButtonVerse != null){
       _verse = confirmButtonVerse;
@@ -200,11 +194,7 @@ class CenterDialog extends StatelessWidget {
     final bool _keyboardIsOn = Keyboard.keyboardIsOn();
     final double _keyboardHeight = _keyboardIsOn == true ? MediaQuery.of(context).viewInsets.bottom : 0;
     // --------------------
-    final Verse _noVerse = Verse(
-      id: Words.no(),
-      translate: false,
-      casing: Casing.capitalizeFirstChar,
-    );
+    final Verse? _noVerse = getVerse('no', casing: Casing.capitalizeFirstChar);
     // --------------------
     final bool _hasLeftNoButton = Mapper.boolIsTrue(boolDialog) == true && invertButtons == false;
     final bool _hasRightNoButton = Mapper.boolIsTrue(boolDialog) == true && invertButtons == true;

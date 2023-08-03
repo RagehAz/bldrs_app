@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreenView extends StatelessWidget {
@@ -106,10 +107,10 @@ class AuthScreenView extends StatelessWidget {
         LegalDisclaimerLine(
           onPolicyTap: () => onPrivacyTap(),
           onTermsTap: () => onTermsAndTap(),
-          disclaimerLine: Verse.transBake('phid_by_using_bldrs_you_agree_to_our')!,
-          andLine: Verse.transBake('phid_and')!,
-          policyLine: Verse.transBake('phid_privacy_policy')!,
-          termsLine: Verse.transBake('phid_terms_of_service')!,
+          disclaimerLine: getWord('phid_by_using_bldrs_you_agree_to_our')!,
+          andLine: getWord('phid_and')!,
+          policyLine: getWord('phid_privacy_policy')!,
+          termsLine: getWord('phid_terms_of_service')!,
           textDirection: UiProvider.getAppTextDir(),
         ),
 

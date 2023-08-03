@@ -22,6 +22,7 @@ import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.da
 import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -217,9 +218,8 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
 
   await CenterDialog.showCenterDialog(
     titleVerse: Verse(
-      id: '${Verse.transBake('phid_you_cant_remove')} ${authorModel?.name}',
-      translate: true,
-      variables: authorModel?.name,
+      id: '${getWord('phid_you_cant_remove')} ${authorModel?.name}',
+      translate: false,
     ),
     // bodyVerse: const Verse(
     //   text: 'phid_only_admins_can_remove_other_authors',
@@ -265,11 +265,11 @@ Future<void> _onShowCanNotEditAuthorDialog({
 
   await CenterDialog.showCenterDialog(
     titleVerse: Verse(
-      id: '${Verse.transBake('phid_you_cant_edit')}\n${authorModel?.name}',
+      id: '${getWord('phid_you_cant_edit')}\n${authorModel?.name}',
       translate: false,
     ),
     bodyVerse: Verse(
-      id: '${authorModel?.name} ${Verse.transBake('phid_is_only_who_can_edit_his_account')}',
+      id: '${authorModel?.name} ${getWord('phid_is_only_who_can_edit_his_account')}',
       translate: false,
     ),
   );
@@ -334,7 +334,7 @@ Future<void> onSendAuthorshipInvitation({
   if (_canInviteUser == true){
 
     final String _body =  '${selectedUser.name}\n'
-                          '${Verse.transBake('phid_will_be_invited_to_join')}\n'
+                          '${getWord('phid_will_be_invited_to_join')}\n'
                           '${bzModel?.name}';
 
     final bool _result = await Dialogs.userDialog(
@@ -420,7 +420,7 @@ Future<void> onCancelSentAuthorshipInvitation({
     );
 
     final String _body =  '${_receiverModel?.name}\n'
-                          '${Verse.transBake('phid_will_be_notified')}';
+                          '${getWord('phid_will_be_notified')}';
 
     final bool _result = await CenterDialog.showCenterDialog(
       titleVerse: const Verse(

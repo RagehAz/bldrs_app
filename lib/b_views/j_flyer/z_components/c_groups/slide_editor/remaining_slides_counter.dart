@@ -4,6 +4,7 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 class RemainingSlidesCounter extends StatelessWidget {
@@ -21,8 +22,8 @@ class RemainingSlidesCounter extends StatelessWidget {
       height: Ratioz.appBarButtonSize,
       // width: Ratioz.appBarButtonSize * 1.3,
       verse: Verse(
-          id: '$_numberOfSlides '
-                '${Verse.transBake('phid_slides')}',
+          id:   '$_numberOfSlides '
+                '${getWord('phid_slides')}',
           translate: false
       ),
       verseItalic: true,

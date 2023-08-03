@@ -1,27 +1,94 @@
 import 'dart:async';
+
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
+import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/ldb/phrase_ldb_ops.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/real/phrase_real_ops.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 /// => TAMAM
 class PhraseProtocols {
   // -----------------------------------------------------------------------------
 
   const PhraseProtocols();
 
+  // -----------------------------------------------------------------------------
+
+  /// CURRENT APP LANGUAGE
+
+  // --------------------
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> changeAppLang({
+    required String? langCode,
+  }) async {
+
+    if (langCode != null) {
+
+      WaitDialog.showUnawaitedWaitDialog(
+        verse: const Verse(
+          id: 'phid_change_app_lang_description',
+          translate: true,
+        ),
+      );
+
+      await Localizer.changeAppLanguage(
+          context: getMainContext(),
+          code: langCode,
+      );
+
+      await generateCountriesPhrases(
+        setLangCode: langCode,
+      );
+
+      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
+      await _chainsProvider.fetchSortSetBldrsChains(
+        notify: true,
+      );
+
+      await WaitDialog.closeWaitDialog();
+
+      await BldrsNav.goToLogoScreenAndRemoveAllBelow(
+        animatedLogoScreen: true,
+      );
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> generateCountriesPhrases({
+    String? setLangCode,
+  }) async {
+
+    List<String> _langCodes = Stringer.addStringToListIfDoesNotContainIt(
+        strings: ['en'],
+        stringToAdd: Localizer.getCurrentLangCode(),
+    );
+
+    _langCodes = Stringer.addStringToListIfDoesNotContainIt(
+        strings: _langCodes,
+        stringToAdd: setLangCode,
+    );
+
+    /// THIS GENERATES COUNTRIES PHRASES AND INSERTS THEM IN LDB TO FACILITATE COUNTRY SEARCH BY NAME
+    await PhraseProtocols.composeCountriesMixedLangPhrases(
+      context: getMainContext(),
+      langCodes: _langCodes,
+    );
+
+  }
   // -----------------------------------------------------------------------------
 
   /// COMPOSE
@@ -115,7 +182,7 @@ class PhraseProtocols {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Phrase> _fetchPhid({
+  static Future<Phrase> fetchPhidPhrase({
     required String? langCode,
     required String? phid,
   }) async {
@@ -144,11 +211,11 @@ class PhraseProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String?> translate({
+  static Future<String?> fetchPhidString({
     required String? langCode,
     required String? phid,
   }) async {
-    final Phrase? _phrase = await _fetchPhid(
+    final Phrase? _phrase = await fetchPhidPhrase(
       langCode: langCode,
       phid: phid,
     );
@@ -178,35 +245,32 @@ class PhraseProtocols {
         );
       }
 
-      final List<Phrase> _en = Phrase.searchPhrasesByLang(
-        phrases: updatedMixedMainPhrases,
-        langCode: 'en',
-      );
-
-      final List<Phrase> _ar = Phrase.searchPhrasesByLang(
-        phrases: updatedMixedMainPhrases,
-        langCode: 'ar',
-      );
-
       /// REAL UPDATE
       await Future.wait(<Future>[
 
-        PhraseRealOps.updatePhrasesForLang(
-            langCode: 'en',
-            updatedPhrases: _en
-        ),
+        ...List.generate(Localizer.supportedLangCodes.length, (index){
 
-        PhraseRealOps.updatePhrasesForLang(
-            langCode: 'ar',
-            updatedPhrases: _ar
-        ),
+          final String _langCode = Localizer.supportedLangCodes[index];
+
+          final List<Phrase> _phrases = Phrase.searchPhrasesByLang(
+            phrases: updatedMixedMainPhrases,
+            langCode: _langCode,
+          );
+
+          return PhraseRealOps.updatePhrasesForLang(
+              langCode: _langCode,
+              updatedPhrases: _phrases,
+          );
+
+        }),
+
 
         /// LOCAL UPDATE
         updateMainPhrasesLocally(
           newMainPhrases: updatedMixedMainPhrases,
         ),
 
-        AppStateFireOps.updateGlobalLDBVersion(),
+        // AppStateFireOps.updateGlobalLDBVersion(),
 
       ]);
 
@@ -224,21 +288,10 @@ class PhraseProtocols {
   }) async {
 
     if (Mapper.checkCanLoopList(newMainPhrases) == true){
-
       /// UPDATE LDB
       await PhraseLDBOps.updateMainPhrases(
         updatedMixedLangsPhrases: newMainPhrases,
       );
-
-      /// UPDATE PRO
-      final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
-      _phraseProvider.setMainPhrases(
-        setTo: newMainPhrases,
-        notify: true,
-      );
-
-      _phraseProvider.refreshPhidsPendingTranslation();
-
     }
 
   }
@@ -250,8 +303,7 @@ class PhraseProtocols {
     await PhraseLDBOps.deleteMainPhrases();
 
     /// RELOAD APP LOCALIZATION
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
-    await _phraseProvider.changeAppLang(
+    await changeAppLang(
       langCode: Localizer.getCurrentLangCode(),
     );
 

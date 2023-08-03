@@ -6,8 +6,8 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/foundation.dart';
 
 /// => TAMAM
@@ -138,15 +138,15 @@ class AppStateInitializer {
     if (_mustUpdate == true){
 
       await CenterDialog.showCenterDialog(
-        titleVerse:  Verse.plain(Words.newUpdateAvailable()),
+        titleVerse:  getVerse('phid_newUpdateAvailable'),
         bodyVerse: Verse.plain(
 '''
-${Words.pleaseUpdateToContinue()}
-your version : $detectedVersion
-new version : ${globalState.appVersion}
+${getWord('phid_pleaseUpdateToContinue')}
+${getWord('phid_your_version')} : $detectedVersion
+${getWord('phid_new_version')} : ${globalState.appVersion}
 '''
         ),
-        confirmButtonVerse: Verse.plain(Words.updateApp()),
+        confirmButtonVerse: getVerse('phid_updateApp'),
         // boolDialog: false,
       );
 
@@ -178,17 +178,17 @@ new version : ${globalState.appVersion}
     if (_mayUpdate == true){
 
       await CenterDialog.showCenterDialog(
-        titleVerse:  Verse.plain(Words.newUpdateAvailable()),
+        titleVerse:  getVerse('phid_newUpdateAvailable'),
         bodyVerse: Verse.plain(
 '''
-${Words.pleaseUpdateToContinue()}
-your version : $detectedVersion
-new version : ${globalState.appVersion}
+${getWord('phid_pleaseUpdateToContinue')}
+${getWord('phid_your_version')} : $detectedVersion
+${getWord('phid_new_version')} : ${globalState.appVersion}
 '''
         ),
-        confirmButtonVerse: Verse.plain(Words.updateApp()),
+        confirmButtonVerse: getVerse('phid_updateApp'),
         boolDialog: true,
-        noVerse: Verse.plain(Words.skip()),
+        noVerse: getVerse('phid_skip'),
         onOk: () async {
           blog('wtf is this why no work');
           _output = false;

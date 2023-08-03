@@ -5,6 +5,13 @@ class BldrsKeys {
 
   const BldrsKeys();
 
+  // -----------------------------------------------------------------------------
+
+  /// CHAT GBT
+
+  // --------------------
+  static const String openAiGoogleSheetsApiKey = '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';
+  // -----------------------------------------------------------------------------
   static const String ragehID = 'z0Obwze3JLYjoEl6uVeXfo4Luup1';
   static const String bldrsHoldingCompanyName = 'Rageh ElAzzazy'; // NET.BLDRS.LLC
   // -----------------------------------------------------------------------------

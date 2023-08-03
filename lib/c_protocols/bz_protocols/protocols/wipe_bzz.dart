@@ -20,6 +20,7 @@ import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,7 @@ class WipeBzProtocols {
       if (showWaitDialog == true){
         WaitDialog.showUnawaitedWaitDialog(
           verse: Verse(
-            id: '${Verse.transBake('phid_deleting')} ${bzModel.name}',
+            id: '${getWord('phid_deleting')} ${bzModel.name}',
             translate: false,
             variables: bzModel.name,
           ),
@@ -127,9 +128,9 @@ class WipeBzProtocols {
     required BzModel? bzModel,
   }) async {
 
-      final String _text =  '${Verse.transBake('phid_deleting')} '
+      final String _text =  '${getWord('phid_deleting')} '
                             '${bzModel?.publication.getAllFlyersIDs().length} '
-                            '${Verse.transBake('phid_flyers')}';
+                            '${getWord('phid_flyers')}';
 
       WaitDialog.showUnawaitedWaitDialog(
         verse: Verse.plain(_text),

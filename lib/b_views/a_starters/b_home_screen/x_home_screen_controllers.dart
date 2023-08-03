@@ -28,6 +28,7 @@ import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart'
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
@@ -359,10 +360,10 @@ Future<void> setActivePhidK({
         flyerType: flyerType
     );
 
-    final String _title = '${Verse.transBake('phid_flyers_of')} '
-                          '${Verse.transBake(_flyerTypePhid)} '
-                          '${Verse.transBake('phid_are_not_available')} '
-                          '${Verse.transBake('phid_inn')} '
+    final String _title = '${getWord('phid_flyers_of')} '
+                          '${getWord(_flyerTypePhid)} '
+                          '${getWord('phid_are_not_available')} '
+                          '${getWord('phid_inn')} '
                           '$_cityName';
 
     await CenterDialog.showCenterDialog(

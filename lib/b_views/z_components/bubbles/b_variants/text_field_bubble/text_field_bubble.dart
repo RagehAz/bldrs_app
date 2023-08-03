@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_f
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 class BldrsTextFieldBubble extends StatelessWidget {
@@ -197,7 +198,7 @@ class BldrsTextFieldBubble extends StatelessWidget {
       onFieldTap: onFieldTap,
       onSavedForForm: onSavedForForm,
       onTextChanged: onTextChanged,
-      pasteText: Verse.transBake('phid_paste'),
+      pasteText: getWord('phid_paste'),
 
       fieldLetterSpacing: BldrsText.superVerseLetterSpacing(VerseWeight.thin, _verseSizeValue),
       fieldTextFont: BldrsText.superVerseFont(VerseWeight.thin),

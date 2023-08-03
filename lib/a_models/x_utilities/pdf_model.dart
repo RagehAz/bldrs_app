@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
@@ -196,12 +197,12 @@ class PDFModel {
   }){
 
     // Mb / 3 Mb
-    final String? _mb = Verse.transBake('phid_mb');
+    final String? _mb = getWord('phid_mb');
 
     if (sizeLimitReached == true){
 
       return Verse(
-        id: '${Verse.transBake('phid_max_limit_reached')} : $size$_mb / $maxSize $_mb',
+        id: '${getWord('phid_max_limit_reached')} : $size$_mb / $maxSize $_mb',
         translate: false,
       );
 
@@ -210,7 +211,7 @@ class PDFModel {
     else {
 
       return Verse(
-        id: '${Verse.transBake('phid_file_size')} : $size$_mb / $maxSize $_mb',
+        id: '${getWord('phid_file_size')} : $size$_mb / $maxSize $_mb',
         translate: false,
       );
 

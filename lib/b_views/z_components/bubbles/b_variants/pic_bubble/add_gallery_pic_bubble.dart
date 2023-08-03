@@ -520,7 +520,7 @@ class _PlusIconLayer extends StatelessWidget {
 //                             height: picWidth,
 //                             alignment: Aligners.superInverseBottomAlignment(context),
 //                             child: SuperVerse(
-//                               verse:  '${fileModel.size} ${xPhrase('phid_mb')}',
+//                               verse:  '${fileModel.size} ${word('phid_mb')}',
 //                               size: 1,
 //                               centered: false,
 //                               shadow: true,

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -9,8 +10,8 @@ import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -36,7 +37,7 @@ class NoteEventsOfAuthorship {
 
     if (bzModel != null && userModelToSendTo != null){
 
-      final String? _title = await PhraseProtocols.translate(
+      final String? _title = await Localizer.translateByLangCode(
         phid: 'phid_you_are_invited_to_become_author',
         langCode: userModelToSendTo.language,
       );
@@ -101,7 +102,7 @@ class NoteEventsOfAuthorship {
 
     if (bzModel != null && userModelToSendTo != null) {
 
-      final String? _title = await PhraseProtocols.translate(
+      final String? _title = await Localizer.translateByLangCode(
         phid: 'phid_membership_invitation_is_cancelled',
         langCode: userModelToSendTo.language,
       );
@@ -170,7 +171,7 @@ class NoteEventsOfAuthorship {
       listen: false,
     );
 
-    final String? _title = await PhraseProtocols.translate(
+    final String? _title = await Localizer.translateByLangCode(
         phid: 'phid_membership_invitation_is_accepted',
         langCode: senderModel?.language,
     );
@@ -221,7 +222,7 @@ class NoteEventsOfAuthorship {
       listen: false,
     );
 
-    final String? _title = await PhraseProtocols.translate(
+    final String? _title = await Localizer.translateByLangCode(
         phid: 'phid_membership_invitation_is_declined',
         langCode: senderModel?.language,
     );

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -17,14 +16,12 @@ import 'package:bldrs/b_views/z_components/layouts/pyramids/super_pyramids.dart'
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -95,12 +92,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
       _triggerLoading(setTo: true).then((_) async {
 
-        if (PhraseProvider.proGetPhidsAreLoaded() == false){
-          await Nav.pushNamedAndRemoveAllBelow(
-              context: context,
-              goToRoute: Routing.staticLogoScreen,
-          );
-        }
+        // if (PhraseProvider.proGetPhidsAreLoaded() == false){
+        //   await Nav.pushNamedAndRemoveAllBelow(
+        //       context: context,
+        //       goToRoute: Routing.staticLogoScreen,
+        //   );
+        // }
 
         await initializeHomeScreen(context: context);
 
