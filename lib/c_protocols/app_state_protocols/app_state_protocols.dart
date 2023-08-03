@@ -1,4 +1,3 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
@@ -33,7 +32,7 @@ class AppStateProtocols {
       context: context,
     );
 
-    blog('FETCHING GLOBAL APP STATE AHO : $_globalAppState');
+    // blog('FETCHING GLOBAL APP STATE AHO : $_globalAppState');
 
     return _globalAppState;
   }

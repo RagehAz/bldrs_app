@@ -712,7 +712,7 @@ class FCM {
 
     if (Authing.userIsSignedUp(_user?.signInMethod) == true &&
         _user?.device?.token != null) {
-      blog('User : ${Authing.getUserID()} unSubscribed from topic : $topicID');
+      // blog('User : ${Authing.getUserID()} unSubscribed from topic : $topicID');
       if (FCMStarter.canInitializeFCM() == true && topicID != null) {
         await tryAndCatch(
           invoker: 'FCM.unsubscribeFromTopic',

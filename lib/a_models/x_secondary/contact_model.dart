@@ -856,7 +856,7 @@ class ContactModel {
       type: ContactType.email,
     );
 
-    blog('checkEmailChanged : ${_oldModel?.value} == ${_newModel?.value} ?');
+    // blog('checkEmailChanged : ${_oldModel?.value} == ${_newModel?.value} ?');
 
     if (_oldModel?.value != _newModel?.value){
       _changed = true;

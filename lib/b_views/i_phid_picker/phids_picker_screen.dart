@@ -57,12 +57,17 @@ class PhidsPickerScreen extends StatefulWidget {
     required FlyerType? flyerType,
     required ViewingEvent? event,
     required bool onlyUseZoneChains,
+    required bool slideScreenFromEnLeftToRight,
     List<String>? selectedPhids,
   }) async {
 
     final String? phid = await Nav.goToNewScreen(
       context: context,
-      pageTransitionType: Nav.superHorizontalTransition(context: context),
+      pageTransitionType: Nav.superHorizontalTransition(
+        context: context,
+        appIsLTR: UiProvider.checkAppIsLeftToRight(),
+        inverse: !slideScreenFromEnLeftToRight,
+      ),
       screen: PhidsPickerScreen(
         chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
           flyerType: flyerType,
@@ -89,7 +94,10 @@ class PhidsPickerScreen extends StatefulWidget {
 
     final List<String>? phids = await Nav.goToNewScreen(
       context: context,
-      pageTransitionType: Nav.superHorizontalTransition(context: context),
+      pageTransitionType: Nav.superHorizontalTransition(
+        context: context,
+        appIsLTR: UiProvider.checkAppIsLeftToRight(),
+      ),
       screen: PhidsPickerScreen(
         chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
           flyerType: flyerType,
