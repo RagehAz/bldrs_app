@@ -1059,51 +1059,42 @@ class Dialogs {
 
     final BuildContext context = getMainContext();
     final double _screenHeight = Scale.screenHeight(context);
-    final double _dialogHeight = _screenHeight * 0.6;
+    final double _dialogHeight = _screenHeight * 0.8;
     final double _buttonWidth = CenterDialog.getWidth(context);
 
     await CenterDialog.showCenterDialog(
-      titleVerse: Verse.plain('Select You preferred app language'),
-      bodyVerse: Verse.plain('حدد لغة التطبيق التي تفضلها'),
+      titleVerse: Verse.plain('Language . اللغة . Idioma . Lingua . Sprache . Langue . 语言'),
       height: _dialogHeight,
       boolDialog: null,
       // copyOnTap: false,
-      child: Container(
+      child: FloatingList(
         width: _buttonWidth,
-        alignment: Alignment.center,
-        child: Column(
-          children: <Widget>[
+        // boxAlignment: Alignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        columnChildren: <Widget>[
 
-            BldrsBox(
-              height: 50,
+          ...List.generate(Localizer.supportedLangCodes.length, (index){
+
+            final String _langCode = Localizer.supportedLangCodes[index];
+            final String _langName = Localizer.getLangNameByCode(_langCode);
+
+            return BldrsBox(
+              height: 40,
               width: _buttonWidth * 0.6,
               verseScaleFactor: 0.8,
               verseWeight: VerseWeight.thin,
-              verse: Verse.plain('English'),
-              margins: const EdgeInsets.only(bottom: 10, top: 10),
+              verse: Verse.plain(_langName),
+              margins: const EdgeInsets.only(bottom: 5),
               color: Colorz.white10,
               onTap: () async {
-                _output = 'en';
+                _output = _langCode;
                 await Nav.goBack(context: context);
               },
-            ),
+            );
 
-            BldrsBox(
-              height: 50,
-              width: _buttonWidth * 0.6,
-              verseScaleFactor: 0.8,
-              verseWeight: VerseWeight.thin,
-              verse: Verse.plain('العربية'),
-              margins: const EdgeInsets.only(bottom: 10),
-              color: Colorz.white10,
-              onTap: () async {
-                _output = 'ar';
-                await Nav.goBack(context: context);
-              },
-            ),
+          }),
 
           ],
-        ),
       ),
     );
 
