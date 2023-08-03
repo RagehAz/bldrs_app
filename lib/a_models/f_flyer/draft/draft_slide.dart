@@ -169,6 +169,7 @@ class DraftSlide {
         animationCurve: draft.animationCurve,
         frontImage: await Floaters.getUiImageFromUint8List(_picModel?.bytes),
         backImage: await Floaters.getUiImageFromUint8List(_backPic?.bytes),
+        frontPicPath: _picModel?.path,
       );
 
     }

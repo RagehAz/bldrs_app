@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/i_chains/b_picker_screen/b_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -117,7 +118,10 @@ Future<void> onGoToPickerScreen({
 
   final dynamic _result = await Nav.goToNewScreen(
     context: context,
-    pageTransitionType: Nav.superHorizontalTransition(context: context),
+    pageTransitionType: Nav.superHorizontalTransition(
+      context: context,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+    ),
     screen: PickerScreen(
       picker: picker,
       selectedSpecs: selectedSpecsNotifier,

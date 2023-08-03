@@ -299,7 +299,11 @@ Future<void> onSectionButtonTap(BuildContext context) async {
 
   final FlyerType? flyerType = await Nav.goToNewScreen(
     context: context,
-    pageTransitionType: Nav.superHorizontalTransition(context: context, inverse: true),
+    pageTransitionType: Nav.superHorizontalTransition(
+      context: context,
+      inverse: true,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+    ),
     screen: const FloatingFlyerTypeSelector(),
   );
 
@@ -310,6 +314,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
       flyerType: flyerType,
       event: ViewingEvent.homeView,
       onlyUseZoneChains: true,
+      slideScreenFromEnLeftToRight: false,
       // selectedPhids:
     );
 

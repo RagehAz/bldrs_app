@@ -30,6 +30,7 @@ class SlideModel {
     required this.animationCurve,
     required this.slideIndex,
     required this.frontImage,
+    required this.frontPicPath,
     required this.backImage,
     required this.flyerID,
     this.headline,
@@ -42,6 +43,7 @@ class SlideModel {
   final Color? midColor;
   final String? flyerID;
   final ui.Image? frontImage;
+  final String? frontPicPath;
   final ui.Image? backImage;
   final Curve? animationCurve;
   // -----------------------------------------------------------------------------
@@ -75,6 +77,7 @@ class SlideModel {
       matrix: Trinity.decipherMatrix(map['matrix']),
       animationCurve: Trinity.decipherAnimationCurve(map['animationCurve']),
       frontImage: null,
+      frontPicPath: null,
       backImage: null,
       flyerID: flyerID,
     );
@@ -135,7 +138,7 @@ class SlideModel {
   /// TESTED : WORKS PERFECT
   SlideModel copyWith({
     int? slideIndex,
-    String? picPath,
+    String? frontPicPath,
     String? headline,
     String? description,
     Matrix4? matrix,
@@ -155,6 +158,7 @@ class SlideModel {
       backImage: backImage ?? this.backImage,
       animationCurve: animationCurve ?? this.animationCurve,
       flyerID: flyerID ?? this.flyerID,
+      frontPicPath: frontPicPath ?? this.frontPicPath,
     );
   }
   // -----------------------------------------------------------------------------
@@ -171,7 +175,7 @@ class SlideModel {
         'hasCustomMatrix : (${matrix != Matrix4.identity()}) : '
         'animationCurve : ($animationCurve) : '
     );
-    blog('  has ui.frontPic : (${frontImage != null})');
+    blog('  has ui.frontPic : (${frontImage != null}) : frontPicPath : $frontPicPath');
     blog('  has ui.backPic : (${backImage != null})');
   }
   // --------------------
@@ -233,6 +237,9 @@ class SlideModel {
     }
     if (Floaters.checkUiImagesAreIdentical(slide1?.backImage, slide2?.backImage) == false){
       blog('slide1.backPic != slide2.backPic');
+    }
+    if (slide1?.frontPicPath != slide2?.frontPicPath){
+      blog('slide1.frontPicPath != slide2.frontPicPath');
     }
     if (slide1?.animationCurve != slide2?.animationCurve){
       blog('slide1.animationCurve != slide2.animationCurve');
@@ -574,7 +581,7 @@ class SlideModel {
   }){
 
     final bool _hasAnimation = slideModel.animationCurve != null;
-    if (_hasAnimation == true){
+    if (_hasAnimation == false){
       return ifStatic;
     }
     else {
@@ -599,6 +606,7 @@ class SlideModel {
       animationCurve: null,
       frontImage: null,
       backImage: null,
+      frontPicPath: null
     );
   }
   // -----------------------------------------------------------------------------
@@ -646,7 +654,8 @@ class SlideModel {
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&
           slide1.flyerID == slide2.flyerID &&
           Floaters.checkUiImagesAreIdentical(slide1.frontImage, slide2.frontImage) == true &&
-          Floaters.checkUiImagesAreIdentical(slide1.backImage, slide2.backImage) == true
+          Floaters.checkUiImagesAreIdentical(slide1.backImage, slide2.backImage) == true &&
+          slide1.frontPicPath == slide2.frontPicPath
       ){
         _identical = true;
       }
@@ -751,6 +760,7 @@ class SlideModel {
       slideIndex.hashCode^
       headline.hashCode^
       frontImage.hashCode^
+      frontPicPath.hashCode^
       backImage.hashCode^
       flyerID.hashCode;
   // -----------------------------------------------------------------------------

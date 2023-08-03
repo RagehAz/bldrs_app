@@ -228,6 +228,7 @@ class FetchFlyerProtocols {
 
             _flyer = await FlyerProtocols.renderBigFlyer(
                 flyerModel: _flyer,
+                slidePicType: SlidePicType.small,
                 onRenderEachSlide: (FlyerModel flyer){}
             );
 

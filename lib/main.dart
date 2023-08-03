@@ -22,7 +22,6 @@ import 'package:fire/super_fire.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-
 import 'bldrs_keys.dart';
 
 Future<void> main() async {
@@ -206,57 +205,11 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
               // key: ,
               // scaffoldMessengerKey: ,
               // restorationScopeId: ,
-
               // useInheritedMediaQuery: true,
-
 
               /// DUNNO
               // actions: ,
-              // builder: (BuildContext context, Widget widget) {
-              //
-              //   ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
-              //
-              //     // blogFlutterErrorDetails(errorDetails);
-              //
-              //     final String _text = TextMod.removeTextBeforeLastSpecialCharacter(errorDetails.exception.toString(), ':');
-              //
-              //     return Center(
-              //       child: Container(
-              //         // width: double.infinity,
-              //         // height: double.infinity,
-              //         color: Colorz.red255,
-              //         child: ListView(
-              //           children: <Widget>[
-              //
-              //             const BldrsImage(
-              //               width: 40,
-              //               height: 40,
-              //               pic: Iconz.dvGouran,
-              //               iconColor: Colorz.black255,
-              //             ),
-              //
-              //             BldrsText(
-              //               verse: Verse(
-              //                 id: _text,
-              //                 translate: false,
-              //                 casing: Casing.upperCase,
-              //               ),
-              //               maxLines: 20,
-              //               color: Colorz.black255,
-              //               margin: 20,
-              //               weight: VerseWeight.black,
-              //               italic: true,
-              //               labelColor: Colorz.black50,
-              //             ),
-              //
-              //           ],
-              //         ),
-              //       ),
-              //     );
-              //   };
-              //
-              //   return widget;
-              //   },
+
               builder: DevicePreview.appBuilder,
 
               // home: ,
