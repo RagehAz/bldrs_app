@@ -59,8 +59,8 @@ class Standards {
   // --------------------
   /// MAX SLIDES PER BZ ACCOUNT TYPE
   static const int maxFlyerSlidesFreeAccount = 3;
-  static const int maxFlyerSlidesPremiumAccount = 10;
-  static const int maxFlyerSlidesFreeSuper = 25;
+  static const int maxFlyerSlidesPremiumAccount = 5;
+  static const int maxFlyerSlidesFreeSuper = 7;
   // --------------------
   static const int flyerMaxDaysToUpdate = 3; // 3 days to update flyer
   // --------------------
@@ -131,17 +131,17 @@ class Standards {
   static const double bzLogoPicWidth = 350;
   static const int bzLogoPicQuality = 80;
   // --------------------
-  static const double userPicWidth = 170;
+  static const double userPicWidth = 160;
   static const int userPicQuality = 80;
   // --------------------
-  static const double authorPicWidth = 170;
+  static const double authorPicWidth = 160;
   static const int authorPicQuality = 80;
   // --------------------
-  static const double slideSmallWidth = 300;
+  static const double slideSmallWidth = 250;
   static const int slideSmallQuality = 75;
   // --------------------
   static const double slideMediumWidth = 500;
-  static const int slideMediumQuality = 75;
+  static const int slideMediumQuality = 80;
   // --------------------
   static const double slideBigWidth = 1000;
   static const int slideBigQuality = 80;

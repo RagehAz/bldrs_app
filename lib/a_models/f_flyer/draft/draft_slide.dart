@@ -507,7 +507,7 @@ class DraftSlide {
         );
 
         if (_picModel != null){
-          _output.add(draft.bigPic!);
+          _output.add(_picModel);
         }
 
       }

@@ -356,7 +356,10 @@ class CenterDialog extends StatelessWidget {
                                   SizedBox(
                                     width: _dialogWidth,
                                     height: getButtonZoneHeight,
-                                    child: Row(
+                                    child: UiProvider.checkAppIsLeftToRight() == true ?
+
+                                    /// ENGLISH ( LTR )
+                                    Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
 
@@ -367,10 +370,10 @@ class CenterDialog extends StatelessWidget {
                                             verse: noVerse ?? _noVerse,
                                             color: defaultButtonColor,
                                             onTap: () => Nav.goBack(
-                                                  context: xxx,
-                                                  invoker: 'CenterDialog.No',
-                                                  passedData: false,
-                                                ),
+                                              context: xxx,
+                                              invoker: 'CenterDialog.No',
+                                              passedData: false,
+                                            ),
                                           ),
 
                                         /// YES BUTTON
@@ -400,7 +403,7 @@ class CenterDialog extends StatelessWidget {
                                               );
                                             }
 
-                                          },
+                                            },
                                         ),
 
                                         /// NO BUTTON
@@ -415,11 +418,75 @@ class CenterDialog extends StatelessWidget {
                                               invoker: 'CenterDialog.No',
                                               passedData: false,
                                               addPostFrameCallback: true,
-                                                ),
+                                            ),
+                                          ),
+
+                                      ],
+                                    )
+
+                                        :
+                                    /// ARABIC ( RTL )
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+
+                                        /// NO BUTTON
+                                        if (_hasRightNoButton == true)
+                                          DialogButton(
+                                            width: _noButtonWidth,
+                                            verse: noVerse ?? _noVerse,
+                                            verseColor: Colorz.black230,
+                                            color: activeButtonColor,
+                                            onTap: () => Nav.goBack(
+                                              context: xxx,
+                                              invoker: 'CenterDialog.No',
+                                              passedData: false,
+                                              addPostFrameCallback: true,
+                                            ),
+                                          ),
+
+                                        /// YES BUTTON
+                                        DialogButton(
+                                          width: _yesButtonWidth,
+                                          verse: _getConfirmButtonVerse(),
+                                          verseColor: invertButtons == true ? Colorz.white255 : Colorz.black230,
+                                          color: invertButtons == true ? defaultButtonColor : activeButtonColor,
+                                          onTap: () async {
+                                            onOk?.call();
+                                            if (Mapper.boolIsTrue(boolDialog) == true){
+                                              await Nav.goBack(
+                                                context: xxx,
+                                                invoker: 'CenterDialog.yes',
+                                                passedData: true,
+                                                addPostFrameCallback: true,
+                                              );
+                                            }
+                                            else {
+                                              await Nav.goBack(
+                                                context: xxx,
+                                                invoker: 'CenterDialog.ok',
+                                                addPostFrameCallback: true,
+                                              );
+                                            }
+                                            },
+                                        ),
+
+                                        /// NO BUTTON
+                                        if (_hasLeftNoButton == true)
+                                          DialogButton(
+                                            width: 80,
+                                            verse: noVerse ?? _noVerse,
+                                            color: defaultButtonColor,
+                                            onTap: () => Nav.goBack(
+                                              context: xxx,
+                                              invoker: 'CenterDialog.No',
+                                              passedData: false,
+                                            ),
                                           ),
 
                                       ],
                                     ),
+
                                   ),
 
                               ],

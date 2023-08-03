@@ -26,8 +26,8 @@ class ProgressBarModel {
 
   // --------------------
   static const Color errorStripColor = Colors.red;
-  static const Color goodStripColor = Colors.green;
-  static const Color defaultStripColor = Colorz.white255;
+  static const Color goodStripColor = Colorz.green255;
+  static const Color defaultStripColor = Colorz.green255;
   // --------------------------------------------------------------------------
 
   /// CLONING

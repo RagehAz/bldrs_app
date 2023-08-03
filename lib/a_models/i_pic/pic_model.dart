@@ -243,6 +243,32 @@ class PicModel {
         'owners : ${meta?.ownersIDs} | $_mega MB | $_kilo KB');
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogPics({
+    required List<PicModel>? pics,
+    String invoker = '',
+  }){
+
+    if (pics == null){
+      blog('blogPics : pics are null');
+    }
+    else if (pics.isEmpty == true){
+      blog('blogPics : pics are empty');
+    }
+    else {
+
+      for (final PicModel pic in pics){
+
+        pic.blogPic(
+          invoker: invoker,
+        );
+
+      }
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// EQUALITY

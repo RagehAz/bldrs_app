@@ -203,7 +203,10 @@ class BldrsTextFieldBubble extends StatelessWidget {
       fieldLetterSpacing: BldrsText.superVerseLetterSpacing(VerseWeight.thin, _verseSizeValue),
       fieldTextFont: BldrsText.superVerseFont(VerseWeight.thin),
       // fieldCorners: 0,
-      fieldWordSpacing: BldrsText.superVerseWordSpacing(_verseSizeValue),
+      fieldWordSpacing: BldrsText.superVerseWordSpacing(
+        verseSize: _verseSizeValue,
+        weight: VerseWeight.thin,
+      ),
 
 
       fieldTextDirection: _textField,

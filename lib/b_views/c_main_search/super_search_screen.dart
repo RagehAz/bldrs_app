@@ -345,7 +345,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               flyerType: _searchModel?.flyerSearchModel?.flyerType,
               event: ViewingEvent.homeView,
               onlyUseZoneChains: true,
-              slideScreenFromEnLeftToRight: true,
+              slideScreenFromEnLeftToRight: false,
             );
 
             if (_phid != null) {
@@ -522,7 +522,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               flyerType: flyerType,
               event: ViewingEvent.homeView,
               onlyUseZoneChains: true,
-              slideScreenFromEnLeftToRight: true,
+              slideScreenFromEnLeftToRight: false,
             );
 
             if (_phid != null) {

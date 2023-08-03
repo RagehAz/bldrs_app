@@ -105,6 +105,10 @@ Future<void> _addImagesForNewFlyer({
       bzID: draftFlyer.value?.bzID,
     );
 
+    final int _maxLength = Standards.getMaxSlidesCount(
+      bzAccountType: draftFlyer.value?.bzModel?.accountType,
+    );
+
     final List<PicModel> _bigPics = await BldrsPicMaker.makePics(
       cropAfterPick: false,
       aspectRatio: FlyerDim.flyerAspectRatio(),
@@ -122,7 +126,7 @@ Future<void> _addImagesForNewFlyer({
             type: SlidePicType.big,
         )!;
       },
-      maxAssets: 5,
+      maxAssets: _maxLength - (draftFlyer.value?.draftSlides?.length ?? 0),
     );
 
     /// B - if didn't pick more images

@@ -232,7 +232,10 @@ class BldrsTextField extends StatelessWidget {
       // package: 'bldrs_theme',
       cursorColor: Colorz.yellow255,
       letterSpacing: BldrsText.superVerseLetterSpacing(textWeight, _verseSizeValue),
-      wordSpacing: BldrsText.superVerseWordSpacing(_verseSizeValue),
+      wordSpacing: BldrsText.superVerseWordSpacing(
+        verseSize: _verseSizeValue,
+        weight: textWeight,
+      ),
       scrollPadding: _scrollPadding,
       textFont: BldrsText.superVerseFont(textWeight),
 

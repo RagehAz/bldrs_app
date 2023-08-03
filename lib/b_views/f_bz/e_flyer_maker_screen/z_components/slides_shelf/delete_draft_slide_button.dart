@@ -29,8 +29,9 @@ class DeleteDraftSlideButton extends StatelessWidget {
       enAlignment: Alignment.bottomLeft,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
       child: BldrsBox(
-        height: _boxHeight,
-        width: _boxHeight,
+        height: _boxHeight * 1.5,
+        width: _boxHeight * 1.5,
+        corners: FlyerDim.flyerCorners(DraftShelfSlide.flyerBoxWidth).bottomRight.x,
         icon: Iconz.xLarge,
         iconSizeFactor: 0.6,
         onTap: onTap,
