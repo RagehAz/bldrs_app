@@ -53,7 +53,7 @@ class CreateNewBzButton extends StatelessWidget {
             child: Opacity(
               opacity: _userIsOnline == true ? 1 : 0.5,
               child: BldrsText(
-                width: _buttonWidth,
+                width: _buttonWidth - 20,
                 verse: const Verse(
                   id: 'phid_createBzAccount',
                   translate: true,
@@ -62,7 +62,7 @@ class CreateNewBzButton extends StatelessWidget {
                 italic: true,
                 size: 3,
                 maxLines: 4,
-                margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                margin: const EdgeInsets.symmetric(vertical: 10),
                 weight: VerseWeight.black,
                 shadow: true,
               ),
@@ -70,14 +70,15 @@ class CreateNewBzButton extends StatelessWidget {
           ),
 
           /// BULLETS
-          const Positioned(
+          Positioned(
             bottom: 0,
             child: BldrsBulletPoints(
-              // bubbleWidth: _buttonWidth,
+              bubbleWidth: _buttonWidth,
               centered: true,
               showBottomLine: false,
-              verseSizeFactor: 0.8,
-              bulletPoints: <Verse>[
+              verseSizeFactor: 0.7,
+              showDots: false,
+              bulletPoints: const <Verse>[
 
                 Verse(id: 'phid_free_account_no_commissions', translate: true),
 

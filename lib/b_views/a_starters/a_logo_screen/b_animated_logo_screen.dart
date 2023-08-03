@@ -12,6 +12,7 @@ import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/leading_verse.dart';
@@ -123,10 +124,10 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
             await BldrsNav.goToLogoScreenAndRemoveAllBelow(animatedLogoScreen: false);
           }
 
-
         });
 
       });
+
     }
 
     super.didChangeDependencies();
@@ -456,31 +457,34 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                   );
                 }),
 
-                /// LOADING
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: WidgetWaiter(
-                    waitDuration: const Duration(milliseconds: AnimatedLogoScreen.trackLength),
-                    child: LoadingVerse(
-                      builder: (Verse? verse){
-
-                        final String _loading = getWord('phid_loading')!;
-
-                        return AnimatedLine(
-                          curvedAnimation: _linesControllers[0],
-                          tween: _tween,
-                          verse: verse?.id == null ?
-                          _loading
-                              :
-                          Verse.bakeVerseToString(verse: verse) ?? _loading,
-                          verseColor: Colorz.white255,
-                        );
-                        },
-                    ),
-                  ),
-                ),
-
               ],
+            ),
+          ),
+
+          /// LOADING
+          Positioned(
+            bottom: Ratioz.pyramidsHeight,
+            right: 10,
+            child: WidgetWaiter(
+              waitDuration: const Duration(milliseconds: AnimatedLogoScreen.trackLength),
+              child: LoadingVerse(
+                builder: (Verse? verse){
+
+                  final Verse _loadingVerse = getVerse('phid_loading')!;
+                  final Verse _loading = verse ?? _loadingVerse;
+
+                  return BldrsBox(
+                    height: 20,
+                    verse: _loading.copyWith(casing: Casing.upperCase),
+                    verseScaleFactor: 0.9,
+                    color: Colorz.yellow20,
+                    verseWeight: VerseWeight.black,
+                    bubble: false,
+                    verseItalic: true,
+                  );
+
+                  },
+              ),
             ),
           ),
 
@@ -613,6 +617,7 @@ class AnimatedLine extends StatelessWidget {
                   ),
                 ),
               ),
+
             ],
           ),
         );
@@ -631,6 +636,7 @@ class AnimatedLine extends StatelessWidget {
           weight: VerseWeight.black,
           italic: true,
           shadow: true,
+          textDirection: TextDirection.ltr,
           centered: false,
           color: verseColor,
         ),
