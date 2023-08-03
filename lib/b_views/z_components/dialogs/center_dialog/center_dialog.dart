@@ -338,7 +338,7 @@ class CenterDialog extends StatelessWidget {
                                       Container(
                                         width: _dialogWidth,
                                         constraints: BoxConstraints(
-                                          maxHeight: _dialogHeight * 0.6,
+                                          maxHeight: _dialogHeight * 0.7,
                                         ),
                                         child: SingleChildScrollView(
                                             physics: const BouncingScrollPhysics(),

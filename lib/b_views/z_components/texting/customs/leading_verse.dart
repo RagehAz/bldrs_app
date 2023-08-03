@@ -32,7 +32,7 @@ class LoadingVerse extends StatelessWidget {
 
           if (builder == null){
 
-            final Verse? _verse = verse ?? getVerse('loading',casing: Casing.upperCase);
+            final Verse? _verse = verse ?? getVerse('phid_loading',casing: Casing.upperCase);
 
             return BldrsText(
               width: verseWidth,

@@ -46,11 +46,11 @@ class NoteEventsOfBzTeamManagement {
         userID: author.userID,
       );
 
-      final Map<String, dynamic> _map = await Localizer.getLangMap(
-          langCode: _userModel?.language,
+      final Map<String, dynamic>? _map = await Localizer.getLangMap(
+          langCode: _userModel?.language ?? 'en',
       );
 
-      final String? _title = _map['phid_member_role_changed'];
+      final String? _title = _map!['phid_member_role_changed'];
       /// TASK : ARABIC TRANSLATION IS MESSED UP IN ORDER
       final String? _hasNewRole = _map['phid_has_new_role'];
       final String? _role = _map[_authorRolePhid];

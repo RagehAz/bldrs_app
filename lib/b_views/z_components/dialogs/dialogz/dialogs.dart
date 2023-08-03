@@ -1063,12 +1063,14 @@ class Dialogs {
     final double _buttonWidth = CenterDialog.getWidth(context);
 
     await CenterDialog.showCenterDialog(
-      titleVerse: Verse.plain('Language . اللغة . Idioma . Lingua . Sprache . Langue . 语言'),
+      // titleVerse: Verse.plain('Language . اللغة . Idioma . Lingua . Sprache . Langue . 语言'),
+      bodyVerse: Verse.plain('Language . اللغة . Idioma . Lingua . Sprache . Langue . 语言'),
       height: _dialogHeight,
       boolDialog: null,
       // copyOnTap: false,
       child: FloatingList(
         width: _buttonWidth,
+        height: _dialogHeight * 0.7,
         // boxAlignment: Alignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         columnChildren: <Widget>[

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -29,13 +28,11 @@ class PhraseProtocols {
   /// CURRENT APP LANGUAGE
 
   // --------------------
-// --------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> changeAppLang({
-    required String? langCode,
+    required BuildContext context,
+    required String langCode,
   }) async {
-
-    if (langCode != null) {
 
       WaitDialog.showUnawaitedWaitDialog(
         verse: const Verse(
@@ -44,26 +41,39 @@ class PhraseProtocols {
         ),
       );
 
+      final String _was = Localizer.getCurrentLangCode();
+
       await Localizer.changeAppLanguage(
-          context: getMainContext(),
+          context: context,
           code: langCode,
       );
 
-      await generateCountriesPhrases(
-        setLangCode: langCode,
-      );
+      /// LET'S the system load the json map for getCurrentLangCode to take effect
+      await Future.delayed(const Duration(seconds: 1));
 
-      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
-      await _chainsProvider.fetchSortSetBldrsChains(
-        notify: true,
-      );
+      final String _is = Localizer.getCurrentLangCode();
 
-      await WaitDialog.closeWaitDialog();
+      if (_is != _was){
 
-      await BldrsNav.goToLogoScreenAndRemoveAllBelow(
-        animatedLogoScreen: true,
-      );
-    }
+        await generateCountriesPhrases(
+          setLangCode: langCode,
+        );
+
+        final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+        await _chainsProvider.fetchSortSetBldrsChains(
+          notify: true,
+        );
+
+        await WaitDialog.closeWaitDialog();
+
+        await BldrsNav.goToLogoScreenAndRemoveAllBelow(
+          animatedLogoScreen: true,
+        );
+
+      }
+      else {
+        await WaitDialog.closeWaitDialog();
+      }
 
   }
   // --------------------
@@ -297,13 +307,16 @@ class PhraseProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> reloadMainPhrases() async {
+  static Future<void> reloadMainPhrases({
+    required BuildContext context,
+  }) async {
 
     /// delete LDB phrases
     await PhraseLDBOps.deleteMainPhrases();
 
     /// RELOAD APP LOCALIZATION
     await changeAppLang(
+      context: context,
       langCode: Localizer.getCurrentLangCode(),
     );
 

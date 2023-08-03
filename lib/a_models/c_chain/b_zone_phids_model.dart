@@ -121,7 +121,7 @@ class ZonePhidsModel {
       final List<String> _countriesIDs = map.keys.toList();
       _countriesIDs.remove('id'); // this is the folder name in REAL DB : zonesPhids
 
-      Mapper.blogMap(map, invoker: 'decipherPlanetNodeMap input map');
+      // Mapper.blogMap(map, invoker: 'decipherPlanetNodeMap input map');
 
       if (Mapper.checkCanLoopList(_countriesIDs) == true) {
 
@@ -159,7 +159,7 @@ class ZonePhidsModel {
       }
     }
 
-    _output?.blogZonePhidsModel(invoker: 'decipherPlanetNodeMap : ALL');
+    // _output?.blogZonePhidsModel(invoker: 'decipherPlanetNodeMap : ALL');
     // blog('decipherPlanetNodeMap : END -------------------------------->');
 
     return _output;
