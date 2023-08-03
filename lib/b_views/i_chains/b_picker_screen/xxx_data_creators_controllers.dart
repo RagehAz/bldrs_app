@@ -1,6 +1,8 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
@@ -13,13 +15,10 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
@@ -233,7 +232,6 @@ Future<void> onUnitSelectorButtonTap({
     final List<String> _units = _unitChain?.sons;
 
     await BottomDialog.showButtonsBottomDialog(
-        buttonHeight: 40,
         numberOfWidgets: _unitChain?.sons.length,
         builder: (_){
 

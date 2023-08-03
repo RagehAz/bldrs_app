@@ -18,6 +18,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -381,10 +382,10 @@ Future<void> onChangeAuthorRoleOps({
         translate: true,
       ),
       bodyVerse: Verse(
-        id: '${Verse.transBake('phid_this_will_change_the_role_of')}\n'
+        id:   '${getWord('phid_this_will_change_the_role_of')}\n'
               '${oldAuthor?.name}\n'
-              '${Verse.transBake('phid_to')} '
-              '${Verse.transBake(_rolePhid)}',
+              '${getWord('phid_to')} '
+              '${getWord(_rolePhid)}',
         translate: false,
       ),
       boolDialog: true,

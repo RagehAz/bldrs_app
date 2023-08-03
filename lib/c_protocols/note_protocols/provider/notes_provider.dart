@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
@@ -8,9 +9,8 @@ import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -133,7 +133,7 @@ class NotesProvider extends ChangeNotifier {
     if (_appNeedUpdate == true){
       final MapModel _updateModel = MapModel(
         key: 'settings',
-        value: xPhrase('phid_update'),
+        value: getWord('phid_update'),
       );
       MapModel.replaceMapModel(mapModels: _initialList, mapModel: _updateModel);
     }

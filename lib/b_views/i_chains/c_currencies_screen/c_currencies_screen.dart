@@ -13,6 +13,8 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +43,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
   final ValueNotifier<List<CurrencyModel>> _foundCurrencies = ValueNotifier([]);
   // --------------------
   final ValueNotifier<bool> _showAllCurrencies = ValueNotifier<bool>(false);
+  List<Phrase> _allCurrenciesPhrases = [];
   // --------------------
   // final PageController _pageController = PageController();
   // -----------------------------------------------------------------------------
@@ -69,11 +72,10 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
     if (_isInit && mounted) {
       _isInit = false; // good
 
-      // _triggerLoading(setTo: true).then((_) async {
-      //
-      //
-      //   await _triggerLoading(setTo: false);
-      // });
+      asyncInSync(() async {
+        await _initializeCurrenciesPhrases();
+      });
+
 
     }
     super.didChangeDependencies();
@@ -89,6 +91,29 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  Future<void> _initializeCurrenciesPhrases() async {
+
+    final List<Phrase> _currenciesPhrases = [];
+
+    final List<Phrase> _enPhrases = await CurrencyModel.getCurrenciesPhrasesFromLangMap(
+      langCode: 'en',
+    );
+    _currenciesPhrases.addAll(_enPhrases);
+
+    final String _currentLangCode = Localizer.getCurrentLangCode();
+    if (_currentLangCode != 'en'){
+      final List<Phrase> _secondPhrases = await CurrencyModel.getCurrenciesPhrasesFromLangMap(
+        langCode: _currentLangCode,
+      );
+      _currenciesPhrases.addAll(_secondPhrases);
+    }
+
+    setState(() {
+      _allCurrenciesPhrases = _currenciesPhrases;
+    });
+
+  }
+  // --------------------
   void _onSearch(String? text){
     onSearchCurrencies(
       searchController: _searchController,
@@ -96,6 +121,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       foundCurrencies: _foundCurrencies,
       pageController: null, //_pageController,
       mounted: mounted,
+      allCurrenciesPhrases: _allCurrenciesPhrases,
     );
   }
   // --------------------

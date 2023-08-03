@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:core';
+
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 /// => TAMAM
@@ -21,7 +22,7 @@ class Iconizer {
   /// TESTED : WORKS PERFECT
   static String superArrowENRight(BuildContext context) {
 
-    if (Words.textDirection() == 'ltr') {
+    if (Localizer.textDirection() == 'ltr') {
       return Iconz.arrowRight;
     }
 
@@ -34,7 +35,7 @@ class Iconizer {
   /// TESTED : WORKS PERFECT
   static String superArrowENLeft(BuildContext context) {
 
-    if (Words.textDirection() == 'ltr') {
+    if (Localizer.textDirection() == 'ltr') {
       return Iconz.arrowLeft;
     }
 

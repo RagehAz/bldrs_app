@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
@@ -26,17 +27,15 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoom
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 class BldrsNav {
@@ -242,17 +241,6 @@ class BldrsNav {
     required ZGridController? zGridController,
   }) async {
 
-    /// TO HELP WHEN PHRASES ARE NOT LOADED TO REBOOT SCREENS
-    if (PhraseProvider.proGetPhidsAreLoaded() == false){
-      await Nav.pushNamedAndRemoveAllBelow(
-        context: getMainContext(),
-        goToRoute: Routing.staticLogoScreen,
-      );
-    }
-
-    /// NORMAL CASE WHEN ON BACK WHILE IN HO
-    else {
-
       final bool _flyerIsOpen = !UiProvider.proGetLayoutIsVisible(
           context: getMainContext(),
           listen: false,
@@ -322,8 +310,6 @@ class BldrsNav {
         }
 
       }
-
-    }
 
   }
   // -----------------------------------------------------------------------------

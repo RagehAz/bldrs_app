@@ -3,37 +3,37 @@ import 'dart:convert';
 import 'package:basics/bldrs_theme/classes/langs.dart';
 import 'package:basics/helpers/classes/checks/error_helpers.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/f_helpers/localization/lingo.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:bldrs/main.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:basics/ldb/methods/ldb_ops.dart';
+// -----------------------------------------------------------------------------
 
-//
-// --- BEHOLD ---
-//
-// TO ADD NEW LANGUAGE
-// 1- CREATE NEW JSON FILE
-// 2- UPDATE main.dart FILE
-// 3- UPDATE pubspec.yaml FILE
-// 4- UPDATE language_class FILE
-// 5- UPDATE demo_localization FILE
-// 6- UPDATE localization_constants FILE
-//
-// --- TAWAKAL 3ALA ALLAH ---
-//
-  // -----------------------------------------------------------------------------
+  /// LANG TIERS
 
-/// check this https://pub.dev/packages/localize_and_translate
-
+// --------------------
+/// ‎ ‎ ‎ ‎
+// --------------------
+/// A:-
+/// AR:Arabic, ES:Spanish, FR:French, ZH:Chinese, DE:German, IT:Italian,
+/// B:-
+/// HI:Hindi, RU:Russian, TR:Turkish, PT:Portuguese
+/// C:-
+/// ID:Indonesian, BN:Bengali, SW:Swahili, FA: Farsi, JA:Japanese
+/// D:-
+/// UK:Ukrainian, PL:Polish, NL:Dutch, MS:Malay, PA:Punjabi,
+/// E:-
+/// TL:Tagalog, TE:Telugu, MR:Marathi, KO:Korean,
+// -----------------------------------------------------------------------------
 class Localizer {
   // -----------------------------------------------------------------------------
 
@@ -76,7 +76,7 @@ class Localizer {
     required bool mounted,
   }) async {
 
-    final Locale? _locale = await Localizer.getCurrentLocaleFromLDB();
+    final Locale? _locale = await Localizer._getCurrentLocaleFromLDB();
 
     setNotifier(
         notifier: locale,
@@ -87,21 +87,75 @@ class Localizer {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> load() async {
-    _localizedValues = await getJSONLangMap(langCode: locale?.languageCode);
+  static Locale? localeResolutionCallback(Locale? deviceLocale, Iterable<Locale> supportedLocales) {
+
+    for (final Locale locale in supportedLocales) {
+      if (locale.languageCode == deviceLocale?.languageCode &&
+          locale.countryCode == deviceLocale?.countryCode) {
+        return deviceLocale;
+      }
+    }
+
+    return supportedLocales.first;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  String? getTranslatedValue(String key) {
+  Future<void> _load() async {
+    _localizedValues = await getLangMap(langCode: locale?.languageCode);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  String? _getTranslatedValue(String key) {
     return _localizedValues?[key];
   }
+  // -----------------------------------------------------------------------------
+
+  /// SUPPORTED LANGS
+
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Locale?> getCurrentLocaleFromLDB() async {
-    final String? _langCode = await readLDBLangCode();
-    final String? _languageCode = _langCode ?? Lang.englishLingo.code;
-    return _concludeLocaleByLingoCode(_languageCode);
+  static List<Locale> getSupportedLocales() {
+    return <Locale>[
+      const Locale('en', 'US'),
+      const Locale('ar', 'EG'),
+      const Locale('es', 'ES'),
+      const Locale('it', 'IT'),
+      const Locale('de', 'DE'),
+      const Locale('fr', 'FR'),
+      const Locale('zh', 'CN'),
+    ];
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> supportedLangCodes = <String>[
+    'en',
+    'ar',
+    'es',
+    'it',
+    'de',
+    'fr',
+    'zh',
+  ];
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getLangNameByCode(String langCode){
+
+    switch(langCode){
+      case 'en': return 'English';
+      case 'ar': return 'عربي';
+      case 'es': return 'Español';
+      case 'it': return 'Italiano';
+      case 'de': return 'Deutsche';
+      case 'fr': return 'Français';
+      // case "ru": return "русский";
+      default: return '';
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// LANG CODE IN LDB
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String?> readLDBLangCode() async {
@@ -112,6 +166,13 @@ class Localizer {
       primaryKey: 'id',
     );
     return _langCode;
+  }
+  // --------------------
+    /// TESTED : WORKS PERFECT
+  static Future<Locale?> _getCurrentLocaleFromLDB() async {
+    final String? _langCode = await readLDBLangCode();
+    final String _languageCode = _langCode ?? 'en';
+    return _concludeLocaleByLingoCode(_languageCode);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -129,62 +190,21 @@ class Localizer {
     );
 
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<Locale> getSupportedLocales() {
-    return <Locale>[
-      const Locale('en', 'US'),
-      const Locale('ar', 'EG'),
-      const Locale('es', 'ES'),
-      const Locale('fr', 'FR'),
-      const Locale('zh', 'CN'),
-      const Locale('de', 'DE'),
-      const Locale('it', 'IT'),
-    ];
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> supportedLangCodes = <String>[
-    'en',
-    'ar',
-    'es',
-    'fr',
-    'zh',
-    'de',
-    'it',
-  ];
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Locale? localeResolutionCallback(Locale? deviceLocale, Iterable<Locale> supportedLocales) {
-
-    for (final Locale locale in supportedLocales) {
-      if (locale.languageCode == deviceLocale?.languageCode &&
-          locale.countryCode == deviceLocale?.countryCode) {
-        return deviceLocale;
-      }
-    }
-
-    return supportedLocales.first;
-  }
   // -----------------------------------------------------------------------------
 
   /// READING  LOCAL JSON
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Map<String, String>?> getJSONLangMap({
+  static Future<Map<String, String>> getLangMap({
     required String? langCode
   }) async {
 
     Map<String, String>? _output;
 
-    final String? _langFilePath = BldrsThemeLangs.getLangFilePath(
+    final String _langFilePath = BldrsThemeLangs.getLangFilePath(
       langCode: langCode,
     );
-
-    if (_langFilePath == null){
-      return null;
-    }
 
     await tryAndCatch(
       invoker: 'getJSONLangMap',
@@ -203,44 +223,48 @@ class Localizer {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String? translate(String key) {
-    return Localizer.of(getMainContext())?.getTranslatedValue(key);
+  static String? translate(String phid) {
+    return Localizer.of(getMainContext())?._getTranslatedValue(phid);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String?> getTranslationFromJSONByLangCode({
-    required String jsonKey,
-    required String langCode,
+  static Future<String?> translateByLangCode({
+    required String? phid,
+    required String? langCode,
   }) async {
 
     String? _jsonStringValues;
     String? _output;
 
-    final bool _result = await tryCatchAndReturnBool(
-      invoker: 'getCountryNameByLingo',
-      functions: () async {
+    if (phid != null){
 
-        final String? _langFilePath = BldrsThemeLangs.getLangFilePath(
-          langCode: langCode,
-        );
+      final bool _result = await tryCatchAndReturnBool(
+        invoker: 'translateByLangCode',
+        functions: () async {
 
-        if (_langFilePath != null){
-          _jsonStringValues = await rootBundle.loadString(_langFilePath);
-        }
+          final String? _langFilePath = BldrsThemeLangs.getLangFilePath(
+            langCode: langCode ?? 'en',
+          );
+
+          if (_langFilePath != null){
+            _jsonStringValues = await rootBundle.loadString(_langFilePath);
+          }
 
 
-      },
-      onError: (String error) {},
-    );
+        },
+        onError: (String error) {},
+      );
 
-    if (_result == true && _jsonStringValues != null) {
+      if (_result == true && _jsonStringValues != null) {
 
-      final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues!);
+        final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues!);
 
-      final Map<String, dynamic> _map = _mappedJson
-          .map((String key, value) => MapEntry(key, value.toString()));
+        final Map<String, dynamic> _map = _mappedJson
+            .map((String key, value) => MapEntry(key, value.toString()));
 
-      _output = _map[jsonKey];
+        _output = _map[phid];
+      }
+
     }
 
     return _output;
@@ -262,7 +286,7 @@ class Localizer {
         langCode: code,
       );
 
-      final Locale? _temp = await setLocale(code);
+      final Locale? _temp = await _setLocale(code);
 
       BldrsAppStarter.setLocale(context, _temp);
 
@@ -287,26 +311,7 @@ class Localizer {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> switchBetweenArabicAndEnglish(BuildContext context) async {
-
-    if (getCurrentLangCode() == Lang.englishLingo.code){
-      await changeAppLanguage(
-          context: context,
-          code: Lang.arabicLingo.code,
-      );
-    }
-
-    else {
-      await changeAppLanguage(
-          context: context,
-          code: Lang.englishLingo.code,
-      );
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<Locale?> setLocale(String languageCode) async {
+  static Future<Locale?> _setLocale(String languageCode) async {
 
     await LDBOps.insertMap(
         docName: LDBDoc.langCode,
@@ -321,61 +326,23 @@ class Localizer {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Locale? _concludeLocaleByLingoCode(String? lingoCode) {
+  static Locale? _concludeLocaleByLingoCode(String? langCode) {
 
-    if (lingoCode == null){
+    if (langCode == null){
       return null;
     }
 
-    switch (lingoCode) {
-      case Lang.englishCode:  return Locale(lingoCode, 'US');
-      case Lang.arabicCode:   return Locale(lingoCode, 'EG');
-      case Lang.spanishCode:  return Locale(lingoCode, 'ES');
-      case Lang.frenchCode:   return Locale(lingoCode, 'FR');
-      case Lang.chineseCode:  return Locale(lingoCode, 'CN');
-      case Lang.germanCode:   return Locale(lingoCode, 'DE');
-      case Lang.italianCode:  return Locale(lingoCode, 'IT');
-      default:                return Locale(Lang.englishLingo.code, 'US');
+    switch (langCode) {
+      case 'en':    return const Locale('en', 'US');
+      case 'ar':    return const Locale('ar', 'EG');
+      case 'es':    return const Locale('es', 'ES');
+      case 'it':    return const Locale('it', 'IT');
+      case 'de':    return const Locale('de', 'DE');
+      case 'fr':    return const Locale('fr', 'FR');
+      case 'zh':    return const Locale('zh', 'CN');
+      default:      return const Locale('en', 'US');
     }
 
-  }
-  // -----------------------------------------------------------------------------
-
-  /// CHECKERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool appIsArabic(BuildContext context) {
-
-    if (getCurrentLangCode() == Lang.arabicLingo.code) {
-      return true;
-    }
-
-    else {
-      return false;
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Future<String> translateLangCodeName({
-    required String langCode,
-  }) async {
-
-    /// while app lang is english : langCode is ar : this should be : 'Arabic'
-    final String? _langNameByActiveAppLang = await getTranslationFromJSONByLangCode(
-      langCode: langCode,
-      jsonKey: 'activeLanguage',
-    );
-
-    // /// while app lang is english : langCode is ar : this should be : 'عربي'
-    // final String _langNameByLangItself = await getTranslationFromJSONByLangCode(
-    //   context: context,
-    //   langCode: langCode,
-    //   jsonKey: 'languageName',
-    // );
-
-    return '( $_langNameByActiveAppLang ) ';
   }
   // -----------------------------------------------------------------------------
 
@@ -383,11 +350,17 @@ class Localizer {
 
   // --------------------
   static String getCurrentLangCode(){
-    return Words.languageCode();
+    return Localizer.translate('phid_languageCode')!;
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  static String activeLanguage () => Localizer.translate('phid_activeLanguage')!;
+  static String headlineFont () => Localizer.translate('phid_headlineFont')!;
+  static String bodyFont () => Localizer.translate('phid_bodyFont')!;
+  static String languageName () => Localizer.translate('phid_languageName')!;
+  static String textDirection () => Localizer.translate('textDirection')!;
+  // --------------------
 }
-
+//---------------------
 class _DemoLocalizationDelegate extends LocalizationsDelegate<Localizer> {
   // -----------------------------------------------------------------------------
   const _DemoLocalizationDelegate();
@@ -401,7 +374,7 @@ class _DemoLocalizationDelegate extends LocalizationsDelegate<Localizer> {
   @override
   Future<Localizer> load(Locale locale) async {
     final Localizer localization = Localizer(locale);
-    await localization.load();
+    await localization._load();
     return localization;
   }
   // --------------------
@@ -409,3 +382,145 @@ class _DemoLocalizationDelegate extends LocalizationsDelegate<Localizer> {
   bool shouldReload(LocalizationsDelegate old) => false;
   // -----------------------------------------------------------------------------
 }
+// -----------------------------------------------------------------------------
+String? getWord(String? phid){
+  if (phid == null){
+    return null;
+  }
+  else {
+    return Localizer.translate(phid);
+  }
+}
+//---------------------
+List<String> getWords(List<String> phids){
+  final List<String> _output = <String>[];
+
+  if (Mapper.checkCanLoopList(phids) == true){
+
+    for (final String phid in phids){
+      final String? _trans = getWord(phid);
+      if (_trans != null){
+        _output.add(_trans);
+      }
+    }
+
+  }
+  return _output;
+
+
+
+}
+//---------------------
+Verse? getVerse(String? phid, {
+  Casing? casing,
+}){
+
+  if (phid == null){
+    return null;
+  }
+
+  else {
+    return Verse(
+      id: getWord(phid),
+      translate: false,
+      casing: casing,
+    );
+  }
+
+}
+// -----------------------------------------------------------------------------
+
+/// SUPER SCRIPT - SUB SCRIPT
+
+// --------------------
+/*
+// unicode_map = {
+// // #           superscript     subscript
+// '0'        : ('\u2070',   '\u2080'      ),
+// '1'        : ('\u00B9',   '\u2081'      ),
+// '2'        : ('\u00B2',   '\u2082'      ),
+// '3'        : ('\u00B3',   '\u2083'      ),
+// '4'        : ('\u2074',   '\u2084'      ),
+// '5'        : ('\u2075',   '\u2085'      ),
+// '6'        : ('\u2076',   '\u2086'      ),
+// '7'        : ('\u2077',   '\u2087'      ),
+// '8'        : ('\u2078',   '\u2088'      ),
+// '9'        : ('\u2079',   '\u2089'      ),
+// 'a'        : ('\u1d43',   '\u2090'      ),
+// 'b'        : ('\u1d47',   '?'           ),
+// 'c'        : ('\u1d9c',   '?'           ),
+// 'd'        : ('\u1d48',   '?'           ),
+// 'e'        : ('\u1d49',   '\u2091'      ),
+// 'f'        : ('\u1da0',   '?'           ),
+// 'g'        : ('\u1d4d',   '?'           ),
+// 'h'        : ('\u02b0',   '\u2095'      ),
+// 'i'        : ('\u2071',   '\u1d62'      ),
+// 'j'        : ('\u02b2',   '\u2c7c'      ),
+// 'k'        : ('\u1d4f',   '\u2096'      ),
+// 'l'        : ('\u02e1',   '\u2097'      ),
+// 'm'        : ('\u1d50',   '\u2098'      ),
+// 'n'        : ('\u207f',   '\u2099'      ),
+// 'o'        : ('\u1d52',   '\u2092'      ),
+// 'p'        : ('\u1d56',   '\u209a'      ),
+// 'q'        : ('?',        '?'           ),
+// 'r'        : ('\u02b3',   '\u1d63'      ),
+// 's'        : ('\u02e2',   '\u209b'      ),
+// 't'        : ('\u1d57',   '\u209c'      ),
+// 'u'        : ('\u1d58',   '\u1d64'      ),
+// 'v'        : ('\u1d5b',   '\u1d65'      ),
+// 'w'        : ('\u02b7',   '?'           ),
+// 'x'        : ('\u02e3',   '\u2093'      ),
+// 'y'        : ('\u02b8',   '?'           ),
+// 'z'        : ('?',        '?'           ),
+// 'A'        : ('\u1d2c',   '?'           ),
+// 'B'        : ('\u1d2e',   '?'           ),
+// 'C'        : ('?',        '?'           ),
+// 'D'        : ('\u1d30',   '?'           ),
+// 'E'        : ('\u1d31',   '?'           ),
+// 'F'        : ('?',        '?'           ),
+// 'G'        : ('\u1d33',   '?'           ),
+// 'H'        : ('\u1d34',   '?'           ),
+// 'I'        : ('\u1d35',   '?'           ),
+// 'J'        : ('\u1d36',   '?'           ),
+// 'K'        : ('\u1d37',   '?'           ),
+// 'L'        : ('\u1d38',   '?'           ),
+// 'M'        : ('\u1d39',   '?'           ),
+// 'N'        : ('\u1d3a',   '?'           ),
+// 'O'        : ('\u1d3c',   '?'           ),
+// 'P'        : ('\u1d3e',   '?'           ),
+// 'Q'        : ('?',        '?'           ),
+// 'R'        : ('\u1d3f',   '?'           ),
+// 'S'        : ('?',        '?'           ),
+// 'T'        : ('\u1d40',   '?'           ),
+// 'U'        : ('\u1d41',   '?'           ),
+// 'V'        : ('\u2c7d',   '?'           ),
+// 'W'        : ('\u1d42',   '?'           ),
+// 'X'        : ('?',        '?'           ),
+// 'Y'        : ('?',        '?'           ),
+// 'Z'        : ('?',        '?'           ),
+// '+'        : ('\u207A',   '\u208A'      ),
+// '-'        : ('\u207B',   '\u208B'      ),
+// '='        : ('\u207C',   '\u208C'      ),
+// '('        : ('\u207D',   '\u208D'      ),
+// ')'        : ('\u207E',   '\u208E'      ),
+// ':alpha'   : ('\u1d45',   '?'           ),
+// ':beta'    : ('\u1d5d',   '\u1d66'      ),
+// ':gamma'   : ('\u1d5e',   '\u1d67'      ),
+// ':delta'   : ('\u1d5f',   '?'           ),
+// ':epsilon' : ('\u1d4b',   '?'           ),
+// ':theta'   : ('\u1dbf',   '?'           ),
+// ':iota'    : ('\u1da5',   '?'           ),
+// ':pho'     : ('?',        '\u1d68'      ),
+// ':phi'     : ('\u1db2',   '?'           ),
+// ':psi'     : ('\u1d60',   '\u1d69'      ),
+// ':chi'     : ('\u1d61',   '\u1d6a'      ),
+// ':coffee'  : ('\u2615',   '\u2615'      )
+// }
+
+// ⁰ ¹ ² ³ ⁴ ⁵ ⁶ ⁷ ⁸ ⁹ ⁺ ⁻ ⁼ ⁽ ⁾ ₀ ₁ ₂ ₃ ₄ ₅ ₆ ₇ ₈ ₉ ₊ ₋ ₌ ₍ ₎
+// ᵃ ᵇ ᶜ ᵈ ᵉ ᶠ ᵍ ʰ ⁱ ʲ ᵏ ˡ ᵐ ⁿ ᵒ ᵖ ʳ ˢ ᵗ ᵘ ᵛ ʷ ˣ ʸ ᶻ
+// ᴬ ᴮ ᴰ ᴱ ᴳ ᴴ ᴵ ᴶ ᴷ ᴸ ᴹ ᴺ ᴼ ᴾ ᴿ ᵀ ᵁ ⱽ ᵂ
+// ₐ ₑ ₕ ᵢ ⱼ ₖ ₗ ₘ ₙ ₒ ₚ ᵣ ₛ ₜ ᵤ ᵥ ₓ ᵅ ᵝ ᵞ ᵟ ᵋ ᶿ ᶥ ᶲ ᵠ ᵡ ᵦ ᵧ ᵨ ᵩ ᵪ
+// 1ˢᵗ _ 2ⁿᵈ _ 3ʳᵈ _ 4ᵗʰ _ n² _ n³ - m² - م²
+ */
+// -----------------------------------------------------------------------------

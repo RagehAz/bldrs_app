@@ -1,22 +1,22 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
+
+import 'package:app_settings/app_settings.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/rest/rest.dart';
 import 'package:basics/helpers/classes/time/internet_time.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/classes/rest/rest.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
-import 'package:app_settings/app_settings.dart';
 import 'package:intl/intl.dart';
 /// => TAMAM
 class BldrsTimers {
@@ -50,10 +50,10 @@ class BldrsTimers {
     String _output = '';
 
     if (time != null){
-      _output = '${xPhrase('phid_inn')} '
-                '${Words.bldrsShortName()} '
-                '${xPhrase('phid_since')} : '
-                '${xPhrase(getMonthPhidByInt(time.month))} '
+      _output = '${getWord('phid_inn')} '
+                '${getWord('bldrsShortName')} '
+                '${getWord('phid_since')} : '
+                '${getWord(getMonthPhidByInt(time.month))} '
                 '${time.year}';
     }
 
@@ -74,11 +74,11 @@ class BldrsTimers {
         // &&
         // time.day != null
     ){
-      _output = '${xPhrase('phid_inn')} '
-                '${xPhrase('phid_phid_bldrsShortName')} '
-                '${xPhrase('phid_since')} : '
+      _output = '${getWord('phid_inn')} '
+                '${getWord('phid_phid_bldrsShortName')} '
+                '${getWord('phid_since')} : '
                 '${time.day} '
-                '${xPhrase(getMonthPhidByInt(time.month))} '
+                '${getWord(getMonthPhidByInt(time.month))} '
                 '${time.year}';
     }
 
@@ -92,9 +92,9 @@ class BldrsTimers {
   }){
     final String _day = '${time.day}';
     final String? _monthPhid = getMonthPhidByInt(time.month);
-    final String? _month = xPhrase(_monthPhid);
+    final String? _month = getWord(_monthPhid);
     final String _year = '${time.year}';
-    final String? _on = xPhrase('phid_on_4date');
+    final String? _on = getWord('phid_on_4date');
 
     return '$_on $_day $_month $_year';
   }
@@ -117,7 +117,7 @@ class BldrsTimers {
       final String? _day = Timers.generateDayName(time);
       final String? _dd = '${time.day}';
       final String? _monthPhid = getMonthPhidByInt(time.month);
-      final String? _month = xPhrase(_monthPhid);
+      final String? _month = getWord(_monthPhid);
       final String? _yyyy = '${time.year}';
 
       _output = '$_hh:$_mm $_ampm, $_day $_dd $_month $_yyyy';
@@ -148,7 +148,7 @@ class BldrsTimers {
       default: _phid = null;
     }
 
-    return xPhrase(_phid);
+    return getWord(_phid);
   }
   // --------------------
   /// GENERATES => [ 'dd month yyyy' ]
@@ -157,7 +157,7 @@ class BldrsTimers {
   }){
 
     final String? _monthPhid = getMonthPhidByInt(time?.month);
-    final String? _month = xPhrase(_monthPhid);
+    final String? _month = getWord(_monthPhid);
 
     return Timers.generateString_dd_I_MM_I_yyyy(
       time: time,
@@ -286,11 +286,11 @@ class BldrsTimers {
         ),
         bodyVerse: Verse(
           // pseudo: 'Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
-          id: '${xPhrase('phid_adjust_your_clock')}\n\n'
-              '${xPhrase('phid_actual_clock')}\n'
+          id: '${getWord('phid_adjust_your_clock')}\n\n'
+              '${getWord('phid_actual_clock')}\n'
               '${_zoneLine.id}\n'
               '$_dd_month_yyy_actual . $_hh_i_mm_ampm_actual\n\n'
-              '${xPhrase('phid_your_clock')}\n'
+              '${getWord('phid_your_clock')}\n'
               '$_dd_month_yyy_device . $_hh_i_mm_ampm_device',
           translate: false,
         ),

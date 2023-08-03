@@ -1,15 +1,15 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/file_size_unit.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/ldb/pdf_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/storage/pdf_storage_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class PDFProtocols {
@@ -35,7 +35,7 @@ class PDFProtocols {
       type: FileType.custom,
       // allowCompression: true,
       // allowMultiple: false,
-      dialogTitle: Verse.transBake('phid_select_a_pdf'),
+      dialogTitle: getWord('phid_select_a_pdf'),
       // lockParentWindow: false,
       onFileLoading: (FilePickerStatus status){
         blog('status : ${status.name}');

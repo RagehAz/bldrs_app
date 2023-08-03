@@ -1,10 +1,9 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
-import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 
 enum Casing {
@@ -194,8 +193,6 @@ class Verse {
     }
 
   }
-
-
   // -----------------------------------------------------------------------------
 
   /// TRANSLATION
@@ -211,7 +208,7 @@ class Verse {
 
     if (TextCheck.isEmpty(verse.id) == false && Mapper.boolIsTrue(verse.translate) == true){
 
-      final String? _translation = xPhrase(verse.id);
+      final String? _translation = Localizer.translate(verse.id!);
       if (_translation == null){
         _shouldButNotFound = true;
       }
@@ -253,50 +250,52 @@ class Verse {
 
       if (Mapper.boolIsTrue(verse.translate) == true){
 
-        /// ADJUST VALUE
-        if (TextCheck.isEmpty(_output) == false){
+        _output = Localizer.translate(verse.id!);
 
-          /// IS PHID
-          final bool _isPhid = Phider.checkVerseIsPhid(_output);
-          final bool _isCurrency = Phider.checkVerseIsCurrency(_output);
-          final bool _isHeadline = Phider.checkVerseIsHeadline(_output);
-          if (_isPhid == true || _isCurrency == true || _isHeadline == true){
-
-            final String? _foundXPhrase = xPhrase(verse.id);
-
-            /// X PHRASE NOT FOUND
-            if (_foundXPhrase == null){
-              _output = 'τ.$_output'; // τ : should be translated : phid assigned : not found in allPhrases
-            }
-
-            /// X PHRASE FOUND
-            else {
-              _output = _foundXPhrase; // . : perfect and finished
-            }
-
-          }
-
-          /// NOT NOT PHID
-          else {
-
-            /// IS TEMP
-            final bool _isTemp = Phider.checkVerseIsTemp(_output);
-            if (_isTemp == true){
-              _output = TextMod.removeTextBeforeLastSpecialCharacter(
-                  text: _output,
-                  specialCharacter: '#',
-              );
-              _output = '##$_output'; // should be translated : phid not assigned yet : not yet in allPhrases
-            }
-
-            /// NOT TEMP - NOT PHID
-            else {
-              _output = '?$_output'; // should be translated : phid not assigned : not found in all phrases : something is wrong
-            }
-
-          }
-
-        }
+        // /// ADJUST VALUE
+        // if (TextCheck.isEmpty(_output) == false){
+        //
+        //   /// IS PHID
+        //   final bool _isPhid = Phider.checkVerseIsPhid(_output);
+        //   final bool _isCurrency = Phider.checkVerseIsCurrency(_output);
+        //   final bool _isHeadline = Phider.checkVerseIsHeadline(_output);
+        //   if (_isPhid == true || _isCurrency == true || _isHeadline == true){
+        //
+        //     final String? _foundXPhrase = word(verse.id);
+        //
+        //     /// X PHRASE NOT FOUND
+        //     if (_foundXPhrase == null){
+        //       _output = 'τ.$_output'; // τ : should be translated : phid assigned : not found in allPhrases
+        //     }
+        //
+        //     /// X PHRASE FOUND
+        //     else {
+        //       _output = _foundXPhrase; // . : perfect and finished
+        //     }
+        //
+        //   }
+        //
+        //   /// NOT NOT PHID
+        //   else {
+        //
+        //     /// IS TEMP
+        //     final bool _isTemp = Phider.checkVerseIsTemp(_output);
+        //     if (_isTemp == true){
+        //       _output = TextMod.removeTextBeforeLastSpecialCharacter(
+        //           text: _output,
+        //           specialCharacter: '#',
+        //       );
+        //       _output = '##$_output'; // should be translated : phid not assigned yet : not yet in allPhrases
+        //     }
+        //
+        //     /// NOT TEMP - NOT PHID
+        //     else {
+        //       _output = '?$_output'; // should be translated : phid not assigned : not found in all phrases : something is wrong
+        //     }
+        //
+        //   }
+        //
+        // }
 
       }
 
@@ -306,6 +305,8 @@ class Verse {
     return convertVerseCase(verse: _output, verseCasing: verse?.casing);
   }
   // --------------------
+  /// DEPRECATED
+  /*
   /// TESTED : WORKS PERFECT
   static String? transBake(String? phid){
 
@@ -321,6 +322,7 @@ class Verse {
       );
     }
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// CHECKING

@@ -24,6 +24,7 @@ import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 class PhidsPickerScreen extends StatefulWidget {
@@ -515,7 +516,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
           valueListenable: _selectedPhidsNotifier,
           builder: (BuildContext context, List<String>? selectedPhids, Widget? child) {
 
-            final String? _selectedKeywords = Verse.transBake('phid_selected_keywords');
+            final String? _selectedKeywords = getWord('phid_selected_keywords');
 
             final Verse _verse = Verse(
               id: '(${selectedPhids?.length}) $_selectedKeywords',

@@ -1,16 +1,14 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
 /// SEARCHING
@@ -21,6 +19,7 @@ void onSearchCurrencies({
   required ValueNotifier<bool> isSearching,
   required ValueNotifier<List<CurrencyModel>> foundCurrencies,
   required PageController? pageController,
+  required List<Phrase> allCurrenciesPhrases,
   required bool mounted,
 }){
 
@@ -35,16 +34,15 @@ void onSearchCurrencies({
     final List<CurrencyModel> _foundCurrencies = <CurrencyModel>[];
 
     /// SEARCH MAIN PHRASES
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
     final List<Phrase> _phrases = onSearchPhrases(
       searchController: searchController,
-      phrasesToSearchIn: _phraseProvider.mainPhrases,
+      phrasesToSearchIn: allCurrenciesPhrases,
       isSearching: isSearching,
       pageController: pageController,
       mounted: mounted,
     );
 
-    Phrase.blogPhrases(_phrases);
+    // Phrase.blogPhrases(_phrases);
 
     /// WHEN FOUND PHRASES
     if (Mapper.checkCanLoopList(_phrases) == true){

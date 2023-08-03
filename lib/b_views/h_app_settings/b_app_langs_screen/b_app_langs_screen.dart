@@ -1,14 +1,11 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
-import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/f_helpers/localization/lingo.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class AppLangsScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -18,8 +15,7 @@ class AppLangsScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   Future<void> _tapLanguage(String? langCode) async {
 
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
-    await _phraseProvider.changeAppLang(
+    await PhraseProtocols.changeAppLang(
       langCode: langCode,
     );
 
@@ -28,26 +24,22 @@ class AppLangsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    const List<Lang> _languagesModels = Lang.allLanguages;
-    final List<MapModel> _languageMaps = Lang.getLingoNamesMapModels(_languagesModels);
-    final String _currentLang = PhraseProvider.proGetCurrentLangCode(
-      context: context,
-      listen: true,
-    );
+    final String _currentLang = Localizer.getCurrentLangCode();
     // --------------------
     return FloatingLayout(
       columnChildren: <Widget>[
 
         const DotSeparator(color: Colorz.yellow80,),
 
-        ...List.generate(_languageMaps.length, (index){
+        ...List.generate(Localizer.supportedLangCodes.length, (index){
 
-          final MapModel _langs = _languageMaps[index];
+          final String _langCode = Localizer.supportedLangCodes[index];
+          final String _langName = Localizer.getLangNameByCode(_langCode);
 
           return SettingsWideButton(
-            verse: Verse.plain(_langs.value),
-            isOn: _currentLang != _langs.key,
-            onTap: () => _tapLanguage(_langs.key),
+            verse: Verse.plain(_langName),
+            isOn: _currentLang != _langCode,
+            onTap: () => _tapLanguage(_langCode),
           );
 
         }),

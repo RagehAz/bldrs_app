@@ -1,7 +1,8 @@
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:flutter/material.dart';
 
 class FlyerVerses {
   /// --------------------------------------------------------------------------
@@ -24,7 +25,7 @@ class FlyerVerses {
     final int _count = count ?? 0;
     if (_count >= 1000){
       _output = Verse(
-        id: counterCaliber(_count),
+        id: getCounterCaliber(_count),
         translate: false,
       );
     }
@@ -80,7 +81,7 @@ class FlyerVerses {
     required bool showLabel,
   }){
 
-      final String? _galleryCountCalibrated = counterCaliber(bzGalleryCount);
+      final String? _galleryCountCalibrated = getCounterCaliber(bzGalleryCount);
 
       final String _followersCounter =
           (authorGalleryCount == 0 && followersCount == 0)
@@ -91,13 +92,13 @@ class FlyerVerses {
           :
           showLabel == true ?
           '${Numeric.formatNumToSeparatedKilos(number: authorGalleryCount)} '
-          '${xPhrase('phid_flyers')}'
+          '${getWord('phid_flyers')}'
           :
           /// FIX_FOLLOWERS_NUMBERS
           // '${counterCaliber(followersCount)} '
-          // '${xPhrase('phid_followers')} . '
+          // '${word('phid_followers')} . '
           '$_galleryCountCalibrated '
-          '${xPhrase('phid_flyers')}';
+          '${getWord('phid_flyers')}';
 
       return Verse(
         id: _followersCounter,
