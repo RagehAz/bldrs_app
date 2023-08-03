@@ -1,24 +1,14 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
-import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
-import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
-import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
-import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:provider/provider.dart';
-
+/// => TAMAM
 class RenovateFlyerProtocols {
   // -----------------------------------------------------------------------------
 
@@ -29,7 +19,7 @@ class RenovateFlyerProtocols {
   /// FLYER RENOVATION
 
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<void> renovateDraft({
     required DraftFlyer? newDraft,
     required FlyerModel? oldFlyer,
@@ -37,8 +27,8 @@ class RenovateFlyerProtocols {
     required bool updateFlyerLocally,
     required bool resetActiveBz,
   }) async {
-    blog('RenovateFlyerProtocols.renovate : START');
-
+    blog('RenovateFlyerProtocols.renovate : START a77aa');
+    blog('RenovateFlyerProtocols.renovate : START a77aa');
     /// ASSERTIONS
     assert(
     (resetActiveBz == true && updateFlyerLocally == true) || (resetActiveBz == false)
@@ -46,111 +36,125 @@ class RenovateFlyerProtocols {
     // assert(newDraft != null, 'flyer is null');
     // -------------------------------
 
-    if (newDraft != null && oldFlyer != null){
+    final DraftFlyer? _oldDraft = await DraftFlyer.createDraft(oldFlyer: oldFlyer);
 
-      final BzModel? _bzModel = await BzProtocols.fetchBz(
-        bzID: newDraft.bzID,
+    final bool _identical = DraftFlyer.checkDraftsAreIdentical(
+        draft1: _oldDraft,
+        draft2: newDraft,
+    );
+
+    if (newDraft != null && oldFlyer != null && _identical == false){
+
+      // final BzModel? _bzModel = await BzProtocols.fetchBz(
+      //   bzID: newDraft.bzID,
+      // );
+      //
+      // FlyerModel? _flyerToUpload = await DraftFlyer.draftToFlyer(
+      //   draft: newDraft,
+      //   slidePicType: SlidePicType.small,
+      //   toLDB: false,
+      // );
+      //
+      // if (_flyerToUpload != null && _bzModel != null && newDraft.id != null) {
+      //
+      //   /// CHECK IF POSTER HAS CHANGED
+      //   final bool _posterHasChanged = await DraftFlyer.checkPosterHasChanged(
+      //     draft: newDraft,
+      //     oldFlyer: oldFlyer,
+      //   );
+      //
+      //   if (_posterHasChanged == true){
+      //
+      //     await PicProtocols.renovatePic(newDraft.poster);
+      //
+      //     /// CREATE SHARE LINK
+      //     _flyerToUpload = _flyerToUpload.copyWith(
+      //       shareLink: await BldrsShareLink.generateFlyerLink(
+      //         flyerID: _flyerToUpload.id,
+      //         flyerType: _flyerToUpload.flyerType,
+      //         headline: _flyerToUpload.headline,
+      //       ),
+      //     );
+      //
+      //   }
+      //
+      //   await Future.wait(<Future>[
+      //     /// RENOVATE SLIDES PICS
+      //     PicProtocols.renovatePics(DraftSlide.getPicModels(
+      //       drafts: newDraft.draftSlides,
+      //       slidePicType: SlidePicType.big,
+      //     )),
+      //     PicProtocols.renovatePics(DraftSlide.getPicModels(
+      //       drafts: newDraft.draftSlides,
+      //       slidePicType: SlidePicType.med,
+      //     )),
+      //     PicProtocols.renovatePics(DraftSlide.getPicModels(
+      //       drafts: newDraft.draftSlides,
+      //       slidePicType: SlidePicType.small,
+      //     )),
+      //     PicProtocols.renovatePics(DraftSlide.getPicModels(
+      //       drafts: newDraft.draftSlides,
+      //       slidePicType: SlidePicType.back,
+      //     )),
+      //
+      //     /// WIPE UN-USED PICS
+      //     _wipeUnusedSlidesPics(
+      //       draft: newDraft,
+      //       oldFlyer: oldFlyer,
+      //     ),
+      //     /// UPDATE PDF (RENOVATE PDF || WIPE UNUSED PDF)
+      //     _renovateOrWipePDF(
+      //       draft: newDraft,
+      //       oldFlyer: oldFlyer,
+      //     ),
+      //     /// UPDATE FLYER DOC
+      //     FlyerFireOps.updateFlyerDoc(_flyerToUpload),
+      //     /// INCREMENT BZ COUNTER (all slides) COUNT
+      //     RecorderProtocols.onRenovateFlyer(
+      //       bzID: newDraft.bzID,
+      //       newNumberOfSlides: newDraft.draftSlides?.length,
+      //       oldNumberOfSlides: oldFlyer.slides?.length,
+      //     ),
+      //     /// INCREMENT CITY PHIDS
+      //     ZonePhidsRealOps.onRenovateFlyer(
+      //       flyerModel: _flyerToUpload,
+      //       oldFlyer: oldFlyer,
+      //     ),
+      //     /// CENSUS
+      //     CensusListener.onRenovateFlyer(
+      //       oldFlyer: oldFlyer,
+      //       newFlyer: _flyerToUpload,
+      //     ),
+      //     /// SEND UPDATE NOTE TO BZ TEAM
+      //     if (sendFlyerUpdateNoteToItsBz == true)
+      //       NoteEvent.sendFlyerUpdateNoteToItsBz(
+      //         bzModel: _bzModel,
+      //         flyerID: newDraft.id,
+      //       ),
+      //     /// UPDATE FLYER LOCALLY
+      //     if (updateFlyerLocally == true)
+      //       updateLocally(
+      //         flyerModel: _flyerToUpload,
+      //         notifyFlyerPro: true,
+      //         resetActiveBz: resetActiveBz,
+      //       ),
+      //   ]);
+      // }
+
+      await FlyerProtocols.onWipeSingleFlyer(
+        flyerModel: oldFlyer,
       );
 
-      FlyerModel? _flyerToUpload = await DraftFlyer.draftToFlyer(
-        draft: newDraft,
-        slidePicType: SlidePicType.small,
-        toLDB: false,
+      await FlyerProtocols.composeFlyer(
+        draftFlyer: newDraft,
       );
-
-      if (_flyerToUpload != null && _bzModel != null && newDraft.id != null) {
-
-        /// CHECK IF POSTER HAS CHANGED
-        final bool _posterHasChanged = await DraftFlyer.checkPosterHasChanged(
-          draft: newDraft,
-          oldFlyer: oldFlyer,
-        );
-
-        if (_posterHasChanged == true){
-
-          await PicProtocols.renovatePic(newDraft.poster);
-
-          /// CREATE SHARE LINK
-          _flyerToUpload = _flyerToUpload.copyWith(
-            shareLink: await BldrsShareLink.generateFlyerLink(
-              flyerID: _flyerToUpload.id,
-              flyerType: _flyerToUpload.flyerType,
-              headline: _flyerToUpload.headline,
-            ),
-          );
-
-        }
-
-        await Future.wait(<Future>[
-          /// RENOVATE SLIDES PICS
-          PicProtocols.renovatePics(DraftSlide.getPicModels(
-            drafts: newDraft.draftSlides,
-            slidePicType: SlidePicType.big,
-          )),
-          PicProtocols.renovatePics(DraftSlide.getPicModels(
-            drafts: newDraft.draftSlides,
-            slidePicType: SlidePicType.med,
-          )),
-          PicProtocols.renovatePics(DraftSlide.getPicModels(
-            drafts: newDraft.draftSlides,
-            slidePicType: SlidePicType.small,
-          )),
-          PicProtocols.renovatePics(DraftSlide.getPicModels(
-            drafts: newDraft.draftSlides,
-            slidePicType: SlidePicType.back,
-          )),
-
-          /// WIPE UN-USED PICS
-          _wipeUnusedSlidesPics(
-            draft: newDraft,
-            oldFlyer: oldFlyer,
-          ),
-          /// UPDATE PDF (RENOVATE PDF || WIPE UNUSED PDF)
-          _renovateOrWipePDF(
-            draft: newDraft,
-            oldFlyer: oldFlyer,
-          ),
-          /// UPDATE FLYER DOC
-          FlyerFireOps.updateFlyerDoc(_flyerToUpload),
-          /// INCREMENT BZ COUNTER (all slides) COUNT
-          RecorderProtocols.onRenovateFlyer(
-            bzID: newDraft.bzID,
-            newNumberOfSlides: newDraft.draftSlides?.length,
-            oldNumberOfSlides: oldFlyer.slides?.length,
-          ),
-          /// INCREMENT CITY PHIDS
-          ZonePhidsRealOps.onRenovateFlyer(
-            flyerModel: _flyerToUpload,
-            oldFlyer: oldFlyer,
-          ),
-          /// CENSUS
-          CensusListener.onRenovateFlyer(
-            oldFlyer: oldFlyer,
-            newFlyer: _flyerToUpload,
-          ),
-          /// SEND UPDATE NOTE TO BZ TEAM
-          if (sendFlyerUpdateNoteToItsBz == true)
-            NoteEvent.sendFlyerUpdateNoteToItsBz(
-              bzModel: _bzModel,
-              flyerID: newDraft.id,
-            ),
-          /// UPDATE FLYER LOCALLY
-          if (updateFlyerLocally == true)
-            updateLocally(
-              flyerModel: _flyerToUpload,
-              notifyFlyerPro: true,
-              resetActiveBz: resetActiveBz,
-            ),
-        ]);
-      }
-
 
     }
 
     blog('RenovateFlyerProtocols.renovate : END');
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : PERFECT
   static Future<void> renovateFlyer({
     required FlyerModel? newFlyer,
     required FlyerModel? oldFlyer,
@@ -179,7 +183,8 @@ class RenovateFlyerProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// DEPRECATED
+  /*
   static Future<void> _renovateOrWipePDF({
     required DraftFlyer draft,
     required FlyerModel? oldFlyer,
@@ -217,7 +222,6 @@ class RenovateFlyerProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
   static Future<void> _wipeUnusedSlidesPics({
     required DraftFlyer? draft,
     required FlyerModel? oldFlyer,
@@ -283,6 +287,7 @@ class RenovateFlyerProtocols {
 
       blog('wipeUnusedSlidesPics : END');
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// LOCAL UPDATE
