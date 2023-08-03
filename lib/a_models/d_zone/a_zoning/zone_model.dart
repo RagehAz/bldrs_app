@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -278,7 +277,7 @@ class ZoneModel {
     // zoneModel?.blogZone(invoker: 'translateZoneString');
 
     String _text = '...';
-    final String? _inn = xPhrase('phid_inn');
+    final String? _inn = getWord('phid_inn');
 
     if (zoneModel != null){
 
@@ -317,7 +316,7 @@ class ZoneModel {
     required ZoneModel? zone,
   }){
 
-    String? _line = xPhrase('phid_select_a_country');
+    String? _line = getWord('phid_select_a_country');
 
     if (zone != null){
 
@@ -343,7 +342,7 @@ class ZoneModel {
       }
 
       else {
-        _line = xPhrase('phid_the_entire_world');
+        _line = getWord('phid_the_entire_world');
       }
 
     }

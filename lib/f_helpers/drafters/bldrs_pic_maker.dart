@@ -7,8 +7,8 @@ import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +61,8 @@ class BldrsPicMaker {
         aspectRatio: aspectRatio,
         finalWidth: finalWidth,
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
-        confirmText: Verse.transBake('phid_continue')!,
+        langCode: Localizer.getCurrentLangCode(),
+        confirmText: getWord('phid_continue')!,
         onlyCompress: Standards.onlyCompressOnResizing,
         compressionQuality: compressionQuality,
         // selectedAsset: selectedAsset,
@@ -75,9 +76,10 @@ class BldrsPicMaker {
         aspectRatio: aspectRatio,
         finalWidth: finalWidth,
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
+        langCode: Localizer.getCurrentLangCode(),
         onlyCompress: Standards.onlyCompressOnResizing,
         compressionQuality: compressionQuality,
-        confirmText: Verse.transBake('phid_continue')!,
+        confirmText: getWord('phid_continue')!,
       );
     }
 
@@ -117,7 +119,8 @@ class BldrsPicMaker {
       aspectRatio: aspectRatio,
       finalWidth: finalWidth,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
-      confirmText: Verse.transBake('phid_continue')!,
+      langCode: Localizer.getCurrentLangCode(),
+      confirmText: getWord('phid_continue')!,
       maxAssets: maxAssets,
       compressionQuality: compressionQuality,
       onlyCompress: Standards.onlyCompressOnResizing,
@@ -167,7 +170,7 @@ class BldrsPicMaker {
       final Uint8List? _bytes = await PicMaker.cropPic(
         context: getMainContext(),
         bytes: pic.bytes,
-        confirmText: Verse.transBake('phid_continue')!,
+        confirmText: getWord('phid_continue')!,
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
         aspectRatio: aspectRatio,
       );

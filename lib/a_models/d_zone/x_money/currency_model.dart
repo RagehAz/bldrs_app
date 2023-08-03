@@ -1,6 +1,9 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -239,6 +242,44 @@ class CurrencyModel {
     }
 
     return _currency;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<List<Phrase>> getCurrenciesPhrasesFromLangMap({
+    required String langCode,
+  }) async {
+    final List<Phrase> _output = [];
+
+    final Map<String, dynamic> _langMap = await Localizer.getLangMap(
+      langCode: langCode,
+    );
+
+    final List<String> _phids = _langMap.keys.toList();
+
+    if (Mapper.checkCanLoopList(_phids) == true){
+
+      for (final String phid in _phids){
+
+        final bool _isCurrency = Phider.checkVerseIsCurrency(phid);
+
+        if (_langMap[phid] != null && _isCurrency == true){
+
+          final Phrase _phrase = Phrase(
+            id: phid,
+            value: _langMap[phid],
+            langCode: langCode,
+            trigram: Stringer.createTrigram(input: _langMap[phid]),
+          );
+
+          _output.add(_phrase);
+
+        }
+
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

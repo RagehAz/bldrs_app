@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:flutter/material.dart';
 
 class CensusLineUnit extends StatelessWidget {
@@ -84,7 +83,7 @@ class CensusLineUnit extends StatelessWidget {
                 /// NUMBER
                 BldrsText(
                   width: _numberZoneWidth,
-                  verse: text ?? Verse.plain(counterCaliber(number)),
+                  verse: text ?? Verse.plain(getCounterCaliber(number)),
                   size: 1,
                   centered: false,
                   textDirection: UiProvider.getAppTextDir(),

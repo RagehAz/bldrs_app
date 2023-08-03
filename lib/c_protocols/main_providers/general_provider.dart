@@ -4,16 +4,14 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -113,7 +111,7 @@ class GeneralProvider extends ChangeNotifier {
       /// SHOW CONNECTED DIALOG
       if (Mapper.boolIsTrue(isConnected) == true) {
         await TopDialog.showTopDialog(
-          firstVerse: Verse.plain(Words.connected()),
+          firstVerse: getVerse('phid_connected')!,
           color: Colorz.green255,
           textColor: Colorz.white255,
           // seconds: 2,
@@ -123,8 +121,8 @@ class GeneralProvider extends ChangeNotifier {
       /// SHOW DISCONNECTED DIALOG
       else {
         await TopDialog.showTopDialog(
-          firstVerse: Verse.plain(Words.disconnected()),
-          secondVerse: Verse.plain(Words.checkYourInternetConnection()),
+          firstVerse: getVerse('phid_disconnected'),
+          secondVerse: getVerse('phid_checkYourInternetConnection'),
           color: Colorz.red255,
           textColor: Colorz.white255,
         );
@@ -181,8 +179,6 @@ class GeneralProvider extends ChangeNotifier {
   /// TESTED : WORKS PERFECT
   static Future<void> wipeOutAllProviders() async {
 
-    /// PhraseProvider
-    PhraseProvider.wipeOut(notify: true);
     /// UiProvider
     UiProvider.wipeOut(notify: true);
     /// UsersProvider

@@ -19,11 +19,11 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
@@ -211,7 +211,7 @@ Future<void> addImagesForExistingFlyer({
 Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) async {
   await CenterDialog.showCenterDialog(
     titleVerse: Verse(
-      id: '${xPhrase('phid_max_slides_is')} $maxLength',
+      id: '${getWord('phid_max_slides_is')} $maxLength',
       translate: false,
     ),
   );
@@ -393,7 +393,7 @@ String? flyerHeadlineValidator({
 
   /// WHEN HEADLINE EXCEEDS MAX CHAR LENGTH
   if(val != null && val.length >= Standards.flyerHeadlineMaxLength){
-    final String _error = '${Verse.transBake('phid_headline_cant_be_more_than')}\n'
+    final String _error = '${getWord('phid_headline_cant_be_more_than')}\n'
                           '${Standards.flyerHeadlineMaxLength}';
 
     return _error;

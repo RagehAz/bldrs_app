@@ -3,7 +3,7 @@ import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,11 +31,8 @@ class LoadingVerse extends StatelessWidget {
         builder: (BuildContext context, Verse? verse, Widget? child) {
 
           if (builder == null){
-            final Verse _verse = verse ?? Verse(
-              id: Words.loading(),
-              casing: Casing.upperCase,
-              translate: false,
-            );
+
+            final Verse? _verse = verse ?? getVerse('loading',casing: Casing.upperCase);
 
             return BldrsText(
               width: verseWidth,

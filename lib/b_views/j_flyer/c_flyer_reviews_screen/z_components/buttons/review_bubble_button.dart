@@ -2,7 +2,8 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 class ReviewBubbleButton extends StatelessWidget {
@@ -33,16 +34,16 @@ class ReviewBubbleButton extends StatelessWidget {
       return null;
     }
     else {
-      String? _output = xPhrase(phid);
+      String? _output = getWord(phid);
 
       final int _count = count ?? 0;
 
       if (_count == 0){
-        // _output = xPhrase(phid);
+        // _output = word(phid);
       }
 
       else {
-        final String? _formattedCount = counterCaliber(_count);
+        final String? _formattedCount = getCounterCaliber(_count);
         _output = '$_formattedCount $_output';
       }
 

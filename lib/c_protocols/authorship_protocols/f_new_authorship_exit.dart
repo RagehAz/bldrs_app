@@ -21,6 +21,7 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -505,9 +506,9 @@ class NewAuthorshipExit {
   }) {
 
     final String? _waitText = isBzDeleted == true ?
-    Verse.transBake('phid_removing_bz')
+    getWord('phid_removing_bz')
       :
-    Verse.transBake('phid_removing_author');
+    getWord('phid_removing_author');
 
     WaitDialog.showUnawaitedWaitDialog(
         verse: Verse(

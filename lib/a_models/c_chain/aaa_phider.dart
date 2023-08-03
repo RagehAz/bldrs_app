@@ -1,15 +1,13 @@
 // ignore_for_file: constant_identifier_names
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:provider/provider.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
 /// => TAMAM
 class Phider {
   // -----------------------------------------------------------------------------
@@ -641,11 +639,9 @@ class Phider {
 
     if (Mapper.checkCanLoopList(phids) == true){
 
-      final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
-
       List<Phrase> _phrases = [];
       for (final String phid in phids){
-        final String? _translation = _phraseProvider.translatePhid(phid);
+        final String? _translation = Localizer.translate(phid);
         final Phrase _phrase = Phrase(id: phid, value: _translation);
         _phrases.add(_phrase);
       }

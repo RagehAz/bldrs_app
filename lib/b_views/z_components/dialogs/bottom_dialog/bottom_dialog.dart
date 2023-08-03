@@ -350,7 +350,7 @@ class BottomDialog extends StatelessWidget {
     );
   }
   // --------------------
-  static const double wideButtonHeight = 45;
+  static const double wideButtonHeight = 40;
   // --------------------
   static Widget wideButton({
     Verse? verse,
@@ -472,15 +472,12 @@ class BottomDialog extends StatelessWidget {
 
                   /// --- TITLE
                   if (titleVerse != null)
-                    Container(
-                      width: _dialogWidth,
-                      height: _titleZoneHeight,
-                      alignment: Alignment.center,
-                      // color: Colorz.BloodTest,
-                      child: BldrsText(
+                    BldrsText(
                         verse: titleVerse,
+                        width: _dialogWidth * 0.8,
+                        height: _titleZoneHeight,
+                        maxLines: 2,
                       ),
-                    ),
 
                   /// --- DIALOG CONTENT
                   ClipRRect(

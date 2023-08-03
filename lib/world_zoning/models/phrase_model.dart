@@ -693,6 +693,26 @@ class Phrase {
 
     return _codes;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getPhrasesValues(List<Phrase>? phrases){
+     List<String> _codes = <String>[];
+
+    if (Mapper.checkCanLoopList(phrases) == true){
+
+      for (final Phrase _phrase in phrases!){
+
+        _codes = Stringer.addStringToListIfDoesNotContainIt(
+            strings: _codes,
+            stringToAdd: _phrase.value,
+        );
+
+      }
+
+    }
+
+    return _codes;
+  }
   // -----------------------------------------------------------------------------
 
   /// SEARCHERS
@@ -1656,13 +1676,14 @@ class Phrase {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogPhrasesListsDifferences({
+  static List<String> blogPhrasesListsDifferences({
     required List<Phrase> phrases1,
     required String phrases1Name,
     required List<Phrase> phrases2,
     required String phrases2Name,
     bool sortBeforeCompare = true,
   }){
+    List<String> _output = [];
 
     if (Mapper.checkCanLoopList(phrases1) == true && Mapper.checkCanLoopList(phrases2) == true){
 
@@ -1682,7 +1703,7 @@ class Phrase {
       final List<String> _list1 = Phrase.transformPhrasesToStrings(_phrases1);
       final List<String> _list2 = Phrase.transformPhrasesToStrings(_phrases2);
 
-      Stringer.blogStringsListsDifferences(
+      _output = Stringer.blogStringsListsDifferences(
         strings1: _list1,
         list1Name: phrases1Name,
         strings2: _list2,
@@ -1691,6 +1712,7 @@ class Phrase {
 
     }
 
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

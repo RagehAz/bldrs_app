@@ -2,6 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -15,10 +16,9 @@ import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card_d
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class AuthorCard extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -239,7 +239,7 @@ class AuthorCard extends StatelessWidget {
               /// NUMBER OF FLYERS
               AuthorCardDetail(
                 verse: Verse(
-                  id: '${author.flyersIDs?.length} ${xPhrase('phid_published_flyers')}',
+                  id: '${author.flyersIDs?.length} ${getWord('phid_published_flyers')}',
                   translate: false,
                 ),
                 bubble: false,
