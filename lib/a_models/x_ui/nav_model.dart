@@ -11,6 +11,7 @@ enum MainNavModel {
   savedFlyers,
   bz,
   zone,
+  onBoarding,
   settings,
 }
 /// => TAMAM
@@ -93,6 +94,7 @@ class NavModel {
       case MainNavModel.savedFlyers:  return 'savedFlyers';
       case MainNavModel.bz:           return 'bz_$bzID';
       case MainNavModel.zone:         return 'zone';
+      case MainNavModel.onBoarding:   return 'onBoarding';
       case MainNavModel.settings:     return 'settings';
       default: return null;
     }
@@ -272,6 +274,7 @@ class NavModel {
     MainNavModel.savedFlyers,
     MainNavModel.bz,
     MainNavModel.zone,
+    MainNavModel.onBoarding,
     MainNavModel.settings,
   ];
   // -----------------------------------------------------------------------------
