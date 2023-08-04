@@ -48,12 +48,12 @@ class ObeliskExpandingPyramid extends StatelessWidget {
               transform: Matrix4.rotationZ(Numeric.degreeToRadian(-45.0 + 90)!),
               alignment: Alignment.bottomRight,
               child: const BlurLayer(
-                    width: 95.4267 * 0.7,
-                    height: 99.57 * 0.7,
-                    blur: 1,
-                    color: Colorz.black125,
-                    blurIsOn: true,
-                  ),
+                width: 95.4267 * 0.7,
+                height: 99.57 * 0.7,
+                blur: 1,
+                color: Colorz.black125,
+                blurIsOn: true,
+              ),
             ),
 
           ),
@@ -86,27 +86,25 @@ class ObeliskExpandingPyramid extends StatelessWidget {
                     child: child
                 ),
               );
-
-            },
+              },
 
             child: Transform(
               transform: Matrix4.rotationZ(Numeric.degreeToRadian(-48.177)!),
               alignment: Alignment.bottomRight,
               child: const BlurLayer(
-                    width: 95.4267 * 0.7,
-                    height: 99.57 * 0.7,
-                    blur: 1,
-                    color: Colorz.black125,
-                    blurIsOn: true,
-                  ),
+                width: 95.4267 * 0.7,
+                height: 99.57 * 0.7,
+                blur: 1,
+                color: Colorz.black125,
+                blurIsOn: true,
+              ),
             ),
 
           ),
         ),
       );
     }
-
-
+    
   }
   /// --------------------------------------------------------------------------
 }
