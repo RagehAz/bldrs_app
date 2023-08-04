@@ -1082,7 +1082,7 @@ class Dialogs {
 
             return BldrsBox(
               height: 40,
-              width: _buttonWidth * 0.6,
+              width: _buttonWidth * 0.5,
               verseScaleFactor: 0.8,
               verseWeight: VerseWeight.thin,
               verse: Verse.plain(_langName),
