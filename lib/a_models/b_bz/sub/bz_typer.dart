@@ -402,7 +402,7 @@ class BzTyper {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String translateBzTypeAskHint(BuildContext context, BzType bzType){
+  static String getBzTypeAskHintPhid(BzType bzType){
 
     final String _askHint =
     bzType == BzType.developer ?    'phid_askHint_developer' :

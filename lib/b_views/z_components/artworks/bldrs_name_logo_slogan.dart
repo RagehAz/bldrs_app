@@ -8,25 +8,34 @@ import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class LogoSlogan extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const LogoSlogan({
     this.showTagLine = false,
     this.showSlogan = false,
     super.key
   });
-  /// --------------------------------------------------------------------------
+    // --------------------
   final bool showTagLine;
   final bool showSlogan;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  static double getLogoWidth(){
+    final double _shortest = Scale.screenShortestSide(getMainContext());
+    return _shortest * 0.5;
+  }
+  // --------------------
+  static double getLogoHeight(){
+    final double _logoWidth = getLogoWidth();
+    return _logoWidth * 0.8;
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     /// DON'T DELETE THIS. TO LISTEN TO LANG CHANGES
     UiProvider.proGetCurrentLangCode(context: context, listen: true);
     // --------------------
-    final double _shortest = Scale.screenShortestSide(context);
-    final double _logoWidth = _shortest * 0.5;//_screenHeight * 22 * 0.016 * sizeFactor;
-    final double _logoHeight = _logoWidth * 0.8;//_screenHeight * 18 * 0.016 * sizeFactor;
+    final double _logoWidth = getLogoWidth();
+    final double _logoHeight = getLogoHeight();
     // --------------------
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
