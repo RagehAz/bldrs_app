@@ -1,6 +1,7 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
-import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:flutter/material.dart';
 
 class AWhatIsBldrsPage extends StatelessWidget {
@@ -13,23 +14,21 @@ class AWhatIsBldrsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final double width = OnBoardingScreen.getBubbleWidth();
-    final double height = OnBoardingScreen.getPagesZoneHeight();
+    final double pageZoneHeight = OnBoardingScreen.getPagesZoneHeight();
     // --------------------
     return FloatingList(
       width: width,
-      height: height,
+      height: pageZoneHeight,
       columnChildren: [
 
         /// LOGO
-        Transform.scale(
-          scale: 0.7,
-          child: const LogoSlogan(
-          ),
+        BldrsBox(
+          width: pageZoneHeight * 0.3,
+          height: pageZoneHeight * 0.3,
+          icon: Iconz.bldrsNameSquare,
+          // loading: false,
+          bubble: false,
         ),
-
-        /// IS THE BUILDERS NETWORK
-
-
 
       ],
     );

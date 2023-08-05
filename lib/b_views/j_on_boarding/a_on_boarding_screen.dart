@@ -46,6 +46,8 @@ class OnBoardingScreen extends StatefulWidget {
   /// PAGES
 
   // --------------------
+  static const int numberOfPages = 3;
+  // --------------------
   static double getPagesZoneHeight(){
     final double _bubbleHeight = getBubbleHeight();
     return _bubbleHeight - buttonZoneHeight - progressBarHeight;
@@ -60,6 +62,15 @@ class OnBoardingScreen extends StatefulWidget {
   static double getProgressBarWidth(){
     final double _bubbleWidth = getBubbleWidth();
     return _bubbleWidth * 0.7;
+  }
+  // --------------------
+  static bool isAtLast({
+  required ProgressBarModel? progressBarModel,
+  }){
+
+    final int _currentIndex = progressBarModel?.index ?? 0;
+    return _currentIndex + 1 == numberOfPages;
+
   }
   // -----------------------------------------------------------------------------
 
@@ -77,9 +88,7 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
-  final ValueNotifier<double> _progressBarOpacity = ValueNotifier(1);
   final PageController _pageController = PageController();
-  final int _slidesLength = 3;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -89,7 +98,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       notifier: _progressBarModel,
       mounted: mounted,
       value: ProgressBarModel.initialModel(
-        numberOfStrips: 3,
+        numberOfStrips: OnBoardingScreen.numberOfPages,
       ),
     );
 
@@ -124,7 +133,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void dispose() {
     _progressBarModel.dispose();
-    _progressBarOpacity.dispose();
     _pageController.dispose();
     super.dispose();
   }
@@ -135,16 +143,24 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   // --------------------
   Future<void> _onNext() async {
 
-    final int _currentIndex = _progressBarModel.value?.index ?? 0;
+    final bool _isAtLast = OnBoardingScreen.isAtLast(
+      progressBarModel: _progressBarModel.value,
+    );
 
-    if (_currentIndex + 1 != _slidesLength){
+    if (_isAtLast == true){
+      await _onSkip();
+    }
+
+    else {
+
+      final int _currentIndex = _progressBarModel.value?.index ?? 0;
 
       ProgressBarModel.onSwipe(
         context: context,
         newIndex: _currentIndex + 1,
         progressBarModel: _progressBarModel,
         mounted: mounted,
-        numberOfPages: _slidesLength,
+        numberOfPages: OnBoardingScreen.numberOfPages,
       );
 
       await Sliders.slideToIndex(
@@ -152,10 +168,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         toIndex: _currentIndex + 1,
       );
 
-    }
-
-    else {
-      await _onSkip();
     }
 
   }
@@ -191,123 +203,132 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
     return Material(
       color: Colorz.nothing,
-      child: GestureDetector(
-        onTap: () => Nav.goBack(context: context),
-        child: SizedBox(
-          width: Scale.screenWidth(context),
-          height: Scale.screenHeight(context),
-          child: ClipRRect(
-            borderRadius: Borderers.constantCornersAll30,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
+      child: SizedBox(
+        width: Scale.screenWidth(context),
+        height: Scale.screenHeight(context),
+        child: ClipRRect(
+          borderRadius: Borderers.constantCornersAll30,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
 
-                const BlurLayer(
-                  blurIsOn: true,
+              const BlurLayer(
+                blurIsOn: true,
+              ),
+
+              Container(
+                width: _bubbleWidth,
+                height: _bubbleHeight,
+                decoration: const BoxDecoration(
+                  color: Colorz.black200,
+                  borderRadius: Borderers.constantCornersAll30,
                 ),
+                child: Column(
+                  children: [
 
-                Container(
-                  width: _bubbleWidth,
-                  height: _bubbleHeight,
-                  decoration: const BoxDecoration(
-                    color: Colorz.black200,
-                    borderRadius: Borderers.constantCornersAll30,
-                  ),
-                  child: Column(
-                    children: [
+                    /// PAGES
+                    SizedBox(
+                      width: _bubbleWidth,
+                      height: _pagesZoneHeight,
+                      child: PageView(
+                        controller: _pageController,
+                        physics: const BouncingScrollPhysics(),
+                        onPageChanged: _onSwipe,
+                        children: const [
 
-                      /// PAGES
-                      SizedBox(
-                        width: _bubbleWidth,
-                        height: _pagesZoneHeight,
-                        child: PageView(
-                          controller: _pageController,
-                          physics: const BouncingScrollPhysics(),
-                          onPageChanged: _onSwipe,
-                          children: const [
+                          /// WHAT IS BLDRS
+                          AWhatIsBldrsPage(),
+                          /// WHO ARE BLDRS
+                          BWhoAreBldrs(),
+                          /// WHAT THEY DO
+                          CWhatBldrsDo(),
 
-                            /// WHAT IS BLDRS
-                            AWhatIsBldrsPage(),
-                            /// WHO ARE BLDRS
-                            BWhoAreBldrs(),
-                            /// WHAT THEY DO
-                            CWhatBldrsDo(),
-
-                          ],
-                        ),
+                        ],
                       ),
+                    ),
 
-                      /// PROGRESS BAR
-                      Container(
-                        width: _progressBarWidth,
-                        height: OnBoardingScreen.progressBarHeight,
-                        alignment: Alignment.center,
-                        decoration: const BoxDecoration(
-                          color: Colorz.yellow10,
-                          borderRadius: Borderers.constantCornersAll10,
-                        ),
-                        child: Strips(
-                          flyerBoxWidth: _progressBarWidth,
-                          progressBarModel: _progressBarModel,
-                          margins: const EdgeInsets.only(top: 8),
-                          tinyMode: false,
-                          // progressBarOpacity: _progressBarOpacity,
-                          // loading: false,
-                        ),
+                    /// PROGRESS BAR
+                    Container(
+                      width: _progressBarWidth,
+                      height: OnBoardingScreen.progressBarHeight,
+                      alignment: Alignment.center,
+                      decoration: const BoxDecoration(
+                        color: Colorz.yellow10,
+                        borderRadius: Borderers.constantCornersAll10,
                       ),
-
-                      /// SKIP - NEXT BUTTONS
-                      SizedBox(
-                        width: _bubbleWidth,
-                        height: OnBoardingScreen.buttonZoneHeight,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-
-                            /// SKIP
-                            BldrsBox(
-                              height: _buttonHeight,
-                              width: _bubbleWidth * 0.3,
-                              margins: 10,
-                              verse: const Verse(
-                                id: 'phid_skip',
-                                translate: true,
-                              ),
-                              corners: Borderers.constantCornersAll20,
-                              color: Colorz.white20,
-                              verseScaleFactor: 0.7,
-                              onTap: _onSkip,
-                            ),
-                            /// NEXT
-                            BldrsBox(
-                              height: _buttonHeight,
-                              width: _bubbleWidth * 0.3,
-                              margins: 10,
-                              verse: const Verse(
-                                id: 'phid_next',
-                                translate: true,
-                              ),
-                              corners: Borderers.constantCornersAll20,
-                              color: Colorz.white20,
-                              verseScaleFactor: 0.7,
-                              onTap: _onNext,
-                            ),
-
-                          ],
-                        ),
+                      child: Strips(
+                        flyerBoxWidth: _progressBarWidth,
+                        progressBarModel: _progressBarModel,
+                        margins: const EdgeInsets.only(top: 8),
+                        tinyMode: false,
+                        // progressBarOpacity: _progressBarOpacity,
+                        // loading: false,
                       ),
+                    ),
 
-                    ],
-                  ),
+                    /// EXIT - NEXT BUTTONS
+                    SizedBox(
+                      width: _bubbleWidth,
+                      height: OnBoardingScreen.buttonZoneHeight,
+                      child: ValueListenableBuilder(
+                          valueListenable: _progressBarModel,
+                          builder: (_, ProgressBarModel? progressBarModel, Widget? child) {
+
+                            final bool _isAtLast = OnBoardingScreen.isAtLast(
+                              progressBarModel: progressBarModel,
+                            );
+
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+
+                                /// EXIT
+                                BldrsBox(
+                                  height: _buttonHeight,
+                                  opacity: _isAtLast == true ? 0 : 1,
+                                  // width: _bubbleWidth * 0.3,
+                                  margins: 10,
+                                  verse: const Verse(
+                                    id: 'phid_exit',
+                                    translate: true,
+                                  ),
+                                  corners: Borderers.constantCornersAll20,
+                                  color: Colorz.white20,
+                                  verseScaleFactor: 0.7,
+                                  onTap: _onSkip,
+                                ),
+
+                                /// NEXT
+                                BldrsBox(
+                                  height: _buttonHeight,
+                                  // width: _bubbleWidth * 0.3,
+                                  margins: 10,
+                                  verse: Verse(
+                                    id: _isAtLast == true ? 'phid_great_!' : 'phid_next',
+                                    translate: true,
+                                  ),
+                                  corners: Borderers.constantCornersAll20,
+                                  color: Colorz.white20,
+                                  verseScaleFactor: 0.7,
+                                  onTap: _onNext,
+                                ),
+
+                              ],
+                            );
+                          }
+                          ),
+                    ),
+
+                  ],
                 ),
+              ),
 
-                const Pyramids(
-                  pyramidType: PyramidType.crystalBlue,
-                  color: Colorz.black255,
-                ),
+              const Pyramids(
+                pyramidType: PyramidType.crystalBlue,
+                color: Colorz.black255,
+              ),
 
-              ],
-            ),
+            ],
           ),
         ),
       ),
