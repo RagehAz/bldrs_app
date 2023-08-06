@@ -227,15 +227,16 @@ class BzTyper {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getTheSevenArtwork(BzType bzType){
+  static String getTheSevenArtwork(BzType? bzType){
     switch (bzType){
-      case BzType.developer: return Iconz.theSevenDevelopers;
-      case BzType.broker: return Iconz.theSevenBrokers;
-      case BzType.designer: return Iconz.theSevenDesigners;
-      case BzType.contractor: return Iconz.theSevenContractors;
-      case BzType.artisan: return Iconz.theSevenArtisans;
+      case BzType.developer:    return Iconz.theSevenDevelopers;
+      case BzType.broker:       return Iconz.theSevenBrokers;
+      case BzType.designer:     return Iconz.theSevenDesigners;
+      case BzType.contractor:   return Iconz.theSevenContractors;
+      case BzType.artisan:      return Iconz.theSevenArtisans;
       case BzType.manufacturer: return Iconz.theSevenManufacturers;
-      case BzType.supplier: return Iconz.theSevenSuppliers;
+      case BzType.supplier:     return Iconz.theSevenSuppliers;
+      default:                  return Iconz.theSevenOwners;
     }
   }
   // -----------------------------------------------------------------------------
@@ -431,7 +432,7 @@ class BzTyper {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getBzTypeWhoArePhid(BzType bzType){
+  static String getBzTypeWhoArePhid(BzType? bzType){
     final String _output =
     bzType == BzType.developer ?    'phid_who_are_developers' :
     bzType == BzType.broker ?       'phid_who_are_brokers' :
@@ -440,7 +441,9 @@ class BzTyper {
     bzType == BzType.designer ?     'phid_who_are_designers' :
     bzType == BzType.contractor ?   'phid_who_are_contractors' :
     bzType == BzType.artisan ?      'phid_who_are_artisans' :
-    '';
+    bzType == null ?                'phid_who_are_owners':
+    ''
+    ;
 
     return _output;
   }
