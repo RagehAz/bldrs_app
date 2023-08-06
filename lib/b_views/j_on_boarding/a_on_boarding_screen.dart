@@ -77,7 +77,7 @@ class OnBoardingScreen extends StatefulWidget {
   /// BUTTONS
 
   // --------------------
-  static const double buttonZoneHeight = 100;
+  static const double buttonZoneHeight = 60;
   // --------------------
   static double getButtonHeight(){
     return buttonZoneHeight - 20;
@@ -206,130 +206,127 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       child: SizedBox(
         width: Scale.screenWidth(context),
         height: Scale.screenHeight(context),
-        child: ClipRRect(
-          borderRadius: Borderers.constantCornersAll30,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
 
-              const BlurLayer(
-                blurIsOn: true,
+            const BlurLayer(
+              blurIsOn: true,
+            ),
+
+            Container(
+              width: _bubbleWidth,
+              height: _bubbleHeight,
+              decoration: const BoxDecoration(
+                color: Colorz.black200,
+                borderRadius: Borderers.constantCornersAll30,
               ),
+              child: Column(
+                children: [
 
-              Container(
-                width: _bubbleWidth,
-                height: _bubbleHeight,
-                decoration: const BoxDecoration(
-                  color: Colorz.black200,
-                  borderRadius: Borderers.constantCornersAll30,
-                ),
-                child: Column(
-                  children: [
+                  /// PAGES
+                  SizedBox(
+                    width: _bubbleWidth,
+                    height: _pagesZoneHeight,
+                    child: PageView(
+                      controller: _pageController,
+                      physics: const BouncingScrollPhysics(),
+                      onPageChanged: _onSwipe,
+                      children: const [
 
-                    /// PAGES
-                    SizedBox(
-                      width: _bubbleWidth,
-                      height: _pagesZoneHeight,
-                      child: PageView(
-                        controller: _pageController,
-                        physics: const BouncingScrollPhysics(),
-                        onPageChanged: _onSwipe,
-                        children: const [
+                        /// WHAT IS BLDRS
+                        AWhatIsBldrsPage(),
+                        /// WHO ARE BLDRS
+                        BWhoAreBldrs(),
+                        /// WHAT THEY DO
+                        CWhatBldrsDo(),
 
-                          /// WHAT IS BLDRS
-                          AWhatIsBldrsPage(),
-                          /// WHO ARE BLDRS
-                          BWhoAreBldrs(),
-                          /// WHAT THEY DO
-                          CWhatBldrsDo(),
-
-                        ],
-                      ),
+                      ],
                     ),
+                  ),
 
-                    /// PROGRESS BAR
-                    Container(
-                      width: _progressBarWidth,
-                      height: OnBoardingScreen.progressBarHeight,
-                      alignment: Alignment.center,
-                      decoration: const BoxDecoration(
-                        color: Colorz.yellow10,
-                        borderRadius: Borderers.constantCornersAll10,
-                      ),
-                      child: Strips(
-                        flyerBoxWidth: _progressBarWidth,
-                        progressBarModel: _progressBarModel,
-                        margins: const EdgeInsets.only(top: 8),
-                        tinyMode: false,
-                        // progressBarOpacity: _progressBarOpacity,
-                        // loading: false,
-                      ),
+                  /// PROGRESS BAR
+                  Container(
+                    width: _progressBarWidth,
+                    height: OnBoardingScreen.progressBarHeight,
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      color: Colorz.yellow10,
+                      borderRadius: Borderers.constantCornersAll10,
                     ),
+                    child: Strips(
+                      flyerBoxWidth: _progressBarWidth,
+                      progressBarModel: _progressBarModel,
+                      margins: const EdgeInsets.only(top: 8),
+                      tinyMode: false,
+                      // progressBarOpacity: _progressBarOpacity,
+                      // loading: false,
+                    ),
+                  ),
 
-                    /// EXIT - NEXT BUTTONS
-                    SizedBox(
-                      width: _bubbleWidth,
-                      height: OnBoardingScreen.buttonZoneHeight,
-                      child: ValueListenableBuilder(
-                          valueListenable: _progressBarModel,
-                          builder: (_, ProgressBarModel? progressBarModel, Widget? child) {
+                  /// EXIT - NEXT BUTTONS
+                  SizedBox(
+                    width: _bubbleWidth,
+                    height: OnBoardingScreen.buttonZoneHeight,
+                    child: ValueListenableBuilder(
+                        valueListenable: _progressBarModel,
+                        builder: (_, ProgressBarModel? progressBarModel, Widget? child) {
 
-                            final bool _isAtLast = OnBoardingScreen.isAtLast(
-                              progressBarModel: progressBarModel,
-                            );
+                          final bool _isAtLast = OnBoardingScreen.isAtLast(
+                            progressBarModel: progressBarModel,
+                          );
 
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
 
-                                /// EXIT
-                                BldrsBox(
-                                  height: _buttonHeight,
-                                  opacity: _isAtLast == true ? 0 : 1,
-                                  // width: _bubbleWidth * 0.3,
-                                  margins: 10,
-                                  verse: const Verse(
-                                    id: 'phid_exit',
-                                    translate: true,
-                                  ),
-                                  corners: Borderers.constantCornersAll20,
-                                  color: Colorz.white20,
-                                  verseScaleFactor: 0.7,
-                                  onTap: _onSkip,
+                              /// EXIT
+                              BldrsBox(
+                                height: _buttonHeight,
+                                opacity: _isAtLast == true ? 0 : 1,
+                                // width: _bubbleWidth * 0.3,
+                                margins: 10,
+                                verse: const Verse(
+                                  id: 'phid_exit',
+                                  translate: true,
                                 ),
+                                corners: Borderers.constantCornersAll20,
+                                color: Colorz.white20,
+                                verseScaleFactor: 0.7,
+                                onTap: _onSkip,
+                              ),
 
-                                /// NEXT
-                                BldrsBox(
-                                  height: _buttonHeight,
-                                  // width: _bubbleWidth * 0.3,
-                                  margins: 10,
-                                  verse: Verse(
-                                    id: _isAtLast == true ? 'phid_great_!' : 'phid_next',
-                                    translate: true,
-                                  ),
-                                  corners: Borderers.constantCornersAll20,
-                                  color: Colorz.white20,
-                                  verseScaleFactor: 0.7,
-                                  onTap: _onNext,
+                              /// NEXT
+                              BldrsBox(
+                                height: _buttonHeight,
+                                // width: _bubbleWidth * 0.3,
+                                margins: 10,
+                                verse: Verse(
+                                  id: _isAtLast == true ? 'phid_great_!' : 'phid_next',
+                                  translate: true,
                                 ),
+                                corners: Borderers.constantCornersAll20,
+                                color: Colorz.white20,
+                                verseScaleFactor: 0.7,
+                                onTap: _onNext,
+                              ),
 
-                              ],
-                            );
-                          }
-                          ),
-                    ),
+                            ],
+                          );
+                        }
+                        ),
+                  ),
 
-                  ],
-                ),
+                ],
               ),
+            ),
 
-              const Pyramids(
-                pyramidType: PyramidType.crystalBlue,
-                color: Colorz.black255,
-              ),
+            const Pyramids(
+              pyramidType: PyramidType.crystalBlue,
+              color: Colorz.black255,
+            ),
 
-            ],
-          ),
+          ],
         ),
       ),
 
