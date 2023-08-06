@@ -25,14 +25,13 @@ class BldrsArcText extends StatelessWidget {
     if (appIsLTR == true){
       return CustomPaint(
         painter: _LTRPainter(
-          radius,
-          text,
-          textStyle,
+          radius: radius,
+          text: text,
+          textStyle: textStyle,
           initialAngle: startAngle,
         ),
       );
     }
-
 
     /// ARABIC => RTL
     else {
@@ -54,7 +53,12 @@ class BldrsArcText extends StatelessWidget {
 
 class _LTRPainter extends CustomPainter {
 
-  _LTRPainter(this.radius, this.text, this.textStyle, {this.initialAngle = 0});
+  _LTRPainter({
+    required this.radius,
+    required this.text,
+    required this.textStyle,
+    this.initialAngle = 0
+  });
 
   final num radius;
   final String text;
@@ -107,8 +111,8 @@ class _LTRPainter extends CustomPainter {
 
 }
 
-
 class _RTLPainter extends CustomPainter {
+  // --------------------------------------------------------------------------
   _RTLPainter({
     required this.radius,
     required this.text,
@@ -117,14 +121,14 @@ class _RTLPainter extends CustomPainter {
     this.offsetFromBorder = 10,
     this.spacingMultiplier = 1.6,
   });
-
+  // --------------------
   final double radius;
   final String text;
   final TextStyle textStyle;
   final double initialAngle;
   final double offsetFromBorder;
   final double spacingMultiplier;
-
+  // --------------------------------------------------------------------------
   @override
   void paint(Canvas canvas, Size size) {
     canvas.translate(size.width / 2, size.height / 2);
@@ -191,4 +195,5 @@ class _RTLPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
+  // --------------------------------------------------------------------------
 }

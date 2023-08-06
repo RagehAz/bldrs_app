@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/widgets/drawing/spacing.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
@@ -22,10 +23,56 @@ class BWhoAreBldrs extends StatefulWidget {
 class _BWhoAreBldrsState extends State<BWhoAreBldrs> {
   // --------------------------------------------------------------------------
   BzType? _bzType = BzType.designer;
+  bool _autoPlayMode = true;
   // --------------------
   @override
   void initState() {
     super.initState();
+
+    _autoPlay();
+  }
+  // --------------------
+  Future<void> _autoPlay() async {
+
+    if (_autoPlayMode == true){
+
+      await Future.delayed(const Duration(seconds: 2));
+
+      BzType? _nextType;
+
+      if (_bzType == null){
+        _nextType = BzType.designer;
+      }
+      else {
+        final int _index = BzTyper.bzTypesList.indexOf(_bzType!);
+        final int _nextIndex = Numeric.getNextIndex(
+          listLength: BzTyper.bzTypesList.length,
+          currentIndex: _index,
+          loop: false,
+        )!;
+
+        if (_index == _nextIndex){
+          _nextType = null;
+        }
+        else {
+          _nextType = BzTyper.bzTypesList[_nextIndex];
+        }
+
+      }
+
+      if (mounted == true && _autoPlayMode == true){
+        setState(() {
+          _bzType = _nextType;
+        });
+
+        if (_autoPlayMode == true){
+          await _autoPlay();
+        }
+
+      }
+
+    }
+
   }
   // --------------------------------------------------------------------------
   @override
@@ -81,6 +128,7 @@ class _BWhoAreBldrsState extends State<BWhoAreBldrs> {
           pageZoneHeight: pageZoneHeight,
           onBzTypeTap: (BzType? bzType){
             setState(() {
+              _autoPlayMode = false;
               _bzType = bzType;
             });
           },
