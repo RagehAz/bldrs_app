@@ -225,6 +225,19 @@ class BzTyper {
 
     return icon;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getTheSevenArtwork(BzType bzType){
+    switch (bzType){
+      case BzType.developer: return Iconz.theSevenDevelopers;
+      case BzType.broker: return Iconz.theSevenBrokers;
+      case BzType.designer: return Iconz.theSevenDesigners;
+      case BzType.contractor: return Iconz.theSevenContractors;
+      case BzType.artisan: return Iconz.theSevenArtisans;
+      case BzType.manufacturer: return Iconz.theSevenManufacturers;
+      case BzType.supplier: return Iconz.theSevenSuppliers;
+    }
+  }
   // -----------------------------------------------------------------------------
 
   /// BZ TYPE CHECKERS
@@ -415,6 +428,21 @@ class BzTyper {
     'phid_askHint';
 
     return _askHint;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getBzTypeWhoArePhid(BzType bzType){
+    final String _output =
+    bzType == BzType.developer ?    'phid_who_are_developers' :
+    bzType == BzType.broker ?       'phid_who_are_brokers' :
+    bzType == BzType.manufacturer ? 'phid_who_are_manufacturers' :
+    bzType == BzType.supplier ?     'phid_who_are_suppliers' :
+    bzType == BzType.designer ?     'phid_who_are_designers' :
+    bzType == BzType.contractor ?   'phid_who_are_contractors' :
+    bzType == BzType.artisan ?      'phid_who_are_artisans' :
+    '';
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
