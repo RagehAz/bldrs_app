@@ -1,32 +1,32 @@
+import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/widgets/drawing/spacing.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
+import 'package:bldrs/b_views/j_on_boarding/components/arc_text.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:circle_list/circle_list.dart';
 import 'package:flutter/material.dart';
 
-class BzTypesWheel extends StatefulWidget {
-  /// --------------------------------------------------------------------------
+class BzTypesWheel extends StatelessWidget {
+  // --------------------------------------------------------------------------
   const BzTypesWheel({
     required this.pageZoneHeight,
     required this.width,
+    required this.bzType,
+    required this.onBzTypeTap,
     super.key,
   });
   // --------------------
   final double pageZoneHeight;
   final double width;
-  /// --------------------------------------------------------------------------
-  @override
-  State<BzTypesWheel> createState() => _BzTypesWheelState();
-}
-
-class _BzTypesWheelState extends State<BzTypesWheel> {
-  /// --------------------------------------------------------------------------
-  int _selectedBzTypeIndex = 0;
+  final BzType bzType;
+  final Function(BzType bzType) onBzTypeTap;
+  // --------------------------------------------------------------------------
   static const List<BzType> _bzTypes = [
     BzType.designer,
     BzType.contractor,
@@ -36,20 +36,18 @@ class _BzTypesWheelState extends State<BzTypesWheel> {
     BzType.developer,
     BzType.broker,
   ];
-  /// --------------------------------------------------------------------------
-  double? _zeroDegree = 90;
-
-  @override
-  void initState() {
-
-    _zeroDegree = _getDegreeByType(BzType.designer);
-
-    super.initState();
+  // --------------------
+  int _getIndexByBzType(BzType bzType){
+    return _bzTypes.indexOf(bzType);
   }
-  /// --------------------------------------------------------------------------
-  double _getDegreeByType(BzType bzType){
+  // --------------------
+  static double getStepDegree(){
+    return 360 / _bzTypes.length;
+  }
+  // --------------------
+  static double getDegreeByType(BzType bzType){
 
-    final double _stepDegree = 360 / _bzTypes.length;
+    final double _stepDegree = getStepDegree();
 
     double _deg = 0;
 
@@ -65,20 +63,29 @@ class _BzTypesWheelState extends State<BzTypesWheel> {
 
     return Numeric.move360Degree(source360Degree: 0, moveBy360Degree: _deg)!;
   }
-  /// --------------------------------------------------------------------------
+  // --------------------
+  TextStyle _generateStyle({
+    required BuildContext context,
+    required BzSection bzSection,
+  }){
+
+    final bool _isSelected = BzTyper.concludeBzSectionByBzTypes([bzType]) == bzSection;
+    final double _extraSize = _isSelected == true ? 0.0001 : 0;
+
+    return BldrsText.createStyle(
+      context: context,
+      color: _isSelected == true ? Colorz.blue255 : Colorz.white50,
+      weight: _isSelected == true ? VerseWeight.bold : VerseWeight.thin,
+      scaleFactor: pageZoneHeight * (0.0015 + _extraSize),
+    );
+
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _boxHeight = widget.pageZoneHeight;
-    final double _titleBoxHeight = _boxHeight * 0.1;
-    final double _topSpacingHeight = _boxHeight * 0.02;
+    final double _boxHeight = pageZoneHeight;
     final double _circleDiameter = _boxHeight * 0.5;
-    final double _middleSpacingHeight = _topSpacingHeight;
-    final double _textZoneHeight = _boxHeight
-        -_titleBoxHeight
-        -_topSpacingHeight
-        - _circleDiameter
-        - _middleSpacingHeight;
     // --------------------
     final double _circleRadius = _circleDiameter * 0.5;
     const Offset _circleOrigin = Offset.zero;
@@ -86,21 +93,80 @@ class _BzTypesWheelState extends State<BzTypesWheel> {
     final double _bzTypeCircleSize = _circleDiameter * 0.2;
     final double _innerRadius = _circleRadius * 0.6;
     // --------------------
-    /// final double _stepDegree = 360 / _bzTypes.length;
+    final double _stepDegree = getStepDegree();
+    final double _halfStep = _stepDegree * 0.5;
+    const double _zeroDegree = 90;
     // --------------------
-    return Column(
-      children: [
+    return Stack(
+      children: <Widget>[
 
-        /// HEADLINE
-        Container(
-          width: widget.width,
-          height: _titleBoxHeight,
-          color: Colorz.bloodTest,
+        /// REAL-ESTATE ARC TITLE
+        SizedBox(
+          width: _circleDiameter,
+          height: _circleDiameter,
+          child: ArcText(
+            radius: _circleRadius,
+            text: getWord('phid_realEstate')!,
+            startAngle: Numeric.degreeToRadian(90)!,
+            textStyle: _generateStyle(
+              context: context,
+              bzSection: BzSection.realestate,
+            ),
+          ),
         ),
 
-        /// TOP SPACER
-        Spacing(
-          size: _topSpacingHeight,
+        /// CONSTRUCTION ARC TITLE
+        SizedBox(
+          width: _circleDiameter,
+          height: _circleDiameter,
+          child: ArcText(
+            radius: _circleRadius,
+            text: getWord('phid_construction')!,
+            startAngle: Numeric.degreeToRadian(180 + _halfStep + 10)!,
+            textStyle: _generateStyle(
+              context: context,
+              bzSection: BzSection.construction,
+            ),
+          ),
+        ),
+
+        /// SUPPLIES ARC TITLE
+        SizedBox(
+          width: _circleDiameter,
+          height: _circleDiameter,
+          child: ArcText(
+            radius: _circleRadius,
+            text: getWord('phid_supplies')!,
+            startAngle: Numeric.degreeToRadian(-_halfStep)!,
+            textStyle: _generateStyle(
+              context: context,
+              bzSection: BzSection.supplies,
+            ),
+          ),
+        ),
+
+        /// THE SEVEN BACK
+        WidgetFader(
+          fadeType: FadeType.fadeIn,
+          duration: const Duration(seconds: 2),
+          curve: Curves.easeInOutExpo,
+          child: BldrsImage(
+            width: _circleDiameter,
+            height: _circleDiameter,
+            pic: Iconz.theSevenBack,
+          ),
+        ),
+
+        /// THE SEVEN FRONT
+        WidgetFader(
+          fadeType: FadeType.fadeIn,
+          duration: const Duration(seconds: 2),
+          curve: Curves.easeInOutExpo,
+          child: BldrsImage(
+            width: _circleDiameter,
+            height: _circleDiameter,
+            pic: BzTyper.getTheSevenArtwork(bzType),
+          ),
         ),
 
         /// WHEEL
@@ -108,20 +174,17 @@ class _BzTypesWheelState extends State<BzTypesWheel> {
           width: _circleDiameter,
           height: _circleDiameter,
           child: CircleList(
-
             /// ANIMATION
             animationSetting: AnimationSetting(
               curve: Curves.ease,
               duration: const Duration(seconds: 1),
             ),
-
             /// SCALING
             origin: _circleOrigin,
             outerRadius: _circleRadius,
             innerRadius: _innerRadius,
             childrenPadding: 0,
             initialAngle: Numeric.degreeToRadian(_zeroDegree)!,
-
             /// BEHAVIOUR
             // dragAngleRange: ,
             // innerCircleRotateWithChildren: false,
@@ -165,96 +228,43 @@ class _BzTypesWheelState extends State<BzTypesWheel> {
             rotateMode: RotateMode.stopRotate,
             // isChildrenVertical: true,
             showInitialAnimation: true,
-
             /// STYLING
             // gradient: ,
             innerCircleColor: Colorz.nothing,
-            outerCircleColor: Colorz.white10,
-
+            outerCircleColor: Colorz.nothing,
             /// CENTER WIDGET
             centerWidget: BldrsBox(
               height: _bzTypeCircleSize,
               corners: _bzTypeCircleSize * 0.5,
               icon: UsersProvider.proGetMyUserModel(context: context, listen: true)?.picPath,
             ),
-
-            children: [
+            children: <Widget>[
 
               ...List.generate(_bzTypes.length, (index){
 
                 final BzType _bzType = _bzTypes[index];
-                final bool _isSelected = index == _selectedBzTypeIndex;
+                final bool _isSelected = index == _getIndexByBzType(bzType);
                 final String _icon = _isSelected == true ?
                 BzTyper.getBzTypeIconOn(_bzType)!
-                :
+                    :
                 BzTyper.getBzTypeIconOff(_bzType)!
                 ;
 
                 return BldrsBox(
                   height: _bzTypeCircleSize,
-                  // width: _bzTypeCircleSize,
-                  // verse: Verse.plain(index.toString()),
-                  // verseScaleFactor: 0.4,
                   verseWeight: VerseWeight.thin,
                   verseMaxLines: 3,
                   corners: _bzTypeCircleSize * 0.5,
                   icon: _icon,
                   onTap: () async {
-
                     await Future.delayed(const Duration(milliseconds: 100));
-
-                    setState(() {
-                      _selectedBzTypeIndex = index;
-                    });
-
-                  },
+                    onBzTypeTap(_bzType);
+                    },
                 );
 
               }),
 
             ],
-
-          ),
-        ),
-
-        /// MIDDLE SPACER
-        Spacing(
-          size: _middleSpacingHeight,
-        ),
-
-        /// BZ TYPE NAME
-        BldrsBox(
-          width: widget.width,
-          height: _textZoneHeight * 0.2,
-          verse: Verse(
-            id: BzTyper.getBzTypePhid(
-              bzType: _bzTypes[_selectedBzTypeIndex],
-              nounTranslation: false,
-              // pluralTranslation: true,
-            ),
-            translate: true,
-            casing: Casing.upperCase,
-          ),
-          verseItalic: true,
-          bubble: false,
-        ),
-
-        /// PARAGRAPH
-        Container(
-          width: widget.width,
-          height: _textZoneHeight * 0.8,
-          color: Colorz.bloodTest,
-          child: BldrsText(
-            width: widget.width,
-            height: _textZoneHeight * 0.8,
-            verse: Verse(
-              id: BzTyper.getBzTypeAskHintPhid(_bzTypes[_selectedBzTypeIndex]),
-              translate: true,
-            ),
-            // centered: true,
-            scaleFactor: _textZoneHeight  * 0.005,
-            maxLines: 20,
-            labelColor: Colorz.blue80,
           ),
         ),
 
@@ -262,4 +272,5 @@ class _BzTypesWheelState extends State<BzTypesWheel> {
     );
     // --------------------
   }
+  /// --------------------------------------------------------------------------
 }
