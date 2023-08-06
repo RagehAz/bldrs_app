@@ -85,6 +85,7 @@ dependencies:
 #  share: ^2.0.4
   share_plus: ^7.0.2
   circle_list: ^1.0.5
+  wheel_chooser: ^1.1.2
 # --------------------------------------------------------------------------------
 dev_dependencies:
   flutter_test:

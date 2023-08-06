@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
@@ -138,5 +139,41 @@ class ChainProtocols {
 
   // --------------------
   /// NO NEED
+  // -----------------------------------------------------------------------------
+
+  /// SUPER GETTERS
+
+  // --------------------
+  static List<String> superGetAllPhidsByFlyerType({
+    required FlyerType flyerType,
+    required bool onlyUseZoneChains,
+  }){
+
+    final List<String> _chainsIDs = FlyerTyper.bzCreatorChainsIDs(flyerType);
+
+    final List<Chain>? _allChains = ChainsProvider.proGetBldrsChains(
+      context: getMainContext(),
+      onlyUseZoneChains: onlyUseZoneChains,
+      listen: false,
+    );
+
+    List<Chain> _chainsByIDs = Chain.getChainsFromChainsByIDs(
+      allChains: _allChains,
+      phids: _chainsIDs,
+    );
+
+    if (
+    _chainsByIDs.length == 1
+        &&
+        Chain.checkIsChains(_chainsByIDs.first.sons) == true
+    ){
+      _chainsByIDs = _chainsByIDs.first.sons;
+    }
+
+    return Chain.getOnlyPhidsSonsFromChains(
+      chains: _chainsByIDs,
+    );
+
+  }
   // -----------------------------------------------------------------------------
 }

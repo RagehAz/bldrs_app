@@ -872,7 +872,7 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<UserModel> cleanDuplicateUsers({
-    @required List<UserModel>? users,
+    required List<UserModel>? users,
   }){
     final List<UserModel> _output = [];
 
