@@ -21,7 +21,7 @@ class BWhoAreBldrs extends StatefulWidget {
 
 class _BWhoAreBldrsState extends State<BWhoAreBldrs> {
   // --------------------------------------------------------------------------
-  BzType _bzType = BzType.designer;
+  BzType? _bzType = BzType.designer;
   // --------------------
   @override
   void initState() {
@@ -79,7 +79,7 @@ class _BWhoAreBldrsState extends State<BWhoAreBldrs> {
           width: width,
           bzType: _bzType,
           pageZoneHeight: pageZoneHeight,
-          onBzTypeTap: (BzType bzType){
+          onBzTypeTap: (BzType? bzType){
             setState(() {
               _bzType = bzType;
             });
@@ -94,9 +94,9 @@ class _BWhoAreBldrsState extends State<BWhoAreBldrs> {
         /// BZ TYPE NAME
         BldrsBox(
           width: width,
-          height: _textZoneHeight * 0.2,
+          height: _textZoneHeight * 0.15,
           verse: Verse(
-            id: BzTyper.getBzTypePhid(
+            id: _bzType == null ? 'phid_owner': BzTyper.getBzTypePhid(
               bzType: _bzType,
               nounTranslation: false,
               // pluralTranslation: true,
@@ -105,6 +105,7 @@ class _BWhoAreBldrsState extends State<BWhoAreBldrs> {
             casing: Casing.upperCase,
           ),
           verseItalic: true,
+          verseScaleFactor: _textZoneHeight * 0.015,
           verseColor: Colorz.yellow255,
           verseShadow: true,
           bubble: false,
@@ -115,13 +116,13 @@ class _BWhoAreBldrsState extends State<BWhoAreBldrs> {
           width: width,
           // height: _textZoneHeight * 0.8,
           verse: Verse(
-            id: BzTyper.getBzTypeAskHintPhid(_bzType),
+            id: BzTyper.getBzTypeWhoArePhid(_bzType),
             translate: true,
           ),
           // centered: true,
-          scaleFactor: _textZoneHeight  * 0.005,
+          scaleFactor: _textZoneHeight  * 0.006,
           maxLines: 50,
-          margin: const EdgeInsets.symmetric(horizontal: 30),
+          margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
           weight: VerseWeight.thin,
           italic:  true,
         ),
