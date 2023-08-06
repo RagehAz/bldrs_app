@@ -37,13 +37,20 @@ class AWhatIsBldrsPage extends StatelessWidget {
               id: 'phid_bldrs_is',
               translate: true,
             ),
+          maxLines: 10,
+          margin: EdgeInsets.only(
+            bottom: 10,
+            right: 20,
+            left: 20,
+          ),
         ),
 
         const BldrsBox(
-          height: 50,
-          width: 50,
+          height: 35,
+          width: 35,
           bubble: false,
           icon: Iconz.planet,
+          margins: 10,
         ),
 
       ],

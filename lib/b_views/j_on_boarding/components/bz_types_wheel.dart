@@ -1,12 +1,13 @@
-import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/b_views/j_on_boarding/components/arc_text.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:circle_list/circle_list.dart';
@@ -24,8 +25,8 @@ class BzTypesWheel extends StatelessWidget {
   // --------------------
   final double pageZoneHeight;
   final double width;
-  final BzType bzType;
-  final Function(BzType bzType) onBzTypeTap;
+  final BzType? bzType;
+  final Function(BzType? bzType) onBzTypeTap;
   // --------------------------------------------------------------------------
   static const List<BzType> _bzTypes = [
     BzType.designer,
@@ -64,12 +65,15 @@ class BzTypesWheel extends StatelessWidget {
     return Numeric.move360Degree(source360Degree: 0, moveBy360Degree: _deg)!;
   }
   // --------------------
-  TextStyle _generateStyle({
+  TextStyle _generateArcStyle({
     required BuildContext context,
     required BzSection bzSection,
   }){
 
-    final bool _isSelected = BzTyper.concludeBzSectionByBzTypes([bzType]) == bzSection;
+    final bool _isSelected = bzType == null ?
+    false
+        :
+    BzTyper.concludeBzSectionByBzTypes([bzType!]) == bzSection;
     final double _extraSize = _isSelected == true ? 0.0001 : 0;
 
     return BldrsText.createStyle(
@@ -79,6 +83,32 @@ class BzTypesWheel extends StatelessWidget {
       scaleFactor: pageZoneHeight * (0.0015 + _extraSize),
     );
 
+  }
+  // --------------------
+  String _getUserIcon(BuildContext context){
+
+    final UserModel? _user = UsersProvider.proGetMyUserModel(context: context, listen: true);
+
+    if (UserModel.userIsSignedUp(_user) == true){
+      return _user!.picPath ?? Iconz.normalUser;
+    }
+
+    else {
+      return Iconz.normalUser;
+    }
+
+  }
+  // --------------------
+  double _getUserIconSizeFactor(BuildContext context){
+    final UserModel? _user = UsersProvider.proGetMyUserModel(context: context, listen: true);
+
+    if (UserModel.userIsSignedUp(_user) == true){
+      return 1;
+    }
+
+    else {
+      return  0.7;
+    }
   }
   // --------------------------------------------------------------------------
   @override
@@ -97,18 +127,30 @@ class BzTypesWheel extends StatelessWidget {
     final double _halfStep = _stepDegree * 0.5;
     const double _zeroDegree = 90;
     // --------------------
+    final bool _ownerIsSelected = bzType == null;
+    // --------------------
     return Stack(
       children: <Widget>[
+
+        /// CIRCLE
+        BldrsBox(
+          width: _circleDiameter,
+          height: _circleDiameter,
+          color: Colorz.white255.withOpacity(0.05),
+          corners: _circleRadius,
+          borderColor: Colorz.white20,
+        ),
 
         /// REAL-ESTATE ARC TITLE
         SizedBox(
           width: _circleDiameter,
           height: _circleDiameter,
-          child: ArcText(
+          child: BldrsArcText(
+            appIsLTR: UiProvider.checkAppIsLeftToRight(),
             radius: _circleRadius,
             text: getWord('phid_realEstate')!,
             startAngle: Numeric.degreeToRadian(90)!,
-            textStyle: _generateStyle(
+            textStyle: _generateArcStyle(
               context: context,
               bzSection: BzSection.realestate,
             ),
@@ -119,11 +161,12 @@ class BzTypesWheel extends StatelessWidget {
         SizedBox(
           width: _circleDiameter,
           height: _circleDiameter,
-          child: ArcText(
+          child: BldrsArcText(
+            appIsLTR: UiProvider.checkAppIsLeftToRight(),
             radius: _circleRadius,
             text: getWord('phid_construction')!,
             startAngle: Numeric.degreeToRadian(180 + _halfStep + 10)!,
-            textStyle: _generateStyle(
+            textStyle: _generateArcStyle(
               context: context,
               bzSection: BzSection.construction,
             ),
@@ -134,11 +177,12 @@ class BzTypesWheel extends StatelessWidget {
         SizedBox(
           width: _circleDiameter,
           height: _circleDiameter,
-          child: ArcText(
+          child: BldrsArcText(
+            appIsLTR: UiProvider.checkAppIsLeftToRight(),
             radius: _circleRadius,
             text: getWord('phid_supplies')!,
             startAngle: Numeric.degreeToRadian(-_halfStep)!,
-            textStyle: _generateStyle(
+            textStyle: _generateArcStyle(
               context: context,
               bzSection: BzSection.supplies,
             ),
@@ -146,27 +190,17 @@ class BzTypesWheel extends StatelessWidget {
         ),
 
         /// THE SEVEN BACK
-        WidgetFader(
-          fadeType: FadeType.fadeIn,
-          duration: const Duration(seconds: 2),
-          curve: Curves.easeInOutExpo,
-          child: BldrsImage(
-            width: _circleDiameter,
-            height: _circleDiameter,
-            pic: Iconz.theSevenBack,
-          ),
+        BldrsImage(
+          width: _circleDiameter,
+          height: _circleDiameter,
+          pic: Iconz.theSevenBack,
         ),
 
         /// THE SEVEN FRONT
-        WidgetFader(
-          fadeType: FadeType.fadeIn,
-          duration: const Duration(seconds: 2),
-          curve: Curves.easeInOutExpo,
-          child: BldrsImage(
-            width: _circleDiameter,
-            height: _circleDiameter,
-            pic: BzTyper.getTheSevenArtwork(bzType),
-          ),
+        BldrsImage(
+          width: _circleDiameter,
+          height: _circleDiameter,
+          pic: BzTyper.getTheSevenArtwork(bzType),
         ),
 
         /// WHEEL
@@ -227,7 +261,7 @@ class BzTypesWheel extends StatelessWidget {
             //   },
             rotateMode: RotateMode.stopRotate,
             // isChildrenVertical: true,
-            showInitialAnimation: true,
+            // showInitialAnimation: false,
             /// STYLING
             // gradient: ,
             innerCircleColor: Colorz.nothing,
@@ -236,18 +270,28 @@ class BzTypesWheel extends StatelessWidget {
             centerWidget: BldrsBox(
               height: _bzTypeCircleSize,
               corners: _bzTypeCircleSize * 0.5,
-              icon: UsersProvider.proGetMyUserModel(context: context, listen: true)?.picPath,
+              icon: _getUserIcon(context),
+              iconSizeFactor: _getUserIconSizeFactor(context),
+              borderColor: _ownerIsSelected ? Colorz.yellow255 : null,
+              iconColor: _ownerIsSelected ? Colorz.black255 : null,
+              color: _ownerIsSelected == true ? Colorz.yellow255 : null,
+              onTap: () async {
+                await Future.delayed(const Duration(milliseconds: 100));
+                onBzTypeTap(null);
+              }
             ),
             children: <Widget>[
 
               ...List.generate(_bzTypes.length, (index){
 
                 final BzType _bzType = _bzTypes[index];
-                final bool _isSelected = index == _getIndexByBzType(bzType);
-                final String _icon = _isSelected == true ?
-                BzTyper.getBzTypeIconOn(_bzType)!
-                    :
-                BzTyper.getBzTypeIconOff(_bzType)!
+
+                final bool _isSelected = bzType == null ?
+                false
+                :
+                index == _getIndexByBzType(bzType!);
+
+                final String _icon = BzTyper.getBzTypeIconOff(_bzType)!
                 ;
 
                 return BldrsBox(
@@ -256,6 +300,9 @@ class BzTypesWheel extends StatelessWidget {
                   verseMaxLines: 3,
                   corners: _bzTypeCircleSize * 0.5,
                   icon: _icon,
+                  iconSizeFactor: 0.7,
+                  color: _isSelected == true ? Colorz.yellow255 : Colorz.white10,
+                  iconColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
                   onTap: () async {
                     await Future.delayed(const Duration(milliseconds: 100));
                     onBzTypeTap(_bzType);

@@ -434,7 +434,7 @@ class BldrsText extends StatelessWidget {
         :
     weight == VerseWeight.regular ? verseSizeValue * 0.03
         :
-    weight == VerseWeight.bold ? verseSizeValue * 0.05
+    weight == VerseWeight.bold ? verseSizeValue * 0.015
         :
     weight == VerseWeight.black ? verseSizeValue * 0.03
         :
