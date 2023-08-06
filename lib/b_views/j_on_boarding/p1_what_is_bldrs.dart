@@ -2,6 +2,8 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
 class AWhatIsBldrsPage extends StatelessWidget {
@@ -23,11 +25,25 @@ class AWhatIsBldrsPage extends StatelessWidget {
 
         /// LOGO
         BldrsBox(
-          width: pageZoneHeight * 0.3,
-          height: pageZoneHeight * 0.3,
+          width: pageZoneHeight * 0.4,
+          height: pageZoneHeight * 0.4,
           icon: Iconz.bldrsNameSquare,
           // loading: false,
           bubble: false,
+        ),
+
+        const BldrsText(
+            verse: Verse(
+              id: 'phid_bldrs_is',
+              translate: true,
+            ),
+        ),
+
+        const BldrsBox(
+          height: 50,
+          width: 50,
+          bubble: false,
+          icon: Iconz.planet,
         ),
 
       ],
