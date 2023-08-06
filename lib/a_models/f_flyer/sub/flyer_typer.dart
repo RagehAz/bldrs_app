@@ -529,7 +529,7 @@ class FlyerTyper{
         return _flyerCreatorChainsIDs(flyerType);
 
       case ViewingEvent.bzEditor :
-        return _bzCreatorChainsIDs(flyerType);
+        return bzCreatorChainsIDs(flyerType);
 
       default: return  [];
     }
@@ -651,7 +651,7 @@ class FlyerTyper{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> _bzCreatorChainsIDs(FlyerType? flyerType){
+  static List<String> bzCreatorChainsIDs(FlyerType? flyerType){
 
     switch (flyerType){
       case FlyerType.general      :

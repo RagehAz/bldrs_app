@@ -43,6 +43,8 @@ class BldrsArcText extends StatelessWidget {
             text: text,
             textStyle: textStyle,
             initialAngle: startAngle + _extraAngle,
+            offsetFromBorder: 10,
+            spacingMultiplier: 1.6,
           )
       );
     }
@@ -117,9 +119,9 @@ class _RTLPainter extends CustomPainter {
     required this.radius,
     required this.text,
     required this.textStyle,
-    this.initialAngle = 0,
-    this.offsetFromBorder = 10,
-    this.spacingMultiplier = 1.6,
+    required this.initialAngle,
+    required this.offsetFromBorder,
+    required this.spacingMultiplier,
   });
   // --------------------
   final double radius;
