@@ -1,24 +1,20 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_button/e_collapsed_tile.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+
+import 'b_expanding_tile.dart';
+import 'e_collapsed_tile.dart';
 
 class CollapsableTile extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const CollapsableTile({
-    required this.firstHeadline,
     required this.child,
     required this.width,
-    required this.secondHeadline,
     required this.collapsedHeight,
     required this.maxHeight,
     required this.scrollable,
-    required this.icon,
-    required this.iconSizeFactor,
+    required this.sideBox,
     required this.onTileTap,
     required this.initiallyExpanded,
     required this.initialColor,
@@ -29,6 +25,7 @@ class CollapsableTile extends StatefulWidget {
     required this.searchText,
     required this.onTileLongTap,
     required this.onTileDoubleTap,
+    required this.tileBox,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -36,11 +33,8 @@ class CollapsableTile extends StatefulWidget {
   final double? collapsedHeight;
   final double? maxHeight;
   final bool scrollable;
-  final String? icon;
-  final double iconSizeFactor;
+  final Widget sideBox;
   final bool? initiallyExpanded;
-  final Verse? firstHeadline;
-  final Verse? secondHeadline;
   final Color? initialColor;
   final Color? expansionColor;
   final double? corners;
@@ -51,6 +45,7 @@ class CollapsableTile extends StatefulWidget {
   final ValueChanged<bool>? onTileTap;
   final Function? onTileLongTap;
   final Function? onTileDoubleTap;
+  final Widget tileBox;
   /// --------------------------------------------------------------------------
   @override
   CollapsableTileState createState() => CollapsableTileState();
@@ -59,13 +54,13 @@ class CollapsableTile extends StatefulWidget {
 
 class CollapsableTileState extends State<CollapsableTile> with SingleTickerProviderStateMixin {
   // -----------------------------------------------------------------------------
-  late AnimationController _controller;
-  late CurvedAnimation _easeInAnimation;
-  late ColorTween _borderColor;
-  late ColorTween _tileColorTween;
+  AnimationController? _controller;
+  CurvedAnimation? _easeInAnimation;
+  ColorTween? _borderColor;
+  ColorTween? _tileColorTween;
   // ColorTween _subtitleLabelColorTween;
   // BorderRadiusTween _borderRadius;
-  late Animation<double> _arrowTurns;
+  Animation<double>? _arrowTurns;
   // --------------------
   final ValueNotifier<bool> _isExpanded = ValueNotifier<bool>(false);
   // --------------------
@@ -81,17 +76,17 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
     );
     // ---
     _easeInAnimation = CurvedAnimation(
-      parent: _controller,
+      parent: _controller!,
       curve: Curves.easeIn,
     );
     // ---
     _borderColor = ColorTween();
-    _borderColor.end = Colorz.green255;
+    _borderColor!.end = Colorz.green255;
 
     // ---
-    _tileColorTween = BldrsExpandingButton.getTileColorTween(
-      collapsedColor: widget.initialColor ?? Colorz.white10,
-      expansionColor: widget.expansionColor ?? Colorz.white30,
+    _tileColorTween = ExpandingTile.getTileColorTween(
+      collapsedColor: widget.initialColor,
+      expansionColor: widget.expansionColor,
     );
     // ---
     /*
@@ -102,9 +97,11 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
      _borderRadius = BorderRadiusTween();
      */
     // ---
-    _arrowTurns = Tween<double>(begin: 0, end: 0.5).animate(_easeInAnimation);
+    _arrowTurns = Tween<double>(begin: 0, end: 0.5).animate(_easeInAnimation!);
     // ---
-    final bool? _storedExpanded = PageStorage.of(context).readState(context, identifier: 'expansion') as bool? ?? false;
+    final dynamic _stored = PageStorage.of(context).readState(context, identifier: 'expansion');
+    final bool _storedExpanded = Mapper.boolIsTrue(_stored);
+
     setNotifier(
         notifier: _isExpanded,
         mounted: mounted,
@@ -112,15 +109,15 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
     );
     // ---
     if (_isExpanded.value  == true) {
-      _controller.value  = 1.0;
+      _controller!.value  = 1.0;
     }
     // ---
   }
   // --------------------
   @override
   void dispose() {
-    _controller.dispose();
-    _easeInAnimation.dispose();
+    _controller?.dispose();
+    _easeInAnimation?.dispose();
 
     // blog('ExpandingTile : ${widget.firstHeadline} : DISPOOOOSING');
     _isExpanded.dispose();
@@ -136,11 +133,7 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
         oldWidget.collapsedHeight != widget.collapsedHeight ||
         oldWidget.maxHeight != widget.maxHeight ||
         oldWidget.scrollable != widget.scrollable ||
-        oldWidget.icon != widget.icon ||
-        oldWidget.iconSizeFactor != widget.iconSizeFactor ||
         oldWidget.initiallyExpanded != widget.initiallyExpanded ||
-        oldWidget.firstHeadline?.id != widget.firstHeadline?.id ||
-        oldWidget.secondHeadline?.id != widget.secondHeadline?.id ||
         oldWidget.initialColor != widget.initialColor ||
         oldWidget.expansionColor != widget.expansionColor ||
         oldWidget.corners != widget.corners ||
@@ -154,8 +147,8 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
           oldWidget.expansionColor != widget.expansionColor
       ){
         _tileColorTween = ColorTween(
-          begin: widget.initialColor ?? BldrsExpandingButton.collapsedColor,
-          end: widget.expansionColor ?? BldrsExpandingButton.expandedColor,
+          begin: widget.initialColor ?? ExpandingTile.collapsedColor,
+          end: widget.expansionColor ?? ExpandingTile.expandedColor,
         );
       }
 
@@ -176,7 +169,7 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
     /// WHEN CAN NOT EXPAND IN INACTIVE MODE
     else {
       if (widget.onTileTap != null) {
-        widget.onTileTap!.call(_isExpanded.value);
+        widget.onTileTap?.call(_isExpanded.value);
       }
     }
 
@@ -197,16 +190,16 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
 
         /// PASS ON TILE TAP
         if (widget.onTileTap != null) {
-          widget.onTileTap!.call(_isExpanded.value);
+          widget.onTileTap?.call(_isExpanded.value);
         }
 
         /// ANIMATE FORWARD
         if (isExpanded == true) {
-          await _controller.forward();
+          await _controller?.forward();
         }
         /// ANIMATE BACKWARDS
         else {
-          await _controller.reverse().then<void>((dynamic value) {});
+          await _controller?.reverse().then<void>((dynamic value) {});
         }
 
       },
@@ -224,11 +217,11 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
     ///------------------------------------------------------------o
     // final double _iconSize = SubGroupTile.calculateTitleIconSize(icon: widget.icon);
 
-    final double _collapsedHeight = BldrsExpandingButton.getCollapsedHeight(
+    final double _collapsedHeight = ExpandingTile.getCollapsedHeight(
         collapsedHeight: widget.collapsedHeight,
     );
 
-    final double _bottomStripHeight = _collapsedHeight * 0.5;
+    // final double _bottomStripHeight = _collapsedHeight * 0.5;
     ///------------------------------------------------------------o
     return Center(
       child: Container(
@@ -236,34 +229,32 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
         // height: widget.height,
         width: widget.width,
         alignment: Alignment.topCenter,
-        margin: BldrsExpandingButton.getMargins(margin: widget.margin),
+        margin: ExpandingTile.getMargins(margin: widget.margin),
         // color: Colorz.bloodTest,
         child: AnimatedBuilder(
           key: const ValueKey<String>('ExpandingTile_AnimatedBuilder'),
-          animation: _controller.view,
+          animation: _controller!.view,
           builder: (BuildContext context, Widget? expansionColumn) {
 
-            final Color? _tileColor = _tileColorTween.evaluate(_easeInAnimation);
+            final Color? _tileColor = _tileColorTween?.evaluate(_easeInAnimation!);
 
             return CollapsedTile(
               tileWidth: widget.width,
               marginIsOn: false,
               collapsedHeight: _collapsedHeight,
               tileColor: _tileColor,
-              corners: BldrsExpandingButton.getCorners(corners: widget.corners),
-              firstHeadline: widget.firstHeadline,
-              secondHeadline: widget.secondHeadline,
-              icon: widget.icon,
-              iconSizeFactor: widget.iconSizeFactor,
+              corners: ExpandingTile.getCorners(corners: widget.corners),
               arrowColor: Colorz.white255,
               arrowTurns: _arrowTurns,
-              expandableHeightFactorAnimationValue: _easeInAnimation.value,
-              iconCorners: BldrsExpandingButton.cornersValue,
+              expandableHeightFactorAnimationValue: _easeInAnimation?.value,
+              iconCorners: ExpandingTile.cornersValue,
               searchText: widget.searchText,
               onTileTap: _toggleExpansion,
               onTileLongTap: widget.onTileLongTap,
               onTileDoubleTap: widget.onTileDoubleTap,
-              child: expansionColumn!,
+              tileBox: widget.tileBox,
+              sideBox: widget.sideBox,
+              child: expansionColumn,
             );
           },
 
@@ -273,7 +264,7 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
             valueListenable: _isExpanded,
             builder: (_, bool isExpanded, Widget? columnAndChildren){
 
-              final bool _closed = isExpanded == false && _controller.isDismissed == true;
+              final bool _closed = isExpanded == false && Mapper.boolIsTrue(_controller?.isDismissed) == true;
 
               /// NOTHING WHEN COLLAPSED
               if (_closed == true){
@@ -298,24 +289,23 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
                   child: widget.child,
                 ),
 
-                /// BOTTOM ARROW
-                GestureDetector(
-                  key: const ValueKey<String>('ExpandingTile_bottom_arrow'),
-                  onTap: _toggleExpansion,
-                  child: Container(
-                    width: widget.width,
-                    height: _bottomStripHeight,
-                    alignment: Alignment.center,
-                    child: BldrsBox(
-                      width: _bottomStripHeight,
-                      height: _bottomStripHeight,
-                      icon: Iconz.arrowUp,
-                      iconSizeFactor: _bottomStripHeight / 50,
-                      bubble: false,
-                    ),
-
-                  ),
-                ),
+                // /// BOTTOM ARROW
+                // GestureDetector(
+                //   key: const ValueKey<String>('ExpandingTile_bottom_arrow'),
+                //   onTap: _toggleExpansion,
+                //   child: Container(
+                //     width: widget.width,
+                //     height: _bottomStripHeight,
+                //     alignment: Alignment.center,
+                //     child: TalkBox(
+                //       width: _bottomStripHeight,
+                //       height: _bottomStripHeight,
+                //       icon: Iconz.arrowUp,
+                //       iconSizeFactor: _bottomStripHeight / 50,
+                //       bubble: false,
+                //     ),
+                //   ),
+                // ),
 
               ],
             ),

@@ -1,25 +1,21 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_non_collabsable_tile.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_button/d_collapsable_tile.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
+import 'c_non_collapsable_tile.dart';
+import 'd_collapsable_tile.dart';
 
-class BldrsExpandingButton extends StatelessWidget {
+class ExpandingTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BldrsExpandingButton({
-    required this.firstHeadline,
+  const ExpandingTile({
     required this.child,
     required this.width,
-    this.secondHeadline,
+    required this.sideBox,
+    required this.tileBox,
     this.collapsedHeight,
     this.maxHeight,
     this.scrollable = true,
-    this.icon,
-    this.iconSizeFactor = 1,
     this.onTileTap,
     this.initiallyExpanded = false,
     this.initialColor = Colorz.white10,
@@ -38,11 +34,8 @@ class BldrsExpandingButton extends StatelessWidget {
   final double? collapsedHeight;
   final double? maxHeight;
   final bool scrollable;
-  final String? icon;
-  final double iconSizeFactor;
+  final Widget sideBox;
   final bool initiallyExpanded;
-  final Verse firstHeadline;
-  final Verse? secondHeadline;
   final Color initialColor;
   final Color? expansionColor;
   final double? corners;
@@ -54,6 +47,7 @@ class BldrsExpandingButton extends StatelessWidget {
   final Function? onTileLongTap;
   final Function? onTileDoubleTap;
   final bool isCollapsable;
+  final Widget tileBox;
   // -----------------------------------------------------------------------------
 
   /// COLORS
@@ -64,8 +58,8 @@ class BldrsExpandingButton extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ColorTween getTileColorTween({
-    required Color collapsedColor,
-    required Color expansionColor,
+    required Color? collapsedColor,
+    required Color? expansionColor,
   }){
     return ColorTween(
       begin: getCollapsedColor(collapsedColor: collapsedColor),
@@ -77,14 +71,14 @@ class BldrsExpandingButton extends StatelessWidget {
   static Color getExpandedColor({
     required Color? expansionColor,
   }){
-    return expansionColor ?? BldrsExpandingButton.expandedColor;
+    return expansionColor ?? ExpandingTile.expandedColor;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Color getCollapsedColor({
     required Color? collapsedColor,
   }){
-    return collapsedColor ?? BldrsExpandingButton.collapsedColor;
+    return collapsedColor ?? ExpandingTile.collapsedColor;
   }
   // -----------------------------------------------------------------------------
 
@@ -95,13 +89,9 @@ class BldrsExpandingButton extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double calculateTitleIconSize({
-    required String? icon,
     required double? collapsedHeight
   }) {
-    final double _iconSize = icon == null ?
-    0
-        :
-    collapsedHeight ?? collapsedGroupHeight;
+    final double _iconSize = collapsedHeight ?? collapsedGroupHeight;
 
     return _iconSize;
   }
@@ -113,12 +103,10 @@ class BldrsExpandingButton extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   static double calculateTitleBoxWidth({
     required double tileWidth,
-    required String? icon,
     required double collapsedHeight,
   }) {
 
     final double _iconSize = calculateTitleIconSize(
-      icon: icon,
       collapsedHeight: collapsedHeight,
     );
 
@@ -141,7 +129,7 @@ class BldrsExpandingButton extends StatelessWidget {
   static double getCollapsedHeight({
     double? collapsedHeight,
   }){
-    return collapsedHeight ?? BldrsExpandingButton.collapsedGroupHeight;
+    return collapsedHeight ?? ExpandingTile.collapsedGroupHeight;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -183,7 +171,7 @@ class BldrsExpandingButton extends StatelessWidget {
 
   // --------------------
   static const double cornersValue = Ratioz.appBarCorner;
-  static BorderRadius borders = BldrsAppBar.corners;
+  static const BorderRadius borders = BorderRadius.all(Radius.circular(10));
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getCorners({
@@ -191,7 +179,7 @@ class BldrsExpandingButton extends StatelessWidget {
   }){
 
     if (corners == null) {
-      return BldrsExpandingButton.cornersValue;
+      return ExpandingTile.cornersValue;
     }
 
     else {
@@ -240,14 +228,10 @@ class BldrsExpandingButton extends StatelessWidget {
     if (isCollapsable == true){
       return CollapsableTile(
         key: const ValueKey('CollapsableTile'),
-        firstHeadline: firstHeadline,
         width: width,
-        secondHeadline: secondHeadline,
         collapsedHeight: collapsedHeight,
         maxHeight: maxHeight,
         scrollable: scrollable,
-        icon: icon,
-        iconSizeFactor: iconSizeFactor,
         onTileTap: onTileTap,
         initiallyExpanded: initiallyExpanded,
         initialColor: initialColor,
@@ -258,6 +242,8 @@ class BldrsExpandingButton extends StatelessWidget {
         searchText: searchText,
         onTileLongTap: onTileLongTap,
         onTileDoubleTap: onTileDoubleTap,
+        sideBox: sideBox,
+        tileBox: tileBox,
         child: child,
       );
     }
@@ -265,11 +251,8 @@ class BldrsExpandingButton extends StatelessWidget {
     else {
       return NonCollapsableTile(
         key: const ValueKey('NonCollapsableTile'),
-        firstHeadline: firstHeadline,
         width: width,
-        secondHeadline: secondHeadline,
-        icon: icon,
-        iconSizeFactor: iconSizeFactor,
+        sideBox: sideBox,
         onTileTap: onTileTap,
         expansionColor: expansionColor,
         corners: corners,

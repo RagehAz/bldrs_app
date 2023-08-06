@@ -52,7 +52,7 @@ class CollapsedTile extends StatelessWidget {
   final Function? onTileDoubleTap;
   /// --------------------------------------------------------------------------
   static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
-  static const double arrowBoxSize = ExpandingTile.arrowBoxSize;
+  static const double arrowBoxSize = BldrsExpandingButton.arrowBoxSize;
   static const double cornersValue = Ratioz.appBarCorner;
   static const Color collapsedColor = Colorz.white10;
   static const Color expandedColor = Colorz.blue80;
@@ -120,22 +120,22 @@ class CollapsedTile extends StatelessWidget {
                   /// Icon
                   if (icon != null)
                     BldrsBox(
-                      height: ExpandingTile.calculateTitleIconSize(
+                      height: BldrsExpandingButton.calculateTitleIconSize(
                           icon: icon,
                           collapsedHeight: collapsedHeight
                       ),
-                      width: ExpandingTile.calculateTitleIconSize(
+                      width: BldrsExpandingButton.calculateTitleIconSize(
                         icon: icon,
                         collapsedHeight: collapsedHeight,
                       ),
                       icon: icon,
                       iconSizeFactor: iconSizeFactor,
-                      corners: iconCorners ?? ExpandingTile.cornersValue,
+                      corners: iconCorners ?? BldrsExpandingButton.cornersValue,
                     ),
 
                   /// Tile title
                   Container(
-                    width: ExpandingTile.calculateTitleBoxWidth(
+                    width: BldrsExpandingButton.calculateTitleBoxWidth(
                       collapsedHeight: collapsedHeight ?? CollapsedTile.collapsedGroupHeight,
                       tileWidth: tileWidth,
                       icon: icon,

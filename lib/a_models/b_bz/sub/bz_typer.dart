@@ -239,6 +239,19 @@ class BzTyper {
       default:                  return Iconz.theSevenOwners;
     }
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getBzTypePublishesPhid(BzType bzType){
+    switch (bzType){
+      case BzType.designer:       return 'phid_designers_publish';
+      case BzType.contractor:     return 'phid_contractors_publish';
+      case BzType.artisan:        return 'phid_artisans_publish';
+      case BzType.manufacturer:   return 'phid_manufacturers_publish';
+      case BzType.supplier:       return 'phid_suppliers_publish';
+      case BzType.developer:      return 'phid_developers_publish';
+      case BzType.broker:         return 'phid_brokers_publish';
+    }
+  }
   // -----------------------------------------------------------------------------
 
   /// BZ TYPE CHECKERS

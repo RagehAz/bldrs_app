@@ -15,7 +15,7 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-
+ // D:\projects\packages\helpers\basics\lib\bldrs_theme\assets\languages
 class OnBoardingScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
   const OnBoardingScreen({
@@ -51,6 +51,34 @@ class OnBoardingScreen extends StatefulWidget {
   static double getPagesZoneHeight(){
     final double _bubbleHeight = getBubbleHeight();
     return _bubbleHeight - buttonZoneHeight - progressBarHeight;
+  }
+  // --------------------
+  static double getTitleBoxHeight(){
+    final double pageZoneHeight = getPagesZoneHeight();
+    return pageZoneHeight * 0.15;
+  }
+  // --------------------
+  static double getSpacingsSize(){
+    final double pageZoneHeight = getPagesZoneHeight();
+    return pageZoneHeight * 0.03;
+  }
+  // --------------------
+  static double getWheelDiameter(){
+    final double pageZoneHeight = getPagesZoneHeight();
+    return pageZoneHeight * 0.5;
+  }
+  // --------------------
+  static double getBelowWheelTextZoneHeight(){
+    final double pageZoneHeight = OnBoardingScreen.getPagesZoneHeight();
+    final double _titleBoxHeight = OnBoardingScreen.getTitleBoxHeight();
+    final double _topSpacingHeight = OnBoardingScreen.getSpacingsSize();
+    final double _circleDiameter = OnBoardingScreen.getWheelDiameter();
+    final double _middleSpacingHeight = _topSpacingHeight;
+    return pageZoneHeight
+        - _titleBoxHeight
+        - _topSpacingHeight
+        - _circleDiameter
+        - _middleSpacingHeight;
   }
   // -----------------------------------------------------------------------------
 
