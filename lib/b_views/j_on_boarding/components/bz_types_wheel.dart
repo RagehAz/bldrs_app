@@ -28,22 +28,12 @@ class BzTypesWheel extends StatelessWidget {
   final BzType? bzType;
   final Function(BzType? bzType) onBzTypeTap;
   // --------------------------------------------------------------------------
-  static const List<BzType> _bzTypes = [
-    BzType.designer,
-    BzType.contractor,
-    BzType.artisan,
-    BzType.manufacturer,
-    BzType.supplier,
-    BzType.developer,
-    BzType.broker,
-  ];
-  // --------------------
   int _getIndexByBzType(BzType bzType){
-    return _bzTypes.indexOf(bzType);
+    return BzTyper.bzTypesList.indexOf(bzType);
   }
   // --------------------
   static double getStepDegree(){
-    return 360 / _bzTypes.length;
+    return 360 / BzTyper.bzTypesList.length;
   }
   // --------------------
   static double getDegreeByType(BzType bzType){
@@ -282,9 +272,9 @@ class BzTypesWheel extends StatelessWidget {
             ),
             children: <Widget>[
 
-              ...List.generate(_bzTypes.length, (index){
+              ...List.generate(BzTyper.bzTypesList.length, (index){
 
-                final BzType _bzType = _bzTypes[index];
+                final BzType _bzType = BzTyper.bzTypesList[index];
 
                 final bool _isSelected = bzType == null ?
                 false

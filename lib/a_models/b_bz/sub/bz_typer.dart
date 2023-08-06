@@ -158,13 +158,13 @@ class BzTyper {
 
   // --------------------
   static const List<BzType> bzTypesList = <BzType>[
-    BzType.developer,
-    BzType.broker,
     BzType.designer,
     BzType.contractor,
     BzType.artisan,
     BzType.manufacturer,
     BzType.supplier,
+    BzType.developer,
+    BzType.broker,
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
