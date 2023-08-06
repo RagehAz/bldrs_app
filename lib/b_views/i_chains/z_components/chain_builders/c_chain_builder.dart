@@ -93,7 +93,7 @@ class ChainBuilder extends StatelessWidget {
       key: ValueKey<String>('ChainExpanderStarter_${chain.id}'),
       boxWidth: boxWidth,
       inverseAlignment: inverseAlignment,
-      child: ExpandingTile(
+      child: BldrsExpandingButton(
         key: PageStorageKey<String>('${chain.id}'),
         width: boxWidth,
         isDisabled: deactivated,

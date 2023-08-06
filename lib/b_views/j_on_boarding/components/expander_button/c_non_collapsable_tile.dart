@@ -1,19 +1,14 @@
 import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-
+import 'package:basics/bubbles/model/bubble_header_vm.dart';
 import 'package:flutter/material.dart';
+import 'b_expanding_tile.dart';
 
 class NonCollapsableTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NonCollapsableTile({
-    required this.firstHeadline,
     required this.child,
     required this.width,
-    required this.secondHeadline,
-    required this.icon,
-    required this.iconSizeFactor,
+    required this.sideBox,
     required this.onTileTap,
     required this.expansionColor,
     required this.corners,
@@ -25,10 +20,7 @@ class NonCollapsableTile extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double width;
-  final String? icon;
-  final double iconSizeFactor;
-  final Verse? firstHeadline;
-  final Verse? secondHeadline;
+  final Widget sideBox;
   final Color? expansionColor;
   final double? corners;
   final Widget child;
@@ -43,20 +35,15 @@ class NonCollapsableTile extends StatelessWidget {
 
     return Bubble(
       width: width,
-      bubbleColor: BldrsExpandingButton.getExpandedColor(expansionColor: expansionColor),
-      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-        context: context,
-        headlineVerse: Verse(
-          id: firstHeadline?.id,
-          translate: firstHeadline?.translate,
-          notifier: searchText,
-        ),
-        leadingIcon: icon,
-        leadingIconSizeFactor: iconSizeFactor,
+      bubbleColor: ExpandingTile.getExpandedColor(expansionColor: expansionColor),
+      bubbleHeaderVM: const BubbleHeaderVM(
+        // headlineText: firstHeadline,
+        // leadingIcon: icon,
+        // leadingIconSizeFactor: iconSizeFactor,
 
       ),
-      corners: BldrsExpandingButton.getCorners(corners: corners),
-      margin: BldrsExpandingButton.getMargins(margin: margin),
+      corners: ExpandingTile.getCorners(corners: corners),
+      margin: ExpandingTile.getMargins(margin: margin),
       // onBubbleTap: null, //() => onTileTap(true),
       childrenCentered: true,
       // areTopCentered: true,

@@ -191,6 +191,7 @@ class BzTypesWheel extends StatelessWidget {
           width: _circleDiameter,
           height: _circleDiameter,
           pic: BzTyper.getTheSevenArtwork(bzType),
+          // iconColor: Colorz.yellow255,
         ),
 
         /// WHEEL

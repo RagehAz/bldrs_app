@@ -27,13 +27,13 @@ class PhidsButtonsList extends StatelessWidget {
 
     return Container(
       width: buttonWidth,
-      height: ExpandingTile.collapsedTileHeight * phids.length,
+      height: BldrsExpandingButton.collapsedTileHeight * phids.length,
       margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
       color: Colorz.bloodTest,
       child: ListView.builder(
         // physics: const NeverScrollableScrollPhysics(),
         itemCount: phids.length,
-        itemExtent: ExpandingTile.collapsedTileHeight + Ratioz.appBarPadding,
+        itemExtent: BldrsExpandingButton.collapsedTileHeight + Ratioz.appBarPadding,
         // shrinkWrap: false,
         // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
         itemBuilder: (BuildContext ctx, int index) {
@@ -55,7 +55,7 @@ class PhidsButtonsList extends StatelessWidget {
           );
 
           return BldrsBox(
-            height: ExpandingTile.collapsedTileHeight,
+            height: BldrsExpandingButton.collapsedTileHeight,
             width: buttonWidth - (Ratioz.appBarMargin * 2),
             icon: _icon,
             verse: Verse.plain(_enName),
@@ -65,7 +65,7 @@ class PhidsButtonsList extends StatelessWidget {
             bubble: false,
             color: Colorz.white20,
             margins: const EdgeInsets.only(
-                bottom: ExpandingTile.buttonVerticalPadding
+                bottom: BldrsExpandingButton.buttonVerticalPadding
             ),
             onTap: () async {
               await onPhidTap(_phid);

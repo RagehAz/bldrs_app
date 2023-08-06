@@ -89,7 +89,7 @@ class TopicsExpandingTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return ExpandingTile(
+    return BldrsExpandingButton(
       width: width ?? PageBubble.width(context),
       firstHeadline: Verse(
         id: groupName,
