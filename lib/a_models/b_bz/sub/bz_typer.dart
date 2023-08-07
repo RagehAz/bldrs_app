@@ -182,48 +182,19 @@ class BzTyper {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String? getBzTypeIconOff(BzType? bzType) {
+  static String? getBzTypeIcon(BzType? bzType) {
 
-    final String? icon = bzType == BzType.developer ? Iconz.bxPropertiesOff
-        :
-    bzType == BzType.broker ? Iconz.bxPropertiesOff
-        :
-    bzType == BzType.manufacturer ? Iconz.bxProductsOff
-        :
-    bzType == BzType.supplier ? Iconz.bxProductsOff
-        :
-    bzType == BzType.designer ? Iconz.bxDesignsOff
-        :
-    bzType == BzType.contractor ? Iconz.bxUndertakingOff
-        :
-    bzType == BzType.artisan ? Iconz.bxTradesOff
-        :
-    null;
+    switch (bzType){
+      case BzType.developer:    return Iconz.bzTypeDeveloper;
+      case BzType.broker:       return Iconz.bzTypeBroker;
+      case BzType.designer:     return Iconz.bzTypeDesigner;
+      case BzType.contractor:   return Iconz.bzTypeContractor;
+      case BzType.artisan:      return Iconz.bzTypeArtisan;
+      case BzType.manufacturer: return Iconz.bzTypeManufacturer;
+      case BzType.supplier:     return Iconz.bzTypeSupplier;
+      default: return null;
+    }
 
-    return icon;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String? getBzTypeIconOn(BzType? bzType) {
-
-    final String? icon =
-    bzType == BzType.developer ? Iconz.bxPropertiesOn
-        :
-    bzType == BzType.broker ? Iconz.bxPropertiesOn
-        :
-    bzType == BzType.manufacturer ? Iconz.bxProductsOn
-        :
-    bzType == BzType.supplier ? Iconz.bxProductsOn
-        :
-    bzType == BzType.designer ? Iconz.bxDesignsOn
-        :
-    bzType == BzType.contractor ? Iconz.bzUndertakingOn
-        :
-    bzType == BzType.artisan ? Iconz.bxTradesOn
-        :
-    null;
-
-    return icon;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
