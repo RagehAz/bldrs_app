@@ -63,7 +63,7 @@ class CWhatBldrsDo extends StatelessWidget {
                   translate: true,
                   casing: Casing.upperCase,
                 );
-                final String? _bzTypeIcon = BzTyper.getBzTypeIconOn(_bzType);
+                final String? _bzTypeIcon = BzTyper.getBzTypeIcon(_bzType);
                 final String _bzTypePublishesPhid = BzTyper.getBzTypePublishesPhid(_bzType);
                 final List<FlyerType> _flyerTypes = FlyerTyper.concludePossibleFlyerTypesByBzType(
                   bzType: _bzType,
@@ -84,58 +84,80 @@ class CWhatBldrsDo extends StatelessWidget {
                   child: WidgetFader(
                     fadeType: FadeType.fadeIn,
                     duration: const Duration(milliseconds: 1000),
-                    child: Container(
-                      width: _tileWidth,
-                      // height: _bzTypeIconSize + _wheelBoxHeight,
-                      decoration: const BoxDecoration(
-                        borderRadius: Borderers.constantCornersAll15,
-                        color: Colorz.white10,
-                      ),
-                      margin: const EdgeInsets.only(bottom: 5),
-                      child: Column(
-                        children: <Widget>[
+                    child: Center(
+                      child: Container(
+                        width: _tileWidth,
+                        // height: _bzTypeIconSize + _wheelBoxHeight,
+                        decoration: const BoxDecoration(
+                          borderRadius: Borderers.constantCornersAll15,
+                          color: Colorz.white10,
+                        ),
+                        margin: const EdgeInsets.only(bottom: 5),
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: <Widget>[
 
-                          /// TYPE AND
-                          BldrsBox(
-                            width: _tileWidth,
-                            icon: _bzTypeIcon,
-                            height: _bzTypeIconSize,
-                            verse: _bzTypeVerse,
-                            verseWeight: VerseWeight.thin,
-                            verseItalic: true,
-                            verseCentered: false,
-                            corners: BorderRadius.zero,
-                            verseScaleFactor: _bzTypeIconSize * 0.027,
-                            secondLine: Verse(
-                              id: _bzTypePublishesPhid,
-                              translate: true,
+                            /// TYPE AND
+                            Row(
+                              children: [
+
+                                /// ICON
+                                BldrsBox(
+                                  width: _bzTypeIconSize,
+                                  height: _bzTypeIconSize,
+                                  icon: _bzTypeIcon,
+                                  iconColor: Colorz.black255,
+                                  color: Colorz.yellow255,
+                                  iconSizeFactor: 0.7,
+                                  secondVerseMaxLines: 1,
+                                  corners: _bzTypeIconSize * 0.4,
+                                  bubble: false,
+                                ),
+
+                                /// TEXT
+                                BldrsBox(
+                                  width: _tileWidth - _bzTypeIconSize,
+                                  height: _bzTypeIconSize,
+                                  verse: _bzTypeVerse,
+                                  verseWeight: VerseWeight.thin,
+                                  verseItalic: true,
+                                  verseCentered: false,
+                                  corners: BorderRadius.zero,
+                                  verseScaleFactor: 0.7,
+                                  secondLine: Verse(
+                                    id: _bzTypePublishesPhid,
+                                    translate: true,
+                                  ),
+                                  secondVerseMaxLines: 1,
+                                  bubble: false,
+                                ),
+
+                              ],
                             ),
-                            secondVerseMaxLines: 1,
-                            bubble: false,
-                          ),
 
-                          /// PHIDS WHEELS
-                          ...List.generate(_flyerTypes.length, (index){
+                            /// PHIDS WHEELS
+                            ...List.generate(_flyerTypes.length, (index){
 
-                            final List<String> _phids = ChainProtocols.superGetAllPhidsByFlyerType(
-                              flyerType: _flyerTypes[index],
-                              onlyUseZoneChains: false,
-                            );
+                              final List<String> _phids = ChainProtocols.superGetAllPhidsByFlyerType(
+                                flyerType: _flyerTypes[index],
+                                onlyUseZoneChains: false,
+                              );
 
-                            return WidgetWaiter(
-                              waitDuration: Duration(milliseconds: 1500 * index),
-                              child: PhidsWheel(
-                                width: _tileWidth,
-                                height: _wheelBoxHeight,
-                                phids: _phids,
-                                autoRotate: false,
-                              ),
-                            );
+                              return WidgetWaiter(
+                                waitDuration: Duration(milliseconds: 1500 * index),
+                                child: PhidsWheel(
+                                  width: _tileWidth,
+                                  height: _wheelBoxHeight,
+                                  phids: _phids,
+                                  autoRotate: false,
+                                ),
+                              );
 
-                          }),
+                            }),
 
 
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

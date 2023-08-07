@@ -282,7 +282,7 @@ class BzTypesWheel extends StatelessWidget {
                 :
                 index == _getIndexByBzType(bzType!);
 
-                final String _icon = BzTyper.getBzTypeIconOff(_bzType)!
+                final String _icon = BzTyper.getBzTypeIcon(_bzType)!
                 ;
 
                 return BldrsBox(
@@ -291,7 +291,7 @@ class BzTypesWheel extends StatelessWidget {
                   verseMaxLines: 3,
                   corners: _bzTypeCircleSize * 0.5,
                   icon: _icon,
-                  iconSizeFactor: 0.7,
+                  iconSizeFactor: 0.6,
                   color: _isSelected == true ? Colorz.yellow255 : Colorz.white10,
                   iconColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
                   onTap: () async {
