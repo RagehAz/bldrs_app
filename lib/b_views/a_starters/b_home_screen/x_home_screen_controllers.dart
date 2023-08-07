@@ -195,10 +195,8 @@ List<NavModel?> generateMainNavModels({
       icon: Iconz.bldrsNameSquare,
       iconSizeFactor: 0.6,
       iconColor: Colorz.nothing,
-      screen: () => Nav.goToNewScreen(
-          context: getMainContext(),
-          pageTransitionType: PageTransitionType.scale,
-          screen: const OnBoardingScreen(),
+      screen: () => OnBoardingScreen.goToOnboardingScreen(
+        showDontShowAgainButton: false,
       ),
     ),
 

@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
@@ -90,6 +91,7 @@ class _PDFScreenState extends State<PDFScreen> {
       ),
       appBarType: AppBarType.basic,
       progressBarModel: _progressBarModel,
+      skyType: SkyType.black,
       child: PageBubble(
         appBarType: AppBarType.basic,
         screenHeightWithoutSafeArea: Scale.screenHeight(context),
