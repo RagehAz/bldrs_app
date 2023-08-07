@@ -107,7 +107,7 @@ class BzSearchFiltersList extends StatelessWidget {
             ),
             translate: true,
           ),
-          itemIcon: (dynamic type) => BzTyper.getBzTypeIconOff(type),
+          itemIcon: (dynamic type) => BzTyper.getBzTypeIcon(type),
           onItemTap: (dynamic type) {
             final BzType _bzType = type;
             onBzTypeTap(_bzType);
