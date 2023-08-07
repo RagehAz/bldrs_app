@@ -71,6 +71,7 @@ class LDBDoc {
       case 'test': return 'id';
 
       case LDBDoc.gta: return 'id';
+      case LDBDoc.onboarding: return 'id';
       // -------------
       default: return 'id';
     }
@@ -122,6 +123,7 @@ class LDBDoc {
   // --------------------
   /// GTA
   static const String gta = 'gta';
+  static const String onboarding = 'onboarding';
 
   // -----------------------------------------------------------------------------
 
@@ -167,6 +169,7 @@ class LDBDoc {
     theLastWipe,
     appState,
     langCode,
+    onboarding,
 
     'headline: Dashboard',
     gta,
@@ -211,6 +214,7 @@ class LDBDoc {
     required bool theLastWipe,
     required bool appState,
     required bool langCode,
+    required bool onboarding,
     /// DASHBOARD
     required bool gta,
   }) async {
@@ -249,6 +253,7 @@ class LDBDoc {
     if (theLastWipe == true) {_docs.add(LDBDoc.theLastWipe);}
     if (appState == true) {_docs.add(LDBDoc.appState);}
     if (langCode == true) {_docs.add(LDBDoc.langCode);}
+    if (onboarding == true) {_docs.add(LDBDoc.onboarding);}
     /// DASHBOARD
     if (gta == true){_docs.add(LDBDoc.gta);}
 
@@ -297,6 +302,7 @@ class LDBDoc {
       authorEditor: false,
       flyerMaker: false,
       reviewEditor: false,
+      onboarding: false,
 
       theLastWipe: false,
     );

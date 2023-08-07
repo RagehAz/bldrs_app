@@ -1,4 +1,5 @@
 import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -158,11 +159,31 @@ class UiInitializer {
         theLastWipe: false, // no need to wipe
         appState: false, // no need to wipe
         langCode: false, // no need to wipe
+        onboarding: false,
         /// GTA
         gta: false, // this is for dashboard
       );
 
     }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// ONBOARDING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> initializeOnBoarding() async {
+
+    final bool autoOnBoardingIsActive = await OnBoardingScreen.autoOnBoardingIsActive();
+
+      if (autoOnBoardingIsActive == true){
+
+        await OnBoardingScreen.goToOnboardingScreen(
+          showDontShowAgainButton: true,
+        );
+
+      }
 
   }
   // -----------------------------------------------------------------------------
