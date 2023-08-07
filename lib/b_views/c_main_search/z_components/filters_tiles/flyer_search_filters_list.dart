@@ -145,7 +145,7 @@ class FlyersSearchFiltersList extends StatelessWidget {
 
       /// HAS PDF
       FilterBoolTile(
-        icon: Iconz.pfd,
+        icon: Iconz.pdf,
         verse: const Verse(
           id: 'phid_only_flyers_with_pdf',
           translate: true,
