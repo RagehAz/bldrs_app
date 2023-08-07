@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/a_starters/b_home_screen/x_notes_controllers.dart'
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/super_pyramids.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
+import 'package:bldrs/c_protocols/app_initialization_protocols/e_ui_initializer.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -111,6 +112,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
         /// DYNAMIC LINKS
         await DynamicLinks.initDynamicLinks();
+
+        await UiInitializer.initializeOnBoarding();
 
       });
 

@@ -1,29 +1,98 @@
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/c_strips.dart';
 import 'package:bldrs/b_views/j_on_boarding/p1_what_is_bldrs.dart';
 import 'package:bldrs/b_views/j_on_boarding/p2_who_are_bldrs.dart';
 import 'package:bldrs/b_views/j_on_boarding/p3_what_bldrs_do.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:flutter/material.dart';
  // D:\projects\packages\helpers\basics\lib\bldrs_theme\assets\languages
 class OnBoardingScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
   const OnBoardingScreen({
+    required this.showDontShowAgainButton,
     super.key,
   });
   // -----------------------------------------------------------------------------
+  final bool showDontShowAgainButton;
+  // -----------------------------------------------------------------------------
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
+  // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> goToOnboardingScreen({
+    required bool showDontShowAgainButton,
+  }) async {
+
+      final bool? _switchOffAutoOnboarding = await Nav.goToNewScreen(
+        context: getMainContext(),
+        pageTransitionType: PageTransitionType.scale,
+        screen: OnBoardingScreen(
+          showDontShowAgainButton: showDontShowAgainButton,
+        ),
+      );
+
+      if (Mapper.boolIsTrue(_switchOffAutoOnboarding) == true){
+
+        await OnBoardingScreen.setAutoOnboarding(
+          isActive: false,
+        );
+
+      }
+
+    }
+  // --------------------
+  static const String _onboardingFieldName = 'onboarding';
+  static const String _autoShowFieldName = 'autoShow';
+  static const String _onBoardingLDBMapPrimaryKey = 'id';
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> autoOnBoardingIsActive() async {
+
+    final Map<String, dynamic>? _onBoardingMap = await LDBOps.readMap(
+        docName: LDBDoc.onboarding,
+        primaryKey: _onBoardingLDBMapPrimaryKey,
+        id: _onboardingFieldName,
+    );
+
+    final bool _autoOnboardingIsActive = _onBoardingMap == null
+        ||
+        _onBoardingMap[_autoShowFieldName] == true;
+
+    return _autoOnboardingIsActive;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> setAutoOnboarding({
+    required bool isActive,
+  }) async {
+
+    final Map<String, dynamic> _newMap = {
+      _onBoardingLDBMapPrimaryKey: _onboardingFieldName,
+      _autoShowFieldName : isActive,
+    };
+
+    await LDBOps.insertMap(
+      docName: LDBDoc.onboarding,
+      primaryKey: 'id',
+      input: _newMap,
+    );
+
+  }
   // -----------------------------------------------------------------------------
 
   /// BUBBLE SIZE
@@ -216,17 +285,44 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         context: context
     );
   }
+  // --------------------
+  Future<void> _onDontShowAgain() async {
+
+    final bool _result = await Dialogs.confirmProceed(
+      titleVerse: const Verse(
+        id: 'phid_hide_this_dialog_forever_?',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        id: 'phid_find_onboarding_in_main_menu',
+        translate: true,
+      ),
+      yesVerse: const Verse(
+        id: 'phid_yes_hide',
+        translate: true,
+      ),
+      noVerse: const Verse(
+        id: 'phid_cancel',
+        translate: true,
+      ),
+    );
+
+    if (_result == true){
+    await Nav.goBack(
+      context: context,
+      passedData: true,
+    );
+    }
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _bubbleWidth = OnBoardingScreen.getBubbleWidth();
     final double _bubbleHeight = OnBoardingScreen.getBubbleHeight();
-
     final double _pagesZoneHeight = OnBoardingScreen.getPagesZoneHeight();
-
     final double _progressBarWidth = OnBoardingScreen.getProgressBarWidth();
-
     final double _buttonHeight = OnBoardingScreen.getButtonHeight();
 
     return Material(
@@ -324,6 +420,39 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 onTap: _onSkip,
                               ),
 
+                              /// DON'T SHOW ONBOARDING AGAIN
+                              if (widget.showDontShowAgainButton == true && _isAtLast == true)
+                              FutureBuilder(
+                                future: OnBoardingScreen.autoOnBoardingIsActive(),
+                                builder: (_, AsyncSnapshot<bool> autoShow) {
+
+                                  if (Mapper.boolIsTrue(autoShow.data) == true){
+                                    return Container(
+                                      height: _buttonHeight,
+                                      alignment: Alignment.bottomCenter,
+                                      child: BldrsText(
+                                        width: 80,
+                                        verse: const Verse(
+                                          id: 'phid_dont_show_again',
+                                          translate: true,
+                                        ),
+                                        weight: VerseWeight.thin,
+                                        labelColor: Colorz.blue20,
+                                        scaleFactor: _buttonHeight * 0.015,
+                                        maxLines: 2,
+                                        onTap: _onDontShowAgain,
+                                      ),
+                                    );
+                                  }
+
+                                  else {
+                                    return const SizedBox();
+                                  }
+
+
+                                }
+                              ),
+
                               /// NEXT
                               BldrsBox(
                                 height: _buttonHeight,
@@ -361,4 +490,5 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     );
 
   }
+
 }
