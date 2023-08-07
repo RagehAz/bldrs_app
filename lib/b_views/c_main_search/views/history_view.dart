@@ -146,7 +146,7 @@ class SearchHistoryView extends StatelessWidget {
 
                       if (Mapper.boolIsTrue(_model.flyerSearchModel?.onlyWithPDF) == true)
                         const HistoryLine(
-                            icon: Iconz.pfd,
+                            icon: Iconz.pdf,
                             verse: Verse(
                               id: 'phid_only_flyers_with_pdf',
                               translate: true,

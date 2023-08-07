@@ -161,7 +161,7 @@ class NewSlideImagePickerButton extends StatelessWidget {
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
       flyerBoxWidth: _flyerBoxWidth,
     );
-    const double _spacing = 30;
+    const double _spacing = 15;
     const double _buttonWidth = _flyerBoxWidth - (_spacing * 2);
     final double _buttonHeight = (_flyerBoxHeight - (_spacing * 3)) * 0.5;
     // --------------------
