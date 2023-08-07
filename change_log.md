@@ -1,3 +1,11 @@
+### 2.0.0
+1. Added Spanish, Italian, Dutch, French & Chinese languages
+2. Added app description onboarding pages
+3. added more icons, adjusted fond & app colors
+4. overall performance upgrades
+5. Improved image compression and rendering algorithms
+6. updated flyer poster design
+
 ### 1.4.0
 1. removed flyer outer shadow to increase performance
 2. fixed home page flyers flickering
