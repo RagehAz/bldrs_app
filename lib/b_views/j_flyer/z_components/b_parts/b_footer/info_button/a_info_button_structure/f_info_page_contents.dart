@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
@@ -139,12 +140,24 @@ class InfoPageContents extends StatelessWidget {
                       final String _name = _pdfModel == null ? '' : '${_pdfModel.name}.pdf';
 
                       return BldrsBox(
-                        height: 30,
+                        height: 40,
                         width: _pageWidth - 20,
-                        color: Colorz.blue80,
-                        verse: Verse.plain(_name),
-                        verseScaleFactor: 0.6,
+                        color: Colorz.blue20,
+                        verse: Verse(
+                          id: _name,
+                          translate: false,
+                          casing: Casing.capitalizeFirstChar,
+                        ),
+                        // verseScaleFactor: 0.6,
+                        icon: Iconz.pdf,
+                        iconSizeFactor: 0.6,
+                        verseCentered: false,
                         isDisabled: _pdfModel == null,
+                        verseScaleFactor: 0.7/0.6,
+                        secondLine: const Verse(
+                          id: 'phid_pdf_attachment',
+                          translate: true,
+                        ),
                         onTap: () async {
 
                           await Nav.goToNewScreen(
