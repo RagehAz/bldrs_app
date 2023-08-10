@@ -18,7 +18,58 @@ class Launcher {
   // -----------------------------------------------------------------------------
 
   const Launcher();
+  // -----------------------------------------------------------------------------
 
+  /// CLEANUPS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? cleanURL(String? link){
+    String? _output;
+
+    if (TextCheck.isEmpty(link) == false) {
+
+      /// LINK SHOULD CONTAIN 'http://' to work
+      final bool _containsHttp = TextCheck.stringContainsSubString(
+        string: link,
+        subString: 'http://',
+      );
+
+      final bool _containsHttps = TextCheck.stringContainsSubString(
+        string: link,
+        subString: 'https://',
+      );
+
+      if (_containsHttp == true || _containsHttps == true) {
+        _output = link!;
+      }
+      else {
+        _output = 'http://$link';
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Uri? getURIFromLink(String? link){
+    Uri? _output;
+
+    final String? _link = cleanURL(link);
+
+    if (_link != null) {
+      _output = Uri.parse(_link);
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Rect _getShareRect(){
+    final RenderBox? _box = getMainContext().findRenderObject() as RenderBox;
+    return _box!.localToGlobal(Offset.zero) & _box.size;
+  }
   // -----------------------------------------------------------------------------
 
   /// JOKER
@@ -37,18 +88,20 @@ class Launcher {
       }
       /// WEB LINK
       else if (ContactModel.checkIsWebLink(contact.type) == true){
-        blog('AuthorCard._onContactTap: contactModel WEB LINK: $contact.value');
-        await launchURL(contact.value);
+        await shareURL(
+          url: contact.value,
+          subject: 'Bldr Contact',
+        );
       }
       /// EMAIL
       else if (contact.type == ContactType.email){
-        blog('AuthorCard._onContactTap: contactModel EMAIL: $contact.value');
         await _launchEmail(
           email: contact.value,
           // emailBody: '',
           // emailSubject: '',
         );
       }
+
       /// OBLIVION
       else {
         blog('will do nothing for this ${contact.type}');
@@ -62,31 +115,16 @@ class Launcher {
   /// LAUNCH URL
 
   // --------------------
+  /// DEPRECATED IN FAVOR OF [ shareURL ]
+  /*
   /// TESTED : WORKS PERFECT
   static Future<bool> launchURL(String? link) async {
 
-    Uri _uri;
     bool _success = false;
 
-    if (TextCheck.isEmpty(link) == false){
+    final Uri? _uri = _getURIFromLink(link);
 
-      /// LINK SHOULD CONTAIN 'http://' to work
-      final bool _containsHttp = TextCheck.stringContainsSubString(
-        string: link,
-        subString: 'http://',
-      );
-
-      final bool _containsHttps = TextCheck.stringContainsSubString(
-        string: link,
-        subString: 'https://',
-      );
-
-      if (_containsHttp == true || _containsHttps == true){
-        _uri = Uri.parse(link!);
-      }
-      else {
-        _uri = Uri.parse('http://$link');
-      }
+    if (_uri != null){
 
       if (await Launch.canLaunchUrl(_uri) == true) {
 
@@ -98,8 +136,48 @@ class Launcher {
         ));
         _success = true;
       }
+
       else {
         blog('Can Not launch link');
+      }
+
+    }
+
+    return _success;
+  }
+   */
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> shareURL({
+    required String? url,
+    required String? subject,
+  }) async {
+    bool _success = false;
+
+    final String? _url = cleanURL(url);
+
+    if (_url != null){
+
+      if (DeviceChecker.deviceIsWindows() == false){
+
+        final ShareResult _result = await Share.shareWithResult(
+          _url,
+          subject: subject,
+          sharePositionOrigin: _getShareRect(),
+        );
+
+        if (_result.status == ShareResultStatus.success){
+          _success = true;
+        }
+
+        // blogShareResult(_result);
+        // ShareResultStatus.dismissed;
+        // ShareResultStatus.success;
+        // ShareResultStatus.unavailable;
+
+      }
+      else {
+        blog('cant share on windows');
       }
 
     }
@@ -230,7 +308,10 @@ class Launcher {
       await _launchAppleAppStore(iosAppID: iosAppID);
     }
     else if (TextCheck.isEmpty(webSite) == false){
-      await launchURL(webSite);
+      await shareURL(
+        url: webSite,
+        subject: 'Bldrs.net, Download now',
+      );
     }
 
   }
@@ -284,33 +365,8 @@ class Launcher {
   }
   // -----------------------------------------------------------------------------
 
-  /// SHARING
+  /// FILE SHARING
 
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> shareURL({
-    required String? url,
-    required String? subject,
-  }) async {
-
-    if (url != null && subject != null){
-
-      if (DeviceChecker.deviceIsWindows() == false){
-        final RenderBox? _box = getMainContext().findRenderObject() as RenderBox;
-        // final String url = '${flyerLink.url} & ${flyerLink.description}';
-        await Share.share(
-          url,
-          subject: subject,
-          sharePositionOrigin: _box!.localToGlobal(Offset.zero) & _box.size,
-        );
-      }
-      else {
-        blog('cant share on windows');
-      }
-
-    }
-
-  }
   // --------------------
   /// TASK : TEST ME
   static Future<void> shareFile({

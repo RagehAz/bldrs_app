@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -91,20 +93,17 @@ Future<void> onShareFlyer({
 
     blog('_shareLink : $_shareLink');
 
-    await Future.wait(<Future>[
+    final bool _success = await  Launcher.shareURL(
+      url: _shareLink,
+      subject: flyerModel.headline,
+    );
 
-      Launcher.shareURL(
-        url: _shareLink,
-        subject: flyerModel.headline,
-      ),
-
-      if (Authing.userIsSignedUp(_user?.signInMethod) == true)
-      RecorderProtocols.onShareFlyer(
+    if (_success == true && Authing.userIsSignedUp(_user?.signInMethod) == true) {
+      unawaited(RecorderProtocols.onShareFlyer(
         flyerID: flyerModel.id,
         bzID: flyerModel.bzID,
-      ),
-
-    ]);
+      ));
+    }
 
     setNotifier(
       notifier: isSharing,

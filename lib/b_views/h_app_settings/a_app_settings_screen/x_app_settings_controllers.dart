@@ -20,6 +20,7 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
@@ -65,14 +66,20 @@ Future<void> onFeedbackTap() async {
 /// TESTED : WORKS PERFECT
 Future<void> onTermsAndTap() async {
 
-  await Launcher.launchURL(Standards.termsAndRegulationsURL);
+  await Launcher.shareURL(
+    url: Standards.termsAndRegulationsURL,
+    subject: getWord('phid_terms_and_conditions'),
+  );
 
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onPrivacyTap() async {
 
-  await Launcher.launchURL(Standards.privacyPolicyURL);
+  await Launcher.shareURL(
+    url: Standards.privacyPolicyURL,
+    subject: getWord('phid_privacy_policy'),
+  );
 
 }
 // --------------------
