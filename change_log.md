@@ -1,3 +1,8 @@
+### 2.1.0
+1. On boarding screens ui fixes
+2. translations fixes
+3. flyer poster refresh button added in flyer maker screen to refresh the rendered poster before publishing
+
 ### 2.0.0
 1. Added Spanish, Italian, Dutch, French & Chinese languages
 2. Added app description onboarding pages
