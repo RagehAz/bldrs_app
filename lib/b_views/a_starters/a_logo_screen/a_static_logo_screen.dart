@@ -100,7 +100,7 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.non,
-      skyType: SkyType.non,
+      skyType: SkyType.stars,
       pyramidType: PyramidType.crystalYellow,
       loading: _loading,
       canGoBack: false,
