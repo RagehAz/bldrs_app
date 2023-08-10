@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
@@ -17,6 +18,12 @@ class AWhatIsBldrsPage extends StatelessWidget {
     // --------------------
     final double width = OnBoardingScreen.getBubbleWidth();
     final double pageZoneHeight = OnBoardingScreen.getPagesZoneHeight();
+
+    final double _logoWidth = Scale.responsive(
+        context: context,
+        landscape: Scale.screenShortestSide(context) * 0.4,
+        portrait: Scale.screenShortestSide(context) * 0.5,
+    );
     // --------------------
     return FloatingList(
       width: width,
@@ -25,32 +32,34 @@ class AWhatIsBldrsPage extends StatelessWidget {
 
         /// LOGO
         BldrsBox(
-          width: pageZoneHeight * 0.4,
-          height: pageZoneHeight * 0.4,
+          width: _logoWidth,
+          height: _logoWidth,
           icon: Iconz.bldrsNameSquare,
           // loading: false,
           bubble: false,
         ),
 
-        const BldrsText(
-            verse: Verse(
+        BldrsText(
+          width: _logoWidth,
+            verse: const Verse(
               id: 'phid_bldrs_is',
               translate: true,
             ),
           maxLines: 10,
-          margin: EdgeInsets.only(
-            bottom: 10,
-            right: 20,
-            left: 20,
-          ),
+          scaleFactor: _logoWidth * 0.0048,
+          // margin: const EdgeInsets.only(
+          //   bottom: 10,
+          //   right: 30,
+          //   left: 30,
+          // ),
         ),
 
-        const BldrsBox(
-          height: 35,
-          width: 35,
+        BldrsBox(
+          height: _logoWidth * 0.15,
+          width: _logoWidth * 0.15,
           bubble: false,
           icon: Iconz.planet,
-          margins: 10,
+          margins: 20,
         ),
 
       ],
