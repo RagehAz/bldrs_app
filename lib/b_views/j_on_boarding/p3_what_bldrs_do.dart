@@ -30,7 +30,7 @@ class CWhatBldrsDo extends StatelessWidget {
     final double _tileWidth = width - _bzTypeIconSize;
     // const double _titleMargin = 5;
 
-    const double _wheelBoxHeight = 50;
+    const double _wheelBoxHeight = 60;
     // --------------------
     return FloatingList(
       width: width,
@@ -123,7 +123,7 @@ class CWhatBldrsDo extends StatelessWidget {
                                   verseItalic: true,
                                   verseCentered: false,
                                   corners: BorderRadius.zero,
-                                  verseScaleFactor: 0.7,
+                                  verseScaleFactor: 0.75,
                                   secondLine: Verse(
                                     id: _bzTypePublishesPhid,
                                     translate: true,
