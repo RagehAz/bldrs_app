@@ -83,10 +83,11 @@ class DeviceModel {
   static String? getPlatformIcon(String? platform){
 
     switch(platform){
-      case 'web':       return Iconz.comWebsite;
-      case 'android':   return Iconz.comGooglePlay;
-      case 'ios':       return Iconz.comApple;
-      case 'windows':   return Iconz.star;
+      case 'web':       return Iconz.platformWeb;
+      case 'android':   return Iconz.platformAndroid;
+      case 'ios':       return Iconz.comApple; // Iconz.platformIOS;
+      case 'windows':   return Iconz.platformWindows;
+      case 'macos':     return Iconz.platformMACOS;
       default: return null;
     }
 
