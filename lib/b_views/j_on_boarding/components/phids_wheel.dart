@@ -64,9 +64,11 @@ class NonAnimatedPhidsWheel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
+    final double _phidWidth = width / 2;
+    // --------------------
     return SizedBox(
       width: width,
-      height: 40,
+      height: height,
       // color: Colorz.blue80,
       // alignment: Alignment.center,
       child: WheelChooser.custom(
@@ -75,7 +77,7 @@ class NonAnimatedPhidsWheel extends StatelessWidget {
         /// WHEN INCREASED SHRINKS SPACING
         // squeeze: 1,
         /// 0.0005 IS FLAT - 0.01 IS MAXIMUM WHEEL CURVATURE
-        // perspective: 0.01, // is best value to avoid top and bottom flickering
+        perspective: 0.008, // is best value to avoid top and bottom flickering
         /// FLICKERS THE SCROLLING AND FUCKS EVERYTHING WHEN AT 0.1
         magnification: 0.001,
         // ------------------------
@@ -91,7 +93,7 @@ class NonAnimatedPhidsWheel extends StatelessWidget {
         /// SIZING
         // ------
         listHeight: height,
-        itemSize: 100,
+        itemSize: _phidWidth,
         listWidth: width,
         // ------------------------
         /// SIZING
@@ -109,8 +111,8 @@ class NonAnimatedPhidsWheel extends StatelessWidget {
             final Verse? _verse = getVerse(_phid);
             final String? _icon = ChainsProvider.proGetPhidIcon(son: _phid);
             return BldrsBox(
-              height: 30,
-              width: 100,
+              height: height * 0.7,
+              width: _phidWidth,
               icon: _icon,
               verse: _verse,
               verseMaxLines: 2,
@@ -212,9 +214,11 @@ class _AutoAnimatedPhidsWheelState extends State<AutoAnimatedPhidsWheel> {
   @override
   Widget build(BuildContext context) {
     // --------------------
+    final double _phidWidth = widget.width / 2;
+    // --------------------
     return SizedBox(
       width: widget.width,
-      height: 40,
+      height: widget.height,
       // color: Colorz.blue80,
       // alignment: Alignment.center,
       child: WheelChooser.custom(
@@ -240,7 +244,7 @@ class _AutoAnimatedPhidsWheelState extends State<AutoAnimatedPhidsWheel> {
         /// SIZING
         // ------
         listHeight: widget.height,
-        itemSize: 100,
+        itemSize: _phidWidth,
         listWidth: widget.width,
         // ------------------------
         /// SIZING
@@ -258,8 +262,8 @@ class _AutoAnimatedPhidsWheelState extends State<AutoAnimatedPhidsWheel> {
             final Verse? _verse = getVerse(_phid);
             final String? _icon = ChainsProvider.proGetPhidIcon(son: _phid);
             return BldrsBox(
-              height: 30,
-              width: 100,
+              height: widget.height * 0.7,
+              width: _phidWidth,
               icon: _icon,
               verse: _verse,
               verseMaxLines: 2,

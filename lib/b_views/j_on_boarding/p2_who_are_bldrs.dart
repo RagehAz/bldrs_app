@@ -6,7 +6,6 @@ import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
 import 'package:bldrs/b_views/j_on_boarding/components/bz_types_wheel.dart';
 import 'package:bldrs/b_views/j_on_boarding/components/onboarding_headline.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
@@ -109,8 +108,8 @@ class _BWhoAreBldrsState extends State<BWhoAreBldrs> {
         /// WHEEL
         BzTypesWheel(
           width: width,
-          bzType: _bzType,
           pageZoneHeight: pageZoneHeight,
+          bzType: _bzType,
           onBzTypeTap: (BzType? bzType){
             setState(() {
               _autoPlayMode = false;
@@ -125,9 +124,10 @@ class _BWhoAreBldrsState extends State<BWhoAreBldrs> {
         ),
 
         /// BZ TYPE NAME
-        BldrsBox(
-          width: width,
-          height: _textZoneHeight * 0.2,
+        BldrsText(
+          width: width * 0.9,
+          scaleFactor: _textZoneHeight * 0.01,
+          // height: _textZoneHeight * 0.2,
           verse: Verse(
             id: _bzType == null ? 'phid_owner': BzTyper.getBzTypePhid(
               bzType: _bzType,
@@ -137,11 +137,10 @@ class _BWhoAreBldrsState extends State<BWhoAreBldrs> {
             translate: true,
             casing: Casing.upperCase,
           ),
-          verseItalic: true,
-          verseScaleFactor: _textZoneHeight * 0.01,
-          verseColor: Colorz.yellow255,
-          verseShadow: true,
-          bubble: false,
+          italic: true,
+          maxLines: 2,
+          color: Colorz.yellow255,
+          shadow: true,
         ),
 
         /// PARAGRAPH
