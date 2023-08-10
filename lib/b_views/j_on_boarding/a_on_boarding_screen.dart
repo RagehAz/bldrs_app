@@ -431,14 +431,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                       height: _buttonHeight,
                                       alignment: Alignment.bottomCenter,
                                       child: BldrsText(
-                                        width: 80,
+                                        width: 100,
                                         verse: const Verse(
                                           id: 'phid_dont_show_again',
                                           translate: true,
                                         ),
                                         weight: VerseWeight.thin,
                                         labelColor: Colorz.blue20,
-                                        scaleFactor: _buttonHeight * 0.015,
+                                        scaleFactor: _buttonHeight * 0.02,
                                         maxLines: 2,
                                         onTap: _onDontShowAgain,
                                       ),

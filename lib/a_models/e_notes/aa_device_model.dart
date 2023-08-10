@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
@@ -77,6 +78,19 @@ class DeviceModel {
     'ios',
     'windows',
   ];
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? getPlatformIcon(String? platform){
+
+    switch(platform){
+      case 'web':       return Iconz.comWebsite;
+      case 'android':   return Iconz.comGooglePlay;
+      case 'ios':       return Iconz.comApple;
+      case 'windows':   return Iconz.star;
+      default: return null;
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// BLOGGING

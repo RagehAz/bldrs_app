@@ -11,6 +11,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/b_views/a_starters/c_error_screen/under_construction_screen.dart';
@@ -31,6 +32,7 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
@@ -586,7 +588,8 @@ class BldrsNav {
 
   }
    */
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> jumpToAuthScreen() async {
 
     await Nav.goToNewScreen(
@@ -601,6 +604,7 @@ class BldrsNav {
   /// OTHER SCREENS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> goToBldrsUnderConstructionScreen() async {
     await Nav.goToNewScreen(context: getMainContext(), screen: const BldrsUnderConstructionScreen());
   }
@@ -609,7 +613,8 @@ class BldrsNav {
   /// IMAGE
 
   // --------------------
-  static Future<void> goToImageFullScreen({
+  /// TESTED : WORKS PERFECT
+  static Future<void> goToImageFullScreenByBytes({
     required BuildContext context,
     required Uint8List bytes,
     required Dimensions dims,
@@ -621,6 +626,32 @@ class BldrsNav {
         screen: SlideFullScreen(
           image: bytes,
           imageSize: dims,
+          filter: ImageFilterModel.noFilter(),
+          title: Verse.plain(title),
+        ),
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> goToImageFullScreenByPath({
+    required BuildContext context,
+    required String? path,
+    required String? title,
+  }) async {
+
+    final PicModel? _pic = await PicProtocols.fetchPic(path);
+
+    _pic?.blogPic(invoker: 'ffff');
+
+    await Nav.goToNewScreen(
+        context: context,
+        screen: SlideFullScreen(
+          image: _pic?.bytes,
+          imageSize: Dimensions(
+            width: _pic?.meta?.width,
+            height: _pic?.meta?.height,
+          ),
           filter: ImageFilterModel.noFilter(),
           title: Verse.plain(title),
         ),

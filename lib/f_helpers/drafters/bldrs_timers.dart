@@ -51,7 +51,7 @@ class BldrsTimers {
 
     if (time != null){
       _output = '${getWord('phid_inn')} '
-                '${getWord('bldrsShortName')} '
+                '${getWord('phid_bldrsShortName')} '
                 '${getWord('phid_since')} : '
                 '${getWord(getMonthPhidByInt(time.month))} '
                 '${time.year}';
@@ -75,7 +75,7 @@ class BldrsTimers {
         // time.day != null
     ){
       _output = '${getWord('phid_inn')} '
-                '${getWord('phid_phid_bldrsShortName')} '
+                '${getWord('phid_bldrsShortName')} '
                 '${getWord('phid_since')} : '
                 '${time.day} '
                 '${getWord(getMonthPhidByInt(time.month))} '
@@ -121,6 +121,30 @@ class BldrsTimers {
       final String? _yyyy = '${time.year}';
 
       _output = '$_hh:$_mm $_ampm, $_day $_dd $_month $_yyyy';
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String generateString_in_bldrs_since_xx({
+    required DateTime? time,
+  }){
+    String _output = '';
+
+    if (
+        time != null
+    ){
+
+      final String _time = BldrsTimers.calculateSuperTimeDifferenceString(
+        from: time,
+        to: DateTime.now(),
+      );
+
+      _output = '${getWord('phid_inn')} '
+                '${getWord('phid_bldrsShortName')} '
+                '${getWord('phid_since')} : '
+                '$_time';
     }
 
     return _output;
