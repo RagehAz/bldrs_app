@@ -27,6 +27,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Albanie', id: 'alb'),
       Phrase(langCode: 'es', value: 'Albania', id: 'alb'),
       Phrase(langCode: 'zh', value: '阿尔巴尼亚', id: 'alb'),
+      Phrase(langCode: 'it', value: 'Albania', id: 'alb'),
     ],
   ),
 
@@ -50,6 +51,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Algérie', id: 'dza'),
       Phrase(langCode: 'es', value: 'Argelia', id: 'dza'),
       Phrase(langCode: 'zh', value: '阿尔及利亚', id: 'dza'),
+      Phrase(langCode: 'it', value: 'Algeria', id: 'dza'),
     ],
   ),
 
@@ -73,6 +75,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Samoa américaines', id: 'asm'),
       Phrase(langCode: 'es', value: 'Samoa Americana', id: 'asm'),
       Phrase(langCode: 'zh', value: '美属萨摩亚', id: 'asm'),
+      Phrase(langCode: 'it', value: 'Samoa Americane', id: 'asm'),
     ],
   ),
 
@@ -96,6 +99,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Andorre', id: 'and'),
       Phrase(langCode: 'es', value: 'Andorra', id: 'and'),
       Phrase(langCode: 'zh', value: '安道尔', id: 'and'),
+      Phrase(langCode: 'it', value: 'Andorra', id: 'and'),
     ],
   ),
 
@@ -119,6 +123,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Angola', id: 'ago'),
       Phrase(langCode: 'es', value: 'Angola', id: 'ago'),
       Phrase(langCode: 'zh', value: '安哥拉', id: 'ago'),
+      Phrase(langCode: 'it', value: 'Angola', id: 'ago'),
     ],
   ),
 
@@ -142,6 +147,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Antigua-et-Barbuda', id: 'atg'),
       Phrase(langCode: 'es', value: 'Antigua y Barbuda', id: 'atg'),
       Phrase(langCode: 'zh', value: '安提瓜和巴布达', id: 'atg'),
+      Phrase(langCode: 'it', value: 'Antigua e Barbuda', id: 'atg'),
     ],
   ),
 
@@ -165,6 +171,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Argentine', id: 'arg'),
       Phrase(langCode: 'es', value: 'Argentina', id: 'arg'),
       Phrase(langCode: 'zh', value: '阿根廷', id: 'arg'),
+      Phrase(langCode: 'it', value: 'Argentina', id: 'arg'),
     ],
   ),
 
@@ -188,6 +195,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Arménie', id: 'arm'),
       Phrase(langCode: 'es', value: 'Armenia', id: 'arm'),
       Phrase(langCode: 'zh', value: '亚美尼亚', id: 'arm'),
+      Phrase(langCode: 'it', value: 'Armenia', id: 'arm'),
     ],
   ),
 
@@ -211,6 +219,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Aruba', id: 'abw'),
       Phrase(langCode: 'es', value: 'Aruba', id: 'abw'),
       Phrase(langCode: 'zh', value: '阿鲁巴', id: 'abw'),
+      Phrase(langCode: 'it', value: 'Aruba', id: 'abw'),
     ],
   ),
 
@@ -234,6 +243,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Australie', id: 'aus'),
       Phrase(langCode: 'es', value: 'Australia', id: 'aus'),
       Phrase(langCode: 'zh', value: '澳大利亚', id: 'aus'),
+      Phrase(langCode: 'it', value: 'Australia', id: 'aus'),
     ],
   ),
 
@@ -257,6 +267,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Autriche', id: 'aut'),
       Phrase(langCode: 'es', value: 'Austria', id: 'aut'),
       Phrase(langCode: 'zh', value: '奥地利', id: 'aut'),
+      Phrase(langCode: 'it', value: 'Austria', id: 'aut'),
     ],
   ),
 
@@ -280,6 +291,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Azerbaïdjan', id: 'aze'),
       Phrase(langCode: 'es', value: 'Azerbaiyán', id: 'aze'),
       Phrase(langCode: 'zh', value: '阿塞拜疆', id: 'aze'),
+      Phrase(langCode: 'it', value: 'Azerbaigian', id: 'aze'),
     ],
   ),
 
@@ -303,6 +315,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Bahamas', id: 'bhs'),
       Phrase(langCode: 'es', value: 'Bahamas', id: 'bhs'),
       Phrase(langCode: 'zh', value: '巴哈马', id: 'bhs'),
+      Phrase(langCode: 'it', value: 'Bahamas', id: 'bhs'),
     ],
   ),
 
@@ -326,6 +339,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Bahreïn', id: 'bhr'),
       Phrase(langCode: 'es', value: 'Baréin', id: 'bhr'),
       Phrase(langCode: 'zh', value: '巴林', id: 'bhr'),
+      Phrase(langCode: 'it', value: 'Bahrein', id: 'bhr'),
     ],
   ),
 
@@ -349,6 +363,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Bangladesh', id: 'bgd'),
       Phrase(langCode: 'es', value: 'Bangladés', id: 'bgd'),
       Phrase(langCode: 'zh', value: '孟加拉国', id: 'bgd'),
+      Phrase(langCode: 'it', value: 'Bangladesh', id: 'bgd'),
     ],
   ),
 
@@ -372,6 +387,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Barbade', id: 'brb'),
       Phrase(langCode: 'es', value: 'Barbados', id: 'brb'),
       Phrase(langCode: 'zh', value: '巴巴多斯', id: 'brb'),
+      Phrase(langCode: 'it', value: 'Barbados', id: 'brb'),
     ],
   ),
 
@@ -395,6 +411,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Biélorussie', id: 'blr'),
       Phrase(langCode: 'es', value: 'Bielorrusia', id: 'blr'),
       Phrase(langCode: 'zh', value: '白俄罗斯', id: 'blr'),
+      Phrase(langCode: 'it', value: 'Bielorussia', id: 'blr'),
     ],
   ),
 
@@ -418,6 +435,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Belgique', id: 'bel'),
       Phrase(langCode: 'es', value: 'Bélgica', id: 'bel'),
       Phrase(langCode: 'zh', value: '比利时', id: 'bel'),
+      Phrase(langCode: 'it', value: 'Belgio', id: 'bel'),
     ],
   ),
 
@@ -441,6 +459,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Belize', id: 'blz'),
       Phrase(langCode: 'es', value: 'Belice', id: 'blz'),
       Phrase(langCode: 'zh', value: '伯利兹', id: 'blz'),
+      Phrase(langCode: 'it', value: 'Belize', id: 'blz'),
     ],
   ),
 
@@ -464,6 +483,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Bénin', id: 'ben'),
       Phrase(langCode: 'es', value: 'Benín', id: 'ben'),
       Phrase(langCode: 'zh', value: '贝宁', id: 'ben'),
+      Phrase(langCode: 'it', value: 'Benin', id: 'ben'),
     ],
   ),
 
@@ -487,6 +507,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Bermudes', id: 'bmu'),
       Phrase(langCode: 'es', value: 'Bermudas', id: 'bmu'),
       Phrase(langCode: 'zh', value: '百慕大', id: 'bmu'),
+      Phrase(langCode: 'it', value: 'Bermuda', id: 'bmu'),
     ],
   ),
 
@@ -510,6 +531,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Bhoutan', id: 'btn'),
       Phrase(langCode: 'es', value: 'Bután', id: 'btn'),
       Phrase(langCode: 'zh', value: '不丹', id: 'btn'),
+      Phrase(langCode: 'it', value: 'Bhutan', id: 'btn'),
     ],
   ),
 
@@ -533,6 +555,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Bolivie', id: 'bol'),
       Phrase(langCode: 'es', value: 'Bolivia', id: 'bol'),
       Phrase(langCode: 'zh', value: '玻利维亚', id: 'bol'),
+      Phrase(langCode: 'it', value: 'Bolivia', id: 'bol'),
     ],
   ),
 
@@ -556,6 +579,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Bosnie-Herzégovine', id: 'bih'),
       Phrase(langCode: 'es', value: 'Bosnia y Herzegovina', id: 'bih'),
       Phrase(langCode: 'zh', value: '波黑', id: 'bih'),
+      Phrase(langCode: 'it', value: 'Bosnia ed Erzegovina', id: 'bih'),
     ],
   ),
 
@@ -579,6 +603,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Botswana', id: 'bwa'),
       Phrase(langCode: 'es', value: 'Botsuana', id: 'bwa'),
       Phrase(langCode: 'zh', value: '博茨瓦纳', id: 'bwa'),
+      Phrase(langCode: 'it', value: 'Botswana', id: 'bwa'),
     ],
   ),
 
@@ -602,6 +627,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Brésil', id: 'bra'),
       Phrase(langCode: 'es', value: 'Brasil', id: 'bra'),
       Phrase(langCode: 'zh', value: '巴西', id: 'bra'),
+      Phrase(langCode: 'it', value: 'Brasile', id: 'bra'),
     ],
   ),
 
@@ -625,6 +651,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Brunei', id: 'brn'),
       Phrase(langCode: 'es', value: 'Brunéi', id: 'brn'),
       Phrase(langCode: 'zh', value: '文莱', id: 'brn'),
+      Phrase(langCode: 'it', value: 'Brunei', id: 'brn'),
     ],
   ),
 
@@ -648,6 +675,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Bulgarie', id: 'bgr'),
       Phrase(langCode: 'es', value: 'Bulgaria', id: 'bgr'),
       Phrase(langCode: 'zh', value: '保加利亚', id: 'bgr'),
+      Phrase(langCode: 'it', value: 'Bulgaria', id: 'bgr'),
     ],
   ),
 
@@ -671,6 +699,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Burkina Faso', id: 'bfa'),
       Phrase(langCode: 'es', value: 'Burkina Faso', id: 'bfa'),
       Phrase(langCode: 'zh', value: '布基纳法索', id: 'bfa'),
+      Phrase(langCode: 'it', value: 'Burkina Faso', id: 'bfa'),
     ],
   ),
 
@@ -694,6 +723,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Burundi', id: 'bdi'),
       Phrase(langCode: 'es', value: 'Burundi', id: 'bdi'),
       Phrase(langCode: 'zh', value: '布隆迪', id: 'bdi'),
+      Phrase(langCode: 'it', value: 'Burundi', id: 'bdi'),
     ],
   ),
 
@@ -717,6 +747,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Cap-Vert', id: 'cpv'),
       Phrase(langCode: 'es', value: 'Cabo Verde', id: 'cpv'),
       Phrase(langCode: 'zh', value: '佛得角', id: 'cpv'),
+      Phrase(langCode: 'it', value: 'Capo Verde', id: 'cpv'),
     ],
   ),
 
@@ -740,6 +771,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Cambodge', id: 'khm'),
       Phrase(langCode: 'es', value: 'Camboya', id: 'khm'),
       Phrase(langCode: 'zh', value: '柬埔寨', id: 'khm'),
+      Phrase(langCode: 'it', value: 'Cambogia', id: 'khm'),
     ],
   ),
 
@@ -763,6 +795,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Cameroun', id: 'cmr'),
       Phrase(langCode: 'es', value: 'Camerún', id: 'cmr'),
       Phrase(langCode: 'zh', value: '喀麦隆', id: 'cmr'),
+      Phrase(langCode: 'it', value: 'Camerun', id: 'cmr'),
     ],
   ),
 
@@ -786,6 +819,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Canada', id: 'can'),
       Phrase(langCode: 'es', value: 'Canadá', id: 'can'),
       Phrase(langCode: 'zh', value: '加拿大', id: 'can'),
+      Phrase(langCode: 'it', value: 'Canada', id: 'can'),
     ],
   ),
 
@@ -809,6 +843,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Îles Caïmans', id: 'cym'),
       Phrase(langCode: 'es', value: 'Islas Caimán', id: 'cym'),
       Phrase(langCode: 'zh', value: '开曼群岛', id: 'cym'),
+      Phrase(langCode: 'it', value: 'Isole Cayman', id: 'cym'),
     ],
   ),
 
@@ -832,6 +867,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'République centrafricaine', id: 'caf'),
       Phrase(langCode: 'es', value: 'República Centroafricana', id: 'caf'),
       Phrase(langCode: 'zh', value: '中非', id: 'caf'),
+      Phrase(langCode: 'it', value: 'Repubblica Centrafricana', id: 'caf'),
     ],
   ),
 
@@ -855,6 +891,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Tchad', id: 'tcd'),
       Phrase(langCode: 'es', value: 'Chad', id: 'tcd'),
       Phrase(langCode: 'zh', value: '乍得', id: 'tcd'),
+      Phrase(langCode: 'it', value: 'Ciad', id: 'tcd'),
     ],
   ),
 
@@ -878,6 +915,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Chili', id: 'chl'),
       Phrase(langCode: 'es', value: 'Chile', id: 'chl'),
       Phrase(langCode: 'zh', value: '智利', id: 'chl'),
+      Phrase(langCode: 'it', value: 'Cile', id: 'chl'),
     ],
   ),
 
@@ -901,6 +939,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Chine', id: 'chn'),
       Phrase(langCode: 'es', value: 'China', id: 'chn'),
       Phrase(langCode: 'zh', value: '中国', id: 'chn'),
+      Phrase(langCode: 'it', value: 'Cina', id: 'chn'),
     ],
   ),
 
@@ -924,6 +963,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Colombie', id: 'col'),
       Phrase(langCode: 'es', value: 'Colombia', id: 'col'),
       Phrase(langCode: 'zh', value: '哥伦比亚', id: 'col'),
+      Phrase(langCode: 'it', value: 'Colombia', id: 'col'),
     ],
   ),
 
@@ -947,6 +987,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Comores (pays)', id: 'com'),
       Phrase(langCode: 'es', value: 'Comoras', id: 'com'),
       Phrase(langCode: 'zh', value: '科摩罗', id: 'com'),
+      Phrase(langCode: 'it', value: 'Comore', id: 'com'),
     ],
   ),
 
@@ -970,6 +1011,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'République du Congo', id: 'cog'),
       Phrase(langCode: 'es', value: 'República del Congo', id: 'cog'),
       Phrase(langCode: 'zh', value: '刚果共和国', id: 'cog'),
+      Phrase(langCode: 'it', value: 'Congo (Brazzaville)', id: 'cog'),
     ],
   ),
 
@@ -993,6 +1035,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'République démocratique du Congo', id: 'cod'),
       Phrase(langCode: 'es', value: 'República Democrática del Congo', id: 'cod'),
       Phrase(langCode: 'zh', value: '刚果民主共和国', id: 'cod'),
+      Phrase(langCode: 'it', value: 'Congo (Kinshasa)', id: 'cod'),
     ],
   ),
 
@@ -1016,6 +1059,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Îles Cook', id: 'cok'),
       Phrase(langCode: 'es', value: 'Islas Cook', id: 'cok'),
       Phrase(langCode: 'zh', value: '库克群岛', id: 'cok'),
+      Phrase(langCode: 'it', value: 'Isole Cook', id: 'cok'),
     ],
   ),
 
@@ -1039,6 +1083,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Costa Rica', id: 'cri'),
       Phrase(langCode: 'es', value: 'Costa Rica', id: 'cri'),
       Phrase(langCode: 'zh', value: '哥斯达黎加', id: 'cri'),
+      Phrase(langCode: 'it', value: 'Costa Rica', id: 'cri'),
     ],
   ),
 
@@ -1062,6 +1107,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Côte d\'Ivoire', id: 'civ'),
       Phrase(langCode: 'es', value: 'Costa de Marfil', id: 'civ'),
       Phrase(langCode: 'zh', value: '科特迪瓦', id: 'civ'),
+      Phrase(langCode: 'it', value: "Costa d'Avorio", id: 'civ'),
     ],
   ),
 
@@ -1085,6 +1131,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Croatie', id: 'hrv'),
       Phrase(langCode: 'es', value: 'Croacia', id: 'hrv'),
       Phrase(langCode: 'zh', value: '克罗地亚', id: 'hrv'),
+      Phrase(langCode: 'it', value: 'Croazia', id: 'hrv'),
     ],
   ),
 
@@ -1108,6 +1155,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Cuba', id: 'cub'),
       Phrase(langCode: 'es', value: 'Cuba', id: 'cub'),
       Phrase(langCode: 'zh', value: '古巴', id: 'cub'),
+      Phrase(langCode: 'it', value: 'Cuba', id: 'cub'),
     ],
   ),
 
@@ -1131,6 +1179,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Curaçao', id: 'cuw'),
       Phrase(langCode: 'es', value: 'Curazao', id: 'cuw'),
       Phrase(langCode: 'zh', value: '库拉索', id: 'cuw'),
+      Phrase(langCode: 'it', value: 'Curaçao', id: 'cuw'),
     ],
   ),
 
@@ -1154,6 +1203,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Chypre (pays)', id: 'cyp'),
       Phrase(langCode: 'es', value: 'Chipre', id: 'cyp'),
       Phrase(langCode: 'zh', value: '塞浦路斯', id: 'cyp'),
+      Phrase(langCode: 'it', value: 'Cipro', id: 'cyp'),
     ],
   ),
 
@@ -1177,6 +1227,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Tchéquie', id: 'cze'),
       Phrase(langCode: 'es', value: 'República Checa', id: 'cze'),
       Phrase(langCode: 'zh', value: '捷克', id: 'cze'),
+      Phrase(langCode: 'it', value: 'Repubblica Ceca', id: 'cze'),
     ],
   ),
 
@@ -1200,6 +1251,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Danemark', id: 'dnk'),
       Phrase(langCode: 'es', value: 'Dinamarca', id: 'dnk'),
       Phrase(langCode: 'zh', value: '丹麦', id: 'dnk'),
+      Phrase(langCode: 'it', value: 'Danimarca', id: 'dnk'),
     ],
   ),
 
@@ -1223,6 +1275,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Djibouti', id: 'dji'),
       Phrase(langCode: 'es', value: 'Yibuti', id: 'dji'),
       Phrase(langCode: 'zh', value: '吉布提', id: 'dji'),
+      Phrase(langCode: 'it', value: 'Gibuti', id: 'dji'),
     ],
   ),
 
@@ -1246,6 +1299,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Dominique', id: 'dma'),
       Phrase(langCode: 'es', value: 'Dominica', id: 'dma'),
       Phrase(langCode: 'zh', value: '多米尼克', id: 'dma'),
+      Phrase(langCode: 'it', value: 'Dominica', id: 'dma'),
     ],
   ),
 
@@ -1269,6 +1323,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'République dominicaine', id: 'dom'),
       Phrase(langCode: 'es', value: 'República Dominicana', id: 'dom'),
       Phrase(langCode: 'zh', value: '多米尼加', id: 'dom'),
+      Phrase(langCode: 'it', value: 'Repubblica Dominicana', id: 'dom'),
     ],
   ),
 
@@ -1292,6 +1347,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Équateur (pays)', id: 'ecu'),
       Phrase(langCode: 'es', value: 'Ecuador', id: 'ecu'),
       Phrase(langCode: 'zh', value: '厄瓜多尔', id: 'ecu'),
+      Phrase(langCode: 'it', value: 'Ecuador', id: 'ecu'),
     ],
   ),
 
@@ -1315,6 +1371,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Égypte', id: 'egy'),
       Phrase(langCode: 'es', value: 'Egipto', id: 'egy'),
       Phrase(langCode: 'zh', value: '埃及', id: 'egy'),
+      Phrase(langCode: 'it', value: 'Egitto', id: 'egy'),
     ],
   ),
 
@@ -1338,6 +1395,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Salvador', id: 'slv'),
       Phrase(langCode: 'es', value: 'El Salvador', id: 'slv'),
       Phrase(langCode: 'zh', value: '萨尔瓦多', id: 'slv'),
+      Phrase(langCode: 'it', value: 'El Salvador', id: 'slv'),
     ],
   ),
 
@@ -1361,6 +1419,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Guinée équatoriale', id: 'gnq'),
       Phrase(langCode: 'es', value: 'Guinea Ecuatorial', id: 'gnq'),
       Phrase(langCode: 'zh', value: '赤道几内亚', id: 'gnq'),
+      Phrase(langCode: 'it', value: 'Guinea Equatoriale', id: 'gnq'),
     ],
   ),
 
@@ -1384,6 +1443,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Érythrée', id: 'eri'),
       Phrase(langCode: 'es', value: 'Eritrea', id: 'eri'),
       Phrase(langCode: 'zh', value: '厄立特里亚', id: 'eri'),
+      Phrase(langCode: 'it', value: 'Eritrea', id: 'eri'),
     ],
   ),
 
@@ -1407,6 +1467,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Estonie', id: 'est'),
       Phrase(langCode: 'es', value: 'Estonia', id: 'est'),
       Phrase(langCode: 'zh', value: '爱沙尼亚', id: 'est'),
+      Phrase(langCode: 'it', value: 'Estonia', id: 'est'),
     ],
   ),
 
@@ -1430,6 +1491,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Eswatini', id: 'swz'),
       Phrase(langCode: 'es', value: 'Suazilandia', id: 'swz'),
       Phrase(langCode: 'zh', value: '斯威士兰', id: 'swz'),
+      Phrase(langCode: 'it', value: 'Eswatini', id: 'swz'),
     ],
   ),
 
@@ -1453,6 +1515,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Éthiopie', id: 'eth'),
       Phrase(langCode: 'es', value: 'Etiopía', id: 'eth'),
       Phrase(langCode: 'zh', value: '埃塞俄比亚', id: 'eth'),
+      Phrase(langCode: 'it', value: 'Etiopia', id: 'eth'),
     ],
   ),
 
@@ -1476,6 +1539,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Malouines', id: 'flk'),
       Phrase(langCode: 'es', value: 'Islas Malvinas', id: 'flk'),
       Phrase(langCode: 'zh', value: '福克兰群岛', id: 'flk'),
+      Phrase(langCode: 'it', value: 'Isole Falkland (Malvine)', id: 'flk'),
     ],
   ),
 
@@ -1499,6 +1563,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Îles Féroé', id: 'fro'),
       Phrase(langCode: 'es', value: 'Islas Feroe', id: 'fro'),
       Phrase(langCode: 'zh', value: '法罗群岛', id: 'fro'),
+      Phrase(langCode: 'it', value: 'Isole Faroe', id: 'fro'),
     ],
   ),
 
@@ -1522,6 +1587,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Fidji', id: 'fji'),
       Phrase(langCode: 'es', value: 'Fiyi', id: 'fji'),
       Phrase(langCode: 'zh', value: '斐济', id: 'fji'),
+      Phrase(langCode: 'it', value: 'Figi', id: 'fji'),
     ],
   ),
 
@@ -1545,6 +1611,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Finlande', id: 'fin'),
       Phrase(langCode: 'es', value: 'Finlandia', id: 'fin'),
       Phrase(langCode: 'zh', value: '芬兰', id: 'fin'),
+      Phrase(langCode: 'it', value: 'Finlandia', id: 'fin'),
     ],
   ),
 
@@ -1568,6 +1635,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'France', id: 'fra'),
       Phrase(langCode: 'es', value: 'Francia', id: 'fra'),
       Phrase(langCode: 'zh', value: '法国', id: 'fra'),
+      Phrase(langCode: 'it', value: 'Francia', id: 'fra'),
     ],
   ),
 
@@ -1591,6 +1659,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Polynésie française', id: 'pyf'),
       Phrase(langCode: 'es', value: 'Polinesia Francesa', id: 'pyf'),
       Phrase(langCode: 'zh', value: '法属波利尼西亚', id: 'pyf'),
+      Phrase(langCode: 'it', value: 'Polinesia Francese', id: 'pyf'),
     ],
   ),
 
@@ -1614,6 +1683,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Gabon', id: 'gab'),
       Phrase(langCode: 'es', value: 'Gabón', id: 'gab'),
       Phrase(langCode: 'zh', value: '加蓬', id: 'gab'),
+      Phrase(langCode: 'it', value: 'Gabon', id: 'gab'),
     ],
   ),
 
@@ -1637,6 +1707,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Gambie', id: 'gmb'),
       Phrase(langCode: 'es', value: 'Gambia', id: 'gmb'),
       Phrase(langCode: 'zh', value: '冈比亚', id: 'gmb'),
+      Phrase(langCode: 'it', value: 'Gambia', id: 'gmb'),
     ],
   ),
 
@@ -1660,6 +1731,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Géorgie (pays)', id: 'geo'),
       Phrase(langCode: 'es', value: 'Georgia', id: 'geo'),
       Phrase(langCode: 'zh', value: '格鲁吉亚', id: 'geo'),
+      Phrase(langCode: 'it', value: 'Georgia', id: 'geo'),
     ],
   ),
 
@@ -1683,6 +1755,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Allemagne', id: 'deu'),
       Phrase(langCode: 'es', value: 'Alemania', id: 'deu'),
       Phrase(langCode: 'zh', value: '德国', id: 'deu'),
+      Phrase(langCode: 'it', value: 'Germania', id: 'deu'),
     ],
   ),
 
@@ -1706,6 +1779,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Ghana', id: 'gha'),
       Phrase(langCode: 'es', value: 'Ghana', id: 'gha'),
       Phrase(langCode: 'zh', value: '加纳', id: 'gha'),
+      Phrase(langCode: 'it', value: 'Ghana', id: 'gha'),
     ],
   ),
 
@@ -1729,6 +1803,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Gibraltar', id: 'gib'),
       Phrase(langCode: 'es', value: 'Gibraltar', id: 'gib'),
       Phrase(langCode: 'zh', value: '直布罗陀', id: 'gib'),
+      Phrase(langCode: 'it', value: 'Gibilterra', id: 'gib'),
     ],
   ),
 
@@ -1752,6 +1827,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Grèce', id: 'grc'),
       Phrase(langCode: 'es', value: 'Grecia', id: 'grc'),
       Phrase(langCode: 'zh', value: '希腊', id: 'grc'),
+      Phrase(langCode: 'it', value: 'Grecia', id: 'grc'),
     ],
   ),
 
@@ -1775,6 +1851,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Groenland', id: 'grl'),
       Phrase(langCode: 'es', value: 'Groenlandia', id: 'grl'),
       Phrase(langCode: 'zh', value: '格陵兰', id: 'grl'),
+      Phrase(langCode: 'it', value: 'Groenlandia', id: 'grl'),
     ],
   ),
 
@@ -1798,6 +1875,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Grenade (pays)', id: 'grd'),
       Phrase(langCode: 'es', value: 'Granada', id: 'grd'),
       Phrase(langCode: 'zh', value: '格林纳达', id: 'grd'),
+      Phrase(langCode: 'it', value: 'Grenada', id: 'grd'),
     ],
   ),
 
@@ -1821,6 +1899,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Guam', id: 'gum'),
       Phrase(langCode: 'es', value: 'Guam', id: 'gum'),
       Phrase(langCode: 'zh', value: '关岛', id: 'gum'),
+      Phrase(langCode: 'it', value: 'Guam', id: 'gum'),
     ],
   ),
 
@@ -1844,6 +1923,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Guatemala', id: 'gtm'),
       Phrase(langCode: 'es', value: 'Guatemala', id: 'gtm'),
       Phrase(langCode: 'zh', value: '危地马拉', id: 'gtm'),
+      Phrase(langCode: 'it', value: 'Guatemala', id: 'gtm'),
     ],
   ),
 
@@ -1867,6 +1947,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Guinée', id: 'gin'),
       Phrase(langCode: 'es', value: 'Guinea', id: 'gin'),
       Phrase(langCode: 'zh', value: '几内亚', id: 'gin'),
+      Phrase(langCode: 'it', value: 'Guinea', id: 'gin'),
     ],
   ),
 
@@ -1890,6 +1971,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Guinée-Bissau', id: 'gnb'),
       Phrase(langCode: 'es', value: 'Guinea-Bisáu', id: 'gnb'),
       Phrase(langCode: 'zh', value: '几内亚比绍', id: 'gnb'),
+      Phrase(langCode: 'it', value: 'Guinea-Bissau', id: 'gnb'),
     ],
   ),
 
@@ -1913,6 +1995,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Guyana', id: 'guy'),
       Phrase(langCode: 'es', value: 'Guyana', id: 'guy'),
       Phrase(langCode: 'zh', value: '圭亚那', id: 'guy'),
+      Phrase(langCode: 'it', value: 'Guyana', id: 'guy'),
     ],
   ),
 
@@ -1936,6 +2019,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Haïti', id: 'hti'),
       Phrase(langCode: 'es', value: 'Haití', id: 'hti'),
       Phrase(langCode: 'zh', value: '海地', id: 'hti'),
+      Phrase(langCode: 'it', value: 'Haiti', id: 'hti'),
     ],
   ),
 
@@ -1959,6 +2043,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Saint-Siège (État de la Cité du Vatican)', id: 'vat'),
       Phrase(langCode: 'es', value: 'Vaticano, Ciudad del', id: 'vat'),
       Phrase(langCode: 'zh', value: '梵蒂冈', id: 'vat'),
+      Phrase(langCode: 'it', value: 'Città del Vaticano', id: 'vat'),
     ],
   ),
 
@@ -1982,6 +2067,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Honduras', id: 'hnd'),
       Phrase(langCode: 'es', value: 'Honduras', id: 'hnd'),
       Phrase(langCode: 'zh', value: '洪都拉斯', id: 'hnd'),
+      Phrase(langCode: 'it', value: 'Honduras', id: 'hnd'),
     ],
   ),
 
@@ -2005,6 +2091,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Hong Kong', id: 'hkg'),
       Phrase(langCode: 'es', value: 'Hong Kong', id: 'hkg'),
       Phrase(langCode: 'zh', value: '香港', id: 'hkg'),
+      Phrase(langCode: 'it', value: 'Hong Kong', id: 'hkg'),
     ],
   ),
 
@@ -2028,6 +2115,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Hongrie', id: 'hun'),
       Phrase(langCode: 'es', value: 'Hungría', id: 'hun'),
       Phrase(langCode: 'zh', value: '匈牙利', id: 'hun'),
+      Phrase(langCode: 'it', value: 'Ungheria', id: 'hun'),
     ],
   ),
 
@@ -2051,6 +2139,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Islande', id: 'isl'),
       Phrase(langCode: 'es', value: 'Islandia', id: 'isl'),
       Phrase(langCode: 'zh', value: '冰岛', id: 'isl'),
+      Phrase(langCode: 'it', value: 'Islanda', id: 'isl'),
     ],
   ),
 
@@ -2074,6 +2163,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Inde', id: 'ind'),
       Phrase(langCode: 'es', value: 'India', id: 'ind'),
       Phrase(langCode: 'zh', value: '印度', id: 'ind'),
+      Phrase(langCode: 'it', value: 'India', id: 'ind'),
     ],
   ),
 
@@ -2097,6 +2187,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Indonésie', id: 'idn'),
       Phrase(langCode: 'es', value: 'Indonesia', id: 'idn'),
       Phrase(langCode: 'zh', value: '印尼', id: 'idn'),
+      Phrase(langCode: 'it', value: 'Indonesia', id: 'idn'),
     ],
   ),
 
@@ -2120,6 +2211,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Iran', id: 'irn'),
       Phrase(langCode: 'es', value: 'Irán', id: 'irn'),
       Phrase(langCode: 'zh', value: '伊朗', id: 'irn'),
+      Phrase(langCode: 'it', value: 'Iran', id: 'irn'),
     ],
   ),
 
@@ -2143,6 +2235,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Irak', id: 'irq'),
       Phrase(langCode: 'es', value: 'Irak', id: 'irq'),
       Phrase(langCode: 'zh', value: '伊拉克', id: 'irq'),
+      Phrase(langCode: 'it', value: 'Iraq', id: 'irq'),
     ],
   ),
 
@@ -2166,6 +2259,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Irlande (pays)', id: 'irl'),
       Phrase(langCode: 'es', value: 'Irlanda', id: 'irl'),
       Phrase(langCode: 'zh', value: '爱尔兰', id: 'irl'),
+      Phrase(langCode: 'it', value: 'Irlanda', id: 'irl'),
     ],
   ),
 
@@ -2189,6 +2283,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Île de Man', id: 'imn'),
       Phrase(langCode: 'es', value: 'Isla de Man', id: 'imn'),
       Phrase(langCode: 'zh', value: '马恩岛', id: 'imn'),
+      Phrase(langCode: 'it', value: 'Isola di Man', id: 'imn'),
     ],
   ),
 
@@ -2212,6 +2307,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Israël', id: 'isr'),
       Phrase(langCode: 'es', value: 'Israel', id: 'isr'),
       Phrase(langCode: 'zh', value: '以色列', id: 'isr'),
+      Phrase(langCode: 'it', value: 'Israele', id: 'isr'),
     ],
   ),
 
@@ -2235,6 +2331,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Italie', id: 'ita'),
       Phrase(langCode: 'es', value: 'Italia', id: 'ita'),
       Phrase(langCode: 'zh', value: '意大利', id: 'ita'),
+      Phrase(langCode: 'it', value: 'Italia', id: 'ita'),
     ],
   ),
 
@@ -2258,6 +2355,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Jamaïque', id: 'jam'),
       Phrase(langCode: 'es', value: 'Jamaica', id: 'jam'),
       Phrase(langCode: 'zh', value: '牙买加', id: 'jam'),
+      Phrase(langCode: 'it', value: 'Giamaica', id: 'jam'),
     ],
   ),
 
@@ -2281,6 +2379,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Japon', id: 'jpn'),
       Phrase(langCode: 'es', value: 'Japón', id: 'jpn'),
       Phrase(langCode: 'zh', value: '日本', id: 'jpn'),
+      Phrase(langCode: 'it', value: 'Giappone', id: 'jpn'),
     ],
   ),
 
@@ -2304,6 +2403,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Jersey', id: 'jey'),
       Phrase(langCode: 'es', value: 'Jersey', id: 'jey'),
       Phrase(langCode: 'zh', value: '泽西', id: 'jey'),
+      Phrase(langCode: 'it', value: 'Jersey', id: 'jey'),
     ],
   ),
 
@@ -2327,6 +2427,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Jordanie', id: 'jor'),
       Phrase(langCode: 'es', value: 'Jordania', id: 'jor'),
       Phrase(langCode: 'zh', value: '约旦', id: 'jor'),
+      Phrase(langCode: 'it', value: 'Giordania', id: 'jor'),
     ],
   ),
 
@@ -2350,6 +2451,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Kazakhstan', id: 'kaz'),
       Phrase(langCode: 'es', value: 'Kazajistán', id: 'kaz'),
       Phrase(langCode: 'zh', value: '哈萨克斯坦', id: 'kaz'),
+      Phrase(langCode: 'it', value: 'Kazakistan', id: 'kaz'),
     ],
   ),
 
@@ -2373,6 +2475,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Kenya', id: 'ken'),
       Phrase(langCode: 'es', value: 'Kenia', id: 'ken'),
       Phrase(langCode: 'zh', value: '肯尼亚', id: 'ken'),
+      Phrase(langCode: 'it', value: 'Kenya', id: 'ken'),
     ],
   ),
 
@@ -2396,6 +2499,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Kiribati', id: 'kir'),
       Phrase(langCode: 'es', value: 'Kiribati', id: 'kir'),
       Phrase(langCode: 'zh', value: '基里巴斯', id: 'kir'),
+      Phrase(langCode: 'it', value: 'Kiribati', id: 'kir'),
     ],
   ),
 
@@ -2419,6 +2523,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Corée du Nord', id: 'prk'),
       Phrase(langCode: 'es', value: 'Corea del Norte', id: 'prk'),
       Phrase(langCode: 'zh', value: '朝鲜', id: 'prk'),
+      Phrase(langCode: 'it', value: 'Corea, nord', id: 'prk'),
     ],
   ),
 
@@ -2442,6 +2547,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Corée du Sud', id: 'kor'),
       Phrase(langCode: 'es', value: 'Corea del Sur', id: 'kor'),
       Phrase(langCode: 'zh', value: '韩国', id: 'kor'),
+      Phrase(langCode: 'it', value: 'Corea del Sud', id: 'kor'),
     ],
   ),
 
@@ -2465,6 +2571,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Koweït', id: 'kwt'),
       Phrase(langCode: 'es', value: 'Kuwait', id: 'kwt'),
       Phrase(langCode: 'zh', value: '科威特', id: 'kwt'),
+      Phrase(langCode: 'it', value: 'Kuwait', id: 'kwt'),
     ],
   ),
 
@@ -2488,6 +2595,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Kirghizistan', id: 'kgz'),
       Phrase(langCode: 'es', value: 'Kirguistán', id: 'kgz'),
       Phrase(langCode: 'zh', value: '吉尔吉斯斯坦', id: 'kgz'),
+      Phrase(langCode: 'it', value: 'Kirghizistan', id: 'kgz'),
     ],
   ),
 
@@ -2511,6 +2619,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Laos', id: 'lao'),
       Phrase(langCode: 'es', value: 'Laos', id: 'lao'),
       Phrase(langCode: 'zh', value: '老挝', id: 'lao'),
+      Phrase(langCode: 'it', value: 'Laos', id: 'lao'),
     ],
   ),
 
@@ -2534,6 +2643,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Lettonie', id: 'lva'),
       Phrase(langCode: 'es', value: 'Letonia', id: 'lva'),
       Phrase(langCode: 'zh', value: '拉脱维亚', id: 'lva'),
+      Phrase(langCode: 'it', value: 'Lettonia', id: 'lva'),
     ],
   ),
 
@@ -2557,6 +2667,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Liban', id: 'lbn'),
       Phrase(langCode: 'es', value: 'Líbano', id: 'lbn'),
       Phrase(langCode: 'zh', value: '黎巴嫩', id: 'lbn'),
+      Phrase(langCode: 'it', value: 'Libano', id: 'lbn'),
     ],
   ),
 
@@ -2580,6 +2691,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Lesotho', id: 'lso'),
       Phrase(langCode: 'es', value: 'Lesoto', id: 'lso'),
       Phrase(langCode: 'zh', value: '莱索托', id: 'lso'),
+      Phrase(langCode: 'it', value: 'Lesotho', id: 'lso'),
     ],
   ),
 
@@ -2603,6 +2715,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Liberia', id: 'lbr'),
       Phrase(langCode: 'es', value: 'Liberia', id: 'lbr'),
       Phrase(langCode: 'zh', value: '利比里亚', id: 'lbr'),
+      Phrase(langCode: 'it', value: 'Liberia', id: 'lbr'),
     ],
   ),
 
@@ -2626,6 +2739,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Libye', id: 'lby'),
       Phrase(langCode: 'es', value: 'Libia', id: 'lby'),
       Phrase(langCode: 'zh', value: '利比亚', id: 'lby'),
+      Phrase(langCode: 'it', value: 'Libia', id: 'lby'),
     ],
   ),
 
@@ -2649,6 +2763,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Liechtenstein', id: 'lie'),
       Phrase(langCode: 'es', value: 'Liechtenstein', id: 'lie'),
       Phrase(langCode: 'zh', value: '列支敦士登', id: 'lie'),
+      Phrase(langCode: 'it', value: 'Liechtenstein', id: 'lie'),
     ],
   ),
 
@@ -2672,6 +2787,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Lituanie', id: 'ltu'),
       Phrase(langCode: 'es', value: 'Lituania', id: 'ltu'),
       Phrase(langCode: 'zh', value: '立陶宛', id: 'ltu'),
+      Phrase(langCode: 'it', value: 'Lituania', id: 'ltu'),
     ],
   ),
 
@@ -2695,6 +2811,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Luxembourg (pays)', id: 'lux'),
       Phrase(langCode: 'es', value: 'Luxemburgo', id: 'lux'),
       Phrase(langCode: 'zh', value: '卢森堡', id: 'lux'),
+      Phrase(langCode: 'it', value: 'Lussemburgo', id: 'lux'),
     ],
   ),
 
@@ -2718,6 +2835,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Macao', id: 'mac'),
       Phrase(langCode: 'es', value: 'Macao', id: 'mac'),
       Phrase(langCode: 'zh', value: '澳门', id: 'mac'),
+      Phrase(langCode: 'it', value: 'Macao', id: 'mac'),
     ],
   ),
 
@@ -2741,6 +2859,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Madagascar', id: 'mdg'),
       Phrase(langCode: 'es', value: 'Madagascar', id: 'mdg'),
       Phrase(langCode: 'zh', value: '马达加斯加', id: 'mdg'),
+      Phrase(langCode: 'it', value: 'Madagascar', id: 'mdg'),
     ],
   ),
 
@@ -2764,6 +2883,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Malawi', id: 'mwi'),
       Phrase(langCode: 'es', value: 'Malaui', id: 'mwi'),
       Phrase(langCode: 'zh', value: '马拉维', id: 'mwi'),
+      Phrase(langCode: 'it', value: 'Malawi', id: 'mwi'),
     ],
   ),
 
@@ -2787,6 +2907,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Malaisie', id: 'mys'),
       Phrase(langCode: 'es', value: 'Malasia', id: 'mys'),
       Phrase(langCode: 'zh', value: '马来西亚', id: 'mys'),
+      Phrase(langCode: 'it', value: 'Malaysia', id: 'mys'),
     ],
   ),
 
@@ -2810,6 +2931,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Maldives', id: 'mdv'),
       Phrase(langCode: 'es', value: 'Maldivas', id: 'mdv'),
       Phrase(langCode: 'zh', value: '马尔代夫', id: 'mdv'),
+      Phrase(langCode: 'it', value: 'Maldive', id: 'mdv'),
     ],
   ),
 
@@ -2833,6 +2955,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Mali', id: 'mli'),
       Phrase(langCode: 'es', value: 'Malí', id: 'mli'),
       Phrase(langCode: 'zh', value: '马里', id: 'mli'),
+      Phrase(langCode: 'it', value: 'Mali', id: 'mli'),
     ],
   ),
 
@@ -2856,6 +2979,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Malte', id: 'mlt'),
       Phrase(langCode: 'es', value: 'Malta', id: 'mlt'),
       Phrase(langCode: 'zh', value: '马耳他', id: 'mlt'),
+      Phrase(langCode: 'it', value: 'Malta', id: 'mlt'),
     ],
   ),
 
@@ -2879,6 +3003,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Îles Marshall (pays)', id: 'mhl'),
       Phrase(langCode: 'es', value: 'Islas Marshall', id: 'mhl'),
       Phrase(langCode: 'zh', value: '马绍尔群岛', id: 'mhl'),
+      Phrase(langCode: 'it', value: 'Isole Marshall', id: 'mhl'),
     ],
   ),
 
@@ -2902,6 +3027,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Mauritanie', id: 'mrt'),
       Phrase(langCode: 'es', value: 'Mauritania', id: 'mrt'),
       Phrase(langCode: 'zh', value: '毛里塔尼亚', id: 'mrt'),
+      Phrase(langCode: 'it', value: 'Mauritania', id: 'mrt'),
     ],
   ),
 
@@ -2925,6 +3051,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Maurice (pays)', id: 'mus'),
       Phrase(langCode: 'es', value: 'Mauricio', id: 'mus'),
       Phrase(langCode: 'zh', value: '毛里求斯', id: 'mus'),
+      Phrase(langCode: 'it', value: 'Mauritius', id: 'mus'),
     ],
   ),
 
@@ -2948,6 +3075,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Mayotte', id: 'myt'),
       Phrase(langCode: 'es', value: 'Mayotte', id: 'myt'),
       Phrase(langCode: 'zh', value: '马约特', id: 'myt'),
+      Phrase(langCode: 'it', value: 'Mayotte', id: 'myt'),
     ],
   ),
 
@@ -2971,6 +3099,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Mexique', id: 'mex'),
       Phrase(langCode: 'es', value: 'México', id: 'mex'),
       Phrase(langCode: 'zh', value: '墨西哥', id: 'mex'),
+      Phrase(langCode: 'it', value: 'Messico', id: 'mex'),
     ],
   ),
 
@@ -2994,6 +3123,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'États fédérés de Micronésie (pays)', id: 'fsm'),
       Phrase(langCode: 'es', value: 'Micronesia', id: 'fsm'),
       Phrase(langCode: 'zh', value: '密克罗尼西亚联邦', id: 'fsm'),
+      Phrase(langCode: 'it', value: 'Micronesia, stati federati di', id: 'fsm'),
     ],
   ),
 
@@ -3017,6 +3147,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Moldavie', id: 'mda'),
       Phrase(langCode: 'es', value: 'Moldavia', id: 'mda'),
       Phrase(langCode: 'zh', value: '摩尔多瓦', id: 'mda'),
+      Phrase(langCode: 'it', value: 'Moldavia', id: 'mda'),
     ],
   ),
 
@@ -3040,6 +3171,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Monaco', id: 'mco'),
       Phrase(langCode: 'es', value: 'Mónaco', id: 'mco'),
       Phrase(langCode: 'zh', value: '摩纳哥', id: 'mco'),
+      Phrase(langCode: 'it', value: 'Monaco', id: 'mco'),
     ],
   ),
 
@@ -3063,6 +3195,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Mongolie', id: 'mng'),
       Phrase(langCode: 'es', value: 'Mongolia', id: 'mng'),
       Phrase(langCode: 'zh', value: '蒙古国', id: 'mng'),
+      Phrase(langCode: 'it', value: 'Mongolia', id: 'mng'),
     ],
   ),
 
@@ -3086,6 +3219,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Monténégro', id: 'mne'),
       Phrase(langCode: 'es', value: 'Montenegro', id: 'mne'),
       Phrase(langCode: 'zh', value: '黑山', id: 'mne'),
+      Phrase(langCode: 'it', value: 'Montenegro', id: 'mne'),
     ],
   ),
 
@@ -3109,6 +3243,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Maroc', id: 'mar'),
       Phrase(langCode: 'es', value: 'Marruecos', id: 'mar'),
       Phrase(langCode: 'zh', value: '摩洛哥', id: 'mar'),
+      Phrase(langCode: 'it', value: 'Marocco', id: 'mar'),
     ],
   ),
 
@@ -3132,6 +3267,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Mozambique', id: 'moz'),
       Phrase(langCode: 'es', value: 'Mozambique', id: 'moz'),
       Phrase(langCode: 'zh', value: '莫桑比克', id: 'moz'),
+      Phrase(langCode: 'it', value: 'Mozambico', id: 'moz'),
     ],
   ),
 
@@ -3155,6 +3291,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Birmanie', id: 'mmr'),
       Phrase(langCode: 'es', value: 'Birmania', id: 'mmr'),
       Phrase(langCode: 'zh', value: '缅甸', id: 'mmr'),
+      Phrase(langCode: 'it', value: 'Birmania', id: 'mmr'),
     ],
   ),
 
@@ -3178,6 +3315,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Namibie', id: 'nam'),
       Phrase(langCode: 'es', value: 'Namibia', id: 'nam'),
       Phrase(langCode: 'zh', value: '纳米比亚', id: 'nam'),
+      Phrase(langCode: 'it', value: 'Namibia', id: 'nam'),
     ],
   ),
 
@@ -3201,6 +3339,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Népal', id: 'npl'),
       Phrase(langCode: 'es', value: 'Nepal', id: 'npl'),
       Phrase(langCode: 'zh', value: '尼泊尔', id: 'npl'),
+      Phrase(langCode: 'it', value: 'Nepal', id: 'npl'),
     ],
   ),
 
@@ -3224,6 +3363,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Pays-Bas', id: 'nld'),
       Phrase(langCode: 'es', value: 'Países Bajos', id: 'nld'),
       Phrase(langCode: 'zh', value: '荷兰', id: 'nld'),
+      Phrase(langCode: 'it', value: 'Olanda', id: 'nld'),
     ],
   ),
 
@@ -3247,6 +3387,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Nouvelle-Calédonie', id: 'ncl'),
       Phrase(langCode: 'es', value: 'Nueva Caledonia', id: 'ncl'),
       Phrase(langCode: 'zh', value: '新喀里多尼亚', id: 'ncl'),
+      Phrase(langCode: 'it', value: 'Nuova Caledonia', id: 'ncl'),
     ],
   ),
 
@@ -3270,6 +3411,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Nouvelle-Zélande', id: 'nzl'),
       Phrase(langCode: 'es', value: 'Nueva Zelanda', id: 'nzl'),
       Phrase(langCode: 'zh', value: '新西兰', id: 'nzl'),
+      Phrase(langCode: 'it', value: 'Nuova Zelanda', id: 'nzl'),
     ],
   ),
 
@@ -3293,6 +3435,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Nicaragua', id: 'nic'),
       Phrase(langCode: 'es', value: 'Nicaragua', id: 'nic'),
       Phrase(langCode: 'zh', value: '尼加拉瓜', id: 'nic'),
+      Phrase(langCode: 'it', value: 'Nicaragua', id: 'nic'),
     ],
   ),
 
@@ -3316,6 +3459,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Niger', id: 'ner'),
       Phrase(langCode: 'es', value: 'Níger', id: 'ner'),
       Phrase(langCode: 'zh', value: '尼日尔', id: 'ner'),
+      Phrase(langCode: 'it', value: 'Niger', id: 'ner'),
     ],
   ),
 
@@ -3339,6 +3483,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Nigeria', id: 'nga'),
       Phrase(langCode: 'es', value: 'Nigeria', id: 'nga'),
       Phrase(langCode: 'zh', value: '尼日利亚', id: 'nga'),
+      Phrase(langCode: 'it', value: 'Nigeria', id: 'nga'),
     ],
   ),
 
@@ -3362,6 +3507,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Macédoine du Nord', id: 'mkd'),
       Phrase(langCode: 'es', value: 'Macedonia del Norte', id: 'mkd'),
       Phrase(langCode: 'zh', value: '北马其顿', id: 'mkd'),
+      Phrase(langCode: 'it', value: 'Macedonia', id: 'mkd'),
     ],
   ),
 
@@ -3385,6 +3531,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Îles Mariannes du Nord', id: 'mnp'),
       Phrase(langCode: 'es', value: 'Islas Marianas del Norte', id: 'mnp'),
       Phrase(langCode: 'zh', value: '北马里亚纳群岛', id: 'mnp'),
+      Phrase(langCode: 'it', value: 'Isole Marianne settentrionali', id: 'mnp'),
     ],
   ),
 
@@ -3408,6 +3555,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Norvège', id: 'nor'),
       Phrase(langCode: 'es', value: 'Noruega', id: 'nor'),
       Phrase(langCode: 'zh', value: '挪威', id: 'nor'),
+      Phrase(langCode: 'it', value: 'Norvegia', id: 'nor'),
     ],
   ),
 
@@ -3431,6 +3579,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Oman', id: 'omn'),
       Phrase(langCode: 'es', value: 'Omán', id: 'omn'),
       Phrase(langCode: 'zh', value: '阿曼', id: 'omn'),
+      Phrase(langCode: 'it', value: 'Oman', id: 'omn'),
     ],
   ),
 
@@ -3454,6 +3603,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Pakistan', id: 'pak'),
       Phrase(langCode: 'es', value: 'Pakistán', id: 'pak'),
       Phrase(langCode: 'zh', value: '巴基斯坦', id: 'pak'),
+      Phrase(langCode: 'it', value: 'Pakistan', id: 'pak'),
     ],
   ),
 
@@ -3477,6 +3627,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Palaos', id: 'plw'),
       Phrase(langCode: 'es', value: 'Palaos', id: 'plw'),
       Phrase(langCode: 'zh', value: '帕劳', id: 'plw'),
+      Phrase(langCode: 'it', value: 'Palau', id: 'plw'),
     ],
   ),
 
@@ -3500,6 +3651,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Palestine', id: 'pse'),
       Phrase(langCode: 'es', value: 'Palestina', id: 'pse'),
       Phrase(langCode: 'zh', value: '巴勒斯坦', id: 'pse'),
+      Phrase(langCode: 'it', value: 'Palestina', id: 'pse'),
     ],
   ),
 
@@ -3523,6 +3675,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Panama', id: 'pan'),
       Phrase(langCode: 'es', value: 'Panamá', id: 'pan'),
       Phrase(langCode: 'zh', value: '巴拿马', id: 'pan'),
+      Phrase(langCode: 'it', value: 'Panama', id: 'pan'),
     ],
   ),
 
@@ -3546,6 +3699,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Papouasie-Nouvelle-Guinée', id: 'png'),
       Phrase(langCode: 'es', value: 'Papúa Nueva Guinea', id: 'png'),
       Phrase(langCode: 'zh', value: '巴布亚新几内亚', id: 'png'),
+      Phrase(langCode: 'it', value: 'Papua Nuova Guinea', id: 'png'),
     ],
   ),
 
@@ -3569,6 +3723,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Paraguay', id: 'pry'),
       Phrase(langCode: 'es', value: 'Paraguay', id: 'pry'),
       Phrase(langCode: 'zh', value: '巴拉圭', id: 'pry'),
+      Phrase(langCode: 'it', value: 'Paraguay', id: 'pry'),
     ],
   ),
 
@@ -3592,6 +3747,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Pérou', id: 'per'),
       Phrase(langCode: 'es', value: 'Perú', id: 'per'),
       Phrase(langCode: 'zh', value: '秘鲁', id: 'per'),
+      Phrase(langCode: 'it', value: 'Perù', id: 'per'),
     ],
   ),
 
@@ -3615,6 +3771,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Philippines', id: 'phl'),
       Phrase(langCode: 'es', value: 'Filipinas', id: 'phl'),
       Phrase(langCode: 'zh', value: '菲律宾', id: 'phl'),
+      Phrase(langCode: 'it', value: 'Filippine', id: 'phl'),
     ],
   ),
 
@@ -3638,6 +3795,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Pologne', id: 'pol'),
       Phrase(langCode: 'es', value: 'Polonia', id: 'pol'),
       Phrase(langCode: 'zh', value: '波兰', id: 'pol'),
+      Phrase(langCode: 'it', value: 'Polonia', id: 'pol'),
     ],
   ),
 
@@ -3661,6 +3819,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Portugal', id: 'prt'),
       Phrase(langCode: 'es', value: 'Portugal', id: 'prt'),
       Phrase(langCode: 'zh', value: '葡萄牙', id: 'prt'),
+      Phrase(langCode: 'it', value: 'Portogallo', id: 'prt'),
     ],
   ),
 
@@ -3684,6 +3843,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Porto Rico', id: 'pri'),
       Phrase(langCode: 'es', value: 'Puerto Rico', id: 'pri'),
       Phrase(langCode: 'zh', value: '波多黎各', id: 'pri'),
+      Phrase(langCode: 'it', value: 'Puerto Rico', id: 'pri'),
     ],
   ),
 
@@ -3707,6 +3867,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Qatar', id: 'qat'),
       Phrase(langCode: 'es', value: 'Catar', id: 'qat'),
       Phrase(langCode: 'zh', value: '卡塔尔', id: 'qat'),
+      Phrase(langCode: 'it', value: 'Qatar', id: 'qat'),
     ],
   ),
 
@@ -3730,6 +3891,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'La Réunion', id: 'reu'),
       Phrase(langCode: 'es', value: 'Reunión', id: 'reu'),
       Phrase(langCode: 'zh', value: '留尼汪', id: 'reu'),
+      Phrase(langCode: 'it', value: 'Riunione', id: 'reu'),
     ],
   ),
 
@@ -3753,6 +3915,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Roumanie', id: 'rou'),
       Phrase(langCode: 'es', value: 'Rumania', id: 'rou'),
       Phrase(langCode: 'zh', value: '罗马尼亚', id: 'rou'),
+      Phrase(langCode: 'it', value: 'Romania', id: 'rou'),
     ],
   ),
 
@@ -3776,6 +3939,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Russie', id: 'rus'),
       Phrase(langCode: 'es', value: 'Rusia', id: 'rus'),
       Phrase(langCode: 'zh', value: '俄罗斯', id: 'rus'),
+      Phrase(langCode: 'it', value: 'Russia', id: 'rus'),
     ],
   ),
 
@@ -3799,6 +3963,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Rwanda', id: 'rwa'),
       Phrase(langCode: 'es', value: 'Ruanda', id: 'rwa'),
       Phrase(langCode: 'zh', value: '卢旺达', id: 'rwa'),
+      Phrase(langCode: 'it', value: 'Ruanda', id: 'rwa'),
     ],
   ),
 
@@ -3822,6 +3987,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Sainte-Hélène, Ascension et Tristan da Cunha', id: 'shn'),
       Phrase(langCode: 'es', value: 'Santa Elena, Ascensión y Tristán de Acuña', id: 'shn'),
       Phrase(langCode: 'zh', value: '圣赫勒拿、阿森松和特里斯坦-达库尼亚', id: 'shn'),
+      Phrase(langCode: 'it', value: 'Saint Helena, Ascension e Tristan Da Cunha', id: 'shn'),
     ],
   ),
 
@@ -3845,6 +4011,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Saint-Christophe-et-Niévès', id: 'kna'),
       Phrase(langCode: 'es', value: 'San Cristóbal y Nieves', id: 'kna'),
       Phrase(langCode: 'zh', value: '圣基茨和尼维斯', id: 'kna'),
+      Phrase(langCode: 'it', value: 'Saint Kitts e Nevis', id: 'kna'),
     ],
   ),
 
@@ -3868,6 +4035,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Sainte-Lucie', id: 'lca'),
       Phrase(langCode: 'es', value: 'Santa Lucía', id: 'lca'),
       Phrase(langCode: 'zh', value: '圣卢西亚', id: 'lca'),
+      Phrase(langCode: 'it', value: 'Santa Lucia', id: 'lca'),
     ],
   ),
 
@@ -3891,6 +4059,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Saint-Vincent-et-les-Grenadines', id: 'vct'),
       Phrase(langCode: 'es', value: 'San Vicente y las Granadinas', id: 'vct'),
       Phrase(langCode: 'zh', value: '圣文森特和格林纳丁斯', id: 'vct'),
+      Phrase(langCode: 'it', value: 'Saint Vincent e Grenadines', id: 'vct'),
     ],
   ),
 
@@ -3914,6 +4083,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Samoa', id: 'wsm'),
       Phrase(langCode: 'es', value: 'Samoa', id: 'wsm'),
       Phrase(langCode: 'zh', value: '萨摩亚', id: 'wsm'),
+      Phrase(langCode: 'it', value: 'Samoa', id: 'wsm'),
     ],
   ),
 
@@ -3937,6 +4107,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Saint-Marin', id: 'smr'),
       Phrase(langCode: 'es', value: 'San Marino', id: 'smr'),
       Phrase(langCode: 'zh', value: '圣马力诺', id: 'smr'),
+      Phrase(langCode: 'it', value: 'San Marino', id: 'smr'),
     ],
   ),
 
@@ -3960,6 +4131,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Sao Tomé-et-Principe', id: 'stp'),
       Phrase(langCode: 'es', value: 'Santo Tomé y Príncipe', id: 'stp'),
       Phrase(langCode: 'zh', value: '圣多美和普林西比', id: 'stp'),
+      Phrase(langCode: 'it', value: 'Sao Tome e Principe', id: 'stp'),
     ],
   ),
 
@@ -3983,6 +4155,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Arabie saoudite', id: 'sau'),
       Phrase(langCode: 'es', value: 'Arabia Saudita', id: 'sau'),
       Phrase(langCode: 'zh', value: '沙特阿拉伯', id: 'sau'),
+      Phrase(langCode: 'it', value: 'Arabia Saudita', id: 'sau'),
     ],
   ),
 
@@ -4006,6 +4179,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Sénégal', id: 'sen'),
       Phrase(langCode: 'es', value: 'Senegal', id: 'sen'),
       Phrase(langCode: 'zh', value: '塞内加尔', id: 'sen'),
+      Phrase(langCode: 'it', value: 'Senegal', id: 'sen'),
     ],
   ),
 
@@ -4029,6 +4203,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Serbie', id: 'srb'),
       Phrase(langCode: 'es', value: 'Serbia', id: 'srb'),
       Phrase(langCode: 'zh', value: '塞尔维亚', id: 'srb'),
+      Phrase(langCode: 'it', value: 'Serbia', id: 'srb'),
     ],
   ),
 
@@ -4052,6 +4227,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Seychelles', id: 'syc'),
       Phrase(langCode: 'es', value: 'Seychelles', id: 'syc'),
       Phrase(langCode: 'zh', value: '塞舌尔', id: 'syc'),
+      Phrase(langCode: 'it', value: 'Seychelles', id: 'syc'),
     ],
   ),
 
@@ -4075,6 +4251,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Sierra Leone', id: 'sle'),
       Phrase(langCode: 'es', value: 'Sierra Leona', id: 'sle'),
       Phrase(langCode: 'zh', value: '塞拉利昂', id: 'sle'),
+      Phrase(langCode: 'it', value: 'Sierra Leone', id: 'sle'),
     ],
   ),
 
@@ -4098,6 +4275,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Singapour', id: 'sgp'),
       Phrase(langCode: 'es', value: 'Singapur', id: 'sgp'),
       Phrase(langCode: 'zh', value: '新加坡', id: 'sgp'),
+      Phrase(langCode: 'it', value: 'Singapore', id: 'sgp'),
     ],
   ),
 
@@ -4121,6 +4299,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Slovaquie', id: 'svk'),
       Phrase(langCode: 'es', value: 'Eslovaquia', id: 'svk'),
       Phrase(langCode: 'zh', value: '斯洛伐克', id: 'svk'),
+      Phrase(langCode: 'it', value: 'Slovacchia', id: 'svk'),
     ],
   ),
 
@@ -4144,6 +4323,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Slovénie', id: 'svn'),
       Phrase(langCode: 'es', value: 'Eslovenia', id: 'svn'),
       Phrase(langCode: 'zh', value: '斯洛文尼亚', id: 'svn'),
+      Phrase(langCode: 'it', value: 'Slovenia', id: 'svn'),
     ],
   ),
 
@@ -4167,6 +4347,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Salomon', id: 'slb'),
       Phrase(langCode: 'es', value: 'Islas Salomón', id: 'slb'),
       Phrase(langCode: 'zh', value: '所罗门群岛', id: 'slb'),
+      Phrase(langCode: 'it', value: 'Isole Salomone', id: 'slb'),
     ],
   ),
 
@@ -4190,6 +4371,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Somalie', id: 'som'),
       Phrase(langCode: 'es', value: 'Somalia', id: 'som'),
       Phrase(langCode: 'zh', value: '索马里', id: 'som'),
+      Phrase(langCode: 'it', value: 'Somalia', id: 'som'),
     ],
   ),
 
@@ -4213,6 +4395,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Afrique du Sud', id: 'zaf'),
       Phrase(langCode: 'es', value: 'Sudáfrica', id: 'zaf'),
       Phrase(langCode: 'zh', value: '南非', id: 'zaf'),
+      Phrase(langCode: 'it', value: 'Sud Africa', id: 'zaf'),
     ],
   ),
 
@@ -4236,6 +4419,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Soudan du Sud', id: 'ssd'),
       Phrase(langCode: 'es', value: 'Sudán del Sur', id: 'ssd'),
       Phrase(langCode: 'zh', value: '南苏丹', id: 'ssd'),
+      Phrase(langCode: 'it', value: 'Sudan del Sud', id: 'ssd'),
     ],
   ),
 
@@ -4259,6 +4443,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Espagne', id: 'esp'),
       Phrase(langCode: 'es', value: 'España', id: 'esp'),
       Phrase(langCode: 'zh', value: '西班牙', id: 'esp'),
+      Phrase(langCode: 'it', value: 'Spagna', id: 'esp'),
     ],
   ),
 
@@ -4282,6 +4467,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Sri Lanka', id: 'lka'),
       Phrase(langCode: 'es', value: 'Sri Lanka', id: 'lka'),
       Phrase(langCode: 'zh', value: '斯里兰卡', id: 'lka'),
+      Phrase(langCode: 'it', value: 'Sri Lanka', id: 'lka'),
     ],
   ),
 
@@ -4305,6 +4491,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Soudan', id: 'sdn'),
       Phrase(langCode: 'es', value: 'Sudán', id: 'sdn'),
       Phrase(langCode: 'zh', value: '苏丹', id: 'sdn'),
+      Phrase(langCode: 'it', value: 'Sudan', id: 'sdn'),
     ],
   ),
 
@@ -4328,6 +4515,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Suriname', id: 'sur'),
       Phrase(langCode: 'es', value: 'Surinam', id: 'sur'),
       Phrase(langCode: 'zh', value: '苏里南', id: 'sur'),
+      Phrase(langCode: 'it', value: 'Suriname', id: 'sur'),
     ],
   ),
 
@@ -4351,6 +4539,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Suède', id: 'swe'),
       Phrase(langCode: 'es', value: 'Suecia', id: 'swe'),
       Phrase(langCode: 'zh', value: '瑞典', id: 'swe'),
+      Phrase(langCode: 'it', value: 'Svezia', id: 'swe'),
     ],
   ),
 
@@ -4374,6 +4563,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Suisse', id: 'che'),
       Phrase(langCode: 'es', value: 'Suiza', id: 'che'),
       Phrase(langCode: 'zh', value: '瑞士', id: 'che'),
+      Phrase(langCode: 'it', value: 'Svizzera', id: 'che'),
     ],
   ),
 
@@ -4397,6 +4587,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Syrie', id: 'syr'),
       Phrase(langCode: 'es', value: 'Siria', id: 'syr'),
       Phrase(langCode: 'zh', value: '叙利亚', id: 'syr'),
+      Phrase(langCode: 'it', value: 'Siria', id: 'syr'),
     ],
   ),
 
@@ -4420,6 +4611,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Taïwan / (République de Chine (Taïwan))', id: 'twn'),
       Phrase(langCode: 'es', value: 'Taiwán (República de China)', id: 'twn'),
       Phrase(langCode: 'zh', value: '中国台湾省', id: 'twn'),
+      Phrase(langCode: 'it', value: 'Taiwan', id: 'twn'),
     ],
   ),
 
@@ -4443,6 +4635,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Tadjikistan', id: 'tjk'),
       Phrase(langCode: 'es', value: 'Tayikistán', id: 'tjk'),
       Phrase(langCode: 'zh', value: '塔吉克斯坦', id: 'tjk'),
+      Phrase(langCode: 'it', value: 'Tajikistan', id: 'tjk'),
     ],
   ),
 
@@ -4466,6 +4659,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Tanzanie', id: 'tza'),
       Phrase(langCode: 'es', value: 'Tanzania', id: 'tza'),
       Phrase(langCode: 'zh', value: '坦桑尼亚', id: 'tza'),
+      Phrase(langCode: 'it', value: 'Tanzania', id: 'tza'),
     ],
   ),
 
@@ -4489,6 +4683,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Thaïlande', id: 'tha'),
       Phrase(langCode: 'es', value: 'Tailandia', id: 'tha'),
       Phrase(langCode: 'zh', value: '泰国', id: 'tha'),
+      Phrase(langCode: 'it', value: 'Tailandia', id: 'tha'),
     ],
   ),
 
@@ -4512,6 +4707,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Timor oriental', id: 'tls'),
       Phrase(langCode: 'es', value: 'Timor Oriental', id: 'tls'),
       Phrase(langCode: 'zh', value: '东帝汶', id: 'tls'),
+      Phrase(langCode: 'it', value: 'Timor Est', id: 'tls'),
     ],
   ),
 
@@ -4535,6 +4731,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Togo', id: 'tgo'),
       Phrase(langCode: 'es', value: 'Togo', id: 'tgo'),
       Phrase(langCode: 'zh', value: '多哥', id: 'tgo'),
+      Phrase(langCode: 'it', value: 'Togo', id: 'tgo'),
     ],
   ),
 
@@ -4558,6 +4755,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Tonga', id: 'ton'),
       Phrase(langCode: 'es', value: 'Tonga', id: 'ton'),
       Phrase(langCode: 'zh', value: '汤加', id: 'ton'),
+      Phrase(langCode: 'it', value: 'Tonga', id: 'ton'),
     ],
   ),
 
@@ -4581,6 +4779,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Trinité-et-Tobago', id: 'tto'),
       Phrase(langCode: 'es', value: 'Trinidad y Tobago', id: 'tto'),
       Phrase(langCode: 'zh', value: '特立尼达和多巴哥', id: 'tto'),
+      Phrase(langCode: 'it', value: 'Trinidad e Tobago', id: 'tto'),
     ],
   ),
 
@@ -4604,6 +4803,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Tunisie', id: 'tun'),
       Phrase(langCode: 'es', value: 'Túnez', id: 'tun'),
       Phrase(langCode: 'zh', value: '突尼斯', id: 'tun'),
+      Phrase(langCode: 'it', value: 'Tunisia', id: 'tun'),
     ],
   ),
 
@@ -4627,6 +4827,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Turquie', id: 'tur'),
       Phrase(langCode: 'es', value: 'Turquía', id: 'tur'),
       Phrase(langCode: 'zh', value: '土耳其', id: 'tur'),
+      Phrase(langCode: 'it', value: 'Turchia', id: 'tur'),
     ],
   ),
 
@@ -4650,6 +4851,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Turkménistan', id: 'tkm'),
       Phrase(langCode: 'es', value: 'Turkmenistán', id: 'tkm'),
       Phrase(langCode: 'zh', value: '土库曼斯坦', id: 'tkm'),
+      Phrase(langCode: 'it', value: 'Turkmenistan', id: 'tkm'),
     ],
   ),
 
@@ -4673,6 +4875,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Îles Turques-et-Caïques', id: 'tca'),
       Phrase(langCode: 'es', value: 'Islas Turcas y Caicos', id: 'tca'),
       Phrase(langCode: 'zh', value: '特克斯和凯科斯群岛', id: 'tca'),
+      Phrase(langCode: 'it', value: 'Isole Turks e Caicos', id: 'tca'),
     ],
   ),
 
@@ -4696,6 +4899,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Tuvalu', id: 'tuv'),
       Phrase(langCode: 'es', value: 'Tuvalu', id: 'tuv'),
       Phrase(langCode: 'zh', value: '图瓦卢', id: 'tuv'),
+      Phrase(langCode: 'it', value: 'Tuvalu', id: 'tuv'),
     ],
   ),
 
@@ -4719,6 +4923,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Ouganda', id: 'uga'),
       Phrase(langCode: 'es', value: 'Uganda', id: 'uga'),
       Phrase(langCode: 'zh', value: '乌干达', id: 'uga'),
+      Phrase(langCode: 'it', value: 'Uganda', id: 'uga'),
     ],
   ),
 
@@ -4742,6 +4947,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Ukraine', id: 'ukr'),
       Phrase(langCode: 'es', value: 'Ucrania', id: 'ukr'),
       Phrase(langCode: 'zh', value: '乌克兰', id: 'ukr'),
+      Phrase(langCode: 'it', value: 'Ucraina', id: 'ukr'),
     ],
   ),
 
@@ -4760,11 +4966,12 @@ const List<Flag> allFlags = <Flag>[
     population: 9630959,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Vereinigte Arabische Emirate', id: 'are'),
-      Phrase(langCode: 'ar', value: 'الإمارات العربية المتحدة', id: 'are'),
+      Phrase(langCode: 'ar', value: 'الإمارات', id: 'are'),
       Phrase(langCode: 'en', value: 'United Arab Emirates', id: 'are'),
       Phrase(langCode: 'fr', value: 'Émirats arabes unis', id: 'are'),
       Phrase(langCode: 'es', value: 'Emiratos Árabes Unidos', id: 'are'),
       Phrase(langCode: 'zh', value: '阿联酋', id: 'are'),
+      Phrase(langCode: 'it', value: 'Emirati Arabi Uniti', id: 'are'),
     ],
   ),
 
@@ -4788,6 +4995,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Royaume-Uni', id: 'gbr'),
       Phrase(langCode: 'es', value: 'Reino Unido', id: 'gbr'),
       Phrase(langCode: 'zh', value: '英国', id: 'gbr'),
+      Phrase(langCode: 'it', value: 'Regno Unito', id: 'gbr'),
     ],
   ),
 
@@ -4811,6 +5019,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'États-Unis', id: 'usa'),
       Phrase(langCode: 'es', value: 'Estados Unidos', id: 'usa'),
       Phrase(langCode: 'zh', value: '美国', id: 'usa'),
+      Phrase(langCode: 'it', value: 'stati Uniti', id: 'usa'),
     ],
   ),
 
@@ -4834,6 +5043,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Uruguay', id: 'ury'),
       Phrase(langCode: 'es', value: 'Uruguay', id: 'ury'),
       Phrase(langCode: 'zh', value: '乌拉圭', id: 'ury'),
+      Phrase(langCode: 'it', value: 'Uruguay', id: 'ury'),
     ],
   ),
 
@@ -4857,6 +5067,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Ouzbékistan', id: 'uzb'),
       Phrase(langCode: 'es', value: 'Uzbekistán', id: 'uzb'),
       Phrase(langCode: 'zh', value: '乌兹别克斯坦', id: 'uzb'),
+      Phrase(langCode: 'it', value: 'Uzbekistan', id: 'uzb'),
     ],
   ),
 
@@ -4880,6 +5091,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Vanuatu', id: 'vut'),
       Phrase(langCode: 'es', value: 'Vanuatu', id: 'vut'),
       Phrase(langCode: 'zh', value: '瓦努阿图', id: 'vut'),
+      Phrase(langCode: 'it', value: 'Vanuatu', id: 'vut'),
     ],
   ),
 
@@ -4903,6 +5115,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Venezuela', id: 'ven'),
       Phrase(langCode: 'es', value: 'Venezuela', id: 'ven'),
       Phrase(langCode: 'zh', value: '委内瑞拉', id: 'ven'),
+      Phrase(langCode: 'it', value: 'Venezuela', id: 'ven'),
     ],
   ),
 
@@ -4926,6 +5139,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Viêt Nam', id: 'vnm'),
       Phrase(langCode: 'es', value: 'Vietnam', id: 'vnm'),
       Phrase(langCode: 'zh', value: '越南', id: 'vnm'),
+      Phrase(langCode: 'it', value: 'Vietnam', id: 'vnm'),
     ],
   ),
 
@@ -4949,6 +5163,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Wallis-et-Futuna', id: 'wlf'),
       Phrase(langCode: 'es', value: 'Wallis y Futuna', id: 'wlf'),
       Phrase(langCode: 'zh', value: '瓦利斯和富图纳', id: 'wlf'),
+      Phrase(langCode: 'it', value: 'Wallis e Futuna', id: 'wlf'),
     ],
   ),
 
@@ -4972,6 +5187,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Yémen', id: 'yem'),
       Phrase(langCode: 'es', value: 'Yemen', id: 'yem'),
       Phrase(langCode: 'zh', value: '也门', id: 'yem'),
+      Phrase(langCode: 'it', value: 'Yemen', id: 'yem'),
     ],
   ),
 
@@ -4995,6 +5211,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Zambie', id: 'zmb'),
       Phrase(langCode: 'es', value: 'Zambia', id: 'zmb'),
       Phrase(langCode: 'zh', value: '赞比亚', id: 'zmb'),
+      Phrase(langCode: 'it', value: 'Zambia', id: 'zmb'),
     ],
   ),
 
@@ -5018,6 +5235,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Zimbabwe', id: 'zwe'),
       Phrase(langCode: 'es', value: 'Zimbabue', id: 'zwe'),
       Phrase(langCode: 'zh', value: '津巴布韦', id: 'zwe'),
+      Phrase(langCode: 'it', value: 'Zimbabwe', id: 'zwe'),
     ],
   ),
 
@@ -5041,6 +5259,7 @@ const List<Flag> allFlags = <Flag>[
       Phrase(langCode: 'fr', value: 'Afghanistan', id: 'afg'),
       Phrase(langCode: 'es', value: 'Afganistán', id: 'afg'),
       Phrase(langCode: 'zh', value: '阿富汗', id: 'afg'),
+      Phrase(langCode: 'it', value: 'Afghanistan', id: 'afg'),
     ],
   ),
 

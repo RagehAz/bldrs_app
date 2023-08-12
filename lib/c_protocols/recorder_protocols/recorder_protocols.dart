@@ -615,7 +615,7 @@ class RecorderProtocols {
   /// READ BZ COUNTERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<FlyerCounterModel?> fetchFlyerCounters({
     required String? flyerID,
     required String? bzID,
@@ -664,11 +664,13 @@ class RecorderProtocols {
 
         if (_map != null){
 
-          final Map<String, dynamic> _insertThis = Mapper.insertPairInMap(
-            map: _map,
-            key: 'timeStamp',
-            value: Timers.cipherTime(time: DateTime.now(), toJSON: true),
-            overrideExisting: true,
+          final Map<String, dynamic> _insertThis = Mapper.insertMapInMap(
+            baseMap: _map,
+            insert: {
+              'timeStamp': Timers.cipherTime(time: DateTime.now(), toJSON: true),
+              'flyerID': flyerID,
+              'bzID': bzID,
+            },
           );
 
           await LDBOps.insertMap(
@@ -693,7 +695,7 @@ class RecorderProtocols {
   /// READ FLYER COUNTERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<BzCounterModel?> fetchBzCounters({
     required String? bzID,
     required bool forceRefetch,
@@ -740,11 +742,12 @@ class RecorderProtocols {
 
         if (_map != null){
 
-          final Map<String, dynamic> _insertThis = Mapper.insertPairInMap(
-              map: _map,
-              key: 'timeStamp',
-              value: Timers.cipherTime(time: DateTime.now(), toJSON: true),
-              overrideExisting: true,
+          final Map<String, dynamic> _insertThis = Mapper.insertMapInMap(
+              baseMap: _map,
+              insert: {
+                'timeStamp': Timers.cipherTime(time: DateTime.now(), toJSON: true),
+                'bzID': bzID,
+              },
           );
 
           await LDBOps.insertMap(
