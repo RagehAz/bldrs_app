@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
-import 'package:bldrs/b_views/z_components/buttons/bz_long_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/bz_buttons/bz_long_button.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';

@@ -62,8 +62,9 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        final BzCounterModel? _counters = await RecorderProtocols.readBzCounters(
+        final BzCounterModel? _counters = await RecorderProtocols.fetchBzCounters(
           bzID: _bzModel?.id,
+          forceRefetch: false,
         );
 
         setNotifier(

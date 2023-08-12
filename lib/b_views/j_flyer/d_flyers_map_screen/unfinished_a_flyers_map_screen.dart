@@ -2,7 +2,7 @@
 // import 'dart:typed_data';
 // import 'dart:ui' as ui;
 //
-// import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
+// import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 // import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 // import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 // import 'package:bldrs/b_views/z_components/loading/loading.dart';

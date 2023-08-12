@@ -1,9 +1,8 @@
-import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class FlyerVerses {
   /// --------------------------------------------------------------------------
 
@@ -52,20 +51,27 @@ class FlyerVerses {
   static int bzLabelNameMaxLines({
     required bool flyerShowsAuthor,
   }){
-    return flyerShowsAuthor == true ? 1 : 2;
+    return flyerShowsAuthor == true ? 1 : 1;
   }
   // --------------------
   static int bzLabelLocaleSize({
     required bool flyerShowsAuthor,
   }){
-    return flyerShowsAuthor == true ? 1 : 1;
+    return flyerShowsAuthor == true ? 1 : 2;
   }
   // --------------------
   static double bzLabelVersesScaleFactor({
-    required BuildContext context,
+    required bool flyerShowsAuthor,
     required double flyerBoxWidth,
   }){
-    return flyerBoxWidth * 0.0021;
+
+    if (flyerShowsAuthor == true){
+      return flyerBoxWidth * 0.002;
+    }
+    else {
+      return flyerBoxWidth * 0.0025;
+    }
+
   }
   // --------------------
   static double authorLabelVersesScaleFactor({
@@ -76,35 +82,30 @@ class FlyerVerses {
   // --------------------
   static Verse followersCounters({
     required int? followersCount,
-    required int? authorGalleryCount,
-    required int bzGalleryCount,
-    required bool showLabel,
+    required int? flyersCount,
   }){
 
-      final String? _galleryCountCalibrated = getCounterCaliber(bzGalleryCount);
+    String _followsLine = '';
+    String _flyersLine = '';
+    String _dot = '';
 
-      final String _followersCounter =
-          (authorGalleryCount == 0 && followersCount == 0)
-          ||
-          (authorGalleryCount == null && followersCount == null)
-          ?
-          ''
-          :
-          showLabel == true ?
-          '${Numeric.formatNumToSeparatedKilos(number: authorGalleryCount)} '
-          '${getWord('phid_flyers')}'
-          :
-          /// FIX_FOLLOWERS_NUMBERS
-          // '${counterCaliber(followersCount)} '
-          // '${word('phid_followers')} . '
-          '$_galleryCountCalibrated '
-          '${getWord('phid_flyers')}';
-
-      return Verse(
-        id: _followersCounter,
-        translate: false,
-      );
-
+    if (followersCount != null && followersCount > 0){
+      _followsLine = '${getCounterCaliber(followersCount)} ${getWord('phid_followers')}';
     }
+
+    if (flyersCount != null && flyersCount > 0){
+      _flyersLine = '${getCounterCaliber(flyersCount)} ${getWord('phid_flyers')}';
+    }
+
+    if (_followsLine != '' && _flyersLine != ''){
+      _dot = ' . ';
+    }
+
+    return Verse(
+      id: '$_followsLine$_dot$_flyersLine',
+      translate: false,
+    );
+
+  }
   // --------------------
 }

@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/widgets/drawing/expander.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/d_micro_pic.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
