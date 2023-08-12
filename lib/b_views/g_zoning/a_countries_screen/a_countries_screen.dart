@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:basics/animators/widgets/scroller.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/animators/widgets/widget_waiter.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
@@ -143,6 +145,8 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 
+        await Future.delayed(const Duration(milliseconds: 400));
+
         await _loadCountries();
 
         await _triggerLoading(setTo: false);
@@ -217,24 +221,29 @@ class _CountriesScreenState extends State<CountriesScreen> {
       removeThis: _shownIDs,
     );
 
+    /// FINAL IDS
+    final List<String> _shown = Flag.sortCountriesNamesAlphabetically(
+      countriesIDs: _shownIDs,
+      langCode: Localizer.getCurrentLangCode(),
+    );
+
+    final List<String> _notShown = Flag.sortCountriesNamesAlphabetically(
+      countriesIDs: _notShownIDs,
+      langCode: Localizer.getCurrentLangCode(),
+    );
+
     /// CENSUS
     final List<CensusModel> _countriesCensuses = await  CensusProtocols.fetchCountriesCensusesByIDs(
         countriesIDs: [...?_shownIDs, ...?_notShownIDs],
     );
     final CensusModel? _fetchedPlanetCensus = await CensusProtocols.fetchPlanetCensus();
 
+
     if (mounted) {
       setState(() {
 
-        _shownCountriesIDs = Flag.sortCountriesNamesAlphabetically(
-          countriesIDs: _shownIDs,
-          langCode: Localizer.getCurrentLangCode(),
-        );
-
-        _notShownCountriesIDs = Flag.sortCountriesNamesAlphabetically(
-          countriesIDs: _notShownIDs,
-          langCode: Localizer.getCurrentLangCode(),
-        );
+        _shownCountriesIDs = _shown;
+        _notShownCountriesIDs = _notShown;
 
         _censuses = _countriesCensuses;
         _planetCensus = _fetchedPlanetCensus;
@@ -312,64 +321,70 @@ class _CountriesScreenState extends State<CountriesScreen> {
         translate: true,
       ),
       loading: _loading,
-      child: Scroller(
-        child: ValueListenableBuilder(
-          valueListenable: _isSearching,
-          builder: (BuildContext context, bool isSearching, Widget? child){
+      child: WidgetWaiter(
+        waitDuration: const Duration(milliseconds: 1800),
+        child: WidgetFader(
+          fadeType: FadeType.fadeIn,
+          child: Scroller(
+            child: ValueListenableBuilder(
+              valueListenable: _isSearching,
+              builder: (BuildContext context, bool isSearching, Widget? child){
 
-            /// WHILE SEARCHING
-            if (isSearching == true){
+                /// WHILE SEARCHING
+                if (isSearching == true){
 
-              return SelectCountryScreenSearchView(
-                loading: _loading,
-                foundCountries: _foundCountries,
-                shownCountriesIDs: _shownCountriesIDs,
-                countriesCensus: _censuses,
-                selectedZone: widget.selectedZone,
-                onCountryTap: _onCountryTap,
-                onDeactivatedCountryTap: _onDeactivatedCountryTap,
-              );
+                  return SelectCountryScreenSearchView(
+                    loading: _loading,
+                    foundCountries: _foundCountries,
+                    shownCountriesIDs: _shownCountriesIDs,
+                    countriesCensus: _censuses,
+                    selectedZone: widget.selectedZone,
+                    onCountryTap: _onCountryTap,
+                    onDeactivatedCountryTap: _onDeactivatedCountryTap,
+                  );
 
-            }
+                }
 
-            /// NOT SEARCHING
-            else {
+                /// NOT SEARCHING
+                else {
 
-              return CountriesScreenBrowseView(
-                shownCountriesIDs: _shownCountriesIDs,
-                notShownCountriesIDs: _notShownCountriesIDs,
-                countriesCensus: _censuses,
-                onCountryTap: _onCountryTap,
-                onDeactivatedCountryTap: _onDeactivatedCountryTap,
-                showPlanetButton: StagingModel.checkMayShowViewAllZonesButton(
-                  zoneViewingEvent: widget.zoneViewingEvent,
-                ),
-                planetCensus: _planetCensus,
-                selectedZone: widget.selectedZone,
-                onPlanetTap: () async {
+                  return CountriesScreenBrowseView(
+                    shownCountriesIDs: _shownCountriesIDs,
+                    notShownCountriesIDs: _notShownCountriesIDs,
+                    countriesCensus: _censuses,
+                    onCountryTap: _onCountryTap,
+                    onDeactivatedCountryTap: _onDeactivatedCountryTap,
+                    showPlanetButton: StagingModel.checkMayShowViewAllZonesButton(
+                      zoneViewingEvent: widget.zoneViewingEvent,
+                    ),
+                    planetCensus: _planetCensus,
+                    selectedZone: widget.selectedZone,
+                    onPlanetTap: () async {
 
-                  final bool _isSettingCurrentZone =
-                      widget.zoneViewingEvent == ViewingEvent.homeView
-                      &&
-                      widget.canSetPlanetAsCurrentZone == true;
-
-
-                  if (_isSettingCurrentZone == true){
-                    await ZoneSelection.setCurrentZoneAndNavHome(
-                      zone: null,
-                    );
-                  }
-                  else {
-                    await Nav.goBack(context: context);
-                  }
+                      final bool _isSettingCurrentZone =
+                          widget.zoneViewingEvent == ViewingEvent.homeView
+                          &&
+                          widget.canSetPlanetAsCurrentZone == true;
 
 
-                  },
-              );
+                      if (_isSettingCurrentZone == true){
+                        await ZoneSelection.setCurrentZoneAndNavHome(
+                          zone: null,
+                        );
+                      }
+                      else {
+                        await Nav.goBack(context: context);
+                      }
 
-            }
 
-          },
+                      },
+                  );
+
+                }
+
+              },
+            ),
+          ),
         ),
       ),
 
