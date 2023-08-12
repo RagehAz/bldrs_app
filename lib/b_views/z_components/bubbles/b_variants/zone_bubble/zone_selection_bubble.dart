@@ -5,7 +5,6 @@ import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
-import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
@@ -153,14 +152,11 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     Keyboard.closeKeyboard();
 
-    final ZoneModel? _zone = await Nav.goToNewScreen(
-      context: context,
-      screen: CountriesScreen(
-        zoneViewingEvent: widget.zoneViewingEvent,
-        depth: widget.depth,
-        viewerCountryID: widget.viewerCountryID,
-        selectedZone: widget.currentZone,
-      ),
+    final ZoneModel? _zone = await ZoneSelection.goToCountriesScreen(
+      zoneViewingEvent: widget.zoneViewingEvent,
+      depth: widget.depth,
+      viewerCountryID: widget.viewerCountryID,
+      selectedZone: widget.currentZone,
     );
 
     if (_zone == null){
@@ -170,14 +166,10 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
       _zone.blogZone(invoker: 'received zone');
 
-      final ZoneModel? _completedZone = await ZoneProtocols.completeZoneModel(
-        incompleteZoneModel: _zone,
-      );
-
       setNotifier(
           notifier: _selectedZone,
           mounted: mounted,
-          value: _completedZone,
+          value: _zone,
       );
 
       widget.onZoneChanged(_selectedZone.value);
