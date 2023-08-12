@@ -92,10 +92,12 @@ packages:
   basics:
     dependency: "direct main"
     description:
-      path: "D:/projects/packages/helpers/basics"
-      relative: false
-    source: path
-    version: "4.0.1"
+      path: "."
+      ref: HEAD
+      resolved-ref: c98530d4a28e535af479de886adff3c4202d3e6d
+      url: "https://github.com/RagehAz/basics.git"
+    source: git
+    version: "4.0.3"
   bldrs_keywords:
     dependency: "direct main"
     description:
@@ -468,9 +470,11 @@ packages:
   fire:
     dependency: "direct main"
     description:
-      path: "D:/projects/packages/backend/fire"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "5d43804996133be19cfb4937fb0eca5748cdb002"
+      url: "https://github.com/RagehAz/fire.git"
+    source: git
     version: "2.1.0"
   firebase_app_check:
     dependency: "direct main"
@@ -1552,10 +1556,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_foundation
-      sha256: f39696b83e844923b642ce9dd4bd31736c17e697f6731a5adf445b1274cf3cd4
+      sha256: d29753996d8eb8f7619a1f13df6ce65e34bc107bef6330739ed76f18b22310ef
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.3.3"
   shared_preferences_linux:
     dependency: transitive
     description:

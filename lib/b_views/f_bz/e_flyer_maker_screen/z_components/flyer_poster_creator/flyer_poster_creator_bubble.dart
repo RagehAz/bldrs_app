@@ -3,8 +3,8 @@ import 'dart:typed_data';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/checks/error_helpers.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
@@ -81,52 +81,64 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
 
     if (widget.draft?.id != null){
 
-      if (_loading == false){
-        setState(() {
-          _loading = true;
-        });
-      }
-
-      final double _screenWidth = Scale.screenWidth(context);
-      final double _finalDesiredWidth = Standards.posterDimensions.width!;
-
-      Uint8List? _bytes = await _cont.capture(
-        pixelRatio: _finalDesiredWidth / _screenWidth,
-        delay: const Duration(milliseconds: 1000),
-      );
-
       final String? _path = StoragePath.flyers_flyerID_poster(widget.draft!.id);
 
-      if (_bytes != null && _path != null){
+      if (_path != null){
 
-        _bytes = await PicMaker.compressPic(
-          bytes: _bytes,
-          compressToWidth: Standards.posterDimensions.width,
-          quality: Standards.slideSmallQuality,
+        PicModel? _pic;
+
+        if (_loading == false){
+          setState(() {
+            _loading = true;
+          });
+        }
+
+        Uint8List? _bytes;
+
+        await tryAndCatch(
+          invoker: 'Load poster',
+          functions: () async {
+
+            _bytes = await _cont.capture(
+              /// this fixes white lines issue
+              pixelRatio: MediaQuery.of(context).devicePixelRatio,
+              delay: const Duration(milliseconds: 1000),
+            );
+
+            },
         );
 
-        final PicModel? _pic = await PicModel.combinePicModel(
-          bytes: _bytes,
-          picMakerType: PicMakerType.generated,
-          compressionQuality: Standards.slideSmallQuality,
-          assignPath: _path,
-          name: '${widget.draft!.id}_poster',
-          ownersIDs: await FlyerModel.generateFlyerOwners(
-            bzID: widget.draft!.bzID,
-          ),
-        );
+        if (_bytes != null){
 
-        widget.onPosterCreated(_pic);
+          _bytes = await PicMaker.compressPic(
+            bytes: _bytes,
+            compressToWidth: Standards.posterDimensions.width,
+            quality: Standards.slideMediumQuality,
+          );
+
+          _pic = await PicModel.combinePicModel(
+            bytes: _bytes,
+            picMakerType: PicMakerType.generated,
+            compressionQuality: Standards.slideMediumQuality,
+            assignPath: _path,
+            name: '${widget.draft!.id}_poster',
+            ownersIDs: await FlyerModel.generateFlyerOwners(
+              bzID: widget.draft!.bzID,
+            ),
+          );
+
+          widget.onPosterCreated(_pic);
+
+        }
 
         setState(() {
-          _poster = _pic;
-          _loading = false;
-        });
+            _poster = _pic;
+            _loading = false;
+          });
 
       }
 
     }
-
 
   }
   // --------------------
@@ -186,7 +198,8 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
         /// POSTER
         if (_poster != null)
         Stack(
-          children: [
+          alignment: Alignment.center,
+          children: <Widget>[
 
             /// SHOT POSTER
             BldrsImage(
@@ -194,6 +207,7 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
               height: _posterHeight,
               pic: _poster,
               loading: _loading,
+              fit: BoxFit.fitWidth,
               corners: Bubble.clearBorders(),
             ),
 
@@ -227,48 +241,47 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
           borderRadius: Bubble.clearBorders(),
           child: Screenshot(
             controller: _cont,
-            child: ClipRRect( // to TRY_AVOID_WHITE_LINES
-              child: Container(
-                width: _clearWidth,
-                height: _posterHeight,
-                color: Colorz.black255,
-                child: Stack(
-                  children: <Widget>[
+            child: Container(
+              width: _clearWidth,
+              height: _posterHeight,
+              color: Colorz.black255,
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
 
-                    /// POSTER
-                    PosterSwitcher(
-                      posterType: PosterType.flyer,
-                      width: _clearWidth,
-                      model: widget.draft,
-                      modelHelper: widget.draft?.bzModel,
+                  /// POSTER
+                  PosterSwitcher(
+                    posterType: PosterType.flyer,
+                    width: _clearWidth,
+                    model: widget.draft,
+                    modelHelper: widget.draft?.bzModel,
+                  ),
+
+                  /// PYRAMIDS
+                  Positioned(
+                    bottom: _clearWidth * -0.01,
+                    right: 17 * _clearWidth * 0.0015,
+                    child: BldrsImage(
+                      width: 256 * _clearWidth * 0.0015,
+                      height: 80 * _clearWidth * 0.0015,
+                      pic: Iconz.pyramidzYellow,
+                      fit: BoxFit.fitWidth,
                     ),
+                  ),
 
-                    /// PYRAMIDS
-                    Positioned(
-                      bottom: _clearWidth * -0.01,
-                      right: 17 * _clearWidth * 0.0015,
-                      child: BldrsImage(
-                        width: 256 * _clearWidth * 0.0015,
-                        height: 80 * _clearWidth * 0.0015,
-                        pic: Iconz.pyramidzYellow,
-                        fit: BoxFit.fitWidth,
-                      ),
+                  /// LOGO
+                  Positioned(
+                    bottom: _clearWidth * 0.06,
+                    right: _clearWidth * 0.055,
+                    child: BldrsImage(
+                      width: _posterHeight * 0.25,
+                      height: _posterHeight * 0.25,
+                      pic: Iconz.bldrsNameSquare,
+                      // backgroundColor: Colorz.bloodTest,
                     ),
+                  ),
 
-                    /// LOGO
-                    Positioned(
-                      bottom: _clearWidth * 0.06,
-                      right: _clearWidth * 0.055,
-                      child: BldrsImage(
-                        width: _posterHeight * 0.25,
-                        height: _posterHeight * 0.25,
-                        pic: Iconz.bldrsNameSquare,
-                        // backgroundColor: Colorz.bloodTest,
-                      ),
-                    ),
-
-                  ],
-                ),
+                ],
               ),
             ),
           ),
