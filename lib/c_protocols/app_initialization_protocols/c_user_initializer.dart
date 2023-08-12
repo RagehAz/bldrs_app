@@ -68,7 +68,6 @@ class UserInitializer {
           invoker: 'UserInitializer.initializeUser',
           oldUser: _old,
           newUser: _new,
-          newPic: null,
         );
 
       }

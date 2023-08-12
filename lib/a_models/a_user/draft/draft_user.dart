@@ -105,6 +105,7 @@ class DraftUser {
   static Future<DraftUser?> createDraftUser({
     required BuildContext context,
     required UserModel? userModel,
+    required bool firstTimer,
   }) async {
     DraftUser? _draft;
 
@@ -115,15 +116,16 @@ class DraftUser {
         countryID: userModel.zone?.countryID,
       );
 
-      final String? _email = ContactModel.getContactFromContacts(
-        contacts: userModel.contacts,
-        type: ContactType.email,
-      )?.value;
+      final String? _email = UserModel.getUserEmail(userModel);
 
       final String? _phone = ContactModel.getContactFromContacts(
         contacts: userModel.contacts,
         type: ContactType.phone,
       )?.value;
+      
+      final PicModel? _picModel = firstTimer == true ? null
+          :
+      await PicProtocols.fetchPic(userModel.picPath);
 
       _draft = DraftUser(
         id: userModel.id,
@@ -132,7 +134,7 @@ class DraftUser {
         need: userModel.need,
         name: userModel.name,
         trigram: userModel.trigram,
-        picModel: await PicProtocols.fetchPic(userModel.picPath),
+        picModel: _picModel,
         title: userModel.title,
         company: userModel.company,
         gender: userModel.gender,

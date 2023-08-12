@@ -157,6 +157,7 @@ class UserFireOps {
   static Future<UserModel?> updateUser({
     required UserModel? oldUser,
     required UserModel? newUser,
+    bool updateEmailInAuth = true,
   }) async {
     UserModel? _output;
 
@@ -171,6 +172,7 @@ class UserFireOps {
         final UserModel? _finalUserModel = await _updateUserEmailIfChanged(
           oldUser: oldUser,
           newUser: newUser,
+          updateEmailInAuth: updateEmailInAuth,
         );
 
         await Fire.updateDoc(
@@ -191,6 +193,7 @@ class UserFireOps {
   static Future<UserModel?> _updateUserEmailIfChanged({
     required UserModel? oldUser,
     required UserModel? newUser,
+    required bool updateEmailInAuth,
   }) async {
 
     UserModel? _output = newUser?.copyWith();
@@ -200,7 +203,7 @@ class UserFireOps {
       newContacts: newUser?.contacts,
     );
 
-    if (_emailChanged == true){
+    if (updateEmailInAuth == true && _emailChanged == true){
 
       final String? _newEmail = ContactModel.getValueFromContacts(
         contacts: newUser?.contacts,

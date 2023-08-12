@@ -449,6 +449,7 @@ class UserModel {
   /// CHECKERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool userIsSignedUp(UserModel? userModel) {
     bool _userIsSignedUp = false;
 
@@ -458,6 +459,7 @@ class UserModel {
 
     return _userIsSignedUp;
   }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUserIsAuthor(UserModel? userModel) {
     bool _userIsAuthor = false;

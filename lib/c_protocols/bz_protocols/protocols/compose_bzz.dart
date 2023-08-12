@@ -186,7 +186,6 @@ class ComposeBzProtocols {
       ),
 
       UserProtocols.renovate(
-        newPic: null,
         newUser: _newUser,
         oldUser: _oldUser,
         invoker: 'ComposeBzProtocols._addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics',

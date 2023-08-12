@@ -93,7 +93,7 @@ class FooterButton extends StatelessWidget {
               onTap: canTap == true ? onTap : null,
               childAlignment: Alignment.topCenter,
               splashColor: isOn ? Colorz.black255 : Colorz.yellow255,
-              bubble: false,
+              bubble: isOn,
               loading: isLoading,
               subChild: SizedBox(
                 width: _buttonSize * 0.8,
@@ -102,10 +102,10 @@ class FooterButton extends StatelessWidget {
                   scale: 0.5,
                   child: icon == null ? const SizedBox() : WebsafeSvg.asset(
                     icon!,
-                      colorFilter: ColorFilter.mode(
-                        _iconAndVerseColor,
-                        BlendMode.srcIn,
-                      ),
+                      // colorFilter: ColorFilter.mode(
+                      //   _iconAndVerseColor,
+                      //   BlendMode.srcIn,
+                      // ),
                       // package: Iconz.bldrsTheme,
                       // fit: BoxFit.fitWidth,
                       width: _buttonSize * 0.8,

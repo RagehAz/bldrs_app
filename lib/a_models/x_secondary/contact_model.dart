@@ -573,15 +573,13 @@ class ContactModel {
     required List<ContactModel>? contacts,
     required ContactModel? contactToReplace,
   }){
-    List<ContactModel> _output = <ContactModel>[];
+    final List<ContactModel> _output = <ContactModel>[...?contacts];
 
     /// NOTE : REPLACES CONTACT OF THAT TYPE OR INSERTS NEW ONE
 
-    if (Mapper.checkCanLoopList(contacts) == true && contactToReplace != null){
+    if (contactToReplace != null){
 
-      _output = <ContactModel>[...contacts!];
-
-      final int _index = contacts.indexWhere((element) => element.type == contactToReplace.type);
+      final int _index = _output.indexWhere((element) => element.type == contactToReplace.type);
 
       if (_index != -1){
         _output.removeAt(_index);

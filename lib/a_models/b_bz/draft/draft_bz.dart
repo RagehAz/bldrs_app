@@ -603,18 +603,6 @@ class DraftBz {
 
   // -------------------
   /// TESTED : WORKS PERFECT
-  String? getLogoPath(){
-
-    if (firstTimer != null && firstTimer! == true){
-      return null;
-    }
-    else {
-      return StoragePath.bzz_bzID_logo(id);
-    }
-
-  }
-  // -------------------
-  /// TESTED : WORKS PERFECT
   List<String> getLogoOwners(){
     final AuthorModel? _author = AuthorModel.getCreatorAuthorFromAuthors(authors);
     if (_author?.userID == null){

@@ -44,6 +44,7 @@ Future<void> loadFlyerMakerLastSession({
 
   final DraftFlyer? _lastSessionDraft = await FlyerLDBOps.loadFlyerMakerSession(
     flyerID: draft?.value?.id ?? DraftFlyer.newDraftID,
+    bzID: draft?.value?.bzID,
   );
 
   if (_lastSessionDraft != null){

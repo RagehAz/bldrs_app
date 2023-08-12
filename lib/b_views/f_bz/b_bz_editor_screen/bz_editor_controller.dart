@@ -17,6 +17,7 @@ import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -362,8 +363,10 @@ Future<void> onChangeBzLogo({
 
   if (draftNotifier.value != null && Mapper.boolIsTrue(draftNotifier.value?.canPickImage) == true) {
 
-    final String? _path = draftNotifier.value!.getLogoPath();
+    final String? _path = StoragePath.bzz_bzID_logo(draftNotifier.value?.id);
+    // draftNotifier.value!.getLogoPath();
     final List<String>? _ownersIDs = draftNotifier.value?.getLogoOwners();
+
 
     if (_path != null && _ownersIDs != null){
 

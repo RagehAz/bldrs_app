@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -97,18 +98,30 @@ class FlightFlyer extends StatelessWidget {
                     child: Selector<UsersProvider, UserModel?>(
                       selector: (_, UsersProvider userProvider) => userProvider.myUserModel,
                       builder: (_, UserModel? userModel, Widget? child) {
-                        return FooterButton(
-                          flyerBoxWidth: flyerBoxWidth,
-                          icon: Iconz.save,
-                          phid: 'phid_save',
-                          isOn: UserModel.checkFlyerIsSaved(
+
+                        final bool _isOn = UserModel.checkFlyerIsSaved(
                             userModel: userModel,
                             flyerID: renderedFlyer?.id,
-                          ),
-                          onTap: null,
-                          count: null,
-                          canTap: false,
-                        );
+                          );
+
+                        if (_isOn == false){
+                          return const SizedBox();
+                        }
+                        else {
+                          return FooterButton(
+                            color: Colorz.yellow80,
+                            flyerBoxWidth: flyerBoxWidth,
+                            icon: Iconz.ankhBlack,
+                            phid: 'phid_save',
+                            isOn: true,
+                            onTap: null,
+                            count: null,
+                            canTap: false,
+                          );
+                        }
+
+
+
                         },
                     ),
                   ),

@@ -237,6 +237,12 @@ Future<void> onNavigate({
 
   await Future.delayed(const Duration(milliseconds: 50), () async {
 
+    setNotifier(
+      notifier: progressBarModel,
+      mounted: mounted,
+      value: ProgressBarModel.emptyModel(),
+    );
+
     if (_navModel?.onNavigate != null){
       await _navModel?.onNavigate?.call();
     }
@@ -252,12 +258,6 @@ Future<void> onNavigate({
         // pageTransitionType: PageTransitionType.bottomToTop,
       );
     }
-
-    setNotifier(
-        notifier: progressBarModel,
-        mounted: mounted,
-        value: ProgressBarModel.emptyModel(),
-    );
 
     UiProvider.proSetPyramidsAreExpanded(setTo: false, notify: true);
 
