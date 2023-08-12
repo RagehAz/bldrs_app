@@ -26,9 +26,8 @@ class UserPreviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-
     final bool _userIsNotFound = userModel == null || userModel?.id == null;
-
+    // --------------------
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,

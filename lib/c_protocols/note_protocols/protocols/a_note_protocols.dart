@@ -694,7 +694,6 @@ class NoteProtocols {
       );
 
       await UserProtocols.renovate(
-        newPic: null,
         newUser: _newUser,
         oldUser: _oldUser,
         invoker: '_addAllBzTopicsToMyTopicsAndRenovate',
@@ -755,7 +754,6 @@ class NoteProtocols {
       );
 
       await UserProtocols.renovate(
-        newPic: null,
         newUser: _newUser,
         oldUser: _oldUser,
         invoker: '_removeAllBzTopicsFromMyTopicsAndRenovate',

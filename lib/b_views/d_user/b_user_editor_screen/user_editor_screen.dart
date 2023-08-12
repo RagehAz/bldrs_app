@@ -47,6 +47,7 @@ class UserEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const UserEditorScreen({
     required this.initialTab,
+    required this.firstTimer,
     required this.userModel,
     required this.onFinish,
     required this.canGoBack,
@@ -57,6 +58,7 @@ class UserEditorScreen extends StatefulWidget {
   });
   /// --------------------------------------------------------------------------
   final UserEditorTab initialTab;
+  final bool firstTimer;
   final UserModel? userModel;
   final Function onFinish;
   final bool canGoBack;
@@ -199,6 +201,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     final DraftUser? _newDraft = await DraftUser.createDraftUser(
       context: context,
       userModel: widget.userModel,
+      firstTimer: widget.firstTimer,
     );
     setNotifier(
       notifier: _draftUser,
@@ -209,6 +212,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     _originalDraft = await DraftUser.createDraftUser(
       context: context,
       userModel: _user,
+      firstTimer: widget.firstTimer,
     );
   }
   // --------------------
@@ -463,11 +467,17 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    return MainLayout(
 
+    final Verse _createOrUpdateProfileVerse = UserModel.userIsSignedUp(widget.userModel) == true ?
+        const Verse(id: 'phid_updateProfile', translate: true)
+        :
+        const Verse(id: 'phid_createProfile', translate: true);
+
+    // --------------------
+    return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
-      title: const Verse(id: 'phid_updateProfile', translate: true),
+      title: _createOrUpdateProfileVerse,
       skyType: SkyType.black,
       loading: _loading,
       progressBarModel: _progressBarModel,
@@ -853,7 +863,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
 
                 /// 4 - CONFIRM
                 EditorConfirmPage(
-                  verse:  const Verse(id: 'phid_updateProfile', translate: true),
+                  verse: _createOrUpdateProfileVerse,
                   onConfirmTap: _onConfirmTap,
                   canConfirm: _canConfirmEdits(),
                   modelHasChanged: _userHasChange(),

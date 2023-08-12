@@ -96,6 +96,7 @@ class DataStrip extends StatelessWidget {
 
               SuperToolTip(
                 verse: tooTipVerse,
+                triggerMode: TooltipTriggerMode.longPress,
                 child: Container(
                   height: height,
                   width: _rowWidth * 0.2,

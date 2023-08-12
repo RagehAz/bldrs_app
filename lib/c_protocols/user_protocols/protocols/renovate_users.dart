@@ -35,8 +35,9 @@ class RenovateUserProtocols {
   static Future<UserModel?> renovateUser({
     required UserModel? oldUser,
     required UserModel? newUser,
-    required PicModel? newPic,
     required String? invoker,
+    bool updateEmailInAuth = true,
+    PicModel? newPic,
   }) async {
     UserModel? _output;
 
@@ -56,6 +57,7 @@ class RenovateUserProtocols {
           UserFireOps.updateUser(
             newUser: newUser,
             oldUser: oldUser,
+            updateEmailInAuth: updateEmailInAuth,
           ).then((UserModel? uploadedModel){
             if (uploadedModel != null){
               _output = uploadedModel;
@@ -185,7 +187,6 @@ class RenovateUserProtocols {
           ),
 
           renovateUser(
-            newPic: null,
             newUser: _newUser,
             oldUser: _oldUser,
             invoker: 'followingProtocol',
@@ -215,7 +216,6 @@ class RenovateUserProtocols {
           ),
 
           renovateUser(
-            newPic: null,
             newUser: _newUser,
             oldUser: _oldUser,
             invoker: 'followingProtocol',
@@ -305,7 +305,6 @@ class RenovateUserProtocols {
 
             renovateUser(
               newUser: _newUser,
-              newPic: null,
               oldUser: _oldUser,
               invoker: 'savingFlyerProtocol',
             ),
@@ -348,7 +347,6 @@ class RenovateUserProtocols {
 
     await renovateUser(
       newUser: _newUser,
-      newPic: null,
       oldUser: _oldUser,
       invoker: 'updateMyUserTopics',
     );
