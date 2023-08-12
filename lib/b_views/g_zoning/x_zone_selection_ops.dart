@@ -59,7 +59,7 @@ class ZoneSelection {
 
     blog('aa7aaa 1');
 
-    final ZoneModel? _output = await _goToCountriesScreen(
+    final ZoneModel? _output = await goToCountriesScreen(
       zoneViewingEvent: zoneViewingEvent,
       depth: depth,
       viewerCountryID: viewerCountryID,
@@ -80,7 +80,7 @@ class ZoneSelection {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneModel?> _goToCountriesScreen({
+  static Future<ZoneModel?> goToCountriesScreen({
     required ViewingEvent zoneViewingEvent,
     required ZoneDepth depth,
     required String? viewerCountryID,
@@ -89,6 +89,8 @@ class ZoneSelection {
 
     final ZoneModel? _zone = await Nav.goToNewScreen(
       context: getMainContext(),
+      pageTransitionType: PageTransitionType.bottomToTop,
+      duration: const Duration(milliseconds: 350),
       screen: CountriesScreen(
         zoneViewingEvent: zoneViewingEvent,
         depth: depth,
