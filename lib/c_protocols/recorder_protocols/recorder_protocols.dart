@@ -1,3 +1,6 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
@@ -5,6 +8,8 @@ import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/record_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 /// => TAMAM
@@ -445,9 +450,10 @@ class RecorderProtocols {
         numberOfSlides > 0
     ){
 
-      final FlyerCounterModel? _flyerCounterModel = await readFlyerCounters(
+      final FlyerCounterModel? _flyerCounterModel = await fetchFlyerCounters(
         flyerID: flyerID,
         bzID: bzID,
+        forceRefetch: true,
       );
 
       await Future.wait(<Future>[
@@ -609,21 +615,72 @@ class RecorderProtocols {
   /// READ BZ COUNTERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<FlyerCounterModel?> readFlyerCounters({
+  /// TASK : TEST ME
+  static Future<FlyerCounterModel?> fetchFlyerCounters({
     required String? flyerID,
     required String? bzID,
+    required bool forceRefetch,
   }) async {
     FlyerCounterModel? _flyerCounters;
 
     if (flyerID != null && bzID != null){
+      Map<String, dynamic>? _map;
 
-      final Map<String, dynamic>? _map = await Real.readPathMap(
-        path: RealPath.recorders_flyers_bzID_flyerID_counter(
-          bzID: bzID,
-          flyerID: flyerID,
-        ),
-      );
+      if (forceRefetch == false){
+
+        _map = await LDBOps.readMap(
+          docName: LDBDoc.flyersCounters,
+          primaryKey: LDBDoc.getPrimaryKey(LDBDoc.flyersCounters),
+          id: flyerID,
+        );
+
+        /// IF FOUND IN LDB
+        if (_map != null){
+          final DateTime? _time = Timers.decipherTime(time: _map['timeStamp'], fromJSON: true);
+          final bool _isOld = Timers.checkTimeDifferenceIsBiggerThan(
+            time1: _time,
+            time2: DateTime.now(),
+            maxDifferenceInMinutes: Standards.countersRefreshTimeDurationInMinutes,
+          );
+
+          if (_isOld == true){
+            _map = null;
+          }
+
+        }
+
+      }
+
+      /// IF SHOULD READ FROM REAL
+      if (_map == null){
+
+        /// READ FROM REAL
+        _map = await Real.readPathMap(
+          path: RealPath.recorders_flyers_bzID_flyerID_counter(
+            bzID: bzID,
+            flyerID: flyerID,
+          ),
+        );
+
+        if (_map != null){
+
+          final Map<String, dynamic> _insertThis = Mapper.insertPairInMap(
+            map: _map,
+            key: 'timeStamp',
+            value: Timers.cipherTime(time: DateTime.now(), toJSON: true),
+            overrideExisting: true,
+          );
+
+          await LDBOps.insertMap(
+            docName: LDBDoc.flyersCounters,
+            primaryKey: LDBDoc.getPrimaryKey(LDBDoc.flyersCounters),
+            input: _insertThis,
+            // allowDuplicateIDs: false,
+          );
+
+        }
+
+      }
 
       _flyerCounters = FlyerCounterModel.decipherCounterMap(_map);
 
@@ -636,19 +693,70 @@ class RecorderProtocols {
   /// READ FLYER COUNTERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<BzCounterModel?> readBzCounters({
+  /// TASK : TEST ME
+  static Future<BzCounterModel?> fetchBzCounters({
     required String? bzID,
+    required bool forceRefetch,
   }) async {
     BzCounterModel? _bzCounters;
 
     if (bzID != null) {
+      Map<String, dynamic>? _map;
 
-      final Map<String, dynamic>? _map = await Real.readPathMap(
-        path: RealPath.recorders_bzz_bzID_counter(
-          bzID: bzID,
-        ),
-      );
+      if (forceRefetch == false){
+
+        _map = await LDBOps.readMap(
+            docName: LDBDoc.bzzCounters,
+            primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bzzCounters),
+            id: bzID,
+        );
+
+        /// IF FOUND IN LDB
+        if (_map != null){
+
+          final DateTime? _time = Timers.decipherTime(time: _map['timeStamp'], fromJSON: true);
+          final bool _isOld = Timers.checkTimeDifferenceIsBiggerThan(
+              time1: _time,
+              time2: DateTime.now(),
+              maxDifferenceInMinutes: Standards.countersRefreshTimeDurationInMinutes,
+          );
+          if (_isOld == true){
+            _map = null;
+          }
+
+        }
+
+      }
+
+      /// IF SHOULD READ FROM REAL
+      if (_map == null){
+
+        /// READ FROM REAL
+        _map = await Real.readPathMap(
+          path: RealPath.recorders_bzz_bzID_counter(
+            bzID: bzID,
+          ),
+        );
+
+        if (_map != null){
+
+          final Map<String, dynamic> _insertThis = Mapper.insertPairInMap(
+              map: _map,
+              key: 'timeStamp',
+              value: Timers.cipherTime(time: DateTime.now(), toJSON: true),
+              overrideExisting: true,
+          );
+
+          await LDBOps.insertMap(
+            docName: LDBDoc.bzzCounters,
+            primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bzzCounters),
+            input: _insertThis,
+            // allowDuplicateIDs: false,
+          );
+
+        }
+
+      }
 
       _bzCounters = BzCounterModel.decipherCounterMap(_map);
 

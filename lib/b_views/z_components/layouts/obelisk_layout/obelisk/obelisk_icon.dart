@@ -3,7 +3,7 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/red_dot_badge.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';

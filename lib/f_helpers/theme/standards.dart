@@ -93,6 +93,8 @@ class Standards {
   // --------------------
   static const int maxUserFollows = 500;
   static const int maxUserSavedFlyers = 1000;
+  // --------------------
+  static const int countersRefreshTimeDurationInMinutes = 10;
   // -----------------------------------------------------------------------------
 
   /// OTHER STANDARDS

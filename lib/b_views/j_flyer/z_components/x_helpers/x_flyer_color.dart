@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 
+/// => TAMAM
 class FlyerColors {
   /// --------------------------------------------------------------------------
 

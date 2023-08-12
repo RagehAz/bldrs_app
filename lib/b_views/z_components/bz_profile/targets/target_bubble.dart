@@ -3,7 +3,7 @@
 // import 'package:basics/helpers/classes/space/borderers.dart';
 // import 'package:bldrs/a_models/b_bz/sub/target/target_model.dart';
 // import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
-// import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
+// import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 // import 'package:bldrs/b_views/z_components/bz_profile/targets/target_progress_bar.dart';
 // import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 // import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
