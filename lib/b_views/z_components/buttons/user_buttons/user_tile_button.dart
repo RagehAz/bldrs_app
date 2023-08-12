@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/tile_buttons/a_tile_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/general_buttons/a_tile_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 

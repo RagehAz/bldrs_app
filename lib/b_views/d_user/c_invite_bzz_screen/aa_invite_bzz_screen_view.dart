@@ -3,7 +3,7 @@
 // 
 // import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 // import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-// import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
+// import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 // import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/z_invite_bzz_screen_controllers.dart';
 // import 'package:bldrs/d_providers/user_provider.dart';
 // import 'package:basics/helpers/classes/maps/mapper.dart';

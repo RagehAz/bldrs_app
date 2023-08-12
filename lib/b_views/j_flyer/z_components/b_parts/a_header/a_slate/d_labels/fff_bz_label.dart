@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_follows_flyers_count_line.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -15,7 +16,7 @@ class BzLabel extends StatelessWidget {
     required this.flyerShowsAuthor,
     super.key
   });
-  /// --------------------------------------------------------------------------
+  /// ------------------------
   final BzModel? bzModel;
   final double flyerBoxWidth;
   final bool flyerShowsAuthor;
@@ -27,8 +28,8 @@ class BzLabel extends StatelessWidget {
     final EdgeInsets _bzLabelPaddings = FlyerDim.bzLabelPaddings(flyerBoxWidth);
     // --------------------
     final double _versesScaleFactor = FlyerVerses.bzLabelVersesScaleFactor(
-      context: context,
       flyerBoxWidth: flyerBoxWidth,
+      flyerShowsAuthor: flyerShowsAuthor,
     );
     // --------------------
     final TextDirection _textDirection =  UiProvider.getAppTextDir();
@@ -79,6 +80,17 @@ class BzLabel extends StatelessWidget {
             scaleFactor: _versesScaleFactor,
             textDirection: _textDirection,
           ),
+
+          /// BZ COUNTER LINE
+          if (flyerShowsAuthor == false)
+            FollowsFlyersCountLine(
+              bzModel: bzModel,
+              versesScaleFactor: FlyerVerses.authorLabelVersesScaleFactor(
+                flyerBoxWidth: flyerBoxWidth,
+              ),
+              margin: _bzLabelPaddings,
+              width: _bzLabelWidth,
+            ),
 
         ],
       ),

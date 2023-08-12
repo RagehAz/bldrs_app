@@ -4,7 +4,7 @@ import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/tile_buttons/a_tile_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/general_buttons/a_tile_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/census_line_unit.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';

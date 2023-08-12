@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:flutter/material.dart';
 
 class MicroPic extends StatelessWidget {

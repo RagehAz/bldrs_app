@@ -338,7 +338,7 @@ class FlyerDim {
   /// TESTED : WORKS PERFECT
   static double authorLabelBoxWidth({
     required double flyerBoxWidth,
-    required bool labelIsOn,
+    required bool onlyShowAuthorImage,
   }){
     final double _authorLabelBoxHeight = authorLabelBoxHeight(
       flyerBoxWidth: flyerBoxWidth,
@@ -346,7 +346,7 @@ class FlyerDim {
 
     final double _authorDataWidth = flyerBoxWidth * (_xFlyerAuthorPicWidth + _xFlyerAuthorNameWidth);
 
-    return labelIsOn == true ? _authorDataWidth : _authorLabelBoxHeight;
+    return onlyShowAuthorImage == true ? _authorLabelBoxHeight : _authorDataWidth;
 
   }
   // ---------

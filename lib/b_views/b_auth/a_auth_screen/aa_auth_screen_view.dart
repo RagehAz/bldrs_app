@@ -8,7 +8,7 @@ import 'package:basics/legalizer/legalizer.dart';
 import 'package:bldrs/b_views/b_auth/b_email_auth_screen/a_email_auth_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
-import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/general_buttons/main_button.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
