@@ -270,13 +270,16 @@ class RenovateUserProtocols {
           );
 
           await Future.wait(<Future>[
+
             /// FLYER RECORDS
             RecorderProtocols.onSaveFlyer(
-                flyerID: flyerModel.id, bzID: flyerModel.bzID, slideIndex: slideIndex),
+                flyerID: flyerModel.id,
+                bzID: flyerModel.bzID,
+                slideIndex: slideIndex
+            ),
 
             /// RENOVATE USER
             UserProtocols.renovate(
-              newPic: null,
               newUser: _newUser,
               oldUser: _oldUser,
               invoker: 'savingFlyerProtocol',
@@ -287,6 +290,7 @@ class RenovateUserProtocols {
               flyerModel: flyerModel,
               isSaving: true,
             ),
+
           ]);
         }
 
