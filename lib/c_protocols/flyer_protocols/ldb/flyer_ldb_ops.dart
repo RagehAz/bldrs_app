@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-
+/// => TAMAM
 class FlyerLDBOps {
   // -----------------------------------------------------------------------------
 
@@ -136,7 +136,7 @@ class FlyerLDBOps {
   /// FLYER MAKER SESSION
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> saveFlyerMakerSession({
     required DraftFlyer? draftFlyer,
   }) async {
@@ -153,9 +153,10 @@ class FlyerLDBOps {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<DraftFlyer?> loadFlyerMakerSession({
     required String? flyerID,
+    required String? bzID,
   }) async {
     DraftFlyer? _draft;
 
@@ -166,7 +167,14 @@ class FlyerLDBOps {
     );
 
     if (Mapper.checkCanLoopList(_maps) == true){
-      _draft = DraftFlyer.draftFromLDB(_maps.first);
+
+      final Map<String, dynamic>? _map = Mapper.getMapFromMapsByID(
+        maps: _maps,
+        id: bzID,
+        idFieldName: 'bzID',
+      );
+
+      _draft = DraftFlyer.draftFromLDB(_map);
     }
 
     return _draft;

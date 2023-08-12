@@ -1,29 +1,32 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class SuperToolTip extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SuperToolTip({
     required this.verse,
+    required this.triggerMode,
     required this.child,
     super.key
   });
   /// --------------------------------------------------------------------------
   final Verse? verse;
   final Widget child;
+  final TooltipTriggerMode triggerMode;
   // --------------------------------------------------------------------------
-  static const int millisecondsPerWord = 400;
+  static const int millisecondsPerWord = 500;
   // --------------------
-  ///
-  Duration _calculateShowDuration(){
-    final int _length = verse?.id?.split(' ').length ?? 0;
+  Duration _calculateShowDuration({
+    required String? message,
+  }){
+    final int _length = message?.split(' ').length ?? 0;
     return Duration(milliseconds: _length * millisecondsPerWord);
   }
   // --------------------------------------------------------------------------
@@ -36,9 +39,12 @@ class SuperToolTip extends StatelessWidget {
     }
 
     else {
+
+      final String? _message = Verse.bakeVerseToString(verse: verse);
+
       return Tooltip(
         /// TEXT
-        message: Verse.bakeVerseToString(verse: verse),
+        message: _message,
         // richMessage: ,
 
         /// SCALE
@@ -58,7 +64,7 @@ class SuperToolTip extends StatelessWidget {
         ),
 
         /// BEHAVIOUR
-        triggerMode: TooltipTriggerMode.longPress,
+        triggerMode: triggerMode,
         enableFeedback: true,
         preferBelow: true,
 
@@ -70,7 +76,9 @@ class SuperToolTip extends StatelessWidget {
         ),
 
         /// DURATION
-        showDuration: _calculateShowDuration(),
+        showDuration: _calculateShowDuration(
+          message: _message,
+        ),
 
         /// HOVER WAIT UNTIL TOOLTIP SHOWS
         // waitDuration: const Duration(milliseconds: 100), // ZERO BY DEFAULT

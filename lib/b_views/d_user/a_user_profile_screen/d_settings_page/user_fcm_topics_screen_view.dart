@@ -34,7 +34,7 @@ class UserFCMTopicsScreenView extends StatelessWidget {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _onSwitchAll({
     required bool value,
   }) async {
@@ -53,7 +53,6 @@ class UserFCMTopicsScreenView extends StatelessWidget {
       );
 
       await UserProtocols.renovate(
-          newPic: null,
           oldUser: _userModel,
           newUser: _userModel?.copyWith(
             fcmTopics: _updatedTopics,
@@ -72,7 +71,6 @@ class UserFCMTopicsScreenView extends StatelessWidget {
       );
 
       await UserProtocols.renovate(
-        newPic: null,
         newUser: _userModel?.copyWith(
           fcmTopics: _updatedTopics,
         ),
