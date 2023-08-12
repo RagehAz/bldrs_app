@@ -160,7 +160,7 @@ class HeaderTemplate extends StatelessWidget {
                         ),
                         width: FlyerDim.authorLabelBoxWidth(
                           flyerBoxWidth: flyerBoxWidth,
-                          labelIsOn: flyerShowsAuthor,
+                          onlyShowAuthorImage: flyerShowsAuthor,
                         ),
                         // margin: showLabel == true ? EdgeInsets.symmetric(horizontal : flyerBoxWidth * 0.01) : const EdgeInsets.all(0),
                         decoration: BoxDecoration(

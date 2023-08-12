@@ -45,13 +45,12 @@ class HeaderLabels extends StatelessWidget {
             ),
 
             /// AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
-            if (flyerShowsAuthor == true && showHeaderLabels == true)
+            if (flyerShowsAuthor == true && showHeaderLabels == true && headerIsExpanded == false)
               AuthorLabel(
                 flyerBoxWidth: flyerBoxWidth,
                 authorID: authorID,
                 bzModel: bzModel,
-                showLabel: headerIsExpanded,
-                labelIsOn: true,
+                onlyShowAuthorImage: false,
                 authorImage: authorImage,
               ),
 

@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/i_chains/c_currencies_screen/x_currencies_screen_c
 import 'package:bldrs/b_views/i_chains/z_components/currencies/currency_list_builder.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/xx_currency_button.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
-import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/general_buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';

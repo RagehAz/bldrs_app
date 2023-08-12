@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/tile_buttons/a_tile_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/general_buttons/a_tile_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/census_line.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/zone_button_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -73,23 +73,23 @@ class CountryTileButton extends StatelessWidget {
       columnChildren: <Widget>[
 
         /// FLAG & COUNTRY NAME
-          TileButton(
-            isActive: isActive,
-            height: height,
-            width: width ?? _buttonWidth,
-            /// IF COUNTRY FLAG IS NULL, IT WILL SHOW PLANET ICON
-            icon: Flag.getCountryIcon(countryID),
-            verse: verse ?? Verse.plain(
-                Flag.translateCountry(
-                    langCode: Localizer.getCurrentLangCode(),
-                    countryID: countryID
-                )
-            ),
-            color: Colorz.nothing,
-            margins: EdgeInsets.zero,
-            verseCentered: verseCentered,
-            // corners: BorderRadius.zero,
+        TileButton(
+          isActive: isActive,
+          height: height,
+          width: width ?? _buttonWidth,
+          /// IF COUNTRY FLAG IS NULL, IT WILL SHOW PLANET ICON
+          icon: Flag.getCountryIcon(countryID),
+          verse: verse ?? Verse.plain(
+              Flag.translateCountry(
+                  langCode: Localizer.getCurrentLangCode(),
+                  countryID: countryID
+              )
           ),
+          color: Colorz.nothing,
+          margins: EdgeInsets.zero,
+          verseCentered: verseCentered,
+          // corners: BorderRadius.zero,
+        ),
 
         /// CENSUS LINE
         //   if (isActive == true)

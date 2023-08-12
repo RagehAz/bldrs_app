@@ -104,8 +104,9 @@ Future<void> readBzCounters({
   required bool mounted,
 }) async {
 
-  final BzCounterModel? _bzCounters = await RecorderProtocols.readBzCounters(
+  final BzCounterModel? _bzCounters = await RecorderProtocols.fetchBzCounters(
     bzID: bzID,
+    forceRefetch: false,
   );
 
   setNotifier(

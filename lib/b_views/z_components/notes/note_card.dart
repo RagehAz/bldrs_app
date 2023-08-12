@@ -8,7 +8,7 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/buttons/note_card_buttons.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/red_dot_badge.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/note_sender_balloon.dart';

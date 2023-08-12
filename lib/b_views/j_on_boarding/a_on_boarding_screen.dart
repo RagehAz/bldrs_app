@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/j_on_boarding/p1_what_is_bldrs.dart';
 import 'package:bldrs/b_views/j_on_boarding/p2_who_are_bldrs.dart';
 import 'package:bldrs/b_views/j_on_boarding/p3_what_bldrs_do.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';

@@ -80,9 +80,10 @@ class _FlyerFooterState extends State<FlyerFooter> {
         // ----------
         if (Authing.userHasID() == true){
           // ----------
-          final FlyerCounterModel? _counter = await RecorderProtocols.readFlyerCounters(
+          final FlyerCounterModel? _counter = await RecorderProtocols.fetchFlyerCounters(
             flyerID: widget.flyerModel?.id,
             bzID: widget.flyerModel?.bzID,
+            forceRefetch: false,
           );
           // ----------
           setNotifier(
