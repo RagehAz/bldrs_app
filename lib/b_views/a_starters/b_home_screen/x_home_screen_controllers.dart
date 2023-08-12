@@ -71,7 +71,6 @@ List<NavModel?> generateMainNavModels({
 
   // blog('generateMainNavModels() _userIsSignedUp: $_userIsSignedUp : ${userModel?.signInMethod}');
 
-
   return <NavModel?>[
 
     /// SIGN IN

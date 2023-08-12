@@ -1,27 +1,28 @@
 import 'dart:async';
+
 import 'package:basics/animators/widgets/scroller.dart';
 import 'package:basics/animators/widgets/widget_fader.dart';
-import 'package:basics/animators/widgets/widget_waiter.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_search_view.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class CountriesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -321,71 +322,77 @@ class _CountriesScreenState extends State<CountriesScreen> {
         translate: true,
       ),
       loading: _loading,
-      child: WidgetWaiter(
-        waitDuration: const Duration(milliseconds: 1800),
-        child: WidgetFader(
-          fadeType: FadeType.fadeIn,
-          child: Scroller(
-            child: ValueListenableBuilder(
-              valueListenable: _isSearching,
-              builder: (BuildContext context, bool isSearching, Widget? child){
+      child: ValueListenableBuilder(
+          valueListenable: _loading,
+          builder: (BuildContext context, bool loading, Widget? child){
 
-                /// WHILE SEARCHING
-                if (isSearching == true){
+            if (loading == true){
+              return const LoadingFullScreenLayer();
+            }
 
-                  return SelectCountryScreenSearchView(
-                    loading: _loading,
-                    foundCountries: _foundCountries,
-                    shownCountriesIDs: _shownCountriesIDs,
-                    countriesCensus: _censuses,
-                    selectedZone: widget.selectedZone,
-                    onCountryTap: _onCountryTap,
-                    onDeactivatedCountryTap: _onDeactivatedCountryTap,
-                  );
+            else {
 
-                }
+              return WidgetFader(
+                fadeType: FadeType.fadeIn,
+                child: Scroller(
+                  child: ValueListenableBuilder(
+                    valueListenable: _isSearching,
+                    builder: (BuildContext context, bool isSearching, Widget? child){
 
-                /// NOT SEARCHING
-                else {
+                      /// WHILE SEARCHING
+                      if (isSearching == true){
 
-                  return CountriesScreenBrowseView(
-                    shownCountriesIDs: _shownCountriesIDs,
-                    notShownCountriesIDs: _notShownCountriesIDs,
-                    countriesCensus: _censuses,
-                    onCountryTap: _onCountryTap,
-                    onDeactivatedCountryTap: _onDeactivatedCountryTap,
-                    showPlanetButton: StagingModel.checkMayShowViewAllZonesButton(
-                      zoneViewingEvent: widget.zoneViewingEvent,
-                    ),
-                    planetCensus: _planetCensus,
-                    selectedZone: widget.selectedZone,
-                    onPlanetTap: () async {
-
-                      final bool _isSettingCurrentZone =
-                          widget.zoneViewingEvent == ViewingEvent.homeView
-                          &&
-                          widget.canSetPlanetAsCurrentZone == true;
-
-
-                      if (_isSettingCurrentZone == true){
-                        await ZoneSelection.setCurrentZoneAndNavHome(
-                          zone: null,
+                        return SelectCountryScreenSearchView(
+                          foundCountries: _foundCountries,
+                          shownCountriesIDs: _shownCountriesIDs,
+                          countriesCensus: _censuses,
+                          selectedZone: widget.selectedZone,
+                          onCountryTap: _onCountryTap,
+                          onDeactivatedCountryTap: _onDeactivatedCountryTap,
                         );
-                      }
-                      else {
-                        await Nav.goBack(context: context);
+
                       }
 
+                      /// NOT SEARCHING
+                      else {
+
+                        return CountriesScreenBrowseView(
+                          shownCountriesIDs: _shownCountriesIDs,
+                          notShownCountriesIDs: _notShownCountriesIDs,
+                          countriesCensus: _censuses,
+                          onCountryTap: _onCountryTap,
+                          onDeactivatedCountryTap: _onDeactivatedCountryTap,
+                          showPlanetButton: StagingModel.checkMayShowViewAllZonesButton(
+                            zoneViewingEvent: widget.zoneViewingEvent,
+                          ),
+                          planetCensus: _planetCensus,
+                          selectedZone: widget.selectedZone,
+                          onPlanetTap: () async {
+                            final bool _isSettingCurrentZone =
+                                widget.zoneViewingEvent == ViewingEvent.homeView
+                                    &&
+                                    widget.canSetPlanetAsCurrentZone == true;
+                            if (_isSettingCurrentZone == true){
+                              await ZoneSelection.setCurrentZoneAndNavHome(
+                                zone: null,
+                              );
+                            }
+                            else {
+                              await Nav.goBack(context: context);
+                            }
+                            },
+                        );
+
+                      }
 
                       },
-                  );
+                  ),
+                ),
+              );
 
-                }
+            }
 
-              },
-            ),
-          ),
-        ),
+        }
       ),
 
     );
