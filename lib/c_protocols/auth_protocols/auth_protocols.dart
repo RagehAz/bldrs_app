@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -13,6 +12,7 @@ import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +29,7 @@ class AuthProtocols {
   /// SIGN IN
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> signInBldrsByEmail({
     required String? email,
     required String? password,
@@ -111,7 +111,7 @@ class AuthProtocols {
     return _success;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> _upgradeAnonymous({
     required AccountModel? oldAccount,
     required AccountModel? newAccount,
@@ -172,11 +172,8 @@ class AuthProtocols {
                   account: newAccount,
                 );
 
-                await UserProtocols.renovate(
-                  invoker: 'upgradeAnonymous',
-                  oldUser: _oldUser,
-                  newPic: null,
-                  newUser: _oldUser.copyWith(
+                final UserModel _newUser = _oldUser.copyWith(
+                    signInMethod: SignInMethod.password,
                     contacts: ContactModel.insertOrReplaceContact(
                       contacts: _oldUser.contacts,
                       contactToReplace: ContactModel(
@@ -184,8 +181,13 @@ class AuthProtocols {
                         value: newAccount.email!,
                       ),
                     ),
-                    signInMethod: SignInMethod.password,
-                  ),
+                );
+
+                await UserProtocols.renovate(
+                  invoker: 'upgradeAnonymous',
+                  oldUser: _oldUser,
+                  updateEmailInAuth: false,
+                  newUser: _newUser,
                 );
 
               }
@@ -252,7 +254,7 @@ class AuthProtocols {
   /// FETCHES
 
   // --------------------
-  /// TASK TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<AccountModel?> _fetchAnonymousAccount() async {
 
     AccountModel? _output = await AccountLDBOps.readAnonymousAccount();
@@ -288,8 +290,7 @@ class AuthProtocols {
     required String? error,
   }) async {
 
-    /// TASK : TRANSLATE_ME
-    final String _errorMessage = error ?? 'Something went wrong, please try again';
+    final String _errorMessage = error ?? getWord('phid_something_went_wrong_error')!;
 
     await Dialogs.authErrorDialog(
         result: _errorMessage,

@@ -384,7 +384,6 @@ class NewAuthorshipExit {
       UserProtocols.renovate(
         newUser: _newUser,
         oldUser: _oldUser,
-        newPic: null,
         invoker: 'onIGotRemoved',
       ),
 

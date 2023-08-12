@@ -112,6 +112,7 @@ Future<void> _controlMissingFieldsCase({
       context: getMainContext(),
       screen: UserEditorScreen(
         initialTab: UserEditorTab.pic,
+        firstTimer: false,
         userModel: userModel,
         reAuthBeforeConfirm: false,
         canGoBack: true,

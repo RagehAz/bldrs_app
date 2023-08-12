@@ -54,6 +54,7 @@ Future<void> onEditProfileTap({
       context: getMainContext(),
       screen: UserEditorScreen(
         initialTab: initialTab,
+        firstTimer: false,
         userModel: _myUserModel,
         reAuthBeforeConfirm: true,
         validateOnStartup: true,

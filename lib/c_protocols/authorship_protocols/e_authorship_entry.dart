@@ -58,7 +58,6 @@ class AuthorshipEntryProtocols {
     final UserModel? _uploadedUser = await UserProtocols.renovate(
       newUser: _newUser,
       oldUser: _oldUser,
-      newPic: null,
       invoker: 'AuthorshipEntryProtocols.addMeToBz',
     );
 

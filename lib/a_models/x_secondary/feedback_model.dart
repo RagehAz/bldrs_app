@@ -46,18 +46,18 @@ class FeedbackModel {
       userID: map['userID'],
       timeStamp: Timers.decipherTime(time: map['timeStamp'], fromJSON: true),
       feedback: map['feedback'],
-      modelType: map['modelType'],
+      modelType: RecordModel.decipherModelType(map['modelType']),
       modelID: map['modelID'],
     );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<FeedbackModel> decipherFeedbacks(List<Map<String, dynamic>> maps) {
+  static List<FeedbackModel> decipherFeedbacks(List<Map<String, dynamic>>? maps) {
 
     final List<FeedbackModel> _feedbacks = <FeedbackModel>[];
 
-    if (Mapper.checkCanLoopList(maps)) {
-      for (final Map<String, dynamic> map in maps) {
+    if (Mapper.checkCanLoopList(maps) == true) {
+      for (final Map<String, dynamic> map in maps!) {
         _feedbacks.add(FeedbackModel.decipherFeedback(map));
       }
     }
