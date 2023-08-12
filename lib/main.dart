@@ -28,13 +28,13 @@ Future<void> main() async {
   /// -----------------------------------------------------------------------------
   /*
     /// PLAN : In optimization : study this : https://pub.dev/packages/keframe
-  // debugPrintMarkNeedsPaintStacks = false;
-  // debugProfilePaintsEnabled = false;
-  // debugProfileBuildsEnabled = false;
-  // debugRepaintTextRainbowEnabled = false;
-  // debugPaintLayerBordersEnabled = false;
-  // debugRepaintRainbowEnabled = false;
-  // debugPrintLayouts = true;
+    // debugPrintMarkNeedsPaintStacks = false;
+    // debugProfilePaintsEnabled = false;
+    // debugProfileBuildsEnabled = false;
+    // debugRepaintTextRainbowEnabled = false;
+    // debugPaintLayerBordersEnabled = false;
+    // debugRepaintRainbowEnabled = false;
+    // debugPrintLayouts = true;
   */
   // --------------------
   /// insures awaiting async methods below to finish then continue
