@@ -227,46 +227,48 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
           borderRadius: Bubble.clearBorders(),
           child: Screenshot(
             controller: _cont,
-            child: Container(
-              width: _clearWidth,
-              height: _posterHeight,
-              color: Colorz.black255,
-              child: Stack(
-                children: [
+            child: ClipRRect( // to TRY_AVOID_WHITE_LINES
+              child: Container(
+                width: _clearWidth,
+                height: _posterHeight,
+                color: Colorz.black255,
+                child: Stack(
+                  children: <Widget>[
 
-                  /// POSTER
-                  PosterSwitcher(
-                    posterType: PosterType.flyer,
-                    width: _clearWidth,
-                    model: widget.draft,
-                    modelHelper: widget.draft?.bzModel,
-                  ),
-
-                  /// PYRAMIDS
-                  Positioned(
-                    bottom: _clearWidth * -0.01,
-                    right: 17 * _clearWidth * 0.0015,
-                    child: BldrsImage(
-                      width: 256 * _clearWidth * 0.0015,
-                      height: 80 * _clearWidth * 0.0015,
-                      pic: Iconz.pyramidzYellow,
-                      fit: BoxFit.fitWidth,
+                    /// POSTER
+                    PosterSwitcher(
+                      posterType: PosterType.flyer,
+                      width: _clearWidth,
+                      model: widget.draft,
+                      modelHelper: widget.draft?.bzModel,
                     ),
-                  ),
 
-                  /// LOGO
-                  Positioned(
-                    bottom: _clearWidth * 0.06,
-                    right: _clearWidth * 0.055,
-                    child: BldrsImage(
-                      width: _posterHeight * 0.25,
-                      height: _posterHeight * 0.25,
-                      pic: Iconz.bldrsNameSquare,
-                      // backgroundColor: Colorz.bloodTest,
+                    /// PYRAMIDS
+                    Positioned(
+                      bottom: _clearWidth * -0.01,
+                      right: 17 * _clearWidth * 0.0015,
+                      child: BldrsImage(
+                        width: 256 * _clearWidth * 0.0015,
+                        height: 80 * _clearWidth * 0.0015,
+                        pic: Iconz.pyramidzYellow,
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
-                  ),
 
-                ],
+                    /// LOGO
+                    Positioned(
+                      bottom: _clearWidth * 0.06,
+                      right: _clearWidth * 0.055,
+                      child: BldrsImage(
+                        width: _posterHeight * 0.25,
+                        height: _posterHeight * 0.25,
+                        pic: Iconz.bldrsNameSquare,
+                        // backgroundColor: Colorz.bloodTest,
+                      ),
+                    ),
+
+                  ],
+                ),
               ),
             ),
           ),
