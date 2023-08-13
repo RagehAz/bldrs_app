@@ -10,7 +10,7 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:flutter/material.dart';
 import 'package:fire/super_fire.dart';
 
-class FlyerRecordsBox extends StatelessWidget {
+class FlyerRecordsBox extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FlyerRecordsBox({
     required this.pageWidth,
@@ -28,7 +28,33 @@ class FlyerRecordsBox extends StatelessWidget {
   final String realNodePath;
   final String flyerID;
   final String bzID;
-  /// --------------------------------------------------------------------------
+
+  @override
+  State<FlyerRecordsBox> createState() => _FlyerRecordsBoxState();
+}
+
+class _FlyerRecordsBoxState extends State<FlyerRecordsBox> {
+  // --------------------------------------------------------------------------
+  late PaginationController _paginatorController;
+  // ------------------------------
+  @override
+  void initState() {
+    super.initState();
+
+    _paginatorController = PaginationController.initialize(
+      addExtraMapsAtEnd: true,
+      // idFieldName: 'id',
+      // onDataChanged: ,
+    );
+
+  }
+  // ------------------------------
+  @override
+  void dispose() {
+    _paginatorController.dispose();
+    super.dispose();
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -36,12 +62,13 @@ class FlyerRecordsBox extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
 
+        /// HEADLINE
         BldrsBox(
           height: 30,
-          verse: headlineVerse,
+          verse: widget.headlineVerse,
           verseWeight: VerseWeight.thin,
           verseItalic: true,
-          icon: icon,
+          icon: widget.icon,
           iconSizeFactor: 0.6,
           verseScaleFactor: 1 / 0.6,
           bubble: false,
@@ -49,18 +76,21 @@ class FlyerRecordsBox extends StatelessWidget {
           margins: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         ),
 
+        /// PAGINATOR
         RealCollPaginator(
-            realQueryModel: RealQueryModel(
-              path: realNodePath,
+            paginationController: _paginatorController,
+            paginationQuery: RealQueryModel.createAscendingQueryModel(
+              path: widget.realNodePath,
               limit: 6,
+              idFieldName: 'id',
+              fieldNameToOrderBy: 'timeStamp',
             ),
-            // scrollController: ScrollController(),
             builder: (_, List<Map<String, dynamic>>? maps, bool loading, Widget? child){
 
               List<RecordModel> _records = RecordModel.decipherRecords(
                 maps: maps ?? [],
-                flyerID: flyerID,
-                bzID: bzID,
+                flyerID: widget.flyerID,
+                bzID: widget.bzID,
                 fromJSON: true,
               );
 
@@ -69,19 +99,19 @@ class FlyerRecordsBox extends StatelessWidget {
               );
 
               return Container(
-                width: pageWidth,
+                width: widget.pageWidth,
                 height: 100,
                 decoration: const BoxDecoration(
                   color: Colorz.white20,
                   borderRadius: Borderers.constantCornersAll10,
                 ),
                 child: ListView.builder(
+                  controller: _paginatorController.scrollController,
                   physics: const BouncingScrollPhysics(),
                   padding: const EdgeInsets.all(10),
                   scrollDirection: Axis.horizontal,
                   itemCount: _records.length,
                   itemBuilder: (_, int index){
-
                     return FutureBuilder(
                       future: UserProtocols.fetch(userID: _records[index].userID),
                       builder: (_, AsyncSnapshot<UserModel?> snapshot){
@@ -95,17 +125,15 @@ class FlyerRecordsBox extends StatelessWidget {
 
                       },
                     );
-
-                  },
+                    },
                 ),
               );
 
             }
-        ),
+            ),
 
       ],
     );
 
   }
-/// --------------------------------------------------------------------------
 }
