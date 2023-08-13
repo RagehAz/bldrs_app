@@ -46,17 +46,4 @@
 3. Fixed double dialog issue in home screen
 4. Fixed selecting the entire world to browse issue
 
-
 --------------
-
-
-
-
-
-
-
-
-
-
-
-

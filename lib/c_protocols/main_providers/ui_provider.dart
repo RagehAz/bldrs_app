@@ -681,7 +681,6 @@ class UiProvider extends ChangeNotifier {
     _currentLangCode = _langCode;
 
     if (notify == true){
-      blog('_setCurrentLangCode NOTIFYING UNIVERSE');
       notifyListeners();
     }
 
