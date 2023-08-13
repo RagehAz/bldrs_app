@@ -34,8 +34,6 @@ class StaticFooter extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
 
-    // blog('building StaticFooter : flightTweenValue : $flightTweenValue');
-
     return Align(
       key: const ValueKey<String>('StaticFooter'),
       alignment: Alignment.bottomCenter,
