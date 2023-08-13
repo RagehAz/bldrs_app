@@ -21,16 +21,17 @@ class FlyerRecordsBox extends StatefulWidget {
     required this.bzID,
     super.key
   });
-  /// --------------------------------------------------------------------------
+  /// -----------------------
   final double pageWidth;
   final Verse headlineVerse;
   final String icon;
   final String realNodePath;
   final String flyerID;
   final String bzID;
-
+  /// -----------------------
   @override
   State<FlyerRecordsBox> createState() => _FlyerRecordsBoxState();
+  /// --------------------------------------------------------------------------
 }
 
 class _FlyerRecordsBoxState extends State<FlyerRecordsBox> {
