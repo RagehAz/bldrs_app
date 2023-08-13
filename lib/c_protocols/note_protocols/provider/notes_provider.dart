@@ -1,4 +1,3 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -34,7 +33,7 @@ class NotesProvider extends ChangeNotifier {
 
       _isFlashing = setTo;
 
-      blog('setIsFlashing : to : $setTo ');
+      // blog('setIsFlashing : to : $setTo ');
 
       if (notify == true){
         notifyListeners();

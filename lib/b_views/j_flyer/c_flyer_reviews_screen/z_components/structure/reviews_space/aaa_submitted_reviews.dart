@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/x_reviews_controlle
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review_bubble/a_review_box.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review_bubble/a_review_creator_bubble.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review_bubble/b_review_view_bubble.dart';
-import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
 import 'package:bldrs/e_back_end/x_queries/reviews_queries.dart';
 import 'package:fire/super_fire.dart';
@@ -148,9 +147,9 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
           //   flyerID: widget.flyerModel?.id,
           // ),
           paginationController: _paginationController,
-          loadingWidget: const Loading(
-            loading: true,
-          ),
+          // loadingWidget: const Loading(
+          //   loading: true,
+          // ),
           builder: (_, List<Map<String, dynamic>>? maps, bool isLoading, Widget? child){
 
             final List<ReviewModel> reviews = ReviewModel.decipherReviews(
