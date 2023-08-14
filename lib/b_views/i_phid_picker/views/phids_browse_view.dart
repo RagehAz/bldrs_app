@@ -5,7 +5,7 @@ class PhidsBrowseView extends StatelessWidget {
   const PhidsBrowseView({
     super.key
   });
-  /// --------------------------------------------------------------------------
+    // --------------------
   @override
   Widget build(BuildContext context) {
     // --------------------

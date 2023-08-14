@@ -48,9 +48,9 @@ class BzSearchFiltersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
-    // final List<ContactModel> contacts;
-    // final BzState bzState;
+    /// double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
+    /// List<ContactModel> contacts;
+    /// BzState bzState;
 
     return SearchFilterBox(
       children: <Widget>[
@@ -108,6 +108,7 @@ class BzSearchFiltersList extends StatelessWidget {
             translate: true,
           ),
           itemIcon: (dynamic type) => BzTyper.getBzTypeIcon(type),
+          iconIsBig: false,
           onItemTap: (dynamic type) {
             final BzType _bzType = type;
             onBzTypeTap(_bzType);
