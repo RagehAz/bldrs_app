@@ -1,30 +1,31 @@
 // ignore_for_file: unused_element
-
+import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/animators/widgets/widget_waiter.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/a_flyer_reviews_screen.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/d_heroic_flyer_big_view.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_light_flyer_structure/b_light_big_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/animators/widgets/widget_fader.dart';
 
-class FlyerPreviewScreen extends StatefulWidget {
+class FlyerPreviewScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerPreviewScreen({
     required this.flyerID,
     this.reviewID,
-    super.key
+    super.key,
   });
   /// --------------------------------------------------------------------------
   final String? flyerID;
@@ -33,159 +34,54 @@ class FlyerPreviewScreen extends StatefulWidget {
   static const String routeName = Routing.flyerScreen;
   /// --------------------------------------------------------------------------
   @override
-  State<FlyerPreviewScreen> createState() => _FlyerPreviewScreenState();
-  /// --------------------------------------------------------------------------
-}
-
-class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
-  // -----------------------------------------------------------------------------
-  FlyerModel? _renderedFlyer;
-  // -----------------------------------------------------------------------------
-  /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false);
-  // --------------------
-  Future<void> _triggerLoading({required bool setTo}) async {
-    setNotifier(
-      notifier: _loading,
-      mounted: mounted,
-      value: setTo,
-    );
-  }
-  // -----------------------------------------------------------------------------
-  @override
-  void initState() {
-    super.initState();
-  }
-  // --------------------
-  bool _isInit = true;
-  @override
-  void didChangeDependencies() {
-
-    if (_isInit && mounted) {
-      _isInit = false; // good
-
-      _triggerLoading(setTo: true).then((_) async {
-
-        if (widget.flyerID != null) {
-
-          FlyerModel? _flyerModel = await FlyerProtocols.fetchFlyer(
-            flyerID: widget.flyerID,
-          );
-
-          if (_flyerModel != null){
-
-            /// SMALL
-            _flyerModel = await FlyerProtocols.renderBigFlyer(
-                flyerModel: _flyerModel,
-                slidePicType: SlidePicType.small,
-                onRenderEachSlide: (FlyerModel flyer){
-                  if (mounted == true){
-                    setState(() {_renderedFlyer = _flyerModel;});
-                  }
-                });
-
-            /// BIG
-            _flyerModel = await FlyerProtocols.renderBigFlyer(
-                flyerModel: _flyerModel,
-                slidePicType: SlidePicType.med,
-                onRenderEachSlide: (FlyerModel flyer){
-                  if (mounted == true){
-                    setState(() {_renderedFlyer = _flyerModel;});
-                  }
-                });
-
-            if (mounted == true){
-              setState(() {
-                _renderedFlyer = _flyerModel;
-              });
-            }
-
-          }
-
-        }
-
-        /// GO TO REVIEWS SCREEN IF REVIEW ID IS NOT NULL
-        if (widget.reviewID != null) {
-
-          await Nav.goToNewScreen(
-            context: context,
-            screen: FlyerReviewsScreen(
-              flyerModel: _renderedFlyer,
-              highlightReviewID: widget.reviewID,
-            ),
-          );
-
-        }
-
-        await _triggerLoading(setTo: false);
-      });
-
-    }
-    super.didChangeDependencies();
-  }
-  // --------------------
-  @override
-  void dispose() {
-    _loading.dispose();
-
-    FlyerProtocols.disposeRenderedFlyer(
-      mounted: mounted,
-      flyerModel: _renderedFlyer,
-      invoker: 'FlyerPreviewScreen',
-    );
-
-    super.dispose();
-  }
-  // -----------------------------------------------------------------------------
-  @override
   Widget build(BuildContext context) {
 
-    /// TASK : reviewID is $reviewID and should auto go to reviews screen then scroll to it
-    blog('reviewID is ${widget.reviewID} and should auto go to reviews screen then scroll to it');
+    final double _screenWidth = Scale.screenWidth(context);
 
-    // --------------------
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colorz.skyDarkBlue,
-        body: ValueListenableBuilder(
-          valueListenable: _loading,
-          builder: (_, bool loading, Widget? child){
+        backgroundColor: Colorz.black255,
+        body: WidgetWaiter(
+          waitDuration: const Duration(milliseconds: 500),
+          child: FlyerBuilder(
+              flyerBoxWidth: _screenWidth,
+              slidePicType: SlidePicType.med,
+              onlyFirstSlide: false,
+              flyerID: flyerID,
+              renderFlyer: RenderFlyer.allSlides,
+              builder: (bool loading, FlyerModel? flyerModel) {
 
-            if (loading == true){
-              return const LoadingFullScreenLayer();
-            }
+                if (loading == true && flyerModel == null){
+                  return const LoadingFullScreenLayer();
+                }
 
-            else {
+                else if (flyerModel == null){
+                  return const _NoFlyerFoundView();
+                }
 
-              if (_renderedFlyer == null){
-                return const _NoFlyerFoundView();
+                else {
+                  return WidgetFader(
+                    fadeType: FadeType.fadeIn,
+                    duration: const Duration(milliseconds: 500),
+                    child: DismissiblePage(
+                      onDismissed: () => Nav.goBack(context: context),
+                      child: LightBigFlyer(
+                        flyerBoxWidth: _screenWidth,
+                        renderedFlyer: flyerModel,
+                        onVerticalExit: (){},
+                        onHorizontalExit: (){},
+                      ),
+                    ),
+                  );
+                }
+
               }
-
-              else {
-
-                return WidgetFader(
-                  fadeType: FadeType.fadeIn,
-                  duration: const Duration(milliseconds: 500),
-                  child: HeroicFlyerBigView(
-                    key: ValueKey<String>('${_renderedFlyer?.id}'),
-                    flyerBoxWidth: Scale.screenWidth(context),
-                    renderedFlyer: _renderedFlyer,
-                    heroPath: 'FlyerPreviewScreen',
-                  ),
-                );
-
-              }
-
-            }
-
-          },
+              ),
         ),
-
       ),
     );
-    // --------------------
+
   }
-  // -----------------------------------------------------------------------------
 }
 
 class _NoFlyerFoundView extends StatelessWidget {
@@ -197,13 +93,20 @@ class _NoFlyerFoundView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final double _shortest = Scale.screenShortestSide(context);
+
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
 
-        const BldrsBox(
-          height: 400,
-          width: 400,
+        const Sky(
+          skyType: SkyType.stars,
+          skyColor: Colorz.black255,
+        ),
+
+        BldrsBox(
+          height: _shortest,
+          width: _shortest,
           icon: Iconz.flyer,
           bubble: false,
           opacity: 0.04,
@@ -223,8 +126,10 @@ class _NoFlyerFoundView extends StatelessWidget {
             ),
 
             BldrsBox(
+              width: _shortest * 0.5,
               height: 50,
               icon: Iconizer.superBackIcon(context),
+              color: Colorz.white20,
               iconSizeFactor: 0.7,
               verse: const Verse(id: 'phid_go_back', translate: true),
               onTap: () => Nav.goBack(context: context),
@@ -232,6 +137,11 @@ class _NoFlyerFoundView extends StatelessWidget {
             ),
 
           ],
+        ),
+
+        const Pyramids(
+          pyramidType: PyramidType.crystalYellow,
+          listenToHideLayout: false,
         ),
 
       ],

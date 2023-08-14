@@ -53,16 +53,20 @@ class NotePosterBuilder extends StatelessWidget {
               gridHeight: Scale.screenHeight(context),
               itemAspectRatio: FlyerDim.flyerAspectRatio()
           ),
-          loadingWidget: _empty,
           slidePicType: SlidePicType.small,
           onlyFirstSlide: false,
-          builder: (FlyerModel? flyerModel){
+          builder: (bool loading, FlyerModel? flyerModel){
 
-            return FlyerPoster(
-              width: width,
-              flyerModel: flyerModel,
-              screenName: noteModel?.id,
-            );
+            if (loading == true && flyerModel == null){
+              return _empty;
+            }
+            else {
+              return FlyerPoster(
+                width: width,
+                flyerModel: flyerModel,
+                screenName: noteModel?.id,
+              );
+            }
 
           },
         );
