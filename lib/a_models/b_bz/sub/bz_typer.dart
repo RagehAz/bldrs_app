@@ -368,7 +368,7 @@ class BzTyper {
     ) ?? '';
 
     final String? _bzFormPhid = getBzFormPhid(bzForm)!;
-    final String _formTranslated = getWord(_bzFormPhid) ?? '';
+    final String _formTranslated = getWord(_bzFormPhid);
 
     String _output = '$_bzTypesOneString\n$_formTranslated';
 

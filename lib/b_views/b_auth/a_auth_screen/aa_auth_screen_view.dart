@@ -107,10 +107,10 @@ class AuthScreenView extends StatelessWidget {
         LegalDisclaimerLine(
           onPolicyTap: () => onPrivacyTap(),
           onTermsTap: () => onTermsAndTap(),
-          disclaimerLine: getWord('phid_by_using_bldrs_you_agree_to_our')!,
-          andLine: getWord('phid_and')!,
-          policyLine: getWord('phid_privacy_policy')!,
-          termsLine: getWord('phid_terms_of_service')!,
+          disclaimerLine: getWord('phid_by_using_bldrs_you_agree_to_our'),
+          andLine: getWord('phid_and'),
+          policyLine: getWord('phid_privacy_policy'),
+          termsLine: getWord('phid_terms_of_service'),
           textDirection: UiProvider.getAppTextDir(),
         ),
 

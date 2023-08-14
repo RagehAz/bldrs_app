@@ -1,23 +1,22 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/widgets/sensors/connectivity_sensor.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
-import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids_panel.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
+import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids_panel.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:provider/provider.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 enum AppBarType {
   basic,
@@ -52,7 +51,7 @@ class MainLayout extends StatelessWidget {
     this.pyramidType,
     this.onPyramidTap,
     this.onSearchCancelled,
-    this.confirmButtonModel,
+    this.confirmButton,
     this.globalKey,
     this.pyramidButtons,
     this.listenToHideLayout = false,
@@ -83,7 +82,7 @@ class MainLayout extends StatelessWidget {
   final PyramidType? pyramidType;
   final Function? onPyramidTap;
   final Function? onSearchCancelled;
-  final ConfirmButtonModel? confirmButtonModel;
+  final Widget? confirmButton;
   final GlobalKey? globalKey;
   final List<Widget>? pyramidButtons;
   final bool listenToHideLayout;
@@ -268,7 +267,7 @@ class MainLayout extends StatelessWidget {
                     onPyramidTap: onPyramidTap,
                     canGoBack: canGoBack,
                     onSearchCancelled: onSearchCancelled,
-                    confirmButtonModel: confirmButtonModel,
+                    confirmButton: confirmButton,
                     listenToHideLayout: listenToHideLayout,
                     filtersAreOn: filtersAreOn,
                     filters: filters,

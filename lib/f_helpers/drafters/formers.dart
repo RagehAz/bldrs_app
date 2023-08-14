@@ -880,23 +880,23 @@ class Formers {
 
     if (
     Formers.picValidator(pic: userModel?.picPath, canValidate: true) != null) {
-      _missingFields.add(getWord('phid_picture')!);
+      _missingFields.add(getWord('phid_picture'));
     }
 
     if (Formers.genderValidator(gender: userModel?.gender, canValidate: true) != null) {
-      _missingFields.add(getWord('phid_gender')!);
+      _missingFields.add(getWord('phid_gender'));
     }
 
     if (Formers.personNameValidator(name: userModel?.name, canValidate: true) != null) {
-      _missingFields.add(getWord('phid_name')!);
+      _missingFields.add(getWord('phid_name'));
     }
 
     if (Formers.jobTitleValidator(jobTitle: userModel?.title, canValidate: true) != null) {
-      _missingFields.add(getWord('phid_job_title')!);
+      _missingFields.add(getWord('phid_job_title'));
     }
 
     if (Formers.companyNameValidator(companyName: userModel?.company, canValidate: true) != null) {
-      _missingFields.add(getWord('phid_business_name')!);
+      _missingFields.add(getWord('phid_business_name'));
     }
 
     if (Formers.zoneValidator(
@@ -904,7 +904,7 @@ class Formers {
       selectCountryIDOnly: false,
       canValidate: true,
     ) != null) {
-      _missingFields.add(getWord('phid_zone')!);
+      _missingFields.add(getWord('phid_zone'));
     }
 
     return _missingFields;

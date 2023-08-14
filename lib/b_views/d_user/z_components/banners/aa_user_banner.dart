@@ -104,7 +104,7 @@ class UserBanner extends StatelessWidget {
     final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
       userModel: userModel,
     );
-    final String _userName = userModel?.name ?? getWord('phid_unknown_bldr')!;
+    final String _userName = userModel?.name ?? getWord('phid_unknown_bldr');
     // --------------------
     final Function? _onTap = _thereAreMissingFields == false ?
     null : () => onEditProfileTap(

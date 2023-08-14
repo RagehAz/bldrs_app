@@ -143,7 +143,7 @@ class BzTypesWheel extends StatelessWidget {
           child: BldrsArcText(
             appIsLTR: UiProvider.checkAppIsLeftToRight(),
             radius: _circleRadius,
-            text: getWord('phid_realEstate')!,
+            text: getWord('phid_realEstate'),
             startAngle: Numeric.degreeToRadian(90)!,
             textStyle: _generateArcStyle(
               context: context,
@@ -159,7 +159,7 @@ class BzTypesWheel extends StatelessWidget {
           child: BldrsArcText(
             appIsLTR: UiProvider.checkAppIsLeftToRight(),
             radius: _circleRadius,
-            text: getWord('phid_construction')!,
+            text: getWord('phid_construction'),
             startAngle: Numeric.degreeToRadian(180 + _halfStep + 10)!,
             textStyle: _generateArcStyle(
               context: context,
@@ -175,7 +175,7 @@ class BzTypesWheel extends StatelessWidget {
           child: BldrsArcText(
             appIsLTR: UiProvider.checkAppIsLeftToRight(),
             radius: _circleRadius,
-            text: getWord('phid_supplies')!,
+            text: getWord('phid_supplies'),
             startAngle: Numeric.degreeToRadian(-_halfStep)!,
             textStyle: _generateArcStyle(
               context: context,

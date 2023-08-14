@@ -1,12 +1,11 @@
-import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_confirm_button.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class MainLayoutStackWidgets extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -33,7 +32,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     required this.onPyramidTap,
     required this.canGoBack,
     required this.onSearchCancelled,
-    required this.confirmButtonModel,
+    required this.confirmButton,
     required this.globalKey,
     required this.listenToHideLayout,
     required this.filtersAreOn,
@@ -64,7 +63,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final Function? onPyramidTap;
   final bool canGoBack;
   final Function? onSearchCancelled;
-  final ConfirmButtonModel? confirmButtonModel;
+  final Widget? confirmButton;
   final bool listenToHideLayout;
   final GlobalKey? globalKey;
   final ValueNotifier<bool?>? filtersAreOn;
@@ -159,7 +158,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
           ),
 
         /// --- PYRAMIDS
-        if (pyramidsAreOn == true && confirmButtonModel == null)
+        if (pyramidsAreOn == true && confirmButton == null)
           Pyramids(
             key: const ValueKey<String>('pyramids'),
             pyramidType: _concludePyramidTypePerSkyType(),
@@ -168,13 +167,8 @@ class MainLayoutStackWidgets extends StatelessWidget {
             listenToHideLayout: listenToHideLayout,
           ),
 
-        if (confirmButtonModel != null)
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ConfirmButton(
-              confirmButtonModel: confirmButtonModel,
-            ),
-          ),
+        if (confirmButton != null)
+          confirmButton!,
 
       ],
     );

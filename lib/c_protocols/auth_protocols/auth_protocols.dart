@@ -290,7 +290,7 @@ class AuthProtocols {
     required String? error,
   }) async {
 
-    final String _errorMessage = error ?? getWord('phid_something_went_wrong_error')!;
+    final String _errorMessage = error ?? getWord('phid_something_went_wrong_error');
 
     await Dialogs.authErrorDialog(
         result: _errorMessage,

@@ -171,7 +171,13 @@ class _PickerScreenState extends State<PickerScreen> {
       ),
       pyramidsAreOn: true,
       onBack: _onGoBack,
-      confirmButtonModel: widget.isMultipleSelectionMode == false ? null : ConfirmButtonModel(
+      confirmButton: widget.isMultipleSelectionMode == false ?
+      null
+          :
+      ConfirmButton.button(
+        // onSkipTap: ,
+        // enAlignment: ,
+        // isDisabled: ,
         firstLine: const Verse(
           id: 'phid_confirm_selections',
           translate: true,
