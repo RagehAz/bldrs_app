@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_light_flyer_structure/b_light_big_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_stack.dart';
@@ -244,30 +245,42 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
               onFlyerNotFound: (String? id) => widget.onFlyerNotFound?.call(id!),
               onlyFirstSlide: true,
               slidePicType: SlidePicType.small,
-              builder: (FlyerModel? flyerModel){
-                return FlyerSelectionStack(
-                  flyerModel: flyerModel,
-                  flyerBoxWidth: _flyerBoxWidth,
-                  onSelectFlyer: widget.onSelectFlyer == null ?
-                  null //() => _onFlyerTap(flyerModel: flyerModel, index: index)
-                      :
-                      () => widget.onSelectFlyer?.call(flyerModel!),
-                  onFlyerOptionsTap: widget.onFlyerOptionsTap == null ?
-                  null
-                      :
-                      () => widget.onFlyerOptionsTap?.call(flyerModel!),
-                  selectionMode: widget.selectionMode,
-                  flyerWidget: SmallFlyer(
+              builder: (bool loading, FlyerModel? flyerModel){
+
+                if (loading == true && flyerModel == null){
+                  return FlyerLoading(
+                    flyerBoxWidth: _flyerBoxWidth,
+                    animate: true,
+                    direction: Axis.vertical,
+                  );
+                }
+
+                else {
+                  return FlyerSelectionStack(
                     flyerModel: flyerModel,
-                    flyerBoxWidth: _gridScale!.smallItemWidth,
-                    optionsButtonIsOn: widget.onFlyerOptionsTap != null,
-                    onTap: () => _onFlyerTap(
+                    flyerBoxWidth: _flyerBoxWidth,
+                    onSelectFlyer: widget.onSelectFlyer == null ?
+                    null //() => _onFlyerTap(flyerModel: flyerModel, index: index)
+                        :
+                        () => widget.onSelectFlyer?.call(flyerModel!),
+                    onFlyerOptionsTap: widget.onFlyerOptionsTap == null ?
+                    null
+                        :
+                        () => widget.onFlyerOptionsTap?.call(flyerModel!),
+                    selectionMode: widget.selectionMode,
+                    flyerWidget: SmallFlyer(
                       flyerModel: flyerModel,
-                      index: index,
-                      gridScale: _gridScale!,
+                      flyerBoxWidth: _gridScale!.smallItemWidth,
+                      optionsButtonIsOn: widget.onFlyerOptionsTap != null,
+                      onTap: () => _onFlyerTap(
+                        flyerModel: flyerModel,
+                        index: index,
+                        gridScale: _gridScale!,
+                      ),
                     ),
-                  ),
-                );
+                  );
+                }
+
                 },
             );
           }

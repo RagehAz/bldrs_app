@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_grid_builder.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_stack.dart';
@@ -108,39 +109,51 @@ class HeroicFlyersGrid extends StatelessWidget {
             final String _heroPath = '$screenName/$_flyerID/';
 
             /// NEW
-            return WidgetFader(
-              fadeType: FadeType.fadeIn,
-              duration: const Duration(milliseconds: 300),
-              child: FlyerBuilder(
-                key: const ValueKey<String>('FlyerBuilder_inGrid'),
-                flyerID: _flyerID,
-                flyerModel: _flyer,
-                flyerBoxWidth: _gridScale.smallItemWidth,
-                onFlyerNotFound: onFlyerNotFound == null || _flyerID == null ?
-                null : (String? flyerID) => onFlyerNotFound?.call(_flyerID),
-                renderFlyer: RenderFlyer.firstSlide,
-                onlyFirstSlide: true,
-                slidePicType: SlidePicType.small,
-                builder: (FlyerModel? smallFlyer) {
+            return FlyerBuilder(
+              key: const ValueKey<String>('FlyerBuilder_inGrid'),
+              flyerID: _flyerID,
+              flyerModel: _flyer,
+              flyerBoxWidth: _gridScale.smallItemWidth,
+              onFlyerNotFound: onFlyerNotFound == null || _flyerID == null ?
+              null : (String? flyerID) => onFlyerNotFound?.call(_flyerID),
+              renderFlyer: RenderFlyer.firstSlide,
+              onlyFirstSlide: true,
+              slidePicType: SlidePicType.small,
+              builder: (bool loading, FlyerModel? smallFlyer) {
 
-
-                  return FlyerSelectionStack(
-                    flyerModel: smallFlyer,
+                if (loading == true && smallFlyer == null){
+                  return FlyerLoading(
                     flyerBoxWidth: _gridScale.smallItemWidth,
-                    onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer!(smallFlyer!),
-                    onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap!(smallFlyer!),
-                    selectionMode: selectionMode,
-                    flyerWidget: FlyerHero(
-                      renderedFlyer: smallFlyer,
-                      canBuildBigFlyer: false,
+                    animate: true,
+                    direction: Axis.vertical,
+                  );
+                }
+
+                else {
+                  return WidgetFader(
+                    fadeType: FadeType.fadeIn,
+                    duration: const Duration(milliseconds: 300),
+                    child: FlyerSelectionStack(
+                      flyerModel: smallFlyer,
                       flyerBoxWidth: _gridScale.smallItemWidth,
-                      heroPath: _heroPath,
-                      invoker: 'Flyer',
-                      gridWidth: gridWidth,
-                      gridHeight: gridHeight,
+                      onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer!(smallFlyer!),
+                      onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap!(smallFlyer!),
+                      selectionMode: selectionMode,
+                      flyerWidget: FlyerHero(
+                        renderedFlyer: smallFlyer,
+                        canBuildBigFlyer: false,
+                        flyerBoxWidth: _gridScale.smallItemWidth,
+                        heroPath: _heroPath,
+                        invoker: 'Flyer',
+                        gridWidth: gridWidth,
+                        gridHeight: gridHeight,
+                      ),
                     ),
-                  );},
-              ),
+                  );
+                }
+
+              }
+
             );
 
             /// OLD
