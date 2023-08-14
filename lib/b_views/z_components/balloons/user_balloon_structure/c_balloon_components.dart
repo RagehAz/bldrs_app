@@ -1,9 +1,8 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/super_box/src/a_the_box_of_super_box/x_custom_box_shadow.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
-import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:flutter/material.dart';
 
 class BalloonComponents extends StatelessWidget {
@@ -66,12 +65,13 @@ class BalloonComponents extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.elliptical(balloonWidth * 0.8 * 0.5, balloonWidth * 0.7 * 0.8 * 0.5)),
               color: Colorz.nothing,
-              boxShadow: <CustomBoxShadow>[
-                CustomBoxShadow(
-                    color: Colorz.white80,
-                    offset: Offset(0, balloonWidth * 0.5 * -0.5),
-                    blurRadius: balloonWidth * 0.2),
-              ]
+              /// TOO EXPENSIVE
+            // boxShadow: <CustomBoxShadow>[
+            //   CustomBoxShadow(
+            //       color: Colorz.white80,
+            //       offset: Offset(0, balloonWidth * 0.5 * -0.5),
+            //       blurRadius: balloonWidth * 0.2),
+            // ]
           ),
         ),
 
