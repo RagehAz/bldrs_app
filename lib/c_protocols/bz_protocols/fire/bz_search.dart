@@ -8,19 +8,21 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 
+/// => TAMAM
 class BzSearch {
   // -----------------------------------------------------------------------------
 
   const BzSearch();
 
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static FireQueryModel createQuery({
     SearchModel? searchModel,
     String? bzName,
     String? orderBy,
     bool descending = true,
     int limit = 4,
-}){
+  }){
 
     final QueryOrderBy? _orderBy = orderBy == null ? null : QueryOrderBy(
       fieldName: orderBy,
@@ -109,6 +111,7 @@ class BzSearch {
   /// BZZ
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<BzModel>> paginateBzzBySearchingBzName({
     required String? bzName,
     required QueryDocumentSnapshot<Object>? startAfter,

@@ -7,7 +7,7 @@ import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
-
+/// => TAMAM
 class FlyerSearch {
   // -----------------------------------------------------------------------------
 
