@@ -240,3 +240,167 @@ class BldrsBox extends StatelessWidget {
   }
   // --------------------------------------------------------------------------
 }
+
+
+/// NO NEED FOR THIS
+// class _SuperChild extends StatelessWidget {
+//   /// --------------------------------------------------------------------------
+//   const _SuperChild({
+//     required this.height,
+//     required this.width,
+//     required this.theIcon,
+//     required this.iconSizeFactor,
+//     required this.color,
+//     required this.corners,
+//     required this.iconColor,
+//     required this.verse,
+//     required this.verseColor,
+//     required this.verseWeight,
+//     required this.verseScaleFactor,
+//     required this.verseShadow,
+//     required this.verseItalic,
+//     required this.verseMaxLines,
+//     required this.secondVerseMaxLines,
+//     required this.onTap,
+//     required this.margins,
+//     required this.greyscale,
+//     required this.iconRounded,
+//     required this.bubble,
+//     required this.secondLine,
+//     required this.verseCentered,
+//     required this.subChild,
+//     required this.childAlignment,
+//     required this.opacity,
+//     required this.isDisabled,
+//     required this.splashColor,
+//     required this.onTapDown,
+//     required this.onTapUp,
+//     required this.onTapCancel,
+//     required this.textDirection,
+//     required this.blur,
+//     required this.secondLineColor,
+//     required this.redDot,
+//     required this.secondLineScaleFactor,
+//     required this.loading,
+//     required this.iconBackgroundColor,
+//     required this.onDisabledTap,
+//     required this.verseHighlight,
+//     required this.verseHighlightColor,
+//     required this.onLongTap,
+//     required this.onDoubleTap,
+//     required this.borderColor,
+//     required this.solidGreyScale,
+//     super.key
+//   });
+//   /// --------------------------------------------------------------------------
+//   final dynamic theIcon;
+//   final bool loading;
+//   /// works as a verseSizeFactor as well
+//   final double? iconSizeFactor;
+//   final Color? color;
+//   final double? width;
+//   final double height;
+//   final dynamic corners;
+//   final Color? iconColor;
+//   final Verse? verse;
+//   final Color? verseColor;
+//   final VerseWeight? verseWeight;
+//   final double? verseScaleFactor;
+//   final bool verseShadow;
+//   final bool verseItalic;
+//   final int? verseMaxLines;
+//   final int? secondVerseMaxLines;
+//   final Function? onTap;
+//   final dynamic margins;
+//   final bool greyscale;
+//   final bool iconRounded;
+//   final bool? bubble;
+//   final Verse? secondLine;
+//   final bool verseCentered;
+//   final Widget? subChild;
+//   final Alignment childAlignment;
+//   final double? opacity;
+//   final bool? isDisabled;
+//   final Color? splashColor;
+//   final Function? onTapDown;
+//   final Function? onTapUp;
+//   final Function? onTapCancel;
+//   final TextDirection? textDirection;
+//   final double? blur;
+//   final Color? secondLineColor;
+//   final bool redDot;
+//   final double? secondLineScaleFactor;
+//   final Color? iconBackgroundColor;
+//   final Function? onDisabledTap;
+//   final ValueNotifier<dynamic>? verseHighlight;
+//   final Color? verseHighlightColor;
+//   final Function? onLongTap;
+//   final Function? onDoubleTap;
+//   final Color? borderColor;
+//   final bool solidGreyScale;
+//   // --------------------------------------------------------------------------
+//   @override
+//   Widget build(BuildContext context) {
+//     // --------------------
+//     final double _borderFix = borderColor == null ? 0 : 1;
+//     // --------------------
+//     return SuperBox(
+//       // package: 'bldrs_theme',
+//       height: height - _borderFix,
+//       width: width,
+//       icon: theIcon,
+//       iconSizeFactor: iconSizeFactor,
+//       color: color,
+//       corners: corners,
+//       iconColor: iconColor,
+//       text: Verse.bakeVerseToString(verse: verse),
+//       textColor: verseColor,
+//       textWeight: BldrsText.superVerseWeight(verseWeight),
+//       textScaleFactor: verseScaleFactor,
+//       textShadow: verseShadow,
+//       textItalic: verseItalic,
+//       textMaxLines: verseMaxLines,
+//       secondTextMaxLines: secondVerseMaxLines,
+//       onTap: onTap,
+//       margins: margins,
+//       greyscale: greyscale,
+//       iconRounded: iconRounded,
+//       bubble: bubble ?? true,
+//       secondText: Verse.bakeVerseToString(verse: secondLine),
+//       textCentered: verseCentered,
+//       opacity: opacity,
+//       isDisabled: isDisabled ?? false,
+//       splashColor: splashColor,
+//       onTapDown: onTapDown,
+//       onTapUp: onTapUp,
+//       onTapCancel: onTapCancel,
+//       textDirection: textDirection ?? UiProvider.getAppTextDir(),
+//       blur: blur,
+//       secondTextColor: secondLineColor,
+//       redDot: redDot,
+//       secondTextScaleFactor: secondLineScaleFactor,
+//       loading: loading,
+//       iconBackgroundColor: iconBackgroundColor,
+//       onDisabledTap: onDisabledTap,
+//       textHighlight: verseHighlight,
+//       textHighlightColor: verseHighlightColor,
+//       onLongTap: onLongTap,
+//       onDoubleTap: onDoubleTap,
+//       appIsLTR: UiProvider.checkAppIsLeftToRight(),
+//       textFont: BldrsText.superVerseFont(verseWeight),
+//       childAlignment: childAlignment,
+//       letterSpacing: BldrsText.superVerseLetterSpacing(
+//           verseWeight,
+//           SuperBoxController.textLineHeight(
+//             height: height,
+//             iconSizeFactor: iconSizeFactor,
+//             textScaleFactor: verseScaleFactor,
+//           )),
+//       borderColor: borderColor,
+//       solidGreyScale: solidGreyScale,
+//       subChild: subChild,
+//     );
+//     // --------------------
+//   }
+//   /// --------------------------------------------------------------------------
+// }
