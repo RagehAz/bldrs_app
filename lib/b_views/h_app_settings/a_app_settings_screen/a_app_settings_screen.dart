@@ -109,9 +109,20 @@ class AppSettingsScreen extends StatelessWidget {
 
         const SettingsToSettingsButtons(),
 
-        const DotSeparator(
-          color: Colorz.yellow80,
+        /// SIGN OUT
+        SettingsWideButton(
+          verse: const Verse(id: 'phid_signOut', translate: true),
+          icon: Iconz.exit,
+          isOn: _userIsSignedUp,
+          onTap: () => onSignOut(),
         ),
+
+        const DotSeparator(color: Colorz.yellow80),
+
+        /// CREATE NEW BZ ACCOUNT BUTTON
+        const CreateNewBzButton(),
+
+        const DotSeparator(color: Colorz.yellow80),
 
         /// CHANGE LANGUAGE
         SettingsWideButton(
@@ -124,14 +135,6 @@ class AppSettingsScreen extends StatelessWidget {
         ),
 
         const DotSeparator(),
-
-        /// PLAN : ENHANCE - DESIGN - DEVELOP : ABOUT BLDRS SCREEN
-        // /// ABOUT
-        // SettingsWideButton(
-        //   verse: const Verse(text: 'phid_about_bldrsnet', translate: true),
-        //   onTap: () => onAboutBldrsTap(context),
-        //   icon: Iconz.bldrsNameSquare,
-        // ),
 
         /// FEEDBACK
         SettingsWideButton(
@@ -163,24 +166,11 @@ class AppSettingsScreen extends StatelessWidget {
 
         const DotSeparator(),
 
-        /// CREATE NEW BZ ACCOUNT BUTTON
-        const CreateNewBzButton(),
-
-        const DotSeparator(),
-
         /// REBOOT
         SettingsWideButton(
           verse: const Verse(id: 'phid_clean_and_restart', translate: true),
           icon: Iconz.reload,
           onTap: () => onRebootBldrsAppSystem(),
-        ),
-
-        /// SIGN OUT
-        SettingsWideButton(
-          verse: const Verse(id: 'phid_signOut', translate: true),
-          icon: Iconz.exit,
-          isOn: _userIsSignedUp,
-          onTap: () => onSignOut(),
         ),
 
         const DotSeparator(
