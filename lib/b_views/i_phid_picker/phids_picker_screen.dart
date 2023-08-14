@@ -1,30 +1,22 @@
 import 'package:basics/animators/helpers/sliders.dart';
-import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/xx_pickers_search_controller.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_builder_page.dart';
-import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/slides_shelf/aaa_flyer_slides_shelf.dart';
+import 'package:bldrs/b_views/i_phid_picker/views/multi_chain_selector_view.dart';
+import 'package:bldrs/b_views/i_phid_picker/views/single_chain_selector_view.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/phids_bubble.dart';
-import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 class PhidsPickerScreen extends StatefulWidget {
@@ -147,51 +139,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   @override
   void initState() {
     super.initState();
-
-    final List<Chain>? _allChains = ChainsProvider.proGetBldrsChains(
-      context: context,
-      onlyUseZoneChains: widget.onlyUseZoneChains,
-      listen: false,
-    );
-
-    final List<Chain> _chainsByIDs = Chain.getChainsFromChainsByIDs(
-      allChains: _allChains,
-      phids: widget.chainsIDs,
-    );
-
-    // setState(() {
-
-      if (
-          _chainsByIDs.length == 1
-          &&
-          Chain.checkIsChains(_chainsByIDs.first.sons) == true
-      ){
-        _chains = _chainsByIDs.first.sons;
-      }
-      else {
-        _chains = _chainsByIDs;
-      }
-
-      _allPhids = Chain.getOnlyPhidsSonsFromChains(
-          chains: _chains ?? [],
-      );
-    // });
-
-    _tabBarController = TabController(
-        vsync: this,
-        animationDuration: const Duration(milliseconds: 300),
-        length: _chains?.length ?? 1,
-        // initialIndex: 0,
-    );
-
-    setNotifier(
-        notifier: _selectedPhidsNotifier,
-        mounted: mounted,
-        value: widget.selectedPhids ?? <String>[],
-    );
-
-    _generateNavModels();
-
+    _initializeChains();
   }
   // --------------------
   bool _isInit = true;
@@ -222,12 +170,60 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     _searchController.dispose();
     _selectedPhidsNotifier.dispose();
     _selectedPhidsScrollController.dispose();
-
     _foundChains.dispose();
     _isSearching.dispose();
     _searchText.dispose();
-
     super.dispose();
+  }
+  // -----------------------------------------------------------------------------
+
+  /// INITIALIZATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _initializeChains(){
+
+    final List<Chain>? _allChains = ChainsProvider.proGetBldrsChains(
+      context: context,
+      onlyUseZoneChains: widget.onlyUseZoneChains,
+      listen: false,
+    );
+
+    final List<Chain> _chainsByIDs = Chain.getChainsFromChainsByIDs(
+      allChains: _allChains,
+      phids: widget.chainsIDs,
+    );
+
+    if (
+    _chainsByIDs.length == 1
+        &&
+        Chain.checkIsChains(_chainsByIDs.first.sons) == true
+    ){
+      _chains = _chainsByIDs.first.sons;
+    }
+    else {
+      _chains = _chainsByIDs;
+    }
+
+    _allPhids = Chain.getOnlyPhidsSonsFromChains(
+      chains: _chains ?? [],
+    );
+
+    _tabBarController = TabController(
+      vsync: this,
+      animationDuration: const Duration(milliseconds: 300),
+      length: _chains?.length ?? 1,
+      // initialIndex: 0,
+    );
+
+    setNotifier(
+      notifier: _selectedPhidsNotifier,
+      mounted: mounted,
+      value: widget.selectedPhids ?? <String>[],
+    );
+
+    _generateNavModels();
+
   }
   // -----------------------------------------------------------------------------
 
@@ -331,10 +327,10 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _singleSelectionModeTap({
-  required String? phid,
-}) async {
+    required String? phid,
+  }) async {
 
     await Nav.goBack(
       context: context,
@@ -414,11 +410,11 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   }
   // -----------------------------------------------------------------------------
 
-  /// SELECTION
+  /// Navigation
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onBack() async {
+  Future<void> _onConfirmSelections() async {
 
     /// MULTIPLE SELECTION MODE
     if (widget.multipleSelectionMode == true){
@@ -436,126 +432,197 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onCancelSelections() async {
+
+    bool _canGoBack = true;
+
+    final bool _selectionsHaveChanged = !Mapper.checkListsAreIdentical(
+        list1: widget.selectedPhids,
+        list2: _selectedPhidsNotifier.value,
+    );
+
+    if (_selectionsHaveChanged == true){
+      _canGoBack = await Dialogs.discardChangesGoBackDialog();
+    }
+
+    if (_canGoBack == true){
+      await Nav.goBack(context: context);
+    }
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    blog('Building phids picker screen');
-
-    return ObeliskLayout(
-      appBarIcon: null,
-      globalKey: _globalKey,
-      navModels: _navModels,
-      canGoBack: true,
-      appBarType: AppBarType.search,
-      searchController: _searchController,
-      onSearchSubmit: _onSearchSubmit,
-      onSearchCancelled: _onSearchCancelled,
-      onSearchChanged: _onSearchSubmit,
-      isSearching: _isSearching,
-      onBack: _onBack,
-      searchHintVerse: const Verse(
-        id: 'phid_search',
-        translate: true,
-      ),
-      // appBarRowWidgets: <Widget>[
-      //
-      //   const Expander(),
-      //
-      //   AppBarButton(
-      //     verse: Verse.plain('blogChains'),
-      //     onTap: (){
-      //       Chain.blogChains(_bldrsChains);
-      //     },
-      //   ),
-      //
-      // ],
-      /// SEARCH VIEW
-      searchView: SizedBox(
-        width: Scale.screenWidth(context),
-        height: Scale.screenHeight(context),
-        child: ValueListenableBuilder(
-          valueListenable: _foundChains,
-          builder: (BuildContext context, List<Chain>? foundChains, Widget? child) {
-
-            if (Mapper.checkCanLoopList(foundChains) == true){
-              return PhidsBuilderPage(
-                chain: Chain(
-                  id: 'foundChains',
-                  sons: foundChains,
-                ),
-                searchText: _searchText,
-                selectedPhidsNotifier: _selectedPhidsNotifier,
-                onPhidTap: (String? path, String? phid) => _onPhidTap(
-                  path: path,
-                  phid: phid,
-                  autoScroll: true,
-                ),              );
-            }
-
-            else {
-              return const NoResultFound();
-            }
-
-
-          },
+    /// MULTIPLE CHAINS
+    if (Mapper.superLength(_chains) > 1){
+      return MultiChainSelectorView(
+        globalKey: _globalKey,
+        navModels: _navModels,
+        searchController: _searchController,
+        onSearchSubmit: _onSearchSubmit,
+        onSearchCancelled: _onSearchCancelled,
+        onSearchChanged: _onSearchSubmit,
+        isSearching: _isSearching,
+        foundChains: _foundChains,
+        onBack: _onConfirmSelections,
+        searchText: _searchText,
+        selectedPhidsNotifier: _selectedPhidsNotifier,
+        onPagePhidTap: (String? path, String? phid) => _onPhidTap(
+          path: path,
+          phid: phid,
+          autoScroll: true,
         ),
-      ),
-
-      /// CORNER SELECTED PHIDS
-      abovePyramidsChild: widget.multipleSelectionMode == false ?
-      const SizedBox()
-          :
-      CornerWidgetMaximizer(
-        maxWidth: Bubble.bubbleWidth(context: context),
-        minWidth: Scale.superWidth(context, 0.4),
-        childWidth: Bubble.bubbleWidth(context: context),
-
-        /// FLYER SHELF IN SELECTED PHIDS PANEL
-        topChild: widget.flyerModel == null ?
-        const SizedBox()
-            :
-        FlyerSlidesShelf(
-          flyerModel: widget.flyerModel,
-          shelfWidth: BldrsAppBar.clearWidth(context),
-          slidePicType: SlidePicType.small,
+        onPanelPhidTap: (String? path, String? phid) => _onPhidTap(
+          path: path,
+          phid: phid,
+          autoScroll: false,
         ),
+        selectedPhidsScrollController: _selectedPhidsScrollController,
+        multipleSelectionMode: widget.multipleSelectionMode,
+        flyerModel: widget.flyerModel,
+      );
+    }
 
-        /// SELECTED PHIDS PANEL
-        child: ValueListenableBuilder(
-          valueListenable: _selectedPhidsNotifier,
-          builder: (BuildContext context, List<String>? selectedPhids, Widget? child) {
-
-            final String? _selectedKeywords = getWord('phid_selected_keywords');
-
-            final Verse _verse = Verse(
-              id: '(${selectedPhids?.length}) $_selectedKeywords',
-              translate: false,
-            );
-
-            return PhidsBubble(
-              bubbleColor: Colorz.white10,
-              selectedWords: selectedPhids,
-              passPhidOnTap: true,
-              titleVerse: _verse,
-              phids: selectedPhids,
-              addButtonIsOn: false,
-              bubbleWidth: Bubble.bubbleWidth(context: context),
-              maxLines: 3,
-              scrollController: _selectedPhidsScrollController,
-              onPhidTap: (String phid) => _onPhidTap(
-                path: null,
-                phid: phid,
-                autoScroll: false,
-              ),
-            );
-
-          },
+    /// SINGLE CHAIN
+    else {
+      return SingleChainSelectorView(
+        chain: _chains?.first,
+        globalKey: _globalKey,
+        searchController: _searchController,
+        onSearchSubmit: _onSearchSubmit,
+        onSearchCancelled: _onSearchCancelled,
+        onSearchChanged: _onSearchSubmit,
+        isSearching: _isSearching,
+        foundChains: _foundChains,
+        searchText: _searchText,
+        selectedPhidsNotifier: _selectedPhidsNotifier,
+        onPagePhidTap: (String? path, String? phid) => _onPhidTap(
+          path: path,
+          phid: phid,
+          autoScroll: true,
         ),
+        onConfirmSelections: _onConfirmSelections,
+        onCancelSelections: _onCancelSelections,
+        selectedPhids: widget.selectedPhids,
+      );
+    }
 
-      ),
-
-    );
+    // return ObeliskLayout(
+    //   appBarIcon: null,
+    //   globalKey: _globalKey,
+    //   navModels: _navModels,
+    //   canGoBack: true,
+    //   appBarType: AppBarType.search,
+    //   searchController: _searchController,
+    //   onSearchSubmit: _onSearchSubmit,
+    //   onSearchCancelled: _onSearchCancelled,
+    //   onSearchChanged: _onSearchSubmit,
+    //   isSearching: _isSearching,
+    //   onBack: _onBack,
+    //   searchHintVerse: const Verse(
+    //     id: 'phid_search',
+    //     translate: true,
+    //   ),
+    //   // appBarRowWidgets: <Widget>[
+    //   //
+    //   //   const Expander(),
+    //   //
+    //   //   AppBarButton(
+    //   //     verse: Verse.plain('blogChains'),
+    //   //     onTap: (){
+    //   //       Chain.blogChains(_bldrsChains);
+    //   //     },
+    //   //   ),
+    //   //
+    //   // ],
+    //   /// SEARCH VIEW
+    //   searchView: SizedBox(
+    //     width: Scale.screenWidth(context),
+    //     height: Scale.screenHeight(context),
+    //     child: ValueListenableBuilder(
+    //       valueListenable: _foundChains,
+    //       builder: (BuildContext context, List<Chain>? foundChains, Widget? child) {
+    //
+    //         if (Mapper.checkCanLoopList(foundChains) == true){
+    //           return PhidsBuilderPage(
+    //             chain: Chain(
+    //               id: 'foundChains',
+    //               sons: foundChains,
+    //             ),
+    //             searchText: _searchText,
+    //             selectedPhidsNotifier: _selectedPhidsNotifier,
+    //             onPhidTap: (String? path, String? phid) => _onPhidTap(
+    //               path: path,
+    //               phid: phid,
+    //               autoScroll: true,
+    //             ),              );
+    //         }
+    //
+    //         else {
+    //           return const NoResultFound();
+    //         }
+    //
+    //
+    //       },
+    //     ),
+    //   ),
+    //
+    //   /// CORNER SELECTED PHIDS
+    //   abovePyramidsChild: widget.multipleSelectionMode == false ?
+    //   const SizedBox()
+    //       :
+    //   CornerWidgetMaximizer(
+    //     maxWidth: Bubble.bubbleWidth(context: context),
+    //     minWidth: Scale.superWidth(context, 0.4),
+    //     childWidth: Bubble.bubbleWidth(context: context),
+    //
+    //     /// FLYER SHELF IN SELECTED PHIDS PANEL
+    //     topChild: widget.flyerModel == null ?
+    //     const SizedBox()
+    //         :
+    //     FlyerSlidesShelf(
+    //       flyerModel: widget.flyerModel,
+    //       shelfWidth: BldrsAppBar.clearWidth(context),
+    //       slidePicType: SlidePicType.small,
+    //     ),
+    //
+    //     /// SELECTED PHIDS PANEL
+    //     child: ValueListenableBuilder(
+    //       valueListenable: _selectedPhidsNotifier,
+    //       builder: (BuildContext context, List<String>? selectedPhids, Widget? child) {
+    //
+    //         final String? _selectedKeywords = getWord('phid_selected_keywords');
+    //
+    //         final Verse _verse = Verse(
+    //           id: '(${selectedPhids?.length}) $_selectedKeywords',
+    //           translate: false,
+    //         );
+    //
+    //         return PhidsBubble(
+    //           bubbleColor: Colorz.white10,
+    //           selectedWords: selectedPhids,
+    //           passPhidOnTap: true,
+    //           titleVerse: _verse,
+    //           phids: selectedPhids,
+    //           addButtonIsOn: false,
+    //           bubbleWidth: Bubble.bubbleWidth(context: context),
+    //           maxLines: 3,
+    //           scrollController: _selectedPhidsScrollController,
+    //           onPhidTap: (String phid) => _onPhidTap(
+    //             path: null,
+    //             phid: phid,
+    //             autoScroll: false,
+    //           ),
+    //         );
+    //
+    //       },
+    //     ),
+    //
+    //   ),
+    //
+    // );
 
   }
 // -----------------------------------------------------------------------------

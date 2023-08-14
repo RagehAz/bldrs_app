@@ -412,12 +412,12 @@ class _DemoLocalizationDelegate extends LocalizationsDelegate<Localizer> {
   // -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
-String? getWord(String? phid){
+String getWord(String? phid){
   if (phid == null){
-    return null;
+    return '';
   }
   else {
-    return Localizer.translate(phid);
+    return Localizer.translate(phid) ?? '';
   }
 }
 //---------------------

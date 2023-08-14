@@ -555,8 +555,8 @@ class Flag {
     String? counterCaliber(int? x){
       return Numeric.formatNumToCounterCaliber(
         x: x,
-        thousand: getWord('phid_thousand')!,
-        million: getWord('phid_million')!,
+        thousand: getWord('phid_thousand'),
+        million: getWord('phid_million'),
       );
     }
 
