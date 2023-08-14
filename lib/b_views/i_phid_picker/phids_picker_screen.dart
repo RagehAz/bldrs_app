@@ -506,6 +506,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
         onConfirmSelections: _onConfirmSelections,
         onCancelSelections: _onCancelSelections,
         selectedPhids: widget.selectedPhids,
+        multipleSelectionMode: widget.multipleSelectionMode,
       );
     }
 
