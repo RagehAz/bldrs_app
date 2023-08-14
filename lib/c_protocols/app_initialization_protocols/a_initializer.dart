@@ -77,7 +77,7 @@ class Initializer {
 
             if (_canLoadApp == true){
 
-              UiInitializer.setLoadingVerse(getWord('phid_loading')!);
+              UiInitializer.setLoadingVerse(getWord('phid_loading'));
 
               /// UI - ICONS - PHRASES
               await UiInitializer.initializeIconsAndPhrases();

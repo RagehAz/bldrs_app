@@ -251,7 +251,13 @@ class _PickersScreenState extends State<PickersScreen> {
         selectedSpecs: _selectedSpecs,
         widgetSelectedSpecs: widget.selectedSpecs,
       ),
-      confirmButtonModel: widget.isMultipleSelectionMode == false ? null : ConfirmButtonModel(
+      confirmButton: widget.isMultipleSelectionMode == false ?
+      null
+          :
+      ConfirmButton.button(
+        // onSkipTap: ,
+        // enAlignment: ,
+        // isDisabled: ,
         firstLine: Verse(
           id: 'phid_confirm_selections',
           translate: true,
