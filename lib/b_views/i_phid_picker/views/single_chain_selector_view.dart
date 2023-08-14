@@ -26,6 +26,7 @@ class SingleChainSelectorView extends StatelessWidget {
     required this.onConfirmSelections,
     required this.onCancelSelections,
     required this.selectedPhids,
+    required this.multipleSelectionMode,
     super.key
   });
   // --------------------
@@ -43,6 +44,7 @@ class SingleChainSelectorView extends StatelessWidget {
   final Function onConfirmSelections;
   final Function? onCancelSelections;
   final List<String>? selectedPhids;
+  final bool multipleSelectionMode;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -64,7 +66,7 @@ class SingleChainSelectorView extends StatelessWidget {
         id: 'phid_search',
         translate: true,
       ),
-      confirmButton: ValueListenableBuilder(
+      confirmButton: multipleSelectionMode == false ? null : ValueListenableBuilder(
         valueListenable: selectedPhidsNotifier,
         builder: (context, List<String> phids, Widget? child) {
 
