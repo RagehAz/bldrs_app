@@ -1,4 +1,6 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
@@ -6,13 +8,9 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/m_search/bz_search_model.dart';
 import 'package:bldrs/a_models/m_search/flyer_search_model.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:fire/super_fire.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
 /// => TAMAM
 @immutable
 class SearchModel {
@@ -48,9 +46,10 @@ class SearchModel {
       // id: null,
       userID: Authing.getUserID(),
       // text: null,
-      zone: ZoneProvider.proGetCurrentZone(context: getMainContext(), listen: false),
+      /// TO SEARCH THE WORLD ON START
+      // zone: ZoneProvider.proGetCurrentZone(context: getMainContext(), listen: false),
       time: DateTime.now(),
-      flyerSearchModel: searchType != ModelType.flyer ? null : const FlyerSearchModel(
+      flyerSearchModel: searchType == ModelType.flyer ? const FlyerSearchModel(
         onlyWithPrices: false,
         onlyWithPDF: false,
         onlyShowingAuthors: false,
@@ -59,15 +58,15 @@ class SearchModel {
         // publishState: null,
         // auditState: null,
         // flyerType: null,
-      ),
-      bzSearchModel:  searchType != ModelType.bz ? null : const BzSearchModel(
+      ) : null,
+      bzSearchModel:  searchType == ModelType.bz ? const BzSearchModel(
         scopePhid: null,
         onlyVerified: false,
         onlyShowingTeams: false,
         bzAccountType: null,
         bzType: null,
         bzForm: null,
-      ),
+      ) : null,
     );
 
   }
