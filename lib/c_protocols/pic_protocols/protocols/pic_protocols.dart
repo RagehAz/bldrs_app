@@ -203,6 +203,37 @@ class PicProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static Future<List<PicModel>> fetchFlyersPosters({
+    required List<String> flyersIDs,
+  }) async {
+    final List<PicModel> _posters = [];
+
+    if (Mapper.checkCanLoopList(flyersIDs) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(flyersIDs.length, (index){
+
+          return fetchFlyerPoster(
+            flyerID: flyersIDs[index],
+          ).then((PicModel? pic){
+
+            if (pic != null){
+              _posters.add(pic);
+            }
+
+          });
+
+        }),
+
+      ]);
+
+    }
+
+    return _posters;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<PicModel>> fetchFlyerPics({
     required FlyerModel? flyerModel,
     required SlidePicType type,

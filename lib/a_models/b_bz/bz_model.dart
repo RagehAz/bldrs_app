@@ -919,6 +919,29 @@ class BzModel{
 
     return _hasContacts;
   }
+  // --------------------
+  /// TESTED : WORKS GOOD
+  static bool checkBzHasFlyers({
+    required List<AuthorModel>? authors,
+  }){
+    bool _has = false;
+
+    if (Mapper.checkCanLoopList(authors) == true){
+
+      for (final AuthorModel author in authors!){
+
+        final bool _hasFlyers = AuthorModel.checkAuthorHasFlyers(author: author);
+        if (_hasFlyers == true){
+          _has = true;
+          break;
+        }
+
+      }
+
+    }
+
+    return _has;
+  }
   // -----------------------------------------------------------------------------
 
   /// BZ VALIDATION
