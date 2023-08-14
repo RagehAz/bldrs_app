@@ -471,7 +471,7 @@ packages:
       path: "D:/projects/packages/backend/fire"
       relative: false
     source: path
-    version: "2.1.0"
+    version: "2.2.0"
   firebase_app_check:
     dependency: "direct main"
     description:
