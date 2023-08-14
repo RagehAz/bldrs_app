@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
@@ -12,6 +14,8 @@ import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
@@ -21,6 +25,7 @@ import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -367,54 +372,99 @@ Future<void> onChangeBzLogo({
     // draftNotifier.value!.getLogoPath();
     final List<String>? _ownersIDs = draftNotifier.value?.getLogoOwners();
 
-
     if (_path != null && _ownersIDs != null){
 
-      setNotifier(
-        notifier: draftNotifier,
-        mounted: mounted,
-        value: draftNotifier.value?.copyWith(
-          canPickImage: false,
-        ),
+      final bool _canPick = await _checkAndNotifyShouldPicLogo(
+        draftNotifier: draftNotifier,
       );
 
-      final PicModel? _pic = await BldrsPicMaker.makePic(
-        picMakerType: imagePickerType,
-        cropAfterPick: true,
-        aspectRatio: 1,
-        compressionQuality: Standards.bzLogoPicQuality,
-        finalWidth: Standards.bzLogoPicWidth,
-        assignPath: _path,
-        ownersIDs: _ownersIDs,
-        name: 'bz_logo',
-      );
+      if (_canPick == true){
 
-      /// IF DID NOT PIC ANY IMAGE
-      if (_pic == null) {
-        setNotifier(
-          notifier: draftNotifier,
-          mounted: mounted,
-          value: draftNotifier.value?.copyWith(canPickImage: true,),
-        );
-      }
-
-      /// IF PICKED AN IMAGE
-      else {
         setNotifier(
           notifier: draftNotifier,
           mounted: mounted,
           value: draftNotifier.value?.copyWith(
-            canPickImage: true,
-            hasNewLogo: true,
-            logoPicModel: _pic,
+            canPickImage: false,
           ),
         );
+
+        final PicModel? _pic = await BldrsPicMaker.makePic(
+          picMakerType: imagePickerType,
+          cropAfterPick: true,
+          aspectRatio: 1,
+          compressionQuality: Standards.bzLogoPicQuality,
+          finalWidth: Standards.bzLogoPicWidth,
+          assignPath: _path,
+          ownersIDs: _ownersIDs,
+          name: 'bz_logo',
+        );
+
+        /// IF DID NOT PIC ANY IMAGE
+        if (_pic == null) {
+          setNotifier(
+            notifier: draftNotifier,
+            mounted: mounted,
+            value: draftNotifier.value?.copyWith(canPickImage: true,),
+          );
+        }
+
+        /// IF PICKED AN IMAGE
+        else {
+          setNotifier(
+            notifier: draftNotifier,
+            mounted: mounted,
+            value: draftNotifier.value?.copyWith(
+              canPickImage: true,
+              hasNewLogo: true,
+              logoPicModel: _pic,
+            ),
+          );
+        }
+
       }
 
     }
 
   }
 
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<bool> _checkAndNotifyShouldPicLogo({
+  required ValueNotifier<DraftBz?> draftNotifier,
+}) async {
+  bool _canPick = true;
+
+  if (draftNotifier.value?.firstTimer == false){
+
+    WaitDialog.showUnawaitedWaitDialog();
+
+      final List<String> _flyersIDs = AuthorModel.getAllFlyersIDs(
+        authors: draftNotifier.value?.authors,
+      );
+
+    if (Mapper.checkCanLoopList(_flyersIDs) == true){
+
+      _canPick = await Dialogs.postersDialogs(
+        titleVerse: getVerse('phid_change_bz_logo_?')!,
+        bodyVerse: getVerse('phid_bz_logo_change_will_not_change_posters'),
+        flyersIDs: Stringer.getRandomUniqueStrings(
+          strings: _flyersIDs,
+          count: 5,
+        ),
+        picsHeights: 70,
+      );
+    }
+
+    else {
+      _canPick = true;
+    }
+
+    await WaitDialog.closeWaitDialog();
+
+  }
+
+  return _canPick;
 }
 // --------------------
 /// TESTED : WORKS PERFECT

@@ -290,6 +290,22 @@ class AuthorModel {
     return _ownersIDs;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getAllFlyersIDs({
+    required List<AuthorModel>? authors,
+  }){
+    final List<String> _output = [];
+
+    if (Mapper.checkCanLoopList(authors) == true){
+      for (final AuthorModel author in authors!){
+        _output.addAll(author.flyersIDs??[]);
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
   /// DEPRECATED
   /*
   /// TESTED : WORKS PERFECT
