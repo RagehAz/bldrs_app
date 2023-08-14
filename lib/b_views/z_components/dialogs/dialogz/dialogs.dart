@@ -34,6 +34,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
@@ -1165,6 +1166,39 @@ class Dialogs {
 
     return _result;
 
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> postersDialogs({
+    required List<String> flyersIDs,
+    required Verse titleVerse,
+    Verse? bodyVerse,
+    Verse? confirmButtonVerse,
+    bool boolDialog = true,
+    bool invertButtons = false,
+    double? picsHeights,
+  }) async {
+    bool _continue = false;
+
+    final List<PicModel> _posters = await PicProtocols.fetchFlyersPosters(
+      flyersIDs: flyersIDs,
+    );
+
+    if (Mapper.checkCanLoopList(_posters) == true){
+
+      _continue = await picsDialog(
+        pics: _posters,
+        titleVerse: titleVerse,
+        bodyVerse: bodyVerse,
+        boolDialog: boolDialog,
+        confirmButtonVerse: confirmButtonVerse,
+        invertButtons: invertButtons,
+        picsHeights: picsHeights,
+      );
+
+    }
+
+    return _continue;
   }
   // -----------------------------------------------------------------------------
 
