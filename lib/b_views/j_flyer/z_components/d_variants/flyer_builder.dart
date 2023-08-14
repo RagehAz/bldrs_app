@@ -6,6 +6,12 @@ import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:flutter/material.dart';
 
+enum RenderFlyer {
+  allSlides,
+  firstSlide,
+  keep,
+}
+
 class FlyerBuilder extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const FlyerBuilder({
@@ -169,9 +175,11 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
   // --------------------
   Future<void> _fetchAndRenderFlyer() async {
 
-    setState(() {
-      _loading = true;
-    });
+    if (mounted == true){
+      setState(() {
+        _loading = true;
+      });
+    }
 
     if (mounted == true){
 
@@ -181,7 +189,7 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
 
       if (_flyer != null) {
 
-        if (widget.renderFlyer == RenderFlyer.firstSlide && mounted) {
+        if (widget.renderFlyer == RenderFlyer.firstSlide && mounted == true) {
           _flyer = await FlyerProtocols.renderSmallFlyer(
             flyerModel: _flyer,
             slidePicType: widget.slidePicType,
@@ -195,7 +203,7 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
           );
         }
 
-        else if (widget.renderFlyer == RenderFlyer.allSlides && mounted) {
+        else if (widget.renderFlyer == RenderFlyer.allSlides && mounted == true) {
 
           /// SMALL
           _flyer = await FlyerProtocols.renderBigFlyer(
@@ -245,8 +253,7 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
 
     }
 
-
-    if (_loading == true){
+    if (_loading == true && mounted == true){
       setState(() {
         _loading = false;
       });
@@ -259,34 +266,6 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
 
     return widget.builder(_loading, _flyerModel);
 
-    // return ValueListenableBuilder(
-    //   key: const ValueKey<String>('FlyerBuilder'),
-    //   valueListenable: _loading,
-    //   builder: (_, bool loading, Widget? child) {
-    //
-    //     if (loading == true) {
-    //       return Center(
-    //         child: widget.loadingWidget ?? FlyerLoading(
-    //           flyerBoxWidth: widget.flyerBoxWidth,
-    //           animate: true,
-    //           direction: Axis.vertical,
-    //         ),
-    //       );
-    //     }
-    //
-    //     else {
-    //       return widget.builder(_flyerModel);
-    //     }
-    //
-    //   },
-    // );
-
   }
   // -----------------------------------------------------------------------------
-}
-
-enum RenderFlyer {
-  allSlides,
-  firstSlide,
-  keep,
 }

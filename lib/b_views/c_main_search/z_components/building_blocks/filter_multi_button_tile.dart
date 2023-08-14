@@ -69,7 +69,8 @@ class FilterMultiButtonTile extends StatelessWidget {
             return BldrsBox(
               height: 40,
               verse: itemVerse(item),
-              verseScaleFactor: 0.7,
+              verseScaleFactor: 0.7 / 0.6,
+              iconSizeFactor: 0.7,
               icon: itemIcon == null ? null : itemIcon!.call(item),
               color: _isSelected == true ? Colorz.yellow255 : Colorz.white20,
               iconColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
@@ -79,6 +80,7 @@ class FilterMultiButtonTile extends StatelessWidget {
               textDirection: UiProvider.getAppTextDir(),
               verseCentered: false,
             );
+
           }),
         ],
       ),

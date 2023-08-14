@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/checks/object_check.dart';
@@ -35,18 +37,44 @@ import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
 class SuperSearchScreen extends StatefulWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const SuperSearchScreen({
     super.key
   });
-  /// --------------------------------------------------------------------------
+  // --------------------
   @override
   _SuperSearchScreenState createState() => _SuperSearchScreenState();
   // --------------------------------------------------------------------------
-    static double getFilterTileWidth(BuildContext context){
+  static double getFilterTileWidth(BuildContext context){
     final double _appBarWidth = Bubble.bubbleWidth(context: context);
     return _appBarWidth - 20;
   }
+  // --------------------
+  static Verse getSearchHintVerse(){
+
+    final ZoneModel? _zone = ZoneProvider.proGetCurrentZone(
+      context: getMainContext(),
+      listen: false,
+    );
+
+    final String _countryName = _zone?.countryName ?? '';
+    final String _cityName = _zone?.cityName ?? '...';
+
+    final String _hintText =  '${getWord('phid_search_flyers_in')} '
+                              '$_cityName, $_countryName';
+
+    return Verse(
+      id: _hintText,
+      translate: false,
+    );
+
+  }
+  // --------------------
+  static const Verse search = Verse(
+        id: 'phid_search',
+        translate: true,
+        casing: Casing.capitalizeFirstChar,
+      );
   // --------------------------------------------------------------------------
 }
 
@@ -161,15 +189,21 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   // -----------------------------------------------------------------------------
   /// SEARCH TYPE
   // --------------------
-  void selectSearchType(ModelType modelType){
+  Future<void> selectSearchType(ModelType modelType) async {
+
+    await _triggerLoading(setTo: true);
+
+    /// SEARCH
     if (_searchType != modelType){
       setNotifier(notifier: _filtersAreOn, mounted: mounted, value: false);
-      _searchType = modelType;
-      _searchModel = SearchModel.createInitialModel(
-        searchType: _searchType,
-      );
-      _generateQuery();
+      setState(() {
+        _searchType = modelType;
+        _searchModel = SearchModel.createInitialModel(searchType: modelType);
+      });
+      await _generateQuery();
     }
+
+    /// SWITCH OFF SEARCHING
     else {
       setNotifier(notifier: _filtersAreOn, mounted: mounted, value: null);
       setState(() {
@@ -177,11 +211,16 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         _searchType = null;
       });
     }
+
+    await _triggerLoading(setTo: false);
+
   }
   // -----------------------------------------------------------------------------
   /// QUERY GENERATION
   // --------------------
   Future<void> _generateQuery() async {
+
+    await _triggerLoading(setTo: true);
 
     if (_searchModel != null){
 
@@ -219,14 +258,34 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         );
       }
 
-      _searchModel = await _composeOrRenovateSearchHistoryModel();
+      final SearchModel? _model = await _composeOrRenovateSearchHistoryModel();
 
-      if (mounted == true){
-        setState(() {});
-      }
+        if (mounted == true){
+          setState(() {
+            _searchModel = _model;
+          });
+        }
 
     }
 
+    await _triggerLoading(setTo: false);
+
+  }
+  // --------------------
+  void _setSearchModel({
+    required SearchModel? model,
+  }){
+    setState(() {
+      _searchModel = model;
+    });
+  }
+  // --------------------
+  void _setUserSearchModel({
+    required UserSearchModel? model,
+  }){
+    setState(() {
+      _userSearchModel = model;
+    });
   }
   // -----------------------------------------------------------------------------
   /// TEXT SEARCH
@@ -268,6 +327,13 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   // --------------------
   Widget _getFilters(){
 
+    /*
+         _setSearchModel(
+             model: ,
+          );
+
+     */
+
     /// FLYERS
     if (_searchType == ModelType.flyer){
      return FlyersSearchFiltersList(
@@ -275,114 +341,122 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
        onZoneSwitchTap: _onZoneSwitchTap,
        onZoneTap: () async {
 
-          final ZoneModel? _newZone = await ZoneSelection.goBringAZone(
-            depth: ZoneDepth.city,
-            settingCurrentZone: false,
-            zoneViewingEvent: ViewingEvent.homeView,
-            viewerCountryID: UsersProvider.proGetUserZone()?.countryID,
-            selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
-          );
+         final ZoneModel? _newZone = await ZoneSelection.goBringAZone(
+           depth: ZoneDepth.city,
+           settingCurrentZone: false,
+           zoneViewingEvent: ViewingEvent.homeView,
+           viewerCountryID: UsersProvider.proGetUserZone()?.countryID,
+           selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
+         );
 
-          await ZoneSelection.setCurrentZoneProtocol(
-            zone: _newZone,
-          );
+         await ZoneSelection.setCurrentZoneProtocol(
+           zone: _newZone,
+         );
 
-          if (_newZone == null){
-            _searchModel = _searchModel?.nullifyField(
-              zone: true,
-            );
-          }
+         if (_newZone == null){
+           _searchModel = _searchModel?.nullifyField(
+             zone: true,
+           );
+         }
 
-          else {
-            _searchModel = _searchModel?.copyWith(
-              zone: _newZone,
-            );
-          }
+         else {
+           _searchModel = _searchModel?.copyWith(
+             zone: _newZone,
+           );
+         }
 
-          await _generateQuery();
+         _setSearchModel(model: _searchModel);
+         await _generateQuery();
 
-          },
+         },
        onFlyerTypeSwitchTap: (bool value) async {
-          if (value == false){
+         if (value == false){
 
-              _searchModel = _searchModel?.copyWith(
-                flyerSearchModel: _searchModel?.flyerSearchModel?.nullifyField(
-                  flyerType: true,
-                  phid: true,
-                ),
-              );
-              await _generateQuery();
+           _searchModel = _searchModel?.copyWith(
+             flyerSearchModel: _searchModel?.flyerSearchModel?.nullifyField(
+               flyerType: true,
+               phid: true,
+             ),
+           );
+           _setSearchModel(model: _searchModel);
+           await _generateQuery();
 
-          }
-          },
+         }
+         },
        onFlyerTypeTap: (FlyerType flyerType) async {
 
+         _searchModel = _searchModel?.copyWith(
+           flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
+             flyerType: flyerType,
+           ),
+         );
 
-            _searchModel = _searchModel?.copyWith(
-              flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
-                flyerType: flyerType,
-              ),
-            );
+         if (
+         _searchModel?.flyerSearchModel?.flyerType != FlyerType.product
+             &&
+             _searchModel?.flyerSearchModel?.flyerType != FlyerType.equipment
+         ) {
+           _searchModel = _searchModel?.copyWith(
+             flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
+               onlyAmazonProducts: false,
+             ),
+           );
+         }
 
-            if (
-                _searchModel?.flyerSearchModel?.flyerType != FlyerType.product
-                &&
-                _searchModel?.flyerSearchModel?.flyerType != FlyerType.equipment
-            ) {
-              _searchModel = _searchModel?.copyWith(
-                flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
-                  onlyAmazonProducts: false,
-                ),
-              );
-            }
+         _setSearchModel(model: _searchModel);
+         await _generateQuery();
 
-              await _generateQuery();
-
-          },
+         },
        onPickPhidTap: () async {
-            final String? _phid = await PhidsPickerScreen.goPickPhid(
-              context: context,
-              flyerType: _searchModel?.flyerSearchModel?.flyerType,
-              event: ViewingEvent.homeView,
-              onlyUseZoneChains: true,
-              slideScreenFromEnLeftToRight: false,
-            );
 
-            if (_phid != null) {
-              await setActivePhidK(
-                phidK: _phid,
-                flyerType: _searchModel?.flyerSearchModel?.flyerType,
-              );
+         final String? _phid = await PhidsPickerScreen.goPickPhid(
+           context: context,
+           flyerType: _searchModel?.flyerSearchModel?.flyerType,
+           event: ViewingEvent.homeView,
+           onlyUseZoneChains: true,
+           slideScreenFromEnLeftToRight: false,
+         );
 
-                _searchModel = _searchModel?.copyWith(
-                  flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
-                    phid: _phid,
-                  ),
-                );
-              await _generateQuery();
+         if (_phid != null) {
 
-            }
-          },
+           await setActivePhidK(
+             phidK: _phid,
+             flyerType: _searchModel?.flyerSearchModel?.flyerType,
+           );
+
+           _searchModel = _searchModel?.copyWith(
+             flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
+               phid: _phid,
+             ),
+           );
+
+
+           _setSearchModel(model: _searchModel);
+           await _generateQuery();
+
+         }
+
+         },
        onOnlyShowAuthorSwitchTap: (bool value) async {
 
-            _searchModel = _searchModel?.copyWith(
-              flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
-                onlyShowingAuthors: value,
-              ),
-            );
-            await _generateQuery();
+         _searchModel = _searchModel?.copyWith(
+           flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
+             onlyShowingAuthors: value,
+           ),
+         );
+         _setSearchModel(model: _searchModel);
+         await _generateQuery();
 
-          },
+         },
        onOnlyWithPriceSwitchTap: (bool value) async {
-
-            _searchModel = _searchModel?.copyWith(
-              flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
-                onlyWithPrices: value,
-              ),
-            );
-            await _generateQuery();
-
-          },
+         _searchModel = _searchModel?.copyWith(
+           flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
+             onlyWithPrices: value,
+           ),
+         );
+         _setSearchModel(model: _searchModel);
+         await _generateQuery();
+         },
        onOnlyWithPDFSwitchTap: (bool value) async {
 
          _searchModel = _searchModel?.copyWith(
@@ -390,12 +464,11 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
              onlyWithPDF: value,
            ),
          );
+         _setSearchModel(model: _searchModel);
          await _generateQuery();
 
          },
        onOnlyAmazonProductsSwitchTap: (bool value) async {
-
-         // blog('value : $value');
 
          _searchModel = _searchModel?.copyWith(
            flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
@@ -404,6 +477,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
            ),
          );
 
+         _setSearchModel(model: _searchModel);
          await _generateQuery();
 
          },
@@ -415,6 +489,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
                publishState: true,
              ),
            );
+           _setSearchModel(model: _searchModel);
            await _generateQuery();
 
          }
@@ -426,6 +501,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
              publishState: state,
            ),
          );
+         _setSearchModel(model: _searchModel);
          await _generateQuery();
          },
 
@@ -440,47 +516,56 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         onZoneTap: _goBringBzZone,
         onBzIsVerifiedSwitchTap: (bool value) async {
 
-            _searchModel = _searchModel?.copyWith(
+          _setSearchModel(
+            model: _searchModel?.copyWith(
               bzSearchModel: _searchModel?.bzSearchModel?.copyWith(
                 onlyVerified: value,
               ),
-            );
-            await _generateQuery();
+            ),
+          );
+
+          await _generateQuery();
 
           },
         onBzFormSwitchTap: (bool value) async {
           if (value == false){
 
-              _searchModel = _searchModel?.copyWith(
+            _setSearchModel(
+              model: _searchModel?.copyWith(
                 bzSearchModel: _searchModel?.bzSearchModel?.nullifyField(
                   bzForm: true,
                 ),
-              );
-              await _generateQuery();
+              ),
+            );
+            await _generateQuery();
 
           }
           },
         onBzFormTap: (BzForm form) async {
 
-            _searchModel = _searchModel?.copyWith(
+          _setSearchModel(
+            model: _searchModel?.copyWith(
               bzSearchModel: _searchModel?.bzSearchModel?.copyWith(
                 bzForm: form,
               ),
-            );
-            await _generateQuery();
+            ),
+          );
+
+          await _generateQuery();
 
           },
         onBzTypeSwitchTap: (bool value) async {
           if (value == false){
-
-              _searchModel = _searchModel?.copyWith(
+            _setSearchModel(
+              model: _searchModel?.copyWith(
                 bzSearchModel: _searchModel?.bzSearchModel?.nullifyField(
                   bzType: true,
                   scopePhid: true,
                 ),
-              );
+              ),
+            );
 
-              await _generateQuery();
+            await _generateQuery();
 
           }
           },
@@ -498,6 +583,10 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               ),
             );
 
+            _setSearchModel(
+              model: _searchModel,
+            );
+
             await _generateQuery();
 
           },
@@ -505,12 +594,13 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
             if (value == false){
 
-                _searchModel = _searchModel?.copyWith(
-                  bzSearchModel: _searchModel?.bzSearchModel?.nullifyField(
-                    scopePhid: true,
-                  ),
-                );
-                await _generateQuery();
+              _searchModel = _searchModel?.copyWith(
+                bzSearchModel: _searchModel?.bzSearchModel?.nullifyField(
+                  scopePhid: true,
+                ),
+              );
+              _setSearchModel(model: _searchModel);
+              await _generateQuery();
 
             }
 
@@ -532,6 +622,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
                     scopePhid: _phid,
                   ),
                 );
+                _setSearchModel(model: _searchModel);
                 await _generateQuery();
 
             }
@@ -544,32 +635,32 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
                 onlyShowingTeams: value,
               ),
             );
-
+            _setSearchModel(model: _searchModel);
             await _generateQuery();
 
           },
         onAccountTypeSwitchTap: (bool value) async {
             if (value == false) {
 
-                _searchModel = _searchModel?.copyWith(
-                  bzSearchModel: _searchModel?.bzSearchModel?.nullifyField(
-                    bzAccountType: true,
-                  ),
-                );
-
-                await _generateQuery();
+              _searchModel = _searchModel?.copyWith(
+                bzSearchModel: _searchModel?.bzSearchModel?.nullifyField(
+                  bzAccountType: true,
+                ),
+              );
+              _setSearchModel(model: _searchModel);
+              await _generateQuery();
 
             }
           },
         onAccountTypeTap: (BzAccountType type) async {
 
-              _searchModel = _searchModel?.copyWith(
-                bzSearchModel: _searchModel?.bzSearchModel?.copyWith(
-                  bzAccountType: type,
-                ),
-              );
-
-              await _generateQuery();
+          _searchModel = _searchModel?.copyWith(
+            bzSearchModel: _searchModel?.bzSearchModel?.copyWith(
+              bzAccountType: type,
+            ),
+          );
+          _setSearchModel(model: _searchModel);
+          await _generateQuery();
 
           },
       );
@@ -608,18 +699,21 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             );
           }
 
+          _setSearchModel(model: _searchModel);
           await _generateQuery();
 
           },
         onUserSearchTypeSwitchTap: (bool value) async {
           if (value == false){
             _userSearchModel = _userSearchModel?.nullifyField(searchType: true);
+            _setUserSearchModel(model: _userSearchModel);
             await _generateQuery();
           }
           },
         onUserSearchTypeTap: (UserSearchType type) async {
 
             _userSearchModel = _userSearchModel?.copyWith(searchType: type);
+            _setUserSearchModel(model: _userSearchModel);
             await _generateQuery();
 
           },
@@ -629,7 +723,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               _userSearchModel = _userSearchModel?.nullifyField(
                 signInMethod: true,
               );
-              await _generateQuery();
+            _setUserSearchModel(model: _userSearchModel);
+            await _generateQuery();
 
           }
           },
@@ -638,57 +733,64 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             _userSearchModel = _userSearchModel?.copyWith(
               signInMethod: method,
             );
+            _setUserSearchModel(model: _userSearchModel);
             await _generateQuery();
 
           },
         onGenderSwitchTap: (bool value) async {
           if (value == false){
 
-              _userSearchModel = _userSearchModel?.nullifyField(gender: true);
-              await _generateQuery();
+            _userSearchModel = _userSearchModel?.nullifyField(gender: true);
+            _setUserSearchModel(model: _userSearchModel);
+            await _generateQuery();
 
           }
           },
         onGenderTap: (Gender gender) async {
 
-            _userSearchModel = _userSearchModel?.copyWith(gender: gender);
-            await _generateQuery();
+          _userSearchModel = _userSearchModel?.copyWith(gender: gender);
+          _setUserSearchModel(model: _userSearchModel);
+          await _generateQuery();
 
           },
         onLangSwitchTap: (bool value) async {
           if (value == false){
 
-              _userSearchModel = _userSearchModel?.nullifyField(language: true);
-              await _generateQuery();
+            _userSearchModel = _userSearchModel?.nullifyField(language: true);
+            _setUserSearchModel(model: _userSearchModel);
+            await _generateQuery();
 
           }
           },
         onLangTap: (String lang) async {
 
-            _userSearchModel = _userSearchModel?.copyWith(language: lang);
-            await _generateQuery();
+          _userSearchModel = _userSearchModel?.copyWith(language: lang);
+          _setUserSearchModel(model: _userSearchModel);
+          await _generateQuery();
 
           },
         onOnlyPublicContactsSwitchTap: (bool value) async {
           _userSearchModel = _userSearchModel?.copyWith(onlyWithPublicContacts: value);
+          _setUserSearchModel(model: _userSearchModel);
           await _generateQuery();
           },
         onOnlyAuthorsSwitchTap: (bool value) async {
 
-            _userSearchModel = _userSearchModel?.copyWith(onlyBzAuthors: value);
-            await _generateQuery();
+          _userSearchModel = _userSearchModel?.copyWith(onlyBzAuthors: value);
+          _setUserSearchModel(model: _userSearchModel);
+          await _generateQuery();
 
         },
         onOnlyAdminsSwitchTap: (bool value) async {
-
-            _userSearchModel = _userSearchModel?.copyWith(onlyBldrsAdmins: value);
-            await _generateQuery();
-
+          _userSearchModel = _userSearchModel?.copyWith(onlyBldrsAdmins: value);
+          _setUserSearchModel(model: _userSearchModel);
+          await _generateQuery();
           },
         onOnlyVerifiedEmailsSwitchTap: (bool value) async {
 
-            _userSearchModel = _userSearchModel?.copyWith(onlyVerifiedEmails: value);
-            await _generateQuery();
+          _userSearchModel = _userSearchModel?.copyWith(onlyVerifiedEmails: value);
+          _setUserSearchModel(model: _userSearchModel);
+          await _generateQuery();
 
           },
       );
@@ -727,6 +829,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       _searchModel = _searchModel?.nullifyField(
         zone: true,
       );
+
+      _setSearchModel(model: _searchModel);
       await _generateQuery();
     }
 
@@ -758,6 +862,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       );
     }
 
+    _setSearchModel(model: _searchModel);
     await _generateQuery();
   }
   // -----------------------------------------------------------------------------
@@ -892,29 +997,3 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   }
   // -----------------------------------------------------------------------------
 }
-
-  Verse getSearchHintVerse(){
-
-    final ZoneModel? _zone = ZoneProvider.proGetCurrentZone(
-      context: getMainContext(),
-      listen: false,
-    );
-
-    final String _countryName = _zone?.countryName ?? '';
-    final String _cityName = _zone?.cityName ?? '...';
-
-    final String _hintText =  '${getWord('phid_search_flyers_in')} '
-                              '$_cityName, $_countryName';
-
-    return Verse(
-      id: _hintText,
-      translate: false,
-    );
-
-  }
-
-  const Verse search = Verse(
-        id: 'phid_search',
-        translate: true,
-        casing: Casing.capitalizeFirstChar,
-      );
