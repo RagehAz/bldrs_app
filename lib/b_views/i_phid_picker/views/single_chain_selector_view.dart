@@ -74,9 +74,7 @@ class SingleChainSelectorView extends StatelessWidget {
           );
 
           return ConfirmButton.button(
-            // onSkipTap: ,
             // enAlignment: ,
-            // isDisabled: ,
             firstLine: const Verse(id: 'phid_confirm_selections', translate: true),
             secondLine: Verse(
               id: '${phids.length} ${getWord('phid_keyword')}',
