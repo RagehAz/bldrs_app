@@ -62,7 +62,7 @@ class BldrsPicMaker {
         finalWidth: finalWidth,
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
         langCode: Localizer.getCurrentLangCode(),
-        confirmText: getWord('phid_continue')!,
+        confirmText: getWord('phid_continue'),
         onlyCompress: Standards.onlyCompressOnResizing,
         compressionQuality: compressionQuality,
         // selectedAsset: selectedAsset,
@@ -79,7 +79,7 @@ class BldrsPicMaker {
         langCode: Localizer.getCurrentLangCode(),
         onlyCompress: Standards.onlyCompressOnResizing,
         compressionQuality: compressionQuality,
-        confirmText: getWord('phid_continue')!,
+        confirmText: getWord('phid_continue'),
       );
     }
 
@@ -120,7 +120,7 @@ class BldrsPicMaker {
       finalWidth: finalWidth,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
       langCode: Localizer.getCurrentLangCode(),
-      confirmText: getWord('phid_continue')!,
+      confirmText: getWord('phid_continue'),
       maxAssets: maxAssets,
       compressionQuality: compressionQuality,
       onlyCompress: Standards.onlyCompressOnResizing,
@@ -170,7 +170,7 @@ class BldrsPicMaker {
       final Uint8List? _bytes = await PicMaker.cropPic(
         context: getMainContext(),
         bytes: pic.bytes,
-        confirmText: getWord('phid_continue')!,
+        confirmText: getWord('phid_continue'),
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
         aspectRatio: aspectRatio,
       );

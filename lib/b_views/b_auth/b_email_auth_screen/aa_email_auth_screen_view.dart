@@ -296,10 +296,10 @@ class EmailAuthScreenView extends StatelessWidget {
                   'phid_by_using_bldrs_you_agree_to_our'
                       :
                   'phid_by_signing_up_you_agree_to_our',
-                )!,
-                andLine: getWord('phid_and')!,
-                policyLine: getWord('phid_privacy_policy')!,
-                termsLine: getWord('phid_terms_of_service')!,
+                ),
+                andLine: getWord('phid_and'),
+                policyLine: getWord('phid_privacy_policy'),
+                termsLine: getWord('phid_terms_of_service'),
               ),
 
               const Horizon(),

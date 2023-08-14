@@ -101,7 +101,7 @@ class PhidButton extends StatelessWidget {
 
     String? _text = getWord(Phider.removeIndexFromPhid(phid: phid));
 
-    if (_text == null){
+    if (_text == ''){
       return null;
     }
     else {

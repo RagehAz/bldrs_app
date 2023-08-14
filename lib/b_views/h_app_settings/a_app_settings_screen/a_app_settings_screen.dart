@@ -2,6 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/widgets/buttons/stores_buttons/store_button.dart';
+import 'package:basics/helpers/widgets/drawing/spacing.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -107,33 +108,28 @@ class AppSettingsScreen extends StatelessWidget {
       ],
       columnChildren: <Widget>[
 
+        /// ------> SEPARATOR
+        const DotSeparator(color: Colorz.yellow80),
+
         const SettingsToSettingsButtons(),
 
         /// SIGN OUT
         SettingsWideButton(
-          verse: const Verse(id: 'phid_signOut', translate: true),
-          icon: Iconz.exit,
+          verse: const Verse(id: 'phid_sign_in_other_account', translate: true),
+          icon: Iconz.normalUser,
           isOn: _userIsSignedUp,
-          onTap: () => onSignOut(),
+          onTap: () => signInByAnotherAccount(),
         ),
 
-        const DotSeparator(color: Colorz.yellow80),
+        /// ------> SEPARATOR
+        const DotSeparator(),
 
         /// CREATE NEW BZ ACCOUNT BUTTON
         const CreateNewBzButton(),
 
-        const DotSeparator(color: Colorz.yellow80),
+        const Spacing(size: 5,),
 
-        /// CHANGE LANGUAGE
-        SettingsWideButton(
-          verse: const Verse(
-            id: 'Language . اللغة . Idioma . Lingua . Sprache . Langue . 语言',
-            translate: false,
-          ),
-          onTap: () => onChangeAppLanguageTap(),
-          icon: Iconz.language,
-        ),
-
+        /// ------> SEPARATOR
         const DotSeparator(),
 
         /// FEEDBACK
@@ -164,7 +160,18 @@ class AppSettingsScreen extends StatelessWidget {
           onTap: () => onInviteFriendsTap(),
         ),
 
+        /// ------> SEPARATOR
         const DotSeparator(),
+
+        /// CHANGE LANGUAGE
+        SettingsWideButton(
+          verse: const Verse(
+            id: 'Language . اللغة . Idioma . Lingua . Sprache . Langue . 语言',
+            translate: false,
+          ),
+          onTap: () => onChangeAppLanguageTap(),
+          icon: Iconz.language,
+        ),
 
         /// REBOOT
         SettingsWideButton(
@@ -173,6 +180,7 @@ class AppSettingsScreen extends StatelessWidget {
           onTap: () => onRebootBldrsAppSystem(),
         ),
 
+        /// ------> SEPARATOR
         const DotSeparator(
           color: Colorz.yellow80,
         ),

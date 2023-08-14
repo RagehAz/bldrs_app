@@ -165,7 +165,10 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
         id: 'phid_edit_needs',
         translate: true,
       ),
-      confirmButtonModel: ConfirmButtonModel(
+      confirmButton: ConfirmButton.button(
+        // onSkipTap: ,
+        // enAlignment: ,
+        // isDisabled: ,
         firstLine: const Verse(
           id: 'phid_confirm',
           translate: true,
