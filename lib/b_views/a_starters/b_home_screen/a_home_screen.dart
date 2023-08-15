@@ -166,8 +166,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
 
-    blog('home screen BUILDS');
-
     final RouteSettings? _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
       context: context,
       listen: true,
@@ -206,6 +204,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         context: context,
         listen: true,
       );
+
+      _currentZone?.blogZone(invoker: 'fuck you');
 
       final List<NavModel?> _navModels = generateMainNavModels(
         userModel: _userModel,
