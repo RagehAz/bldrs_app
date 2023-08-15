@@ -1,4 +1,5 @@
 import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -12,11 +13,13 @@ class LoadingVerse extends StatelessWidget {
   const LoadingVerse({
     this.verseWidth,
     this.builder,
+    this.verseColor = Colorz.white255,
     super.key
   });
   /// --------------------------------------------------------------------------
   final double? verseWidth;
   final Widget Function(Verse? verse)? builder;
+  final Color? verseColor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -43,6 +46,7 @@ class LoadingVerse extends StatelessWidget {
               shadow: true,
               maxLines: 5,
               weight: VerseWeight.thin,
+              color: verseColor,
             );
           }
 

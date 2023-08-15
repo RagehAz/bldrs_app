@@ -513,6 +513,74 @@ class StagingModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// MY IDS
+
+  // ---------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> addMyCountryIDToShownCountries({
+    required List<String>? shownCountriesIDs,
+    required String? myCountryID,
+    required ViewingEvent? event,
+  }){
+    List<String> _output = <String>[...?shownCountriesIDs];
+
+    if (myCountryID != null){
+
+      bool _addMyID = false;
+      switch(event){
+        case ViewingEvent.homeView:     _addMyID = true; break;
+        case ViewingEvent.userEditor:   _addMyID = true; break;
+        case ViewingEvent.bzEditor:     _addMyID = true; break;
+        case ViewingEvent.flyerEditor:  _addMyID = true; break;
+        case ViewingEvent.admin:        _addMyID = true; break;
+        case null: _addMyID = true; break;
+      }
+
+      if (_addMyID == true){
+        _output = Stringer.addStringToListIfDoesNotContainIt(
+            strings: _output,
+            stringToAdd: myCountryID,
+        );
+      }
+
+    }
+
+    return _output;
+  }
+  // ---------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> addMyCityIDToShownCities({
+    required List<String>? shownCitiesIDs,
+    required String? myCityID,
+    required ViewingEvent? event,
+  }){
+    List<String> _output = <String>[...?shownCitiesIDs];
+
+    if (myCityID != null){
+      bool _addMyID = false;
+      switch(event){
+        case ViewingEvent.homeView:     _addMyID = true; break;
+        case ViewingEvent.userEditor:   _addMyID = true; break;
+        case ViewingEvent.bzEditor:     _addMyID = true; break;
+        case ViewingEvent.flyerEditor:  _addMyID = true; break;
+        case ViewingEvent.admin:        _addMyID = true; break;
+        case null: _addMyID = true; break;
+      }
+
+      if (_addMyID == true){
+        _output = Stringer.addStringToListIfDoesNotContainIt(
+            strings: _output,
+            stringToAdd: myCityID,
+        );
+      }
+    }
+
+
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
   /// CHECKERS
 
   // ---------------------

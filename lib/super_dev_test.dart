@@ -1,17 +1,13 @@
 import 'dart:async';
-import 'dart:convert';
-
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:flutter/services.dart';
 
 /// SUPER_DEV_TEST
 Future<void> superDevTest() async {
 
-  const String _path = '/assets/countries/deu.json';
-  final String _jsonStringValues = await rootBundle.loadString(_path);
-  final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
-
-  Mapper.blogMap(_mappedJson);
+  // const String _path = '/assets/countries/deu.json';
+  // final String _jsonStringValues = await rootBundle.loadString(_path);
+  // final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
+  //
+  // Mapper.blogMap(_mappedJson);
 
   // final List<String> _countriesIDs = Flag.getAllCountriesIDs();
   //

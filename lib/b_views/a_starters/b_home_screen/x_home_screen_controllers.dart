@@ -171,7 +171,7 @@ List<NavModel?> generateMainNavModels({
         depth: ZoneDepth.city,
         zoneViewingEvent: ViewingEvent.homeView,
         settingCurrentZone: true,
-        viewerCountryID: userModel?.zone?.countryID,
+        viewerZone: userModel?.zone,
         selectedZone: ZoneProvider.proGetCurrentZone(context: getMainContext(), listen: false),
       ),
       iconSizeFactor: 1,
