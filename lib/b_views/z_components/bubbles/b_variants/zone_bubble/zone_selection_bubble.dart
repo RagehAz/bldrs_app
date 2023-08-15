@@ -187,14 +187,14 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     Keyboard.closeKeyboard();
 
-    if (_selectedZone.value?.countryModel != null){
+    if (_selectedZone.value?.countryID != null && _selectedZone.value?.countryModel != null){
 
       final ZoneModel? _zone = await Nav.goToNewScreen(
           context: context,
           screen: CitiesScreen(
             zoneViewingEvent: widget.zoneViewingEvent,
             depth: widget.depth,
-            countryID: _selectedZone.value?.countryID,
+            countryID: _selectedZone.value!.countryID,
             viewerCountryID: widget.viewerCountryID,
             selectedZone: widget.currentZone,
           )

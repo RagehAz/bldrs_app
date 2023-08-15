@@ -68,7 +68,7 @@ class ZoneSelection {
 
     blog('aa7aaa 2 : $_output');
 
-    if (settingCurrentZone == true){
+    if (settingCurrentZone == true && _output != null){
       await setCurrentZoneAndNavHome(
         zone: _output,
       );
@@ -124,16 +124,19 @@ class ZoneSelection {
   }) async {
 
     Keyboard.closeKeyboard();
+    ZoneModel? _zoneWithCountry;
 
-    /// COMPLETE ZONE
-    final ZoneModel? _zoneWithCountry = await ZoneProtocols.completeZoneModel(
-      incompleteZoneModel: ZoneModel(
-        countryID: countryID,
-      ),
-    );
+    if (countryID != null){
+      /// COMPLETE ZONE
+      _zoneWithCountry = await ZoneProtocols.completeZoneModel(
+        incompleteZoneModel: ZoneModel(
+          countryID: countryID,
+        ),
+      );
+    }
 
     /// Go back (1 step) + pass zone with countryID
-    if (depth == ZoneDepth.country){
+    if (depth == ZoneDepth.country || countryID == null){
 
       await Nav.goBack(
         context: context,
@@ -180,15 +183,25 @@ class ZoneSelection {
     required ViewingEvent zoneViewingEvent,
   }) async {
 
+    ZoneModel? _zoneWithCity;
     Keyboard.closeKeyboard();
 
-    /// COMPLETE ZONE
-    final ZoneModel? _zoneWithCity = await ZoneProtocols.completeZoneModel(
-      incompleteZoneModel: ZoneModel(
-        countryID: CityModel.getCountryIDFromCityID(cityID),
-        cityID: cityID,
-      ),
-    );
+    if (cityID != null){
+
+      final String? _countryID = CityModel.getCountryIDFromCityID(cityID);
+
+      if (_countryID != null){
+        /// COMPLETE ZONE
+         _zoneWithCity = await ZoneProtocols.completeZoneModel(
+          incompleteZoneModel: ZoneModel(
+            countryID: _countryID,
+            cityID: cityID,
+          ),
+        );
+
+      }
+
+    }
 
     /// FIRST CITY SELECTION BACK
     await Nav.goBack(
@@ -201,7 +214,7 @@ class ZoneSelection {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> setCurrentZoneAndNavHome({
-    required ZoneModel? zone,
+    required ZoneModel zone,
   }) async {
 
       WaitDialog.showUnawaitedWaitDialog(
@@ -231,32 +244,27 @@ class ZoneSelection {
     required ZoneModel? zone,
   }) async {
 
-    // blog('RUNNING setCurrentZone');
+    if (zone != null){
 
-    final BuildContext context = getMainContext();
+      final BuildContext context = getMainContext();
+      final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+        /// SET ZONE + CURRENCY
+        await zoneProvider.setCurrentZone(
+          zone: zone,
+          notify: true,
+          invoker: 'ZoneSelection.setCurrentZoneProtocol',
+        );
 
-    final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-      /// SET ZONE
-      zoneProvider.setCurrentZone(
-        zone: zone,
-        setCountryOnly: false,
-        notify: false,
-        invoker: 'ZoneSelection.setCurrentZoneProtocol',
-      );
-      /// SET CURRENCY
-      zoneProvider.getSetCurrentCurrency(
-        zone: zone,
-        notify: true,
-      );
+        // /// SET CHAINS
+        // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+        // await _chainsProvider.changeHomeWallFlyerType(
+        //   notify: true,
+        //   flyerType: null,
+        //   phid: null,
+        // );
+        // await _chainsProvider.reInitializeZoneChains();
 
-      // /// SET CHAINS
-      // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-      // await _chainsProvider.changeHomeWallFlyerType(
-      //   notify: true,
-      //   flyerType: null,
-      //   phid: null,
-      // );
-      // await _chainsProvider.reInitializeZoneChains();
+    }
 
   }
   // -----------------------------------------------------------------------------

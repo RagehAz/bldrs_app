@@ -13,20 +13,14 @@ class ZoneProtocols {
   const ZoneProtocols();
 
   // -----------------------------------------------------------------------------
-  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-  // -----------------------------------------------------------------------------
 
   /// ZONE
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const fetchZoneModelByGeoPoint = ZoneIDsProtocols.fetchZoneModelByGeoPoint;
-  /// TESTED : WORKS PERFECT
   static const completeZoneModel = ZoneIDsProtocols.completeZoneModel;
   /// TESTED : WORKS PERFECT
   static const getZoneByIP = ZoneIPOps.getZoneByIP;
-  // -----------------------------------------------------------------------------
-  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 
   /// COUNTRY
@@ -38,8 +32,6 @@ class ZoneProtocols {
   static const refetchCountry = CountryProtocols.refetchCountry;
   /// TESTED : WORKS PERFECT
   static const  fetchCountries = CountryProtocols.fetchCountries;
-  // -----------------------------------------------------------------------------
-  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 
   /// CITY
@@ -62,8 +54,6 @@ class ZoneProtocols {
   /// TESTED : WORKS PERFECT
   static const wipeCity = CityProtocols.wipeCity;
   // -----------------------------------------------------------------------------
-  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-  // -----------------------------------------------------------------------------
 
   /// CONTINENTS
 
@@ -71,16 +61,12 @@ class ZoneProtocols {
   /// TESTED : WORKS PERFECT
   static const readAllContinents = ContinentJsonOps.readAllContinents;
   // -----------------------------------------------------------------------------
-  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-  // -----------------------------------------------------------------------------
 
   /// CURRENCIES
 
   // --------------------
   /// TESTED : WORKS PERFECT
   static const fetchCurrencies = CurrencyJsonOps.readAllCurrencies;
-  // -----------------------------------------------------------------------------
-  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 
   /// COSMIC COUNTRIES
@@ -115,8 +101,6 @@ class ZoneProtocols {
   /// TESTED : WORKS PERFECT
   static const searchCountryCitiesByNameFromFire = ZoneSearchOps.searchCitiesOfCountryByNameFromFire;
   // -----------------------------------------------------------------------------
-  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-  // -----------------------------------------------------------------------------
 
   /// TRANSLATIONS
 
@@ -125,7 +109,5 @@ class ZoneProtocols {
   static const translateCountry = ZoneTranslator.translateCountry;
   /// TESTED : WORKS PERFECT
   static const translateCity = ZoneTranslator.translateCity;
-  // -----------------------------------------------------------------------------
-  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 }

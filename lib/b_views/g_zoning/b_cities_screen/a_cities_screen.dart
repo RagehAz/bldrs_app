@@ -37,7 +37,7 @@ class CitiesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
-  final String? countryID;
+  final String countryID;
   final String? viewerCountryID;
   final ZoneModel? selectedZone;
   /// --------------------------------------------------------------------------
@@ -117,8 +117,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _loadCities() async {
 
-    if (widget.countryID != null){
-
       /// COMPLETE CURRENT ZONE
       final ZoneModel? _completedZone = await ZoneProtocols.completeZoneModel(
         incompleteZoneModel: _currentZone?.value,
@@ -134,14 +132,9 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         countryID: widget.countryID,
       );
 
-      // blog('CITIES STAGES : ${_citiesStages?.getAllIDs()}');
-      // _citiesStages?.blogStaging();
-
       final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountryByIDs(
         citiesIDsOfThisCountry: _citiesStages?.getAllIDs(),
       );
-
-      // CityModel.blogCities(_cities);
 
       if (mounted == true){
 
@@ -195,8 +188,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         );
 
       }
-
-    }
 
   }
   // --------------------

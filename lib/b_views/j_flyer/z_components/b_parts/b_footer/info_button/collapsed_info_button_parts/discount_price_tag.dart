@@ -14,7 +14,7 @@ import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 
 class DiscountPriceTag extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const DiscountPriceTag({
     required this.flyerBoxWidth,
     required this.tinyMode,
@@ -24,19 +24,18 @@ class DiscountPriceTag extends StatelessWidget {
     required this.buttonIsExpanded,
     super.key
   });
-  /// --------------------------------------------------------------------------
+  // --------------------
   final double flyerBoxWidth;
   final bool tinyMode;
   final double width;
   final double height;
   final double paddingValue;
   final ValueNotifier<bool?> buttonIsExpanded;
-  /// --------------------------------------------------------------------------
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final CountryModel? _currentCountry = ZoneProvider.proGetCurrentZone(context: context, listen: true)?.countryModel;
+    final CountryModel? _currentCountry = ZoneProvider.proGetCurrentZone(context: context, listen: true).countryModel;
     // --------------------
     const double _currentPrice = 14019.50;
     final String? _currencyID = Flag.getCountryCurrencyID(_currentCountry?.id);

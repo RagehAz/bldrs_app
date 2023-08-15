@@ -54,7 +54,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
           else {
 
           return CountryTileButton(
-            countryID: null,
+            countryID: ZoneModel.planetID,
             isActive: true,
             censusModel: planetCensus,
             onTap: onPlanetTap,
@@ -62,7 +62,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
             verse: const Verse(
               id: 'phid_the_entire_world',
               translate: true,
-            ),
+            ), // ZoneModel.planetZone.countryName
             onDeactivatedTap: onDeactivatedCountryTap == null ? null
                 :
                 () => onDeactivatedCountryTap!(null),
