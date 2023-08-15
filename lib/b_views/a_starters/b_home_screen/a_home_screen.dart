@@ -205,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         listen: true,
       );
 
-      _currentZone?.blogZone(invoker: 'fuck you');
+      // _currentZone?.blogZone(invoker: 'fuck you');
 
       final List<NavModel?> _navModels = generateMainNavModels(
         userModel: _userModel,

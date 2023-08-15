@@ -4,7 +4,6 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -37,6 +36,7 @@ enum ZoneDepth {
   country,
   city,
 }
+
 /// => TAMAM
 class ZoneSelection {
   // -----------------------------------------------------------------------------
@@ -95,7 +95,6 @@ class ZoneSelection {
         zoneViewingEvent: zoneViewingEvent,
         depth: depth,
         viewerCountryID: viewerCountryID,
-        canSetPlanetAsCurrentZone: false,
         selectedZone: selectedZone,
       ),
     );
@@ -136,7 +135,7 @@ class ZoneSelection {
     }
 
     /// Go back (1 step) + pass zone with countryID
-    if (depth == ZoneDepth.country || countryID == null){
+    if (depth == ZoneDepth.country || countryID == null || countryID == ZoneModel.planetID){
 
       await Nav.goBack(
         context: context,
@@ -180,6 +179,7 @@ class ZoneSelection {
   /// TESTED : WORKS PERFECT
   static Future<void> onSelectCity({
     required BuildContext context,
+    required String? countryID,
     required String? cityID,
     required ZoneDepth depth,
     required ViewingEvent zoneViewingEvent,
@@ -188,21 +188,13 @@ class ZoneSelection {
     ZoneModel? _zoneWithCity;
     Keyboard.closeKeyboard();
 
-    if (cityID != null){
-
-      final String? _countryID = CityModel.getCountryIDFromCityID(cityID);
-
-      if (_countryID != null){
-        /// COMPLETE ZONE
-         _zoneWithCity = await ZoneProtocols.completeZoneModel(
+    if (countryID != null && cityID != null){
+      _zoneWithCity = await ZoneProtocols.completeZoneModel(
           incompleteZoneModel: ZoneModel(
-            countryID: _countryID,
+            countryID: countryID,
             cityID: cityID,
           ),
         );
-
-      }
-
     }
 
     /// FIRST CITY SELECTION BACK

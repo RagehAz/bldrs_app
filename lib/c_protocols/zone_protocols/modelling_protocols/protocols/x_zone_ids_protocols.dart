@@ -126,7 +126,11 @@ class ZoneIDsProtocols {
 
     ZoneModel? _output = incompleteZoneModel;
 
-    if (_output != null && _output.countryID != ZoneModel.planetID){
+    if (_output?.countryID == ZoneModel.planetID){
+      _output = ZoneModel.planetZone;
+    }
+
+    else if (_output != null){
 
       /// COUNTRY MODEL
       if (_output.countryModel == null){
@@ -145,7 +149,7 @@ class ZoneIDsProtocols {
       }
 
       /// CITY MODEL
-      if (_output.cityID != null && _output.cityModel == null){
+      if (_output.cityID != null && _output.cityModel == null && _output.cityID != ZoneModel.allCitiesID){
         final CityModel? _bzCity = await ZoneProtocols.fetchCity(
           cityID: _output.cityID,
         );
@@ -170,7 +174,7 @@ class ZoneIDsProtocols {
       }
 
       /// CITY NAME
-      if (TextCheck.isEmpty(_output.cityName) == true || _output.cityName == '...'){
+      if (TextCheck.isEmpty(_output.cityName) == true || _output.cityName == '...' && _output.cityID != ZoneModel.allCitiesID){
 
         final String? _cityName = ZoneProtocols.translateCity(
           cityModel: _output.cityModel,
@@ -191,6 +195,7 @@ class ZoneIDsProtocols {
       }
 
     }
+
 
     return _output;
   }

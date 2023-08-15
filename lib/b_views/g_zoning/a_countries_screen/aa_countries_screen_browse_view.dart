@@ -11,7 +11,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CountriesScreenBrowseView({
     required this.onCountryTap,
-    required this.onDeactivatedCountryTap,
+    required this.onDisabledCountryTap,
     required this.shownCountriesIDs,
     required this.notShownCountriesIDs,
     required this.countriesCensus,
@@ -24,7 +24,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final ValueChanged<String> onCountryTap;
-  final ValueChanged<String?>? onDeactivatedCountryTap;
+  final ValueChanged<String?>? onDisabledCountryTap;
   final EdgeInsets? padding;
   final List<String>? shownCountriesIDs;
   final List<String>? notShownCountriesIDs;
@@ -63,9 +63,9 @@ class CountriesScreenBrowseView extends StatelessWidget {
               id: 'phid_the_entire_world',
               translate: true,
             ), // ZoneModel.planetZone.countryName
-            onDeactivatedTap: onDeactivatedCountryTap == null ? null
+            onDeactivatedTap: onDisabledCountryTap == null ? null
                 :
-                () => onDeactivatedCountryTap!(null),
+                () => onDisabledCountryTap!(null),
           );
 
           }
@@ -87,8 +87,8 @@ class CountriesScreenBrowseView extends StatelessWidget {
             censusModel: _census,
             isSelected: selectedZone?.countryID == _countryID,
             onTap: () => onCountryTap(_countryID),
-            onDeactivatedTap: onDeactivatedCountryTap == null ? null :
-                () => onDeactivatedCountryTap?.call(_countryID),
+            onDeactivatedTap: onDisabledCountryTap == null ? null :
+                () => onDisabledCountryTap?.call(_countryID),
           );
 
         }

@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -6,7 +7,6 @@ import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 /// => TAMAM
 class BzSearch {
@@ -36,14 +36,14 @@ class BzSearch {
         // idFieldName: 'id',
         finders: <FireFinder>[
 
-          if (searchModel?.zone?.countryID != null)
+          if (SearchModel.checkCanSearchByCountry(countryID: searchModel?.zone?.countryID) == true)
             FireFinder(
               field: 'zone.countryID',
               comparison: FireComparison.equalTo,
               value: searchModel?.zone?.countryID,
             ),
 
-          if (searchModel?.zone?.cityID != null)
+          if (SearchModel.checkCanSearchByCity(cityID: searchModel?.zone?.cityID) == true)
             FireFinder(
               field: 'zone.cityID',
               comparison: FireComparison.equalTo,

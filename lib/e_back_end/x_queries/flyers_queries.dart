@@ -53,9 +53,27 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
 // --------------------
 /// TAMAM : WORKS PERFECT
 ZoneModel? _concludeHomeZone(BuildContext context){
+
   final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: true);
   final bool _showWorld = _currentZone == ZoneModel.planetZone;
-  return _showWorld == true ? null : _currentZone;
+  final bool _showOnlyCountry = _currentZone.cityID == null || _currentZone.cityID == ZoneModel.allCitiesID;
+
+  if (_showWorld == true){
+    return null;
+  }
+
+  else if (_showOnlyCountry == true){
+    return _currentZone.nullifyField(
+      cityID: true,
+      cityName: true,
+      cityModel: true,
+    );
+  }
+
+  else {
+    return _currentZone;
+  }
+
 }
 // -----------------------------------------------------------------------------
 

@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
@@ -6,7 +7,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 /// => TAMAM
 class ZonePhidsRealOps {
@@ -31,11 +31,10 @@ class ZonePhidsRealOps {
     if (_currentZone == null || _currentZone == ZoneModel.planetZone){
       _output = await _readPlanetPhids();
     }
-
-    if (_currentZone != null){
+    else {
 
       /// COUNTRY PHIDS
-      if (_currentZone.cityID == null){
+      if (_currentZone.cityID == null || _currentZone.cityID == ZoneModel.allCitiesID){
         _output = await _readCountryPhids(
           countryID: _currentZone.countryID,
         );
