@@ -5264,3 +5264,28 @@ const List<Flag> allFlags = <Flag>[
   ),
 
 ];
+
+const List<String> arabCountries = <String>[
+    'dza',  // Algeria
+    'bhr',  // Bahrain
+    'com',  // Comoros
+    'dji',  // Djibouti
+    'egy',  // Egypt
+    'irq',  // Iraq
+    'jor',  // Jordan
+    'kwt',  // Kuwait
+    'lbn',  // Lebanon
+    'lby',  // Libya
+    'mrt',  // Mauritania
+    'mar',  // Morocco
+    'omn',  // Oman
+    'pse',  // Palestine
+    'qat',  // Qatar
+    'sau',  // Saudi Arabia
+    'som',  // Somalia
+    'sdn',  // Sudan
+    'syr',  // Syria
+    'tun',  // Tunisia
+    'are',  // United Arab Emirates
+    'yem'   // Yemen
+];

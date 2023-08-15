@@ -124,10 +124,15 @@ class ZoneIPOps {
         }
     );
 
-    return ZoneModel(
-      countryID: _countryID,
-      cityID: _cityID,
-    );
+    if (_countryID == null){
+      return null;
+    }
+    else {
+      return ZoneModel(
+        countryID: _countryID!,
+        cityID: _cityID,
+      );
+    }
 
   }
   // --------------------
@@ -207,10 +212,16 @@ class ZoneIPOps {
         }
     );
 
-    return ZoneModel(
-      countryID: _countryID,
-      cityID: _cityID,
-    );
+    if (_countryID == null){
+      return null;
+    }
+    else {
+      return ZoneModel(
+        countryID: _countryID!,
+        cityID: _cityID,
+      );
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT

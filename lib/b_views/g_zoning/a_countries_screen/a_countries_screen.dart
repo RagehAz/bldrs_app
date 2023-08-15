@@ -184,37 +184,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
       viewerCountryID: widget.viewerCountryID,
     );
 
-    /*
-    THIS IS FOR PRESENTING ARAB COUNTRIES FOR APP STORE ONLY
-    /// -->>>>>>
-    _shownIDs = [
-    "dza",  // Algeria
-    "bhr",  // Bahrain
-    "com",  // Comoros
-    "dji",  // Djibouti
-    "egy",  // Egypt
-    "irq",  // Iraq
-    "jor",  // Jordan
-    "kwt",  // Kuwait
-    "lbn",  // Lebanon
-    "lby",  // Libya
-    "mrt",  // Mauritania
-    "mar",  // Morocco
-    "omn",  // Oman
-    "pse",  // Palestine
-    "qat",  // Qatar
-    "sau",  // Saudi Arabia
-    "som",  // Somalia
-    "sdn",  // Sudan
-    "syr",  // Syria
-    "tun",  // Tunisia
-    "are",  // United Arab Emirates
-    "yem"   // Yemen
-  ];
-    /// -->>>>>>
-     */
-
-    blog('CountriesScreen._loadCountries() : _shownIDs : $_shownIDs');
+    // blog('CountriesScreen._loadCountries() : _shownIDs : $_shownIDs');
 
     /// NOT SHOWN IDS
     final List<String>? _notShownIDs = Stringer.removeStringsFromStrings(
@@ -277,16 +247,34 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onCountryTap(String? countryID) async {
-    blog('onCountryTap : browse view : $countryID');
+  Future<void> _onCountryTap(String countryID) async {
     await ZoneSelection.onSelectCountry(
       context: context,
       countryID: countryID,
       depth: widget.depth,
       zoneViewingEvent: widget.zoneViewingEvent,
       viewerCountryID: widget.viewerCountryID,
-      selectedZone: ZoneModel(countryID: countryID,),
+      selectedZone: ZoneModel(countryID: countryID),
     );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onPlanetTap() async {
+
+    final bool _isSettingCurrentZone =  widget.zoneViewingEvent == ViewingEvent.homeView
+                                        &&
+                                        widget.canSetPlanetAsCurrentZone == true;
+
+    if (_isSettingCurrentZone == true){
+      await ZoneSelection.setCurrentZoneAndNavHome(
+        zone: ZoneModel.planetZone,
+      );
+    }
+
+    else {
+      await Nav.goBack(context: context);
+    }
 
   }
   // --------------------
@@ -367,20 +355,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
                           ),
                           planetCensus: _planetCensus,
                           selectedZone: widget.selectedZone,
-                          onPlanetTap: () async {
-                            final bool _isSettingCurrentZone =
-                                widget.zoneViewingEvent == ViewingEvent.homeView
-                                    &&
-                                    widget.canSetPlanetAsCurrentZone == true;
-                            if (_isSettingCurrentZone == true){
-                              await ZoneSelection.setCurrentZoneAndNavHome(
-                                zone: null,
-                              );
-                            }
-                            else {
-                              await Nav.goBack(context: context);
-                            }
-                            },
+                          onPlanetTap: _onPlanetTap,
                         );
 
                       }

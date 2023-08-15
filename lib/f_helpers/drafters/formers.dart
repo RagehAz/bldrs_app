@@ -366,7 +366,7 @@ class Formers {
       if (TextCheck.isEmpty(_phone) == false){
 
         /// COUNTRY CODE
-        if (zoneModel != null && zoneModel.countryID != null){
+        if (zoneModel != null){
 
           final String? _code = Flag.getCountryPhoneCode(zoneModel.countryID);
           final bool _startsWithCode = TextCheck.stringStartsExactlyWith(

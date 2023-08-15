@@ -5,8 +5,6 @@ import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
 /// => GEOLOCATOR_DOES_NOT_WORK
 // import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b_zone_search_protocols.dart';
 // import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
@@ -24,6 +22,8 @@ class ZoneIDsProtocols {
   /// FETCH
 
   // --------------------
+  /// CANCELLED
+  /*
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel?> fetchZoneModelByGeoPoint({
     required BuildContext context,
@@ -110,6 +110,7 @@ class ZoneIDsProtocols {
 
     return _zoneModel;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// RENOVATE
@@ -120,75 +121,72 @@ class ZoneIDsProtocols {
     required ZoneModel? incompleteZoneModel,
   }) async {
 
-    // assert(incompleteZoneModel != null, 'incompleteZoneModel is null');
-    // assert(incompleteZoneModel.countryID != null, 'incompleteZoneModel.countryID is null');
-
     /// incomplete zone model is what only has (countryID - cityID)
     /// complete zone model is that has all IDs  Models and Names initialized
 
     ZoneModel? _output = incompleteZoneModel;
 
-    if (incompleteZoneModel != null && incompleteZoneModel.countryID != null){
+    if (_output != null && _output.countryID != ZoneModel.planetID){
 
       /// COUNTRY MODEL
-      if (incompleteZoneModel.countryModel == null){
+      if (_output.countryModel == null){
 
         // blog('completeZoneModel : country model is null');
 
         final CountryModel? _bzCountry = await ZoneProtocols.fetchCountry(
-          countryID: incompleteZoneModel.countryID,
+          countryID: _output.countryID,
         );
 
         // blog('completeZoneModel : got country model : $_bzCountry');
 
-        _output = _output?.copyWith(
+        _output = _output.copyWith(
           countryModel: _bzCountry,
         );
       }
 
       /// CITY MODEL
-      if (incompleteZoneModel.cityModel == null){
+      if (_output.cityID != null && _output.cityModel == null){
         final CityModel? _bzCity = await ZoneProtocols.fetchCity(
-          cityID: incompleteZoneModel.cityID,
+          cityID: _output.cityID,
         );
-        _output = _output?.copyWith(
+        _output = _output.copyWith(
           cityModel: _bzCity,
         );
 
       }
 
       /// COUNTRY NAME
-      if (TextCheck.isEmpty(incompleteZoneModel.countryName) == true || incompleteZoneModel.countryName == '...'){
+      if (TextCheck.isEmpty(_output.countryName) == true || _output.countryName == '...'){
 
         final String? _countryName = ZoneProtocols.translateCountry(
-          countryID: incompleteZoneModel.countryID,
+          countryID: _output.countryID,
           // langCode:
         )?.id;
 
-        _output = _output?.copyWith(
+        _output = _output.copyWith(
           countryName: _countryName,
         );
 
       }
 
       /// CITY NAME
-      if (TextCheck.isEmpty(incompleteZoneModel.cityName) == true || incompleteZoneModel.cityName == '...'){
+      if (TextCheck.isEmpty(_output.cityName) == true || _output.cityName == '...'){
 
         final String? _cityName = ZoneProtocols.translateCity(
-          cityModel: _output?.cityModel,
+          cityModel: _output.cityModel,
           // langCode:
         )?.id;
 
-        _output = _output?.copyWith(
+        _output = _output.copyWith(
           cityName: _cityName,
         );
 
       }
 
       /// FLAG
-      if (TextCheck.isEmpty(incompleteZoneModel.icon) == true || incompleteZoneModel.icon == Iconz.dvBlankSVG){
-        _output = _output?.copyWith(
-          icon: Flag.getCountryIcon(incompleteZoneModel.countryID),
+      if (TextCheck.isEmpty(_output.icon) == true || _output.icon == Iconz.dvBlankSVG){
+        _output = _output.copyWith(
+          icon: Flag.getCountryIcon(_output.countryID),
         );
       }
 
