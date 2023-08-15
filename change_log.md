@@ -1,3 +1,14 @@
+### 2.2.2
+1. Ui updates
+2. performance optimization and faster navigation
+3. fixed Country selection bug
+4. faster search response time
+5. you can switch or create new user accounts now
+6. Added Italian countries names
+7. Showing number of followers on flyer
+8. fixed flyer editor session auto saving mechanism
+9. fixed adding images to business editor page
+
 ### 2.1.0
 1. On boarding screens ui fixes
 2. translations fixes
