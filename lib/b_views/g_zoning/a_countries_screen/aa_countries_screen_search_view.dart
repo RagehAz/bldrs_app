@@ -14,7 +14,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SelectCountryScreenSearchView({
     required this.onCountryTap,
-    required this.onDeactivatedCountryTap,
+    required this.onDisabledCountryTap,
     required this.foundCountries,
     required this.shownCountriesIDs,
     required this.countriesCensus,
@@ -23,7 +23,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final ValueChanged<String> onCountryTap;
-  final ValueChanged<String?> onDeactivatedCountryTap;
+  final ValueChanged<String?> onDisabledCountryTap;
   final ValueNotifier<List<Phrase>?> foundCountries;
   final List<String> shownCountriesIDs;
   final List<CensusModel>? countriesCensus;
@@ -68,7 +68,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
                   censusModel: _census,
                   isSelected: selectedZone?.countryID == _countryPhrase.id,
                   onTap: () => onCountryTap(_countryPhrase.id!),
-                  onDeactivatedTap: () => onDeactivatedCountryTap(_countryPhrase.id),
+                  onDeactivatedTap: () => onDisabledCountryTap(_countryPhrase.id),
                 );
 
               }

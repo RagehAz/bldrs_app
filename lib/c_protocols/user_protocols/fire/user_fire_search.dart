@@ -3,6 +3,7 @@ import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/a_models/m_search/user_search_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -39,14 +40,14 @@ class UserFireSearchOps{
         // idFieldName: 'id',
         finders: <FireFinder>[
 
-          if (zoneModel?.countryID != null)
+          if (SearchModel.checkCanSearchByCountry(countryID: zoneModel?.countryID) == true)
             FireFinder(
               field: 'zone.countryID',
               comparison: FireComparison.equalTo,
               value: zoneModel?.countryID,
             ),
 
-          if (zoneModel?.cityID != null)
+          if (SearchModel.checkCanSearchByCity(cityID: zoneModel?.cityID) == true)
             FireFinder(
               field: 'zone.cityID',
               comparison: FireComparison.equalTo,
