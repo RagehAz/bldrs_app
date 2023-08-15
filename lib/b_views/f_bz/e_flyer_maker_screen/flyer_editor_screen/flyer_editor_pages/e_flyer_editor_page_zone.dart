@@ -53,7 +53,7 @@ class FlyerEditorPage4Zone extends StatelessWidget {
             ),
           ],
           currentZone: draft?.zone,
-          viewerCountryID: draft?.bzModel?.zone?.countryID,
+          viewerZone: draft?.bzModel?.zone,
           onZoneChanged: onZoneChanged,
           validator: () => Formers.zoneValidator(
             zoneModel: draft?.zone,

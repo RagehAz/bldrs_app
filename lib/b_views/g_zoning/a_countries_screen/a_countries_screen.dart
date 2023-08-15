@@ -29,14 +29,14 @@ class CountriesScreen extends StatefulWidget {
   const CountriesScreen({
     required this.zoneViewingEvent,
     required this.depth,
-    required this.viewerCountryID,
+    required this.viewerZone,
     required this.selectedZone,
     super.key
   });
   /// --------------------------------------------------------------------------
   final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
-  final String? viewerCountryID;
+  final ZoneModel? viewerZone;
   final ZoneModel? selectedZone;
   /// --------------------------------------------------------------------------
   @override
@@ -176,10 +176,15 @@ class _CountriesScreenState extends State<CountriesScreen> {
     // _countriesStages.blogStaging();
 
     /// SHOWN IDS
-    final List<String>? _shownIDs = _countriesStages?.getIDsByViewingEvent(
+    List<String>? _shownIDs = _countriesStages?.getIDsByViewingEvent(
       event: widget.zoneViewingEvent,
       countryID: null,
-      viewerCountryID: widget.viewerCountryID,
+      viewerCountryID: widget.viewerZone?.countryID,
+    );
+    _shownIDs = StagingModel.addMyCountryIDToShownCountries(
+        shownCountriesIDs: _shownIDs,
+        myCountryID: widget.viewerZone?.cityID,
+        event: widget.zoneViewingEvent,
     );
 
     // blog('CountriesScreen._loadCountries() : _shownIDs : $_shownIDs');
@@ -203,7 +208,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
     /// CENSUS
     final List<CensusModel> _countriesCensuses = await  CensusProtocols.fetchCountriesCensusesByIDs(
-        countriesIDs: [...?_shownIDs, ...?_notShownIDs],
+        countriesIDs: [..._shownIDs, ...?_notShownIDs],
     );
     final CensusModel? _fetchedPlanetCensus = await CensusProtocols.fetchPlanetCensus();
 
@@ -251,7 +256,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
       countryID: countryID,
       depth: widget.depth,
       zoneViewingEvent: widget.zoneViewingEvent,
-      viewerCountryID: widget.viewerCountryID,
+      viewerZone: widget.viewerZone,
       selectedZone: ZoneModel(countryID: countryID),
     );
 
@@ -265,7 +270,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
       countryID: ZoneModel.planetID,
       depth: widget.depth,
       zoneViewingEvent: widget.zoneViewingEvent,
-      viewerCountryID: widget.viewerCountryID,
+      viewerZone: widget.viewerZone,
       selectedZone: ZoneModel.planetZone,
     );
 
