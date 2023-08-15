@@ -126,7 +126,7 @@ class JumpingFlyersGrid extends StatelessWidget {
                       flyerBoxWidth: _gridSlotWidth,
                       boxColor: Colorz.bloodTest,
                       onTap: (){
-                        blog('fuck you');
+                        blog('fuck you jumper flyer');
                         },
                     ),
                   );
