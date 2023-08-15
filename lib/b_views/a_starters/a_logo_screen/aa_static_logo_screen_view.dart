@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/leading_verse.dart';
@@ -20,17 +21,18 @@ class LogoScreenView extends StatelessWidget {
 
     return SizedBox(
       width: Scale.screenWidth(context),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-
-          Column(
+      child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 
-              const SizedBox(
-                width: 300,
-                height: 100,
+              Opacity(
+                opacity: 0,
+                child: SizedBox(
+                  width: _logoWidth,
+                  child: const LoadingVerse(
+                    verseColor: Colorz.nothing,
+                  ),
+                ),
               ),
 
               if (scaleController != null)
@@ -54,14 +56,6 @@ class LogoScreenView extends StatelessWidget {
               ),
 
             ],
-          ),
-
-          // /// RESTART
-          // const SomethingWrongRestartButton(
-          //   waitSeconds: Standards.loadingScreenTimeOut,
-          // ),
-
-        ],
       ),
     );
   }

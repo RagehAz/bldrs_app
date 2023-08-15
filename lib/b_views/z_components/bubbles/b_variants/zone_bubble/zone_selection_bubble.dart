@@ -28,7 +28,7 @@ class ZoneSelectionBubble extends StatefulWidget {
     required this.onZoneChanged,
     required this.zoneViewingEvent,
     required this.depth,
-    required this.viewerCountryID,
+    required this.viewerZone,
     this.titleVerse,
     this.bulletPoints,
     this.translateBullets = true,
@@ -48,7 +48,7 @@ class ZoneSelectionBubble extends StatefulWidget {
   final ZoneDepth depth;
   final bool isRequired;
   final ViewingEvent zoneViewingEvent;
-  final String? viewerCountryID;
+  final ZoneModel? viewerZone;
   /// --------------------------------------------------------------------------
   @override
   _ZoneSelectionBubbleState createState() => _ZoneSelectionBubbleState();
@@ -155,7 +155,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     final ZoneModel? _zone = await ZoneSelection.goToCountriesScreen(
       zoneViewingEvent: widget.zoneViewingEvent,
       depth: widget.depth,
-      viewerCountryID: widget.viewerCountryID,
+      viewerZone: widget.viewerZone,
       selectedZone: widget.currentZone,
     );
 
@@ -195,7 +195,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
             zoneViewingEvent: widget.zoneViewingEvent,
             depth: widget.depth,
             countryID: _selectedZone.value!.countryID,
-            viewerCountryID: widget.viewerCountryID,
+            viewerZone: widget.viewerZone,
             selectedZone: widget.currentZone,
           )
       );

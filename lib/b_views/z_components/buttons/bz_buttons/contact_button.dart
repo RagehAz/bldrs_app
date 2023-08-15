@@ -15,6 +15,7 @@ class ContactButton extends StatelessWidget {
     this.margins,
     this.width,
     this.forceShowVerse = false,
+    this.bubble = true,
     super.key
   });
   // -----------------------------------------------------------------------------
@@ -25,6 +26,7 @@ class ContactButton extends StatelessWidget {
   final Function onTap;
   final bool? forceShowVerse;
   final bool isPublic;
+  final bool bubble;
   // -----------------------------------------------------------------------------
   static const double buttonHeight = 50;
   // -----------------------------------------------------------------------------
@@ -48,7 +50,7 @@ class ContactButton extends StatelessWidget {
       verseItalic: true,
       iconSizeFactor: _isSocialMediaContact == true ? 1 : 0.6,
       verseScaleFactor: _isSocialMediaContact == true ? 0.7 : 0.7/0.6,
-      bubble: false,
+      bubble: bubble,
       color: Colorz.white10,
       textDirection: TextDirection.ltr,
       verseCentered: false,

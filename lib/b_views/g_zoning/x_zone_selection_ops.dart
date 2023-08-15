@@ -53,7 +53,7 @@ class ZoneSelection {
     required ZoneDepth depth,
     required bool settingCurrentZone,
     required ViewingEvent zoneViewingEvent,
-    required String? viewerCountryID,
+    required ZoneModel? viewerZone,
     required ZoneModel? selectedZone,
   }) async {
 
@@ -62,7 +62,7 @@ class ZoneSelection {
     final ZoneModel? _output = await goToCountriesScreen(
       zoneViewingEvent: zoneViewingEvent,
       depth: depth,
-      viewerCountryID: viewerCountryID,
+      viewerZone: viewerZone,
       selectedZone: selectedZone,
     );
 
@@ -83,7 +83,7 @@ class ZoneSelection {
   static Future<ZoneModel?> goToCountriesScreen({
     required ViewingEvent zoneViewingEvent,
     required ZoneDepth depth,
-    required String? viewerCountryID,
+    required ZoneModel? viewerZone,
     required ZoneModel? selectedZone,
   }) async {
 
@@ -94,7 +94,7 @@ class ZoneSelection {
       screen: CountriesScreen(
         zoneViewingEvent: zoneViewingEvent,
         depth: depth,
-        viewerCountryID: viewerCountryID,
+        viewerZone: viewerZone,
         selectedZone: selectedZone,
       ),
     );
@@ -118,7 +118,7 @@ class ZoneSelection {
     required String? countryID,
     required ZoneDepth depth,
     required ViewingEvent zoneViewingEvent,
-    required String? viewerCountryID,
+    required ZoneModel? viewerZone,
     required ZoneModel? selectedZone,
   }) async {
 
@@ -154,7 +154,7 @@ class ZoneSelection {
             zoneViewingEvent: zoneViewingEvent,
             countryID: countryID,
             depth: depth,
-            viewerCountryID: viewerCountryID,
+            viewerZone: viewerZone,
             selectedZone: selectedZone,
           )
       );

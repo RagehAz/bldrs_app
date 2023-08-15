@@ -329,7 +329,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                     ),
                     isRequired: false,
                     currentZone: userModel?.zone,
-                    viewerCountryID: userModel?.zone?.countryID,
+                    viewerZone: userModel?.zone,
                     depth: ZoneDepth.city,
                     onZoneChanged: (ZoneModel? zone) async {
 

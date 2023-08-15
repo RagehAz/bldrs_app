@@ -37,7 +37,7 @@ class AuthorCard extends StatelessWidget {
   final ValueChanged<ContactModel>? onContactTap;
   final bool? moreButtonIsOn;
   // --------------------
-  static const double authorPicSize = 80;
+  static const double authorPicSize = 60;
   static const double spaceBetweenImageAndText = 5;
   static const double moreButtonSize = 40;
   // --------------------
@@ -118,6 +118,9 @@ class AuthorCard extends StatelessWidget {
     // --------------------
     final Color? _roleIconColor = _authorIsMaster == true ? null : Colorz.white255;
     // --------------------
+
+    final double _bodyWidth = _bubbleWidth - authorPicSize - 40;
+    // --------------------
     return Bubble(
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         context: context,
@@ -159,16 +162,19 @@ class AuthorCard extends StatelessWidget {
 
                         /// NAME
                         BldrsText(
+                          width: _textAreaWidth,
                           verse: Verse(
                             id: author.name ?? '...',
                             translate: false,
                           ),
                           size: 3,
                           centered: false,
+                          scaleFactor: 0.9,
                         ),
 
                         /// TITLE
                         BldrsText(
+                          width: _textAreaWidth,
                           verse: getAuthorTitleLine(
                             title: author.title,
                             companyName: bzModel?.name,
@@ -177,6 +183,7 @@ class AuthorCard extends StatelessWidget {
                           weight: VerseWeight.thin,
                           maxLines: 2,
                           centered: false,
+                          scaleFactor: 0.8,
                         ),
 
                         const Expander(),
@@ -233,7 +240,7 @@ class AuthorCard extends StatelessWidget {
                 bubble: false,
                 icon: Iconz.bz,
                 iconColor: _roleIconColor,
-                boxWidth: _bubbleWidth - authorPicSize - 40,
+                boxWidth: _bodyWidth,
               ),
 
               /// NUMBER OF FLYERS
@@ -244,7 +251,7 @@ class AuthorCard extends StatelessWidget {
                 ),
                 bubble: false,
                 icon: Iconz.flyer,
-                boxWidth: _bubbleWidth - authorPicSize - 40,
+                boxWidth: _bodyWidth,
               ),
 
               /// CONTACTS
@@ -255,7 +262,8 @@ class AuthorCard extends StatelessWidget {
 
                 return ContactButton(
                     contactModel: _contact,
-                    width: _bubbleWidth - authorPicSize - 40,
+                    width: _bodyWidth,
+                    height: 40,
                     forceShowVerse: true,
                     margins: const EdgeInsets.only(top: 5),
                     isPublic: true,

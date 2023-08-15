@@ -800,7 +800,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                               selectCountryIDOnly: false,
                               canValidate: draft?.canValidate,
                             ),
-                        viewerCountryID: draft?.zone?.countryID,
+                        viewerZone: draft?.zone,
                         onZoneChanged: (ZoneModel? zone) {
                           setNotifier(
                             notifier: draftNotifier,
