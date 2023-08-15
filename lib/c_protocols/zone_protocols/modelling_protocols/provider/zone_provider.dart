@@ -16,6 +16,7 @@ class ZoneProvider extends ChangeNotifier {
   /// TESTED : WORKS PERFECT
   Future<void> setCurrentZone({
     required ZoneModel? zone,
+    required bool setCountryOnly,
     required bool notify,
     required String invoker,
   }) async {
@@ -26,9 +27,11 @@ class ZoneProvider extends ChangeNotifier {
 
     _completeZone ??= ZoneModel.planetZone;
 
+    _completeZone.blogZone(invoker: 'this shit has become');
+
     _setZone(
       zone: _completeZone,
-      setCountryOnly: true,
+      setCountryOnly: setCountryOnly,
       notify: notify,
       invoker: invoker,
     );
