@@ -31,14 +31,12 @@ class CountriesScreen extends StatefulWidget {
     required this.depth,
     required this.viewerCountryID,
     required this.selectedZone,
-    this.canSetPlanetAsCurrentZone = true,
     super.key
   });
   /// --------------------------------------------------------------------------
   final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
   final String? viewerCountryID;
-  final bool canSetPlanetAsCurrentZone;
   final ZoneModel? selectedZone;
   /// --------------------------------------------------------------------------
   @override
@@ -262,19 +260,31 @@ class _CountriesScreenState extends State<CountriesScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _onPlanetTap() async {
 
-    final bool _isSettingCurrentZone =  widget.zoneViewingEvent == ViewingEvent.homeView
-                                        &&
-                                        widget.canSetPlanetAsCurrentZone == true;
+    await ZoneSelection.onSelectCountry(
+      context: context,
+      countryID: ZoneModel.planetID,
+      depth: widget.depth,
+      zoneViewingEvent: widget.zoneViewingEvent,
+      viewerCountryID: widget.viewerCountryID,
+      selectedZone: ZoneModel.planetZone,
+    );
 
-    if (_isSettingCurrentZone == true){
-      await ZoneSelection.setCurrentZoneAndNavHome(
-        zone: ZoneModel.planetZone,
-      );
-    }
-
-    else {
-      await Nav.goBack(context: context);
-    }
+    // final bool _isSettingCurrentZone =  StagingModel.checkMayShowViewAllZonesButton(
+    //   zoneViewingEvent: widget.zoneViewingEvent,
+    // );
+    //
+    // if (_isSettingCurrentZone == true){
+    //   await ZoneSelection.setCurrentZoneAndNavHome(
+    //     zone: ZoneModel.planetZone,
+    //   );
+    // }
+    //
+    // else {
+    //   await Nav.goBack(
+    //     context: context,
+    //     passedData: ZoneModel.planetZone,
+    //   );
+    // }
 
   }
   // --------------------
@@ -336,7 +346,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
                           countriesCensus: _censuses,
                           selectedZone: widget.selectedZone,
                           onCountryTap: _onCountryTap,
-                          onDeactivatedCountryTap: _onDeactivatedCountryTap,
+                          onDisabledCountryTap: _onDeactivatedCountryTap,
                         );
 
                       }
@@ -349,7 +359,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
                           notShownCountriesIDs: _notShownCountriesIDs,
                           countriesCensus: _censuses,
                           onCountryTap: _onCountryTap,
-                          onDeactivatedCountryTap: _onDeactivatedCountryTap,
+                          onDisabledCountryTap: _onDeactivatedCountryTap,
                           showPlanetButton: StagingModel.checkMayShowViewAllZonesButton(
                             zoneViewingEvent: widget.zoneViewingEvent,
                           ),

@@ -331,6 +331,46 @@ class SearchModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// CHECKERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkCanSearchByCountry({
+    required String? countryID,
+  }){
+
+    if (
+        countryID != null
+        &&
+        countryID != ZoneModel.planetID
+    ){
+      return true;
+    }
+
+    else {
+      return false;
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkCanSearchByCity({
+    required String? cityID,
+  }){
+    if (
+        cityID != null
+        &&
+        cityID != ZoneModel.allCitiesID
+    ){
+      return true;
+    }
+
+    else {
+      return false;
+    }
+  }
+  // -----------------------------------------------------------------------------
+
   /// EQUALITY
 
   // --------------------

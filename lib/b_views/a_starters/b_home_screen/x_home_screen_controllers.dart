@@ -375,7 +375,7 @@ Future<void> setActivePhidK({
   if (deactivated == true) {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
-    final String? _cityName = _zoneProvider.currentZone.cityName;
+    final String? _cityName = _zoneProvider.currentZone?.cityName;
 
     final String? _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
         flyerType: flyerType

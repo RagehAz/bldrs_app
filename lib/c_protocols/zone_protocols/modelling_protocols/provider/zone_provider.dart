@@ -2,6 +2,7 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,7 @@ class ZoneProvider extends ChangeNotifier {
 
     _completeZone ??= ZoneModel.planetZone;
 
-    _completeZone.blogZone(invoker: 'this shit has become');
+    _completeZone.blogZone(invoker: 'this shit has become : $invoker');
 
     _setZone(
       zone: _completeZone,
@@ -78,7 +79,7 @@ class ZoneProvider extends ChangeNotifier {
 
   // --------------------
   ZoneModel? _currentZone;
-  ZoneModel get currentZone => _currentZone ?? ZoneModel.planetZone;
+  ZoneModel? get currentZone => _currentZone;
   bool _isViewingPlanet = false;
   bool get isViewingPlanet => _currentZone == null ? true : _isViewingPlanet;
   // --------------------
@@ -88,7 +89,13 @@ class ZoneProvider extends ChangeNotifier {
     required bool listen,
   }){
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
-    return _zoneProvider.currentZone;
+    return
+      _zoneProvider.currentZone ??
+          UsersProvider.proGetMyUserModel(
+            context: getMainContext(),
+            listen: false,
+          )?.zone ??
+    ZoneModel.planetZone;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

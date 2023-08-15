@@ -36,7 +36,7 @@ class FlyerSearch {
       finders: <FireFinder>[
 
         /// BY COUNTRY ID
-        if (searchModel?.zone?.countryID != null)
+          if (SearchModel.checkCanSearchByCountry(countryID: searchModel?.zone?.countryID) == true)
           FireFinder(
             field: 'zone.countryID',
             comparison: FireComparison.equalTo,
@@ -44,7 +44,7 @@ class FlyerSearch {
           ),
 
         /// BY CITY
-        if (searchModel?.zone?.cityID != null)
+          if (SearchModel.checkCanSearchByCity(cityID: searchModel?.zone?.cityID) == true)
           FireFinder(
             field: 'zone.cityID',
             comparison: FireComparison.equalTo,

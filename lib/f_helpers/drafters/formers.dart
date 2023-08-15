@@ -325,7 +325,7 @@ class Formers {
 
         /// ONLY SELECTING COUNTRY ID + CITY ID
         else {
-          if (_countryID == null || _cityID == null){
+          if (_countryID == null || _cityID == null || _cityID == ZoneModel.allCitiesID){
             _message = getWord('phid_select_country_and_city');
           }
         }

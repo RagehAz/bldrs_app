@@ -38,6 +38,7 @@ class ZoneModel {
 
   // --------------------
   static const String planetID = 'planet';
+  static const String allCitiesID = 'allCities';
   // --------------------
   static ZoneModel planetZone = ZoneModel(
     countryID: planetID,

@@ -25,7 +25,7 @@ import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
 
 class CitiesScreen extends StatefulWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const CitiesScreen({
     required this.zoneViewingEvent,
     required this.depth,
@@ -34,16 +34,17 @@ class CitiesScreen extends StatefulWidget {
     required this.selectedZone,
     super.key
   });
-  /// --------------------------------------------------------------------------
+  // --------------------
   final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
   final String countryID;
   final String? viewerCountryID;
   final ZoneModel? selectedZone;
-  /// --------------------------------------------------------------------------
+  // --------------------
   @override
   State<CitiesScreen> createState() => _NewSelectCityScreen();
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+
 }
 
 class _NewSelectCityScreen extends State<CitiesScreen> {
@@ -53,7 +54,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   final ValueNotifier<List<CityModel>?> _foundCities = ValueNotifier<List<CityModel>?>(null);
   ValueNotifier<ZoneModel>? _currentZone;
   List<String>? _shownCitiesIDs = <String>[];
-  // Staging _stages;
   // --------------------
   List<CensusModel>? _censuses;
   CensusModel? _countryCensus;
@@ -307,10 +307,11 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   Future<void> _onCitySelected(String? cityID) async {
 
     await ZoneSelection.onSelectCity(
-        context: context,
-        cityID: cityID,
-        depth: widget.depth,
-        zoneViewingEvent: widget.zoneViewingEvent,
+      context: context,
+      countryID: widget.countryID,
+      cityID: cityID,
+      depth: widget.depth,
+      zoneViewingEvent: widget.zoneViewingEvent,
     );
 
   }
@@ -327,20 +328,29 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _onTapAllCities() async {
 
-    await Nav.goBack(
-      context: context,
-    );
-
-    await ZoneSelection.onSelectCountry(
+    await ZoneSelection.onSelectCity(
       context: context,
       countryID: widget.countryID,
-      depth: ZoneDepth.country,
+      cityID: ZoneModel.allCitiesID,
+      depth: widget.depth,
       zoneViewingEvent: widget.zoneViewingEvent,
-      viewerCountryID: widget.viewerCountryID,
-      selectedZone: ZoneModel(
-        countryID: widget.countryID,
-      ),
     );
+
+    // await Nav.goBack(
+    //   context: context,
+    // );
+
+    // await ZoneSelection.onSelectCountry(
+    //   context: context,
+    //   countryID: widget.countryID,
+    //   depth: ZoneDepth.country,
+    //   zoneViewingEvent: widget.zoneViewingEvent,
+    //   viewerCountryID: widget.viewerCountryID,
+    //   selectedZone: ZoneModel(
+    //     countryID: widget.countryID,
+    //     cityID: ZoneModel.allCitiesID,
+    //   ),
+    // );
 
   }
   // -----------------------------------------------------------------------------

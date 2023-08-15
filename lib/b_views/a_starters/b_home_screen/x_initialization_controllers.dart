@@ -1,4 +1,6 @@
 import 'dart:async';
+
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
@@ -7,12 +9,10 @@ import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart'
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -201,53 +201,51 @@ Future<void> initializeUserZone() async {
 Future<void> initializeCurrentZone() async {
   // blog('initializeHomeScreen._initializeCurrentZone : ~~~~~~~~~~ START');
 
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
+  // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
 
-  if (_zoneProvider.isViewingPlanet == false){
-
-    final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
-      context: getMainContext(),
-      listen: false,
-    );
-
-    /// USER ZONE IS DEFINED
-    if (_myUserModel?.zone != null){// && Authing.userIsSignedUp(_myUserModel?.signInMethod) == true){
-
-      await _zoneProvider.setCurrentZone(
-        zone: _myUserModel?.zone,
-        setCountryOnly: false,
-        notify: true,
-        invoker: 'initializeHomeScreen.initializeCurrentZone',
-      );
-
-    }
-
-    /// USER ZONE IS NOT DEFINED
-    else {
-
-      final ZoneModel? _zoneByIP = await ZoneProtocols.getZoneByIP();
-
-      await _zoneProvider.setCurrentZone(
-        zone: _zoneByIP,
-        setCountryOnly: true,
-        notify: true,
-        invoker: 'initializeHomeScreen.initializeCurrentZone',
-      );
-
-    }
-
-  }
-
-  else {
-
-    await _zoneProvider.setCurrentZone(
-      zone: ZoneModel.planetZone,
-      setCountryOnly: false,
-      notify: true,
-      invoker: 'initializeHomeScreen.initializeCurrentZone',
-    );
-
-  }
+  /// NO NEED
+  // if (_zoneProvider.currentZone == null){
+  //
+  //   final UserModel? _myUserModel =
+  //
+  //   /// USER ZONE IS DEFINED
+  //   if (_myUserModel?.zone != null){// && Authing.userIsSignedUp(_myUserModel?.signInMethod) == true){
+  //
+  //     await _zoneProvider.setCurrentZone(
+  //       zone: _myUserModel?.zone,
+  //       setCountryOnly: false,
+  //       notify: true,
+  //       invoker: 'initializeHomeScreen.initializeCurrentZone',
+  //     );
+  //
+  //   }
+  //
+  //   /// USER ZONE IS NOT DEFINED
+  //   else {
+  //
+  //     final ZoneModel? _zoneByIP = await ZoneProtocols.getZoneByIP();
+  //
+  //     await _zoneProvider.setCurrentZone(
+  //       zone: _zoneByIP,
+  //       setCountryOnly: true,
+  //       notify: true,
+  //       invoker: 'initializeHomeScreen.initializeCurrentZone',
+  //     );
+  //
+  //   }
+  //
+  // }
+  //
+  // else {
+  //
+  //   await _zoneProvider.setCurrentZone(
+  //     zone: ZoneModel.planetZone,
+  //     setCountryOnly: false,
+  //     notify: true,
+  //     invoker: 'initializeHomeScreen.initializeCurrentZone',
+  //   );
+  //
+  // }
 
   // blog('initializeHomeScreen._initializeCurrentZone : ~~~~~~~~~~ END');
 }
