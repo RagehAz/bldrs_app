@@ -193,7 +193,6 @@ class CensusRealOps {
         ),
 
         /// UPDATE COUNTRY
-        if (zoneModel.countryID != null)
         Real.incrementDocFields(
           coll: RealColl.statistics,
           doc: '${RealDoc.statistics_countries}/${zoneModel.countryID}',
@@ -202,7 +201,7 @@ class CensusRealOps {
         ),
 
         /// UPDATE CITY
-        if (zoneModel.countryID != null && zoneModel.cityID != null)
+        if (zoneModel.cityID != null)
           Real.incrementDocFields(
             coll: RealColl.statistics,
             doc: '${RealDoc.statistics_cities}/${zoneModel.countryID}/${zoneModel.cityID}',
@@ -217,9 +216,7 @@ class CensusRealOps {
         ZoneModel.planetID,
       ];
 
-      if (zoneModel.countryID != null){
-        _idsToDeleteInLDB.add(zoneModel.countryID!);
-      }
+      _idsToDeleteInLDB.add(zoneModel.countryID);
 
       if (zoneModel.cityID != null){
         _idsToDeleteInLDB.add(zoneModel.cityID!);

@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
@@ -24,15 +25,29 @@ class ZoneModel {
     this.icon,
   });
   /// --------------------------------------------------------------------------
-  final String? countryID;
-  final String? cityID;
+  final String countryID;
   final String? countryName;
+  final String? icon;
+  final String? cityID;
   final String? cityName;
   final CountryModel? countryModel;
   final CityModel? cityModel;
-  final String? icon;
   // -----------------------------------------------------------------------------
+
+  /// STANDARDS
+
+  // --------------------
   static const String planetID = 'planet';
+  // --------------------
+  static ZoneModel planetZone = ZoneModel(
+    countryID: planetID,
+    icon: Iconz.planet,
+    countryName: getWord('phid_the_world'),
+    // cityModel: null,
+    // cityName: null,
+    // cityID: null,
+    // countryModel: null,
+  );
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -47,8 +62,9 @@ class ZoneModel {
             zoneModel
             ??
             ZoneProvider.proGetCurrentZone(context: getMainContext(), listen: false)
-            ??
-            await ZoneProtocols.getZoneByIP();
+            // ??
+            // await ZoneProtocols.getZoneByIP()
+    ;
 
     return ZoneProtocols.completeZoneModel(
       incompleteZoneModel: _zone,
@@ -83,7 +99,7 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   ZoneModel nullifyField({
-    bool countryID = false,
+    // bool countryID = false,
     bool cityID = false,
     bool countryName = false,
     bool cityName = false,
@@ -92,7 +108,7 @@ class ZoneModel {
     bool icon = false,
   }){
     return ZoneModel(
-      countryID: countryID == true ? null : this.countryID,
+      countryID: countryID,
       cityID: cityID == true ? null : this.cityID,
       countryName: countryName == true ? null : this.countryName,
       cityName: cityName == true ? null : this.cityName,
@@ -149,7 +165,7 @@ class ZoneModel {
     );
 
     return ZoneModel(
-      countryID: _countryID,
+      countryID: _countryID!,
       cityID: _cityID,
     );
   }
@@ -167,17 +183,13 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool zoneHasAllIDs(ZoneModel? zone) {
-    final bool _hasAllIDs = zone != null &&
-        zone.countryID != null &&
-        zone.cityID != null;
+    final bool _hasAllIDs = zone != null && zone.cityID != null;
     return _hasAllIDs;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkZoneHasCountryAndCityIDs(ZoneModel? zone){
-    final bool _has = zone != null &&
-        zone.countryID != null &&
-        zone.cityID != null;
+    final bool _has = zone != null && zone.cityID != null;
     return _has;
   }
   // -----------------------------------------------------------------------------
@@ -281,15 +293,12 @@ class ZoneModel {
 
     if (zoneModel != null){
 
-      if (zoneModel.countryID != null){
-
         final String? _countryName = Flag.translateCountry(
           langCode: Localizer.getCurrentLangCode(),
           countryID: zoneModel.countryID,
         );
 
         _text = '$_inn $_countryName';
-
 
         if (showCity == true && (zoneModel.cityModel != null || zoneModel.cityName != null)){
 
@@ -300,8 +309,6 @@ class ZoneModel {
           _text = '$_inn $_cityName, $_countryName';
 
         }
-
-      }
 
     }
 

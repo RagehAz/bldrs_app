@@ -22,7 +22,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ValueChanged<String?> onCountryTap;
+  final ValueChanged<String> onCountryTap;
   final ValueChanged<String?> onDeactivatedCountryTap;
   final ValueNotifier<List<Phrase>?> foundCountries;
   final List<String> shownCountriesIDs;
@@ -52,23 +52,23 @@ class SelectCountryScreenSearchView extends StatelessWidget {
               shrinkWrap: true,
               itemBuilder: (_, int index) {
 
-                final Phrase? _countryPhrase = foundCountries[index];
+                final Phrase _countryPhrase = foundCountries[index];
 
                 final CensusModel? _census = CensusModel.getCensusFromCensusesByID(
                   censuses: countriesCensus,
-                  censusID: _countryPhrase?.id,
+                  censusID: _countryPhrase.id,
                 );
 
                 return CountryTileButton(
-                  countryID: _countryPhrase?.id,
+                  countryID: _countryPhrase.id,
                   isActive: Stringer.checkStringsContainString(
                     strings: shownCountriesIDs,
-                    string: _countryPhrase?.id,
+                    string: _countryPhrase.id,
                   ),
                   censusModel: _census,
-                  isSelected: _countryPhrase != null && selectedZone?.countryID == _countryPhrase.id,
-                  onTap: () => onCountryTap(_countryPhrase?.id),
-                  onDeactivatedTap: () => onDeactivatedCountryTap(_countryPhrase?.id),
+                  isSelected: selectedZone?.countryID == _countryPhrase.id,
+                  onTap: () => onCountryTap(_countryPhrase.id!),
+                  onDeactivatedTap: () => onDeactivatedCountryTap(_countryPhrase.id),
                 );
 
               }

@@ -2,6 +2,7 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:collection/collection.dart';
@@ -194,10 +195,12 @@ class CurrencyModel {
 
     if (Mapper.checkCanLoopList(currencies) == true && countryID != null) {
 
+      final String _countryID = countryID == ZoneModel.planetID ? 'usa' : countryID;
+
       final CurrencyModel? _currencyFound = currencies!.firstWhereOrNull(
               (CurrencyModel curr) => Stringer.checkStringsContainString(
                   strings: curr.countriesIDs,
-                  string: countryID
+                  string: _countryID,
               ),
           );
 
