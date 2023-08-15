@@ -160,6 +160,8 @@ class ZoneSelection {
           )
       );
 
+      _zoneWithCity?.blogZone(invoker: 'just selected that shit');
+
       /// SECOND CITY SELECTION BACK
       if (_zoneWithCity?.cityID != null){
 
@@ -251,6 +253,7 @@ class ZoneSelection {
         /// SET ZONE + CURRENCY
         await zoneProvider.setCurrentZone(
           zone: zone,
+          setCountryOnly: false,
           notify: true,
           invoker: 'ZoneSelection.setCurrentZoneProtocol',
         );

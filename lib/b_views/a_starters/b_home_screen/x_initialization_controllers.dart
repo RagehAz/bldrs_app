@@ -215,6 +215,7 @@ Future<void> initializeCurrentZone() async {
 
       await _zoneProvider.setCurrentZone(
         zone: _myUserModel?.zone,
+        setCountryOnly: false,
         notify: true,
         invoker: 'initializeHomeScreen.initializeCurrentZone',
       );
@@ -228,6 +229,7 @@ Future<void> initializeCurrentZone() async {
 
       await _zoneProvider.setCurrentZone(
         zone: _zoneByIP,
+        setCountryOnly: true,
         notify: true,
         invoker: 'initializeHomeScreen.initializeCurrentZone',
       );
@@ -240,6 +242,7 @@ Future<void> initializeCurrentZone() async {
 
     await _zoneProvider.setCurrentZone(
       zone: ZoneModel.planetZone,
+      setCountryOnly: false,
       notify: true,
       invoker: 'initializeHomeScreen.initializeCurrentZone',
     );
