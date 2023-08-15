@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/m_search/flyer_search_model.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
@@ -17,7 +18,7 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
 
     return FlyerSearch.createQuery(
       searchModel: SearchModel(
-        zone: ZoneProvider.proGetCurrentZone(context: context, listen: true,),
+        zone: _concludeHomeZone(context),
         userID: Authing.getUserID(),
         id: 'homeWallFlyersPaginationQuery',
         flyerSearchModel: FlyerSearchModel(
@@ -48,6 +49,13 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
       // orderBy: 'score',
     );
 
+}
+// --------------------
+/// TAMAM : WORKS PERFECT
+ZoneModel? _concludeHomeZone(BuildContext context){
+  final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: true);
+  final bool _showWorld = _currentZone == ZoneModel.planetZone;
+  return _showWorld == true ? null : _currentZone;
 }
 // -----------------------------------------------------------------------------
 
