@@ -688,7 +688,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         mounted: mounted,
                       ),
                       depth: ZoneDepth.city,
-                      viewerCountryID: draft?.zone?.countryID,
+                      viewerZone: draft?.zone,
                       // autoValidate: false,
                       validator: () => Formers.zoneValidator(
                         zoneModel: draft?.zone,

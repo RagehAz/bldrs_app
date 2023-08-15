@@ -184,7 +184,7 @@ class _PyramidsWidgetTree extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return GestureDetector(
-        // onTap: () => onPyramidTap?.call(),
+        onTap: onPyramidTap == null ? null : () => onPyramidTap?.call(),
         onDoubleTap: onPyramidDoubleTap,
         child:
 

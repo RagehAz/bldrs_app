@@ -30,7 +30,7 @@ class CitiesScreen extends StatefulWidget {
     required this.zoneViewingEvent,
     required this.depth,
     required this.countryID,
-    required this.viewerCountryID,
+    required this.viewerZone,
     required this.selectedZone,
     super.key
   });
@@ -38,7 +38,7 @@ class CitiesScreen extends StatefulWidget {
   final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
   final String countryID;
-  final String? viewerCountryID;
+  final ZoneModel? viewerZone;
   final ZoneModel? selectedZone;
   // --------------------
   @override
@@ -139,11 +139,17 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       if (mounted == true){
 
         /// SHOWN CITIES IDS
-        final List<String>? _shownIDs = _citiesStages?.getIDsByViewingEvent(
+        List<String>? _shownIDs = _citiesStages?.getIDsByViewingEvent(
           event: widget.zoneViewingEvent,
           countryID: widget.countryID,
-          viewerCountryID: widget.viewerCountryID,
+          viewerCountryID: widget.viewerZone?.countryID,
         );
+        _shownIDs = StagingModel.addMyCityIDToShownCities(
+          shownCitiesIDs: _shownIDs,
+          event: widget.zoneViewingEvent,
+          myCityID: widget.viewerZone?.cityID,
+        );
+
         /// SHOWN CITIES MODEL
         final List<CityModel> _orderedShownCities = CityModel.sortCitiesAlphabetically(
           cities: CityModel.getCitiesFromCitiesByIDs(
@@ -166,7 +172,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         );
 
         final List<CensusModel> _citiesCensuses = await CensusProtocols.fetchCitiesCensuses(
-            citiesIDs: <String>[...?_shownIDs, ...?_notShownIDs]
+            citiesIDs: <String>[..._shownIDs, ...?_notShownIDs]
         );
         final CensusModel? _censusOfCountry = await CensusProtocols.fetchCountryCensus(
             countryID: widget.countryID,

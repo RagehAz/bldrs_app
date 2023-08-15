@@ -9,7 +9,9 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
+import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/create_new_bz_button.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/zone_line.dart';
@@ -20,19 +22,22 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zo
 import 'package:flutter/material.dart';
 
 class NoFlyersView extends StatelessWidget {
-
+  // -----------------------------------------------------------------------------
   const NoFlyersView({
     super.key
   });
-
+  // --------------------
   @override
   Widget build(BuildContext context) {
 
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: true,
+    );
     final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(
       context: context,
       listen: true,
     );
-
     final double _width = Bubble.bubbleWidth(context: context);
     final double _screenHeight = Scale.screenHeight(context);
 
@@ -108,7 +113,7 @@ class NoFlyersView extends StatelessWidget {
               depth: ZoneDepth.city,
               zoneViewingEvent: ViewingEvent.homeView,
               settingCurrentZone: true,
-              viewerCountryID: userModel?.zone?.countryID,
+              viewerZone: userModel?.zone,
               selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
             );
 
@@ -158,7 +163,24 @@ class NoFlyersView extends StatelessWidget {
         /// SEPARATOR
         const DotSeparator(),
 
+        /// ADD BZ BUTTON
+        if (
+            UserModel.userIsSignedUp(_userModel) == true
+            &&
+            UserModel.checkUserIsAuthor(_userModel) == false
+        )
+        const CreateNewBzButton(),
+
+        /// ADD FLYER BUTTON
+        if (UserModel.checkUserIsAuthor(_userModel) == true)
+          AddFlyerButton(
+            flyerBoxWidth: Scale.screenShortestSide(context) * 0.45,
+            onTap: () => AddFlyerButton.onHomeWallAddFlyer(),
+          ),
+
       ],
     );
+
   }
+  // -----------------------------------------------------------------------------
 }
