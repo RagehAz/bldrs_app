@@ -17,7 +17,6 @@ import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -209,12 +208,11 @@ Future<void> onSignOut() async {
       notify: false,
     );
 
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
-
+    // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
     // _zoneProvider.clearAllSearchesAndSelections();
     // _zoneProvider.clearCurrentContinent(notify: false);
-    _zoneProvider.clearCurrentZone(notify: false);
-    _zoneProvider.clearCurrentCurrencyAndAllCurrencies(notify: false);
+    // _zoneProvider.clearCurrentZone(notify: false);
+    // _zoneProvider.clearCurrentCurrencyAndAllCurrencies(notify: false);
 
     final String? _userID = Authing.getUserID();
     await UserLDBOps.deleteUserOps(_userID);

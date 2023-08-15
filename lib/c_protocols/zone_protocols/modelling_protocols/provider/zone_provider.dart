@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -8,145 +9,95 @@ import 'package:provider/provider.dart';
 // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 class ZoneProvider extends ChangeNotifier {
   // -----------------------------------------------------------------------------
-  /// CONTINENT DEPRECATED
-  /*
-  // -----------------------------------------------------------------------------
 
-  /// CONTINENTS
+  /// INITIALIZATIONS
 
-  // --------------------
-  Continent? _currentContinent;
-  Continent? get currentContinent => _currentContinent;
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> fetchSetContinentByCountryID({
-    required String? countryID,
-    required bool notify,
-  }) async {
-
-    final List<Continent> _allContinents = await ZoneProtocols.readAllContinents();
-
-    final Continent? _continent = Continent.getContinentFromContinentsByCountryID(
-      continents: _allContinents,
-      countryID: countryID,
-    );
-
-    _setCurrentContinent(
-      continent: _continent,
-      notify: notify,
-    );
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void _setCurrentContinent({
-    required Continent? continent,
-    required bool notify,
-  }){
-    _currentContinent = continent;
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void clearCurrentContinent({
-    required bool notify,
-  }){
-    _setCurrentContinent(
-      continent: null,
-      notify: notify,
-    );
-  }
-  // --------------------
-  Future<List<CountryModel>> fetchContinentActivatedCountriesXS() async {
-
-    final List<String> _countriesIDs = _currentContinent.activatedCountriesIDs;
-
-    final List<CountryModel> _countries = await ZoneProtocols.fetchCountries(
-      countriesIDs: _countriesIDs,
-    );
-
-    return _countries;
-  }
-   */
-  // -----------------------------------------------------------------------------
-
-  /// CURRENT ZONE
-
-  // --------------------
-  ZoneModel? _currentZone;
-  ZoneModel? get currentZone => _currentZone;
-  bool _isViewingPlanet = false;
-  bool get isViewingPlanet => _isViewingPlanet;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static ZoneModel? proGetCurrentZone({
-    required BuildContext context,
-    required bool listen,
-  }){
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
-    return _zoneProvider.currentZone;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static ZoneModel? proGetCurrentZoneIDs({
-    required BuildContext context,
-    required bool listen,
-  }){
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
-    return _zoneProvider.currentZone;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> fetchSetCurrentCompleteZone({
+  Future<void> setCurrentZone({
     required ZoneModel? zone,
     required bool notify,
     required String invoker,
   }) async {
 
-    final ZoneModel? _completeZone = await ZoneProtocols.completeZoneModel(
+    ZoneModel? _completeZone = await ZoneProtocols.completeZoneModel(
       incompleteZoneModel: zone,
     );
 
-    await Future.wait(<Future>[
+    _completeZone ??= ZoneModel.planetZone;
 
-      /// CURRENCIES
-      _fetchSetAllCurrenciesAndCurrentCurrency(
-        countryID: zone?.countryID,
-        notify: false,
-      ),
-
-      // /// CONTINENTS
-      // fetchSetContinentByCountryID(
-      //   countryID: zone?.countryID,
-      //   notify: false,
-      // ),
-
-    ]);
-
-    setCurrentZone(
+    _setZone(
       zone: _completeZone,
       setCountryOnly: true,
       notify: notify,
       invoker: invoker,
     );
 
+    /// CURRENCIES
+    await _fetchSetCountryCurrency(
+      countryID: _completeZone.countryID,
+      notify: false,
+    );
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void setCurrentZone({
-    required ZoneModel? zone,
+  Future<void> _fetchSetCountryCurrency({
+    required String? countryID,
+    required bool notify,
+  }) async {
+
+    List<CurrencyModel> _currencies;
+    if (Mapper.checkCanLoopList(_allCurrencies) == true){
+      _currencies = _allCurrencies!;
+    }
+    else {
+      _currencies = await ZoneProtocols.fetchCurrencies();
+    }
+
+
+    final CurrencyModel? _currencyByCountryID = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
+      currencies: _currencies,
+      countryID: countryID,
+    );
+
+    _allCurrencies = _currencies;
+    _currentCurrency = _currencyByCountryID;
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CURRENT ZONE
+
+  // --------------------
+  ZoneModel? _currentZone;
+  ZoneModel get currentZone => _currentZone ?? ZoneModel.planetZone;
+  bool _isViewingPlanet = false;
+  bool get isViewingPlanet => _currentZone == null ? true : _isViewingPlanet;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static ZoneModel proGetCurrentZone({
+    required BuildContext context,
+    required bool listen,
+  }){
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
+    return _zoneProvider.currentZone;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _setZone({
+    required ZoneModel zone,
     required bool setCountryOnly,
     required bool notify,
     required String invoker,
   }){
 
-    // blog('setCurrentZone START : zone = $zone : invoker : $invoker : setCountryOnly : $setCountryOnly');
-
-    // zone?.blogZone(invoker: 'setCurrentZone');
-
     if (setCountryOnly == true){
-      _currentZone = zone?.nullifyField(
+      _currentZone = zone.nullifyField(
         cityID: true,
         cityName: true,
         cityModel: true,
@@ -156,7 +107,7 @@ class ZoneProvider extends ChangeNotifier {
       _currentZone = zone;
     }
 
-    if (_currentZone == null){
+    if (_currentZone == ZoneModel.planetZone){
       _isViewingPlanet = true;
     }
     else {
@@ -166,24 +117,16 @@ class ZoneProvider extends ChangeNotifier {
     if (notify == true){
       notifyListeners();
     }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void clearCurrentZone({
-    required bool notify,
-  }){
-    setCurrentZone(
-      zone: null,
-      setCountryOnly: false,
-      notify: notify,
-      invoker: 'clearCurrentZone',
-    );
+
   }
   // -----------------------------------------------------------------------------
 
   /// CURRENCY
 
   // --------------------
+  /// TASK: REMOVE_ALL_CURRENCIES
+  /// REMOVE ALL CURRENCIES FOR MEMORY OPTIMIZATION AND LET IT BE FETCHED FROM JSON INSTEAD WHEN
+  /// NEEDED
   List<CurrencyModel>? _allCurrencies = <CurrencyModel>[];
   List<CurrencyModel>? get allCurrencies => _allCurrencies;
   // --------------------
@@ -237,86 +180,26 @@ class ZoneProvider extends ChangeNotifier {
 
     return _currency;
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> _fetchSetAllCurrenciesAndCurrentCurrency({
-    required String? countryID,
-    required bool notify,
-  }) async {
-
-    // blog('_fetchSetAllCurrenciesAndCurrentCurrency : START');
-
-    final List<CurrencyModel> _currencies = await ZoneProtocols.fetchCurrencies();
-
-    final CurrencyModel? _currencyByCountryID = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
-      currencies: _currencies,
-      countryID: countryID,
-    );
-
-    _allCurrencies = _currencies;
-    _currentCurrency = _currencyByCountryID;
-
-    _setAllCurrenciesAndCurrentCurrency(
-      allCurrencies: _currencies,
-      currentCurrency: _currencyByCountryID,
-      notify: notify,
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void getSetCurrentCurrency({
-    required ZoneModel? zone,
-    required bool notify,
-  }){
-
-    if (zone != null && zone.countryID != null){
-
-      final CurrencyModel? _currencyByCountryID = CurrencyModel
-          .getCurrencyFromCurrenciesByCountryID(
-        currencies: _allCurrencies,
-        countryID: _currentZone?.countryID,
-      );
-
-      if (_currencyByCountryID != null){
-        _currentCurrency = _currencyByCountryID;
-      }
-
-      if (notify == true){
-        notifyListeners();
-      }
-
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void _setAllCurrenciesAndCurrentCurrency({
-    required List<CurrencyModel>? allCurrencies,
-    required CurrencyModel? currentCurrency,
-    required bool notify,
-  }){
-    _allCurrencies = allCurrencies;
-    _currentCurrency = currentCurrency;
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void clearCurrentCurrencyAndAllCurrencies({
-    required bool notify,
-  }){
-    _setAllCurrenciesAndCurrentCurrency(
-      currentCurrency: null,
-      allCurrencies: null,
-      notify: notify,
-    );
-  }
   // -----------------------------------------------------------------------------
 
   /// WIPE OUT
 
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _wipeOut({
+    required bool notify,
+  }){
+
+    _currentZone = ZoneModel.planetZone;
+    _isViewingPlanet = true;
+    // _allCurrencies = [];
+    _currentCurrency = null;
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
@@ -324,47 +207,10 @@ class ZoneProvider extends ChangeNotifier {
   }){
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
-
-    // /// _currentContinent
-    // _zoneProvider.clearCurrentContinent(notify: false);
-
-    /// _currentZone
-    _zoneProvider.clearCurrentZone(
-      notify: false,
+    _zoneProvider._wipeOut(
+      notify: notify,
     );
-
-    /// _allCurrencies - currentCurrency
-    _zoneProvider._setAllCurrenciesAndCurrentCurrency(
-      allCurrencies: <CurrencyModel>[],
-      currentCurrency: null,
-      notify: false,
-    );
-
 
   }
   // -----------------------------------------------------------------------------
 }
-  // --------------------
-/// TASK : ACTIVATED & GLOBAL COUNTRIES
-  // --------------------
-/// ZONES NAMES
-  // --------------------
-/*
-//   String translateCurrentCountryNameByCurrentLingo(BuildContext context) {
-//     final String _name = superPhrase(context, _currentCountryModel.id);
-//     return _name;
-//   }
-  // --------------------
-//   String translateCurrentCityName(BuildContext context){
-//     final String _cityName = CityModel.translateCityNameWithCurrentLingoIfPossible(context, _currentCityModel);
-//     return _cityName;
-//   }
-  // -----------------------------------------------------------------------------
-//   String translateCityNameWithCurrentLingoIfPossible(BuildContext context, String cityID){
-//
-//     final String _nameInCurrentLanguage = superPhrase(context, cityID);
-//
-//     return _nameInCurrentLanguage ?? cityID;
-//   }
-   */
-  // --------------------

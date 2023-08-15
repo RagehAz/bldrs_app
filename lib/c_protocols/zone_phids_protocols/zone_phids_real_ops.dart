@@ -28,11 +28,11 @@ class ZonePhidsRealOps {
       listen: false,
     );
 
-    if (_currentZone == null){
+    if (_currentZone == null || _currentZone == ZoneModel.planetZone){
       _output = await _readPlanetPhids();
     }
 
-    if (_currentZone != null && _currentZone.countryID != null){
+    if (_currentZone != null){
 
       /// COUNTRY PHIDS
       if (_currentZone.cityID == null){
@@ -146,7 +146,7 @@ class ZonePhidsRealOps {
 
       await Real.incrementPathFields(
         path: RealPath.zonesPhids_countryID_cityID(
-            countryID: flyerModel.zone!.countryID!,
+            countryID: flyerModel.zone!.countryID,
             cityID: flyerModel.zone!.cityID!,
         ),
         incrementationMap: _cityPhidsToAdd?.toMap(),

@@ -182,9 +182,11 @@ Future<void> initializeUserZone() async {
 
   if (_myUserModel != null){
 
-    final ZoneModel? _userZoneCompleted = await ZoneProtocols.completeZoneModel(
-      incompleteZoneModel: _myUserModel.zone,
-    );
+    ZoneModel? _userZoneCompleted = _myUserModel.zone;
+
+    _userZoneCompleted ??= await ZoneProtocols.getZoneByIP();
+
+    _userZoneCompleted = await ZoneProtocols.completeZoneModel(incompleteZoneModel: _myUserModel.zone);
 
     UsersProvider.proSetMyUserModel(
       userModel: _myUserModel.copyWith(zone: _userZoneCompleted),
@@ -201,7 +203,7 @@ Future<void> initializeCurrentZone() async {
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
 
-  if (_zoneProvider.isViewingPlanet == false && _zoneProvider.currentZone == null){
+  if (_zoneProvider.isViewingPlanet == false){
 
     final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
@@ -211,7 +213,7 @@ Future<void> initializeCurrentZone() async {
     /// USER ZONE IS DEFINED
     if (_myUserModel?.zone != null){// && Authing.userIsSignedUp(_myUserModel?.signInMethod) == true){
 
-      await _zoneProvider.fetchSetCurrentCompleteZone(
+      await _zoneProvider.setCurrentZone(
         zone: _myUserModel?.zone,
         notify: true,
         invoker: 'initializeHomeScreen.initializeCurrentZone',
@@ -224,13 +226,23 @@ Future<void> initializeCurrentZone() async {
 
       final ZoneModel? _zoneByIP = await ZoneProtocols.getZoneByIP();
 
-      await _zoneProvider.fetchSetCurrentCompleteZone(
+      await _zoneProvider.setCurrentZone(
         zone: _zoneByIP,
         notify: true,
         invoker: 'initializeHomeScreen.initializeCurrentZone',
       );
 
     }
+
+  }
+
+  else {
+
+    await _zoneProvider.setCurrentZone(
+      zone: ZoneModel.planetZone,
+      notify: true,
+      invoker: 'initializeHomeScreen.initializeCurrentZone',
+    );
 
   }
 

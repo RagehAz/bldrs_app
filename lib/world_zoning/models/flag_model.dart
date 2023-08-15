@@ -275,7 +275,7 @@ class Flag {
   static String? getCountryIcon(String? countryID) {
     String? _output = Iconz.planet;
 
-    if (countryID != null) {
+    if (countryID != null && countryID != ZoneModel.planetID) {
 
       final Flag? _flag = getFlagFromFlagsByCountryID(
         flags: allFlags,
@@ -297,7 +297,7 @@ class Flag {
   static String? getCountryPhoneCode(String? countryID){
     String? _output;
 
-    if (countryID != null) {
+    if (countryID != null && countryID != ZoneModel.planetID) {
 
       final Flag? _flag = getFlagFromFlagsByCountryID(
         flags: allFlags,
@@ -317,20 +317,28 @@ class Flag {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? getCountryCurrencyID(String? countryID){
-    String? _output;
+    Flag? _flag;
+
 
     if (countryID != null) {
 
-      final Flag? _flag = getFlagFromFlagsByCountryID(
-        flags: allFlags,
-        countryID: countryID,
-      );
+      if (countryID == ZoneModel.planetID){
+        _flag = getFlagFromFlagsByCountryID(
+          flags: allFlags,
+          countryID: 'usa',
+        );
+      }
+      else {
+        _flag = getFlagFromFlagsByCountryID(
+          flags: allFlags,
+          countryID: countryID,
+        );
+      }
 
-      _output = _flag?.currencyID;
 
     }
 
-    return _output;
+    return _flag?.currencyID;
   }
   // -----------------------------------------------------------------------------
 
@@ -346,16 +354,26 @@ class Flag {
 
     if (countryID != null) {
 
-      final Flag? _flag = getFlagFromFlagsByCountryID(
-        flags: allFlags,
-        countryID: countryID,
-      );
+      if (countryID == ZoneModel.planetID){
+        _output = Phrase(
+          id: ZoneModel.planetID,
+          value: ZoneModel.planetZone.countryName,
+          langCode: Localizer.getCurrentLangCode(),
+        );
+      }
 
-      _output = Phrase.searchPhraseByIDAndLangCode(
-          phrases: _flag?.phrases,
-          phid: _flag?.id,
-          langCode: langCode
-      );
+      else {
+        final Flag? _flag = getFlagFromFlagsByCountryID(
+          flags: allFlags,
+          countryID: countryID,
+        );
+
+        _output = Phrase.searchPhraseByIDAndLangCode(
+            phrases: _flag?.phrases,
+            phid: _flag?.id,
+            langCode: langCode
+        );
+      }
 
     }
 
@@ -368,12 +386,18 @@ class Flag {
     required String? langCode, // Localizer.getCurrentLangCode()
   }){
 
-    final Phrase? _phrase = getCountryPhrase(
-      countryID: countryID,
-      langCode: langCode,
-    );
+    if (countryID == ZoneModel.planetID){
+      return ZoneModel.planetZone.countryName;
+    }
+    else {
+      final Phrase? _phrase = getCountryPhrase(
+        countryID: countryID,
+        langCode: langCode,
+      );
 
-    return _phrase?.value;
+      return _phrase?.value;
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
