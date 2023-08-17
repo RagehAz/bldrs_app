@@ -1,4 +1,4 @@
-### 2.2.2
+### 2.2.0
 1. Ui updates
 2. performance optimization and faster navigation
 3. fixed Country selection bug
