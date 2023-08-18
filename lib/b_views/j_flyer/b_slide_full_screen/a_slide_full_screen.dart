@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -45,9 +46,9 @@ class SlideFullScreen extends StatelessWidget {
           // canZoom: true,
           isFullScreen: true,
           autoShrink: false,
-          child: SuperFilteredImage(
+          child: BldrsImage(
             pic: image,
-            boxFit: Dimensions.concludeBoxFit(
+            fit: Dimensions.concludeBoxFit(
               viewWidth: _screenWidth,
               viewHeight: _screenHeight,
               picWidth: imageSize.width ?? 0,
@@ -55,9 +56,9 @@ class SlideFullScreen extends StatelessWidget {
             ),
             width: Scale.screenWidth(context),
             height: Scale.screenHeight(context),
-            filterModel: filter,
-            canUseFilter: false, // filter != null,
-            loading: false,
+            // filterModel: filter,
+            // canUseFilter: false, // filter != null,
+            // loading: false,
           ),
         ),
       ),
