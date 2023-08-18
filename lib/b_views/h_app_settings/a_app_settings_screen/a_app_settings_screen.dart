@@ -49,7 +49,7 @@ class AppSettingsScreen extends StatelessWidget {
         const PyramidFloatingButton(
           icon: Iconz.lab,
           color: Colorz.red255,
-          onTap: superDevTest,
+          onTap: superDevTestGo,
         ),
 
         /// LAUNCH APP STORE

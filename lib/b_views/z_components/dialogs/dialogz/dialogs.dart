@@ -614,7 +614,7 @@ class Dialogs {
   }
   // -----------------------------------------------------------------------------
 
-  /// TEXT FIELD DIALOGS
+  /// MISSING FIELDS DIALOGS
 
   // --------------------
   ///
@@ -1242,5 +1242,46 @@ class Dialogs {
     );
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// PARAGRAPH
+
   // --------------------
+  static Future<void> paragraphDialog({
+    required Verse paragraph,
+    bool paragraphCentered = true,
+    Verse? title,
+    Verse? body,
+    bool invertButtons = false,
+    bool boolDialog = true,
+    Verse? confirmButtonVerse,
+    Verse? noVerse,
+  }) async {
+
+    final BuildContext context = getMainContext();
+    final double _dialogWidth = CenterDialog.clearWidth(context);
+    const double _margin = 10;
+    final double _paragraphWidth = _dialogWidth - (_margin * 2);
+
+    await CenterDialog.showCenterDialog(
+      titleVerse: title,
+      bodyVerse: body,
+      confirmButtonVerse: confirmButtonVerse,
+      invertButtons: invertButtons,
+      boolDialog: boolDialog,
+      noVerse: noVerse,
+      // bodyCentered: true,
+      height: Scale.screenHeight(context) * 0.8,
+        child: BldrsText(
+          width: _paragraphWidth,
+          verse: paragraph,
+          maxLines: 1000,
+          // appIsLTR: UiProvider.checkAppIsLeftToRight(),
+          // textDirection: UiProvider.getAppTextDir(),
+          centered: paragraphCentered,
+        )
+    );
+
+  }
+  // -----------------------------------------------------------------------------
 }

@@ -397,6 +397,18 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     widget.onConfirm(_draftNotifier.value);
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Verse _createConfirmVerse(){
+
+    if (Mapper.boolIsTrue(widget.draftFlyer?.firstTimer) == true){
+      return const Verse(id: 'phid_createFlyer', translate: true);
+    }
+    else {
+      return const Verse(id: 'phid_edit_flyer', translate: true);
+    }
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -406,10 +418,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     // --------------------
     return MainLayout(
       key: const ValueKey<String>('FlyerPublisherScreen'),
-      title: Verse(
-        id: Mapper.boolIsTrue(widget.draftFlyer?.firstTimer) == true ? 'phid_createFlyer' : 'phid_edit_flyer',
-        translate: true,
-      ),
+      title: _createConfirmVerse(),
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
@@ -612,7 +621,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
 
                 /// 6 - CONFIRM
                 EditorConfirmPage(
-                  verse:  const Verse(id: 'phid_confirm_upload_flyer', translate: true),
+                  verse: _createConfirmVerse(),
                   onConfirmTap: _onConfirmTap,
                   canConfirm: _canConfirmEdits(),
                   modelHasChanged: _flyerHasChanged(),

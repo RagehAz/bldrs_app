@@ -68,6 +68,7 @@ class UiInitializer {
     final bool _deviceTimeIsCorrect = await BldrsTimers.checkDeviceTimeIsCorrect(
       context: getMainContext(),
       showIncorrectTimeDialog: true,
+      canThrowError: true,
     );
 
     if (_deviceTimeIsCorrect == true){

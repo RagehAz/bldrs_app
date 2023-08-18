@@ -463,21 +463,27 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     );
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Verse _createConfirmVerse(){
+
+    if (UserModel.userIsSignedUp(widget.userModel) == true){
+       return const Verse(id: 'phid_updateProfile', translate: true);
+    }
+
+    else {
+      return const Verse(id: 'phid_createProfile', translate: true);
+    }
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-
-    final Verse _createOrUpdateProfileVerse = UserModel.userIsSignedUp(widget.userModel) == true ?
-        const Verse(id: 'phid_updateProfile', translate: true)
-        :
-        const Verse(id: 'phid_createProfile', translate: true);
-
-    // --------------------
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
-      title: _createOrUpdateProfileVerse,
+      title: _createConfirmVerse(),
       skyType: SkyType.black,
       loading: _loading,
       progressBarModel: _progressBarModel,
@@ -863,7 +869,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
 
                 /// 4 - CONFIRM
                 EditorConfirmPage(
-                  verse: _createOrUpdateProfileVerse,
+                  verse: _createConfirmVerse(),
                   onConfirmTap: _onConfirmTap,
                   canConfirm: _canConfirmEdits(),
                   modelHasChanged: _userHasChange(),

@@ -41,14 +41,14 @@ dependencies:
   # ------------------------------------
   # FOR PUBLISHING
   basics:
-#    path: D:/projects/packages/helpers/basics
-    git:
-      url: https://github.com/RagehAz/basics.git
+    path: D:/projects/packages/helpers/basics
+#    git:
+#      url: https://github.com/RagehAz/basics.git
   # ------------------------------------
   fire:
-#    path: D:/projects/packages/backend/fire
-    git:
-      url: https://github.com/RagehAz/fire.git
+    path: D:/projects/packages/backend/fire
+#    git:
+#      url: https://github.com/RagehAz/fire.git
   # ------------------------------------
   bldrs_keywords:
     git:
@@ -86,6 +86,7 @@ dependencies:
   share_plus: ^7.0.2
   circle_list: ^1.0.5
   wheel_chooser: ^1.1.2
+  sentry_flutter: ^7.9.0
 # --------------------------------------------------------------------------------
 dev_dependencies:
   flutter_test:
