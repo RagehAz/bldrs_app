@@ -7,11 +7,14 @@ import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/rest/rest.dart';
 import 'package:basics/helpers/classes/time/internet_time.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:bldrs/f_helpers/drafters/errorize.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -256,6 +259,7 @@ class BldrsTimers {
   static Future<bool> checkDeviceTimeIsCorrect({
     required BuildContext context,
     required bool showIncorrectTimeDialog,
+    required bool canThrowError,
     Function? onRestart,
   }) async {
 
@@ -299,8 +303,20 @@ class BldrsTimers {
       );
       _zoneLine = _zoneLine.id != '...' ? _zoneLine : Verse(
         /// PLAN : THIS NEEDS TRANSLATION : IN COMES LIKE THIS 'Africa/Cairo'
-        id: 'in $_timezone',
+        id: '${getWord('phid_inn')} $_timezone',
         translate: false,
+      );
+
+      _throwTimeError(
+        canThrowError: canThrowError,
+        deviceTime: _deviceTime,
+        internetTime: _internetTime,
+        timeZone: _timezone,
+        isTolerable: _isTolerable,
+        dd_month_yyy_actual: _dd_month_yyy_actual,
+        hh_i_mm_ampm_actual: _hh_i_mm_ampm_actual,
+        dd_month_yyy_device: _dd_month_yyy_device,
+        hh_i_mm_ampm_device: _hh_i_mm_ampm_device,
       );
 
       await CenterDialog.showCenterDialog(
@@ -381,4 +397,48 @@ class BldrsTimers {
     };
   }
   // --------------------
+  static _throwTimeError({
+    required bool canThrowError,
+    required DateTime? internetTime,
+    required DateTime? deviceTime,
+    required bool isTolerable,
+    required String? timeZone,
+    required String? dd_month_yyy_actual,
+    required String? hh_i_mm_ampm_actual,
+    required String? dd_month_yyy_device,
+    required String? hh_i_mm_ampm_device,
+  }) {
+
+      if (canThrowError == true){
+
+        final UserModel? _user = UsersProvider.proGetMyUserModel(
+          context: getMainContext(),
+          listen: false,
+        );
+
+        final Map<String, dynamic>? _maw = _user?.toMap(toJSON: true);
+
+        Errorize.throwMaps(
+          invoker: 'user had wrong clock',
+          maps: [
+            {
+              'now': Timers.cipherTime(time: deviceTime, toJSON: false),
+              'internet': Timers.cipherTime(time: internetTime, toJSON: false),
+              'isTolerable': isTolerable,
+              'timeZone': timeZone,
+              'dd_month_yyy_actual': dd_month_yyy_actual,
+              'hh_i_mm_ampm_actual': hh_i_mm_ampm_actual,
+              'dd_month_yyy_device': dd_month_yyy_device,
+              'hh_i_mm_ampm_device': hh_i_mm_ampm_device,
+            },
+            {
+              'user': _maw,
+            },
+          ],
+        );
+
+      }
+
+    }
+
 }
