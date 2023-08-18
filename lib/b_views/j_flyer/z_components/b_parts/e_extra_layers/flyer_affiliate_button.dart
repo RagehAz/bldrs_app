@@ -88,10 +88,7 @@ class FlyerAffiliateButton extends StatelessWidget {
         ),
         verseWeight: _isTinyMode == true ? VerseWeight.bold : VerseWeight.black,
         onTap: () async {
-          await Launcher.shareURL(
-            url: flyerModel?.affiliateLink,
-            subject: flyerModel?.headline,
-          );
+          await Launcher.launchURL(flyerModel?.affiliateLink);
           },
       );
 
