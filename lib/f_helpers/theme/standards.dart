@@ -179,11 +179,11 @@ class Standards {
   // --------------------
   /// BLDRS NAME SQUARE
   static const String bldrsNameSquarePicPath = 'storage/bldrs/bldrs_name.png';
-  static const String bldrsNameSquarePicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fbldrs_name.png?alt=media&token=5ecc5b76-ff15-464c-aadc-dfed5ac7e41f';
+  static const String bldrsNameSquarePicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fbldrs_name.png?alt=media&token=1c23af54-b92a-4882-8139-5271f4d8c8ec';
   // --------------------
   /// BLDRS NAME
   static const String bldrsNamePosterPicPath = 'storage/bldrs/bldrs_name_poster.png';
-  static const String bldrsNamePosterPicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fbldrs_name_poster.png?alt=media&token=7ee27cde-f0eb-4d58-b3a2-29bc369c8886';
+  static const String bldrsNamePosterPicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fbldrs_name_poster.png?alt=media&token=70e6913b-e062-400d-84d3-08b6685ca037';
   // --------------------
   /// BLDRS APP ICON
   static const String bldrsAppIconPath = 'storage/bldrs/bldrs_app_icon.png';
