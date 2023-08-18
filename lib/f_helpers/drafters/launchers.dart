@@ -88,10 +88,7 @@ class Launcher {
       }
       /// WEB LINK
       else if (ContactModel.checkIsWebLink(contact.type) == true){
-        await shareURL(
-          url: contact.value,
-          subject: 'Bldr Contact',
-        );
+        await launchURL(contact.value);
       }
       /// EMAIL
       else if (contact.type == ContactType.email){
@@ -115,16 +112,15 @@ class Launcher {
   /// LAUNCH URL
 
   // --------------------
-  /// DEPRECATED IN FAVOR OF [ shareURL ]
-  /*
   /// TESTED : WORKS PERFECT
   static Future<bool> launchURL(String? link) async {
 
     bool _success = false;
 
-    final Uri? _uri = _getURIFromLink(link);
 
-    if (_uri != null){
+    if (link != null){
+
+      final Uri _uri = Uri.parse(cleanURL(link) ?? '');
 
       if (await Launch.canLaunchUrl(_uri) == true) {
 
@@ -145,7 +141,6 @@ class Launcher {
 
     return _success;
   }
-   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> shareURL({
@@ -308,10 +303,7 @@ class Launcher {
       await _launchAppleAppStore(iosAppID: iosAppID);
     }
     else if (TextCheck.isEmpty(webSite) == false){
-      await shareURL(
-        url: webSite,
-        subject: 'Bldrs.net, Download now',
-      );
+      await launchURL(webSite);
     }
 
   }
