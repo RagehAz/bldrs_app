@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
@@ -137,6 +141,9 @@ class AppStateInitializer {
     /// MUST UPDATE
     if (_mustUpdate == true){
 
+      /// TEMPORARY UNTIL APP BECOMES MORE STABLE
+      unawaited(LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.accounts));
+
       await CenterDialog.showCenterDialog(
         titleVerse:  getVerse('phid_newUpdateAvailable'),
         bodyVerse: Verse.plain(
@@ -200,5 +207,5 @@ ${getWord('phid_new_version')} : ${globalState.appVersion}
 
     return _output;
   }
-  // --------------------
+  // -----------------------------------------------------------------------------
 }

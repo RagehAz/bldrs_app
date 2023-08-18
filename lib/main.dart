@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:basics/animators/helpers/app_scroll_behavior.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
@@ -22,7 +23,11 @@ import 'package:fire/super_fire.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'bldrs_keys.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
+
+// ---------------------------------------------------------------------------
 
 Future<void> main() async {
   /// -----------------------------------------------------------------------------
@@ -64,15 +69,77 @@ Future<void> main() async {
     // GoogleAds.initialize(),
 
   ]);
-  /// --------------------
-  runApp(
-    DevicePreview(
-      /// ignore: avoid_redundant_argument_values
-      enabled: false,
-      builder: (context) => const BldrsAppStarter(),
-    ),
-  );
+  // --------------------
+  /// DEVICE PREVIEW
+  // runApp(
+  //   DevicePreview(
+  //     /// ignore: avoid_redundant_argument_values
+  //     enabled: false,
+  //     builder: (context) => const BldrsAppStarter(),
+  //   ),
+  // );
+  // --------------------
+  /// SENTRY
+  await sentryBldrs();
   /// -----------------------------------------------------------------------------
+}
+
+// ---------------------------------------------------------------------------
+
+Future<void> sentryBldrs() async {
+
+  // if (kDebugMode) {
+    final pkg = await PackageInfo.fromPlatform();
+    await SentryFlutter.init(
+      (options) async {
+        const String _thing = 'https://1c1d8068e888994cfeee26f0dfaafcd6@o4505718555213824.ingest.sentry.io/4505718558883840';
+        // final release = AppPatcher.fullVersion;
+        options.dsn = _thing; //AppConstants.sentryDsn;
+        options.release = pkg.version;
+        options.sendDefaultPii = true;
+        options.environment = 'production';
+        options.attachScreenshot = true;
+
+      },
+      appRunner: () async {
+        Sentry.configureScope(
+          (scope) async {
+            late final BaseDeviceInfo deviceInfo;
+            if (Platform.isAndroid) {
+              deviceInfo = await DeviceChecker.getDeviceInfoPlugin().androidInfo;
+            } else {
+              deviceInfo = await DeviceChecker.getDeviceInfoPlugin().iosInfo;
+            }
+
+            await scope.setContexts('device_info', deviceInfo.data);
+
+            final packageInfoAsMap = <String, String>{
+              'packageName': pkg.packageName,
+              'appName': pkg.appName,
+              'buildNumber': pkg.buildNumber,
+              'buildSignature': pkg.buildSignature,
+              'version': pkg.version,
+            };
+
+            await scope.setContexts('package_info', packageInfoAsMap);
+          },
+        );
+        return runApp(
+          DefaultAssetBundle(
+            bundle: SentryAssetBundle(),
+            child: const SentryScreenshotWidget(
+              child: BldrsAppStarter(),
+            ),
+          ),
+        );
+      },
+    );
+  // }
+
+  // else {
+  //   runApp(const BldrsAppStarter());
+  // }
+
 }
 
 // ---------------------------------------------------------------------------
