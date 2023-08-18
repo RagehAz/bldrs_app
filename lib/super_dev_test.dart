@@ -1,7 +1,7 @@
 import 'dart:async';
 
 /// SUPER_DEV_TEST
-Future<void> superDevTest() async {
+Future<void> superDevTestGo() async {
 
   // const String _path = '/assets/countries/deu.json';
   // final String _jsonStringValues = await rootBundle.loadString(_path);
@@ -46,5 +46,19 @@ Future<void> superDevTest() async {
   //   blog('DONE ( ${i+1} / ${_countriesIDs.length} ) : $countryID');
   //
   // }
+
+
+  // blog('aho maw');
+  //
+  // final UserModel? _user = UsersProvider.proGetMyUserModel(
+  //     context: getMainContext(),
+  //     listen: false,
+  // );
+  //
+  // final Map<String, dynamic>? _maw = _user?.toMap(toJSON: true);
+  //
+  // Errorize.throwMap(invoker: 'myUser', map: _maw);
+  //
+  // blog('function after maw');
 
 }

@@ -201,13 +201,13 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
           color: Colorz.yellow255),
       // 10
       AnimatedLogoScreen.createBeat(
-          start: 4800, duration: 300, text: '- ${getWord('phid_designers')}'),
+          start: 4800, duration: 300, text: '- ${getWord('phid_realEstate')}'),
       // 7
       AnimatedLogoScreen.createBeat(
-          start: 5150, duration: 300, text: '- ${getWord('phid_contractors')}'),
+          start: 5150, duration: 300, text: '- ${getWord('phid_construction')}'),
       // 8
       AnimatedLogoScreen.createBeat(
-          start: 5450, duration: 300, text: '- ${getWord('phid_artisans')}'),
+          start: 5450, duration: 300, text: '- ${getWord('phid_supplies')}'),
       // 9
     ];
   }

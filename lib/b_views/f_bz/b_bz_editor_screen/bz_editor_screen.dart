@@ -444,6 +444,20 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
     );
 
   }
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Verse _createConfirmVerse(){
+
+    if (widget.bzModel == null){
+      return const Verse(id: 'phid_createBzAccount', translate: true);
+    }
+
+    else {
+      return const Verse(id: 'phid_edit_bz_info', translate: true);
+    }
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -466,10 +480,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
-      title: Verse(
-        id: widget.bzModel == null ? 'phid_createBzAccount' : 'phid_edit_bz_info',
-        translate: true,
-      ),
+      title: _createConfirmVerse(),
       skyType: SkyType.black,
       loading: _loading,
       progressBarModel: _progressBarModel,
@@ -959,12 +970,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     const Horizon(
                       heightFactor: 0,
                     ),
+
                   ],
                 ),
 
                 /// 5 - CONFIRM
                 EditorConfirmPage(
-                  verse:  const Verse(id: 'phid_updateProfile', translate: true),
+                  verse: _createConfirmVerse(),
                   onConfirmTap: _onConfirmTap,
                   canConfirm: _canConfirmEdits(),
                   modelHasChanged: _bzHasChanged(),
