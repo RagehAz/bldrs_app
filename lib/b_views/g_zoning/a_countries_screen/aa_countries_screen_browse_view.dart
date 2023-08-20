@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/country_tile_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
