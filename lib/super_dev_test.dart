@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'package:basics/bldrs_theme/assets/planet/paths.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/json/city_json_ops.dart';
 
 /// SUPER_DEV_TEST
-Future<void> superDevTestGo() async {
+Future<void> superDevTestGoX() async {
 
 
 
@@ -66,14 +65,15 @@ Future<void> superDevTestGo() async {
   // Errorize.throwMap(invoker: 'myUser', map: _maw);
   //
   // blog('function after maw');
+  blog('time is : ${DateTime.now()}');
 
-  blog('start');
-
-  final Map<String, dynamic> map = await Filers.readLocalJSON(
-      path: WorldZoningPaths.populationsFilePath,
+  final Map<String, dynamic>? mapSS = await CityJsonOps.readCountryCitiesJson(
+    countryID: 'egy'
   );
+  //
+  //
+  Mapper.blogMap(mapSS);
 
 
-  Mapper.blogMap(map);
 
 }
