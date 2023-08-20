@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/aa_pickers_screen_browse_view.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/aa_pickers_screen_search_view.dart';

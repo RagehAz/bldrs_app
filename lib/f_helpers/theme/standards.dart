@@ -100,7 +100,7 @@ class Standards {
   /// OTHER STANDARDS
 
   // --------------------
-  static const int maxTrigramLength = 7;
+  static const int maxTrigramLength = 5;
   static const int maxLocationFetchSeconds = 10;
 
   /// THIS IS USED TO TRIM PHID TEXT ON SCREEN TO AVOID OVERFLOW

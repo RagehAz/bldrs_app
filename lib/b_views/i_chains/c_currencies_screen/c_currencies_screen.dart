@@ -2,7 +2,6 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/layouts/separators/separator_line.dart';
-import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/b_views/i_chains/c_currencies_screen/x_currencies_screen_controllers.dart';
 import 'package:bldrs/b_views/i_chains/z_components/currencies/currency_list_builder.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/xx_currency_button.dart';
