@@ -2,6 +2,7 @@ import 'package:basics/bldrs_theme/assets/planet/paths.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 
+/// => TAMAM
 class CityJsonOps{
   // ---------------------------------------------------------------------------
 
@@ -22,7 +23,7 @@ class CityJsonOps{
   /// READ CITIES
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>?> readCountryCitiesJson({
     required String? countryID,
   }) async {
@@ -39,7 +40,7 @@ class CityJsonOps{
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>?> readCountriesCitiesJsonsMap({
     required List<String> countriesIDs,
   }) async {
@@ -79,7 +80,7 @@ class CityJsonOps{
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>?> readCountriesCitiesJsonsMapOneByOne({
     required List<String> countriesIDs,
   }) async {
@@ -115,15 +116,15 @@ class CityJsonOps{
   /// READ POPULATION
 
   // --------------------
-  /// TASK : TEST ME
-  static Future<Map<String, dynamic>?> readCitiesPopulationsJson() async {
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>> readCitiesPopulationsJson() async {
     return Filers.readLocalJSON(
       path: WorldZoningPaths.populationsFilePath,
     );
   }
   // --------------------
-  /// TASK : TEST ME
-  static Future<Map<String, dynamic>?> readCitiesPositionsJson() async {
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>> readCitiesPositionsJson() async {
     return Filers.readLocalJSON(
         path: WorldZoningPaths.positionsFilePath,
     );

@@ -1,6 +1,8 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/widgets/buttons/stores_buttons/store_button.dart';
 import 'package:basics/helpers/widgets/drawing/spacing.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
@@ -21,11 +23,11 @@ import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/json/city_json_ops.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs/super_dev_test.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,11 +47,27 @@ class AppSettingsScreen extends StatelessWidget {
     return FloatingLayout(
       pyramidButtons: UsersProvider.userIsRage7() == false ? null : [
 
+        PyramidFloatingButton(
+          icon: Iconz.star,
+          color: Colorz.bloodTest,
+          onTap: () async {
+
+            final Map<String, dynamic>? mapSS = await CityJsonOps.readCountriesCitiesJsonsMapOneByOne(
+                countriesIDs: ['egy', 'sau'],
+            );
+
+            Mapper.blogMap(mapSS);
+
+          },
+        ),
+
         /// TEST
-        const PyramidFloatingButton(
+        PyramidFloatingButton(
           icon: Iconz.lab,
-          color: Colorz.red255,
-          onTap: superDevTestGo,
+          color: Colorz.green255,
+          onTap: () async {
+            blog('bojo');
+          },
         ),
 
         /// LAUNCH APP STORE
