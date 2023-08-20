@@ -1,13 +1,12 @@
-import 'dart:convert';
-
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:flutter/services.dart';
 /// => TAMAM
 class ContinentJsonOps {
   // -----------------------------------------------------------------------------
 
   const ContinentJsonOps();
 
+  static const continentsJsonPath = 'packages/basics/lib/bldrs_theme/assets/planet/continents.json';
   // -----------------------------------------------------------------------------
 
   /// READ CONTINENTS
@@ -15,8 +14,11 @@ class ContinentJsonOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Continent>> readAllContinents() async {
-    final String _jsonStringValues = await rootBundle.loadString('packages/basics/lib/bldrs_theme/assets/planet/continents.json');
-    final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
+
+    final Map<String, dynamic> _mappedJson = await Filers.readLocalJSON(
+        path: continentsJsonPath,
+    );
+
     return Continent.decipherContinents(_mappedJson);
   }
   // -----------------------------------------------------------------------------

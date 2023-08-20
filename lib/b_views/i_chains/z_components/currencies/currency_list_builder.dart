@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/xx_currency_button.dart';
+import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyListBuilder extends StatelessWidget {
