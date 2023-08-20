@@ -6,8 +6,10 @@ import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/models/flag_model.dart';
+import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_search_view.dart';
@@ -194,12 +196,12 @@ class _CountriesScreenState extends State<CountriesScreen> {
     );
 
     /// FINAL IDS
-    final List<String> _shown = Flag.sortCountriesNamesAlphabetically(
+    final List<String> _shown = CountryModel.sortCountriesNamesAlphabetically(
       countriesIDs: _shownIDs,
       langCode: Localizer.getCurrentLangCode(),
     );
 
-    final List<String> _notShown = Flag.sortCountriesNamesAlphabetically(
+    final List<String> _notShown = CountryModel.sortCountriesNamesAlphabetically(
       countriesIDs: _notShownIDs,
       langCode: Localizer.getCurrentLangCode(),
     );
@@ -265,7 +267,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
     await ZoneSelection.onSelectCountry(
       context: context,
-      countryID: ZoneModel.planetID,
+      countryID: Flag.planetID,
       depth: widget.depth,
       zoneViewingEvent: widget.zoneViewingEvent,
       viewerZone: widget.viewerZone,

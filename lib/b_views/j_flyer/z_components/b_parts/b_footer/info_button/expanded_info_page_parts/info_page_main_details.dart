@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
@@ -37,7 +37,7 @@ class InfoPageMainDetails extends StatelessWidget {
       }
 
       String? _country = zone.countryName;
-      _country ??= Flag.translateCountry(
+      _country ??= CountryModel.translateCountry(
           langCode: Localizer.getCurrentLangCode(),
           countryID: zone.countryID,
       );

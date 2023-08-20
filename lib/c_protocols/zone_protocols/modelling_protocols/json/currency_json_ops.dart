@@ -1,5 +1,6 @@
+import 'package:basics/bldrs_theme/assets/planet/paths.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 /// => TAMAM
 class CurrencyJsonOps {
   // -----------------------------------------------------------------------------
@@ -15,7 +16,7 @@ class CurrencyJsonOps {
   static Future<List<CurrencyModel>> readAllCurrencies() async {
 
     final Map<String, dynamic> _mappedJson = await Filers.readLocalJSON(
-        path: BldrsThemeCurrencies.currenciesFilePath,
+        path: WorldZoningPaths.currenciesFilePath,
     );
 
     return CurrencyModel.decipherCurrencies(_mappedJson);

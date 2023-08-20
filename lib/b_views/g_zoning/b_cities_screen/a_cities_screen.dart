@@ -5,8 +5,9 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/helpers/models/flag_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_search_view.dart';
@@ -149,6 +150,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
         /// SHOWN CITIES MODEL
         final List<CityModel> _orderedShownCities = CityModel.sortCitiesAlphabetically(
+          langCode: Localizer.getCurrentLangCode(),
           cities: CityModel.getCitiesFromCitiesByIDs(
             citiesModels: _cities,
             citiesIDs: _shownIDs,
@@ -162,6 +164,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         );
         /// NOT SHOWN CITIES MODELS
         final List<CityModel> _orderedNotShownCities = CityModel.sortCitiesAlphabetically(
+          langCode: Localizer.getCurrentLangCode(),
           cities: CityModel.getCitiesFromCitiesByIDs(
             citiesModels: _cities,
             citiesIDs: _notShownIDs,
@@ -334,7 +337,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     await ZoneSelection.onSelectCity(
       context: context,
       countryID: widget.countryID,
-      cityID: ZoneModel.allCitiesID,
+      cityID: Flag.allCitiesID,
       depth: widget.depth,
       zoneViewingEvent: widget.zoneViewingEvent,
     );
@@ -360,7 +363,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final String? _countryName = Flag.translateCountry(
+    final String? _countryName = CountryModel.translateCountry(
       langCode: Localizer.getCurrentLangCode(),
       countryID: widget.countryID,
     );

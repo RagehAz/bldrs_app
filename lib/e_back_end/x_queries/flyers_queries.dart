@@ -1,4 +1,5 @@
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:basics/helpers/models/flag_model.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/m_search/flyer_search_model.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
@@ -56,7 +57,7 @@ ZoneModel? _concludeHomeZone(BuildContext context){
 
   final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: true);
   final bool _showWorld = _currentZone == ZoneModel.planetZone;
-  final bool _showOnlyCountry = _currentZone.cityID == null || _currentZone.cityID == ZoneModel.allCitiesID;
+  final bool _showOnlyCountry = _currentZone.cityID == null || _currentZone.cityID == Flag.allCitiesID;
 
   if (_showWorld == true){
     return null;

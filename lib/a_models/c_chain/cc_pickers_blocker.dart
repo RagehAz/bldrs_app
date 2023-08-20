@@ -1,4 +1,3 @@
-import 'package:fire/super_fire.dart';
 import 'package:flutter/foundation.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
@@ -49,7 +48,7 @@ class PickersBlocker {
     if (map != null){
       _blocker = PickersBlocker(
         value: map['value'],
-        pickersIDsToBlock: Real.getStringsFromTheDamnThing(map['pickersIDsToBlock']),
+        pickersIDsToBlock: Mapper.getStringsFromTheDamnThing(map['pickersIDsToBlock']),
       );
     }
 

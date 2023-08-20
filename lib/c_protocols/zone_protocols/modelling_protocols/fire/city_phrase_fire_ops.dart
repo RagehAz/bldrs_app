@@ -1,5 +1,6 @@
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:basics/helpers/models/phrase_model.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
@@ -31,7 +32,7 @@ class CityPhraseFireOps {
 
           final Phrase _phrase = cityModel.phrases![index];
 
-          _phrase.blogPhrase(invoker: 'ahooo');
+          _phrase.blogPhrase(invoker: 'there you go my dear');
 
           return Fire.createDoc(
             coll: FireColl.phrases_cities,
