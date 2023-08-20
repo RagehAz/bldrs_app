@@ -1,9 +1,10 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/models/flag_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyButton extends StatelessWidget {

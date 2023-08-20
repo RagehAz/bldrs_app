@@ -3,11 +3,12 @@ import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/helpers/models/flag_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
@@ -323,7 +324,7 @@ class Formers {
 
         /// ONLY SELECTING COUNTRY ID + CITY ID
         else {
-          if (_countryID == null || _cityID == null || _cityID == ZoneModel.allCitiesID){
+          if (_countryID == null || _cityID == null || _cityID == Flag.allCitiesID){
             _message = getWord('phid_select_country_and_city');
           }
         }

@@ -1,8 +1,9 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/models/flag_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/m_search/bz_search_model.dart';
@@ -303,12 +304,12 @@ class SearchModel {
       zone: ZoneModel(
         countryID: 'egy',
         cityID: 'egy+cairo',
-        countryName: 'Masr',
-        cityName: 'kahera',
+        countryName: 'Egypt',
+        cityName: 'Cairo',
         icon: Flag.getCountryIcon('egy'),
       ),
       time: DateTime.now(),
-      text: 'Bojou Handojou',
+      text: 'egypt',
       flyerSearchModel: const FlyerSearchModel(
         flyerType: FlyerType.product,
         onlyShowingAuthors: true,
@@ -341,7 +342,7 @@ class SearchModel {
     if (
         countryID != null
         &&
-        countryID != ZoneModel.planetID
+        countryID != Flag.planetID
     ){
       return true;
     }
@@ -359,7 +360,7 @@ class SearchModel {
     if (
         cityID != null
         &&
-        cityID != ZoneModel.allCitiesID
+        cityID != Flag.allCitiesID
     ){
       return true;
     }

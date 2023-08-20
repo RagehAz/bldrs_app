@@ -4,13 +4,14 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/models/flag_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/super_image/super_image.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
@@ -653,6 +654,7 @@ class Dialogs {
 
               final CityModel _foundCity = cities[index];
               final String? _foundCityName = CityModel.translateCity(
+                langCode: Localizer.getCurrentLangCode(),
                 city: _foundCity,
               );
 

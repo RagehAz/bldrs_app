@@ -6,7 +6,7 @@ import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/create_new_bz_button.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';

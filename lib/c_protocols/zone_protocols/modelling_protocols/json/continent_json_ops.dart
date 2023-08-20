@@ -1,12 +1,12 @@
+import 'package:basics/bldrs_theme/assets/planet/paths.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:basics/helpers/models/continent_model.dart';
 /// => TAMAM
 class ContinentJsonOps {
   // -----------------------------------------------------------------------------
 
   const ContinentJsonOps();
 
-  static const continentsJsonPath = 'packages/basics/lib/bldrs_theme/assets/planet/continents.json';
   // -----------------------------------------------------------------------------
 
   /// READ CONTINENTS
@@ -16,7 +16,7 @@ class ContinentJsonOps {
   static Future<List<Continent>> readAllContinents() async {
 
     final Map<String, dynamic> _mappedJson = await Filers.readLocalJSON(
-        path: continentsJsonPath,
+        path: WorldZoningPaths.continentsJsonPath,
     );
 
     return Continent.decipherContinents(_mappedJson);
