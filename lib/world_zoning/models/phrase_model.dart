@@ -319,6 +319,9 @@ class Phrase {
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherMixedLangPhrasesToMap({
     required List<Phrase>? phrases,
+    bool includeMapID = true,
+    bool includeMapLangCode = true,
+    bool includeMapTrigram = true,
   }){
     Map<String, dynamic> _output = {};
 
@@ -330,9 +333,9 @@ class Phrase {
           map: _output,
           key: phrase.langCode,
           value: phrase.toDefaultMap(
-            includeID: true,
-            includeLangCode: true,
-            includeTrigram: true,
+            includeID: includeMapID,
+            includeLangCode: includeMapLangCode,
+            includeTrigram: includeMapTrigram,
           ),
           overrideExisting: true,
         );

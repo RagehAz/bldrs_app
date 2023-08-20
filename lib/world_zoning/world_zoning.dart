@@ -7,17 +7,34 @@ import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-
+import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
+import 'package:flutter/foundation.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:fire/super_fire.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:basics/helpers/classes/space/atlas.dart';
 // -----------------------------------------------------------------------------
 part 'assets/all_flags_list.dart';
 part 'assets/currencies.dart';
 // --------------------
+/// MODELS
+part 'models/america.dart';
+part 'models/big_mac.dart';
+part 'models/city_model.dart';
 part 'models/continent_model.dart';
+part 'models/country_model.dart';
+part 'models/currency_model.dart';
 part 'models/flag_model.dart';
 part 'models/phrase_model.dart';
 part 'models/region_model.dart';
+part 'models/staging_model.dart';
+part 'models/zone_model.dart';
+
 // -----------------------------------------------------------------------------
