@@ -1,4 +1,5 @@
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:basics/helpers/models/flag_model.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/country_tile_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -54,7 +55,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
           else {
 
           return CountryTileButton(
-            countryID: ZoneModel.planetID,
+            countryID: Flag.planetID,
             isActive: true,
             censusModel: planetCensus,
             onTap: onPlanetTap,

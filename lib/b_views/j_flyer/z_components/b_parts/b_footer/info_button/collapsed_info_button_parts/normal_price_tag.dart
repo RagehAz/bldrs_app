@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:basics/helpers/models/flag_model.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/collapsed_info_button_parts/collapsed_info_button_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';

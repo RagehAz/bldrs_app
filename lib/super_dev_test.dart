@@ -1,7 +1,13 @@
 import 'dart:async';
+import 'package:basics/bldrs_theme/assets/planet/paths.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 /// SUPER_DEV_TEST
 Future<void> superDevTestGo() async {
+
+
 
   // const String _path = '/assets/countries/deu.json';
   // final String _jsonStringValues = await rootBundle.loadString(_path);
@@ -60,5 +66,14 @@ Future<void> superDevTestGo() async {
   // Errorize.throwMap(invoker: 'myUser', map: _maw);
   //
   // blog('function after maw');
+
+  blog('start');
+
+  final Map<String, dynamic> map = await Filers.readLocalJSON(
+      path: WorldZoningPaths.populationsFilePath,
+  );
+
+
+  Mapper.blogMap(map);
 
 }

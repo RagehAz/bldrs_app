@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/a_user/sub/agenda_model.dart';
 import 'package:bldrs/a_models/a_user/sub/deck_model.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';

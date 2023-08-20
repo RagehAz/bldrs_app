@@ -1,4 +1,5 @@
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:basics/helpers/models/flag_model.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
@@ -33,7 +34,7 @@ class CensusRealOps {
       if (_map != null){
         _output = CensusModel.decipher(
           map: _map,
-          id: ZoneModel.planetID,
+          id: Flag.planetID,
         );
       }
 
@@ -212,7 +213,7 @@ class CensusRealOps {
 
       /// DELETE LDB CENSUSES
       final List<String> _idsToDeleteInLDB = <String>[
-        ZoneModel.planetID,
+        Flag.planetID,
       ];
 
       _idsToDeleteInLDB.add(zoneModel.countryID);
