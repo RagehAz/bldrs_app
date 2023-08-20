@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/assets/planet/paths.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 
@@ -18,18 +19,6 @@ class CityJsonOps{
   /// so will always call a countryID or stateID as ( countryID )
   // ---------------------------------------------------------------------------
 
-  /// CONSTANTS
-
-  // --------------------
-  static const String populationsFilePath = 'assets/zoning/cities_data/populations.json';
-  static const String positionsFilePath = 'assets/zoning/cities_data/positions.json';
-  static const String citiesFilesDirectory = 'assets/cities';
-  // --------------------
-  static String getCountryCitiesJsonFilePath(String countryID){
-    return '$citiesFilesDirectory/$countryID.json';
-  }
-  // ---------------------------------------------------------------------------
-
   /// READ CITIES
 
   // --------------------
@@ -42,7 +31,7 @@ class CityJsonOps{
     if (countryID != null){
 
       _output = await Filers.readLocalJSON(
-        path: getCountryCitiesJsonFilePath(countryID),
+        path: WorldZoningPaths.getCountryCitiesJsonFilePath(countryID),
       );
 
     }
@@ -129,14 +118,14 @@ class CityJsonOps{
   /// TASK : TEST ME
   static Future<Map<String, dynamic>?> readCitiesPopulationsJson() async {
     return Filers.readLocalJSON(
-      path: populationsFilePath,
+      path: WorldZoningPaths.populationsFilePath,
     );
   }
   // --------------------
   /// TASK : TEST ME
   static Future<Map<String, dynamic>?> readCitiesPositionsJson() async {
     return Filers.readLocalJSON(
-        path: positionsFilePath,
+        path: WorldZoningPaths.positionsFilePath,
     );
   }
   // ---------------------------------------------------------------------------

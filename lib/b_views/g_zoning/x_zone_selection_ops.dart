@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/models/flag_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -134,7 +135,7 @@ class ZoneSelection {
     }
 
     /// Go back (1 step) + pass zone with countryID
-    if (depth == ZoneDepth.country || countryID == null || countryID == ZoneModel.planetID){
+    if (depth == ZoneDepth.country || countryID == null || countryID == Flag.planetID){
 
       await Nav.goBack(
         context: context,

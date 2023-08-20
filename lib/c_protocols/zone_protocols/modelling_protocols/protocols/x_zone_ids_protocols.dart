@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:basics/helpers/models/flag_model.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 /// => GEOLOCATOR_DOES_NOT_WORK
 // import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b_zone_search_protocols.dart';
@@ -123,7 +124,7 @@ class ZoneIDsProtocols {
 
     ZoneModel? _output = incompleteZoneModel;
 
-    if (_output?.countryID == ZoneModel.planetID){
+    if (_output?.countryID == Flag.planetID){
       _output = ZoneModel.planetZone;
     }
 
@@ -146,7 +147,7 @@ class ZoneIDsProtocols {
       }
 
       /// CITY MODEL
-      if (_output.cityID != null && _output.cityModel == null && _output.cityID != ZoneModel.allCitiesID){
+      if (_output.cityID != null && _output.cityModel == null && _output.cityID != Flag.allCitiesID){
         final CityModel? _bzCity = await ZoneProtocols.fetchCity(
           cityID: _output.cityID,
         );
@@ -171,7 +172,7 @@ class ZoneIDsProtocols {
       }
 
       /// CITY NAME
-      if (TextCheck.isEmpty(_output.cityName) == true || _output.cityName == '...' && _output.cityID != ZoneModel.allCitiesID){
+      if (TextCheck.isEmpty(_output.cityName) == true || _output.cityName == '...' && _output.cityID != Flag.allCitiesID){
 
         final String? _cityName = ZoneProtocols.translateCity(
           cityModel: _output.cityModel,

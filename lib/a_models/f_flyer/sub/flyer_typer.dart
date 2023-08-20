@@ -5,10 +5,10 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
 
 enum FlyerType {
@@ -169,7 +169,7 @@ class FlyerTyper{
   // --------------------
   /*
   /// TESTED : WORKS PERFECT
-  static FlyerType XconcludeFlyerTypeByBzType(BzType bzType) {
+  static FlyerType concludeFlyerTypeByBzType(BzType bzType) {
     switch (bzType) {
       case BzType.developer:    return FlyerType.property;    break;
       case BzType.broker:       return FlyerType.property;    break;
@@ -353,7 +353,7 @@ class FlyerTyper{
   // --------------------
   /*
   /// TESTED : WORKS PERFECT
-  static String XtranslateFlyerTypeByBzType({
+  static String translateFlyerTypeByBzType({
     required BuildContext context,
     required BzType bzType,
     bool pluralTranslation = true,
