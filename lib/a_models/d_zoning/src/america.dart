@@ -1,10 +1,11 @@
 part of world_zoning;
-
+/// => TAMAM
 class America {
   // ---------------------------------------------------------------------------
 
   const America();
 
+  static const useISO2 = true;
   // --------------------
   static const Map<String, String> statesNamesMap = {
     'us_al': 'Alabama',
@@ -59,6 +60,490 @@ class America {
     'us_wi': 'Wisconsin',
     'us_wy': 'Wyoming',
   };
+  // --------------------
+  static const List<String> statesNames = <String>[
+    'Alabama',
+    'Alaska',
+    'Arizona',
+    'Arkansas',
+    'California',
+    'Colorado',
+    'Connecticut',
+    'Delaware',
+    'District of Columbia',
+    'Florida',
+    'Georgia',
+    'Hawaii',
+    'Idaho',
+    'Illinois',
+    'Indiana',
+    'Iowa',
+    'Kansas',
+    'Kentucky',
+    'Louisiana',
+    'Maine',
+    'Maryland',
+    'Massachusetts',
+    'Michigan',
+    'Minnesota',
+    'Mississippi',
+    'Missouri',
+    'Montana',
+    'Nebraska',
+    'Nevada',
+    'New Hampshire',
+    'New Jersey',
+    'New Mexico',
+    'New York',
+    'North Carolina',
+    'North Dakota',
+    'Ohio',
+    'Oklahoma',
+    'Oregon',
+    'Pennsylvania',
+    'Rhode Island',
+    'South Carolina',
+    'South Dakota',
+    'Tennessee',
+    'Texas',
+    'Utah',
+    'Vermont',
+    'Virginia',
+    'Washington',
+    'West Virginia',
+    'Wisconsin',
+    'Wyoming',
+  ];
+  // --------------------
+  static const Map<String, String> statesNamesMapWidthISO2 = {
+    'us_al': 'AL. Alabama',
+    'us_ak': 'AK. Alaska',
+    'us_az': 'AZ. Arizona',
+    'us_ar': 'AR. Arkansas',
+    'us_ca': 'CA. California',
+    'us_co': 'CO. Colorado',
+    'us_ct': 'CT. Connecticut',
+    'us_de': 'DE. Delaware',
+    'us_dc': 'DC. District of Columbia',
+    'us_fl': 'FL. Florida',
+    'us_ga': 'GA. Georgia',
+    'us_hi': 'HI. Hawaii',
+    'us_id': 'ID. Idaho',
+    'us_il': 'IL. Illinois',
+    'us_in': 'IN. Indiana',
+    'us_ia': 'IA. Iowa',
+    'us_ks': 'KS. Kansas',
+    'us_ky': 'KY. Kentucky',
+    'us_la': 'LA. Louisiana',
+    'us_me': 'ME. Maine',
+    'us_md': 'MD. Maryland',
+    'us_ma': 'MA. Massachusetts',
+    'us_mi': 'MI. Michigan',
+    'us_mn': 'MN. Minnesota',
+    'us_ms': 'MS. Mississippi',
+    'us_mo': 'MO. Missouri',
+    'us_mt': 'MT. Montana',
+    'us_ne': 'NE. Nebraska',
+    'us_nv': 'NV. Nevada',
+    'us_nh': 'NH. New Hampshire',
+    'us_nj': 'NJ. New Jersey',
+    'us_nm': 'NM. New Mexico',
+    'us_ny': 'NY. New York',
+    'us_nc': 'NC. North Carolina',
+    'us_nd': 'ND. North Dakota',
+    'us_oh': 'OH. Ohio',
+    'us_ok': 'OK. Oklahoma',
+    'us_or': 'OR. Oregon',
+    'us_pa': 'PA. Pennsylvania',
+    'us_ri': 'RI. Rhode Island',
+    'us_sc': 'SC. South Carolina',
+    'us_sd': 'SD. South Dakota',
+    'us_tn': 'TN. Tennessee',
+    'us_tx': 'TX. Texas',
+    'us_ut': 'UT. Utah',
+    'us_vt': 'VT. Vermont',
+    'us_va': 'VA. Virginia',
+    'us_wa': 'WA. Washington',
+    'us_wv': 'WV. West Virginia',
+    'us_wi': 'WI. Wisconsin',
+    'us_wy': 'WY. Wyoming',
+  };
+  // --------------------
+  static const List<String> statesNamesWithISO2 = <String>[
+    'AL. Alabama',
+    'AK. Alaska',
+    'AZ. Arizona',
+    'AR. Arkansas',
+    'CA. California',
+    'CO. Colorado',
+    'CT. Connecticut',
+    'DE. Delaware',
+    'DC. District of Columbia',
+    'FL. Florida',
+    'GA. Georgia',
+    'HI. Hawaii',
+    'ID. Idaho',
+    'IL. Illinois',
+    'IN. Indiana',
+    'IA. Iowa',
+    'KS. Kansas',
+    'KY. Kentucky',
+    'LA. Louisiana',
+    'ME. Maine',
+    'MD. Maryland',
+    'MA. Massachusetts',
+    'MI. Michigan',
+    'MN. Minnesota',
+    'MS. Mississippi',
+    'MO. Missouri',
+    'MT. Montana',
+    'NE. Nebraska',
+    'NV. Nevada',
+    'NH. New Hampshire',
+    'NJ. New Jersey',
+    'NM. New Mexico',
+    'NY. New York',
+    'NC. North Carolina',
+    'ND. North Dakota',
+    'OH. Ohio',
+    'OK. Oklahoma',
+    'OR. Oregon',
+    'PA. Pennsylvania',
+    'RI. Rhode Island',
+    'SC. South Carolina',
+    'SD. South Dakota',
+    'TN. Tennessee',
+    'TX. Texas',
+    'UT. Utah',
+    'VT. Vermont',
+    'VA. Virginia',
+    'WA. Washington',
+    'WV. West Virginia',
+    'WI. Wisconsin',
+    'WY. Wyoming',
+  ];
+  // --------------------
 
-// ---------------------------------------------------------------------------
+
+  // --------------------
+  static const List<String> statesISO2 = <String>[
+    'al',
+    'ak',
+    'az',
+    'ar',
+    'ca',
+    'co',
+    'ct',
+    'de',
+    'dc',
+    'fl',
+    'ga',
+    'hi',
+    'id',
+    'il',
+    'in',
+    'ia',
+    'ks',
+    'ky',
+    'la',
+    'me',
+    'md',
+    'ma',
+    'mi',
+    'mn',
+    'ms',
+    'mo',
+    'mt',
+    'ne',
+    'nv',
+    'nh',
+    'nj',
+    'nm',
+    'ny',
+    'nc',
+    'nd',
+    'oh',
+    'ok',
+    'or',
+    'pa',
+    'ri',
+    'sc',
+    'sd',
+    'tn',
+    'tx',
+    'ut',
+    'vt',
+    'va',
+    'wa',
+    'wv',
+    'wi',
+    'wy',
+  ];
+  // ---------------------------------------------------------------------------
+
+  /// GETTERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getStatesIDs(){
+    return statesNamesMap.keys.toList();
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? getStateName({
+    required String stateID,
+    required bool withISO2,
+  }){
+
+    if (withISO2 == true){
+      return statesNamesMapWidthISO2[stateID];
+    }
+    else {
+      return statesNamesMap[stateID];
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? getStateIDByName({
+    required String stateName,
+  }){
+    String? _output;
+
+    List<String> _keys = Mapper.getKeysHavingThisValue(
+        map: statesNamesMap,
+        value: stateName
+    );
+
+    if (Mapper.checkCanLoopList(_keys) == false){
+      _keys = Mapper.getKeysHavingThisValue(
+          map: statesNamesMapWidthISO2,
+          value: stateName
+      );
+    }
+
+    if (Mapper.checkCanLoopList(_keys) == true){
+      _output = _keys.first;
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getStatesNames({
+    required List<String> statesIDs,
+    required bool withISO2,
+  }){
+    final List<String> _output = [];
+
+    if (Mapper.checkCanLoopList(statesIDs) == true){
+
+      for (final String stateID in statesIDs){
+        final String? _stateName = getStateName(
+          stateID: stateID,
+          withISO2: withISO2,
+        );
+        if (_stateName != null){
+          _output.add(_stateName);
+        }
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getStatesIDsByNames({
+    required List<String> statesNames,
+  }){
+    final List<String> _output = [];
+
+    if (Mapper.checkCanLoopList(statesNames) == true){
+
+      for (final String stateName in statesNames){
+
+        final String? stateID = getStateIDByName(
+            stateName: stateName
+        );
+
+        if (stateID != null){
+          _output.add(stateID);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // ---------------------------------------------------------------------------
+
+  /// SORTING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> sortStatesIDsByName({
+    required List<String> statesIDs,
+  }){
+    List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(statesIDs) == true){
+
+      List<String> _statesNames = getStatesNames(
+        statesIDs: statesIDs,
+        withISO2: false,
+      );
+
+      _statesNames = Stringer.sortAlphabetically(_statesNames);
+
+      _output = getStatesIDsByNames(
+        statesNames: _statesNames,
+      );
+
+    }
+
+    return _output;
+  }
+  // ---------------------------------------------------------------------------
+
+  /// SEARCH
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> searchStatesByName({
+    required String? text,
+    required bool withISO2,
+  }){
+    List<Phrase> _output = <Phrase>[];
+
+    if (TextCheck.isEmpty(text) == false){
+
+      final List<String> _names = TextCheck.getStringsContainingThis(
+          strings: America.statesNames,
+          subString: text
+      );
+
+      final List<String> _ids = getStatesIDsByNames(
+          statesNames: _names
+      );
+
+      _output = createStatesPhrases(
+          statesIDs: _ids,
+          withISO2: withISO2,
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> searchStatesByISO2({
+    required String? text,
+  }){
+    final List<Phrase> _output = <Phrase>[];
+
+    if (TextCheck.isEmpty(text) == false && text?.length == 2){
+
+      final String _stateID = 'us_$text';
+
+      final String? _pairValue = statesNamesMap[_stateID];
+      if (_pairValue != null){
+        final Phrase _phrase = Phrase(
+          id: _stateID,
+          value: _pairValue,
+          langCode: 'en',
+          // trigram: [],
+        );
+        _output.add(_phrase);
+      }
+
+    }
+
+    return _output;
+  }
+  // ---------------------------------------------------------------------------
+
+  /// PHRASE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Phrase? createStatePhrase({
+    required String? stateID,
+    required bool withISO2,
+  }){
+    Phrase? _output;
+
+    if (TextCheck.isEmpty(stateID) == false){
+
+      final String? _value = getStateName(
+        stateID: stateID!,
+        withISO2: withISO2,
+      );
+
+      if (_value != null){
+        _output = Phrase(
+          id: stateID,
+          value:_value ,
+          langCode: 'en',
+          // trigram: [],
+        );
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> createStatesPhrases({
+    required List<String> statesIDs,
+    required bool withISO2,
+  }){
+    final List<Phrase> _output = <Phrase>[];
+
+    if (Mapper.checkCanLoopList(statesIDs) == true){
+
+      for (final String stateID in statesIDs){
+
+        final Phrase? _phrase = createStatePhrase(
+          stateID: stateID,
+          withISO2: withISO2,
+        )!;
+
+        if (_phrase != null){
+          _output.add(_phrase);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // ---------------------------------------------------------------------------
+
+  /// CHECKERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkCountryIDIsStateID(String? countryID){
+    bool _isState = false;
+
+    if (countryID != null){
+
+      final String? us = TextMod.removeTextAfterFirstSpecialCharacter(
+          text: countryID,
+          specialCharacter: '_',
+      );
+
+      if (us == 'us'){
+        _isState = true;
+      }
+
+    }
+
+    return _isState;
+  }
+  // ---------------------------------------------------------------------------
 }

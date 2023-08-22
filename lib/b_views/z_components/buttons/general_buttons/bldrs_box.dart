@@ -1,12 +1,13 @@
 import 'dart:ui' as ui;
+
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/super_box/super_box.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image_path_to_ui_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/super_box/super_box.dart';
 
 class BldrsBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -29,7 +30,6 @@ class BldrsBox extends StatelessWidget {
     this.onTap,
     this.margins,
     this.greyscale = false,
-    this.iconRounded = true,
     this.bubble = true,
     this.secondLine,
     this.verseCentered = true,
@@ -77,7 +77,6 @@ class BldrsBox extends StatelessWidget {
   final Function? onTap;
   final dynamic margins;
   final bool greyscale;
-  final bool iconRounded;
   final bool? bubble;
   final Verse? secondLine;
   final bool verseCentered;
@@ -133,7 +132,6 @@ class BldrsBox extends StatelessWidget {
       onTap: onTap,
       margins: margins,
       greyscale: greyscale,
-      iconRounded: iconRounded,
       bubble: bubble ?? true,
       secondText: Verse.bakeVerseToString(verse: secondLine),
       textCentered: verseCentered,

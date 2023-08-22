@@ -80,7 +80,6 @@ class BackAndSearchButton extends StatelessWidget {
         corners: Ratioz.appBarButtonCorner,
         // margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
         icon: icon ?? _getIcon(context),
-        iconRounded: false,
         iconSizeFactor: iconSizeFactor ?? getIconSizeFactor(),
         bubble: false,
         color: color,

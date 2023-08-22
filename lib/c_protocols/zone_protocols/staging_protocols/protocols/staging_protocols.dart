@@ -19,14 +19,12 @@ class StagingProtocols {
         id: StagingModel.countriesStagingId,
     );
 
+
     // _output?.blogStaging();
 
     if (StagingModel.isEmpty(_output) == true){
 
       _output = await StagingRealOps.readCountriesStaging();
-
-      // blog('non no');
-      // _output.blogStaging();
 
       if (StagingModel.isEmpty(_output) == false){
         // blog('inserting staging into ldb');

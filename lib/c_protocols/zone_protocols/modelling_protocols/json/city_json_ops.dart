@@ -1,12 +1,15 @@
 import 'package:basics/bldrs_theme/assets/planet/paths.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/models/phrase_model.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 
 /// => TAMAM
 class CityJsonOps{
   // ---------------------------------------------------------------------------
 
   const CityJsonOps();
+
   // ---------------------------------------------------------------------------
 
   /// NOTICE
@@ -20,11 +23,184 @@ class CityJsonOps{
   /// so will always call a countryID or stateID as ( countryID )
   // ---------------------------------------------------------------------------
 
-  /// READ CITIES
+  /// READ
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Map<String, dynamic>?> readCountryCitiesJson({
+  static Future<CityModel?> readCity({
+    required String cityID,
+  }) async {
+    CityModel? _output;
+
+    final String? _countryID = CityModel.getCountryIDFromCityID(cityID);
+
+    if (_countryID != null){
+
+      final Map<String, dynamic>? _countryCities = await _readCountryCitiesJson(
+        countryID: _countryID,
+      );
+
+      if (_countryCities != null){
+
+        final Map<String, dynamic> _cityMap = _countryCities[cityID];
+
+        _output  = CityModel(
+          cityID: cityID,
+          phrases: Phrase.decipherCityJsonMap(
+            cityJsonMap: _cityMap,
+            cityID: cityID,
+          ),
+          // position: null,
+          // population: 0,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT : reads Cities From Several Countries
+  static Future<List<CityModel>> readCities({
+    required List<String> citiesIDs,
+  }) async {
+    final List<CityModel> _output = [];
+
+    if (Mapper.checkCanLoopList(citiesIDs) == true){
+
+      final List<String> _countriesIDs = CityModel.getCountriesIDsFromCitiesIDs(
+        citiesIDs: citiesIDs,
+      );
+
+      for (final String countryID in _countriesIDs){
+
+        final List<String> _countryCitiesIDs = CityModel.getCitiesIDsFromCitiesIDsByCountryID(
+          countryID: countryID,
+          citiesIDs: citiesIDs,
+        );
+
+        final List<CityModel> _citiesOfCountry = await readCountryCities(
+          countryID: countryID,
+          citiesIDs: _countryCitiesIDs,
+        );
+
+        _output.addAll(_citiesOfCountry);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT : read Cities From One Country
+  static Future<List<CityModel>> readCountryCities({
+    required String? countryID,
+    List<String>? citiesIDs,
+  }) async {
+    List<CityModel> _output = [];
+
+    if (citiesIDs == null){
+      _output = await _readAllCountryCities(
+        countryID: countryID,
+      );
+    }
+    else {
+      _output = await _readSomeCountryCities(
+        countryID: countryID,
+        citiesIDs: citiesIDs,
+      );
+    }
+
+    return _output;
+  }
+
+  static Future<List<CityModel>> _readSomeCountryCities({
+    required String? countryID,
+    required List<String> citiesIDs,
+  }) async {
+    final List<CityModel> _output = [];
+
+    if (countryID != null && Mapper.checkCanLoopList(citiesIDs) == true){
+
+      final Map<String, dynamic>? _countryCities = await _readCountryCitiesJson(
+        countryID: countryID,
+      );
+
+      if (_countryCities != null){
+
+        for (final String cityID in citiesIDs){
+
+          final Map<String, dynamic> _cityMap = _countryCities[cityID];
+
+          final CityModel _model  = CityModel(
+            cityID: cityID,
+            phrases: Phrase.decipherCityJsonMap(
+              cityJsonMap: _cityMap,
+              cityID: cityID,
+            ),
+            // position: null,
+            // population: 0,
+          );
+
+          _output.add(_model);
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+
+  static Future<List<CityModel>> _readAllCountryCities({
+    required String? countryID,
+  }) async {
+    final List<CityModel> _output = [];
+
+    if (countryID != null){
+
+      final Map<String, dynamic>? _countryCities = await _readCountryCitiesJson(
+        countryID: countryID,
+      );
+
+      if (_countryCities != null){
+
+        final List<String> citiesIDs = _countryCities.keys.toList();
+
+        for (final String cityID in citiesIDs){
+
+          final Map<String, dynamic> _cityMap = _countryCities[cityID];
+
+          final CityModel _model  = CityModel(
+            cityID: cityID,
+            phrases: Phrase.decipherCityJsonMap(
+              cityJsonMap: _cityMap,
+              cityID: cityID,
+            ),
+            // position: null,
+            // population: 0,
+          );
+
+          _output.add(_model);
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // ---------------------------------------------------------------------------
+
+  /// FOUNDATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>?> _readCountryCitiesJson({
     required String? countryID,
   }) async {
     Map<String, dynamic>? _output;
@@ -56,7 +232,7 @@ class CityJsonOps{
 
           final String _countryID = countriesIDs[index];
 
-          return readCountryCitiesJson(
+          return _readCountryCitiesJson(
             countryID:_countryID,
           ).then((Map<String, dynamic>? citiesMap){
 
@@ -92,7 +268,7 @@ class CityJsonOps{
 
       for (final String countryID in countriesIDs){
 
-        final Map<String, dynamic>? citiesMap = await readCountryCitiesJson(
+        final Map<String, dynamic>? citiesMap = await _readCountryCitiesJson(
           countryID:countryID,
         );
 

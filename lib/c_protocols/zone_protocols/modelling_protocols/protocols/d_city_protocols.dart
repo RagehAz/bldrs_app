@@ -2,6 +2,7 @@ import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/fire/city_phrase_fire_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/json/city_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/ldb/b_city_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/real/b_city_real_ops.dart';
@@ -73,10 +74,7 @@ class CityProtocols {
 
       else {
 
-        final String? _countryID = CityModel.getCountryIDFromCityID(cityID);
-
-        _output = await CityRealOps.readCity(
-          countryID: _countryID,
+        _output = await CityJsonOps.readCity(
           cityID: cityID,
         );
 
@@ -202,7 +200,7 @@ class CityProtocols {
           }
 
           /// READ REMAINING CITIES FROM REAL
-          final List<CityModel> _remainingCities = await CityRealOps.readCities(
+          final List<CityModel> _remainingCities = await CityJsonOps.readCities(
             citiesIDs: _citiesIDsToReadFromReal,
           );
 
