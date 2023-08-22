@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,8 @@ class TileButton extends StatelessWidget {
       isDisabled: !isActive,
       // greyscale: !isActive,
       height: height ?? defaultHeight,
-      icon: icon,
+      icon: isActive == true ? icon : Iconz.dvBlankSVG,
+      iconColor: isActive == true ? null : Colorz.white255,
       verse: verse,
       verseCentered: verseCentered,
       secondLine: secondLine,
@@ -53,7 +55,7 @@ class TileButton extends StatelessWidget {
       secondVerseMaxLines: 1,
       bubble: false,
       color: color,
-      onTap: onTap,
+      onTap: isActive == true ? onTap : null,
       margins: margins,
       iconSizeFactor: iconSizeFactor,
       corners: corners,

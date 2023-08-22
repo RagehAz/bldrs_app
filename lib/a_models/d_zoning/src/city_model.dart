@@ -209,20 +209,29 @@ class CityModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? getCountryIDFromCityID(String? cityID){
+    String? _output;
 
-    /// NEW IDS
-    if (TextCheck.stringContainsSubString(string: cityID, subString: '+') == true){
-      return TextMod.removeTextAfterFirstSpecialCharacter(
+    final bool _isEmpty = TextCheck.isEmpty(cityID);
+
+    if (_isEmpty == false){
+
+      final bool _hasPlus = TextCheck.stringContainsSubString(
+          string: cityID,
+          subString: '+'
+      );
+
+      if (_hasPlus == true){
+
+        _output = TextMod.removeTextAfterFirstSpecialCharacter(
           text: cityID,
           specialCharacter: '+',
-      );
+        );
+
+      }
+
     }
 
-    /// SOMETHING IS WRONG
-    else {
-      return null;
-    }
-
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

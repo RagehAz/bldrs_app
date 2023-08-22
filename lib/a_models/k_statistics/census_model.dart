@@ -916,6 +916,88 @@ class CensusModel {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static CensusModel? combineUSACensuses({
+    required List<CensusModel>? models,
+  }){
+    CensusModel? _output;
+
+    if (Mapper.checkCanLoopList(models) == true){
+
+      _output = createEmptyModel();
+
+      for (final CensusModel model in models!){
+
+        final bool _isState = America.checkCountryIDIsStateID(model.id);
+
+        if (_isState == true){
+
+          _output = _output!.copyWith(
+            id: 'usa',
+            totalUsers: _output.totalUsers + model.totalUsers,
+            totalBzz: _output.totalBzz + model.totalBzz,
+            totalAuthors: _output.totalAuthors + model.totalAuthors,
+            totalFlyers: _output.totalFlyers + model.totalFlyers,
+            totalSlides: _output.totalSlides + model.totalSlides,
+            bzSectionRealEstate: _output.bzSectionRealEstate + model.bzSectionRealEstate,
+            bzSectionConstruction: _output.bzSectionConstruction + model.bzSectionConstruction,
+            bzSectionSupplies: _output.bzSectionSupplies + model.bzSectionSupplies,
+            bzTypeDeveloper: _output.bzTypeDeveloper + model.bzTypeDeveloper,
+            bzTypeBroker: _output.bzTypeBroker + model.bzTypeBroker,
+            bzTypeDesigner: _output.bzTypeDesigner + model.bzTypeDesigner,
+            bzTypeContractor: _output.bzTypeContractor + model.bzTypeContractor,
+            bzTypeArtisan: _output.bzTypeArtisan + model.bzTypeArtisan,
+            bzTypeManufacturer: _output.bzTypeManufacturer + model.bzTypeManufacturer,
+            bzTypeSupplier: _output.bzTypeSupplier + model.bzTypeSupplier,
+            bzFormIndividual: _output.bzFormIndividual + model.bzFormIndividual,
+            bzFormCompany: _output.bzFormCompany + model.bzFormCompany,
+            bzAccountTypeStandard: _output.bzAccountTypeStandard + model.bzAccountTypeStandard,
+            bzAccountTypePro: _output.bzAccountTypePro + model.bzAccountTypePro,
+            bzAccountTypeMaster: _output.bzAccountTypeMaster + model.bzAccountTypeMaster,
+            flyerTypeGeneral: _output.flyerTypeGeneral + model.flyerTypeGeneral,
+            flyerTypeProperty: _output.flyerTypeProperty + model.flyerTypeProperty,
+            flyerTypeDesign: _output.flyerTypeDesign + model.flyerTypeDesign,
+            flyerTypeUndertaking: _output.flyerTypeUndertaking + model.flyerTypeUndertaking,
+            flyerTypeProduct: _output.flyerTypeProduct + model.flyerTypeProduct,
+            flyerTypeTrade: _output.flyerTypeTrade + model.flyerTypeTrade,
+            flyerTypeEquipment: _output.flyerTypeEquipment + model.flyerTypeEquipment,
+            needTypeSeekProperty: _output.needTypeSeekProperty + model.needTypeSeekProperty,
+            needTypePlanConstruction: _output.needTypePlanConstruction + model.needTypePlanConstruction,
+            needTypeFinishConstruction: _output.needTypeFinishConstruction + model.needTypeFinishConstruction,
+            needTypeFurnish: _output.needTypeFurnish + model.needTypeFurnish,
+            needTypeOfferProperty: _output.needTypeOfferProperty + model.needTypeOfferProperty,
+            savesGeneral: _output.savesGeneral + model.savesGeneral,
+            savesProperties: _output.savesProperties + model.savesProperties,
+            savesDesigns: _output.savesDesigns + model.savesDesigns,
+            savesUndertakings: _output.savesUndertakings + model.savesUndertakings,
+            savesTrades: _output.savesTrades + model.savesTrades,
+            savesProducts: _output.savesProducts + model.savesProducts,
+            savesEquipments: _output.savesEquipments + model.savesEquipments,
+            followsDevelopers: _output.followsDevelopers + model.followsDevelopers,
+            followsBrokers: _output.followsBrokers + model.followsBrokers,
+            followsDesigners: _output.followsDesigners + model.followsDesigners,
+            followsContractors: _output.followsContractors + model.followsContractors,
+            followsArtisans: _output.followsArtisans + model.followsArtisans,
+            followsManufacturers: _output.followsManufacturers + model.followsManufacturers,
+            followsSuppliers: _output.followsSuppliers + model.followsSuppliers,
+            callsDevelopers: _output.callsDevelopers + model.callsDevelopers,
+            callsBrokers: _output.callsBrokers + model.callsBrokers,
+            callsDesigners: _output.callsDesigners + model.callsDesigners,
+            callsContractors: _output.callsContractors + model.callsContractors,
+            callsArtisans: _output.callsArtisans + model.callsArtisans,
+            callsManufacturers: _output.callsManufacturers + model.callsManufacturers,
+            callsSuppliers: _output.callsSuppliers + model.callsSuppliers,
+          );
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// GET FIELD NAME (NEEDS)
