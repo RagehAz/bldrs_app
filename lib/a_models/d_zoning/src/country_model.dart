@@ -158,7 +158,6 @@ class CountryModel {
   /// EQUALITY
 
   // --------------------
-  // --------------------
   /// TESTED : WORKS PERFECT
   static Phrase? getCountryPhrase({
     required String? countryID,
@@ -173,6 +172,17 @@ class CountryModel {
           id: Flag.planetID,
           value: ZoneModel.planetZone.countryName,
           langCode: langCode,
+        );
+      }
+
+      else if (America.checkCountryIDIsStateID(countryID) == true){
+        return Phrase(
+          value: America.getStateName(
+            stateID: countryID,
+            withISO2: America.useISO2,
+          ),
+          id: countryID,
+          langCode: 'en',
         );
       }
 
@@ -221,9 +231,13 @@ class CountryModel {
   /// TESTED : WORKS PERFECT
   static List<String> getAllCountriesIDsSortedByName({
     required String langCode,
+    required bool addUSAStates,
   }){
 
     final List<String> _allCountriesIDs = Flag.getAllCountriesIDs();
+    if (addUSAStates == true){
+      _allCountriesIDs.addAll(America.getStatesIDs());
+    }
 
     final List<Phrase> _allCountriesPhrasesInCurrentLang = <Phrase>[];
 
@@ -270,6 +284,7 @@ class CountryModel {
 
       final List<String> _allIDsSorted = getAllCountriesIDsSortedByName(
         langCode: langCode,
+        addUSAStates: true,
       );
 
       for (final String sortedID in _allIDsSorted){

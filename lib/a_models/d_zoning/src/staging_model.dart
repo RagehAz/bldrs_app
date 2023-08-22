@@ -321,9 +321,9 @@ class StagingModel {
     const Map<String, dynamic> _localUser = {
       'homeView' : { /// USER BROWSING HOME PAGE FLYERS AND BZZ
         'user':           {'country' : StageType.flyersStage, 'city' : StageType.flyersStage},
-        'author':         {'country' : StageType.bzzStage, 'city' : StageType.bzzStage},
+        'author':         {'country' : StageType.bzzStage,    'city' : StageType.bzzStage},
         'global_user':    {'country' : StageType.flyersStage, 'city' : StageType.publicStage},
-        'global_author':  {'country' : StageType.bzzStage, 'city' : StageType.flyersStage},
+        'global_author':  {'country' : StageType.bzzStage,    'city' : StageType.flyersStage},
       },
       'userEditor' : { /// SO USER CAN BE CREATED HERE
         'user':           {'country' : StageType.emptyStage, 'city' : StageType.emptyStage},
@@ -511,7 +511,7 @@ class StagingModel {
 
   // ---------------------
   /// TESTED : WORKS PERFECT
-  static List<String> addMyCountryIDToShownCountries({
+  static List<String> addMyCountryIDToActiveCountries({
     required List<String>? shownCountriesIDs,
     required String? myCountryID,
     required ViewingEvent? event,
@@ -578,13 +578,18 @@ class StagingModel {
   // ---------------------
   /// TESTED : WORKS PERFECT
   static List<String> addMyCityIDToShownCities({
-    required List<String>? shownCitiesIDs,
+    required List<String>? shownIDs,
     required String? myCityID,
     required ViewingEvent? event,
   }){
-    List<String> _output = <String>[...?shownCitiesIDs];
+    List<String> _output = <String>[...?shownIDs];
 
-    if (myCityID != null){
+    if (Mapper.checkCanLoopList(_output) == true && myCityID != null){
+
+      final String? _shownCountryID = CityModel.getCountryIDFromCityID(_output.first);
+      final String? _myCountryID = CityModel.getCountryIDFromCityID(myCityID);
+
+      if (_shownCountryID != null && _shownCountryID == _myCountryID){
       bool _addMyID = false;
       switch(event){
         case ViewingEvent.homeView:     _addMyID = true; break;
@@ -597,13 +602,14 @@ class StagingModel {
 
       if (_addMyID == true){
         _output = Stringer.addStringToListIfDoesNotContainIt(
-            strings: _output,
-            stringToAdd: myCityID,
+          strings: _output,
+          stringToAdd: myCityID,
         );
       }
+
     }
 
-
+    }
 
     return _output;
   }
@@ -692,7 +698,7 @@ class StagingModel {
     ;
   }
   // ---------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool isEmpty(StagingModel? staging){
     bool _output = true;
 
