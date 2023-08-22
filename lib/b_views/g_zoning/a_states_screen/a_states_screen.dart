@@ -11,23 +11,19 @@ import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
-import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_browse_view.dart';
-import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_search_view.dart';
-import 'package:bldrs/b_views/g_zoning/a_states_screen/a_states_screen.dart';
+import 'package:bldrs/b_views/g_zoning/a_states_screen/aa_states_screen_browse_view.dart';
+import 'package:bldrs/b_views/g_zoning/a_states_screen/aa_states_screen_search_view.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/census_protocols/census_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
-class CountriesScreen extends StatefulWidget {
+class StatesScreen extends StatefulWidget {
   // --------------------------------------------------------------------------
-  const CountriesScreen({
+  const StatesScreen({
     required this.zoneViewingEvent,
     required this.depth,
     required this.viewerZone,
@@ -41,10 +37,10 @@ class CountriesScreen extends StatefulWidget {
   final ZoneModel? selectedZone;
   // --------------------
   @override
-  _CountriesScreenState createState() => _CountriesScreenState();
+  _StatesScreenState createState() => _StatesScreenState();
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> onSearchCountry({
+  static Future<void> onSearchState({
     required String? val,
     required ValueNotifier<bool> isSearching,
     required bool mounted,
@@ -56,6 +52,7 @@ class CountriesScreen extends StatefulWidget {
       text: val,
       isSearching: isSearching,
       mounted: mounted,
+      minCharLimit: 2
     );
 
     /// WHILE SEARCHING
@@ -75,13 +72,12 @@ class CountriesScreen extends StatefulWidget {
         value: <Phrase>[],
       );
 
-      /// SEARCH COUNTRIES FROM LOCAL PHRASES
-      final List<Phrase> _byName = await ZoneProtocols.searchCountriesByNameFromLDBFlags(
-        text: val?.toLowerCase(),
+      final List<Phrase> _byName = America.searchStatesByName(
+        text: val,
+        withISO2: America.useISO2,
       );
-
-      final List<Phrase> _byID = ZoneProtocols.searchCountriesByIDFromAllFlags(
-        text: val?.toLowerCase(),
+      final List<Phrase> _byID = America.searchStatesByISO2(
+        text: val,
       );
 
        setNotifier(
@@ -108,16 +104,16 @@ class CountriesScreen extends StatefulWidget {
   // --------------------------------------------------------------------------
 }
 
-class _CountriesScreenState extends State<CountriesScreen> {
+class _StatesScreenState extends State<StatesScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
-  final ValueNotifier<List<Phrase>?> _foundCountries = ValueNotifier<List<Phrase>?>(null);
+  final ValueNotifier<List<Phrase>?> _foundStates = ValueNotifier<List<Phrase>?>(null);
   // --------------------
-  List<String> _shownCountriesIDs = <String>[];
-  List<String> _notShownCountriesIDs = <String>[];
+  List<String> _shownStatesIDs = <String>[];
+  List<String> _notShownStatesIDs = <String>[];
   // --------------------
   List<CensusModel>? _censuses;
-  CensusModel? _planetCensus;
+  CensusModel? _usaCensus;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -146,19 +142,20 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
         await Future.delayed(const Duration(milliseconds: 400));
 
-        await _loadCountries();
+        await _loadStates();
 
         await _triggerLoading(setTo: false);
       });
 
     }
+
     super.didChangeDependencies();
   }
   // --------------------
   @override
   void dispose() {
     _isSearching.dispose();
-    _foundCountries.dispose();
+    _foundStates.dispose();
     _loading.dispose();
     super.dispose();
   }
@@ -168,12 +165,33 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _loadCountries() async {
+  Future<void> _loadStates() async {
 
     /// COUNTRIES STAGES
-    final StagingModel? _countriesStages = await StagingProtocols.fetchCountriesStaging();
+    StagingModel? _countriesStages = await StagingProtocols.fetchCountriesStaging();
 
-    // _countriesStages.blogStaging();
+    final List<String> _countriesIDs = Flag.getAllCountriesIDs();
+    _countriesStages = _countriesStages?.copyWith(
+      id: _countriesStages.id,
+      emptyStageIDs: Stringer.removeStringsFromStrings(
+          removeFrom: _countriesStages.emptyStageIDs,
+          removeThis: _countriesIDs,
+      ),
+      bzzStageIDs: Stringer.removeStringsFromStrings(
+          removeFrom: _countriesStages.bzzStageIDs,
+          removeThis: _countriesIDs,
+      ),
+      flyersStageIDs: Stringer.removeStringsFromStrings(
+          removeFrom: _countriesStages.flyersStageIDs,
+          removeThis: _countriesIDs,
+      ),
+      publicStageIDs: Stringer.removeStringsFromStrings(
+          removeFrom: _countriesStages.publicStageIDs,
+          removeThis: _countriesIDs,
+      ),
+    );
+
+    // _countriesStages?.blogStaging();
 
     /// SHOWN IDS
     List<String>? _shownIDs = _countriesStages?.getIDsByViewingEvent(
@@ -181,48 +199,43 @@ class _CountriesScreenState extends State<CountriesScreen> {
       countryID: null,
       viewerCountryID: widget.viewerZone?.countryID,
     );
-    _shownIDs = StagingModel.addMyCountryIDToShownCountries(
-        shownCountriesIDs: _shownIDs,
+    _shownIDs = StagingModel.addMyStateIDToShownStates(
+        shownStatesIDs: _shownIDs,
         myCountryID: widget.viewerZone?.countryID,
         event: widget.zoneViewingEvent,
     );
 
-    // blog('CountriesScreen._loadCountries() : _shownIDs : $_shownIDs');
+    blog('CountriesScreen._loadCountries() : _shownIDs : $_shownIDs');
 
     /// NOT SHOWN IDS
-    final List<String>? _notShownIDs = Stringer.removeStringsFromStrings(
-      removeFrom: Flag.getAllCountriesIDs(),
+    final List<String> _notShownIDs = Stringer.removeStringsFromStrings(
+      removeFrom: America.getStatesIDs(),
       removeThis: _shownIDs,
     );
 
     /// FINAL IDS
-    final List<String> _shown = CountryModel.sortCountriesNamesAlphabetically(
-      countriesIDs: _shownIDs,
-      langCode: Localizer.getCurrentLangCode(),
+    final List<String> _shown = America.sortStatesIDsByName(
+      statesIDs: _shownIDs,
     );
 
-    final List<String> _notShown = CountryModel.sortCountriesNamesAlphabetically(
-      countriesIDs: _notShownIDs,
-      langCode: Localizer.getCurrentLangCode(),
+    final List<String> _notShown = America.sortStatesIDsByName(
+      statesIDs: _notShownIDs,
     );
 
     /// CENSUS
-    final List<CensusModel> _countriesCensuses = await  CensusProtocols.fetchCountriesCensusesByIDs(
-        countriesIDs: [..._shownIDs, ...?_notShownIDs],
-    );
-    final CensusModel? _fetchedPlanetCensus = await CensusProtocols.fetchPlanetCensus();
-
-    // Stringer.blogStrings(strings: _shown, invoker: '_shown');
-    // Stringer.blogStrings(strings: _notShown, invoker: '_notShown');
+    // final List<CensusModel> _countriesCensuses = await  CensusProtocols.fetchStatesCensusesByIDs(
+    //     countriesIDs: [..._shownIDs, ..._notShownIDs],
+    // );
+    // final CensusModel? _fetchedPlanetCensus = await CensusProtocols.fetchUSACensus();
 
     if (mounted) {
       setState(() {
 
-        _shownCountriesIDs = _shown;
-        _notShownCountriesIDs = _notShown;
+        _shownStatesIDs = _shown;
+        _notShownStatesIDs = _notShown;
 
-        _censuses = _countriesCensuses;
-        _planetCensus = _fetchedPlanetCensus;
+        // _censuses = _countriesCensuses;
+        // _usaCensus = _fetchedPlanetCensus;
 
       });
     }
@@ -235,11 +248,13 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onSearchCountry(String? val) async {
+  Future<void> _onSearchState(String? val) async {
 
-    await CountriesScreen.onSearchCountry(
+    blog('searching state');
+
+    await StatesScreen.onSearchState(
       mounted: mounted,
-      foundCountries: _foundCountries,
+      foundCountries: _foundStates,
       isSearching: _isSearching,
       loading: _loading,
       val: val,
@@ -252,57 +267,27 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onCountryTap(String countryID) async {
+  Future<void> _onStateTap(String stateID) async {
 
-    blog('onCountryTap : browse view : $countryID');
-
-      String? _countryID = countryID;
-
-      // if (countryID == 'usa'){
-      //   _countryID = await Nav.goToNewScreen(
-      //       context: context,
-      //       screen: StatesScreen(
-      //         zoneViewingEvent: widget.zoneViewingEvent,
-      //         depth: widget.depth,
-      //         viewerZone: widget.viewerZone,
-      //         selectedZone: widget.selectedZone,
-      //       ),
-      //   );
-      // }
-
-      if (_countryID != null){
-        await ZoneSelection.onSelectCountry(
-          context: context,
-          countryID: _countryID,
-          depth: widget.depth,
-          zoneViewingEvent: widget.zoneViewingEvent,
-          viewerZone: widget.viewerZone,
-          selectedZone: ZoneModel(
-              countryID: _countryID,
-          ),
-        );
-      }
+    await Nav.goBack(
+      context: context,
+      passedData: stateID,
+    );
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onPlanetTap() async {
+  Future<void> _onAmericaTap() async {
 
-    await ZoneSelection.onSelectCountry(
+    await Nav.goBack(
       context: context,
-      countryID: Flag.planetID,
-      depth: widget.depth,
-      zoneViewingEvent: widget.zoneViewingEvent,
-      viewerZone: widget.viewerZone,
-      selectedZone: ZoneModel.planetZone,
+      passedData: 'usa',
     );
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onDeactivatedCountryTap(String? countryID) async {
-
-    blog('onDeactivatedCountryTap : browse view : $countryID');
 
     await Dialogs.zoneIsNotAvailable();
 
@@ -315,10 +300,10 @@ class _CountriesScreenState extends State<CountriesScreen> {
       skyType: SkyType.black,
       appBarType: AppBarType.search,
       searchButtonIsOn: false,
-      onSearchSubmit: _onSearchCountry,
-      onSearchChanged: _onSearchCountry,
+      onSearchSubmit: _onSearchState,
+      onSearchChanged: _onSearchState,
       title: const Verse(
-        id: 'phid_select_a_country',
+        id: 'phid_select_a_state',
         translate: true,
       ),
       pyramidsAreOn: true,
@@ -327,7 +312,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
         invoker: 'SelectCountryScreen.BACK with null',
       ),
       searchHintVerse: const Verse(
-        id: 'phid_search_countries',
+        id: 'phid_search_states',
         translate: true,
       ),
       loading: _loading,
@@ -351,13 +336,13 @@ class _CountriesScreenState extends State<CountriesScreen> {
                       /// WHILE SEARCHING
                       if (isSearching == true){
 
-                        return CountriesScreenSearchView(
-                          foundCountries: _foundCountries,
-                          shownCountriesIDs: _shownCountriesIDs,
-                          countriesCensus: _censuses,
+                        return StatesScreenSearchView(
+                          foundStates: _foundStates,
+                          shownStatesIDs: _shownStatesIDs,
+                          statesCensus: _censuses,
                           selectedZone: widget.selectedZone,
-                          onCountryTap: _onCountryTap,
-                          onDisabledCountryTap: _onDeactivatedCountryTap,
+                          onStateTap: _onStateTap,
+                          onDisabledStateTap: _onDeactivatedCountryTap,
                         );
 
                       }
@@ -365,18 +350,18 @@ class _CountriesScreenState extends State<CountriesScreen> {
                       /// NOT SEARCHING
                       else {
 
-                        return CountriesScreenBrowseView(
-                          shownCountriesIDs: _shownCountriesIDs,
-                          notShownCountriesIDs: _notShownCountriesIDs,
-                          countriesCensus: _censuses,
-                          onCountryTap: _onCountryTap,
-                          onDisabledCountryTap: _onDeactivatedCountryTap,
-                          showPlanetButton: StagingModel.checkMayShowViewAllZonesButton(
+                        return StatesScreenBrowseView(
+                          shownStateIDs: _shownStatesIDs,
+                          notShownStatesIDs: _notShownStatesIDs,
+                          statesCensus: _censuses,
+                          onStateTap: _onStateTap,
+                          onDisabledStateTap: _onDeactivatedCountryTap,
+                          showAmericaButton: StagingModel.checkMayShowViewAllZonesButton(
                             zoneViewingEvent: widget.zoneViewingEvent,
                           ),
-                          planetCensus: _planetCensus,
+                          americaCensus: _usaCensus,
                           selectedZone: widget.selectedZone,
-                          onPlanetTap: _onPlanetTap,
+                          onAmericaTap: _onAmericaTap,
                         );
 
                       }
