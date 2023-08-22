@@ -1,6 +1,8 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/models/flag_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
+import 'package:bldrs/b_views/z_components/buttons/zone_buttons/america_states_tile_buttons.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/country_tile_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -48,10 +50,12 @@ class CountriesScreenBrowseView extends StatelessWidget {
 
         if (index == 0){
 
+          /// NO PLANET BUTTON
           if (showPlanetButton == false){
             return const SizedBox();
           }
 
+          /// PLANET BUTTON
           else {
 
           return CountryTileButton(
@@ -65,8 +69,8 @@ class CountriesScreenBrowseView extends StatelessWidget {
               translate: true,
             ), // ZoneModel.planetZone.countryName
             onDeactivatedTap: onDisabledCountryTap == null ? null
-                :
-                () => onDisabledCountryTap!(null),
+                              :
+                              () => onDisabledCountryTap!(null),
           );
 
           }
@@ -77,20 +81,35 @@ class CountriesScreenBrowseView extends StatelessWidget {
 
           final String _countryID = _countriesList[index-1];
 
-          final CensusModel? _census = CensusModel.getCensusFromCensusesByID(
-          censuses: countriesCensus,
-          censusID: _countryID,
-        );
+          /// USA STATES
+          if (_countryID == 'usa'){
 
-          return CountryTileButton(
-            countryID: _countryID,
-            isActive: Stringer.checkStringsContainString(strings: shownCountriesIDs, string: _countryID),
-            censusModel: _census,
-            isSelected: selectedZone?.countryID == _countryID,
-            onTap: () => onCountryTap(_countryID),
-            onDeactivatedTap: onDisabledCountryTap == null ? null :
-                () => onDisabledCountryTap?.call(_countryID),
-          );
+            return AmericaStatesTileButtons(
+              censusModels: const [],
+              onStateTap: (String stateID) => onCountryTap(stateID),
+            );
+
+          }
+
+          /// NORMAL COUNTRIES
+          else {
+
+            final CensusModel? _census = CensusModel.getCensusFromCensusesByID(
+              censuses: countriesCensus,
+              censusID: _countryID,
+            );
+
+            return CountryTileButton(
+              countryID: _countryID,
+              isActive: Stringer.checkStringsContainString(strings: shownCountriesIDs, string: _countryID),
+              censusModel: _census,
+              isSelected: selectedZone?.countryID == _countryID,
+              onTap: () => onCountryTap(_countryID),
+              onDeactivatedTap: onDisabledCountryTap == null ? null :
+                  () => onDisabledCountryTap?.call(_countryID),
+            );
+
+          }
 
         }
 

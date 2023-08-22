@@ -135,7 +135,12 @@ class ZoneSelection {
     }
 
     /// Go back (1 step) + pass zone with countryID
-    if (depth == ZoneDepth.country || countryID == null || countryID == Flag.planetID){
+    if (
+        depth == ZoneDepth.country ||
+        countryID == null ||
+        countryID == Flag.planetID ||
+        countryID == 'usa'
+    ){
 
       await Nav.goBack(
         context: context,

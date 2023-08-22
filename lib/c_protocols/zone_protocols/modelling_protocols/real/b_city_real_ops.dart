@@ -41,7 +41,7 @@ class CityRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CityModel?> readCity({
+  static Future<CityModel?> readCityX({
     required String? countryID,
     required String? cityID,
   }) async {
@@ -71,7 +71,7 @@ class CityRealOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<CityModel>> readCities({
+  static Future<List<CityModel>> readCitiesX({
     required List<String> citiesIDs,
   }) async {
     final List<CityModel> _output = [];
@@ -85,7 +85,7 @@ class CityRealOps {
           final String _cityID = citiesIDs[index];
           final String? _countryID = CityModel.getCountryIDFromCityID(_cityID);
 
-          return readCity(
+          return readCityX(
             countryID: _countryID,
             cityID: _cityID,
           ).then((CityModel? _cityModel){
@@ -110,7 +110,7 @@ class CityRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<CityModel>> readCountryCities({
+  static Future<List<CityModel>> readCountryCitiesX({
     required String countryID,
   }) async {
 

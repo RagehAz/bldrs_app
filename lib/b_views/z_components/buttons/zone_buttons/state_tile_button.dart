@@ -5,13 +5,12 @@ import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dar
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/census_line.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/zone_button_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
-class CityTileButton extends StatelessWidget {
+class StateTileButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const CityTileButton({
-    required this.city,
+  const StateTileButton({
+    required this.stateID,
     required this.onTap,
     required this.isActive,
     required this.censusModel,
@@ -21,7 +20,7 @@ class CityTileButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final CityModel? city;
+  final String stateID;
   final Function? onTap;
   final bool isActive;
   final Function? onDeactivatedTap;
@@ -32,9 +31,9 @@ class CityTileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final String? _cityNameValue = CityModel.translateCity(
-      langCode: Localizer.getCurrentLangCode(),
-        city: city,
+    final String? _stateNameValue = America.getStateName(
+      stateID: stateID,
+      withISO2: America.useISO2,
     );
     // --------------------
     return ZoneButtonBox(
@@ -44,13 +43,13 @@ class CityTileButton extends StatelessWidget {
       isSelected: isSelected,
       columnChildren: <Widget>[
 
-        /// CITY WIDE TILE
+        /// STATE WIDE TILE
         BldrsBox(
           height: 40,
           isDisabled: !isActive,
           width: Bubble.bubbleWidth(context: context),
           iconSizeFactor: 0.8,
-          verse: verse ?? Verse.plain(_cityNameValue),
+          verse: verse ?? Verse.plain(_stateNameValue),
           bubble: false,
           verseScaleFactor: 0.9 / 0.8,
           // textDirection: superTextDirection(context),

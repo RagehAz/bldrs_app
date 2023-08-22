@@ -77,12 +77,12 @@ class CitiesScreenSearchView extends StatelessWidget {
                           censusID: _city?.cityID,
                         );
 
-                        return WideCityButton(
+                        return CityTileButton(
                           city: _city,
                           isActive: _isActive,
                           censusModel: _census,
                           isSelected: selectedZone?.countryID != null && selectedZone?.cityID == _city?.cityID,
-                          onSingleTap: onCityTap == null ? null : () => onCityTap?.call(_city?.cityID),
+                          onTap: onCityTap == null ? null : () => onCityTap?.call(_city?.cityID),
                           onDeactivatedTap: () => onDeactivatedCityTap(_city?.cityID),
                         );
 
