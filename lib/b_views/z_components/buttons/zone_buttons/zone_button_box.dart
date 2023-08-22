@@ -13,15 +13,44 @@ class ZoneButtonBox extends StatelessWidget {
     required this.onDeactivatedTap,
     required this.isSelected,
     this.canTap = true,
+    this.isSelectedColor,
     super.key
   });
-  // --------------------------------------------------------------------------
+  // --------------------
   final List<Widget> columnChildren;
   final Function? onTap;
   final bool isActive;
   final Function? onDeactivatedTap;
   final bool isSelected;
   final bool canTap;
+  final Color? isSelectedColor;
+  // --------------------
+  static Color getBoxColor({
+    required bool isActive,
+    required bool isSelected,
+    required Color? isSelectedColor,
+  }){
+    return isActive == false ?
+              Colorz.white10
+                  :
+              isSelected == true ? (isSelectedColor ?? Colorz.yellow50)
+                  :
+              Colorz.white20;
+  }
+  // --------------------
+  static const Color borderColor = Colorz.white125;
+  // --------------------
+  static BoxBorder? getBorders({
+    required bool isSelected,
+  }){
+    return isSelected == false ? null
+        :
+    Border.all(
+      width: 0.5,
+      color: borderColor,
+      strokeAlign: BorderSide.strokeAlignOutside,
+    );
+  }
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -42,17 +71,14 @@ class ZoneButtonBox extends StatelessWidget {
           child: Container(
             width: _buttonWidth + 1,
             decoration: BoxDecoration(
-              color: isActive == false ?
-              Colorz.white10
-                  :
-              isSelected == true ? Colorz.yellow50
-                  :
-              Colorz.white20,
+              color: getBoxColor(
+                isActive: isActive,
+                isSelected: isSelected,
+                isSelectedColor: isSelectedColor,
+              ),
               borderRadius: Borderers.constantCornersAll12,
-              border: isSelected == false ? null : Border.all(
-                width: 0.5,
-                color: Colorz.white125,
-                strokeAlign: BorderSide.strokeAlignOutside,
+              border: getBorders(
+                isSelected: isSelected,
               ),
             ),
             child: Column(

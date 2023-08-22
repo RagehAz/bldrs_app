@@ -1,8 +1,10 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/models/flag_model.dart';
+import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
@@ -17,9 +19,13 @@ class AmericaStatesTileButtons extends StatelessWidget {
   // --------------------------------------------------------------------------
   const AmericaStatesTileButtons({
     required this.onStateTap,
+    required this.activeCountriesIDs,
+    required this.disabledCountriesIDs,
+    required this.onDisabledStateTap,
+    required this.censusModels,
+    required this.selectedZone,
     this.width,
     this.height,
-    this.censusModels,
     this.verse,
     this.verseCentered = true,
     super.key
@@ -27,23 +33,106 @@ class AmericaStatesTileButtons extends StatelessWidget {
   // --------------------
   final double? width;
   final double? height;
+  final List<String> activeCountriesIDs;
+  final List<String> disabledCountriesIDs;
   final List<CensusModel>? censusModels;
   final Verse? verse;
   final bool verseCentered;
   final Function onStateTap;
+  final Function? onDisabledStateTap;
+  final ZoneModel? selectedZone;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkUSABoxIsActive({
+    required List<String> activeStatesIDs,
+  }){
+    return Mapper.checkCanLoopList(activeStatesIDs);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkCanShowUSACensus({
+    required CensusModel? combinedUSACensus,
+  }){
+    return CensusLine.canShowCensus(
+      censusModel: combinedUSACensus,
+      isPlanetButton: false,
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkStateButtonIsActive({
+    required List<String> activeStatesIDs,
+    required String stateID,
+  }){
+    return Stringer.checkStringsContainString(
+      strings: activeStatesIDs,
+      string: stateID,
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkCanShowStateCensus({
+    required CensusModel? stateCensus,
+  }){
+    return CensusLine.canShowCensus(
+      censusModel: stateCensus,
+      isPlanetButton: false,
+    );
+  }
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
+
+    /// SCALES
+
+    // --------------------
     final double _buttonWidth = width ?? Bubble.bubbleWidth(context: context);
-    final List<String> _allStatesIDs = America.getStatesIDs();
     final double _stateButtonWidth = _buttonWidth - TileButton.defaultHeight;
+    // --------------------
+
+    /// STATES IDS
+
+    // --------------------
+    final List<String> _activeStatesIDs = America.getStatesIDsFromCountriesIDs(
+      countriesIDs: activeCountriesIDs,
+    );
+    final List<String> _disabledStatedIDs = America.getStatesIDsFromCountriesIDs(
+      countriesIDs: disabledCountriesIDs,
+    );
+    final List<String> _allStatesIDs = [..._activeStatesIDs, ..._disabledStatedIDs];
+    // --------------------
+
+    /// USA IS ACTIVE
+
+    // --------------------
+    final bool _usaBoxIsActive = checkUSABoxIsActive(
+      activeStatesIDs: _activeStatesIDs,
+    );
+    // --------------------
+
+    /// USA CENSUS
+
+    // --------------------
+    final CensusModel? _usaCensus = CensusModel.combineUSACensuses(
+      models: censusModels,
+    );
+    final bool _canShowUSACensus = checkCanShowUSACensus(
+      combinedUSACensus: _usaCensus,
+    );
+    // --------------------
+
+    /// IS SELECTED
+
+    // --------------------
+    final bool _usaIsSelected = America.checkCountryIDIsStateID(selectedZone?.countryID);
     // --------------------
     return ZoneButtonBox(
       onTap: null,
       onDeactivatedTap: null,
-      isActive: false,
-      isSelected: false,
+      isActive: _usaBoxIsActive,
+      isSelected: _usaIsSelected,
+      isSelectedColor: Colorz.yellow10,
       canTap: false,
       columnChildren: <Widget>[
 
@@ -59,7 +148,7 @@ class AmericaStatesTileButtons extends StatelessWidget {
 
               /// FLAG & COUNTRY NAME
               TileButton(
-                isActive: true,
+                isActive: _usaBoxIsActive,
                 height: height,
                 width: _buttonWidth,
                 /// IF COUNTRY FLAG IS NULL, IT WILL SHOW PLANET ICON
@@ -73,34 +162,74 @@ class AmericaStatesTileButtons extends StatelessWidget {
                 color: Colorz.black0,
                 margins: EdgeInsets.zero,
                 verseCentered: verseCentered,
-                onTap: null,
+                // onTap: null,
                 // corners: BorderRadius.zero,
+              ),
+
+              /// USA CENSUS
+              if (_canShowUSACensus == true)
+              CensusLine(
+                width: _buttonWidth,
+                censusModel: _usaCensus,
+                hasFlagSpace: true,
+                isActive: _usaBoxIsActive,
+              ),
+
+              /// SEPARATOR
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 5
+                ),
+                child: DotSeparator(
+                  boxWidth: _stateButtonWidth,
+                  bottomMarginIsOn: false,
+                ),
               ),
 
               /// STATES
               SizedBox(
                 width: _stateButtonWidth,
-                height: _allStatesIDs.length * ((TileButton.defaultHeight * 1.8) + 5),
+                // height: _allStatesIDs.length * ((TileButton.defaultHeight * 1.8) + 5),
                 child: ListView.builder(
-                  itemExtent: (TileButton.defaultHeight * 1.8) + 5,
+                  // itemExtent: (TileButton.defaultHeight * 1.8) + 5,
+                  shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: _allStatesIDs.length,
                   itemBuilder: (_, int index){
 
                     final String _stateID = _allStatesIDs[index];
-                    const bool isActive = true;
-                    final CensusModel censusModel = CensusModel.createEmptyModel().copyWith(
-                      totalBzz: Numeric.createRandomIndex(listLength: 9999999),
-                      totalUsers: Numeric.createRandomIndex(listLength: 9999999),
-                      totalFlyers: Numeric.createRandomIndex(listLength: 9999999),
+                    final CensusModel? _censusModel = CensusModel.getCensusFromCensusesByID(
+                      censuses: censusModels,
+                      censusID: _stateID,
+                    );
+                    final bool _canShowCensus = checkCanShowStateCensus(
+                      stateCensus: _censusModel,
                     );
 
+                    final bool isActive = checkStateButtonIsActive(
+                      stateID: _stateID,
+                      activeStatesIDs: _activeStatesIDs,
+                    );
+
+                    final bool _isSelected = selectedZone?.countryID == _stateID;
+
+                    final double _heightMultiplier = isActive == true && _canShowCensus == true ? 1.8 : 1;
+
                     return TapLayer(
-                      height: TileButton.defaultHeight * 1.8,
+                      height: TileButton.defaultHeight * _heightMultiplier,
                       onTap: () => onStateTap(_stateID),
+                      onDisabledTap: () => onDisabledStateTap?.call(_stateID),
+                      isDisabled: !isActive,
                       width: _stateButtonWidth,
-                      boxColor: Colorz.white10,
                       corners: Borderers.constantCornersAll12,
+                      boxColor: isActive == false ? null
+                          :
+                      ZoneButtonBox.getBoxColor(
+                          isActive: isActive,
+                          isSelected: _isSelected,
+                          isSelectedColor: null,
+                      ),
+                      borderColor: _isSelected == false ? null : ZoneButtonBox.borderColor,
                       margin: const EdgeInsets.only(
                         top: 5,
                       ),
@@ -111,7 +240,7 @@ class AmericaStatesTileButtons extends StatelessWidget {
 
                           /// STATE NAME LINE
                           TileButton(
-                            isActive: true,
+                            isActive: isActive,
                             height: height,
                             width: _stateButtonWidth,
                             /// IF COUNTRY FLAG IS NULL, IT WILL SHOW PLANET ICON
@@ -126,15 +255,15 @@ class AmericaStatesTileButtons extends StatelessWidget {
                             color: Colorz.nothing,
                             margins: EdgeInsets.zero,
                             verseCentered: verseCentered,
-                            onTap: null,
+                            // onTap: null,
                             // corners: BorderRadius.zero,
                           ),
 
                           /// CENSUS LINE
-                          if (isActive == true)
+                          if (isActive == true && _canShowCensus == true)
                             CensusLine(
                               width: _stateButtonWidth,
-                              censusModel: censusModel,
+                              censusModel: _censusModel,
                               hasFlagSpace: true,
                               isActive: isActive,
                             ),
@@ -151,11 +280,9 @@ class AmericaStatesTileButtons extends StatelessWidget {
           ),
         ),
 
-
-
       ],
     );
     // --------------------
   }
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 }

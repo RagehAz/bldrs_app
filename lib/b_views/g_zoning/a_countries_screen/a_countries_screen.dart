@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:basics/animators/widgets/scroller.dart';
 import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
@@ -13,7 +12,6 @@ import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_search_view.dart';
-import 'package:bldrs/b_views/g_zoning/a_states_screen/a_states_screen.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -56,6 +54,7 @@ class CountriesScreen extends StatefulWidget {
       text: val,
       isSearching: isSearching,
       mounted: mounted,
+      minCharLimit: 2,
     );
 
     /// WHILE SEARCHING
@@ -75,25 +74,48 @@ class CountriesScreen extends StatefulWidget {
         value: <Phrase>[],
       );
 
-      /// SEARCH COUNTRIES FROM LOCAL PHRASES
-      final List<Phrase> _byName = await ZoneProtocols.searchCountriesByNameFromLDBFlags(
-        text: val?.toLowerCase(),
-      );
+      final String? _searchText = val?.toLowerCase();
+      List<Phrase> _phrasesToInsert = [];
 
-      final List<Phrase> _byID = ZoneProtocols.searchCountriesByIDFromAllFlags(
-        text: val?.toLowerCase(),
-      );
 
-       setNotifier(
-         notifier: foundCountries,
-         mounted: mounted,
-         value: Phrase.insertPhrases(
-           insertIn: _byName,
-           phrasesToInsert: _byID,
-           overrideDuplicateID: true,
-           allowDuplicateIDs: false,
-         ),
-       );
+      if (America.searchTextIsExactlyUSA(_searchText) == true){
+        _phrasesToInsert = America.createAllStatesPhrases();
+      }
+
+      else if (TextCheck.isEmpty(_searchText) == false){
+
+        /// SEARCH COUNTRIES FROM LOCAL PHRASES
+        final List<Phrase> _byName = await ZoneProtocols.searchCountriesByNameFromLDBFlags(
+          text: _searchText,
+        );
+
+        final List<Phrase> _byID = ZoneProtocols.searchCountriesByIDFromAllFlags(
+          text: _searchText,
+        );
+
+        final List<Phrase> _usStatesByName = America.searchStatesByName(
+            text: _searchText,
+            withISO2: false,
+        );
+        final List<Phrase> _usStateByISO2 = America.searchStatesByISO2(
+            text: _searchText,
+        );
+
+        _phrasesToInsert = [..._byName, ..._byID, ..._usStatesByName, ..._usStateByISO2];
+        _phrasesToInsert = Phrase.sortNamesAlphabetically(_phrasesToInsert);
+
+      }
+
+      setNotifier(
+        notifier: foundCountries,
+        mounted: mounted,
+        value: Phrase.insertPhrases(
+          insertIn: [],
+          phrasesToInsert: _phrasesToInsert,
+          overrideDuplicateID: true,
+          allowDuplicateIDs: false,
+        ),
+      );
 
        /// CLOSE LOADING
       setNotifier(
@@ -113,8 +135,8 @@ class _CountriesScreenState extends State<CountriesScreen> {
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<Phrase>?> _foundCountries = ValueNotifier<List<Phrase>?>(null);
   // --------------------
-  List<String> _shownCountriesIDs = <String>[];
-  List<String> _notShownCountriesIDs = <String>[];
+  List<String> _activeCountriesIDs = <String>[];
+  List<String> _disabledCountriesIDs = <String>[];
   // --------------------
   List<CensusModel>? _censuses;
   CensusModel? _planetCensus;
@@ -173,60 +195,85 @@ class _CountriesScreenState extends State<CountriesScreen> {
     /// COUNTRIES STAGES
     final StagingModel? _countriesStages = await StagingProtocols.fetchCountriesStaging();
 
-    // _countriesStages.blogStaging();
+    if (_countriesStages != null){
+      // --------------------
 
-    /// SHOWN IDS
-    List<String>? _shownIDs = _countriesStages?.getIDsByViewingEvent(
-      event: widget.zoneViewingEvent,
-      countryID: null,
-      viewerCountryID: widget.viewerZone?.countryID,
-    );
-    _shownIDs = StagingModel.addMyCountryIDToShownCountries(
-        shownCountriesIDs: _shownIDs,
+      /// SHOWN COUNTRIES IDS
+
+      // --------------------
+      /// ACTIVE IDS
+      List<String> _activeIDs = _countriesStages.getIDsByViewingEvent(
+        event: widget.zoneViewingEvent,
+        countryID: null,
+        viewerCountryID: widget.viewerZone?.countryID,
+      );
+      /// ACTIVATE MY COUNTRY ID
+      _activeIDs = StagingModel.addMyCountryIDToActiveCountries(
+        shownCountriesIDs: _activeIDs,
         myCountryID: widget.viewerZone?.countryID,
         event: widget.zoneViewingEvent,
-    );
+      );
+      /// SHOW USA IF A STATE IS SHOWN
+      _activeIDs = America.addUSAIDToCountriesIDsIfContainsAStateID(
+          countriesIDs: _activeIDs,
+      );
+      // --------------------
 
-    // blog('CountriesScreen._loadCountries() : _shownIDs : $_shownIDs');
+      /// DISABLED COUNTRIES IDS
 
-    /// NOT SHOWN IDS
-    final List<String>? _notShownIDs = Stringer.removeStringsFromStrings(
-      removeFrom: Flag.getAllCountriesIDs(),
-      removeThis: _shownIDs,
-    );
+      // --------------------
+      /// DISABLED IDS
+      List<String> _disabledIDs = Stringer.removeStringsFromStrings(
+        removeFrom: _countriesStages.getAllIDs(),
+        removeThis: _activeIDs,
+      );
+      /// ADD USA IF NOT ADDED
+      if (_activeIDs.contains('usa') == false){
+        _disabledIDs = America.addUSAIDToCountriesIDsIfContainsAStateID(
+          countriesIDs: _disabledIDs,
+        );
+      }
+      // --------------------
 
-    /// FINAL IDS
-    final List<String> _shown = CountryModel.sortCountriesNamesAlphabetically(
-      countriesIDs: _shownIDs,
-      langCode: Localizer.getCurrentLangCode(),
-    );
+      /// SORT COUNTRIES
 
-    final List<String> _notShown = CountryModel.sortCountriesNamesAlphabetically(
-      countriesIDs: _notShownIDs,
-      langCode: Localizer.getCurrentLangCode(),
-    );
+      // --------------------
+      /// SORT SHOWN
+      _activeIDs = CountryModel.sortCountriesNamesAlphabetically(
+        countriesIDs: _activeIDs,
+        langCode: Localizer.getCurrentLangCode(),
+      );
+      /// SORT NOT SHOWN
+      _disabledIDs = CountryModel.sortCountriesNamesAlphabetically(
+        countriesIDs: _disabledIDs,
+        langCode: Localizer.getCurrentLangCode(),
+      );
+      // --------------------
 
-    /// CENSUS
-    final List<CensusModel> _countriesCensuses = await  CensusProtocols.fetchCountriesCensusesByIDs(
-        countriesIDs: [..._shownIDs, ...?_notShownIDs],
-    );
-    final CensusModel? _fetchedPlanetCensus = await CensusProtocols.fetchPlanetCensus();
+      /// CENSUS
 
-    // Stringer.blogStrings(strings: _shown, invoker: '_shown');
-    // Stringer.blogStrings(strings: _notShown, invoker: '_notShown');
+      // --------------------
+      /// CENSUS
+      final List<CensusModel> _countriesCensuses = await  CensusProtocols.fetchCountriesCensusesByIDs(
+        countriesIDs: [..._activeIDs, ..._disabledIDs],
+      );
+      final CensusModel? _fetchedPlanetCensus = await CensusProtocols.fetchPlanetCensus();
+      // --------------------
 
-    if (mounted) {
-      setState(() {
+      /// SET DATA
 
-        _shownCountriesIDs = _shown;
-        _notShownCountriesIDs = _notShown;
-
-        _censuses = _countriesCensuses;
-        _planetCensus = _fetchedPlanetCensus;
-
-      });
+      // --------------------
+      if (mounted == true) {
+        setState(() {
+          _activeCountriesIDs = _activeIDs;
+          _disabledCountriesIDs = _disabledIDs;
+          _censuses = _countriesCensuses;
+          _planetCensus = _fetchedPlanetCensus;
+          // Stringer.blogStrings(strings: _shownCountriesIDs, invoker: 'loadCountries');
+        });
+      }
+      // --------------------
     }
-
 
   }
   // -----------------------------------------------------------------------------
@@ -254,34 +301,19 @@ class _CountriesScreenState extends State<CountriesScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _onCountryTap(String countryID) async {
 
-    blog('onCountryTap : browse view : $countryID');
-
-      String? _countryID = countryID;
-
-      // if (countryID == 'usa'){
-      //   _countryID = await Nav.goToNewScreen(
-      //       context: context,
-      //       screen: StatesScreen(
-      //         zoneViewingEvent: widget.zoneViewingEvent,
-      //         depth: widget.depth,
-      //         viewerZone: widget.viewerZone,
-      //         selectedZone: widget.selectedZone,
-      //       ),
-      //   );
-      // }
-
-      if (_countryID != null){
-        await ZoneSelection.onSelectCountry(
-          context: context,
-          countryID: _countryID,
-          depth: widget.depth,
-          zoneViewingEvent: widget.zoneViewingEvent,
-          viewerZone: widget.viewerZone,
-          selectedZone: ZoneModel(
-              countryID: _countryID,
-          ),
-        );
-      }
+    await ZoneSelection.onSelectCountry(
+      context: context,
+      countryID: countryID,
+      depth: widget.depth,
+      zoneViewingEvent: widget.zoneViewingEvent,
+      viewerZone: widget.viewerZone,
+      selectedZone: countryID == widget.selectedZone?.countryID ?
+      widget.selectedZone
+          :
+      ZoneModel(
+        countryID: countryID,
+      ),
+    );
 
   }
   // --------------------
@@ -343,46 +375,44 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
               return WidgetFader(
                 fadeType: FadeType.fadeIn,
-                child: Scroller(
-                  child: ValueListenableBuilder(
-                    valueListenable: _isSearching,
-                    builder: (BuildContext context, bool isSearching, Widget? child){
+                child: ValueListenableBuilder(
+                  valueListenable: _isSearching,
+                  builder: (BuildContext context, bool isSearching, Widget? child){
 
-                      /// WHILE SEARCHING
-                      if (isSearching == true){
+                    /// WHILE SEARCHING
+                    if (isSearching == true){
 
-                        return CountriesScreenSearchView(
-                          foundCountries: _foundCountries,
-                          shownCountriesIDs: _shownCountriesIDs,
-                          countriesCensus: _censuses,
-                          selectedZone: widget.selectedZone,
-                          onCountryTap: _onCountryTap,
-                          onDisabledCountryTap: _onDeactivatedCountryTap,
-                        );
+                      return CountriesScreenSearchView(
+                        foundCountries: _foundCountries,
+                        activeCountriesIDs: _activeCountriesIDs,
+                        disabledCountriesIDs: _disabledCountriesIDs,
+                        countriesCensus: _censuses,
+                        selectedZone: widget.selectedZone,
+                        onCountryTap: _onCountryTap,
+                        onDisabledCountryTap: _onDeactivatedCountryTap,
+                      );
 
-                      }
+                    }
 
-                      /// NOT SEARCHING
-                      else {
+                    /// WHILE BROWSING
+                    else {
+                      return CountriesScreenBrowseView(
+                        shownCountriesIDs: _activeCountriesIDs,
+                        disabledCountriesIDs: _disabledCountriesIDs,
+                        countriesCensus: _censuses,
+                        planetCensus: _planetCensus,
+                        selectedZone: widget.selectedZone,
+                        onCountryTap: _onCountryTap,
+                        onDisabledCountryTap: _onDeactivatedCountryTap,
+                        onPlanetTap: _onPlanetTap,
+                        showPlanetButton: StagingModel.checkMayShowViewAllZonesButton(
+                          zoneViewingEvent: widget.zoneViewingEvent,
+                        ),
+                      );
 
-                        return CountriesScreenBrowseView(
-                          shownCountriesIDs: _shownCountriesIDs,
-                          notShownCountriesIDs: _notShownCountriesIDs,
-                          countriesCensus: _censuses,
-                          onCountryTap: _onCountryTap,
-                          onDisabledCountryTap: _onDeactivatedCountryTap,
-                          showPlanetButton: StagingModel.checkMayShowViewAllZonesButton(
-                            zoneViewingEvent: widget.zoneViewingEvent,
-                          ),
-                          planetCensus: _planetCensus,
-                          selectedZone: widget.selectedZone,
-                          onPlanetTap: _onPlanetTap,
-                        );
+                    }
 
-                      }
-
-                      },
-                  ),
+                    },
                 ),
               );
 

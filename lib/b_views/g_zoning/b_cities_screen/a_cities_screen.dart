@@ -130,68 +130,77 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         countryID: widget.countryID,
       );
 
-      final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountryByIDs(
-        citiesIDsOfThisCountry: _citiesStages?.getAllIDs(),
-      );
+      if (_citiesStages != null){
 
-      if (mounted == true){
+        // _citiesStages.blogStaging();
 
-        /// SHOWN CITIES IDS
-        List<String>? _shownIDs = _citiesStages?.getIDsByViewingEvent(
-          event: widget.zoneViewingEvent,
-          countryID: widget.countryID,
-          viewerCountryID: widget.viewerZone?.countryID,
-        );
-        _shownIDs = StagingModel.addMyCityIDToShownCities(
-          shownCitiesIDs: _shownIDs,
-          event: widget.zoneViewingEvent,
-          myCityID: widget.viewerZone?.cityID,
-        );
-
-        /// SHOWN CITIES MODEL
-        final List<CityModel> _orderedShownCities = CityModel.sortCitiesAlphabetically(
-          langCode: Localizer.getCurrentLangCode(),
-          cities: CityModel.getCitiesFromCitiesByIDs(
-            citiesModels: _cities,
-            citiesIDs: _shownIDs,
-          ),
-        );
-
-        /// NOT SHOWN CITIES IDS
-        final List<String>? _notShownIDs = Stringer.removeStringsFromStrings(
-          removeFrom: CityModel.getCitiesIDs(_cities),
-          removeThis: _shownIDs,
-        );
-        /// NOT SHOWN CITIES MODELS
-        final List<CityModel> _orderedNotShownCities = CityModel.sortCitiesAlphabetically(
-          langCode: Localizer.getCurrentLangCode(),
-          cities: CityModel.getCitiesFromCitiesByIDs(
-            citiesModels: _cities,
-            citiesIDs: _notShownIDs,
-          ),
-        );
-
-        final List<CensusModel> _citiesCensuses = await CensusProtocols.fetchCitiesCensuses(
-            citiesIDs: <String>[..._shownIDs, ...?_notShownIDs]
-        );
-        final CensusModel? _censusOfCountry = await CensusProtocols.fetchCountryCensus(
-            countryID: widget.countryID,
+        final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountryByIDs(
+          citiesIDsOfThisCountry: _citiesStages.getAllIDs(),
         );
 
         if (mounted == true){
-          setState(() {
-            _shownCitiesIDs = _shownIDs;
-            // _stages = _citiesStages;
-            _censuses = _citiesCensuses;
-            _countryCensus = _censusOfCountry;
-          });
+
+          /// SHOWN CITIES IDS
+          final List<String> _idsToView = _citiesStages.getIDsByViewingEvent(
+            event: widget.zoneViewingEvent,
+            countryID: widget.countryID,
+            viewerCountryID: widget.viewerZone?.countryID,
+          );
+          final List<String> _shownIDs = StagingModel.addMyCityIDToShownCities(
+            shownIDs: _idsToView,
+            event: widget.zoneViewingEvent,
+            myCityID: widget.viewerZone?.cityID,
+          );
+
+          // Stringer.blogStrings(strings: _shownIDs, invoker: 'shownCities');
+
+          /// SHOWN CITIES MODEL
+          final List<CityModel> _orderedShownCities = CityModel.sortCitiesAlphabetically(
+            langCode: Localizer.getCurrentLangCode(),
+            cities: CityModel.getCitiesFromCitiesByIDs(
+              citiesModels: _cities,
+              citiesIDs: _shownIDs,
+            ),
+          );
+          /// NOT SHOWN CITIES IDS
+          final List<String>? _notShownIDs = Stringer.removeStringsFromStrings(
+            removeFrom: CityModel.getCitiesIDs(_cities),
+            removeThis: _shownIDs,
+          );
+          /// NOT SHOWN CITIES MODELS
+          final List<CityModel> _orderedNotShownCities = CityModel.sortCitiesAlphabetically(
+            langCode: Localizer.getCurrentLangCode(),
+            cities: CityModel.getCitiesFromCitiesByIDs(
+              citiesModels: _cities,
+              citiesIDs: _notShownIDs,
+            ),
+          );
+
+          final List<CensusModel> _citiesCensuses = await CensusProtocols.fetchCitiesCensuses(
+              citiesIDs: <String>[..._shownIDs, ...?_notShownIDs]
+          );
+          final CensusModel? _censusOfCountry = await CensusProtocols.fetchCountryCensus(
+            countryID: widget.countryID,
+          );
+
+          if (mounted == true){
+
+            setState(() {
+              _shownCitiesIDs = _shownIDs;
+              // _stages = _citiesStages;
+              _censuses = _citiesCensuses;
+              _countryCensus = _censusOfCountry;
+            });
+
+          }
+
+          setNotifier(
+            notifier: _countryCities,
+            mounted: mounted,
+            value: <CityModel>[..._orderedShownCities, ..._orderedNotShownCities],
+          );
         }
 
-        setNotifier(
-          notifier: _countryCities,
-          mounted: mounted,
-          value: <CityModel>[..._orderedShownCities, ..._orderedNotShownCities],
-        );
 
       }
 
@@ -341,22 +350,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       depth: widget.depth,
       zoneViewingEvent: widget.zoneViewingEvent,
     );
-
-    // await Nav.goBack(
-    //   context: context,
-    // );
-
-    // await ZoneSelection.onSelectCountry(
-    //   context: context,
-    //   countryID: widget.countryID,
-    //   depth: ZoneDepth.country,
-    //   zoneViewingEvent: widget.zoneViewingEvent,
-    //   viewerCountryID: widget.viewerCountryID,
-    //   selectedZone: ZoneModel(
-    //     countryID: widget.countryID,
-    //     cityID: ZoneModel.allCitiesID,
-    //   ),
-    // );
 
   }
   // -----------------------------------------------------------------------------

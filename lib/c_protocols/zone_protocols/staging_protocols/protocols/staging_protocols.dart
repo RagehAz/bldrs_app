@@ -84,11 +84,8 @@ class StagingProtocols {
     StagingModel? _output;
 
     if (countryID != null){
-
       await StagingLDBOps.deleteStaging(id: countryID,);
-
       _output = await fetchCitiesStaging(countryID: countryID,);
-
     }
 
     return _output;
