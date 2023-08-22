@@ -29,13 +29,13 @@ class CountryTileButton extends StatelessWidget {
   final Function? onTap;
   final Function? onDeactivatedTap;
   final String? countryID;
+  final bool isActive;
+  final bool isSelected;
   final double? width;
   final double? height;
-  final bool isActive;
   final CensusModel? censusModel;
   final Verse? verse;
   final bool verseCentered;
-  final bool isSelected;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool canShowCensus({

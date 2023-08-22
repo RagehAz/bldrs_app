@@ -1,12 +1,10 @@
 import 'dart:async';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/json/city_json_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/staging_real_ops.dart';
 
 /// SUPER_DEV_TEST
 Future<void> superDevTestGoX() async {
-
-
 
   // const String _path = '/assets/countries/deu.json';
   // final String _jsonStringValues = await rootBundle.loadString(_path);
@@ -67,13 +65,19 @@ Future<void> superDevTestGoX() async {
   // blog('function after maw');
   blog('time is : ${DateTime.now()}');
 
-  final Map<String, dynamic>? mapSS = await CityJsonOps.readCountryCitiesJson(
-    countryID: 'egy'
-  );
-  //
-  //
-  Mapper.blogMap(mapSS);
+  // await Real.deletePath(
+  //     pathWithDocName: 'zones/stages_countries/1_empty_stage/204',
+  // );
 
+  blog('zones/stages_countries/1_empty_stage/usa');
+  blog('a77a ba2aaa');
 
+  await StagingRealOps.createInitialCitiesStagesWithAllCitiesEmpty();
 
 }
+
+/*
+    if (America.checkCountryIDIsStateID(countryID) == true){
+
+    }
+ */

@@ -224,6 +224,58 @@ class CityModel {
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getCountriesIDsFromCitiesIDs({
+    required List<String> citiesIDs,
+  }){
+    List<String> _output = [];
+
+    if (Mapper.checkCanLoopList(citiesIDs) == true){
+
+      for (final String cityID in citiesIDs){
+
+        final String? _countryID = getCountryIDFromCityID(cityID);
+
+        if (_countryID != null){
+
+          _output = Stringer.addStringToListIfDoesNotContainIt(
+              strings: _output,
+              stringToAdd: _countryID,
+          );
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getCitiesIDsFromCitiesIDsByCountryID({
+    required String? countryID,
+    required List<String> citiesIDs,
+  }){
+    final List<String> _output = [];
+
+    if (Mapper.checkCanLoopList(citiesIDs) == true && countryID != null){
+
+      for (final String cityID in citiesIDs){
+
+        final String? _countryIDOfCity = getCountryIDFromCityID(cityID);
+
+        if (_countryIDOfCity == countryID){
+          _output.add(cityID);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
   /// DEPRECATED
   /*
