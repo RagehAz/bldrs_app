@@ -42,7 +42,6 @@ class CitiesScreen extends StatefulWidget {
   @override
   State<CitiesScreen> createState() => _NewSelectCityScreen();
   // --------------------------------------------------------------------------
-
 }
 
 class _NewSelectCityScreen extends State<CitiesScreen> {
@@ -200,7 +199,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
             value: <CityModel>[..._orderedShownCities, ..._orderedNotShownCities],
           );
         }
-
 
       }
 
