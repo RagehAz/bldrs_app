@@ -5,7 +5,10 @@ class America {
 
   const America();
 
-  static const useISO2 = true;
+  // --------------------
+  /// us_ca+cupertino - us_ca
+  // --------------------
+  static const useISO2 = false;
   // --------------------
   static const Map<String, String> statesNamesMap = {
     'us_al': 'Alabama',
@@ -223,9 +226,6 @@ class America {
     'WY. Wyoming',
   ];
   // --------------------
-
-
-  // --------------------
   static const List<String> statesISO2 = <String>[
     'al',
     'ak',
@@ -376,6 +376,29 @@ class America {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getStatesIDsFromCountriesIDs({
+    required List<String>? countriesIDs,
+  }){
+    final List<String> _statesIDs = [];
+
+    if (Mapper.checkCanLoopList(countriesIDs) == true){
+
+      for (final String countryID in countriesIDs!){
+
+        final bool _isStateID = checkCountryIDIsStateID(countryID);
+
+        if (_isStateID == true){
+          _statesIDs.add(countryID);
+        }
+
+      }
+
+    }
+
+    return sortStatesIDsByName(statesIDs: _statesIDs);
+  }
   // ---------------------------------------------------------------------------
 
   /// SORTING
@@ -521,6 +544,103 @@ class America {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> createAllStatesPhrases(){
+    return createStatesPhrases(
+      statesIDs: getStatesIDs(),
+      withISO2: useISO2,
+    );
+  }
+  // ---------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> addUSAIDToCountriesIDsIfContainsAStateID({
+    required List<String> countriesIDs,
+  }){
+    final List<String> _output = [...countriesIDs];
+
+    if (Mapper.checkCanLoopList(countriesIDs) == true){
+
+      final bool _hasAStateID = checkCountriesIDsIncludeAStateID(
+        countriesIDs: countriesIDs,
+      );
+
+      if (_hasAStateID == true){
+        _output.add('usa');
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> addUSAIDToPhrasesIfContainsStates({
+    required List<Phrase> phrases,
+  }){
+    final List<Phrase> _output = [...phrases];
+
+    if (Mapper.checkCanLoopList(phrases) == true){
+
+      final List<String> _phrasesIDs = Phrase.getPhrasesIDs(phrases);
+
+      final bool _hasAStateID = checkCountriesIDsIncludeAStateID(
+        countriesIDs: _phrasesIDs,
+      );
+
+      if (_hasAStateID == true){
+
+        final String _langCode = UiProvider.proGetCurrentLangCode(
+            context: getMainContext(),
+            listen: false,
+        );
+
+        final Phrase _usaPhrase = Phrase(
+          id: 'usa',
+          value: CountryModel.translateCountry(
+              countryID: 'usa',
+              langCode: _langCode,
+          ),
+          langCode: _langCode,
+          // trigram: [],
+        );
+
+        _output.add(_usaPhrase);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> removeStatesPhrases({
+    required List<Phrase> removeFrom,
+  }){
+    final List<Phrase> _output = [];
+
+    if (Mapper.checkCanLoopList(removeFrom) == true){
+
+      for (final Phrase phrase in removeFrom){
+
+        final bool _isState = checkCountryIDIsStateID(phrase.id);
+        blog('isState : $_isState : ${phrase.id}');
+
+        if (_isState == false){
+          _output.add(phrase);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
   // ---------------------------------------------------------------------------
 
   /// CHECKERS
@@ -537,13 +657,46 @@ class America {
           specialCharacter: '_',
       );
 
-      if (us == 'us'){
+      if (countryID != 'usa' && us == 'us'){
         _isState = true;
       }
 
     }
 
     return _isState;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkCountriesIDsIncludeAStateID({
+    required List<String> countriesIDs,
+  }){
+    bool _output = false;
+
+    if (Mapper.checkCanLoopList(countriesIDs) == true){
+
+      for (final String countryID in countriesIDs){
+
+        final bool _isStateID = checkCountryIDIsStateID(countryID);
+
+        if (_isStateID == true){
+          _output = true;
+          break;
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool searchTextIsExactlyUSA(String? searchText){
+    bool _output = false;
+    if (searchText == 'usa' || searchText == 'USA'){
+      _output = true;
+    }
+    return _output;
   }
   // ---------------------------------------------------------------------------
 }
