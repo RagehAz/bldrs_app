@@ -151,7 +151,7 @@ class ZGridController {
     required ZGridScale gridScale,
   }) async {
 
-    Keyboard.closeKeyboard();
+    await Keyboard.closeKeyboard();
 
     // blog('zoomIn : itemIndex ~/ rowsCount = ${itemIndex ~/ _columnsCount}');
 

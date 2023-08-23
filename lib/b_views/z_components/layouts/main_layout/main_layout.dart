@@ -90,14 +90,14 @@ class MainLayout extends StatelessWidget {
   final Widget? filters;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static void onCancelSearch({
+  static Future<void> onCancelSearch({
     required TextEditingController? controller,
     required ValueNotifier<dynamic>? foundResultNotifier,
     required ValueNotifier<bool>? isSearching,
     required bool mounted,
-  }){
+  }) async {
 
-    Keyboard.closeKeyboard();
+    await Keyboard.closeKeyboard();
 
       controller?.text = '';
 
@@ -172,7 +172,7 @@ class MainLayout extends StatelessWidget {
 
       final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
       if (_uiProvider.keyboardIsOn == true){
-        Keyboard.closeKeyboard();
+        await Keyboard.closeKeyboard();
       }
 
       if (canGoBack == true){
@@ -200,10 +200,12 @@ class MainLayout extends StatelessWidget {
         return false;
       },
       child: GestureDetector(
-        onTap: (){
+        onTap: () async  {
 
+          blog('asgh edrh rh 77aaa');
+
+          await Keyboard.closeKeyboard();
           UiProvider.proSetPyramidsAreExpanded(setTo: false, notify: true);
-          Keyboard.closeKeyboard();
 
         },
         child: SafeArea(

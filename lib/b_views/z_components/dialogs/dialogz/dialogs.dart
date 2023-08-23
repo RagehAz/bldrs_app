@@ -490,7 +490,7 @@ class Dialogs {
     final KeyboardModel? _keyboardModel = keyboardModel ?? KeyboardModel.standardModel();
     Future<void> _onSubmit (String? text) async {
 
-      Keyboard.closeKeyboard();
+      await Keyboard.closeKeyboard();
       await Nav.goBack(
         context: getMainContext(),
         invoker: 'keyboardDialog',

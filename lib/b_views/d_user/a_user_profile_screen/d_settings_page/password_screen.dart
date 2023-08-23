@@ -110,7 +110,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                         goOnKeyboardGo: false,
                         onSubmitted: (String? text) async {
 
-                          Keyboard.closeKeyboard();
+                          await Keyboard.closeKeyboard();
 
                           await Nav.goBack(
                               context: context,

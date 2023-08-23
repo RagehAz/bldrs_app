@@ -107,7 +107,7 @@ class EditorSwipingButtons extends StatelessWidget {
               width: 100,
               color: Colorz.white10,
               onTap: () async {
-                Keyboard.closeKeyboard();
+                await Keyboard.closeKeyboard();
                 onPrevious?.call();
               },
             ),
@@ -127,7 +127,7 @@ class EditorSwipingButtons extends StatelessWidget {
               color: canGoNext == true ? Colorz.green255 : null,
               onDisabledTap: onDisabledNextTap,
               onTap: () async {
-                Keyboard.closeKeyboard();
+                await Keyboard.closeKeyboard();
                 onNext?.call();
               },
             ),

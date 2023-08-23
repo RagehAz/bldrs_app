@@ -122,7 +122,7 @@ Future<void> onConfirmBzEdits({
     mounted: mounted,
   );
 
-  Keyboard.closeKeyboard();
+  await Keyboard.closeKeyboard();
 
   final bool _canContinue = await _preUploadCheckups(
     draftNotifier: draftNotifier,
@@ -501,7 +501,7 @@ Future<void> onChangeBzScope({
   required bool mounted,
 }) async {
 
-  Keyboard.closeKeyboard();
+  await Keyboard.closeKeyboard();
 
   final List<String> _phids = await PhidsPickerScreen.goPickPhids(
     context: context,

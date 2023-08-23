@@ -4,27 +4,35 @@ class LineWithBackButtonOnly extends StatelessWidget {
 
   const LineWithBackButtonOnly({
     required this.onBack,
+    required this.canGoBack,
     super.key
   });
   
   final Function onBack;
+  final bool canGoBack;
 
   @override
   Widget build(BuildContext context) {
 
-    return LineBox(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
+    if (canGoBack == false){
+      return const SizedBox();
+    }
 
-        const SizedBox(width: Ratioz.appBarPadding),
+    else {
+      return LineBox(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
 
-        BackAndSearchButton(
-          backAndSearchAction: BackAndSearchAction.goBack,
-          onTap: onBack,
-        ),
+          const SizedBox(width: Ratioz.appBarPadding),
 
-      ],
-    );
+          BackAndSearchButton(
+            backAndSearchAction: BackAndSearchAction.goBack,
+            onTap: onBack,
+          ),
+
+        ],
+      );
+    }
 
   }
 

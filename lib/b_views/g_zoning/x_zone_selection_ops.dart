@@ -122,7 +122,7 @@ class ZoneSelection {
     required ZoneModel? selectedZone,
   }) async {
 
-    Keyboard.closeKeyboard();
+    await Keyboard.closeKeyboard();
     ZoneModel? _zoneWithCountry;
 
     if (countryID != null){
@@ -191,7 +191,7 @@ class ZoneSelection {
   }) async {
 
     ZoneModel? _zoneWithCity;
-    Keyboard.closeKeyboard();
+    await Keyboard.closeKeyboard();
 
     if (countryID != null && cityID != null){
       _zoneWithCity = await ZoneProtocols.completeZoneModel(

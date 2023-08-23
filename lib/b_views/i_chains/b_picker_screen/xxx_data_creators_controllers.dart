@@ -1,4 +1,3 @@
-import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
@@ -221,7 +220,7 @@ Future<void> onUnitSelectorButtonTap({
     chainID: picker?.unitChainID,
   );
 // --------------------
-  Keyboard.closeKeyboard();
+  await Keyboard.closeKeyboard();
 
   final bool _arePhids = Phider.checkIsPhids(_unitChain?.sons) == true;
 
@@ -373,13 +372,10 @@ Future<void> onDataCreatorKeyboardSubmittedAnd({
     mounted: mounted,
   );
 
-  Keyboard.closeKeyboard();
+  await Keyboard.closeKeyboard();
 
   if (onKeyboardSubmitted != null){
-    await Future<void>.delayed(Ratioz.durationSliding400,
-            () async {
-          onKeyboardSubmitted(text);
-        });
+    onKeyboardSubmitted(text);
   }
 
 }

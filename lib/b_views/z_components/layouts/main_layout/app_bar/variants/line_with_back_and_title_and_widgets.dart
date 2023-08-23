@@ -7,6 +7,7 @@ class LineWithBackAndTitleAndWidgets extends StatelessWidget {
     required this.appBarRowWidgets,
     required this.scrollController,
     required this.pageTitleVerse,
+    required this.canGoBack,
     super.key
   });
   
@@ -14,12 +15,13 @@ class LineWithBackAndTitleAndWidgets extends StatelessWidget {
   final List<Widget>? appBarRowWidgets;
   final ScrollController? scrollController;
   final Verse? pageTitleVerse;
+  final bool canGoBack;
 
   @override
   Widget build(BuildContext context) {
 
     final double _clearWidth = BldrsAppBar.clearWidth(context);
-    const double _backButtonSize = Ratioz.appBarButtonSize;
+    final double _backButtonSize = canGoBack == true ? Ratioz.appBarButtonSize : 0;
     const double _spacing = Ratioz.appBarPadding;
     final double _titleAndScrollableWidth = _clearWidth
                                           - _backButtonSize
@@ -34,6 +36,7 @@ class LineWithBackAndTitleAndWidgets extends StatelessWidget {
 
         const SizedBox(width: Ratioz.appBarPadding),
 
+        if (canGoBack == true)
         BackAndSearchButton(
           backAndSearchAction: BackAndSearchAction.goBack,
           onTap: onBack,

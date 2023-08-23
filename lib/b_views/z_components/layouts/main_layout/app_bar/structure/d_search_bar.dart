@@ -60,9 +60,9 @@ class _SearchBarState extends State<SearchBar> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  void _onClearSearch(){
+  Future<void> _onClearSearch() async {
 
-    Keyboard.closeKeyboard();
+    await Keyboard.closeKeyboard();
 
     if (widget.searchController == null){
       _searchTextController.text = '';
@@ -210,7 +210,7 @@ class _SearchBarState extends State<SearchBar> {
                         onTap: () async {
 
                           if (_canSubmit == true){
-                            _onClearSearch();
+                            await _onClearSearch();
                           }
                           else {
                             await TextMod.controllerPaste(_searchTextController);
