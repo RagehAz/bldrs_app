@@ -280,7 +280,7 @@ Future<bool> reAuthenticateUser({
         userModel: _userModel,
       );
 
-      Keyboard.closeKeyboard();
+      await Keyboard.closeKeyboard();
 
       /// NO PASSWORD PROVIDED
       if (_passwordIsCorrect == null){

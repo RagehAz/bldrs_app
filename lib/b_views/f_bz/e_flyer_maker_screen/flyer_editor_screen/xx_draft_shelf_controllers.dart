@@ -228,7 +228,7 @@ Future<void> onSlideTap({
   required bool mounted,
 }) async {
 
-  Keyboard.closeKeyboard();
+  await Keyboard.closeKeyboard();
 
   final DraftSlide? _result = await Nav.goToNewScreen(
       context: getMainContext(),
@@ -264,7 +264,7 @@ Future<void> onDeleteSlide({
   required bool mounted,
 }) async {
 
-  Keyboard.closeKeyboard();
+  await Keyboard.closeKeyboard();
 
   final SlideModel? _slide = await DraftSlide.draftToSlide(
     draft: draftSlide,

@@ -42,6 +42,7 @@ class FirstAppBarLine extends StatelessWidget {
           scrollController: appBarScrollController,
           appBarRowWidgets: appBarRowWidgets,
           onBack: onBack,
+          canGoBack: canGoBack,
           pageTitleVerse: pageTitleVerse,
         );
       }
@@ -51,6 +52,7 @@ class FirstAppBarLine extends StatelessWidget {
         return LineWithBackAndTitle(
           pageTitleVerse: pageTitleVerse,
           onBack: onBack,
+          canGoBack: canGoBack,
         );
       }
 
@@ -58,6 +60,7 @@ class FirstAppBarLine extends StatelessWidget {
       else if (_hasTitle == false && _hasWidgets == true){
         return LineWithBackAndWidgets(
           onBack: onBack,
+          canGoBack: canGoBack,
           scrollController: appBarScrollController,
           appBarRowWidgets: appBarRowWidgets,
         );
@@ -67,12 +70,14 @@ class FirstAppBarLine extends StatelessWidget {
       else if (_hasTitle == false && _hasWidgets == false){
         return LineWithBackButtonOnly(
           onBack: onBack,
+          canGoBack: canGoBack,
         );
       }
 
       else {
         return LineWithBackButtonOnly(
           onBack: onBack,
+          canGoBack: canGoBack,
         );
       }
 

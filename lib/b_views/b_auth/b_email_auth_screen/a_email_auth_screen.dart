@@ -6,10 +6,12 @@ import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class EmailAuthScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -51,6 +53,10 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   final FocusNode _confirmPasswordNode = FocusNode();
   // --------------------
   final ValueNotifier<bool> _isSigningIn = ValueNotifier(true);
+  // --------------------
+  /// KEYBOARD VISIBILITY
+  StreamSubscription<bool>? _keyboardSubscription;
+  final KeyboardVisibilityController keyboardVisibilityController = KeyboardVisibilityController();
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -65,13 +71,13 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   // -----------------------------------------------------------------------------
   @override
   void initState() {
+    _initializeKeyboard();
     super.initState();
   }
   // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
-
     if (_isInit && mounted) {
       _isInit = false; // good
 
@@ -115,7 +121,20 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
     _loading.dispose();
     _isRememberingMe.dispose();
     _isObscured.dispose();
+    _keyboardSubscription?.cancel();
     super.dispose();
+  }
+  // -----------------------------------------------------------------------------
+
+  /// KEYBOARDS CONTROLLERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _initializeKeyboard(){
+    /// Subscribe
+    _keyboardSubscription = Keyboard.initializeKeyboardListener(
+      controller: keyboardVisibilityController,
+    );
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -152,6 +171,8 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onSignup() async {
+
+    await Keyboard.closeKeyboard();
 
     if (mounted == true){
 

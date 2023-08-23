@@ -357,19 +357,15 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _onConfirmTap() async {
 
-    Keyboard.closeKeyboard();
+    await Keyboard.closeKeyboard();
 
-    await Future.delayed(const Duration(milliseconds: 100), () async {
+    _switchOnValidation();
 
-      _switchOnValidation();
-
-      await onConfirmAuthorUpdates(
-        draftAuthor: _draftAuthor,
-        oldBz: widget.bzModel,
-        oldAuthor: _originalDraft,
-      );
-
-    });
+    await onConfirmAuthorUpdates(
+      draftAuthor: _draftAuthor,
+      oldBz: widget.bzModel,
+      oldAuthor: _originalDraft,
+    );
 
   }
   // -----------------------------------------------------------------------------

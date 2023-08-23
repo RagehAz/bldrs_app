@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
@@ -257,13 +259,13 @@ class CenterDialog extends StatelessWidget {
                         alignment: Alignment.center,
                         color: Colorz.nothing, // to let parent gesture detector detect this container
                         child: GestureDetector(
-                          onTap: (){
+                          onTap: () async {
 
                             if (copyOnTap == true){
-                              Keyboard.copyToClipboardAndNotify(copy: title?.id);
+                              unawaited(Keyboard.copyToClipboardAndNotify(copy: title?.id));
                             }
 
-                            Keyboard.closeKeyboard();
+                            await Keyboard.closeKeyboard();
                           },
                           child: Container(
                             width: _dialogWidth,
