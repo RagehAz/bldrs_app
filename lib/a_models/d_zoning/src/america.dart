@@ -629,7 +629,6 @@ class America {
       for (final Phrase phrase in removeFrom){
 
         final bool _isState = checkCountryIDIsStateID(phrase.id);
-        blog('isState : $_isState : ${phrase.id}');
 
         if (_isState == false){
           _output.add(phrase);
