@@ -21,6 +21,7 @@ import 'package:bldrs/firebase_options.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:fire/super_fire.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -86,59 +87,58 @@ Future<void> main() async {
 
 // ---------------------------------------------------------------------------
 
+const bool useSentryOnDebug = false;
+
 Future<void> sentryBldrs() async {
 
-  // if (kDebugMode) {
+  const bool _runSentry = useSentryOnDebug == true ? true : !kDebugMode;
+
+  if (_runSentry == true) {
     final pkg = await PackageInfo.fromPlatform();
     await SentryFlutter.init(
-      (options) async {
-        const String _thing = 'https://1c1d8068e888994cfeee26f0dfaafcd6@o4505718555213824.ingest.sentry.io/4505718558883840';
-        // final release = AppPatcher.fullVersion;
-        options.dsn = _thing; //AppConstants.sentryDsn;
-        options.release = pkg.version;
-        options.sendDefaultPii = true;
-        options.environment = 'production';
-        options.attachScreenshot = true;
-
-      },
+          (options) async {
+            const String _thing = 'https://1c1d8068e888994cfeee26f0dfaafcd6@o4505718555213824.ingest.sentry.io/4505718558883840';
+            // final release = AppPatcher.fullVersion;
+            options.dsn = _thing; //AppConstants.sentryDsn;
+            options.release = pkg.version;
+            options.sendDefaultPii = true;
+            options.environment = 'production';
+            options.attachScreenshot = true;
+            },
       appRunner: () async {
-        Sentry.configureScope(
-          (scope) async {
-            late final BaseDeviceInfo deviceInfo;
-            if (Platform.isAndroid) {
-              deviceInfo = await DeviceChecker.getDeviceInfoPlugin().androidInfo;
-            } else {
-              deviceInfo = await DeviceChecker.getDeviceInfoPlugin().iosInfo;
-            }
-
-            await scope.setContexts('device_info', deviceInfo.data);
-
-            final packageInfoAsMap = <String, String>{
-              'packageName': pkg.packageName,
-              'appName': pkg.appName,
-              'buildNumber': pkg.buildNumber,
-              'buildSignature': pkg.buildSignature,
-              'version': pkg.version,
-            };
-
-            await scope.setContexts('package_info', packageInfoAsMap);
-          },
-        );
-        return runApp(
-          DefaultAssetBundle(
-            bundle: SentryAssetBundle(),
-            child: const SentryScreenshotWidget(
-              child: BldrsAppStarter(),
-            ),
-          ),
-        );
-      },
+            Sentry.configureScope(
+                  (scope) async {
+                    late final BaseDeviceInfo deviceInfo;
+                    if (Platform.isAndroid) {
+                      deviceInfo = await DeviceChecker.getDeviceInfoPlugin().androidInfo;
+                    } else {
+                      deviceInfo = await DeviceChecker.getDeviceInfoPlugin().iosInfo;
+                    }
+                    await scope.setContexts('device_info', deviceInfo.data);
+                    final packageInfoAsMap = <String, String>{
+                      'packageName': pkg.packageName,
+                      'appName': pkg.appName,
+                      'buildNumber': pkg.buildNumber,
+                      'buildSignature': pkg.buildSignature,
+                      'version': pkg.version,
+                    };
+                    await scope.setContexts('package_info', packageInfoAsMap);},
+            );
+            return runApp(
+              DefaultAssetBundle(
+                bundle: SentryAssetBundle(),
+                child: const SentryScreenshotWidget(
+                  child: BldrsAppStarter(),
+                ),
+              ),
+            );
+            },
     );
-  // }
+  }
 
-  // else {
-  //   runApp(const BldrsAppStarter());
-  // }
+  else {
+    runApp(const BldrsAppStarter());
+  }
 
 }
 

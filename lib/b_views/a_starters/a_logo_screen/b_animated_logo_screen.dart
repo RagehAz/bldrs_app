@@ -92,7 +92,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
       asyncInSync(() async {
 
-        Keyboard.closeKeyboard();
+        await Keyboard.closeKeyboard();
 
         bool _loadApp = false;
 

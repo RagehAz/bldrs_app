@@ -16,6 +16,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zo
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 
@@ -148,7 +149,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     required BuildContext context
   }) async {
 
-    Keyboard.closeKeyboard();
+    await Keyboard.closeKeyboard();
 
     final ZoneModel? _zone = await ZoneSelection.goToCountriesScreen(
       zoneViewingEvent: widget.zoneViewingEvent,
@@ -183,7 +184,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     required BuildContext context
   }) async {
 
-    Keyboard.closeKeyboard();
+    await Keyboard.closeKeyboard();
 
     if (_selectedZone.value?.countryID != null && _selectedZone.value?.countryModel != null){
 
@@ -232,9 +233,56 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       return widget.validator?.call();
     }
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Verse _getCountryLine(ZoneModel? zone){
+
+    String _line = getWord('phid_select_a_country');
+    if (zone != null){
+
+      if (zone.countryID != ZoneModel.planetZone.countryID){
+        _line = zone.countryName ?? '';
+      }
+
+    }
+
+    return Verse(
+      id: _line,
+      translate: false,
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  String _getCountryIcon(ZoneModel? zone){
+
+    if (zone == null || zone.countryID == ZoneModel.planetZone.countryID){
+      return Iconz.circleDot;
+    }
+    else {
+      return zone.icon ?? Iconz.circleDot;
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Verse _getCityLine(ZoneModel? zone){
+    
+    String _line = getWord('phid_selectCity');
+    if (zone != null){
+      if (zone.cityName != null){
+        _line = zone.cityName!;
+      }
+    }
+    
+    return Verse(
+      id: _line,
+      translate: false,
+    );
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
 
     return ValueListenableBuilder(
         valueListenable: _loading,
@@ -269,41 +317,35 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                         id: 'phid_country',
                         translate: true,
                       ),
-                      verse: Verse(
-                        id: zone?.countryName,
-                        translate: false,
-                      ),
-                      icon: zone?.icon ?? Iconz.circleDot,
+                      verse: _getCountryLine(zone),
+                      icon: _getCountryIcon(zone),
                       onTap: () => _onCountryButtonTap(context: context),
                       loading: loading,
                     ),
 
                     /// City BUTTON
                     if (widget.depth == ZoneDepth.city)
-                    ZoneSelectionButton(
-                      title: const Verse(
-                        id: 'phid_city',
-                        translate: true,
+                      ZoneSelectionButton(
+                        title: const Verse(
+                          id: 'phid_city',
+                          translate: true,
+                        ),
+                        verse: _getCityLine(zone),
+                        onTap: () => _onCityButtonTap(context: context),
+                        loading: loading,
                       ),
-                      verse: Verse(
-                        id: zone?.cityName,
-                        translate: false,
-                      ),
-                      onTap: () => _onCityButtonTap(context: context),
-                      loading: loading,
-                    ),
 
                     if (widget.validator != null)
-                    BldrsValidator(
-                      width: Bubble.clearWidth(context: context) - 20,
-                      validator: _validator,
-                      autoValidate: widget.autoValidate,
-                    ),
+                      BldrsValidator(
+                        width: Bubble.clearWidth(context: context) - 20,
+                        validator: _validator,
+                        autoValidate: widget.autoValidate,
+                      ),
 
                   ]
               );
 
-            },
+              },
             child: BldrsBulletPoints(
               bulletPoints: widget.bulletPoints,
               showBottomLine: false,

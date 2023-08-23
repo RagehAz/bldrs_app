@@ -30,7 +30,7 @@ Future<void> authByEmailSignIn({
 }) async {
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY
-  final bool _allFieldsAreValid = _validateForm(
+  final bool _allFieldsAreValid = await _validateForm(
     formKey: formKey,
   );
 
@@ -48,9 +48,9 @@ Future<void> authByEmailSignIn({
       password: password,
     );
 
-    if (_success == true && mounted == true) {
+    await WaitDialog.closeWaitDialog();
 
-      await WaitDialog.closeWaitDialog();
+    if (_success == true && mounted == true) {
 
       await _navAfterAuth(
         firstTimer: false,
@@ -62,14 +62,14 @@ Future<void> authByEmailSignIn({
 
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> authByEmailRegister({
   required String email,
   required String password,
   required GlobalKey<FormState> formKey,
 }) async {
 
-  final bool _allFieldsAreValid = _validateForm(
+  final bool _allFieldsAreValid = await _validateForm(
     formKey: formKey,
   );
 
@@ -299,12 +299,12 @@ Future<void> _goToUserEditorForFirstTime({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-bool _validateForm({
+Future<bool> _validateForm({
   required GlobalKey<FormState> formKey,
-}) {
+}) async {
 
   /// MINIMIZE KEYBOARD
-  Keyboard.closeKeyboard();
+  await Keyboard.closeKeyboard();
 
   /// CHECK VALIDITY
   final bool? _allFieldsAreValid = Formers.validateForm(formKey);
@@ -323,7 +323,7 @@ Future<void> onForgotPassword({
   required String email,
 }) async {
 
-  _validateForm(
+  await _validateForm(
     formKey: formKey,
   );
 

@@ -479,6 +479,9 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
+
+    blog('widget.canGoBack ssss: ${widget.canGoBack}');
+
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
@@ -486,12 +489,23 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
       skyType: SkyType.black,
       loading: _loading,
       progressBarModel: _progressBarModel,
-      onBack: () => Dialogs.goBackDialog(
-        goBackOnConfirm: true,
-        titleVerse: const Verse(id: 'phid_exit_this_editor_page?', translate: true),
-        bodyVerse: const Verse(id: 'phid_draft_is_temp_stored', translate: true),
-        confirmButtonVerse: const Verse(id: 'phid_exit', translate: true),
-      ),
+      onBack: () async {
+
+        if (widget.canGoBack == true){
+          await Dialogs.goBackDialog(
+            goBackOnConfirm: true,
+            titleVerse: const Verse(id: 'phid_exit_this_editor_page?', translate: true),
+            bodyVerse: const Verse(id: 'phid_draft_is_temp_stored', translate: true),
+            confirmButtonVerse: const Verse(id: 'phid_exit', translate: true),
+          );
+        }
+
+        else {
+          blog('can not go back');
+        }
+
+      },
+      canGoBack: widget.canGoBack,
       child: ValueListenableBuilder(
         valueListenable: _draftUser,
         builder: (_, DraftUser? draft, Widget? child){

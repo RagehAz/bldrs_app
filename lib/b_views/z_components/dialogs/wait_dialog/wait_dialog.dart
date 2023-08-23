@@ -7,44 +7,41 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 
 class WaitDialog extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const WaitDialog({
-    this.canManuallyGoBack = false,
     this.loadingVerse,
     super.key
   });
-  /// --------------------------------------------------------------------------
-  final bool? canManuallyGoBack;
+  // --------------------
   final Verse? loadingVerse;
+  // --------------------
+  static const bool canManuallyGoBack = kDebugMode;
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static void showUnawaitedWaitDialog({
-    bool canManuallyGoBack = false,
     Verse? verse,
   }) {
 
     unawaited(_showWaitDialog(
       loadingVerse: verse,
-      canManuallyGoBack: canManuallyGoBack,
     ));
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _showWaitDialog({
-    bool canManuallyGoBack = false,
     Verse? loadingVerse,
   }) async {
 
     await showDialog(
       context: getMainContext(),
       builder: (BuildContext ctx) => WaitDialog(
-        canManuallyGoBack: canManuallyGoBack,
         loadingVerse: loadingVerse,
       ),
     );
@@ -73,12 +70,7 @@ class WaitDialog extends StatelessWidget {
     // --------------------
     return WillPopScope(
       onWillPop: () async {
-        if (canManuallyGoBack == null){
-          return true;
-        }
-        else {
-          return !canManuallyGoBack!;
-        }
+          return canManuallyGoBack;
       },
       child: Scaffold(
         backgroundColor: Colorz.black125,

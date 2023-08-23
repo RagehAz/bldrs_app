@@ -61,7 +61,7 @@ class Keyboard {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void closeKeyboard() {
+  static Future<void> closeKeyboard() async {
     /// SOLUTION 1
     // FocusScope.of(context).requestFocus(FocusNode());
     // blog('x minimizeKeyboardOnTapOutSide() unfocused keyboard');
@@ -83,6 +83,7 @@ class Keyboard {
         setTo: false,
         notify: true,
       );
+      await Future.delayed(const Duration(milliseconds: 500));
     }
 
   }

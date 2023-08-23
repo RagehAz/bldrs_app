@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -174,6 +175,8 @@ class EmailAuthScreenView extends StatelessWidget {
 
                                     final bool _isSelected = _userEmail == currentEmail.text;
 
+                                    blog('_userModel?.picPath : ${_userModel?.picPath}');
+
                                     return BldrsBox(
                                       height: 35,
                                       width: 35,
@@ -181,6 +184,7 @@ class EmailAuthScreenView extends StatelessWidget {
                                       margins: 5,
                                       greyscale: !_isSelected,
                                       borderColor: _isSelected == true ? Colorz.white200 : null,
+                                      solidGreyScale: _userModel?.picPath == Iconz.anonymousUser,
                                       onTap: () => onSelectAccount(index),
                                     );
                                   });

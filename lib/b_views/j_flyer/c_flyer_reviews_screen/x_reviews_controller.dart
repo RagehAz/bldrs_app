@@ -140,7 +140,7 @@ Future<void> onSubmitReview({
         value: true,
       );
 
-      Keyboard.closeKeyboard();
+      await Keyboard.closeKeyboard();
 
       final ReviewModel _reviewModel = ReviewModel.createNewReview(
         text: textController.text,
