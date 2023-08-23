@@ -149,8 +149,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             matrixNotifier: _matrix,
             isTransforming: _isTransforming,
             mounted: mounted,
-            onSlideTap: (){
-              Keyboard.closeKeyboard();
+            onSlideTap: () async {
+              await Keyboard.closeKeyboard();
             },
             isPlayingAnimation: _isPlayingAnimation,
             onSlideDoubleTap: () => onReplayAnimation(

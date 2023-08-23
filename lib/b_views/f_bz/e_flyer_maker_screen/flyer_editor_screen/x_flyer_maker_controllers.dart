@@ -377,7 +377,7 @@ Future<void> onAddPhidsToFlyerTap({
   required bool mounted,
 }) async {
 
-  Keyboard.closeKeyboard();
+  await Keyboard.closeKeyboard();
 
   final List<String> _phids = await PhidsPickerScreen.goPickPhids(
     context: context,

@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
@@ -15,7 +14,7 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class AuthProtocols {
   // -----------------------------------------------------------------------------
 
@@ -35,12 +34,21 @@ class AuthProtocols {
     required String? password,
   }) async {
     bool _success = false;
+    String? _error;
 
     final AuthModel? _authModel = await EmailAuthing.signIn(
       email: email?.trim(),
       password: password,
-      onError: (String? error) => onAuthError(error: error),
+      onError: (String? error){
+        _error = error;
+      },
     );
+
+    if (_error != null){
+      await onAuthError(
+        error: _error,
+      );
+    }
 
     if (_authModel != null){
 
@@ -71,21 +79,25 @@ class AuthProtocols {
   /// REGISTER
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> registerUser({
     required String email,
     required String password
   }) async {
     bool _success = false;
 
-    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
-        context: getMainContext(),
-        listen: false,
-    );
+    // final UserModel? _userModel = UsersProvider.proGetMyUserModel(
+    //     context: getMainContext(),
+    //     listen: false,
+    // );
 
-    if (_userModel != null){
+    // blog('_userModel is null : ${_userModel == null}');
+
+    // if (_userModel != null){
 
     final AccountModel? _anonymousAccount = await _fetchAnonymousAccount();
+
+    // blog('_anonymousAccount is null : ${_anonymousAccount == null}');
 
       /// HAS ANONYMOUS ACCOUNT
       if (_anonymousAccount != null){
@@ -106,7 +118,7 @@ class AuthProtocols {
         );
       }
 
-    }
+    // }
 
     return _success;
   }
@@ -129,16 +141,25 @@ class AuthProtocols {
       final AuthModel? _authModel = await EmailAuthing.signIn(
         email: oldAccount.email?.trim(),
         password: oldAccount.password,
-        // onError: (String? error) => onAuthError(error: error),
       );
 
       if (_authModel != null){
 
+        String? _error;
+
         /// CHANGE EMAIL IN FIRE AUTH
         _success = await EmailAuthing.updateUserEmail(
           newEmail: newAccount.email!,
-          onError: (String? error) => onAuthError(error: error),
+          onError: (String? error){
+            _error = error;
+            },
         );
+
+        if (_error != null){
+          await onAuthError(
+            error: _error,
+          );
+        }
 
         if (_success == true){
 
@@ -203,7 +224,7 @@ class AuthProtocols {
     return _success;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> _registerNewUser({
     required String? email,
     required String? password,
@@ -213,12 +234,22 @@ class AuthProtocols {
 
     if (email != null && password != null){
 
+      String? _error;
+
       final AuthModel? _authModel = await EmailAuthing.register(
         email: email,
         password: password,
         autoSendVerificationEmail: true,
-        onError: (String? error) => onAuthError(error: error),
+        onError: (String? error){
+          _error = error;
+        },
       );
+
+      if (_error != null){
+        await onAuthError(
+          error: _error,
+        );
+      }
 
       if (_authModel != null){
 
@@ -362,73 +393,3 @@ class AuthProtocols {
   }
   // --------------------
 }
-
-/// OLD JUNK
-/*
-  // --------------------
-  /// DEPRECATED
-  // /// TESTED : WORKS PERFECT
-  // static Future<bool> _onNewUser({
-  //   required AuthModel? authModel,
-  // }) async {
-  //
-  //   final UserModel? userModel = await UserProtocols.compose(
-  //     authModel: authModel,
-  //   );
-  //
-  //   return userModel != null;
-  // }
-  // --------------------
-  /// DEPRECATED
-  // /// TESTED : WORKS PERFECT
-  // static Future<bool> _onExistingUser({
-  //   required UserModel userModel,
-  // }) async {
-  //
-  //   await UserProtocols.updateLocally(
-  //     newUser: userModel,
-  //   );
-  //
-  //   return true;
-  // }
-    /// TESTED : WORKS PERFECT
-  static Future<bool> composeOrUpdateUser({
-    required AuthModel? authModel,
-    required String? authError,
-  }) async {
-    bool _success = false;
-
-    if (authError != null) {
-      await onAuthError(
-          error: authError
-      );
-    }
-
-    else if (authModel != null) {
-
-      final UserModel? _userModel = await UserProtocols.fetch(
-        userID: authModel.id,
-      );
-
-    // _userModel.blogUserModel(invoker: 'composeOrUpdateUser');
-
-      /// NEW USER
-      if (_userModel == null){
-        _success = await _onNewUser(
-          authModel: authModel,
-        );
-      }
-
-      /// EXISTING USER
-      else {
-        _success = await _onExistingUser(
-          userModel: _userModel,
-        );
-      }
-
-
-    }
-
-    return _success;
-  }
- */
