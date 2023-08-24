@@ -16,6 +16,8 @@ class PriceField extends StatelessWidget {
     required this.initialValue,
     required this.onChanged,
     required this.isRequired,
+    required this.lineThrough,
+    required this.isBold,
     super.key,
   });
   // ------------------------
@@ -27,6 +29,8 @@ class PriceField extends StatelessWidget {
   final String? selectedCurrencyID;
   final Function(String? text) onChanged;
   final bool isRequired;
+  final bool lineThrough;
+  final bool isBold;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -46,6 +50,7 @@ class PriceField extends StatelessWidget {
             redDot: isRequired,
           ),
 
+          /// FIELD
           BldrsTextField(
             textController: controller,
             appBarType: AppBarType.non,
@@ -53,13 +58,17 @@ class PriceField extends StatelessWidget {
             width: width,
             centered: true,
             textInputType: TextInputType.number,
-            textWeight: VerseWeight.black,
+            textWeight: isBold == true ? VerseWeight.black : VerseWeight.bold,
             initialValue: initialValue?.toString(),
             hintVerse: const Verse(
               id: '0',
               translate: false,
             ),
             onChanged: onChanged,
+            maxLength: 10,
+            forceMaxLength: true,
+            lineThrough: lineThrough,
+            // lineThroughColor: Colorz.red125,
           ),
 
         ],

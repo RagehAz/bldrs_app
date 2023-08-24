@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
@@ -12,7 +15,6 @@ import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
-import 'package:bldrs/b_views/i_chains/c_currencies_screen/c_currencies_screen.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
@@ -24,9 +26,6 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -302,7 +301,7 @@ void onChangeCurrentPrice({
       price: _priceModel.copyWith(
         current: value,
       ),
-      hasPriceTag: _priceModel.current > 0,
+      // hasPriceTag: _priceModel.current > 0,
     ),
   );
 
@@ -324,41 +323,72 @@ void onChangeOldPrice({
       price: _priceModel.copyWith(
         old: value,
       ),
-      hasPriceTag: _priceModel.current > 0,
+      // hasPriceTag: _priceModel.current > 0,
     ),
   );
 
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> onChangeCurrency({
   required BuildContext context,
   required ValueNotifier<DraftFlyer?> draftNotifier,
+  required PriceModel? price,
   required bool mounted,
 }) async {
 
-  final CurrencyModel? _currency = await Nav.goToNewScreen(
-    context: context,
-    screen: CurrenciesScreen(
-      viewerCountryID: draftNotifier.value?.zone?.countryID,
-      selectedCurrencyID: draftNotifier.value?.price?.currencyID,
-    ),
-  );
 
-  if (_currency != null){
-
-    final PriceModel _priceModel = draftNotifier.value?.price ?? PriceModel.emptyPrice;
+  if (price != null){
 
     setNotifier(
       notifier: draftNotifier,
       mounted: mounted,
       value: draftNotifier.value?.copyWith(
-        price: _priceModel.copyWith(
-          currencyID: _currency.id,
-        ),
-        hasPriceTag: _priceModel.current > 0,
+        price: price,
+        // hasPriceTag: price.current > 0,
       ),
     );
+
+  }
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onSwitchPrice({
+  required ValueNotifier<DraftFlyer?> draftNotifier,
+  required bool mounted,
+  required bool switchValue,
+}) async {
+
+  final bool _showPrice = draftNotifier.value?.hasPriceTag ?? false;
+
+  /// SWITCHING ON
+  if (switchValue == true){
+
+    if (_showPrice == false){
+      setNotifier(
+          notifier: draftNotifier,
+          mounted: mounted,
+          value: draftNotifier.value?.copyWith(
+            hasPriceTag: true,
+          ),
+      );
+    }
+
+  }
+
+  /// SWITCHING OFF
+  else {
+
+    if (_showPrice == true){
+      setNotifier(
+        notifier: draftNotifier,
+        mounted: mounted,
+        value: draftNotifier.value?.copyWith(
+          hasPriceTag: false,
+        ),
+      );
+    }
 
   }
 

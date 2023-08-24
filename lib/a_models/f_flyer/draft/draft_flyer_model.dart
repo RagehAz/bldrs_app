@@ -155,7 +155,7 @@ class DraftFlyer{
         draftSlides: const <DraftSlide>[],
         specs: const <SpecModel>[],
         times: const <PublishTime>[],
-        hasPriceTag: false,
+        hasPriceTag: PriceModel.checkBzMayHavePriceInFlyerCreator(bzTypes: bzModel.bzTypes),
         isAmazonFlyer: false,
         hasPDF: false,
         score: 0,
