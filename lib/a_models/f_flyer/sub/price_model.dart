@@ -1,7 +1,12 @@
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class PriceModel {
   // -----------------------------------------------------------------------------
@@ -16,11 +21,21 @@ class PriceModel {
   final String currencyID;
   // -----------------------------------------------------------------------------
 
+  /// CONSTANTS
+
+  // --------------------
+  static const PriceModel emptyPrice = PriceModel(
+    current: 0,
+    old: 0,
+    currencyID: CurrencyModel.usaCurrencyID,
+  );
+  // -----------------------------------------------------------------------------
+
   /// CLONING
 
   // --------------------
-  ///
-  PriceModel clone({
+  /// TESTED : WORKS PERFECT
+  PriceModel copyWith({
     double? current,
     double? old,
     String? currencyID,
@@ -36,7 +51,7 @@ class PriceModel {
   /// CIPHER
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
 
     Map<String, dynamic> _map = <String, dynamic>{
@@ -57,7 +72,7 @@ class PriceModel {
     return _map;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static PriceModel? decipher({
     required Map<String, dynamic>? map,
   }){
@@ -82,7 +97,7 @@ class PriceModel {
   /// GETTERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static int getDiscountPercentage({
     required PriceModel? price,
   }){
@@ -99,12 +114,102 @@ class PriceModel {
 
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool canShowPriceInFlyerCreator({
+    required FlyerType? flyerType,
+  }){
+    bool _output = false;
+
+    if (flyerType != null){
+      switch(flyerType){
+        case FlyerType.general:      _output = true   ;  break;
+        case FlyerType.property:     _output = true   ;  break;
+        case FlyerType.design:       _output = false  ;  break;
+        case FlyerType.undertaking:  _output = false  ;  break;
+        case FlyerType.trade:        _output = false  ;  break;
+        case FlyerType.product:      _output = true   ;  break;
+        case FlyerType.equipment:    _output = true   ;  break;
+      }
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkBzMayHavePriceInFlyerCreator({
+    required List<BzType>? bzTypes,
+  }){
+    bool _output = false;
+
+    if (Mapper.checkCanLoopList(bzTypes) == true){
+
+      for (final bzType in bzTypes!){
+
+        switch(bzType){
+          case BzType.developer:     _output = true;  break;
+          case BzType.broker:        _output = true;  break;
+          case BzType.designer:      _output = false;  break;
+          case BzType.contractor:    _output = false;  break;
+          case BzType.artisan:       _output = false;  break;
+          case BzType.manufacturer:  _output = true;  break;
+          case BzType.supplier:      _output = true;  break;
+        }
+
+        if (_output == true){
+          break;
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkCanShowDiscount({
+    required PriceModel? price,
+  }){
+    bool _output = false;
+
+    if (price != null && price.old != null){
+
+      if (price.current > 0 && price.old! > 0){
+        _output = true;
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GENERATOR
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Verse generatePriceDiscountLine({
+    required PriceModel? price,
+  }){
+    final String _discount = getWord('phid_discount');
+    final int _number = getDiscountPercentage(price: price);
+    final String _sentence = '$_number % $_discount';
+    return Verse(
+      id: _sentence,
+      translate: false,
+    );
+  }
   // -----------------------------------------------------------------------------
 
   /// EQUALITY
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkPricesAreIdentical({
     required PriceModel? price1,
     required PriceModel? price2,
@@ -123,10 +228,8 @@ class PriceModel {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() => 'PriceModel(current: $current, currencyID: $currencyID : old : $old)';
   // --------------------
   @override
   bool operator == (Object other){

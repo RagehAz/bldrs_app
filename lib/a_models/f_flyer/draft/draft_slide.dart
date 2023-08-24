@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
@@ -840,17 +839,17 @@ class DraftSlide {
 
     if (slides1 == null && slides2 == null){
       _listsAreIdentical = true;
-      blog('checkSlidesListsAreIdentical : both are null');
+      // blog('checkSlidesListsAreIdentical : both are null');
     }
     else if (slides1 != null && slides1.isEmpty == true && slides2 != null && slides2.isEmpty == true){
       _listsAreIdentical = true;
-      blog('checkSlidesListsAreIdentical : both are empty');
+      // blog('checkSlidesListsAreIdentical : both are empty');
     }
     else if (Mapper.checkCanLoopList(slides1) == true && Mapper.checkCanLoopList(slides2) == true){
 
       if (slides1!.length != slides2!.length){
         _listsAreIdentical = false;
-        blog('checkSlidesListsAreIdentical : lists are not the same length');
+        // blog('checkSlidesListsAreIdentical : lists are not the same length');
       }
       else {
 
@@ -867,11 +866,11 @@ class DraftSlide {
           /// PAIR ARE IDENTICAL
           if (_areIdentical == true){
 
-            blog('checkSlidesListsAreIdentical : slides at index [$i] ARE INDEED IDENTICAL');
+            // blog('checkSlidesListsAreIdentical : slides at index [$i] ARE INDEED IDENTICAL');
 
             /// ON LAST SLIDE
             if ( i + 1 == slides1.length){
-              blog('checkSlidesListsAreIdentical : All slides are identical');
+              // blog('checkSlidesListsAreIdentical : All slides are identical');
               _listsAreIdentical = true;
             }
 
@@ -880,7 +879,7 @@ class DraftSlide {
           /// ARE ARE NOT IDENTICAL
           else {
             _listsAreIdentical = false;
-            blog('checkSlidesListsAreIdentical : slides at index [$i] are not identical');
+            // blog('checkSlidesListsAreIdentical : slides at index [$i] are not identical');
             break;
           }
 
@@ -891,7 +890,7 @@ class DraftSlide {
 
     }
 
-    blog('_listsAreIdentical : $_listsAreIdentical');
+    // blog('_listsAreIdentical : $_listsAreIdentical');
     return _listsAreIdentical;
   }
   // -----------------------------------------------------------------------------

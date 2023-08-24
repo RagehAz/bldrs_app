@@ -11,6 +11,7 @@ import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
@@ -47,6 +48,7 @@ class FlyerModel {
     required this.score,
     required this.pdfPath,
     required this.shareLink,
+    required this.price,
     this.affiliateLink,
     this.gtaLink,
     this.bzLogoImage,
@@ -77,6 +79,7 @@ class FlyerModel {
   final int? score;
   final String? pdfPath;
   final String? shareLink;
+  final PriceModel? price;
   final String? affiliateLink; /// this generates money
   final String? gtaLink; /// this to track gta progress
   final ui.Image? bzLogoImage;
@@ -112,6 +115,7 @@ class FlyerModel {
     int? score,
     String? pdfPath,
     String? shareLink,
+    PriceModel? price,
     String? affiliateLink,
     String? gtaLink,
     ui.Image? bzLogoImage,
@@ -142,6 +146,7 @@ class FlyerModel {
       score: score ?? this.score,
       pdfPath: pdfPath ?? this.pdfPath,
       shareLink: shareLink ?? this.shareLink,
+      price: price ?? this.price,
       affiliateLink: affiliateLink ?? this.affiliateLink,
       gtaLink: gtaLink ?? this.gtaLink,
       bzLogoImage: bzLogoImage ?? this.bzLogoImage,
@@ -182,6 +187,7 @@ class FlyerModel {
       'hasPriceTag' : hasPriceTag,
       'hasPDF' : hasPDF,
       'shareLink' : shareLink,
+      'price' : price?.toMap(),
       'isAmazonFlyer' : isAmazonFlyer,
       'times' : PublishTime.cipherTimes(times: times, toJSON: toJSON),
       'score' : score,
@@ -249,6 +255,7 @@ class FlyerModel {
         isAmazonFlyer: map['isAmazonFlyer'],
         hasPDF: map['hasPDF'],
         shareLink: map['shareLink'],
+        price: PriceModel.decipher(map: map['price']),
         times: PublishTime.decipherTimes(map: map['times'], fromJSON: fromJSON),
         score: map['score'],
         pdfPath: map['pdfPath'],
@@ -412,6 +419,7 @@ class FlyerModel {
     blog('affiliateLink : $affiliateLink');
     blog('gtaLink : $gtaLink');
     SlideModel.blogSlides(slides);
+    blog('price : $price');
     blog('bzLogoImage exists : ${bzLogoImage != null}');
     blog('authorImage exists : ${authorImage != null}');
     bzModel?.blogBz(invoker: invoker);
@@ -512,6 +520,9 @@ class FlyerModel {
       if (flyer1.shareLink != flyer2.shareLink){
         blog('flyers shareLinks are not identical');
       }
+      if (PriceModel.checkPricesAreIdentical(price1: flyer1.price, price2: flyer2.price)){
+        blog('flyers prices are not identical');
+      }
       if (flyer1.affiliateLink != flyer2.affiliateLink){
         blog('flyers affiliateLinks are not identical');
       }
@@ -560,6 +571,7 @@ class FlyerModel {
       hasPriceTag: false,
       hasPDF: false,
       shareLink: null,
+      price: null,
       isAmazonFlyer: false,
       zone: ZoneModel.dummyZone(),
       score: 0,
@@ -1034,6 +1046,7 @@ class FlyerModel {
           flyer1.isAmazonFlyer == flyer2.isAmazonFlyer &&
           flyer1.pdfPath == flyer2.pdfPath &&
           flyer1.shareLink == flyer2.shareLink &&
+          PriceModel.checkPricesAreIdentical(price1: flyer1.price, price2: flyer2.price) == true &&
           flyer1.affiliateLink == flyer2.affiliateLink &&
           flyer1.gtaLink == flyer2.gtaLink &&
           Floaters.checkUiImagesAreIdentical(flyer1.bzLogoImage, flyer2.bzLogoImage) == true &&
@@ -1109,6 +1122,7 @@ class FlyerModel {
       score.hashCode^
       pdfPath.hashCode^
       shareLink.hashCode^
+      price.hashCode^
       affiliateLink.hashCode^
       gtaLink.hashCode^
       bzLogoImage.hashCode^

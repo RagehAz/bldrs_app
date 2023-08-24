@@ -1,4 +1,5 @@
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
@@ -9,7 +10,6 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_head
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-
 import 'package:flutter/material.dart';
 
 class PriceDataCreator extends StatefulWidget {
@@ -55,18 +55,35 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
   void initState() {
     super.initState();
 
-    initializeCurrencyData(
-      zone: widget.zone,
-      selectedCurrencyID: _selectedCurrencyID,
-      textController: _textController,
-      initialValue: widget.initialValue,
-      initialCurrencyID: widget.initialCurrencyID,
-      priceValue: _priceValue,
-      dataCreatorType: widget.dataCreatorType,
-      mounted: mounted,
-    );
 
 
+  }
+  // --------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+
+    if (_isInit && mounted) {
+      _isInit = false; // good
+
+      asyncInSync(() async {
+
+        initializeCurrencyData(
+          zone: widget.zone,
+          selectedCurrencyID: _selectedCurrencyID,
+          textController: _textController,
+          initialValue: widget.initialValue,
+          initialCurrencyID: widget.initialCurrencyID,
+          priceValue: _priceValue,
+          dataCreatorType: widget.dataCreatorType,
+          mounted: mounted,
+        );
+
+      });
+
+
+    }
+    super.didChangeDependencies();
   }
   // --------------------
   @override
@@ -80,9 +97,9 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
   /// TESTED : WORKS PERFECT
   String? _validator(String? text){
     return Formers.currencyFieldValidator(
-      selectedCurrencyID: _selectedCurrencyID,
+      selectedCurrencyID: _selectedCurrencyID.value,
       text: _textController.text,
-      picker: widget.picker,
+      isRequired: widget.picker?.isRequired,
     );
   }
   // -----------------------------------------------------------------------------
