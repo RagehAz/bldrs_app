@@ -55,10 +55,10 @@ class EditorSlideHeadlineTextField extends StatelessWidget {
                     child: BldrsTextField(
                       appBarType: appBarType,
                       globalKey: globalKey,
-                      titleVerse: const Verse(
-                        id: 'phid_flyer_slide_headline',
-                        translate: true,
-                      ),
+                      // titleVerse: const Verse(
+                      //   id: 'phid_flyer_slide_headline',
+                      //   translate: true,
+                      // ),
                       hintVerse: const Verse(
                         id: 'phid_t_i_t_l_e',
                         translate: true,

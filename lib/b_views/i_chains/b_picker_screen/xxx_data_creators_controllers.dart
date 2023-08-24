@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
@@ -105,7 +107,8 @@ Future<void> onCurrencySelectorButtonTap({
   final CurrencyModel? _currency = await Nav.goToNewScreen(
     context: context,
     screen: CurrenciesScreen(
-      countryIDCurrencyOverride: zone?.countryID,
+      viewerCountryID: zone?.countryID,
+      selectedCurrencyID: selectedCurrencyID.value,
     ),
   );
 
@@ -169,7 +172,6 @@ void initializeNumberData({
     mounted: mounted,
   );
 // --------------------
-
 }
 // --------------------
 /// TESTED : WORKS PERFECT

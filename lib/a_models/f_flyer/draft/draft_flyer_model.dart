@@ -11,6 +11,7 @@ import 'package:bldrs/a_models/f_flyer/draft/gta_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
@@ -60,6 +61,7 @@ class DraftFlyer{
     required this.poster,
     required this.affiliateLink,
     required this.gtaLink,
+    required this.price,
   });
   /// --------------------------------------------------------------------------
   final String? id;
@@ -91,6 +93,7 @@ class DraftFlyer{
   final PicModel? poster;
   final String? affiliateLink;
   final String? gtaLink;
+  final PriceModel? price;
   // -----------------------------------------------------------------------------
   static const String newDraftID = 'newDraft';
   // -----------------------------------------------------------------------------
@@ -130,7 +133,6 @@ class DraftFlyer{
     }
 
     else {
-
       return DraftFlyer(
         bzModel: bzModel,
         id: newDraftID,
@@ -164,8 +166,10 @@ class DraftFlyer{
         poster: null,
         affiliateLink: null,
         gtaLink: null,
+        price: null,
       );
     }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -227,6 +231,7 @@ class DraftFlyer{
         poster: await PicProtocols.fetchFlyerPoster(flyerID: flyer.id),
         affiliateLink: flyer.affiliateLink,
         gtaLink: flyer.gtaLink,
+        price: flyer.price,
       );
     }
 
@@ -299,6 +304,7 @@ class DraftFlyer{
           bzLogoImage: await PicProtocols.fetchPicUiImage(
             path: StoragePath.bzz_bzID_logo(draft.bzID),
           ),
+          price: draft.price,
           // docSnapshot: ,
         );
 
@@ -348,6 +354,7 @@ class DraftFlyer{
         'poster': PicModel.cipherToLDB(draft.poster),
         'affiliateLink': draft.affiliateLink,
         'gtaLink': draft.gtaLink,
+        'price': draft.price?.toMap(),
       };
     }
 
@@ -389,6 +396,7 @@ class DraftFlyer{
         poster: PicModel.decipherFromLDB(map['poster']),
         affiliateLink: map['affiliateLink'],
         gtaLink: map['gtaLink'],
+        price: PriceModel.decipher(map: map['price']),
       );
     }
 
@@ -430,6 +438,7 @@ class DraftFlyer{
     PicModel? poster,
     String? affiliateLink,
     String? gtaLink,
+    PriceModel? price,
   }){
     return DraftFlyer(
       bzModel: bzModel ?? this.bzModel,
@@ -461,6 +470,7 @@ class DraftFlyer{
       poster: poster ?? this.poster,
       affiliateLink: affiliateLink ?? this.affiliateLink,
       gtaLink: gtaLink ?? this.gtaLink,
+      price: price ?? this.price,
     );
   }
   // --------------------
@@ -495,6 +505,7 @@ class DraftFlyer{
     bool poster = false,
     bool affiliateLink = false,
     bool gtaLink = false,
+    bool price = false,
   }){
     return DraftFlyer(
       id: id == true ? null : this.id,
@@ -526,6 +537,7 @@ class DraftFlyer{
       poster: poster == true ? null : this.poster,
       affiliateLink: affiliateLink == true ? null : this.affiliateLink,
       gtaLink: gtaLink == true ? null : this.gtaLink,
+      price: price == true ? null : this.price,
     );
   }
   // -----------------------------------------------------------------------------
@@ -720,6 +732,7 @@ class DraftFlyer{
       blog('draftSlides : ${draftSlides?.length} slides');
       blog('affiliateLink : $affiliateLink');
       blog('gtaLink : $gtaLink');
+      blog('price : $price');
       DraftSlide.blogSlides(
         slides: draftSlides,
         invoker: 'the_draft-flyer-slides'
@@ -818,6 +831,9 @@ class DraftFlyer{
       if (draft1.gtaLink != draft2.gtaLink){
         blog('gtaLinks are not identical');
       }
+      if (PriceModel.checkPricesAreIdentical(price1: draft1.price, price2: draft2.price) == false){
+        blog('prices are not identical');
+      }
 
       // FocusNode headlineNode,
       // FocusNode descriptionNode,
@@ -911,7 +927,9 @@ class DraftFlyer{
     else if (draft?.headline?.text != oldFlyer?.headline){
       _hasChanged = true;
     }
-
+    else if (PriceModel.checkPricesAreIdentical(price1: draft?.price, price2: oldFlyer?.price) == false){
+      _hasChanged = true;
+    }
     else {
 
       final PicModel? _poster = await PicProtocols.fetchFlyerPoster(flyerID: oldFlyer?.id);
@@ -990,7 +1008,8 @@ class DraftFlyer{
           PicModel.checkPicsAreIdentical(pic1: draft1.poster, pic2: draft2.poster) == true &&
           BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == true &&
           draft1.affiliateLink == draft2.affiliateLink &&
-          draft1.gtaLink == draft2.gtaLink
+          draft1.gtaLink == draft2.gtaLink &&
+          PriceModel.checkPricesAreIdentical(price1: draft1.price, price2: draft2.price)
       ){
         _areIdentical = true;
       }
@@ -1060,6 +1079,7 @@ class DraftFlyer{
       poster.hashCode^
       affiliateLink.hashCode^
       gtaLink.hashCode^
+      price.hashCode^
       pdfModel.hashCode;
   // -----------------------------------------------------------------------------
 }

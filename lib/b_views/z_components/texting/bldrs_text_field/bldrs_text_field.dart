@@ -16,7 +16,6 @@ class BldrsTextField extends StatelessWidget {
     required this.appBarType,
     required this.globalKey,
     required this.width,
-    required this.titleVerse,
     this.textController,
 
     /// main
@@ -68,7 +67,6 @@ class BldrsTextField extends StatelessWidget {
   });
   // --------------------------------------------------------------------------
   /// main
-  final Verse titleVerse;
   final bool? isFormField;
   final TextEditingController? textController;
   final String? initialValue;
@@ -190,13 +188,16 @@ class BldrsTextField extends StatelessWidget {
       /// main
       isFormField: isFormField ?? true,
       initialValue: initialValue,
-      hintText: Verse.bakeVerseToString(
-        verse: hintVerse,
-      ),
       autofocus: autofocus,
       focusNode: focusNode,
       counterIsOn: counterIsOn,
       autoValidate: autoValidate,
+
+      /// HINT
+      hintText: Verse.bakeVerseToString(
+        verse: hintVerse,
+      ),
+      // hintTextDirection: ,
 
       /// box
       margins: margins,
@@ -256,6 +257,7 @@ class BldrsTextField extends StatelessWidget {
       focusedBorderColor: Colorz.yellow80,
       // errorBorderColor: Colorz.red125,
       focusedErrorBorderColor: Colorz.yellow80,
+
     );
   }
   /// --------------------------------------------------------------------------

@@ -14,10 +14,12 @@ import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
@@ -292,6 +294,11 @@ class GtaModel {
         poster: null,
         affiliateLink: gtaModel.affiliateLink,
         gtaLink: gtaModel.url,
+        price: gtaModel.price == null ? null : PriceModel(
+          current: gtaModel.price!,
+          currencyID: gtaModel.currency ?? CurrencyModel.usaCurrencyID,
+          // old:
+        ),
       );
 
       // final PicModel? _poster = await BldrsPicMaker.createFlyerPoster(

@@ -1,26 +1,24 @@
+import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
-import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
+import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/animators/widgets/widget_fader.dart';
 
 class PhidsSelectorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PhidsSelectorBubble({
     required this.draft,
-    required this.bzModel,
     required this.onPhidTap,
     required this.onPhidLongTap,
     required this.onAdd,
@@ -29,7 +27,6 @@ class PhidsSelectorBubble extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final DraftFlyer? draft;
-  final BzModel? bzModel;
   final Function(String phid) onPhidTap;
   final Function(String phid) onPhidLongTap;
   final Function onAdd;
@@ -77,13 +74,12 @@ class PhidsSelectorBubble extends StatelessWidget {
 
           /// SELECTED PHIDS
           if (Mapper.checkCanLoopList(draft?.phids) == true)
-          PhidsViewer(
-                    pageWidth: _bubbleClearWidth,
-                    phids: draft?.phids ?? [],
-                    onPhidLongTap: onPhidLongTap,
-                    onPhidTap: onPhidTap,
-
-                  ),
+            PhidsViewer(
+              pageWidth: _bubbleClearWidth,
+              phids: draft?.phids ?? [],
+              onPhidLongTap: onPhidLongTap,
+              onPhidTap: onPhidTap,
+            ),
 
           /// ADD BUTTON
           BldrsBox(
