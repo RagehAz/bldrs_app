@@ -3,12 +3,16 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/bubbles/tile_bubble/tile_bubble.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/helpers/widgets/drawing/spacing.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selector/c_price_field.dart';
+import 'package:bldrs/b_views/i_chains/c_currencies_screen/c_currencies_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
@@ -26,13 +30,17 @@ class PriceSelectorBubble extends StatefulWidget {
     required this.onOldPriceChanged,
     required this.onCurrentPriceChanged,
     required this.onCurrencyChanged,
+    required this.priceIsGood,
+    required this.onSwitchPrice,
     super.key
   });
   // ----------------------
   final DraftFlyer? draft;
   final Function(double val) onOldPriceChanged;
   final Function(double val) onCurrentPriceChanged;
-  final Function() onCurrencyChanged;
+  final Function(PriceModel price) onCurrencyChanged;
+  final ValueNotifier<bool> priceIsGood;
+  final Function(bool val) onSwitchPrice;
   // --------------------------------------------------------------------------
   static String? validate({
     required DraftFlyer? draft,
@@ -102,11 +110,17 @@ class _PriceSelectorBubbleState extends State<PriceSelectorBubble> {
   // --------------------------------------------------------------------------
   final TextEditingController _currentController = TextEditingController();
   final TextEditingController _oldController = TextEditingController();
+  String? _error;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _currentController.text = widget.draft?.price?.current.toString() ?? '';
-    _oldController.text = widget.draft?.price?.old.toString() ?? '';
+
+    _defineControllers();
+
+    _validate(
+      draft: widget.draft,
+    );
+
     super.initState();
   }
   // --------------------
@@ -125,15 +139,17 @@ class _PriceSelectorBubbleState extends State<PriceSelectorBubble> {
     super.didChangeDependencies();
   }
   // --------------------
-  /*
   @override
-  void didUpdateWidget(TheStatefulScreen oldWidget) {
+  void didUpdateWidget(PriceSelectorBubble oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.thing != widget.thing) {
-      unawaited(_doStuff());
+    if (oldWidget.draft != widget.draft) {
+      if (oldWidget.draft?.hasPriceTag != widget.draft?.hasPriceTag){
+        _onSwitchListener(
+          draft: widget.draft,
+        );
+      }
     }
   }
-   */
   // --------------------
   @override
   void dispose() {
@@ -142,41 +158,172 @@ class _PriceSelectorBubbleState extends State<PriceSelectorBubble> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
-  String? _validate(){
 
-    return PriceSelectorBubble.validate(
-      draft: widget.draft,
-      currentPriceText: _currentController.text,
-      oldPriceText: _oldController.text,
-    );
+  /// INITIALIZATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _defineControllers() {
+
+    if (mounted == true){
+      if (Mapper.boolIsTrue(widget.draft?.hasPriceTag) == true){
+        _currentController.text = Numeric.stringifyDouble(widget.draft?.price?.current);
+        _oldController.text = Numeric.stringifyDouble(widget.draft?.price?.old);
+      }
+
+      else {
+        _currentController.text = '';
+        _oldController.text = '';
+      }
+
+      _currentController.selection = TextMod.setCursorAtTheEnd(controller: _currentController);
+      _oldController.selection = TextMod.setCursorAtTheEnd(controller: _oldController);
+
+    }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  Future<void> _onSwitchListener({
+    required DraftFlyer? draft,
+  }) async {
+
+    await Future.delayed(const Duration(milliseconds: 10));
+
+    _defineControllers();
+
+    _validate(
+      draft: draft,
+    );
+
+}
+  // -----------------------------------------------------------------------------
+
+  /// VALIDATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _validate({
+      required DraftFlyer? draft,
+  }){
+
+    if (Mapper.boolIsTrue(draft?.hasPriceTag) == true){
+
+      if (mounted == true){
+        setState(() {
+          _error = PriceSelectorBubble.validate(
+            draft: draft,
+            currentPriceText: _currentController.text,
+            oldPriceText: _oldController.text,
+          );
+        });
+      }
+
+      setNotifier(
+        notifier: widget.priceIsGood,
+        mounted: mounted,
+        value: _error == null,
+      );
+
+    }
+
+    else {
+
+      if (mounted == true && _error != null){
+        setState(() {
+          _error = null;
+        });
+      }
+
+      setNotifier(
+        notifier: widget.priceIsGood,
+        mounted: mounted,
+        value: true,
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// ON CHANGES
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
   void _onChangeCurrent(String? text){
 
-    final double? _val = Numeric.transformStringToDouble(text);
-    if (_val != null){
-      widget.onCurrentPriceChanged(_val);
-    }
-    else{
-      widget.onCurrentPriceChanged(0);
-    }
+    double? _val = Numeric.transformStringToDouble(text);
+    _val ??= 0;
 
+    PriceModel _priceModel = widget.draft?.price ?? PriceModel.emptyPrice;
+      _priceModel = _priceModel.copyWith(
+        current: _val,
+      );
+
+    _validate(
+      draft: widget.draft?.copyWith(
+          price: _priceModel,
+        ),
+    );
+
+    widget.onCurrentPriceChanged(_val);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   void _onChangeOld(String? text){
 
-    final double? _val = Numeric.transformStringToDouble(text);
-    if (_val != null){
-      widget.onOldPriceChanged(_val);
-    }
-    else {
-      widget.onOldPriceChanged(0);
+    double? _val = Numeric.transformStringToDouble(text);
+    _val ??= 0;
+    widget.onOldPriceChanged(_val);
+
+    PriceModel _priceModel = widget.draft?.price ?? PriceModel.emptyPrice;
+      _priceModel = _priceModel.copyWith(
+        old: _val,
+      );
+
+      _validate(
+        draft: widget.draft?.copyWith(
+          price: _priceModel,
+        ),
+      );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onChangeCurrency() async {
+
+    final CurrencyModel? _currency = await Nav.goToNewScreen(
+      context: context,
+      screen: CurrenciesScreen(
+        viewerCountryID: widget.draft?.zone?.countryID,
+        selectedCurrencyID: widget.draft?.price?.currencyID,
+      ),
+    );
+
+    if (_currency != null){
+
+
+      PriceModel _priceModel = widget.draft?.price ?? PriceModel.emptyPrice;
+      _priceModel = _priceModel.copyWith(
+        currencyID: _currency.id,
+      );
+
+      _validate(
+        draft: widget.draft?.copyWith(
+          price: _priceModel,
+        ),
+      );
+
+      widget.onCurrencyChanged(_priceModel);
+
     }
 
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _onSwitch(bool value){
+    widget.onSwitchPrice(value);
   }
   // -----------------------------------------------------------------------------
   @override
@@ -190,127 +337,139 @@ class _PriceSelectorBubbleState extends State<PriceSelectorBubble> {
     final _fieldWidth = (_clearWidth - (_spacing * 2)) / 3;
     const double _fieldHeight = 60;
     // --------------------
-    final String? _error = _validate();
-    // --------------------
-    return Bubble(
-        bubbleColor: TileBubble.validatorBubbleColor(
-          validator: (){
-            return _error;
-            },
-        ),
-        bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-          context: context,
-          headlineVerse: const Verse(
-            id: 'phid_s_price',
-            translate: true,
-            casing: Casing.capitalizeFirstChar,
-          ),
-        ),
-        width: _bubbleWidth,
-        columnChildren: <Widget>[
-
-          /// BULLET POINTS
-          const BldrsBulletPoints(
-            bulletPoints: <Verse>[
-              Verse(id: 'phid_change_price_anytime', translate: true),
-              Verse(id: 'phid_old_price_is_optional', translate: true),
-            ],
-            showBottomLine: false,
-          ),
-
-          /// FIELDS
-          SizedBox(
-            width: _clearWidth,
-            height: _fieldHeight,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-
-                /// CURRENT PRICE
-                PriceField(
-                  controller: _currentController,
-                  initialValue: widget.draft?.price?.current,
-                  isRequired: widget.draft?.price?.current != null && widget.draft!.price!.current > 0,
-                  width: _fieldWidth,
-                  height: _fieldHeight,
-                  selectedCurrencyID: widget.draft?.price?.currencyID,
-                  title: const Verse(
-                    id: 'phid_current_price',
-                    translate: true,
-                  ),
-                  onChanged: _onChangeCurrent,
-                ),
-
-                /// SPACING
-                const Spacing(
-                  size: _spacing,
-                ),
-
-                /// OLD PRICE
-                PriceField(
-                  controller: _oldController,
-                  initialValue: widget.draft?.price?.old,
-                  isRequired: false,
-                  width: _fieldWidth,
-                  height: _fieldHeight,
-                  selectedCurrencyID: widget.draft?.price?.currencyID,
-                  title: const Verse(
-                    id: 'phid_old_price',
-                    translate: true,
-                  ),
-                  onChanged: _onChangeOld,
-                ),
-
-                /// SPACING
-                const Spacing(
-                  size: _spacing,
-                ),
-
-                /// CURRENCY BUTTON
-                BldrsBox(
-                  height: _fieldHeight * 0.6,
-                  width: _fieldWidth,
-                  color: Colorz.white10,
-                  margins: const EdgeInsets.symmetric(
-                    vertical: 9,
-                  ),
-                  onTap: widget.onCurrencyChanged,
-                  verseScaleFactor: 0.7,
-                  verse: CurrencyModel.getCurrencyButtonVerse(
-                    currencyID: widget.draft?.price?.currencyID,
-                  ),
-                  verseMaxLines: 2,
-                  verseWeight: VerseWeight.thin,
-                ),
-
-              ],
-            ),
-          ),
-
-          /// DISCOUNT LINE
-          if (PriceModel.checkCanShowDiscount(price: widget.draft?.price) == true)
-          BldrsText(
-            verse: PriceModel.generatePriceDiscountLine(
-              price: widget.draft?.price,
-            ),
-            width: _clearWidth,
-            italic: true,
-            maxLines: 3,
-            centered: false,
-            color: Colorz.green255,
-            weight: VerseWeight.thin,
-            leadingDot: true,
-          ),
-
-          /// VALIDATOR
-          BldrsValidator(
-            width: _clearWidth,
+    return Opacity(
+      opacity: Mapper.boolIsTrue(widget.draft?.hasPriceTag) == true ? 1 : 0.5,
+      child: Bubble(
+          bubbleColor: TileBubble.validatorBubbleColor(
             validator: (){
               return _error;
-            },
+              },
           ),
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+            context: context,
+            headlineVerse: const Verse(
+              id: 'phid_s_price',
+              translate: true,
+              casing: Casing.capitalizeFirstChar,
+            ),
+            hasSwitch: true,
+            switchValue: widget.draft?.hasPriceTag,
+            onSwitchTap: _onSwitch,
+          ),
+          width: _bubbleWidth,
+          columnChildren: <Widget>[
 
-          ]
+            /// BULLET POINTS
+            const BldrsBulletPoints(
+              bulletPoints: <Verse>[
+                Verse(id: 'phid_change_price_anytime', translate: true),
+                Verse(id: 'phid_old_price_is_optional', translate: true),
+              ],
+              showBottomLine: false,
+            ),
+
+            /// FIELDS
+            SizedBox(
+              width: _clearWidth,
+              height: _fieldHeight,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+
+                  /// CURRENT PRICE
+                  PriceField(
+                    controller: _currentController,
+                    initialValue: widget.draft?.price?.current,
+                    isRequired: widget.draft?.price?.current != null && widget.draft!.price!.current > 0,
+                    width: _fieldWidth,
+                    height: _fieldHeight,
+                    selectedCurrencyID: widget.draft?.price?.currencyID,
+                    title: const Verse(
+                      id: 'phid_current_price',
+                      translate: true,
+                    ),
+                    lineThrough: false,
+                    isBold: true,
+                    onChanged: _onChangeCurrent,
+                  ),
+
+                  /// SPACING
+                  const Spacing(
+                    size: _spacing,
+                  ),
+
+                  /// OLD PRICE
+                  PriceField(
+                    controller: _oldController,
+                    initialValue: widget.draft?.price?.old,
+                    isRequired: false,
+                    width: _fieldWidth,
+                    height: _fieldHeight,
+                    selectedCurrencyID: widget.draft?.price?.currencyID,
+                    title: const Verse(
+                      id: 'phid_old_price',
+                      translate: true,
+                    ),
+                    lineThrough: true,
+                    isBold: false,
+                    onChanged: _onChangeOld,
+                  ),
+
+                  /// SPACING
+                  const Spacing(
+                    size: _spacing,
+                  ),
+
+                  /// CURRENCY BUTTON
+                  BldrsBox(
+                    height: _fieldHeight * 0.6,
+                    width: _fieldWidth,
+                    color: Colorz.white10,
+                    margins: const EdgeInsets.symmetric(
+                      vertical: 9,
+                    ),
+                    verseScaleFactor: 0.7,
+                    verse: CurrencyModel.getCurrencyButtonVerse(
+                      currencyID: widget.draft?.price?.currencyID,
+                    ),
+                    verseMaxLines: 2,
+                    verseWeight: VerseWeight.thin,
+                    onTap: _onChangeCurrency,
+                  ),
+
+                ],
+              ),
+            ),
+
+            /// DISCOUNT LINE
+            if (
+            Mapper.boolIsTrue(widget.draft?.hasPriceTag) == true
+                &&
+            PriceModel.checkCanShowDiscount(price: widget.draft?.price) == true
+            )
+            BldrsText(
+              verse: PriceModel.generatePriceDiscountLine(
+                price: widget.draft?.price,
+              ),
+              width: _clearWidth,
+              italic: true,
+              maxLines: 3,
+              centered: false,
+              color: Colorz.green255,
+              weight: VerseWeight.thin,
+              leadingDot: true,
+            ),
+
+            /// VALIDATOR
+            BldrsValidator(
+              width: _clearWidth,
+              validator: (){
+                return _error;
+              },
+            ),
+
+            ]
+      ),
     );
     // --------------------
   }

@@ -34,6 +34,7 @@ class BldrsTextField extends StatelessWidget {
 
     /// text
     this.textDirection,
+    this.hintTextDirection,
     this.centered = false,
     this.maxLines = 7,
     this.minLines = 1,
@@ -63,6 +64,11 @@ class BldrsTextField extends StatelessWidget {
 
     this.isFloatingField = false,
     this.isObscured,
+
+    this.forceMaxLength = false,
+    this.lineThrough = false,
+    this.lineThroughColor = Colorz.red125,
+
     super.key
   });
   // --------------------------------------------------------------------------
@@ -88,6 +94,7 @@ class BldrsTextField extends StatelessWidget {
 
   /// text
   final TextDirection? textDirection;
+  final TextDirection? hintTextDirection;
   final bool centered;
   final int maxLines;
   final int minLines;
@@ -116,6 +123,10 @@ class BldrsTextField extends StatelessWidget {
   final ValueNotifier<bool>? isObscured;
   final GlobalKey? globalKey;
   final AppBarType? appBarType;
+
+  final bool forceMaxLength;
+  final bool lineThrough;
+  final Color? lineThroughColor;
   // --------------------------------------------------------------------------
    /// TESTED : WORKS PERFECT
   static EdgeInsets getFieldScrollPadding({
@@ -197,7 +208,6 @@ class BldrsTextField extends StatelessWidget {
       hintText: Verse.bakeVerseToString(
         verse: hintVerse,
       ),
-      // hintTextDirection: ,
 
       /// box
       margins: margins,
@@ -206,6 +216,7 @@ class BldrsTextField extends StatelessWidget {
 
       /// text
       textDirection: textDirection ?? UiProvider.getAppTextDir(),
+      hintTextDirection: hintTextDirection ?? UiProvider.getAppTextDir(),
       centered: centered,
       maxLines: maxLines,
       minLines: minLines,
@@ -258,6 +269,9 @@ class BldrsTextField extends StatelessWidget {
       // errorBorderColor: Colorz.red125,
       focusedErrorBorderColor: Colorz.yellow80,
 
+      forceMaxLength: forceMaxLength,
+      lineThrough: lineThrough,
+      lineThroughColor: lineThroughColor,
     );
   }
   /// --------------------------------------------------------------------------
