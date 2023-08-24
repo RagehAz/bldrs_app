@@ -1057,9 +1057,9 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? currencyFieldValidator({
-    required ValueNotifier<String?>? selectedCurrencyID, // IS UNIT SPEC VALUE
+    required String? selectedCurrencyID, // IS UNIT SPEC VALUE
     required String? text, // IS THE VALUE SPEC VALUE
-    required PickerModel? picker,
+    required bool? isRequired,
   }) {
     String? _message;
 
@@ -1071,7 +1071,7 @@ class Formers {
     }
 
     /// IF REQUIRED AND EMPTY
-    if (Mapper.boolIsTrue(picker?.isRequired) == true){
+    if (Mapper.boolIsTrue(isRequired) == true){
       if (TextCheck.isEmpty(text) == true){
         _message = getWord('phid_this_field_can_not_be_empty');
       }
@@ -1086,9 +1086,9 @@ class Formers {
     else {
 
       final CurrencyModel? selectedCurrency = ZoneProvider.proGetCurrencyByCurrencyID(
-          context: getMainContext(),
-          currencyID: selectedCurrencyID.value,
-          listen: false
+        context: getMainContext(),
+        currencyID: selectedCurrencyID,
+        listen: false,
       );
 
       /// IF EXCEEDED CURRENCY DIGITS

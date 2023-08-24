@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/models/flag_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -9,9 +9,28 @@ import 'package:provider/provider.dart';
 // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 class ZoneProvider extends ChangeNotifier {
   // -----------------------------------------------------------------------------
-
+// technique
   /// INITIALIZATIONS
 
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> proInitializeAllCurrencies() async {
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
+    await _zoneProvider._initializeAllCurrencies(
+      notify: true,
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _initializeAllCurrencies({
+    required bool notify,
+  }) async {
+    final List<CurrencyModel> _currencies = await ZoneProtocols.fetchCurrencies();
+    _allCurrencies = _currencies;
+    if (notify == true){
+      notifyListeners();
+    }
+  }
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> setCurrentZone({
@@ -21,52 +40,26 @@ class ZoneProvider extends ChangeNotifier {
     required String invoker,
   }) async {
 
+    /// DEFINE ZONE
     ZoneModel? _completeZone = await ZoneProtocols.completeZoneModel(
       incompleteZoneModel: zone,
     );
-
     _completeZone ??= ZoneModel.planetZone;
-
-    _completeZone.blogZone(invoker: 'this shit has become : $invoker');
-
+    /// SET ZONE
     _setZone(
       zone: _completeZone,
       setCountryOnly: setCountryOnly,
-      notify: notify,
+      notify: false,
       invoker: invoker,
     );
-
-    /// CURRENCIES
-    await _fetchSetCountryCurrency(
+    /// ZONE CURRENCY
+    final CurrencyModel? _currencyByCountryID = proGetCurrencyByCountryID(
+      listen: false,
+      context: getMainContext(),
       countryID: _completeZone.countryID,
-      notify: false,
     );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> _fetchSetCountryCurrency({
-    required String? countryID,
-    required bool notify,
-  }) async {
-
-    List<CurrencyModel> _currencies;
-    if (Mapper.checkCanLoopList(_allCurrencies) == true){
-      _currencies = _allCurrencies!;
-    }
-    else {
-      _currencies = await ZoneProtocols.fetchCurrencies();
-    }
-
-
-    final CurrencyModel? _currencyByCountryID = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
-      currencies: _currencies,
-      countryID: countryID,
-    );
-
-    _allCurrencies = _currencies;
     _currentCurrency = _currencyByCountryID;
-
+    /// NOTIFY
     if (notify == true){
       notifyListeners();
     }
@@ -133,9 +126,6 @@ class ZoneProvider extends ChangeNotifier {
   /// CURRENCY
 
   // --------------------
-  /// TASK: REMOVE_ALL_CURRENCIES
-  /// REMOVE ALL CURRENCIES FOR MEMORY OPTIMIZATION AND LET IT BE FETCHED FROM JSON INSTEAD WHEN
-  /// NEEDED
   List<CurrencyModel>? _allCurrencies = <CurrencyModel>[];
   List<CurrencyModel>? get allCurrencies => _allCurrencies;
   // --------------------
@@ -160,9 +150,15 @@ class ZoneProvider extends ChangeNotifier {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
 
+    final String _countryID = countryID == Flag.planetID ? 'usa'
+        :
+    America.checkCountryIDIsStateID(countryID) == true ? 'usa'
+        :
+    countryID ?? 'usa';
+
     final CurrencyModel? _currency = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
         currencies: _zoneProvider.allCurrencies,
-        countryID: countryID,
+        countryID: _countryID,
     );
 
     return _currency;

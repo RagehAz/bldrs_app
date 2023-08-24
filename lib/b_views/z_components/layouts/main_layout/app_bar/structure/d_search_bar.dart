@@ -145,10 +145,10 @@ class _SearchBarState extends State<SearchBar> {
             appBarType: widget.appBarType,
             globalKey: globalKey,
             // autofocus: false,
-            titleVerse: const Verse(
-              id: 'phid_search',
-              translate: true,
-            ),
+            // titleVerse: const Verse(
+            //   id: 'phid_search',
+            //   translate: true,
+            // ),
             // fieldIsFormField: true,
             // onSavedForForm: (String val) {
             //   blog('on saved');

@@ -66,10 +66,10 @@ class ReviewCreatorBubble extends StatelessWidget {
                 BldrsTextField(
                   appBarType: AppBarType.basic,
                   globalKey: globalKey,
-                  titleVerse: const Verse(
-                    id: 'phid_edit_review',
-                    translate: true,
-                  ),
+                  // titleVerse: const Verse(
+                  //   id: 'phid_edit_review',
+                  //   translate: true,
+                  // ),
                   width: _textBubbleWidth,
                   textController: reviewTextController,
                   maxLines: 5,

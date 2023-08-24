@@ -165,7 +165,7 @@ class DataCreatorSplitter extends StatelessWidget {
         picker: picker,
         zone: zone,
         initialValue: _initialPrice,
-        initialCurrencyID: _initialCurrencySpec?.value,
+        initialCurrencyID: _initialCurrencySpec?.value?.toString() ?? '',
         onKeyboardSubmitted: onKeyboardSubmitted,
         onlyUseZoneChains: onlyUseZoneChains,
         appBarType: appBarType,

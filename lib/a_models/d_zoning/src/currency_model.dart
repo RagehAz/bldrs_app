@@ -1,6 +1,5 @@
 part of world_zoning;
 
-
 /// => TAMAM
 @immutable
 class CurrencyModel {
@@ -206,6 +205,33 @@ class CurrencyModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static List<String> getCurrenciesIDsByCountriesIDs({
+    required List<CurrencyModel> allCurrencies,
+    required List<String> countriesIDs,
+  }){
+    final List<String> _output = [];
+
+    if (Mapper.checkCanLoopList(allCurrencies) == true && Mapper.checkCanLoopList(countriesIDs) == true){
+
+      for (final String countryID in countriesIDs){
+
+        final CurrencyModel? _model = getCurrencyFromCurrenciesByCountryID(
+            currencies: allCurrencies,
+            countryID: countryID
+        );
+
+        if (_model?.id != null){
+          _output.add(_model!.id!);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getCurrenciesIDs(List<CurrencyModel>? currencies){
     final List<String> _ids = <String>[];
 
@@ -240,7 +266,40 @@ class CurrencyModel {
     return _currency;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
+  static List<CurrencyModel> getCurrenciesByIDs({
+    required List<CurrencyModel> allCurrencies,
+    required List<String> currenciesIDs,
+  }){
+    final List<CurrencyModel> _output = [];
+
+    if (Mapper.checkCanLoopList(allCurrencies) == true){
+
+      if (Mapper.checkCanLoopList(currenciesIDs) == true){
+
+        for (final String currencyID in currenciesIDs){
+
+
+          final CurrencyModel? _currencyModel = getCurrencyByID(
+              allCurrencies: allCurrencies,
+              currencyID: currencyID,
+          );
+          blog('currencyID : $currencyID : _currencyModel : ${_currencyModel?.symbol}');
+
+          if (_currencyModel != null){
+            _output.add(_currencyModel);
+          }
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> getCurrenciesPhrasesFromLangMap({
     required String langCode,
   }) async {
@@ -279,8 +338,23 @@ class CurrencyModel {
 
     }
 
-
     return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Verse getCurrencyButtonVerse({
+    required String? currencyID,
+  }){
+    String _text = getWord('phid_currency');
+
+    if (currencyID != null){
+      _text = getWord(currencyID);
+    }
+
+    return Verse(
+      id: _text,
+      translate: false,
+    );
   }
   // -----------------------------------------------------------------------------
 
@@ -301,6 +375,37 @@ class CurrencyModel {
 
         for (final String id in removeIDs){
           _output.removeWhere((element) => element.id == id);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<CurrencyModel> sortCurrenciesByCurrentLang({
+    required List<CurrencyModel> currencies,
+    required List<Phrase> phrases,
+  }){
+    List<CurrencyModel> _output = currencies;
+
+    if (Mapper.checkCanLoopList(phrases) == true){
+
+      _output = [];
+
+      final List<Phrase> _phrases = Phrase.sortNamesAlphabetically(phrases);
+
+      for (final Phrase _phrase in _phrases){
+
+        final CurrencyModel? _currency = getCurrencyByID(
+          allCurrencies: currencies,
+          currencyID: _phrase.id,
+        );
+
+        if (_currency != null){
+          _output.add(_currency);
         }
 
       }

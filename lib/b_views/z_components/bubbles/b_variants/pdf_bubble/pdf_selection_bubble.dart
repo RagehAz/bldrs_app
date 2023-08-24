@@ -207,10 +207,10 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 appBarType: widget.appBarType,
                 globalKey: globalKey,
                 width: Bubble.clearWidth(context: context),
-                titleVerse: const Verse(
-                  id: 'phid_pdf_file_name',
-                  translate: true,
-                ),
+                // titleVerse: const Verse(
+                //   id: 'phid_pdf_file_name',
+                //   translate: true,
+                // ),
                 maxLines: 1,
                 textController: _textController,
                 onChanged: (String? text){

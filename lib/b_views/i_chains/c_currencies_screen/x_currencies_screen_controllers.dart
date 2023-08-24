@@ -4,16 +4,17 @@ import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
 /// SEARCHING
 
 // --------------------
+/// TASK : TEST ME
 void onSearchCurrencies({
   required TextEditingController searchController,
   required ValueNotifier<bool> isSearching,
@@ -63,19 +64,15 @@ void onSearchCurrencies({
       //   invoker: 'onSearchCurrencies',
       // );
 
-      /// GET CURRENCIES
-      final List<CurrencyModel> _allCurrencies = ZoneProvider.proGetAllCurrencies(
-        context: getMainContext(),
-        listen: false,
-      );
-
-      blog('_allCurrencies : ${_allCurrencies.length} currencies');
+      final BuildContext _context = getMainContext();
 
       for (final String id in _filteredIDs){
-        final CurrencyModel? _currency = CurrencyModel.getCurrencyByID(
-          allCurrencies: _allCurrencies,
+
+        final CurrencyModel? _currency = ZoneProvider.proGetCurrencyByCurrencyID(
+          context: _context,
           currencyID: id,
-        );
+          listen: false
+      );
 
         _currency?.blogCurrency();
 
@@ -101,13 +98,13 @@ void onSearchCurrencies({
 /// SELECTION
 
 // --------------------
+/// TASK : TEST ME
 Future<void> onSelectCurrency({
-  required BuildContext context,
   required CurrencyModel? currency,
 }) async {
 
   await Nav.goBack(
-    context: context,
+    context: getMainContext(),
     invoker: 'onSelectCurrency',
     passedData: currency,
   );
