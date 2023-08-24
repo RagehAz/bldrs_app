@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selec
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selector/c_price_selector_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:flutter/material.dart';
 
 class FlyerEditorPage2KeywordsSpecs extends StatelessWidget {
@@ -25,6 +26,8 @@ class FlyerEditorPage2KeywordsSpecs extends StatelessWidget {
     required this.onOldPriceChanged,
     required this.onCurrentPriceChanged,
     required this.onCurrencyChanged,
+    required this.priceIsGood,
+    required this.onSwitchPrice,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -41,7 +44,9 @@ class FlyerEditorPage2KeywordsSpecs extends StatelessWidget {
   final Function onPreviousTap;
   final Function(double val) onOldPriceChanged;
   final Function(double val) onCurrentPriceChanged;
-  final Function() onCurrencyChanged;
+  final Function(PriceModel price) onCurrencyChanged;
+  final ValueNotifier<bool> priceIsGood;
+  final Function(bool val) onSwitchPrice;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -67,10 +72,12 @@ class FlyerEditorPage2KeywordsSpecs extends StatelessWidget {
             onCurrentPriceChanged: onCurrentPriceChanged,
             onOldPriceChanged: onOldPriceChanged,
             onCurrencyChanged: onCurrencyChanged,
+            priceIsGood: priceIsGood,
+            onSwitchPrice: onSwitchPrice,
           ),
         ),
 
-        // /// SPECS
+        /// SPECS
         // SpecsSelectorBubble(
         //   draft: draft,
         //   bzModel: draft?.bzModel,
@@ -84,6 +91,11 @@ class FlyerEditorPage2KeywordsSpecs extends StatelessWidget {
           onNext: onNextTap,
           onPrevious: onPreviousTap,
           canGoNext: canGoNext,
+        ),
+
+        /// HORIZON
+        const Horizon(
+          heightFactor: 0,
         ),
 
       ],

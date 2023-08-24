@@ -11,6 +11,7 @@ import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
+import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/flyer_editor_pages/a_flyer_editor_page_slides_headline.dart';
@@ -64,9 +65,10 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   final ValueNotifier<DraftFlyer?> _draftNotifier = ValueNotifier(null);
   DraftFlyer? _originalFlyer;
   // --------------------
+  final ValueNotifier<bool> priceIsGood = ValueNotifier(true);
+  // --------------------
   bool _canValidate = true;
   void _switchOnValidation(){
-    blog('switching on validation');
     if (mounted == true){
       if (_canValidate != true){
         setState(() {
@@ -144,6 +146,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     _draftNotifier.dispose();
     _progressBarModel.dispose();
     _pageController.dispose();
+    priceIsGood.dispose();
 
     super.dispose();
   }
@@ -338,7 +341,15 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
       phids: draft?.phids,
       flyerType: draft?.flyerType,
       canValidate: true,
-    ) == null;
+    ) == null
+    &&
+    // PriceSelectorBubble.validate(
+    //   draft: draft,
+    //   currentPriceText: draft?.price?.current.toString(),
+    //   oldPriceText: draft?.price?.old.toString(),
+    // ) == null;
+    priceIsGood.value == true;
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -576,10 +587,17 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                     mounted: mounted,
                     value: value,
                   ),
-                  onCurrencyChanged: () => onChangeCurrency(
+                  onCurrencyChanged: (PriceModel price) => onChangeCurrency(
                     draftNotifier: _draftNotifier,
                     context: context,
                     mounted: mounted,
+                    price: price
+                  ),
+                  priceIsGood: priceIsGood,
+                  onSwitchPrice: (bool value) => onSwitchPrice(
+                    draftNotifier: _draftNotifier,
+                    mounted: mounted,
+                    switchValue: value,
                   ),
                 ),
 

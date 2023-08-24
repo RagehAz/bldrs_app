@@ -222,7 +222,7 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
                 verseScaleFactor: 0.9 / 0.6,
                 verse: const Verse(
                   id: 'phid_refresh',
-                  translate: false,
+                  translate: true,
                   casing: Casing.capitalizeFirstChar,
                 ),
                 verseCentered: false,

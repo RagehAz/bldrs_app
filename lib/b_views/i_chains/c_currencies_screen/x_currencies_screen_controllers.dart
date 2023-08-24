@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 /// SEARCHING
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 void onSearchCurrencies({
   required TextEditingController searchController,
   required ValueNotifier<bool> isSearching,
@@ -98,7 +98,7 @@ void onSearchCurrencies({
 /// SELECTION
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> onSelectCurrency({
   required CurrencyModel? currency,
 }) async {

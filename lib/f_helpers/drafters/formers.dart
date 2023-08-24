@@ -1104,6 +1104,7 @@ class Formers {
             text: text,
             maxDigits: selectedCurrency.digits,
           );
+
         }
 
       }
