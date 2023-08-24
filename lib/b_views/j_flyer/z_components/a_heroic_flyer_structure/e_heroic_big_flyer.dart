@@ -17,8 +17,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/gallery_head
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/a_flyer_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slides_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/a_progress_bar.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_affiliate_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/saving_notice_layer/a_saving_notice.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/top_button/top_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
@@ -701,7 +701,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
               savingNotice,
 
               /// AFFILIATE BUTTON
-              FlyerAffiliateButton(
+              TopButton(
                 flyerBoxWidth: widget.flyerBoxWidth,
                 flyerModel: flyerModel,
                 inStack: true,

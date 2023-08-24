@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/f_footer_button_spacer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_affiliate_button.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/top_button/top_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +78,7 @@ class FlyerFooterButtons extends StatelessWidget {
 
                 Align(
                   alignment: BldrsAligners.superBottomAlignment(context),
-                  child: FlyerAffiliateButton(
+                  child: TopButton(
                     flyerBoxWidth: flyerBoxWidth,
                     flyerModel: flyerModel,
                     inStack: false,
