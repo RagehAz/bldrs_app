@@ -72,10 +72,10 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
           child: BldrsTextField(
             appBarType: appBarType,
             globalKey: formKey,
-            titleVerse: const Verse(
-              id: 'phid_number',
-              translate: true,
-            ),
+            // titleVerse: const Verse(
+            //   id: 'phid_number',
+            //   translate: true,
+            // ),
             isFormField: true,
             autofocus: true,
             width: _textFieldWidth,
@@ -116,8 +116,8 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
                 if (_isCurrency == true){
                   final CurrencyModel? _currency = ZoneProvider.proGetCurrencyByCurrencyID(
                     context: context,
-                    currencyID: selectedUnitID,
                     listen: false,
+                    currencyID: selectedUnitID,
                   );
                   _verse = Verse(
                     id: _currency?.symbol,

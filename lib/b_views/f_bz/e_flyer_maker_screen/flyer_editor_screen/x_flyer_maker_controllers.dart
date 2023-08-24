@@ -7,10 +7,12 @@ import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
+import 'package:bldrs/b_views/i_chains/c_currencies_screen/c_currencies_screen.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
@@ -127,7 +129,7 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
 }
 // -----------------------------------------------------------------------------
 
-/// FLYER EDITING
+/// FLYER HEADER
 
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -148,6 +150,10 @@ void onUpdateFlyerHeadline({
   );
 
 }
+// -----------------------------------------------------------------------------
+
+/// DESCRIPTION
+
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUpdateFlyerDescription({
@@ -160,6 +166,10 @@ void onUpdateFlyerDescription({
   draftNotifier.value?.copyWith();
 
 }
+// -----------------------------------------------------------------------------
+
+/// FLYER TYPE
+
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSelectFlyerType({
@@ -212,140 +222,10 @@ Future<void> onSelectFlyerType({
   }
 
 }
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> onAddSpecsToDraftTap({
-  required BuildContext context,
-  required ValueNotifier<DraftFlyer?> draft,
-  required bool mounted,
-}) async {
+// -----------------------------------------------------------------------------
 
-  final dynamic _result = await Nav.goToNewScreen(
-      context: context,
-      screen: PickersScreen(
-        pageTitleVerse: const Verse(
-          id: 'phid_flyer_specs',
-          translate: true,
-        ),
-        selectedSpecs: draft.value?.specs,
-        isMultipleSelectionMode: true,
-        onlyUseZoneChains: false,
-        flyerTypeFilter: draft.value?.flyerType,
-        zone: draft.value?.zone,
-      )
-  );
+/// PHIDS
 
-  final List<SpecModel>? _receivedSpecs = _result;
-
-  if (Mapper.checkCanLoopList(_receivedSpecs) == true){
-
-    SpecModel.blogSpecs(_receivedSpecs);
-
-    setNotifier(
-        notifier: draft,
-        mounted: mounted,
-        value: draft.value?.copyWith(
-          specs: _receivedSpecs,
-        ),
-    );
-
-  }
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> onZoneChanged({
-  required BuildContext context,
-  required ValueNotifier<DraftFlyer?> draftNotifier,
-  required ZoneModel? zone,
-  required bool mounted,
-}) async {
-
-  setNotifier(
-      notifier: draftNotifier,
-      mounted: mounted,
-      value: draftNotifier.value?.copyWith(
-        zone: zone,
-      ),
-  );
-
-}
-// --------------------
-/// TASK : TEST ME
-void onChangeFlyerPDF({
-  required PDFModel? pdfModel,
-  required ValueNotifier<DraftFlyer?> draftNotifier,
-  required bool mounted,
-}){
-
-  setNotifier(
-      notifier: draftNotifier,
-      mounted: mounted,
-      value: draftNotifier.value?.copyWith(
-        pdfModel: pdfModel,
-      ),
-  );
-
-}
-// --------------------
-/// TASK : TEST ME
-void onRemoveFlyerPDF({
-  required ValueNotifier<DraftFlyer?> draftNotifier,
-  required bool mounted,
-}){
-
-  setNotifier(
-      notifier: draftNotifier,
-      mounted: mounted,
-      value: draftNotifier.value?.nullifyField(
-        pdfModel: true,
-      ),
-  );
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-void onSwitchFlyerShowsAuthor({
-  required ValueNotifier<DraftFlyer?> draftNotifier,
-  required bool value,
-  required bool mounted,
-}){
-
-  setNotifier(
-      notifier: draftNotifier,
-      mounted: mounted,
-      value: draftNotifier.value?.copyWith(
-        showsAuthor: value,
-      ),
-  );
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> onPosterChanged({
-  required ValueNotifier<DraftFlyer?> draftNotifier,
-  required PicModel? poster,
-  required bool mounted,
-}) async {
-
-  final bool _identical = PicModel.checkPicsAreIdentical(
-      pic1: poster,
-      pic2: draftNotifier.value?.poster,
-  );
-
-  if (poster != null && draftNotifier.value != null && _identical == false){
-
-    setNotifier(
-      notifier: draftNotifier,
-      mounted: mounted,
-      value: draftNotifier.value?.copyWith(
-        poster: poster,
-      ),
-    );
-
-  }
-
-}
 // --------------------
 /// TESTED : WORKS PERFECT
 void onFlyerPhidLongTap({
@@ -395,6 +275,242 @@ Future<void> onAddPhidsToFlyerTap({
       mounted: mounted,
       value: draftNotifier.value?.copyWith(
         phids: _phids,
+      ),
+    );
+
+  }
+
+}
+// -----------------------------------------------------------------------------
+
+/// PRICE
+
+// --------------------
+/// TESTED : WORKS PERFECT
+void onChangeCurrentPrice({
+  required ValueNotifier<DraftFlyer?> draftNotifier,
+  required double value,
+  required bool mounted,
+}){
+
+  final PriceModel _priceModel = draftNotifier.value?.price ?? PriceModel.emptyPrice;
+
+  setNotifier(
+    notifier: draftNotifier,
+    mounted: mounted,
+    value: draftNotifier.value?.copyWith(
+      price: _priceModel.copyWith(
+        current: value,
+      ),
+      hasPriceTag: _priceModel.current > 0,
+    ),
+  );
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+void onChangeOldPrice({
+  required ValueNotifier<DraftFlyer?> draftNotifier,
+  required double value,
+  required bool mounted,
+}){
+
+  final PriceModel _priceModel = draftNotifier.value?.price ?? PriceModel.emptyPrice;
+
+  setNotifier(
+    notifier: draftNotifier,
+    mounted: mounted,
+    value: draftNotifier.value?.copyWith(
+      price: _priceModel.copyWith(
+        old: value,
+      ),
+      hasPriceTag: _priceModel.current > 0,
+    ),
+  );
+
+}
+// --------------------
+/// TASK : TEST ME
+Future<void> onChangeCurrency({
+  required BuildContext context,
+  required ValueNotifier<DraftFlyer?> draftNotifier,
+  required bool mounted,
+}) async {
+
+  final CurrencyModel? _currency = await Nav.goToNewScreen(
+    context: context,
+    screen: CurrenciesScreen(
+      viewerCountryID: draftNotifier.value?.zone?.countryID,
+      selectedCurrencyID: draftNotifier.value?.price?.currencyID,
+    ),
+  );
+
+  if (_currency != null){
+
+    final PriceModel _priceModel = draftNotifier.value?.price ?? PriceModel.emptyPrice;
+
+    setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value?.copyWith(
+        price: _priceModel.copyWith(
+          currencyID: _currency.id,
+        ),
+        hasPriceTag: _priceModel.current > 0,
+      ),
+    );
+
+  }
+
+}
+// -----------------------------------------------------------------------------
+
+/// SPECS
+
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onAddSpecsToDraftTap({
+  required BuildContext context,
+  required ValueNotifier<DraftFlyer?> draft,
+  required bool mounted,
+}) async {
+
+  final dynamic _result = await Nav.goToNewScreen(
+      context: context,
+      screen: PickersScreen(
+        pageTitleVerse: const Verse(
+          id: 'phid_flyer_specs',
+          translate: true,
+        ),
+        selectedSpecs: draft.value?.specs,
+        isMultipleSelectionMode: true,
+        onlyUseZoneChains: false,
+        flyerTypeFilter: draft.value?.flyerType,
+        zone: draft.value?.zone,
+      )
+  );
+
+  final List<SpecModel>? _receivedSpecs = _result;
+
+  if (Mapper.checkCanLoopList(_receivedSpecs) == true){
+
+    SpecModel.blogSpecs(_receivedSpecs);
+
+    setNotifier(
+        notifier: draft,
+        mounted: mounted,
+        value: draft.value?.copyWith(
+          specs: _receivedSpecs,
+        ),
+    );
+
+  }
+
+}
+// -----------------------------------------------------------------------------
+
+/// ZONE
+
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onZoneChanged({
+  required BuildContext context,
+  required ValueNotifier<DraftFlyer?> draftNotifier,
+  required ZoneModel? zone,
+  required bool mounted,
+}) async {
+
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value?.copyWith(
+        zone: zone,
+      ),
+  );
+
+}
+// -----------------------------------------------------------------------------
+
+/// PDF
+
+// --------------------
+/// TESTED : WORKS PERFECT
+void onChangeFlyerPDF({
+  required PDFModel? pdfModel,
+  required ValueNotifier<DraftFlyer?> draftNotifier,
+  required bool mounted,
+}){
+
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value?.copyWith(
+        pdfModel: pdfModel,
+      ),
+  );
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+void onRemoveFlyerPDF({
+  required ValueNotifier<DraftFlyer?> draftNotifier,
+  required bool mounted,
+}){
+
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value?.nullifyField(
+        pdfModel: true,
+      ),
+  );
+
+}
+// -----------------------------------------------------------------------------
+
+/// SHOW AUTHOR
+
+// --------------------
+/// TESTED : WORKS PERFECT
+void onSwitchFlyerShowsAuthor({
+  required ValueNotifier<DraftFlyer?> draftNotifier,
+  required bool value,
+  required bool mounted,
+}){
+
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value?.copyWith(
+        showsAuthor: value,
+      ),
+  );
+
+}
+// -----------------------------------------------------------------------------
+
+/// POSTER
+
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onPosterChanged({
+  required ValueNotifier<DraftFlyer?> draftNotifier,
+  required PicModel? poster,
+  required bool mounted,
+}) async {
+
+  final bool _identical = PicModel.checkPicsAreIdentical(
+      pic1: poster,
+      pic2: draftNotifier.value?.poster,
+  );
+
+  if (poster != null && draftNotifier.value != null && _identical == false){
+
+    setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value?.copyWith(
+        poster: poster,
       ),
     );
 

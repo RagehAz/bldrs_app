@@ -224,6 +224,7 @@ class FetchFlyerProtocols {
               showsAuthor: false,
               score: null,
               pdfPath: null,
+              price: null,
             );
 
             _flyer = await FlyerProtocols.renderBigFlyer(

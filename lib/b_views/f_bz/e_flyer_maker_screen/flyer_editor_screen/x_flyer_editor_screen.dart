@@ -126,6 +126,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
         // -------------------------------
         setNotifier(notifier: _loadingPage, mounted: mounted, value: false);
         setNotifier(notifier: _loadingSlides, mounted: mounted, value: false);
+        // -------------------------------
       });
 
     }
@@ -565,6 +566,21 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                           unit?.blogSpec();
 
                         },
+                  onCurrentPriceChanged: (double value) => onChangeCurrentPrice(
+                    draftNotifier: _draftNotifier,
+                    mounted: mounted,
+                    value: value,
+                  ),
+                  onOldPriceChanged: (double value) => onChangeOldPrice(
+                    draftNotifier: _draftNotifier,
+                    mounted: mounted,
+                    value: value,
+                  ),
+                  onCurrencyChanged: () => onChangeCurrency(
+                    draftNotifier: _draftNotifier,
+                    context: context,
+                    mounted: mounted,
+                  ),
                 ),
 
                 /// 3 - PDF

@@ -240,7 +240,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
                 focusNode: widget.focusNode,
                 appBarType: widget.appBarType,
                 globalKey: widget.formKey,
-                titleVerse: Verse.plain(widget.headerViewModel.headlineText),
+                // titleVerse: Verse.plain(widget.headerViewModel.headlineText),
                 width: fieldWidth,
                 isFormField: widget.isFormField,
                 initialValue: paste == '' ? widget.initialTextValue : null,

@@ -479,9 +479,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-
-    blog('widget.canGoBack ssss: ${widget.canGoBack}');
-
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
