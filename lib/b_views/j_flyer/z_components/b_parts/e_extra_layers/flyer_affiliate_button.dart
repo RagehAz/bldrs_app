@@ -29,7 +29,7 @@ class FlyerAffiliateButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (flyerModel?.affiliateLink == null){
+    if (flyerModel?.affiliateLink == null && flyerModel?.hasPriceTag == false){
       return const SizedBox();
     }
     else {
