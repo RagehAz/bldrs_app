@@ -64,7 +64,7 @@ class CountryTileButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _buttonWidth = Bubble.bubbleWidth(context: context);
-    final bool _isPlanetButton = countryID == null;
+    final bool _isPlanetButton = countryID == null || countryID == Flag.planetID;
 
     return ZoneButtonBox(
       onTap: onTap,
