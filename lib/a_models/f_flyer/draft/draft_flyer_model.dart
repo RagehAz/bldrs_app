@@ -286,7 +286,7 @@ class DraftFlyer{
           ),
           specs: draft.specs,
           times: _publishTimes,
-          hasPriceTag: Speccer.checkSpecsHavePrice(draft.specs),
+          hasPriceTag: draft.hasPriceTag,
           isAmazonFlyer: GtaModel.isAmazonAffiliateLink(draft.affiliateLink),
           hasPDF: draft.pdfModel != null,
           score: draft.score,
