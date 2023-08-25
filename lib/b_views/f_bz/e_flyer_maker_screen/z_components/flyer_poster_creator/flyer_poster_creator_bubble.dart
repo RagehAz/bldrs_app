@@ -131,10 +131,12 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
 
         }
 
-        setState(() {
+        if (mounted == true){
+          setState(() {
             _poster = _pic;
             _loading = false;
           });
+        }
 
       }
 
