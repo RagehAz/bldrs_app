@@ -14,8 +14,9 @@ class CurrencyTileButton extends StatelessWidget {
   const CurrencyTileButton({
     required this.currencyModel,
     required this.onTap,
-    required this.highlightController,
-    required this.isSelected,
+    this.highlightController,
+    this.isSelected = false,
+    this.width,
     super.key
   });
   // --------------------
@@ -23,6 +24,7 @@ class CurrencyTileButton extends StatelessWidget {
   final Function onTap;
   final TextEditingController? highlightController;
   final bool isSelected;
+  final double? width;
   // --------------------------------------------------------------------------
   static const double height = 40;
   // --------------------------------------------------------------------------
@@ -30,7 +32,7 @@ class CurrencyTileButton extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
 
-    final double _boxWidth = Bubble.bubbleWidth(context: context);
+    final double _boxWidth = width ?? Bubble.bubbleWidth(context: context);
     const double _spacing = 5;
     const double _symbolButtonWidth = height * 1.3;
     final double _currencyButtonWidth = _boxWidth - _spacing - _symbolButtonWidth;
