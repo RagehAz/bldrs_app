@@ -23,7 +23,7 @@ class ZoneIPOps {
   /// GET ZONE BY USER IP
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX USA CASES
   static Future<ZoneModel?> getZoneByIP() async {
 
     /// trial 1
@@ -52,7 +52,7 @@ class ZoneIPOps {
     return _zone;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX USA CASES
   static Future<ZoneModel?> _getZoneByIP_ipApi() async  {
 
     /// NOTE : this is limited and needs paid subscription
@@ -134,7 +134,7 @@ class ZoneIPOps {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX USA CASES
   static Future<ZoneModel?> _getZoneByIP_ipRegistry() async {
 
     /// NOTE : this needs subscription after first 100'000 requests
@@ -222,7 +222,7 @@ class ZoneIPOps {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX USA CASES
   static Future<ZoneModel?> _getZoneByGeoLocator() async {
     ZoneModel? _zoneModel;
 
