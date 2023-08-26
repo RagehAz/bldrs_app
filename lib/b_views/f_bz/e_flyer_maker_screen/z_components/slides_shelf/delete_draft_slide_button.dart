@@ -19,10 +19,9 @@ class DeleteDraftSlideButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _boxHeight = FlyerDim.footerBoxHeight(
-      context: context,
       flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
       infoButtonExpanded: false,
-      hasLink: false,
+      showTopButton: false,
     );
 
     return SuperPositioned(

@@ -14,13 +14,11 @@ class FooterButtonSpacer extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return SizedBox(
-
       width: FlyerDim.footerButtonMarginValue(flyerBoxWidth),
       height: FlyerDim.footerBoxHeight(
-        context: context,
         flyerBoxWidth: flyerBoxWidth,
         infoButtonExpanded: false,
-        hasLink: false,
+        showTopButton: false,
       ),
 
     );

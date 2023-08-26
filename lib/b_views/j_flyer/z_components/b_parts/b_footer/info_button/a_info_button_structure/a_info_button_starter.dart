@@ -69,14 +69,12 @@ class InfoButtonStarter extends StatelessWidget {
             return AnimatedContainer(
               key: const ValueKey<String>('InfoButtonStarter_animated_container'),
               width: FlyerDim.infoButtonWidth(
-                context: context,
                 flyerBoxWidth: flyerBoxWidth,
                 tinyMode: tinyMode,
                 isExpanded: buttonExpanded,
                 infoButtonType: infoButtonType,
               ),
               height: FlyerDim.infoButtonHeight(
-                context: context,
                 flyerBoxWidth: flyerBoxWidth,
                 tinyMode: tinyMode,
                 isExpanded: buttonExpanded,
@@ -86,14 +84,12 @@ class InfoButtonStarter extends StatelessWidget {
                 // color: _color,
                 color: Colorz.black255,
                 borderRadius: FlyerDim.infoButtonCorners(
-                    context: context,
                     flyerBoxWidth: flyerBoxWidth,
                     tinyMode: tinyMode,
                     isExpanded: buttonExpanded
                 ),
               ),
               margin: FlyerDim.infoButtonMargins(
-                context: context,
                 flyerBoxWidth: flyerBoxWidth,
                 tinyMode: tinyMode,
                 isExpanded: buttonExpanded,

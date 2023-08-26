@@ -26,7 +26,6 @@ class InfoGraphic extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final double _size = FlyerDim.infoButtonHeight(
-      context: context,
       flyerBoxWidth: flyerBoxWidth,
       isExpanded: false,
       tinyMode: tinyMode,

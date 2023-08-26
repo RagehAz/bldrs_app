@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/b_footer_box
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/d_flyer_footer_buttons.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/top_button/top_button.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -195,7 +196,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
         flyerBoxWidth: widget.flyerBoxWidth,
         footerPageController: widget.footerPageController,
         infoButtonExpanded: widget.infoButtonExpanded,
-        hasAffiliateLink: widget.flyerModel?.affiliateLink != null,
+        showTopButton: checkCanShowTopButton(flyerModel: widget.flyerModel),
         footerPageViewChildren: <Widget>[
 
           /// FOOTER

@@ -41,20 +41,17 @@ class InfoPageTree extends StatelessWidget {
 
     return FooterPageBox(
       width: FlyerDim.infoButtonWidth(
-        context: context,
         flyerBoxWidth: flyerBoxWidth,
         isExpanded: true,
         tinyMode: false,
         infoButtonType: infoButtonType,
       ),
       height: FlyerDim.infoButtonHeight(
-        context: context,
         flyerBoxWidth: flyerBoxWidth,
         tinyMode: false,
         isExpanded: true,
       ),
       borders: FlyerDim.infoButtonCorners(
-          context: context,
           flyerBoxWidth: flyerBoxWidth,
           tinyMode: false,
           isExpanded: true,
@@ -67,7 +64,6 @@ class InfoPageTree extends StatelessWidget {
 
           return MaxBounceNavigator(
             boxDistance: FlyerDim.infoButtonHeight(
-              context: context,
               flyerBoxWidth: flyerBoxWidth,
               tinyMode: false,
               isExpanded: true,
@@ -97,21 +93,18 @@ class InfoPageTree extends StatelessWidget {
                   alignment: BldrsAligners.superCenterAlignment(context),
                   child: Container(
                     width: FlyerDim.infoButtonWidth(
-                        context: context,
                         flyerBoxWidth: flyerBoxWidth,
                         tinyMode: tinyMode,
                         isExpanded: false,
                         infoButtonType: infoButtonType
                     ),
                     height: FlyerDim.infoButtonHeight(
-                      context: context,
                       flyerBoxWidth: flyerBoxWidth,
                       tinyMode: tinyMode,
                       isExpanded: false,
                     ),
                     decoration: BoxDecoration(
                       borderRadius: FlyerDim.infoButtonCorners(
-                        context: context,
                         flyerBoxWidth: flyerBoxWidth,
                         tinyMode: tinyMode,
                         isExpanded: false,

@@ -18,10 +18,9 @@ class FooterShadow extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final double _height = FlyerDim.footerBoxHeight(
-      context: context,
       flyerBoxWidth: flyerBoxWidth,
       infoButtonExpanded: false,
-      hasLink: false,
+      showTopButton: false,
     );
     // --------------------
     return Positioned(
