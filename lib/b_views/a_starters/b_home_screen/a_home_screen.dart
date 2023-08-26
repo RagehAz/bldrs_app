@@ -224,11 +224,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           context: context,
           zGridController: _zGridController,
         ),
-        // pyramidButtons: const <Widget>[
-        /// PLAN : FLOATING_SECTION_BUTTON
-        //       //   SectionsMenu(),
-        //
-        // ],
         child: Stack(
           children: <Widget>[
 
@@ -238,6 +233,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 zGridController: _zGridController,
                 loading: _loading,
               ),
+
+            /// PLAN : SECTION_WHEEL
+            // const SectionWheel(),
 
             /// PYRAMIDS NAVIGATOR
             SuperPyramids(
