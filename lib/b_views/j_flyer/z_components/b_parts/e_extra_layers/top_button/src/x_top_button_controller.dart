@@ -1,17 +1,67 @@
 // ignore_for_file: non_constant_identifier_names
-
 part of top_button;
+// -----------------------------------------------------------------------------
 
+/// BUTTON TYPE
+
+// --------------------
+enum TopButtonType {
+  price,
+  discount,
+  amazon,
+  non,
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+TopButtonType getTopButtonType(FlyerModel? flyerModel){
+
+  final bool _canShowTopButton = checkCanShowTopButton(
+    flyerModel: flyerModel,
+  );
+
+  if (flyerModel == null || _canShowTopButton == false){
+    return TopButtonType.non;
+  }
+  else {
+
+    final bool _isAmazon = GtaModel.isAmazonAffiliateLink(flyerModel.affiliateLink);
+
+    if (_isAmazon == true){
+      return TopButtonType.amazon;
+    }
+    else {
+
+      final PriceModel? _priceModel = flyerModel.price;
+
+      /// NORMAL PRICE BUTTON
+      if (_priceModel?.old == null || _priceModel?.old == 0){
+        return TopButtonType.price;
+      }
+      /// DISCOUNT PRICE BUTTON
+      else {
+        return TopButtonType.discount;
+      }
+
+    }
+
+  }
+
+}
 // -----------------------------------------------------------------------------
 
 /// CHECKERS
 
 // --------------------
 /// TESTED : WORKS PERFECT
-bool _checkHideTopButton({
+bool checkCanShowTopButton({
   required FlyerModel? flyerModel,
 }){
-  return flyerModel?.affiliateLink == null && flyerModel?.hasPriceTag == false;
+  if (flyerModel?.affiliateLink == null && flyerModel?.hasPriceTag == false){
+    return false;
+  }
+  else {
+    return true;
+  }
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -33,21 +83,90 @@ double getTopButtonHeight({
   required double flyerBoxWidth,
 }){
   return FlyerDim.footerBoxHeight(
-    context: getMainContext(),
     flyerBoxWidth: flyerBoxWidth,
     infoButtonExpanded: false,
-    hasLink: false,
+    showTopButton: false,
   );
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 double getTopButtonWidth({
   required double flyerBoxWidth,
+  required FlyerModel? flyerModel,
 }){
-  return FlyerDim.gtaButtonWidth(
-    context: getMainContext(),
+
+  final TopButtonType _type = getTopButtonType(flyerModel);
+
+  switch (_type){
+
+      case TopButtonType.amazon:
+        return FlyerDim.gtaButtonWidth(
+          flyerBoxWidth: flyerBoxWidth,
+        );
+
+      case TopButtonType.price:
+        return priceButtonWidth(
+          flyerBoxWidth: flyerBoxWidth,
+        );
+
+        case TopButtonType.discount:
+          return FlyerDim.gtaButtonWidth(
+            flyerBoxWidth: flyerBoxWidth,
+          );
+
+      case TopButtonType.non:
+        return 0;
+  }
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+double amazonButtonWidth({
+  required double flyerBoxWidth,
+}){
+
+  final double _footerButtonSpacing = FlyerDim.footerButtonMarginValue(flyerBoxWidth);
+  final double _footerButtonSize = FlyerDim.footerButtonSize(
     flyerBoxWidth: flyerBoxWidth,
   );
+
+  return flyerBoxWidth
+      - (_footerButtonSpacing * 2)
+      - _footerButtonSize
+      - (_footerButtonSize * 0.5);
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+double priceButtonWidth({
+  required double flyerBoxWidth,
+}){
+
+  final double _footerButtonSpacing = FlyerDim.footerButtonMarginValue(flyerBoxWidth);
+  final double _footerButtonSize = FlyerDim.footerButtonSize(
+    flyerBoxWidth: flyerBoxWidth,
+  );
+
+  return flyerBoxWidth
+      - (_footerButtonSpacing * 3)
+      - (_footerButtonSize * 2)
+      - (_footerButtonSize * 0.5);
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+double discountButtonWidth({
+  required double flyerBoxWidth,
+}){
+
+  final double _footerButtonSpacing = FlyerDim.footerButtonMarginValue(flyerBoxWidth);
+  final double _footerButtonSize = FlyerDim.footerButtonSize(
+
+    flyerBoxWidth: flyerBoxWidth,
+  );
+
+  return flyerBoxWidth
+      - (_footerButtonSpacing * 2)
+      - _footerButtonSize
+      - (_footerButtonSize * 0.5);
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -135,8 +254,9 @@ Verse? generateLine_discount_rate({
   }
 
 }
-
-Verse? generateLine_was_button({
+// --------------------
+/// TESTED : WORKS PERFECT
+Verse? generateLine_current_price({
   required FlyerModel? flyerModel,
 }){
 
@@ -146,15 +266,97 @@ Verse? generateLine_was_button({
 
   else {
 
-    final String _number = Numeric.stringifyDouble(flyerModel.price?.old);
+    final CurrencyModel? _currency = ZoneProvider.proGetCurrencyByCurrencyID(
+        context: getMainContext(),
+        currencyID: flyerModel.price?.currencyID,
+        listen: false,
+    );
 
+    final String _number = Numeric.formatNumToSeparatedKilos(
+      number: flyerModel.price?.current,
+      fractions: _currency?.digits ?? 1,
+    );
+
+    final String? _currencySymbol = ZoneProvider.proGetCurrencyByCurrencyID(
+      context: getMainContext(),
+      currencyID: flyerModel.price?.currencyID,
+      listen: false,
+    )?.symbol;
+
+    final String _line = '$_number $_currencySymbol';
+
+    return Verse(
+      id: _line,
+      translate: false,
+    );
+  }
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Verse? generateLine_old_price({
+  required FlyerModel? flyerModel,
+}){
+
+  if (flyerModel == null){
+    return null;
+  }
+
+  else {
+
+    final CurrencyModel? _currency = ZoneProvider.proGetCurrencyByCurrencyID(
+        context: getMainContext(),
+        currencyID: flyerModel.price?.currencyID,
+        listen: false,
+    );
+
+    final String _number = Numeric.formatNumToSeparatedKilos(
+      number: flyerModel.price?.old,
+      fractions: _currency?.digits ?? 1,
+    );
+    final String? _currencySymbol = ZoneProvider.proGetCurrencyByCurrencyID(
+      context: getMainContext(),
+      currencyID: flyerModel.price?.currencyID,
+      listen: false,
+    )?.symbol;
+
+    return Verse(
+      id: '$_number $_currencySymbol ',
+      translate: false,
+    );
   }
 
 }
 // -----------------------------------------------------------------------------
 
-/// STRINGERS
+/// TEXT SCALING
 
 // --------------------
-
+/// TESTED : WORKS PERFECT
+double getTopLiveVerticalOffset({
+  required double topButtonHeight,
+}){
+  return topButtonHeight * 0.13;
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+double getTopLineScaleFactor({
+  required double topButtonHeight,
+}){
+  return topButtonHeight * 0.016;
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+double getBottomLiveVerticalOffset({
+  required double topButtonHeight,
+}){
+  return topButtonHeight * 0.16;
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+double getBottomLineScaleFactor({
+  required double topButtonHeight,
+}){
+  return topButtonHeight * 0.01;
+}
 // -----------------------------------------------------------------------------

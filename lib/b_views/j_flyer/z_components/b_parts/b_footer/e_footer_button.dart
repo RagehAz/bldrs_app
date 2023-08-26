@@ -38,7 +38,6 @@ class FooterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final double _buttonSize = FlyerDim.footerButtonSize(
-      context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
     // --------------------
@@ -86,7 +85,6 @@ class FooterButton extends StatelessWidget {
               width: _buttonSize,
               height: _buttonSize,
               corners: FlyerDim.footerButtonRadius(
-                context: context,
                 flyerBoxWidth: flyerBoxWidth,
               ),
               color: color ?? FlyerColors.footerButtonColor(buttonIsOn: isOn),

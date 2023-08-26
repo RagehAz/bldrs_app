@@ -47,7 +47,6 @@ class InfoPageContents extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _pageWidth = FlyerDim.infoButtonWidth(
-      context: context,
       flyerBoxWidth: flyerBoxWidth,
       tinyMode: false,
       isExpanded: true,

@@ -1,3 +1,4 @@
+// ignore_for_file: unused_element
 part of top_button;
 
 class _DiscountButton extends StatelessWidget {
@@ -13,28 +14,40 @@ class _DiscountButton extends StatelessWidget {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+   // --------------------
+    /// MAIN SCALES
     final double _height = getTopButtonHeight(
       flyerBoxWidth: flyerBoxWidth,
     );
     final double _width = getTopButtonWidth(
       flyerBoxWidth: flyerBoxWidth,
+      flyerModel: flyerModel,
     );
-
+    final bool _appIsLTR = UiProvider.checkAppIsLeftToRight();
+    // --------------------
+    /// LEFT DISCOUNT BOX
     final double _discountBoxWidth = _height;
+    // --------------------
+    /// RIGHT PRICE BOX
     final double _pricesBoxWidth = _width - _discountBoxWidth;
-
-    final double _priceLineSideMargin = _pricesBoxWidth * 0.05;
-    final double _priceLineWidth = _pricesBoxWidth - (_priceLineSideMargin * 2);
-
+    final double _priceLineWidth = _pricesBoxWidth;
+    // --------------------
+    /// TOP LINE SCALES
+    final double _topLineVerticalOffset = getTopLiveVerticalOffset(topButtonHeight: _height);
+    final double _topLineScaleFactor = getTopLineScaleFactor(topButtonHeight: _height);
+    // --------------------
+    /// BOTTOM LINE SCALES
+    final double _bottomLineVerticalOffset = getBottomLiveVerticalOffset(topButtonHeight: _height);
+    final double _bottomLineScaleFactor = getBottomLineScaleFactor(topButtonHeight: _height);
+    // --------------------
     return Container(
-      width: _width,
       height: _height,
+      width: _width,
       decoration: BoxDecoration(
         borderRadius: getButtonCorners(
           flyerBoxWidth: flyerBoxWidth,
         ),
-        color: Colorz.black200,
+        color: Colorz.black150,
       ),
       child: Row(
         children: <Widget>[
@@ -53,36 +66,35 @@ class _DiscountButton extends StatelessWidget {
               alignment: Alignment.center,
               children: <Widget>[
 
+                /// DISCOUNT RATE
                 SuperPositioned(
-                  appIsLTR: UiProvider.checkAppIsLeftToRight(),
-                  verticalOffset: _height * 0.13,
+                  appIsLTR: _appIsLTR,
+                  verticalOffset: _topLineVerticalOffset,
                   enAlignment: Alignment.topCenter,
                   child: BldrsText(
-                    // height: _height * 0.5,
                     width: _discountBoxWidth,
                     verse: generateLine_discount_rate(
                       flyerModel: flyerModel
                     ),
-                    scaleFactor: 0.8,
-                    centered:  true,
+                    scaleFactor: _topLineScaleFactor,
                     weight: VerseWeight.black,
                   ),
                 ),
 
+                /// OFF
                 SuperPositioned(
-                  appIsLTR: UiProvider.checkAppIsLeftToRight(),
-                  verticalOffset: _height * 0.13,
+                  appIsLTR: _appIsLTR,
+                  verticalOffset: _bottomLineVerticalOffset,
                   enAlignment: Alignment.bottomCenter,
                   child: BldrsText(
-                    // height: _height * 0.5,
-                    width: _discountBoxWidth,
+                    width: _discountBoxWidth * 0.75,
                     verse: const Verse(
-                      id: 'off',
-                      translate: false,
+                      id: 'phid_off',
+                      translate: true,
                       casing: Casing.upperCase
                     ),
-                    scaleFactor: 0.6,
-                    centered:  true,
+                    scaleFactor: _bottomLineScaleFactor,
+                    // centered:  true,
                     weight: VerseWeight.black,
                   ),
                 ),
@@ -92,50 +104,92 @@ class _DiscountButton extends StatelessWidget {
           ),
 
           /// CURRENT - OLD PRICES
-          Container(
+          SizedBox(
             width: _pricesBoxWidth,
             height: _height,
-            padding: EdgeInsets.symmetric(horizontal: _priceLineSideMargin),
             child: Stack(
-              alignment: Alignment.center,
+              alignment: AlignmentDirectional.center,
               children: <Widget>[
 
+                /// CURRENT
                 SuperPositioned(
-                  appIsLTR: UiProvider.checkAppIsLeftToRight(),
-                  verticalOffset: _height * 0.13,
-                  enAlignment: Alignment.topCenter,
+                  appIsLTR: _appIsLTR,
+                  verticalOffset: _topLineVerticalOffset,
+                  enAlignment: Alignment.topLeft,
                   child: BldrsText(
-                    // height: _height * 0.5,
                     width: _priceLineWidth,
-                    verse: Verse(
-                      id: Numeric.stringifyDouble(flyerModel?.price?.current),
-                      translate: false,
+                    verse: generateLine_current_price(
+                      flyerModel: flyerModel,
                     ),
-                    scaleFactor: 0.8,
+                    scaleFactor: _topLineScaleFactor,
                     centered:  false,
                     weight: VerseWeight.black,
+                    appIsLTR: _appIsLTR,
+                    textDirection: UiProvider.getAppTextDir(),
+                    margin: EdgeInsets.symmetric(horizontal: _height * 0.2),
                   ),
                 ),
 
                 /// OLD
                 SuperPositioned(
-                  appIsLTR: UiProvider.checkAppIsLeftToRight(),
-                  verticalOffset: _height * 0.13,
-                  enAlignment: Alignment.bottomCenter,
-                  child: BldrsText(
-                    // height: _height * 0.5,
+                  appIsLTR: _appIsLTR,
+                  verticalOffset: _bottomLineVerticalOffset,
+                  enAlignment: Alignment.bottomLeft,
+                  child: SizedBox(
                     width: _priceLineWidth,
-                    verse: Verse(
-                      id: Numeric.stringifyDouble(flyerModel?.price?.old),
-                      translate: false,
-                      casing: Casing.upperCase
+                    child: Row(
+                      children: <Widget>[
+
+                        BldrsText(
+                          // width: _priceLineWidth,
+                          verse: const Verse(
+                            id: 'phid_was',
+                            translate: true,
+                          ),
+                          scaleFactor: _bottomLineScaleFactor,
+                          centered:  false,
+                          weight: VerseWeight.thin,
+                          // margin: EdgeInsets.symmetric(horizontal: _height * 0.2),
+                          margin: Scale.superInsets(
+                            context: context,
+                            appIsLTR: _appIsLTR,
+                            enLeft: _height * 0.2,
+                          ),
+                          italic: true,
+                          appIsLTR: _appIsLTR,
+                          textDirection: UiProvider.getAppTextDir(),
+                        ),
+
+                        BldrsText(
+                          // width: _priceLineWidth,
+                          verse: generateLine_old_price(
+                            flyerModel: flyerModel,
+                          ),
+                          scaleFactor: _bottomLineScaleFactor,
+                          centered:  false,
+                          weight: VerseWeight.regular,
+                          strikeThrough: true,
+                          italic: true,
+                          margin: EdgeInsets.symmetric(horizontal: _height * 0.05),
+                          appIsLTR: _appIsLTR,
+                          textDirection: UiProvider.getAppTextDir(),
+                        ),
+
+                      ],
                     ),
-                    scaleFactor: 0.6,
-                    centered:  false,
-                    weight: VerseWeight.black,
-                    strikeThrough: true,
                   ),
                 ),
+
+                /// SEPARATOR LINE
+                // SuperPositioned(
+                //   enAlignment: Alignment.centerLeft,
+                //   appIsLTR: _appIsLTR,
+                //   child: Container(
+                //     width: 1,
+                //     height: _height * 0.5,
+                //     color: Colorz.white20,
+                //   ),
+                // ),
 
               ],
             ),
@@ -144,7 +198,7 @@ class _DiscountButton extends StatelessWidget {
         ],
       ),
     );
-
+    // --------------------
   }
   // -----------------------------------------------------------------------------
 }
