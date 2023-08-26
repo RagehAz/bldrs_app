@@ -324,6 +324,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     final double _pagesZoneHeight = OnBoardingScreen.getPagesZoneHeight();
     final double _progressBarWidth = OnBoardingScreen.getProgressBarWidth();
     final double _buttonHeight = OnBoardingScreen.getButtonHeight();
+    final double _navButtonWidth = _bubbleWidth * 0.25;
+    final double _middleButtonWidth = _bubbleWidth * 0.3;
 
     return Material(
       color: Colorz.nothing,
@@ -332,12 +334,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         height: Scale.screenHeight(context),
         child: Stack(
           alignment: Alignment.center,
-          children: [
+          children: <Widget>[
 
+            /// SCREEN BLURRED BACKGROUND
             const BlurLayer(
               blurIsOn: true,
             ),
 
+            /// DIALOG
             Container(
               width: _bubbleWidth,
               height: _bubbleHeight,
@@ -402,10 +406,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+                            children: <Widget>[
 
                               /// EXIT
                               BldrsBox(
+                                width: _navButtonWidth,
                                 height: _buttonHeight,
                                 opacity: _isAtLast == true ? 0 : 1,
                                 // width: _bubbleWidth * 0.3,
@@ -431,7 +436,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                       height: _buttonHeight,
                                       alignment: Alignment.bottomCenter,
                                       child: BldrsText(
-                                        width: 100,
+                                        width: _middleButtonWidth,
                                         verse: const Verse(
                                           id: 'phid_dont_show_again',
                                           translate: true,
@@ -455,8 +460,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
                               /// NEXT
                               BldrsBox(
+                                width: _navButtonWidth,
                                 height: _buttonHeight,
-                                // width: _bubbleWidth * 0.3,
                                 margins: 10,
                                 verse: Verse(
                                   id: _isAtLast == true ? 'phid_great_!' : 'phid_next',
@@ -478,6 +483,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               ),
             ),
 
+            /// PYRAMIDS
             const Pyramids(
               pyramidType: PyramidType.crystalBlue,
               color: Colorz.black255,
@@ -490,5 +496,5 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     );
 
   }
-
+  // -----------------------------------------------------------------------------
 }
