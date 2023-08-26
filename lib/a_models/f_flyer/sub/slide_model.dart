@@ -105,10 +105,10 @@ class SlideModel {
   /// TESTED : WORKS PERFECT
   static List<SlideModel> decipherSlides({
     required String flyerID,
-    required Map<String, dynamic> maps,
+    required Map<String, dynamic>? maps,
   }) {
     final List<SlideModel> _slides = <SlideModel>[];
-    final List<String>? _keys = maps.keys.toList();
+    final List<String>? _keys = maps?.keys.toList();
 
     if (Mapper.checkCanLoopList(_keys) == true) {
 
@@ -116,7 +116,7 @@ class SlideModel {
 
       for (final String key in _sorted) {
 
-        final Map<String, dynamic> _slideMap = maps[key];
+        final Map<String, dynamic> _slideMap = maps![key];
 
         final SlideModel _slide = decipherSlide(
           map: _slideMap,

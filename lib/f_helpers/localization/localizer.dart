@@ -129,19 +129,29 @@ class Localizer {
   }
   // -----------------------------------------------------------------------------
 
-  /// SUPPORTED LANGS
+  /// BLDRS_SUPPORTED_LANGS
+  // for more translations to add, check above tag in :-
+  /// Basics Package,
 
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Locale> getSupportedLocales() {
     return <Locale>[
-      const Locale('en', 'US'),
-      const Locale('ar', 'EG'),
-      const Locale('es', 'ES'),
-      const Locale('it', 'IT'),
-      const Locale('de', 'DE'),
-      const Locale('fr', 'FR'),
-      const Locale('zh', 'CN'),
+      const Locale('en', 'US'),  // English - United States
+      const Locale('ar', 'EG'),  // Arabic - Egypt
+
+      const Locale('es', 'ES'),  // Spanish - Spain
+      const Locale('it', 'IT'),  // Italian - Italy
+      const Locale('de', 'DE'),  // German - Germany
+      const Locale('fr', 'FR'),  // French - France
+      const Locale('zh', 'CN'),  // Chinese - China
+
+      const Locale('tr', 'TR'),  // Turkish - Turkey
+      const Locale('hi', 'IN'),  // Hindi - India
+      const Locale('ru', 'RU'),  // Russian - Russia
+      const Locale('pt', 'PT'),  // Portuguese - Portugal
+      const Locale('fa', 'IR'),  // Farsi/Persian - Iran
+
     ];
   }
   // --------------------
@@ -154,6 +164,12 @@ class Localizer {
     'de',
     'fr',
     'zh',
+
+    'tr',
+    'hi',
+    'ru',
+    'pt',
+    'fa',
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -167,8 +183,40 @@ class Localizer {
       case 'de': return 'Deutsche';
       case 'fr': return 'Français';
       case 'zh': return '中文';
-      // case "ru": return "русский";
+      case 'tr': return 'Türkçe';
+      case 'hi': return 'हिन्दी';
+      case 'ru': return 'Русский';
+      case 'pt': return 'Português';
+      case 'fa': return 'فارسی';
       default: return '';
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Locale? _concludeLocaleByLingoCode(String? langCode) {
+
+    if (langCode == null){
+      return null;
+    }
+
+    switch (langCode) {
+      case 'en':    return const Locale('en', 'US');
+      case 'ar':    return const Locale('ar', 'EG');
+
+      case 'es':    return const Locale('es', 'ES');
+      case 'it':    return const Locale('it', 'IT');
+      case 'de':    return const Locale('de', 'DE');
+      case 'fr':    return const Locale('fr', 'FR');
+      case 'zh':    return const Locale('zh', 'CN');
+
+      case 'tr':    return const Locale('tr', 'TR');
+      case 'hi':    return const Locale('hi', 'IN');
+      case 'ru':    return const Locale('ru', 'RU');
+      case 'pt':    return const Locale('pt', 'PT');
+      case 'fa':    return const Locale('fa', 'IR');
+
+      default:      return const Locale('en', 'US');
     }
 
   }
@@ -354,26 +402,6 @@ class Localizer {
   //
   //   return _concludeLocaleByLingoCode(languageCode);
   // }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Locale? _concludeLocaleByLingoCode(String? langCode) {
-
-    if (langCode == null){
-      return null;
-    }
-
-    switch (langCode) {
-      case 'en':    return const Locale('en', 'US');
-      case 'ar':    return const Locale('ar', 'EG');
-      case 'es':    return const Locale('es', 'ES');
-      case 'it':    return const Locale('it', 'IT');
-      case 'de':    return const Locale('de', 'DE');
-      case 'fr':    return const Locale('fr', 'FR');
-      case 'zh':    return const Locale('zh', 'CN');
-      default:      return const Locale('en', 'US');
-    }
-
-  }
   // -----------------------------------------------------------------------------
 
   /// GETTERS
