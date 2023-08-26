@@ -22,6 +22,7 @@ class SmallFlyer extends StatelessWidget {
     required this.flyerModel,
     required this.flyerBoxWidth,
     required this.onTap,
+    required this.showTopButton,
     this.flyerShadowIsOn = true,
     this.slideShadowIsOn = true,
     this.canAnimateMatrix = true,
@@ -42,6 +43,7 @@ class SmallFlyer extends StatelessWidget {
   final bool optionsButtonIsOn;
   final int slideIndex;
   final bool isRendering;
+  final bool showTopButton;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -108,6 +110,7 @@ class SmallFlyer extends StatelessWidget {
             ),
 
             /// AFFILIATE BUTTON
+            if (showTopButton == true)
             TopButton(
               flyerBoxWidth: flyerBoxWidth,
               flyerModel: flyerModel,
@@ -148,12 +151,10 @@ class RenderingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _margin = FlyerDim.infoButtonCollapsedMarginValue(
-        context: context,
         flyerBoxWidth: flyerBoxWidth,
       );
 
     final double _height = FlyerDim.infoButtonHeight(
-      context: context,
       flyerBoxWidth: flyerBoxWidth,
       tinyMode: false,
       isExpanded: false,

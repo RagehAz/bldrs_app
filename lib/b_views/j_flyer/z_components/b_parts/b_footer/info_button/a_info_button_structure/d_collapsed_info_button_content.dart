@@ -25,7 +25,6 @@ class CollapsedInfoButtonContent extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final double _width = FlyerDim.infoButtonWidth(
-      context: context,
       flyerBoxWidth: flyerBoxWidth,
       tinyMode: tinyMode,
       infoButtonType: infoButtonType,
@@ -33,7 +32,6 @@ class CollapsedInfoButtonContent extends StatelessWidget {
     );
     // --------------------
     final double _height = FlyerDim.infoButtonHeight(
-      context: context,
       tinyMode: tinyMode,
       flyerBoxWidth: flyerBoxWidth,
       isExpanded: false,

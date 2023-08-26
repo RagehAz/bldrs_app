@@ -34,10 +34,9 @@ class ImageFilterAnimatedName extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(
                       bottom: FlyerDim.footerBoxHeight(
-                        context: context,
                         flyerBoxWidth: flyerBoxWidth,
                         infoButtonExpanded: false,
-                        hasLink: false,
+                        showTopButton: false,
                       )
                   ),
                   child: BldrsText(

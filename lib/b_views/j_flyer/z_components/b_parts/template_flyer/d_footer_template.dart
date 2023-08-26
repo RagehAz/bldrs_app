@@ -30,10 +30,9 @@ class FooterTemplate extends StatelessWidget {
         child: SizedBox(
           width: flyerBoxWidth,
           height: FlyerDim.footerBoxHeight(
-            context: context,
             flyerBoxWidth: flyerBoxWidth,
             infoButtonExpanded: false,
-            hasLink: false,
+            showTopButton: false,
           ),
           child: Container(
             color: Colorz.white20,
@@ -44,14 +43,12 @@ class FooterTemplate extends StatelessWidget {
                 Container(
                   // key: const ValueKey<String>('InfoButtonStarter_animated_container'),
                   width: FlyerDim.infoButtonWidth(
-                    context: context,
                     flyerBoxWidth: flyerBoxWidth,
                     tinyMode: false,
                     isExpanded: false,
                     infoButtonType: InfoButtonType.info,
                   ),
                   height: FlyerDim.infoButtonHeight(
-                    context: context,
                     flyerBoxWidth: flyerBoxWidth,
                     tinyMode: false,
                     isExpanded: false,
@@ -59,14 +56,12 @@ class FooterTemplate extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colorz.black255,
                     borderRadius: FlyerDim.infoButtonCorners(
-                        context: context,
                         flyerBoxWidth: flyerBoxWidth,
                         tinyMode: false,
                         isExpanded: false
                     ),
                   ),
                   margin: FlyerDim.infoButtonMargins(
-                    context: context,
                     flyerBoxWidth: flyerBoxWidth,
                     tinyMode: false,
                     isExpanded: false,

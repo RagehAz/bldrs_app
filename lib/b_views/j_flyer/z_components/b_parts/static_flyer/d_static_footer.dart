@@ -29,7 +29,6 @@ class StaticFooter extends StatelessWidget {
 
     final EdgeInsets _saveButtonPadding = FlyerDim.footerButtonEnRightMargin(
       buttonNumber: 1,
-      context: context,
       flightTweenValue: 1,
       flyerBoxWidth: flyerBoxWidth,
     );
@@ -40,10 +39,9 @@ class StaticFooter extends StatelessWidget {
       child: SizedBox(
         width: flyerBoxWidth,
         height: FlyerDim.footerBoxHeight(
-          context: context,
           flyerBoxWidth: flyerBoxWidth,
           infoButtonExpanded: false,
-          hasLink: false,
+          showTopButton: false,
         ),
         child: Stack(
           alignment: BldrsAligners.superInverseBottomAlignment(context),
@@ -56,14 +54,12 @@ class StaticFooter extends StatelessWidget {
               child: Container(
                 // key: const ValueKey<String>('InfoButtonStarter_animated_container'),
                 width: FlyerDim.infoButtonWidth(
-                  context: context,
                   flyerBoxWidth: flyerBoxWidth,
                   tinyMode: false,
                   isExpanded: false,
                   infoButtonType: InfoButtonType.info,
                 ),
                 height: FlyerDim.infoButtonHeight(
-                  context: context,
                   flyerBoxWidth: flyerBoxWidth,
                   tinyMode: false,
                   isExpanded: false,
@@ -71,14 +67,12 @@ class StaticFooter extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colorz.black255,
                   borderRadius: FlyerDim.infoButtonCorners(
-                      context: context,
                       flyerBoxWidth: flyerBoxWidth,
                       tinyMode: false,
                       isExpanded: false
                   ),
                 ),
                 margin: FlyerDim.infoButtonMargins(
-                  context: context,
                   flyerBoxWidth: flyerBoxWidth,
                   tinyMode: false,
                   isExpanded: false,
@@ -92,7 +86,6 @@ class StaticFooter extends StatelessWidget {
             Padding(
               padding: FlyerDim.footerButtonEnRightMargin(
                 buttonNumber: 3,
-                context: context,
                 flyerBoxWidth: flyerBoxWidth,
                 flightTweenValue: 1,
               ),
@@ -112,7 +105,6 @@ class StaticFooter extends StatelessWidget {
             Padding(
               padding: FlyerDim.footerButtonEnRightMargin(
                 buttonNumber: 2,
-                context: context,
                 flyerBoxWidth: flyerBoxWidth,
                 flightTweenValue: 1,
               ),

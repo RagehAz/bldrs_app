@@ -36,7 +36,6 @@ class FlightFlyer extends StatelessWidget {
     final double aspectRatio = FlyerDim.flyerAspectRatio();
     final EdgeInsets _saveButtonPadding = FlyerDim.footerButtonEnRightMargin(
       buttonNumber: 1,
-      context: context,
       flightTweenValue: 1,
       flyerBoxWidth: flyerBoxWidth,
     );

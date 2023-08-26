@@ -1,3 +1,4 @@
+// ignore_for_file: unused_element
 part of top_button;
 
 class _AmazonButton extends StatelessWidget {
@@ -18,6 +19,7 @@ class _AmazonButton extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
     final double _width = getTopButtonWidth(
+      flyerModel: flyerModel,
       flyerBoxWidth: flyerBoxWidth,
     );
     final Verse _firstLine = generateFirstLineForAmazonButton(
@@ -49,7 +51,6 @@ class _AmazonButton extends StatelessWidget {
       verseShadow: true,
       corners: flyerBoxWidth * 0.05,
       margins: FlyerDim.gtaButtonMargins(
-        context: context,
         flyerBoxWidth: flyerBoxWidth,
       ),
       verseWeight: _isTinyMode == true ? VerseWeight.bold : VerseWeight.black,

@@ -417,6 +417,7 @@ class _TheDeck extends StatelessWidget {
                   flyerBoxHeight: deckHeight,
                 ),
                 slideIndex: _reverseIndex ?? 0,
+                showTopButton: false,
                 onTap: null,
 
                 // flyerShadowIsOn: true,

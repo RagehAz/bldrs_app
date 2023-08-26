@@ -8,7 +8,7 @@ class FooterBox extends StatelessWidget {
     required this.footerPageController,
     required this.footerPageViewChildren,
     required this.infoButtonExpanded,
-    required this.hasAffiliateLink,
+    required this.showTopButton,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -16,7 +16,7 @@ class FooterBox extends StatelessWidget {
   final PageController footerPageController;
   final List<Widget> footerPageViewChildren;
   final ValueNotifier<bool?> infoButtonExpanded;
-  final bool hasAffiliateLink;
+  final bool showTopButton;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -33,10 +33,9 @@ class FooterBox extends StatelessWidget {
           return AnimatedContainer(
             width: flyerBoxWidth,
             height: FlyerDim.footerBoxHeight(
-              context: context,
               flyerBoxWidth: flyerBoxWidth,
               infoButtonExpanded: infoButtonExpanded ?? false,
-              hasLink: hasAffiliateLink,
+              showTopButton: showTopButton,
             ) ,
             duration: const Duration(milliseconds: 150),
             child: childrenInPageView,

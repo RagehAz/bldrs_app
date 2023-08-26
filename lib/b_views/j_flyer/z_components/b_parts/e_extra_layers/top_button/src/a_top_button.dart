@@ -16,7 +16,7 @@ class TopButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (_checkHideTopButton(flyerModel: flyerModel) == true){
+    if (checkCanShowTopButton(flyerModel: flyerModel) == false){
       return const SizedBox();
     }
     else {
@@ -26,10 +26,9 @@ class TopButton extends StatelessWidget {
         return SuperPositioned(
           enAlignment: Alignment.bottomLeft,
           verticalOffset: FlyerDim.footerBoxHeight(
-            context: context,
             flyerBoxWidth: flyerBoxWidth,
             infoButtonExpanded: false,
-            hasLink: false,
+            showTopButton: false,
           ),
           appIsLTR: UiProvider.checkAppIsLeftToRight(),
           child: _TopButtonSwitcher(
