@@ -1,3 +1,10 @@
+### 2.3.0
+1. Added Price tag to flyer and price editor in flyer maker screen
+2. UI Fixes
+3. Fixed user authentication and user profile creation issues
+4. Added American states to Bldrs zones
+5. Added bug & crashing detection detect system
+
 ### 2.2.0
 1. Ui updates
 2. performance optimization and faster navigation
