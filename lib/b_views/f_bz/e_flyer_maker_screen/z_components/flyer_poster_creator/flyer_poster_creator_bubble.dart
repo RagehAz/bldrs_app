@@ -77,6 +77,7 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _loadPoster() async {
 
     if (widget.draft?.id != null){
@@ -144,6 +145,7 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _reloadPoster() async {
 
     setState(() {
@@ -293,60 +295,64 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
     );
 
   }
+  // --------------------------------------------------------------------------
 }
 
-// Future<void> testPoster({
-//   required BuildContext context,
-//   required DraftFlyer? draft,
-//   Uint8List? bytes,
-// }) async {
-//
-//   final Uint8List? _bytes = bytes ?? await PosterDisplay.capturePoster(
-//     context: context,
-//     posterType: PosterType.flyer,
-//     model: draft,
-//     helperModel: draft?.bzModel,
-//     // finalDesiredPicWidth: Standards.posterDimensions.width,
-//   );
-//
-//   final PicModel? _posterPicModel = await PicModel.combinePicModel(
-//       bytes: bytes,
-//       picMakerType: PicMakerType.generated,
-//       compressionQuality: 80,
-//       assignPath: StoragePath.flyers_flyerID_poster(draft?.id)!,
-//       ownersIDs: await FlyerModel.generateFlyerOwners(
-//           bzID: draft?.bzID,
-//         ),
-//       name: 'poster_test',
-//   );
-//
-//   final double? _mega = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
-//   final double? _kilo = Filers.calculateSize(_bytes?.length, FileSizeUnit.kiloByte);
-//
-//
-//   await BottomDialog.showBottomDialog(
-//     height: (_posterPicModel?.meta?.height ?? 0) + 50,
-//     child: Column(
-//       children: <Widget>[
-//
-//         BldrsText.verseInfo(
-//           verse: Verse(
-//             id: '$_kilo Kb : $_mega Mb',
-//             translate: false,
-//           ),
-//         ),
-//
-//         /// POSTER
-//         BldrsImage(
-//           pic: _bytes,
-//           height: _posterPicModel?.meta?.height,
-//           width: _posterPicModel?.meta?.width,
-//           corners: BldrsAppBar.corners,
-//         ),
-//
-//       ],
-//     ),
-//
-//   );
-//
-// }
+/// POSTER TEST
+/*
+Future<void> testPoster({
+  required BuildContext context,
+  required DraftFlyer? draft,
+  Uint8List? bytes,
+}) async {
+
+  final Uint8List? _bytes = bytes ?? await PosterDisplay.capturePoster(
+    context: context,
+    posterType: PosterType.flyer,
+    model: draft,
+    helperModel: draft?.bzModel,
+    // finalDesiredPicWidth: Standards.posterDimensions.width,
+  );
+
+  final PicModel? _posterPicModel = await PicModel.combinePicModel(
+      bytes: bytes,
+      picMakerType: PicMakerType.generated,
+      compressionQuality: 80,
+      assignPath: StoragePath.flyers_flyerID_poster(draft?.id)!,
+      ownersIDs: await FlyerModel.generateFlyerOwners(
+          bzID: draft?.bzID,
+        ),
+      name: 'poster_test',
+  );
+
+  final double? _mega = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
+  final double? _kilo = Filers.calculateSize(_bytes?.length, FileSizeUnit.kiloByte);
+
+
+  await BottomDialog.showBottomDialog(
+    height: (_posterPicModel?.meta?.height ?? 0) + 50,
+    child: Column(
+      children: <Widget>[
+
+        BldrsText.verseInfo(
+          verse: Verse(
+            id: '$_kilo Kb : $_mega Mb',
+            translate: false,
+          ),
+        ),
+
+        /// POSTER
+        BldrsImage(
+          pic: _bytes,
+          height: _posterPicModel?.meta?.height,
+          width: _posterPicModel?.meta?.width,
+          corners: BldrsAppBar.corners,
+        ),
+
+      ],
+    ),
+
+  );
+
+}
+*/

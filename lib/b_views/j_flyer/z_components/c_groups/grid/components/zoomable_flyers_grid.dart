@@ -269,6 +269,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
                         () => widget.onFlyerOptionsTap?.call(flyerModel!),
                     selectionMode: widget.selectionMode,
                     flyerWidget: SmallFlyer(
+                      showTopButton: true,
                       flyerModel: flyerModel,
                       flyerBoxWidth: _gridScale!.smallItemWidth,
                       optionsButtonIsOn: widget.onFlyerOptionsTap != null,

@@ -68,16 +68,17 @@ class FlyerFooterButtons extends StatelessWidget {
           return SizedBox(
             width: flyerBoxWidth,
             height: FlyerDim.footerBoxHeight(
-              context: context,
               flyerBoxWidth: flyerBoxWidth,
               infoButtonExpanded: false,
-              hasLink: flyerModel?.affiliateLink != null,
+              showTopButton: checkCanShowTopButton(
+                flyerModel: flyerModel,
+              ),
             ),
             child: Column(
               children: <Widget>[
 
                 Align(
-                  alignment: BldrsAligners.superBottomAlignment(context),
+                  alignment: BldrsAligners.superTopAlignment(context),
                   child: TopButton(
                     flyerBoxWidth: flyerBoxWidth,
                     flyerModel: flyerModel,

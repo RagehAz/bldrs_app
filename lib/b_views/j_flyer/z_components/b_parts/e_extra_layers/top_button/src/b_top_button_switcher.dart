@@ -1,3 +1,4 @@
+// ignore_for_file: unused_element
 part of top_button;
 
 class _TopButtonSwitcher extends StatelessWidget {
@@ -33,7 +34,7 @@ class _TopButtonSwitcher extends StatelessWidget {
       else {
 
         /// NORMAL PRICE BUTTON
-        if (_priceModel.old == null){
+        if (_priceModel.old == null || _priceModel.old == 0){
           return _PriceButton(
             flyerModel: flyerModel,
             flyerBoxWidth: flyerBoxWidth,

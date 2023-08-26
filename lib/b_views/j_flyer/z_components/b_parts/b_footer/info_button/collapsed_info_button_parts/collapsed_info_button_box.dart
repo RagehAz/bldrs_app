@@ -23,14 +23,12 @@ class CollapsedInfoButtonBox extends StatelessWidget {
     return Container(
       key: const ValueKey<String>('normal_price_tag'),
       width: FlyerDim.infoButtonWidth(
-        context: context,
         flyerBoxWidth: flyerBoxWidth,
         tinyMode: tinyMode,
         isExpanded: false,
         infoButtonType: infoButtonType,
       ),
       height: FlyerDim.infoButtonHeight(
-        context: context,
         flyerBoxWidth: flyerBoxWidth,
         isExpanded: false,
         tinyMode: tinyMode,

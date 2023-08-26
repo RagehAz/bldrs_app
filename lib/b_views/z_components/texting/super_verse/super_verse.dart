@@ -38,6 +38,7 @@ class BldrsText extends StatelessWidget {
     this.leadingDot = false,
     this.redDot = false,
     this.strikeThrough = false,
+    this.strikeThroughColor = Colorz.white255,
     this.highlight,
     this.highlightColor = Colorz.bloodTest,
     this.shadowColor,
@@ -64,6 +65,7 @@ class BldrsText extends StatelessWidget {
   final bool leadingDot;
   final bool? redDot;
   final bool strikeThrough;
+  final Color strikeThroughColor;
   final ValueNotifier<dynamic>? highlight;
   final Color highlightColor;
   final Color? shadowColor;
@@ -355,8 +357,9 @@ class BldrsText extends StatelessWidget {
         fontSize: _verseSizeValue,
         fontWeight: _verseWeight,
         decoration: strikeThrough == true ? TextDecoration.lineThrough : null,
-        // decorationStyle: TextDecorationStyle.wavy,
+        decorationStyle: TextDecorationStyle.solid,
         decorationColor: Colorz.red255,
+        decorationThickness: 1,
         shadows: <Shadow>[
 
           if (shadowIsOn == true)
@@ -582,10 +585,12 @@ class BldrsText extends StatelessWidget {
         weight: weight,
         shadowColor: shadowColor,
       ),
-      // line: line,
-      // lineStyle: lineStyle,
-      // lineColor: lineColor,
-      // lineThickness: lineThickness,
+
+      /// STRIKETHROUGH
+      line: strikeThrough == true ? TextDecoration.lineThrough : null,
+      // lineStyle: TextDecorationStyle.solid, //
+      lineColor: strikeThroughColor,
+      lineThickness: _verseSizeValue * 1.42 * 0.1,
       leadingDot: leadingDot,
       redDot: redDot ?? false,
       centered: centered,
