@@ -1,14 +1,18 @@
 import 'dart:async';
-import 'package:basics/helpers/classes/checks/tracers.dart';
 
 /// SUPER_DEV_TEST
 Future<void> superDevTestGoX() async {
 
-  blog('time is : ${DateTime.now()}');
-
-  blog('start');
-
-  blog('done');
+  // final String? _bo = ChainsProvider.proGetHomeWallPhid(
+  //     context: getMainContext(),
+  //     listen: false,
+  // );
+  //
+  // blog('time is : ${DateTime.now()} _bo : $_bo');
+  //
+  // blog('start');
+  //
+  // blog('done');
 
 }
 
