@@ -1,11 +1,9 @@
-import 'dart:convert';
-
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
-import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:flutter/services.dart';
+import 'package:fire/super_fire.dart';
 
 /*
 Map looks like this :-
@@ -66,8 +64,9 @@ class ChainRealOps {
     //   path: RealColl.bldrsChains,
     // );
 
-    final String _jsonStringValues = await rootBundle.loadString(bldrsChainsFilePath);
-    final Map<String, dynamic> map = json.decode(_jsonStringValues);
+    final Map<String, dynamic>? map = await Filers.readLocalJSON(
+        path: bldrsChainsFilePath,
+    );
 
     final List<Chain>? _chains = Chain.decipherBldrsChains(map: map);
 

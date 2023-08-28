@@ -1,13 +1,13 @@
-import 'dart:convert';
 import 'dart:core';
 
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 /// => TAMAM
 class Iconizer {
   // -----------------------------------------------------------------------------
@@ -132,15 +132,22 @@ class Iconizer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> getLocalAssetsPaths() async {
-
-    final String assets = await rootBundle.loadString('AssetManifest.json');
-    final Map<String, dynamic> _json = json.decode(assets);
-    // final List<String> _keys = _json.keys.where((element) => element.startsWith('assets/')).toList();
-    final List<String> _keys = _json.keys.toList();
-
     final List<String> _allAssetsPaths = <String>[];
-    for (final String key in _keys){
-      _allAssetsPaths.add(_json[key].first);
+
+    final Map<String, dynamic>? _json = await Filers.readLocalJSON(
+        path: 'AssetManifest.json',
+    );
+
+    if (_json != null){
+
+      final List<String> _keys = _json.keys.toList();
+
+      if (Mapper.checkCanLoopList(_keys) == true){
+        for (final String key in _keys){
+          _allAssetsPaths.add(_json[key].first);
+        }
+      }
+
     }
 
     return _allAssetsPaths;

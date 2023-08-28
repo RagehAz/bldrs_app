@@ -99,7 +99,8 @@ Future<void> saveFlyerMakerSession({
 /// CANCEL FLYER EDITING
 
 // --------------------
-/// TESTED : WORKS PERFECT
+/// NEVER USED
+/*
 Future<void> onCancelFlyerCreation(BuildContext context) async {
 
   final bool result = await CenterDialog.showCenterDialog(
@@ -126,6 +127,7 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
   }
 
 }
+ */
 // -----------------------------------------------------------------------------
 
 /// FLYER HEADER
