@@ -42,7 +42,7 @@ class CityJsonOps{
 
       if (_countryCities != null){
 
-        final Map<String, dynamic> _cityMap = _countryCities[cityID];
+        final Map<String, dynamic>? _cityMap = _countryCities[cityID];
 
         _output  = CityModel(
           cityID: cityID,
@@ -115,7 +115,8 @@ class CityJsonOps{
 
     return _output;
   }
-
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> _readSomeCountryCities({
     required String? countryID,
     required List<String> citiesIDs,
@@ -154,7 +155,8 @@ class CityJsonOps{
 
     return _output;
   }
-
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> _readAllCountryCities({
     required String? countryID,
   }) async {

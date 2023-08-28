@@ -183,12 +183,14 @@ class TheExpandingPyramidItself extends StatelessWidget {
     return Stack(
       children: <Widget>[
 
+        /// WHITE LAYER
         Container(
           width: 95.4267 * 0.7,
           height: 99.57 * 0.7,
-          color: Colorz.white10,
+          color: Colorz.white20,
         ),
 
+        /// BLACK LAYER
         const BlurLayer(
           width: 95.4267 * 0.7,
           height: 99.57 * 0.7,

@@ -100,7 +100,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
     final double _bubbleWidth = Bubble.bubbleWidth(context: context);
 
     return FloatingLayout(
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       columnChildren: <Widget>[
 
         Bubble(

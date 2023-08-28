@@ -24,7 +24,7 @@ class TheTestScreen extends StatelessWidget {
         id: '',
         translate: false,
       ),
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       appBarRowWidgets: <Widget>[
 
         const Expander(),

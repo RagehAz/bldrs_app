@@ -242,7 +242,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
     return MainLayout(
       scaffoldKey: _scaffoldKey,
       pyramidsAreOn: true,
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       appBarType: AppBarType.basic,
       onBack: () async {
 

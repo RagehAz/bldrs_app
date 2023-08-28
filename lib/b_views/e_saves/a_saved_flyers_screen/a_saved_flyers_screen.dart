@@ -127,7 +127,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
 
     return MainLayout(
       appBarType: AppBarType.basic,
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       pyramidsAreOn: true,
       title: const Verse(
         id: 'phid_savedFlyers',

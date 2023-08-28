@@ -147,7 +147,7 @@ class Localizer {
       const Locale('hi', 'IN'),  // Hindi - India
       const Locale('ru', 'RU'),  // Russian - Russia
       const Locale('pt', 'PT'),  // Portuguese - Portugal
-      const Locale('fa', 'IR'),  // Farsi/Persian - Iran
+      // const Locale('fa', 'IR'),  // Farsi/Persian - Iran
 
     ];
   }
@@ -166,7 +166,7 @@ class Localizer {
     'hi',
     'ru',
     'pt',
-    'fa',
+    // 'fa',
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -184,7 +184,7 @@ class Localizer {
       case 'hi': return 'हिन्दी';
       case 'ru': return 'Русский';
       case 'pt': return 'Português';
-      case 'fa': return 'فارسی';
+      // case 'fa': return 'فارسی';
       default: return '';
     }
 
@@ -211,7 +211,7 @@ class Localizer {
       case 'hi':    return const Locale('hi', 'IN');
       case 'ru':    return const Locale('ru', 'RU');
       case 'pt':    return const Locale('pt', 'PT');
-      case 'fa':    return const Locale('fa', 'IR');
+      // case 'fa':    return const Locale('fa', 'IR');
 
       default:      return const Locale('en', 'US');
     }

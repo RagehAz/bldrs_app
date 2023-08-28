@@ -252,7 +252,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
     return MainLayout(
       globalKey: widget.globalKey,
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       appBarType: widget.appBarType,
       title: _pageTitleVerse,
       loading: ValueNotifier(false),

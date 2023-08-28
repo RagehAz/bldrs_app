@@ -919,7 +919,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     return MainLayout(
       loading: _loading,
       appBarType: AppBarType.search,
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalBlue,
       listenToHideLayout: true,

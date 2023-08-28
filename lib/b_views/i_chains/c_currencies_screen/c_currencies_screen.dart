@@ -255,7 +255,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       onSearchSubmit: _onSearch,
       // loading: _loading,
       pyramidsAreOn: true,
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       onSearchCancelled: _onSearchCancelled,
       child: ValueListenableBuilder(
         valueListenable: _isSearching,
