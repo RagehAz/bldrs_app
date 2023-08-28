@@ -9,7 +9,7 @@ class FloatingLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FloatingLayout({
     required this.columnChildren,
-    this.skyType = SkyType.non,
+    this.skyType = SkyType.black,
     this.pyramidType = PyramidType.crystalYellow,
     this.titleVerse,
     this.pyramidButtons,

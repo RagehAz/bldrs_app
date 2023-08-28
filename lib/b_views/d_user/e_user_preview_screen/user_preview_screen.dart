@@ -31,7 +31,7 @@ class UserPreviewScreen extends StatelessWidget {
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       child: _userIsNotFound == true ?
       const _NoUserFoundView()
           :

@@ -26,7 +26,7 @@ class BzPreviewScreen extends StatelessWidget {
     final bool _bzIsNotFound = bzModel == null || bzModel?.id == null || bzModel?.name == null;
 
     return MainLayout(
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       pyramidsAreOn: true,
       title: Verse(
         id: bzModel?.name,

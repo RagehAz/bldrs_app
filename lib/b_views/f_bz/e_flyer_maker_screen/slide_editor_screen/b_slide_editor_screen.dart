@@ -1,13 +1,12 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/xxx_slide_editor_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_control_panel.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_slide_part.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/xxx_slide_editor_controllers.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:flutter/material.dart';
 
@@ -132,7 +131,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     final double _controlPanelHeight = SlideEditorControlPanel.getControlPanelHeight(context, _screenHeight);
     // --------------------
     return MainLayout(
-      skyType: SkyType.non,
       appBarType: AppBarType.non,
       child: Column(
 

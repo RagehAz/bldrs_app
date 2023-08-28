@@ -91,7 +91,7 @@ class _PDFScreenState extends State<PDFScreen> {
       ),
       appBarType: AppBarType.basic,
       progressBarModel: _progressBarModel,
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       child: PageBubble(
         appBarType: AppBarType.basic,
         screenHeightWithoutSafeArea: Scale.screenHeight(context),

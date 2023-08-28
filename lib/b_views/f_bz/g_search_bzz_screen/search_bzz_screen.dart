@@ -217,7 +217,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       title: const Verse(id: 'phid_search_bzz', translate: true),
       searchHintVerse: const Verse(id: 'phid_search_bzz_hint', translate: true),
       pyramidsAreOn: true,

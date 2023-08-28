@@ -1,5 +1,6 @@
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
@@ -13,6 +14,7 @@ import 'package:bldrs/b_views/j_on_boarding/p3_what_bldrs_do.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -327,8 +329,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     final double _navButtonWidth = _bubbleWidth * 0.25;
     final double _middleButtonWidth = _bubbleWidth * 0.3;
 
-    return Material(
-      color: Colorz.nothing,
+    return MainLayout(
+      appBarType: AppBarType.non,
+      skyType: SkyType.non,
       child: SizedBox(
         width: Scale.screenWidth(context),
         height: Scale.screenHeight(context),
@@ -492,7 +495,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           ],
         ),
       ),
-
     );
 
   }

@@ -483,7 +483,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       title: _createConfirmVerse(),
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       loading: _loading,
       progressBarModel: _progressBarModel,
       onBack: () async {

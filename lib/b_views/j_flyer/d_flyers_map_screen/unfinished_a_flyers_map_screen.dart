@@ -168,7 +168,7 @@
 //     final double _screenHeight = Scale.screenHeight(context);
 //     // --------------------
 //     return MainLayout(
-//       skyType: SkyType.black,
+//       skyType: SkyType.grey,
 //       child: Stack(
 //         alignment: Alignment.center,
 //         children: <Widget>[

@@ -50,7 +50,7 @@
 //       historyButtonIsOn: false,
 //       pageTitle: 'Invite Businesses',
 //       pyramidsAreOn: true,
-//       skyType: SkyType.black,
+//       skyType: SkyType.grey,
 //       appBarType: _concludeAppBarType(context),
 //       searchHint: 'Search Contacts',
 //       onSearchChanged: (String value) => onDeviceContactsSearch(
