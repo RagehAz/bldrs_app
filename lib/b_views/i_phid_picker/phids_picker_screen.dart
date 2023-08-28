@@ -435,16 +435,17 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onCancelSelections() async {
-
     bool _canGoBack = true;
 
-    final bool _selectionsHaveChanged = !Mapper.checkListsAreIdentical(
-        list1: widget.selectedPhids,
-        list2: _selectedPhidsNotifier.value,
-    );
+    if (widget.multipleSelectionMode == true){
+      final bool _selectionsHaveChanged = !Mapper.checkListsAreIdentical(
+          list1: widget.selectedPhids,
+          list2: _selectedPhidsNotifier.value,
+      );
 
-    if (_selectionsHaveChanged == true){
-      _canGoBack = await Dialogs.discardChangesGoBackDialog();
+      if (_selectionsHaveChanged == true){
+        _canGoBack = await Dialogs.discardChangesGoBackDialog();
+      }
     }
 
     if (_canGoBack == true){

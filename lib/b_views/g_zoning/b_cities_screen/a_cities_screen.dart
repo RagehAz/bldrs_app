@@ -360,7 +360,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     );
 
     return MainLayout(
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       appBarType: AppBarType.search,
       searchButtonIsOn: false,
       onSearchSubmit: _onSearchCity,

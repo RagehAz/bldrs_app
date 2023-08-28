@@ -5,7 +5,6 @@ import 'package:basics/animators/widgets/widget_waiter.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
@@ -309,7 +308,6 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
       appBarType: AppBarType.non,
-      skyType: SkyType.non,
       loading: _loading,
       canGoBack: false,
       /// FOR_DEV_ONLY

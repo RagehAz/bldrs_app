@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -177,7 +176,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       blog('building home screen for after home route');
 
       return MainLayout(
-        skyType: SkyType.non,
         onBack: () async {
 
           UiProvider.proClearAfterHomeRoute(
@@ -218,7 +216,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         sectionButtonIsOn: true,
         // navBarIsOn: false,
         appBarType: AppBarType.main,
-        skyType: SkyType.non,
         listenToHideLayout: true,
         onBack: () => BldrsNav.onLastGoBackInHomeScreen(
           context: context,

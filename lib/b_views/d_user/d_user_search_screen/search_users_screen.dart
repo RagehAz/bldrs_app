@@ -210,7 +210,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       title: const Verse(id: 'phid_search_users', translate: true),
       searchHintVerse: const Verse(id: 'phid_search_users_hint', translate: true),
       pyramidsAreOn: true,

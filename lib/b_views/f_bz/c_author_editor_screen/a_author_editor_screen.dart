@@ -378,7 +378,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       searchButtonIsOn: false,
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       title: const Verse(
         id: 'phid_edit_author_details',
         translate: true,

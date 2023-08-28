@@ -1,4 +1,3 @@
-import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
@@ -34,7 +33,7 @@ class MainLayout extends StatelessWidget {
     this.pyramidsAreOn = false,
     this.appBarType,
     this.title,
-    this.skyType = SkyType.night,
+    this.skyType = SkyType.black,
     this.onBack,
     this.canGoBack = true,
     this.scaffoldKey,
@@ -146,21 +145,6 @@ class MainLayout extends StatelessWidget {
 
   }
   // --------------------
-  static Color _mainLayoutBackGroundColor(SkyType skyType){
-
-    if (skyType == SkyType.non){
-      return Colorz.black255;
-    }
-
-    else if (skyType == SkyType.black){
-      return Colorz.blackSemi255;
-    }
-    else {
-      return Colorz.skyDarkBlue;
-    }
-
-  }
-  // --------------------
   Future<void> _onBack() async {
 
 
@@ -191,7 +175,6 @@ class MainLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final Color _backgroundColor = _mainLayoutBackGroundColor(skyType);
 
     return WillPopScope(
       key: const ValueKey<String>('Main_layout'),
@@ -221,13 +204,13 @@ class MainLayout extends StatelessWidget {
             child: Stack(
               children: <Widget>[
 
-                if (skyType == SkyType.non)
-                  Container(
-                    key: const ValueKey<String>('noSkyBackground'),
-                    width: Scale.screenWidth(context),
-                    height: Scale.screenHeight(context),
-                    color: _backgroundColor,
-                  ),
+                // if (skyType == SkyType.black)
+                //   Container(
+                //     key: const ValueKey<String>('noSkyBackground'),
+                //     width: Scale.screenWidth(context),
+                //     height: Scale.screenHeight(context),
+                //     color: _backgroundColor,
+                //   ),
 
                 Scaffold(
                   key: scaffoldKey ?? const ValueKey<String>('mainScaffold'),
@@ -237,7 +220,7 @@ class MainLayout extends StatelessWidget {
                   // resizeToAvoidBottomPadding: false,
 
                   /// BACK GROUND COLOR
-                  backgroundColor: _backgroundColor,
+                  // backgroundColor: null,
 
                   /// BOTTOM SHEET
                   // bottomSheet: const KeyboardFloatingField(), /// removed it

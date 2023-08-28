@@ -344,7 +344,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       appBarType: AppBarType.search,
       searchButtonIsOn: false,
       onSearchSubmit: _onSearchCountry,

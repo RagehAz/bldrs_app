@@ -64,7 +64,7 @@ class _AuthScreenState extends State<AuthScreen> {
     return const MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       child: AuthScreenView(),
     );
 

@@ -77,15 +77,15 @@ class MainLayoutStackWidgets extends StatelessWidget {
 
     else {
 
-      if (skyType == SkyType.black){
+      if (skyType == SkyType.grey){
         return PyramidType.crystalWhite;
       }
 
-      else if (skyType == SkyType.night){
+      else if (skyType == SkyType.black){
         return PyramidType.crystalYellow;
       }
 
-      else if (skyType == SkyType.non){
+      else if (skyType == SkyType.black){
         return PyramidType.crystalBlue;
       }
 
@@ -114,7 +114,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
       alignment: alignment,
       children: <Widget>[
 
-        if (skyType != SkyType.non)
           Sky(
             key: const ValueKey<String>('sky'),
             skyType: skyType,

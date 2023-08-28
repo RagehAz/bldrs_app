@@ -433,7 +433,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
       title: _createConfirmVerse(),
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       loading: _loadingPage,
       progressBarModel: _progressBarModel,
       onBack: () => Dialogs.goBackDialog(

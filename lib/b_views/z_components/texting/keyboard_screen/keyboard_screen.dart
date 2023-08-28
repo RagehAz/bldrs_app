@@ -178,7 +178,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       appBarType: AppBarType.basic,
       title: widget.screenTitleVerse,
       child: ValueListenableBuilder(

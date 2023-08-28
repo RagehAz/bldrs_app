@@ -26,7 +26,7 @@ class ListLayout extends StatelessWidget {
     this.onItemTap,
     this.pageIcon,
     this.pageIconVerse,
-    this.sky = SkyType.night,
+    this.sky = SkyType.black,
     super.key
   });
   /// --------------------------------------------------------------------------
