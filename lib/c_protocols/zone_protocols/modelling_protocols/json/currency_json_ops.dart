@@ -15,7 +15,7 @@ class CurrencyJsonOps {
   /// TESTED : WORKS PERFECT
   static Future<List<CurrencyModel>> readAllCurrencies() async {
 
-    final Map<String, dynamic> _mappedJson = await Filers.readLocalJSON(
+    final Map<String, dynamic>? _mappedJson = await Filers.readLocalJSON(
         path: WorldZoningPaths.currenciesFilePath,
     );
 

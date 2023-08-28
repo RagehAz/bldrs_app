@@ -293,14 +293,14 @@ class CityJsonOps{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Map<String, dynamic>> readCitiesPopulationsJson() async {
+  static Future<Map<String, dynamic>?> readCitiesPopulationsJson() async {
     return Filers.readLocalJSON(
       path: WorldZoningPaths.populationsFilePath,
     );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Map<String, dynamic>> readCitiesPositionsJson() async {
+  static Future<Map<String, dynamic>?> readCitiesPositionsJson() async {
     return Filers.readLocalJSON(
         path: WorldZoningPaths.positionsFilePath,
     );

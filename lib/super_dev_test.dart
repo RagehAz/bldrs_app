@@ -3,16 +3,6 @@ import 'dart:async';
 /// SUPER_DEV_TEST
 Future<void> superDevTestGoX() async {
 
-  // final String? _bo = ChainsProvider.proGetHomeWallPhid(
-  //     context: getMainContext(),
-  //     listen: false,
-  // );
-  //
-  // blog('time is : ${DateTime.now()} _bo : $_bo');
-  //
-  // blog('start');
-  //
-  // blog('done');
 
 }
 
