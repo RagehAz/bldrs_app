@@ -15,7 +15,7 @@ class ContinentJsonOps {
   /// TESTED : WORKS PERFECT
   static Future<List<Continent>> readAllContinents() async {
 
-    final Map<String, dynamic> _mappedJson = await Filers.readLocalJSON(
+    final Map<String, dynamic>? _mappedJson = await Filers.readLocalJSON(
         path: WorldZoningPaths.continentsJsonPath,
     );
 

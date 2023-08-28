@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 import 'package:basics/bldrs_theme/classes/langs.dart';
-import 'package:basics/helpers/classes/checks/error_helpers.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -14,7 +12,6 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/main.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 // -----------------------------------------------------------------------------
 
@@ -264,34 +261,28 @@ class Localizer {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Map<String, String>?> getLangMap({
+  static Future<Map<String, String>> getLangMap({
     required String? langCode
   }) async {
-
-    Map<String, String>? _output;
+    Map<String, String> _output = {};
 
     final String? _langFilePath = BldrsThemeLangs.getLangFilePath(
       langCode: langCode,
     );
 
-    if (_langFilePath == null){
-      return null;
+    if (_langFilePath != null){
+
+      final Map<String, dynamic>? _mappedJson = await Filers.readLocalJSON(
+        path: _langFilePath,
+      );
+
+      if (_mappedJson != null){
+        _output = _mappedJson.map((String key, value) => MapEntry(key, value.toString()));
+      }
+
     }
 
-    await tryAndCatch(
-      invoker: 'getJSONLangMap',
-      functions: () async {
-
-        final String _jsonStringValues = await rootBundle.loadString(_langFilePath);
-
-        final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
-
-        _output = _mappedJson.map((String key, value) => MapEntry(key, value.toString()));
-
-        },
-    );
-
-    return _output ?? {};
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -305,41 +296,11 @@ class Localizer {
     required String? langCode,
   }) async {
 
-    String? _jsonStringValues;
-    String? _output;
+    final Map<String, String> _langMap = await getLangMap(
+      langCode: langCode,
+    );
 
-    if (phid != null){
-
-      final bool _result = await tryCatchAndReturnBool(
-        invoker: 'translateByLangCode',
-        functions: () async {
-
-          final String? _langFilePath = BldrsThemeLangs.getLangFilePath(
-            langCode: langCode ?? 'en',
-          );
-
-          if (_langFilePath != null){
-            _jsonStringValues = await rootBundle.loadString(_langFilePath);
-          }
-
-
-        },
-        onError: (String error) {},
-      );
-
-      if (_result == true && _jsonStringValues != null) {
-
-        final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues!);
-
-        final Map<String, dynamic> _map = _mappedJson
-            .map((String key, value) => MapEntry(key, value.toString()));
-
-        _output = _map[phid];
-      }
-
-    }
-
-    return _output;
+    return _langMap[phid];
   }
   // -----------------------------------------------------------------------------
 

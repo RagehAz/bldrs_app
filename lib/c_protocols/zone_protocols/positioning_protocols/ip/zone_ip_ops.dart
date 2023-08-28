@@ -2,6 +2,8 @@
 import 'dart:convert';
 import 'package:basics/helpers/classes/checks/error_helpers.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/helpers/models/flag_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/bldrs_keys.dart';
@@ -23,92 +25,70 @@ class ZoneIPOps {
   /// GET ZONE BY USER IP
 
   // --------------------
-  /// TASK : FIX USA CASES
+  /// TESTED : WORKS PERFECT
   static Future<ZoneModel?> getZoneByIP() async {
+
+    blog('start : getZoneByIP');
 
     /// trial 1
     ZoneModel? _zone = await _getZoneByIP_ipApi();
-
     // blog('superGetZone : trial 1 : _getZoneByIP_ipApi '
     //     ': zone is : '
-    //     'countryID : ${_zone.countryID} : '
-    //     'cityID : ${_zone.cityID}');
+    //     'countryID : ${_zone?.countryID} : '
+    //     'cityID : ${_zone?.cityID}');
 
       _zone ??= await _getZoneByIP_ipRegistry();
       // blog('superGetZone : trial 2 : _getZoneByIP_ipRegistry : '
       //     'zone is : '
-      //     'countryID : ${_zone.countryID} : '
-      //     'cityID : ${_zone.cityID}'
+      //     'countryID : ${_zone?.countryID} : '
+      //     'cityID : ${_zone?.cityID}'
       // );
 
       _zone ??= await _getZoneByGeoLocator();
       // blog('superGetZone : trial 3 : _getZoneByGeoLocator : '
       //     'zone is : '
-      //     'countryID : ${_zone.countryID} : '
-      //     'cityID : ${_zone.cityID}'
+      //     'countryID : ${_zone?.countryID} : '
+      //     'cityID : ${_zone?.cityID}'
       // );
 
 
     return _zone;
   }
   // --------------------
-  /// TASK : FIX USA CASES
+  /// TESTED : WORKS PERFECT
   static Future<ZoneModel?> _getZoneByIP_ipApi() async  {
 
     /// NOTE : this is limited and needs paid subscription
 
-    String? _countryID;
-    String? _cityID;
-
-    const String _url = 'http://ip-api.com/json';
+    ZoneModel? _output;
 
     await tryAndCatch(
         invoker: 'get Country by IP',
         functions: () async {
 
           final Response? _response = await Rest.get(
-            rawLink: _url,
+            rawLink: 'http://ip-api.com/json',
             invoker: '_getZoneByIP_ipApi',
+            timeoutSeconds: 5,
           );
 
           /// RECEIVED DATA
-          if (_response?.statusCode == 200 && _response?.body != null) {
+          if (Rest.checkResponseBodyIsGood(_response) == true) {
 
             final Map<String, dynamic>? _countryData = json.decode(_response!.body);
 
             if (_countryData != null) {
-              final String? _countryISO = _countryData['countryCode'];
-              final String? _cityName = _countryData['city'];
 
-              if (_countryISO != '') {
+              final String? _countryISO = _countryData['countryCode']; // US
+              final String? _stateISO2 = _countryData['region']; // IL
+              final String? _cityName = _countryData['city']; // Chicago
 
-                _countryID = Flag.getCountryIDByISO2(_countryISO);
+              _output = await _getZoneFromData(
+                countryCode: _countryISO,
+                stateCode: _stateISO2,
+                cityCode: _cityName,
+              );
 
-                if (_countryID != null) {
-
-                  final CountryModel? _country = await ZoneProtocols.fetchCountry(
-                      countryID: _countryID
-                  );
-
-                  CityModel? _city;
-                  if (_cityName != null) {
-
-                    _city = await ZoneProtocols.fetchCityByName(
-                      countryID: _countryID,
-                      cityName: _cityName,
-                      langCode: 'en',
-                    );
-
-                    _cityID = CityModel.createCityID(
-                        countryID: _country?.id,
-                        cityEnName: _cityName
-                    );
-
-                    _city?.blogCity();
-
-                  }
-                }
-              }
             }
 
             // blog('_getZoneByIP_ipApi : found data : response body is : ${_response.body}');
@@ -122,84 +102,49 @@ class ZoneIPOps {
         }
     );
 
-    if (_countryID == null){
-      return null;
-    }
-    else {
-      return ZoneModel(
-        countryID: _countryID!,
-        cityID: _cityID,
-      );
-    }
-
+    return _output;
   }
   // --------------------
-  /// TASK : FIX USA CASES
+  /// TESTED : WORKS PERFECT
   static Future<ZoneModel?> _getZoneByIP_ipRegistry() async {
 
     /// NOTE : this needs subscription after first 100'000 requests
     /// Note that on Android it requires the android.permission.INTERNET permission.
-    String? _countryID;
-    String? _cityID;
-
-    const String _url = 'https://api.ipregistry.co?key=${BldrsKeys.ipRegistryAPIKey}';
+    ZoneModel? _output;
 
     await tryAndCatch(
         invoker: 'get Country by IP',
         functions: () async {
 
           final Response? _response = await Rest.get(
-            rawLink: _url,
+            rawLink: 'https://api.ipregistry.co?key=${BldrsKeys.ipRegistryAPIKey}',
             invoker: '_getZoneByIP_ipRegistry',
+            timeoutSeconds: 5,
           );
 
           /// RECEIVED DATA
-          if (_response?.statusCode == 200 && _response?.body != null) {
+          if (Rest.checkResponseBodyIsGood(_response) == true) {
 
             final Map<String, dynamic>? _countryData = json.decode(_response!.body);
 
-            // Mapper.blogMap(_countryData);
-
             if (_countryData != null) {
 
-              final String _countryISO = _countryData['location']['country']['code'];
+              final String? _countryISO = _countryData['location']['country']['code']; // "US"
+              final String? _stateCode = TextMod.modifyAllCharactersWith(
+                      characterToReplace: '-',
+                      replacement: '_',
+                      input: _countryData['location']['region']['code']?.toLowerCase(), // "US-GA"
+              );
+              final String? _cityName = _countryData['location']['city']; // "Atlanta"
 
-              blog('country iso is : $_countryISO');
+              _output = await _getZoneFromData(
+                  countryCode: _countryISO?.toLowerCase(),
+                  stateCode: _stateCode,
+                  cityCode: _cityName,
+              );
 
-              const String? _cityName = null;
-
-              if (_countryISO != '') {
-
-                _countryID = Flag.getCountryIDByISO2(_countryISO);
-
-                if (_countryID != null) {
-
-                  // final CountryModel _country = await _zoneProvider.fetchCountryByID(
-                  //     context: context,
-                  //     countryID: _countryID,
-                  // );
-
-                  final CityModel? _city = await ZoneProtocols.fetchCityByName(
-                    countryID: _countryID,
-                    cityName: _cityName,
-                    langCode: 'en',
-                  );
-
-                  if (_city != null) {
-
-                    /// TASK : FIX THIS
-                    // _cityID = CityModel.createCityID(
-                    //     countryID: _country.id,
-                    //     cityEnName: Phrase.getPhraseByLangFromPhrases(
-                    //         phrases: _city.phrases, langCode: 'en')?.value,
-                    // );
-
-                  }
-                }
-              }
             }
 
-            blog('response body is : ${_response.body}');
           }
 
           /// NO DATA RECEIVED
@@ -210,23 +155,14 @@ class ZoneIPOps {
         }
     );
 
-    if (_countryID == null){
-      return null;
-    }
-    else {
-      return ZoneModel(
-        countryID: _countryID!,
-        cityID: _cityID,
-      );
-    }
+    return _output;
 
   }
   // --------------------
-  /// TASK : FIX USA CASES
+  /// GEOLOCATOR_DOES_NOT_WORK
   static Future<ZoneModel?> _getZoneByGeoLocator() async {
     ZoneModel? _zoneModel;
 
-    /// GEOLOCATOR_DOES_NOT_WORK
     // final Position _position = await LocationOps.getCurrentPosition(context);
     //
     // if (_position != null) {
@@ -241,6 +177,85 @@ class ZoneIPOps {
     // }
 
     return _zoneModel;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// HANDLE USA
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<ZoneModel?> _getZoneFromData({
+    required String? countryCode,
+    required String? stateCode,
+    required String? cityCode,
+  }) async {
+    String? _countryID;
+    String? _cityID;
+
+    /// GET COUNTRY - STATE ID
+    if (TextCheck.isEmpty(countryCode) == false){
+
+      final bool _isAmerican = countryCode!.toLowerCase() == 'us'
+                                ||
+                               countryCode.toLowerCase() == 'usa';
+
+      /// AMERICA
+      if (_isAmerican == true){
+
+        final String? _stateIso2 = stateCode?.toLowerCase();
+
+        if (_stateIso2 != null && _stateIso2.length == 2){
+          _countryID = 'us_$_stateIso2';
+        }
+
+        else if (_stateIso2?.length == 5){
+          _countryID = _stateIso2;
+        }
+
+      }
+
+      /// WORLD
+      else {
+        _countryID = Flag.getCountryIDByISO2(countryCode);
+      }
+
+    }
+
+    /// GET CITY ID
+    if (_countryID != null){
+
+      CityModel? _city = await ZoneProtocols.fetchCityByName(
+        countryID: _countryID,
+        cityName: cityCode?.toLowerCase(),
+        langCode: 'en',
+      );
+
+      _city ??= await ZoneProtocols.fetchCity(
+        cityID: CityModel.createCityID(
+            countryID: _countryID,
+            cityEnName: cityCode?.toLowerCase(),
+        ),
+      );
+
+      _cityID = _city?.cityID;
+
+    }
+
+    /// RETURN NULL
+    if (_countryID == null){
+      return null;
+    }
+
+    /// RETURN ZONE
+    else {
+      return ZoneProtocols.completeZoneModel(
+        incompleteZoneModel: ZoneModel(
+          countryID: _countryID,
+          cityID: _cityID,
+        ),
+      );
+    }
+
   }
   // -----------------------------------------------------------------------------
 }
