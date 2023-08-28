@@ -1,3 +1,9 @@
+### 2.4.0
+1. fixed initialization error for US users
+2. removed go back dialog in section screen
+3. minor UI fixes
+4. added Turkish, Hindi, Portuguese, Languages
+
 ### 2.3.0
 1. Added Price tag to flyer and price editor in flyer maker screen
 2. UI Fixes
