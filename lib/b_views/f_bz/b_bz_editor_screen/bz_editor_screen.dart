@@ -480,7 +480,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       title: _createConfirmVerse(),
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       loading: _loading,
       progressBarModel: _progressBarModel,
       onBack: () => Dialogs.goBackDialog(

@@ -77,7 +77,7 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
     );
 
     return MainLayout(
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       title: const Verse(
         id: 'phid_add_author_to_the_team',
         translate: true,

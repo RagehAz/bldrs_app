@@ -48,6 +48,7 @@ class SingleChainSelectorView extends StatelessWidget {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     // --------------------
     return MainLayout(
       globalKey: globalKey,
@@ -56,7 +57,7 @@ class SingleChainSelectorView extends StatelessWidget {
       onSearchSubmit: onSearchSubmit,
       onSearchCancelled: onSearchCancelled,
       onSearchChanged: onSearchSubmit,
-      skyType: SkyType.black,
+      skyType: SkyType.grey,
       onBack: onCancelSelections,
       title: const Verse(
         id: 'phid_select_keywords',
