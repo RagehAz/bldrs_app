@@ -41,11 +41,13 @@ class AppLangsScreen extends StatelessWidget {
 
           final String _langCode = Localizer.supportedLangCodes[index];
           final String _langName = Localizer.getLangNameByCode(_langCode);
+          final bool _isSelected = _currentLang == _langCode;
 
           return SettingsWideButton(
             verse: Verse.plain(_langName),
-            isOn: _currentLang != _langCode,
-            onTap: () => _tapLanguage(
+            color: _isSelected == true ? Colorz.yellow255 : Colorz.white20,
+            verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
+            onTap: _isSelected == true ? null : () => _tapLanguage(
               context: context,
               langCode: _langCode,
             ),
