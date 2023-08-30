@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -48,8 +47,10 @@ Future<void> onShowNoteOptions({
   required bool mounted,
 }) async {
 
+  noteModel?.blogNoteModel(invoker: 'onShowNoteOptions');
+
   await BottomDialog.showButtonsBottomDialog(
-      numberOfWidgets: 1,
+      numberOfWidgets: 2,
       titleVerse: const Verse(
         id: 'phid_options',
         translate: true,
@@ -72,6 +73,7 @@ Future<void> onShowNoteOptions({
                 mounted: mounted,
               ),
           ),
+
 
         ];
 
