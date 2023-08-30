@@ -35,11 +35,13 @@ class ContactButton extends StatelessWidget {
 
     final bool _isSocialMediaContact = ContactModel.checkContactIsSocialMedia(contactModel?.type);
     final bool _showVerse = forceShowVerse ?? _isSocialMediaContact == false;
+    final double _height = height ?? buttonHeight;
+    final double? _width = _showVerse == true ? width : _height;
 
     return BldrsBox(
       key: const ValueKey<String>('ContactButton'),
-      height: height ?? buttonHeight,
-      width: width,
+      height: _height,
+      width: _width,
       icon: ContactModel.concludeContactIcon(
         contactType: contactModel?.type,
         isPublic: isPublic,

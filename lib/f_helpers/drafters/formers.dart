@@ -1,9 +1,14 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/helpers/models/flag_model.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
@@ -20,13 +25,8 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 /// => TAMAM
 class Formers {
   // -----------------------------------------------------------------------------
@@ -68,21 +68,21 @@ class Formers {
   static String? emailValidator({
     required String? email,
     required bool? canValidate,
-    String? enterEmail,
-    String? emailInvalid,
+    String? enterEmailWord,
+    String? emailInvalidWord,
   }) {
     String? _output;
 
     if (Mapper.boolIsTrue(canValidate) == true){
 
       if (TextCheck.isEmpty(email) == true) {
-        _output = enterEmail?? getWord('phid_enterEmail');
+        _output = enterEmailWord?? getWord('phid_enterEmail');
       }
 
       else {
 
         if (EmailValidator.validate(email!) == false){
-          _output = emailInvalid ?? getWord('phid_emailInvalid');
+          _output = emailInvalidWord ?? getWord('phid_emailInvalid');
         }
 
       }
@@ -142,7 +142,7 @@ class Formers {
   }
   // -----------------------------------------------------------------------------
 
-  /// GENERAL FIELDS VALIDATORS
+  /// PIC VALIDATION
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -171,6 +171,10 @@ class Formers {
 
     return _message;
   }
+  // -----------------------------------------------------------------------------
+
+  /// TEXT VALIDATION
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? personNameValidator({
@@ -291,6 +295,56 @@ class Formers {
 
     return _message;
   }
+    // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? paragraphValidator({
+    required String? text,
+    required bool canValidate,
+    FocusNode? focusNode,
+  }){
+    String? _message;
+
+    if (canValidate == true){
+
+      final bool _containsBadLang = TextCheck.containsBadWords(
+        text: text,
+        badWords: badWords,
+      );
+
+      /// BAD LANG
+      if (_containsBadLang == true){
+        _message = getWord('phid_bad_language_is_not_allowed');
+      }
+
+      /// FOCUS ON FIELD
+      if (_message != null){
+        Formers.focusOnNode(focusNode);
+      }
+
+    }
+
+    return _message;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GENDER VALIDATORS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? genderValidator({
+    required Gender? gender,
+    required bool canValidate,
+  }){
+    String? _message;
+
+    if (canValidate == true){
+      if (gender == null){
+        _message = getWord('phid_select_a_gender');
+      }
+    }
+
+    return _message;
+  }
   // -----------------------------------------------------------------------------
 
   /// ZONE VALIDATORS
@@ -340,7 +394,8 @@ class Formers {
   /// CONTACTS VALIDATORS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// DEPRECATED
+  /*
   static String? contactsPhoneValidator({
     required List<ContactModel>? contacts,
     required ZoneModel? zoneModel,
@@ -357,46 +412,12 @@ class Formers {
         contactType: ContactType.phone,
       );
 
-      /// EMPTY
-      if (TextCheck.isEmpty(_phone) == true && isMandatory == true){
-        _message = getWord('phid_phone_number_should_not_be_empty');
-      }
-
-      if (TextCheck.isEmpty(_phone) == false){
-
-        /// COUNTRY CODE
-        if (zoneModel != null){
-
-          final String? _code = Flag.getCountryPhoneCode(zoneModel.countryID);
-          final bool _startsWithCode = TextCheck.stringStartsExactlyWith(
-            text: _phone,
-            startsWith: _code,
-          );
-
-          if (_startsWithCode == false){
-            _message ??=  '${getWord('phid_phone_number_in')} '
-                          '${zoneModel.countryName} '
-                          '${getWord('phid_should_start_with')}'
-                          '\n( $_code )';
-          }
-
-        }
-
-        /// NUMBER FORMAT
-        _message ??= numbersOnlyValidator(
-          text: TextMod.replaceVarTag(
-            input: _phone,
-            customTag: '+',
-            customValue: '',
-          ),
-        );
-
-        _message ??= _maxDigitsExceededValidator(
-            maxDigits: 0,
-            text: _phone,
-          );
-
-      }
+      _message = phoneValidator(
+        phone: _phone,
+        zoneModel: zoneModel,
+        canValidate: canValidate,
+        isMandatory: isMandatory,
+      );
 
       /// FOCUS ON FIELD
       if (_message != null){
@@ -407,8 +428,65 @@ class Formers {
 
     return _message;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
+  static String? phoneValidator({
+    required String? phone,
+    required ZoneModel? zoneModel,
+    required bool? canValidate,
+    required bool isMandatory,
+  }){
+    String? _message;
+
+    /// EMPTY
+    if (TextCheck.isEmpty(phone) == true && isMandatory == true){
+      _message = getWord('phid_phone_number_should_not_be_empty');
+    }
+
+    if (TextCheck.isEmpty(phone) == false){
+
+      /// COUNTRY CODE
+      if (zoneModel != null){
+
+        final String? _code = Flag.getCountryPhoneCode(zoneModel.countryID);
+        final bool _startsWithCode = TextCheck.stringStartsExactlyWith(
+          text: phone,
+          startsWith: _code,
+        );
+
+        if (_startsWithCode == false){
+          _message ??=  '${getWord('phid_phone_number_in')} '
+              '${zoneModel.countryName} '
+              '${getWord('phid_should_start_with')}'
+              '\n( $_code )';
+        }
+
+      }
+
+      /// NUMBER FORMAT
+      _message ??= numbersOnlyValidator(
+        text: TextMod.replaceVarTag(
+          input: phone,
+          customTag: '+',
+          customValue: '',
+        ),
+      );
+
+      _message ??= _maxDigitsExceededValidator(
+        maxDigits: 0,
+        text: phone,
+      );
+
+    }
+
+    // blog('phoneValidator phone : _message : $_message');
+
+    return _message;
+  }
+  // --------------------
+  /// DEPRECATED
+  /*
   static String? contactsEmailValidator({
     required List<ContactModel>? contacts,
     required bool? canValidate,
@@ -426,6 +504,7 @@ class Formers {
       _message = emailValidator(
         email: _email,
         canValidate: canValidate,
+        invoker: 'contactsEmailValidator',
       );
 
       /// FOCUS ON FIELD
@@ -437,8 +516,10 @@ class Formers {
 
     return _message;
   }
+   */
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// DEPRECATED
+  /*
   static String? contactsWebsiteValidator({
     required List<ContactModel>? contacts,
     required bool? canValidate,
@@ -468,35 +549,134 @@ class Formers {
 
     return _message;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String? paragraphValidator({
-    required String? text,
-    required bool canValidate,
-    FocusNode? focusNode,
+  static String? webSiteValidator({
+    required String? website,
+    required bool isMandatory,
   }){
     String? _message;
 
-    if (canValidate == true){
+    /// WEBSITE HAS VALUE
+    if (TextCheck.isEmpty(website) == false){
 
-      final bool _containsBadLang = TextCheck.containsBadWords(
-        text: text,
-        badWords: badWords,
-      );
-
-      /// BAD LANG
-      if (_containsBadLang == true){
-        _message = getWord('phid_bad_language_is_not_allowed');
+      if (website != 'https://'){
+        final bool _isURLFormat = ObjectCheck.isURLFormat(website) == true;
+        if (_isURLFormat == false){
+          _message = getWord('phid_url_format_is_incorrect');
+        }
       }
 
-      /// FOCUS ON FIELD
-      if (_message != null){
-        Formers.focusOnNode(focusNode);
+    }
+
+    /// WEBSITE IS EMPTY
+    else if (isMandatory == true){
+      _message = getWord('phid_this_field_can_not_be_empty');
+    }
+
+    return _message;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? socialLinkValidator({
+    required String? url,
+    required ContactType? contactType,
+    required bool isMandatory,
+  }){
+
+    String? _message = webSiteValidator(
+      website: url,
+      isMandatory: isMandatory,
+    );
+
+    if (
+        _message == null
+        &&
+        TextCheck.isEmpty(url) == false
+        &&
+        url != 'https://'
+    ){
+
+      final bool _isValid = ContactModel.checkSocialLinkIsValid(
+          url: url,
+          type: contactType,
+      );
+
+      if (_isValid == false){
+
+        final String? _phid = ContactModel.getSocialContactIsNotValidPhid(
+          type: contactType,
+        );
+
+        if (_phid != null){
+          _message = getWord(_phid);
+        }
+
       }
 
     }
 
     return _message;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool contactsAreValid({
+    required List<ContactModel>? contacts,
+    required ZoneModel? zoneModel,
+    required bool phoneIsMandatory,
+    required bool websiteIsMandatory,
+  }){
+    bool _valid = true;
+
+    if (Mapper.checkCanLoopList(contacts) == true){
+
+      String? _message;
+      for (final ContactModel _contact in contacts!){
+
+        /// PHONE
+        if (_contact.type == ContactType.phone){
+          _message = phoneValidator(
+            phone: _contact.value,
+            zoneModel: zoneModel,
+            canValidate: true,
+            isMandatory: phoneIsMandatory,
+          );
+        }
+        /// EMAIL
+        else if (_contact.type == ContactType.email){
+          _message = emailValidator(
+            email: _contact.value,
+            canValidate: true,
+          );
+        }
+        /// WEBSITE
+        else if (_contact.type == ContactType.website){
+          _message = webSiteValidator(
+            website: _contact.value,
+            isMandatory: websiteIsMandatory,
+          );
+        }
+        /// SOCIAL MEDIA
+        else if (ContactModel.checkContactIsSocialMedia(_contact.type) == true){
+          _message = socialLinkValidator(
+            url: _contact.value,
+            contactType: _contact.type,
+            isMandatory: false,
+          );
+          // blog('socialLinkValidator _message : $_message');
+        }
+
+        if (_message != null){
+          _valid = false;
+          break;
+        }
+
+      }
+
+    }
+
+    return _valid;
   }
   // -----------------------------------------------------------------------------
 
@@ -774,26 +954,6 @@ class Formers {
         Formers.focusOnNode(focusNode);
       }
 
-    }
-
-    return _message;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// USER VALIDATORS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String? genderValidator({
-    required Gender? gender,
-    required bool canValidate,
-  }){
-    String? _message;
-
-    if (canValidate == true){
-      if (gender == null){
-        _message = getWord('phid_select_a_gender');
-      }
     }
 
     return _message;
@@ -1179,33 +1339,6 @@ class Formers {
         _message = getWord('phid_cant_add_empty_spaces');
       }
 
-    }
-
-    return _message;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String? webSiteValidator({
-    required String? website,
-    required bool isMandatory,
-  }){
-    String? _message;
-
-    /// WEBSITE HAS VALUE
-    if (TextCheck.isEmpty(website) == false){
-
-      if (website != 'https://'){
-        final bool _isURLFormat = ObjectCheck.isURLFormat(website) == true;
-        if (_isURLFormat == false){
-          _message = getWord('phid_url_format_is_incorrect');
-        }
-      }
-
-    }
-
-    /// WEBSITE IS EMPTY
-    else if (isMandatory == true){
-      _message = getWord('phid_this_field_can_not_be_empty');
     }
 
     return _message;

@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
@@ -36,12 +37,10 @@ class ContactModel {
   const ContactModel({
     required this.value,
     required this.type,
-    this.controller,
   });
   /// --------------------------------------------------------------------------
   final String? value;
   final ContactType? type;
-  final TextEditingController? controller;
   // -----------------------------------------------------------------------------
 
   /// STANDARDS
@@ -59,6 +58,31 @@ class ContactModel {
     ContactType.tiktok,
     ContactType.twitter,
   ];
+  // --------------------
+  static const List<ContactType> socialTypes = <ContactType>[
+    ContactType.facebook,
+    ContactType.linkedIn,
+    ContactType.youtube,
+    ContactType.instagram,
+    ContactType.pinterest,
+    ContactType.tiktok,
+    ContactType.twitter,
+  ];
+  // -----------------------------------------------------------------------------
+
+  /// CLONING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  ContactModel copyWith({
+    String? value,
+    ContactType? type,
+  }){
+    return ContactModel(
+      value: value ?? this.value,
+      type: type ?? this.type,
+    );
+  }
   // -----------------------------------------------------------------------------
 
   /// GENERATORS
@@ -276,47 +300,6 @@ class ContactModel {
 
     return _output;
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void createListenersToControllers({
-    required List<ContactModel> contacts,
-    required Function listener,
-  }){
-
-    if (Mapper.checkCanLoopList(contacts) == true){
-
-      for (final ContactModel contact in contacts){
-
-        if (contact.controller != null){
-          blog('createListenersToControllers : creating listener to ${contact.type} : _controller: ${contact.controller.hashCode} : ${contact.controller?.text}');
-          contact.controller!.addListener((){
-            blog('createListenersToControllers :  IS CHANGING TO : ${contact.controller!.text}');
-            listener();
-          });
-        }
-
-      }
-
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// EDITING DISPOSING
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void disposeContactsControllers(List<ContactModel> contacts){
-    if (Mapper.checkCanLoopList(contacts) == true){
-      for (final ContactModel contact in contacts){
-
-        if (contact.controller != null){
-          contact.controller!.dispose();
-        }
-
-      }
-    }
-  }
   // -----------------------------------------------------------------------------
 
   /// EDITING FINISHING
@@ -336,7 +319,7 @@ class ContactModel {
 
         final ContactModel _contact = contacts[i];
         final ContactType? _contactType = _contact.type;
-        final String? _value = _contact.controller?.text ?? _contact.value;
+        final String? _value = _contact.value;
 
         String? _endValue;
 
@@ -431,26 +414,6 @@ class ContactModel {
     }
 
     return _contactValue;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static TextEditingController? getControllerFromContacts({
-    required List<ContactModel> contacts,
-    required ContactType contactType,
-  }) {
-
-    TextEditingController? _controller;
-
-    if (Mapper.checkCanLoopList(contacts) == true){
-
-      _controller = getContactFromContacts(
-        contacts: contacts,
-        type: contactType,
-      )?.controller;
-
-    }
-
-    return _controller;
   }
   // -----------------------------------------------------------------------------
 
@@ -625,7 +588,7 @@ class ContactModel {
   void blogContact({
     String invoker = 'ContactModel',
   }){
-    blog('$invoker : $type : $value : controller : ${controller?.text}');
+    blog('$invoker : $type : $value');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -826,8 +789,7 @@ class ContactModel {
 
       if (
           contact1.value  == contact2.value &&
-          contact1.type == contact2.type &&
-          contact1.controller?.text == contact2.controller?.text
+          contact1.type == contact2.type
       ){
         _areIdentical = true;
       }
@@ -946,6 +908,74 @@ class ContactModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// URL CHECKERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkSocialLinkIsValid({
+    required String? url,
+    required ContactType? type,
+  }) {
+
+    if (TextCheck.isEmpty(url) == true || ObjectCheck.isURLFormat(url) == false) {
+      return false;
+    }
+
+    else {
+
+      String? _domain;
+      switch (type){
+        case ContactType.phone:      _domain = null; break;
+        case ContactType.email:      _domain = null; break;
+        case ContactType.website:    _domain = null; break;
+        case ContactType.facebook:   _domain = 'facebook.com'; break;
+        case ContactType.linkedIn:   _domain = 'linkedin.com'; break;
+        case ContactType.youtube:    _domain = 'youtube.com'; break; // youtu.be
+        case ContactType.instagram:  _domain = 'instagram.com'; break;
+        case ContactType.pinterest:  _domain = 'pinterest.com'; break;
+        case ContactType.tiktok:     _domain = 'tiktok.com'; break;
+        case ContactType.twitter:    _domain = 'twitter.com'; break;
+        default:                     _domain = null;
+      }
+
+      if (_domain != null){
+        return TextCheck.stringContainsSubString(
+          string: url,
+          subString: _domain,
+        );
+      }
+      else {
+        return false;
+      }
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? getSocialContactIsNotValidPhid({
+    required ContactType? type,
+  }){
+    String? _phid;
+
+    switch (type){
+      case ContactType.phone:      _phid = null; break;
+      case ContactType.email:      _phid = null; break;
+      case ContactType.website:    _phid = null; break;
+      case ContactType.facebook:   _phid = 'phid_facebook_link_is_invalid'; break;
+      case ContactType.linkedIn:   _phid = 'phid_linkedin_link_is_invalid'; break;
+      case ContactType.youtube:    _phid = 'phid_youtube_link_is_invalid'; break;
+      case ContactType.instagram:  _phid = 'phid_instagram_link_is_invalid'; break;
+      case ContactType.pinterest:  _phid = 'phid_pinterest_link_is_invalid'; break;
+      case ContactType.tiktok:     _phid = 'phid_tiktok_link_is_invalid'; break;
+      case ContactType.twitter:    _phid = 'phid_twitter_link_is_invalid'; break;
+      default:                     _phid = null;
+    }
+
+    return _phid;
+  }
+  // -----------------------------------------------------------------------------
+
   /// OVERRIDES
 
   // --------------------
@@ -975,7 +1005,6 @@ class ContactModel {
   @override
   int get hashCode =>
       value.hashCode^
-      type.hashCode^
-      controller.hashCode;
+      type.hashCode;
   // -----------------------------------------------------------------------------
 }

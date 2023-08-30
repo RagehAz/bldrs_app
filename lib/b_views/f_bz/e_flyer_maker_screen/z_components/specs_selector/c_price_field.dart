@@ -54,7 +54,6 @@ class PriceField extends StatelessWidget {
           BldrsTextField(
             textController: controller,
             appBarType: AppBarType.non,
-            globalKey: null,
             width: width,
             centered: true,
             textInputType: TextInputType.number,

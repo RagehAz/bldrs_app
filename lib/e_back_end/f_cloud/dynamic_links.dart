@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/checks/error_helpers.dart';
 import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -109,20 +110,28 @@ class DynamicLinks {
 
     if (DeviceChecker.deviceIsWindows() == false) {
 
-      /// FOR APP WHEN WAS TERMINATED
-      final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
-      if (initialLink != null) {
-        await _onDynamicLink(initialLink);
-      }
 
-      /// WHILE APP IN BACKGROUND OR FOREGROUND
-      getFireDynamicLinks().onLink.listen((PendingDynamicLinkData? dynamicLinkData) async {
+      await tryAndCatch(
+        invoker: 'initDynamicLinks',
+        functions: () async {
 
-        await _onDynamicLink(dynamicLinkData);
+          /// FOR APP WHEN WAS TERMINATED
+          final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
+          if (initialLink != null) {
+            await _onDynamicLink(initialLink);
+          }
 
-      }).onError((Object error) async {
-        blog('initDynamicLinks : error : ${error.runtimeType} : $error');
-      });
+          /// WHILE APP IN BACKGROUND OR FOREGROUND
+          getFireDynamicLinks().onLink.listen((PendingDynamicLinkData? dynamicLinkData) async {
+
+            await _onDynamicLink(dynamicLinkData);
+
+          }).onError((Object error) async {
+            blog('initDynamicLinks : error : ${error.runtimeType} : $error');
+          });
+
+        },
+      );
 
     }
 
