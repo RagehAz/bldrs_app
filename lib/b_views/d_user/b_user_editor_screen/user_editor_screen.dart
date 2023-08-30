@@ -7,6 +7,7 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/models/flag_model.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
+import 'package:basics/super_box/super_box.dart';
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
@@ -15,6 +16,7 @@ import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controll
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/social_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/gender_bubble/gender_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
@@ -298,20 +300,14 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     // -----------------
     /// STRIP 4 : PHONE - EMAIL
 
-    final bool _phoneIsValid = Formers.contactsPhoneValidator(
-      contacts: _draftUser.value?.contacts,
-      zoneModel: _draftUser.value?.zone,
-      canValidate: true,
-      isMandatory: false,
-      // focusNode: draft?.phoneNode,
-    ) == null;
-    final bool _emailIsValid = Formers.contactsEmailValidator(
-      contacts: _draftUser.value?.contacts,
-      canValidate: true,
-      // focusNode: draft?.emailNode,
-    ) == null;
+    final bool _contactsAreValid = Formers.contactsAreValid(
+        contacts: _draftUser.value?.contacts,
+        zoneModel: _draftUser.value?.zone,
+        phoneIsMandatory: false,
+        websiteIsMandatory: false,
+    );
 
-    if (_phoneIsValid == false || _emailIsValid == false){
+    if (_contactsAreValid == false){
       setStripIsValid(3, false);
     }
     else {
@@ -402,19 +398,13 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
   bool _canGoFrom3To4({
     required DraftUser? draft
   }){
-    return Formers.contactsPhoneValidator(
-            contacts: draft?.contacts,
-            zoneModel: draft?.zone,
-            canValidate: _canValidate,
-            isMandatory: false,
-            // focusNode: draft?.phoneNode,
-          ) == null
-          &&
-          Formers.contactsEmailValidator(
-            contacts: draft?.contacts,
-            canValidate: _canValidate,
-            // focusNode: draft?.emailNode,
-          ) == null;
+    return Formers.contactsAreValid(
+        contacts: draft?.contacts,
+        zoneModel: draft?.zone,
+        phoneIsMandatory: false,
+        websiteIsMandatory: false,
+    );
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -804,12 +794,11 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       ),
                       canPaste: false,
                       // autoValidate: false,
-                      validator: (String? text) => Formers.contactsPhoneValidator(
-                        contacts: draft.contacts,
+                      validator: (String? text) => Formers.phoneValidator(
+                        phone: text,
                         zoneModel: draft.zone,
                         canValidate: _canValidate,
                         isMandatory: false,
-                        // focusNode: draft?.phoneNode,
                       ),
                       hintVerse: Verse.plain(
                           '${Flag.getCountryPhoneCode(draft.zone?.countryID) ?? '00'} 000 00 ...'
@@ -855,12 +844,26 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       ),
                       canPaste: false,
                       // autoValidate: false,
-                      validator: (String? text) => Formers.contactsEmailValidator(
-                        contacts: draft.contacts,
+                      validator: (String? text) => Formers.emailValidator(
+                        email: text,
                         canValidate: _canValidate,
-                        // focusNode: draft?.emailNode,
                       ),
                       hintVerse: Verse.plain('bldr@bldrs.net'),
+                    ),
+
+                    /// FACEBOOK - INSTAGRAM - TWITTER - LINKEDIN - YOUTUBE - TIKTOK - SNAPCHAT
+                    if (draft != null)
+                    Disabler(
+                      isDisabled: !_contactsArePublic,
+                      child: SocialFieldEditorBubble(
+                        contacts: draft.contacts,
+                        onContactChanged: (ContactModel contact) => onUserContactChanged(
+                          contactType: contact.type!,
+                          value: contact.value,
+                          draft: _draftUser,
+                          mounted: mounted,
+                        ),
+                      ),
                     ),
 
                     /// SWIPING BUTTONS

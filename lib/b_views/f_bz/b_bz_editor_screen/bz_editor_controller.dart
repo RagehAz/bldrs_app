@@ -97,7 +97,7 @@ Future<void> saveBzEditorSession({
     mounted: mounted,
   );
 
-  blog('saving bz name : ${draftNotifier?.value?.nameController?.text} : ${draftNotifier?.value?.aboutController?.text}');
+  // blog('saving bz name : ${draftNotifier?.value?.nameController?.text} : ${draftNotifier?.value?.aboutController?.text}');
 
   await BzLDBOps.saveBzEditorSession(
       draft: draftNotifier?.value,
