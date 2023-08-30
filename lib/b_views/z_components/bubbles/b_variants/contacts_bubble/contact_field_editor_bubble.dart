@@ -2,14 +2,14 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/bubbles/model/bubble_header_vm.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_clip_board.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
@@ -98,17 +98,36 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
   // -----------------------------------------------------------------------------
   String paste = '';
   late TextEditingController _textController;
+  String? _error;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
 
-    // if (widget.textController == null){
-      _textController = widget.textController ?? TextEditingController(text: widget.initialTextValue);
-    // }
-    // else {
-    //   _textController = widget.textController;
-    // }
+    _textController = widget.textController ?? TextEditingController(text: widget.initialTextValue);
+
+    if (widget.validator != null){
+
+      _textController.addListener(() {
+
+        final String? _message = widget.validator!.call(_textController.text);
+
+        if (_message != null){
+          setState(() {
+            _error = _message;
+          });
+        }
+
+        if (_message == null && _error != null){
+          setState(() {
+            _error = null;
+          });
+        }
+
+      });
+
+    }
+
 
   }
   // --------------------
@@ -145,26 +164,18 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
 
     final String? value = await TextClipBoard.paste();
 
-    blog(value);
-
-    // if (_textController != null){
+    if (TextCheck.isEmpty(value) == false){
       _textController.text = value ?? '';
-    // }
+    }
 
     if (widget.textOnChanged != null){
       widget.textOnChanged?.call(value);
     }
 
-    // setState(() {
-    //   paste = value;
-    //   pasteController.text = paste;
-    //   // widget.textOnChanged(paste);
-    // });
   }
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    blog('wtf');
     // --------------------
     /// TEXT FIELD HEIGHT
     final double _textFieldHeight = BldrsTextField.getFieldHeight(
@@ -199,7 +210,9 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
         bubbleColor: widget.contactsArePublic == false ? Colorz.white255.withOpacity(0.01)
             :
         Formers.validatorBubbleColor(
-          validator: () => widget.validator?.call(_textController.text),
+          validator: (){
+            return _error;
+          },
         ),
         bubbleHeaderVM: widget.headerViewModel,
         width: _bubbleWidth,
@@ -237,7 +250,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
               /// TEXT FIELD
               BldrsTextField(
                 textController: _textController,
-                focusNode: widget.focusNode,
+                // focusNode: widget.focusNode,
                 appBarType: widget.appBarType,
                 globalKey: widget.formKey,
                 // titleVerse: Verse.plain(widget.headerViewModel.headlineText),
@@ -249,7 +262,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
                 onChanged: widget.textOnChanged,
                 onSavedForForm: widget.onSaved,
                 textInputAction: widget.keyboardTextInputAction,
-                validator: widget.validator,
+                // validator: widget.validator,
                 autoValidate: widget.autoValidate,
                 textDirection: TextDirection.ltr,
                 textColor: widget.contactsArePublic == true ? Colorz.white255 : Colorz.white80,
@@ -263,19 +276,32 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
                 BldrsBox(
                   height: _pasteButtonHeight,
                   width: _pasteButtonWidth,
-                  verse:  const Verse(
-                    id: 'phid_paste',
-                    translate: true,
-                  ),
-                  verseScaleFactor: 0.5,
-                  verseWeight: VerseWeight.thin,
-                  verseItalic: true,
+                  icon: Iconz.paste,
+                  iconSizeFactor: 0.5,
+                  // verse:  const Verse(
+                  //   id: 'phid_paste',
+                  //   translate: true,
+                  // ),
+                  // verseScaleFactor: 0.5,
+                  // verseWeight: VerseWeight.thin,
+                  // verseItalic: true,
                   color: Colorz.white10,
                   onTap: _pasteFunction,
                 ),
 
 
             ],
+          ),
+
+          /// VALIDATOR
+          BldrsValidator(
+            width: _bubbleWidth,
+            autoValidate: widget.autoValidate,
+            focusNode: widget.focusNode,
+            // validator: () => widget.validator?.call(_textController.text),
+            validator: (){
+              return _error;
+            },
           ),
 
         ]

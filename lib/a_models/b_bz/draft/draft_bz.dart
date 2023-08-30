@@ -332,7 +332,7 @@ class DraftBz {
       'showsTeam': showsTeam,
       'isVerified': isVerified,
       'bzState': BzTyper.cipherBzState(bzState),
-      'publication': publication,
+      'publication': publication.toMap(),
       'bzSection': BzTyper.cipherBzSection(bzSection),
       'bzTypes': BzTyper.cipherBzTypes(bzTypes),
       'inactiveBzTypes': BzTyper.cipherBzTypes(inactiveBzTypes),
@@ -671,13 +671,13 @@ class DraftBz {
   }){
     bool _areIdentical = false;
 
-    if (blogDiffs == true){
-      Mapper.blogMapsDifferences(
-        map1: draft1?.toLDB(),
-        map2: draft2?.toLDB(),
-        invoker: 'checkDraftsAreIdentical',
-      );
-    }
+    // if (blogDiffs == true){
+    //   Mapper.blogMapsDifferences(
+    //     map1: draft1?.toLDB(),
+    //     map2: draft2?.toLDB(),
+    //     invoker: 'checkDraftsAreIdentical',
+    //   );
+    // }
 
     if (draft1 == null && draft2 == null){
       _areIdentical = true;

@@ -97,6 +97,15 @@ class Standards {
   static const int countersRefreshTimeDurationInMinutes = 10;
   // -----------------------------------------------------------------------------
 
+  /// CONTACTS STANDARDS
+
+  // --------------------
+  static bool bzPhoneIsMandatory = false;
+  static bool bzWebsiteIsMandatory = false;
+  // --------------------
+  static bool authorPhoneIsMandatory = false;
+  // -----------------------------------------------------------------------------
+
   /// OTHER STANDARDS
 
   // --------------------

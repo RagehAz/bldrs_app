@@ -14,8 +14,8 @@ class BldrsTextField extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsTextField({
     required this.appBarType,
-    required this.globalKey,
     required this.width,
+    this.globalKey,
     this.textController,
 
     /// main
@@ -274,5 +274,5 @@ class BldrsTextField extends StatelessWidget {
       lineThroughColor: lineThroughColor,
     );
   }
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 }

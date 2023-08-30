@@ -9,6 +9,7 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/social_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_confirm_page.dart';
@@ -23,9 +24,11 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
+
 
 class AuthorEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -243,19 +246,14 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     // -----------------
     /// STRIP 5 : PHONE - EMAIL
 
-    final bool _phoneIsValid = Formers.contactsPhoneValidator(
-      contacts: _draftAuthor.value?.contacts,
-      zoneModel: widget.bzModel?.zone,
-      canValidate: true,
-      isMandatory: false,
+    final bool _contactsAreValid = Formers.contactsAreValid(
+        contacts: _draftAuthor.value?.contacts,
+        zoneModel: widget.bzModel?.zone,
+        phoneIsMandatory: Standards.authorPhoneIsMandatory,
+        websiteIsMandatory: false,
+    );
 
-    ) == null;
-    final bool _emailIsValid = Formers.contactsEmailValidator(
-      contacts: _draftAuthor.value?.contacts,
-      canValidate: true,
-    ) == null;
-
-    if (_phoneIsValid == false || _emailIsValid == false){
+    if (_contactsAreValid == false){
       setStripIsValid(1, false);
     }
     else {
@@ -313,17 +311,14 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   bool _canGoFrom1To2({
     required AuthorModel? authorModel,
   }){
-    return Formers.contactsPhoneValidator(
-             contacts: authorModel?.contacts,
-             zoneModel: widget.bzModel?.zone,
-             canValidate: _canValidate,
-             isMandatory: false,
-           ) == null
-           &&
-           Formers.contactsEmailValidator(
-             contacts: authorModel?.contacts,
-             canValidate: _canValidate,
-           ) == null;
+
+    return Formers.contactsAreValid(
+        contacts: authorModel?.contacts,
+        zoneModel: widget.bzModel?.zone,
+        phoneIsMandatory: Standards.authorPhoneIsMandatory,
+        websiteIsMandatory: false,
+    );
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -526,7 +521,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   ],
                 ),
 
-                /// 1. PHONE - EMAIL
+                /// 1. PHONE - EMAIL - SOCIAL MEDIA
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
@@ -535,7 +530,10 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       key: const ValueKey<String>('phone'),
                       formKey: _formKey,
                       focusNode: _phoneNode,
-                      appBarType: AppBarType.basic,
+                      hintVerse: Verse.plain(
+                        '${Flag.getCountryPhoneCode(widget.bzModel?.zone?.countryID) ?? '00'} 000 00 ...'
+                      ),
+                      appBarType: AppBarType.non,
                       isFormField: true,
                       contactsArePublic: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
@@ -562,14 +560,11 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                         tempAuthor: _draftAuthor,
                         mounted: mounted,
                       ),
-                      validator: (String? text) => Formers.contactsPhoneValidator(
-                        contacts: authorModel?.contacts,
+                      validator: (String? text) => Formers.phoneValidator(
+                        phone: text,
                         zoneModel: widget.bzModel?.zone,
-                        canValidate: _canValidate,
-                        isMandatory: false,
-                      ),
-                      hintVerse: Verse.plain(
-                        '${Flag.getCountryPhoneCode(widget.bzModel?.zone?.countryID) ?? '00'} 000 00 ...'
+                        canValidate: true,
+                        isMandatory: Standards.authorPhoneIsMandatory,
                       ),
                     ),
 
@@ -603,11 +598,22 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                         mounted: mounted,
                       ),
                       canPaste: false,
-                      validator: (String? text) => Formers.contactsEmailValidator(
-                          contacts: authorModel?.contacts,
+                      validator: (String? text) => Formers.emailValidator(
+                          email: text,
                           canValidate: _canValidate
                       ),
                       hintVerse: Verse.plain('bldr@bldrs.net'),
+                    ),
+
+                    /// FACEBOOK - INSTAGRAM - TWITTER - LINKEDIN - YOUTUBE - TIKTOK - SNAPCHAT
+                    SocialFieldEditorBubble(
+                      contacts: authorModel?.contacts,
+                      onContactChanged: (ContactModel contact) => onAuthorContactChanged(
+                        contactType: contact.type!,
+                        value: contact.value,
+                        tempAuthor: _draftAuthor,
+                        mounted: mounted,
+                      ),
                     ),
 
                     /// SWIPING BUTTONS
