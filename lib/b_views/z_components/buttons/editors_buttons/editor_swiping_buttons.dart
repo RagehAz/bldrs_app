@@ -38,19 +38,12 @@ class EditorSwipingButtons extends StatelessWidget {
     final bool _isLastPage = _currentIndex == _numberOfPages - 1;
     final int _nextIndex = _isLastPage == true ? 0 : _currentIndex + 1;
 
-    ProgressBarModel.onSwipe(
-      context: context,
-      newIndex: _nextIndex,
-      progressBarModel: progressBarModel,
-      mounted: mounted,
-      numberOfPages: _numberOfPages,
-    );
-
-    await Sliders.slideToIndex(
-      pageController: pageController,
-      toIndex: _nextIndex,
-      curve: Curves.easeInOut,
-      // duration: const Duration(milliseconds: 500),
+    await onGoToIndexPage(
+        context: context,
+        progressBarModel: progressBarModel,
+        pageController: pageController,
+        mounted: mounted,
+        toIndex: _nextIndex,
     );
 
   }
@@ -63,25 +56,52 @@ class EditorSwipingButtons extends StatelessWidget {
     required bool mounted,
   }) async {
 
-    final int _numberOfPages = progressBarModel.value?.numberOfStrips ?? 1;
     final int _currentIndex = pageController.page?.toInt() ?? 0;
     final bool _isFirstPage = _currentIndex == 0;
     final int _previousIndex = _isFirstPage == true ? 0 : _currentIndex - 1;
 
-    ProgressBarModel.onSwipe(
+    await onGoToIndexPage(
       context: context,
-      newIndex: _previousIndex,
       progressBarModel: progressBarModel,
+      pageController: pageController,
       mounted: mounted,
-      numberOfPages: _numberOfPages,
+      toIndex: _previousIndex,
     );
 
-    await Sliders.slideToIndex(
-      pageController: pageController,
-      toIndex: _previousIndex,
-      curve: Curves.easeInOut,
-      // duration: const Duration(milliseconds: 500),
-    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> onGoToIndexPage({
+    required BuildContext context,
+    required ValueNotifier<ProgressBarModel?> progressBarModel,
+    required PageController pageController,
+    required bool mounted,
+    required int toIndex,
+  }) async {
+
+    final int _numberOfPages = progressBarModel.value?.numberOfStrips ?? 1;
+
+    if (toIndex >= 0 && toIndex < _numberOfPages){
+
+      await Keyboard.closeKeyboard();
+
+      ProgressBarModel.onSwipe(
+        context: context,
+        newIndex: toIndex,
+        progressBarModel: progressBarModel,
+        mounted: mounted,
+        numberOfPages: _numberOfPages,
+      );
+
+      await Sliders.slideToIndex(
+        pageController: pageController,
+        toIndex: toIndex,
+        curve: Curves.easeInOut,
+        // duration: const Duration(milliseconds: 500),
+      );
+
+    }
+
 
   }
   // -----------------------------------------------------------------------------

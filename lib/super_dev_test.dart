@@ -11,7 +11,7 @@ Future<void> superDevTestGoX() async {
 CHAT GBT TRANSLATION PROMPT
 
 for the following list of lines by english and arabic
-please figure out the best translation equivalent to each line into [es, it, de, fr, zh]
+please figure out the best translation equivalent to each line into [es, it, de, fr, zh, tr, hi, ru, pt, fa]
 and please only reply with the list of answers with the same order
 do not explain anything, do not illustrate, just reply with translation value directly
 

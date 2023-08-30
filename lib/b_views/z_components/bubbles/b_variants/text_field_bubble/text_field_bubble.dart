@@ -48,6 +48,7 @@ class BldrsTextFieldBubble extends StatelessWidget {
     this.isFloatingField = false,
     this.onFieldTap,
     this.autoValidate = true,
+    this.hasBottomPadding = true,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -87,6 +88,7 @@ class BldrsTextFieldBubble extends StatelessWidget {
   final GlobalKey? formKey;
   final AppBarType appBarType;
   final bool autoValidate;
+  final bool hasBottomPadding;
   /// --------------------------------------------------------------------------
   // static const double pasteButtonWidth = 50;
   // --------------------
@@ -149,6 +151,7 @@ class BldrsTextFieldBubble extends StatelessWidget {
     return TextFieldBubble(
       key: const ValueKey<String>('BldrsTextFieldBubble'),
       bubbleHeaderVM: bubbleHeaderVM,
+      hasBottomPadding: hasBottomPadding,
       errorTextColor: Colorz.red255,
       enabledBorderColor: Colorz.nothing,
       focusedBorderColor: Colorz.yellow80,
@@ -207,184 +210,10 @@ class BldrsTextFieldBubble extends StatelessWidget {
         verseSize: _verseSizeValue,
         weight: VerseWeight.thin,
       ),
-
-
       fieldTextDirection: _textField,
       hintTextDirection: hintTextDirection ?? _textField,
     );
 
-    // --------------------
-    // final double fieldHeight = BldrsTextField.getFieldHeight(
-    //   context: context,
-    //   minLines: 1,
-    //   textSize: 2,
-    //   scaleFactor: 1,
-    //   withBottomMargin: false,
-    //   withCounter: false,
-    // );
-    // final double leadingIconSize = leadingIcon == null ? 0 : fieldHeight;
-    // final double obscureBtSize = isObscured == null ? 0 : fieldHeight;
-    // final double fieldWidth = getFieldWidth(
-    //   context: context,
-    //   bubbleWidth: bubbleWidth,
-    //   leadingIcon: leadingIcon,
-    //   showUnObscure: isObscured != null,
-    //   hasPasteButton: pasteFunction != null,
-    // );
-    // // --------------------
-    // final double _bubbleWidth = Bubble.bubbleWidth(
-    //     context: context,
-    //     bubbleWidthOverride: bubbleWidth,
-    // );
-    // // --------------------
-    //
-    // return Bubble(
-    //     bubbleColor: Formers.validatorBubbleColor(
-    //       // canErrorize: true,
-    //       defaultColor: bubbleColor,
-    //       validator: () => Formers.bakeValidator(
-    //         validator: validator,
-    //         text: textController?.text,
-    //         keepEmbeddedBubbleColor: true,
-    //       ),
-    //     ),
-    //   bubbleHeaderVM: bubbleHeaderVM.copyWith(
-    //     headerWidth: _bubbleWidth - 20,
-    //   ),
-    //     // headerViewModel: BubbleHeaderVM(
-    //     //   headerWidth: _bubbleWidth - 20,
-    //     //   headlineVerse: titleVerse,
-    //     //   redDot: fieldIsRequired,
-    //     //   leadingIcon: actionBtIcon,
-    //     //   onLeadingIconTap: onHeaderLeadinIconTap,
-    //     // ),
-    //     width: _bubbleWidth,
-    //     onBubbleTap: onBubbleTap,
-    //     columnChildren: <Widget>[
-    //
-    //       /// BULLET POINTS
-    //       if (Mapper.checkCanLoopList(bulletPoints) == true)
-    //         BldrsBulletPoints(
-    //           bubbleWidth: bubbleWidth,
-    //           bulletPoints: bulletPoints,
-    //         ),
-    //
-    //       /// TEXT FIELD ROW
-    //       Stack(
-    //         alignment: Aligners.superInverseTopAlignment(context),
-    //         children: <Widget>[
-    //
-    //           /// TEXT FIELD
-    //           Row(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: <Widget>[
-    //
-    //               /// LEADING ICON
-    //               if (leadingIcon != null)
-    //                 DreamBox(
-    //                   height: leadingIconSize,
-    //                   width: leadingIconSize,
-    //                   icon: leadingIcon,
-    //                   iconSizeFactor: _leadingIconSizeFactor(leadingIcon),
-    //                 ),
-    //
-    //               /// SPACER
-    //               if (leadingIcon != null)
-    //                 const SizedBox(width: 5,),
-    //
-    //               /// TEXT FIELD
-    //               BldrsTextField(
-    //                 appBarType: appBarType,
-    //                 globalKey: formKey,
-    //                 titleVerse: Verse.plain(bubbleHeaderVM.headlineText),
-    //                 width: fieldWidth,
-    //                 isFormField: isFormField,
-    //                 textDirection: textDirection,
-    //                 hintVerse: hintVerse,
-    //                 counterIsOn: counterIsOn,
-    //                 textInputType: keyboardTextInputType,
-    //                 maxLines: maxLines,
-    //                 maxLength: maxLength,
-    //                 textController: textController,
-    //                 onChanged: onTextChanged,
-    //                 onSubmitted: onSubmitted,
-    //                 onSavedForForm: onSavedForForm,
-    //                 textInputAction: keyboardTextInputAction,
-    //                 initialValue: initialText,
-    //                 validator: validator,
-    //                 focusNode: focusNode,
-    //                 autofocus: autoFocus,
-    //                 isFloatingField : isFloatingField,
-    //                 textSize: textSize,
-    //                 minLines: minLines,
-    //                 onTap: onFieldTap,
-    //                 isObscured: isObscured,
-    //                 autoValidate: autoValidate,
-    //               ),
-    //
-    //               /// SPACER
-    //               if (isObscured != null)
-    //                 const SizedBox(width: 5,),
-    //
-    //               /// OBSCURE BUTTON
-    //               if (isObscured != null)
-    //                 ValueListenableBuilder(
-    //                   valueListenable: isObscured,
-    //                   builder: (_, bool obscured, Widget child){
-    //
-    //                     return DreamBox(
-    //                       height: obscureBtSize,
-    //                       width: obscureBtSize,
-    //                       color: obscured ? Colorz.nothing : Colorz.yellow200,
-    //                       icon: Iconz.viewsIcon,
-    //                       iconColor: obscured ? Colorz.white20 : Colorz.black230,
-    //                       iconSizeFactor: 0.7,
-    //                       bubble: false,
-    //                       corners: SuperVerse.superVerseLabelCornerValue(context, 3),
-    //                       onTap: (){
-    //                         setNotifier(notifier: isObscured, mounted: true, value: !obscured);
-    //                       },
-    //                       // boxFunction: horusOnTapCancel== null ? (){} : horusOnTapCancel, // this prevents keyboard action from going to next field in the form
-    //                     );
-    //
-    //                   },
-    //                 ),
-    //
-    //             ],
-    //           ),
-    //
-    //           /// LOADING INDICATOR
-    //           if (isLoading == true)
-    //           Loading(
-    //             size: 35,
-    //             loading: isLoading,
-    //           ),
-    //
-    //           /// TASK : MOVE PASTE BUTTON TO BE INSIDE THE ROW ABOVE JUST LIKE CONTACTS BUBBLE
-    //           if (pasteFunction != null)
-    //             DreamBox(
-    //               height: fieldHeight,
-    //               width: pasteButtonWidth,
-    //               verse: const Verse(
-    //                 id: 'phid_paste',
-    //                 translate: true,
-    //               ),
-    //               verseScaleFactor: 0.5,
-    //               verseWeight: VerseWeight.thin,
-    //               verseItalic: true,
-    //               color: Colorz.white10,
-    //               onTap: pasteFunction,
-    //             ),
-    //
-    //         ],
-    //       ),
-    //
-    //       if (Mapper.checkCanLoopList(columnChildren) == true)
-    //       ...columnChildren,
-    //
-    //     ]
-    // );
-    // --------------------
   }
   // -----------------------------------------------------------------------------
 }

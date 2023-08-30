@@ -15,6 +15,7 @@ import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_controller.dart'
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/social_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/multiple_choice_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
@@ -24,12 +25,14 @@ import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swipin
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
 class BzEditorScreen extends StatefulWidget {
@@ -173,7 +176,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
   void _addSessionListeners(){
 
     draftNotifier.addListener(() async {
-      await _onDraftChanged();
+      unawaited(_onDraftChanged());
     });
 
   }
@@ -274,23 +277,14 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
     // -----------------
     /// STRIP 5 : PHONE - EMAIL - WEBSITE
 
-    final bool _phoneIsValid = Formers.contactsPhoneValidator(
-      contacts: draftNotifier.value?.contacts,
-      zoneModel: draftNotifier.value?.zone,
-      canValidate: true,
-      isMandatory: false,
-    ) == null;
-    final bool _emailIsValid = Formers.contactsEmailValidator(
-      contacts: draftNotifier.value?.contacts,
-      canValidate: true,
-    ) == null;
-    final bool _websiteIsValid = Formers.contactsWebsiteValidator(
-      contacts: draftNotifier.value?.contacts,
-      canValidate: true,
-      isMandatory: false,
-    ) == null;
+    final bool _contactsAreValid = Formers.contactsAreValid(
+        contacts: draftNotifier.value?.contacts,
+        zoneModel: draftNotifier.value?.zone,
+        phoneIsMandatory: Standards.bzPhoneIsMandatory,
+        websiteIsMandatory: Standards.bzWebsiteIsMandatory,
+    );
 
-    if (_phoneIsValid == false || _emailIsValid == false || _websiteIsValid == false){
+    if (_contactsAreValid == false){
       setStripIsValid(4, false);
     }
     else {
@@ -385,23 +379,12 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
     required DraftBz? draft,
   }){
 
-    return Formers.contactsPhoneValidator(
-           contacts: draft?.contacts,
-           zoneModel: draft?.zone,
-           canValidate: draft?.canValidate,
-           isMandatory: false,
-         ) == null
-         &&
-         Formers.contactsEmailValidator(
-           contacts: draft?.contacts,
-           canValidate: draft?.canValidate,
-         ) == null
-         &&
-         Formers.contactsWebsiteValidator(
-           contacts: draft?.contacts,
-           canValidate: draft?.canValidate,
-           isMandatory: false,
-         ) == null;
+    return Formers.contactsAreValid(
+      contacts: draft?.contacts,
+      zoneModel: draft?.zone,
+      phoneIsMandatory: Standards.bzPhoneIsMandatory,
+      websiteIsMandatory: Standards.bzWebsiteIsMandatory,
+    );
 
   }
   // --------------------
@@ -443,7 +426,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
     );
 
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   Verse _createConfirmVerse(){
@@ -461,6 +443,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
+    
     final List<String> _allSectionsPhids = BzTyper.getBzSectionsPhids(
       context: context,
       bzSections: BzTyper.bzSectionsList,
@@ -489,18 +472,35 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
         bodyVerse: const Verse(id: 'phid_draft_is_temp_stored', translate: true),
         confirmButtonVerse: const Verse(id: 'phid_exit', translate: true),
       ),
-      // appBarRowWidgets: [
-      //
-      //   AppBarButton(
-      //     verse: Verse.plain('blog'),
-      //     onTap: (){
-      //
-      //       draftNotifier.value.blogDraft();
-      //
-      //     },
-      //   ),
-      //
-      // ],
+      appBarRowWidgets: <Widget>[
+
+        ValueListenableBuilder(
+          valueListenable: draftNotifier,
+          builder: (_, DraftBz? draft, Widget? child){
+
+            return AppBarButton(
+            icon: draft?.logoPicModel?.bytes,
+            bigIcon: true,
+            bubble: false,
+            onTap: () async {
+
+              draftNotifier.value?.blogDraft();
+
+              await EditorSwipingButtons.onGoToIndexPage(
+                context: context,
+                progressBarModel: _progressBarModel,
+                pageController: _pageController,
+                mounted: mounted,
+                toIndex: 0,
+              );
+
+              },
+          );
+
+          },
+        ),
+
+      ],
       child: ValueListenableBuilder(
         valueListenable: draftNotifier,
         builder: (_, DraftBz? draft, Widget? child){
@@ -862,11 +862,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       ],
                       canPaste: false,
                       // autoValidate: true,
-                      validator: (String? text) => Formers.contactsPhoneValidator(
-                        contacts: draft?.contacts,
+                      validator: (String? text) => Formers.phoneValidator(
+                        phone: text,
                         zoneModel: draft?.zone,
-                        canValidate: draft?.canValidate,
-                        isMandatory: false,
+                        canValidate: true, //draft?.canValidate,
+                        isMandatory: Standards.bzPhoneIsMandatory,
                       ),
                       textOnChanged: (String? text) => onChangeBzContact(
                         contactType: ContactType.phone,
@@ -905,9 +905,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       canPaste: false,
                       contactsArePublic: true,
                       // autoValidate: true,
-                      validator: (String? text) => Formers.contactsEmailValidator(
-                        contacts: draft?.contacts,
-                        canValidate: draft?.canValidate,
+                      validator: (String? text) => Formers.emailValidator(
+                        email: text,
+                        canValidate: true, //draft?.canValidate,
                       ),
                       textOnChanged: (String? text) => onChangeBzContact(
                         contactType: ContactType.email,
@@ -945,14 +945,24 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       ],
                       // canPaste: true,
                       // autoValidate: true,
-                      validator: (String? text) => Formers.contactsWebsiteValidator(
-                        contacts: draft?.contacts,
-                        canValidate: draft?.canValidate,
-                        isMandatory: false,
+                      validator: (String? text) => Formers.webSiteValidator(
+                        website: text,
+                        isMandatory: Standards.bzWebsiteIsMandatory,
                       ),
                       textOnChanged: (String? text) => onChangeBzContact(
                         contactType: ContactType.website,
                         value: text,
+                        draftNotifier: draftNotifier,
+                        mounted: mounted,
+                      ),
+                    ),
+
+                    /// FACEBOOK - INSTAGRAM - TWITTER - LINKEDIN - YOUTUBE - TIKTOK - SNAPCHAT
+                    SocialFieldEditorBubble(
+                      contacts: draft?.contacts,
+                      onContactChanged: (ContactModel contact) => onChangeBzContact(
+                        contactType: contact.type!,
+                        value: contact.value,
                         draftNotifier: draftNotifier,
                         mounted: mounted,
                       ),
