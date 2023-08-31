@@ -295,7 +295,7 @@ class AuthProtocols {
   /// SOCIAL
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, bool>> socialAuth({
     required AuthModel? authModel,
   }) async {
@@ -328,7 +328,6 @@ class AuthProtocols {
       }
 
     }
-
 
     return {
       'success': _success,
@@ -433,6 +432,7 @@ class AuthProtocols {
   static Future<void> signInAsRage7({
     required BuildContext context,
   }) async {
+
     final AuthModel? _authModel = await EmailAuthing.signIn(
       email: 'rageh@bldrs.net',
       password: '123456',
@@ -462,6 +462,7 @@ class AuthProtocols {
         notify: true,
       );
     }
+
   }
   // --------------------
 }

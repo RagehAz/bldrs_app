@@ -76,7 +76,7 @@ class _DiscountButton extends StatelessWidget {
                     verse: generateLine_discount_rate(
                       flyerModel: flyerModel
                     ),
-                    scaleFactor: _topLineScaleFactor,
+                    scaleFactor: _topLineScaleFactor * 1.35,
                     weight: VerseWeight.black,
                   ),
                 ),
