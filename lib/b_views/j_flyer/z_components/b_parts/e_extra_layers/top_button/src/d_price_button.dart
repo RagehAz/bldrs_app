@@ -45,8 +45,8 @@ class _PriceButton extends StatelessWidget {
         scaleFactor: _topLineScaleFactor,
         weight: VerseWeight.black,
         margin: EdgeInsets.symmetric(horizontal: _height * 0.2),
-        appIsLTR: UiProvider.checkAppIsLeftToRight(),
-        textDirection: UiProvider.getAppTextDir(),
+        appIsLTR: true,
+        textDirection: TextDirection.ltr,
       ),
     );
     // --------------------
