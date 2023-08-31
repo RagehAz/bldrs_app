@@ -50,13 +50,11 @@ Future<void> authByEmailSignIn({
 
     await WaitDialog.closeWaitDialog();
 
-    if (_success == true && mounted == true) {
-
-      await _navAfterAuth(
-        firstTimer: false,
-      );
-
-    }
+    await _navAfterAuth(
+      firstTimer: false,
+      mounted: mounted,
+      authSucceeded: _success,
+    );
 
   }
 
@@ -67,6 +65,7 @@ Future<void> authByEmailRegister({
   required String email,
   required String password,
   required GlobalKey<FormState> formKey,
+  required bool mounted,
 }) async {
 
   final bool _allFieldsAreValid = await _validateForm(
@@ -90,17 +89,16 @@ Future<void> authByEmailRegister({
     await WaitDialog.closeWaitDialog();
 
     /// GO BACK TO EMAIL SIGN IN PAGE
-    if (_success == true){
-      await _navAfterAuth(
-        firstTimer: true,
-      );
-    }
+    await _navAfterAuth(
+      authSucceeded: _success,
+      mounted: mounted,
+      firstTimer: true,
+    );
 
   }
 
 }
 // --------------------
-/*
 /// TESTED : WORKS PERFECT
 Future<void> authBySocialMedia({
   required AuthModel? authModel,
@@ -111,28 +109,30 @@ Future<void> authBySocialMedia({
 
     WaitDialog.showUnawaitedWaitDialog(
       verse: const Verse(
-        id: 'phid_creating_new_account',
+        id: 'phid_signing_in',
         translate: true,
       ),
     );
 
-    final bool _success = await AuthProtocols.composeOrUpdateUser(
+    final Map<String, bool> _result = await AuthProtocols.socialAuth(
       authModel: authModel,
-      authError: null,
     );
 
-    await _rememberEmailAndNav(
-      email: null,
-      success: _success,
+    final bool _success = _result['success']!;
+    final bool _firstTimer = _result['firstTimer']!;
+
+    await WaitDialog.closeWaitDialog();
+
+    await _navAfterAuth(
+      authSucceeded: _success,
       mounted: mounted,
-      password: null,
-      rememberMe: false,
+      firstTimer: _firstTimer,
     );
 
   }
 
 }
- */
+
 // -----------------------------------------------------------------------------
 
 /// CONTROLLING AUTH RESULT
@@ -141,37 +141,44 @@ Future<void> authBySocialMedia({
 /// TESTED : WORKS PERFECT
 Future<void> _navAfterAuth({
   required bool firstTimer,
+  required bool mounted,
+  required bool authSucceeded,
 }) async {
 
-  final UserModel? userModel = UsersProvider.proGetMyUserModel(
+  if (mounted == true && authSucceeded == true){
+
+    final UserModel? userModel = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );
 
-  if (userModel != null){
+    if (userModel != null){
 
-    if (firstTimer == true){
+      if (firstTimer == true){
 
-      final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
-        userModel: userModel,
-      );
-
-      if (_thereAreMissingFields == true){
-        await _goToUserEditorForFirstTime(
+        final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
           userModel: userModel,
         );
+
+        if (_thereAreMissingFields == true){
+          await _goToUserEditorForFirstTime(
+            userModel: userModel,
+          );
+        }
+        else {
+          await _goToLogoScreen();
+        }
+
       }
+
       else {
         await _goToLogoScreen();
       }
 
     }
 
-    else {
-      await _goToLogoScreen();
-    }
-
   }
+
 
 }
 // --------------------

@@ -266,54 +266,57 @@ Future<bool> reAuthenticateUser({
 
   if (_userModel != null){
 
-    _canContinue = await Dialogs.userDialog(
-      titleVerse: dialogTitleVerse,
-      bodyVerse: dialogBodyVerse,
-      confirmButtonVerse: confirmButtonVerse,
-      invertButtons: true,
-      userModel: _userModel,
-    );
+    if (_userModel.signInMethod == SignInMethod.password){
 
-    if (_canContinue == true){
-
-      final bool? _passwordIsCorrect = await _checkPassword(
+      _canContinue = await Dialogs.userDialog(
+        titleVerse: dialogTitleVerse,
+        bodyVerse: dialogBodyVerse,
+        confirmButtonVerse: confirmButtonVerse,
+        invertButtons: true,
         userModel: _userModel,
       );
 
-      await Keyboard.closeKeyboard();
+      if (_canContinue == true && _userModel.signInMethod == SignInMethod.password){
 
-      /// NO PASSWORD PROVIDED
-      if (_passwordIsCorrect == null){
-        _canContinue = false;
+        final bool? _passwordIsCorrect = await _checkPassword(
+          userModel: _userModel,
+        );
+
+        await Keyboard.closeKeyboard();
+
+        /// NO PASSWORD PROVIDED
+        if (_passwordIsCorrect == null){
+          _canContinue = false;
+        }
+
+        /// ON WRONG PASSWORD
+        else if (_passwordIsCorrect == false){
+
+          unawaited(TopDialog.showTopDialog(
+            firstVerse: const Verse(
+              id: 'phid_wrongPassword',
+              translate: true,
+            ),
+            secondVerse: const Verse(
+              id: 'phid_please_try_again',
+              translate: true,
+            ),
+          ));
+
+          _canContinue = false;
+
+        }
+
+        // /// ON CORRECT PASSWORD
+        // else {
+        //
+        // }
+
       }
-
-      /// ON WRONG PASSWORD
-      else if (_passwordIsCorrect == false){
-
-        unawaited(TopDialog.showTopDialog(
-          firstVerse: const Verse(
-            id: 'phid_wrongPassword',
-            translate: true,
-          ),
-          secondVerse: const Verse(
-            id: 'phid_please_try_again',
-            translate: true,
-          ),
-        ));
-
-        _canContinue = false;
-
-      }
-
-      // /// ON CORRECT PASSWORD
-      // else {
-      //
-      // }
 
     }
 
   }
-
 
   return _canContinue;
 }
