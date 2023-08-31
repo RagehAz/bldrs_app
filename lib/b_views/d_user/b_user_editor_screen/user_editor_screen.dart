@@ -27,6 +27,7 @@ import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swipin
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
@@ -34,6 +35,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
 enum UserEditorTab{
@@ -45,7 +47,7 @@ enum UserEditorTab{
 }
 
 class UserEditorScreen extends StatefulWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const UserEditorScreen({
     required this.initialTab,
     required this.firstTimer,
@@ -57,7 +59,7 @@ class UserEditorScreen extends StatefulWidget {
     this.checkLastSession = true,
     super.key
   });
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   final UserEditorTab initialTab;
   final bool firstTimer;
   final UserModel? userModel;
@@ -66,10 +68,10 @@ class UserEditorScreen extends StatefulWidget {
   final bool reAuthBeforeConfirm;
   final bool checkLastSession;
   final bool validateOnStartup;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   @override
   _UserEditorScreenState createState() => _UserEditorScreenState();
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 }
 
 class _UserEditorScreenState extends State<UserEditorScreen> {
@@ -181,6 +183,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
   /// INITIALIZATIONS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   int _getInitialTabIndex(UserEditorTab tab){
 
     switch(tab){
@@ -198,6 +201,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _initializeDraft() async {
     final DraftUser? _newDraft = await DraftUser.createDraftUser(
       context: context,
@@ -492,6 +496,35 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
         }
 
       },
+      appBarRowWidgets: <Widget>[
+
+        ValueListenableBuilder(
+            valueListenable: _draftUser,
+            builder: (_, DraftUser? draft, Widget? child){
+
+              return AppBarButton(
+                icon: draft?.picModel?.bytes ?? draft?.picModel?.path ?? Iconz.anonymousUser,
+                bigIcon: true,
+                bubble: false,
+                onTap: () async {
+
+                  _draftUser.value?.blogDraftUser();
+
+                  await EditorSwipingButtons.onGoToIndexPage(
+                    context: context,
+                    progressBarModel: _progressBarModel,
+                    pageController: _pageController,
+                    mounted: mounted,
+                    toIndex: 0,
+                  );
+
+                  },
+              );
+
+            }
+            ),
+
+      ],
       canGoBack: widget.canGoBack,
       child: ValueListenableBuilder(
         valueListenable: _draftUser,
@@ -770,7 +803,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       ),
                       contactsArePublic : _contactsArePublic,
                       keyboardTextInputType: TextInputType.phone,
-                      bulletPoints: [
+                      bulletPoints: <Verse>[
 
                         const Verse(id: 'phid_optional_field', translate: true),
 
@@ -807,48 +840,58 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
 
                     /// EMAIL
                     if (draft != null)
-                    ContactFieldEditorBubble(
-                      key: const ValueKey<String>('email'),
-                      formKey: draft.formKey,
-                      focusNode: draft.emailNode,
-                      appBarType: AppBarType.basic,
-                      isFormField: true,
-                      headerViewModel: BldrsBubbleHeaderVM.bake(
-                        context: context,
-                        headlineVerse: const Verse(
-                          id: 'phid_emailAddress',
-                          translate: true,
+                    Disabler(
+                      isDisabled: Authing.checkIsSocialSignInMethod(draft.signInMethod),
+                      child: ContactFieldEditorBubble(
+                        key: const ValueKey<String>('email'),
+                        formKey: draft.formKey,
+                        focusNode: draft.emailNode,
+                        appBarType: AppBarType.basic,
+                        isFormField: true,
+                        headerViewModel: BldrsBubbleHeaderVM.bake(
+                          context: context,
+                          headlineVerse: const Verse(
+                            id: 'phid_emailAddress',
+                            translate: true,
+                          ),
+                          redDot: true,
+                          leadingIcon: _contactsArePublic == true ? Iconz.comEmail : Iconz.hidden,
+                          leadingIconSizeFactor: 0.7,
+                          leadingIconBoxColor: Colorz.nothing,
                         ),
-                        redDot: true,
-                        leadingIcon: _contactsArePublic == true ? Iconz.comEmail : Iconz.hidden,
-                        leadingIconSizeFactor: 0.7,
-                        leadingIconBoxColor: Colorz.nothing,
-                      ),
-                      bulletPoints: ContactFieldEditorBubble.privacyPoint(
+                        bulletPoints: [
+                          ...ContactFieldEditorBubble.privacyPoint(
+                          contactsArePublic: _contactsArePublic,
+                        ),
+                          if (Authing.checkIsSocialSignInMethod(draft.signInMethod) == true)
+                            const Verse(
+                              id: 'phid_social_auth_email_is_fixed',
+                              translate: true,
+                            ),
+                        ],
                         contactsArePublic: _contactsArePublic,
+                        keyboardTextInputType: TextInputType.emailAddress,
+                        keyboardTextInputAction: TextInputAction.done,
+                        // initialTextValue: ContactModel.getInitialContactValue(
+                        //   type: ContactType.email,
+                        //   countryID: draft?.zone?.countryID,
+                        //   existingContacts: draft?.contacts,
+                        // ),
+                        textController: draft.emailController,
+                        textOnChanged: (String? text) => onUserContactChanged(
+                          contactType: ContactType.email,
+                          value: text,
+                          draft: _draftUser,
+                          mounted: mounted,
+                        ),
+                        canPaste: false,
+                        // autoValidate: false,
+                        validator: (String? text) => Formers.emailValidator(
+                          email: text,
+                          canValidate: _canValidate,
+                        ),
+                        hintVerse: Verse.plain('bldr@bldrs.net'),
                       ),
-                      contactsArePublic: _contactsArePublic,
-                      keyboardTextInputType: TextInputType.emailAddress,
-                      keyboardTextInputAction: TextInputAction.done,
-                      // initialTextValue: ContactModel.getInitialContactValue(
-                      //   type: ContactType.email,
-                      //   countryID: draft?.zone?.countryID,
-                      //   existingContacts: draft?.contacts,
-                      // ),
-                      textController: draft.emailController,
-                      textOnChanged: (String? text) => onUserContactChanged(
-                        contactType: ContactType.email,
-                        value: text,
-                        draft: _draftUser,
-                        mounted: mounted,
-                      ),
-                      canPaste: false,
-                      // autoValidate: false,
-                      validator: (String? text) => Formers.emailValidator(
-                        email: text,
-                        canValidate: _canValidate,
-                      ),
-                      hintVerse: Verse.plain('bldr@bldrs.net'),
                     ),
 
                     /// FACEBOOK - INSTAGRAM - TWITTER - LINKEDIN - YOUTUBE - TIKTOK - SNAPCHAT

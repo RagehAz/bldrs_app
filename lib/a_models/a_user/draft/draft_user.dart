@@ -123,9 +123,10 @@ class DraftUser {
         type: ContactType.phone,
       )?.value;
       
-      final PicModel? _picModel = firstTimer == true ? null
-          :
-      await PicProtocols.fetchPic(userModel.picPath);
+      final PicModel? _picModel = await _createPicFromUserModelForDraft(
+        firstTimer: firstTimer,
+        userModel: userModel,
+      );
 
       _draft = DraftUser(
         id: userModel.id,
@@ -171,6 +172,34 @@ class DraftUser {
     }
 
     return _draft;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<PicModel?> _createPicFromUserModelForDraft({
+    required UserModel? userModel,
+    required bool firstTimer,
+  }) async {
+    PicModel? _output;
+
+    if (userModel != null){
+
+      bool _shouldFetch = false;
+      switch (userModel.signInMethod){
+        case SignInMethod.anonymous: _shouldFetch = false; break;
+        case SignInMethod.password:  _shouldFetch = false; break;
+        case SignInMethod.google:    _shouldFetch = true; break;
+        case SignInMethod.facebook:  _shouldFetch = true; break;
+        case SignInMethod.apple:     _shouldFetch = true; break;
+        default: _shouldFetch = false;
+      }
+
+      if (_shouldFetch == true){
+        _output = await PicProtocols.fetchPic(userModel.picPath);
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

@@ -22,7 +22,7 @@ class AuthProtocols {
 
   // -----------------------------------------------------------------------------
   /// TASK : FIX_SOCIAL_AUTH_BUTTONS
-  static const bool showSocialAuthButtons = false;
+  static const bool showSocialAuthButtons = true;
   // -----------------------------------------------------------------------------
 
   /// SIGN IN
@@ -279,6 +279,51 @@ class AuthProtocols {
     }
 
     return _success;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// SOCIAL
+
+  // --------------------
+  ///
+  static Future<Map<String, bool>> socialAuth({
+    required AuthModel? authModel,
+  }) async {
+    bool _success = false;
+    bool _firstTimer = false;
+
+    if (authModel != null){
+
+      UserModel? _userModel = await UserProtocols.fetch(
+          userID: authModel.id,
+        );
+
+      /// NEW USER
+      if (_userModel == null){
+
+        _userModel = await UserProtocols.compose(
+          authModel: authModel,
+        );
+
+        if (_userModel != null){
+          _success = true;
+          _firstTimer = true;
+        }
+
+      }
+      /// OLD USER
+      else {
+        _success = true;
+        _firstTimer = false;
+      }
+
+    }
+
+
+    return {
+      'success': _success,
+      'firstTimer': _firstTimer,
+    };
   }
   // -----------------------------------------------------------------------------
 

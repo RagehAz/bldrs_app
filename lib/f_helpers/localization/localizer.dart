@@ -313,10 +313,16 @@ class Localizer {
     required String? code,
   }) async {
 
-    if (code != null){
+    final String? _currentLang = getCurrentLangCode();
+    final String? _ldbLang = await Localizer.readLDBLangCode();
+
+    if (_currentLang != null && _currentLang == _ldbLang && _ldbLang == code){
+      blog('do nothing');
+    }
+    else {
 
       await _setLDBLangCode(
-        langCode: code,
+        langCode: code!,
       );
 
       final Locale? _temp  = _concludeLocaleByLingoCode(code);

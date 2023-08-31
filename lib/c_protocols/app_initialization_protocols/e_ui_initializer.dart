@@ -34,26 +34,15 @@ class UiInitializer {
   /// TESTED : WORKS PERFECT
   static Future<void> initializeAppLanguage(BuildContext context) async {
 
-    final String? _ldbLangCode = await Localizer.readLDBLangCode();
+    String? _lang = await Localizer.readLDBLangCode();
 
-      if (_ldbLangCode == null){
-        final String? _selectedLangCode = await Dialogs.languageDialog();
-        await Localizer.changeAppLanguage(
-          code: _selectedLangCode,
-          context: context,
-        );
+    _lang ??= await Dialogs.languageDialog();
+    _lang ??= 'en';
 
-        if (_selectedLangCode == null){
-          await initializeAppLanguage(context);
-        }
-
-      }
-      else {
-        await Localizer.changeAppLanguage(
-          code: _ldbLangCode,
-          context: context,
-        );
-      }
+    await Localizer.changeAppLanguage(
+      code: _lang,
+      context: context,
+    );
 
   }
   // -----------------------------------------------------------------------------
