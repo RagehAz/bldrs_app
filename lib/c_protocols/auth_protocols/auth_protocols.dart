@@ -1,16 +1,20 @@
 import 'dart:async';
+import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
+import 'package:bldrs/f_helpers/drafters/errorize.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +51,7 @@ class AuthProtocols {
     if (_error != null){
       await onAuthError(
         error: _error,
+        invoker: 'signInBldrsByEmail',
       );
     }
 
@@ -158,6 +163,7 @@ class AuthProtocols {
         if (_error != null){
           await onAuthError(
             error: _error,
+            invoker: '_upgradeAnonymous.EmailAuthing.updateUserEmail',
           );
         }
 
@@ -176,7 +182,10 @@ class AuthProtocols {
             /// CHANGE PASSWORD IN FIRE AUTH
             _success = await EmailAuthing.updateUserPassword(
               newPassword: newAccount.password!,
-              onError: (String? error) => onAuthError(error: error),
+              onError: (String? error) => onAuthError(
+                error: error,
+                invoker: '_upgradeAnonymous.EmailAuthing.updateUserPassword',
+              ),
             );
 
             if (_success == true){
@@ -248,6 +257,7 @@ class AuthProtocols {
       if (_error != null){
         await onAuthError(
           error: _error,
+          invoker: '_registerNewUser.EmailAuthing.register'
         );
       }
 
@@ -364,9 +374,25 @@ class AuthProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> onAuthError({
     required String? error,
+    required String invoker,
   }) async {
 
     final String _errorMessage = error ?? getWord('phid_something_went_wrong_error');
+
+    Errorize.throwMap(
+        invoker: 'onAuthError',
+        map: {
+          'userModel': UsersProvider.proGetMyUserModel(
+              context: getMainContext(),
+              listen: false
+          )?.toMap(
+            toJSON: true,
+          ),
+          'time': Timers.cipherTime(time: DateTime.now(), toJSON: true),
+          'device': await DeviceModel.generateDeviceModel(),
+          'invoker': invoker,
+        },
+    );
 
     await Dialogs.authErrorDialog(
         result: _errorMessage,
@@ -413,6 +439,7 @@ class AuthProtocols {
       onError: (String? error) =>
           AuthProtocols.onAuthError(
             error: error,
+            invoker: 'signInAsRage7',
           ),
     );
 
