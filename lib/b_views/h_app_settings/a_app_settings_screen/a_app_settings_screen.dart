@@ -126,7 +126,7 @@ class AppSettingsScreen extends StatelessWidget {
 
         const SettingsToSettingsButtons(),
 
-        /// SIGN OUT
+        /// SIGN IN BY OTHER ACCOUNT
         SettingsWideButton(
           verse: const Verse(id: 'phid_sign_in_other_account', translate: true),
           icon: Iconz.normalUser,
