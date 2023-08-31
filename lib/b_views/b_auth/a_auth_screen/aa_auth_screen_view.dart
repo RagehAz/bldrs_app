@@ -79,8 +79,11 @@ class AuthScreenView extends StatelessWidget {
             children: <Widget>[
 
               ...List.generate(methods.length, (index) {
+
+                final SignInMethod method = methods[index];
+
                 return SocialAuthButton(
-                  signInMethod: methods[index],
+                  signInMethod: method,
                   socialKeys: BldrsKeys.socialKeys,
                   onSuccess: (AuthModel? authModel) => authBySocialMedia(
                     authModel: authModel,
@@ -88,6 +91,7 @@ class AuthScreenView extends StatelessWidget {
                   ),
                   onError: (String? error) => AuthProtocols.onAuthError(
                     error: error,
+                    invoker: 'SocialSignIn.$method',
                   ),
                   onAuthLoadingChanged: (bool loading){
                     blog('is loading : $loading');

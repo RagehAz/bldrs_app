@@ -362,7 +362,10 @@ Future<void> onForgotPassword({
       final bool _good = await EmailAuthing.sendPasswordResetEmail(
         email: email,
         onError: (String? error) async {
-          await AuthProtocols.onAuthError(error: error);
+          await AuthProtocols.onAuthError(
+            error: error,
+            invoker: 'onForgotPassword',
+          );
           },
       );
 
