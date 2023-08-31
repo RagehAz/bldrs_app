@@ -124,8 +124,8 @@ class _DiscountButton extends StatelessWidget {
                     scaleFactor: _topLineScaleFactor,
                     centered:  false,
                     weight: VerseWeight.black,
-                    appIsLTR: _appIsLTR,
-                    textDirection: UiProvider.getAppTextDir(),
+                    appIsLTR: true,
+                    textDirection: TextDirection.ltr,
                     margin: EdgeInsets.symmetric(horizontal: _height * 0.2),
                   ),
                 ),
@@ -156,8 +156,8 @@ class _DiscountButton extends StatelessWidget {
                             enLeft: _height * 0.2,
                           ),
                           italic: true,
-                          appIsLTR: _appIsLTR,
-                          textDirection: UiProvider.getAppTextDir(),
+                          appIsLTR: true,
+                          textDirection: TextDirection.ltr,
                         ),
 
                         BldrsText(
@@ -171,8 +171,8 @@ class _DiscountButton extends StatelessWidget {
                           strikeThrough: true,
                           italic: true,
                           margin: EdgeInsets.symmetric(horizontal: _height * 0.05),
-                          appIsLTR: _appIsLTR,
-                          textDirection: UiProvider.getAppTextDir(),
+                          appIsLTR: true,
+                          textDirection: TextDirection.ltr,
                         ),
 
                       ],
