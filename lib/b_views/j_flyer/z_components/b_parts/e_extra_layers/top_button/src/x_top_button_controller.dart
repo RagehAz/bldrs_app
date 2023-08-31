@@ -245,7 +245,7 @@ Verse? generateLine_discount_rate({
   else {
 
     final int _percent = PriceModel.getDiscountPercentage(price: flyerModel?.price);
-    final String _line = '$_percent %';
+    final String _line = '$_percent%';
 
     return Verse(
       id: _line,
@@ -336,7 +336,7 @@ Verse? generateLine_old_price({
 double getTopLiveVerticalOffset({
   required double topButtonHeight,
 }){
-  return topButtonHeight * 0.13;
+  return topButtonHeight * 0.17;
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -350,7 +350,7 @@ double getTopLineScaleFactor({
 double getBottomLiveVerticalOffset({
   required double topButtonHeight,
 }){
-  return topButtonHeight * 0.16;
+  return topButtonHeight * 0.23;
 }
 // --------------------
 /// TESTED : WORKS PERFECT
