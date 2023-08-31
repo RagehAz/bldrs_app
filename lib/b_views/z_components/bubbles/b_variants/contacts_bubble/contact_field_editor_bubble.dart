@@ -265,6 +265,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
                 // validator: widget.validator,
                 autoValidate: widget.autoValidate,
                 textDirection: TextDirection.ltr,
+                hintTextDirection: TextDirection.ltr,
                 textColor: widget.contactsArePublic == true ? Colorz.white255 : Colorz.white80,
                 fieldColor: widget.contactsArePublic == true ? Colorz.white10 : Colorz.white255.withOpacity(0.02),
               ),

@@ -1,11 +1,14 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/legalizer/legalizer.dart';
 import 'package:bldrs/b_views/b_auth/b_email_auth_screen/a_email_auth_screen.dart';
+import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/main_button.dart';
@@ -13,8 +16,10 @@ import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
+import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreenView extends StatelessWidget {
@@ -27,12 +32,12 @@ class AuthScreenView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     /// TASK : FIX_SOCIAL_AUTH_BUTTONS
-    // final List<SignInMethod> methods = [
-    //   if (DeviceChecker.deviceIsIOS() == true)
-    //     SignInMethod.apple,
-    //   SignInMethod.google,
-    //   SignInMethod.facebook
-    // ];
+    final List<SignInMethod> methods = [
+      if (DeviceChecker.deviceIsIOS() == true)
+        SignInMethod.apple,
+      SignInMethod.google,
+      SignInMethod.facebook
+    ];
 
     return FloatingList(
       padding: Stratosphere.stratosphereSandwich,
@@ -64,37 +69,36 @@ class AuthScreenView extends StatelessWidget {
         ),
 
         /// SOCIAL AUTH BUTTONS
-        /// TASK : FIX_SOCIAL_AUTH_BUTTONS
-        // if (AuthProtocols.showSocialAuthButtons == true)
-        // SizedBox(
-        //   width:  MainButton.getButtonWidth(
-        //     context: context,
-        //   ),
-        //   height: SocialAuthButton.standardSize,
-        //   child: Row(
-        //     children: <Widget>[
-        //
-        //       ...List.generate(methods.length, (index) {
-        //         return SocialAuthButton(
-        //           signInMethod: methods[index],
-        //           socialKeys: BldrsKeys.socialKeys,
-        //           onSuccess: (AuthModel authModel) => authBySocialMedia(
-        //             authModel: authModel,
-        //             mounted: true,
-        //           ),
-        //           onError: (String error) => AuthProtocols.onAuthError(
-        //             error: error,
-        //           ),
-        //           onAuthLoadingChanged: (bool loading){
-        //             blog('is loading : $loading');
-        //           },
-        //           manualAuthing: DeviceChecker.deviceIsAndroid(),
-        //         );
-        //       }),
-        //
-        //     ],
-        //   ),
-        // ),
+        if (AuthProtocols.showSocialAuthButtons == true)
+        SizedBox(
+          width:  MainButton.getButtonWidth(
+            context: context,
+          ),
+          height: SocialAuthButton.standardSize,
+          child: Row(
+            children: <Widget>[
+
+              ...List.generate(methods.length, (index) {
+                return SocialAuthButton(
+                  signInMethod: methods[index],
+                  socialKeys: BldrsKeys.socialKeys,
+                  onSuccess: (AuthModel? authModel) => authBySocialMedia(
+                    authModel: authModel,
+                    mounted: true,
+                  ),
+                  onError: (String? error) => AuthProtocols.onAuthError(
+                    error: error,
+                  ),
+                  onAuthLoadingChanged: (bool loading){
+                    blog('is loading : $loading');
+                  },
+                  manualAuthing: DeviceChecker.deviceIsAndroid(),
+                );
+              }),
+
+            ],
+          ),
+        ),
 
         const SizedBox(height: 30,),
 

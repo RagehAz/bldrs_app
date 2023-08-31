@@ -443,7 +443,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    
     final List<String> _allSectionsPhids = BzTyper.getBzSectionsPhids(
       context: context,
       bzSections: BzTyper.bzSectionsList,

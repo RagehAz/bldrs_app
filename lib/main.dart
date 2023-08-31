@@ -21,12 +21,12 @@ import 'package:bldrs/firebase_options.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:fire/super_fire.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'bldrs_keys.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+
+import 'bldrs_keys.dart';
 
 // ---------------------------------------------------------------------------
 
@@ -71,6 +71,23 @@ Future<void> main() async {
 
   ]);
   // --------------------
+  /*
+  FlutterError.onError = (errorDetail){
+    blog('XXX === >>> FlutterError : CRASH');
+    FirebaseCrashlytics.instance.recordFlutterError(errorDetail);
+  };
+  PlatformDispatcher.instance.onError = (error, stack){
+    blog('XXX === >>> PlatformDispatcher : CRASH');
+    FirebaseCrashlytics.instance.recordError(error, stack,
+      fatal: true,
+      // information: ,
+      // printDetails: ,
+      // reason: ,
+    );
+    return true;
+  };
+   */
+  // --------------------
   /// DEVICE PREVIEW
   // runApp(
   //   DevicePreview(
@@ -91,10 +108,13 @@ const bool useSentryOnDebug = false;
 
 Future<void> sentryBldrs() async {
 
-  const bool _runSentry = useSentryOnDebug == true ? true : !kDebugMode;
+  const bool _runSentry = true; //useSentryOnDebug == true ? true : !kDebugMode;
 
   if (_runSentry == true) {
+
     final pkg = await PackageInfo.fromPlatform();
+    blog('XXX === >>> sentry is launching x');
+
     await SentryFlutter.init(
           (options) async {
             const String _thing = 'https://1c1d8068e888994cfeee26f0dfaafcd6@o4505718555213824.ingest.sentry.io/4505718558883840';
@@ -104,8 +124,14 @@ Future<void> sentryBldrs() async {
             options.sendDefaultPii = true;
             options.environment = 'production';
             options.attachScreenshot = true;
+            options.beforeSend = (SentryEvent? event,{Hint? hint}) async {
+              blog('XXX === >>> CRASH');
+              return event;
+            };
             },
       appRunner: () async {
+
+            /// SENTRY CONFIGURATIONS
             Sentry.configureScope(
                   (scope) async {
                     late final BaseDeviceInfo deviceInfo;
@@ -124,6 +150,8 @@ Future<void> sentryBldrs() async {
                     };
                     await scope.setContexts('package_info', packageInfoAsMap);},
             );
+
+            /// RUN
             return runApp(
               DefaultAssetBundle(
                 bundle: SentryAssetBundle(),
@@ -151,11 +179,12 @@ class BldrsAppStarter extends StatefulWidget {
   });
   /// --------------------------------------------------------------------------
   static void setLocale(BuildContext context, Locale? locale) {
-    if (locale == null) {
-      return;
+
+    if (locale != null){
+      final _BldrsAppStarterState? state = context.findAncestorStateOfType<_BldrsAppStarterState>();
+      state?._setLocale(locale);
     }
-    final _BldrsAppStarterState? state = context.findAncestorStateOfType<_BldrsAppStarterState>();
-    state?._setLocale(locale);
+
   }
   /// --------------------------------------------------------------------------
   @override
@@ -163,7 +192,7 @@ class BldrsAppStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
 }
 
-class _BldrsAppStarterState extends State<BldrsAppStarter> {
+class _BldrsAppStarterState extends State<BldrsAppStarter>  with WidgetsBindingObserver {
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -179,6 +208,8 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   @override
   void initState() {
     FlutterNativeSplash.remove();
+    WidgetsBinding.instance.addObserver(this);
+    blog('XXX === >>> APP START');
     super.initState();
   }
   // --------------------
@@ -218,8 +249,27 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
     Sounder.dispose();
     _closeNootListeners();
     FCM.disposeAwesomeNoots();
-
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+
+    if (state == AppLifecycleState.resumed) {
+      blog('XXX === >>> RESUMED');
+    }
+    else if (state == AppLifecycleState.inactive) {
+      blog('XXX === >>> INACTIVE');
+    }
+    else if (state == AppLifecycleState.paused) {
+      blog('XXX === >>> PAUSED');
+    }
+    else if (state == AppLifecycleState.detached) {
+      blog('XXX === >>> DETACHED');
+    }
+
+    super.didChangeAppLifecycleState(state);
   }
   // -----------------------------------------------------------------------------
 
@@ -255,11 +305,13 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   // --------------------
   Locale? _locale;
   // --------------------
-  void _setLocale(Locale locale) {
+  void _setLocale(Locale? locale) {
 
-    setState(() {
-      _locale = locale;
-    });
+    if (mounted == true && locale != null){
+      setState(() {
+        _locale = locale;
+      });
+    }
 
   }
   // -----------------------------------------------------------------------------
