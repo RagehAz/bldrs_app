@@ -15,6 +15,7 @@ import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -61,16 +62,19 @@ class UserInitializer {
           user2: _new,
       );
 
-      /// RENOVATE USER MODEL
-      if (_identical == false){
+      await Future.wait(<Future>[
 
-        await UserProtocols.renovate(
-          invoker: 'UserInitializer.initializeUser',
-          oldUser: _old,
-          newUser: _new,
-        );
+        /// RENOVATE USER
+        if (_identical == false)
+          UserProtocols.renovate(
+            invoker: 'UserInitializer.initializeUser',
+            oldUser: _old,
+            newUser: _new,
+          ),
 
-      }
+        RecorderProtocols.onStartSession(userID: _old?.id),
+
+      ]);
 
     }
 

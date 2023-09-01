@@ -1,3 +1,7 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
@@ -10,6 +14,7 @@ import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 class UiInitializer {
@@ -111,17 +116,21 @@ class UiInitializer {
   static Future<void> refreshLDB() async {
 
     final bool _shouldRefresh = await LDBOps.checkShouldRefreshLDB(
-      refreshDurationInHours: Standards.ldbWipeIntervalInHours,
+      refreshDurationInMinutes: Standards.ldbWipeIntervalInMinutes,
     );
+
+     await _monitorRefreshLDBThing(
+       shouldRefresh: _shouldRefresh,
+     );
 
     if (_shouldRefresh == true){
 
       await LDBDoc.wipeOutLDBDocs(
         /// MAIN
-        flyers: true,
-        bzz: true,
+        flyers: true, /// flyers are updated frequently
+        bzz: true, /// bzz might be updated frequently
         notes: false, // I do not think we need to refresh notes everyday
-        pics: false, // I do not think we need to refresh pics everyday
+        pics: true, /// pics of logos - users - flyers might change over time
         pdfs: false, // i do not think that fetched pdfs are changed frequently by authors,
         /// USER
         users: false,
@@ -155,6 +164,48 @@ class UiInitializer {
         /// COUNTERS
         bzzCounters: true, // this stays for 10 minutes anyways
         flyersCounters: true, // this stays for 10 minutes anyways
+      );
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _monitorRefreshLDBThing({
+    required bool shouldRefresh,
+  }) async {
+
+    if (kDebugMode == true){
+
+      final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
+        ids: ['theLastWipeMap'],
+        docName: 'theLastWipeMap',
+        primaryKey: 'id',
+      );
+
+      double? _diff;
+      DateTime? _lastWipe;
+
+      if (Mapper.checkCanLoopList(_maps) == true){
+
+        _lastWipe = Timers.decipherTime(
+          time: _maps.first['time'],
+          fromJSON: true,
+        );
+
+        _diff = Timers.calculateTimeDifferenceInMinutes(
+          from: _lastWipe,
+          to: DateTime.now(),
+        ).toDouble();
+
+        _diff = Numeric.modulus(_diff);
+
+      }
+
+      await Dialogs.centerNotice(
+        verse: Verse.plain('checkShouldRefreshLDB : $shouldRefresh'),
+        color: shouldRefresh == true ? Colorz.green255 : Colorz.red255,
+        body: Verse.plain('$_diff Minutes\n\nLast Wipe : $_lastWipe'),
       );
 
     }
