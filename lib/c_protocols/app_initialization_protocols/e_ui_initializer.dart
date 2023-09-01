@@ -115,13 +115,11 @@ class UiInitializer {
   /// TESTED : WORKS PERFECT
   static Future<void> refreshLDB() async {
 
+    await _monitorRefreshLDBThing();
+
     final bool _shouldRefresh = await LDBOps.checkShouldRefreshLDB(
       refreshDurationInMinutes: Standards.ldbWipeIntervalInMinutes,
     );
-
-     await _monitorRefreshLDBThing(
-       shouldRefresh: _shouldRefresh,
-     );
 
     if (_shouldRefresh == true){
 
@@ -164,6 +162,7 @@ class UiInitializer {
         /// COUNTERS
         bzzCounters: true, // this stays for 10 minutes anyways
         flyersCounters: true, // this stays for 10 minutes anyways
+        usersCounters: true, // this stays for 10 minutes anyways
       );
 
     }
@@ -171,9 +170,7 @@ class UiInitializer {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> _monitorRefreshLDBThing({
-    required bool shouldRefresh,
-  }) async {
+  static Future<void> _monitorRefreshLDBThing() async {
 
     if (kDebugMode == true){
 
@@ -183,6 +180,7 @@ class UiInitializer {
         primaryKey: 'id',
       );
 
+      bool _shouldRefresh = false;
       double? _diff;
       DateTime? _lastWipe;
 
@@ -200,11 +198,16 @@ class UiInitializer {
 
         _diff = Numeric.modulus(_diff);
 
+        /// ONLY WHEN NOT EXCEEDED THE TIME SHOULD NOT REFRESH
+        if (_diff != null && _diff < Standards.ldbWipeIntervalInMinutes){
+          _shouldRefresh = false;
+        }
+
       }
 
       await Dialogs.centerNotice(
-        verse: Verse.plain('checkShouldRefreshLDB : $shouldRefresh'),
-        color: shouldRefresh == true ? Colorz.green255 : Colorz.red255,
+        verse: Verse.plain('checkShouldRefreshLDB : $_shouldRefresh'),
+        color: _shouldRefresh == true ? Colorz.green255 : Colorz.red255,
         body: Verse.plain('$_diff Minutes\n\nLast Wipe : $_lastWipe'),
       );
 

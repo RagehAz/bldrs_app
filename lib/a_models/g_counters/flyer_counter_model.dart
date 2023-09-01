@@ -14,7 +14,7 @@ class FlyerCounterModel {
     required this.views,
     required this.reviews,
   });
-  // -----------------------------------------------------------------------------
+  // --------------------
   final String? flyerID;
   final int? saves;
   final int? shares;

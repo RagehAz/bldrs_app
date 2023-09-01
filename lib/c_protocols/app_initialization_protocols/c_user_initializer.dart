@@ -72,7 +72,7 @@ class UserInitializer {
             newUser: _new,
           ),
 
-        RecorderProtocols.onStartSession(userID: _old?.id),
+        RecorderProtocols.onStartSession(),
 
       ]);
 
