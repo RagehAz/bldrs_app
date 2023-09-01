@@ -21,6 +21,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
@@ -130,7 +131,6 @@ class EmailAuthScreenView extends StatelessWidget {
                     translate: true,
                   ),
                 ),
-
                 appBarType: appBarType,
                 isFormField: true,
                 key: const ValueKey<String>('email'),
@@ -144,6 +144,8 @@ class EmailAuthScreenView extends StatelessWidget {
                   translate: false,
                 ),
                 validator: emailValidator,
+                autoCorrect: Keyboard.autoCorrectIsOn(),
+                enableSuggestions: Keyboard.suggestionsEnabled(),
                 columnChildren: <Widget>[
 
                   if (Mapper.checkCanLoopList(myAccounts) == true)

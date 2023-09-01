@@ -101,7 +101,7 @@ class PasswordBubbles extends StatelessWidget {
 
           },
           isFloatingField: isTheSuperKeyboardField,
-          columnChildren: [
+          columnChildren: <Widget>[
 
             if (showPasswordOnly == true)
             Container(

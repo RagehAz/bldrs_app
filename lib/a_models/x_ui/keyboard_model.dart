@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
@@ -6,6 +7,8 @@ class KeyboardModel {
   // -----------------------------------------------------------------------------
   const KeyboardModel({
     required this.titleVerse,
+    required this.autoCorrect,
+    required this.enableSuggestions,
     this.initialText,
     this.hintVerse,
     this.minLines = 1,
@@ -46,6 +49,9 @@ class KeyboardModel {
   final bool? isFloatingField;
   final GlobalKey<FormState>? globalKey;
   final String? Function(String? text)? validator;
+
+  final bool autoCorrect;
+  final bool enableSuggestions;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -72,6 +78,8 @@ class KeyboardModel {
     bool? isFloatingField,
     GlobalKey<FormState>? globalKey,
     String? Function(String? text)? validator,
+    bool? autoCorrect,
+    bool? enableSuggestions,
   }){
     return KeyboardModel(
       titleVerse: titleVerse ?? this.titleVerse,
@@ -93,6 +101,8 @@ class KeyboardModel {
       isFloatingField: isFloatingField ?? this.isFloatingField,
       globalKey: globalKey ?? this.globalKey,
       validator: validator ?? this.validator,
+      autoCorrect: autoCorrect ?? this.autoCorrect,
+      enableSuggestions: enableSuggestions ?? this.enableSuggestions,
     );
   }
   // -----------------------------------------------------------------------------
@@ -101,9 +111,9 @@ class KeyboardModel {
 
   // --------------------
   static KeyboardModel standardModel(){
-    return const KeyboardModel(
+    return KeyboardModel(
       titleVerse: null,
-      hintVerse: Verse(
+      hintVerse: const Verse(
         id: '...',
         translate: false,
       ),
@@ -121,6 +131,8 @@ class KeyboardModel {
       // onSavedForForm: null,
       // onEditingComplete: null,
       isFloatingField: false,
+      autoCorrect: Keyboard.autoCorrectIsOn(),
+      enableSuggestions: Keyboard.suggestionsEnabled(),
     );
   }
   // -----------------------------------------------------------------------------
@@ -159,7 +171,9 @@ class KeyboardModel {
         modelA.onEditingComplete == modelB.onEditingComplete &&
         modelA.isFloatingField == modelB.isFloatingField &&
         modelA.globalKey == modelB.globalKey &&
-        modelA.validator == modelB.validator
+        modelA.validator == modelB.validator &&
+        modelA.autoCorrect == modelB.autoCorrect &&
+        modelA.enableSuggestions == modelB.enableSuggestions
     ){
       _areIdentical = true;
     }
@@ -214,6 +228,8 @@ class KeyboardModel {
       onEditingComplete.hashCode^
       isFloatingField.hashCode^
       validator.hashCode^
+      autoCorrect.hashCode^
+      enableSuggestions.hashCode^
       globalKey.hashCode;
   // -----------------------------------------------------------------------------
 }

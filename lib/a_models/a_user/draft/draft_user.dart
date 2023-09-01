@@ -183,19 +183,19 @@ class DraftUser {
 
     if (userModel != null){
 
-      bool _shouldFetch = false;
-      switch (userModel.signInMethod){
-        case SignInMethod.anonymous: _shouldFetch = false; break;
-        case SignInMethod.password:  _shouldFetch = false; break;
-        case SignInMethod.google:    _shouldFetch = true; break;
-        case SignInMethod.facebook:  _shouldFetch = true; break;
-        case SignInMethod.apple:     _shouldFetch = true; break;
-        default: _shouldFetch = false;
-      }
-
-      if (_shouldFetch == true){
+      // bool _shouldFetch = false;
+      // switch (userModel.signInMethod){
+      //   case SignInMethod.anonymous: _shouldFetch = false; break;
+      //   case SignInMethod.password:  _shouldFetch = false; break;
+      //   case SignInMethod.google:    _shouldFetch = true; break;
+      //   case SignInMethod.facebook:  _shouldFetch = true; break;
+      //   case SignInMethod.apple:     _shouldFetch = true; break;
+      //   default: _shouldFetch = false;
+      // }
+      //
+      // if (_shouldFetch == true){
         _output = await PicProtocols.fetchPic(userModel.picPath);
-      }
+      // }
 
     }
 

@@ -170,9 +170,13 @@ Future<void> _onEditFlyerButtonTap({
     invoker: '_onEditFlyerButtonTap',
   );
 
+  WaitDialog.showUnawaitedWaitDialog();
+
   final DraftFlyer? _draft = await DraftFlyer.createDraft(
     oldFlyer: flyer,
   );
+
+  await WaitDialog.closeWaitDialog();
 
   final bool? _result = await Nav.goToNewScreen(
     context: getMainContext(),

@@ -23,7 +23,7 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
@@ -465,6 +465,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                         text: text,
                         mounted: mounted,
                       ),
+                      autoCorrect: Keyboard.autoCorrectIsOn(),
+                      enableSuggestions: Keyboard.suggestionsEnabled(),
                       // autoValidate: true,
                       validator: (String? text) => Formers.personNameValidator(
                           name: authorModel?.name,
@@ -500,6 +502,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       bulletPoints: const [
                         Verse(id: 'phid_author_job_title_for_this_bz', translate: true),
                       ],
+                      autoCorrect: Keyboard.autoCorrectIsOn(),
+                      enableSuggestions: Keyboard.suggestionsEnabled(),
                       validator: (String? text) => Formers.jobTitleValidator(
                           jobTitle: authorModel?.title,
                           canValidate: _canValidate

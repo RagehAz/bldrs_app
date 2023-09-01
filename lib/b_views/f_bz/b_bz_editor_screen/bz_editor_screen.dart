@@ -32,6 +32,7 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
@@ -588,7 +589,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       // keyboardTextInputType: TextInputType.text,
                       keyboardTextInputAction: TextInputAction.next,
                       textController: draftNotifier.value?.nameController,
-
+                      autoCorrect: Keyboard.autoCorrectIsOn(),
+                      enableSuggestions: Keyboard.suggestionsEnabled(),
                       // autoValidate: true,
                       validator: (String? text) => Formers.companyNameValidator(
                         companyName: text,
@@ -743,6 +745,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       bulletPoints: const <Verse>[
                         Verse(id: 'phid_optional_field', translate: true),
                       ],
+                      autoCorrect: Keyboard.autoCorrectIsOn(),
+                      enableSuggestions: Keyboard.suggestionsEnabled(),
                       // autoValidate: true,
                       validator: (String? text) => Formers.bzAboutValidator(
                         bzAbout: text,
