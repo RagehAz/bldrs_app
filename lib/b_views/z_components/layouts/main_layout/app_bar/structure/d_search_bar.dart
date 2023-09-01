@@ -175,6 +175,8 @@ class _SearchBarState extends State<SearchBar> {
             textColor: Colorz.yellow255,
             textWeight: VerseWeight.thin,
             textScaleFactor: 1.15,
+            autoCorrect: Keyboard.autoCorrectIsOn(),
+            enableSuggestions: Keyboard.suggestionsEnabled(),
             onSubmitted: (String? val) {
               if (widget.onSearchSubmit != null){
                 widget.onSearchSubmit?.call(val);

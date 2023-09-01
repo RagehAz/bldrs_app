@@ -19,6 +19,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/feedback_protocols/real/app_feedback_real_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -188,6 +189,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 maxLength: 1000,
                 counterIsOn: true,
                 isLoading: loading,
+                autoCorrect: Keyboard.autoCorrectIsOn(),
+                enableSuggestions: Keyboard.suggestionsEnabled(),
               );
 
             },

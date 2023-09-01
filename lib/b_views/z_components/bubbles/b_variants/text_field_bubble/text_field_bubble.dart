@@ -11,7 +11,7 @@ import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 class BldrsTextFieldBubble extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const BldrsTextFieldBubble({
     required this.bubbleHeaderVM,
     required this.appBarType,
@@ -49,10 +49,12 @@ class BldrsTextFieldBubble extends StatelessWidget {
     this.onFieldTap,
     this.autoValidate = true,
     this.hasBottomPadding = true,
+
+    this.autoCorrect = false,
+    this.enableSuggestions = false,
     super.key
   });
-  /// --------------------------------------------------------------------------
-
+  // --------------------------------------------------------------------------
   final BubbleHeaderVM bubbleHeaderVM;
   final double? bubbleWidth;
   final Verse? hintVerse;
@@ -89,7 +91,10 @@ class BldrsTextFieldBubble extends StatelessWidget {
   final AppBarType appBarType;
   final bool autoValidate;
   final bool hasBottomPadding;
-  /// --------------------------------------------------------------------------
+
+  final bool autoCorrect;
+  final bool enableSuggestions;
+  // --------------------------------------------------------------------------
   // static const double pasteButtonWidth = 50;
   // --------------------
   static double _leadingIconSizeFactor(dynamic leadingIcon){
@@ -104,6 +109,7 @@ class BldrsTextFieldBubble extends StatelessWidget {
     return _sizeFactor;
   }
   // --------------------
+  /*
   // static double getFieldWidth({
   //   required String leadingIcon,
   //   required bool showUnObscure,
@@ -133,8 +139,8 @@ class BldrsTextFieldBubble extends StatelessWidget {
   //
   //   return _fieldWidth;
   // }
-  // -----------------------------------------------------------------------------
-  /// --------------------------------------------------------------------------
+   */
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -212,6 +218,9 @@ class BldrsTextFieldBubble extends StatelessWidget {
       ),
       fieldTextDirection: _textField,
       hintTextDirection: hintTextDirection ?? _textField,
+
+      autoCorrect: autoCorrect,
+      enableSuggestions: enableSuggestions,
     );
 
   }

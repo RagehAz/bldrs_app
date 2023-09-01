@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
 
 class FlyerEditorPage1TypeDescription extends StatelessWidget {
@@ -116,6 +117,8 @@ class FlyerEditorPage1TypeDescription extends StatelessWidget {
             text: draft?.description?.text,
             canValidate: canValidate,
           ),
+          autoCorrect: Keyboard.autoCorrectIsOn(),
+          enableSuggestions: Keyboard.suggestionsEnabled(),
           pasteFunction: () async {
             final String? _text = await TextClipBoard.paste();
             if (_text != null){

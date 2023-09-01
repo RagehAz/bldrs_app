@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/password_bubble/pa
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
 
 class EmailAndPasswordBubbles extends StatelessWidget {
@@ -68,6 +69,8 @@ class EmailAndPasswordBubbles extends StatelessWidget {
               translate: false,
             ),
             validator: emailValidator,
+            autoCorrect: Keyboard.autoCorrectIsOn(),
+            enableSuggestions: Keyboard.suggestionsEnabled(),
           ),
 
           /// PASSWORD - CONFIRMATION

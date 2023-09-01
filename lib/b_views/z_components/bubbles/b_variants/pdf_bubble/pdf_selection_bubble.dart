@@ -17,6 +17,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
 
 class PDFSelectionBubble extends StatefulWidget {
@@ -229,6 +230,8 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 isFormField: true,
                 isFloatingField: true,
                 // autoValidate: true,
+                autoCorrect: Keyboard.autoCorrectIsOn(),
+                enableSuggestions: Keyboard.suggestionsEnabled(),
                 validator: (String? text) => Formers.pdfValidator(
                   canValidate: true,
                   pdfModel: pdfModel,

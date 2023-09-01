@@ -173,7 +173,7 @@ class Keyboard {
 
   /// COPY TO CLIPBOARD
 
-  // -----------------------------------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> copyToClipboardAndNotify({
     required String? copy,
@@ -196,6 +196,20 @@ class Keyboard {
     }
 
     blog('copied to clipboard : $copy');
+  }
+  // -----------------------------------------------------------------------------
+
+  /// COPY TO CLIPBOARD
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool autoCorrectIsOn(){
+    return false; // android is good
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool suggestionsEnabled(){
+    return true; // android is good
   }
   // -----------------------------------------------------------------------------
 }
