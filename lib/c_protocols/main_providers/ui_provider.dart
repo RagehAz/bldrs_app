@@ -25,6 +25,10 @@ BuildContext getMainContext() {
   return mainNavKey.currentContext!;
 }
 // -----------------------------------------------------------------------------
+
+bool sessionStarted = false;
+
+// -----------------------------------------------------------------------------
 /// => TAMAM
 // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 class UiProvider extends ChangeNotifier {

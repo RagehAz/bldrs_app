@@ -31,18 +31,25 @@ class BzSlideHeadline extends StatelessWidget {
 
           /// BUSINESS NAME
           BldrsText(
+            width: flyerBoxWidth,
             verse: firstLine,
-            size: 5,
+            size: 3,
             shadow: true,
             maxLines: 2,
+            scaleFactor: flyerBoxWidth * 0.003,
+            margin: EdgeInsets.symmetric(
+              horizontal: flyerBoxWidth * 0.03,
+            ),
           ),
 
           /// BUSINESS LOCALE
           BldrsText(
+            width: flyerBoxWidth,
             verse: secondLine,
             italic: true,
             weight: VerseWeight.regular,
             color: Colorz.white200,
+            scaleFactor: flyerBoxWidth * 0.0025,
           ),
 
         ],

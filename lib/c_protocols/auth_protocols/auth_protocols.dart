@@ -25,7 +25,6 @@ class AuthProtocols {
   const AuthProtocols();
 
   // -----------------------------------------------------------------------------
-  /// TASK : FIX_SOCIAL_AUTH_BUTTONS
   static const bool showSocialAuthButtons = true;
   // -----------------------------------------------------------------------------
 
