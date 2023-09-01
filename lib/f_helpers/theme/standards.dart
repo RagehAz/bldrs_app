@@ -130,7 +130,7 @@ class Standards {
 
 
 
-  static const int ldbWipeIntervalInHours = 1;
+  static const int ldbWipeIntervalInMinutes = 55;
 
 
 
