@@ -31,12 +31,11 @@ class AuthScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    /// TASK : FIX_SOCIAL_AUTH_BUTTONS
     final List<SignInMethod> methods = [
       if (DeviceChecker.deviceIsIOS() == true)
         SignInMethod.apple,
       SignInMethod.google,
-      SignInMethod.facebook
+      // SignInMethod.facebook
     ];
 
     return FloatingList(

@@ -25,13 +25,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-
 import 'bldrs_keys.dart';
 
-// ---------------------------------------------------------------------------
-
 Future<void> main() async {
-  /// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /*
     /// PLAN : In optimization : study this : https://pub.dev/packages/keframe
     // debugPrintMarkNeedsPaintStacks = false;

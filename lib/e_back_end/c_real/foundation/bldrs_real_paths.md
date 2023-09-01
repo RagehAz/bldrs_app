@@ -42,25 +42,36 @@
   |     |       | - {bzID}...
   |     |
   |     | - [flyers]
-  |             | - {bzID}
-  |             |       | - {flyerID} :
-  |             |       |       | - [counter] : <FlyerCounterModel>
-  |             |       |       | - [recordingSaves]
-  |             |       |       |       | - {recordID} : <RecordModel>
-  |             |       |       |       | - {recordID} ...
-  |             |       |       |   
-  |             |       |       | - [recordingShares]
-  |             |       |       |       | - {recordID} : <RecordModel>
-  |             |       |       |       | - {recordID} ...
-  |             |       |       |   
-  |             |       |       | - [recordingViews]
-  |             |       |               | - {recordID} : <RecordModel>
-  |             |       |               | - {recordID} ...
-  |             |       |
-  |             |       | - {flyerID} ...       
+  |     |       | - {bzID}
+  |     |       |       | - {flyerID} :
+  |     |       |       |       | - [counter] : <FlyerCounterModel>
+  |     |       |       |       | - [recordingSaves]
+  |     |       |       |       |       | - {recordID} : <RecordModel>
+  |     |       |       |       |       | - {recordID} ...
+  |     |       |       |       |   
+  |     |       |       |       | - [recordingShares]
+  |     |       |       |       |       | - {recordID} : <RecordModel>
+  |     |       |       |       |       | - {recordID} ...
+  |     |       |       |       |   
+  |     |       |       |       | - [recordingViews]
+  |     |       |       |               | - {recordID} : <RecordModel>
+  |     |       |       |               | - {recordID} ...
+  |     |       |       |
+  |     |       |       | - {flyerID} ...       
+  |     |       |       
+  |     |       | - {bzID} ...
+  |     |
+  |     | here we need to record user activity log
+  |     | sessionStartTime - views - saves - reviews - shares - follows - calls
+  |     | - [users]
+  |             | - {userID}
+  |             |       | - [counter] : <UserCounterModel>
+  |             |       | - [records]
+  |             |               | - {recordID} : <RecordModel>
+  |             |               | - {recordID} ...
   |             |       
-  |             | - {bzID} ...
-  |             
+  |             | - {userID} ...
+  |     
   | --------------------------|
   |
   | - [feedbacks]

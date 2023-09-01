@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/record_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
@@ -20,116 +21,87 @@ class RecorderProtocols {
 
   // -----------------------------------------------------------------------------
 
-  /// CALLS
+  /// SESSION
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onCallBz({
-    required String? bzID,
-    required ContactModel? contact,
+  static Future<void> onStartSession({
+    required String? userID,
   }) async {
 
-    if (Authing.getUserID() != null && bzID != null && contact != null) {
+    if (userID != null && sessionStarted == false ){
 
-      final RecordModel _record = RecordModel.createCallRecord(
-        userID: Authing.getUserID()!,
-        bzID: bzID,
-        contact: contact,
-      );
+      // final RecordModel _record = RecordModel.createSessionRecord(
+      //   userID: userID,
+      // );
 
-      await Future.wait(<Future>[
-        /// CREATE CALL RECORD
-        RecordersRealOps.createRecord(
-          record: _record,
-        ),
 
-        /// INCREMENT CALLS COUNTER
-        Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_counter(
-            bzID: bzID,
-          ),
-          incrementationMap: {
-            'calls': 1,
-          },
-          isIncrementing: true,
-        ),
-      ]);
 
     }
 
   }
   // -----------------------------------------------------------------------------
 
-  /// FOLLOWS
+  /// VIEWS
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> onFollowBz({
+  static Future<void> onViewSlide({
+    required String? flyerID,
     required String? bzID,
+    required int? index,
   }) async {
 
-    if (bzID != null && Authing.getUserID() != null) {
+    /// WE NEED A WAY TO CHECK IF THIS USER PREVIOUSLY VIEWED THE SLIDE TO CALL THIS OR NOT
 
-      final RecordModel _record = RecordModel.createFollowRecord(
-        userID: Authing.getUserID()!,
-        bzID: bzID,
-      );
+    if (
+        Authing.getUserID() != null &&
+        flyerID != null &&
+        flyerID != DraftFlyer.newDraftID &&
+        bzID != null &&
+        index != null
+    ){
 
-      await Future.wait(<Future>[
+        final RecordModel _record = RecordModel.createViewRecord(
+          userID: Authing.getUserID()!,
+          flyerID: flyerID,
+          bzID: bzID,
+          slideIndex: index,
+        );
 
-        /// CREATE FOLLOW RECORD
-        RecordersRealOps.createRecord(
-          record: _record,
-        ),
+        await Future.wait(<Future>[
 
-        /// INCREMENT FOLLOWS COUNTER
-        Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_counter(
-            bzID: bzID,
+          /// CREATE VIEW RECORD
+          RecordersRealOps.createRecord(
+            record: _record,
           ),
-          incrementationMap: {
-            'follows': 1,
-          },
-          isIncrementing: true,
-        ),
 
-      ]);
+          /// INCREMENT FLYER VIEWS COUNTER
+          Real.incrementPathFields(
+            path: RealPath.recorders_flyers_bzID_flyerID_counter(
+              bzID: bzID,
+              flyerID: flyerID,
+            ),
+            incrementationMap: {
+              'views': 1,
+            },
+            isIncrementing: true,
+          ),
+
+          /// INCREMENT BZ ALL VIEWS COUNTER
+          Real.incrementPathFields(
+            path: RealPath.recorders_bzz_bzID_counter(
+                bzID: bzID
+            ),
+            incrementationMap: {
+              'allViews': 1,
+            },
+            isIncrementing: true,
+          ),
+
+        ]);
 
     }
 
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onUnfollowBz({
-    required String? bzID,
-  }) async {
-
-    if (bzID != null && Authing.getUserID() != null) {
-
-      final RecordModel _record = RecordModel.createUnfollowRecord(
-        userID: Authing.getUserID()!,
-        bzID: bzID,
-      );
-
-      await Future.wait(<Future>[
-        /// CREATE UNFOLLOW RECORD
-        RecordersRealOps.createRecord(
-          record: _record,
-        ),
-
-        /// DECREMENT FOLLOWS COUNTER
-        Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_counter(
-            bzID: bzID,
-          ),
-          incrementationMap: {
-            'follows': 1,
-          },
-          isIncrementing: false,
-        ),
-      ]);
-
-    }
   }
   // -----------------------------------------------------------------------------
 
@@ -252,6 +224,96 @@ class RecorderProtocols {
   }
   // -----------------------------------------------------------------------------
 
+  /// REVIEWS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> onComposeReview({
+    required String? flyerID,
+    required String? bzID,
+  }) async {
+
+    if (
+        Authing.userHasID() == true &&
+        flyerID != null &&
+        flyerID != DraftFlyer.newDraftID &&
+        bzID != null
+    ){
+
+      await Future.wait(<Future>[
+
+          /// INCREMENT FLYER REVIEWS COUNTER
+          Real.incrementPathFields(
+            path: RealPath.recorders_flyers_bzID_flyerID_counter(
+              bzID: bzID,
+              flyerID: flyerID,
+            ),
+            incrementationMap: {
+              'reviews': 1,
+            },
+            isIncrementing: true,
+          ),
+
+          /// INCREMENT BZ ALL REVIEWS COUNTER
+          Real.incrementPathFields(
+            path: RealPath.recorders_bzz_bzID_counter(
+                bzID: bzID
+            ),
+            incrementationMap: {
+              'allReviews': 1,
+            },
+            isIncrementing: true,
+          ),
+
+      ]);
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> onWipeReview({
+    required String? flyerID,
+    required String? bzID,
+  }) async {
+
+    if (
+        Authing.userHasID() == true &&
+        flyerID != null &&
+        flyerID != DraftFlyer.newDraftID &&
+        bzID != null
+    ){
+
+      await Future.wait(<Future>[
+
+        /// DECREMENT FLYER REVIEWS COUNTER
+        Real.incrementPathFields(
+          path: RealPath.recorders_flyers_bzID_flyerID_counter(
+            bzID: bzID,
+            flyerID: flyerID,
+          ),
+          incrementationMap: {
+            'reviews': 1,
+          },
+          isIncrementing: false,
+        ),
+
+        /// DECREMENT BZ ALL REVIEWS COUNTER
+        Real.incrementPathFields(
+          path: RealPath.recorders_bzz_bzID_counter(bzID: bzID),
+          incrementationMap: {
+            'allReviews': 1,
+          },
+          isIncrementing: false,
+        ),
+
+      ]);
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
   /// SHARES
 
   // --------------------
@@ -311,64 +373,113 @@ class RecorderProtocols {
   }
   // -----------------------------------------------------------------------------
 
-  /// VIEWS
+  /// FOLLOWS
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> onViewSlide({
-    required String? flyerID,
+  static Future<void> onFollowBz({
     required String? bzID,
-    required int? index,
   }) async {
 
-    /// WE NEED A WAY TO CHECK IF THIS USER PREVIOUSLY VIEWED THE SLIDE TO CALL THIS OR NOT
+    if (bzID != null && Authing.getUserID() != null) {
 
-    if (
-        Authing.getUserID() != null &&
-        flyerID != null &&
-        flyerID != DraftFlyer.newDraftID &&
-        bzID != null &&
-        index != null
-    ){
+      final RecordModel _record = RecordModel.createFollowRecord(
+        userID: Authing.getUserID()!,
+        bzID: bzID,
+      );
 
-        final RecordModel _record = RecordModel.createViewRecord(
-          userID: Authing.getUserID()!,
-          flyerID: flyerID,
-          bzID: bzID,
-          slideIndex: index,
-        );
+      await Future.wait(<Future>[
 
-        await Future.wait(<Future>[
+        /// CREATE FOLLOW RECORD
+        RecordersRealOps.createRecord(
+          record: _record,
+        ),
 
-          /// CREATE VIEW RECORD
-          RecordersRealOps.createRecord(
-            record: _record,
+        /// INCREMENT FOLLOWS COUNTER
+        Real.incrementPathFields(
+          path: RealPath.recorders_bzz_bzID_counter(
+            bzID: bzID,
           ),
+          incrementationMap: {
+            'follows': 1,
+          },
+          isIncrementing: true,
+        ),
 
-          /// INCREMENT FLYER VIEWS COUNTER
-          Real.incrementPathFields(
-            path: RealPath.recorders_flyers_bzID_flyerID_counter(
-              bzID: bzID,
-              flyerID: flyerID,
-            ),
-            incrementationMap: {
-              'views': 1,
-            },
-            isIncrementing: true,
+      ]);
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> onUnfollowBz({
+    required String? bzID,
+  }) async {
+
+    if (bzID != null && Authing.getUserID() != null) {
+
+      final RecordModel _record = RecordModel.createUnfollowRecord(
+        userID: Authing.getUserID()!,
+        bzID: bzID,
+      );
+
+      await Future.wait(<Future>[
+        /// CREATE UNFOLLOW RECORD
+        RecordersRealOps.createRecord(
+          record: _record,
+        ),
+
+        /// DECREMENT FOLLOWS COUNTER
+        Real.incrementPathFields(
+          path: RealPath.recorders_bzz_bzID_counter(
+            bzID: bzID,
           ),
+          incrementationMap: {
+            'follows': 1,
+          },
+          isIncrementing: false,
+        ),
+      ]);
 
-          /// INCREMENT BZ ALL VIEWS COUNTER
-          Real.incrementPathFields(
-            path: RealPath.recorders_bzz_bzID_counter(
-                bzID: bzID
-            ),
-            incrementationMap: {
-              'allViews': 1,
-            },
-            isIncrementing: true,
+    }
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CALLS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> onCallBz({
+    required String? bzID,
+    required ContactModel? contact,
+  }) async {
+
+    if (Authing.getUserID() != null && bzID != null && contact != null) {
+
+      final RecordModel _record = RecordModel.createCallRecord(
+        userID: Authing.getUserID()!,
+        bzID: bzID,
+        contact: contact,
+      );
+
+      await Future.wait(<Future>[
+        /// CREATE CALL RECORD
+        RecordersRealOps.createRecord(
+          record: _record,
+        ),
+
+        /// INCREMENT CALLS COUNTER
+        Real.incrementPathFields(
+          path: RealPath.recorders_bzz_bzID_counter(
+            bzID: bzID,
           ),
-
-        ]);
+          incrementationMap: {
+            'calls': 1,
+          },
+          isIncrementing: true,
+        ),
+      ]);
 
     }
 
@@ -475,96 +586,6 @@ class RecorderProtocols {
             'allViews': _flyerCounterModel?.views ?? 0,
             'allShares': _flyerCounterModel?.shares ?? 0,
             'allSaves': _flyerCounterModel?.saves ?? 0,
-          },
-          isIncrementing: false,
-        ),
-
-      ]);
-
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// REVIEWS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onComposeReview({
-    required String? flyerID,
-    required String? bzID,
-  }) async {
-
-    if (
-        Authing.userHasID() == true &&
-        flyerID != null &&
-        flyerID != DraftFlyer.newDraftID &&
-        bzID != null
-    ){
-
-      await Future.wait(<Future>[
-
-          /// INCREMENT FLYER REVIEWS COUNTER
-          Real.incrementPathFields(
-            path: RealPath.recorders_flyers_bzID_flyerID_counter(
-              bzID: bzID,
-              flyerID: flyerID,
-            ),
-            incrementationMap: {
-              'reviews': 1,
-            },
-            isIncrementing: true,
-          ),
-
-          /// INCREMENT BZ ALL REVIEWS COUNTER
-          Real.incrementPathFields(
-            path: RealPath.recorders_bzz_bzID_counter(
-                bzID: bzID
-            ),
-            incrementationMap: {
-              'allReviews': 1,
-            },
-            isIncrementing: true,
-          ),
-
-      ]);
-
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onWipeReview({
-    required String? flyerID,
-    required String? bzID,
-  }) async {
-
-    if (
-        Authing.userHasID() == true &&
-        flyerID != null &&
-        flyerID != DraftFlyer.newDraftID &&
-        bzID != null
-    ){
-
-      await Future.wait(<Future>[
-
-        /// DECREMENT FLYER REVIEWS COUNTER
-        Real.incrementPathFields(
-          path: RealPath.recorders_flyers_bzID_flyerID_counter(
-            bzID: bzID,
-            flyerID: flyerID,
-          ),
-          incrementationMap: {
-            'reviews': 1,
-          },
-          isIncrementing: false,
-        ),
-
-        /// DECREMENT BZ ALL REVIEWS COUNTER
-        Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_counter(bzID: bzID),
-          incrementationMap: {
-            'allReviews': 1,
           },
           isIncrementing: false,
         ),
