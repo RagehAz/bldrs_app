@@ -67,8 +67,9 @@
   |             | - {userID}
   |             |       | - [counter] : <UserCounterModel>
   |             |       | - [records]
-  |             |               | - {recordID} : <RecordModel>
-  |             |               | - {recordID} ...
+  |             |               | - {d_yyyy_mm_dd} : 
+  |             |                       | - {recordID} : <RecordModel>
+  |             |                       | - {recordID} ...
   |             |       
   |             | - {userID} ...
   |     

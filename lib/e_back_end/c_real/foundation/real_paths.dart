@@ -1,5 +1,10 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
+
 /// => TAMAM
 class RealColl {
   // -----------------------------------------------------------------------------
@@ -63,6 +68,10 @@ class RealDoc {
   // -----------------------------------------------------------------------------
   /// RECORDERS
   // --------------------
+  static const String recorders_users = 'users';
+  static const String recorders_users_userID_counter = 'counter';
+  static const String recorders_users_userID_records = 'records';
+  // --------------------
   static const String recorders_bzz = 'bzz';
   static const String recorders_bzz_bzID_counter = 'counter';
   static const String recorders_bzz_bzID_recordingCalls = 'recordingCalls';
@@ -114,6 +123,125 @@ class RealPath {
 
   // --------------------
   /// NO PATHS
+  // -----------------------------------------------------------------------------
+
+  /// USERS recorders
+
+  // --------------------
+  static String recorders_users_userID_counter({
+    required String userID,
+  }) => '${RealColl.recorders}/${RealDoc.recorders_users}/$userID/${RealDoc.recorders_users_userID_counter}';
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? recorders_users_userID_records_date({
+    required String? userID,
+  }){
+
+    if (TextCheck.isEmpty(userID) == true){
+      return null;
+    }
+    else {
+      final String _day = cipherDayNodeName(
+          dateTime: DateTime.now(),
+      )!;
+
+      final String _output =  '${RealColl.recorders}/'
+                              '${RealDoc.recorders_users}/'
+                              '$userID/'
+                              '${RealDoc.recorders_users_userID_records}/'
+                              '$_day';
+      return _output;
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? cipherDayNodeName({
+    required DateTime? dateTime,
+  }){
+
+    if (dateTime == null){
+      return null;
+    }
+    else {
+
+      final String? _year = Numeric.formatNumberWithinDigits(
+        num: dateTime.year,
+        digits: 4,
+      );
+      final String? _month = Numeric.formatNumberWithinDigits(
+        num: dateTime.month,
+        digits: 2,
+      );
+      final String? _day = Numeric.formatNumberWithinDigits(
+        num: dateTime.day,
+        digits: 2,
+      );
+
+      if (_year == null || _month == null || _day == null){
+        return null;
+      }
+      else {
+        return 'd_${_year}_${_month}_$_day';
+      }
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static DateTime? decipherDayNodeName({
+    required String? nodeName,
+  }){
+
+    /// d_yyyy_mm_dd
+
+    if (TextCheck.isEmpty(nodeName) == true){
+      return null;
+    }
+    else {
+
+      final String yyyy_mm_dd = TextMod.removeTextBeforeFirstSpecialCharacter(
+          text: nodeName,
+          specialCharacter: '_',
+      )!;
+      final String yyyy_mm = TextMod.removeTextAfterLastSpecialCharacter(
+          text: yyyy_mm_dd,
+          specialCharacter: '_',
+      )!;
+
+      final String yyyy = TextMod.removeTextAfterLastSpecialCharacter(
+          text: yyyy_mm,
+          specialCharacter: '_',
+      )!;
+      final String mm = TextMod.removeTextBeforeFirstSpecialCharacter(
+          text: yyyy_mm,
+          specialCharacter: '_',
+      )!;
+      final String dd = TextMod.removeTextBeforeLastSpecialCharacter(
+          text: yyyy_mm_dd,
+          specialCharacter: '_',
+      )!;
+
+      final int? year = Numeric.transformStringToInt(yyyy);
+      final int? month = Numeric.transformStringToInt(mm);
+      final int? day = Numeric.transformStringToInt(dd);
+
+      if (year == null || month == null || day == null){
+        return null;
+      }
+
+      else {
+        return Timers.createDate(
+            year: year,
+            month: month,
+            day: day
+        );
+      }
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// BZZ recorders

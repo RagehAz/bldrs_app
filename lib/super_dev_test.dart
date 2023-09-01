@@ -9,6 +9,12 @@ Future<void> superDevTestGoX() async {
 
 /*
 
+for the following flutter method, write group of at-least 7 test methods in one test group to assure its perfectly
+working, and call this static function from class called ( ________________ )
+
+
+------------------
+
 CHAT GBT TRANSLATION PROMPT
 
 for the following list of lines by english and arabic
