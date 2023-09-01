@@ -72,8 +72,11 @@ class LDBDoc {
 
       case LDBDoc.gta: return 'id';
       case LDBDoc.onboarding: return 'id';
+
+      /// COUNTERS
       case LDBDoc.bzzCounters: return 'bzID';
       case LDBDoc.flyersCounters: return 'flyerID';
+      case LDBDoc.usersCounters: return 'userID';
       // -------------
       default: return 'id';
     }
@@ -126,9 +129,10 @@ class LDBDoc {
   /// GTA
   static const String gta = 'gta';
   static const String onboarding = 'onboarding';
-
+  /// COUNTERS
   static const String bzzCounters = 'bzzCounters';
   static const String flyersCounters = 'flyersCounters';
+  static const String usersCounters = 'usersCounters';
   // -----------------------------------------------------------------------------
 
   /// ALL DOCS LIST
@@ -181,6 +185,7 @@ class LDBDoc {
     'headline: Counters',
     bzzCounters,
     flyersCounters,
+    usersCounters,
 
   ];
   // -----------------------------------------------------------------------------
@@ -228,6 +233,7 @@ class LDBDoc {
     /// COUNTERS
     required bool bzzCounters,
     required bool flyersCounters,
+    required bool usersCounters,
   }) async {
 
     final List<String> _docs = <String>[];
@@ -270,6 +276,7 @@ class LDBDoc {
     /// COUNTERS
     if (bzzCounters == true){_docs.add(LDBDoc.bzzCounters);}
     if (flyersCounters == true){_docs.add(LDBDoc.flyersCounters);}
+    if (usersCounters == true){_docs.add(LDBDoc.usersCounters);}
 
     await Future.wait(<Future>[
       ...List.generate(_docs.length, (index){
@@ -322,6 +329,7 @@ class LDBDoc {
 
       bzzCounters: true, // yes this i super temp to stay anyways
       flyersCounters: true, // yes this i super temp to stay anyways
+      usersCounters: true,  // yes this i super temp to stay anyways
     );
 
   }
