@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 
@@ -222,6 +222,8 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                 },
                 onTextChanged: _onTextChanged,
                 pasteFunction: () => _onPaste(),
+                enableSuggestions: _keyboardModel.enableSuggestions,
+                autoCorrect: _keyboardModel.autoCorrect,
               ),
 
               /// CONFIRM BUTTON

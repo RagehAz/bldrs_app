@@ -69,6 +69,9 @@ class BldrsTextField extends StatelessWidget {
     this.lineThrough = false,
     this.lineThroughColor = Colorz.red125,
 
+    this.autoCorrect = false,
+    this.enableSuggestions = false,
+
     super.key
   });
   // --------------------------------------------------------------------------
@@ -127,6 +130,9 @@ class BldrsTextField extends StatelessWidget {
   final bool forceMaxLength;
   final bool lineThrough;
   final Color? lineThroughColor;
+
+  final bool autoCorrect;
+  final bool enableSuggestions;
   // --------------------------------------------------------------------------
    /// TESTED : WORKS PERFECT
   static EdgeInsets getFieldScrollPadding({
@@ -272,6 +278,9 @@ class BldrsTextField extends StatelessWidget {
       forceMaxLength: forceMaxLength,
       lineThrough: lineThrough,
       lineThroughColor: lineThroughColor,
+
+      autoCorrect: autoCorrect,
+      enableSuggestions: enableSuggestions,
     );
   }
   // --------------------------------------------------------------------------
