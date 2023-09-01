@@ -4,6 +4,7 @@ import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
+import 'package:bldrs/a_models/g_counters/user_counter_model.dart';
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -24,18 +25,41 @@ class RecorderProtocols {
   /// SESSION
 
   // --------------------
-  static Future<void> onStartSession({
-    required String? userID,
-  }) async {
+  /// TESTED : WORKS PERFECT
+  static Future<void> onStartSession() async {
 
-    if (userID != null && sessionStarted == false ){
+    final String? _userID = Authing.getUserID();
 
-      // final RecordModel _record = RecordModel.createSessionRecord(
-      //   userID: userID,
-      // );
+    if (_userID != null && sessionStarted == false){
 
+      final RecordModel _record = RecordModel.createSessionRecord(
+        userID: _userID,
+      );
 
+      await Future.wait(<Future>[
 
+        /// CREATE SESSION RECORD
+        RecordersRealOps.createRecord(
+          record: _record,
+          path: RealPath.recorders_users_userID_records_date(
+            userID: _userID,
+          ),
+        ),
+
+        /// INCREMENT USER SESSIONS COUNTER
+        Real.incrementPathFields(
+          path: RealPath.recorders_users_userID_counter(
+            userID: _userID,
+          ),
+          incrementationMap: {
+            'sessions': 1,
+          },
+          isIncrementing: true,
+        ),
+
+      ]);
+
+      sessionStarted = true;
     }
 
   }
@@ -70,9 +94,32 @@ class RecorderProtocols {
 
         await Future.wait(<Future>[
 
-          /// CREATE VIEW RECORD
+          /// CREATE FLYER VIEW RECORD
           RecordersRealOps.createRecord(
-            record: _record,
+              record: _record,
+              path: RealPath.recorders_flyers_bzID_flyerID_recordingViews(
+                bzID: bzID,
+                flyerID: flyerID,
+              )
+          ),
+
+          /// CREATE USER VIEW RECORD
+          RecordersRealOps.createRecord(
+              record: _record,
+              path: RealPath.recorders_users_userID_records_date(
+                userID: Authing.getUserID()!,
+              )
+          ),
+
+          /// INCREMENT USER VIEWS COUNTER
+          Real.incrementPathFields(
+            path: RealPath.recorders_users_userID_counter(
+              userID: Authing.getUserID()!,
+            ),
+            incrementationMap: {
+              'views': 1,
+            },
+            isIncrementing: true,
           ),
 
           /// INCREMENT FLYER VIEWS COUNTER
@@ -132,9 +179,32 @@ class RecorderProtocols {
 
       await Future.wait(<Future>[
 
-        /// CREATE SAVE RECORD
+        /// CREATE FLYER SAVE RECORD
         RecordersRealOps.createRecord(
           record: _record,
+          path: RealPath.recorders_flyers_bzID_flyerID_recordingSaves(
+            bzID: bzID,
+            flyerID: flyerID,
+          ),
+        ),
+
+        /// CREATE USER SAVE RECORD
+        RecordersRealOps.createRecord(
+          record: _record,
+          path: RealPath.recorders_users_userID_records_date(
+            userID: Authing.getUserID()!,
+          ),
+        ),
+
+        /// INCREMENT USER SAVES COUNTER
+        Real.incrementPathFields(
+          path: RealPath.recorders_users_userID_counter(
+            userID: Authing.getUserID()!,
+          ),
+          incrementationMap: {
+            'saves': 1,
+          },
+          isIncrementing: true,
         ),
 
         /// INCREMENT FLYER SAVES COUNTER
@@ -189,10 +259,25 @@ class RecorderProtocols {
 
       await Future.wait(<Future>[
 
-        /// CREATE UN-SAVE RECORD
+        /// CREATE FLYER UN-SAVE RECORD
         RecordersRealOps.createRecord(
           record: _record,
+          path: RealPath.recorders_flyers_bzID_flyerID_recordingSaves(
+            bzID: bzID,
+            flyerID: flyerID,
+          ),
         ),
+
+        /// CREATE USER UN-SAVE RECORD
+        RecordersRealOps.createRecord(
+          record: _record,
+          path: RealPath.recorders_users_userID_records_date(
+            userID: Authing.getUserID()!,
+          ),
+        ),
+
+        /// DECREMENT USER SAVES COUNTER
+        // => will not decrement,, i want to keep track of all saves
 
         /// DECREMENT FLYER SAVES COUNTER
         Real.incrementPathFields(
@@ -242,28 +327,50 @@ class RecorderProtocols {
 
       await Future.wait(<Future>[
 
-          /// INCREMENT FLYER REVIEWS COUNTER
-          Real.incrementPathFields(
-            path: RealPath.recorders_flyers_bzID_flyerID_counter(
-              bzID: bzID,
-              flyerID: flyerID,
-            ),
-            incrementationMap: {
-              'reviews': 1,
-            },
-            isIncrementing: true,
+        /// CREATE USER REVIEW RECORD
+        RecordersRealOps.createRecord(
+          record: RecordModel.createReviewRecord(
+            userID: Authing.getUserID()!,
+            flyerID: flyerID,
           ),
+          path: RealPath.recorders_users_userID_records_date(
+            userID: Authing.getUserID()!,
+          ),
+        ),
 
-          /// INCREMENT BZ ALL REVIEWS COUNTER
-          Real.incrementPathFields(
-            path: RealPath.recorders_bzz_bzID_counter(
-                bzID: bzID
-            ),
-            incrementationMap: {
-              'allReviews': 1,
-            },
-            isIncrementing: true,
+        /// INCREMENT USER REVIEWS COUNTER
+        Real.incrementPathFields(
+          path: RealPath.recorders_users_userID_counter(
+            userID: Authing.getUserID()!,
           ),
+          incrementationMap: {
+            'reviews': 1,
+          },
+          isIncrementing: true,
+        ),
+
+        /// INCREMENT FLYER REVIEWS COUNTER
+        Real.incrementPathFields(
+          path: RealPath.recorders_flyers_bzID_flyerID_counter(
+            bzID: bzID,
+            flyerID: flyerID,
+          ),
+          incrementationMap: {
+            'reviews': 1,
+          },
+          isIncrementing: true,
+        ),
+
+        /// INCREMENT BZ ALL REVIEWS COUNTER
+        Real.incrementPathFields(
+          path: RealPath.recorders_bzz_bzID_counter(
+              bzID: bzID
+          ),
+          incrementationMap: {
+            'allReviews': 1,
+          },
+          isIncrementing: true,
+        ),
 
       ]);
 
@@ -285,6 +392,12 @@ class RecorderProtocols {
     ){
 
       await Future.wait(<Future>[
+
+        /// CREATE USER REVIEW RECORD
+        // => will not create,, no need
+
+        /// DECREMENT USER REVIEWS COUNTER
+        // => will not decrement,, i want to keep track of all reviews
 
         /// DECREMENT FLYER REVIEWS COUNTER
         Real.incrementPathFields(
@@ -338,9 +451,32 @@ class RecorderProtocols {
 
       await Future.wait(<Future>[
 
-        /// CREATE SHARE RECORD
+        /// CREATE FLYER SHARE RECORD
         RecordersRealOps.createRecord(
           record: _record,
+          path: RealPath.recorders_flyers_bzID_flyerID_recordingShares(
+            bzID: bzID,
+            flyerID: flyerID,
+          ),
+        ),
+
+        /// CREATE USER SHARE RECORD
+        RecordersRealOps.createRecord(
+          record: _record,
+          path: RealPath.recorders_users_userID_records_date(
+            userID: Authing.getUserID()!,
+          ),
+        ),
+
+        /// INCREMENT USER SHARES COUNTER
+        Real.incrementPathFields(
+          path: RealPath.recorders_users_userID_counter(
+            userID: Authing.getUserID()!,
+          ),
+          incrementationMap: {
+            'shares': 1,
+          },
+          isIncrementing: true,
         ),
 
         /// INCREMENT FLYER SHARES COUNTER
@@ -390,9 +526,31 @@ class RecorderProtocols {
 
       await Future.wait(<Future>[
 
-        /// CREATE FOLLOW RECORD
+        /// CREATE BZ FOLLOW RECORD
         RecordersRealOps.createRecord(
           record: _record,
+          path: RealPath.recorders_bzz_bzID_recordingFollows(
+            bzID: bzID,
+          ),
+        ),
+
+        /// CREATE USER FOLLOW RECORD
+        RecordersRealOps.createRecord(
+          record: _record,
+          path: RealPath.recorders_users_userID_records_date(
+            userID: Authing.getUserID()!,
+          ),
+        ),
+
+        /// INCREMENT USER FOLLOWS COUNTER
+        Real.incrementPathFields(
+          path: RealPath.recorders_users_userID_counter(
+            userID: Authing.getUserID()!,
+          ),
+          incrementationMap: {
+            'follows': 1,
+          },
+          isIncrementing: true,
         ),
 
         /// INCREMENT FOLLOWS COUNTER
@@ -425,10 +583,25 @@ class RecorderProtocols {
       );
 
       await Future.wait(<Future>[
-        /// CREATE UNFOLLOW RECORD
+
+        /// CREATE BZ UNFOLLOW RECORD
         RecordersRealOps.createRecord(
           record: _record,
+          path: RealPath.recorders_bzz_bzID_recordingFollows(
+            bzID: bzID,
+          ),
         ),
+
+        /// CREATE USER UNFOLLOW RECORD
+        RecordersRealOps.createRecord(
+          record: _record,
+          path: RealPath.recorders_users_userID_records_date(
+            userID: Authing.getUserID()!,
+          ),
+        ),
+
+        /// DECREMENT USER FOLLOWS COUNTER
+        // => will not decrement,, i want to keep track of all follows
 
         /// DECREMENT FOLLOWS COUNTER
         Real.incrementPathFields(
@@ -440,6 +613,7 @@ class RecorderProtocols {
           },
           isIncrementing: false,
         ),
+
       ]);
 
     }
@@ -464,9 +638,32 @@ class RecorderProtocols {
       );
 
       await Future.wait(<Future>[
-        /// CREATE CALL RECORD
+
+        /// CREATE BZ CALL RECORD
         RecordersRealOps.createRecord(
           record: _record,
+          path: RealPath.recorders_bzz_bzID_recordingCalls(
+            bzID: bzID,
+          ),
+        ),
+
+        /// CREATE USER CALL RECORD
+        RecordersRealOps.createRecord(
+          record: _record,
+          path: RealPath.recorders_users_userID_records_date(
+            userID: Authing.getUserID()!,
+          ),
+        ),
+
+        /// INCREMENT USER CALLS COUNTER
+        Real.incrementPathFields(
+          path: RealPath.recorders_users_userID_counter(
+            userID: Authing.getUserID()!,
+          ),
+          incrementationMap: {
+            'calls': 1,
+          },
+          isIncrementing: true,
         ),
 
         /// INCREMENT CALLS COUNTER
@@ -479,6 +676,7 @@ class RecorderProtocols {
           },
           isIncrementing: true,
         ),
+
       ]);
 
     }
@@ -630,6 +828,80 @@ class RecorderProtocols {
 
     }
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// READ USER COUNTERS
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<UserCounterModel?> fetchUserCounter({
+    required String? userID,
+    required bool forceRefetch,
+  }) async {
+    UserCounterModel? _output;
+
+    if (userID != null){
+      Map<String, dynamic>? _map;
+
+      if (forceRefetch == false){
+
+        _map = await LDBOps.readMap(
+          docName: LDBDoc.usersCounters,
+          primaryKey: LDBDoc.getPrimaryKey(LDBDoc.usersCounters),
+          id: userID,
+        );
+
+        /// IF FOUND IN LDB
+        if (_map != null){
+          final DateTime? _time = Timers.decipherTime(time: _map['timeStamp'], fromJSON: true);
+          final bool _isOld = Timers.checkTimeDifferenceIsBiggerThan(
+            time1: _time,
+            time2: DateTime.now(),
+            maxDifferenceInMinutes: Standards.countersRefreshTimeDurationInMinutes,
+          );
+
+          if (_isOld == true){
+            _map = null;
+          }
+
+        }
+
+      }
+
+      /// IF SHOULD READ FROM REAL
+      if (_map == null){
+
+        /// READ FROM REAL
+        _map = await Real.readPathMap(
+          path: RealPath.recorders_users_userID_counter(userID: userID),
+        );
+
+        if (_map != null){
+
+          final Map<String, dynamic> _insertThis = Mapper.insertMapInMap(
+            baseMap: _map,
+            insert: {
+              'timeStamp': Timers.cipherTime(time: DateTime.now(), toJSON: true),
+              'userID': userID,
+            },
+          );
+
+          await LDBOps.insertMap(
+            docName: LDBDoc.usersCounters,
+            primaryKey: LDBDoc.getPrimaryKey(LDBDoc.usersCounters),
+            input: _insertThis,
+            // allowDuplicateIDs: false,
+          );
+
+        }
+
+      }
+
+      _output = UserCounterModel.decipherUserCounter(_map);
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

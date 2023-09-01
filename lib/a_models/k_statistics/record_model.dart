@@ -11,6 +11,8 @@ import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 
 enum RecordType {
+  session,
+  review,
   follow,
   unfollow,
   call,
@@ -62,17 +64,23 @@ class RecordModel {
   Map<String, dynamic> toMap({
     required bool toJSON,
   }) {
-    return <String, dynamic>{
+
+    final Map<String, dynamic> _map = <String, dynamic>{
       'recordType' : cipherRecordType(recordType),
       'userID' : userID,
+      // 'recordID' : recordID,
       'timeStamp' : Timers.cipherTime(time: timeStamp, toJSON: toJSON),
       'modelType' : cipherModelType(modelType),
       'recordDetailsType' : _cipherRecordDetailsType(recordDetailsType),
       'recordDetails' : recordDetails,
       // 'serverTimeStamp' : serverTimeStamp,
-      // 'recordID' : recordID,
       // 'docSnapshot' : docSnapshot,
     };
+
+    return  Mapper.cleanNullPairs(
+        map: _map,
+    )!;
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -167,6 +175,8 @@ class RecordModel {
   /// TESTED : WORKS PERFECT
   static String? cipherRecordType(RecordType? recordType) {
     switch (recordType) {
+      case RecordType.session:        return 'session';
+      case RecordType.review:         return 'review';
       case RecordType.follow:         return 'follow';
       case RecordType.unfollow:       return 'unfollow';
       case RecordType.call:           return 'call';
@@ -181,6 +191,8 @@ class RecordModel {
   /// TESTED : WORKS PERFECT
   static RecordType? decipherRecordType(String? type) {
     switch (type) {
+      case 'session':         return RecordType.session;
+      case 'review':          return RecordType.review;
       case 'follow':          return RecordType.follow;
       case 'unfollow':        return RecordType.unfollow;
       case 'call':            return RecordType.call;
@@ -220,6 +232,8 @@ class RecordModel {
   static ModelType? getModelTypeByRecordType(RecordType? recordType){
 
     switch(recordType){
+      case RecordType.session         : return null;
+      case RecordType.review          : return ModelType.flyer;
       case RecordType.follow          : return ModelType.bz;
       case RecordType.unfollow        : return ModelType.bz;
       case RecordType.call            : return ModelType.bz;
@@ -381,6 +395,46 @@ class RecordModel {
     }
 
     return _includes;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// USER RECORD CREATORS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static RecordModel createSessionRecord({
+    required String userID,
+  }){
+
+    return RecordModel(
+        recordType: RecordType.session,
+        userID: userID,
+        timeStamp: DateTime.now(),
+        modelType: null,
+        bzID: null,
+        flyerID: null,
+        recordDetailsType: null,
+        recordDetails: null,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static RecordModel createReviewRecord({
+    required String userID,
+    required String flyerID,
+  }){
+
+      return RecordModel(
+          recordType: RecordType.review,
+          userID: userID,
+          timeStamp: DateTime.now(),
+          modelType: getModelTypeByRecordType(RecordType.review),
+          bzID: null,
+          flyerID: flyerID,
+          recordDetailsType: RecordDetailsType.text,
+          recordDetails: 'flyerID:$flyerID',
+      );
   }
   // -----------------------------------------------------------------------------
 
