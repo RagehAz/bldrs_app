@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
 
 class EditorSlideHeadlineTextField extends StatelessWidget {
@@ -62,7 +63,6 @@ class EditorSlideHeadlineTextField extends StatelessWidget {
                       hintVerse: const Verse(
                         id: 'phid_t_i_t_l_e',
                         translate: true,
-                        pseudo: 'T i t l e',
                       ),
                       width: flyerBoxWidth,
                       // height: flyerBoxWidth * 0.15,
@@ -80,6 +80,9 @@ class EditorSlideHeadlineTextField extends StatelessWidget {
                       ),
                       textWeight: VerseWeight.bold,
                       initialValue: draftSlide.value?.headline,
+                      autoCorrect: Keyboard.autoCorrectIsOn(),
+                      enableSuggestions: Keyboard.suggestionsEnabled(),
+
                       // autofocus: false,
                       // fieldIsFormField: true,
                       // onSubmitted: null,

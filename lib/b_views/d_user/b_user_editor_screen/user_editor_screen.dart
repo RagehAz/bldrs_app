@@ -35,6 +35,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -622,6 +623,8 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         draft: _draftUser,
                         mounted: mounted,
                       ),
+                      autoCorrect: Keyboard.autoCorrectIsOn(),
+                      enableSuggestions: Keyboard.suggestionsEnabled(),
                       // autoValidate: true,
                       validator: (String? text) => Formers.personNameValidator(
                         name: text,
@@ -653,6 +656,8 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         text: text,
                         mounted: mounted,
                       ),
+                      autoCorrect: Keyboard.autoCorrectIsOn(),
+                      enableSuggestions: Keyboard.suggestionsEnabled(),
                       // autoValidate: false,
                       validator: (String? text) => Formers.jobTitleValidator(
                         jobTitle: text,
@@ -691,6 +696,8 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         draft: _draftUser,
                         mounted: mounted,
                       ),
+                      autoCorrect: Keyboard.autoCorrectIsOn(),
+                      enableSuggestions: Keyboard.suggestionsEnabled(),
                       // autoValidate: false,
                       validator: (String? text) => Formers.companyNameValidator(
                         companyName: text,

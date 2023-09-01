@@ -23,6 +23,7 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
 
 class NeedEditorScreen extends StatefulWidget {
@@ -300,6 +301,8 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                     maxLines: 20,
                     keyboardTextInputType: TextInputType.multiline,
                     initialText: userModel?.need?.notes,
+                    autoCorrect: Keyboard.autoCorrectIsOn(),
+                    enableSuggestions: Keyboard.suggestionsEnabled(),
                     onTextChanged: (String? text){
 
                       setNotifier(
@@ -407,5 +410,5 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

@@ -173,6 +173,7 @@ class _SocialFieldEditorBubbleState extends State<SocialFieldEditorBubble> {
             ),
             textDirection: TextDirection.ltr,
             hintTextDirection: TextDirection.ltr,
+            keyboardTextInputType: TextInputType.url,
             validator: (String? text) => Formers.socialLinkValidator(
               url: text,
               contactType: _contact.type,

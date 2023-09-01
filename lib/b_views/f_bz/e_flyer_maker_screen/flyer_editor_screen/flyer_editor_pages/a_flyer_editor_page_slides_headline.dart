@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
@@ -85,6 +86,8 @@ class FlyerEditorPage0SlidesHeadlines extends StatelessWidget {
             headline: text,
             canValidate: canValidate,
           ),
+          autoCorrect: Keyboard.autoCorrectIsOn(),
+          enableSuggestions: Keyboard.suggestionsEnabled(),
           bulletPoints: const <Verse>[
             Verse(id: 'phid_flyer_headline_is_from_first_slide', translate: true),
           ],

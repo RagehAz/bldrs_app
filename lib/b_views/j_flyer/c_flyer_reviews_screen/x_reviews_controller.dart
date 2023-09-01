@@ -19,7 +19,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
@@ -338,6 +338,8 @@ Future<void> _onEditReview({
       textInputAction: TextInputAction.newline,
       focusNode: FocusNode(),
       isFloatingField: false,
+      enableSuggestions: Keyboard.suggestionsEnabled(),
+      autoCorrect: Keyboard.autoCorrectIsOn(),
       onSubmitted: (String? text){
 
         _isConfirmed = true;
@@ -537,6 +539,8 @@ Future<void> onBzReply({
             textInputAction: TextInputAction.newline,
             focusNode: FocusNode(),
             isFloatingField: false,
+            autoCorrect: Keyboard.autoCorrectIsOn(),
+            enableSuggestions: Keyboard.suggestionsEnabled(),
             onSubmitted: (String? text) {
               _isConfirmed = true;
             },
@@ -670,6 +674,8 @@ Future<void> _onEditReply({
       textInputAction: TextInputAction.newline,
       focusNode: FocusNode(),
       isFloatingField: false,
+      autoCorrect: Keyboard.autoCorrectIsOn(),
+      enableSuggestions: Keyboard.suggestionsEnabled(),
       onSubmitted: (String? text){
 
         _isConfirmed = true;
