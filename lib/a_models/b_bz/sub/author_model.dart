@@ -501,6 +501,41 @@ class AuthorModel {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String?> getAuthorIDFromBzByContact({
+    required String? bzID,
+    required String? contact,
+  }) async {
+  String? _output;
+
+  final BzModel? _bzModel = await BzProtocols.fetchBz(
+    bzID: bzID,
+  );
+
+  if (_bzModel != null){
+
+    final List<AuthorModel> _authors = _bzModel.authors ?? [];
+
+    for (final AuthorModel author in _authors){
+
+      final List<ContactModel> _contacts = author.contacts ?? [];
+
+      for (final ContactModel con in _contacts){
+
+        if (con.value == contact){
+          _output = author.userID;
+          break;
+        }
+
+      }
+
+    }
+
+  }
+
+  return _output;
+}
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS

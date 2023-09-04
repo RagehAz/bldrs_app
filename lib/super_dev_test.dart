@@ -3,10 +3,9 @@ import 'dart:async';
 /// SUPER_DEV_TEST
 Future<void> superDevTestGoX() async {
 
-  // FirebaseCrashlytics.instance.crash();
-
 }
 
+/// CHAT GBT PROMPTS
 /*
 
 for the following flutter method, write group of at-least 7 test methods in one test group to assure its perfectly
