@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:flutter/foundation.dart';
 /// => TAMAM
@@ -20,6 +22,15 @@ class FlyerCounterModel {
   final int? shares;
   final int? views;
   final int? reviews;
+  // -----------------------------------------------------------------------------
+
+  /// CONSTANTS
+
+  // --------------------
+  static const String field_saves = 'saves';
+  static const String field_shares = 'shares';
+  static const String field_views = 'views';
+  static const String field_reviews = 'reviews';
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION

@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/g_statistics/records/flyer_share_model.dart';
 import 'package:bldrs/a_models/g_statistics/records/flyer_view_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:fire/super_fire.dart';
-
+/// => TAMAM
 class FlyerRecordsRealOps {
   // -----------------------------------------------------------------------------
 
@@ -206,7 +206,7 @@ class FlyerRecordsRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> deleteSave({
+  static Future<void> deleteSaveRecord({
     required String flyerID,
     required String bzID,
     required String userID,
@@ -222,6 +222,32 @@ class FlyerRecordsRealOps {
         pathWithDocName: _path,
     );
 
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> deleteAllFlyerRecords({
+    required String bzID,
+    required String flyerID,
+  }) async {
+
+    await Real.deletePath(
+      pathWithDocName: RealPath.records_flyers_bzID_flyerID(
+        bzID: bzID,
+        flyerID: flyerID,
+      ),
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> deleteAllBzFlyersRecords({
+    required String bzID,
+  }) async {
+    await Real.deletePath(
+      pathWithDocName: RealPath.records_flyers_bzID(
+        bzID: bzID,
+      ),
+    );
   }
   // -----------------------------------------------------------------------------
 }

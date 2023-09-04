@@ -140,6 +140,7 @@ class RealPath {
   /// TESTED : WORKS PERFECT
   static String? records_users_userID_records_date({
     required String? userID,
+    required DateTime time,
   }){
 
     if (TextCheck.isEmpty(userID) == true){
@@ -147,7 +148,7 @@ class RealPath {
     }
     else {
       final String _day = UserRecordModel.cipherDayNodeName(
-          dateTime: DateTime.now(),
+          dateTime: time,
       )!;
 
       final String _output =  '${RealColl.records}/'

@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_redundant_argument_values
-
 import 'package:bldrs/a_models/g_statistics/records/user_record_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -83,23 +82,36 @@ void main() {
   });
 
   group('recorders_users_userID_date_records', () {
+
     test('Generates the correct path for a valid user ID', () {
       const userID = 'user123';
-      final result = RealPath.records_users_userID_records_date(userID: userID);
-      const expectedPath =
-          'recorders/users/$userID/d_2023_09_01/records'; // Replace with the expected path for the current date
+      final result = RealPath.records_users_userID_records_date(
+        userID: userID,
+        time: DateTime.now(),
+      );
+
+      final String _date = UserRecordModel.cipherDayNodeName(dateTime: DateTime.now())!;
+
+      final expectedPath = 'records/users/$userID/records/$_date';
+
       expect(result, expectedPath);
     });
 
     test('Handles empty user ID gracefully', () {
       const userID = '';
-      final result = RealPath.records_users_userID_records_date(userID: userID);
+      final result = RealPath.records_users_userID_records_date(
+          userID: userID,
+        time: DateTime.now(),
+      );
       expect(result, isNull);
     });
 
     test('Handles special characters in user ID', () {
       const userID = 'user#123';
-      final result = RealPath.records_users_userID_records_date(userID: userID);
+      final result = RealPath.records_users_userID_records_date(
+          userID: userID,
+        time: DateTime.now(),
+      );
       expect(result, isNotNull); // Replace with the expected behavior for special characters
     });
 

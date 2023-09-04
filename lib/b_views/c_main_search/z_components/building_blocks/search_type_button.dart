@@ -1,6 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:bldrs/zebala/old_record_model.dart';
-import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
+import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -23,8 +22,8 @@ class SearchTypeButton extends StatelessWidget {
     final bool _isSelected = currentModel == modelType;
 
     return AppBarButton(
-      icon: RecordX.getIconByModelType(modelType),
-      verse: RecordX.getVerseByModelType(modelType),
+      icon: RecordTyper.getIconByModelType(modelType),
+      verse: RecordTyper.getVerseByModelType(modelType),
       // bigIcon: false,
       verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
       buttonColor: _isSelected == true ? Colorz.yellow255 : Colorz.white20,

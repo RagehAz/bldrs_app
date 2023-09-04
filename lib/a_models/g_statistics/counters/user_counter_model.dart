@@ -1,3 +1,4 @@
+// ignore_for_file: constant_identifier_names
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -23,6 +24,18 @@ class UserCounterModel {
   final int? shares;
   final int? follows;
   final int? calls;
+  // -----------------------------------------------------------------------------
+
+  /// CONSTANTS
+
+  // --------------------
+  static const String field_sessions = 'sessions';
+  static const String field_views = 'views';
+  static const String field_saves = 'saves';
+  static const String field_reviews = 'reviews';
+  static const String field_shares = 'shares';
+  static const String field_follows = 'follows';
+  static const String field_calls = 'calls';
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
