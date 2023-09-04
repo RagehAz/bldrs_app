@@ -71,7 +71,10 @@ class FlyerCounterModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerCounterModel? decipherCounterMap(Map<String, dynamic>? map){
+  static FlyerCounterModel? decipherCounterMap({
+    required Map<String, dynamic>? map,
+    required String flyerID,
+  }){
 
     FlyerCounterModel? _model;
 
@@ -140,10 +143,17 @@ class FlyerCounterModel {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() =>
+      '''
+      FlyerCounterModel(
+        flyerID: $flyerID
+        saves: $saves
+        shares: $shares
+        views: $views
+        reviews: $reviews
+      )
+      ''';
   // --------------------
   @override
   bool operator == (Object other){

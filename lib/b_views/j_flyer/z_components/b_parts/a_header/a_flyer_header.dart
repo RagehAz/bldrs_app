@@ -7,7 +7,7 @@ import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
+import 'package:bldrs/a_models/g_statistics/counters/bz_counter_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/a_convertible_header_strip_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_header_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/c_bz_slide_headline/a_bz_slide_headline.dart';

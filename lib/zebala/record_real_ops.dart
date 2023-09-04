@@ -1,6 +1,7 @@
-import 'package:bldrs/a_models/k_statistics/record_model.dart';
+import 'package:bldrs/zebala/old_record_model.dart';
 import 'package:fire/super_fire.dart';
 /// => TAMAM
+xxx
 class RecordersRealOps {
   // -----------------------------------------------------------------------------
 
@@ -96,13 +97,17 @@ class RecordersRealOps {
   }
    */
   // -----------------------------------------------------------------------------
+  ///
+  // static Future<ViewRecordModel?> createViewRecord({
+  //   required ViewRecordModel? record,
+  // }) async {
+  //
+  // }
 
-  /// CREATE
 
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<RecordModel?> createRecord({
-    required RecordModel? record,
+  /// DEPRECATED
+  static Future<RecordX?> createRecord({
+    required RecordX? record,
     required String? path,
   }) async {
 
@@ -127,7 +132,7 @@ class RecordersRealOps {
 
     }
 
-    final RecordModel? _output = RecordModel.decipherRecord(
+    final RecordX? _output = RecordX.decipherRecord(
       map: _map,
       bzID: record?.bzID,
       flyerID: record?.flyerID,
