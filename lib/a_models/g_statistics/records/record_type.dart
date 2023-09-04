@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
 enum RecordType {
   session,
@@ -17,6 +19,13 @@ enum RecordType {
   share,
 
 }
+
+enum ModelType{
+  flyer,
+  bz,
+  user,
+}
+
 /// => TAMAM
 class RecordTyper {
   // -----------------------------------------------------------------------------
@@ -60,5 +69,81 @@ class RecordTyper {
     }
   }
   // -----------------------------------------------------------------------------
+
+  /// MODEL TYPE CYPHERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? cipherModelType(ModelType? modelType){
+    switch (modelType){
+      case ModelType.flyer:     return 'flyer';
+      case ModelType.bz:        return 'bz';
+      case ModelType.user:      return 'user';
+      default: return null;
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static ModelType? decipherModelType(String? modelType){
+    switch (modelType){
+      case 'flyer':     return ModelType.flyer;
+      case 'bz':        return ModelType.bz;
+      case 'user':      return ModelType.user;
+      default: return null;
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static ModelType? getModelTypeByRecordType(RecordType? recordType){
+
+    switch(recordType){
+      case RecordType.session         : return null;
+      case RecordType.review          : return ModelType.flyer;
+      case RecordType.follow          : return ModelType.bz;
+      case RecordType.unfollow        : return ModelType.bz;
+      case RecordType.call            : return ModelType.bz;
+      case RecordType.share           : return ModelType.flyer;
+      case RecordType.view            : return ModelType.flyer;
+      case RecordType.save            : return ModelType.flyer;
+      case RecordType.unSave          : return ModelType.flyer;
+      default: return null;
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? getIconByModelType(ModelType? modelType){
+
+    switch(modelType){
+      case ModelType.flyer: return Iconz.flyer;
+      case ModelType.bz: return Iconz.bz;
+      case ModelType.user: return Iconz.normalUser;
+      default: return null;
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Verse getVerseByModelType(ModelType? modelType){
+    String? _text;
+
+    if (modelType != null){
+      switch(modelType){
+        case ModelType.flyer:     _text = 'phid_flyers'; break;
+        case ModelType.bz:        _text = 'phid_bzz'; break;
+        case ModelType.user:      _text = 'phid_users'; break;
+      }
+    }
+
+    return Verse(
+      id: _text,
+      translate: true,
+    );
+  }
+  // // -----------------------------------------------------------------------------
 
 }

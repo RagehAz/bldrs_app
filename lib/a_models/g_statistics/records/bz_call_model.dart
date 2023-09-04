@@ -14,7 +14,7 @@ class BzCallModel {
   // --------------------
   final String? id;
   final String userID;
-  final String authorID;
+  final String? authorID;
   final DateTime? time;
   final String? contact;
   // -----------------------------------------------------------------------------

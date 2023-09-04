@@ -1,14 +1,14 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/zebala/old_record_model.dart';
+import 'package:bldrs/a_models/g_statistics/records/flyer_view_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/ggg_mini_user_banner.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:flutter/material.dart';
 import 'package:fire/super_fire.dart';
+import 'package:flutter/material.dart';
 
 class FlyerRecordsBox extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -88,16 +88,14 @@ class _FlyerRecordsBoxState extends State<FlyerRecordsBox> {
             ),
             builder: (_, List<Map<String, dynamic>>? maps, bool loading, Widget? child){
 
-              List<RecordX> _records = RecordX.decipherRecords(
-                maps: maps ?? [],
-                flyerID: widget.flyerID,
-                bzID: widget.bzID,
-                fromJSON: true,
-              );
+              final List<FlyerViewModel> _records = [];
+              // RecordX.decipherRecords(
+              //   maps: maps ?? [],
+              //   flyerID: widget.flyerID,
+              //   bzID: widget.bzID,
+              //   fromJSON: true,
+              // );
 
-              _records = RecordX.cleanDuplicateUsers(
-                records: _records,
-              );
 
               return Container(
                 width: widget.pageWidth,

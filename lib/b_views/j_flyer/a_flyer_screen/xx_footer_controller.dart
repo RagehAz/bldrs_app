@@ -67,6 +67,7 @@ Future<void> onReviewButtonTap({
 /// TESTED : WORKS PERFECT
 Future<void> onShareFlyer({
   required FlyerModel? flyerModel,
+  required int slideIndex,
   required ValueNotifier<bool> isSharing,
   // required bool mounted,
 }) async {
@@ -102,6 +103,7 @@ Future<void> onShareFlyer({
       unawaited(RecorderProtocols.onShareFlyer(
         flyerID: flyerModel.id,
         bzID: flyerModel.bzID,
+        slideIndex: slideIndex,
       ));
     }
 

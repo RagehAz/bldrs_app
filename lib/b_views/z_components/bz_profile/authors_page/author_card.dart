@@ -34,7 +34,7 @@ class AuthorCard extends StatelessWidget {
   final AuthorModel author;
   final BzModel? bzModel;
   final double? bubbleWidth;
-  final ValueChanged<ContactModel>? onContactTap;
+  final Function(String authorID, ContactModel contact)? onContactTap;
   final bool? moreButtonIsOn;
   // --------------------
   static const double authorPicSize = 60;
@@ -82,10 +82,11 @@ class AuthorCard extends StatelessWidget {
   // -----------------------------------------------------------------------------
   Future<void> _onContactTap({
     required ContactModel contactModel,
+    required String authorID,
   }) async {
 
     if (onContactTap != null){
-      onContactTap?.call(contactModel);
+      onContactTap?.call(authorID, contactModel);
     }
 
     await Launcher.launchContactModel(
@@ -268,6 +269,7 @@ class AuthorCard extends StatelessWidget {
                     margins: const EdgeInsets.only(top: 5),
                     isPublic: true,
                     onTap: () => _onContactTap(
+                      authorID: author.userID!,
                       contactModel: _contact,
                     ),
                 );

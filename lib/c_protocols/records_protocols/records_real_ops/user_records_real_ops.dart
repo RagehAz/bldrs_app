@@ -20,10 +20,11 @@ class UserRecordsRealOps {
   }) async {
     UserRecordModel? _output;
 
-    if (record?.userID != null){
+    if (record?.userID != null && record?.time != null){
 
       final String? _path = RealPath.records_users_userID_records_date(
-          userID: record!.userID,
+        userID: record!.userID,
+        time: record.time!,
       );
 
       if (_path != null){

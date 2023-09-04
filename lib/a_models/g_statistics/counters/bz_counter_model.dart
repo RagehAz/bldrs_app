@@ -1,3 +1,4 @@
+// ignore_for_file: constant_identifier_names
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
@@ -22,6 +23,18 @@ class BzCounterModel {
   final int allSlides;
   final int allViews;
   final int allReviews;
+  // -----------------------------------------------------------------------------
+
+  /// CONSTANTS
+
+  // --------------------
+  static const String field_follows = 'follows';
+  static const String field_calls = 'calls';
+  static const String field_allSaves = 'allSaves';
+  static const String field_allShares = 'allShares';
+  static const String field_allSlides = 'allSlides';
+  static const String field_allViews = 'allViews';
+  static const String field_allReviews = 'allReviews';
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
