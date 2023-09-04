@@ -352,7 +352,7 @@ Future<void> onCallTap({
             translate: true,
           ),
           bzModel: bzModel,
-          onContact: (ContactModel contact) async {
+          onContact: (String authorID, ContactModel contact) async {
 
             await Future.wait(<Future>[
 
@@ -365,6 +365,7 @@ Future<void> onCallTap({
               RecorderProtocols.onCallBz(
                 bzID: bzModel?.id,
                 contact: contact,
+                authorID: authorID,
               ),
 
               /// CENSUS

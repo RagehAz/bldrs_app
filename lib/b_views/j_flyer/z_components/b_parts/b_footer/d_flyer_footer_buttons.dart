@@ -111,6 +111,7 @@ class FlyerFooterButtons extends StatelessWidget {
                                 onTap: () => onShareFlyer(
                                   flyerModel: flyerModel,
                                   isSharing: isSharing,
+                                  slideIndex: 0,
                                 ),
                               );
                             }),

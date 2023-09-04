@@ -1,5 +1,5 @@
+import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
-import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
 import 'package:bldrs/b_views/c_main_search/views/bzz_paginator_view.dart';
 import 'package:bldrs/b_views/c_main_search/views/flyers_paginator_view.dart';
 import 'package:bldrs/b_views/c_main_search/views/history_view.dart';
