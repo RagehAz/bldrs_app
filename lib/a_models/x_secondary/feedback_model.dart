@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/k_statistics/record_model.dart';
+import 'package:bldrs/zebala/old_record_model.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
@@ -34,7 +34,7 @@ class FeedbackModel {
       'userID': userID,
       'timeStamp': Timers.cipherTime(time: timeStamp, toJSON: true),
       'feedback': feedback,
-      'modelType' : RecordModel.cipherModelType(modelType) ?? 'general_feedback',
+      'modelType' : RecordX.cipherModelType(modelType) ?? 'general_feedback',
       'modelID' : modelID,
     };
   }
@@ -46,7 +46,7 @@ class FeedbackModel {
       userID: map['userID'],
       timeStamp: Timers.decipherTime(time: map['timeStamp'], fromJSON: true),
       feedback: map['feedback'],
-      modelType: RecordModel.decipherModelType(map['modelType']),
+      modelType: RecordX.decipherModelType(map['modelType']),
       modelID: map['modelID'],
     );
   }

@@ -8,7 +8,7 @@ import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/helpers/models/flag_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
-import 'package:bldrs/a_models/k_statistics/census_model.dart';
+import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_search_view.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
