@@ -4,7 +4,7 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
-import 'package:bldrs/a_models/k_statistics/census_model.dart';
+import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/america_states_tile_buttons.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/country_tile_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';

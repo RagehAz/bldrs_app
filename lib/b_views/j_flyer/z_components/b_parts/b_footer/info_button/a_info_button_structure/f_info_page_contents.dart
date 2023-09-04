@@ -9,7 +9,7 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
+import 'package:bldrs/a_models/g_statistics/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/c_pdf_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/g_flyer_counters_and_records.dart';

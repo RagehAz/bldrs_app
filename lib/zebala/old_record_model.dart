@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
@@ -9,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
-
-enum RecordType {
+xxx
+enum RecordTypeX {
   session,
   review,
   follow,
@@ -30,9 +31,9 @@ enum RecordDetailsType{
 
 /// => TAMAM
 @immutable
-class RecordModel {
+class RecordX {
   /// --------------------------------------------------------------------------
-  const RecordModel({
+  const RecordX({
     required this.recordType,
     required this.userID,
     required this.timeStamp,
@@ -60,13 +61,13 @@ class RecordModel {
   /// CYPHERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// DEPRECATED
   Map<String, dynamic> toMap({
     required bool toJSON,
   }) {
 
     final Map<String, dynamic> _map = <String, dynamic>{
-      'recordType' : cipherRecordType(recordType),
+      'recordType' : RecordTyper.cipherRecordType(recordType),
       'userID' : userID,
       // 'recordID' : recordID,
       'timeStamp' : Timers.cipherTime(time: timeStamp, toJSON: toJSON),
@@ -83,19 +84,19 @@ class RecordModel {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static RecordModel? decipherRecord({
+  /// DEPRECATED
+  static RecordX? decipherRecord({
     required Map<String, dynamic>? map,
     required String? bzID,
     required String? flyerID,
     required bool fromJSON,
   }) {
-    RecordModel? _record;
+    RecordX? _record;
 
     if (map != null) {
 
-      _record = RecordModel(
-        recordType: decipherRecordType(map['recordType']),
+      _record = RecordX(
+        recordType: RecordTyper.decipherRecordType(map['recordType']),
         userID: map['userID'],
         recordID: map['id'],
         timeStamp: Timers.decipherTime(
@@ -117,7 +118,7 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherRecords({
-    required List<RecordModel> records,
+    required List<RecordX> records,
     required bool toJSON,
   }) {
 
@@ -125,7 +126,7 @@ class RecordModel {
 
     if (Mapper.checkCanLoopList(records)){
 
-      for (final RecordModel record in records){
+      for (final RecordX record in records){
 
         final Map<String, dynamic> _map = record.toMap(toJSON: toJSON);
         _maps.add(_map);
@@ -138,19 +139,19 @@ class RecordModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<RecordModel> decipherRecords({
+  static List<RecordX> decipherRecords({
     required List<Map<String, dynamic>> maps,
     required String bzID,
     required String flyerID,
     required bool fromJSON,
   }){
-    final List<RecordModel> _records = <RecordModel>[];
+    final List<RecordX> _records = <RecordX>[];
 
     if (Mapper.checkCanLoopList(maps)){
 
       for (final Map<String, dynamic> map in maps){
 
-        final RecordModel? _record = decipherRecord(
+        final RecordX? _record = decipherRecord(
           map: map,
           bzID: bzID,
           flyerID: flyerID,
@@ -166,42 +167,6 @@ class RecordModel {
     }
 
     return _records;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// RECORD TYPE CYPHERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String? cipherRecordType(RecordType? recordType) {
-    switch (recordType) {
-      case RecordType.session:        return 'session';
-      case RecordType.review:         return 'review';
-      case RecordType.follow:         return 'follow';
-      case RecordType.unfollow:       return 'unfollow';
-      case RecordType.call:           return 'call';
-      case RecordType.share:          return 'share';
-      case RecordType.view:           return 'view';
-      case RecordType.save:           return 'save';
-      case RecordType.unSave:         return 'unSave';
-      default:return null;
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static RecordType? decipherRecordType(String? type) {
-    switch (type) {
-      case 'session':         return RecordType.session;
-      case 'review':          return RecordType.review;
-      case 'follow':          return RecordType.follow;
-      case 'unfollow':        return RecordType.unfollow;
-      case 'call':            return RecordType.call;
-      case 'share':           return RecordType.share;
-      case 'view':            return RecordType.view;
-      case 'save':            return RecordType.save;
-      case 'unSave':          return RecordType.unSave;
-      default:return null;
-    }
   }
   // -----------------------------------------------------------------------------
 
@@ -229,18 +194,18 @@ class RecordModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ModelType? getModelTypeByRecordType(RecordType? recordType){
+  static ModelType? getModelTypeByRecordType(RecordTypeX? recordType){
 
     switch(recordType){
-      case RecordType.session         : return null;
-      case RecordType.review          : return ModelType.flyer;
-      case RecordType.follow          : return ModelType.bz;
-      case RecordType.unfollow        : return ModelType.bz;
-      case RecordType.call            : return ModelType.bz;
-      case RecordType.share           : return ModelType.flyer;
-      case RecordType.view            : return ModelType.flyer;
-      case RecordType.save            : return ModelType.flyer;
-      case RecordType.unSave          : return ModelType.flyer;
+      case RecordTypeX.session         : return null;
+      case RecordTypeX.review          : return ModelType.flyer;
+      case RecordTypeX.follow          : return ModelType.bz;
+      case RecordTypeX.unfollow        : return ModelType.bz;
+      case RecordTypeX.call            : return ModelType.bz;
+      case RecordTypeX.share           : return ModelType.flyer;
+      case RecordTypeX.view            : return ModelType.flyer;
+      case RecordTypeX.save            : return ModelType.flyer;
+      case RecordTypeX.unSave          : return ModelType.flyer;
       default: return null;
     }
 
@@ -275,12 +240,12 @@ class RecordModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<RecordModel> insertRecordToRecords({
-    required List<RecordModel>? records,
-    required RecordModel? record,
+  static List<RecordX> insertRecordToRecords({
+    required List<RecordX>? records,
+    required RecordX? record,
   }){
 
-    final List<RecordModel> _output = <RecordModel>[...?records];
+    final List<RecordX> _output = <RecordX>[...?records];
 
     if (Mapper.checkCanLoopList(records) == true){
 
@@ -299,16 +264,16 @@ class RecordModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<RecordModel> insertRecordsToRecords({
-    required List<RecordModel> originalRecords,
-    required List<RecordModel> addRecords,
+  static List<RecordX> insertRecordsToRecords({
+    required List<RecordX> originalRecords,
+    required List<RecordX> addRecords,
   }){
 
-    List<RecordModel> _output = <RecordModel>[];
+    List<RecordX> _output = <RecordX>[];
 
     if (Mapper.checkCanLoopList(addRecords)){
 
-      for (final RecordModel record in addRecords){
+      for (final RecordX record in addRecords){
         _output = insertRecordToRecords(
             records: originalRecords,
             record: record,
@@ -321,14 +286,14 @@ class RecordModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<RecordModel> cleanDuplicateUsers({
-    required List<RecordModel> records,
+  static List<RecordX> cleanDuplicateUsers({
+    required List<RecordX> records,
   }){
-    final List<RecordModel> _output = <RecordModel>[];
+    final List<RecordX> _output = <RecordX>[];
 
     if (Mapper.checkCanLoopList(records) == true){
 
-      for (final RecordModel rec in records){
+      for (final RecordX rec in records){
 
         final bool _contains = recordsContainUserID(
             records: _output,
@@ -352,15 +317,15 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool recordsContainRecord({
-    required List<RecordModel>? records,
-    required RecordModel? record,
+    required List<RecordX>? records,
+    required RecordX? record,
   }){
 
     bool _contains = false;
 
     if (Mapper.checkCanLoopList(records) == true && record != null){
 
-      for (final RecordModel rec in records!){
+      for (final RecordX rec in records!){
 
         if (rec.recordID == record.recordID){
           _contains = true;
@@ -376,7 +341,7 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool recordsContainUserID({
-    required List<RecordModel>? records,
+    required List<RecordX>? records,
     required String? userID,
   }){
     bool _includes = false;
@@ -401,12 +366,13 @@ class RecordModel {
   /// USER RECORD CREATORS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static RecordModel createSessionRecord({
+  /// DEPRECATED
+  /*
+  static RecordX generatorsSessionRecord({
     required String userID,
   }){
 
-    return RecordModel(
+    return RecordX(
         recordType: RecordType.session,
         userID: userID,
         timeStamp: DateTime.now(),
@@ -418,18 +384,19 @@ class RecordModel {
     );
 
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static RecordModel createReviewRecord({
+  static RecordX createReviewRecord({
     required String userID,
     required String flyerID,
   }){
 
-      return RecordModel(
+      return RecordX(
           recordType: RecordType.review,
           userID: userID,
           timeStamp: DateTime.now(),
-          modelType: getModelTypeByRecordType(RecordType.review),
+          modelType: getModelTypeByRecordType(RecordTypeX.review),
           bzID: null,
           flyerID: flyerID,
           recordDetailsType: RecordDetailsType.text,
@@ -442,17 +409,17 @@ class RecordModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static RecordModel createFollowRecord({
+  static RecordX createFollowRecord({
     required String userID,
     required String bzID,
   }){
 
-    return RecordModel(
+    return RecordX(
       recordID: '${bzID}_$userID',
       recordType: RecordType.follow,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.follow),
+      modelType: getModelTypeByRecordType(RecordTypeX.follow),
       bzID: bzID,
       flyerID: null,
       recordDetailsType: null,
@@ -462,17 +429,17 @@ class RecordModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static RecordModel createUnfollowRecord({
+  static RecordX createUnfollowRecord({
     required String userID,
     required String bzID,
   }){
 
-    return RecordModel(
+    return RecordX(
       recordID: '${bzID}_$userID',
       recordType: RecordType.unfollow,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.unfollow),
+      modelType: getModelTypeByRecordType(RecordTypeX.unfollow),
       bzID: bzID,
       flyerID: null,
       recordDetailsType: null,
@@ -482,18 +449,18 @@ class RecordModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static RecordModel createCallRecord({
+  static RecordX createCallRecord({
     required String userID,
     required String bzID,
     required ContactModel contact,
   }){
 
-    return RecordModel(
+    return RecordX(
       // recordID: '${bzID}_$userID', // NO MAKE A RECORD FOR EACH CALL
       recordType: RecordType.call,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.call),
+      modelType: getModelTypeByRecordType(RecordTypeX.call),
       bzID: bzID,
       flyerID: null,
       recordDetailsType: RecordDetailsType.contact,
@@ -507,18 +474,18 @@ class RecordModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static RecordModel createShareRecord({
+  static RecordX createShareRecord({
     required String userID,
     required String flyerID,
     required String bzID,
   }){
 
-    return RecordModel(
+    return RecordX(
       // recordID: '${flyerID}_$userID', // MAKE A RECORD FOR EACH SHARE : LEAVE IT NULL
       recordType: RecordType.share,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.share),
+      modelType: getModelTypeByRecordType(RecordTypeX.share),
       bzID: bzID,
       flyerID: flyerID,
       recordDetailsType: null,
@@ -528,7 +495,7 @@ class RecordModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static RecordModel createViewRecord({
+  static RecordX createViewRecord({
     required String userID,
     required String flyerID,
     required String bzID,
@@ -536,12 +503,12 @@ class RecordModel {
     required int slideIndex,
   }){
 
-    return RecordModel(
+    return RecordX(
       recordID: '${flyerID}_${slideIndex}_$userID',
       recordType: RecordType.view,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.view),
+      modelType: getModelTypeByRecordType(RecordTypeX.view),
       bzID: bzID,
       flyerID: flyerID,
       recordDetailsType: RecordDetailsType.slideIndex,
@@ -582,19 +549,19 @@ class RecordModel {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static RecordModel createSaveRecord({
+  static RecordX createSaveRecord({
     required String userID,
     required String flyerID,
     required String bzID,
     required int slideIndex,
   }){
 
-    return RecordModel(
+    return RecordX(
       recordID: '${flyerID}_$userID',
       recordType: RecordType.save,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.save),
+      modelType: getModelTypeByRecordType(RecordTypeX.save),
       bzID: bzID,
       flyerID: flyerID,
       recordDetailsType: RecordDetailsType.slideIndex,
@@ -604,18 +571,18 @@ class RecordModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static RecordModel createUnSaveRecord({
+  static RecordX createUnSaveRecord({
     required String userID,
     required String flyerID,
     required String bzID,
   }){
 
-    return RecordModel(
+    return RecordX(
       recordID: '${flyerID}_$userID',
       recordType: RecordType.unSave,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.unSave),
+      modelType: getModelTypeByRecordType(RecordTypeX.unSave),
       bzID: bzID,
       flyerID: flyerID,
       recordDetailsType: null,
@@ -687,12 +654,12 @@ class RecordModel {
   /// TESTED : WORKS PERFECT
   static void blogRecords({
     required String invoker,
-    required List<RecordModel> records,
+    required List<RecordX> records,
   }){
 
     if (Mapper.checkCanLoopList(records) == true){
 
-      for (final RecordModel record in records){
+      for (final RecordX record in records){
         record.blogRecord(
           invoker: invoker,
         );
@@ -712,8 +679,8 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkRecordsAreIdentical({
-    required RecordModel? record1,
-    required RecordModel? record2,
+    required RecordX? record1,
+    required RecordX? record2,
   }){
     bool _identical = false;
 
@@ -764,7 +731,7 @@ class RecordModel {
       }
 
       bool _areIdentical = false;
-      if (other is RecordModel){
+      if (other is RecordX){
         _areIdentical = checkRecordsAreIdentical(
           record1: this,
           record2: other,

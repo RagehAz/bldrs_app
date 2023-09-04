@@ -27,51 +27,73 @@
   |
   | --------------------------|
   |
-  | - [recorders]
-  |     | - [bzz]
-  |     |       | - {bzID}
-  |     |       |       | - [counter] : <BzCounterModel>
-  |     |       |       | - [recordingCalls]
-  |     |       |       |       | - {recordID} : <RecordModel>
-  |     |       |       |       | - {recordID} ...
-  |     |       |       |
-  |     |       |       | - [recordingFollows]
-  |     |       |               | - {recordID} : <RecordModel>
-  |     |       |               | - {recordID} ...
-  |     |       |     
-  |     |       | - {bzID}...
-  |     |
-  |     | - [flyers]
-  |     |       | - {bzID}
-  |     |       |       | - {flyerID} :
-  |     |       |       |       | - [counter] : <FlyerCounterModel>
-  |     |       |       |       | - [recordingSaves]
-  |     |       |       |       |       | - {recordID} : <RecordModel>
-  |     |       |       |       |       | - {recordID} ...
-  |     |       |       |       |   
-  |     |       |       |       | - [recordingShares]
-  |     |       |       |       |       | - {recordID} : <RecordModel>
-  |     |       |       |       |       | - {recordID} ...
-  |     |       |       |       |   
-  |     |       |       |       | - [recordingViews]
-  |     |       |       |               | - {recordID} : <RecordModel>
-  |     |       |       |               | - {recordID} ...
-  |     |       |       |
-  |     |       |       | - {flyerID} ...       
-  |     |       |       
-  |     |       | - {bzID} ...
+  | - [records]
   |     |
   |     | here we need to record user activity log
   |     | sessionStartTime - views - saves - reviews - shares - follows - calls
   |     | - [users]
-  |             | - {userID}
-  |             |       | - [counter] : <UserCounterModel>
-  |             |       | - [records]
-  |             |               | - {d_yyyy_mm_dd} : 
-  |             |                       | - {recordID} : <RecordModel>
-  |             |                       | - {recordID} ...
+  |     |       | - {userID}
+  |     |       |       | - [counter] : <UserCounterModel>
+  |     |       |       | - [records]
+  |     |       |               | - {d_yyyy_mm_dd} : 
+  |     |       |               |       | - {recordID} : RecordID(
+  |     |       |               |       |                 recordType: <RecordType>,
+  |     |       |               |       |                 modelID: <String>,
+  |     |       |               |       |                 time: <DateTime>,
+  |     |       |               |       |               )
+  |     |       |               |       | - {recordID} ...
+  |     |       |               |
+  |     |       |               | - {d_yyyy_mm_dd} ...
+  |     |       |
+  |     |       | - {userID} ...
+  |     |
+  |     | - [bzz]
+  |     |     | - {bzID}
+  |     |     |      | - [counter] : <BzCounterModel>
+  |     |     |      | - [recordingCalls]
+  |     |     |      |       | - {callID} : CallModel(
+  |     |     |      |       |                   userID: <userID>,
+  |     |     |      |       |                   authorID: <authorID>,
+  |     |     |      |       |                   time: <DateTime>,
+  |     |     |      |       |                   contact: <String>,
+  |     |     |      |       |                 )
+  |     |     |      |       | - {callID} ...
+  |     |     |      |
+  |     |     |      |
+  |     |     |      | - [recordingFollows]  
+  |     |     |               | - {userID} : {time}
+  |     |     |               | - {userID} ...
+  |     |     |
+  |     |     | - {bzID} ...
+  |     |
+  |     |
+  |     | - [flyers]
+  |             | - {bzID}
+  |             |       | - {flyerID} :
+  |             |       |       | - [counter] : <FlyerCounterModel>
+  |             |       |       | - [recordingSaves]
+  |             |       |       |       | - {userID} : SaveModel(
+  |             |       |       |       |                 index: <int>,
+  |             |       |       |       |                 time: <DateTime>,
+  |             |       |       |       |               )
+  |             |       |       |       | - {userID} ...
+  |             |       |       |   
+  |             |       |       | - [recordingShares]
+  |             |       |       |       | - {shareID} : ShareModel(
+  |             |       |       |       |                 index: <int>,
+  |             |       |       |       |                 userID: <String>,
+  |             |       |       |       |                 time: <DateTime>,
+  |             |       |       |       |               )
+  |             |       |       |       | - {shareID} ...
+  |             |       |       |   
+  |             |       |       | - [recordingViews]
+  |             |       |               | - {userID_index} : {time}
+  |             |       |               | - {userID_index} ...
+  |             |       |
+  |             |       | - {flyerID} ...       
   |             |       
-  |             | - {userID} ...
+  |             | - {bzID} ...
+  |      
   |     
   | --------------------------|
   |
@@ -153,3 +175,5 @@
   |
   | -------------------------------------------|
 ```
+
+------------------------------------------------------------------------

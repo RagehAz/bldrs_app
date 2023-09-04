@@ -1,9 +1,9 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
+import 'package:bldrs/a_models/g_statistics/counters/bz_counter_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
+import 'package:bldrs/c_protocols/records_protocols/recorder_protocols.dart';
 import 'package:flutter/material.dart';
 
 class FollowsFlyersCountLine extends StatelessWidget {
