@@ -870,7 +870,7 @@ class Dialogs {
     required Verse titleVerse,
     required Verse bodyVerse,
     Verse? confirmButtonVerse,
-    ValueChanged<ContactModel>? onContact,
+    Function(String authorID, ContactModel contact)? onContact,
   }) async {
 
     final BuildContext context = getMainContext();
