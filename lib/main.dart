@@ -105,7 +105,7 @@ const bool useSentryOnDebug = false;
 
 Future<void> sentryBldrs() async {
 
-  const bool _runSentry = true; //useSentryOnDebug == true ? true : !kDebugMode;
+  const bool _runSentry = false; //useSentryOnDebug == true ? true : !kDebugMode;
 
   if (_runSentry == true) {
 
