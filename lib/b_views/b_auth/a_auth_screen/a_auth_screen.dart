@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/b_views/b_auth/a_auth_screen/aa_auth_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -61,11 +62,19 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return const MainLayout(
+    return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       skyType: SkyType.grey,
-      child: AuthScreenView(),
+      onBack: () async {
+
+        await Nav.goBack(
+          context: context,
+          passedData: false,
+        );
+
+      },
+      child: const AuthScreenView(),
     );
 
   }
