@@ -2,19 +2,22 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
-import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
-import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
-import 'package:bldrs/a_models/g_counters/user_counter_model.dart';
-import 'package:bldrs/a_models/k_statistics/record_model.dart';
+import 'package:bldrs/a_models/g_statistics/counters/bz_counter_model.dart';
+import 'package:bldrs/a_models/g_statistics/counters/flyer_counter_model.dart';
+import 'package:bldrs/a_models/g_statistics/counters/user_counter_model.dart';
+import 'package:bldrs/zebala/old_record_model.dart';
+import 'package:bldrs/a_models/g_statistics/records/user_record_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/recorder_protocols/record_real_ops.dart';
+import 'package:bldrs/zebala/record_real_ops.dart';
+import 'package:bldrs/c_protocols/records_protocols/records_real_ops/user_records_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 /// => TAMAM
+xxx
 class RecorderProtocols {
   // -----------------------------------------------------------------------------
 
@@ -32,30 +35,24 @@ class RecorderProtocols {
 
     if (_userID != null && sessionStarted == false){
 
-      final RecordModel _record = RecordModel.createSessionRecord(
+      final UserRecordModel _record = UserRecordModel.generatorsSessionRecord(
         userID: _userID,
       );
 
       await Future.wait(<Future>[
 
         /// CREATE SESSION RECORD
-        RecordersRealOps.createRecord(
+        UserRecordsRealOps.createUserRecord(
           record: _record,
-          path: RealPath.recorders_users_userID_records_date(
-            userID: _userID,
-          ),
         ),
 
         /// INCREMENT USER SESSIONS COUNTER
-        Real.incrementPathFields(
-          path: RealPath.recorders_users_userID_counter(
+        UserRecordsRealOps.incrementUserCounter(
             userID: _userID,
-          ),
-          incrementationMap: {
-            'sessions': 1,
-          },
-          isIncrementing: true,
+            increment: 1,
+            field: 'sessions'
         ),
+
 
       ]);
 
@@ -68,7 +65,7 @@ class RecorderProtocols {
   /// VIEWS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX ME
   static Future<void> onViewSlide({
     required String? flyerID,
     required String? bzID,
@@ -85,7 +82,7 @@ class RecorderProtocols {
         index != null
     ){
 
-        final RecordModel _record = RecordModel.createViewRecord(
+        final RecordX _record = RecordX.createViewRecord(
           userID: Authing.getUserID()!,
           flyerID: flyerID,
           bzID: bzID,
@@ -97,7 +94,7 @@ class RecorderProtocols {
           /// CREATE FLYER VIEW RECORD
           RecordersRealOps.createRecord(
               record: _record,
-              path: RealPath.recorders_flyers_bzID_flyerID_recordingViews(
+              path: RealPath.records_flyers_bzID_flyerID_recordingViews(
                 bzID: bzID,
                 flyerID: flyerID,
               )
@@ -106,14 +103,14 @@ class RecorderProtocols {
           /// CREATE USER VIEW RECORD
           RecordersRealOps.createRecord(
               record: _record,
-              path: RealPath.recorders_users_userID_records_date(
+              path: RealPath.records_users_userID_records_date(
                 userID: Authing.getUserID()!,
               )
           ),
 
           /// INCREMENT USER VIEWS COUNTER
           Real.incrementPathFields(
-            path: RealPath.recorders_users_userID_counter(
+            path: RealPath.records_users_userID_counter(
               userID: Authing.getUserID()!,
             ),
             incrementationMap: {
@@ -124,7 +121,7 @@ class RecorderProtocols {
 
           /// INCREMENT FLYER VIEWS COUNTER
           Real.incrementPathFields(
-            path: RealPath.recorders_flyers_bzID_flyerID_counter(
+            path: RealPath.records_flyers_bzID_flyerID_counter(
               bzID: bzID,
               flyerID: flyerID,
             ),
@@ -136,7 +133,7 @@ class RecorderProtocols {
 
           /// INCREMENT BZ ALL VIEWS COUNTER
           Real.incrementPathFields(
-            path: RealPath.recorders_bzz_bzID_counter(
+            path: RealPath.records_bzz_bzID_counter(
                 bzID: bzID
             ),
             incrementationMap: {
@@ -155,7 +152,7 @@ class RecorderProtocols {
   /// SAVES
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX ME
   static Future<void> onSaveFlyer({
     required String? flyerID,
     required String? bzID,
@@ -170,7 +167,7 @@ class RecorderProtocols {
         Authing.getUserID() != null
     ){
 
-      final RecordModel _record = RecordModel.createSaveRecord(
+      final RecordX _record = RecordX.createSaveRecord(
         userID: Authing.getUserID()!,
         flyerID: flyerID,
         bzID: bzID,
@@ -182,7 +179,7 @@ class RecorderProtocols {
         /// CREATE FLYER SAVE RECORD
         RecordersRealOps.createRecord(
           record: _record,
-          path: RealPath.recorders_flyers_bzID_flyerID_recordingSaves(
+          path: RealPath.records_flyers_bzID_flyerID_recordingSaves(
             bzID: bzID,
             flyerID: flyerID,
           ),
@@ -191,14 +188,14 @@ class RecorderProtocols {
         /// CREATE USER SAVE RECORD
         RecordersRealOps.createRecord(
           record: _record,
-          path: RealPath.recorders_users_userID_records_date(
+          path: RealPath.records_users_userID_records_date(
             userID: Authing.getUserID()!,
           ),
         ),
 
         /// INCREMENT USER SAVES COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_users_userID_counter(
+          path: RealPath.records_users_userID_counter(
             userID: Authing.getUserID()!,
           ),
           incrementationMap: {
@@ -209,7 +206,7 @@ class RecorderProtocols {
 
         /// INCREMENT FLYER SAVES COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_flyers_bzID_flyerID_counter(
+          path: RealPath.records_flyers_bzID_flyerID_counter(
             bzID: bzID,
             flyerID: flyerID,
           ),
@@ -221,7 +218,7 @@ class RecorderProtocols {
 
         /// INCREMENT BZ ALL SAVES COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_counter(
+          path: RealPath.records_bzz_bzID_counter(
             bzID: bzID,
           ),
           incrementationMap: {
@@ -236,7 +233,7 @@ class RecorderProtocols {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX ME
   static Future<void> onUnSaveFlyer({
     required String? flyerID,
     required String? bzID,
@@ -251,7 +248,7 @@ class RecorderProtocols {
         Authing.getUserID() != null
     ) {
 
-      final RecordModel _record = RecordModel.createUnSaveRecord(
+      final RecordX _record = RecordX.createUnSaveRecord(
         userID: Authing.getUserID()!,
         flyerID: flyerID,
         bzID: bzID,
@@ -262,7 +259,7 @@ class RecorderProtocols {
         /// CREATE FLYER UN-SAVE RECORD
         RecordersRealOps.createRecord(
           record: _record,
-          path: RealPath.recorders_flyers_bzID_flyerID_recordingSaves(
+          path: RealPath.records_flyers_bzID_flyerID_recordingSaves(
             bzID: bzID,
             flyerID: flyerID,
           ),
@@ -271,7 +268,7 @@ class RecorderProtocols {
         /// CREATE USER UN-SAVE RECORD
         RecordersRealOps.createRecord(
           record: _record,
-          path: RealPath.recorders_users_userID_records_date(
+          path: RealPath.records_users_userID_records_date(
             userID: Authing.getUserID()!,
           ),
         ),
@@ -281,7 +278,7 @@ class RecorderProtocols {
 
         /// DECREMENT FLYER SAVES COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_flyers_bzID_flyerID_counter(
+          path: RealPath.records_flyers_bzID_flyerID_counter(
             bzID: bzID,
             flyerID: flyerID,
           ),
@@ -293,7 +290,7 @@ class RecorderProtocols {
 
         /// DECREMENT BZ ALL SAVES COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_counter(
+          path: RealPath.records_bzz_bzID_counter(
             bzID: bzID,
           ),
           incrementationMap: {
@@ -312,7 +309,7 @@ class RecorderProtocols {
   /// REVIEWS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX ME
   static Future<void> onComposeReview({
     required String? flyerID,
     required String? bzID,
@@ -329,18 +326,18 @@ class RecorderProtocols {
 
         /// CREATE USER REVIEW RECORD
         RecordersRealOps.createRecord(
-          record: RecordModel.createReviewRecord(
+          record: RecordX.createReviewRecord(
             userID: Authing.getUserID()!,
             flyerID: flyerID,
           ),
-          path: RealPath.recorders_users_userID_records_date(
+          path: RealPath.records_users_userID_records_date(
             userID: Authing.getUserID()!,
           ),
         ),
 
         /// INCREMENT USER REVIEWS COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_users_userID_counter(
+          path: RealPath.records_users_userID_counter(
             userID: Authing.getUserID()!,
           ),
           incrementationMap: {
@@ -351,7 +348,7 @@ class RecorderProtocols {
 
         /// INCREMENT FLYER REVIEWS COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_flyers_bzID_flyerID_counter(
+          path: RealPath.records_flyers_bzID_flyerID_counter(
             bzID: bzID,
             flyerID: flyerID,
           ),
@@ -363,7 +360,7 @@ class RecorderProtocols {
 
         /// INCREMENT BZ ALL REVIEWS COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_counter(
+          path: RealPath.records_bzz_bzID_counter(
               bzID: bzID
           ),
           incrementationMap: {
@@ -378,7 +375,7 @@ class RecorderProtocols {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX ME
   static Future<void> onWipeReview({
     required String? flyerID,
     required String? bzID,
@@ -401,7 +398,7 @@ class RecorderProtocols {
 
         /// DECREMENT FLYER REVIEWS COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_flyers_bzID_flyerID_counter(
+          path: RealPath.records_flyers_bzID_flyerID_counter(
             bzID: bzID,
             flyerID: flyerID,
           ),
@@ -413,7 +410,7 @@ class RecorderProtocols {
 
         /// DECREMENT BZ ALL REVIEWS COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_counter(bzID: bzID),
+          path: RealPath.records_bzz_bzID_counter(bzID: bzID),
           incrementationMap: {
             'allReviews': 1,
           },
@@ -430,7 +427,7 @@ class RecorderProtocols {
   /// SHARES
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX ME
   static Future<void> onShareFlyer({
     required String? flyerID,
     required String? bzID,
@@ -443,7 +440,7 @@ class RecorderProtocols {
         Authing.getUserID() != null
     ){
 
-      final RecordModel _record = RecordModel.createShareRecord(
+      final RecordX _record = RecordX.createShareRecord(
         userID: Authing.getUserID()!,
         flyerID: flyerID,
         bzID: bzID,
@@ -454,7 +451,7 @@ class RecorderProtocols {
         /// CREATE FLYER SHARE RECORD
         RecordersRealOps.createRecord(
           record: _record,
-          path: RealPath.recorders_flyers_bzID_flyerID_recordingShares(
+          path: RealPath.records_flyers_bzID_flyerID_recordingShares(
             bzID: bzID,
             flyerID: flyerID,
           ),
@@ -463,14 +460,14 @@ class RecorderProtocols {
         /// CREATE USER SHARE RECORD
         RecordersRealOps.createRecord(
           record: _record,
-          path: RealPath.recorders_users_userID_records_date(
+          path: RealPath.records_users_userID_records_date(
             userID: Authing.getUserID()!,
           ),
         ),
 
         /// INCREMENT USER SHARES COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_users_userID_counter(
+          path: RealPath.records_users_userID_counter(
             userID: Authing.getUserID()!,
           ),
           incrementationMap: {
@@ -481,7 +478,7 @@ class RecorderProtocols {
 
         /// INCREMENT FLYER SHARES COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_flyers_bzID_flyerID_counter(
+          path: RealPath.records_flyers_bzID_flyerID_counter(
             bzID: bzID,
             flyerID: flyerID,
           ),
@@ -493,7 +490,7 @@ class RecorderProtocols {
 
         /// INCREMENT BZ ALL SHARES COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_counter(
+          path: RealPath.records_bzz_bzID_counter(
               bzID: bzID
           ),
           incrementationMap: {
@@ -512,14 +509,14 @@ class RecorderProtocols {
   /// FOLLOWS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX ME
   static Future<void> onFollowBz({
     required String? bzID,
   }) async {
 
     if (bzID != null && Authing.getUserID() != null) {
 
-      final RecordModel _record = RecordModel.createFollowRecord(
+      final RecordX _record = RecordX.createFollowRecord(
         userID: Authing.getUserID()!,
         bzID: bzID,
       );
@@ -529,7 +526,7 @@ class RecorderProtocols {
         /// CREATE BZ FOLLOW RECORD
         RecordersRealOps.createRecord(
           record: _record,
-          path: RealPath.recorders_bzz_bzID_recordingFollows(
+          path: RealPath.records_bzz_bzID_recordingFollows(
             bzID: bzID,
           ),
         ),
@@ -537,14 +534,14 @@ class RecorderProtocols {
         /// CREATE USER FOLLOW RECORD
         RecordersRealOps.createRecord(
           record: _record,
-          path: RealPath.recorders_users_userID_records_date(
+          path: RealPath.records_users_userID_records_date(
             userID: Authing.getUserID()!,
           ),
         ),
 
         /// INCREMENT USER FOLLOWS COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_users_userID_counter(
+          path: RealPath.records_users_userID_counter(
             userID: Authing.getUserID()!,
           ),
           incrementationMap: {
@@ -555,7 +552,7 @@ class RecorderProtocols {
 
         /// INCREMENT FOLLOWS COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_counter(
+          path: RealPath.records_bzz_bzID_counter(
             bzID: bzID,
           ),
           incrementationMap: {
@@ -570,14 +567,14 @@ class RecorderProtocols {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX ME
   static Future<void> onUnfollowBz({
     required String? bzID,
   }) async {
 
     if (bzID != null && Authing.getUserID() != null) {
 
-      final RecordModel _record = RecordModel.createUnfollowRecord(
+      final RecordX _record = RecordX.createUnfollowRecord(
         userID: Authing.getUserID()!,
         bzID: bzID,
       );
@@ -587,7 +584,7 @@ class RecorderProtocols {
         /// CREATE BZ UNFOLLOW RECORD
         RecordersRealOps.createRecord(
           record: _record,
-          path: RealPath.recorders_bzz_bzID_recordingFollows(
+          path: RealPath.records_bzz_bzID_recordingFollows(
             bzID: bzID,
           ),
         ),
@@ -595,7 +592,7 @@ class RecorderProtocols {
         /// CREATE USER UNFOLLOW RECORD
         RecordersRealOps.createRecord(
           record: _record,
-          path: RealPath.recorders_users_userID_records_date(
+          path: RealPath.records_users_userID_records_date(
             userID: Authing.getUserID()!,
           ),
         ),
@@ -605,7 +602,7 @@ class RecorderProtocols {
 
         /// DECREMENT FOLLOWS COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_counter(
+          path: RealPath.records_bzz_bzID_counter(
             bzID: bzID,
           ),
           incrementationMap: {
@@ -623,7 +620,7 @@ class RecorderProtocols {
   /// CALLS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX ME
   static Future<void> onCallBz({
     required String? bzID,
     required ContactModel? contact,
@@ -631,7 +628,7 @@ class RecorderProtocols {
 
     if (Authing.getUserID() != null && bzID != null && contact != null) {
 
-      final RecordModel _record = RecordModel.createCallRecord(
+      final RecordX _record = RecordX.createCallRecord(
         userID: Authing.getUserID()!,
         bzID: bzID,
         contact: contact,
@@ -642,7 +639,7 @@ class RecorderProtocols {
         /// CREATE BZ CALL RECORD
         RecordersRealOps.createRecord(
           record: _record,
-          path: RealPath.recorders_bzz_bzID_recordingCalls(
+          path: RealPath.records_bzz_bzID_recordingCalls(
             bzID: bzID,
           ),
         ),
@@ -650,14 +647,14 @@ class RecorderProtocols {
         /// CREATE USER CALL RECORD
         RecordersRealOps.createRecord(
           record: _record,
-          path: RealPath.recorders_users_userID_records_date(
+          path: RealPath.records_users_userID_records_date(
             userID: Authing.getUserID()!,
           ),
         ),
 
         /// INCREMENT USER CALLS COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_users_userID_counter(
+          path: RealPath.records_users_userID_counter(
             userID: Authing.getUserID()!,
           ),
           incrementationMap: {
@@ -668,7 +665,7 @@ class RecorderProtocols {
 
         /// INCREMENT CALLS COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_counter(
+          path: RealPath.records_bzz_bzID_counter(
             bzID: bzID,
           ),
           incrementationMap: {
@@ -687,7 +684,7 @@ class RecorderProtocols {
   /// SLIDES
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX ME
   static Future<void> onComposeFlyer({
     required String? bzID,
     required int? numberOfSlides,
@@ -700,7 +697,7 @@ class RecorderProtocols {
     ) {
 
       await Real.incrementPathFields(
-        path: RealPath.recorders_bzz_bzID_counter(bzID: bzID),
+        path: RealPath.records_bzz_bzID_counter(bzID: bzID),
         incrementationMap: {
           'allSlides': numberOfSlides,
         },
@@ -711,7 +708,7 @@ class RecorderProtocols {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX ME
   static Future<void> onRenovateFlyer({
     required String? bzID,
     required int? oldNumberOfSlides,
@@ -730,7 +727,7 @@ class RecorderProtocols {
       if (_allSlides != null){
 
         await Real.incrementPathFields(
-        path: RealPath.recorders_bzz_bzID_counter(
+        path: RealPath.records_bzz_bzID_counter(
             bzID: bzID
         ),
         incrementationMap: {
@@ -745,7 +742,7 @@ class RecorderProtocols {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX ME
   static Future<void> onWipeFlyer({
     required String? flyerID,
     required String? bzID,
@@ -769,7 +766,7 @@ class RecorderProtocols {
 
         /// DELETE FLYER RECORDS & COUNTER
         Real.deletePath(
-          pathWithDocName: RealPath.recorders_flyers_bzID_flyerID(
+          pathWithDocName: RealPath.records_flyers_bzID_flyerID(
             bzID: bzID,
             flyerID: flyerID,
           ),
@@ -777,7 +774,7 @@ class RecorderProtocols {
 
         /// DECREMENT BZ ALL SLIDES COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_counter(bzID: bzID),
+          path: RealPath.records_bzz_bzID_counter(bzID: bzID),
           incrementationMap: {
             'allSlides': numberOfSlides,
             'allReviews': _flyerCounterModel?.reviews ?? 0,
@@ -798,7 +795,7 @@ class RecorderProtocols {
   /// WIPE BZ
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX ME
   static Future<void> onWipeBz({
     required String? bzID,
   }) async {
@@ -812,14 +809,14 @@ class RecorderProtocols {
 
         /// DELETE BZ RECORDS & COUNTER
         Real.deletePath(
-          pathWithDocName: RealPath.recorders_bzz_bzID(
+          pathWithDocName: RealPath.records_bzz_bzID(
             bzID: bzID,
           ),
         ),
 
         /// DELETE BZ FLYERS RECORDS & COUNTER
         Real.deletePath(
-          pathWithDocName: RealPath.recorders_flyers_bzID(
+          pathWithDocName: RealPath.records_flyers_bzID(
             bzID: bzID,
           ),
         ),
@@ -874,7 +871,7 @@ class RecorderProtocols {
 
         /// READ FROM REAL
         _map = await Real.readPathMap(
-          path: RealPath.recorders_users_userID_counter(userID: userID),
+          path: RealPath.records_users_userID_counter(userID: userID),
         );
 
         if (_map != null){
@@ -898,7 +895,10 @@ class RecorderProtocols {
 
       }
 
-      _output = UserCounterModel.decipherUserCounter(_map);
+      _output = UserCounterModel.decipherUserCounter(
+        map: _map,
+        userID: userID,
+      );
     }
 
     return _output;
@@ -949,7 +949,7 @@ class RecorderProtocols {
 
         /// READ FROM REAL
         _map = await Real.readPathMap(
-          path: RealPath.recorders_flyers_bzID_flyerID_counter(
+          path: RealPath.records_flyers_bzID_flyerID_counter(
             bzID: bzID,
             flyerID: flyerID,
           ),
@@ -977,7 +977,10 @@ class RecorderProtocols {
 
       }
 
-      _flyerCounters = FlyerCounterModel.decipherCounterMap(_map);
+      _flyerCounters = FlyerCounterModel.decipherCounterMap(
+        map: _map,
+        flyerID: flyerID,
+      );
 
     }
 
@@ -1028,7 +1031,7 @@ class RecorderProtocols {
 
         /// READ FROM REAL
         _map = await Real.readPathMap(
-          path: RealPath.recorders_bzz_bzID_counter(
+          path: RealPath.records_bzz_bzID_counter(
             bzID: bzID,
           ),
         );
@@ -1054,7 +1057,10 @@ class RecorderProtocols {
 
       }
 
-      _bzCounters = BzCounterModel.decipherCounterMap(_map);
+      _bzCounters = BzCounterModel.decipherCounterMap(
+        map: _map,
+        bzID: bzID,
+      );
 
     }
 

@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
+import 'package:bldrs/a_models/g_statistics/counters/flyer_counter_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/gg_flyer_record_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
@@ -51,7 +51,7 @@ class FlyerCountersAndRecords extends StatelessWidget {
                     pageWidth: pageWidth,
                     headlineVerse: Verse.plain('$_saves ${getWord('phid_totalSaves')}'),
                     icon: Iconz.saveOn,
-                    realNodePath: RealPath.recorders_flyers_bzID_flyerID_recordingSaves(
+                    realNodePath: RealPath.records_flyers_bzID_flyerID_recordingSaves(
                         bzID: flyerModel!.bzID!,
                         flyerID: flyerModel!.id!,
                     ),
@@ -65,7 +65,7 @@ class FlyerCountersAndRecords extends StatelessWidget {
                     pageWidth: pageWidth,
                     headlineVerse: Verse.plain('$_shares ${getWord('phid_totalShares')}'),
                     icon: Iconz.share,
-                    realNodePath: RealPath.recorders_flyers_bzID_flyerID_recordingShares(
+                    realNodePath: RealPath.records_flyers_bzID_flyerID_recordingShares(
                         bzID: flyerModel!.bzID!,
                         flyerID: flyerModel!.id!,
                     ),
@@ -79,7 +79,7 @@ class FlyerCountersAndRecords extends StatelessWidget {
                     pageWidth: pageWidth,
                     headlineVerse: Verse.plain('$_views ${getWord('phid_totalViews')}'),
                     icon: Iconz.viewsIcon,
-                    realNodePath: RealPath.recorders_flyers_bzID_flyerID_recordingViews(
+                    realNodePath: RealPath.records_flyers_bzID_flyerID_recordingViews(
                         bzID: flyerModel!.bzID!,
                         flyerID: flyerModel!.id!,
                     ),

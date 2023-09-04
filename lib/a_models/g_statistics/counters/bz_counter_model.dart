@@ -85,13 +85,16 @@ class BzCounterModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzCounterModel? decipherCounterMap(Map<String, dynamic>? map){
+  static BzCounterModel? decipherCounterMap({
+    required Map<String, dynamic>? map,
+    required String bzID,
+  }){
 
-    BzCounterModel _model = createInitialModel(null);
+    BzCounterModel _model = createInitialModel(bzID);
 
     if (map != null){
       _model = BzCounterModel(
-        bzID: map['bzID'],
+        bzID: bzID,
         follows: map['follows'] ?? 0,
         calls: map['calls'] ?? 0,
         allSaves: map['allSaves'] ?? 0,

@@ -1,6 +1,6 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class UserCounterModel {
   // -----------------------------------------------------------------------------
@@ -86,15 +86,18 @@ class UserCounterModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserCounterModel? decipherUserCounter(Map<String, dynamic>? map){
+  static UserCounterModel? decipherUserCounter({
+    required Map<String, dynamic>? map,
+    required String? userID,
+  }){
 
-    if (map == null){
+    if (map == null || userID == null){
       return null;
     }
 
     else {
       return UserCounterModel(
-        userID: map['userID'],
+        userID: userID,
         sessions: map['sessions'],
         views: map['views'],
         saves: map['saves'],
@@ -113,7 +116,6 @@ class UserCounterModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogCounter(){
-
     blog(
             'UserCounterModel(\n'
             '   userID: $userID\n'
@@ -126,7 +128,6 @@ class UserCounterModel {
             '   calls: $calls\n'
             ')'
     );
-
   }
   // -----------------------------------------------------------------------------
 
@@ -167,10 +168,20 @@ class UserCounterModel {
   /// OVERRIDES
 
   // --------------------
-  /*
-   @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+  @override
+  String toString() =>
+      '''
+      UserCounterModel(
+        userID: $userID
+        sessions: $sessions
+        views: $views
+        saves: $saves
+        reviews: $reviews
+        shares: $shares
+        follows: $follows
+        calls: $calls
+      )
+      ''';
   // --------------------
   @override
   bool operator == (Object other){
