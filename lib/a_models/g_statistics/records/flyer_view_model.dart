@@ -21,7 +21,7 @@ class FlyerViewModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  String? toPairValue(){
+  int? toPairValue(){
     return Timers.cipherTime(
       time: time,
       toJSON: true,

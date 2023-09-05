@@ -131,7 +131,7 @@ class UiInitializer {
         pics: true, /// pics of logos - users - flyers might change over time
         pdfs: false, // i do not think that fetched pdfs are changed frequently by authors,
         /// USER
-        users: false,
+        users: true, // users might change their profile info
         authModel: false, // need my authModel to prevent re-auth everyday
         accounts: false, // keep accounts until user decides to not "remember me trigger"
         searches: false,
@@ -202,13 +202,17 @@ class UiInitializer {
         if (_diff != null && _diff < Standards.ldbWipeIntervalInMinutes){
           _shouldRefresh = false;
         }
+        else {
+          _shouldRefresh = true;
+        }
 
       }
 
       await Dialogs.centerNotice(
         verse: Verse.plain('checkShouldRefreshLDB : $_shouldRefresh'),
         color: _shouldRefresh == true ? Colorz.green255 : Colorz.red255,
-        body: Verse.plain('$_diff Minutes\n\nLast Wipe : $_lastWipe'),
+        body: Verse.plain('$_diff Minutes\n\nLast Wipe : $_lastWipe\n'
+            'diff ($_diff) < (${Standards.ldbWipeIntervalInMinutes}) : (${_diff! < Standards.ldbWipeIntervalInMinutes})'),
       );
 
     }
