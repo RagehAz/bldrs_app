@@ -288,7 +288,7 @@ class LDBDoc {
 
   }
   // --------------------
-  static Future<void> wipeOutEntireLDB() async {
+  static Future<void> mindfulWipeOfEntireLDB() async {
 
     await wipeOutLDBDocs(
       flyers: true,
@@ -330,6 +330,43 @@ class LDBDoc {
       bzzCounters: true, // yes this i super temp to stay anyways
       flyersCounters: true, // yes this i super temp to stay anyways
       usersCounters: true,  // yes this i super temp to stay anyways
+    );
+
+  }
+  // --------------------
+  static Future<void> superWipeOfEntireLDB() async {
+
+    await wipeOutLDBDocs(
+      flyers: true,
+      bzz: true,
+      notes: true,
+      pics: true,
+      pdfs: true,
+      users: true,
+      pickers: true,
+      countries: true,
+      staging: true,
+      census: true,
+      mainPhrases: true,
+      appState: true,
+      gta: true,
+      cities: true,
+      searches: true,
+      bldrsChains: true,
+      countriesPhrases: true,
+      authModel: true,
+      accounts: true,
+      langCode: true,
+      userEditor: true,
+      bzEditor: true,
+      authorEditor: true,
+      flyerMaker: true,
+      reviewEditor: true,
+      onboarding: true,
+      theLastWipe: true,
+      bzzCounters: true,
+      flyersCounters: true,
+      usersCounters: true,
     );
 
   }
