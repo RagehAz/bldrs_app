@@ -1,22 +1,29 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/g_statistics/records/flyer_save_model.dart';
+import 'package:bldrs/a_models/g_statistics/records/flyer_share_model.dart';
 import 'package:bldrs/a_models/g_statistics/records/flyer_view_model.dart';
+import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/ggg_mini_user_banner.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/paginators/records_paginators/flyer_saves_paginator.dart';
+import 'package:bldrs/b_views/z_components/paginators/records_paginators/flyer_shares_paginator.dart';
+import 'package:bldrs/b_views/z_components/paginators/records_paginators/flyer_views_paginator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
-class FlyerRecordsBox extends StatefulWidget {
+
+class FlyerRecordsBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerRecordsBox({
     required this.pageWidth,
     required this.headlineVerse,
     required this.icon,
-    required this.realNodePath,
+    required this.recordType,
     required this.flyerID,
     required this.bzID,
     super.key
@@ -25,36 +32,9 @@ class FlyerRecordsBox extends StatefulWidget {
   final double pageWidth;
   final Verse headlineVerse;
   final String icon;
-  final String realNodePath;
+  final RecordType recordType;
   final String flyerID;
   final String bzID;
-  /// -----------------------
-  @override
-  State<FlyerRecordsBox> createState() => _FlyerRecordsBoxState();
-  /// --------------------------------------------------------------------------
-}
-
-class _FlyerRecordsBoxState extends State<FlyerRecordsBox> {
-  // --------------------------------------------------------------------------
-  late PaginationController _paginatorController;
-  // ------------------------------
-  @override
-  void initState() {
-    super.initState();
-
-    _paginatorController = PaginationController.initialize(
-      addExtraMapsAtEnd: true,
-      // idFieldName: 'id',
-      // onDataChanged: ,
-    );
-
-  }
-  // ------------------------------
-  @override
-  void dispose() {
-    _paginatorController.dispose();
-    super.dispose();
-  }
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -65,11 +45,12 @@ class _FlyerRecordsBoxState extends State<FlyerRecordsBox> {
 
         /// HEADLINE
         BldrsBox(
+          width: pageWidth - 30,
           height: 30,
-          verse: widget.headlineVerse,
+          verse: headlineVerse,
           verseWeight: VerseWeight.thin,
           verseItalic: true,
-          icon: widget.icon,
+          icon: icon,
           iconSizeFactor: 0.6,
           verseScaleFactor: 1 / 0.6,
           bubble: false,
@@ -77,62 +58,124 @@ class _FlyerRecordsBoxState extends State<FlyerRecordsBox> {
           margins: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         ),
 
-        /// PAGINATOR
-        RealCollPaginator(
-            paginationController: _paginatorController,
-            paginationQuery: RealQueryModel.createAscendingQueryModel(
-              path: widget.realNodePath,
-              limit: 6,
-              idFieldName: 'id',
-              fieldNameToOrderBy: 'timeStamp',
-            ),
-            builder: (_, List<Map<String, dynamic>>? maps, bool loading, Widget? child){
+        /// VIEWS PAGINATOR
+        if (recordType == RecordType.view)
+        FlyerViewsPaginator(
+          flyerID: flyerID,
+          bzID: bzID,
+            builder: (_, List<FlyerViewModel>? records, bool loading, Widget? child, ScrollController controller){
 
-              final List<FlyerViewModel> _records = [];
-              // RecordX.decipherRecords(
-              //   maps: maps ?? [],
-              //   flyerID: widget.flyerID,
-              //   bzID: widget.bzID,
-              //   fromJSON: true,
-              // );
+            return UsersStripBuilder(
+              width: pageWidth,
+              scrollController: controller,
+              usersIDs: FlyerViewModel.getUsersIDsFromRecords(
+                models: records,
+              ),
+            );
 
 
-              return Container(
-                width: widget.pageWidth,
-                height: 100,
-                decoration: const BoxDecoration(
-                  color: Colorz.white20,
-                  borderRadius: Borderers.constantCornersAll10,
-                ),
-                child: ListView.builder(
-                  controller: _paginatorController.scrollController,
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.all(10),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _records.length,
-                  itemBuilder: (_, int index){
-                    return FutureBuilder(
-                      future: UserProtocols.fetch(userID: _records[index].userID),
-                      builder: (_, AsyncSnapshot<UserModel?> snapshot){
+          }
+          ),
 
-                        final UserModel? _user = snapshot.data;
+        /// SAVES PAGINATOR
+        if (recordType == RecordType.save)
+        FlyerSavesPaginator(
+          flyerID: flyerID,
+          bzID: bzID,
+            builder: (_, List<FlyerSaveModel>? records, bool loading, Widget? child, ScrollController controller){
 
-                        return MiniUserBanner(
-                          size: 50,
-                          userModel: _user,
-                        );
+            return UsersStripBuilder(
+              width: pageWidth,
+              scrollController: controller,
+              usersIDs: FlyerSaveModel.getUsersIDsFromRecords(
+                models: records,
+              ),
+            );
 
-                      },
-                    );
-                    },
+
+          }
+          ),
+
+        /// SHARES PAGINATOR
+        if (recordType == RecordType.share)
+        FlyerSharesPaginator(
+            flyerID: flyerID,
+            bzID: bzID,
+            builder: (_, List<FlyerShareModel>? records, bool loading, Widget? child, ScrollController controller){
+
+              return UsersStripBuilder(
+                width: pageWidth,
+                scrollController: controller,
+                usersIDs: FlyerShareModel.getUsersIDsFromRecords(
+                  models: records,
                 ),
               );
 
-            }
-            ),
+          }
+          ),
 
       ],
     );
 
   }
+  // --------------------------------------------------------------------------
+}
+
+class UsersStripBuilder extends StatelessWidget {
+  // --------------------------------------------------------------------------
+  const UsersStripBuilder({
+    required this.usersIDs,
+    required this.scrollController,
+    required this.width,
+    super.key
+  });
+  // -----------------------
+  final List<String> usersIDs;
+  final ScrollController scrollController;
+  final double width;
+  // --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    if (Mapper.checkCanLoopList(usersIDs) == false){
+      return const SizedBox();
+    }
+
+    else {
+
+      return Container(
+        width: width,
+        height: 100,
+        decoration: const BoxDecoration(
+          color: Colorz.white20,
+          borderRadius: Borderers.constantCornersAll10,
+        ),
+        child: ListView.builder(
+          controller: scrollController,
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(10),
+          scrollDirection: Axis.horizontal,
+          itemCount: usersIDs.length,
+          itemBuilder: (_, int index){
+
+            return FutureBuilder(
+              future: UserProtocols.fetch(userID: usersIDs[index]),
+              builder: (_, AsyncSnapshot<UserModel?> snapshot){
+                final UserModel? _user = snapshot.data;
+                return MiniUserBanner(
+                  size: 50,
+                  userModel: _user,
+                );
+                },
+            );
+
+            },
+        ),
+      );
+
+    }
+
+
+  }
+  // --------------------------------------------------------------------------
 }
