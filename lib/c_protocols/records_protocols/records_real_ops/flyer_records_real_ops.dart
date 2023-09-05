@@ -23,15 +23,14 @@ class FlyerRecordsRealOps {
   }) async {
 
     final String? _key = model.toPairKey();
-    final int? _value = model.toPairValue();
 
-    if (_key != null && _value != null){
+    if (_key != null){
 
       await Real.updateDocField(
           coll: RealColl.records,
           doc: '${RealDoc.records_flyers}/$bzID/$flyerID/${RealDoc.records_flyers_bzID_flyerID_recordingViews}',
           field: _key,
-          value: _value,
+          value: model.toMap(),
       );
 
     }
@@ -109,15 +108,15 @@ class FlyerRecordsRealOps {
 
       final String _path = '$_directory/$_key';
 
-      final String? _cipheredTime = await Real.readPath(
+      final Map<String, dynamic>? _map = await Real.readPath(
           path: _path,
       );
 
-      if (_cipheredTime != null){
+      if (_map != null){
 
         _output = FlyerViewModel.decipher(
-            pairKey: _key,
-            cipheredTime: _cipheredTime,
+            viewID: _key,
+            map: _map,
             flyerID: flyerID
         );
 

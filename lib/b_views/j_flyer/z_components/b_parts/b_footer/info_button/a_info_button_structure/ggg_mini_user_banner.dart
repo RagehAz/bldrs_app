@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -27,7 +28,7 @@ class MiniUserBanner extends StatelessWidget {
         BldrsBox(
           height: size,
           width: size,
-          icon: userModel?.picPath,
+          icon: userModel?.picPath ?? Iconz.anonymousUser,
           margins: Scale.constantHorizontal5,
           onTap: () => BldrsNav.jumpToUserPreviewScreen(
             userID: userModel?.id,
@@ -39,7 +40,7 @@ class MiniUserBanner extends StatelessWidget {
           height: 30,
           child: BldrsText(
             verse: Verse(
-              id: userModel?.name ?? getWord('phid_bldr'),
+              id: userModel?.name ?? getWord('phid_person'),
               translate: false,
             ),
             size: 1,
@@ -52,5 +53,5 @@ class MiniUserBanner extends StatelessWidget {
     );
 
   }
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }

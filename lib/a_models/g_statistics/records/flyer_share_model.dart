@@ -1,3 +1,5 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -68,6 +70,58 @@ class FlyerShareModel {
       );
     }
 
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<FlyerShareModel> decipherMaps({
+    required List<Map<String, dynamic>>? maps,
+  }){
+    final List<FlyerShareModel> _output = [];
+
+    if (Mapper.checkCanLoopList(maps) == true){
+
+      for (final Map<String, dynamic> map in maps!){
+
+        final FlyerShareModel? _model = decipher(
+            map: map,
+            id: map['id'],
+        );
+
+        if (_model != null){
+          _output.add(_model);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getUsersIDsFromRecords({
+    required List<FlyerShareModel>? models,
+  }){
+    List<String> _output = [];
+
+    if (Mapper.checkCanLoopList(models) == true){
+
+      for (final FlyerShareModel model in models!){
+
+        _output = Stringer.addStringToListIfDoesNotContainIt(
+            strings: _output,
+            stringToAdd: model.userID
+        );
+
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
