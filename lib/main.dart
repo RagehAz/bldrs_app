@@ -21,6 +21,7 @@ import 'package:bldrs/firebase_options.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:fire/super_fire.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -105,7 +106,7 @@ const bool useSentryOnDebug = false;
 
 Future<void> sentryBldrs() async {
 
-  const bool _runSentry = false; //useSentryOnDebug == true ? true : !kDebugMode;
+  const bool _runSentry = useSentryOnDebug == true ? true : !kDebugMode;
 
   if (_runSentry == true) {
 

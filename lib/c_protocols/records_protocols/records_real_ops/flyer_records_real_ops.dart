@@ -23,7 +23,7 @@ class FlyerRecordsRealOps {
   }) async {
 
     final String? _key = model.toPairKey();
-    final String? _value = model.toPairValue();
+    final int? _value = model.toPairValue();
 
     if (_key != null && _value != null){
 

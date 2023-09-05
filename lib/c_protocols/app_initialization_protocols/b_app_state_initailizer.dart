@@ -63,6 +63,10 @@ class AppStateInitializer {
 
             if (_continue == true){
 
+              unawaited(_superWipeLDBIfDecidedByRage7(
+                globalState: _globalState,
+              ));
+
               /// NOW WE CAN LOAD THE APP
               _canLoadApp = true;
 
@@ -206,6 +210,35 @@ ${getWord('phid_new_version')} : ${globalState.appVersion}
     }
 
     return _output;
+  }
+  // --------------------
+  ///
+  static Future<void> _superWipeLDBIfDecidedByRage7({
+    required AppStateModel globalState,
+  }) async {
+
+    final List<Map<String, dynamic>> _localLDBVersionMaps = await LDBOps.readAllMaps(
+        docName: 'ldbVersion',
+    );
+
+    final Map<String, dynamic>? _localLDBVersionMap = _localLDBVersionMaps.first;
+    final int? _localLDBVersion = _localLDBVersionMap?['ldbVersion'];
+
+    if (globalState.ldbVersion != _localLDBVersion){
+
+      await LDBDoc.superWipeOfEntireLDB();
+
+      await LDBOps.insertMap(
+          docName: 'ldbVersion',
+          primaryKey: 'id',
+          input: {
+            'id': 'ldb',
+            'ldbVersion': globalState.ldbVersion,
+          },
+      );
+
+    }
+
   }
   // -----------------------------------------------------------------------------
 }
