@@ -1,4 +1,6 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +23,16 @@ class FlyerViewModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  int? toPairValue(){
-    return Timers.cipherTime(
+  Map<String, dynamic> toMap(){
+
+    return {
+      'userID': userID,
+      'time': Timers.cipherTime(
       time: time,
       toJSON: true,
-    );
+    ),
+    };
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -38,31 +45,61 @@ class FlyerViewModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static FlyerViewModel? decipher({
-    required String pairKey,
-    required String cipheredTime,
+    required String viewID,
+    required Map<String, dynamic>? map,
     required String flyerID,
   }){
+    FlyerViewModel? _output;
 
-    final String? _userID = getUserIDFromViewRecordModelID(
-      recordID: pairKey,
-    );
+    if (map != null){
 
-    final int? _index = getSlideIndexFromViewRecordModelID(
-        recordID: pairKey,
-    );
-
-    if (_userID != null && _index != null){
-      return FlyerViewModel(
-        userID: _userID,
-        index: _index,
-        time: Timers.decipherTime(time: cipheredTime, fromJSON: true),
+      final String? _userID = getUserIDFromViewRecordModelID(
+        recordID: viewID,
       );
+
+      final int? _index = getSlideIndexFromViewRecordModelID(
+        recordID: viewID,
+      );
+
+      if (_userID != null && _index != null){
+        _output = FlyerViewModel(
+          userID: _userID,
+          index: _index,
+          time: Timers.decipherTime(time: map['time'], fromJSON: true),
+        );
+      }
+
     }
 
-    else {
-      return null;
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<FlyerViewModel> decipherMaps({
+    required List<Map<String, dynamic>>? maps,
+    required String flyerID,
+  }){
+    final List<FlyerViewModel> _output = [];
+
+    if (Mapper.checkCanLoopList(maps) == true){
+
+      for (final Map<String, dynamic> map in maps!){
+
+        final FlyerViewModel? _model = decipher(
+            viewID: map['id'],
+            map: map,
+            flyerID: flyerID
+        );
+
+        if (_model != null){
+          _output.add(_model);
+        }
+
+      }
+
     }
 
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -116,6 +153,30 @@ class FlyerViewModel {
 
     if (_text != null){
       _output = Numeric.transformStringToInt(_text);
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getUsersIDsFromRecords({
+    required List<FlyerViewModel>? models,
+  }){
+    List<String> _output = [];
+
+    if (Mapper.checkCanLoopList(models) == true){
+
+      for (final FlyerViewModel model in models!){
+        _output = Stringer.addStringToListIfDoesNotContainIt(
+            strings: _output,
+            stringToAdd: model.userID
+        );
+      }
+
     }
 
     return _output;
