@@ -484,45 +484,6 @@ class UserInitializer {
           ),
         );
 
-        // /// STATES IDENTICAL
-        // final bool _statesAreIdentical = AppStateModel.checkAppStatesAreIdentical(
-        //     state1: _userState,
-        //     state2: _globalState,
-        // );
-        // if (_statesAreIdentical == false){
-        //
-        //   /// LDB CHECK
-        //   if (_globalState.ldbVersion != _userState?.ldbVersion){
-        //
-        //     unawaited(LDBDoc.wipeOutEntireLDB());
-        //
-        //     _userState = _userState.copyWith(
-        //       ldbVersion: _globalState.ldbVersion,
-        //     );
-        //
-        //     _output = _output.copyWith(
-        //       appState: _userState,
-        //     );
-        //
-        //   }
-        //
-        //   /// APP VERSION CHECK
-        //   final String _detectedVersion = await AppVersionBuilder.detectAppVersion();
-        //   if (_detectedVersion != _userState.appVersion){
-        //
-        //     _userState = _userState.copyWith(
-        //       appVersion: _detectedVersion,
-        //       minVersion: _detectedVersion,
-        //     );
-        //
-        //     _output = _output.copyWith(
-        //       appState: _userState,
-        //     );
-        //
-        //   }
-        //
-        // }
-
       }
 
     }
