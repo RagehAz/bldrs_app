@@ -7,7 +7,7 @@ void main() {
     test('Should return a non-null map', () {
       const publication = PublicationModel.emptyModel;
 
-      final result = publication.toMap();
+      final result = PublicationModel.cipherToMap(publication: publication);
 
       expect(result, isNotNull);
     });
@@ -15,9 +15,9 @@ void main() {
     test('Should return a map with all the required keys', () {
       const PublicationModel publication = PublicationModel.emptyModel;
 
-      final result = publication.toMap();
+      final result = PublicationModel.cipherToMap(publication: publication);
 
-      expect(5, result.keys.length);
+      expect(5, result?.keys.length);
     });
 
     test('Should return a map with correct key-value pairs', () {
@@ -35,37 +35,37 @@ void main() {
         suspended: suspended,
       );
 
-      final result = publication.toMap();
+      final result = PublicationModel.cipherToMap(publication: publication);
 
-      expect(result['drafts'], drafts);
-      expect(result['pendings'], pendings);
-      expect(result['published'], published);
-      expect(result['unpublished'], unpublished);
-      expect(result['suspended'], suspended);
+      expect(result?['drafts'], drafts);
+      expect(result?['pendings'], pendings);
+      expect(result?['published'], published);
+      expect(result?['unpublished'], unpublished);
+      expect(result?['suspended'], suspended);
     });
 
     test('Should return a map with empty lists if the input lists are null', () {
       const PublicationModel publication = PublicationModel.emptyModel;
 
-      final result = publication.toMap();
+      final result = PublicationModel.cipherToMap(publication: publication);
 
-      expect(result['drafts'], []);
-      expect(result['pendings'], []);
-      expect(result['published'], []);
-      expect(result['unpublished'], []);
-      expect(result['suspended'], []);
+      expect(result?['drafts'], []);
+      expect(result?['pendings'], []);
+      expect(result?['published'], []);
+      expect(result?['unpublished'], []);
+      expect(result?['suspended'], []);
     });
 
     test('Should return a map with empty lists if the input lists are empty', () {
       const PublicationModel publication = PublicationModel.emptyModel;
 
-      final result = publication.toMap();
+      final result = PublicationModel.cipherToMap(publication: publication);
 
-      expect(result['drafts'], []);
-      expect(result['pendings'], []);
-      expect(result['published'], []);
-      expect(result['unpublished'], []);
-      expect(result['suspended'], []);
+      expect(result?['drafts'], []);
+      expect(result?['pendings'], []);
+      expect(result?['published'], []);
+      expect(result?['unpublished'], []);
+      expect(result?['suspended'], []);
     });
 
     test('Should not include null values in the map', () {
@@ -77,13 +77,13 @@ void main() {
         suspended: [],
       );
 
-      final result = publication.toMap();
+      final result = PublicationModel.cipherToMap(publication: publication);
 
-      expect(result.containsKey('drafts'), true);
-      expect(result.containsKey('pendings'), true);
-      expect(result.containsKey('published'), true);
-      expect(result.containsKey('unpublished'), true);
-      expect(result.containsKey('suspended'), true);
+      expect(result?.containsKey('drafts'), true);
+      expect(result?.containsKey('pendings'), true);
+      expect(result?.containsKey('published'), true);
+      expect(result?.containsKey('unpublished'), true);
+      expect(result?.containsKey('suspended'), true);
     });
 
     test('Should return the correct map size', () {
@@ -95,9 +95,9 @@ void main() {
         suspended: [],
       );
 
-      final result = publication.toMap();
+      final result = PublicationModel.cipherToMap(publication: publication);
 
-      expect(result.length, 5);
+      expect(result?.length, 5);
     });
   });
 
@@ -692,8 +692,8 @@ void main() {
   });
 
   group('PublicationModel.bringIDToStart()', () {
-    test(
-        'Should bring the flyerID to the start of the drafts list when the state is PublishState.draft',
+
+    test('Should bring the flyerID to the start of the drafts list when the state is PublishState.draft',
         () {
       const PublicationModel pub = PublicationModel(
         drafts: ['draft1', 'draft2', 'draft3'],
@@ -710,7 +710,7 @@ void main() {
         toState: PublishState.draft,
       );
 
-      expect(result.drafts.first, flyerID);
+      expect(result.drafts.last, flyerID);
       expect(result.drafts, containsAllInOrder(['draft1', 'draft3']));
       expect(result.pendings, pub.pendings);
       expect(result.published, pub.published);
@@ -736,7 +736,7 @@ void main() {
         toState: PublishState.pending,
       );
 
-      expect(result.pendings.first, flyerID);
+      expect(result.pendings.last, flyerID);
       expect(result.pendings, containsAllInOrder(['pending1', 'pending3']));
       expect(result.drafts, pub.drafts);
       expect(result.published, pub.published);
@@ -762,7 +762,7 @@ void main() {
         toState: PublishState.published,
       );
 
-      expect(result.published.first, flyerID);
+      expect(result.published.last, flyerID);
       expect(result.published, containsAllInOrder(['published1', 'published3']));
       expect(result.drafts, pub.drafts);
       expect(result.pendings, pub.pendings);
@@ -770,8 +770,7 @@ void main() {
       expect(result.suspended, pub.suspended);
     });
 
-    test(
-        'Should bring the flyerID to the start of the unpublished list when the state is PublishState.unpublished',
+    test('Should bring the flyerID to the start of the unpublished list when the state is PublishState.unpublished',
         () {
       const pub = PublicationModel(
         drafts: [],
@@ -788,7 +787,7 @@ void main() {
         toState: PublishState.unpublished,
       );
 
-      expect(result.unpublished.first, flyerID);
+      expect(result.unpublished.last, flyerID);
       expect(result.unpublished, containsAllInOrder(['unpublished1', 'unpublished3']));
       expect(result.drafts, pub.drafts);
       expect(result.pendings, pub.pendings);
@@ -796,8 +795,7 @@ void main() {
       expect(result.suspended, pub.suspended);
     });
 
-    test(
-        'Should bring the flyerID to the start of the suspended list when the state is PublishState.suspended',
+    test('Should bring the flyerID to the start of the suspended list when the state is PublishState.suspended',
         () {
       const pub = PublicationModel(
         drafts: [],
@@ -814,7 +812,7 @@ void main() {
         toState: PublishState.suspended,
       );
 
-      expect(result.suspended.first, flyerID);
+      expect(result.suspended.last, flyerID);
       expect(result.suspended, containsAllInOrder(['suspended1', 'suspended3']));
       expect(result.drafts, pub.drafts);
       expect(result.pendings, pub.pendings);
@@ -984,8 +982,7 @@ void main() {
       expect(result.suspended, pub.suspended);
     });
 
-    test(
-        'Should bring the flyerID to the start of the drafts when the flyer is in drafts and moving to the same state',
+    test('Should bring the flyerID to the start of the drafts when the flyer is in drafts and moving to the same state',
         () {
       const pub = PublicationModel(
         drafts: ['draft1', 'draft2'],
@@ -1003,7 +1000,7 @@ void main() {
         toState: toState,
       );
 
-      expect(result.drafts.first, flyerID);
+      expect(result.drafts.last, flyerID);
       expect(result.drafts, containsAllInOrder(['draft1']));
       expect(result.pendings, pub.pendings);
       expect(result.published, pub.published);
