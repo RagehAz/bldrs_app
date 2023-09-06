@@ -49,7 +49,7 @@ Future<void> loadFlyerMakerLastSession({
 
   if (_lastSessionDraft != null){
 
-    final bool _continue = await CenterDialog.showCenterDialog(
+    final bool _continue = await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         id: 'phid_load_last_session_data_q',
         translate: true,
@@ -195,7 +195,7 @@ Future<void> onSelectFlyerType({
     /// SOME SPECS ARE SELECTED
     if (Mapper.checkCanLoopList(draftNotifier.value?.phids) == true){
 
-      _canUpdate = await CenterDialog.showCenterDialog(
+      _canUpdate = await BldrsCenterDialog.showCenterDialog(
         titleVerse: const Verse(
           id: 'phid_reset_selected_keywords_?',
           translate: true,
@@ -673,7 +673,7 @@ Future<bool> _preFlyerUpdateCheck({
 
   if (_areIdentical == true){
 
-    await CenterDialog.showCenterDialog(
+    await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         pseudo: 'Flyer was not changed',
         id: 'phid_flyer_was_not_changed',
@@ -688,7 +688,7 @@ Future<bool> _preFlyerUpdateCheck({
   else {
     if (Mapper.checkCanLoopList(draft?.draftSlides) == false){
 
-      await CenterDialog.showCenterDialog(
+      await BldrsCenterDialog.showCenterDialog(
         titleVerse: const Verse(
           id: 'phid_add_images',
           translate: true,

@@ -321,7 +321,7 @@ Future<void> onCallTap({
     /// BZ HAS NO CONTACTS
     if (_bzHasContacts == false){
 
-      await CenterDialog.showCenterDialog(
+      await BldrsCenterDialog.showCenterDialog(
         titleVerse: const Verse(
           id: 'phid_no_contacts_available',
           translate: true,

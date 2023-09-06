@@ -148,7 +148,7 @@ class AppStateInitializer {
       /// TEMPORARY UNTIL APP BECOMES MORE STABLE
       unawaited(LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.accounts));
 
-      await CenterDialog.showCenterDialog(
+      await BldrsCenterDialog.showCenterDialog(
         titleVerse:  getVerse('phid_newUpdateAvailable'),
         bodyVerse: Verse.plain(
 '''
@@ -188,7 +188,7 @@ ${getWord('phid_new_version')} : ${globalState.appVersion}
     /// MUST UPDATE
     if (_mayUpdate == true){
 
-      await CenterDialog.showCenterDialog(
+      await BldrsCenterDialog.showCenterDialog(
         titleVerse:  getVerse('phid_newUpdateAvailable'),
         bodyVerse: Verse.plain(
 '''

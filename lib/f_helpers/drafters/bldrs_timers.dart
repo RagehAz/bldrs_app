@@ -319,7 +319,7 @@ class BldrsTimers {
         hh_i_mm_ampm_device: _hh_i_mm_ampm_device,
       );
 
-      await CenterDialog.showCenterDialog(
+      await BldrsCenterDialog.showCenterDialog(
         titleVerse: const Verse(
           id: 'phid_device_time_incorrect',
           translate: true,

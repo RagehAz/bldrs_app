@@ -191,7 +191,7 @@ class FCMStarter {
           map: remoteMessage?.data,
         );
 
-        await CenterDialog.showCenterDialog(
+        await BldrsCenterDialog.showCenterDialog(
           titleVerse: Verse.plain('App was on background'),
           bodyVerse: Verse.plain('noteTitle is : ${_note?.title}'),
           color: Colorz.green50,

@@ -194,7 +194,7 @@ Future<void> _showOnlyCreatorCanDeleteBzDialog({
 
   final String? _creatorAuthorsString = AuthorModel.getCreatorAuthorFromAuthors(bzModel?.authors)?.name;
 
-  await CenterDialog.showCenterDialog(
+  await BldrsCenterDialog.showCenterDialog(
     titleVerse: const Verse(
       id: 'phid_cant_delete_account',
       translate: true,

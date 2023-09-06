@@ -61,7 +61,7 @@ class AuthorshipRespondingProtocols{
           ),
         ),
 
-        CenterDialog.showCenterDialog(
+        BldrsCenterDialog.showCenterDialog(
           titleVerse: const Verse(
             id: 'phid_invitation_request_had_expired',
             translate: true,
@@ -111,7 +111,7 @@ class AuthorshipRespondingProtocols{
     required BzModel? bzModel,
   }) async {
 
-    final bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         id: 'phid_accept_invitation_?',
         translate: true,
@@ -143,7 +143,7 @@ class AuthorshipRespondingProtocols{
 
       await WaitDialog.closeWaitDialog();
 
-      await CenterDialog.showCenterDialog(
+      await BldrsCenterDialog.showCenterDialog(
         titleVerse: Verse(
           id: 'phid_great_!',
           translate: true,
@@ -254,7 +254,7 @@ class AuthorshipRespondingProtocols{
   }) async {
     blog('_declineAuthorshipInvitation : decline ');
 
-    final bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         id: 'phid_decline_invitation_?',
         translate: true,
