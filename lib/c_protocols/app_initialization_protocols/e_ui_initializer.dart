@@ -212,7 +212,7 @@ class UiInitializer {
         verse: Verse.plain('checkShouldRefreshLDB : $_shouldRefresh'),
         color: _shouldRefresh == true ? Colorz.green255 : Colorz.red255,
         body: Verse.plain('$_diff Minutes\n\nLast Wipe : $_lastWipe\n'
-            'diff ($_diff) < (${Standards.ldbWipeIntervalInMinutes}) : (${_diff! < Standards.ldbWipeIntervalInMinutes})'),
+            'diff ($_diff) < (${Standards.ldbWipeIntervalInMinutes}) : (${Numeric.isGreaterThan(number: Standards.ldbWipeIntervalInMinutes, isGreaterThan: _diff)})'),
       );
 
     }

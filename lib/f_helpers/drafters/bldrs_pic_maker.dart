@@ -1,12 +1,15 @@
 import 'dart:typed_data';
 
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/permissions/permits.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:basics/super_image/super_image.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -65,6 +68,7 @@ class BldrsPicMaker {
         confirmText: getWord('phid_continue'),
         onlyCompress: Standards.onlyCompressOnResizing,
         compressionQuality: compressionQuality,
+        onPermissionPermanentlyDenied: _onPermissionPermanentlyDenied,
         // selectedAsset: selectedAsset,
       );
     }
@@ -80,6 +84,7 @@ class BldrsPicMaker {
         onlyCompress: Standards.onlyCompressOnResizing,
         compressionQuality: compressionQuality,
         confirmText: getWord('phid_continue'),
+        onPermissionPermanentlyDenied: _onPermissionPermanentlyDenied,
       );
     }
 
@@ -124,6 +129,7 @@ class BldrsPicMaker {
       maxAssets: maxAssets,
       compressionQuality: compressionQuality,
       onlyCompress: Standards.onlyCompressOnResizing,
+      onPermissionPermanentlyDenied: _onPermissionPermanentlyDenied,
       // selectedAssets: selectedAssets,
     );
 
@@ -367,6 +373,90 @@ class BldrsPicMaker {
     }
 
     return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// PERMISSION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _onPermissionPermanentlyDenied(Permission permission) async {
+
+    final String _bodyLine = getWord(_getPermissionWarningPhid(permission));
+    final String _permissionLine = permission.toString();
+    
+    final bool? _go = await BldrsCenterDialog.showCenterDialog(
+      boolDialog: true,
+      titleVerse: const Verse(
+        id: 'phid_permission_required',
+        translate: true,
+      ),
+      bodyVerse: Verse(
+        id: '$_bodyLine\n\n$_permissionLine',
+        translate: false,
+      ),
+      confirmButtonVerse: const Verse(
+        id: 'phid_go_to_settings',
+        translate: true,
+      ),
+      noVerse: const Verse(
+        id: 'phid_cancel',
+        translate: true,
+      ),
+    );
+
+    if (Mapper.boolIsTrue(_go) == true){
+      await Permit.jumpToAppSettingsScreen();
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String _getPermissionWarningPhid(Permission permission){
+
+    switch (permission.toString()){
+      case  'Permission.photos': return 'phid_media_permit_warning';
+      case  'Permission.storage': return 'phid_media_permit_warning';
+      case  'Permission.camera': return 'phid_camera_permit_warning';
+      case  'Permission.mediaLibrary': return 'phid_media_permit_warning';
+      case  'Permission.photosAddOnly': return 'phid_media_permit_warning';
+      case  'Permission.accessMediaLocation': return 'phid_media_permit_warning';
+
+      case  'Permission.location': return 'phid_location_permit_warning';
+      case  'Permission.locationAlways': return 'phid_location_permit_warning';
+      case  'Permission.locationWhenInUse': return 'phid_location_permit_warning';
+
+      // case  'Permission.notification': return 'phid_notification_permit_warning'; break;
+
+      // case  'Permission.microphone': return 'phid_microphone_permit_warning'; break;
+      // case  'Permission.videos': return 'phid_videos_permit_warning'; break;
+      // case  'Permission.audio': return 'phid_audio_permit_warning'; break;
+      // case  'Permission.contacts': return 'phid_contacts_permit_warning'; break;
+      // case  'Permission.speech': return 'phid_speech_permit_warning'; break;
+      // case  'Permission.phone': return 'phid_phone_permit_warning'; break;
+      // case  'Permission.sensors': return 'phid_sensors_permit_warning'; break;
+      // case  'Permission.bluetooth': return 'phid_bluetooth_permit_warning'; break;
+      // case  'Permission.reminders': return 'phid_reminders_permit_warning'; break;
+      // case  'Permission.calendar': return 'phid_calendar_permit_warning'; break;
+      // case  'Permission.sms': return 'phid_sms_permit_warning'; break;
+      // case  'Permission.activityRecognition': return 'phid_activityRecognition_permit_warning'; break;
+      // case  'Permission.unknown': return 'phid_unknown_permit_warning'; break;
+      // case  'Permission.ignoreBatteryOptimizations': return 'phid_ignoreBatteryOptimizations_permit_warning'; break;
+      // case  'Permission.manageExternalStorage': return 'phid_manageExternalStorage_permit_warning'; break;
+      // case  'Permission.systemAlertWindow': return 'phid_systemAlertWindow_permit_warning'; break;
+      // case  'Permission.requestInstallPackages': return 'phid_requestInstallPackages_permit_warning'; break;
+      // case  'Permission.appTrackingTransparency': return 'phid_appTrackingTransparency_permit_warning'; break;
+      // case  'Permission.criticalAlerts': return 'phid_criticalAlerts_permit_warning'; break;
+      // case  'Permission.accessNotificationPolicy': return 'phid_accessNotificationPolicy_permit_warning'; break;
+      // case  'Permission.bluetoothScan': return 'phid_bluetoothScan_permit_warning'; break;
+      // case  'Permission.bluetoothAdvertise': return 'phid_bluetoothAdvertise_permit_warning'; break;
+      // case  'Permission.bluetoothConnect': return 'phid_bluetoothConnect_permit_warning'; break;
+      // case  'Permission.nearbyWifiDevices': return 'phid_nearbyWifiDevices_permit_warning'; break;
+      // case  'Permission.scheduleExactAlarm': return 'phid_scheduleExactAlarm_permit_warning'; break;
+
+      default: return 'phid_permission_warning';
+    }
+
   }
   // -----------------------------------------------------------------------------
 }

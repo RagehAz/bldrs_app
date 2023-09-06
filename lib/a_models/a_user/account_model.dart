@@ -10,11 +10,13 @@ class AccountModel {
     required this.id,
     required this.email,
     required this.password,
+    required this.signInMethod,
   });
   // -----------------------------------------------------------------------------
   final String? id;
   final String? email;
   final String? password;
+  final SignInMethod? signInMethod;
   // -----------------------------------------------------------------------------
 
   /// CREATION
@@ -42,6 +44,7 @@ class AccountModel {
           id: userModel.id,
           email: _email,
           password: _password,
+          signInMethod: userModel.signInMethod,
         );
 
       }
@@ -51,6 +54,7 @@ class AccountModel {
           id: userModel.id,
           email: UserModel.getUserEmail(userModel),
           password: passwordOverride,
+          signInMethod: userModel.signInMethod,
         );
       }
 
@@ -68,11 +72,13 @@ class AccountModel {
     String? id,
     String? email,
     String? password,
+    SignInMethod? signInMethod,
   }){
     return AccountModel(
         id: id ?? this.id,
         email: email ?? this.email,
         password: password ?? this.password,
+        signInMethod: signInMethod ?? this.signInMethod,
     );
   }
   // -----------------------------------------------------------------------------
@@ -86,6 +92,7 @@ class AccountModel {
       'id': id,
       'email': email,
       'password': password,
+      'signInMethod': AuthModel.cipherSignInMethod(signInMethod),
     };
 
   }
@@ -100,6 +107,7 @@ class AccountModel {
         id: map['id'],
         email: map['email'],
         password: map['password'],
+        signInMethod: AuthModel.decipherSignInMethod(map['signInMethod']),
       );
     }
   }
@@ -226,7 +234,8 @@ class AccountModel {
       if (
           account1.id == account2.id &&
           account1.email == account2.email &&
-          account1.password == account2.password
+          account1.password == account2.password &&
+          account1.signInMethod == account2.signInMethod
       ){
         _identical = true;
       }
@@ -267,6 +276,7 @@ class AccountModel {
   int get hashCode =>
       id.hashCode^
       email.hashCode^
-      password.hashCode;
+      password.hashCode^
+      signInMethod.hashCode;
   // -----------------------------------------------------------------------------
 }

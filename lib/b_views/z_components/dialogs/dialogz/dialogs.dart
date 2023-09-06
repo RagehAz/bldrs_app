@@ -106,7 +106,7 @@ class Dialogs {
     Color? color,
   }) async {
 
-    await CenterDialog.showCenterDialog(
+    await BldrsCenterDialog.showCenterDialog(
       titleVerse: verse,
       color: color,
       bodyVerse: body,
@@ -117,7 +117,7 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> weWillLookIntoItNotice() async {
-    await CenterDialog.showCenterDialog(
+    await BldrsCenterDialog.showCenterDialog(
       titleVerse:  const Verse(
         id: 'phid_thanks_million',
         translate: true,
@@ -141,7 +141,7 @@ class Dialogs {
     required String? afterHomeRouteArgument,
   }) async {
 
-    final bool _go = await CenterDialog.showCenterDialog(
+    final bool _go = await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         id: 'phid_you_need_to_sign_in',
         translate: true,
@@ -176,7 +176,7 @@ class Dialogs {
     Verse? yesVerse,
   }) async {
 
-    final bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await BldrsCenterDialog.showCenterDialog(
       titleVerse: titleVerse ?? const Verse(
         id: 'phid_proceed_?',
         translate: true,
@@ -199,7 +199,7 @@ class Dialogs {
     bool goBackOnConfirm = false,
   }) async {
 
-    final bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await BldrsCenterDialog.showCenterDialog(
       invertButtons: true,
       titleVerse: titleVerse ?? const Verse(
         id: 'phid_go_back_?',
@@ -227,7 +227,7 @@ class Dialogs {
   /// TESTED : WORKS PERFECT
   static Future<bool> discardChangesGoBackDialog() async {
 
-    final bool result = await CenterDialog.showCenterDialog(
+    final bool result = await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         id: 'phid_discard_changes_?',
         translate: true,
@@ -414,7 +414,7 @@ class Dialogs {
 
     blog('_errorReplyVerse : ${_errorReplyVerse?.id}');
 
-    await CenterDialog.showCenterDialog(
+    await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         id: 'phid_could_not_continue_title',
         translate: true,
@@ -426,7 +426,7 @@ class Dialogs {
   /// TESTED : WORKS PERFECT
   static Future<void> tryAgainDialog() async {
 
-    await CenterDialog.showCenterDialog(
+    await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         id: 'phid_somethingIsWrong!',
         translate: true,
@@ -445,7 +445,7 @@ class Dialogs {
     Verse? bodyVerse,
   }) async {
 
-    await CenterDialog.showCenterDialog(
+    await BldrsCenterDialog.showCenterDialog(
       titleVerse: titleVerse ?? const Verse(
         id: 'phid_somethingIsWrong',
         translate: true,
@@ -690,7 +690,7 @@ class Dialogs {
   /// TESTED : WORKS PERFECT
   static Future<void> zoneIsNotAvailable() async {
 
-    await CenterDialog.showCenterDialog(
+    await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         id: 'phid_zone_is_not_available',
         translate: true,
@@ -718,7 +718,7 @@ class Dialogs {
   }) async {
 
     final BuildContext _context = getMainContext();
-    final bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await BldrsCenterDialog.showCenterDialog(
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       boolDialog: boolDialog,
@@ -727,7 +727,7 @@ class Dialogs {
       height: Scale.screenHeight(_context) * 0.7,
       child: UserBanner(
         userModel: userModel,
-        width: CenterDialog.clearWidth(_context),
+        width: BldrsCenterDialog.clearWidth(_context),
       ),
     );
 
@@ -748,7 +748,7 @@ class Dialogs {
     bool invertButtons = false,
   }) async {
 
-    final bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await BldrsCenterDialog.showCenterDialog(
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       confirmButtonVerse: confirmButtonVerse,
@@ -756,8 +756,8 @@ class Dialogs {
       height: Scale.screenHeight(getMainContext()) * 0.8,
       invertButtons: invertButtons,
       child: BzBanner(
-        boxWidth: CenterDialog.clearWidth(getMainContext()),
-        boxHeight: CenterDialog.clearWidth(getMainContext()),
+        boxWidth: BldrsCenterDialog.clearWidth(getMainContext()),
+        boxHeight: BldrsCenterDialog.clearWidth(getMainContext()),
         bzModel: bzModel,
         bigName: false,
       ),
@@ -779,7 +779,7 @@ class Dialogs {
 
     final double _gridHeight = Scale.screenHeight(getMainContext()) * 0.5;
 
-    final bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await BldrsCenterDialog.showCenterDialog(
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       confirmButtonVerse: confirmButtonVerse,
@@ -787,7 +787,7 @@ class Dialogs {
       invertButtons: invertButtons,
       height: Scale.screenHeight(getMainContext()) * 0.7,
       child: Container(
-        width: CenterDialog.getWidth(getMainContext()),
+        width: BldrsCenterDialog.getWidth(getMainContext()),
         height: _gridHeight,
         color: Colorz.white10,
         alignment: Alignment.center,
@@ -800,8 +800,8 @@ class Dialogs {
 
             return BzBanner(
               bzModel: bzzModels![index],
-              boxWidth: CenterDialog.clearWidth(getMainContext()) * 0.8,
-              boxHeight: CenterDialog.clearWidth(getMainContext()),
+              boxWidth: BldrsCenterDialog.clearWidth(getMainContext()) * 0.8,
+              boxHeight: BldrsCenterDialog.clearWidth(getMainContext()),
               bigName: false,
             );
 
@@ -875,9 +875,9 @@ class Dialogs {
 
     final BuildContext context = getMainContext();
     final double _dialogHeight = Scale.screenHeight(context) - 30;
-    final double _gridHeight = _dialogHeight - CenterDialog.getButtonZoneHeight * 5;
+    final double _gridHeight = _dialogHeight - BldrsCenterDialog.getButtonZoneHeight * 5;
 
-    await CenterDialog.showCenterDialog(
+    await BldrsCenterDialog.showCenterDialog(
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       confirmButtonVerse: confirmButtonVerse ?? const Verse(
@@ -887,7 +887,7 @@ class Dialogs {
       height: _dialogHeight,
       child: Center(
         child: Container(
-          width: CenterDialog.getWidth(context),
+          width: BldrsCenterDialog.getWidth(context),
           height: _gridHeight,
           alignment: Alignment.center,
           child: ListView.builder(
@@ -900,7 +900,7 @@ class Dialogs {
                 author: bzModel!.authors![index],
                 bzModel: bzModel,
                 onContactTap: onContact,
-                bubbleWidth: CenterDialog.getWidth(context),
+                bubbleWidth: BldrsCenterDialog.getWidth(context),
                 moreButtonIsOn: false,
               );
 
@@ -926,16 +926,16 @@ class Dialogs {
   }) async {
 
     final BuildContext context = getMainContext();
-    final double _gridHeight = CenterDialog.getHeight(context: context) * 0.8;
+    final double _gridHeight = BldrsCenterDialog.getHeight(context: context) * 0.8;
 
-    final bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await BldrsCenterDialog.showCenterDialog(
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       boolDialog: boolDialog,
       confirmButtonVerse: confirmButtonVerse,
       height: Scale.screenHeight(context) * 0.7,
       child: Container(
-        width: CenterDialog.getWidth(context),
+        width: BldrsCenterDialog.getWidth(context),
         height: _gridHeight,
         color: Colorz.white10,
         alignment: Alignment.center,
@@ -944,7 +944,7 @@ class Dialogs {
           scrollController: ScrollController(),
           flyersIDs: flyersIDs,
           scrollDirection: Axis.horizontal,
-          gridWidth: CenterDialog.getWidth(context) - 10,
+          gridWidth: BldrsCenterDialog.getWidth(context) - 10,
           gridHeight: _gridHeight,
           topPadding: 0,
           numberOfColumnsOrRows: 1,
@@ -976,7 +976,7 @@ class Dialogs {
     final double _dialogHeight = _screenHeight * 0.7;
     final double _flyerBoxHeight = _dialogHeight * 0.5;
 
-    final bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await BldrsCenterDialog.showCenterDialog(
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       boolDialog: boolDialog,
@@ -1018,7 +1018,7 @@ class Dialogs {
     final double _dialogHeight = _screenHeight * 0.7;
     final double _flyerBoxHeight = _dialogHeight * 0.5;
 
-    final bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await BldrsCenterDialog.showCenterDialog(
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       boolDialog: boolDialog,
@@ -1027,7 +1027,7 @@ class Dialogs {
       invertButtons: invertButtons,
       // copyOnTap: false,
       child: Container(
-        width: CenterDialog.getWidth(context),
+        width: BldrsCenterDialog.getWidth(context),
         alignment: Alignment.center,
         child: SingleSlide(
           flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
@@ -1064,9 +1064,9 @@ class Dialogs {
     final BuildContext context = getMainContext();
     final double _screenHeight = Scale.screenHeight(context);
     final double _dialogHeight = _screenHeight * 0.8;
-    final double _buttonWidth = CenterDialog.getWidth(context);
+    final double _buttonWidth = BldrsCenterDialog.getWidth(context);
 
-    await CenterDialog.showCenterDialog(
+    await BldrsCenterDialog.showCenterDialog(
       // titleVerse: Verse.plain('Language . اللغة . Idioma . Lingua . Sprache . Langue . 语言'),
       bodyVerse: Verse.plain('Language . اللغة . Idioma . Lingua . Sprache . Langue . 语言'),
       height: _dialogHeight,
@@ -1125,10 +1125,10 @@ class Dialogs {
     final BuildContext context = getMainContext();
     final double _screenHeight = Scale.screenHeight(context);
     final double _dialogHeight = _screenHeight * 0.75;
-    final double _dialogWidth = CenterDialog.getWidth(context);
+    final double _dialogWidth = BldrsCenterDialog.getWidth(context);
     final double _flyerBoxHeight = picsHeights ?? (_dialogHeight * 0.5);
 
-    final bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await BldrsCenterDialog.showCenterDialog(
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       boolDialog: boolDialog,
@@ -1262,11 +1262,11 @@ class Dialogs {
   }) async {
 
     final BuildContext context = getMainContext();
-    final double _dialogWidth = CenterDialog.clearWidth(context);
+    final double _dialogWidth = BldrsCenterDialog.clearWidth(context);
     const double _margin = 10;
     final double _paragraphWidth = _dialogWidth - (_margin * 2);
 
-    await CenterDialog.showCenterDialog(
+    await BldrsCenterDialog.showCenterDialog(
       titleVerse: title,
       bodyVerse: body,
       confirmButtonVerse: confirmButtonVerse,

@@ -14,7 +14,7 @@ import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 // -----------------------------------------------------------------------------
 
 /// AUTHENTICATORS
@@ -26,7 +26,6 @@ Future<void> authByEmailSignIn({
   required String password,
   required GlobalKey<FormState> formKey,
   required bool mounted,
-  required bool rememberMe,
 }) async {
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY

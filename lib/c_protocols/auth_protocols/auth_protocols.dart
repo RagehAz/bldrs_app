@@ -61,6 +61,7 @@ class AuthProtocols {
           id: _authModel.id,
           email: email,
           password: password,
+          signInMethod: SignInMethod.password,
         ),
       );
 
@@ -300,10 +301,11 @@ class AuthProtocols {
   }) async {
     bool _success = false;
     bool _firstTimer = false;
+    UserModel? _userModel;
 
     if (authModel != null){
 
-      UserModel? _userModel = await UserProtocols.fetch(
+      _userModel = await UserProtocols.fetch(
           userID: authModel.id,
         );
 
@@ -325,6 +327,25 @@ class AuthProtocols {
         _success = true;
         _firstTimer = false;
       }
+
+    }
+
+    if (_success == true){
+
+      /// UPDATE ACCOUNT MODEL IN LDB
+     await AccountLDBOps.insertAccount(
+        account: AccountModel(
+          id: authModel?.id,
+          email: authModel?.email,
+          password: null,
+          signInMethod: authModel?.signInMethod,
+        ),
+      );
+
+      UsersProvider.proSetMyUserModel(
+        userModel: _userModel,
+        notify: true,
+      );
 
     }
 
@@ -407,7 +428,7 @@ class AuthProtocols {
 
     final bool _success = await Authing.signOut(
         onError: (String? error) async {
-          await CenterDialog.showCenterDialog(
+          await BldrsCenterDialog.showCenterDialog(
             titleVerse: const Verse(
               id: 'phid_trouble_signing_out',
               translate: true,

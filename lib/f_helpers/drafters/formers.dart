@@ -972,7 +972,7 @@ class Formers {
       userModel: userModel,
     );
 
-    await CenterDialog.showCenterDialog(
+    await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(id: 'phid_complete_your_profile', translate: true),
       bodyVerse: Verse(
         id: '${getWord('phid_required_fields')}'

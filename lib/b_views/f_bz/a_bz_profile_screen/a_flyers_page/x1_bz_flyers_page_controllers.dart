@@ -217,7 +217,7 @@ Future<void> _onEditFlyerButtonTap({
 /// TESTED : WORKS PERFECT
 Future<void> _onCanNotDeleteFlyerDialog() async {
 
-  await CenterDialog.showCenterDialog(
+  await BldrsCenterDialog.showCenterDialog(
     titleVerse: const Verse(
       pseudo: 'Can not Delete Flyer',
       id: 'phid_can_not_delete_flyer',
@@ -290,7 +290,7 @@ Future<bool> _preFlyerDeleteCheckups({
   /// CAN NOT DELETE IF NOT CREATOR
   if (_canDeleteFlyer == false){
 
-    await CenterDialog.showCenterDialog(
+    await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         id: 'phid_can_not_delete_flyer',
         translate: true,
