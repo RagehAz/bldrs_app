@@ -109,7 +109,7 @@ class ComposeBzProtocols {
       await WaitDialog.closeWaitDialog();
 
       /// SHOW SUCCESS DIALOG
-      await CenterDialog.showCenterDialog(
+      await BldrsCenterDialog.showCenterDialog(
         titleVerse: const Verse(
           id: 'phid_great_!',
           translate: true,

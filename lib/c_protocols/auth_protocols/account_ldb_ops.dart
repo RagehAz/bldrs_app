@@ -34,7 +34,7 @@ class AccountLDBOps {
     }
   }
   // --------------------
-  /// TASK TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> insertUserModels({
     required List<UserModel> users,
   }) async {
@@ -52,6 +52,7 @@ class AccountLDBOps {
             id: user.id,
             email: _email,
             password: null,
+            signInMethod: user.signInMethod,
           );
 
           _accounts.add(_account);

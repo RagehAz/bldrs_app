@@ -121,7 +121,7 @@ Future<void> onDeleteMyAccount() async {
 
     blog('finished wipe user protocols');
 
-    await CenterDialog.showCenterDialog(
+    await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         pseudo: 'Account is Deleted Successfully',
         id: 'phid_account_is_deleted',

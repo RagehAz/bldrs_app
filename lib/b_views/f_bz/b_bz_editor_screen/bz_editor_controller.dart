@@ -50,7 +50,7 @@ Future<void> loadBzEditorLastSession({
 
   if (_lastSessionDraft != null){
 
-    final bool _continue = await CenterDialog.showCenterDialog(
+    final bool _continue = await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         id: 'phid_load_last_session_data_q',
         translate: true,
@@ -158,7 +158,7 @@ Future<bool> _preUploadCheckups({
   if (_canContinue == true){
 
     /// REQUEST CONFIRMATION
-    _canContinue = await CenterDialog.showCenterDialog(
+    _canContinue = await BldrsCenterDialog.showCenterDialog(
       bodyVerse: const Verse(
         id: 'phid_you_want_to_continue',
         translate: true,

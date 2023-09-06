@@ -484,7 +484,7 @@ class NewAuthorshipExit {
     /// AUTHOR DELETED
     else {
 
-      await CenterDialog.showCenterDialog(
+      await BldrsCenterDialog.showCenterDialog(
         titleVerse: const Verse(
           id: 'phid_bz_account_is_unavailable',
           translate: true,
