@@ -18,9 +18,9 @@ import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
-class CenterDialog extends StatelessWidget {
+class BldrsCenterDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const CenterDialog({
+  const BldrsCenterDialog({
     required this.bodyVerse,
     required this.title,
     required this.boolDialog,
@@ -111,7 +111,7 @@ class CenterDialog extends StatelessWidget {
 
     final bool? _result = await showDialog(
       context: getMainContext(),
-      builder: (BuildContext ctx) => CenterDialog(
+      builder: (BuildContext ctx) => BldrsCenterDialog(
         bodyVerse: bodyVerse,
         title: titleVerse,
         height: height,

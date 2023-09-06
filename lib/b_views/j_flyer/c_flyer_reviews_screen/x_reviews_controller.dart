@@ -406,7 +406,7 @@ Future<void> _onDeleteReview({
 
     else {
 
-      final bool _canContinue = await CenterDialog.showCenterDialog(
+      final bool _canContinue = await BldrsCenterDialog.showCenterDialog(
         titleVerse: const Verse(
           id: 'phid_delete_review_?',
           translate: true,
@@ -724,7 +724,7 @@ Future<void> _onDeleteReply({
   required bool mounted,
 }) async {
 
-  final bool _canContinue = await CenterDialog.showCenterDialog(
+  final bool _canContinue = await BldrsCenterDialog.showCenterDialog(
     titleVerse: const Verse(
       id: 'phid_delete_reply_?',
       translate: true,

@@ -115,7 +115,7 @@ class CloudFunction {
       blog('callFunction : unauthenticated IS $_unauthenticated');
 
       if (_unauthenticated == true) {
-        await CenterDialog.showCenterDialog(
+        await BldrsCenterDialog.showCenterDialog(
           titleVerse: const Verse(
             pseudo: 'You Are not Signed in',
             id: 'phid_your_not_signed_in',
@@ -129,7 +129,7 @@ class CloudFunction {
       }
 
       else {
-        await CenterDialog.showCenterDialog(
+        await BldrsCenterDialog.showCenterDialog(
           titleVerse: const Verse(
             id: 'phid_error',
             translate: true,

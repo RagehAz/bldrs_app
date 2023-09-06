@@ -40,7 +40,7 @@ Future<void> loadUserEditorLastSession({
 
   if (_lastSessionDraft != null){
 
-    final bool _continue = await CenterDialog.showCenterDialog(
+    final bool _continue = await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         id: 'phid_load_last_session_data_q',
         translate: true,
@@ -326,7 +326,7 @@ Future<void> confirmEdits({
 
     await WaitDialog.closeWaitDialog();
 
-    await CenterDialog.showCenterDialog(
+    await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         id: 'phid_great_!',
         translate: true,
@@ -429,7 +429,7 @@ Future<bool> _preConfirmCheckups({
     }
 
     else {
-      _canContinue = await CenterDialog.showCenterDialog(
+      _canContinue = await BldrsCenterDialog.showCenterDialog(
         bodyVerse: const Verse(
             id: 'phid_you_want_to_continue',
             translate: true,

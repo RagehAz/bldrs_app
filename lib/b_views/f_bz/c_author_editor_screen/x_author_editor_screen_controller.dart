@@ -69,7 +69,7 @@ Future<void> loadAuthorEditorSession({
 
   if (_lastSessionAuthor != null){
 
-    final bool _continue = await CenterDialog.showCenterDialog(
+    final bool _continue = await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         id: 'phid_load_last_session_data_q',
         translate: true,
@@ -309,7 +309,7 @@ Future<void> onConfirmAuthorUpdates({
   required BzModel? oldBz,
 }) async {
 
-  final bool _result = await CenterDialog.showCenterDialog(
+  final bool _result = await BldrsCenterDialog.showCenterDialog(
     titleVerse: const Verse(
       id: 'phid_confirm_edits_?',
       translate: true,
@@ -375,7 +375,7 @@ Future<void> onChangeAuthorRoleOps({
       role: draftRole.value,
     );
 
-    final bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         id: 'phid_confirm_author_role_?',
         translate: true,
@@ -487,7 +487,7 @@ Future<bool> _checkCanChangeRole({
     /// WHEN CHOOSING SOMETHING OTHER THAN CREATOR
     if (role != AuthorRole.creator){
 
-      await CenterDialog.showCenterDialog(
+      await BldrsCenterDialog.showCenterDialog(
         titleVerse: const Verse(
           id: 'phid_cant_change_member_role',
           translate: true,
@@ -504,7 +504,7 @@ Future<bool> _checkCanChangeRole({
     /// WHEN CHOOSING CREATOR
     if (role == AuthorRole.creator){
 
-      await CenterDialog.showCenterDialog(
+      await BldrsCenterDialog.showCenterDialog(
         titleVerse: const Verse(
           id: 'phid_only_one_creator_allowed',
           translate: true,

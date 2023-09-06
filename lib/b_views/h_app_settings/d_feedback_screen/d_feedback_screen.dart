@@ -78,7 +78,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     unawaited(_triggerLoading(setTo: false));
 
     if (_uploadedModel == null){
-      await CenterDialog.showCenterDialog(
+      await BldrsCenterDialog.showCenterDialog(
         titleVerse: const Verse(
           id: 'phid_not_sent',
           translate: true,
@@ -91,7 +91,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     }
 
     else {
-      await CenterDialog.showCenterDialog(
+      await BldrsCenterDialog.showCenterDialog(
         titleVerse: const Verse(
           id: 'phid_thanks',
           translate: true,

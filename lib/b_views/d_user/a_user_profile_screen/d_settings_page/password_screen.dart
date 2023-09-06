@@ -98,7 +98,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                         passwordNode: _node,
                         confirmPasswordNode: null,
                         appBarType: AppBarType.non,
-                        bubbleWidth: CenterDialog.clearWidth(context) - 20,
+                        bubbleWidth: BldrsCenterDialog.clearWidth(context) - 20,
                         passwordController: _password,
                         showPasswordOnly: true,
                         passwordValidator: (String? text) => Formers.passwordValidator(

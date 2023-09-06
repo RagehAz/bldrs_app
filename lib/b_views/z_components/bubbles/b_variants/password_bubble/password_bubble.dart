@@ -1,3 +1,4 @@
+import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
@@ -85,6 +86,7 @@ class PasswordBubbles extends StatelessWidget {
           keyboardTextInputType: TextInputType.visiblePassword,
           keyboardTextInputAction: _keyboardAction,
           validator: passwordValidator,
+          hintVerse: Verse.plain('...'),
           bulletPoints: const <Verse>[
             Verse(id: 'phid_min6Char', translate: true,),
           ],
@@ -127,29 +129,43 @@ class PasswordBubbles extends StatelessWidget {
 
         /// CONFIRM PASSWORD
         if (showPasswordOnly == false)
-          BldrsTextFieldBubble(
-            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-              context: context,
-              headlineVerse: const Verse(
-                id: 'phid_confirmPassword',
-                translate: true,
+          WidgetFader(
+            fadeType: FadeType.fadeIn,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOutCubic,
+            builder: (double value, Widget? child){
+
+              return Transform.scale(
+                scaleY: value,
+                alignment: Alignment.topCenter,
+                child: child,
+              );
+
+            },
+            child: BldrsTextFieldBubble(
+              bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                context: context,
+                headlineVerse: const Verse(
+                  id: 'phid_confirmPassword',
+                  translate: true,
+                ),
+                redDot: true,
               ),
-              redDot: true,
+              focusNode: confirmPasswordNode,
+              appBarType: appBarType,
+              isFormField: true,
+              key: const ValueKey<String>('confirm'),
+              textController: passwordConfirmationController,
+              textDirection: TextDirection.ltr,
+              keyboardTextInputType: TextInputType.visiblePassword,
+              keyboardTextInputAction: _keyboardAction,
+              validator: passwordConfirmationValidator,
+              bulletPoints: const <Verse>[
+                Verse(id: 'phid_min6Char', translate: true),
+              ],
+              isObscured: isObscured,
+              onSubmitted: onSubmitted,
             ),
-            focusNode: confirmPasswordNode,
-            appBarType: appBarType,
-            isFormField: true,
-            key: const ValueKey<String>('confirm'),
-            textController: passwordConfirmationController,
-            textDirection: TextDirection.ltr,
-            keyboardTextInputType: TextInputType.visiblePassword,
-            keyboardTextInputAction: _keyboardAction,
-            validator: passwordConfirmationValidator,
-            bulletPoints: const <Verse>[
-              Verse(id: 'phid_min6Char', translate: true),
-            ],
-            isObscured: isObscured,
-            onSubmitted: onSubmitted,
           ),
 
       ],

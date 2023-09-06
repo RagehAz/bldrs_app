@@ -38,7 +38,7 @@ class RemainingSlidesCounter extends StatelessWidget {
       bubble: false,
       color: Colorz.white20,
       onTap: () async {
-        final dynamic _result = await CenterDialog.showCenterDialog(
+        final dynamic _result = await BldrsCenterDialog.showCenterDialog(
           boolDialog: true,
           titleVerse: const Verse(
             id: 'phid_no_slides_left',

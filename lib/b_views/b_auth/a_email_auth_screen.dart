@@ -13,18 +13,18 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
-class EmailAuthScreen extends StatefulWidget {
+class AuthScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const EmailAuthScreen({
+  const AuthScreen({
     super.key
   });
   /// --------------------------------------------------------------------------
   @override
-  _EmailAuthScreenState createState() => _EmailAuthScreenState();
+  _AuthScreenState createState() => _AuthScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _EmailAuthScreenState extends State<EmailAuthScreen> {
+class _AuthScreenState extends State<AuthScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -44,7 +44,6 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
   // --------------------
-  final ValueNotifier<bool> _isRememberingMe = ValueNotifier(true);
   List<AccountModel> _myAccounts = [];
 
   final ValueNotifier<bool> _isObscured = ValueNotifier(true);
@@ -52,7 +51,8 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   final FocusNode _passwordNode = FocusNode();
   final FocusNode _confirmPasswordNode = FocusNode();
   // --------------------
-  final ValueNotifier<bool> _isSigningIn = ValueNotifier(true);
+  bool _isSigningIn = true;
+  AccountModel? _currentAccount;
   // --------------------
   /// KEYBOARD VISIBILITY
   StreamSubscription<bool>? _keyboardSubscription;
@@ -90,12 +90,6 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
 
         if (Mapper.checkCanLoopList(myAccounts) == true){
 
-          setNotifier(
-              notifier: _isRememberingMe,
-              mounted: mounted,
-              value: true,
-          );
-
           _setAccount(myAccounts[0]);
 
           setState(() {
@@ -117,9 +111,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
-    _isSigningIn.dispose();
     _loading.dispose();
-    _isRememberingMe.dispose();
     _isObscured.dispose();
     _keyboardSubscription?.cancel();
     super.dispose();
@@ -141,11 +133,14 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   void _switchSignIn() {
     _formKey.currentState?.reset();
 
-    setNotifier(
-        notifier: _isSigningIn,
-        mounted: mounted,
-        value: !_isSigningIn.value,
-    );
+    setState(() {
+      _isSigningIn = !_isSigningIn;
+
+      if (_isSigningIn == false){
+        _currentAccount = null;
+      }
+
+    });
 
   }
   // --------------------
@@ -161,7 +156,6 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         password: _passwordController.text,
         formKey: _formKey,
         mounted: mounted,
-        rememberMe: _isRememberingMe.value,
       );
 
 
@@ -190,17 +184,6 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _onSwitchRememberMe(bool value) {
-
-    setNotifier(
-        notifier: _isRememberingMe,
-        mounted: mounted,
-        value: value,
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
   void _onSelectAccount(int index){
     if (Mapper.checkCanLoopList(_myAccounts) == true){
       _setAccount(_myAccounts[index]);
@@ -213,11 +196,10 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
     _emailController.text = account?.email?.toLowerCase() ?? '';
     _passwordController.text = account?.password ?? '';
 
-    setNotifier(
-        notifier: _isSigningIn,
-        mounted: mounted,
-        value: true,
-    );
+    setState(() {
+      _currentAccount = account;
+      _isSigningIn = true;
+    });
 
   }
   // --------------------
@@ -247,7 +229,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
       appBarType: AppBarType.basic,
       onBack: () async {
 
-        if (_isSigningIn.value == true){
+        if (_isSigningIn == true){
           await Nav.goBack(
             context: context,
             passedData: false,
@@ -284,12 +266,11 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         onSignin: _onSignin,
         onSignup: _onSignup,
         isSigningIn: _isSigningIn,
-        isRememberingMe: _isRememberingMe,
-        onSwitchRememberMe: _onSwitchRememberMe,
         onSelectAccount: _onSelectAccount,
         onForgotPassword: _onForgotPassword,
         myAccounts: _myAccounts,
         isObscured: _isObscured,
+        currentAccount: _currentAccount,
       ),
 
     );

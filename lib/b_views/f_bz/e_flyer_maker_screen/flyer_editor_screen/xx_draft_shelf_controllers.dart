@@ -213,7 +213,7 @@ Future<void> addImagesForExistingFlyer({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) async {
-  await CenterDialog.showCenterDialog(
+  await BldrsCenterDialog.showCenterDialog(
     titleVerse: Verse(
       id: '${getWord('phid_max_slides_is')} $maxLength',
       translate: false,

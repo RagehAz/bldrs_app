@@ -216,7 +216,7 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
   required AuthorModel? authorModel,
 }) async {
 
-  await CenterDialog.showCenterDialog(
+  await BldrsCenterDialog.showCenterDialog(
     titleVerse: Verse(
       id: '${getWord('phid_you_cant_remove')} ${authorModel?.name}',
       translate: false,
@@ -263,7 +263,7 @@ Future<void> _onShowCanNotEditAuthorDialog({
   required AuthorModel? authorModel,
 }) async {
 
-  await CenterDialog.showCenterDialog(
+  await BldrsCenterDialog.showCenterDialog(
     titleVerse: Verse(
       id: '${getWord('phid_you_cant_edit')}\n${authorModel?.name}',
       translate: false,
@@ -301,7 +301,7 @@ Future<void> _onShowCanNotChangeAuthorRoleDialog({
   required AuthorModel? authorModel,
 }) async {
 
-  await CenterDialog.showCenterDialog(
+  await BldrsCenterDialog.showCenterDialog(
     titleVerse: const Verse(
       id: 'phid_you_cant_change_team_roles',
       translate: true,
@@ -422,7 +422,7 @@ Future<void> onCancelSentAuthorshipInvitation({
     final String _body =  '${_receiverModel?.name}\n'
                           '${getWord('phid_will_be_notified')}';
 
-    final bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await BldrsCenterDialog.showCenterDialog(
       titleVerse: const Verse(
         id: 'phid_cancel_invitation_?',
         translate: true,
