@@ -221,7 +221,8 @@ ${getWord('phid_new_version')} : ${globalState.appVersion}
         docName: 'ldbVersion',
     );
 
-    final Map<String, dynamic>? _localLDBVersionMap = _localLDBVersionMaps.first;
+    final List<Map<String, dynamic>>? _maps = [..._localLDBVersionMaps];
+    final Map<String, dynamic>? _localLDBVersionMap = _maps?.first;
     final int? _localLDBVersion = _localLDBVersionMap?['ldbVersion'];
 
     if (globalState.ldbVersion != _localLDBVersion){
