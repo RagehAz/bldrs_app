@@ -102,7 +102,7 @@ Future<void> main() async {
 
 // ---------------------------------------------------------------------------
 
-const bool useSentryOnDebug = false;
+const bool useSentryOnDebug = true;
 
 Future<void> sentryBldrs() async {
 

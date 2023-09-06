@@ -68,14 +68,24 @@ class PublicationModel {
 
   // --------------------
   /// AI TESTED
-  Map<String, dynamic> toMap(){
-    return {
-      'drafts': drafts,
-      'pendings': pendings,
-      'published': published,
-      'unpublished': unpublished,
-      'suspended': suspended,
-    };
+  static Map<String, dynamic>? cipherToMap({
+    required PublicationModel? publication,
+  }){
+
+    if (publication == null){
+      return null;
+    }
+
+    else {
+      return {
+        'drafts': publication.drafts,
+        'pendings': publication.pendings,
+        'published': publication.published,
+        'unpublished': publication.unpublished,
+        'suspended': publication.suspended,
+      };
+    }
+
   }
   // --------------------
   /// AI TESTED

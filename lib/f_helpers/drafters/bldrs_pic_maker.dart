@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/permissions/permits.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
