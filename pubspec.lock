@@ -45,10 +45,10 @@ packages:
     dependency: transitive
     description:
       name: archive
-      sha256: "0c8368c9b3f0abbc193b9d6133649a614204b528982bebc7026372d61677ce3a"
+      sha256: "49b1fad315e57ab0bbc15bcbb874e83116a1d78f77ebd500a4af6c9407d6b28e"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.7"
+    version: "3.3.8"
   args:
     dependency: transitive
     description:
@@ -92,10 +92,12 @@ packages:
   basics:
     dependency: "direct main"
     description:
-      path: "D:/projects/packages/helpers/basics"
-      relative: false
-    source: path
-    version: "5.0.9"
+      path: "."
+      ref: HEAD
+      resolved-ref: "0a9aabd6e0107f713602f156b14fa1b7b39ae598"
+      url: "https://github.com/RagehAz/basics.git"
+    source: git
+    version: "5.0.11"
   bldrs_keywords:
     dependency: "direct main"
     description:
@@ -476,10 +478,12 @@ packages:
   fire:
     dependency: "direct main"
     description:
-      path: "D:/projects/packages/backend/fire"
-      relative: false
-    source: path
-    version: "2.2.1"
+      path: "."
+      ref: HEAD
+      resolved-ref: d3766bb6ff8e299949d8461480bc06bc5c2866be
+      url: "https://github.com/RagehAz/fire.git"
+    source: git
+    version: "2.2.2"
   firebase_app_check:
     dependency: "direct main"
     description:
@@ -652,34 +656,34 @@ packages:
     dependency: transitive
     description:
       name: firebase_ui_auth
-      sha256: "12fec05263c6f844ba72949d3d002b697d6a995aead1045cb3f33ba0d1b6efb4"
+      sha256: d8d739e2116aacdd7a8863ecb00a54336dfd2643d16c59b1393ff38916436a9e
       url: "https://pub.dev"
     source: hosted
-    version: "1.6.5"
+    version: "1.7.0"
   firebase_ui_localizations:
     dependency: transitive
     description:
       name: firebase_ui_localizations
-      sha256: df0c9fc8603b576be2ae2842fa7e8e3b84d586378394f58a5f559276ff4355cd
+      sha256: "96d58534a4964cc609776af02bdcc74864cc3669af8f04f44e0afbdda55af232"
       url: "https://pub.dev"
     source: hosted
-    version: "1.5.3"
+    version: "1.6.0"
   firebase_ui_oauth:
     dependency: transitive
     description:
       name: firebase_ui_oauth
-      sha256: c4761cac5d7d9f068ea9fa1ef9c2360d08b59bd642fcffe8c5525a3a396a108e
+      sha256: ea25f17517641d0933fb74749682814391863a618a3c67d03ceb6e780f70b09d
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.9"
+    version: "1.4.10"
   firebase_ui_oauth_apple:
     dependency: transitive
     description:
       name: firebase_ui_oauth_apple
-      sha256: a2b5a150b88189d43013f62fa5a59422b83a338d17ece44bb46573a8ad13e925
+      sha256: b223c6bec9223ec30fd9c5687bb974b7e602c1338c2cddd171e5f1331a7c3515
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.9"
+    version: "1.2.10"
   firebase_ui_oauth_facebook:
     dependency: transitive
     description:
@@ -692,10 +696,10 @@ packages:
     dependency: transitive
     description:
       name: firebase_ui_oauth_google
-      sha256: "84e02c732cdda7fd85864e24100958e9f742363962088a76dd7c0e88dc55bb33"
+      sha256: "696889c4a026e7e9f033a8451a1bbc97e789c0a3dc278946c9b5f12afd2b16db"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.9"
+    version: "1.2.10"
   firebase_ui_shared:
     dependency: transitive
     description:
@@ -1448,18 +1452,18 @@ packages:
     dependency: transitive
     description:
       name: permission_handler
-      sha256: "63e5216aae014a72fe9579ccd027323395ce7a98271d9defa9d57320d001af81"
+      sha256: bc56bfe9d3f44c3c612d8d393bd9b174eb796d706759f9b495ac254e4294baa5
       url: "https://pub.dev"
     source: hosted
-    version: "10.4.3"
+    version: "10.4.5"
   permission_handler_android:
     dependency: transitive
     description:
       name: permission_handler_android
-      sha256: d74e77a5ecd38649905db0a7d05ef16bed42ff263b9efb73ed794317c5764ec3
+      sha256: "91799aea5efe1873e176e17fd9464b5d8f886939d6ac3373f643b09821bf3bda"
       url: "https://pub.dev"
     source: hosted
-    version: "10.3.4"
+    version: "10.3.5"
   permission_handler_apple:
     dependency: transitive
     description:
@@ -1472,10 +1476,10 @@ packages:
     dependency: transitive
     description:
       name: permission_handler_platform_interface
-      sha256: "7c6b1500385dd1d2ca61bb89e2488ca178e274a69144d26bbd65e33eae7c02a9"
+      sha256: f2343e9fa9c22ae4fd92d4732755bfe452214e7189afcc097380950cf567b4b2
       url: "https://pub.dev"
     source: hosted
-    version: "3.11.3"
+    version: "3.11.5"
   permission_handler_windows:
     dependency: transitive
     description:
@@ -1821,18 +1825,18 @@ packages:
     dependency: "direct main"
     description:
       name: url_launcher
-      sha256: "38d8e783681bc342e92dc9799cbe4421d08c4d210a67ee9d61d0f7310491a465"
+      sha256: "47e208a6711459d813ba18af120d9663c20bdf6985d6ad39fe165d2538378d27"
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.13"
+    version: "6.1.14"
   url_launcher_android:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: ef7e34951ffa963fb7a65928deeb38d40fb3c5975baf93c1d631341ff7f2650a
+      sha256: b04af59516ab45762b2ca6da40fa830d72d0f6045cd97744450b73493fa76330
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.39"
+    version: "6.1.0"
   url_launcher_ios:
     dependency: transitive
     description:
@@ -1861,10 +1865,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_platform_interface
-      sha256: "4d0dae953f80dc06fa24c58d0f8381302139c22c2dad301417787ad96f5f73bd"
+      sha256: "95465b39f83bfe95fcb9d174829d6476216f2d548b79c38ab2506e0458787618"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.4"
+    version: "2.1.5"
   url_launcher_web:
     dependency: transitive
     description:
