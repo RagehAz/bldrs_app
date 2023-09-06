@@ -1,6 +1,7 @@
 // ignore_for_file: unused_element
 import 'dart:async';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
@@ -52,7 +53,11 @@ class FlyerBuilder extends StatelessWidget {
       }
       /// WHEN RENDER FIRST SLIDE
       else if (renderFlyer == RenderFlyer.firstSlide){
-        _shouldBuildByFlyer = flyerModel?.slides?.first.frontImage != null;
+        final List<SlideModel>? _slides = [...?flyerModel?.slides];
+        if (Mapper.checkCanLoopList(_slides) == true){
+          final SlideModel? _firstSlide = _slides!.first;
+          _shouldBuildByFlyer = _firstSlide?.frontImage != null;
+        }
       }
       /// WHEN RENDER ALL SLIDES
       else {
