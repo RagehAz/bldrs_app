@@ -1,3 +1,9 @@
+### 2.5.0
+1. Added google sign in feature
+2. Bug & UI fixes
+3. Fixed Flyers sorting algorithms
+4. Added ability to add social media links to users profiles
+
 ### 2.4.0
 1. fixed initialization error for US users
 2. removed go back dialog in section screen
