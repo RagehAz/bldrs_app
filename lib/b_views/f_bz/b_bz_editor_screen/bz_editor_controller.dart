@@ -64,8 +64,6 @@ Future<void> loadBzEditorLastSession({
 
     if (_continue == true){
 
-      blog('name of the bz is : ${_lastSessionDraft.nameController?.text}');
-
       draftNotifier?.value?.nameController?.text = _lastSessionDraft.nameController?.text ?? '';
       draftNotifier?.value?.aboutController?.text = _lastSessionDraft.aboutController?.text ?? '';
 
@@ -366,6 +364,7 @@ Future<void> onChangeBzLogo({
   required bool mounted,
 }) async {
 
+
   if (draftNotifier.value != null && Mapper.boolIsTrue(draftNotifier.value?.canPickImage) == true) {
 
     final String? _path = StoragePath.bzz_bzID_logo(draftNotifier.value?.id);
@@ -373,6 +372,7 @@ Future<void> onChangeBzLogo({
     final List<String>? _ownersIDs = draftNotifier.value?.getLogoOwners();
 
     if (_path != null && _ownersIDs != null){
+
 
       final bool _canPick = await _checkAndNotifyShouldPicLogo(
         draftNotifier: draftNotifier,

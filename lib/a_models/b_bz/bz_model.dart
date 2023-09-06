@@ -194,7 +194,7 @@ class BzModel{
       'isVerified': isVerified,
       'bzState': BzTyper.cipherBzState(bzState),
       // -------------------------
-      'publication': publication.toMap(),
+      'publication': PublicationModel.cipherToMap(publication: publication),
     };
   }
   // --------------------

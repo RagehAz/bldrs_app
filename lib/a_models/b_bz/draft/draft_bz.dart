@@ -332,7 +332,7 @@ class DraftBz {
       'showsTeam': showsTeam,
       'isVerified': isVerified,
       'bzState': BzTyper.cipherBzState(bzState),
-      'publication': publication.toMap(),
+      'publication': PublicationModel.cipherToMap(publication: publication),
       'bzSection': BzTyper.cipherBzSection(bzSection),
       'bzTypes': BzTyper.cipherBzTypes(bzTypes),
       'inactiveBzTypes': BzTyper.cipherBzTypes(inactiveBzTypes),
@@ -363,8 +363,6 @@ class DraftBz {
     final List<BzType> _bzTypes = BzTyper.decipherBzTypes(map['bzTypes']);
     final BzSection? _bzSection = BzTyper.decipherBzSection(map['bzSection']);
     final List<String> _scope = Stringer.getStringsFromDynamics(dynamics: map['scope']);
-
-    blog("map['name'] should be ${map['name']}");
 
     return DraftBz(
       id: map['id'],
@@ -734,10 +732,43 @@ class DraftBz {
   /// OVERRIDES
 
   // ----------------------------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() =>
+       '''
+       DraftBz(
+           id: $id,
+           createdAt: $createdAt,
+           accountType: ${BzTyper.cipherBzAccountType(accountType)},
+           nameController: ${nameController?.text},
+           trigram: $trigram,
+           zone: $zone,
+           aboutController: ${aboutController?.text},
+           position: $position,
+           contacts: ${contacts?.length} contacts,
+           authors: $authors,
+           pendingAuthors: $pendingAuthors,
+           showsTeam: $showsTeam,
+           isVerified: $isVerified,
+           bzState: ${BzTyper.cipherBzState(bzState)},
+           publication: ${PublicationModel.cipherToMap(publication: publication)},
+           bzSection: ${BzTyper.cipherBzSection(bzSection)},
+           bzTypes: ${BzTyper.cipherBzTypes(bzTypes)},
+           inactiveBzTypes: ${BzTyper.cipherBzTypes(inactiveBzTypes)},
+           bzForm: ${BzTyper.cipherBzForm(bzForm)},
+           inactiveBzForms: ${BzTyper.cipherBzForms(inactiveBzForms)},
+           scope: $scope,
+           logoPicModel: $logoPicModel,
+           hasNewLogo: $hasNewLogo,
+           canPickImage: $canPickImage,
+           canValidate: $canValidate,
+           nameNode: $nameNode,
+           aboutNode: $aboutNode,
+           emailNode: $emailNode,
+           websiteNode: $websiteNode,
+           phoneNode: $phoneNode,
+           formKey: $formKey,
+           firstTimer: $firstTimer,
+       )''';
   // ----------------------------------------
   @override
   bool operator == (Object other){

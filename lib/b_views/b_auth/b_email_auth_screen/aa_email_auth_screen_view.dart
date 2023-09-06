@@ -88,8 +88,6 @@ class EmailAuthScreenView extends StatelessWidget {
     required bool isOnConfirmPassword,
   }){
 
-    blog('_onSubmitted : trying to submit');
-
     /// WHILE SIGN IN
     if (signingIn == true){
 
@@ -146,7 +144,7 @@ class EmailAuthScreenView extends StatelessWidget {
       if (DeviceChecker.deviceIsIOS() == true)
         SignInMethod.apple,
       SignInMethod.google,
-      SignInMethod.facebook
+      // SignInMethod.facebook
     ];
     // --------------------
     final bool _currentAccountIsSocial = accountIsSocial();
@@ -216,7 +214,6 @@ class EmailAuthScreenView extends StatelessWidget {
                               builder: (_, TextEditingValue currentEmail, Widget? child) {
 
                                 final bool _isSelected = _userEmail == currentEmail.text;
-                                blog('_userModel?.picPath : ${_userModel?.picPath}');
 
                                 return Stack(
                                   children: <Widget>[
