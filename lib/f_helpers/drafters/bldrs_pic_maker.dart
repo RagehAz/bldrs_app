@@ -67,7 +67,7 @@ class BldrsPicMaker {
         confirmText: getWord('phid_continue'),
         onlyCompress: Standards.onlyCompressOnResizing,
         compressionQuality: compressionQuality,
-        onPermissionPermanentlyDenied: _onPermissionPermanentlyDenied,
+        onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
         // selectedAsset: selectedAsset,
       );
     }
@@ -83,7 +83,7 @@ class BldrsPicMaker {
         onlyCompress: Standards.onlyCompressOnResizing,
         compressionQuality: compressionQuality,
         confirmText: getWord('phid_continue'),
-        onPermissionPermanentlyDenied: _onPermissionPermanentlyDenied,
+        onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
       );
     }
 
@@ -128,7 +128,7 @@ class BldrsPicMaker {
       maxAssets: maxAssets,
       compressionQuality: compressionQuality,
       onlyCompress: Standards.onlyCompressOnResizing,
-      onPermissionPermanentlyDenied: _onPermissionPermanentlyDenied,
+      onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
       // selectedAssets: selectedAssets,
     );
 
@@ -379,7 +379,7 @@ class BldrsPicMaker {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> _onPermissionPermanentlyDenied(Permission permission) async {
+  static Future<void> onPermissionPermanentlyDenied(Permission permission) async {
 
     final String _bodyLine = getWord(_getPermissionWarningPhid(permission));
     final String _permissionLine = permission.toString();
