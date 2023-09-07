@@ -1,9 +1,11 @@
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/fff_author_label.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
 
 class AuthorsWrap extends StatelessWidget {
@@ -11,11 +13,13 @@ class AuthorsWrap extends StatelessWidget {
   const AuthorsWrap({
     required this.bzModel,
     required this.boxWidth,
+    this.picSize = 50,
     super.key
   });
   // --------------------
   final BzModel? bzModel;
   final double boxWidth;
+  final double picSize;
   // -----------------------------------------------------------------------------
   Future<void> onAuthorTap(AuthorModel author) async {
 
@@ -30,6 +34,8 @@ class AuthorsWrap extends StatelessWidget {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final List<AuthorModel>? _authors = bzModel?.authors;
 
     return Container(
       width: boxWidth,
@@ -46,16 +52,25 @@ class AuthorsWrap extends StatelessWidget {
         spacing: 10,
         children: <Widget>[
 
-          if (Mapper.checkCanLoopList(bzModel?.authors) == true)
-            ...List.generate( bzModel!.authors!.length, (index){
-              final AuthorModel _author = bzModel!.authors![index];
-              return AuthorLabel(
-                flyerBoxWidth: boxWidth * 0.75,
-                authorID: _author.userID,
-                bzModel: bzModel,
-                onlyShowAuthorImage: true,
-                onLabelTap: () => onAuthorTap(_author),
+          if (Mapper.checkCanLoopList(_authors) == true)
+            ...List.generate( _authors!.length, (index){
+
+              final AuthorModel _author = _authors[index];
+
+              return TapLayer(
+                width: picSize,
+                height: picSize,
+                onTap: () => onAuthorTap(_author),
+                corners: FlyerDim.authorPicCornersByPicSize(
+                  context: context,
+                  picSize: picSize,
+                ),
+                child: AuthorPic(
+                  size: picSize,
+                  authorPic: _author.picModel?.bytes ?? _author.picPath,
+                ),
               );
+
             }),
 
         ],
