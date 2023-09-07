@@ -36,9 +36,9 @@ import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
-class EmailAuthScreenView extends StatelessWidget {
+class AuthScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const EmailAuthScreenView({
+  const AuthScreenView({
     required this.formKey,
     required this.emailController,
     required this.passwordController,

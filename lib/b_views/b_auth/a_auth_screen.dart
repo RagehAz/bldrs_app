@@ -241,7 +241,7 @@ class _AuthScreenState extends State<AuthScreen> {
         }
 
       },
-      child: EmailAuthScreenView(
+      child: AuthScreenView(
         appBarType: AppBarType.non,
         formKey: _formKey,
         emailController: _emailController,

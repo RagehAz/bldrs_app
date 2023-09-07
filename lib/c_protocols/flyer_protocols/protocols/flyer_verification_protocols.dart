@@ -14,7 +14,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:fire/super_fire.dart';
-
+/// => TAMAM
 class FlyerVerificationProtocols {
   // -----------------------------------------------------------------------------
 
@@ -60,6 +60,10 @@ class FlyerVerificationProtocols {
           newFlyer: _newFlyer,
         ),
 
+        _promoteFlyerInBzPublications(
+          flyerModel: _newFlyer,
+        ),
+
         /// SEND VERIFICATION NOTE
         if (sendNote == true)
         NoteEvent.sendFlyerIsVerifiedNoteToBz(
@@ -80,6 +84,36 @@ class FlyerVerificationProtocols {
         );
 
       }
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _promoteFlyerInBzPublications({
+    required FlyerModel? flyerModel,
+  }) async {
+
+    final BzModel? _bz = await BzProtocols.fetchBz(
+      bzID: flyerModel?.bzID,
+    );
+
+    if (_bz != null && flyerModel?.id != null){
+
+      final PublicationModel _newPub = PublicationModel.insertFlyerInPublications(
+          pub: _bz.publication,
+          flyerID: flyerModel!.id!,
+          toState: PublishState.published,
+      );
+
+      await BzProtocols.renovateBz(
+        oldBz: _bz,
+        newBz: _bz.copyWith(
+          publication: _newPub,
+        ),
+        newLogo: null,
+        showWaitDialog: false,
+      );
 
     }
 
