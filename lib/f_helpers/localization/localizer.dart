@@ -6,6 +6,7 @@ import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
@@ -88,7 +89,7 @@ class Localizer {
 
       await _setLDBLangCode(langCode: _locale.languageCode);
 
-      final Locale? _temp = _concludeLocaleByLingoCode(_locale.languageCode);
+      final Locale? _temp = _concludeLocaleByLangCode(_locale.languageCode);
 
       BldrsAppStarter.setLocale(context, _temp);
 
@@ -191,7 +192,7 @@ class Localizer {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Locale? _concludeLocaleByLingoCode(String? langCode) {
+  static Locale? _concludeLocaleByLangCode(String? langCode) {
 
     if (langCode == null){
       return null;
@@ -237,7 +238,7 @@ class Localizer {
   static Future<Locale?> _getCurrentLocaleFromLDB() async {
     final String? _langCode = await readLDBLangCode();
     final String _languageCode = _langCode ?? 'en';
-    return _concludeLocaleByLingoCode(_languageCode);
+    return _concludeLocaleByLangCode(_languageCode);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -325,7 +326,7 @@ class Localizer {
         langCode: code!,
       );
 
-      final Locale? _temp  = _concludeLocaleByLingoCode(code);
+      final Locale? _temp  = _concludeLocaleByLangCode(code);
 
       BldrsAppStarter.setLocale(context, _temp);
 
@@ -341,14 +342,15 @@ class Localizer {
       );
 
       if (Authing.userIsSignedUp(_user?.signInMethod) == true) {
-        await Fire.updateDocField(
-          coll: FireColl.users,
-          doc: Authing.getUserID()!,
-          field: 'language',
-          input: code,
+
+        await UserProtocols.renovate(
+          invoker: 'changeAppLanguage',
+          oldUser: _user,
+          newUser: _user!.copyWith(
+            language: code,
+          ),
         );
 
-        blog("changed local language and firestore.user['language']  updated to $code");
       }
 
     }
