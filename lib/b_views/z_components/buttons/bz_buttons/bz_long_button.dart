@@ -1,10 +1,14 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/helpers/widgets/drawing/spacing.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
@@ -15,6 +19,8 @@ import 'package:bldrs/b_views/z_components/texting/customs/zone_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
+import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:flutter/material.dart';
 
 class BzLongButton extends StatelessWidget {
@@ -40,6 +46,7 @@ class BzLongButton extends StatelessWidget {
   static const double bzButtonMargin = Ratioz.appBarPadding;
   static const double extent = BzLongButton.height + bzButtonMargin;
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onTap({
     required BuildContext context,
     required BzModel? bzModel,
@@ -62,6 +69,7 @@ class BzLongButton extends StatelessWidget {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> onAuthorTap(AuthorModel author) async {
 
     await onCallTap(
@@ -81,7 +89,8 @@ class BzLongButton extends StatelessWidget {
         bubbleWidthOverride: boxWidth,
     );
 
-    final double _textZoneWidth =  _bubbleWidth - height - 20;
+    final double _textZoneWidth =  _bubbleWidth - height - 20 - 10;
+    final double _teamZoneWidth = _textZoneWidth;
 
     return Bubble(
       width: _bubbleWidth,
@@ -104,11 +113,51 @@ class BzLongButton extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
 
-              /// LOGO
-              BldrsBox(
-                height: height,
-                icon: bzModel?.logoPath,
+              /// LOGO + CONTACTS
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+
+                  /// LOGO
+                  BldrsBox(
+                    height: height,
+                    icon: bzModel?.logoPath,
+                  ),
+
+                  /// SPACING
+                  if (Mapper.checkCanLoopList(bzModel?.contacts) == true)
+                  const Spacing(size: 5),
+
+                  /// CONTACTS
+                  if (Mapper.checkCanLoopList(bzModel?.contacts) == true)
+                  ... List.generate(bzModel!.contacts!.length, (index){
+
+                    final ContactModel _contact = bzModel!.contacts![index];
+
+                    return BldrsBox(
+                      height: 25,
+                      iconSizeFactor: 0.7,
+                      icon: ContactModel.concludeContactIcon(
+                          contactType: _contact.type,
+                          isPublic: true,
+                      ),
+                      margins: const EdgeInsets.only(
+                        left: 5,
+                        right: 5,
+                        bottom: 5,
+                      ),
+                      color: Colorz.white10,
+                      corners: 5,
+                      onTap: () => Launcher.launchContactModel(contact: _contact),
+                    );
+
+                  }),
+
+                ],
               ),
+
+              /// SPCAING
+              const Spacing(),
 
               /// INFO
               SizedBox(
@@ -126,22 +175,21 @@ class BzLongButton extends StatelessWidget {
                           translate: false,
                         ),
                         centered: false,
-                        margin: const EdgeInsets.symmetric(horizontal: 10),
-                        size: 3,
+                        // margin: const EdgeInsets.symmetric(horizontal: 10),
+                        scaleFactor: 1.1,
                         maxLines: 2,
                         textDirection: UiProvider.getAppTextDir(),
                       ),
                     ),
 
+                    const Spacing(size: 5),
+
                     /// BZ TYPES
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: BzTypesLine(
-                        bzModel: bzModel,
-                        width: _textZoneWidth,
-                        centered: false,
-                        oneLine: true,
-                      ),
+                    BzTypesLine(
+                      bzModel: bzModel,
+                      width: _textZoneWidth,
+                      centered: false,
+                      oneLine: true,
                     ),
 
                     /// ZONE
@@ -152,63 +200,69 @@ class BzLongButton extends StatelessWidget {
                         centered: false,
                       ),
 
-                    if (Mapper.checkCanLoopList(bzModel?.authors) == true)
-                      BldrsText(
-                        width: _textZoneWidth,
-                        maxLines: 3,
-                        verse: const Verse(
-                          id: 'phid_team',
-                          translate: true,
+                    /// IN BLDRS SINCE
+                    BldrsBox(
+                      height: ZoneLine.flagSize,
+                      icon: Iconz.calendar,
+                      verse: Verse.plain(BldrsTimers.generateString_in_bldrs_since_month_yyyy(bzModel?.createdAt)),
+                      verseWeight: VerseWeight.thin,
+                      verseItalic: true,
+                      verseColor: ZoneLine.textColor,
+                      verseScaleFactor: 1.5,
+                    ),
+
+                    const Spacing(size: 5),
+
+                    /// TEAM
+                    Center(
+                      child: Container(
+                        width: _teamZoneWidth,
+                        decoration: const BoxDecoration(
+                          color: Colorz.white10,
+                          borderRadius: Borderers.constantCornersAll10,
                         ),
-                        margin: 5,
-                        italic: true,
-                        weight: VerseWeight.black,
-                        color: Colorz.white80,
-                        centered: false,
-                      ),
+                        child: Column(
+                          children: <Widget>[
 
-                    /// BZ AUTHORS
-                    if (showAuthorsPics == true)
-                      AuthorsWrap(
-                        boxWidth: _textZoneWidth,
-                        bzModel: bzModel,
-                      ),
+                            const Spacing(size: 5),
 
-                      // Container(
-                      //   width: _textZoneWidth,
-                      //   // constraints: const BoxConstraints(
-                      //   //   maxHeight: 200,
-                      //   // ),
-                      //   decoration: const BoxDecoration(
-                      //     // color: Colorz.white10,
-                      //     borderRadius: Borderers.constantCornersAll10,
-                      //   ),
-                      //   child: Wrap(
-                      //     // crossAxisAlignment: CrossAxisAlignment.start,
-                      //     runSpacing: 10,
-                      //     spacing: 10,
-                      //     children: <Widget>[
-                      //
-                      //
-                      //       if (Mapper.checkCanLoopList(bzModel?.authors) == true)
-                      //       ...List.generate( bzModel!.authors!.length, (index){
-                      //
-                      //         final AuthorModel _author = bzModel!.authors![index];
-                      //
-                      //         return AuthorLabel(
-                      //           flyerBoxWidth: _textZoneWidth * 0.75,
-                      //           authorID: _author.userID,
-                      //           bzModel: bzModel,
-                      //           showLabel: true,
-                      //           labelIsOn: true,
-                      //           onLabelTap: () => onAuthorTap(_author),
-                      //         );
-                      //
-                      //       }),
-                      //
-                      //     ],
-                      //   ),
-                      // ),
+                            /// TEAM MEMBERS HEADLINE
+                            if (Mapper.checkCanLoopList(bzModel?.authors) == true)
+                              BldrsBox(
+                                height: 25,
+                                width: _teamZoneWidth - 10,
+                                verseMaxLines: 3,
+                                verse: const Verse(
+                                  id: 'phid_team',
+                                  translate: true,
+                                ),
+                                verseItalic: true,
+                                verseWeight: VerseWeight.regular,
+                                verseColor: Colorz.white80,
+                                bubble: false,
+                                verseCentered: false,
+                                icon: Iconz.bzWhite,
+                                iconSizeFactor: 0.9,
+                                verseScaleFactor: 1.1 / 0.9,
+                                margins: const EdgeInsets.symmetric(horizontal: 5),
+                              ),
+
+                            const Spacing(size: 5),
+
+                            /// BZ AUTHORS
+                            if (showAuthorsPics == true)
+                              AuthorsWrap(
+                                boxWidth: _teamZoneWidth - 10,
+                                bzModel: bzModel,
+                                picSize: 40,
+                              ),
+
+                            const Spacing(size: 5),
+
+                          ],
+                        )
+                      ),
+                    ),
 
                   ],
                 ),
