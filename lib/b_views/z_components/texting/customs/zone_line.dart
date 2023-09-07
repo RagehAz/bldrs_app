@@ -20,7 +20,10 @@ class ZoneLine extends StatelessWidget {
   final bool showCity;
   final bool centered;
   final double? width;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  static const double flagSize = 20;
+  static const Color textColor = Colorz.grey255;
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -35,7 +38,7 @@ class ZoneLine extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       physics: const NeverScrollableScrollPhysics(),
       child: Container(
-        width: _width - 20,
+        width: _width - flagSize,
         // margin: const EdgeInsets.symmetric(horizontal: 10),
         alignment: centered == true ? Alignment.center : BldrsAligners.superCenterAlignment(context),
         child: Row(
@@ -46,7 +49,7 @@ class ZoneLine extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 7.5),
               child: FlagBox(
-                size: 20,
+                size: flagSize,
                 countryID: zoneModel?.countryID,
               ),
             ),
@@ -60,13 +63,13 @@ class ZoneLine extends StatelessWidget {
               width: centered == true ?
               null
                   :
-              (_zoneVerse.id?.length ?? 0) > 20 ? _width - 20 - 20 - 5 - 10
+              (_zoneVerse.id?.length ?? 0) > 20 ? _width - flagSize - 20 - 5 - 10
                   :
               null,
               verse: _zoneVerse,
               weight: VerseWeight.thin,
               italic: true,
-              color: Colorz.grey255,
+              color: textColor,
               margin: 5,
               maxLines: 3,
               centered: false,
