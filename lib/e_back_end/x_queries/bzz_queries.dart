@@ -11,7 +11,7 @@ FireQueryModel allBzzPaginationQuery(){
   return const FireQueryModel(
     coll: FireColl.bzz,
     limit: 10,
-    orderBy: QueryOrderBy(fieldName: 'createdAt', descending: true),
+    orderBy: QueryOrderBy(fieldName: 'createdAt', descending: false),
   );
 
 }

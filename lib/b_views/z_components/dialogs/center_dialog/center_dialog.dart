@@ -118,7 +118,7 @@ class BldrsCenterDialog extends StatelessWidget {
         boolDialog: boolDialog,
         confirmButtonVerse: confirmButtonVerse,
         noVerse: noVerse,
-        color: color ?? Colorz.skyDarkBlue,
+        color: color ?? Colorz.blackSemi230,
         onOk: onOk,
         invertButtons: invertButtons,
         copyOnTap: copyOnTap,
