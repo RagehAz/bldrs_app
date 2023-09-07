@@ -82,7 +82,7 @@
 				<string>net.bldrs.app</string>
 			    <!-- ========== -->
 				<!-- for google sign in and get this CLIENT_ID TAG FROM GoogleService-info.plist -->
-				<string>com.googleusercontent.apps.439018969330-kn8r7jmv7f02j5g59imfv8fshmrtu6iu</string>
+				<string>com.googleusercontent.apps.439018969330-o93if8djhfn3naftc361uker0s97n5oj</string>
 			    <!-- ========== -->
 				<!-- for facebook sign in and get this fbFACEBOOKAPPID from fb dev dashboard -->
 				<string>fb427786221866015</string>

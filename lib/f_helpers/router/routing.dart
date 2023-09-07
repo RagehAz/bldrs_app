@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
-import 'package:bldrs/b_views/b_auth/a_email_auth_screen.dart';
+import 'package:bldrs/b_views/b_auth/a_auth_screen.dart';
 import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';

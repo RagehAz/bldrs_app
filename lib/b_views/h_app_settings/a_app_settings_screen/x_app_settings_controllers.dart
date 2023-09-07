@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs/b_views/b_auth/a_email_auth_screen.dart';
+import 'package:bldrs/b_views/b_auth/a_auth_screen.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/b_app_langs_screen/b_app_langs_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/d_feedback_screen/d_feedback_screen.dart';
