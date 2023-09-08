@@ -12,6 +12,7 @@ import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
+/// TASK : THIS CAN BE STATELESS WIDGET WITH FUTURE BUILDER MORE CLEANER
 class BzStatsBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BzStatsBubble({
@@ -133,7 +134,6 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                         '${_bzModel?.publication.published.length} '
                         '${getWord('phid_flyers')}',
                     translate: false,
-                    variables: [_counter.allSlides, _bzModel?.publication.published.length]
                   ),
                   icon: Iconz.gallery,
                 ),
