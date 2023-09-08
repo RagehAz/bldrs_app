@@ -115,7 +115,6 @@ class AboutBzBubbles extends StatelessWidget {
     final int _numberOfFlyers = bzModel?.publication.published.length ?? 0;
     final double _gridHeight = (_flyerHeight + _spacing) * (_numberOfFlyers / 2).ceil();
 
-
     return ListView(
       physics: const BouncingScrollPhysics(),
       padding: Stratosphere.stratosphereSandwich,
@@ -206,13 +205,15 @@ class AboutBzBubbles extends StatelessWidget {
         if (showGallery == true)
           BldrsText(
             verse: Verse(
-              id: '${getWord('phid_published_flyers_by')} ${bzModel?.name}',
+              id: '${getWord('phid_published_flyers_by')}\n${bzModel?.name}',
               translate: false,
             ),
             centered: false,
-            maxLines: 2,
+            maxLines: 4,
             margin: 20,
-            size: 4,
+            size: 3,
+            appIsLTR: UiProvider.checkAppIsLeftToRight(),
+            textDirection: UiProvider.getAppTextDir(),
           ),
 
         /// BZ FLYERS
