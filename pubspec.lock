@@ -92,12 +92,10 @@ packages:
   basics:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "0a9aabd6e0107f713602f156b14fa1b7b39ae598"
-      url: "https://github.com/RagehAz/basics.git"
-    source: git
-    version: "5.0.11"
+      path: "D:/projects/packages/helpers/basics"
+      relative: false
+    source: path
+    version: "5.0.12"
   bldrs_keywords:
     dependency: "direct main"
     description:
@@ -478,11 +476,9 @@ packages:
   fire:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: d3766bb6ff8e299949d8461480bc06bc5c2866be
-      url: "https://github.com/RagehAz/fire.git"
-    source: git
+      path: "D:/projects/packages/backend/fire"
+      relative: false
+    source: path
     version: "2.2.2"
   firebase_app_check:
     dependency: "direct main"
@@ -664,10 +660,10 @@ packages:
     dependency: transitive
     description:
       name: firebase_ui_localizations
-      sha256: "96d58534a4964cc609776af02bdcc74864cc3669af8f04f44e0afbdda55af232"
+      sha256: "44a31e8dd846d56d744630836cce79a0463ed6f6442e53de48d54cbc5e860fe1"
       url: "https://pub.dev"
     source: hosted
-    version: "1.6.0"
+    version: "1.6.1"
   firebase_ui_oauth:
     dependency: transitive
     description:
@@ -1460,10 +1456,10 @@ packages:
     dependency: transitive
     description:
       name: permission_handler_android
-      sha256: "91799aea5efe1873e176e17fd9464b5d8f886939d6ac3373f643b09821bf3bda"
+      sha256: "59c6322171c29df93a22d150ad95f3aa19ed86542eaec409ab2691b8f35f9a47"
       url: "https://pub.dev"
     source: hosted
-    version: "10.3.5"
+    version: "10.3.6"
   permission_handler_apple:
     dependency: transitive
     description:

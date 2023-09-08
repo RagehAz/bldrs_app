@@ -213,11 +213,11 @@ class UiInitializer {
         color: _shouldRefresh == true ? Colorz.green255 : Colorz.red255,
         body: Verse.plain(
             '''
-            _diff Minutes
-            
-            Last Wipe : $_lastWipe
-            
-            (${Standards.ldbWipeIntervalInMinutes}) > ($_diff) = (${Numeric.isGreaterThan(number: Standards.ldbWipeIntervalInMinutes, isGreaterThan: _diff)}))
+_diff Minutes
+
+Last Wipe : $_lastWipe
+
+($_diff) < (${Standards.ldbWipeIntervalInMinutes}) >  = (${Numeric.isLesserThan(number: Standards.ldbWipeIntervalInMinutes, isLesserThan: _diff)}))
             '''),
       );
 
