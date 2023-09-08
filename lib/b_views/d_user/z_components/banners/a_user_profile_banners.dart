@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/user_settings_page_controllers.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
 import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_banner.dart';
+import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_counters_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contacts_bubble.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -73,6 +74,11 @@ class UserProfileBanners extends StatelessWidget {
         //   userModel: _userModel,
         //   editorMode: _editorMode,
         // ),
+
+        /// USER COUNTERS BUBBLE
+        UserCounterBubble(
+          userModel: _userModel,
+        ),
 
         /// CONTACTS
         if (showContacts == true)

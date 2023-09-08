@@ -17,13 +17,13 @@ class UserCounterModel {
   });
   // --------------------
   final String userID;
-  final int? sessions;
-  final int? views;
-  final int? saves;
-  final int? reviews;
-  final int? shares;
-  final int? follows;
-  final int? calls;
+  final int sessions;
+  final int views;
+  final int saves;
+  final int reviews;
+  final int shares;
+  final int follows;
+  final int calls;
   // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -111,13 +111,13 @@ class UserCounterModel {
     else {
       return UserCounterModel(
         userID: userID,
-        sessions: map['sessions'],
-        views: map['views'],
-        saves: map['saves'],
-        reviews: map['reviews'],
-        shares: map['shares'],
-        follows: map['follows'],
-        calls: map['calls'],
+        sessions: map['sessions'] ?? 0,
+        views: map['views'] ?? 0,
+        saves: map['saves'] ?? 0,
+        reviews: map['reviews'] ?? 0,
+        shares: map['shares'] ?? 0,
+        follows: map['follows'] ?? 0,
+        calls: map['calls'] ?? 0,
       );
     }
 

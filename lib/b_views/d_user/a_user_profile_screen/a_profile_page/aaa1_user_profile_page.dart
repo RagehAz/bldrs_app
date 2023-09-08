@@ -36,7 +36,7 @@ class UserProfilePage extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         padding: Stratosphere.stratosphereSandwich,
         child: UserProfileBanners(
-            showContacts: true
+            showContacts: true,
         ),
       ),
     );
