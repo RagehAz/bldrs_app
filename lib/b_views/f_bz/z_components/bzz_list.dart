@@ -37,7 +37,7 @@ class BzzList extends StatelessWidget {
 
           final BzModel? _bz = bzz[index];
 
-          return BzLongButton(
+          return BzBubble(
             bzModel: _bz,
             boxWidth: width ?? PageBubble.width(context),
             showAuthorsPics: true,
