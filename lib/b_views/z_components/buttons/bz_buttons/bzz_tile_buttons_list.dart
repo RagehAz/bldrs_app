@@ -50,7 +50,7 @@ class BzzTilesButtonsList extends StatelessWidget {
                         bzModel: _bzModel,
                       );
 
-                      return BzLongButton(
+                      return BzBubble(
                         bzModel: _bzModel,
                         isSelected: _isSelected,
                         onTap: () => onTap?.call(_bzModel),

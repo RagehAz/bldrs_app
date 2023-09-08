@@ -1,3 +1,8 @@
+### 2.6.0
+1. bugs & crash fixes
+2. Ui updates
+3. Added User engagement & stats counter in User profile
+
 ### 2.5.0
 1. Added google sign in feature
 2. Bug & UI fixes

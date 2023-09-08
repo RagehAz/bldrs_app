@@ -74,7 +74,7 @@ class UserFollowingPage extends StatelessWidget {
                 }
 
                 else {
-                  return BzLongButton(
+                  return BzBubble(
                     bzModel: snapshot.data,
                   );
                 }
