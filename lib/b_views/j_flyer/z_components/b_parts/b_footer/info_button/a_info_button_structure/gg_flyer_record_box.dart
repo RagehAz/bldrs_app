@@ -60,59 +60,58 @@ class FlyerRecordsBox extends StatelessWidget {
 
         /// VIEWS PAGINATOR
         if (recordType == RecordType.view)
-        FlyerViewsPaginator(
-          flyerID: flyerID,
-          bzID: bzID,
-            builder: (_, List<FlyerViewModel>? records, bool loading, Widget? child, ScrollController controller){
+          FlyerViewsPaginator(
+              flyerID: flyerID,
+              bzID: bzID,
+              builder: (_, List<FlyerViewModel>? records, bool loading, Widget? child, ScrollController controller){
 
-            return UsersStripBuilder(
-              width: pageWidth,
-              scrollController: controller,
-              usersIDs: FlyerViewModel.getUsersIDsFromRecords(
-                models: records,
+                return UsersStripBuilder(
+                  width: pageWidth,
+                  scrollController: controller,
+                  usersIDs: FlyerViewModel.getUsersIDsFromRecords(
+                    models: records,
+                  ),
+                );
+
+              }
               ),
-            );
-
-
-          }
-          ),
 
         /// SAVES PAGINATOR
         if (recordType == RecordType.save)
-        FlyerSavesPaginator(
-          flyerID: flyerID,
-          bzID: bzID,
-            builder: (_, List<FlyerSaveModel>? records, bool loading, Widget? child, ScrollController controller){
+          FlyerSavesPaginator(
+              flyerID: flyerID,
+              bzID: bzID,
+              builder: (_, List<FlyerSaveModel>? records, bool loading, Widget? child, ScrollController controller){
 
-            return UsersStripBuilder(
-              width: pageWidth,
-              scrollController: controller,
-              usersIDs: FlyerSaveModel.getUsersIDsFromRecords(
-                models: records,
+                return UsersStripBuilder(
+                  width: pageWidth,
+                  scrollController: controller,
+                  usersIDs: FlyerSaveModel.getUsersIDsFromRecords(
+                    models: records,
+                  ),
+                );
+
+
+              }
               ),
-            );
-
-
-          }
-          ),
 
         /// SHARES PAGINATOR
         if (recordType == RecordType.share)
-        FlyerSharesPaginator(
-            flyerID: flyerID,
-            bzID: bzID,
-            builder: (_, List<FlyerShareModel>? records, bool loading, Widget? child, ScrollController controller){
+          FlyerSharesPaginator(
+              flyerID: flyerID,
+              bzID: bzID,
+              builder: (_, List<FlyerShareModel>? records, bool loading, Widget? child, ScrollController controller){
 
-              return UsersStripBuilder(
-                width: pageWidth,
-                scrollController: controller,
-                usersIDs: FlyerShareModel.getUsersIDsFromRecords(
-                  models: records,
-                ),
-              );
+                return UsersStripBuilder(
+                  width: pageWidth,
+                  scrollController: controller,
+                  usersIDs: FlyerShareModel.getUsersIDsFromRecords(
+                    models: records,
+                  ),
+                );
 
-          }
-          ),
+              }
+              ),
 
       ],
     );
