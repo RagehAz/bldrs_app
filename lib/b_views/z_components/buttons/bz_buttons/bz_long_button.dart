@@ -23,9 +23,9 @@ import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:flutter/material.dart';
 
-class BzLongButton extends StatelessWidget {
+class BzBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BzLongButton({
+  const BzBubble({
     required this.bzModel,
     this.boxWidth,
     this.showID = true,
@@ -44,7 +44,7 @@ class BzLongButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static const double height = 60;
   static const double bzButtonMargin = Ratioz.appBarPadding;
-  static const double extent = BzLongButton.height + bzButtonMargin;
+  static const double extent = BzBubble.height + bzButtonMargin;
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onTap({
@@ -88,7 +88,6 @@ class BzLongButton extends StatelessWidget {
         context: context,
         bubbleWidthOverride: boxWidth,
     );
-
     final double _textZoneWidth =  _bubbleWidth - height - 20 - 10;
     final double _teamZoneWidth = _textZoneWidth;
 
@@ -156,7 +155,7 @@ class BzLongButton extends StatelessWidget {
                 ],
               ),
 
-              /// SPCAING
+                /// SPACING
               const Spacing(),
 
               /// INFO
@@ -202,14 +201,20 @@ class BzLongButton extends StatelessWidget {
 
                     /// IN BLDRS SINCE
                     BldrsBox(
+                      width: _textZoneWidth,
                       height: ZoneLine.flagSize,
                       icon: Iconz.calendar,
                       verse: Verse.plain(BldrsTimers.generateString_in_bldrs_since_month_yyyy(bzModel?.createdAt)),
                       verseWeight: VerseWeight.thin,
                       verseItalic: true,
                       verseColor: ZoneLine.textColor,
-                      verseScaleFactor: 1.5,
+                      verseScaleFactor: 1.3,
+                      verseMaxLines: 2,
+                      bubble: false,
+                      verseCentered: false,
                     ),
+
+
 
                     const Spacing(size: 5),
 

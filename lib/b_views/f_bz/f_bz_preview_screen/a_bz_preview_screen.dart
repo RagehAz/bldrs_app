@@ -10,14 +10,14 @@ import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:flutter/material.dart';
 
 class BzPreviewScreen extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const BzPreviewScreen({
     required this.bzModel,
     super.key
   });
-  /// --------------------------------------------------------------------------
+  // --------------------
   final BzModel? bzModel;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
