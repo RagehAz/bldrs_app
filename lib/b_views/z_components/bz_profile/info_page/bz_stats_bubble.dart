@@ -1,6 +1,5 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/g_statistics/counters/bz_counter_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
@@ -12,99 +11,40 @@ import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
-/// TASK : THIS CAN BE STATELESS WIDGET WITH FUTURE BUILDER MORE CLEANER
-class BzStatsBubble extends StatefulWidget {
-  /// --------------------------------------------------------------------------
+class BzStatsBubble extends StatelessWidget {
+  // --------------------------------------------------------------------------
   const BzStatsBubble({
     this.bzModel,
     super.key
   });
-  /// --------------------------------------------------------------------------
-  final BzModel? bzModel;
-  /// --------------------------------------------------------------------------
-  @override
-  State<BzStatsBubble> createState() => _BzStatsBubbleState();
-  /// --------------------------------------------------------------------------
-}
-
-class _BzStatsBubbleState extends State<BzStatsBubble> {
-  // -----------------------------------------------------------------------------
-  final ValueNotifier<BzCounterModel?> _bzCounter = ValueNotifier<BzCounterModel?>(null);
-  BzModel? _bzModel;
-  // -----------------------------------------------------------------------------
-  /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({required bool setTo}) async {
-    setNotifier(
-      notifier: _loading,
-      mounted: mounted,
-      value: setTo,
-    );
-  }
-  // -----------------------------------------------------------------------------
+  final BzModel? bzModel;
+  // --------------------------------------------------------------------------
   @override
-  void initState() {
-    super.initState();
-
-    _bzModel = widget.bzModel ?? BzzProvider.proGetActiveBzModel(
+  Widget build(BuildContext context) {
+    // --------------------
+    final BzModel? _bzModel = bzModel ?? BzzProvider.proGetActiveBzModel(
       context: context,
       listen: false,
     );
-
-  }
-  // --------------------
-  bool _isInit = true;
-  @override
-  void didChangeDependencies() {
-
-    if (_isInit && mounted) {
-      _isInit = false; // good
-
-      _triggerLoading(setTo: true).then((_) async {
-
-        final BzCounterModel? _counters = await RecorderProtocols.fetchBzCounters(
+    // --------------------
+    return FutureBuilder(
+        future: RecorderProtocols.fetchBzCounters(
           bzID: _bzModel?.id,
           forceRefetch: false,
-        );
+        ),
+        builder: (context, AsyncSnapshot<BzCounterModel?> snap) {
 
-        setNotifier(
-            notifier: _bzCounter,
-            mounted: mounted,
-            value: _counters,
-        );
-
-        await _triggerLoading(setTo: false);
-      });
-
-    }
-    super.didChangeDependencies();
-  }
-  // --------------------
-  @override
-  void dispose() {
-    _loading.dispose();
-    _bzCounter.dispose();
-    super.dispose();
-  }
-  // -----------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-
-    return ValueListenableBuilder(
-        valueListenable: _bzCounter,
-        builder: (_, BzCounterModel? bzCounter, Widget? child){
-
-          final BzCounterModel _counter = bzCounter ?? BzCounterModel.createInitialModel(_bzModel?.id);
+          final BzCounterModel _counter = snap.data ?? BzCounterModel.createInitialModel(_bzModel?.id);
 
           return Bubble(
-            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-              context: context,
-              headlineVerse: const Verse(
-                id: 'phid_stats',
-                translate: true,
+              bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                context: context,
+                headlineVerse: const Verse(
+                  id: 'phid_stats',
+                  translate: true,
+                ),
               ),
-            ),
               columnChildren: <Widget>[
 
                 /// FOLLOWERS
@@ -176,11 +116,8 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
 
               ]
           );
-
-        },
-    );
-
-
+        });
+    // --------------------
   }
-  // -----------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 }
