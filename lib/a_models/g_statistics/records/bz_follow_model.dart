@@ -34,7 +34,7 @@ class BzFollowModel{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  String? toPairValue(){
+  int? toPairValue(){
 
     if (time == null){
       return null;

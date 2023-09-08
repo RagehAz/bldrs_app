@@ -24,6 +24,7 @@ class UserCounterBubble extends StatelessWidget {
     if (userModel == null || userModel?.id == null){
       return const SizedBox();
     }
+
     else{
 
       return FutureBuilder(

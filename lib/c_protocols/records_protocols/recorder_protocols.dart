@@ -33,7 +33,7 @@ class RecorderProtocols {
   /// SESSION
 
   // --------------------
-  /// TASK: TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onStartSession() async {
 
     final String? _userID = Authing.getUserID();
@@ -69,7 +69,7 @@ class RecorderProtocols {
   /// VIEWS
 
   // --------------------
-  /// TASK: TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onViewSlide({
     required String? flyerID,
     required String? bzID,
@@ -144,7 +144,7 @@ class RecorderProtocols {
   /// SAVES
 
   // --------------------
-  /// TASK: TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onSaveFlyer({
     required String? flyerID,
     required String? bzID,
@@ -215,7 +215,7 @@ class RecorderProtocols {
 
   }
   // --------------------
-  /// TASK: TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onUnSaveFlyer({
     required String? flyerID,
     required String? bzID,
@@ -282,7 +282,7 @@ class RecorderProtocols {
   /// REVIEWS
 
   // --------------------
-  /// TASK: TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onComposeReview({
     required String? flyerID,
     required String? bzID,
@@ -340,7 +340,7 @@ class RecorderProtocols {
 
   }
   // --------------------
-  /// TASK: TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onWipeReview({
     required String? flyerID,
     required String? bzID,
@@ -388,7 +388,7 @@ class RecorderProtocols {
   /// SHARES
 
   // --------------------
-  /// TASK: TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onShareFlyer({
     required String? flyerID,
     required int? slideIndex,
@@ -464,7 +464,7 @@ class RecorderProtocols {
   /// FOLLOWS
 
   // --------------------
-  /// TASK: TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onFollowBz({
     required String? bzID,
   }) async {
@@ -517,7 +517,7 @@ class RecorderProtocols {
 
   }
   // --------------------
-  /// TASK: TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onUnfollowBz({
     required String? bzID,
   }) async {
@@ -566,7 +566,7 @@ class RecorderProtocols {
   /// CALLS
 
   // --------------------
-  /// TASK: TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onCallBz({
     required String? bzID,
     required String? authorID,
@@ -628,7 +628,7 @@ class RecorderProtocols {
   /// SLIDES
 
   // --------------------
-  /// TASK: TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onComposeFlyer({
     required String? bzID,
     required int? numberOfSlides,
@@ -650,7 +650,7 @@ class RecorderProtocols {
 
   }
   // --------------------
-  /// TASK: TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onRenovateFlyer({
     required String? bzID,
     required int? oldNumberOfSlides,
@@ -682,7 +682,7 @@ class RecorderProtocols {
 
   }
   // --------------------
-  /// TASK: TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onWipeFlyer({
     required String? flyerID,
     required String? bzID,
@@ -721,7 +721,7 @@ class RecorderProtocols {
   /// WIPE BZ
 
   // --------------------
-  /// TASK: TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onWipeBz({
     required String? bzID,
   }) async {
@@ -751,7 +751,7 @@ class RecorderProtocols {
   /// READ USER COUNTERS
 
   // --------------------
-  /// TASK : FIX ME
+  /// TESTED : WORKS PERFECT
   static Future<UserCounterModel?> fetchUserCounter({
     required String? userID,
     required bool forceRefetch,
@@ -828,7 +828,7 @@ class RecorderProtocols {
   /// READ BZ COUNTERS
 
   // --------------------
-  /// TASK : FIX ME
+  /// TESTED : WORKS PERFECT
   static Future<FlyerCounterModel?> fetchFlyerCounters({
     required String? flyerID,
     required String? bzID,
@@ -911,7 +911,7 @@ class RecorderProtocols {
   /// READ FLYER COUNTERS
 
   // --------------------
-  /// TASK : FIX ME
+  /// TESTED : WORKS PERFECT
   static Future<BzCounterModel?> fetchBzCounters({
     required String? bzID,
     required bool forceRefetch,
