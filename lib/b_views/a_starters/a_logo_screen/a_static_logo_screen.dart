@@ -65,9 +65,10 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
 
         final bool _loadApp = await Initializer.logoScreenInitialize(
           context: context,
+          mounted: mounted,
         );
 
-        if (_loadApp == true){
+        if (_loadApp == true && mounted == true){
           await Nav.pushNamedAndRemoveAllBelow(
             context: context,
             goToRoute: Routing.home,
@@ -103,13 +104,14 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
       skyType: SkyType.stars,
       pyramidType: PyramidType.crystalYellow,
       loading: _loading,
-      canGoBack: false,
       onBack: () async {
 
-        await Nav.replaceScreen(
-          context: context,
-          screen: const StaticLogoScreen(),
-        );
+        // await Nav.replaceScreen(
+        //   context: context,
+        //   screen: const StaticLogoScreen(),
+        // );
+
+        await Nav.closeApp();
 
       },
       child: LogoScreenView(

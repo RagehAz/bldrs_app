@@ -105,6 +105,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
             Initializer.logoScreenInitialize(
               context: context,
+              mounted: mounted,
             ).then((bool loadApp){
               _loadApp = loadApp;
             }),

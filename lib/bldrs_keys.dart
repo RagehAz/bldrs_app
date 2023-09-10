@@ -6,6 +6,8 @@ class BldrsKeys {
   const BldrsKeys();
 
   // -----------------------------------------------------------------------------
+  static const String appsFlyerKey = 'CPM7gsEvS4r3nxfRNoUB9D';
+  // -----------------------------------------------------------------------------
 
   /// CHAT GBT
 

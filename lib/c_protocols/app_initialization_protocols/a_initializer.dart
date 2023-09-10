@@ -22,6 +22,7 @@ class Initializer {
   /// TESTED : WORKS PERFECT
   static Future<bool> logoScreenInitialize({
     required BuildContext context,
+    required bool mounted,
   }) async {
     bool _canLoadApp = false;
 
@@ -43,7 +44,10 @@ class Initializer {
       UiInitializer.setLoadingVerse(getWord('phid_please_wait'));
 
       /// APP LANGUAGE
-      await UiInitializer.initializeAppLanguage(context);
+      await UiInitializer.initializeAppLanguage(
+        context: context,
+        mounted: mounted,
+      );
 
       /// APP STATE
       _canLoadApp = await AppStateInitializer.initialize();
