@@ -87,7 +87,7 @@ class UserInitializer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> _initializeUserModel() async {
-    bool _continue = false;
+    bool? _continue = false;
 
     _report('start : Authing.getUserID() : ${Authing.getUserID()}');
 
@@ -183,7 +183,7 @@ class UserInitializer {
 
     }
 
-    return _continue;
+    return _continue ?? false;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

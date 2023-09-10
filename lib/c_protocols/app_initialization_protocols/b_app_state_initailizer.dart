@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
@@ -12,7 +11,6 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:flutter/foundation.dart';
 
 /// => TAMAM
 class AppStateInitializer {
@@ -32,14 +30,10 @@ class AppStateInitializer {
     /// GET GLOBAL STATE
     final AppStateModel? _globalState = await AppStateProtocols.fetchGlobalAppState();
 
-    if (kDebugMode == true){
-      _canLoadApp = true;
-    }
-    else {
+    /// ON LOADING FAILED OP
+    bool _continue = await _globalStateExistsOps(globalState: _globalState);
 
-      /// ON LOADING FAILED OP
-      bool _continue = await _globalStateExistsOps(globalState: _globalState);
-      if (_continue == true){
+    if (_continue == true){
 
         /// APP IS ONLINE CHECKUP
         _continue = await _appIsOnlineCheckOps(globalState: _globalState!);
@@ -76,8 +70,6 @@ class AppStateInitializer {
         }
 
       }
-
-    }
 
     return _canLoadApp;
   }
@@ -212,18 +204,17 @@ ${getWord('phid_new_version')} : ${globalState.appVersion}
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _superWipeLDBIfDecidedByRage7({
     required AppStateModel globalState,
   }) async {
 
-    final List<Map<String, dynamic>> _localLDBVersionMaps = await LDBOps.readAllMaps(
-        docName: 'ldbVersion',
+    final Map<String, dynamic>? _localLDBVersionMap = await LDBOps.readMap(
+      docName: 'ldbVersion',
+      id: 'ldb',
+      primaryKey: 'id',
     );
 
-    final List<Map<String, dynamic>>? _maps = [..._localLDBVersionMaps];
-
-    final Map<String, dynamic>? _localLDBVersionMap = _maps?.first;
     final int? _localLDBVersion = _localLDBVersionMap?['ldbVersion'];
 
     if (globalState.ldbVersion != _localLDBVersion){
@@ -231,12 +222,12 @@ ${getWord('phid_new_version')} : ${globalState.appVersion}
       await LDBDoc.superWipeOfEntireLDB();
 
       await LDBOps.insertMap(
-          docName: 'ldbVersion',
-          primaryKey: 'id',
-          input: {
-            'id': 'ldb',
-            'ldbVersion': globalState.ldbVersion,
-          },
+        docName: 'ldbVersion',
+        primaryKey: 'id',
+        input: {
+          'id': 'ldb',
+          'ldbVersion': globalState.ldbVersion,
+        },
       );
 
     }

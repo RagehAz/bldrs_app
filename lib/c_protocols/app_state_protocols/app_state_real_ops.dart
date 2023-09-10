@@ -92,7 +92,7 @@ class AppStateFireOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> updateGlobalLDBVersion() async {
+  static Future<int> updateGlobalLDBVersion() async {
 
     final AppStateModel? _appState = await readGlobalAppState();
 
@@ -104,6 +104,7 @@ class AppStateFireOps {
         newAppState: _newAppState
     );
 
+    return _newAppState?.ldbVersion?? 0;
   }
   // -----------------------------------------------------------------------------
 }

@@ -124,6 +124,7 @@ Future<void> sentryBldrs() async {
             options.attachScreenshot = true;
             options.beforeSend = (SentryEvent? event,{Hint? hint}) async {
               blog('XXX === >>> CRASH');
+              blog('crash event : culprit : ${event?.culprit} : message : ${event?.message}');
               return event;
             };
             },
