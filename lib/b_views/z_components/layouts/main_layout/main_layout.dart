@@ -66,6 +66,7 @@ class MainLayout extends StatelessWidget {
   final Verse? title;
   final SkyType skyType;
   final Function? onBack;
+  /// canGoBack is impact-less if onBack is not null
   final bool canGoBack;
   final Key? scaffoldKey;
   final ScrollController? appBarScrollController;

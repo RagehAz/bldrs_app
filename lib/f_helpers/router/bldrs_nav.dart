@@ -405,7 +405,7 @@ class BldrsNav {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> restartAndRoute({
     String? routeName,
     dynamic arguments,

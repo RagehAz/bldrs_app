@@ -422,19 +422,23 @@ Future<void> onAddSpecsToDraftTap({
       )
   );
 
-  final List<SpecModel>? _receivedSpecs = _result;
+  if (_result != null){
 
-  if (Mapper.checkCanLoopList(_receivedSpecs) == true){
+    final List<SpecModel>? _receivedSpecs = _result;
 
-    SpecModel.blogSpecs(_receivedSpecs);
+    if (Mapper.checkCanLoopList(_receivedSpecs) == true){
 
-    setNotifier(
+      SpecModel.blogSpecs(_receivedSpecs);
+
+      setNotifier(
         notifier: draft,
         mounted: mounted,
         value: draft.value?.copyWith(
           specs: _receivedSpecs,
         ),
-    );
+      );
+
+    }
 
   }
 
