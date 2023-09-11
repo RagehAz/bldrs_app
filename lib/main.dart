@@ -251,7 +251,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter>  with WidgetsBindingO
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
-
+  // --------------------
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
 

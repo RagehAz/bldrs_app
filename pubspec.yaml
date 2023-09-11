@@ -87,6 +87,7 @@ dependencies:
   circle_list: ^1.0.5
   wheel_chooser: ^1.1.2
   sentry_flutter: ^7.9.0
+  appsflyer_sdk: ^6.12.2
 # --------------------------------------------------------------------------------
 dev_dependencies:
   flutter_test:

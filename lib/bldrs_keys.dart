@@ -6,6 +6,7 @@ class BldrsKeys {
   const BldrsKeys();
 
   // -----------------------------------------------------------------------------
+  /// Appsflyer DEV TOKEN
   static const String appsFlyerKey = 'CPM7gsEvS4r3nxfRNoUB9D';
   // -----------------------------------------------------------------------------
 
