@@ -1,17 +1,15 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:basics/helpers/classes/checks/error_helpers.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:http/http.dart' as http;
 
-/// http trigger -> ( callable function - end point request )
+/// => TAMAM
 class CloudFunction {
+  // --------------------
+  /// http trigger -> ( callable function - end point request )
   // --------------------
   /// private constructor to create instances of this class only in itself
   CloudFunction.singleton();
@@ -72,7 +70,7 @@ class CloudFunction {
   /// CALLING
 
   // --------------------
-  /// TESTED : WORKS
+  /// TESTED : WORKS PERFECT
   static Future<dynamic> call({
     required String functionName,
     Map<String, dynamic>? mapToPass,
@@ -153,6 +151,8 @@ class CloudFunction {
   /// CLOUD FUNCTIONS NOUR METHOD
 
   // --------------------
+  /// DEPRECATED
+  /*
   /// TESTED : WORKS PERFECT
   static const String _realIncrementationLink = 'https://www.bldrs.net/counters?operation=';
   // -----------------------------------------------------------------------------
@@ -210,10 +210,12 @@ class CloudFunction {
 
     return _docID;
   }
-// -----------------------------------------------------------------------------
 
+   */
+  // -----------------------------------------------------------------------------
 }
 
+/// => TAMAM
 class BldrsCloudFunctions{
   // -----------------------------------------------------------------------------
 

@@ -25,20 +25,6 @@ import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 
-/*
-
---> AUTHORSHIP INVITATION
-  -> general invitation link
-  -> user1 send link to user2
-  -> user2 clicks link
-  -> install the app if not installed
-  -> signs in or signs up
-  -> show some authorship reminder dialog
-  -> receive a late note from the invitation bz to join
-  -> redirect to notes page
-
- */
-
 /// => TAMAM
 class DynamicLinks {
   // --------------------
@@ -109,7 +95,6 @@ class DynamicLinks {
   static Future<void> initDynamicLinks() async {
 
     if (DeviceChecker.deviceIsWindows() == false) {
-
 
       await tryAndCatch(
         invoker: 'initDynamicLinks',

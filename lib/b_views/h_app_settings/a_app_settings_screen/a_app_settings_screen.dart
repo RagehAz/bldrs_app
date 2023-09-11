@@ -1,10 +1,10 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/widgets/buttons/stores_buttons/store_button.dart';
 import 'package:basics/helpers/widgets/drawing/spacing.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
@@ -23,6 +23,7 @@ import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
+import 'package:bldrs/e_back_end/f_cloud/appsflyer.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -44,8 +45,9 @@ class AppSettingsScreen extends StatelessWidget {
     final bool _userIsSignedUp = Authing.userIsSignedUp(_userModel?.signInMethod);
 
     return FloatingLayout(
-      pyramidButtons: UsersProvider.userIsRage7() == false ? null : [
+      pyramidButtons: UsersProvider.userIsRage7() == false ? null : <Widget>[
 
+        /// SUPER DEV TEST
         PyramidFloatingButton(
           icon: Iconz.star,
           color: Colorz.yellow200,
@@ -60,9 +62,10 @@ class AppSettingsScreen extends StatelessWidget {
         PyramidFloatingButton(
           icon: Iconz.lab,
           color: Colorz.green255,
-          onTap: () async {
-            blog('bojo');
-          },
+          onTap: () => Nav.goToNewScreen(
+            context: context,
+            screen: const AppsFlyerTestScreen(),
+          ),
         ),
 
         /// LAUNCH APP STORE
@@ -124,6 +127,7 @@ class AppSettingsScreen extends StatelessWidget {
         /// ------> SEPARATOR
         const DotSeparator(color: Colorz.yellow80),
 
+        /// SETTINGS BUTTONS
         const SettingsToSettingsButtons(),
 
         /// SIGN IN BY OTHER ACCOUNT
