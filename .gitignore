@@ -38,7 +38,6 @@ flu# Miscellaneous
 **/.gradle
 
 # Web related
-lib/generated_plugin_registrant.dart
 /node_modules
 
 # Symbolication related

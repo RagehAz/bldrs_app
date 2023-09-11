@@ -1,10 +1,16 @@
 import 'dart:async';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 
 /// SUPER_DEV_TEST
 Future<void> superDevTestGoX() async {
+  blog('bobo');
+  const dynamic thing = 1;
 
+  if (thing != null){
 
+    // Errorize.throwText(text: 'fuck this', invoker: 'bojo');
 
+  }
 
 }
 
