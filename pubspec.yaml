@@ -82,9 +82,11 @@ dependencies:
   package_info_plus: ^4.1.0
   intl: ^0.18.0
   cross_file: ^0.3.3+5
+  extended_image: ^8.1.1
   # ------------------------------------
 dependency_overrides:
   intl: ^0.18.1
+  http: ^1.1.0
   # --------------------------------------------------------------------------------
 dev_dependencies:
   flutter_test:
