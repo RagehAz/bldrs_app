@@ -112,18 +112,10 @@ class FCMStarter {
     );
 
     await FCM.getAwesomeNoots()?.setListeners(
-      onActionReceivedMethod: (ReceivedAction receivedAction) async {
-        await NootController.onActionReceivedMethod(receivedAction);
-      },
-      onNotificationCreatedMethod: (ReceivedNotification receivedNotification) async {
-        await NootController.onNotificationCreatedMethod(receivedNotification);
-      },
-      onNotificationDisplayedMethod: (ReceivedNotification receivedNotification) async {
-        await NootController.onNotificationDisplayedMethod(receivedNotification);
-      },
-      onDismissActionReceivedMethod: (ReceivedAction receivedAction) async {
-        await NootController.onDismissActionReceivedMethod(receivedAction);
-      },
+      onActionReceivedMethod: NootController.onActionReceivedMethod,
+      onNotificationCreatedMethod: NootController.onNotificationCreatedMethod,
+      onNotificationDisplayedMethod: NootController.onNotificationDisplayedMethod,
+      onDismissActionReceivedMethod: NootController.onDismissActionReceivedMethod,
     );
 
   }
