@@ -12,7 +12,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
-import 'package:bldrs/e_back_end/e_fcm/z_noot_controller.dart';
 import 'package:bldrs/e_back_end/i_app_check/app_check.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_providers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -26,6 +25,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+
 import 'bldrs_keys.dart';
 
 Future<void> main() async {
@@ -229,8 +229,8 @@ class _BldrsAppStarterState extends State<BldrsAppStarter>  with WidgetsBindingO
         await FCMStarter.initializeNootsInBldrsAppStarter(
           channelModel: ChannelModel.bldrsChannel,
         );
-        /// NOOT LISTENERS
-        _initializeNootListeners();
+        // /// NOOT LISTENERS
+        // _initializeNootListeners();
 
         /// END
         await _triggerLoading(setTo: false);
@@ -246,7 +246,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter>  with WidgetsBindingO
     _loading.dispose();
     // Sembast.dispose(); async function,, and no need to close sembast I guess
     Sounder.dispose();
-    _closeNootListeners();
+    // _closeNootListeners();
     FCM.disposeAwesomeNoots();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
@@ -271,7 +271,8 @@ class _BldrsAppStarterState extends State<BldrsAppStarter>  with WidgetsBindingO
     super.didChangeAppLifecycleState(state);
   }
   // -----------------------------------------------------------------------------
-
+  /// DEPRECATED
+  /*
   /// NOOT STREAMS
 
   // --------------------
@@ -297,6 +298,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter>  with WidgetsBindingO
       _displayed?.cancel();
     }
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// LOCALE

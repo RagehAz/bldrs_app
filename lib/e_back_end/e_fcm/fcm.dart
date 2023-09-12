@@ -299,7 +299,7 @@ class FCM {
 
       /// GENERAL
       NotificationChannelGroup(
-        channelGroupkey: channel.id,
+        channelGroupKey: channel.id,
         channelGroupName: channel.group,
       ),
 
@@ -479,8 +479,8 @@ class FCM {
 
       /// BEHAVIOUR
       locked: !canBeDismissedWithoutTapping,
-      displayOnBackground: true,
-      displayOnForeground: true,
+      // displayOnBackground: true,
+      // displayOnForeground: true,
       wakeUpScreen: true,
 
       /// SOUND
@@ -494,7 +494,7 @@ class FCM {
       progress: _progress,
 
       /// FAKES
-      showWhen: true,
+      // showWhen: true,
 
       // autoDismissible: ,
       // category: ,
@@ -545,7 +545,7 @@ class FCM {
       color: textColor,
 
       /// CAN TAP BUTTON ?
-      enabled: true,
+      // enabled: true,
       // On Android, deactivates the button. On iOS, the button disappear
       /// DISMISS NOTIFICATION ON BUTTON TAP
       // autoDismissible: true,
