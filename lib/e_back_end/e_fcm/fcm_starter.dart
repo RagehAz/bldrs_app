@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
+import 'package:bldrs/e_back_end/e_fcm/z_noot_controller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -110,20 +111,20 @@ class FCMStarter {
       debug: true,
     );
 
-    // FCM.getAwesomeNoots()?.(
-    //   onActionReceivedMethod: (ReceivedAction receivedAction){
-    //     NootController.onActionReceivedMethod(receivedAction);
-    //   },
-    //   onNotificationCreatedMethod: (ReceivedNotification receivedNotification){
-    //     NootController.onNotificationCreatedMethod(receivedNotification);
-    //   },
-    //   onNotificationDisplayedMethod: (ReceivedNotification receivedNotification){
-    //     NootController.onNotificationDisplayedMethod(receivedNotification);
-    //   },
-    //   onDismissActionReceivedMethod: (ReceivedAction receivedAction){
-    //     NootController.onDismissActionReceivedMethod(receivedAction);
-    //   },
-    // );
+    await FCM.getAwesomeNoots()?.setListeners(
+      onActionReceivedMethod: (ReceivedAction receivedAction) async {
+        await NootController.onActionReceivedMethod(receivedAction);
+      },
+      onNotificationCreatedMethod: (ReceivedNotification receivedNotification) async {
+        await NootController.onNotificationCreatedMethod(receivedNotification);
+      },
+      onNotificationDisplayedMethod: (ReceivedNotification receivedNotification) async {
+        await NootController.onNotificationDisplayedMethod(receivedNotification);
+      },
+      onDismissActionReceivedMethod: (ReceivedAction receivedAction) async {
+        await NootController.onDismissActionReceivedMethod(receivedAction);
+      },
+    );
 
   }
   // --------------------
