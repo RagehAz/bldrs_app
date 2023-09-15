@@ -60,6 +60,7 @@ class ReviewBubbleButton extends StatelessWidget {
 
     return BldrsBox(
       height: 38,
+      // width: 80,
       icon: icon,
       verse: generateCounterVerse(
         context: context,
