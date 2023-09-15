@@ -27,8 +27,10 @@ class FetchFlyerProtocols {
     required String? flyerID,
   }) async {
 
+    blog('A. fetchFlyerByID : ($flyerID) START');
     FlyerModel? _flyer = await FlyerLDBOps.readFlyer(flyerID);
 
+    blog('B. fetchFlyerByID : ($flyerID) FlyerModel FOUND in LDB : ${_flyer != null}');
     if (_flyer != null){
       // blog('fetchFlyerByID : ($flyerID) FlyerModel FOUND in LDB');
     }

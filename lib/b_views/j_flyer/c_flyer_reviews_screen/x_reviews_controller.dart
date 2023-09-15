@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -253,7 +254,7 @@ Future<void> onReviewOptions({
   final BuildContext context = getMainContext();
 
   await BottomDialog.showButtonsBottomDialog(
-      numberOfWidgets: 2,
+      numberOfWidgets: 3,
       builder: (_){
 
         return <Widget>[
@@ -306,6 +307,8 @@ Future<void> onReviewOptions({
 
               }
           ),
+
+          const DotSeparator(),
 
         ];
 
