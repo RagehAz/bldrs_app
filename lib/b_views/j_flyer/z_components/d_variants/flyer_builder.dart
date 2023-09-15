@@ -144,7 +144,9 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
       _isInit = false; // good
 
       asyncInSync(() async {
+        blog('flyer builder did change dependencies');
         await _fetchAndRenderFlyer();
+        blog('flyer builder did change dependencies done');
       });
 
     }
@@ -180,18 +182,22 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
   // --------------------
   Future<void> _fetchAndRenderFlyer() async {
 
+    blog('1._fetchAndRenderFlyer');
     if (mounted == true){
       setState(() {
         _loading = true;
       });
     }
 
+    blog('2._fetchAndRenderFlyer');
     if (mounted == true){
 
+      blog('2.1._fetchAndRenderFlyer');
       FlyerModel? _flyer = widget.flyerModel ?? await FlyerProtocols.fetchFlyer(
         flyerID: widget.flyerID,
       );
 
+      blog('2.2._fetchAndRenderFlyer');
       if (_flyer != null) {
 
         if (widget.renderFlyer == RenderFlyer.firstSlide && mounted == true) {
@@ -256,8 +262,10 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
 
       }
 
+      blog('2.3._fetchAndRenderFlyer');
     }
 
+    blog('3._fetchAndRenderFlyer');
     if (_loading == true && mounted == true){
       setState(() {
         _loading = false;
