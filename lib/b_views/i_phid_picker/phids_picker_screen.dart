@@ -10,8 +10,9 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/xx_pickers_search_controller.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_builder_page.dart';
-import 'package:bldrs/b_views/i_phid_picker/views/multi_chain_selector_view.dart';
-import 'package:bldrs/b_views/i_phid_picker/views/single_chain_selector_view.dart';
+import 'package:bldrs/b_views/i_phid_picker/views/b_multi_chain_selector_view.dart';
+import 'package:bldrs/b_views/i_phid_picker/views/a_single_chain_selector_view.dart';
+import 'package:bldrs/b_views/i_phid_picker/views/c_no_chains_found_view.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/phids_bubble.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -456,8 +457,12 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   @override
   Widget build(BuildContext context) {
 
+    if (Mapper.checkCanLoopList(_chains) == false){
+      return const NoChainsFoundView();
+    }
+
     /// MULTIPLE CHAINS
-    if (Mapper.superLength(_chains) > 1){
+    else if (Mapper.superLength(_chains) > 1){
       return MultiChainSelectorView(
         globalKey: _globalKey,
         navModels: _navModels,

@@ -3,6 +3,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:basics/layouts/separators/separator_line.dart';
+import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -63,6 +64,8 @@ class ReviewViewBubble extends StatelessWidget {
     final double _clearWidth = ReviewBubbleBox.clearWidth(
       balloonWidth: _textBubbleWidth,
     );
+
+    const double _moreButtonSize = 35;
     // --------------------
     return ReviewBox(
       pageWidth: pageWidth,
@@ -81,28 +84,57 @@ class ReviewViewBubble extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
 
-                  /// USER NAME
-                  BldrsText(
-                    verse: Verse(
-                      id: userModel?.name,
-                      translate: false,
-                    ),
-                  ),
+                  Row(
+                    children: <Widget>[
 
-                  /// TIME
-                    BldrsText(
-                      verse: Verse(
-                        id: BldrsTimers.calculateSuperTimeDifferenceString(
-                          from: reviewModel?.time,
-                          to: DateTime.now(),
-                        ),
-                        translate: false,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+
+                          /// USER NAME
+                          BldrsText(
+                            width: _clearWidth - _moreButtonSize,
+                            centered: false,
+                            verse: Verse(
+                              id: userModel?.name,
+                              translate: false,
+                            ),
+                          ),
+
+                          /// TIME
+                          BldrsText(
+                            width: _clearWidth - _moreButtonSize,
+                            verse: Verse(
+                              id: BldrsTimers.calculateSuperTimeDifferenceString(
+                                from: reviewModel?.time,
+                                to: DateTime.now(),
+                              ),
+                              translate: false,
+                            ),
+                            weight: VerseWeight.thin,
+                            italic: true,
+                            centered: false,
+                            color: Colorz.white200,
+                            scaleFactor: 0.9,
+                          ),
+
+                        ],
                       ),
-                      weight: VerseWeight.thin,
-                      italic: true,
-                      color: Colorz.white200,
-                      scaleFactor: 0.9,
-                    ),
+
+                      /// MORE BUTTON
+                      if (_imReviewCreator == true)
+                      BldrsBox(
+                        height: _moreButtonSize,
+                        width: _moreButtonSize,
+                        icon: Iconz.more,
+                        iconSizeFactor: 0.6,
+                        onTap: onReviewOptionsTap,
+                      ),
+
+                    ],
+                  ),
+                  /// USER NAME
+
 
                   /// TEXT
                     BldrsText(
@@ -128,16 +160,6 @@ class ReviewViewBubble extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-
-                          /// MORE BUTTON
-                          if (_imReviewCreator == true)
-                            ReviewBubbleButton(
-                              count: null,
-                              isOn: false,
-                              phid: null,
-                              icon: Iconz.more,
-                              onTap: onReviewOptionsTap,
-                            ),
 
                           /// EXPANDER
                           if (_imReviewCreator == true)

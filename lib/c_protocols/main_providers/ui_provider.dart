@@ -19,10 +19,11 @@ import 'package:provider/provider.dart';
 // --------------------
 /// THIS HAS TO BE ASSIGNED TO MATERIAL APP IN THE MAIN FILE
 final GlobalKey<NavigatorState> mainNavKey = GlobalKey<NavigatorState>();
+BuildContext? superContext;
 // --------------------
 /// TESTED : WORKS PERFECT
 BuildContext getMainContext() {
-  return mainNavKey.currentContext!;
+  return superContext ?? mainNavKey.currentContext!;
 }
 // -----------------------------------------------------------------------------
 
