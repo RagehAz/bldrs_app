@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
@@ -8,18 +9,18 @@ import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 
 class SavedFlyersScreenView extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const SavedFlyersScreenView({
     required this.selectionMode,
     required this.scrollController,
     required this.zGridController,
     super.key
   });
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   final bool selectionMode;
   final ScrollController scrollController;
   final ZGridController zGridController;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -44,6 +45,7 @@ class SavedFlyersScreenView extends StatelessWidget {
       gridHeight: Scale.screenHeight(context),
       gridWidth: Scale.screenWidth(context),
       zGridController: zGridController,
+      bottomPadding: Ratioz.horizon,
       hasResponsiveSideMargin: true,
       // showAddFlyerButton: false,
       // scrollDirection: Axis.vertical,
