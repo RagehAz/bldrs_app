@@ -58,6 +58,7 @@ class SavedFlyersScreen extends StatefulWidget {
 }
 
 class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTickerProviderStateMixin{
+  // -----------------------------------------------------------------------------
   /*
    with AutomaticKeepAliveClientMixin<SavedFlyersScreen>
    @override

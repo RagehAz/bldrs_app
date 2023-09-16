@@ -25,7 +25,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-
 import 'bldrs_keys.dart';
 
 Future<void> main() async {
@@ -206,7 +205,9 @@ class _BldrsAppStarterState extends State<BldrsAppStarter>  with WidgetsBindingO
   // -----------------------------------------------------------------------------
   @override
   void initState() {
-    FlutterNativeSplash.remove();
+    if (kIsWeb == false){
+      FlutterNativeSplash.remove();
+    }
     WidgetsBinding.instance.addObserver(this);
     blog('XXX === >>> APP START');
     super.initState();
