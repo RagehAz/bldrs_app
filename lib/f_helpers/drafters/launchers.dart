@@ -1,14 +1,22 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:basics/dialogs/center_dialog.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/widgets/drawing/spacing.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart' as Launch;
@@ -118,24 +126,50 @@ class Launcher {
 
     bool _success = false;
 
-
     if (link != null){
 
-      final Uri _uri = Uri.parse(cleanURL(link) ?? '');
+      final String _notice = getWord('phid_will_open_this_link');
+      final String _body = '$_notice\n$link';
 
-      if (await Launch.canLaunchUrl(_uri) == true) {
+      final bool _go = await Dialogs.confirmProceed(
+        titleVerse: const Verse(
+          id: 'phid_open_this_link_?',
+          translate: true,
+        ),
+        bodyVerse: Verse(
+          id: _body,
+          translate: false,
+          pseudo: 'This will open this link in your browser\nlink...',
+        ),
+        yesVerse: const Verse(
+          id: 'phid_open',
+          translate: true,
+        ),
+        noVerse: const Verse(
+          id: 'phid_cancel',
+          translate: true,
+        ),
+      );
 
-        unawaited(Launch.launchUrl(
-          _uri,
-          // mode: LaunchMode.inAppWebView,
-          // webOnlyWindowName: ,
-          // webViewConfiguration: ,
-        ));
-        _success = true;
-      }
+      if (_go == true){
 
-      else {
-        blog('Can Not launch link');
+        final Uri _uri = Uri.parse(cleanURL(link) ?? '');
+
+        if (await Launch.canLaunchUrl(_uri) == true) {
+
+          unawaited(Launch.launchUrl(
+            _uri,
+            // mode: LaunchMode.inAppWebView,
+            // webOnlyWindowName: ,
+            // webViewConfiguration: ,
+          ));
+          _success = true;
+        }
+
+        else {
+          blog('Can Not launch link');
+        }
+
       }
 
     }
@@ -194,32 +228,67 @@ class Launcher {
 
     /// MORE REF : https://www.youtube.com/watch?v=R6mA6_GRMZQ&t=42s
 
-
     if (TextCheck.isEmpty(email) == false){
 
+      final BuildContext context = getMainContext();
       final String _emailSubject = emailSubject ?? _generateDefaultEmailSubject();
       final String _emailBody = emailBody ?? _generateDefaultEmailBody();
-
       final Uri _uri = Uri(
         scheme: 'mailto',
         path: email,
         query: 'subject=$_emailSubject&body=$_emailBody',
       );
+      final bool _canLaunchEmail = await Launch.canLaunchUrl(_uri);
 
-      if (await Launch.canLaunchUrl(_uri) == true) {
-        await Launch.launchUrl(_uri);
-      }
+      await BldrsCenterDialog.showCenterDialog(
+        titleVerse: Verse.plain(email),
+          child: Column(
+            children: <Widget>[
 
-      else {
+              /// COPY
+              BldrsBox(
+                height: 40,
+                width: CenterDialog.clearWidth(context),
+                verse: const Verse(
+                  id: 'phid_copy',
+                  translate: true,
+                ),
+                onTap: () async {
 
-        blog('cant launch email');
+                  await Nav.goBack(context: context);
 
-        await Keyboard.copyToClipboardAndNotify(
-          copy: email,
-          milliseconds: 3000,
-        );
+                  await Keyboard.copyToClipboardAndNotify(
+                    copy: email,
+                    milliseconds: 3000,
+                  );
 
-      }
+                  },
+              ),
+
+              /// SPACING
+              const Spacing(size: 5),
+
+              /// SEND EMAIL
+              BldrsBox(
+                isDisabled: _canLaunchEmail == false,
+                height: 40,
+                width: CenterDialog.clearWidth(context),
+                verse: const Verse(
+                  id: 'phid_send_email',
+                  translate: true,
+                ),
+                onTap: () async {
+
+                  await Nav.goBack(context: context);
+
+                  await Launch.launchUrl(_uri);
+
+                  },
+              ),
+
+            ],
+          ),
+      );
 
     }
 
@@ -227,7 +296,7 @@ class Launcher {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String _generateDefaultEmailSubject(){
-    return ''; //word('phid_bldrs');
+    return getWord('phid_bldrsFullName');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -242,6 +311,8 @@ class Launcher {
   /// TESTED : WORKS PERFECT
   static Future<void> _launchCall(String? phoneNumber) async {
 
+    blog('will call $phoneNumber');
+
     if (TextCheck.isEmpty(phoneNumber) == false){
 
       final Uri _uri = Uri(
@@ -249,14 +320,35 @@ class Launcher {
         scheme: 'tel',
       );
 
-      if (await Launch.canLaunchUrl(_uri) == true) {
-        await Launch.launchUrl(_uri);
+      /// WEB OR WINDOWS
+      if (kIsWeb == true || DeviceChecker.deviceIsWindows() == true){
+
+        await Dialogs.centerNotice(
+          verse: const Verse(
+              id: 'phid_copy',
+              translate: true,
+          ),
+          body: Verse.plain(phoneNumber),
+        );
+
+        await Keyboard.copyToClipboardAndNotify(
+          copy: phoneNumber,
+          milliseconds: 3000,
+        );
+
       }
 
       else {
-        blog('cant call');
-      }
 
+        if (await Launch.canLaunchUrl(_uri) == true) {
+          await Launch.launchUrl(_uri);
+        }
+
+        else {
+          blog('cant call');
+        }
+
+      }
 
     }
 
