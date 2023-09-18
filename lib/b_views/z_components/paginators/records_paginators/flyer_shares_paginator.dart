@@ -10,11 +10,13 @@ class FlyerSharesPaginator extends StatefulWidget {
     required this.flyerID,
     required this.bzID,
     required this.builder,
+    required this.limit,
     super.key
   });
   // ------------------------------
   final String flyerID;
   final String bzID;
+  final int limit;
   final Function(BuildContext, List<FlyerShareModel>, bool, Widget?, ScrollController controller)
   builder;
   // ------------------------------
@@ -81,7 +83,7 @@ class _FlyerSharesPaginatorState extends State<FlyerSharesPaginator> {
             bzID: widget.bzID,
             flyerID: widget.flyerID,
           ),
-          limit: 20,
+          limit: widget.limit,
           idFieldName: 'id',
           fieldNameToOrderBy: 'time',
         ),

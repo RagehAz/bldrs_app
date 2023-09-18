@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/g_statistics/records/flyer_save_model.dart';
 import 'package:bldrs/a_models/g_statistics/records/flyer_share_model.dart';
 import 'package:bldrs/a_models/g_statistics/records/flyer_view_model.dart';
 import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/ggg_mini_user_banner.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/ggg_mini_user_banner.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/paginators/records_paginators/flyer_saves_paginator.dart';
 import 'package:bldrs/b_views/z_components/paginators/records_paginators/flyer_shares_paginator.dart';
@@ -36,8 +36,30 @@ class FlyerRecordsBox extends StatelessWidget {
   final String flyerID;
   final String bzID;
   // --------------------------------------------------------------------------
+  static int _calculateLimit({
+    required double pageWidth,
+  }){
+
+    final double _clearWidth = pageWidth;
+    final double _userBannerWidth = MiniUserBanner.getWidthByPageWidth(
+      pageWidth: pageWidth,
+    );
+    const double _bannerSpacing = MiniUserBanner.spacing;
+
+    final double _unitWidth = _userBannerWidth + _bannerSpacing;
+    final double _division = _clearWidth / _unitWidth;
+    final int _limit = (_division * 2.5).floor();
+
+    return _limit;
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    final int _limit = _calculateLimit(
+      pageWidth: pageWidth,
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,6 +85,7 @@ class FlyerRecordsBox extends StatelessWidget {
           FlyerViewsPaginator(
               flyerID: flyerID,
               bzID: bzID,
+              limit: _limit,
               builder: (_, List<FlyerViewModel>? records, bool loading, Widget? child, ScrollController controller){
 
                 return UsersStripBuilder(
@@ -81,6 +104,7 @@ class FlyerRecordsBox extends StatelessWidget {
           FlyerSavesPaginator(
               flyerID: flyerID,
               bzID: bzID,
+              limit: _limit,
               builder: (_, List<FlyerSaveModel>? records, bool loading, Widget? child, ScrollController controller){
 
                 return UsersStripBuilder(
@@ -100,6 +124,7 @@ class FlyerRecordsBox extends StatelessWidget {
           FlyerSharesPaginator(
               flyerID: flyerID,
               bzID: bzID,
+              limit: _limit,
               builder: (_, List<FlyerShareModel>? records, bool loading, Widget? child, ScrollController controller){
 
                 return UsersStripBuilder(
@@ -144,7 +169,7 @@ class UsersStripBuilder extends StatelessWidget {
 
       return Container(
         width: width,
-        height: 100,
+        height: MiniUserBanner.getHeightByPageWidth(pageWidth: width) + 20,
         decoration: const BoxDecoration(
           color: Colorz.white20,
           borderRadius: Borderers.constantCornersAll10,
@@ -162,7 +187,9 @@ class UsersStripBuilder extends StatelessWidget {
               builder: (_, AsyncSnapshot<UserModel?> snapshot){
                 final UserModel? _user = snapshot.data;
                 return MiniUserBanner(
-                  size: 50,
+                  width: MiniUserBanner.getWidthByPageWidth(
+                    pageWidth: width,
+                  ),
                   userModel: _user,
                 );
                 },
