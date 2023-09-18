@@ -1,3 +1,8 @@
+### 2.7.0
+1. UI updates
+2. Add Business account scope of services tracking mechanism
+3. UX adjustments in contacting business account buttons & dialogs
+
 ### 2.6.0
 1. bugs & crash fixes
 2. Ui updates
