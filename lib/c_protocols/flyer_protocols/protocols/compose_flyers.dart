@@ -101,8 +101,8 @@ class ComposeFlyerProtocols {
             /// ADD FLYER TO LDB
             FlyerLDBOps.insertFlyer(_flyerToPublish),
 
-            /// ADD FLYER ID TO BZ MODEL
-            _addFlyerIDToBzAndAuthorAndRenovateBz(
+            /// ADD FLYER ID TO BZ MODEL + AUTHOR MODEL + UPDATE SCOPE
+            _renovateBzOnFlyerCompose(
               newFlyerToAdd: _flyerToPublish,
             ),
 
@@ -141,10 +141,10 @@ class ComposeFlyerProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> _addFlyerIDToBzAndAuthorAndRenovateBz({
+  static Future<void> _renovateBzOnFlyerCompose({
     required FlyerModel? newFlyerToAdd,
   }) async {
-    blog('addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs : START');
+    blog('_renovateBzOnFlyerCompose : START');
 
     if (newFlyerToAdd != null){
 
@@ -154,21 +154,30 @@ class ComposeFlyerProtocols {
 
       if (_oldBz != null ){
 
+        /// INSERT FLYER ID IN PUBLICATION
         final PublicationModel _pub = PublicationModel.insertFlyerInPublications(
             pub: _oldBz.publication,
             flyerID: newFlyerToAdd.id!,
             toState: newFlyerToAdd.publishState,
         );
 
+        /// ADD FLYER ID TO AUTHOR
         final List<AuthorModel> _newAuthors = AuthorModel.addFlyerIDToAuthor(
           flyerID: newFlyerToAdd.id,
           authorID: newFlyerToAdd.authorID,
           oldAuthors: _oldBz.authors,
         );
 
+        /// ADD FLYER PHIDS TO SCOPE
+        final Map<String, dynamic> _newScope = BzModel.insertPhidsToScope(
+            scope: _oldBz.scope,
+            phids: newFlyerToAdd.phids,
+        );
+
         final BzModel? _newBz = _oldBz.copyWith(
           publication: _pub,
           authors: _newAuthors,
+          scope: _newScope,
         );
 
         // final BzModel _uploadedBzModel =
@@ -184,7 +193,7 @@ class ComposeFlyerProtocols {
 
     }
 
-    blog('_addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs : END');
+    blog('_renovateBzOnFlyerCompose : END');
 
     // return _uploadedBzModel;
   }

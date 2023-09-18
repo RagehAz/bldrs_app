@@ -160,6 +160,9 @@ class RenovateFlyerProtocols {
     required FlyerModel? oldFlyer,
   }) async {
 
+    /// NOTE : THIS METHOD DOES NOT UPDATE BZ MODEL
+    /// IT IS ONLY USED TO RENOVATE FLYER IN VERIFICATION PROTOCOLS FOR NOW
+
     final bool _identical = FlyerModel.checkFlyersAreIdentical(
         flyer1: newFlyer,
         flyer2: oldFlyer,

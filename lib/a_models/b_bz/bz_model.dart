@@ -51,7 +51,7 @@ class BzModel{
   final String? name;
   final List<String>? trigram;
   final String? logoPath;
-  final List<String>? scope;
+  final Map<String, dynamic>? scope;
   final ZoneModel? zone;
   final String? about;
   final GeoPoint? position;
@@ -78,7 +78,7 @@ class BzModel{
     String? name,
     List<String>? trigram,
     String? logoPath,
-    List<String>? scope,
+    Map<String, dynamic>? scope,
     ZoneModel? zone,
     String? about,
     GeoPoint? position,
@@ -148,7 +148,7 @@ class BzModel{
       name : name == true ? null : this.name,
       trigram : trigram == true ? [] : this.trigram,
       logoPath : logoPath == true ? null : this.logoPath,
-      scope : scope == true ? [] : this.scope,
+      scope : scope == true ? null : this.scope,
       zone : zone == true ? null : this.zone,
       about : about == true ? null : this.about,
       position : position == true ? null : this.position,
@@ -182,7 +182,7 @@ class BzModel{
       'name': name,
       'trigram': trigram,
       'logoPath': logoPath,
-      'scope': FlyerModel.cipherPhids(phids: scope),
+      'scope': scope,
       'zone': zone?.toMap(),
       'about': about,
       'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
@@ -238,7 +238,7 @@ class BzModel{
         name: map['name'],
         trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
         logoPath: map['logoPath'],
-        scope: FlyerModel.decipherPhids(map: map['scope']),
+        scope: map['scope'],
         zone: ZoneModel.decipherZone(map['zone']),
         about: map['about'],
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
@@ -543,7 +543,9 @@ class BzModel{
       createdAt: Timers.createDate(year: 1987, month: 10, day: 06),
       about: 'About biz',
       isVerified: true,
-      scope: const <String>['phid_k_designType_architecture'],
+      scope: const {
+        'phid_k_designType_architecture': 2,
+      },
       showsTeam: true,
     );
   }
@@ -573,7 +575,7 @@ class BzModel{
     blog('id : $id : accountType : $accountType : createdAt : $createdAt');
     blog('bzForm : $bzForm : bzTypes : $bzTypes');
     blog('logoPath : $logoPath');
-    blog('scope : $scope');
+    Mapper.blogMap(scope, invoker: 'scope');
     blog('about : $about');
     blog('position : $position');
     blog('showsTeam : $showsTeam : isVerified : $isVerified : bzState : $bzState');
@@ -644,7 +646,7 @@ class BzModel{
       if (bz1.logoPath != bz2.logoPath){
         blog('logos are not identical');
       }
-      if (Mapper.checkListsAreIdentical(list1: bz1.scope, list2: bz2.scope) == false){
+      if (Mapper.checkMapsAreIdentical(map1: bz1.scope, map2: bz2.scope) == false){
         blog('scopes are not identical');
       }
       if (ZoneModel.checkZonesAreIdentical(zone1: bz1.zone, zone2: bz1.zone) == false){
@@ -842,55 +844,6 @@ class BzModel{
     return _contains;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkBzzAreIdentical({
-    required BzModel? bz1,
-    required BzModel? bz2,
-  }){
-    bool _areIdentical = false;
-
-    if (bz1 == null && bz2 == null){
-      _areIdentical = true;
-    }
-
-    else if (bz1 != null && bz2 != null){
-
-      if (
-          bz1.id == bz2.id &&
-          Mapper.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) == true &&
-          bz1.bzForm == bz2.bzForm &&
-          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) == true &&
-          bz1.accountType == bz2.accountType &&
-          bz1.name == bz2.name &&
-          Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) == true &&
-          bz1.logoPath == bz2.logoPath &&
-          Mapper.checkListsAreIdentical(list1: bz1.scope, list2: bz2.scope) == true &&
-          ZoneModel.checkZonesAreIdentical(zone1: bz1.zone, zone2: bz2.zone) == true &&
-          bz1.about == bz2.about &&
-          bz1.position == bz2.position &&
-          ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) == true &&
-          AuthorModel.checkAuthorsListsAreIdentical(authors1: bz1.authors, authors2: bz2.authors) == true &&
-          PendingAuthor.checkPendingAuthorsListsAreIdentical(list1: bz1.pendingAuthors, list2: bz2.pendingAuthors) == true &&
-          bz1.showsTeam == bz2.showsTeam &&
-          bz1.isVerified == bz2.isVerified &&
-          bz1.bzState == bz2.bzState &&
-          PublicationModel.checkPublicationsAreIdentical(pub1: bz1.publication, pub2: bz2.publication) == true
-      ){
-        _areIdentical = true;
-      }
-
-    }
-
-    if (_areIdentical == false){
-      blogBzzDifferences(
-        bz1: bz1,
-        bz2: bz2,
-      );
-    }
-
-    return _areIdentical;
-  }
-  // --------------------
   /// TESTED : WORKS GOOD
   static bool checkBzHasContacts({
     required BzModel? bzModel,
@@ -1040,6 +993,274 @@ class BzModel{
     return _invalidFields;
   }
    */
+  // -----------------------------------------------------------------------------
+
+  /// SCOPE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getScopePhids(Map<String, dynamic>? scope){
+    final List<String> _output = [];
+
+    if (scope != null){
+
+      final List<String> _phids = scope.keys.toList();
+
+      if (_phids.isNotEmpty == true){
+        _output.addAll(_phids);
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static int getScopePhidUsage({
+    required Map<String, dynamic>? scope,
+    required String? phid,
+  }){
+    int _output = 0;
+
+    if (scope != null && phid != null){
+
+      final dynamic value = scope[phid];
+
+      if (value != null && value is int){
+        _output = value;
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> insertPhidToScope({
+    required Map<String, dynamic>? scope,
+    required String? phid,
+  }){
+    Map<String, dynamic> _output = scope ?? {};
+
+    if (phid != null){
+
+      final int _value = getScopePhidUsage(
+          scope: _output,
+          phid: phid
+      );
+
+      _output = Mapper.insertPairInMap(
+        map: _output,
+        key: phid,
+        value: _value + 1,
+        overrideExisting: true,
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> removePhidFromScope({
+    required Map<String, dynamic>? scope,
+    required String? phid,
+  }){
+    Map<String, dynamic> _output = scope ?? {};
+
+    if (phid != null){
+
+      final int _value = getScopePhidUsage(
+          scope: _output,
+          phid: phid
+      );
+
+      if (_value > 0){
+
+        _output = Mapper.insertPairInMap(
+            map: _output,
+            key: phid,
+            value: _value - 1,
+            overrideExisting: true,
+        );
+
+      }
+      else {
+
+        _output = Mapper.removePair(
+            map: _output,
+            fieldKey: phid,
+        );
+
+      }
+
+    }
+
+    return cleanScope(scope: _output);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> insertPhidsToScope({
+    required Map<String, dynamic>? scope,
+    required List<String>? phids,
+  }){
+    Map<String, dynamic> _output = scope ?? {};
+
+    if (Mapper.checkCanLoopList(phids) == true){
+
+      for (final String phid in phids!){
+
+        _output = insertPhidToScope(
+          scope: _output,
+          phid: phid,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> removePhidsFromScope({
+    required Map<String, dynamic>? scope,
+    required List<String>? phids,
+  }){
+    Map<String, dynamic> _output = scope ?? {};
+
+    if (scope != null && Mapper.checkCanLoopList(phids) == true){
+
+      for (final String phid in phids!){
+
+        _output = removePhidFromScope(
+          scope: _output,
+          phid: phid,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> cleanScope({
+    required Map<String, dynamic>? scope,
+  }){
+    Map<String, dynamic> _output = {};
+
+    if (scope != null){
+
+      final List<String> _phids = scope.keys.toList();
+
+      if (Mapper.checkCanLoopList(_phids) == true){
+
+        for (final String phid in _phids){
+
+          final int _value = getScopePhidUsage(
+              scope: scope,
+              phid: phid
+          );
+
+          if (_value > 0){
+
+            _output = Mapper.insertPairInMap(
+                map: _output,
+                key: phid,
+                value: _value,
+                overrideExisting: true,
+            );
+
+          }
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static BzModel? removeFlyerPhidsFromBzScope({
+    required BzModel? oldBz,
+    required FlyerModel? flyer,
+  }){
+    BzModel? _output = oldBz;
+
+    if (_output != null && flyer != null){
+
+      Map<String, dynamic>? _scope = _output.scope;
+
+      _scope = removePhidsFromScope(
+          scope: _scope,
+          phids: flyer.phids,
+      );
+
+      _output = _output.copyWith(
+        scope: _scope,
+      );
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkBzzAreIdentical({
+    required BzModel? bz1,
+    required BzModel? bz2,
+  }){
+    bool _areIdentical = false;
+
+    if (bz1 == null && bz2 == null){
+      _areIdentical = true;
+    }
+
+    else if (bz1 != null && bz2 != null){
+
+      if (
+          bz1.id == bz2.id &&
+          Mapper.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) == true &&
+          bz1.bzForm == bz2.bzForm &&
+          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) == true &&
+          bz1.accountType == bz2.accountType &&
+          bz1.name == bz2.name &&
+          Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) == true &&
+          bz1.logoPath == bz2.logoPath &&
+          Mapper.checkMapsAreIdentical(map1: bz1.scope, map2: bz2.scope) == true &&
+          ZoneModel.checkZonesAreIdentical(zone1: bz1.zone, zone2: bz2.zone) == true &&
+          bz1.about == bz2.about &&
+          bz1.position == bz2.position &&
+          ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) == true &&
+          AuthorModel.checkAuthorsListsAreIdentical(authors1: bz1.authors, authors2: bz2.authors) == true &&
+          PendingAuthor.checkPendingAuthorsListsAreIdentical(list1: bz1.pendingAuthors, list2: bz2.pendingAuthors) == true &&
+          bz1.showsTeam == bz2.showsTeam &&
+          bz1.isVerified == bz2.isVerified &&
+          bz1.bzState == bz2.bzState &&
+          PublicationModel.checkPublicationsAreIdentical(pub1: bz1.publication, pub2: bz2.publication) == true
+      ){
+        _areIdentical = true;
+      }
+
+    }
+
+    if (_areIdentical == false){
+      blogBzzDifferences(
+        bz1: bz1,
+        bz2: bz2,
+      );
+    }
+
+    return _areIdentical;
+  }
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES
