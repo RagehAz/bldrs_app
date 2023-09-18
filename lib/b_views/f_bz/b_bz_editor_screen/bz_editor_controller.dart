@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
@@ -8,11 +7,8 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
-import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -245,41 +241,30 @@ Future<void> onChangeBzSection({
   required bool mounted,
 }) async {
 
-  bool _canContinue = true;
+  final BzSection _selectedSection = BzTyper.bzSectionsList[index];
+  final List<BzType> _generatedInactiveBzTypes = BzTyper.concludeDeactivatedBzTypesBySection(
+    bzSection: _selectedSection,
+  );
 
-  if (Mapper.checkCanLoopList(draftNotifier?.value?.scope) == true){
-    _canContinue = await _resetScopeDialog();
-  }
+  DraftBz? _newDraft = draftNotifier?.value?.copyWith(
+    bzSection: _selectedSection,
+    inactiveBzTypes: _generatedInactiveBzTypes,
+    inactiveBzForms: [],
+    bzTypes: [],
+  );
 
-  if (_canContinue == true){
+  _newDraft = _newDraft?.nullifyField(
+    bzForm: true,
+    inactiveBzForms: true,
+    bzTypes: true,
+    scope: true,
+  );
 
-    final BzSection _selectedSection = BzTyper.bzSectionsList[index];
-    final List<BzType> _generatedInactiveBzTypes = BzTyper.concludeDeactivatedBzTypesBySection(
-      bzSection: _selectedSection,
-    );
-
-    DraftBz? _newDraft = draftNotifier?.value?.copyWith(
-      bzSection: _selectedSection,
-      inactiveBzTypes: _generatedInactiveBzTypes,
-      inactiveBzForms: [],
-      bzTypes: [],
-      scope: [],
-    );
-
-    _newDraft = _newDraft?.nullifyField(
-      bzForm: true,
-      inactiveBzForms: true,
-      bzTypes: true,
-      scope: true,
-    );
-
-    setNotifier(
-        notifier: draftNotifier,
-        mounted: mounted,
-        value: _newDraft
-    );
-
-  }
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: _newDraft
+  );
 
 }
 // --------------------
@@ -291,52 +276,40 @@ Future<void> onChangeBzType({
   required bool mounted,
 }) async {
 
-  bool _canContinue = true;
+  final BzType _selectedBzType = BzTyper.bzTypesList[index];
 
-  if (Mapper.checkCanLoopList(draftNotifier.value?.scope) == true){
-    _canContinue = await _resetScopeDialog();
-  }
+  /// UPDATE SELECTED BZ TYPES
+  final List<BzType> _newBzTypes = BzTyper.addOrRemoveBzTypeToBzzTypes(
+    selectedBzTypes: draftNotifier.value?.bzTypes,
+    newSelectedBzType: _selectedBzType,
+  );
 
-  if (_canContinue == true){
+  /// INACTIVE OTHER BZ TYPES
+  final List<BzType> _inactiveBzTypes = BzTyper.concludeDeactivatedBzTypesBasedOnSelectedBzTypes(
+    newSelectedType: _selectedBzType,
+    selectedBzTypes: _newBzTypes,
+    selectedBzSection: draftNotifier.value?.bzSection,
+  );
 
-    final BzType _selectedBzType = BzTyper.bzTypesList[index];
+  /// INACTIVATE BZ FORMS
+  final List<BzForm> _inactiveBzForms = BzTyper.concludeInactiveBzFormsByBzTypes(_newBzTypes);
 
-    /// UPDATE SELECTED BZ TYPES
-    final List<BzType> _newBzTypes = BzTyper.addOrRemoveBzTypeToBzzTypes(
-      selectedBzTypes: draftNotifier.value?.bzTypes,
-      newSelectedBzType: _selectedBzType,
-    );
+  DraftBz? _newDraft = draftNotifier.value?.copyWith(
+    bzTypes: _newBzTypes,
+    inactiveBzTypes: _inactiveBzTypes,
+    inactiveBzForms: _inactiveBzForms,
+  );
 
-    /// INACTIVE OTHER BZ TYPES
-    final List<BzType> _inactiveBzTypes = BzTyper.concludeDeactivatedBzTypesBasedOnSelectedBzTypes(
-      newSelectedType: _selectedBzType,
-      selectedBzTypes: _newBzTypes,
-      selectedBzSection: draftNotifier.value?.bzSection,
-    );
+  _newDraft = _newDraft?.nullifyField(
+    bzForm: true,
+    scope: true,
+  );
 
-    /// INACTIVATE BZ FORMS
-    final List<BzForm> _inactiveBzForms = BzTyper.concludeInactiveBzFormsByBzTypes(_newBzTypes);
-
-
-    DraftBz? _newDraft = draftNotifier.value?.copyWith(
-      bzTypes: _newBzTypes,
-      inactiveBzTypes: _inactiveBzTypes,
-      inactiveBzForms: _inactiveBzForms,
-
-    );
-
-    _newDraft = _newDraft?.nullifyField(
-      bzForm: true,
-      scope: true,
-    );
-
-    setNotifier(
-        notifier: draftNotifier,
-        mounted: mounted,
-        value: _newDraft
-    );
-
-  }
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: _newDraft
+  );
 
 }
 // --------------------
@@ -363,7 +336,6 @@ Future<void> onChangeBzLogo({
   required PicMakerType imagePickerType,
   required bool mounted,
 }) async {
-
 
   if (draftNotifier.value != null && Mapper.boolIsTrue(draftNotifier.value?.canPickImage) == true) {
 
@@ -493,6 +465,8 @@ void onChangeBzContact({
 
 }
 // --------------------
+/// DEPRECATED
+/*
 /// TESTED : WORKS PERFECT
 Future<void> onChangeBzScope({
   required BuildContext context,
@@ -525,34 +499,5 @@ Future<void> onChangeBzScope({
   }
 
 }
-// -----------------------------------------------------------------------------
-
-/// DIALOGS
-
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<bool> _resetScopeDialog() async {
-
-  // final bool _result = await CenterDialog.showCenterDialog(
-  //   titleVerse: const Verse(
-  //     id: 'phid_reset_scope',
-  //     translate: true,
-  //   ),
-  //   bodyVerse: const Verse(
-  //     pseudo: 'This will delete all selected business scope keywords',
-  //     translate: true,
-  //     id: 'phid_reset_scope_warning',
-  //   ),
-  //   boolDialog: true,
-  //   confirmButtonVerse: const Verse(
-  //     id: 'phid_reset',
-  //     translate: true,
-  //   ),
-  //
-  // );
-  //
-  // return _result;
-
-  return true;
-}
+ */
 // -----------------------------------------------------------------------------

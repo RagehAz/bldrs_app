@@ -77,7 +77,7 @@ class DraftBz {
   final List<BzType>? inactiveBzTypes;
   final BzForm? bzForm;
   final List<BzForm>? inactiveBzForms;
-  final List<String>? scope;
+  final Map<String, dynamic>? scope;
   final PicModel? logoPicModel;
   final bool? hasNewLogo;
   final bool? canPickImage;
@@ -183,7 +183,7 @@ class DraftBz {
       ),
       bzForm: null,
       inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes([]),
-      scope: const [],
+      scope: const {},
       logoPicModel: null,
       hasNewLogo: false,
       canPickImage: true,
@@ -362,7 +362,6 @@ class DraftBz {
 
     final List<BzType> _bzTypes = BzTyper.decipherBzTypes(map['bzTypes']);
     final BzSection? _bzSection = BzTyper.decipherBzSection(map['bzSection']);
-    final List<String> _scope = Stringer.getStringsFromDynamics(dynamics: map['scope']);
 
     return DraftBz(
       id: map['id'],
@@ -388,7 +387,7 @@ class DraftBz {
       ),
       bzForm: BzTyper.decipherBzForm(map['bzForm']),
       inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes(_bzTypes),
-      scope: _scope,
+      scope: map['scope'],
       logoPicModel: PicModel.decipherFromLDB(map['logoPicModel']),
       hasNewLogo: map['hasNewLogo'],
       canPickImage: true,
@@ -430,7 +429,7 @@ class DraftBz {
     List<BzType>? inactiveBzTypes,
     BzForm? bzForm,
     List<BzForm>? inactiveBzForms,
-    List<String>? scope,
+    Map<String, dynamic>? scope,
     PicModel? logoPicModel,
     bool? hasNewLogo,
     bool? canPickImage,
@@ -535,7 +534,7 @@ class DraftBz {
       inactiveBzTypes: inactiveBzTypes == true ? [] : this.inactiveBzTypes,
       bzForm: bzForm == true ? null : this.bzForm,
       inactiveBzForms: inactiveBzForms == true ? [] : this.inactiveBzForms,
-      scope: scope == true ? [] : this.scope,
+      scope: scope == true ? null : this.scope,
       logoPicModel: logoPicModel == true ? null : this.logoPicModel,
       hasNewLogo: hasNewLogo == true ? null : this.hasNewLogo,
       canPickImage: canPickImage == true ? null : this.canPickImage,
@@ -640,7 +639,7 @@ class DraftBz {
     blog('inactiveBzTypes : ${BzTyper.cipherBzTypes(inactiveBzTypes)}');
     blog('bzForm : ${BzTyper.cipherBzForm(bzForm)}');
     blog('inactiveBzForms : ${BzTyper.cipherBzForms(inactiveBzForms)}');
-    blog('scope : $scope');
+    Mapper.blogMap(scope, invoker: 'draftBzScope');
     logoPicModel?.blogPic(invoker: 'DraftBz');
     blog('hasNewLogo : $hasNewLogo');
     blog('canPickImage : $canPickImage');
@@ -704,21 +703,20 @@ class DraftBz {
           Mapper.checkListsAreIdentical(list1: draft1.inactiveBzTypes, list2: draft2.inactiveBzTypes) == true &&
           draft1.bzForm == draft2.bzForm &&
           Mapper.checkListsAreIdentical(list1: draft1.inactiveBzForms, list2: draft2.inactiveBzForms) == true &&
-          Mapper.checkListsAreIdentical(list1: draft1.scope, list2: draft2.scope) == true &&
+          Mapper.checkMapsAreIdentical(map1: draft1.scope, map2: draft2.scope) == true &&
           PicModel.checkPicsAreIdentical(pic1: draft1.logoPicModel, pic2: draft2.logoPicModel) == true &&
           draft1.hasNewLogo == draft2.hasNewLogo &&
           draft1.canPickImage == draft2.canPickImage &&
           draft1.firstTimer == draft2.firstTimer
 
+          // draft1.canValidate == draft2.canValidate && // no need
+          // FocusNode nameNode,
+          // FocusNode aboutNode,
+          // FocusNode emailNode,
+          // FocusNode websiteNode,
+          // FocusNode phoneNode,
+          // GlobalKey<FormState> formKey,
 
-
-      // draft1.canValidate == draft2.canValidate && // no need
-      // FocusNode nameNode,
-      // FocusNode aboutNode,
-      // FocusNode emailNode,
-      // FocusNode websiteNode,
-      // FocusNode phoneNode,
-      // GlobalKey<FormState> formKey,
       ){
         _areIdentical = true;
       }
