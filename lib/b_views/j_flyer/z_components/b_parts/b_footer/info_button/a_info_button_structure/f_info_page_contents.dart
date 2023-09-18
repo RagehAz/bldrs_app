@@ -11,7 +11,7 @@ import 'package:bldrs/a_models/g_statistics/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/c_pdf_screen.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/g_flyer_counters_and_records.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/g_flyer_counters_and_records.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_main_details.dart';
