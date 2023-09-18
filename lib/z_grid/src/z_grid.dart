@@ -76,10 +76,10 @@ class ZGrid extends StatelessWidget {
                         /// BLUR LAYER
                         if (bigItemFootprint != null)
                         WidgetWaiter(
-                          waitDuration: const Duration(milliseconds: 1000),
+                          waitDuration: ZGridController.backgroundBlurDelayDuration,
                           child: WidgetFader(
                             fadeType: FadeType.fadeIn,
-                            duration: const Duration(milliseconds: 1000),
+                            duration: ZGridController.zoomedItemFadeInDuration,
                             child: BlurLayer(
                               width: gridScale.gridWidth,
                               height: gridScale.gridHeight,

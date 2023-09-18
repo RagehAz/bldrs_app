@@ -3,6 +3,7 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
@@ -30,10 +31,11 @@ class AppBarBlurLayer extends StatelessWidget {
           height: BldrsAppBar.collapsedHeight(context, appBarType),
           blur: BldrsAppBar.blur,
           blurIsOn: true,
-          color: Colorz.nothing,
+          color: kIsWeb == true ? Colorz.white10 : Colorz.nothing,
           borders: BldrsAppBar.corners,
         );
       }
+
       else {
         return ClipRRect(
           borderRadius: BldrsAppBar.corners,

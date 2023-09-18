@@ -83,7 +83,7 @@ class BldrsAppBarTree extends StatelessWidget {
       alignment: BldrsAligners.superTopAlignment(context),
       children: <Widget>[
 
-        // BLUR
+        /// BLUR
         AppBarBlurLayer(
           isExpanded: filtersAreOn,
           blurIsOn: true,

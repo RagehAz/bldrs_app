@@ -59,7 +59,7 @@ class StaticProgressBar extends StatelessWidget {
 
       final double _thickness = FlyerDim.progressStripThickness(flyerBoxWidth);
 
-      return _Box(
+      return ProgressBarBox(
         flyerBoxWidth: flyerBoxWidth,
         opacity: opacity,
         child: ProgressBox(
@@ -90,7 +90,7 @@ class StaticProgressBar extends StatelessWidget {
 
     else if (canBuildStrips(numberOfSlides) == true){
 
-      return _Box(
+      return ProgressBarBox(
           flyerBoxWidth: flyerBoxWidth,
           opacity: opacity,
           child: Transform.scale(
@@ -116,9 +116,9 @@ class StaticProgressBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
 }
 
-class _Box extends StatelessWidget {
+class ProgressBarBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const _Box({
+  const ProgressBarBox({
     required this.opacity,
     required this.flyerBoxWidth,
     required this.child,
