@@ -18,10 +18,15 @@ class BldrsSounder {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> playIntro() async {
+
+    await Sounder.instance.player.setVolume(0.2);
+
     await Sounder.playSound(
       wavAssetForAndroid: BldrsThemeSounds.bldrs_intro_wav,
       mp3Asset: BldrsThemeSounds.bldrs_intro,
     );
+
+    await Sounder.instance.player.setVolume(1);
   }
   // -----------------------------------------------------------------------------
 }

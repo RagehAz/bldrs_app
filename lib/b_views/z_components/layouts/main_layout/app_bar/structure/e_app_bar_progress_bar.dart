@@ -19,9 +19,13 @@ class AppBarProgressBar extends StatelessWidget {
     final double _abWidth = BldrsAppBar.width();
     // --------------------
     final double _appBarHeight = BldrsAppBar.collapsedHeight(context, appBarType);
+    final double _thickness = _appBarHeight * 0.05;
+    final double _appBarCornerRadius = BldrsAppBar.corners.topLeft.x;
     // --------------------
     final EdgeInsets _margins = EdgeInsets.only(
-        top: _appBarHeight - FlyerDim.progressStripThickness(_abWidth)
+      top: _appBarHeight - _thickness,
+      left: _appBarCornerRadius,
+      right: _appBarCornerRadius,
     );
     // --------------------
     return ValueListenableBuilder(
@@ -29,15 +33,32 @@ class AppBarProgressBar extends StatelessWidget {
       builder: (_, bool isLoading, Widget? child){
 
         if (isLoading == true){
-          return StaticProgressBar(
-            index: 0,
-            numberOfSlides: 1,
-            opacity: 0.4,
-            swipeDirection: SwipeDirection.freeze,
-            flyerBoxWidth: _abWidth,
-            margins: _margins,
-            stripThicknessFactor: 0.4,
+
+          return Container(
+            width: _abWidth,
+            height: _thickness,
+            decoration: const BoxDecoration(
+              color: FlyerColors.progressStripOffColor,
+            ),
+            margin: _margins,
+            child: LinearProgressIndicator(
+              backgroundColor: Colorz.nothing,
+              minHeight: _thickness,
+              valueColor: const AlwaysStoppedAnimation(FlyerColors.progressStripFadedColor),
+            ),
           );
+
+          // return StaticProgressBar(
+          //   index: 0,
+          //   numberOfSlides: 1,
+          //   opacity: 0.4,
+          //   swipeDirection: SwipeDirection.freeze,
+          //   flyerBoxWidth: _abWidth,
+          //   margins: _margins,
+          //   stripThicknessFactor: 0.4,
+          //   loading: true,
+          // );
+
         }
 
         else if (progressBarModel != null){
