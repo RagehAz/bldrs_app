@@ -40,7 +40,7 @@ class FlyerSaveModel {
     else {
       return FlyerSaveModel(
         userID: userID,
-        index: map['index'],
+        index: map['index'] ?? 0,
         time: Timers.decipherTime(time: map['time'], fromJSON: true),
       );
     }
