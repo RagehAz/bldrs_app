@@ -342,6 +342,8 @@ Future<void> onCallTap({
     /// BZ HAS CONTACTS
     else {
 
+      bool _contactIsOn = false;
+
       await Dialogs.bzContactsDialog(
           titleVerse: const Verse(
             id: 'phid_contact_directly',
@@ -354,26 +356,33 @@ Future<void> onCallTap({
           bzModel: bzModel,
           onContact: (String authorID, ContactModel contact) async {
 
-            await Future.wait(<Future>[
+            if (_contactIsOn == false){
 
-              /// LAUNCH CONTACT
-              Launcher.launchContactModel(
-                contact: contact,
-              ),
+              _contactIsOn = true;
 
-              /// CALL RECORD PROTOCOL
-              RecorderProtocols.onCallBz(
-                bzID: bzModel?.id,
-                contact: contact,
-                authorID: authorID,
-              ),
+              await Future.wait(<Future>[
 
-              /// CENSUS
-              CensusListener.onCallBz(
-                bzModel: bzModel,
-              ),
+                /// LAUNCH CONTACT
+                Launcher.launchContactModel(
+                  contact: contact,
+                ),
 
-            ]);
+                /// CALL RECORD PROTOCOL
+                RecorderProtocols.onCallBz(
+                  bzID: bzModel?.id,
+                  contact: contact,
+                  authorID: authorID,
+                ),
+
+                /// CENSUS
+                CensusListener.onCallBz(
+                  bzModel: bzModel,
+                ),
+
+              ]);
+
+              _contactIsOn = false;
+            }
 
           }
       );

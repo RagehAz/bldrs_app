@@ -88,10 +88,13 @@ class AuthorCard extends StatelessWidget {
     if (onContactTap != null){
       onContactTap?.call(authorID, contactModel);
     }
+    else {
 
-    await Launcher.launchContactModel(
-      contact: contactModel,
-    );
+      await Launcher.launchContactModel(
+        contact: contactModel,
+      );
+
+    }
 
   }
   // -----------------------------------------------------------------------------
