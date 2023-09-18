@@ -29,15 +29,16 @@ import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_dev_test.dart';
 import 'package:fire/super_fire.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AppSettingsScreen extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const AppSettingsScreen({
     super.key
   });
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -218,6 +219,7 @@ class AppSettingsScreen extends StatelessWidget {
             }),
 
         /// UPDATE APP BUTTON
+        if (kIsWeb == false)
         Selector<GeneralProvider, AppStateModel?>(
             selector: (_, GeneralProvider pro) => pro.globalAppState,
             builder: (_, AppStateModel? globalState, Widget? child) {
@@ -297,7 +299,6 @@ class AppSettingsScreen extends StatelessWidget {
                     }
 
                   });
-
             }
             ),
 

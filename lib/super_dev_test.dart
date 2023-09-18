@@ -1,18 +1,124 @@
 import 'dart:async';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:flutter/material.dart';
 
 /// SUPER_DEV_TEST
 Future<void> superDevTestGoX() async {
-  blog('bobo');
-  const dynamic thing = 1;
 
-  if (thing != null){
-
-    // Errorize.throwText(text: 'fuck this', invoker: 'bojo');
-
-  }
+  await Nav.goToNewScreen(
+      context: getMainContext(),
+      screen: const Blah(),
+  );
 
 }
+
+
+class Blah extends StatefulWidget {
+  /// --------------------------------------------------------------------------
+  const Blah({
+    super.key
+  });
+  /// --------------------------------------------------------------------------
+  @override
+  _BlahState createState() => _BlahState();
+  /// --------------------------------------------------------------------------
+}
+
+class _BlahState extends State<Blah> {
+  // -----------------------------------------------------------------------------
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(true);
+  // --------------------
+  Future<void> _triggerLoading({required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+    );
+  }
+  // -----------------------------------------------------------------------------
+  @override
+  void initState() {
+    super.initState();
+  }
+  // --------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+
+    if (_isInit && mounted) {
+      _isInit = false; // good
+
+      asyncInSync(() async {
+
+        await _triggerLoading(setTo: true);
+        /// GO BABY GO
+        await _triggerLoading(setTo: false);
+
+      });
+
+    }
+    super.didChangeDependencies();
+  }
+  // --------------------
+  /*
+  @override
+  void didUpdateWidget(TheStatefulScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.thing != widget.thing) {
+      unawaited(_doStuff());
+    }
+  }
+   */
+  // --------------------
+  @override
+  void dispose() {
+    _loading.dispose();
+    super.dispose();
+  }
+
+  bool loading = false;
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+    // --------------------
+    return MainLayout(
+      loading: _loading,
+      appBarType: AppBarType.basic,
+      appBarRowWidgets: [
+
+        AppBarButton(
+          loading: loading,
+          verse: Verse.plain(loading == true ? 'loading' : 'not loading'),
+          onTap: (){
+
+            loading = _loading.value;
+
+            _triggerLoading(setTo: !loading);
+
+            setState(() {
+              loading = !loading;
+            });
+
+
+
+          },
+        ),
+
+      ],
+      child: Container(),
+    );
+    // --------------------
+  }
+  // -----------------------------------------------------------------------------
+}
+
 
 /// CHAT GBT PROMPTS
 /*
