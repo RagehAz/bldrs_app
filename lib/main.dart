@@ -192,7 +192,7 @@ class BldrsAppStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
 }
 
-class _BldrsAppStarterState extends State<BldrsAppStarter>  with WidgetsBindingObserver {
+class _BldrsAppStarterState extends State<BldrsAppStarter> with WidgetsBindingObserver {
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -322,66 +322,65 @@ class _BldrsAppStarterState extends State<BldrsAppStarter>  with WidgetsBindingO
   @override
   Widget build(BuildContext context) {
 
-      return BldrsProviders(
-        child: MaterialApp(
-              /// KEYS
-              // key: ,
-              // scaffoldMessengerKey: ,
-              // restorationScopeId: ,
-              // useInheritedMediaQuery: true,
+    return BldrsProviders(
+      child: MaterialApp(
+        /// KEYS
+        // key: ,
+        // scaffoldMessengerKey: ,
+        // restorationScopeId: ,
+        // useInheritedMediaQuery: true,
 
-              /// DUNNO
-              // actions: ,
+        /// DUNNO
+        // actions: ,
 
-              builder: DevicePreview.appBuilder,
+        builder: DevicePreview.appBuilder,
 
-              // home: ,
-              // useInheritedMediaQuery: ,
-              // shortcuts: ,
-              scrollBehavior: const AppScrollBehavior(),
+        // home: ,
+        // useInheritedMediaQuery: ,
+        // shortcuts: ,
+        scrollBehavior: const AppScrollBehavior(),
 
-              /// DEBUG
-              debugShowCheckedModeBanner: false,
-              // debugShowMaterialGrid: false,
-              // showPerformanceOverlay: false,
-              // checkerboardRasterCacheImages: false,
-              // showSemanticsDebugger: ,
-              // checkerboardOffscreenLayers: ,
+        /// DEBUG
+        debugShowCheckedModeBanner: false,
+        // debugShowMaterialGrid: false,
+        // showPerformanceOverlay: false,
+        // checkerboardRasterCacheImages: false,
+        // showSemanticsDebugger: ,
+        // checkerboardOffscreenLayers: ,
 
-              /// THEME
-              title: 'Bldrs.net',
-              // onGenerateTitle: ,
-              // color: ,
-              // darkTheme: ,
-              // highContrastDarkTheme: ,
-              // highContrastTheme: ,
-              // themeMode: ,
-              theme: ThemeData(
-                canvasColor: Colorz.nothing,
-                textSelectionTheme: const TextSelectionThemeData(
-                  selectionHandleColor: Colorz.yellow255,
-                  selectionColor: Colorz.white50,
-                ),
-              ),
+        /// THEME
+        title: 'Bldrs.net',
+        // onGenerateTitle: ,
+        // color: ,
+        // darkTheme: ,
+        // highContrastDarkTheme: ,
+        // highContrastTheme: ,
+        // themeMode: ,
+        theme: ThemeData(
+          canvasColor: Colorz.nothing,
+          textSelectionTheme: const TextSelectionThemeData(
+            selectionHandleColor: Colorz.yellow255,
+            selectionColor: Colorz.white50,
+          ),
+        ),
 
-              /// LOCALE
-              locale: _locale,
-              supportedLocales: Localizer.getSupportedLocales(),
-              localizationsDelegates: Localizer.getLocalizationDelegates(),
-              localeResolutionCallback: Localizer.localeResolutionCallback,
-              // localeListResolutionCallback: ,
-
-              /// ROUTES
-              // navigatorObservers: [],
-              // onGenerateInitialRoutes: ,
-              // onUnknownRoute: ,
-              // home: ,
-              navigatorKey: mainNavKey,
-              // onGenerateRoute: Routing.allRoutes,
-              initialRoute: Routing.staticLogoScreen,
-              routes: Routing.routesMap,
-            ),
-      );
+        /// LOCALE
+        locale: _locale,
+        supportedLocales: Localizer.getSupportedLocales(),
+        localizationsDelegates: Localizer.getLocalizationDelegates(),
+        localeResolutionCallback: Localizer.localeResolutionCallback,
+        // localeListResolutionCallback: ,
+        /// ROUTES
+        // navigatorObservers: [],
+        // onGenerateInitialRoutes: ,
+        // onUnknownRoute: ,
+        // home: ,
+        navigatorKey: mainNavKey,
+        // onGenerateRoute: Routing.allRoutes,
+        initialRoute: Routing.staticLogoScreen,
+        routes: Routing.routesMap,
+      ),
+    );
 
   }
   // -----------------------------------------------------------------------------
