@@ -37,7 +37,11 @@ class CWhatBldrsDo extends StatelessWidget {
       height: height,
       mainAxisAlignment: MainAxisAlignment.start,
       boxAlignment: Alignment.topCenter,
-      columnChildren: [
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.only(
+        bottom: 10,
+      ),
+      columnChildren: <Widget>[
 
         /// HEADLINE
         const OnBoardingHeadline(
@@ -79,6 +83,7 @@ class CWhatBldrsDo extends StatelessWidget {
                 // );
 
                 return WidgetWaiter(
+                  key: ValueKey<String>(_bzType.toString()),
                   // isOn: true,
                   waitDuration: Duration(milliseconds: 1500 * index),
                   child: WidgetFader(
@@ -138,18 +143,20 @@ class CWhatBldrsDo extends StatelessWidget {
                             /// PHIDS WHEELS
                             ...List.generate(_flyerTypes.length, (index){
 
+                              final FlyerType _flyerType = _flyerTypes[index];
+
                               final List<String> _phids = ChainProtocols.superGetAllPhidsByFlyerType(
-                                flyerType: _flyerTypes[index],
+                                flyerType: _flyerType,
                                 onlyUseZoneChains: false,
                               );
 
                               return WidgetWaiter(
+                                key: ValueKey<String>(_flyerType.toString()),
                                 waitDuration: Duration(milliseconds: 1500 * index),
-                                child: PhidsWheel(
+                                child: PhidsList(
                                   width: _tileWidth,
                                   height: _wheelBoxHeight,
                                   phids: _phids,
-                                  autoRotate: false,
                                 ),
                               );
 
