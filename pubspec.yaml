@@ -3,7 +3,7 @@ description: The Builder's Network
 publish_to: "none"
 # --------------------------------------------------------------------------------
 # BLDRS_APP_VERSION
-version: 2.6.0
+version: 2.7.0
 # ----------------------
 # app version should be updated in those locations
 # ----------------------
