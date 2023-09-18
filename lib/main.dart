@@ -27,6 +27,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'bldrs_keys.dart';
 
+// ---------------------------------------------------------------------------
+
 Future<void> main() async {
   // -----------------------------------------------------------------------------
   /*
@@ -50,7 +52,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform!,
     // nativePersistentStoragePath: ,
   );
-
+  // --------------------
   FirebaseMessaging.onBackgroundMessage(bldrsAppOnBackgroundMessageHandler);
   // --------------------
   await Future.wait(<Future>[

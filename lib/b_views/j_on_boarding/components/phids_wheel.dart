@@ -1,10 +1,12 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 import 'package:wheel_chooser/wheel_chooser.dart';
@@ -285,4 +287,66 @@ class _AutoAnimatedPhidsWheelState extends State<AutoAnimatedPhidsWheel> {
     );
     // --------------------
   }
+}
+
+
+class PhidsList extends StatelessWidget {
+  // --------------------------------------------------------------------------
+  const PhidsList({
+    required this.width,
+    required this.phids,
+    required this.height,
+    super.key
+  });
+  // --------------------
+  final double width;
+  final double height;
+  final List<String> phids;
+  // --------------------
+  @override
+  Widget build(BuildContext context) {
+    // --------------------
+    // final double _phidWidth = width / 2;
+    // --------------------
+    return SizedBox(
+      width: width,
+      height: height,
+      // color: Colorz.blue80,
+      // alignment: Alignment.center,
+      child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemCount: phids.length,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        itemBuilder: (_, int index){
+
+          final String _phid = phids[index];
+          final Verse? _verse = getVerse(_phid);
+          final String? _icon = ChainsProvider.proGetPhidIcon(son: _phid);
+
+          return BldrsBox(
+            height: height * 0.7,
+            // width: _phidWidth,
+            icon: _icon,
+            verse: _verse,
+            verseMaxLines: 2,
+            verseWeight: VerseWeight.thin,
+            verseCentered: _icon == null,
+            verseScaleFactor: 0.6,
+            color: Colorz.white20,
+            bubble: false,
+            margins: Scale.superInsets(
+              context: context,
+              appIsLTR: UiProvider.checkAppIsLeftToRight(),
+              enRight: 5,
+            ),
+          );
+
+        },
+
+      ),
+    );
+    // --------------------
+  }
+  // --------------------------------------------------------------------------
 }
