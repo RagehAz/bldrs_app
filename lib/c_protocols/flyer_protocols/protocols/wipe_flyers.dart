@@ -20,23 +20,6 @@ import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
 
-/*
-
-
-      if (showWaitDialog == true){
-        pushWaitDialog(
-          context: context,
-          verse: const Verse(
-            id: 'phid_deleting_flyers',
-            translate: true,
-          ),
-        );
-      }
-
-
-
- */
-
 class WipeFlyerProtocols {
   // -----------------------------------------------------------------------------
 
@@ -61,7 +44,7 @@ class WipeFlyerProtocols {
       await Future.wait(<Future>[
 
         /// UPDATE BZ AND AUTHOR MODELS
-        _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs(
+        _renovateBzOnFlyerWipe(
           oldBz: _oldBz,
           flyer: flyerModel,
         ),
@@ -119,16 +102,22 @@ class WipeFlyerProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs({
+  static Future<void> _renovateBzOnFlyerWipe({
     required FlyerModel? flyer,
     required BzModel? oldBz,
   }) async {
-    blog('_deleteFlyerIDFromBzFlyersIDsAndAuthorIDs : START');
+    blog('_renovateBzOnFlyerWipe : START');
 
     if (oldBz != null && flyer != null){
 
-      final BzModel? _newBz = BzModel.removeFlyerIDFromBzAndAuthor(
+      /// REMOVE FLYER ID FROM PUBLICATION AND AUTHOR MODEL
+      BzModel? _newBz = BzModel.removeFlyerIDFromBzAndAuthor(
         oldBz: oldBz,
+        flyer: flyer,
+      );
+
+      _newBz = BzModel.removeFlyerPhidsFromBzScope(
+        oldBz: _newBz,
         flyer: flyer,
       );
 
@@ -141,7 +130,7 @@ class WipeFlyerProtocols {
 
     }
 
-    blog('_deleteFlyerIDFromBzFlyersIDsAndAuthorIDs : END');
+    blog('_renovateBzOnFlyerWipe : END');
   }
   // -----------------------------------------------------------------------------
 

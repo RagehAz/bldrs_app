@@ -1,11 +1,13 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
@@ -114,6 +116,7 @@ class AboutBzBubbles extends StatelessWidget {
     );
     final int _numberOfFlyers = bzModel?.publication.published.length ?? 0;
     final double _gridHeight = (_flyerHeight + _spacing) * (_numberOfFlyers / 2).ceil();
+    final List<String> _scopePhids = BzModel.getScopePhids(bzModel?.scope);
 
     return ListView(
       physics: const BouncingScrollPhysics(),
@@ -149,30 +152,30 @@ class AboutBzBubbles extends StatelessWidget {
           ),
 
         /// SCOPE
-        // if (Mapper.checkCanLoopList(bzModel?.scope) == true)
-        //   Bubble(
-        //     bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-        //       context: context,
-        //       headlineVerse: const Verse(
-        //         id: 'phid_scopeOfServices',
-        //         translate: true,
-        //       ),
-        //     ),
-        //     columnChildren: <Widget>[
-        //
-        //       PhidsViewer(
-        //         pageWidth: Scale.screenWidth(context),
-        //         phids: bzModel?.scope,
-        //         onPhidTap: (String phid){
-        //           blog('bzAboutPage : onPhidTap : phid: $phid');
-        //         },
-        //         onPhidLongTap: (String phid){
-        //           blog('bzAboutPage : onPhidLongTap : phid: $phid');
-        //         },
-        //       ),
-        //
-        //     ],
-        //   ),
+        if (Mapper.checkCanLoopList(_scopePhids) == true)
+          Bubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              context: context,
+              headlineVerse: const Verse(
+                id: 'phid_scopeOfServices',
+                translate: true,
+              ),
+            ),
+            columnChildren: <Widget>[
+
+              PhidsViewer(
+                pageWidth: Scale.screenWidth(context),
+                phids: _scopePhids,
+                onPhidTap: (String phid){
+                  blog('bzAboutPage : onPhidTap : phid: $phid');
+                },
+                onPhidLongTap: (String phid){
+                  blog('bzAboutPage : onPhidLongTap : phid: $phid');
+                },
+              ),
+
+            ],
+          ),
 
         /// AUTHORS
         if (showAuthors == true)
@@ -193,7 +196,7 @@ class AboutBzBubbles extends StatelessWidget {
           ),
 
         /// SEPARATOR
-        if (Mapper.checkCanLoopList(bzModel?.scope) == true)
+        if (Mapper.checkCanLoopList(_scopePhids) == true)
           const DotSeparator(),
 
         /// STATS
