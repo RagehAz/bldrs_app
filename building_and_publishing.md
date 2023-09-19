@@ -40,6 +40,7 @@ D:\projects\bldrs\bldrs_app\build\app\outputs\bundle\release
     sudo gem install cocoapods
     pod setup
     pod install --verbose
+    pod update --verbose
     flutter build ios-framework --output=Flutter
 
     ### just clean build
