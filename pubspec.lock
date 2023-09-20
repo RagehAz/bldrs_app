@@ -108,11 +108,9 @@ packages:
   basics:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: fd1af5e4ccfcdc65dd7db2825b1c85d74d189e65
-      url: "https://github.com/RagehAz/basics.git"
-    source: git
+      path: "D:/projects/packages/helpers/basics"
+      relative: false
+    source: path
     version: "5.0.14"
   bldrs_keywords:
     dependency: "direct main"
@@ -494,11 +492,9 @@ packages:
   fire:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "845d5a5d4270d36ae8ca690339042915a94c4f85"
-      url: "https://github.com/RagehAz/fire.git"
-    source: git
+      path: "D:/projects/packages/backend/fire"
+      relative: false
+    source: path
     version: "2.2.4"
   firebase_app_check:
     dependency: "direct main"
@@ -1068,10 +1064,10 @@ packages:
     dependency: transitive
     description:
       name: googleapis
-      sha256: dfea9984f0785ed445ba78e2aa8c55dadd86d6a60ea9e0ffbadad51edb5e7e36
+      sha256: aab0f425bfba6c6310d84f1ef62625e8e0a28a347ae1dd549732bfb5ab20e8ce
       url: "https://pub.dev"
     source: hosted
-    version: "9.2.0"
+    version: "4.0.0"
   googleapis_auth:
     dependency: transitive
     description:

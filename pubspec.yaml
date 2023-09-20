@@ -31,18 +31,21 @@ dependencies:
 #  translator: ^0.1.7
   # ------------------------------------
   basics:
-#    path: D:/projects/packages/helpers/basics
-    git:
-      url: https://github.com/RagehAz/basics.git
+    path: D:/projects/packages/helpers/basics
+#    git:
+#      url: https://github.com/RagehAz/basics.git
   # ------------------------------------
   fire:
-#    path: D:/projects/packages/backend/fire
-    git:
-      url: https://github.com/RagehAz/fire.git
+    path: D:/projects/packages/backend/fire
+#    git:
+#      url: https://github.com/RagehAz/fire.git
   # ------------------------------------
   bldrs_keywords:
     git:
       url: https://github.com/RagehAz/bldrs_keywords.git
+  # ------------------------------------
+#  bldrs_dashboard:
+#    path: D:/projects/bldrs/bldrs_dashboard
   # ------------------------------------
   # BLDRS PACKS
   matrix_gesture_detector: ^0.2.0-nullsafety.1
