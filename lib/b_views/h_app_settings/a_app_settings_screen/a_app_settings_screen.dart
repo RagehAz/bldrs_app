@@ -4,7 +4,6 @@ import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/widgets/buttons/stores_buttons/store_button.dart';
 import 'package:basics/helpers/widgets/drawing/spacing.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
@@ -23,11 +22,11 @@ import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs/e_back_end/f_cloud/appsflyer.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_dev_test.dart';
+// import 'package:bldrs_dashboard/main.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +51,7 @@ class AppSettingsScreen extends StatelessWidget {
         PyramidFloatingButton(
           icon: Iconz.star,
           color: Colorz.yellow200,
+          toolTip: Verse.plain('Super Dev Test'),
           onTap: () async {
 
             await superDevTestGoX();
@@ -59,18 +59,9 @@ class AppSettingsScreen extends StatelessWidget {
           },
         ),
 
-        /// TEST
-        PyramidFloatingButton(
-          icon: Iconz.lab,
-          color: Colorz.green255,
-          onTap: () => Nav.goToNewScreen(
-            context: context,
-            screen: const AppsFlyerTestScreen(),
-          ),
-        ),
-
         /// LAUNCH APP STORE
         PyramidFloatingButton(
+          toolTip: Verse.plain('Launch App Store'),
           icon: DeviceChecker.deviceIsIOS() ? Iconz.comApple
               :
           DeviceChecker.deviceIsAndroid() ? Iconz.comGooglePlay
@@ -88,6 +79,7 @@ class AppSettingsScreen extends StatelessWidget {
         PyramidFloatingButton(
           icon: Iconz.notification,
           color: Colorz.blue80,
+          toolTip: Verse.plain('Send Local Noot'),
           onTap: () async {
 
             final bool _go = await Dialogs.confirmProceed(
@@ -114,6 +106,7 @@ class AppSettingsScreen extends StatelessWidget {
         /// GLOBAL NOOT
         PyramidFloatingButton(
           icon: Iconz.contNorthAmerica,
+          toolTip: Verse.plain('Send Global Noot'),
           color: Colorz.blue80,
           onTap: () => pushFastNote(
             userID: BldrsKeys.ragehID,
@@ -121,6 +114,30 @@ class AppSettingsScreen extends StatelessWidget {
             body: 'How are you ?',
           ),
         ),
+
+        /// GLOBAL NOOT
+        PyramidFloatingButton(
+          icon: Iconz.contNorthAmerica,
+          toolTip: Verse.plain('Send Global Noot'),
+          color: Colorz.blue80,
+          onTap: () => pushFastNote(
+            userID: BldrsKeys.ragehID,
+            title: 'Hey you',
+            body: 'How are you ?',
+          ),
+        ),
+
+        /// TEMP_DASH_BOARD_FOR_WEB_TESTING
+        // PyramidFloatingButton(
+        //   icon: Iconz.bldrsNameSquare,
+        //   toolTip: Verse.plain('Go to Dashboard'),
+        //   color: Colorz.blue80,
+        //   onTap: () => Nav.goToNewScreen(
+        //       context: context,
+        //       screen: const BldrsDashBoardApp(),
+        //   ),
+        // ),
+
 
       ],
       columnChildren: <Widget>[
