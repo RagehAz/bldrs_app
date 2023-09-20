@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:basics/animators/helpers/app_scroll_behavior.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
@@ -134,12 +132,25 @@ Future<void> sentryBldrs() async {
             /// SENTRY CONFIGURATIONS
             Sentry.configureScope(
                   (scope) async {
+
                     late final BaseDeviceInfo deviceInfo;
-                    if (Platform.isAndroid) {
+
+                    if (DeviceChecker.deviceIsAndroid() == true) {
                       deviceInfo = await DeviceChecker.getDeviceInfoPlugin().androidInfo;
-                    } else {
+                    }
+                    else if (DeviceChecker.deviceIsIOS() == true){
                       deviceInfo = await DeviceChecker.getDeviceInfoPlugin().iosInfo;
                     }
+                    else if (kIsWeb == true){
+                      deviceInfo = await DeviceChecker.getDeviceInfoPlugin().webBrowserInfo;
+                    }
+                    else if (DeviceChecker.deviceIsWindows() == true){
+                      deviceInfo = await DeviceChecker.getDeviceInfoPlugin().windowsInfo;
+                    }
+                    else {
+
+                    }
+
                     await scope.setContexts('device_info', deviceInfo.data);
                     final packageInfoAsMap = <String, String>{
                       'packageName': pkg.packageName,

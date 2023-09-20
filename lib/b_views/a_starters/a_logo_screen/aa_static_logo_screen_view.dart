@@ -21,6 +21,7 @@ class LogoScreenView extends StatelessWidget {
 
     return SizedBox(
       width: Scale.screenWidth(context),
+      height: Scale.screenHeight(context),
       child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
