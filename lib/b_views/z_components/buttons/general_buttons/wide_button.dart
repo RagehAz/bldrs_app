@@ -18,6 +18,7 @@ class WideButton extends StatelessWidget {
     this.iconSizeFactor = 0.6,
     this.verseScaleFactor = 1,
     this.bubble = true,
+    this.onDisabledTap,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -31,6 +32,7 @@ class WideButton extends StatelessWidget {
   final double iconSizeFactor;
   final double verseScaleFactor;
   final bool bubble;
+  final Function? onDisabledTap;
   /// --------------------------------------------------------------------------
   static const double height = 50;
   static EdgeInsets margins = const EdgeInsets.only(bottom: Ratioz.appBarPadding);
@@ -49,6 +51,7 @@ class WideButton extends StatelessWidget {
       verseCentered: false,
       margins: margins,
       isDisabled: !isActive,
+      onDisabledTap: onDisabledTap,
       onTap: onTap,
       color: color,
       bubble: bubble,
