@@ -65,7 +65,7 @@ class BzRecordsRealOps {
     required String bzID,
   }) async {
 
-    final String? _time = await Real.readPath(
+    final int? _time = await Real.readPath(
         path: '${RealPath.records_bzz_bzID_recordingFollows(bzID: bzID,)}/$userID',
     );
 

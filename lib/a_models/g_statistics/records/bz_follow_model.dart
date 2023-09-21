@@ -57,7 +57,7 @@ class BzFollowModel{
   /// TESTED : WORKS PERFECT
   static BzFollowModel decipherFollow({
     required String userID,
-    required String cipheredTime,
+    required int cipheredTime,
   }){
 
     return BzFollowModel(
