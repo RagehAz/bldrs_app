@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
@@ -10,6 +11,7 @@ import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 class UiInitializer {
@@ -65,7 +67,12 @@ class UiInitializer {
       canThrowError: true,
     );
 
-    if (_deviceTimeIsCorrect == true){
+    /// OVERRIDE : FOR WEB AND WINDOWS
+    if (
+        _deviceTimeIsCorrect == true ||
+        kIsWeb == true ||
+        DeviceChecker.deviceIsWindows() == true
+    ){
       return true;
     }
     else {

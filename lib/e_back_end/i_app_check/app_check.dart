@@ -21,23 +21,43 @@ class AppCheck {
   /// WILL COME TO YOU LATER
   static Future<void> preInitialize() async {
 
-    /// TRIAL ONE
-    // blog('AppCheck INITIALIZATION START');
-    if (DeviceChecker.deviceIsWindows() == false){
+    final bool _runAppCheck = _checkCanRunAppCheck();
+
+    if (_runAppCheck == true){
       await FirebaseAppCheck.instance.activate(
         webRecaptchaSiteKey: BldrsKeys.recaptchaSiteKey, /// this is 'recaptcha-v3-site-key'
         androidProvider: kDebugMode == true ? AndroidProvider.debug : AndroidProvider.playIntegrity,
+
       );
     }
-    // blog('AppCheck INITIALIZATION END');
-
 
   }
-  // --------------------------------------------
+  // --------------------
+  ///
+  static bool _checkCanRunAppCheck(){
+
+    if (kIsWeb == true){
+      return false;
+    }
+    else if (DeviceChecker.deviceIsWindows() == true){
+      return false;
+    }
+    else if (DeviceChecker.deviceIsIOS() == true){
+      return false;
+    }
+    else if (DeviceChecker.deviceIsAndroid() == true){
+      return true;
+    }
+    else {
+      return false;
+    }
+
+  }
+  // --------------------
   ///
   static Future<String?> getAppCheckToken() async {
     final String? appCheckToken = await FirebaseAppCheck.instance.getToken();
     return appCheckToken;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

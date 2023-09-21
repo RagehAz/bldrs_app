@@ -7,14 +7,11 @@ import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/rest/rest.dart';
 import 'package:basics/helpers/classes/time/internet_time.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/errorize.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -359,7 +356,7 @@ class BldrsTimers {
     DateTime? _dateTime;
     String? _timezone;
 
-    const String url = 'http://worldtimeapi.org/api/ip';
+    const String url = 'https://worldtimeapi.org/api/ip';
 
     final http.Response? _response = await Rest.get(
       rawLink: url,
@@ -411,31 +408,31 @@ class BldrsTimers {
 
       if (canThrowError == true){
 
-        final UserModel? _user = UsersProvider.proGetMyUserModel(
-          context: getMainContext(),
-          listen: false,
-        );
+        // final UserModel? _user = UsersProvider.proGetMyUserModel(
+        //   context: getMainContext(),
+        //   listen: false,
+        // );
 
-        final Map<String, dynamic>? _maw = _user?.toMap(toJSON: true);
+        // final Map<String, dynamic>? _maw = _user?.toMap(toJSON: true);
 
-        Errorize.throwMaps(
-          invoker: 'user had wrong clock',
-          maps: [
-            {
-              'now': Timers.cipherTime(time: deviceTime, toJSON: false),
-              'internet': Timers.cipherTime(time: internetTime, toJSON: false),
-              'isTolerable': isTolerable,
-              'timeZone': timeZone,
-              'dd_month_yyy_actual': dd_month_yyy_actual,
-              'hh_i_mm_ampm_actual': hh_i_mm_ampm_actual,
-              'dd_month_yyy_device': dd_month_yyy_device,
-              'hh_i_mm_ampm_device': hh_i_mm_ampm_device,
-            },
-            {
-              'user': _maw,
-            },
-          ],
-        );
+        // Errorize.throwMaps(
+        //   invoker: 'user had wrong clock',
+        //   maps: [
+        //     {
+        //       'now': Timers.cipherTime(time: deviceTime, toJSON: false),
+        //       'internet': Timers.cipherTime(time: internetTime, toJSON: false),
+        //       'isTolerable': isTolerable,
+        //       'timeZone': timeZone,
+        //       'dd_month_yyy_actual': dd_month_yyy_actual,
+        //       'hh_i_mm_ampm_actual': hh_i_mm_ampm_actual,
+        //       'dd_month_yyy_device': dd_month_yyy_device,
+        //       'hh_i_mm_ampm_device': hh_i_mm_ampm_device,
+        //     },
+        //     {
+        //       'user': _maw,
+        //     },
+        //   ],
+        // );
 
       }
 
