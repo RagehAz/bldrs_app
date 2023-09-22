@@ -6,7 +6,10 @@ class BldrsKeys {
   const BldrsKeys();
 
   // -----------------------------------------------------------------------------
+
   /// Appsflyer DEV TOKEN
+
+  // --------------------
   static const String appsFlyerKey = 'CPM7gsEvS4r3nxfRNoUB9D';
   // -----------------------------------------------------------------------------
 
@@ -14,6 +17,12 @@ class BldrsKeys {
 
   // --------------------
   static const String openAiGoogleSheetsApiKey = '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';
+  // -----------------------------------------------------------------------------
+
+  /// SENTRY
+
+  // --------------------
+  static const String sentryDSN = 'https://1c1d8068e888994cfeee26f0dfaafcd6@o4505718555213824.ingest.sentry.io/4505718558883840';
   // -----------------------------------------------------------------------------
   static const String ragehID = 'z0Obwze3JLYjoEl6uVeXfo4Luup1';
   static const String bldrsHoldingCompanyName = 'Rageh ElAzzazy'; // NET.BLDRS.LLC
