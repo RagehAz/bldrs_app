@@ -398,7 +398,7 @@ class AuthProtocols {
 
     final String _errorMessage = error ?? getWord('phid_something_went_wrong_error');
 
-    Errorize.throwMap(
+    await Errorize.throwMap(
         invoker: 'onAuthError',
         map: {
           'userModel': UsersProvider.proGetMyUserModel(
