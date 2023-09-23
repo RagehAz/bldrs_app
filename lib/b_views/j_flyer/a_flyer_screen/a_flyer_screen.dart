@@ -10,6 +10,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_light_flyer_structure/b_light_big_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
@@ -17,6 +18,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +39,13 @@ class FlyerPreviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.screenWidth(context);
+    final double _screenHeight = Scale.screenHeight(context);
+
+    final double _flyerWidth = ZGridScale.getBigItemWidth(
+      gridWidth: _screenWidth,
+      gridHeight: _screenHeight,
+      itemAspectRatio: FlyerDim.flyerAspectRatio(),
+    );
 
     return SafeArea(
       child: Scaffold(
@@ -44,7 +53,7 @@ class FlyerPreviewScreen extends StatelessWidget {
         body: WidgetWaiter(
           waitDuration: const Duration(milliseconds: 500),
           child: FlyerBuilder(
-              flyerBoxWidth: _screenWidth,
+              flyerBoxWidth: _flyerWidth,
               slidePicType: SlidePicType.med,
               onlyFirstSlide: false,
               flyerID: flyerID,
@@ -66,7 +75,7 @@ class FlyerPreviewScreen extends StatelessWidget {
                     child: DismissiblePage(
                       onDismissed: () => Nav.goBack(context: context),
                       child: LightBigFlyer(
-                        flyerBoxWidth: _screenWidth,
+                        flyerBoxWidth: _flyerWidth,
                         renderedFlyer: flyerModel,
                         onVerticalExit: (){},
                         onHorizontalExit: (){},
