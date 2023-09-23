@@ -450,10 +450,8 @@ class CurrencyModel {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() => 'CurrencyModel(id: $id, symbol: $symbol, digits: $digits, countriesIDs: ${countriesIDs?.length} countries)';
   // --------------------
   /// TESTED : WORKS PERFECT
   @override

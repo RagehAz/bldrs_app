@@ -692,10 +692,8 @@ class CityModel {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() => 'CityModel(cityID: $cityID, population: $population, position: $position, phrases: ${phrases?.length} phrases)';
   // --------------------
   @override
   bool operator == (Object other){
