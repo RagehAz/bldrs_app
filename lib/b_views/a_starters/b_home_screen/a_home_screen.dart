@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -164,12 +165,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-  // -----------------------------------------------------------------------------
+    // --------------------
     final RouteSettings? _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
       context: context,
       listen: true,
     );
-
+    // --------------------
     /// WHEN AFTER HOME ROUTE IS DEFINED => works as loading screen until didChangedDependencies methods finish
     if (_afterHomeRoute != null){
 
@@ -186,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         child: const LogoScreenView(),
       );
     }
-
+    // --------------------
     /// WHEN AFTER HOME ROUTE IS NULL
     else {
 
@@ -196,14 +197,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       );
       final UserModel? _userModel = UsersProvider.proGetMyUserModel(
         context: context,
-        listen: true,
+        /// if true, rebuilds the grid for each flyer save
+        listen: false,
       );
       final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(
         context: context,
         listen: true,
       );
-
-      // _currentZone?.blogZone(invoker: 'fuck you');
 
       final List<NavModel?> _navModels = generateMainNavModels(
         userModel: _userModel,
@@ -216,6 +216,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         sectionButtonIsOn: true,
         // navBarIsOn: false,
         appBarType: AppBarType.main,
+        skyType: SkyType.blackStars,
         listenToHideLayout: true,
         onBack: () => BldrsNav.onLastGoBackInHomeScreen(
           context: context,
@@ -254,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       );
 
     }
-
+    // --------------------
   }
   // -----------------------------------------------------------------------------
 }
