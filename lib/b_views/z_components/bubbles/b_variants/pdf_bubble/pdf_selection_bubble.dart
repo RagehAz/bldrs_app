@@ -1,23 +1,25 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/widgets/drawing/expander.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/c_pdf_screen.dart';
-import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_title.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
 class PDFSelectionBubble extends StatefulWidget {
@@ -57,14 +59,16 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   final TextEditingController _textController = TextEditingController();
   // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  bool _loading = false;
   // --------------------
   Future<void> _triggerLoading({required bool setTo}) async {
-    setNotifier(
-      notifier: _loading,
-      mounted: mounted,
-      value: setTo,
-    );
+
+    if (mounted == true && setTo != _loading){
+      setState(() {
+        _loading = setTo;
+      });
+    }
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -81,11 +85,6 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
     if (_isInit && mounted) {
       _isInit = false; // good
 
-      _triggerLoading(setTo: true).then((_) async {
-
-        await _triggerLoading(setTo: false);
-      });
-
     }
     super.didChangeDependencies();
   }
@@ -94,7 +93,6 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   void dispose() {
     _pdfNotifier.dispose();
     _textController.dispose();
-    _loading.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -107,7 +105,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
           final bool _bytesExist = pdfModel?.bytes != null;
           final bool _pathExists = pdfModel?.path != null;
-          // final bool _sizeLimitReached = pdfModel?.checkSizeLimitReached() == true;
+          final bool _sizeLimitReached = pdfModel?.checkSizeLimitReached() ?? false;
           // final String _fileName = pdf?.fileName;
 
           return Bubble(
@@ -118,12 +116,16 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
               ),
             ),
             width: Bubble.bubbleWidth(context: context),
+            appIsLTR: UiProvider.checkAppIsLeftToRight(),
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               context: context,
               headlineVerse: const Verse(
                 id: 'phid_pdf_attachment',
                 translate: true,
               ),
+              loading: _loading,
+              leadingIcon: Iconz.pdf,
+              leadingIconSizeFactor: 0.6,
             ),
 
             columnChildren: <Widget>[
@@ -166,38 +168,19 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                       titleScaleFactor: 0.9,
                     ),
 
-                    // /// SIZE
-                    // if (pdfModel.sizeMB != null)
-                    // SuperVerse(
-                    //   verse: PDFModel.getSizeLine(
-                    //     context: context,
-                    //     size: pdfModel.sizeMB,
-                    //     maxSize: Standards.maxFileSizeLimit,
-                    //     sizeLimitReached: _sizeLimitReached,
-                    //   ),
-                    //   italic: true,
-                    //   color: _sizeLimitReached == true ? Colorz.red255 : Colorz.white125,
-                    //   weight: VerseWeight.thin,
-                    //   scaleFactor: 0.9,
-                    // ),
-
-                    /// LOADING
-                    if (pdfModel?.sizeMB == null)
-                      ValueListenableBuilder(
-                          valueListenable: _loading,
-                          builder: (_, bool loading, Widget? child){
-
-                            return Loading(
-                              loading: loading,
-                              size: BldrsText.superVerseRealHeight(
-                                context: context,
-                                size: 2,
-                                sizeFactor: 0.9,
-                                hasLabelBox: false,
-                              ),
-                            );
-
-                          }),
+                    /// SIZE
+                    if (pdfModel?.sizeMB != null)
+                    BldrsText(
+                      verse: PDFModel.getSizeLine(
+                        size: pdfModel?.sizeMB,
+                        maxSize: Standards.maxFileSizeLimit,
+                        sizeLimitReached: _sizeLimitReached,
+                      ),
+                      italic: true,
+                      color: _sizeLimitReached == true ? Colorz.red255 : Colorz.white125,
+                      weight: VerseWeight.thin,
+                      scaleFactor: 0.7,
+                    ),
 
                   ],
                 ),
@@ -295,6 +278,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                         translate: true,
                       ),
                       icon: Iconz.viewsIcon,
+                      color: Colorz.white10,
                       iconSizeFactor: 0.4,
                       verseScaleFactor: (1 / 0.4) * 0.6,
                       verseWeight: VerseWeight.black,
@@ -345,7 +329,8 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                       verseScaleFactor: 0.6,
                       verseWeight: VerseWeight.black,
                       verseItalic: true,
-                      margins: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                      margins: const EdgeInsets.only(top: 10, left: 5, right: 5),
+                      color: Colorz.white10,
                       onTap: () async {
 
                         setNotifier(notifier: _pdfNotifier, mounted: mounted, value: null);
@@ -364,6 +349,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                     verseScaleFactor: 0.6,
                     verseWeight: VerseWeight.black,
                     verseItalic: true,
+                    color: Colorz.white10,
                     margins: const EdgeInsets.only(top: 10),
                     onTap: () async {
 
