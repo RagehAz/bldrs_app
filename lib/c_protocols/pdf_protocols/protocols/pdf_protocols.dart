@@ -52,13 +52,15 @@ class PDFProtocols {
 
       final PlatformFile _platformFile = result.files.first;
 
-      blog('_platformFile name        : ${_platformFile.name}');
-      blog('_platformFile size        : ${_platformFile.size}');
-      blog('_platformFile path        : ${_platformFile.path}');
-      blog('_platformFile bytes       : ${_platformFile.bytes?.length} bytes');
-      blog('_platformFile extension   : ${_platformFile.extension}');
-      blog('_platformFile identifier  : ${_platformFile.identifier}');
-      blog('_platformFile identifier  : ${_platformFile.identifier}');
+      // blog('_platformFile name        : ${_platformFile.name}');
+      // blog('_platformFile size        : ${_platformFile.size}');
+      // blog('_platformFile path        : ${_platformFile.path}'); // this throws error in web
+      // On web `path` is always `null`,
+      // You should access `bytes` property instead,
+      // blog('_platformFile bytes       : ${_platformFile.bytes?.length} bytes');
+      // blog('_platformFile extension   : ${_platformFile.extension}');
+      // blog('_platformFile identifier  : ${_platformFile.identifier}');
+      // blog('_platformFile identifier  : ${_platformFile.identifier}');
 
 
       _output = PDFModel(
