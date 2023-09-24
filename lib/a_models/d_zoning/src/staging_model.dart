@@ -136,7 +136,7 @@ class StagingModel {
       '4_public_stage': Stringer.sortAlphabetically(publicStageIDs),
     };
 
-    if (toLDB) {
+    if (toLDB == true) {
       _map = Mapper.insertPairInMap(
         map: _map,
         key: 'id',
@@ -158,7 +158,7 @@ class StagingModel {
     if (map != null){
 
       _output = StagingModel(
-        id: map['id'] ?? id,
+        id: id ?? map['id'],
         emptyStageIDs: Mapper.getStringsFromTheDamnThing(map['1_empty_stage']),
         bzzStageIDs: Mapper.getStringsFromTheDamnThing(map['2_bzz_stage']),
         flyersStageIDs: Mapper.getStringsFromTheDamnThing(map['3_flyers_stage']),
@@ -748,10 +748,16 @@ class StagingModel {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() =>
+       '''
+StagingModel(
+  emptyStageIDs: $emptyStageIDs,
+  bzzStageIDs: $bzzStageIDs,
+  flyersStageIDs: $flyersStageIDs,
+  publicStageIDs: $publicStageIDs,
+  )
+       ''';
   // --------------------
   @override
   bool operator == (Object other){

@@ -1,5 +1,4 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
@@ -111,17 +110,9 @@ class StagingRealOps {
   /// TESTED : WORKS PERFECT
   static Future<StagingModel?> readCountriesStaging() async {
 
-    final dynamic _dynamic = await Real.readPath(
+    final Map<String, dynamic>? _map = await Real.readPathMap(
       path: '${RealColl.zones}/${RealDoc.zones_stages_countries}',
     );
-
-    // blog('readCountriesStaging : _dynamic : $_dynamic');
-
-    final Map<String, dynamic>? _map = Mapper.getMapFromIHLMOO(
-      ihlmoo: _dynamic,
-    );
-
-    // blog('readCountriesStaging : _map : $_map');
 
     return StagingModel.decipher(
       map: _map,
