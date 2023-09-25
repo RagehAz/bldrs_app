@@ -1,11 +1,23 @@
 import 'dart:async';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
+import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/b_app_state_initializer.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/c_user_initializer.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/e_ui_initializer.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
+import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
+import 'package:bldrs/e_back_end/i_app_check/app_check.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/firebase_options.dart';
+import 'package:fire/super_fire.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 /// => TAMAM
 class Initializer {
@@ -13,6 +25,41 @@ class Initializer {
 
   const Initializer();
 
+  // -----------------------------------------------------------------------------
+
+  /// MAIN APP INITIALIZER
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> initializeBldrs(WidgetsBinding binding) async {
+    // --------------------
+    if (kIsWeb == false) {
+      FlutterNativeSplash.preserve(widgetsBinding: binding);
+    }
+    // --------------------
+    await FirebaseInitializer.initialize(
+      useOfficialPackages: !DeviceChecker.deviceIsWindows(),
+      socialKeys: BldrsKeys.socialKeys,
+      options: DefaultFirebaseOptions.currentPlatform!,
+      // nativePersistentStoragePath: ,
+    );
+    // --------------------
+    FirebaseMessaging.onBackgroundMessage(bldrsAppOnBackgroundMessageHandler);
+    // --------------------
+    await Future.wait(<Future>[
+      /// FCM
+      FCMStarter.preInitializeNootsInMainFunction(
+        channelModel: ChannelModel.bldrsChannel,
+      ),
+
+      /// APP CHECK
+      AppCheck.preInitialize(),
+
+      /// GOOGLE ADS
+      // GoogleAds.initialize(),
+    ]);
+    // --------------------
+  }
   // -----------------------------------------------------------------------------
 
   /// LOADING SCREEN INITIALIZER
