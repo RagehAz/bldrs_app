@@ -1,23 +1,63 @@
 // ignore_for_file: unused_element
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/b_about_page/aaa2_bz_about_page.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:flutter/material.dart';
 
-class BzPreviewScreen extends StatelessWidget {
+class BzPreviewScreen extends StatefulWidget {
   // --------------------------------------------------------------------------
   const BzPreviewScreen({
-    required this.bzModel,
+    required this.bzID,
     super.key
   });
   // --------------------
-  final BzModel? bzModel;
+  final String? bzID;
+  // --------------------
+  @override
+  State<BzPreviewScreen> createState() => _BzPreviewScreenState();
   // --------------------------------------------------------------------------
+}
+
+class _BzPreviewScreenState extends State<BzPreviewScreen> {
+  // --------------------
+  bool _loading = true;
+  BzModel? bzModel;
+  // --------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+
+    if (_isInit && mounted) {
+      _isInit = false; // good
+
+      asyncInSync(() async {
+        // -------------------------------
+        final BzModel? _bzModel = await BzProtocols.fetchBz(
+          bzID: widget.bzID,
+        );
+
+        if (mounted){
+          setState(() {
+            _loading = false;
+            bzModel = _bzModel;
+          });
+        }
+        // -----------------------------
+      });
+
+    }
+
+    super.didChangeDependencies();
+  }
+  // --------------------
   @override
   Widget build(BuildContext context) {
 
@@ -51,7 +91,11 @@ class BzPreviewScreen extends StatelessWidget {
       //     ),
       //
       // ],
-      child: _bzIsNotFound == true ?
+      child:
+      _loading == true ?
+      const LoadingFullScreenLayer()
+          :
+      _bzIsNotFound == true ?
       const _NoBzFoundView()
           :
       BzAboutPage(
@@ -63,7 +107,7 @@ class BzPreviewScreen extends StatelessWidget {
     );
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
 }
 
 class _NoBzFoundView extends StatelessWidget {

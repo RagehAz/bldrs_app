@@ -21,7 +21,7 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 
@@ -94,7 +94,7 @@ class DynamicLinks {
   /// TESTED : WORKS PERFECT
   static Future<void> initDynamicLinks() async {
 
-    if (DeviceChecker.deviceIsWindows() == false) {
+    if (DeviceChecker.deviceIsIOS() == true || DeviceChecker.deviceIsAndroid() == true) {
 
       await tryAndCatch(
         invoker: 'initDynamicLinks',

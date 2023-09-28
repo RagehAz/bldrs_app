@@ -7,7 +7,7 @@ import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
 
 class SomethingWrongRestartButton extends StatelessWidget {
@@ -47,7 +47,7 @@ class SomethingWrongRestartButton extends StatelessWidget {
             //   id: 'phid_clean_and_restart',
             //   translate: true,
             // ),
-            onTap: () => BldrsNav.goToLogoScreenAndRemoveAllBelow(animatedLogoScreen: false),
+            onTap: () => BldrsNav.pushLogoRouteAndRemoveAllBelow(animatedLogoScreen: false),
           ),
         ),
       ),

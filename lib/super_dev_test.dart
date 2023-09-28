@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/router/z_routing_test_screen.dart';
+
 /// SUPER_DEV_TEST
 Future<void> superDevTestGoX() async {
-
-
-
+  await Nav.goToNewScreen(context: getMainContext(), screen: const RoutingTestScreen());
 }
 
 

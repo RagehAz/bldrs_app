@@ -17,7 +17,7 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
@@ -259,7 +259,7 @@ Future<void> onFollowTap({
   if (Authing.userIsSignedUp(_user?.signInMethod) == false){
 
     final bool _goToFlyerPreview = flyerID != null;
-    final String _routeName = _goToFlyerPreview == true ? Routing.flyerPreview : Routing.bzPreview;
+    final String _routeName = _goToFlyerPreview == true ? RouteName.flyerPreview : RouteName.bzPreview;
     final String? argument = _goToFlyerPreview == true ? flyerID : bzModel?.id;
 
     await Dialogs.youNeedToBeSignedUpDialog(
@@ -301,7 +301,7 @@ Future<void> onCallTap({
   if (Authing.userIsSignedUp(_userModel?.signInMethod) == false){
 
     final bool _goToFlyerPreview = flyerModel?.id != null;
-    final String _routeName = _goToFlyerPreview == true ? Routing.flyerPreview : Routing.bzPreview;
+    final String _routeName = _goToFlyerPreview == true ? RouteName.flyerPreview : RouteName.bzPreview;
     final String? argument = _goToFlyerPreview == true ? flyerModel?.id : bzModel?.id;
 
     await Dialogs.youNeedToBeSignedUpDialog(

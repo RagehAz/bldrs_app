@@ -8,7 +8,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.da
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -77,7 +77,7 @@ class UiInitializer {
     }
     else {
 
-      await BldrsNav.goToLogoScreenAndRemoveAllBelow(
+      await BldrsNav.pushLogoRouteAndRemoveAllBelow(
         animatedLogoScreen: false,
       );
 

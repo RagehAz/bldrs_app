@@ -503,7 +503,7 @@ packages:
       path: "D:/projects/packages/backend/fire"
       relative: false
     source: path
-    version: "2.2.5"
+    version: "2.2.6"
   firebase_app_check:
     dependency: "direct main"
     description:

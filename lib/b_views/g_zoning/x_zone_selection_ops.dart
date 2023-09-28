@@ -12,7 +12,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -89,7 +89,7 @@ class ZoneSelection {
 
     final ZoneModel? _zone = await Nav.goToNewScreen(
       context: getMainContext(),
-      pageTransitionType: PageTransitionType.bottomToTop,
+      // pageTransitionType: PageTransitionType.bottomToTop,
       duration: const Duration(milliseconds: 350),
       screen: CountriesScreen(
         zoneViewingEvent: zoneViewingEvent,
@@ -232,7 +232,7 @@ class ZoneSelection {
       await Nav.pushHomeAndRemoveAllBelow(
         context: getMainContext(),
         invoker: 'SelectCountryScreen._onCountryTap',
-        homeRoute: Routing.home,
+        homeRoute: RouteName.home,
       );
 
 
