@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -119,7 +119,7 @@ class SettingsToSettingsButtons extends StatelessWidget {
                 verseCentered: false,
                 onTap: () async {
 
-                  await BldrsNav.goToMyUserScreen(
+                  await BldrsNav.pushMyUserScreen(
                     userTab: UserTab.settings,
                   );
 

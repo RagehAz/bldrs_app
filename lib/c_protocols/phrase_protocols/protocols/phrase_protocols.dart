@@ -15,7 +15,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/ldb/phrase_ldb_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/real/phrase_real_ops.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -67,7 +67,7 @@ class PhraseProtocols {
 
         await WaitDialog.closeWaitDialog();
 
-        await BldrsNav.goToLogoScreenAndRemoveAllBelow(
+        await BldrsNav.pushLogoRouteAndRemoveAllBelow(
           animatedLogoScreen: true,
         );
 

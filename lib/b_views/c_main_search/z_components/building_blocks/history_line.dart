@@ -1,10 +1,11 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class HistoryLine extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -26,7 +27,16 @@ class HistoryLine extends StatelessWidget {
 
     final double _iconFactor = bigIcon == true ? 1 : 0.6;
 
+    const int _maxChars = 35;
+    final bool _hasWidthLimit = Numeric.isGreaterThan(
+        number: Verse.bakeVerseToString(verse: verse)?.length,
+        isGreaterThan: _maxChars,
+    );
+    final double _widthLimit = 450 * _iconFactor;
+    final double? _maxWidth = _hasWidthLimit == true ? _widthLimit : null;
+
     return BldrsBox(
+      width: _maxWidth,
       verse: verse,
       verseWeight: boldText == true ? VerseWeight.black : VerseWeight.regular,
       height: 27,
@@ -39,6 +49,7 @@ class HistoryLine extends StatelessWidget {
         enLeft: 5,
         bottom: 5,
       ),
+      // verseMaxLines: 1,
       corners: 5,
       color: Colorz.white10,
       bubble: false,

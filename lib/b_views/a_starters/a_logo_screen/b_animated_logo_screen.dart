@@ -23,8 +23,9 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_sounder.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
@@ -118,11 +119,11 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
           if (_loadApp == true){
             await Nav.pushNamedAndRemoveAllBelow(
               context: context,
-              goToRoute: Routing.home,
+              goToRoute: RouteName.home,
             );
           }
           else {
-            await BldrsNav.goToLogoScreenAndRemoveAllBelow(animatedLogoScreen: false);
+            await BldrsNav. pushLogoRouteAndRemoveAllBelow(animatedLogoScreen: false);
           }
 
         });
@@ -298,7 +299,9 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // -----------------------------------------------------------------------------
+    // --------------------
+    DynamicRouter.blogGo('AnimatedLogoScreen');
+    // --------------------
     const double _logoWidth = 200;
     const double _logoHeight = 50;
     const double _logoBox = _logoWidth * 3;

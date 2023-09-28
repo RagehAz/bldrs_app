@@ -22,7 +22,7 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
@@ -130,7 +130,7 @@ class NewAuthorshipExit {
       await Nav.pushHomeAndRemoveAllBelow(
         context: getMainContext(),
         invoker: 'NewAuthorshipExit.onRemoveMySelf',
-        homeRoute: Routing.home,
+        homeRoute: RouteName.home,
       );
 
     }
@@ -245,7 +245,7 @@ class NewAuthorshipExit {
         await Nav.pushHomeAndRemoveAllBelow(
           context: getMainContext(),
           invoker: 'NewAuthorshipExit.onRemoveMySelf',
-          homeRoute: Routing.home,
+          homeRoute: RouteName.home,
         );
 
         /// SHOW SUCCESS CENTER DIALOG

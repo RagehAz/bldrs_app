@@ -38,7 +38,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
 
 class Dialogs {
@@ -157,7 +157,7 @@ class Dialogs {
           notify: true,
       );
 
-      await BldrsNav.jumpToAuthScreen();
+      await BldrsNav.pushAuthRoute();
 
     }
 
