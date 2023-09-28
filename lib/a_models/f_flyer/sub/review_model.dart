@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/foundation.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -226,6 +227,69 @@ class ReviewModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// IDS
+
+  // --------------------
+  /// bldrs.net/#/flyerPreview:flyerID_reviewID
+  // --------------------
+  ///
+  static String? createFlyerIDReviewIDLinkPart({
+  required String? flyerID,
+  required String? reviewID,
+  }){
+
+    if (flyerID == null || reviewID == null){
+      return null;
+    }
+    else {
+      return '${flyerID}_$reviewID';
+    }
+
+  }
+  // --------------------
+  ///
+  static String? getFlyerIDFromLinkPart({
+    required String? linkPart,
+  }){
+
+    if (linkPart == null){
+      return null;
+    }
+
+    else {
+
+      final String? _flyerID = TextMod.removeTextAfterLastSpecialCharacter(
+          text: linkPart,
+          specialCharacter: '_',
+      );
+
+      return _flyerID;
+    }
+
+  }
+  // --------------------
+  ///
+  static String? getReviewIDFromLinkPart({
+    required String? linkPart,
+  }){
+
+    if (linkPart == null){
+      return null;
+    }
+
+    else {
+
+      final String? _reviewID = TextMod.removeTextBeforeLastSpecialCharacter(
+          text: linkPart,
+          specialCharacter: '_',
+      );
+
+      return _reviewID;
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
   /// SORTING
 
   // --------------------
@@ -278,7 +342,7 @@ class ReviewModel {
   }
   // -----------------------------------------------------------------------------
 
-/// BLOGGING
+  /// BLOGGING
 
   // --------------------
   /// TESTED : WORKS PERFECT

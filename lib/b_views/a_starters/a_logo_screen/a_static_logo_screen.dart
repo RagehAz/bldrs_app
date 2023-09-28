@@ -8,7 +8,8 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/a_initializer.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
+import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
 import 'package:flutter/material.dart';
 
 class StaticLogoScreen extends StatefulWidget {
@@ -71,7 +72,7 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
         if (_loadApp == true && mounted == true){
           await Nav.pushNamedAndRemoveAllBelow(
             context: context,
-            goToRoute: Routing.home,
+            goToRoute: RouteName.home,
           );
         }
 
@@ -95,6 +96,8 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // --------------------
+    DynamicRouter.blogGo('StaticLogoScreen');
     // --------------------
     _scaleController.repeat(reverse: true, min: 0.97, max: 1);
     // --------------------

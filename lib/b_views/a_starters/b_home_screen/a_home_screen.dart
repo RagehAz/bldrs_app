@@ -22,7 +22,8 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zo
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
+import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -166,9 +167,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     // --------------------
+    DynamicRouter.blogGo('HomeScreen');
+    // --------------------
     final RouteSettings? _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
       context: context,
-      listen: true,
+      listen: false,
     );
     // --------------------
     /// WHEN AFTER HOME ROUTE IS DEFINED => works as loading screen until didChangedDependencies methods finish
@@ -218,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         appBarType: AppBarType.main,
         skyType: SkyType.blackStars,
         listenToHideLayout: true,
-        onBack: () => BldrsNav.onLastGoBackInHomeScreen(
+        onBack: () => BldrsNav.backFromHomeScreen(
           context: context,
           zGridController: _zGridController,
         ),

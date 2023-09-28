@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoom
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
@@ -124,8 +125,11 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // super.build(context);
-
+    // --------------------
+    /// super.build(context);
+    // --------------------
+    DynamicRouter.blogGo('SavedFlyersScreen');
+    // --------------------
     return MainLayout(
       appBarType: AppBarType.basic,
       skyType: SkyType.grey,

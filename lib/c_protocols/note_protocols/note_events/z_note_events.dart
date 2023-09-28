@@ -6,7 +6,6 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
-import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/x_reviews_controller.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/bz_flyers_management_note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_authorship.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_bz_team_management.dart';
@@ -15,7 +14,7 @@ import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -150,8 +149,8 @@ class NoteEvent {
       ),
       sendFCM: !_imAuthorOfThisBz, // do not send if im author in this bz
       navTo: TriggerModel(
-        name: Routing.flyerReviews,
-        argument: createReviewsScreenRoutingArgument(
+        name: RouteName.flyerReviews,
+        argument: ReviewModel.createFlyerIDReviewIDLinkPart(
           flyerID: reviewModel.flyerID,
           reviewID: reviewModel.id,
         ),
@@ -208,8 +207,8 @@ class NoteEvent {
           receiverPartyType: PartyType.user,
         ),
         navTo: TriggerModel(
-          name: Routing.flyerReviews,
-          argument: createReviewsScreenRoutingArgument(
+          name: RouteName.flyerReviews,
+          argument: ReviewModel.createFlyerIDReviewIDLinkPart(
             flyerID: reviewModel.flyerID,
             reviewID: reviewModel.id,
           ),
@@ -273,7 +272,7 @@ class NoteEvent {
           receiverPartyType: PartyType.bz,
         ),
         navTo: TriggerModel(
-          name: Routing.myBzNotesPage,
+          name: RouteName.myBzNotesPage,
           argument: bzModel.id,
           done: const [],
         ),

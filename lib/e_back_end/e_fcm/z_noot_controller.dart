@@ -4,7 +4,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_nav_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_action_protocols.dart';
 import 'package:flutter/scheduler.dart';
 
 Future<void> _testNoot({
@@ -98,7 +98,7 @@ abstract class NootController {
 
     SchedulerBinding.instance.addPostFrameCallback((_) async {
 
-      await NootNavToProtocols.onNootTap(
+      await NootActionProtocols.onNootTap(
         noteModel: NoteModel.decipherRemoteMessage(
           map: receivedAction.payload,
         ),

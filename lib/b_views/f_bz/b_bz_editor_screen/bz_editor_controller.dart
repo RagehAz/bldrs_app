@@ -22,8 +22,8 @@ import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -133,7 +133,7 @@ Future<void> onConfirmBzEdits({
 
     if (draftNotifier.value?.firstTimer == false){
       await BldrsNav.restartAndRoute(
-        routeName: Routing.myBzAboutPage,
+        routeName: RouteName.myBzAboutPage,
         arguments: draftNotifier.value?.id,
       );
     }

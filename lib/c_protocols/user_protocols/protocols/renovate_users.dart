@@ -18,7 +18,7 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/debuggers.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:fire/super_fire.dart';
 /// => TAMAM
 class RenovateUserProtocols {
@@ -254,7 +254,7 @@ class RenovateUserProtocols {
       if (Authing.userIsSignedUp(_oldUser?.signInMethod) == false){
 
         await Dialogs.youNeedToBeSignedUpDialog(
-          afterHomeRouteName: Routing.flyerPreview,
+          afterHomeRouteName: RouteName.flyerPreview,
           afterHomeRouteArgument: flyerModel.id,
         );
 

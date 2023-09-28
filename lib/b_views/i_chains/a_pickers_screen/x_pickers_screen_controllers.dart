@@ -119,7 +119,6 @@ Future<void> onGoToPickerScreen({
   final dynamic _result = await Nav.goToNewScreen(
     context: context,
     pageTransitionType: Nav.superHorizontalTransition(
-      context: context,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
     ),
     screen: PickerScreen(

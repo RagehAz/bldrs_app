@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/feedback_protocols/real/app_feedback_real_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -165,7 +165,7 @@ class BzFireOps {
 
       if (Authing.userIsSignedUp(_user?.signInMethod) == false) {
         await Dialogs.youNeedToBeSignedUpDialog(
-          afterHomeRouteName: Routing.bzPreview,
+          afterHomeRouteName: RouteName.bzPreview,
           afterHomeRouteArgument: bzModel.id,
         );
       }

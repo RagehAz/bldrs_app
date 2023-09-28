@@ -26,8 +26,8 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -598,12 +598,12 @@ Future<void> onPublishNewFlyerTap({
     await FlyerLDBOps.deleteFlyerMakerSession(flyerID: draft?.id);
 
     UiProvider.proSetAfterHomeRoute(
-      routeName: Routing.myBzFlyersPage,
+      routeName: RouteName.myBzFlyersPage,
       arguments: draft!.bzID,
       notify: true,
     );
 
-    await BldrsNav.goToLogoScreenAndRemoveAllBelow(
+    await BldrsNav.pushLogoRouteAndRemoveAllBelow(
       animatedLogoScreen: false,
     );
 
