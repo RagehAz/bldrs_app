@@ -1,5 +1,10 @@
 import 'dart:async';
+
 import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/b_app_state_initializer.dart';
@@ -11,6 +16,7 @@ import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/e_back_end/i_app_check/app_check.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/firebase_options.dart';
 import 'package:fire/super_fire.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -18,6 +24,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:universal_html/html.dart';
 
 /// => TAMAM
 class Initializer {
@@ -139,6 +146,49 @@ class Initializer {
     // }
 
     return _canLoadApp;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> routeAfterLoaded({
+    required BuildContext context,
+    required bool mounted,
+  }) async {
+
+    if (mounted == true){
+
+      /// WEB : WHERE THERE IS A URL
+      if (kIsWeb == true){
+
+        final String? _routeArg = TextMod.removeTextBeforeLastSpecialCharacter(
+          text: window.location.toString(),
+          specialCharacter: ':',
+        );
+
+        blog('the route arg is : $_routeArg');
+
+        if (Numeric.isGreaterThan(number: _routeArg?.length, isGreaterThan: 1) == true){
+          blog('shall not route after initialization in loading screen bro ---< ');
+        }
+
+        else {
+          await Nav.pushNamedAndRemoveAllBelow(
+            context: context,
+            goToRoute: RouteName.home,
+          );
+        }
+
+      }
+
+      /// MOBILE - WINDOWS
+      else {
+        await Nav.pushNamedAndRemoveAllBelow(
+          context: context,
+          goToRoute: RouteName.home,
+        );
+      }
+
+    }
+
   }
   /// -----------------------------------------------------------------------------
   // static void _report(String text){

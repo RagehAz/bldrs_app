@@ -232,7 +232,7 @@ class ReviewModel {
   // --------------------
   /// bldrs.net/#/flyerPreview:flyerID_reviewID
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String? createFlyerIDReviewIDLinkPart({
   required String? flyerID,
   required String? reviewID,
@@ -247,7 +247,7 @@ class ReviewModel {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String? getFlyerIDFromLinkPart({
     required String? linkPart,
   }){
@@ -268,7 +268,7 @@ class ReviewModel {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String? getReviewIDFromLinkPart({
     required String? linkPart,
   }){

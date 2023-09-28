@@ -3,7 +3,7 @@ description: The Builder's Network
 publish_to: "none"
 # --------------------------------------------------------------------------------
 # BLDRS_APP_VERSION
-version: 2.7.0
+version: 2.8.0
 # ----------------------
 # app version should be updated in those locations
 # ----------------------
@@ -70,7 +70,7 @@ dependencies:
   share_plus: ^4.5.3
   circle_list: ^1.0.5
   wheel_chooser: ^1.1.2
-
+  universal_html: ^2.2.4
   sentry_flutter: ^7.9.0
 #  appsflyer_sdk: ^6.12.2
   # ------------------------------------
