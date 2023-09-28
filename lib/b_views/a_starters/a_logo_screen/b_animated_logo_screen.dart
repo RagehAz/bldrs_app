@@ -10,7 +10,6 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -25,7 +24,6 @@ import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
-import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
@@ -117,11 +115,12 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
           ]);
 
           if (_loadApp == true){
-            await Nav.pushNamedAndRemoveAllBelow(
-              context: context,
-              goToRoute: RouteName.home,
+            await Initializer.routeAfterLoaded(
+                context: context,
+                mounted: mounted
             );
           }
+
           else {
             await BldrsNav. pushLogoRouteAndRemoveAllBelow(animatedLogoScreen: false);
           }

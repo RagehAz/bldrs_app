@@ -206,17 +206,22 @@ class AboutBzBubbles extends StatelessWidget {
 
         /// FLYERS GALLERY TITLE
         if (showGallery == true)
-          BldrsText(
-            verse: Verse(
-              id: '${getWord('phid_published_flyers_by')}\n${bzModel?.name}',
-              translate: false,
+          Container(
+            width: Scale.screenWidth(context),
+            alignment: Alignment.center,
+            child: BldrsText(
+              width: Bubble.bubbleWidth(context: context),
+              verse: Verse(
+                id: '${getWord('phid_published_flyers_by')}\n${bzModel?.name}',
+                translate: false,
+              ),
+              centered: false,
+              maxLines: 4,
+              margin: 20,
+              size: 3,
+              appIsLTR: UiProvider.checkAppIsLeftToRight(),
+              textDirection: UiProvider.getAppTextDir(),
             ),
-            centered: false,
-            maxLines: 4,
-            margin: 20,
-            size: 3,
-            appIsLTR: UiProvider.checkAppIsLeftToRight(),
-            textDirection: UiProvider.getAppTextDir(),
           ),
 
         /// BZ FLYERS
@@ -229,7 +234,7 @@ class AboutBzBubbles extends StatelessWidget {
             scrollable: false,
             gridType: FlyerGridType.heroic,
             hasResponsiveSideMargin: true,
-            numberOfColumnsOrRows: 2,
+            numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 4 : 2,
           ),
 
         // const Horizon(),
