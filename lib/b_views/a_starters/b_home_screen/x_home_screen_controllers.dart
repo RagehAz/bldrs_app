@@ -10,12 +10,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
-import 'package:bldrs/b_views/b_auth/a_auth_screen.dart';
-import 'package:bldrs/b_views/d_user/a_user_profile_screen/user_profile_screen.dart';
-import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
-import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -30,6 +25,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zo
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -80,7 +76,7 @@ List<NavModel?> generateMainNavModels({
         translate: true,
       ),
       icon: Iconz.normalUser,
-      screen: const AuthScreen(),
+      screen: RouteName.auth,
       iconSizeFactor: 0.6,
       canShow: _userIsSignedUp == false,
     ),
@@ -107,7 +103,7 @@ List<NavModel?> generateMainNavModels({
         translate: false,
       ),
       icon: userModel?.picPath ?? Iconz.normalUser,
-      screen: const UserProfileScreen(),
+      screen: RouteName.myUserProfile,
       iconSizeFactor: userModel?.picPath == null ? 0.55 : 1,
       iconColor: Colorz.nothing,
       canShow: _userIsSignedUp,
@@ -122,7 +118,7 @@ List<NavModel?> generateMainNavModels({
         translate: true,
       ),
       icon: Iconz.saveOff,
-      screen: const SavedFlyersScreen(),
+      screen: RouteName.savedFlyers,
       canShow: _userIsSignedUp,
     ),
 
@@ -148,7 +144,7 @@ List<NavModel?> generateMainNavModels({
           icon: _bzModel.logoPath,
           iconSizeFactor: 1,
           iconColor: Colorz.nothing,
-          screen: const MyBzScreen(),
+          screen: RouteName.myBzFlyersPage,
           onNavigate: (){
 
             final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
@@ -206,7 +202,7 @@ List<NavModel?> generateMainNavModels({
         translate: true,
       ),
       icon: Iconz.more,
-      screen: const AppSettingsScreen(),
+      screen: RouteName.appSettings,
       iconSizeFactor: 0.6,
       iconColor: Colorz.nothing,
     ),
@@ -249,7 +245,11 @@ Future<void> onNavigate({
       await _navModel?.screen();
     }
 
-    else {
+    else if (_navModel?.screen is String){
+      await Nav.goToRoute(context, _navModel!.screen);
+    }
+
+    else if (_navModel?.screen is Widget){
       await Nav.goToNewScreen(
         context: context,
         screen: _navModel?.screen,
@@ -315,8 +315,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
   final FlyerType? flyerType = await Nav.goToNewScreen(
     context: context,
     pageTransitionType: Nav.superHorizontalTransition(
-      context: context,
-      inverse: true,
+      enAnimatesLTR: true,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
     ),
     screen: const FloatingFlyerTypeSelector(),
@@ -342,7 +341,6 @@ Future<void> onSectionButtonTap(BuildContext context) async {
 
     }
   }
-
 
 }
 // --------------------

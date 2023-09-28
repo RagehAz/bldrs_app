@@ -20,8 +20,7 @@ import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -55,16 +54,12 @@ Future<void> onFeedbackTap() async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onTermsAndTap() async {
-
-  await Launcher.launchURL(Standards.termsAndRegulationsURL);
-
+  await BldrsNav.pushTermsScreen();
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onPrivacyTap() async {
-
-  await Launcher.launchURL(Standards.privacyPolicyURL);
-
+  await BldrsNav.pushPrivacyScreen();
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -108,7 +103,7 @@ Future<void> onRebootBldrsAppSystem() async {
 
   if (_result == true) {
 
-    await BldrsNav.goToLogoScreenAndRemoveAllBelow(
+    await BldrsNav.pushLogoRouteAndRemoveAllBelow(
       animatedLogoScreen: true,
     );
 
@@ -215,7 +210,7 @@ Future<void> onSignOut() async {
 
     await AuthProtocols.signOutBldrs();
 
-    await BldrsNav.goToLogoScreenAndRemoveAllBelow(
+    await BldrsNav.pushLogoRouteAndRemoveAllBelow(
       animatedLogoScreen: true,
     );
 

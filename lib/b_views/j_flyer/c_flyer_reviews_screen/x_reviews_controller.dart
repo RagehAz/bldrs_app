@@ -2,13 +2,11 @@ import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
@@ -18,13 +16,14 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -111,8 +110,8 @@ Future<void> onSubmitReview({
   /// USER IS NOT SIGNED IN
   if (Authing.userIsSignedUp(_user?.signInMethod) == false){
     await Dialogs.youNeedToBeSignedUpDialog(
-      afterHomeRouteName: Routing.flyerReviews,
-      afterHomeRouteArgument: createReviewsScreenRoutingArgument(
+      afterHomeRouteName: RouteName.flyerReviews,
+      afterHomeRouteArgument: ReviewModel.createFlyerIDReviewIDLinkPart(
         flyerID: flyerModel?.id,
         reviewID: null,
       )
@@ -204,8 +203,8 @@ Future<void> onReviewAgree({
   /// USER IS NOT SIGNED IN
   if (Authing.userIsSignedUp(_user?.signInMethod) == false){
     await Dialogs.youNeedToBeSignedUpDialog(
-      afterHomeRouteName: Routing.flyerReviews,
-      afterHomeRouteArgument: createReviewsScreenRoutingArgument(
+      afterHomeRouteName: RouteName.flyerReviews,
+      afterHomeRouteArgument: ReviewModel.createFlyerIDReviewIDLinkPart(
         flyerID: reviewModel?.flyerID,
         reviewID: reviewModel?.id,
       ),
@@ -399,8 +398,8 @@ Future<void> _onDeleteReview({
 
     if (Authing.userIsSignedUp(_user?.signInMethod) == false){
       await Dialogs.youNeedToBeSignedUpDialog(
-        afterHomeRouteName: Routing.flyerReviews,
-        afterHomeRouteArgument: createReviewsScreenRoutingArgument(
+        afterHomeRouteName: RouteName.flyerReviews,
+        afterHomeRouteArgument: ReviewModel.createFlyerIDReviewIDLinkPart(
           flyerID: reviewModel.flyerID,
           reviewID: reviewModel.id,
         ),
@@ -507,8 +506,8 @@ Future<void> onBzReply({
 
     if (Authing.userIsSignedUp(_myUserModel?.signInMethod) == false) {
       await Dialogs.youNeedToBeSignedUpDialog(
-        afterHomeRouteName: Routing.flyerReviews,
-        afterHomeRouteArgument: createReviewsScreenRoutingArgument(
+        afterHomeRouteName: RouteName.flyerReviews,
+        afterHomeRouteArgument: ReviewModel.createFlyerIDReviewIDLinkPart(
           flyerID: reviewModel.flyerID,
           reviewID: reviewModel.id,
         ),
@@ -780,23 +779,4 @@ Future<void> _onDeleteReply({
 
 
 }
-// -----------------------------------------------------------------------------
-
-String? createReviewsScreenRoutingArgument({
-  required String? flyerID,
-  required String? reviewID,
-}){
-
-  if (flyerID == null || reviewID == null){
-    return null;
-  }
-  else {
-    return ChainPathConverter.combinePathNodes([
-      flyerID,
-      reviewID,
-    ]);
-  }
-
-}
-
 // -----------------------------------------------------------------------------

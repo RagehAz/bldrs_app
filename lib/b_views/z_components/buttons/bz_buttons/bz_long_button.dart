@@ -5,11 +5,9 @@ import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/widgets/drawing/spacing.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/bz_buttons/authors_wrap.dart';
@@ -21,6 +19,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
 
 class BzBubble extends StatelessWidget {
@@ -58,12 +57,16 @@ class BzBubble extends StatelessWidget {
 
     else {
 
-      await Nav.goToNewScreen(
-        context: context,
-        screen: BzPreviewScreen(
-          bzModel: bzModel,
-        ),
+      await BldrsNav.jumpToBzPreviewScreen(
+          bzID: bzModel?.id,
       );
+
+      // await Nav.goToNewScreen(
+      //   context: context,
+      //   screen: BzPreviewScreen(
+      //     bzModel: bzModel,
+      //   ),
+      // );
 
     }
 

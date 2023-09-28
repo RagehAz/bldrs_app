@@ -25,7 +25,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -507,7 +507,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     else {
 
       await Dialogs.youNeedToBeSignedUpDialog(
-        afterHomeRouteName: Routing.flyerPreview,
+        afterHomeRouteName: RouteName.flyerPreview,
         afterHomeRouteArgument: _flyer.value?.id,
       );
 

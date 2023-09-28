@@ -11,7 +11,7 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -271,7 +271,7 @@ Future<void> showMissingFieldsDialog({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _goToLogoScreen() async {
-  await BldrsNav.goToLogoScreenAndRemoveAllBelow(
+  await BldrsNav.pushLogoRouteAndRemoveAllBelow(
       animatedLogoScreen: true,
   );
 }

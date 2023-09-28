@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
@@ -48,7 +48,7 @@ class _GoBackWidgetState extends State<GoBackWidget> {
         await Nav.pushHomeAndRemoveAllBelow(
           context: context,
           invoker: 'GoBackWidgetTest',
-          homeRoute: Routing.home,
+          homeRoute: RouteName.home,
         );
         // -------------------------------
         await _triggerLoading(setTo: false);

@@ -57,9 +57,8 @@ class PhidsPickerScreen extends StatefulWidget {
     final String? phid = await Nav.goToNewScreen(
       context: context,
       pageTransitionType: Nav.superHorizontalTransition(
-        context: context,
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
-        inverse: !slideScreenFromEnLeftToRight,
+        enAnimatesLTR: !slideScreenFromEnLeftToRight,
       ),
       screen: PhidsPickerScreen(
         chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
@@ -89,9 +88,8 @@ class PhidsPickerScreen extends StatefulWidget {
     final List<String>? phids = await Nav.goToNewScreen(
       context: context,
       pageTransitionType: Nav.superHorizontalTransition(
-        context: context,
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
-        inverse: slideScreenFromEnLeftToRight,
+        enAnimatesLTR: slideScreenFromEnLeftToRight,
       ),
       screen: PhidsPickerScreen(
         chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
