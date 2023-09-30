@@ -106,83 +106,85 @@ class DownloadPanel extends StatelessWidget {
             + _noticeHeight
             + _hideHeight;
 
-    return BlurLayer(
-      width: _boxWidth,
-      blurIsOn: true,
-      height: _boxHeight,
-      color: Colorz.yellow125,
-      borders: Borderers.cornerOnly(
-        appIsLTR: true,
-        enBottomRight: _spacing,
-        enTopRight: _spacing,
-      ),
-      alignment: Alignment.center,
-      child: Column(
-        children: <Widget>[
+    return Material(
+      child: BlurLayer(
+        width: _boxWidth,
+        blurIsOn: true,
+        height: _boxHeight,
+        color: Colorz.yellow125,
+        borders: Borderers.cornerOnly(
+          appIsLTR: true,
+          enBottomRight: _spacing,
+          enTopRight: _spacing,
+        ),
+        alignment: Alignment.center,
+        child: Column(
+          children: <Widget>[
 
-          const Spacing(),
+            const Spacing(),
 
-          BldrsBox(
-            width: _buttonWidth,
-            height: _topAreaHeight,
-            icon: Iconz.bldrsAppIcon,
-            verse: getVerse('phid_download_app'),
-            verseColor: Colorz.black255,
-            verseScaleFactor: 0.7,
-            verseMaxLines: 2,
-            verseWeight: VerseWeight.black,
-            verseItalic: true,
-            verseCentered: false,
-            bubble: false,
-          ),
+            BldrsBox(
+              width: _buttonWidth,
+              height: _topAreaHeight,
+              icon: Iconz.bldrsAppIcon,
+              verse: getVerse('phid_download_app'),
+              verseColor: Colorz.black255,
+              verseScaleFactor: 0.7,
+              verseMaxLines: 2,
+              verseWeight: VerseWeight.black,
+              verseItalic: true,
+              verseCentered: false,
+              bubble: false,
+            ),
 
-          const Spacing(),
+            const Spacing(),
 
-          StoreButton(
-            storeType: StoreType.appStore,
-            onTap: () => Launcher.launchURL(Standards.iosAppStoreURL),
-            height: _buttonHeight,
-          ),
+            StoreButton(
+              storeType: StoreType.appStore,
+              onTap: () => Launcher.launchURL(Standards.iosAppStoreURL),
+              height: _buttonHeight,
+            ),
 
-          const Spacing(),
+            const Spacing(),
 
-          StoreButton(
-            storeType: StoreType.googlePlay,
-            onTap: () => Launcher.launchURL(Standards.androidAppStoreURL),
-            height: _buttonHeight,
-          ),
+            StoreButton(
+              storeType: StoreType.googlePlay,
+              onTap: () => Launcher.launchURL(Standards.androidAppStoreURL),
+              height: _buttonHeight,
+            ),
 
-          const Spacing(),
+            const Spacing(),
 
-          BldrsText(
-            verse: getVerse('phid_better_performance_features'),
-            height: _noticeHeight,
-            width: _buttonWidth,
-            color: Colorz.black255,
-            appIsLTR: UiProvider.checkAppIsLeftToRight(),
-            textDirection: UiProvider.getAppTextDir(),
-            scaleFactor: _noticeHeight * 0.02,
-            maxLines: 3,
-          ),
+            BldrsText(
+              verse: getVerse('phid_better_performance_features'),
+              height: _noticeHeight,
+              width: _buttonWidth,
+              color: Colorz.black255,
+              appIsLTR: UiProvider.checkAppIsLeftToRight(),
+              textDirection: UiProvider.getAppTextDir(),
+              scaleFactor: _noticeHeight * 0.02,
+              maxLines: 3,
+            ),
 
-          const Spacing(),
+            const Spacing(),
 
-          BldrsText(
-            verse: getVerse('phid_hide'),
-            height: _hideHeight,
-            width: _buttonWidth,
-            color: Colorz.black255,
-            appIsLTR: UiProvider.checkAppIsLeftToRight(),
-            textDirection: UiProvider.getAppTextDir(),
-            scaleFactor: _noticeHeight * 0.02,
-            labelColor: Colorz.white200,
-            maxLines: 3,
-            onTap: onHide,
-          ),
+            BldrsText(
+              verse: getVerse('phid_hide'),
+              height: _hideHeight,
+              width: _buttonWidth,
+              color: Colorz.black255,
+              appIsLTR: UiProvider.checkAppIsLeftToRight(),
+              textDirection: UiProvider.getAppTextDir(),
+              scaleFactor: _noticeHeight * 0.02,
+              labelColor: Colorz.white200,
+              maxLines: 3,
+              onTap: onHide,
+            ),
 
-          const Spacing(),
+            const Spacing(),
 
-        ],
+          ],
+        ),
       ),
     );
 

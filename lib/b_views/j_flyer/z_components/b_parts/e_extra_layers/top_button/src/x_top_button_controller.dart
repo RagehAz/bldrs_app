@@ -343,7 +343,7 @@ double getTopLiveVerticalOffset({
 double getTopLineScaleFactor({
   required double topButtonHeight,
 }){
-  return topButtonHeight * 0.016;
+  return topButtonHeight * 0.014;
 }
 // --------------------
 /// TESTED : WORKS PERFECT
