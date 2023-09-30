@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -30,6 +31,42 @@ class ContactButton extends StatelessWidget {
   // -----------------------------------------------------------------------------
   static const double buttonHeight = 50;
   // -----------------------------------------------------------------------------
+  static Verse? getVerse({
+    required bool? forceShowVerse,
+    required ContactModel? contactModel,
+  }){
+    Verse? _output;
+
+    if (contactModel != null){
+      final bool _isSocialMediaContact = ContactModel.checkContactIsSocialMedia(contactModel.type);
+      final bool _showVerse = forceShowVerse ?? _isSocialMediaContact == false;
+
+      if (_showVerse == true){
+
+        final bool _isURL = ContactModel.checkIsWebLink(contactModel.type);
+
+        if (_isURL == true){
+
+          final String? _trimmed = TextMod.removeTextBeforeFirstSpecialCharacter(
+            text: contactModel.value,
+            specialCharacter: '.',
+          );
+
+          _output = Verse.plain(_trimmed);
+
+        }
+
+        else {
+          _output = Verse.plain(contactModel.value);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -47,7 +84,10 @@ class ContactButton extends StatelessWidget {
         isPublic: isPublic,
       ),
       margins: margins,
-      verse: _showVerse == true ? Verse.plain(contactModel?.value) : null,
+      verse: getVerse(
+        contactModel: contactModel,
+        forceShowVerse: forceShowVerse,
+      ),
       verseWeight: VerseWeight.thin,
       verseItalic: true,
       iconSizeFactor: _isSocialMediaContact == true ? 1 : 0.6,

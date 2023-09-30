@@ -19,13 +19,16 @@ class AppBarProgressBar extends StatelessWidget {
     final double _abWidth = BldrsAppBar.width();
     // --------------------
     final double _appBarHeight = BldrsAppBar.collapsedHeight(context, appBarType);
-    final double _thickness = _appBarHeight * 0.05;
+    // --------------------
+    final double _appBarStripHeight = BldrsAppBar.collapsedHeight(context, AppBarType.basic);
+    final double _thickness = _appBarStripHeight * 0.05;
+    // --------------------
     final double _appBarCornerRadius = BldrsAppBar.corners.topLeft.x;
     // --------------------
     final EdgeInsets _margins = EdgeInsets.only(
       top: _appBarHeight - _thickness,
-      left: _appBarCornerRadius,
-      right: _appBarCornerRadius,
+      left: _appBarCornerRadius * 0,
+      right: _appBarCornerRadius * 0,
     );
     // --------------------
     return ValueListenableBuilder(

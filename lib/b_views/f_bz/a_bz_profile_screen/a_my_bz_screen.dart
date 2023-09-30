@@ -1,5 +1,8 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
@@ -7,10 +10,13 @@ import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aa_my_bz_screen_pages.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x0_my_bz_screen_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoomable_flyers_grid.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/router/x_go_back_widget.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
@@ -127,6 +133,30 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
             zGridController: _zGridController,
             canGoBack: true,
             appBarIcon: _bzModel?.logoPath,
+            appBarRowWidgets: [
+
+              AppBarButton(
+                icon: Iconz.xSmall,
+                onTap: () async {
+
+                  /// FIX_NOTES_STREAM_PERMISSION_SECURITY_RULES_ISSUE
+
+                  final BzModel? _bz = await BzProtocols.refetch(
+                    bzID: _bzModel?.id,
+                  );
+
+                  Mapper.blogMap(_bz?.toMap(toJSON: false));
+
+                  final UserModel? _user = await UserProtocols.refetch(
+                    userID: _bz?.authors?.first.userID,
+                  );
+
+                  Mapper.blogMap(_user?.toMap(toJSON: false));
+
+                },
+              ),
+
+            ],
             onBack: () async {
 
               final bool _flyerIsOpen = ! UiProvider.proGetLayoutIsVisible(
