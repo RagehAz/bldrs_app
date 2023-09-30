@@ -555,6 +555,7 @@ class Formers {
   static String? webSiteValidator({
     required String? website,
     required bool isMandatory,
+    List<String>? excludedDomains,
   }){
     String? _message;
 
@@ -566,6 +567,20 @@ class Formers {
         if (_isURLFormat == false){
           _message = getWord('phid_url_format_is_incorrect');
         }
+
+        if (_message == null){
+
+          final bool _domainExcluded = _checkStringContainAnyOfSubStrings(
+            subStrings: excludedDomains,
+            string: website,
+          );
+
+          if (_domainExcluded == true){
+          _message = getWord('phid_can_not_use_this_link_here');
+          }
+
+        }
+
       }
 
     }
@@ -576,6 +591,34 @@ class Formers {
     }
 
     return _message;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool _checkStringContainAnyOfSubStrings({
+    required String? string,
+    required List<String>? subStrings,
+  }){
+    bool _output = false;
+
+    if (Mapper.checkCanLoopList(subStrings) == true && string != null){
+
+      for (final String subString in subStrings!){
+
+        final bool _contains = TextCheck.stringContainsSubString(
+            string: string,
+            subString: subString
+        );
+
+        if (_contains == true){
+          _output = true;
+          break;
+        }
+
+      }
+
+    }
+
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

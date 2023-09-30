@@ -45,7 +45,7 @@ translation
 for the following english and arabic equivalents
 please conclude the translation of them in those langs [es, it, de, fr, zh, tr, hi, ru, pt, fa]
 write me the key value pairs for each lang in a Map<String, dynamic> {
-  'langCode': 'translation',
+  langCode: translation,
 }
 
 * */

@@ -13,11 +13,13 @@ import 'package:bldrs/b_views/j_flyer/z_components/a_light_flyer_structure/b_lig
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
@@ -45,10 +47,12 @@ class FlyerPreviewScreen extends StatelessWidget {
       itemAspectRatio: FlyerDim.flyerAspectRatio(),
     );
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colorz.black255,
-        body: WidgetWaiter(
+    return MainLayout(
+      onBack: () => BldrsNav.backFromPreviewScreen(),
+      skyType: SkyType.non,
+      appBarType: AppBarType.non,
+      // pyramidsAreOn: false,
+      child: WidgetWaiter(
           waitDuration: const Duration(milliseconds: 500),
           child: FlyerBuilder(
               flyerBoxWidth: _flyerWidth,
@@ -90,7 +94,7 @@ class FlyerPreviewScreen extends StatelessWidget {
                       child: LightBigFlyer(
                         flyerBoxWidth: _flyerWidth,
                         renderedFlyer: flyerModel,
-                        onVerticalExit: (){},
+                        onVerticalExit: () => BldrsNav.backFromPreviewScreen(),
                         onHorizontalExit: (){},
                       ),
                     ),
@@ -100,8 +104,65 @@ class FlyerPreviewScreen extends StatelessWidget {
               }
               ),
         ),
-      ),
     );
+
+    // return SafeArea(
+    //   child: Scaffold(
+    //     backgroundColor: Colorz.black255,
+    //     body: WidgetWaiter(
+    //       waitDuration: const Duration(milliseconds: 500),
+    //       child: FlyerBuilder(
+    //           flyerBoxWidth: _flyerWidth,
+    //           slidePicType: SlidePicType.med,
+    //           onlyFirstSlide: false,
+    //           flyerID: flyerID,
+    //           renderFlyer: RenderFlyer.allSlides,
+    //           onFlyerInitialLoaded: (FlyerModel? flyer) async {
+    //
+    //             if (reviewID != null){
+    //
+    //               await Nav.goToNewScreen(
+    //                 context: context,
+    //                 screen: FlyerReviewsScreen(
+    //                   flyerModel: flyer,
+    //                   highlightReviewID: reviewID,
+    //                 ),
+    //               );
+    //
+    //             }
+    //
+    //           },
+    //           builder: (bool loading, FlyerModel? flyerModel) {
+    //
+    //             if (loading == true && flyerModel == null){
+    //               return const LoadingFullScreenLayer();
+    //             }
+    //
+    //             else if (flyerModel == null){
+    //               return const _NoFlyerFoundView();
+    //             }
+    //
+    //             else {
+    //               return WidgetFader(
+    //                 fadeType: FadeType.fadeIn,
+    //                 duration: const Duration(milliseconds: 500),
+    //                 child: DismissiblePage(
+    //                   onDismissed: () => Nav.goBack(context: context),
+    //                   child: LightBigFlyer(
+    //                     flyerBoxWidth: _flyerWidth,
+    //                     renderedFlyer: flyerModel,
+    //                     onVerticalExit: (){},
+    //                     onHorizontalExit: (){},
+    //                   ),
+    //                 ),
+    //               );
+    //             }
+    //
+    //           }
+    //           ),
+    //     ),
+    //   ),
+    // );
 
   }
 }
