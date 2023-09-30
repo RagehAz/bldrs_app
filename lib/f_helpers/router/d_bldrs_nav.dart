@@ -124,6 +124,21 @@ class BldrsNav {
       }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> backFromPreviewScreen() async {
+
+    if (kIsWeb == true){
+      await pushHomeRouteAndRemoveAllBelow();
+    }
+
+    else {
+      await Nav.goBack(
+          context: getMainContext(),
+      );
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// LOADING
