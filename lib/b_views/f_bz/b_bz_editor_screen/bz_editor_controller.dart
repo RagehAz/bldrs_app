@@ -133,7 +133,7 @@ Future<void> onConfirmBzEdits({
 
     if (draftNotifier.value?.firstTimer == false){
       await BldrsNav.restartAndRoute(
-        routeName: RouteName.myBzAboutPage,
+        route: RouteName.myBzAboutPage,
         arguments: draftNotifier.value?.id,
       );
     }

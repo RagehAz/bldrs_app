@@ -597,14 +597,9 @@ Future<void> onPublishNewFlyerTap({
 
     await FlyerLDBOps.deleteFlyerMakerSession(flyerID: draft?.id);
 
-    UiProvider.proSetAfterHomeRoute(
-      routeName: RouteName.myBzFlyersPage,
+    await BldrsNav.restartAndRoute(
+      route: RouteName.myBzFlyersPage,
       arguments: draft!.bzID,
-      notify: true,
-    );
-
-    await BldrsNav.pushLogoRouteAndRemoveAllBelow(
-      animatedLogoScreen: false,
     );
 
   }

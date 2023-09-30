@@ -274,6 +274,7 @@ class BldrsNav {
     }
 
     else {
+      blog('GOING TO BZ SCREEN AHOO');
       await Nav.goToNewScreen(
           context: getMainContext(),
           screen: MyBzScreen(
@@ -561,8 +562,8 @@ class BldrsNav {
       listen: false,
     );
 
-    // blog('autoNavigateFromHomeScreen : _afterHomeRoute : ${_afterHomeRoute?.name} : '
-    //     'arg : ${_afterHomeRoute?.arguments}');
+    blog('autoNavigateFromHomeScreen : _afterHomeRoute : ${_afterHomeRoute?.name} : '
+        'arg : ${_afterHomeRoute?.arguments}');
 
     if (_afterHomeRoute != null){
 
@@ -582,21 +583,20 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> restartAndRoute({
-    String? routeName,
+    String? route,
     dynamic arguments,
   }) async {
 
-    if (routeName != null) {
+    if (route != null) {
       UiProvider.proSetAfterHomeRoute(
-        routeName: routeName,
+        routeName: route,
         arguments: arguments,
         notify: true,
       );
     }
 
-    await Nav.pushNamedAndRemoveAllBelow(
-      context: getMainContext(),
-      goToRoute: RouteName.staticLogo,
+    await BldrsNav.pushLogoRouteAndRemoveAllBelow(
+      animatedLogoScreen: false,
     );
 
   }
