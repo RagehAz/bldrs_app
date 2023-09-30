@@ -24,6 +24,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_sli
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/bz_authors_bubble/bz_contacts_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
@@ -876,6 +877,8 @@ class Dialogs {
     final BuildContext context = getMainContext();
     final double _dialogHeight = Scale.screenHeight(context) - 30;
     final double _gridHeight = _dialogHeight - BldrsCenterDialog.getButtonZoneHeight * 5;
+    final int _authorsLength = bzModel?.authors?.length ?? 0;
+    final double _bubbleWidth = BldrsCenterDialog.getWidth(context);
 
     await BldrsCenterDialog.showCenterDialog(
       titleVerse: titleVerse,
@@ -891,18 +894,33 @@ class Dialogs {
           height: _gridHeight,
           alignment: Alignment.center,
           child: ListView.builder(
-            itemCount: bzModel?.authors?.length,
+            itemCount: _authorsLength + 1,
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(vertical: 10),
             itemBuilder: (_, int index){
 
-              return AuthorCard(
-                author: bzModel!.authors![index],
-                bzModel: bzModel,
-                onContactTap: onContact,
-                bubbleWidth: BldrsCenterDialog.getWidth(context),
-                moreButtonIsOn: false,
-              );
+              if (index == 0){
+
+                return BzContactsBubble(
+                  width: _bubbleWidth,
+                  bzModel: bzModel,
+                );
+
+              }
+
+              else {
+
+                final int _authorIndex = index - 1;
+                return AuthorCard(
+                  author: bzModel!.authors![_authorIndex],
+                  bzModel: bzModel,
+                  onContactTap: onContact,
+                  bubbleWidth: _bubbleWidth,
+                  moreButtonIsOn: false,
+                );
+
+              }
+
 
             },
           ),

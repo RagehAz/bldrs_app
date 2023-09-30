@@ -180,6 +180,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
       unawaited(_onDraftChanged());
     });
 
+    draftNotifier.value?.nameController?.addListener(() async {
+      setState(() {});
+    });
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -332,11 +336,15 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
   bool _canGoFrom0to1({
     required DraftBz? draft,
   }){
-    return Formers.picValidator(pic: draft?.logoPicModel, canValidate: true,) == null
+    final bool _can = Formers.picValidator(pic: draft?.logoPicModel, canValidate: true,) == null
            &&
            Formers.companyNameValidator(companyName: draft?.nameController?.text, canValidate: true,) == null
            &&
            _isInit == false;
+
+    blog('can : $_can');
+
+    return _can;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -534,6 +542,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
 
             // blog('draft?.logoPicModel : ${draft?.logoPicModel?.bytes}');
             // blog('canValidate : ${draft?.canValidate}');
+
+            blog('chaning draft bz');
 
           return Form(
             key: draft?.formKey,
@@ -951,6 +961,15 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       validator: (String? text) => Formers.webSiteValidator(
                         website: text,
                         isMandatory: Standards.bzWebsiteIsMandatory,
+                        excludedDomains: <String>[
+                          'facebook.com',
+                          'linkedin.com',
+                          'youtube.com',
+                          'instagram.com',
+                          'pinterest.com',
+                          'tiktok.com',
+                          'twitter.com',
+                        ],
                       ),
                       textOnChanged: (String? text) => onChangeBzContact(
                         contactType: ContactType.website,

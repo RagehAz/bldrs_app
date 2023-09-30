@@ -5,6 +5,7 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/widgets/sensors/connectivity_sensor.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/b_views/z_components/layouts/download_app_panel/download_app_panel.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
@@ -14,6 +15,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -205,14 +207,7 @@ class MainLayout extends StatelessWidget {
             child: Stack(
               children: <Widget>[
 
-                // if (skyType == SkyType.black)
-                //   Container(
-                //     key: const ValueKey<String>('noSkyBackground'),
-                //     width: Scale.screenWidth(context),
-                //     height: Scale.screenHeight(context),
-                //     color: _backgroundColor,
-                //   ),
-
+                /// BODY
                 Scaffold(
                   key: scaffoldKey ?? const ValueKey<String>('mainScaffold'),
 
@@ -260,6 +255,7 @@ class MainLayout extends StatelessWidget {
 
                 ),
 
+                /// PYRAMIDS PANEL
                 if (Mapper.checkCanLoopList(pyramidButtons) == true)
                 Positioned(
                   bottom: 0,
@@ -267,6 +263,14 @@ class MainLayout extends StatelessWidget {
                   child: PyramidsPanel(
                     pyramidButtons: pyramidButtons,
                   ),
+                ),
+
+                /// APP BUTTONS
+                if (kIsWeb == true)
+                Positioned(
+                  left: 0,
+                  bottom: Scale.screenHeight(context) * 0.16,
+                  child: const DownloadAppPanel(),
                 ),
 
               ],

@@ -1,15 +1,10 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/device_checker.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/b_app_state_initializer.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/c_user_initializer.dart';
@@ -178,8 +173,9 @@ class Initializer {
             subString: 'bldrs.net',
         );
 
-        if (_includeBldrsNet == false){
-          blog('shall not route after initialization in loading screen bro ---< ');
+        if (_includeBldrsNet == false && kDebugMode == false){
+          // blog('shall not route after initialization in loading screen bro ---< ');
+          // blog('_afterDots : $_afterDots : _includeBldrsNet : $_includeBldrsNet');
         }
 
         else {
