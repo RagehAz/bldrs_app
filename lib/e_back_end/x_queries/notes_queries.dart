@@ -61,7 +61,7 @@ FireQueryModel userNotesPaginationQueryModel(){
     coll: FireColl.users,
     doc: Authing.getUserID(),
     subColl: FireSubColl.noteReceiver_receiver_notes,
-    limit: 6,
+    limit: 10,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
   );
 
