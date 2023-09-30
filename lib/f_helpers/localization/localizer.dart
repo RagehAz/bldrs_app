@@ -317,7 +317,7 @@ class Localizer {
     final String? _ldbLang = await Localizer.readLDBLangCode();
 
     if (_currentLang != null && _currentLang == _ldbLang && _ldbLang == code){
-      blog('do nothing');
+      // blog('do nothing');
     }
     else {
 
