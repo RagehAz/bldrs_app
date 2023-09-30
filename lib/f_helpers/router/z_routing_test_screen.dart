@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
 
 class RoutingTestScreen extends StatelessWidget {
@@ -163,6 +164,19 @@ class RoutingTestScreen extends StatelessWidget {
           /// dashboard
 
           // ------------------------------------------------------------
+
+          WideButton(
+            verse: Verse.plain('restart and routes'),
+            verseColor: Colorz.red255,
+            onTap: () async {
+
+              await BldrsNav.restartAndRoute(
+                  route: RouteName.myBzFlyersPage,
+                  arguments: bzID,
+              );
+              },
+          ),
+
         ],
       ),
     );

@@ -171,7 +171,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     // --------------------
     final RouteSettings? _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
       context: context,
-      listen: false,
+      /// this needed true for BldrsNav.restartAndRoute()
+      /// it does result in rebuilding entire tree when triggering pyramid
+      /// but turning this false is not the solution for that
+      /// you just can't turn this false
+      listen: true,
     );
     // --------------------
     /// WHEN AFTER HOME ROUTE IS DEFINED => works as loading screen until didChangedDependencies methods finish

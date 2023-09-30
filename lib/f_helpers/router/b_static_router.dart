@@ -1,4 +1,3 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/legalizer/legalizer.dart';
@@ -46,8 +45,8 @@ class StaticRouter {
         specialCharacter: ':',
     );
 
-    blog('settings.name : ${settings.name}');
-    blog('StaticRouter : router : _path : $_path : _arg : $_arg');
+    // blog('settings.name : ${settings.name}');
+    // blog('StaticRouter : router : _path : $_path : _arg : $_arg');
 
     final BuildContext context = getMainContext();
     final bool appIsLTR = UiProvider.checkAppIsLeftToRight();

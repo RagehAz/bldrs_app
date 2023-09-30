@@ -62,7 +62,7 @@ Future<void> onEditProfileTap({
         canGoBack: true,
         onFinish: () async {
           await BldrsNav.restartAndRoute(
-            routeName: RouteName.myUserProfile,
+            route: RouteName.myUserProfile,
           );
         },
       )
