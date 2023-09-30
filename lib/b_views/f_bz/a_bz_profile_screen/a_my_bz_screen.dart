@@ -133,30 +133,6 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
             zGridController: _zGridController,
             canGoBack: true,
             appBarIcon: _bzModel?.logoPath,
-            appBarRowWidgets: [
-
-              AppBarButton(
-                icon: Iconz.xSmall,
-                onTap: () async {
-
-                  /// FIX_NOTES_STREAM_PERMISSION_SECURITY_RULES_ISSUE
-
-                  final BzModel? _bz = await BzProtocols.refetch(
-                    bzID: _bzModel?.id,
-                  );
-
-                  Mapper.blogMap(_bz?.toMap(toJSON: false));
-
-                  final UserModel? _user = await UserProtocols.refetch(
-                    userID: _bz?.authors?.first.userID,
-                  );
-
-                  Mapper.blogMap(_user?.toMap(toJSON: false));
-
-                },
-              ),
-
-            ],
             onBack: () async {
 
               final bool _flyerIsOpen = ! UiProvider.proGetLayoutIsVisible(
