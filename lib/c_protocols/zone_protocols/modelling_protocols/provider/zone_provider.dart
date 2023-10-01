@@ -42,6 +42,7 @@ class ZoneProvider extends ChangeNotifier {
 
     /// DEFINE ZONE
     ZoneModel? _completeZone = await ZoneProtocols.completeZoneModel(
+      invoker: 'setCurrentZone : $invoker',
       incompleteZoneModel: zone,
     );
     _completeZone ??= ZoneModel.planetZone;

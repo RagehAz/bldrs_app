@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/ldb/a_country_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/real/a_country_real_ops.dart';
@@ -22,9 +23,12 @@ class CountryProtocols {
   /// TESTED : WORKS PERFECT
   static Future<CountryModel?> fetchCountry({
     required String? countryID,
+    required String invoker
   }) async {
 
     CountryModel? _output;
+
+    blog('=> fetchCountry : ($countryID) CountryModel STARTED invoker: $invoker');
 
     if (countryID != null){
 
@@ -69,7 +73,10 @@ class CountryProtocols {
 
       await CountryLDBOps.deleteCountry(countryID);
 
-      _output = await fetchCountry(countryID: countryID);
+      _output = await fetchCountry(
+        countryID: countryID,
+        invoker: 'refetchCountry',
+      );
 
     }
 
@@ -90,6 +97,7 @@ class CountryProtocols {
 
           return fetchCountry(
             countryID: countriesIDs[index],
+            invoker: 'fetchCountries',
           ).then((CountryModel? country){
             if (country != null){
               _output.add(country);

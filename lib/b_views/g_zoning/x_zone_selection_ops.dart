@@ -102,6 +102,7 @@ class ZoneSelection {
     if (_zone?.countryID != null){
       final ZoneModel? _output = await ZoneProtocols.completeZoneModel(
         incompleteZoneModel: _zone,
+        invoker: 'goToCountriesScreen',
       );
       return _output;
     }
@@ -128,6 +129,7 @@ class ZoneSelection {
     if (countryID != null){
       /// COMPLETE ZONE
       _zoneWithCountry = await ZoneProtocols.completeZoneModel(
+        invoker: 'onSelectCountry',
         incompleteZoneModel: ZoneModel(
           countryID: countryID,
         ),
@@ -195,11 +197,12 @@ class ZoneSelection {
 
     if (countryID != null && cityID != null){
       _zoneWithCity = await ZoneProtocols.completeZoneModel(
-          incompleteZoneModel: ZoneModel(
-            countryID: countryID,
-            cityID: cityID,
-          ),
-        );
+        invoker: 'onSelectCity',
+        incompleteZoneModel: ZoneModel(
+          countryID: countryID,
+          cityID: cityID,
+        ),
+      );
     }
 
     /// FIRST CITY SELECTION BACK

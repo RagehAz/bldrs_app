@@ -241,7 +241,8 @@ class StagingLeveller {
     if (cityID != null && newType != null){
 
       final StagingModel? _oldCitiesStaging = await StagingProtocols.fetchCitiesStaging(
-          countryID: CityModel.getCountryIDFromCityID(cityID),
+        countryID: CityModel.getCountryIDFromCityID(cityID),
+        invoker: 'changeCityStageType',
       );
 
       if (_oldCitiesStaging != null){

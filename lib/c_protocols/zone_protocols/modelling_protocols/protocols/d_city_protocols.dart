@@ -152,6 +152,7 @@ class CityProtocols {
 
       final StagingModel? _citiesStages = await StagingProtocols.fetchCitiesStaging(
         countryID: countryID,
+        invoker: 'fetchCitiesOfCountry'
       );
 
       _output = await fetchCitiesOfCountryByIDs(

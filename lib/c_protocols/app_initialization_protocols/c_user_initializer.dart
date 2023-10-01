@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
@@ -493,7 +494,7 @@ class UserInitializer {
   }
   // -----------------------------------------------------------------------------
   static void _report(String text){
-    // blog('  User--> $text');
+    blog('  User--> $text');
   }
   // -----------------------------------------------------------------------------
 }
