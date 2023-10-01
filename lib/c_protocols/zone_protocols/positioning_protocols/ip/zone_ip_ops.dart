@@ -87,6 +87,7 @@ class ZoneIPOps {
                 countryCode: _countryISO,
                 stateCode: _stateISO2,
                 cityCode: _cityName,
+                invoker: '_getZoneByIP_ipApi',
               );
 
             }
@@ -138,9 +139,10 @@ class ZoneIPOps {
               final String? _cityName = _countryData['location']['city']; // "Atlanta"
 
               _output = await _getZoneFromData(
-                  countryCode: _countryISO?.toLowerCase(),
-                  stateCode: _stateCode,
-                  cityCode: _cityName,
+                countryCode: _countryISO?.toLowerCase(),
+                stateCode: _stateCode,
+                cityCode: _cityName,
+                invoker: '_getZoneByIP_ipRegistry',
               );
 
             }
@@ -188,6 +190,7 @@ class ZoneIPOps {
     required String? countryCode,
     required String? stateCode,
     required String? cityCode,
+    required String invoker,
   }) async {
     String? _countryID;
     String? _cityID;
@@ -249,6 +252,7 @@ class ZoneIPOps {
     /// RETURN ZONE
     else {
       return ZoneProtocols.completeZoneModel(
+        invoker: '_getZoneFromData : invoker : $invoker',
         incompleteZoneModel: ZoneModel(
           countryID: _countryID,
           cityID: _cityID,

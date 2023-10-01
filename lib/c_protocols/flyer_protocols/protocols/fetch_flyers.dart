@@ -60,7 +60,8 @@ class FetchFlyerProtocols {
 
       _flyer = _flyer.copyWith(
         zone: await ZoneProtocols.completeZoneModel(
-            incompleteZoneModel: _flyer.zone,
+          invoker: 'fetchFlyer',
+          incompleteZoneModel: _flyer.zone,
         ),
         bzModel: _bzModel,
       );

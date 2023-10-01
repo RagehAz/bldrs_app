@@ -142,6 +142,7 @@ class RenovateUserProtocols {
     if (userModel != null){
 
       final ZoneModel? _completeZoneModel = await ZoneProtocols.completeZoneModel(
+        invoker: 'completeUserZoneModels',
         incompleteZoneModel: userModel.zone,
       );
 

@@ -109,20 +109,20 @@ class AuthScreenView extends StatelessWidget {
   // --------------------
   bool accountIsSocial({
     required String? currentEmail
-}){
-    bool _isSocial = false;
+  }){
+      bool _isSocial = false;
 
-    if (currentAccount != null && currentAccount?.email == currentEmail){
-      _isSocial =
-          currentAccount!.signInMethod == SignInMethod.google ||
-          currentAccount!.signInMethod == SignInMethod.facebook ||
-          currentAccount!.signInMethod == SignInMethod.apple
-      ;
+      if (currentAccount != null && currentAccount?.email == currentEmail){
+        _isSocial =
+            currentAccount!.signInMethod == SignInMethod.google ||
+            currentAccount!.signInMethod == SignInMethod.facebook ||
+            currentAccount!.signInMethod == SignInMethod.apple
+        ;
+      }
+
+      blog('account is social : $_isSocial');
+      return _isSocial;
     }
-
-    blog('account is social : $_isSocial');
-    return _isSocial;
-  }
   // --------------------
   String? getBySocialPhid(SignInMethod method){
     String? _phid;

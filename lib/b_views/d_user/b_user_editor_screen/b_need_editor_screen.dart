@@ -337,6 +337,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
 
                       final ZoneModel? _completeZone = await ZoneProtocols.completeZoneModel(
                         incompleteZoneModel: zone,
+                        invoker: 'BzEditorScreen.onZoneChanged',
                       );
 
                       setNotifier(
