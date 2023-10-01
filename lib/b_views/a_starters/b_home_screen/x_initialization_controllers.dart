@@ -186,7 +186,10 @@ Future<void> initializeUserZone() async {
 
     _userZoneCompleted ??= await ZoneProtocols.getZoneByIP();
 
-    _userZoneCompleted = await ZoneProtocols.completeZoneModel(incompleteZoneModel: _myUserModel.zone);
+    _userZoneCompleted = await ZoneProtocols.completeZoneModel(
+      incompleteZoneModel: _myUserModel.zone,
+      invoker: 'initializeHomeScreen.initializeUserZone',
+    );
 
     UsersProvider.proSetMyUserModel(
       userModel: _myUserModel.copyWith(zone: _userZoneCompleted),

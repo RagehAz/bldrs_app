@@ -47,6 +47,7 @@ class Initializer {
       useOfficialPackages: !DeviceChecker.deviceIsWindows(),
       socialKeys: BldrsKeys.socialKeys,
       options: DefaultFirebaseOptions.currentPlatform!,
+      realForceOnlyAuthenticated: true,
       // nativePersistentStoragePath: ,
     );
     // --------------------

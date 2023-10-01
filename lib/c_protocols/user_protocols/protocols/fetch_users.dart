@@ -50,6 +50,7 @@ class FetchUserProtocols {
     else {
       _userModel = _userModel.copyWith(
         zone: await ZoneProtocols.completeZoneModel(
+          invoker: 'fetchUser',
           incompleteZoneModel: _userModel.zone,
         ),
       );

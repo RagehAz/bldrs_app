@@ -117,10 +117,13 @@ class ZoneIDsProtocols {
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel?> completeZoneModel({
     required ZoneModel? incompleteZoneModel,
+    required String invoker,
   }) async {
 
     /// incomplete zone model is what only has (countryID - cityID)
     /// complete zone model is that has all IDs  Models and Names initialized
+
+    // blog('completeZoneModel : invoker : $invoker');
 
     ZoneModel? _output = incompleteZoneModel;
 
@@ -137,6 +140,7 @@ class ZoneIDsProtocols {
 
         final CountryModel? _bzCountry = await ZoneProtocols.fetchCountry(
           countryID: _output.countryID,
+          invoker: 'completeZoneModel',
         );
 
         // blog('completeZoneModel : got country model : $_bzCountry');

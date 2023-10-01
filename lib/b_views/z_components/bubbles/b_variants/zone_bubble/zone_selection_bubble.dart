@@ -96,6 +96,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       _triggerLoading(setTo: true).then((_) async {
         // --------------------
         final ZoneModel? _zone = await ZoneProtocols.completeZoneModel(
+          invoker: 'ZoneSelectionBubble.didChangeDependencies',
           incompleteZoneModel: _selectedZone.value,
         );
         // --------------------
@@ -208,6 +209,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       else {
 
         final ZoneModel? _completedZone = await ZoneProtocols.completeZoneModel(
+          invoker: 'onSelectCity',
           incompleteZoneModel: _zone,
         );
 

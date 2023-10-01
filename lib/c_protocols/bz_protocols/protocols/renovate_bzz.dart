@@ -164,6 +164,7 @@ class RenovateBzProtocols {
 
       /// COMPLETED ZONE MODEL
       final ZoneModel? _completeZoneModel = await ZoneProtocols.completeZoneModel(
+        invoker: 'completeBzZoneModel',
         incompleteZoneModel: bzModel.zone,
       );
 

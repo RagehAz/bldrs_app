@@ -97,7 +97,8 @@ class InfoPageMainDetails extends StatelessWidget {
         if (flyerModel?.zone != null)
         FutureBuilder(
           future: ZoneProtocols.completeZoneModel(
-              incompleteZoneModel: flyerModel!.zone,
+            invoker: 'InfoPageMainDetails.build',
+            incompleteZoneModel: flyerModel!.zone,
           ),
           initialData: flyerModel!.zone,
           builder: (_, AsyncSnapshot snap){

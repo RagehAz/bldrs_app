@@ -57,6 +57,7 @@ class ZoneModel {
 
     return ZoneProtocols.completeZoneModel(
       incompleteZoneModel: _zone,
+      invoker: 'prepareZoneForEditing',
     );
 
   }

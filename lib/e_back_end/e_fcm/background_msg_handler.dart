@@ -35,6 +35,7 @@ Future<void> bldrsAppOnBackgroundMessageHandler(RemoteMessage remoteMessage) asy
     useOfficialPackages: !DeviceChecker.deviceIsWindows(),
     socialKeys: BldrsKeys.socialKeys,
     options: DefaultFirebaseOptions.currentPlatform!,
+    realForceOnlyAuthenticated: true,
     // nativePersistentStoragePath: ,
   );
 
