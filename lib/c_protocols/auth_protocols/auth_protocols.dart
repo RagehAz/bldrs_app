@@ -397,19 +397,26 @@ class AuthProtocols {
   }) async {
 
     final String _errorMessage = error ?? getWord('phid_something_went_wrong_error');
+    final DeviceModel _device = await DeviceModel.generateDeviceModel();
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
+        context: getMainContext(),
+        listen: false
+    );
 
     await Errorize.throwMap(
         invoker: 'onAuthError',
         map: {
-          'userModel': UsersProvider.proGetMyUserModel(
-              context: getMainContext(),
-              listen: false
-          )?.toMap(
-            toJSON: true,
-          ),
-          'time': Timers.cipherTime(time: DateTime.now(), toJSON: true),
-          'device': await DeviceModel.generateDeviceModel(),
+          'userID': _userModel?.id,
+          'userName': _userModel?.name,
+          'userEmail': UserModel.getUserEmail(_userModel),
+          'signInMethod': _userModel?.signInMethod,
+          'zone': _userModel?.zone?.toMap(),
+          'appState': _userModel?.appState?.toMap(toUserModel: true),
+          'time': Timers.cipherTime(time: DateTime.now(), toJSON: false),
+          'device': _device.toMap(),
           'invoker': invoker,
+          'error': error,
+          'errorMessage': _errorMessage,
         },
     );
 
