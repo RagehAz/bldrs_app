@@ -1,3 +1,13 @@
+
+### 2.9.0
+1. Ui & UX updates & bug fixes
+2. performance optimizations
+3. security updates
+4. Google Auth fixes
+
+### 2.8.0
+1. Implementing Web
+
 ### 2.7.0
 1. UI updates
 2. Add Business account scope of services tracking mechanism

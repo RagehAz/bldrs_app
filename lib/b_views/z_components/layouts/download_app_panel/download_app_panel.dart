@@ -68,6 +68,7 @@ class _DownloadAppPanelState extends State<DownloadAppPanel> {
         fadeType: FadeType.fadeOut,
         curve: Curves.easeOut,
         duration: const Duration(seconds: 1),
+        ignorePointer: true,
         child: DownloadPanel(
           onHide: _onHide,
         ),

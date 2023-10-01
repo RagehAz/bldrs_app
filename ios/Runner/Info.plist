@@ -28,10 +28,10 @@
 
     <!-- ===================== -->
 	<key>CFBundleVersion</key>
-    <string>2.8.3</string>
+    <string>2.9.0</string>
     <!-- ===================== -->
     <key>CFBundleShortVersionString</key>
-    <string>2.8</string>
+    <string>2.9</string>
     <!-- =============================================================== -->
 
     <!-- APP LANGUAGE -->
