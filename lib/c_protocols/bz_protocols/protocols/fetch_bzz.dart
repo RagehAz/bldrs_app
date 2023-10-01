@@ -45,6 +45,7 @@ class FetchBzProtocols {
     if (_bz != null){
       _bz = _bz.copyWith(
         zone: await ZoneProtocols.completeZoneModel(
+          invoker: 'fetchBz',
           incompleteZoneModel: _bz.zone,
         ),
       );

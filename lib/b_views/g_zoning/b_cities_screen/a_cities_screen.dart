@@ -116,6 +116,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
       /// COMPLETE CURRENT ZONE
       final ZoneModel? _completedZone = await ZoneProtocols.completeZoneModel(
+        invoker: '_loadCities',
         incompleteZoneModel: _currentZone?.value,
       );
 
@@ -127,6 +128,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
       final StagingModel? _citiesStages = await StagingProtocols.fetchCitiesStaging(
         countryID: widget.countryID,
+        invoker: '_loadCities',
       );
 
       if (_citiesStages != null){

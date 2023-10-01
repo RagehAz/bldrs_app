@@ -76,6 +76,7 @@ class SearchProtocols {
         else {
 
           final ZoneModel? _zone = await ZoneProtocols.completeZoneModel(
+            invoker: 'SearchProtocols._completeSearchesZoneModels',
             incompleteZoneModel: model.zone,
           );
 
