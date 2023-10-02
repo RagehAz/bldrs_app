@@ -79,6 +79,6 @@ https://www.youtube.com/watch?v=6QMadUJF78U
 /Users/rageh/Library/Caches/CocoaPods/Pods
 
 1. Bldrs.net does not track any data for advertising purpose neither shares it to any third party or any data broker.
-2. Bldrs.net does not use user data for thrid party advertising or my advertising or marketing
+2. Bldrs.net does not use user data for third party advertising or my advertising or marketing
 3. data collection will only start if user decides to sign up a user account. and the default usage is the user uses the app anonymously
 4. Any data collected are optional to the user to add but might be mandatory to open authenticated users only sections, and all data collected are properly addressed to the user
