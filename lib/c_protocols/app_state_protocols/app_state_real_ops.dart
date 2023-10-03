@@ -39,7 +39,7 @@ class AppStateFireOps {
       doc: FireDoc.admin_appState,
     );
 
-    return AppStateModel.fromMap(_map);
+    return AppStateModel.fromMap(map: _map);
   }
   // -----------------------------------------------------------------------------
 
