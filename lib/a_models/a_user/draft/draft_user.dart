@@ -412,9 +412,23 @@ class DraftUser {
       'device': device?.toMap(),
       'fcmTopics': fcmTopics,
       'savedFlyers': savedFlyers?.toMap(),
-      'followedBzzIDs': followedBzz?.toMap(),
+      'followedBzz': followedBzz?.toMap(),
       'appState' : appState?.toMap(toUserModel: true),
       'hasNewPic' : hasNewPic,
+      // -------------------------
+      // nameController: null,
+      // titleController: null,
+      // companyController: null,
+      // emailController: null,
+      // phoneController: null,
+      // nameNode: null,
+      // titleNode: null,
+      // companyNode: null,
+      // emailNode: null,
+      // phoneNode: null,
+      // formKey: null,
+      // canPickImage: true,
+
     };
   }
   // --------------------
@@ -426,6 +440,7 @@ class DraftUser {
       signInMethod: AuthModel.decipherSignInMethod(map['signInMethod']),
       createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: true),
       need: NeedModel.decipherNeed(map: map['need'], fromJSON: true),
+      // -------------------------
       name: map['name'],
       trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram'],),
       picModel: PicModel.decipherFromLDB(map['picModel']),
@@ -437,6 +452,7 @@ class DraftUser {
       location: Atlas.decipherGeoPoint(point: map['location'], fromJSON: true),
       contacts: ContactModel.decipherContacts(map['contacts']),
       contactsArePublic: map['contactsArePublic'],
+      // -------------------------
       myBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['myBzzIDs'],),
       emailIsVerified: map['emailIsVerified'],
       isAdmin: map['isAdmin'],
@@ -444,8 +460,9 @@ class DraftUser {
       fcmTopics: Stringer.getStringsFromDynamics(dynamics: map['fcmTopics']),
       savedFlyers: DeckModel.decipher(map['savedFlyers']),
       followedBzz: AgendaModel.decipher(map['followedBzz']),
-      appState: AppStateModel.fromMap(map['appState']),
+      appState: AppStateModel.fromMap(map: map['appState']),
       hasNewPic: map['hasNewPic'],
+      // -------------------------
       nameController: null,
       titleController: null,
       companyController: null,
@@ -555,7 +572,7 @@ class DraftUser {
           draft1.title == draft2.title &&
           draft1.company == draft2.company &&
           draft1.gender == draft2.gender &&
-          ZoneModel.checkZonesAreIdentical(zone1: draft1.zone, zone2: draft2.zone) == true &&
+          ZoneModel.checkZonesIDsAreIdentical(zone1: draft1.zone, zone2: draft2.zone) == true &&
           draft1.language == draft2.language &&
           Atlas.checkPointsAreIdentical(point1: draft1.location, point2: draft2.location) == true &&
           ContactModel.checkContactsListsAreIdentical(contacts1: draft1.contacts, contacts2: draft2.contacts) == true &&
@@ -565,7 +582,7 @@ class DraftUser {
           draft1.isAdmin == draft2.isAdmin &&
           DeckModel.checkDecksAreIdentical(deck1: draft1.savedFlyers, deck2: draft2.savedFlyers) == true &&
           AgendaModel.checkAgendasAreIdentical(agenda1: draft1.followedBzz, agenda2: draft2.followedBzz) == true &&
-          AppStateModel.checkAppStatesAreIdentical(state1: draft1.appState, state2: draft2.appState) == true &&
+          AppStateModel.checkAppStatesAreIdentical(state1: draft1.appState, state2: draft2.appState, isInUserModel: true) == true &&
           DeviceModel.checkDevicesAreIdentical(device1: draft1.device, device2: draft2.device) == true &&
           Mapper.checkListsAreIdentical(list1: draft1.fcmTopics, list2: draft2.fcmTopics) == true &&
           draft1.nameController?.text == draft2.nameController?.text &&

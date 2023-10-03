@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -586,6 +587,22 @@ class AgendaModel {
     }
 
     return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+  // --------------------
+  void blogAgenda({required String invoker}){
+    blog('XXX === >>> AgendaModel : $invoker');
+    blog('   all          : $all');
+    blog('   developers   : $developers');
+    blog('   brokers      : $brokers');
+    blog('   designers    : $designers');
+    blog('   contractors  : $contractors');
+    blog('   artisans     : $artisans');
+    blog('   manufacturers: $manufacturers');
+    blog('   suppliers    : $suppliers');
   }
   // -----------------------------------------------------------------------------
 

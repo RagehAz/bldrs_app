@@ -1079,7 +1079,7 @@ class AuthorModel {
       name: 'Rageh Author',
       contacts: ContactModel.dummyContacts(),
       title: 'The CEO And Founder of this',
-      flyersIDs: const <String>[],
+      flyersIDs: const <String>['flyer_dummy_id'],
     );
   }
   // --------------------
