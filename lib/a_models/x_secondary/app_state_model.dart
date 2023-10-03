@@ -71,10 +71,12 @@ class AppStateModel {
     required bool toUserModel,
   }) {
 
+    /// BASIC USER MODEL MAP
     Map<String, dynamic> _map = <String, dynamic>{
       'appVersion' : appVersion,
       'ldbVersion' : ldbVersion,
     };
+
 
     if (toUserModel == false){
       _map = Mapper.insertMapInMap(
@@ -90,7 +92,9 @@ class AppStateModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AppStateModel? fromMap(Map<String, dynamic>? map) {
+  static AppStateModel? fromMap({
+    required Map<String, dynamic>? map,
+  }) {
 
     if (map == null) {
       return null;
@@ -98,12 +102,14 @@ class AppStateModel {
 
     else {
 
-      return AppStateModel(
+      final AppStateModel _model = AppStateModel(
         appVersion : map['appVersion'],
         minVersion: map['minVersion'],
         ldbVersion : map['ldbVersion']?.toInt(),
         bldrsIsOnline : map['bldrsIsOnline'] ?? true,
       );
+
+      return _model;
     }
 
   }
@@ -251,6 +257,7 @@ class AppStateModel {
   static bool checkAppStatesAreIdentical({
     required AppStateModel? state1,
     required AppStateModel? state2,
+    required bool isInUserModel,
   }){
     bool _identical = false;
 
@@ -262,11 +269,20 @@ class AppStateModel {
 
       if (
           state1.appVersion == state2.appVersion &&
-          state1.minVersion == state2.minVersion &&
-          state1.ldbVersion == state2.ldbVersion &&
-          state1.bldrsIsOnline == state2.bldrsIsOnline
+          state1.ldbVersion == state2.ldbVersion
       ){
-        _identical = true;
+
+        if (isInUserModel == true){
+          _identical = true;
+        }
+
+        else if (
+            state1.minVersion == state2.minVersion &&
+            state1.bldrsIsOnline == state2.bldrsIsOnline
+        ){
+          _identical = true;
+        }
+
       }
 
     }
@@ -293,6 +309,7 @@ class AppStateModel {
       _areIdentical = checkAppStatesAreIdentical(
         state1: this,
         state2: other,
+        isInUserModel: false,
       );
     }
 

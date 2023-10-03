@@ -241,7 +241,7 @@ class UserModel {
         fcmTopics: Stringer.getStringsFromDynamics(dynamics: map['fcmTopics']),
         savedFlyers: DeckModel.decipher(map['savedFlyers']),
         followedBzz: AgendaModel.decipher(map['followedBzz']),
-        appState: AppStateModel.fromMap(map['appState']),
+        appState: AppStateModel.fromMap(map: map['appState']),
         docSnapshot: map['docSnapshot']
     );
     }
@@ -1035,7 +1035,7 @@ class UserModel {
         blog('blogUserDifferences : [myBzzIDs] are not identical');
       }
 
-      if (user1.isAuthor == user2.isAuthor){
+      if (user1.isAuthor != user2.isAuthor){
         blog('blogUserDifferences : [isAuthors] are not identical');
       }
 
@@ -1055,7 +1055,7 @@ class UserModel {
         blog('blogUserDifferences : [followedBzz] are not identical');
       }
 
-      if (AppStateModel.checkAppStatesAreIdentical(state1: user1.appState, state2: user2.appState) == false){
+      if (AppStateModel.checkAppStatesAreIdentical(state1: user1.appState, state2: user2.appState, isInUserModel: true) == false){
         blog('blogUserDifferences : [appState] are not identical');
       }
 
@@ -1336,7 +1336,7 @@ class UserModel {
           user1.title == user2.title &&
           user1.company == user2.company &&
           user1.gender == user2.gender &&
-          ZoneModel.checkZonesAreIdentical(zone1: user1.zone, zone2: user2.zone) == true &&
+          ZoneModel.checkZonesIDsAreIdentical(zone1: user1.zone, zone2: user2.zone) == true &&
           user1.language == user2.language &&
           Atlas.checkPointsAreIdentical(point1: user1.location, point2: user2.location) == true &&
           ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) == true &&
@@ -1347,7 +1347,7 @@ class UserModel {
           user1.isAdmin == user2.isAdmin &&
           DeckModel.checkDecksAreIdentical(deck1: user1.savedFlyers, deck2: user2.savedFlyers) == true &&
           AgendaModel.checkAgendasAreIdentical(agenda1: user1.followedBzz, agenda2: user2.followedBzz) == true &&
-          AppStateModel.checkAppStatesAreIdentical(state1: user1.appState, state2: user2.appState) == true &&
+          AppStateModel.checkAppStatesAreIdentical(state1: user1.appState, state2: user2.appState, isInUserModel: true) == true &&
           DeviceModel.checkDevicesAreIdentical(device1: user1.device, device2: user2.device) == true &&
           Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == true
       // DocumentSnapshot docSnapshot;
