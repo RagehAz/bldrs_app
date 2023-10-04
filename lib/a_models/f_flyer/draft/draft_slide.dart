@@ -797,7 +797,7 @@ class DraftSlide {
 
     else if (slide1 != null && slide2 != null){
 
-      blog('${slide1.headline} == ${slide2.headline}');
+      // blog('${slide1.headline} == ${slide2.headline}');
 
       if (
           slide1.flyerID == slide2.flyerID &&
@@ -825,7 +825,7 @@ class DraftSlide {
 
     }
 
-    blog('checkSlidesAreIdentical => $_identical');
+    // blog('checkSlidesAreIdentical => $_identical');
 
     return _identical;
   }

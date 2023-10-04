@@ -39,15 +39,23 @@ class FeedbackModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FeedbackModel decipherFeedback(Map<String, dynamic> map) {
-    return FeedbackModel(
-      id: map['id'],
-      userID: map['userID'],
-      timeStamp: Timers.decipherTime(time: map['timeStamp'], fromJSON: true),
-      feedback: map['feedback'],
-      modelType: RecordTyper.decipherModelType(map['modelType']),
-      modelID: map['modelID'],
-    );
+  static FeedbackModel? decipherFeedback(Map<String, dynamic>? map) {
+
+    if (map == null){
+      return null;
+    }
+
+    else {
+      return FeedbackModel(
+        id: map['id'],
+        userID: map['userID'],
+        timeStamp: Timers.decipherTime(time: map['timeStamp'], fromJSON: true),
+        feedback: map['feedback'],
+        modelType: RecordTyper.decipherModelType(map['modelType']),
+        modelID: map['modelID'],
+      );
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -57,7 +65,13 @@ class FeedbackModel {
 
     if (Mapper.checkCanLoopList(maps) == true) {
       for (final Map<String, dynamic> map in maps!) {
-        _feedbacks.add(FeedbackModel.decipherFeedback(map));
+
+        final FeedbackModel? _feedback = FeedbackModel.decipherFeedback(map);
+
+        if (_feedback != null){
+          _feedbacks.add(_feedback);
+        }
+
       }
     }
 

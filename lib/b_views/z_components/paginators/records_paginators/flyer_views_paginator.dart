@@ -90,7 +90,6 @@ class _FlyerViewsPaginatorState extends State<FlyerViewsPaginator> {
 
           final List<FlyerViewModel> _records = FlyerViewModel.decipherMaps(
             maps: maps,
-            flyerID: widget.flyerID,
           );
 
           return widget.builder(_, _records, loading, child, _paginatorController.scrollController);

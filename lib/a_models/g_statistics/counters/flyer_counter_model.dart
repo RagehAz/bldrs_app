@@ -84,14 +84,14 @@ class FlyerCounterModel {
   /// TESTED : WORKS PERFECT
   static FlyerCounterModel? decipherCounterMap({
     required Map<String, dynamic>? map,
-    required String flyerID,
+    required String? flyerID,
   }){
 
     FlyerCounterModel? _model;
 
     if (map != null){
       _model = FlyerCounterModel(
-        flyerID: map['flyerID'],
+        flyerID: flyerID ?? map['flyerID'],
         saves: map['saves'],
         shares: map['shares'],
         views: map['views'],
