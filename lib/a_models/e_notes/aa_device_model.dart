@@ -35,7 +35,7 @@ class DeviceModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static DeviceModel? decipherFCMToken(Map<String, dynamic>? map) {
+  static DeviceModel? decipherDeviceModel(Map<String, dynamic>? map) {
     DeviceModel? _device;
 
     if (map != null) {

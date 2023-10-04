@@ -274,10 +274,10 @@ class NoteModel {
         title: map['title'],
         body: map['body'],
         sentTime: Timers.decipherTime(time: map['sentTime'], fromJSON: fromJSON,),
-        poster: PosterModel(
-          modelID: map['posterModelID'],
-          type: PosterModel.decipherPosterType(map['posterType']),
-          path: map['posterURL'],
+        poster: PosterModel.decipher(
+          posterModelID: map['posterModelID'],
+          posterType: map['posterType'],
+          posterURL: map['posterURL'],
         ),
         poll: PollModel(
           buttons: PollModel.decipherButtons(map['buttons']),
@@ -287,8 +287,8 @@ class NoteModel {
         sendFCM: map['sendFCM'],
         sendNote: map['sendNote'],
         topic: map['topic'],
-        function: TriggerModel(
-          name: map['functionName'],
+        function: TriggerModel.decipherTrigger(
+          functionName: map['functionName'],
           argument: map['functionArgument'],
           done: ChainPathConverter.splitPathNodes(map['functionDone']),
         ),
@@ -1175,6 +1175,15 @@ class NoteModel {
         done: [],
         argument: null,
       ),
+      // poster: ,
+      // dismissible: ,
+      // docSnapshot: ,
+      // function: ,
+      // progress: ,
+      // seen: ,
+      // sendFCM: ,
+      // sendNote: ,
+      // token: ,
     );
   }
   // --------------------
@@ -1279,7 +1288,7 @@ class NoteModel {
     else if (note1 != null && note2 != null){
 
       if (
-      note1.id == note2.id &&
+          note1.id == note2.id &&
           NoteParties.checkPartiesAreIdentical(parties1: note1.parties, parties2: note2.parties) == true &&
           note1.title == note2.title &&
           note1.body == note2.body &&
