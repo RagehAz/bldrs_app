@@ -520,7 +520,7 @@ class FlyerModel {
       if (flyer1.shareLink != flyer2.shareLink){
         blog('flyers shareLinks are not identical');
       }
-      if (PriceModel.checkPricesAreIdentical(price1: flyer1.price, price2: flyer2.price)){
+      if (PriceModel.checkPricesAreIdentical(price1: flyer1.price, price2: flyer2.price) == false){
         blog('flyers prices are not identical');
       }
       if (flyer1.affiliateLink != flyer2.affiliateLink){
@@ -550,7 +550,7 @@ class FlyerModel {
   /// TESTED : WORKS PERFECT
   static FlyerModel dummyFlyer(){
     return FlyerModel(
-      id : 'x',
+      id : 'flyerID_dummy',
       headline: 'Dummy Flyer',
       trigram: Stringer.createTrigram(input: 'Dummy Flyer'),
       description: 'This is a dummy flyer',

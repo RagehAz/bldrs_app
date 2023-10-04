@@ -117,7 +117,6 @@ class FlyerRecordsRealOps {
         _output = FlyerViewModel.decipher(
             viewID: _key,
             map: _map,
-            flyerID: flyerID
         );
 
       }

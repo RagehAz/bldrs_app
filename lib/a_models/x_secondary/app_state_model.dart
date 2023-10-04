@@ -233,8 +233,8 @@ class AppStateModel {
   /// TESTED : WORKS PERFECT
   static AppStateModel dummyAppState(){
     return const AppStateModel(
-      appVersion: '0.0.0',
-      minVersion: '0.0.0',
+      appVersion: '4.2.3',
+      minVersion: '0.1.5',
       ldbVersion: 0,
       bldrsIsOnline: true,
     );
@@ -295,7 +295,15 @@ class AppStateModel {
 
   // --------------------
    @override
-   String toString() => 'APP STATE : appVersion : $appVersion : ldbVersion : $ldbVersion : bldrsIsOnline : $bldrsIsOnline';
+   String toString() =>
+       '''
+       AppStateModel(
+          appVersion : $appVersion,
+          ldbVersion : $ldbVersion,
+          bldrsIsOnline : $bldrsIsOnline,
+          minVersion : $minVersion,
+       )  
+       ''';
   // --------------------
   @override
   bool operator == (Object other){
@@ -320,6 +328,7 @@ class AppStateModel {
   int get hashCode =>
       appVersion.hashCode^
       bldrsIsOnline.hashCode^
+      minVersion.hashCode^
       ldbVersion.hashCode;
   // -----------------------------------------------------------------------------
 }
