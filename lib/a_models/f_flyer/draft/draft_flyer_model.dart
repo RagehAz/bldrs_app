@@ -765,10 +765,10 @@ class DraftFlyer{
       if (draft1.id != draft2.id){
         blog('ids are not identical');
       }
-      if (draft1.headline != draft2.headline){
+      if (draft1.headline?.text != draft2.headline?.text){
         blog('headlines are not identical');
       }
-      if (draft1.description != draft2.description){
+      if (draft1.description?.text != draft2.description?.text){
         blog('descriptions are not identical');
       }
       if (draft1.flyerType != draft2.flyerType){
@@ -783,7 +783,7 @@ class DraftFlyer{
       if (draft1.showsAuthor != draft2.showsAuthor){
         blog('showsAuthors are not identical');
       }
-      if (ZoneModel.checkZonesAreIdentical(zone1: draft1.zone, zone2: draft2.zone) == false){
+      if (ZoneModel.checkZonesIDsAreIdentical(zone1: draft1.zone, zone2: draft2.zone) == false){
         blog('zones are not identical');
       }
       if (draft1.authorID != draft2.authorID){
@@ -985,15 +985,15 @@ class DraftFlyer{
 
       if (
           draft1.id == draft2.id &&
-          draft1.headline == draft2.headline &&
+          draft1.headline?.text == draft2.headline?.text &&
           // FocusNode headlineNode,
-          draft1.description == draft2.description &&
+          draft1.description?.text == draft2.description?.text &&
           // FocusNode descriptionNode,
           draft1.flyerType == draft2.flyerType &&
           draft1.publishState == draft2.publishState &&
           Mapper.checkListsAreIdentical(list1: draft1.phids, list2: draft2.phids) == true &&
           draft1.showsAuthor == draft2.showsAuthor &&
-          ZoneModel.checkZonesAreIdentical(zone1: draft1.zone, zone2: draft2.zone) == true &&
+          ZoneModel.checkZonesIDsAreIdentical(zone1: draft1.zone, zone2: draft2.zone) == true &&
           draft1.authorID == draft2.authorID &&
           draft1.bzID == draft2.bzID &&
           Atlas.checkPointsAreIdentical(point1: draft1.position, point2: draft2.position) == true &&

@@ -8,10 +8,12 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 /// => TAMAM
+@immutable
 class CensusModel {
   /// --------------------------------------------------------------------------
-  CensusModel({
+  const CensusModel({
     required this.id,
     required this.totalUsers,
     required this.totalBzz,
@@ -527,7 +529,7 @@ class CensusModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static CensusModel createEmptyModel(){
-    return CensusModel(
+    return const CensusModel(
       id: null,
       totalUsers: 0,
       totalBzz: 0,
@@ -1333,5 +1335,182 @@ class CensusModel {
       blog('CENSUS LIST IS EMPTY');
     }
   }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
+  // --------------------
+  ///
+  static bool checkCensusAreIdentical({
+    required CensusModel? census1,
+    required CensusModel? census2,
+  }){
+    bool _areIdentical = false;
+
+    if (census1 == null && census2 == null){
+      _areIdentical = true;
+    }
+
+    else if (census1 != null && census2 != null){
+
+      if (
+        census1.id == census2.id &&
+        census1.totalUsers == census2.totalUsers &&
+        census1.totalBzz == census2.totalBzz &&
+        census1.totalAuthors == census2.totalAuthors &&
+        census1.totalFlyers == census2.totalFlyers &&
+        census1.totalSlides == census2.totalSlides &&
+        census1.bzSectionRealEstate == census2.bzSectionRealEstate &&
+        census1.bzSectionConstruction == census2.bzSectionConstruction &&
+        census1.bzSectionSupplies == census2.bzSectionSupplies &&
+        census1.bzTypeDeveloper == census2.bzTypeDeveloper &&
+        census1.bzTypeBroker == census2.bzTypeBroker &&
+        census1.bzTypeDesigner == census2.bzTypeDesigner &&
+        census1.bzTypeContractor == census2.bzTypeContractor &&
+        census1.bzTypeArtisan == census2.bzTypeArtisan &&
+        census1.bzTypeManufacturer == census2.bzTypeManufacturer &&
+        census1.bzTypeSupplier == census2.bzTypeSupplier &&
+        census1.bzFormIndividual == census2.bzFormIndividual &&
+        census1.bzFormCompany == census2.bzFormCompany &&
+        census1.bzAccountTypeStandard == census2.bzAccountTypeStandard &&
+        census1.bzAccountTypePro == census2.bzAccountTypePro &&
+        census1.bzAccountTypeMaster == census2.bzAccountTypeMaster &&
+        census1.flyerTypeGeneral == census2.flyerTypeGeneral &&
+        census1.flyerTypeProperty == census2.flyerTypeProperty &&
+        census1.flyerTypeDesign == census2.flyerTypeDesign &&
+        census1.flyerTypeUndertaking == census2.flyerTypeUndertaking &&
+        census1.flyerTypeTrade == census2.flyerTypeTrade &&
+        census1.flyerTypeProduct == census2.flyerTypeProduct &&
+        census1.flyerTypeEquipment == census2.flyerTypeEquipment &&
+        census1.needTypeSeekProperty == census2.needTypeSeekProperty &&
+        census1.needTypePlanConstruction == census2.needTypePlanConstruction &&
+        census1.needTypeFinishConstruction == census2.needTypeFinishConstruction &&
+        census1.needTypeFurnish == census2.needTypeFurnish &&
+        census1.needTypeOfferProperty == census2.needTypeOfferProperty &&
+        census1.savesGeneral == census2.savesGeneral &&
+        census1.savesProperties == census2.savesProperties &&
+        census1.savesDesigns == census2.savesDesigns &&
+        census1.savesUndertakings == census2.savesUndertakings &&
+        census1.savesTrades == census2.savesTrades &&
+        census1.savesProducts == census2.savesProducts &&
+        census1.savesEquipments == census2.savesEquipments &&
+        census1.followsDevelopers == census2.followsDevelopers &&
+        census1.followsBrokers == census2.followsBrokers &&
+        census1.followsDesigners == census2.followsDesigners &&
+        census1.followsContractors == census2.followsContractors &&
+        census1.followsArtisans == census2.followsArtisans &&
+        census1.followsManufacturers == census2.followsManufacturers &&
+        census1.followsSuppliers == census2.followsSuppliers &&
+        census1.callsDevelopers == census2.callsDevelopers &&
+        census1.callsBrokers == census2.callsBrokers &&
+        census1.callsDesigners == census2.callsDesigners &&
+        census1.callsContractors == census2.callsContractors &&
+        census1.callsArtisans == census2.callsArtisans &&
+        census1.callsManufacturers == census2.callsManufacturers &&
+        census1.callsSuppliers == census2.callsSuppliers
+      ){
+        _areIdentical = true;
+      }
+
+    }
+
+    return _areIdentical;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+  // --------------------
+  /*
+   @override
+   String toString(){
+
+    final String _text =
+    '''
+    PicModel(
+      bytes: ${bytes?.length},
+      path: $path,
+      meta: $meta
+    );
+    ''';
+
+    return _text;
+   }
+   */
+  // --------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is CensusModel){
+      _areIdentical = checkCensusAreIdentical(
+        census1: this,
+        census2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+  // --------------------
+  @override
+  int get hashCode =>
+      id.hashCode^
+      totalUsers.hashCode^
+      totalBzz.hashCode^
+      totalAuthors.hashCode^
+      totalFlyers.hashCode^
+      totalSlides.hashCode^
+      bzSectionRealEstate.hashCode^
+      bzSectionConstruction.hashCode^
+      bzSectionSupplies.hashCode^
+      bzTypeDeveloper.hashCode^
+      bzTypeBroker.hashCode^
+      bzTypeDesigner.hashCode^
+      bzTypeContractor.hashCode^
+      bzTypeArtisan.hashCode^
+      bzTypeManufacturer.hashCode^
+      bzTypeSupplier.hashCode^
+      bzFormIndividual.hashCode^
+      bzFormCompany.hashCode^
+      bzAccountTypeStandard.hashCode^
+      bzAccountTypePro.hashCode^
+      bzAccountTypeMaster.hashCode^
+      flyerTypeGeneral.hashCode^
+      flyerTypeProperty.hashCode^
+      flyerTypeDesign.hashCode^
+      flyerTypeUndertaking.hashCode^
+      flyerTypeTrade.hashCode^
+      flyerTypeProduct.hashCode^
+      flyerTypeEquipment.hashCode^
+      needTypeSeekProperty.hashCode^
+      needTypePlanConstruction.hashCode^
+      needTypeFinishConstruction.hashCode^
+      needTypeFurnish.hashCode^
+      needTypeOfferProperty.hashCode^
+      savesGeneral.hashCode^
+      savesProperties.hashCode^
+      savesDesigns.hashCode^
+      savesUndertakings.hashCode^
+      savesTrades.hashCode^
+      savesProducts.hashCode^
+      savesEquipments.hashCode^
+      followsDevelopers.hashCode^
+      followsBrokers.hashCode^
+      followsDesigners.hashCode^
+      followsContractors.hashCode^
+      followsArtisans.hashCode^
+      followsManufacturers.hashCode^
+      followsSuppliers.hashCode^
+      callsDevelopers.hashCode^
+      callsBrokers.hashCode^
+      callsDesigners.hashCode^
+      callsContractors.hashCode^
+      callsArtisans.hashCode^
+      callsManufacturers.hashCode^
+      callsSuppliers.hashCode;
   // -----------------------------------------------------------------------------
 }

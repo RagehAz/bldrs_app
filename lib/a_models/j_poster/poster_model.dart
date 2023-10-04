@@ -65,20 +65,20 @@ class PosterModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static PosterModel? decipher({
-    required String? posterModelID,
+    required String? modelID,
     required String? posterType,
-    required String? posterURL,
+    required String? path,
 }){
     PosterModel? _model;
 
     final PosterType? _type = PosterModel.decipherPosterType(posterType);
 
-    if (posterModelID != null && _type != null){
+    if (modelID != null && _type != null){
 
       _model = PosterModel(
-        modelID: posterModelID,
+        modelID: modelID,
         type: _type,
-        path: posterURL,
+        path: path,
       );
 
     }

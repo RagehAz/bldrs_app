@@ -275,9 +275,9 @@ class NoteModel {
         body: map['body'],
         sentTime: Timers.decipherTime(time: map['sentTime'], fromJSON: fromJSON,),
         poster: PosterModel.decipher(
-          posterModelID: map['posterModelID'],
+          modelID: map['posterModelID'],
           posterType: map['posterType'],
-          posterURL: map['posterURL'],
+          path: map['posterURL'],
         ),
         poll: PollModel(
           buttons: PollModel.decipherButtons(map['buttons']),

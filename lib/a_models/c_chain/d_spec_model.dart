@@ -769,10 +769,13 @@ class SpecModel {
       }
       else {
 
-        for (int i = 0; i < specs1.length; i++){
+        final List<SpecModel> _list1 = sortByKeysAlphabetically(specs: specs1);
+        final List<SpecModel> _list2 = sortByKeysAlphabetically(specs: specs2);
 
-          final SpecModel _spec1 = specs1[i];
-          final SpecModel _spec2 = specs2[i];
+        for (int i = 0; i < _list1.length; i++){
+
+          final SpecModel _spec1 = _list1[i];
+          final SpecModel _spec2 = _list2[i];
 
           final bool _areIdentical = checkSpecsAreIdentical(_spec1, _spec2);
 

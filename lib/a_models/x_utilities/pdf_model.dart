@@ -68,7 +68,7 @@ class PDFModel {
   /// CYPHERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     bool includeBytes = false,
   }){
@@ -92,7 +92,7 @@ class PDFModel {
     return _map;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static PDFModel? decipherFromMap(Map<String, dynamic>? map){
     PDFModel? _output;
 
@@ -103,7 +103,7 @@ class PDFModel {
         path: map['path'],
         ownersIDs: Stringer.getStringsFromDynamics(dynamics: map['ownersIDs']),
         bytes: Floaters.getBytesFromInts(map['bytes']),
-        sizeMB: map['size'],
+        sizeMB: map['sizeMB'],
       );
 
     }
@@ -224,10 +224,8 @@ class PDFModel {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() => 'PDFModel(name: $name, path: $path, ownersIDs: $ownersIDs, bytes: ''${bytes?.length}, sizeMB: $sizeMB)';
   // --------------------
   @override
   bool operator == (Object other){

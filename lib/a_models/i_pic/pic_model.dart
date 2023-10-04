@@ -271,6 +271,37 @@ class PicModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// DUMMY PIC
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static PicModel dummyPic(){
+
+    return PicModel(
+      path: 'storage:bldrs/bldrs_app_icon.png',
+      bytes: Uint8List.fromList([1,2,3]),
+      meta: StorageMetaModel(
+        ownersIDs: const ['OwnerID'],
+        name: 'Dummy Pic',
+        width: 100,
+        height: 100,
+        sizeMB: 0.1,
+        data: {
+          'aspectRatio': '1.0',
+          'sizeB': '100',
+          'sizeKB': '0.1',
+          'compressionQuality': '100',
+          'source': PicMaker.cipherPicMakerType(PicMakerType.generated),
+          'deviceID': 'Dummy Device ID',
+          'deviceName': 'Dummy Device Name',
+          'platform': 'Dummy Platform',
+        },
+      ),
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+
   /// EQUALITY
 
   // --------------------
