@@ -5,7 +5,7 @@ class CityModel {
   /// --------------------------------------------------------------------------
   const CityModel({
     this.cityID,
-    this.population,
+    this.population = 0,
     this.position,
     this.phrases,
   });

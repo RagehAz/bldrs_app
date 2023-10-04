@@ -62,7 +62,10 @@ class SpecModel {
     Map<String, dynamic> _map = <String, dynamic>{};
 
     if (Mapper.checkCanLoopList(specs) == true) {
-      for (final SpecModel spec in specs!) {
+
+      final List<SpecModel> sorted = sortByKeysAlphabetically(specs: specs);
+
+      for (final SpecModel spec in sorted) {
 
         final String? _key = spec.pickerChainID;
 
@@ -140,7 +143,7 @@ class SpecModel {
 
     }
 
-    return _specs;
+    return sortByKeysAlphabetically(specs: _specs);
   }
   // -----------------------------------------------------------------------------
 
@@ -687,6 +690,29 @@ class SpecModel {
       return _digits;
     }
    */
+  // -----------------------------------------------------------------------------
+
+  /// SORTING
+
+  // --------------------
+  /// NOT TESTED
+  static List<SpecModel> sortByKeysAlphabetically({
+    required List<SpecModel>? specs,
+  }){
+    List<SpecModel> _output = [];
+
+    if (Mapper.checkCanLoopList(specs) == true){
+
+      _output = <SpecModel>[...specs!];
+
+      _output.sort(
+              (SpecModel a, SpecModel b) => a.pickerChainID!.compareTo(b.pickerChainID!)
+      );
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// EQUALITY

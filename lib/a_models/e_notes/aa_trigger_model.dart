@@ -50,14 +50,19 @@ class TriggerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static TriggerModel? decipherTrigger(Map<String, dynamic>? map){
+  static TriggerModel? decipherTrigger({
+    required String? functionName,
+    required String? argument,
+    required List<String>? done,
+
+  }){
     TriggerModel? _trigger;
 
-    if (map != null){
+    if (functionName != null){
       _trigger = TriggerModel(
-        name: map['functionName'],
-        argument: map['argument'],
-        done: ChainPathConverter.splitPathNodes(map['done']),
+        name: functionName,
+        argument: argument,
+        done: done,
       );
     }
 
@@ -142,7 +147,7 @@ class TriggerModel {
         if (
           trigger1.name == trigger2.name &&
           trigger1.argument == trigger2.argument &&
-          Mapper.checkListsAreIdentical(list1: trigger1.done, list2: trigger2.done)
+          Mapper.checkListsAreIdentical(list1: trigger1.done, list2: trigger2.done) == true
         ){
           _identical = true;
         }
@@ -151,6 +156,10 @@ class TriggerModel {
 
     }
 
+    blog('checkTriggersAreIdentical : trigger1 : $trigger1');
+    blog('checkTriggersAreIdentical : trigger2 : $trigger2');
+    blog('checkTriggersAreIdentical : _identical : $_identical');
+
     return _identical;
   }
   // -----------------------------------------------------------------------------
@@ -158,10 +167,8 @@ class TriggerModel {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() => 'TriggerModel(name: $name, argument: $argument, done: $done)';
   // --------------------
   @override
   bool operator == (Object other){
