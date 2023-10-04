@@ -456,7 +456,7 @@ class DraftUser {
       myBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['myBzzIDs'],),
       emailIsVerified: map['emailIsVerified'],
       isAdmin: map['isAdmin'],
-      device: DeviceModel.decipherFCMToken(map['device']),
+      device: DeviceModel.decipherDeviceModel(map['device']),
       fcmTopics: Stringer.getStringsFromDynamics(dynamics: map['fcmTopics']),
       savedFlyers: DeckModel.decipher(map['savedFlyers']),
       followedBzz: AgendaModel.decipher(map['followedBzz']),

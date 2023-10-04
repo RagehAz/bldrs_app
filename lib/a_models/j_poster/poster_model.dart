@@ -64,15 +64,23 @@ class PosterModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PosterModel? decipher(Map<String, dynamic>? map){
+  static PosterModel? decipher({
+    required String? posterModelID,
+    required String? posterType,
+    required String? posterURL,
+}){
     PosterModel? _model;
 
-    if (map != null){
+    final PosterType? _type = PosterModel.decipherPosterType(posterType);
+
+    if (posterModelID != null && _type != null){
+
       _model = PosterModel(
-        modelID: map['modelID'],
-        type: decipherPosterType(map['type']),
-        path: map['path'],
+        modelID: posterModelID,
+        type: _type,
+        path: posterURL,
       );
+
     }
 
     return _model;
