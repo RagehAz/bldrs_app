@@ -1236,7 +1236,7 @@ class BzModel{
           Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) == true &&
           bz1.logoPath == bz2.logoPath &&
           Mapper.checkMapsAreIdentical(map1: bz1.scope, map2: bz2.scope) == true &&
-          ZoneModel.checkZonesAreIdentical(zone1: bz1.zone, zone2: bz2.zone) == true &&
+          ZoneModel.checkZonesIDsAreIdentical(zone1: bz1.zone, zone2: bz2.zone) == true &&
           bz1.about == bz2.about &&
           bz1.position == bz2.position &&
           ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) == true &&

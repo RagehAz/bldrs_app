@@ -47,7 +47,6 @@ class FlyerViewModel {
   static FlyerViewModel? decipher({
     required String viewID,
     required Map<String, dynamic>? map,
-    required String flyerID,
   }){
     FlyerViewModel? _output;
 
@@ -77,7 +76,6 @@ class FlyerViewModel {
   /// TESTED : WORKS PERFECT
   static List<FlyerViewModel> decipherMaps({
     required List<Map<String, dynamic>>? maps,
-    required String flyerID,
   }){
     final List<FlyerViewModel> _output = [];
 
@@ -88,7 +86,6 @@ class FlyerViewModel {
         final FlyerViewModel? _model = decipher(
             viewID: map['id'],
             map: map,
-            flyerID: flyerID
         );
 
         if (_model != null){
