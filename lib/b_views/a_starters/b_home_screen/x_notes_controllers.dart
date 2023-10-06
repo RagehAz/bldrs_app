@@ -12,6 +12,7 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:fire/super_fire.dart';
+import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
 /// OBELISK
@@ -29,7 +30,10 @@ Future<void> initializeObeliskNumbers() async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-StreamSubscription? listenToUserUnseenNotes(){
+StreamSubscription? listenToUserUnseenNotes({
+    required ValueNotifier<List<Map<String, dynamic>>> oldMaps,
+    required bool mounted,
+}){
 
   StreamSubscription? _sub;
 
@@ -42,17 +46,17 @@ StreamSubscription? listenToUserUnseenNotes(){
 
     final Stream<List<Map<String, dynamic>>>? _unseenNotesStream = userUnseenNotesStream();
 
-    _sub = FireCollStreamer.onStreamDataChanged(
+    _sub = FireCollStreamer.initializeStreamListener(
       stream: _unseenNotesStream,
-      // oldMaps: _oldMaps,
-      invoker: 'listenToUserUnseenNotes',
-      onChange: (List<Map<String, dynamic>>? unseenNotesMaps) async {
+      oldMaps: oldMaps,
+      mounted: mounted,
+      onChanged: (List<Map<String, dynamic>> oldMaps, List<Map<String, dynamic>> newMaps) async {
 
         // blog('listenToUserUnseenNotes.onStreamDataChanged : unseenNotesMaps are ${unseenNotesMaps.length} maps');
         // Mapper.blogMaps(allUpdatedMaps, invoker: 'initializeUserNotes');
 
         final List<NoteModel> _unseenNotes = NoteModel.decipherNotes(
-          maps: unseenNotesMaps,
+          maps: newMaps,
           fromJSON: false,
         );
 
@@ -87,9 +91,7 @@ StreamSubscription? listenToUserUnseenNotes(){
 
 // --------------------
 /// TESTED : WORKS PERFECT
-List<StreamSubscription> listenToMyBzzUnseenNotes(){
-
-  final List<StreamSubscription> _subs = <StreamSubscription>[];
+List<BzModel> _getMyBz(){
 
   final UserModel? _userModel = UsersProvider.proGetMyUserModel(
     context: getMainContext(),
@@ -97,19 +99,40 @@ List<StreamSubscription> listenToMyBzzUnseenNotes(){
   );
 
   final bool _userIsAuthor = UserModel.checkUserIsAuthor(_userModel);
-  // blog('initializeMyBzzNotes : _userIsAuthor : $_userIsAuthor');
 
   if (_userIsAuthor == true){
-
-    final List<BzModel> _myBzz = BzzProvider.proGetMyBzz(
+    return BzzProvider.proGetMyBzz(
       context: getMainContext(),
       listen: false,
     );
+  }
 
-    for (final BzModel bzModel in _myBzz){
+  else {
+    return [];
+  }
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+List<StreamSubscription> listenToMyBzzUnseenNotes({
+  required List<ValueNotifier<List<Map<String, dynamic>>>> bzzOldMaps,
+  required bool mounted,
+}){
+  final List<StreamSubscription> _subs = <StreamSubscription>[];
+
+  final List<BzModel> _myBzz = _getMyBz();
+
+  if (Mapper.checkCanLoopList(_myBzz) == true){
+
+    for (int i = 0; i < _myBzz.length; i++){
+
+      final BzModel bzModel = _myBzz[i];
+      final ValueNotifier<List<Map<String, dynamic>>> oldMaps = bzzOldMaps[i];
 
       final StreamSubscription? _sub = _listenToMyBzUnseenNotes(
         bzID: bzModel.id,
+        mounted: mounted,
+        oldMaps: oldMaps,
       );
 
       if (_sub != null){
@@ -126,20 +149,22 @@ List<StreamSubscription> listenToMyBzzUnseenNotes(){
 /// TESTED : WORKS PERFECT
 StreamSubscription? _listenToMyBzUnseenNotes({
   required String? bzID,
+  required ValueNotifier<List<Map<String, dynamic>>> oldMaps,
+  required bool mounted,
 }){
 
   final Stream<List<Map<String, dynamic>>>? _bzUnseenNotesStream  = bzUnseenNotesStream(
     bzID: bzID,
   );
 
-  final StreamSubscription? _streamSubscription = FireCollStreamer.onStreamDataChanged(
+  final StreamSubscription? _streamSubscription = FireCollStreamer.initializeStreamListener(
     stream: _bzUnseenNotesStream,
-    // oldMaps: _oldMaps,
-    invoker: '_listenToMyBzUnseenNotes : bzID : $bzID',
-    onChange: (List<Map<String, dynamic>> unseenNotesMaps) async {
+    oldMaps: oldMaps,
+    mounted: mounted,
+    onChanged: (List<Map<String, dynamic>> oldMaps, List<Map<String, dynamic>> newMaps) async {
 
       final List<NoteModel> _unseenNotes = NoteModel.decipherNotes(
-        maps: unseenNotesMaps,
+        maps: newMaps,
         fromJSON: false,
       );
 
@@ -166,6 +191,42 @@ StreamSubscription? _listenToMyBzUnseenNotes({
   );
 
   return _streamSubscription;
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+List<ValueNotifier<List<Map<String, dynamic>>>> createMyBzOldUnseenNotesMaps(){
+
+  final List<ValueNotifier<List<Map<String, dynamic>>>> _output = [];
+
+  final List<BzModel> _myBzz = _getMyBz();
+
+  if (Mapper.checkCanLoopList(_myBzz) == true){
+
+    for (int i = 0; i < _myBzz.length; i++){
+
+      final ValueNotifier<List<Map<String, dynamic>>> notifier = ValueNotifier([]);
+      _output.add(notifier);
+
+    }
+
+  }
+
+  return _output;
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+void disposeMyBzOldUnseenNotesMaps({
+  required List<ValueNotifier<List<Map<String, dynamic>>>> notifiers
+}){
+
+  if (Mapper.checkCanLoopList(notifiers) == true){
+
+    for (final ValueNotifier<List<Map<String, dynamic>>> notifier in notifiers){
+      notifier.dispose();
+    }
+
+  }
+
 }
 // -----------------------------------------------------------------------------
 
