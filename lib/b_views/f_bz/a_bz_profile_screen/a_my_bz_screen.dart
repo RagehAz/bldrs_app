@@ -66,16 +66,11 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
     return FireDocStreamer(
       collName: FireColl.bzz,
       docName: bzID ?? '',
-      onDataChanged: (BuildContext ctx,
-          Map<String, dynamic>? oldMap,
-          Map<String, dynamic>? newMap) async {
-
-        final BzzProvider _bzzProvider = Provider.of<BzzProvider>(ctx, listen: false);
+      onChanged: (Map<String, dynamic>? oldMap, Map<String, dynamic>? newMap) async {
 
         await onMyActiveBzStreamChanged(
           oldMap: oldMap,
           newMap: newMap,
-          bzzProvider: _bzzProvider,
         );
 
       },

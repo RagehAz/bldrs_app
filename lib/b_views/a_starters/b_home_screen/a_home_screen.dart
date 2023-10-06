@@ -51,7 +51,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   // --------------------
   /// NOTES STREAM SUBSCRIPTIONS
   StreamSubscription? _userNotesStreamSub;
+  final ValueNotifier<List<Map<String, dynamic>>> _userOldNotesNotifier = ValueNotifier<List<Map<String, dynamic>>>([]);
   List<StreamSubscription>? _bzzNotesStreamsSubs;
+  late List<ValueNotifier<List<Map<String, dynamic>>>> _myBzzOldNotesNotifiers;
   // -----------------------------------------------------------------------------
   ZGridController? _zGridController;
   // -----------------------------------------------------------------------------
@@ -72,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   void initState() {
     super.initState();
 
+    _myBzzOldNotesNotifiers = createMyBzOldUnseenNotesMaps();
 
     _initializeKeyboard();
     _paginationController = PaginationController.initialize(
@@ -124,6 +127,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   // --------------------
   @override
   void dispose() {
+    disposeMyBzOldUnseenNotesMaps(
+      notifiers: _myBzzOldNotesNotifiers,
+    );
+    _userOldNotesNotifier.dispose();
     _loading.dispose();
     _keyboardSubscription?.cancel();
     _userNotesStreamSub?.cancel();
@@ -159,8 +166,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Future<void> initializeNotesListeners() async{
     if (mounted){
       await initializeObeliskNumbers();
-      _userNotesStreamSub = listenToUserUnseenNotes();
-      _bzzNotesStreamsSubs = listenToMyBzzUnseenNotes();
+      _userNotesStreamSub = listenToUserUnseenNotes(
+        mounted: mounted,
+        oldMaps: _userOldNotesNotifier,
+      );
+      _bzzNotesStreamsSubs = listenToMyBzzUnseenNotes(
+        mounted: mounted,
+        bzzOldMaps: _myBzzOldNotesNotifiers,
+      );
     }
   }
   // -----------------------------------------------------------------------------
