@@ -50,7 +50,6 @@ Future<void> _setBzModel({
 Future<void> onMyActiveBzStreamChanged({
   required Map<String, dynamic>? newMap,
   required Map<String, dynamic>? oldMap,
-  required BzzProvider bzzProvider,
 }) async {
 
   /// REF : BZ_STREAM_OPENS_ON_ACTIVE_BZ_AND_UPDATES_LOCALLY
@@ -74,9 +73,13 @@ Future<void> onMyActiveBzStreamChanged({
 
   else {
 
+    final BzModel? _activeBz = BzzProvider.proGetActiveBzModel(
+        context: getMainContext(),
+        listen: false,
+    );
 
     final bool _areIdentical = BzModel.checkBzzAreIdentical(
-      bz1: bzzProvider.myActiveBz,
+      bz1: _activeBz,
       bz2: _newBz,
     );
 
