@@ -11,6 +11,7 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:flutter/foundation.dart';
 
 /// => TAMAM
 class AppStateInitializer {
@@ -129,20 +130,26 @@ class AppStateInitializer {
   }) async {
     bool _output = false;
 
-    final bool _mustUpdate = AppStateModel.versionIsBigger(
+    if (kIsWeb == true){
+      _output = true;
+    }
+
+    else {
+
+      final bool _mustUpdate = AppStateModel.versionIsBigger(
         thisIsBigger: globalState.minVersion,
         thanThis: detectedVersion,
-    );
+      );
 
-    /// MUST UPDATE
-    if (_mustUpdate == true){
+      /// MUST UPDATE
+      if (_mustUpdate == true){
 
-      /// TEMPORARY UNTIL APP BECOMES MORE STABLE
-      unawaited(LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.accounts));
+        /// TEMPORARY UNTIL APP BECOMES MORE STABLE
+        unawaited(LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.accounts));
 
-      await BldrsCenterDialog.showCenterDialog(
-        titleVerse:  getVerse('phid_newUpdateAvailable'),
-        bodyVerse: Verse.plain(
+        await BldrsCenterDialog.showCenterDialog(
+          titleVerse:  getVerse('phid_newUpdateAvailable'),
+          bodyVerse: Verse.plain(
 '''
 ${getWord('phid_pleaseUpdateToContinue')}
 ${getWord('phid_your_version')} : $detectedVersion
@@ -153,13 +160,15 @@ ${getWord('phid_new_version')} : ${globalState.appVersion}
         // boolDialog: false,
       );
 
-      await Launcher.launchBldrsAppLinkOnStore();
+        await Launcher.launchBldrsAppLinkOnStore();
 
-    }
+      }
 
-    /// CAN CONTINUE WITHOUT UPDATE
-    else {
-      _output = true;
+      /// CAN CONTINUE WITHOUT UPDATE
+      else {
+        _output = true;
+      }
+
     }
 
     return _output;
@@ -172,32 +181,40 @@ ${getWord('phid_new_version')} : ${globalState.appVersion}
   }) async {
     bool _output = true;
 
-    final bool _mayUpdate = AppStateModel.versionIsBigger(
+    if (kIsWeb == true){
+      _output = true;
+    }
+
+    else {
+
+      final bool _mayUpdate = AppStateModel.versionIsBigger(
         thisIsBigger: globalState.appVersion,
         thanThis: detectedVersion,
-    );
+      );
 
-    /// MUST UPDATE
-    if (_mayUpdate == true){
+      /// MUST UPDATE
+      if (_mayUpdate == true){
 
-      await BldrsCenterDialog.showCenterDialog(
-        titleVerse:  getVerse('phid_newUpdateAvailable'),
-        bodyVerse: Verse.plain(
+        await BldrsCenterDialog.showCenterDialog(
+          titleVerse:  getVerse('phid_newUpdateAvailable'),
+          bodyVerse: Verse.plain(
 '''
 ${getWord('phid_pleaseUpdateToContinue')}
 ${getWord('phid_your_version')} : $detectedVersion
 ${getWord('phid_new_version')} : ${globalState.appVersion}
 '''
-        ),
-        confirmButtonVerse: getVerse('phid_updateApp'),
-        boolDialog: true,
-        noVerse: getVerse('phid_skip'),
-        onOk: () async {
-          blog('wtf is this why no work');
-          _output = false;
-          await Launcher.launchBldrsAppLinkOnStore();
-        },
-      );
+          ),
+          confirmButtonVerse: getVerse('phid_updateApp'),
+          boolDialog: true,
+          noVerse: getVerse('phid_skip'),
+          onOk: () async {
+            blog('wtf is this why no work');
+            _output = false;
+            await Launcher.launchBldrsAppLinkOnStore();
+            },
+        );
+
+      }
 
     }
 
