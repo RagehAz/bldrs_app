@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
