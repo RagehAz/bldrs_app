@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/permissions/permits.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
@@ -47,8 +48,8 @@ class BldrsPicMaker {
     required PicMakerType picMakerType,
     required bool cropAfterPick,
     required double aspectRatio,
-    required int compressionQuality,
-    required double finalWidth,
+    required int? compressWithQuality,
+    required double? resizeToWidth,
     required String assignPath,
     required List<String> ownersIDs,
     required String name,
@@ -61,12 +62,11 @@ class BldrsPicMaker {
         context: getMainContext(),
         cropAfterPick: cropAfterPick,
         aspectRatio: aspectRatio,
-        finalWidth: finalWidth,
+        resizeToWidth: resizeToWidth,
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
         langCode: Localizer.getCurrentLangCode(),
         confirmText: getWord('phid_continue'),
-        onlyCompress: Standards.onlyCompressOnResizing,
-        compressionQuality: compressionQuality,
+        compressWithQuality: compressWithQuality,
         onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
         // selectedAsset: selectedAsset,
       );
@@ -77,11 +77,10 @@ class BldrsPicMaker {
         context: getMainContext(),
         cropAfterPick: cropAfterPick,
         aspectRatio: aspectRatio,
-        finalWidth: finalWidth,
+        resizeToWidth: resizeToWidth,
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
         langCode: Localizer.getCurrentLangCode(),
-        onlyCompress: Standards.onlyCompressOnResizing,
-        compressionQuality: compressionQuality,
+        compressWithQuality: compressWithQuality,
         confirmText: getWord('phid_continue'),
         onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
       );
@@ -93,7 +92,7 @@ class BldrsPicMaker {
         ownersIDs: ownersIDs,
         name: name,
         bytes: _bytes,
-        compressionQuality: compressionQuality,
+        compressWithQuality: compressWithQuality,
         picMakerType: picMakerType,
         assignPath: assignPath,
       );
@@ -107,8 +106,8 @@ class BldrsPicMaker {
   static Future<List<PicModel>> makePics({
     required bool cropAfterPick,
     required double aspectRatio,
-    required int compressionQuality,
-    required double finalWidth,
+    required int compressWithQuality,
+    required double resizeToWidth,
     required String Function(int index) assignPath,
     required List<String> ownersIDs,
     required String Function(int index) picNameGenerator,
@@ -121,13 +120,12 @@ class BldrsPicMaker {
       context: getMainContext(),
       cropAfterPick: cropAfterPick,
       aspectRatio: aspectRatio,
-      finalWidth: finalWidth,
+      resizeToWidth: resizeToWidth,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
       langCode: Localizer.getCurrentLangCode(),
       confirmText: getWord('phid_continue'),
       maxAssets: maxAssets,
-      compressionQuality: compressionQuality,
-      onlyCompress: Standards.onlyCompressOnResizing,
+      compressWithQuality: compressWithQuality,
       onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
       // selectedAssets: selectedAssets,
     );
@@ -142,7 +140,7 @@ class BldrsPicMaker {
           ownersIDs: ownersIDs,
           name: picNameGenerator(i),
           bytes: bytes,
-          compressionQuality: compressionQuality,
+          compressWithQuality: compressWithQuality,
           picMakerType: PicMakerType.galleryImage,
           assignPath: assignPath(i),
         );
@@ -185,7 +183,7 @@ class BldrsPicMaker {
         _output = await PicModel.combinePicModel(
           bytes: _bytes,
           picMakerType: PicMaker.decipherPicMakerType(pic.meta!.data!['source'])!,
-          compressionQuality: compressionQuality,
+          compressWithQuality: compressionQuality,
           assignPath: pic.path!,
           ownersIDs: pic.meta!.ownersIDs,
           name: pic.meta!.name!,
@@ -215,15 +213,19 @@ class BldrsPicMaker {
 
     if (flyerID != null && slideIndex != null && slidePic != null && slidePic.meta?.data != null){
 
-      final Uint8List? _compressed = await PicMaker.compressPic(
-        bytes: slidePic.bytes,
-        quality: getSlidePicCompressionQuality(type),
-        compressToWidth: getSlidePicWidth(type),
+      Uint8List? _bytes = await PicMaker.resizePic(
+          bytes: slidePic.bytes,
+          resizeToWidth:getSlidePicWidth(type),
       );
 
-      // blog('2.compressSlideBigPicTo : _compressed ${_compressed?.length}');
+      _bytes = await PicMaker.compressPic(
+        bytes: _bytes,
+        quality: getSlidePicCompressionQuality(type),
+      );
 
-      if (_compressed != null){
+      // blog('2.compressSlideBigPicTo : _bytes ${_bytes?.length}');
+
+      if (_bytes != null){
 
         final String? _slideID = SlideModel.generateSlideID(
           flyerID: flyerID,
@@ -247,9 +249,9 @@ class BldrsPicMaker {
           PicMaker.decipherPicMakerType(_source) ?? PicMakerType.generated;
 
           _output = await PicModel.combinePicModel(
-            bytes: _compressed,
+            bytes: _bytes,
             picMakerType: _type,
-            compressionQuality: getSlidePicCompressionQuality(type),
+            compressWithQuality: getSlidePicCompressionQuality(type),
             assignPath: _slidePath,
             ownersIDs: slidePic.meta!.ownersIDs,
             name: _slideID,
@@ -336,9 +338,13 @@ class BldrsPicMaker {
 
       if (_bytes != null){
 
+        _bytes = await PicMaker.resizePic(
+            bytes: _bytes,
+            resizeToWidth: Standards.slideSmallWidth,
+        );
+
         _bytes = await PicMaker.compressPic(
           bytes: _bytes,
-          compressToWidth: Standards.slideSmallWidth,
           quality: Standards.slideSmallQuality,
         );
 
@@ -359,7 +365,7 @@ class BldrsPicMaker {
           _output = await PicModel.combinePicModel(
               bytes: _bytes,
               picMakerType: PicMakerType.generated,
-              compressionQuality: Standards.slideSmallQuality,
+              compressWithQuality: Standards.slideSmallQuality,
               assignPath: _path,
               ownersIDs: bigPic.meta!.ownersIDs,
               name: _slideID,

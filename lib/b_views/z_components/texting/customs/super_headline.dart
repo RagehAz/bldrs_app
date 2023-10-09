@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
@@ -20,16 +20,18 @@ class SuperHeadline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return BldrsText(
-      verse: verse,
-      width: width ?? BldrsAppBar.width(),
-      size: 5,
-      maxLines: 2,
-      color: color,
-      centered: false,
-      margin: 20,
-      shadow: true,
-      italic: true,
+    return Center(
+      child: BldrsText(
+        verse: verse,
+        width: width ?? Bubble.bubbleWidth(context: context),
+        size: 5,
+        maxLines: 2,
+        color: color,
+        centered: false,
+        margin: 20,
+        shadow: true,
+        italic: true,
+      ),
     );
 
   }

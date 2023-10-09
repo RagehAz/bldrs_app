@@ -128,7 +128,7 @@ class PicModel {
         final PicModel? _pic = await combinePicModel(
             bytes: _bytes,
             picMakerType: PicMakerType.generated,
-            compressionQuality: 80,
+            compressWithQuality: 80,
             assignPath: '',
             ownersIDs: [],
             name: ''
@@ -153,7 +153,7 @@ class PicModel {
   static Future<PicModel?> combinePicModel({
     required Uint8List? bytes,
     required PicMakerType picMakerType,
-    required int compressionQuality,
+    required int? compressWithQuality,
     required String assignPath,
     required List<String> ownersIDs,
     required String name,
@@ -165,7 +165,7 @@ class PicModel {
 
     if (bytes != null){
 
-      // blog('  2.combinePicModel bytes exists ${bytes != null}');
+      // blog('  2.combinePicModel bytes exists bytes != null');
 
       final Dimensions? _dims =  await Dimensions.superDimensions(bytes);
       final double? _aspectRatio = Numeric.roundFractions(_dims?.getAspectRatio(), 2);
@@ -209,7 +209,7 @@ class PicModel {
               'aspectRatio': _aspectRatio.toString(),
               'sizeB': bytes.length.toString(),
               'sizeKB': _kilo.toString(),
-              'compressionQuality': compressionQuality.toString(),
+              'compressionQuality': compressWithQuality.toString(),
               'source': PicMaker.cipherPicMakerType(picMakerType),
               'deviceID': _deviceID,
               'deviceName': _deviceName,
