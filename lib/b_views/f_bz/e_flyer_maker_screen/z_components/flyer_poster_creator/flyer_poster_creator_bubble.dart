@@ -111,16 +111,20 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
 
         if (_bytes != null){
 
+          _bytes = await PicMaker.resizePic(
+              bytes: _bytes,
+              resizeToWidth: Standards.posterDimensions.width
+          );
+
           _bytes = await PicMaker.compressPic(
             bytes: _bytes,
-            compressToWidth: Standards.posterDimensions.width,
             quality: Standards.slideMediumQuality,
           );
 
           _pic = await PicModel.combinePicModel(
             bytes: _bytes,
             picMakerType: PicMakerType.generated,
-            compressionQuality: Standards.slideMediumQuality,
+            compressWithQuality: Standards.slideMediumQuality,
             assignPath: _path,
             name: '${widget.draft!.id}_poster',
             ownersIDs: await FlyerModel.generateFlyerOwners(

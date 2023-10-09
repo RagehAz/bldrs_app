@@ -151,13 +151,11 @@ class Standards {
   static const double slideSmallWidth = 250;
   static const int slideSmallQuality = 75;
   // --------------------
-  static const double slideMediumWidth = 500;
+  static const double slideMediumWidth = 495;
   static const int slideMediumQuality = 80;
   // --------------------
   static const double slideBigWidth = 1000;
   static const int slideBigQuality = 80;
-  // --------------------
-  static const bool onlyCompressOnResizing = true;
   // -----------------------------------------------------------------------------
 
   /// POSTER SIZE
