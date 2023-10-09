@@ -112,8 +112,8 @@ Future<void> _addImagesForNewFlyer({
     final List<PicModel> _bigPics = await BldrsPicMaker.makePics(
       cropAfterPick: false,
       aspectRatio: FlyerDim.flyerAspectRatio(),
-      compressionQuality: Standards.slideBigQuality,
-      finalWidth: Standards.slideBigWidth,
+      compressWithQuality: Standards.slideBigQuality,
+      resizeToWidth: Standards.slideBigWidth,
       assignPath: (int index) => StoragePath.flyers_flyerID_index_big(
         flyerID: draftFlyer.value!.id,
         slideIndex: index,
