@@ -125,8 +125,8 @@ Future<void> onFlyerBzOptionsTap({
           /// DELETE FLYER BUTTON
           BottomDialog.wideButton(
             verseCentered: true,
-            isDeactivated: !_canDeleteFlyer,
-            onDeactivatedTap: () => _onCanNotDeleteFlyerDialog(),
+            isDisabled: !_canDeleteFlyer,
+            onDisabledTap: () => _onCanNotDeleteFlyerDialog(),
             /// --->
             verse: const Verse(id: 'phid_delete_flyer', translate: true),
             onTap: () => _onDeleteFlyerButtonTap(

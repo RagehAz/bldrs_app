@@ -136,7 +136,7 @@ class AppStateInitializer {
 
     else {
 
-      final bool _mustUpdate = AppStateModel.versionIsBigger(
+      final bool _mustUpdate = AppVersionBuilder.versionIsBigger(
         thisIsBigger: globalState.minVersion,
         thanThis: detectedVersion,
       );
@@ -187,7 +187,7 @@ ${getWord('phid_new_version')} : ${globalState.appVersion}
 
     else {
 
-      final bool _mayUpdate = AppStateModel.versionIsBigger(
+      final bool _mayUpdate = AppVersionBuilder.versionIsBigger(
         thisIsBigger: globalState.appVersion,
         thanThis: detectedVersion,
       );

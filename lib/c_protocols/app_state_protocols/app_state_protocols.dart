@@ -48,7 +48,7 @@ class AppStateProtocols {
 
     final String _detectedAppVersion = await AppVersionBuilder.detectAppVersion();
 
-    final bool _userNeedToUpdateTheApp = AppStateModel.versionIsBigger(
+    final bool _userNeedToUpdateTheApp = AppVersionBuilder.versionIsBigger(
       thisIsBigger: _globalState?.appVersion,
       thanThis: _detectedAppVersion,
     );

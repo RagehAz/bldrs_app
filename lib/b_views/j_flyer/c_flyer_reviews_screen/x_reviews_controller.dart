@@ -265,7 +265,7 @@ Future<void> onReviewOptions({
                 translate: true,
               ),
               verseCentered: true,
-              isDeactivated: reviewModel.userID != Authing.getUserID(),
+              isDisabled: reviewModel.userID != Authing.getUserID(),
               onTap: () async {
 
                 await Nav.goBack(
@@ -289,7 +289,7 @@ Future<void> onReviewOptions({
                 translate: true,
               ),
               verseCentered: true,
-              isDeactivated: reviewModel.userID != Authing.getUserID(),
+              isDisabled: reviewModel.userID != Authing.getUserID(),
               onTap: () async {
 
                 await Nav.goBack(

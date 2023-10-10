@@ -19,6 +19,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
@@ -27,9 +28,7 @@ import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_dev_test.dart';
-// import 'package:bldrs_dashboard/main.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -239,7 +238,7 @@ class AppSettingsScreen extends StatelessWidget {
             }),
 
         /// UPDATE APP BUTTON
-        if (kIsWeb == false)
+        if (DeviceChecker.deviceIsSmartPhone() == true)
         Selector<GeneralProvider, AppStateModel?>(
             selector: (_, GeneralProvider pro) => pro.globalAppState,
             builder: (_, AppStateModel? globalState, Widget? child) {
@@ -293,6 +292,8 @@ class AppSettingsScreen extends StatelessWidget {
                               weight: VerseWeight.thin,
                               centered: false,
                               maxLines: 3,
+                              textDirection: UiProvider.getAppTextDir(),
+                              appIsLTR: UiProvider.checkAppIsLeftToRight(),
                             ),
 
                             /// NEW VERSION NUMBER
@@ -307,6 +308,8 @@ class AppSettingsScreen extends StatelessWidget {
                               italic: true,
                               weight: VerseWeight.thin,
                               centered: false,
+                              textDirection: UiProvider.getAppTextDir(),
+                              appIsLTR: UiProvider.checkAppIsLeftToRight(),
                             ),
 
                           ],

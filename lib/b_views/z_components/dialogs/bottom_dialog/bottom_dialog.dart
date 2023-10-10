@@ -358,8 +358,8 @@ class BottomDialog extends StatelessWidget {
     String? icon,
     double height = wideButtonHeight,
     bool verseCentered = false,
-    bool isDeactivated = false,
-    Function? onDeactivatedTap,
+    bool isDisabled = false,
+    Function? onDisabledTap,
     Color? color,
     bool bigIcon = false,
   }) {
@@ -376,8 +376,8 @@ class BottomDialog extends StatelessWidget {
       verseCentered: icon == null,
       verseMaxLines: 2,
       onTap: onTap,
-      isDisabled: isDeactivated,
-      onDisabledTap: onDeactivatedTap,
+      isDisabled: isDisabled,
+      onDisabledTap: onDisabledTap,
       color: color,
     );
 

@@ -38,16 +38,16 @@ class FlyerBox extends StatelessWidget {
         onTap: onTap,
         splashColor: boxColor?.withOpacity(0.2),
         borderRadius: _flyerBorders,
-        child: AspectRatio(
-          aspectRatio: FlyerDim.flyerAspectRatio(),
-          child: Container(
-            width: flyerBoxWidth,
-            height: _flyerBoxHeight,
-            alignment: Alignment.topCenter,
-            decoration: BoxDecoration(
-              color: boxColor,
-              borderRadius: _flyerBorders,
-            ),
+        child: Container(
+          width: flyerBoxWidth,
+          height: _flyerBoxHeight,
+          alignment: Alignment.topCenter,
+          decoration: BoxDecoration(
+            color: boxColor,
+            borderRadius: _flyerBorders,
+          ),
+          child: AspectRatio(
+            aspectRatio: FlyerDim.flyerAspectRatio(),
             child: ClipRRect(
               borderRadius: _flyerBorders,
               child: Stack(
