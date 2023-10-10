@@ -91,8 +91,8 @@ Future<void> onAuthorOptionsTap({
         translate: true,
       ),
       icon: Iconz.bz,
-      isDeactivated: !_canChangeRoles,
-      onDeactivatedTap: () => _onShowCanNotChangeAuthorRoleDialog(
+      isDisabled: !_canChangeRoles,
+      onDisabledTap: () => _onShowCanNotChangeAuthorRoleDialog(
         authorModel: authorModel,
       ),
       onTap: () async {
@@ -119,8 +119,8 @@ Future<void> onAuthorOptionsTap({
         translate: true,
       ),
       icon: Iconz.gears,
-      isDeactivated: !_canEditAuthor,
-      onDeactivatedTap: () => _onShowCanNotEditAuthorDialog(
+      isDisabled: !_canEditAuthor,
+      onDisabledTap: () => _onShowCanNotEditAuthorDialog(
         authorModel: authorModel,
       ),
       onTap: () async {
@@ -147,8 +147,8 @@ Future<void> onAuthorOptionsTap({
         translate: true,
       ),
       icon: Iconz.xSmall,
-      isDeactivated: _canRemoveAuthor == false,
-      onDeactivatedTap: () => _onShowCanNotRemoveAuthorDialog(
+      isDisabled: _canRemoveAuthor == false,
+      onDisabledTap: () => _onShowCanNotRemoveAuthorDialog(
         authorModel: authorModel,
       ),
       onTap: () async {

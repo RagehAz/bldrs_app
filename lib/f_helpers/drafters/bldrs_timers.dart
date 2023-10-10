@@ -341,6 +341,7 @@ class BldrsTimers {
       if (kIsWeb == false && DeviceChecker.deviceIsWindows() == false){
           await AppSettings.openAppSettings(
             type: AppSettingsType.date,
+            asAnotherTask: true,
           );
       }
 
