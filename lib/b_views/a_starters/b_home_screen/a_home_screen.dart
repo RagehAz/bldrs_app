@@ -74,8 +74,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   void initState() {
     super.initState();
 
-    _myBzzOldNotesNotifiers = createMyBzOldUnseenNotesMaps();
-
     _initializeKeyboard();
     _paginationController = PaginationController.initialize(
       addExtraMapsAtEnd: true,
@@ -105,6 +103,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         // }
 
         await initializeHomeScreen(context: context);
+
+        _myBzzOldNotesNotifiers = createMyBzOldUnseenNotesMaps();
 
         await initializeNotesListeners();
 
