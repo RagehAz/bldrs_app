@@ -19,7 +19,9 @@ class CensusRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CensusModel?> readPlanetCensus() async {
-    CensusModel? _output;
+    CensusModel? _output = CensusModel.createEmptyModel(
+      id: Flag.planetID,
+    );
 
     final Object? _object = await Real.readPath(
       path: '${RealColl.statistics}/${RealDoc.statistics_planet}',
@@ -74,7 +76,9 @@ class CensusRealOps {
   static Future<CensusModel?> readCountryCensus({
     required String? countryID,
   }) async {
-    CensusModel? _output;
+    CensusModel? _output = CensusModel.createEmptyModel(
+      id: countryID,
+    );
 
     if (countryID != null){
 
@@ -136,7 +140,9 @@ class CensusRealOps {
   static Future<CensusModel?> readCityCensus({
     required String? cityID,
   }) async {
-    CensusModel? _output;
+    CensusModel? _output = CensusModel.createEmptyModel(
+      id: cityID,
+    );
 
     if (cityID != null){
 
@@ -175,7 +181,7 @@ class CensusRealOps {
     required ZoneModel? zoneModel,
   }) async {
 
-    if (map != null && zoneModel != null){
+    if (map != null){
 
       final Map<String, dynamic>? _map = Mapper.cleanNullPairs(
         map: map,
@@ -193,18 +199,19 @@ class CensusRealOps {
         ),
 
         /// UPDATE COUNTRY
+        if (zoneModel?.countryID != null)
         Real.incrementDocFields(
           coll: RealColl.statistics,
-          doc: '${RealDoc.statistics_countries}/${zoneModel.countryID}',
+          doc: '${RealDoc.statistics_countries}/${zoneModel!.countryID}',
           incrementationMap: _upload,
           isIncrementing: true,
         ),
 
         /// UPDATE CITY
-        if (zoneModel.cityID != null)
+        if (zoneModel?.countryID != null && zoneModel?.cityID != null)
           Real.incrementDocFields(
             coll: RealColl.statistics,
-            doc: '${RealDoc.statistics_cities}/${zoneModel.countryID}/${zoneModel.cityID}',
+            doc: '${RealDoc.statistics_cities}/${zoneModel!.countryID}/${zoneModel.cityID}',
             incrementationMap: _upload,
             isIncrementing: true,
           ),
@@ -216,12 +223,13 @@ class CensusRealOps {
         Flag.planetID,
       ];
 
-      _idsToDeleteInLDB.add(zoneModel.countryID);
-
-      if (zoneModel.cityID != null){
-        _idsToDeleteInLDB.add(zoneModel.cityID!);
+      if (zoneModel?.countryID != null){
+        _idsToDeleteInLDB.add(zoneModel!.countryID);
       }
 
+      if (zoneModel?.countryID != null && zoneModel?.cityID != null){
+        _idsToDeleteInLDB.add(zoneModel!.cityID!);
+      }
 
       await LDBOps.deleteMaps(
         docName: LDBDoc.census,

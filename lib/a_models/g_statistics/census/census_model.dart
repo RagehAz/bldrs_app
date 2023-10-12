@@ -528,9 +528,11 @@ class CensusModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static CensusModel createEmptyModel(){
-    return const CensusModel(
-      id: null,
+  static CensusModel createEmptyModel({
+    required String? id,
+  }){
+    return CensusModel(
+      id: id,
       totalUsers: 0,
       totalBzz: 0,
       totalAuthors: 0,
@@ -652,7 +654,7 @@ class CensusModel {
     return _map;
   }
   // --------------------
-  /// NOTE : WE WILL NOTE WIPE FOLLOW CENSUS ON USER WIPE
+  /// NOTE : WE WILL NOT WIPE FOLLOW CENSUS ON USER WIPE
   // --------------------------------------------------
 
   /// CREATE SAVE CENSUS MAP
@@ -860,7 +862,7 @@ class CensusModel {
     if (input != null){
 
       _output = {};
-      final Map<String, dynamic> _fullMap = createEmptyModel().toMap(
+      final Map<String, dynamic> _fullMap = createEmptyModel(id: input['id']).toMap(
         toLDB: false, // this is not used for LDB but only for REAL DB
       );
       final List<String> _allKeys = _fullMap.keys.toList();
@@ -927,7 +929,7 @@ class CensusModel {
 
     if (Mapper.checkCanLoopList(models) == true){
 
-      _output = createEmptyModel();
+      _output = createEmptyModel(id: 'usa');
 
       for (final CensusModel model in models!){
 
@@ -1225,6 +1227,52 @@ class CensusModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// TESTERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static CensusModel? incrementCensus({
+    required CensusModel? model,
+    required Map<String, int>? map,
+  }){
+    CensusModel? _output = model;
+
+    if (model != null && map != null && model.id != null){
+
+
+      final List<String> _keys = map.keys.toList();
+      if (Mapper.checkCanLoopList(_keys) == true){
+
+        _keys.remove('id');
+
+        Map<String, dynamic> ciphered = model.toMap(toLDB: true);
+
+        for (final String key in _keys){
+
+          final int _existing = ciphered[key] ?? 0;
+          final int _increment = map[key] ?? 0;
+
+          ciphered = Mapper.insertPairInMap(
+              map: ciphered,
+              key: key,
+              value: _existing + _increment,
+              overrideExisting: true,
+          );
+
+        }
+
+        final Map<String, int> _final = completeMapForIncrementation(ciphered);
+
+        _output = decipher(map: _final, id: model.id!);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
   /// BLOG
 
   // --------------------
@@ -1335,6 +1383,17 @@ class CensusModel {
       blog('CENSUS LIST IS EMPTY');
     }
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogDifference(CensusModel? census1, CensusModel? census2){
+
+    Mapper.blogMapsDifferences(
+      map1: census1?.toMap(toLDB: true),
+      map2: census2?.toMap(toLDB: true),
+      invoker: 'blogCensusesDifferences',
+    );
+
+  }
   // -----------------------------------------------------------------------------
 
   /// EQUALITY
@@ -1414,6 +1473,10 @@ class CensusModel {
 
     }
 
+    if (_areIdentical == false){
+      blogDifference(census1, census2);
+    }
+
     return _areIdentical;
   }
   // -----------------------------------------------------------------------------
@@ -1421,22 +1484,27 @@ class CensusModel {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
    String toString(){
 
     final String _text =
     '''
-    PicModel(
-      bytes: ${bytes?.length},
-      path: $path,
-      meta: $meta
+CensusModel(
+  id: $id, 
+  totalUsers: $totalUsers, totalBzz: $totalBzz, totalAuthors: $totalAuthors, totalFlyers: $totalFlyers, totalSlides: $totalSlides,
+  bzSectionRealEstate: $bzSectionRealEstate, bzSectionConstruction: $bzSectionConstruction, bzSectionSupplies: $bzSectionSupplies,
+  bzTypeDeveloper: $bzTypeDeveloper, bzTypeBroker: $bzTypeBroker, bzTypeDesigner: $bzTypeDesigner, bzTypeContractor: $bzTypeContractor,bzTypeArtisan: $bzTypeArtisan, bzTypeManufacturer: $bzTypeManufacturer,bzTypeSupplier: $bzTypeSupplier, bzFormIndividual: $bzFormIndividual,bzFormCompany: $bzFormCompany,
+  bzAccountTypeStandard: $bzAccountTypeStandard, bzAccountTypePro: $bzAccountTypePro, bzAccountTypeMaster: $bzAccountTypeMaster,
+  flyerTypeGeneral: $flyerTypeGeneral,flyerTypeProperty: $flyerTypeProperty,flyerTypeDesign: $flyerTypeDesign,flyerTypeUndertaking: $flyerTypeUndertaking,flyerTypeTrade: $flyerTypeTrade,flyerTypeProduct: $flyerTypeProduct,flyerTypeEquipment: $flyerTypeEquipment,
+  needTypeSeekProperty: $needTypeSeekProperty,needTypePlanConstruction: $needTypePlanConstruction,needTypeFinishConstruction: $needTypeFinishConstruction,needTypeFurnish: $needTypeFurnish,needTypeOfferProperty: $needTypeOfferProperty,
+  savesGeneral: $savesGeneral,savesProperties: $savesProperties,savesDesigns: $savesDesigns,savesUndertakings: $savesUndertakings,savesTrades: $savesTrades,savesProducts: $savesProducts,savesEquipments: $savesEquipments,
+  followsDevelopers: $followsDevelopers,followsBrokers: $followsBrokers,followsDesigners: $followsDesigners,followsContractors: $followsContractors,followsArtisans: $followsArtisans,followsManufacturers: $followsManufacturers,followsSuppliers: $followsSuppliers,
+  callsDevelopers: $callsDevelopers,callsBrokers: $callsBrokers,callsDesigners: $callsDesigners,callsContractors: $callsContractors,callsArtisans: $callsArtisans,callsManufacturers: $callsManufacturers,callsSuppliers: $callsSuppliers,
     );
     ''';
 
     return _text;
    }
-   */
   // --------------------
   @override
   bool operator == (Object other){
