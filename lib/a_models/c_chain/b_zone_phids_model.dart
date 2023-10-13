@@ -361,7 +361,7 @@ class ZonePhidsModel {
     if (zonePhidsModel != null){
       final ZonePhidsModel? _cleanedZonePhids = _cleanZeroValuesPhids(zonePhidsModel);
       final List<dynamic> _values = MapModel.getKeysFromMapModels(_cleanedZonePhids?.phidsMaps);
-      _output = Stringer.getStringsFromDynamics(dynamics: _values);
+      _output = Stringer.getStringsFromDynamics(_values);
       _output.removeWhere((element) => element == 'id');
     }
 

@@ -195,7 +195,7 @@ class AuthorModel {
       title: map['title'],
       role: decipherAuthorRole(map['role']),
       contacts: ContactModel.decipherContacts(map['contacts']),
-      flyersIDs: Stringer.getStringsFromDynamics(dynamics: map['flyersIDs']),
+      flyersIDs: Stringer.getStringsFromDynamics(map['flyersIDs']),
       picModel: PicModel.decipherFromLDB(map['picModel']),
     );
   }

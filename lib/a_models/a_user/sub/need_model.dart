@@ -160,11 +160,11 @@ class NeedModel {
     if (map != null){
       _need = NeedModel(
         needType: decipherNeedType(map['needType']),
-        scope: Stringer.getStringsFromDynamics(dynamics: map['scope']),
+        scope: Stringer.getStringsFromDynamics(map['scope']),
         location: Atlas.decipherGeoPoint(point: map['location'], fromJSON: fromJSON),
         notes: map['notes'],
-        flyerIDs: Stringer.getStringsFromDynamics(dynamics: map['flyerIDs']),
-        bzzIDs: Stringer.getStringsFromDynamics(dynamics: map['bzzIDs']),
+        flyerIDs: Stringer.getStringsFromDynamics(map['flyerIDs']),
+        bzzIDs: Stringer.getStringsFromDynamics(map['bzzIDs']),
         since: Timers.decipherTime(time: map['since'], fromJSON: fromJSON),
       );
     }

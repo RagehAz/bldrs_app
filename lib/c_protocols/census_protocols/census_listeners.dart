@@ -51,27 +51,27 @@ class CensusListener {
 
     if (_shouldUpdateCensus == true){
 
-      await Future.wait(<Future>[
+      // await Future.wait(<Future>[
 
         /// DECREMENT OLD USER CENSUS
-        CensusRealOps.updateAllCensus(
+        await CensusRealOps.updateAllCensus(
           zoneModel: oldUser?.zone,
           map: CensusModel.createUserCensusMap(
             userModel: oldUser,
             isIncrementing: false,
           ),
-        ),
+        );
 
         /// INCREMENT NEW USER CENSUS
-        CensusRealOps.updateAllCensus(
+        await CensusRealOps.updateAllCensus(
           zoneModel: newUser?.zone,
           map: CensusModel.createUserCensusMap(
             userModel: newUser,
             isIncrementing: true,
           ),
-        ),
+        );
 
-      ]);
+      // ]);
 
     }
 
@@ -122,27 +122,27 @@ class CensusListener {
     // assert(newBz != null, 'newBz is null');
     // assert(oldBz != null, 'oldBz is null');
 
-    await Future.wait(<Future>[
+    // await Future.wait(<Future>[
 
       /// DECREMENT BZ CENSUS
-      CensusRealOps.updateAllCensus(
+      await CensusRealOps.updateAllCensus(
         zoneModel: oldBz?.zone,
         map: CensusModel.createBzCensusMap(
           bzModel: oldBz,
           isIncrementing: false,
         ),
-      ),
+      );
 
       /// INCREMENT BZ CENSUS
-      CensusRealOps.updateAllCensus(
+      await CensusRealOps.updateAllCensus(
         zoneModel: newBz?.zone,
         map: CensusModel.createBzCensusMap(
           bzModel: newBz,
           isIncrementing: true,
         ),
-      ),
+      );
 
-    ]);
+    // ]);
 
   }
   // --------------------
@@ -201,27 +201,27 @@ class CensusListener {
     // assert(oldFlyer != null, 'oldFlyer is null');
     // assert(newFlyer != null, 'newFlyer is null');
 
-    await Future.wait(<Future>[
+    // await Future.wait(<Future>[
 
       /// DECREMENT FLYER CENSUS
-      CensusRealOps.updateAllCensus(
+      await CensusRealOps.updateAllCensus(
         zoneModel: oldFlyer.zone,
         map: CensusModel.createFlyerCensusMap(
           flyerModel: oldFlyer,
           isIncrementing: false,
         ),
-      ),
+      );
 
       /// INCREMENT FLYER CENSUS
-      CensusRealOps.updateAllCensus(
+      await CensusRealOps.updateAllCensus(
         zoneModel: newFlyer.zone,
         map: CensusModel.createFlyerCensusMap(
           flyerModel: newFlyer,
           isIncrementing: true,
         ),
-      ),
+      );
 
-    ]);
+    // ]);
 
   }
   // --------------------

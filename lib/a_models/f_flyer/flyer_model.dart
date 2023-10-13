@@ -231,12 +231,12 @@ class FlyerModel {
       _flyerModel = FlyerModel(
         id: map['id'],
         headline: map['headline'],
-        trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
+        trigram: Stringer.getStringsFromDynamics(map['trigram']),
         description: map['description'],
         // -------------------------
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
         publishState: PublicationModel.decipherPublishState(map['publishState']),
-        phids: Stringer.getStringsFromDynamics(dynamics: map['phids']),
+        phids: Stringer.getStringsFromDynamics(map['phids']),
         showsAuthor: map['showsAuthor'],
         zone: ZoneModel.decipherZone(map['zone']),
         // -------------------------
