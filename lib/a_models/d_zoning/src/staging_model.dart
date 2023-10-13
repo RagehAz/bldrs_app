@@ -159,10 +159,10 @@ class StagingModel {
 
       _output = StagingModel(
         id: id ?? map['id'],
-        emptyStageIDs: Mapper.getStringsFromTheDamnThing(map['1_empty_stage']),
-        bzzStageIDs: Mapper.getStringsFromTheDamnThing(map['2_bzz_stage']),
-        flyersStageIDs: Mapper.getStringsFromTheDamnThing(map['3_flyers_stage']),
-        publicStageIDs: Mapper.getStringsFromTheDamnThing(map['4_public_stage']),
+        emptyStageIDs: Stringer.getStringsFromDynamics(map['1_empty_stage']),
+        bzzStageIDs: Stringer.getStringsFromDynamics(map['2_bzz_stage']),
+        flyersStageIDs: Stringer.getStringsFromDynamics(map['3_flyers_stage']),
+        publicStageIDs: Stringer.getStringsFromDynamics(map['4_public_stage']),
       );
 
     }

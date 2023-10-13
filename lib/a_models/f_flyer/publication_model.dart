@@ -95,11 +95,11 @@ class PublicationModel {
     if (map != null){
 
       _output = PublicationModel(
-        drafts: Stringer.getStringsFromDynamics(dynamics: map['drafts']),
-        pendings: Stringer.getStringsFromDynamics(dynamics: map['pendings']),
-        published: Stringer.getStringsFromDynamics(dynamics: map['published']),
-        unpublished: Stringer.getStringsFromDynamics(dynamics: map['unpublished']),
-        suspended: Stringer.getStringsFromDynamics(dynamics: map['suspended']),
+        drafts: Stringer.getStringsFromDynamics(map['drafts']),
+        pendings: Stringer.getStringsFromDynamics(map['pendings']),
+        published: Stringer.getStringsFromDynamics(map['published']),
+        unpublished: Stringer.getStringsFromDynamics(map['unpublished']),
+        suspended: Stringer.getStringsFromDynamics(map['suspended']),
       );
 
     }

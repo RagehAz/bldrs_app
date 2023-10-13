@@ -442,7 +442,7 @@ class DraftUser {
       need: NeedModel.decipherNeed(map: map['need'], fromJSON: true),
       // -------------------------
       name: map['name'],
-      trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram'],),
+      trigram: Stringer.getStringsFromDynamics(map['trigram']),
       picModel: PicModel.decipherFromLDB(map['picModel']),
       title: map['title'],
       company: map['company'],
@@ -453,11 +453,11 @@ class DraftUser {
       contacts: ContactModel.decipherContacts(map['contacts']),
       contactsArePublic: map['contactsArePublic'],
       // -------------------------
-      myBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['myBzzIDs'],),
+      myBzzIDs: Stringer.getStringsFromDynamics(map['myBzzIDs']),
       emailIsVerified: map['emailIsVerified'],
       isAdmin: map['isAdmin'],
       device: DeviceModel.decipherDeviceModel(map['device']),
-      fcmTopics: Stringer.getStringsFromDynamics(dynamics: map['fcmTopics']),
+      fcmTopics: Stringer.getStringsFromDynamics(map['fcmTopics']),
       savedFlyers: DeckModel.decipher(map['savedFlyers']),
       followedBzz: AgendaModel.decipher(map['followedBzz']),
       appState: AppStateModel.fromMap(map: map['appState']),
