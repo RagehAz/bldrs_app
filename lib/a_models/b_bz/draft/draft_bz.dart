@@ -368,7 +368,7 @@ class DraftBz {
       createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: true),
       accountType: BzTyper.decipherBzAccountType(map['accountType']),
       nameController: TextEditingController(text: map['name']),
-      trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
+      trigram: Stringer.getStringsFromDynamics(map['trigram']),
       zone: ZoneModel.decipherZone(map['zone']),
       aboutController: TextEditingController(text: map['about']),
       position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: true),

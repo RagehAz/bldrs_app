@@ -66,7 +66,7 @@ class CurrencyModel {
     if (map != null) {
       _currency = CurrencyModel(
         id: map['id'],
-        countriesIDs: Stringer.getStringsFromDynamics(dynamics: map['countriesIDs']),
+        countriesIDs: Stringer.getStringsFromDynamics(map['countriesIDs']),
         symbol: map['symbol'],
         digits: map['digits'],
       );

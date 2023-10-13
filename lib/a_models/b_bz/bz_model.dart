@@ -236,7 +236,7 @@ class BzModel{
         accountType: BzTyper.decipherBzAccountType(map['accountType']),
         // -------------------------
         name: map['name'],
-        trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
+        trigram: Stringer.getStringsFromDynamics(map['trigram']),
         logoPath: map['logoPath'],
         scope: map['scope'],
         zone: ZoneModel.decipherZone(map['zone']),

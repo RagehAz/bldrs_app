@@ -225,9 +225,7 @@ class PickerModel {
 
     if (Mapper.checkCanLoopList(dynamics) == true){
 
-      _output = Stringer.getStringsFromDynamics(
-        dynamics: dynamics,
-      );
+      _output = Stringer.getStringsFromDynamics(dynamics);
 
     }
 

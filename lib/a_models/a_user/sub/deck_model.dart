@@ -95,14 +95,14 @@ class DeckModel {
     if (map != null){
 
       _deck = DeckModel(
-          all: Stringer.getStringsFromDynamics(dynamics: map['all']),
-          general: Stringer.getStringsFromDynamics(dynamics: map['general']),
-          properties: Stringer.getStringsFromDynamics(dynamics: map['properties']),
-          designs: Stringer.getStringsFromDynamics(dynamics: map['designs']),
-          undertakings: Stringer.getStringsFromDynamics(dynamics: map['undertakings']),
-          trades: Stringer.getStringsFromDynamics(dynamics: map['trades']),
-          products: Stringer.getStringsFromDynamics(dynamics: map['products']),
-          equipment: Stringer.getStringsFromDynamics(dynamics: map['equipment']),
+          all: Stringer.getStringsFromDynamics(map['all']),
+          general: Stringer.getStringsFromDynamics(map['general']),
+          properties: Stringer.getStringsFromDynamics(map['properties']),
+          designs: Stringer.getStringsFromDynamics(map['designs']),
+          undertakings: Stringer.getStringsFromDynamics(map['undertakings']),
+          trades: Stringer.getStringsFromDynamics(map['trades']),
+          products: Stringer.getStringsFromDynamics(map['products']),
+          equipment: Stringer.getStringsFromDynamics(map['equipment']),
       );
 
     }
