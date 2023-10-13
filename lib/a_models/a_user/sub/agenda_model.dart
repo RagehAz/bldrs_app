@@ -96,14 +96,14 @@ class AgendaModel {
     if (map != null){
 
       _agenda = AgendaModel(
-        all: Stringer.getStringsFromDynamics(dynamics: map['all']),
-        developers: Stringer.getStringsFromDynamics(dynamics: map['developers']),
-        brokers: Stringer.getStringsFromDynamics(dynamics: map['brokers']),
-        designers: Stringer.getStringsFromDynamics(dynamics: map['designers']),
-        contractors: Stringer.getStringsFromDynamics(dynamics: map['contractors']),
-        artisans: Stringer.getStringsFromDynamics(dynamics: map['artisans']),
-        manufacturers: Stringer.getStringsFromDynamics(dynamics: map['manufacturers']),
-        suppliers: Stringer.getStringsFromDynamics(dynamics: map['suppliers']),
+        all: Stringer.getStringsFromDynamics(map['all']),
+        developers: Stringer.getStringsFromDynamics(map['developers']),
+        brokers: Stringer.getStringsFromDynamics(map['brokers']),
+        designers: Stringer.getStringsFromDynamics(map['designers']),
+        contractors: Stringer.getStringsFromDynamics(map['contractors']),
+        artisans: Stringer.getStringsFromDynamics(map['artisans']),
+        manufacturers: Stringer.getStringsFromDynamics(map['manufacturers']),
+        suppliers: Stringer.getStringsFromDynamics(map['suppliers']),
       );
 
     }

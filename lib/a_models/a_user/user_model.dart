@@ -213,7 +213,7 @@ class UserModel {
 
     else {
 
-      final List<String> _myBzzIDs = Stringer.getStringsFromDynamics(dynamics: map['myBzzIDs'],);
+      final List<String> _myBzzIDs = Stringer.getStringsFromDynamics(map['myBzzIDs'],);
 
       return UserModel(
         id: map['id'],
@@ -222,7 +222,7 @@ class UserModel {
         need: NeedModel.decipherNeed(map: map['need'], fromJSON: fromJSON),
         // -------------------------
         name: map['name'],
-        trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram'],),
+        trigram: Stringer.getStringsFromDynamics(map['trigram'],),
         picPath: map['picPath'],
         title: map['title'],
         company: map['company'],
@@ -238,7 +238,7 @@ class UserModel {
         emailIsVerified: map['emailIsVerified'],
         isAdmin: map['isAdmin'],
         device: DeviceModel.decipherDeviceModel(map['device']),
-        fcmTopics: Stringer.getStringsFromDynamics(dynamics: map['fcmTopics']),
+        fcmTopics: Stringer.getStringsFromDynamics(map['fcmTopics']),
         savedFlyers: DeckModel.decipher(map['savedFlyers']),
         followedBzz: AgendaModel.decipher(map['followedBzz']),
         appState: AppStateModel.fromMap(map: map['appState']),

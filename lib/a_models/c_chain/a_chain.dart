@@ -34,7 +34,7 @@ class Chain {
       sons.add(son);
     } else {
       final bool _contains = Stringer.checkStringsContainString(
-        strings: Stringer.getStringsFromDynamics(dynamics: sons),
+        strings: Stringer.getStringsFromDynamics(sons),
         string: son,
       );
       if (_contains == false) {
@@ -117,9 +117,7 @@ class Chain {
       final List<dynamic> _dynamicsValues = map.values.toList();
       _dynamicsValues.remove(RealColl.bldrsChains);
 
-      final List<String> _paths = Stringer.getStringsFromDynamics(
-        dynamics: _dynamicsValues,
-      );
+      final List<String> _paths = Stringer.getStringsFromDynamics(_dynamicsValues,);
 
       _bldrsChains = ChainPathConverter.createChainsFromPaths(
         paths: Phider.removePathsIndexes(_paths),
@@ -205,7 +203,7 @@ class Chain {
       if (sons is List<dynamic>) {
         /// FIRST SON IS STRING => SONS ARE STRINGS
         if (sons[0] is String) {
-          _output = Stringer.getStringsFromDynamics(dynamics: sons);
+          _output = Stringer.getStringsFromDynamics(sons);
         }
 
         /// FIRST SON IS NOT STRING => SONS ARE CHAINS
@@ -272,9 +270,7 @@ class Chain {
         Mapper.checkCanLoopList(picker?.range) == true
     ) {
 
-      final List<String> _rangeIDs = Stringer.getStringsFromDynamics(
-        dynamics: picker?.range,
-      );
+      final List<String> _rangeIDs = Stringer.getStringsFromDynamics(picker?.range);
 
       for (final String son in _filteredChain!.sons) {
         final bool _rangeContainsThisID = Stringer.checkStringsContainString(

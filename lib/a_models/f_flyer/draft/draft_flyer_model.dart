@@ -369,11 +369,11 @@ class DraftFlyer{
       _draft = DraftFlyer(
         id: map['id'],
         headline: TextEditingController(text: map['headline']),
-        trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
+        trigram: Stringer.getStringsFromDynamics(map['trigram']),
         description: TextEditingController(text: map['description']),
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
         publishState: PublicationModel.decipherPublishState(map['publishState']),
-        phids: Stringer.getStringsFromDynamics(dynamics: map['phids']),
+        phids: Stringer.getStringsFromDynamics(map['phids']),
         showsAuthor: map['showsAuthor'],
         zone: ZoneModel.decipherZone(map['zone']),
         authorID: map['authorID'],

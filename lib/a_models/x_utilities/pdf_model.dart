@@ -101,7 +101,7 @@ class PDFModel {
       _output = PDFModel(
         name: map['name'],
         path: map['path'],
-        ownersIDs: Stringer.getStringsFromDynamics(dynamics: map['ownersIDs']),
+        ownersIDs: Stringer.getStringsFromDynamics(map['ownersIDs']),
         bytes: Floaters.getBytesFromInts(map['bytes']),
         sizeMB: map['sizeMB'],
       );
