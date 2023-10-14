@@ -1,4 +1,9 @@
 
+### 2.10.0
+1. minor UI fixes
+2. fixes in countries counters
+3. optimization in backend response speed & behavior
+
 ### 2.9.0
 1. Ui & UX updates & bug fixes
 2. performance optimizations
