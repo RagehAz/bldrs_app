@@ -144,6 +144,56 @@ class RecordTyper {
       translate: true,
     );
   }
-  // // -----------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? getRecordTypeIcon(RecordType? recordType){
+
+    switch(recordType){
+      case RecordType.session         : return Iconz.bldrsAppIcon;
+      case RecordType.review          : return Iconz.balloonSpeaking;
+      case RecordType.follow          : return Iconz.follow;
+      case RecordType.unfollow        : return Iconz.terms;
+      case RecordType.call            : return Iconz.comPhone;
+      case RecordType.share           : return Iconz.share;
+      case RecordType.view            : return Iconz.viewsIcon;
+      case RecordType.save            : return Iconz.saveOn;
+      case RecordType.unSave          : return Iconz.saveOff;
+      default: return Iconz.more;
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkRecordConcernFlyer(RecordType? recordType){
+    switch(recordType){
+      case RecordType.session         : return false;
+      case RecordType.review          : return true;
+      case RecordType.follow          : return false;
+      case RecordType.unfollow        : return false;
+      case RecordType.call            : return false;
+      case RecordType.share           : return true;
+      case RecordType.view            : return true;
+      case RecordType.save            : return true;
+      case RecordType.unSave          : return true;
+      default: return false;
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkRecordConcernBz(RecordType? recordType){
+    switch(recordType){
+      case RecordType.session         : return false;
+      case RecordType.review          : return false;
+      case RecordType.follow          : return true;
+      case RecordType.unfollow        : return true;
+      case RecordType.call            : return true;
+      case RecordType.share           : return false;
+      case RecordType.view            : return false;
+      case RecordType.save            : return false;
+      case RecordType.unSave          : return false;
+      default: return false;
+    }
+  }
+  // -----------------------------------------------------------------------------
 
 }
