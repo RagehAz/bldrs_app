@@ -1,6 +1,8 @@
 // ignore_for_file: constant_identifier_names
+import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
@@ -487,11 +489,19 @@ class Phider {
         final List<String> _sons = sons;
 
         if (Mapper.checkCanLoopList(_sons) == true){
-
           _arePhids = Phider.checkIsPhid(_sons.first);
-
         }
 
+      }
+
+      else if (ObjectCheck.objectIsMinified(sons) == true){
+        if (sons is List && sons.isNotEmpty == true){
+          final List<dynamic> dynamics = sons;
+          final List<String> _strings = Stringer.getStringsFromDynamics(dynamics);
+          if (Mapper.checkCanLoopList(_strings) == true){
+            _arePhids = Phider.checkIsPhid(_strings.first);
+          }
+        }
       }
 
     }
