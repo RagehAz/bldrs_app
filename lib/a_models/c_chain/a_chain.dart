@@ -1,4 +1,7 @@
+import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
@@ -8,8 +11,6 @@ import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 @immutable
 class Chain {
@@ -71,6 +72,7 @@ class Chain {
     };
 
     if (Mapper.checkCanLoopList(chains) == true) {
+
       final List<String> paths = ChainPathConverter.generateChainsPaths(
         parentID: '',
         chains: chains,
@@ -305,6 +307,19 @@ class Chain {
       _areChains = true;
     }
 
+    else if (sons is List<Chain>){
+      _areChains = true;
+    }
+
+    else if (ObjectCheck.objectIsMinified(sons) == true){
+      if (sons is List && sons.isNotEmpty == true){
+        final List<dynamic> dynamics = sons;
+        if (dynamics[0] is Chain){
+          _areChains = true;
+        }
+      }
+    }
+
     return _areChains;
   }
   // --------------------
@@ -396,7 +411,7 @@ class Chain {
 
     if (Mapper.checkCanLoopList(chains1) == true && Mapper.checkCanLoopList(chains2) == true) {
       if (chains1!.length == chains2!.length) {
-        // blog('checkChainsListsAreIdentical : chains1.length (${chains1.length}) == chains2.length (${chains2.length})');
+        blog('checkChainsListsAreIdentical : chains1.length (${chains1.length}) == chains2.length (${chains2.length})');
 
         for (int i = 0; i < chains1.length; i++) {
           final bool _twoChainsAreIdentical = checkChainsAreIdentical(
@@ -405,8 +420,8 @@ class Chain {
           );
 
           if (_twoChainsAreIdentical == false) {
-            // final String _areIdentical = _twoChainsAreIdentical ? 'ARE IDENTICAL' : 'ARE NOT IDENTICAL ------------ X OPS X';
-            // blog('($i : ${chains1[i].id} ) <=> ( ${chains2[i].id} ) : $_areIdentical');
+            final String _areIdentical = _twoChainsAreIdentical ? 'ARE IDENTICAL' : 'ARE NOT IDENTICAL ------------ X OPS X';
+            blog('($i : ${chains1[i].id} ) <=> ( ${chains2[i].id} ) : $_areIdentical');
             _listsAreIdentical = false;
             break;
           } else {

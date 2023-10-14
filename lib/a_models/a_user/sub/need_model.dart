@@ -376,10 +376,16 @@ class NeedModel {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() => '''
+NeedModel(
+  needType: $needType,
+  notes: $notes,
+  flyerIDs: $flyerIDs,
+  bzzIDs: $bzzIDs,
+  scope: $scope,
+  location: $location,
+ )''';
   // --------------------
   @override
   bool operator == (Object other){
