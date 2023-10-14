@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:fire/super_fire.dart';
@@ -85,24 +86,23 @@ class _BzTeamPageState extends State<BzTeamPage> {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    blog('wtf');
     // --------------------
     return Selector<BzzProvider, BzModel?>(
       selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
       shouldRebuild: (oldModel, newModel){
 
-        blog('THE FUCKING BZ TEAM IS REBUILDING PAGE');
-
         BzModel.blogBzzDifferences(
           bz1: oldModel,
           bz2: newModel,
         );
-
         return true;
-      },
+        },
+
       builder: (BuildContext context, BzModel? bzModel, Widget? child){
 
         final List<AuthorModel> _authors = bzModel?.authors ?? [];
-
         final bool _canSendAuthorships = AuthorModel.checkAuthorAbility(
           ability: AuthorAbility.canSendAuthorships,
           theDoer: AuthorModel.getAuthorFromBzByAuthorID(
@@ -111,7 +111,6 @@ class _BzTeamPageState extends State<BzTeamPage> {
           ),
           theDoneWith: null,
         );
-
 
         return ListView(
           physics: const BouncingScrollPhysics(),
@@ -145,31 +144,33 @@ class _BzTeamPageState extends State<BzTeamPage> {
 
           /// ADD BUTTON
           Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
 
-                  const DotSeparator(),
+              /// DOT
+              const DotSeparator(),
 
-                  BldrsBox(
-                    width: (widget.bubbleWidth ?? BldrsAppBar.width()) - 20,
-                    height: 80,
-                    bubble: false,
-                    color: Colorz.white10,
-                    verseCentered: false,
-                    verse: const Verse(
-                      pseudo: 'Add Authors to the team',
-                      id: 'phid_add_authors_to_the_team',
-                      translate: true,
-                    ),
-                    icon: Iconz.plus,
-                    iconSizeFactor: 0.5,
-                    margins: 10,
-                    corners: AuthorCard.bubbleCornerValue(),
-                    onTap: () => onGoToAddAuthorsScreen(context),
-                  ),
-
-                ],
+              /// ADD AUTHORS BUTTON
+              BldrsBox(
+                width: Bubble.bubbleWidth(context: context, bubbleWidthOverride: widget.bubbleWidth),
+                height: 80,
+                bubble: false,
+                color: Colorz.white10,
+                verseCentered: false,
+                verse: const Verse(
+                  pseudo: 'Add Authors to the team',
+                  id: 'phid_add_authors_to_the_team',
+                  translate: true,
+                ),
+                icon: Iconz.plus,
+                iconSizeFactor: 0.5,
+                margins: 10,
+                corners: AuthorCard.bubbleCornerValue(),
+                onTap: () => onGoToAddAuthorsScreen(context),
               ),
+
+            ],
+          ),
 
         ],
       ),
