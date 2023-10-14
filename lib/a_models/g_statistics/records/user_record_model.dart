@@ -1,5 +1,4 @@
 // ignore_for_file: non_constant_identifier_names
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
@@ -78,34 +77,51 @@ class UserRecordModel {
 
         for (final String dayNode in _keys){
 
-          blog('dayNode : $dayNode : keys : $_keys');
+          final List<UserRecordModel> _dayRecords = decipherDayNodeMap(
+            userID: userID,
+            dayMap: map[dayNode],
+          );
 
-          /// DAY MAPS
-          final Map<String, dynamic>? _dayMaps = map[dayNode];
+          _output.addAll(_dayRecords);
 
-          if (_dayMaps != null){
+        }
 
-            final List<String> _recordsIDs = _dayMaps.keys.toList();
+      }
 
-            if (Mapper.checkCanLoopList(_recordsIDs) == true){
+    }
 
-              for (final String recordID in _recordsIDs){
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<UserRecordModel> decipherDayNodeMap({
+    required String userID,
+    required Map<String, dynamic>? dayMap,
+  }){
+    final List<UserRecordModel> _output = [];
 
-                final UserRecordModel _record = UserRecordModel(
-                  id: recordID,
-                  userID: userID,
-                  modelID: _dayMaps[recordID]['modelID'],
-                  recordType: RecordTyper.decipherRecordType(_dayMaps[recordID]['recordType']),
-                  time: Timers.decipherTime(time: _dayMaps[recordID]['time'], fromJSON: true),
-                );
+    if (dayMap != null){
 
-                _output.add(_record);
+      // blog('dayMap is : $dayMap');
 
-              }
+      final List<String> _recordsIDs = dayMap.keys.toList();
+      _recordsIDs.remove('id');
 
-            }
+      if (Mapper.checkCanLoopList(_recordsIDs) == true){
 
-          }
+        for (final String recordID in _recordsIDs){
+
+          final Map<String, dynamic> _recordMap = dayMap[recordID];
+
+          final UserRecordModel _record = UserRecordModel(
+            id: recordID,
+            userID: userID,
+            modelID: _recordMap['modelID'],
+            recordType: RecordTyper.decipherRecordType(_recordMap['recordType']),
+            time: Timers.decipherTime(time: _recordMap['time'], fromJSON: true),
+          );
+
+          _output.add(_record);
 
         }
 
@@ -223,6 +239,75 @@ class UserRecordModel {
 
     }
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// SORTING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Map<String, dynamic>> sortUserRecordsDays({
+    required List<Map<String, dynamic>>? maps,
+    required bool ascending,
+  }){
+    List<Map<String, dynamic>> _output = [];
+
+    if (Mapper.checkCanLoopList(maps) == true){
+
+      _output = <Map<String, dynamic>>[...maps!];
+
+      _output.sort((Map<String, dynamic> a, Map<String, dynamic> b){
+
+        final DateTime? _a = decipherDayNodeName(nodeName: a['id']);
+        final DateTime? _b = decipherDayNodeName(nodeName: b['id']);
+
+        if (_a == null){
+          return 1;
+        }
+        else if (_b == null){
+          return -1;
+        }
+        else {
+          if (ascending == true){
+            return _a.compareTo(_b);
+          }
+          else {
+            return _b.compareTo(_a);
+          }
+        }
+
+      });
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<UserRecordModel> sortRecordsByTime(List<UserRecordModel> records){
+    List<UserRecordModel> _output = [];
+
+    if (Mapper.checkCanLoopList(records) == true){
+
+      _output = [...records];
+
+      _output.sort((UserRecordModel a, UserRecordModel b){
+
+        final DateTime? _a = a.time;
+        final DateTime? _b = b.time;
+
+        if (_a != null && _b != null){
+          return _a.compareTo(_b);
+        }
+        else {
+          return 0;
+        }
+
+      });
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
