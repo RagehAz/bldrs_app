@@ -1,3 +1,7 @@
+### 2.11.0
+1. Fixed broken icons
+2. Fixed Notification infinite loop crash
+3. Added skip button in edit Author screen
 
 ### 2.10.0
 1. minor UI fixes
