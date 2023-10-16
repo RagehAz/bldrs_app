@@ -15,6 +15,7 @@ class EditorSwipingButtons extends StatelessWidget {
     this.canGoNext = false,
     this.onDisabledNextTap,
     this.onPrevious,
+    this.onSkipTap,
     // this.onDisabledPreviousTap,
     super.key
   });
@@ -23,6 +24,7 @@ class EditorSwipingButtons extends StatelessWidget {
   final bool canGoNext;
   final Function? onDisabledNextTap;
   final Function? onPrevious;
+  final Function? onSkipTap;
   // final Function? onDisabledPreviousTap;
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -149,6 +151,20 @@ class EditorSwipingButtons extends StatelessWidget {
               onTap: () async {
                 await Keyboard.closeKeyboard();
                 onNext?.call();
+              },
+            ),
+
+            if (onSkipTap != null && onNext == null)
+            BldrsBox(
+              verse: const Verse(id: 'phid_skip', translate: true),
+              verseScaleFactor: 0.7,
+              height: 50,
+              margins: 10,
+              width: 100,
+              color: Colorz.white10,
+              onTap: () async {
+                await Keyboard.closeKeyboard();
+                onSkipTap?.call();
               },
             ),
 
