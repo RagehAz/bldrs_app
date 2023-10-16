@@ -57,6 +57,7 @@ class UserModel {
     required this.fcmTopics,
     required this.savedFlyers,
     required this.followedBzz,
+    required this.lastSeen,
     required this.appState,
     this.docSnapshot,
   });
@@ -85,6 +86,7 @@ class UserModel {
   final DeckModel? savedFlyers;
   final AgendaModel? followedBzz;
   final AppStateModel? appState;
+  final DateTime? lastSeen;
   final QueryDocumentSnapshot<Object?>? docSnapshot;
    // -----------------------------------------------------------------------------
 
@@ -134,6 +136,7 @@ class UserModel {
       followedBzz: AgendaModel.newAgenda(),
       appState: await AppStateModel.createInitialModel(),
       fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
+      lastSeen: DateTime.now(),
     );
 
     // _userModel.blogUserModel(invoker: 'fromFirebaseUser');
@@ -176,6 +179,7 @@ class UserModel {
       'savedFlyers': savedFlyers?.toMap(),
       'followedBzz': followedBzz?.toMap(),
       'appState' : appState?.toMap(toUserModel: true),
+      'lastSeen': Timers.cipherTime(time: lastSeen, toJSON: toJSON),
     };
   }
   // --------------------
@@ -242,6 +246,7 @@ class UserModel {
         savedFlyers: DeckModel.decipher(map['savedFlyers']),
         followedBzz: AgendaModel.decipher(map['followedBzz']),
         appState: AppStateModel.fromMap(map: map['appState']),
+        lastSeen: Timers.decipherTime(time: map['lastSeen'], fromJSON: fromJSON),
         docSnapshot: map['docSnapshot']
     );
     }
@@ -303,6 +308,7 @@ class UserModel {
     AgendaModel? followedBzz,
     AppStateModel? appState,
     List<String>? fcmTopics,
+    DateTime? lastSeen,
   }){
     return UserModel(
       id: id ?? this.id,
@@ -329,6 +335,7 @@ class UserModel {
       followedBzz: followedBzz ?? this.followedBzz,
       appState: appState ?? this.appState,
       fcmTopics: fcmTopics ?? this.fcmTopics,
+      lastSeen: lastSeen ?? this.lastSeen,
     );
   }
   // --------------------
@@ -358,6 +365,7 @@ class UserModel {
     bool followedBzz = false,
     bool appState = false,
     bool fcmTopics = false,
+    bool lastSeen = false,
   }){
     return UserModel(
       id : id == true ? null : this.id,
@@ -384,6 +392,7 @@ class UserModel {
       followedBzz : followedBzz == true ? AgendaModel.newAgenda() : this.followedBzz,
       appState : appState == true ? null : this.appState,
       fcmTopics: fcmTopics == true ? const [] : this.fcmTopics,
+      lastSeen : lastSeen == true ? null : this.lastSeen,
     );
   }
   // -----------------------------------------------------------------------------
@@ -583,7 +592,7 @@ class UserModel {
     }
   }
   // --------------------
-  /// TASK TEST ME
+  /// TESTED : WORKS PERFECT
   static List<UserModel> getSignedUpUsersOnly({
     required List<UserModel> users,
   }){
@@ -604,7 +613,7 @@ class UserModel {
     return _output;
   }
   // --------------------
-  /// TASK TEST ME
+  /// TESTED : WORKS PERFECT
   static UserModel? getFirstAnonymousUserFromUsers({
     required List<UserModel> users,
   }){
@@ -931,6 +940,7 @@ class UserModel {
     );
     device?.blogDevice();
     Stringer.blogStrings(strings: fcmTopics, invoker: 'user fcmTopics');
+    blog('lastSeen : $lastSeen');
     appState?.blogAppState();
 
     blog('$invoker : ---------------- END -- ');
@@ -1071,6 +1081,10 @@ class UserModel {
         blog('blogUserDifferences : [need] are not identical');
       }
 
+      if (Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.lastSeen, time2: user2.lastSeen) == false){
+        blog('blogUserDifferences : [lastSeen] are not identical');
+      }
+
     }
 
   }
@@ -1107,6 +1121,7 @@ class UserModel {
       followedBzz: AgendaModel.newAgenda(),
       appState: AppStateModel.dummyAppState(),
       fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
+      lastSeen: Timers.createDate(year: 2021, month: 06, day: 10),
     );
 
     return _userModel;
@@ -1230,6 +1245,7 @@ class UserModel {
         followedBzz: AgendaModel.newAgenda(),
         /// BY THE TIME WE ARE CREATING AN ANONYMOUS USER, WE DON'T HAVE PERMISSION TO READ THIS
         appState: null, //await AppStateProtocols.fetchGlobalAppState(),
+        lastSeen: DateTime.now(),
     );
 
     }
@@ -1349,7 +1365,8 @@ class UserModel {
           AgendaModel.checkAgendasAreIdentical(agenda1: user1.followedBzz, agenda2: user2.followedBzz) == true &&
           AppStateModel.checkAppStatesAreIdentical(state1: user1.appState, state2: user2.appState, isInUserModel: true) == true &&
           DeviceModel.checkDevicesAreIdentical(device1: user1.device, device2: user2.device) == true &&
-          Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == true
+          Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == true &&
+          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.lastSeen, time2: user2.lastSeen) == true
       // DocumentSnapshot docSnapshot;
 
       ){
@@ -1422,6 +1439,7 @@ class UserModel {
       savedFlyers.hashCode^
       followedBzz.hashCode^
       appState.hashCode^
+      lastSeen.hashCode^
       docSnapshot.hashCode;
   // -----------------------------------------------------------------------------
 }
