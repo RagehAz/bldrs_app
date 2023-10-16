@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/xxx_slide_editor_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/e_slide_headline.dart';
@@ -18,10 +19,12 @@ class EditorSlideHeadlineTextField extends StatelessWidget {
     required this.globalKey,
     required this.mounted,
     required this.draftSlide,
+    required this.draftFlyer,
     super.key
   });
   /// --------------------------------------------------------------------------
   final ValueNotifier<DraftSlide?> draftSlide;
+  final ValueNotifier<DraftFlyer?> draftFlyer;
   final ValueNotifier<bool> isTransforming;
   final double flyerBoxWidth;
   final AppBarType appBarType;
@@ -74,6 +77,7 @@ class EditorSlideHeadlineTextField extends StatelessWidget {
                       textScaleFactor: flyerBoxWidth * SlideHeadline.headlineScaleFactor * 1.3,
                       centered: true,
                       onChanged: (String? text) => onSlideHeadlineChanged(
+                        draftFlyer: draftFlyer,
                         draftSlide: draftSlide,
                         text: text,
                         mounted: mounted,
