@@ -1,4 +1,3 @@
-import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
@@ -6,9 +5,9 @@ import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/d_shelf_slides_part.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/z_loading_shelf_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/a_draft_shelf_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/material.dart';
 
@@ -49,16 +48,7 @@ class SlidesShelf extends StatelessWidget {
           borderRadius: Borderers.cornerAll(Bubble.clearCornersValue),
         ),
         alignment: BldrsAligners.superCenterAlignment(context),
-        child: Container(
-          width: DraftShelfSlide.flyerBoxWidth,
-          height: _slideZoneHeight,
-          alignment: Alignment.bottomCenter,
-          padding: const EdgeInsets.all(Ratioz.appBarPadding),
-          child: const FlyerLoading(
-            flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
-            animate: false,
-          ),
-        ),
+        child: const LoadingShelfSlide(),
       );
     }
 
