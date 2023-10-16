@@ -1,18 +1,15 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/z_noot_controller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class FCMStarter {
   // -----------------------------------------------------------------------------
@@ -180,17 +177,17 @@ class FCMStarter {
           invoker: '_initializeNootsListeners.onMessageOpenedApp',
         );
 
-        final NoteModel? _note = NoteModel.decipherRemoteMessage(
-          map: remoteMessage?.data,
-        );
+        // final NoteModel? _note = NoteModel.decipherRemoteMessage(
+        //   map: remoteMessage?.data,
+        // );
 
-        await BldrsCenterDialog.showCenterDialog(
-          titleVerse: Verse.plain('App was on background'),
-          bodyVerse: Verse.plain('noteTitle is : ${_note?.title}'),
-          color: Colorz.green50,
-          height: 400,
-          confirmButtonVerse: Verse.plain('Tamam'),
-        );
+        // await BldrsCenterDialog.showCenterDialog(
+        //   titleVerse: Verse.plain('App was on background'),
+        //   bodyVerse: Verse.plain('noteTitle is : ${_note?.title}'),
+        //   color: Colorz.green50,
+        //   height: 400,
+        //   confirmButtonVerse: Verse.plain('Tamam'),
+        // );
 
         // await _pushGlobalNootFromRemoteMessage(
         //   remoteMessage: remoteMessage,
@@ -214,12 +211,12 @@ class FCMStarter {
 
     if (initialRemoteMessage != null) {
 
-      FCM.blogRemoteMessage(
-        remoteMessage: initialRemoteMessage,
-        invoker: '_receiveInitialRemoteMessage',
-      );
+      // FCM.blogRemoteMessage(
+      //   remoteMessage: initialRemoteMessage,
+      //   invoker: '_receiveInitialRemoteMessage',
+      // );
 
-      blog('initializeNoots : can navigate here and shit');
+      // blog('initializeNoots : can navigate here and shit');
 
     }
 

@@ -3,29 +3,10 @@ import 'dart:async';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_action_protocols.dart';
 import 'package:flutter/scheduler.dart';
 
-Future<void> _testNoot({
-required ReceivedNotification? rNoot,
-required String invoker,
-}) async {
 
-  final NoteModel? _note = NoteModel.decipherRemoteMessage(
-    map: rNoot?.payload,
-  );
-
-  if (_note?.parties?.receiverID != null){
-    await pushFastNote(
-      title: 'invoker',
-      userID: _note!.parties!.receiverID!,
-      body: _note.title ?? 'No title',
-    );
-
-  }
-
-}
 
 /// for AWESOME NOTIFICATION VERSION 7.
 abstract class NootController {
@@ -42,15 +23,12 @@ abstract class NootController {
   @pragma('vm:entry-point')
   static Future <void> onNotificationCreatedMethod(ReceivedNotification rNoot) async {
 
-    blogReceivedNotification(
-      noot: rNoot,
-      invoker: 'onNotificationCreatedMethod',
-    );
+    // blogReceivedNotification(
+    //   noot: rNoot,
+    //   invoker: 'onNotificationCreatedMethod',
+    // );
 
-    await _testNoot(
-      rNoot: rNoot,
-      invoker: 'onNotificationCreatedMethod',
-    );
+
 
 
   }
@@ -59,15 +37,15 @@ abstract class NootController {
   @pragma('vm:entry-point')
   static Future <void> onNotificationDisplayedMethod(ReceivedNotification rNoot) async {
 
-    blogReceivedNotification(
-      noot: rNoot,
-      invoker: 'onNotificationDisplayedMethod',
-    );
+    // blogReceivedNotification(
+    //   noot: rNoot,
+    //   invoker: 'onNotificationDisplayedMethod',
+    // );
 
-    await _testNoot(
-      rNoot: rNoot,
-      invoker: 'onNotificationDisplayedMethod',
-    );
+    // await _testNoot(
+    //   rNoot: rNoot,
+    //   invoker: 'onNotificationDisplayedMethod',
+    // );
 
   }
   // -----------------------------------------------------------------------------
@@ -75,10 +53,10 @@ abstract class NootController {
   @pragma('vm:entry-point')
   static Future <void> onDismissActionReceivedMethod(ReceivedAction rNoot) async {
 
-    blogReceivedAction(
-      action: rNoot,
-      invoker: 'onDismissActionReceivedMethod',
-    );
+    // blogReceivedAction(
+    //   action: rNoot,
+    //   invoker: 'onDismissActionReceivedMethod',
+    // );
 
     // await _testNoot(
     //   rNoot: rNoot,
@@ -91,10 +69,10 @@ abstract class NootController {
   @pragma('vm:entry-point')
   static Future <void> onActionReceivedMethod(ReceivedAction receivedAction) async {
 
-    blogReceivedAction(
-      action: receivedAction,
-      invoker: 'onActionReceivedMethod',
-    );
+    // blogReceivedAction(
+    //   action: receivedAction,
+    //   invoker: 'onActionReceivedMethod',
+    // );
 
     SchedulerBinding.instance.addPostFrameCallback((_) async {
 

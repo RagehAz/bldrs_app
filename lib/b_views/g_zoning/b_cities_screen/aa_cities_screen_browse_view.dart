@@ -64,7 +64,10 @@ class CitiesScreenBrowseView extends StatelessWidget {
                 }
 
                 else {
-                  final String? _countryID = CityModel.getCountryIDFromCityID(cities.first.cityID);
+
+                  final CityModel? _city = Mapper.checkCanLoopList(cities) == true ? cities.first : null;
+                  final String? _countryID = CityModel.getCountryIDFromCityID(_city?.cityID);
+
                   return CountryTileButton(
                     verse: const Verse(
                       id: 'phid_view_all_cities',

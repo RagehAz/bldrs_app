@@ -1040,7 +1040,7 @@ class Chain {
 
     final List<Chain> _output = ChainPathConverter.createChainsFromPaths(paths: _modifiedPaths);
 
-    return _output.first;
+    return Mapper.checkCanLoopList(_output) == true ? _output.first : null;
   }
   // --------------------
   /// TASK : TEST ME
