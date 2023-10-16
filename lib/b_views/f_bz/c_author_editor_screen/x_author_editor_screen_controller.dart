@@ -354,6 +354,7 @@ Future<void> onConfirmAuthorUpdates({
       invoker: 'onConfirmAuthorUpdates',
       passedData: _newBz,
     );
+
   }
 
 }

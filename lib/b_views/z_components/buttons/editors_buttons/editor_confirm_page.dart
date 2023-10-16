@@ -19,6 +19,7 @@ class EditorConfirmPage extends StatelessWidget {
     required this.modelHasChanged,
     required this.onPreviousTap,
     this.previewWidget,
+    this.onSkipTap,
     this.bulletPoints,
     super.key,
   });
@@ -29,6 +30,7 @@ class EditorConfirmPage extends StatelessWidget {
   final bool canConfirm;
   final bool modelHasChanged;
   final Function onPreviousTap;
+  final Function? onSkipTap;
   final List<Verse>? bulletPoints;
   /// --------------------------------------------------------------------------
   @override
@@ -91,6 +93,7 @@ class EditorConfirmPage extends StatelessWidget {
         /// SWIPING BUTTONS
         EditorSwipingButtons(
           onPrevious: onPreviousTap,
+          onSkipTap: onSkipTap,
         ),
 
         const Horizon(
