@@ -76,6 +76,7 @@ class Initializer {
   static Future<bool> logoScreenInitialize({
     required BuildContext context,
     required bool mounted,
+    bool? skipAppStateCheck,
   }) async {
     bool _canLoadApp = false;
 
@@ -103,7 +104,7 @@ class Initializer {
       );
 
       /// APP STATE
-      _canLoadApp = await AppStateInitializer.initialize();
+      _canLoadApp = skipAppStateCheck ?? await AppStateInitializer.initialize();
 
       /// LOADING
       UiInitializer.setLoadingVerse(getWord('phid_thisIsBabyApp'));
