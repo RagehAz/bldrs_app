@@ -645,8 +645,7 @@ class PickerModel {
     PickerModel? _specPicker;
 
     if (Mapper.checkCanLoopList(pickers) == true && chainID != null) {
-      _specPicker = pickers!.firstWhereOrNull(
-              (PickerModel picker) => picker.chainID == chainID);
+      _specPicker = pickers!.firstWhereOrNull((PickerModel picker) => picker.chainID == chainID);
     }
 
     return _specPicker;

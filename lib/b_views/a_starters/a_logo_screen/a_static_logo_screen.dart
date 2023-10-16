@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/a_starters/a_logo_screen/aa_static_logo_screen_vie
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/a_initializer.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,8 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
   void initState() {
     super.initState();
 
+    superContext = context;
+
     _scaleController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: _fadeCycleDuration),
@@ -71,7 +74,7 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
         if (_loadApp == true){
 
           await Initializer.routeAfterLoaded(
-              context: context,
+              // context: context,
               mounted: mounted
           );
 

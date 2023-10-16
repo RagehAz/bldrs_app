@@ -19,6 +19,7 @@ class ChainPathConverter {
   /// DEBUG BLOGGING
 
   // --------------------
+  /*
   static const canBlog = false;
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -27,6 +28,7 @@ class ChainPathConverter {
       blog(text);
     }
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogPaths(List<String> paths){
@@ -78,7 +80,7 @@ class ChainPathConverter {
         paths: <String>[path!],
       );
 
-      if (Mapper.checkCanLoopList(chains)){
+      if (Mapper.checkCanLoopList(chains) == true){
         _chain = chains.first;
       }
     }
@@ -98,7 +100,7 @@ class ChainPathConverter {
       pathsToAdd: paths,
     );
 
-    _dBlog('finished all ops of addPathsToChains and will print the ( ${chains.length} ) chains now' );
+    // _dBlog('finished all ops of addPathsToChains and will print the ( ${chains.length} ) chains now' );
 
     // Chain.blogChains(chains);
 
@@ -114,8 +116,9 @@ class ChainPathConverter {
       return null;
     }
     else {
+
       return Chain(
-        id: dividedPath.first,
+        id: dividedPath.isEmpty ? null : dividedPath.first,
         sons: dividedPath.length == 2 ? <String>[dividedPath.last] : <Chain>[],
       );
     }
@@ -186,14 +189,14 @@ class ChainPathConverter {
 
     final List<String> _divided = splitPathNodes(pathToAdd);
 
-    _dBlog('XXX - adding path of ( $pathToAdd )');
+    // _dBlog('XXX - adding path of ( $pathToAdd )');
 
     _addDividedPathToAllChains(
       chains: chains ?? [],
       dividedPath: _divided,
     );
 
-    _dBlog('zzz - added path to chain :-');
+    // _dBlog('zzz - added path to chain :-');
     // Chain.blogChains(allChains);
 
   }
@@ -205,7 +208,7 @@ class ChainPathConverter {
   }) {
 
     /// GET ROOT CHAIN IF EXISTED OR NULL IF NOT
-    final String _rootChainID = dividedPath.first;
+    final String _rootChainID = dividedPath.isEmpty ? '' : dividedPath.first;
     final Chain? _rooChain = _getRootChainFromChains(
       chains: chains,
       rootChainID: _rootChainID,
@@ -217,7 +220,7 @@ class ChainPathConverter {
     /// ROOT CHAIN FOUND => add nestedSonsIDs to sub tree
     if (_rooChain != null) {
 
-      _dBlog('1 - found chainID ( $_rootChainID )');
+      // _dBlog('1 - found chainID ( $_rootChainID )');
 
 
       _addNestedSonsIDsToChain(
@@ -226,13 +229,13 @@ class ChainPathConverter {
         level: 1,
       );
 
-      _dBlog('2 - added sons ( $_nestedSonsIDs ) to chainID ( $_rootChainID )');
+      // _dBlog('2 - added sons ( $_nestedSonsIDs ) to chainID ( $_rootChainID )');
     }
 
     /// when not found : doesn't exist => create new root chain then add sons
     else {
 
-      _dBlog('1 - did not find chainID ( $_rootChainID )');
+      // _dBlog('1 - did not find chainID ( $_rootChainID )');
 
       final Chain? _chain = _createNewEmptyChainForPath(
           dividedPath: dividedPath
@@ -243,7 +246,7 @@ class ChainPathConverter {
         chains.add(_chain);
       }
 
-      _dBlog('2 - created new chainID ( ${dividedPath.first} )');
+      // _dBlog('2 - created new chainID ( ${dividedPath.first} )');
 
       /// add sons to the new chain just added at the end of the list
       _addNestedSonsIDsToChain(
@@ -252,7 +255,7 @@ class ChainPathConverter {
         level: 1,
       );
 
-      _dBlog('3 - added sons ( $_nestedSonsIDs ) to chainID ( $_rootChainID )');
+      // _dBlog('3 - added sons ( $_nestedSonsIDs ) to chainID ( $_rootChainID )');
 
     }
   }
@@ -264,32 +267,33 @@ class ChainPathConverter {
     required int level,
   }) {
 
-    final String _space = Chain.getChainBlogTreeSpacing(level);
+    // final String _space = Chain.getChainBlogTreeSpacing(level);
 
     if (Mapper.checkCanLoopList(nestedSonsIDs) == true && parentChain != null){
-      _dBlog('$_space A - starting to add nested sons IDs ( $nestedSonsIDs ) to chainID ( ${parentChain.id} )');
+
+      // _dBlog('$_space A - starting to add nested sons IDs ( $nestedSonsIDs ) to chainID ( ${parentChain.id} )');
 
       /// A - CHECK IF PARENT CHAIN HAS THIS SON ID
       final bool _parentChainHasThisSon = _chainSonsIncludeID(
         chain: parentChain,
-        sonID: nestedSonsIDs?.first,
+        sonID: nestedSonsIDs!.first,
       );
 
-      _dBlog('$_space B - parent chainID ( ${parentChain.id} ) sons are ( ${parentChain.sons.runtimeType} )');
+      // _dBlog('$_space B - parent chainID ( ${parentChain.id} ) sons are ( ${parentChain.sons.runtimeType} )');
 
       /// B - IF SONS ARE DEFINED STRINGS
       if (parentChain.sons is List<String> || DataCreation.checkIsDataCreator(parentChain.sons) == true){
 
         /// C - IF STRING IS ALREADY ADDED
         if (_parentChainHasThisSon == true){
-          _dBlog('$_space C - chainID ( ${parentChain.id} ) already have this son string ( ${nestedSonsIDs?.first} )');
+          // _dBlog('$_space C - chainID ( ${parentChain.id} ) already have this son string ( ${nestedSonsIDs?.first} )');x
           // DO NOTHING
         }
         /// C - IS STRING IS NOT ADDED
         else {
-          _dBlog('$_space C - Adding son string ( ${nestedSonsIDs?.first} ) to chainID ( ${parentChain.id} )');
+          // _dBlog('$_space C - Adding son string ( ${nestedSonsIDs?.first} ) to chainID ( ${parentChain.id} )');x
           parentChain.addPathSon(
-            son: nestedSonsIDs?.first,
+            son: nestedSonsIDs.first,
             isLastSonInPath: true,
           );
         }
@@ -301,45 +305,45 @@ class ChainPathConverter {
 
         /// C - IF CHAIN HAS THIS SON ADDED
         if (_parentChainHasThisSon == true){
-          _dBlog('$_space C - chainID ( ${parentChain.id} ) already have this son chain ( ${nestedSonsIDs?.first} )');
+          // _dBlog('$_space C - chainID ( ${parentChain.id} ) already have this son chain ( ${nestedSonsIDs?.first} )');
 
           final List<Chain> _parentChainSons = parentChain.sons;
-          final Chain _chainOfFirstNestedID = _parentChainSons.firstWhere((chain) => chain.id == nestedSonsIDs?.first);
+          final Chain _chainOfFirstNestedID = _parentChainSons.firstWhere((chain) => chain.id == nestedSonsIDs.first);
 
           /// D - ADD REMAINING NESTED IDS IN THIS CHAIN
           _addNestedSonsIDsToChain(
             parentChain: _chainOfFirstNestedID,
-            nestedSonsIDs: nestedSonsIDs?.sublist(1),
+            nestedSonsIDs: nestedSonsIDs.sublist(1),
             level: level + 1,
           );
 
-          _dBlog('$_space D - chainID ( ${_chainOfFirstNestedID.id} ) had ( ${nestedSonsIDs?.sublist(1)} ) added');
+          // _dBlog('$_space D - chainID ( ${_chainOfFirstNestedID.id} ) had ( ${nestedSonsIDs?.sublist(1)} ) added');
         }
 
         /// C - IF CHAIN DID HAVE THIS SON ADDED
         else {
-          _dBlog('$_space D - chainID ( ${parentChain.id} ) does not have this son chain ( ${nestedSonsIDs?.first} )');
+          // _dBlog('$_space D - chainID ( ${parentChain.id} ) does not have this son chain ( ${nestedSonsIDs?.first} )');x
 
           /// D - CREATE NEW EMPTY CHAIN
           final Chain? _newNestedChain = _createNewEmptyChainForPath(
             dividedPath: nestedSonsIDs,
           );
-          _dBlog('$_space E - created new chainID ( ${nestedSonsIDs?.first} )');
+          // _dBlog('$_space E - created new chainID ( ${nestedSonsIDs?.first} )');
 
           /// E - ADD REMAINING NESTED IDS IN THIS CHAIN
           _addNestedSonsIDsToChain(
             parentChain: _newNestedChain,
-            nestedSonsIDs: nestedSonsIDs?.sublist(1),
+            nestedSonsIDs: nestedSonsIDs.sublist(1),
             level: level + 1,
           );
-          _dBlog('$_space E - chainID ( ${nestedSonsIDs?.first} ) had ( ${nestedSonsIDs?.sublist(1)} ) added');
+          // _dBlog('$_space E - chainID ( ${nestedSonsIDs?.first} ) had ( ${nestedSonsIDs?.sublist(1)} ) added');x
 
           /// F - ADD REMAINING NESTED IDS IN THIS CHAIN
           parentChain.addPathSon(
             isLastSonInPath: false,
             son: _newNestedChain,
           );
-          _dBlog('$_space F - chainID ( ${parentChain.id} ) had ( $_newNestedChain ) added');
+          // _dBlog('$_space F - chainID ( ${parentChain.id} ) had ( $_newNestedChain ) added');
 
         }
 
@@ -388,15 +392,23 @@ class ChainPathConverter {
   static String? getFirstPathNode({
     required String? path
   }){
-    /// FIRST PATH NODE IS CHAIN ROOT ID, in this example it's [phid_a] => 'phid_a/phid_b/phid_c'
-    final String? _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(
-        text: path,
-        specialCharacter: '/',
-    );
-    /// => <String>[phid_a, phid_b, phid_c]
-    final List<String>? _pathNodes = _cleanedPath?.split('/');
-    /// => phid_c
-    return _pathNodes?.first;
+
+    if (path == null){
+      return null;
+    }
+
+    else {
+      /// FIRST PATH NODE IS CHAIN ROOT ID, in this example it's [phid_a] => 'phid_a/phid_b/phid_c'
+      final String? _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(
+          text: path,
+          specialCharacter: '/',
+      );
+      /// => <String>[phid_a, phid_b, phid_c]
+      final List<String>? _pathNodes = _cleanedPath?.split('/');
+      /// => phid_c
+      return Mapper.checkCanLoopList(_pathNodes) == true ? _pathNodes?.first : null;
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT

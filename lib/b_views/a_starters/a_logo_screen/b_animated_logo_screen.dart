@@ -116,7 +116,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
           if (_loadApp == true){
             await Initializer.routeAfterLoaded(
-                context: context,
+                // context: context,
                 mounted: mounted
             );
           }

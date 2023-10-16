@@ -193,15 +193,23 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
       phids: widget.chainsIDs,
     );
 
-    if (
-    _chainsByIDs.length == 1
-        &&
-        Chain.checkIsChains(_chainsByIDs.first.sons) == true
-    ){
-      _chains = _chainsByIDs.first.sons;
+    if (Mapper.checkCanLoopList(_chainsByIDs) == true){
+
+      if (
+          _chainsByIDs.length == 1
+          &&
+          Chain.checkIsChains(_chainsByIDs.first.sons) == true
+      ){
+        _chains = _chainsByIDs.first.sons;
+      }
+
+      else {
+        _chains = _chainsByIDs;
+      }
+
     }
     else {
-      _chains = _chainsByIDs;
+      _chains = [];
     }
 
     _allPhids = Chain.getOnlyPhidsSonsFromChains(
@@ -492,7 +500,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     /// SINGLE CHAIN
     else {
       return SingleChainSelectorView(
-        chain: _chains?.first,
+        chain: Mapper.checkCanLoopList(_chains) == true ? _chains?.first : null,
         globalKey: _globalKey,
         searchController: _searchController,
         onSearchSubmit: _onSearchSubmit,
