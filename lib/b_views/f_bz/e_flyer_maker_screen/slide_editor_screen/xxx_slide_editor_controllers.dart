@@ -1,6 +1,7 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
@@ -307,16 +308,27 @@ void onToggleFilter({
 /// TESTED : WORKS PERFECT
 void onSlideHeadlineChanged({
   required ValueNotifier<DraftSlide?> draftSlide,
+  required ValueNotifier<DraftFlyer?> draftFlyer,
   required String? text,
   required bool mounted,
 }){
 
   setNotifier(
-      notifier: draftSlide,
-      mounted: mounted,
-      value: draftSlide.value?.copyWith(
-        headline: text,
-      ),
+    notifier: draftSlide,
+    mounted: mounted,
+    value: draftSlide.value?.copyWith(
+      headline: text,
+    ),
+  );
+
+  setNotifier(
+    notifier: draftFlyer,
+    mounted: mounted,
+    value: DraftFlyer.updateHeadline(
+      draft: draftFlyer.value,
+      newHeadline: text,
+      slideIndex: draftSlide.value?.slideIndex ?? 0,
+    ),
   );
 
 }
