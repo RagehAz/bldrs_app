@@ -7,6 +7,7 @@ import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:basics/super_box/super_box.dart';
 import 'package:basics/super_image/super_image.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
@@ -24,6 +25,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorSlidePart({
     required this.draftSlide,
+    required this.draftFlyer,
     required this.height,
     required this.onSlideTap,
     required this.isTransforming,
@@ -39,6 +41,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final ValueNotifier<DraftSlide?> draftSlide;
+  final ValueNotifier<DraftFlyer?> draftFlyer;
   final double height;
   final Function? onSlideTap;
   final Function? onSlideDoubleTap;
@@ -197,6 +200,7 @@ class SlideEditorSlidePart extends StatelessWidget {
               appBarType: appBarType,
               globalKey: globalKey,
               draftSlide: draftSlide,
+              draftFlyer: draftFlyer,
               flyerBoxWidth: _flyerBoxWidth,
               mounted: mounted,
             ),

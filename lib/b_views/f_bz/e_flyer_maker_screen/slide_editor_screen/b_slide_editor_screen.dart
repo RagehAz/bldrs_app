@@ -144,6 +144,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             appBarType: AppBarType.non,
             height: _slideZoneHeight,
             draftSlide: _draftSlide,
+            draftFlyer: widget.draftFlyer,
             matrixNotifier: _matrix,
             isTransforming: _isTransforming,
             mounted: mounted,

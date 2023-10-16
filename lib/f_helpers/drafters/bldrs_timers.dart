@@ -149,6 +149,28 @@ class BldrsTimers {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String generateString_lastSeenSince_xx({
+    required DateTime? time,
+  }){
+    String _output = '';
+
+    if (
+        time != null
+    ){
+
+      final String _time = BldrsTimers.calculateSuperTimeDifferenceString(
+        from: time,
+        to: DateTime.now(),
+      );
+
+      _output = '${getWord('phid_last_seen_since')} '
+                '$_time';
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// TRANSLATIONS

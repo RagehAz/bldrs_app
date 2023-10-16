@@ -631,10 +631,10 @@ class DraftFlyer{
 
       }
 
-      // /// UPDATE FLYER HEADLINE IF ZERO INDEX
-      // if (slideIndex == 0){
-      //   draft.headline.text = newHeadline;
-      // }
+      /// UPDATE FLYER HEADLINE IF ZERO INDEX
+      if (slideIndex == 0){
+        draft.headline?.text = newHeadline ?? '';
+      }
 
     }
 
