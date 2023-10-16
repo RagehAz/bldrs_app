@@ -57,6 +57,7 @@ class DraftUser {
     required this.emailNode,
     required this.phoneNode,
     required this.formKey,
+    required this.lastSeen,
     required this.canPickImage,
   });
   /// --------------------------------------------------------------------------
@@ -95,6 +96,7 @@ class DraftUser {
   final FocusNode? emailNode;
   final FocusNode? phoneNode;
   final GlobalKey<FormState>? formKey;
+  final DateTime? lastSeen;
   final bool? canPickImage;
   // -----------------------------------------------------------------------------
 
@@ -167,6 +169,7 @@ class DraftUser {
         nameNode: FocusNode(),
         phoneNode: FocusNode(),
         titleNode: FocusNode(),
+        lastSeen: userModel.lastSeen,
       );
 
     }
@@ -262,6 +265,7 @@ class DraftUser {
     TextEditingController? companyController,
     TextEditingController? emailController,
     TextEditingController? phoneController,
+    DateTime? lastSeen,
   }){
     return DraftUser(
       id: id ?? this.id,
@@ -300,6 +304,7 @@ class DraftUser {
       phoneNode: phoneNode ?? this.phoneNode,
       formKey: formKey ?? this.formKey,
       canPickImage: canPickImage ?? this.canPickImage,
+      lastSeen: lastSeen ?? this.lastSeen,
     );
   }
   // --------------------
@@ -341,6 +346,7 @@ class DraftUser {
     bool phoneNode = false,
     bool formKey = false,
     bool canPickImage = false,
+    bool lastSeen = false,
   }){
     return DraftUser(
       id : id == true ? null : this.id,
@@ -379,6 +385,7 @@ class DraftUser {
       phoneNode: phoneNode == true ? null : this.phoneNode,
       formKey: formKey == true ? null : this.formKey,
       canPickImage: canPickImage == true ? null : this.canPickImage,
+      lastSeen: lastSeen == true ? null : this.lastSeen,
     );
   }
   // -----------------------------------------------------------------------------
@@ -415,6 +422,7 @@ class DraftUser {
       'followedBzz': followedBzz?.toMap(),
       'appState' : appState?.toMap(toUserModel: true),
       'hasNewPic' : hasNewPic,
+      'lastSeen': Timers.cipherTime(time: lastSeen, toJSON: true),
       // -------------------------
       // nameController: null,
       // titleController: null,
@@ -475,6 +483,7 @@ class DraftUser {
       phoneNode: null,
       formKey: null,
       canPickImage: true,
+      lastSeen: Timers.decipherTime(time: map['lastSeen'], fromJSON: true),
     );
 
   }
@@ -494,7 +503,6 @@ class DraftUser {
         contacts: draft?.contacts,
         countryID: draft?.zone?.countryID,
       ),
-
 
       /// NO BAKING NEEDED
       id: draft?.id,
@@ -519,6 +527,7 @@ class DraftUser {
       savedFlyers: draft?.savedFlyers,
       followedBzz: draft?.followedBzz,
       appState: draft?.appState,
+      lastSeen: draft?.lastSeen,
     );
 
   }
@@ -590,7 +599,8 @@ class DraftUser {
           draft1.companyController?.text == draft2.companyController?.text &&
           draft1.emailController?.text == draft2.emailController?.text &&
           draft1.phoneController?.text == draft2.phoneController?.text &&
-          draft1.hasNewPic == draft2.hasNewPic
+          draft1.hasNewPic == draft2.hasNewPic &&
+          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: draft1.lastSeen, time2: draft2.lastSeen) == true
       ){
         _identical = true;
       }
@@ -640,6 +650,7 @@ class DraftUser {
     blog('  phoneNode: $phoneNode,');
     blog('  formKey: $formKey,');
     blog('  canPickImage: $canPickImage,');
+    blog('  lastSeen: $lastSeen,');
     blog(');');
 
 
@@ -692,6 +703,7 @@ class DraftUser {
       phoneNode: $phoneNode,
       formKey: $formKey,
       canPickImage: $canPickImage,
+      lastSeen: $lastSeen,
     );
     ''';
 
@@ -753,6 +765,7 @@ class DraftUser {
       emailNode.hashCode^
       phoneNode.hashCode^
       formKey.hashCode^
+      lastSeen.hashCode^
       canPickImage.hashCode;
   /// --------------------------------------------------------------------------
 }
