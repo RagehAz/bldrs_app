@@ -26,7 +26,7 @@ class AppStateInitializer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> initialize() async {
-    bool _canLoadApp = false;
+    bool _canLoadApp = kDebugMode;
 
     /// GET GLOBAL STATE
     final AppStateModel? _globalState = await AppStateProtocols.fetchGlobalAppState();
@@ -34,11 +34,11 @@ class AppStateInitializer {
     /// ON LOADING FAILED OP
     bool _continue = await _globalStateExistsOps(globalState: _globalState);
 
-    if (_continue == true){
+    if (_continue == true && kDebugMode == false){
 
         /// APP IS ONLINE CHECKUP
         _continue = await _appIsOnlineCheckOps(globalState: _globalState!);
-        if (_continue == true){
+        if (_continue == true && kDebugMode == false){
 
           final String _detectedVersion = await AppVersionBuilder.detectAppVersion();
 
@@ -48,7 +48,7 @@ class AppStateInitializer {
             detectedVersion: _detectedVersion,
           );
 
-          if (_continue == true){
+          if (_continue == true && kDebugMode == false){
 
             /// ENDORSE UPDATE APP OP
             _continue = await _endorseUpdateCheckOps(
@@ -56,7 +56,7 @@ class AppStateInitializer {
               detectedVersion: _detectedVersion,
             );
 
-            if (_continue == true){
+            if (_continue == true && kDebugMode == false){
 
               unawaited(_superWipeLDBIfDecidedByRage7(
                 globalState: _globalState,
