@@ -56,6 +56,11 @@ class UserInitializer {
         userModel: _new,
       );
 
+      /// LAST SEEN
+      _new = _new?.copyWith(
+        lastSeen: DateTime.now(),
+      );
+
       /// IDENTICAL ?
       final bool _identical = UserModel.usersAreIdentical(
           user1: _old,
