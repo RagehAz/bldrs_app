@@ -150,7 +150,7 @@ class Initializer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> routeAfterLoaded({
-    required BuildContext context,
+    // required BuildContext context,
     required bool mounted,
   }) async {
 
@@ -181,7 +181,7 @@ class Initializer {
 
         else {
           await Nav.pushNamedAndRemoveAllBelow(
-            context: context,
+            context: getMainContext(),
             goToRoute: RouteName.home,
           );
         }
@@ -191,7 +191,7 @@ class Initializer {
       /// MOBILE - WINDOWS
       else {
         await Nav.pushNamedAndRemoveAllBelow(
-          context: context,
+          context: getMainContext(),
           goToRoute: RouteName.home,
         );
       }

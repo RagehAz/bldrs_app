@@ -1,4 +1,6 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -16,8 +18,6 @@ import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
 
 class NoteProtocols {
   // -----------------------------------------------------------------------------
@@ -836,6 +836,7 @@ Future<void> pushFastNote({
 
 }
 
+/*
   // Future<void> pushThisLocalNoot() async {
   //
   //   await FCM.pushLocalNoot(
@@ -852,3 +853,25 @@ Future<void> pushFastNote({
   //   );
   //
   // }
+
+Future<void> _testNoot({
+required ReceivedNotification? rNoot,
+required String invoker,
+}) async {
+
+  final NoteModel? _note = NoteModel.decipherRemoteMessage(
+    map: rNoot?.payload,
+  );
+
+  if (_note?.parties?.receiverID != null){
+    await pushFastNote(
+      title: 'invoker',
+      userID: _note!.parties!.receiverID!,
+      body: _note.title ?? 'No title',
+    );
+
+  }
+
+}
+
+ */

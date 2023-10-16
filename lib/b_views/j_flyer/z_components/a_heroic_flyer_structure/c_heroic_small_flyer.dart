@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
@@ -100,6 +101,9 @@ class HeroicSmallFlyer extends StatelessWidget {
     //   listen: true,
     // );
 
+    final List<SlideModel> _slides = renderedFlyer?.slides ?? <SlideModel>[];
+    final SlideModel? _firstSlide = Mapper.checkCanLoopList(_slides) == true ? _slides.first : null;
+
     return FlyerBox(
       key: const ValueKey<String>('StaticFlyer'),
       flyerBoxWidth: flyerBoxWidth,
@@ -114,13 +118,13 @@ class HeroicSmallFlyer extends StatelessWidget {
       stackWidgets: <Widget>[
 
         /// STATIC SINGLE SLIDE
-        if (_flyerIsBigNow == false && renderedFlyer?.slides?.first != null)
+        if (_flyerIsBigNow == false && _firstSlide != null)
         SingleSlide(
           flyerBoxWidth: flyerBoxWidth,
           flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
             flyerBoxWidth: flyerBoxWidth,
           ),
-          slideModel: renderedFlyer!.slides!.first,
+          slideModel: _firstSlide,
           slidePicType: SlidePicType.small,
           loading: false,
           tinyMode: false,

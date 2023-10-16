@@ -23,7 +23,7 @@ BuildContext? superContext;
 // --------------------
 /// TESTED : WORKS PERFECT
 BuildContext getMainContext() {
-  return superContext ?? mainNavKey.currentContext!;
+  return mainNavKey.currentContext ?? superContext!;
 }
 // -----------------------------------------------------------------------------
 

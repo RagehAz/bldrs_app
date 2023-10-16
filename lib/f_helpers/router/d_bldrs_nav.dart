@@ -536,6 +536,10 @@ class BldrsNav {
 
     if (TextCheck.isEmpty(routeName) == false){
 
+      if (mainNavKey.currentContext == null){
+        await Future.delayed(const Duration(seconds: 3));
+      }
+
       UiProvider.proSetAfterHomeRoute(
           routeName: routeName,
           arguments: arguments,
@@ -562,8 +566,7 @@ class BldrsNav {
       listen: false,
     );
 
-    blog('autoNavigateFromHomeScreen : _afterHomeRoute : ${_afterHomeRoute?.name} : '
-        'arg : ${_afterHomeRoute?.arguments}');
+    blog('autoNavigateFromHomeScreen : _afterHomeRoute : ${_afterHomeRoute?.name} : arg : ${_afterHomeRoute?.arguments}');
 
     if (_afterHomeRoute != null){
 
@@ -574,7 +577,7 @@ class BldrsNav {
 
       await DynamicRouter.goTo(
         route: _afterHomeRoute.name,
-        arguments: _afterHomeRoute.arguments as String,
+        arguments: _afterHomeRoute.arguments as String?,
       );
 
     }
