@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/models/flag_model.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -22,6 +23,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -644,6 +646,12 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   modelHasChanged: _authorHasChange(),
                   onPreviousTap: _onPreviousTap,
                   previewWidget: Container(),
+                  onSkipTap: () async {
+                    await Nav.goBack(
+                      context: getMainContext(),
+                      invoker: 'onSkipAuthorEdits',
+                    );
+                    },
                 ),
 
               ],
