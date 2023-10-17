@@ -7,9 +7,9 @@ import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/widgets/drawing/spacing.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contacts_wrap.dart';
 import 'package:bldrs/b_views/z_components/buttons/bz_buttons/authors_wrap.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_types_line.dart';
@@ -18,7 +18,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
-import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
 
@@ -50,15 +49,13 @@ class BzBubble extends StatelessWidget {
     required BuildContext context,
     required BzModel? bzModel,
   }) async {
-
-    if (onTap != null){
+    if (onTap != null) {
       onTap?.call();
     }
 
     else {
-
       await BldrsNav.jumpToBzPreviewScreen(
-          bzID: bzModel?.id,
+        bzID: bzModel?.id,
       );
 
       // await Nav.goToNewScreen(
@@ -69,29 +66,26 @@ class BzBubble extends StatelessWidget {
       // );
 
     }
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> onAuthorTap(AuthorModel author) async {
-
     await onCallTap(
-        bzModel: bzModel?.copyWith(
-          authors: [author],
-        ),
-        flyerModel: null,
+      bzModel: bzModel?.copyWith(
+        authors: [author],
+      ),
+      flyerModel: null,
     );
-
   }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _bubbleWidth = Bubble.clearWidth(
-        context: context,
-        bubbleWidthOverride: boxWidth,
+      context: context,
+      bubbleWidthOverride: boxWidth,
     );
-    final double _textZoneWidth =  _bubbleWidth - height - 20 - 10;
+    final double _textZoneWidth = _bubbleWidth - height - 20 - 10;
     final double _teamZoneWidth = _textZoneWidth;
 
     return Bubble(
@@ -103,10 +97,11 @@ class BzBubble extends StatelessWidget {
         textDirection: UiProvider.getAppTextDir(),
       ),
       bubbleColor: isSelected == true ? Colorz.green255 : Colorz.white10,
-      onBubbleTap: () => _onTap(
-        context: context,
-        bzModel: bzModel,
-      ),
+      onBubbleTap: () =>
+          _onTap(
+            context: context,
+            bzModel: bzModel,
+          ),
       columnChildren: <Widget>[
 
         SizedBox(
@@ -126,39 +121,39 @@ class BzBubble extends StatelessWidget {
                     icon: bzModel?.logoPath,
                   ),
 
-                  /// SPACING
-                  if (Mapper.checkCanLoopList(bzModel?.contacts) == true)
-                  const Spacing(size: 5),
+                  // /// SPACING
+                  // if (Mapper.checkCanLoopList(bzModel?.contacts) == true)
+                  // const Spacing(size: 5),
 
-                  /// CONTACTS
-                  if (Mapper.checkCanLoopList(bzModel?.contacts) == true)
-                  ... List.generate(bzModel!.contacts!.length, (index){
-
-                    final ContactModel _contact = bzModel!.contacts![index];
-
-                    return BldrsBox(
-                      height: 25,
-                      iconSizeFactor: 0.7,
-                      icon: ContactModel.concludeContactIcon(
-                          contactType: _contact.type,
-                          isPublic: true,
-                      ),
-                      margins: const EdgeInsets.only(
-                        left: 5,
-                        right: 5,
-                        bottom: 5,
-                      ),
-                      color: Colorz.white10,
-                      corners: 5,
-                      onTap: () => Launcher.launchContactModel(contact: _contact),
-                    );
-
-                  }),
+                  // /// CONTACTS
+                  // if (Mapper.checkCanLoopList(bzModel?.contacts) == true)
+                  // ... List.generate(bzModel!.contacts!.length, (index){
+                  //
+                  //   final ContactModel _contact = bzModel!.contacts![index];
+                  //
+                  //   return BldrsBox(
+                  //     height: 25,
+                  //     iconSizeFactor: 0.7,
+                  //     icon: ContactModel.concludeContactIcon(
+                  //         contactType: _contact.type,
+                  //         isPublic: true,
+                  //     ),
+                  //     margins: const EdgeInsets.only(
+                  //       left: 5,
+                  //       right: 5,
+                  //       bottom: 5,
+                  //     ),
+                  //     color: Colorz.white10,
+                  //     corners: 5,
+                  //     onTap: () => Launcher.launchContactModel(contact: _contact),
+                  //   );
+                  //
+                  // }),
 
                 ],
               ),
 
-                /// SPACING
+              /// SPACING
               const Spacing(),
 
               /// INFO
@@ -184,6 +179,7 @@ class BzBubble extends StatelessWidget {
                       ),
                     ),
 
+                    /// SPACING
                     const Spacing(size: 5),
 
                     /// BZ TYPES
@@ -207,7 +203,8 @@ class BzBubble extends StatelessWidget {
                       width: _textZoneWidth,
                       height: ZoneLine.flagSize,
                       icon: Iconz.calendar,
-                      verse: Verse.plain(BldrsTimers.generateString_in_bldrs_since_month_yyyy(bzModel?.createdAt)),
+                      verse: Verse.plain(
+                          BldrsTimers.generateString_in_bldrs_since_month_yyyy(bzModel?.createdAt)),
                       verseWeight: VerseWeight.thin,
                       verseItalic: true,
                       verseColor: ZoneLine.textColor,
@@ -217,60 +214,76 @@ class BzBubble extends StatelessWidget {
                       verseCentered: false,
                     ),
 
+                    /// SPACING
+                    if (Mapper.checkCanLoopList(bzModel?.contacts) == true)
+                      const Spacing(),
 
+                    /// CONTACTS
+                    if (Mapper.checkCanLoopList(bzModel?.contacts) == true)
+                      ContactsWrap(
+                        contacts: bzModel!.contacts!,
+                        spacing: 10,
+                        boxWidth: _textZoneWidth,
+                        rowCount: 6,
+                      ),
 
-                    const Spacing(size: 5),
+                    /// SPACING
+                    if (showAuthorsPics == true)
+                      const Spacing(),
 
                     /// TEAM
-                    Center(
-                      child: Container(
-                        width: _teamZoneWidth,
-                        decoration: const BoxDecoration(
-                          color: Colorz.white10,
-                          borderRadius: Borderers.constantCornersAll10,
-                        ),
-                        child: Column(
-                          children: <Widget>[
+                    if (showAuthorsPics == true)
+                      Center(
+                        child: Container(
+                            width: _teamZoneWidth,
+                            decoration: const BoxDecoration(
+                              color: Colorz.white10,
+                              borderRadius: Borderers.constantCornersAll10,
+                            ),
+                            child: Column(
+                              children: <Widget>[
 
-                            const Spacing(size: 5),
+                                /// SPACING
+                                const Spacing(size: 5),
 
-                            /// TEAM MEMBERS HEADLINE
-                            if (Mapper.checkCanLoopList(bzModel?.authors) == true)
-                              BldrsBox(
-                                height: 25,
-                                width: _teamZoneWidth - 10,
-                                verseMaxLines: 3,
-                                verse: const Verse(
-                                  id: 'phid_team',
-                                  translate: true,
+                                /// TEAM MEMBERS HEADLINE
+                                if (Mapper.checkCanLoopList(bzModel?.authors) == true)
+                                  BldrsBox(
+                                    height: 25,
+                                    width: _teamZoneWidth - 10,
+                                    verseMaxLines: 3,
+                                    verse: const Verse(
+                                      id: 'phid_team',
+                                      translate: true,
+                                    ),
+                                    verseItalic: true,
+                                    verseWeight: VerseWeight.regular,
+                                    verseColor: Colorz.white80,
+                                    bubble: false,
+                                    verseCentered: false,
+                                    icon: Iconz.bzWhite,
+                                    iconSizeFactor: 0.9,
+                                    verseScaleFactor: 1.1 / 0.9,
+                                    margins: const EdgeInsets.symmetric(horizontal: 5),
+                                  ),
+
+                                /// SPACING
+                                const Spacing(size: 5),
+
+                                /// BZ AUTHORS
+                                AuthorsWrap(
+                                  boxWidth: _teamZoneWidth - 10,
+                                  bzModel: bzModel,
+                                  picSize: 40,
                                 ),
-                                verseItalic: true,
-                                verseWeight: VerseWeight.regular,
-                                verseColor: Colorz.white80,
-                                bubble: false,
-                                verseCentered: false,
-                                icon: Iconz.bzWhite,
-                                iconSizeFactor: 0.9,
-                                verseScaleFactor: 1.1 / 0.9,
-                                margins: const EdgeInsets.symmetric(horizontal: 5),
-                              ),
 
-                            const Spacing(size: 5),
+                                /// SPACING
+                                const Spacing(size: 5),
 
-                            /// BZ AUTHORS
-                            if (showAuthorsPics == true)
-                              AuthorsWrap(
-                                boxWidth: _teamZoneWidth - 10,
-                                bzModel: bzModel,
-                                picSize: 40,
-                              ),
-
-                            const Spacing(size: 5),
-
-                          ],
-                        )
+                              ],
+                            )
+                        ),
                       ),
-                    ),
 
                   ],
                 ),
@@ -284,5 +297,5 @@ class BzBubble extends StatelessWidget {
     );
 
   }
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 }

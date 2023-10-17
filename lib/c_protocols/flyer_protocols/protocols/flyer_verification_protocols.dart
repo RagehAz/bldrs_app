@@ -11,6 +11,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:fire/super_fire.dart';
@@ -134,25 +135,27 @@ class FlyerVerificationProtocols {
 
       WaitDialog.showUnawaitedWaitDialog();
 
-      final BzModel? _bzModel = await BzProtocols.fetchBz(
+      BzModel? _bzModel = await BzProtocols.fetchBz(
           bzID: bzID,
       );
 
       if (_bzModel?.id != null) {
 
-        await Future.wait(<Future>[
-          _verifyAllBzFlyers(
-            bzModel: _bzModel!,
-          ).then((List<FlyerModel> flyers) {
-            _output = flyers;
-          }),
-          _verifyBzDoc(
-            bzModel: _bzModel,
-          ),
-          NoteEvent.sendBzIsVerifiedNote(
-            bzModel: _bzModel,
-          ),
-        ]);
+        _output = await _verifyAllBzFlyers(
+          bzModel: _bzModel!,
+        );
+
+        _bzModel = await BzProtocols.refetch(
+          bzID: bzID,
+        );
+
+         await _verifyBzDoc(
+           bzModel: _bzModel!,
+         );
+
+         await NoteEvent.sendBzIsVerifiedNote(
+           bzModel: _bzModel,
+         );
 
         await WaitDialog.closeWaitDialog();
 
@@ -161,6 +164,7 @@ class FlyerVerificationProtocols {
           firstLine: Verse.plain('Done'),
           secondLine: Verse.plain('Bz ${_bzModel.name}... got verified'),
         );
+        
       }
     }
 
@@ -196,20 +200,20 @@ class FlyerVerificationProtocols {
 
     if (Mapper.checkCanLoopList(_nonVerifiedFlyers) == true){
 
-      await Future.wait(<Future>[
+      for (final FlyerModel _flyer in _nonVerifiedFlyers!){
 
-        ...List.generate(_nonVerifiedFlyers!.length, (index){
+        UiProvider.proSetLoadingVerse(
+            verse: Verse.plain('Verifying flyer ${_flyer.getShortHeadline()}...'),
+        );
+        
+        await verifyFlyer(
+          flyerModel: _flyer,
+          showWaitAndSuccessDialogs: false,
+          sendNote: false,
+        );
 
-          return verifyFlyer(
-            flyerModel: _nonVerifiedFlyers[index],
-            sendNote: false,
-            showWaitAndSuccessDialogs: false,
-          );
-
-      }),
-
-      ]);
-
+      }
+      
     }
 
 
@@ -221,6 +225,8 @@ class FlyerVerificationProtocols {
     required BzModel bzModel,
   }) async {
 
+    UiProvider.proSetLoadingVerse(verse: Verse.plain('Verifying Bz: ${bzModel.name}'));
+    
     await BzProtocols.renovateBz(
         showWaitDialog: false,
         oldBz: bzModel,
