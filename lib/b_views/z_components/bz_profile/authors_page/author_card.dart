@@ -3,7 +3,6 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -156,13 +155,13 @@ class AuthorCard extends StatelessWidget {
                   /// AUTHOR NAME - TITLE - SEPARATOR LINE
                   SizedBox(
                     width: _textAreaWidth,
-                    height: authorPicSize,
+                    // height: authorPicSize,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      // mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
 
-                        const Expander(),
+                        // const Expander(),
 
                         /// NAME
                         BldrsText(
@@ -174,6 +173,8 @@ class AuthorCard extends StatelessWidget {
                           size: 3,
                           centered: false,
                           scaleFactor: 0.9,
+                          textDirection: UiProvider.getAppTextDir(),
+                          appIsLTR: UiProvider.checkAppIsLeftToRight(),
                         ),
 
                         /// TITLE
@@ -190,7 +191,7 @@ class AuthorCard extends StatelessWidget {
                           scaleFactor: 0.8,
                         ),
 
-                        const Expander(),
+                        // const Expander(),
 
                         /// SEPARATOR LINE
                         Container(

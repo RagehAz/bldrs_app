@@ -110,14 +110,22 @@ class StagingRealOps {
   /// TESTED : WORKS PERFECT
   static Future<StagingModel?> readCountriesStaging() async {
 
-    final Map<String, dynamic>? _map = await Real.readPathMap(
-      path: '${RealColl.zones}/${RealDoc.zones_stages_countries}',
-    );
+    if (Authing.userHasID() == true){
 
-    return StagingModel.decipher(
-      map: _map,
-      id: StagingModel.countriesStagingId,
-    );
+      final Map<String, dynamic>? _map = await Real.readPathMap(
+        path: '${RealColl.zones}/${RealDoc.zones_stages_countries}',
+      );
+
+      return StagingModel.decipher(
+        map: _map,
+        id: StagingModel.countriesStagingId,
+      );
+
+    }
+
+    else {
+      return null;
+    }
 
   }
   // --------------------
@@ -127,7 +135,7 @@ class StagingRealOps {
   }) async {
     StagingModel? _output;
 
-    if (TextCheck.isEmpty(countryID) == false){
+    if (Authing.userHasID() == true && TextCheck.isEmpty(countryID) == false){
 
       final Map<String, dynamic>? _map = await Real.readPathMap(
         path: '${RealColl.zones}/${RealDoc.zones_stages_cities}/$countryID',
@@ -152,7 +160,7 @@ class StagingRealOps {
     required StagingModel? newStaging,
   }) async {
 
-    if (newStaging != null){
+    if (Authing.userHasID() == true && newStaging != null){
 
       await Real.createDocInPath(
         pathWithoutDocName: RealColl.zones,
@@ -171,7 +179,7 @@ class StagingRealOps {
     required StagingModel? citiesStages,
   }) async {
 
-    if (citiesStages != null){
+    if (Authing.userHasID() == true && citiesStages != null){
 
       await Real.createDocInPath(
         pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stages_cities}',
