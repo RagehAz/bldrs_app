@@ -52,7 +52,6 @@ class BzTypesLine extends StatelessWidget {
            crossAxisAlignment: CrossAxisAlignment.start,
            children: <Widget>[
 
-
              ...List.generate(bzModel!.bzTypes!.length, (index){
 
                final BzType _bzType = bzModel!.bzTypes![index];

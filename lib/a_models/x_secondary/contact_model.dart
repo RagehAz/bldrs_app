@@ -507,6 +507,36 @@ class ContactModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static double concludeContactIconSizeFactor({
+    required ContactType? contactType,
+    required bool isPublic,
+  }) {
+
+    const double _small = 0.6;
+
+    if (isPublic == false){
+      return _small; //Iconz.hidden;
+    }
+
+    else {
+      switch (contactType) {
+        case ContactType.phone:     return _small; // Iconz.comPhone;
+        case ContactType.email:     return _small; // Iconz.comEmail;
+        case ContactType.website:   return _small; // Iconz.comWebsite;
+        case ContactType.facebook:  return 1; // Iconz.comFacebook;
+        case ContactType.linkedIn:  return 1; // Iconz.comLinkedin;
+        case ContactType.youtube:   return 1; // Iconz.comYoutube;
+        case ContactType.instagram: return 1; // Iconz.comInstagram;
+        case ContactType.pinterest: return 1; // Iconz.comPinterest;
+        case ContactType.tiktok:    return 1; // Iconz.comTikTok;
+        case ContactType.twitter:   return 1; // Iconz.comTwitter;
+        default: return 1;
+      }
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static TextInputType concludeContactTextInputType({
     required ContactType? contactType,
   }){
