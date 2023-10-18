@@ -1,3 +1,12 @@
+### 2.12.0
+1. updated scrolling responsiveness quality
+2. updated flyer auditing algorithms
+3. fixed number of flyers by author in Flyer header
+4. backend performance optimizations
+5. fixed hidden authors in the business card in follows screen
+6. flyer headline editing is properly synced with slide editor's headline
+7. Added loading text over flyer in edit screen
+
 ### 2.11.0
 1. Fixed broken icons
 2. Fixed Notification infinite loop crash
