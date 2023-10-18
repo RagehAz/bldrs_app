@@ -1,3 +1,4 @@
+import 'package:basics/animators/helpers/app_scroll_behavior.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
@@ -174,28 +175,31 @@ class UsersStripBuilder extends StatelessWidget {
           color: Colorz.white20,
           borderRadius: Borderers.constantCornersAll10,
         ),
-        child: ListView.builder(
-          controller: scrollController,
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.all(10),
-          scrollDirection: Axis.horizontal,
-          itemCount: usersIDs.length,
-          itemBuilder: (_, int index){
+        child: ScrollConfiguration(
+          behavior: const AppScrollBehavior(),
+          child: ListView.builder(
+            controller: scrollController,
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.all(10),
+            scrollDirection: Axis.horizontal,
+            itemCount: usersIDs.length,
+            itemBuilder: (_, int index){
 
-            return FutureBuilder(
-              future: UserProtocols.fetch(userID: usersIDs[index]),
-              builder: (_, AsyncSnapshot<UserModel?> snapshot){
-                final UserModel? _user = snapshot.data;
-                return MiniUserBanner(
-                  width: MiniUserBanner.getWidthByPageWidth(
-                    pageWidth: width,
-                  ),
-                  userModel: _user,
-                );
-                },
-            );
+              return FutureBuilder(
+                future: UserProtocols.fetch(userID: usersIDs[index]),
+                builder: (_, AsyncSnapshot<UserModel?> snapshot){
+                  final UserModel? _user = snapshot.data;
+                  return MiniUserBanner(
+                    width: MiniUserBanner.getWidthByPageWidth(
+                      pageWidth: width,
+                    ),
+                    userModel: _user,
+                  );
+                  },
+              );
 
-            },
+              },
+          ),
         ),
       );
 
