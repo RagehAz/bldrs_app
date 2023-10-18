@@ -592,10 +592,10 @@ packages:
     dependency: transitive
     description:
       name: firebase_dart
-      sha256: "705a4b3f19402d9e4b61ec93bb3b8e0ef80f77b1d84331a774e651c874f97a2f"
+      sha256: "2dd37029772550d474eaab969e60ce3b4d534f96277041fc53e998c5392d9c63"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.11"
+    version: "1.1.0"
   firebase_database:
     dependency: transitive
     description:
@@ -740,6 +740,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  firebaseapis:
+    dependency: transitive
+    description:
+      name: firebaseapis
+      sha256: "7e9663f298a209dc7d4e8a10944d6c39d43e02e9cade08c915720768d02d712d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   firedart:
     dependency: transitive
     description:
@@ -890,10 +898,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_native_splash
-      sha256: "91004565166dbbc7a85e7e99b84124a287839830ca957cfe45004793fe6fe69f"
+      sha256: "5bf4c3e5e5a0426c1e2fc8ca3555a9e617e76369c3442e1dae8385c7767ba97a"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.3"
+    version: "2.3.4"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -1004,10 +1012,10 @@ packages:
     dependency: transitive
     description:
       name: google_identity_services_web
-      sha256: "554748f2478619076128152c58905620d10f9c7fc270ff1d3a9675f9f53838ed"
+      sha256: "000b7a31e1fa17ee04b6c0553a2b2ea18f9f9352e4dcc0c9fcc785cf10f2484e"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.1+1"
+    version: "0.2.2"
   google_sign_in:
     dependency: transitive
     description:
@@ -1048,14 +1056,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.12.0+5"
-  googleapis:
-    dependency: transitive
-    description:
-      name: googleapis
-      sha256: dfea9984f0785ed445ba78e2aa8c55dadd86d6a60ea9e0ffbadad51edb5e7e36
-      url: "https://pub.dev"
-    source: hosted
-    version: "9.2.0"
   googleapis_auth:
     dependency: transitive
     description:
