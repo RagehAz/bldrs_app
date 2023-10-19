@@ -225,6 +225,7 @@ class BzBubble extends StatelessWidget {
                         spacing: 10,
                         boxWidth: _textZoneWidth,
                         rowCount: 6,
+                        buttonSize: height * 0.7,
                       ),
 
                     /// SPACING

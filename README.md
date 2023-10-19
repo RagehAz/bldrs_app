@@ -5,12 +5,12 @@ Bldrs.net
 
 ---------------------------------------
 
-## Short Description
+## Slogan
 The Builder's Network
 
 ---------------------------------------
 
-## Full description 
+## description 
 
 The Builder's Network is a social network for builders.
 
