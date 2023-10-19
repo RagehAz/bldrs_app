@@ -13,6 +13,7 @@ class ContactsWrap extends StatelessWidget {
     required this.spacing,
     required this.boxWidth,
     required this.contacts,
+    this.buttonSize,
     super.key
   });
   // -------------------------------
@@ -20,11 +21,12 @@ class ContactsWrap extends StatelessWidget {
   final double spacing;
   final double boxWidth;
   final List<ContactModel> contacts;
+  final double? buttonSize;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final double _size = Scale.getUniformRowItemWidth(
+    final double _size = buttonSize ?? Scale.getUniformRowItemWidth(
       context: context,
       numberOfItems: rowCount,
       boxWidth: boxWidth,
