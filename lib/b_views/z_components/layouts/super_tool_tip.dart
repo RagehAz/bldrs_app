@@ -14,12 +14,14 @@ class SuperToolTip extends StatelessWidget {
     required this.verse,
     required this.triggerMode,
     required this.child,
+    this.balloonColor,
     super.key
   });
   /// --------------------------------------------------------------------------
   final Verse? verse;
   final Widget child;
   final TooltipTriggerMode triggerMode;
+  final Color? balloonColor;
   // --------------------------------------------------------------------------
   static const int millisecondsPerWord = 500;
   // --------------------
@@ -70,8 +72,8 @@ class SuperToolTip extends StatelessWidget {
 
         /// STYLE
         textStyle: BldrsText.superVerseDefaultStyle(context),
-        decoration: const BoxDecoration(
-          color: Colorz.black255,
+        decoration: BoxDecoration(
+          color: balloonColor ?? Colorz.black255,
           borderRadius: BldrsAppBar.corners,
         ),
 

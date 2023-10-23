@@ -26,7 +26,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_confirm_page.dart';
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_builder.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
