@@ -69,9 +69,12 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
   }
   // -----------------------------------------------------------------------------
   void _onParagraphTap() {
-    if (widget.editMode == true) {
+
+    if (widget.onParagraphTap != null) {
       widget.onParagraphTap?.call();
-    } else if (Mapper.boolIsTrue(_canExpand) == true) {
+    }
+
+    else if (Mapper.boolIsTrue(_canExpand) == true) {
       // widget.onParagraphTap();
 
       if (_maxLines == widget.maxLines) {
@@ -88,6 +91,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
         });
       }
     }
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -118,7 +122,14 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
         corners: widget.corners,
         childrenCentered: widget.centered,
         bubbleColor: widget.bubbleColor,
-        onBubbleTap: widget.editMode == true || Mapper.boolIsTrue(_canExpand) == true ?
+        // onBubbleTap: widget.editMode == true || Mapper.boolIsTrue(_canExpand) == true ?
+        // _onParagraphTap
+        //     :
+        // null,
+        onBubbleTap: widget.onParagraphTap != null ?
+        _onParagraphTap
+            :
+        widget.editMode == true || Mapper.boolIsTrue(_canExpand) == true ?
         _onParagraphTap
             :
         null,

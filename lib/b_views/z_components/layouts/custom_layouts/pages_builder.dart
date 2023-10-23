@@ -9,12 +9,16 @@ class PagerBuilder extends StatefulWidget {
     required this.pageBubbles,
     this.progressBarModel,
     this.pageController,
+    this.width,
+    this.height,
     super.key
   });
   // --------------------------------------------------------------------------
   final List<Widget> pageBubbles;
   final ValueNotifier<ProgressBarModel?>? progressBarModel;
   final PageController? pageController;
+  final double? width;
+  final double? height;
   // --------------------------------------------------------------------------
   @override
   _PagerBuilderState createState() => _PagerBuilderState();
@@ -93,8 +97,8 @@ class _PagerBuilderState extends State<PagerBuilder> {
   Widget build(BuildContext context) {
 
     return SizedBox(
-      width: Scale.screenWidth(context),
-      height: Scale.screenHeight(context),
+      width: widget.width ?? Scale.screenWidth(context),
+      height: widget.height ?? Scale.screenHeight(context),
       child: PageView(
         physics: const BouncingScrollPhysics(),
         scrollBehavior: const AppScrollBehavior(),
