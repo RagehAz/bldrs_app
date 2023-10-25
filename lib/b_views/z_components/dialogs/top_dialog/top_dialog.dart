@@ -71,6 +71,7 @@ class TopDialog extends StatelessWidget {
     Color textColor = Colorz.black255,
     Function? onTap,
     int? milliseconds = 5000,
+    bool isTop = true,
   }) async {
 
     final double _screenWidth = Scale.screenWidth(getMainContext());
@@ -87,7 +88,7 @@ class TopDialog extends StatelessWidget {
 
       /// BEHAVIOUR - POSITIONING ----------------------------------------------
       // dismissDirection: FlushbarDismissDirection.VERTICAL,
-      flushbarPosition: FlushbarPosition.TOP,
+      flushbarPosition: isTop == true ? FlushbarPosition.TOP : FlushbarPosition.BOTTOM,
       // flushbarStyle: FlushbarStyle.FLOATING,
       // isDismissible: true,
       // blockBackgroundInteraction: false, // prevents gestures on background widgets

@@ -31,7 +31,7 @@ class NavModel {
   /// --------------------------------------------------------------------------
   final String? id;
   final Verse? titleVerse;
-  final String? icon;
+  final dynamic icon;
   final dynamic screen;
   final Function? onNavigate;
   final Color? iconColor;
