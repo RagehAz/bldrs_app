@@ -33,6 +33,8 @@ class RealColl {
   // --------------------
   static const String deletionRequests = 'deletionRequests';
   // --------------------
+  static const String gta = 'gta';
+  // --------------------
 }
 
 /// => TAMAM
@@ -79,6 +81,11 @@ class RealDoc {
   static const String records_flyers_bzID_flyerID_recordingSaves = 'recordingSaves';
   static const String records_flyers_bzID_flyerID_recordingShares = 'recordingShares';
   static const String records_flyers_bzID_flyerID_recordingViews = 'recordingViews';
+  // -----------------------------------------------------------------------------
+  /// GTA
+  // --------------------
+  static const String gta_selected = 'selected';
+  static const String gta_scrapped = 'scrapped';
   // -----------------------------------------------------------------------------
 }
 
@@ -293,5 +300,13 @@ class RealPath {
     required String countryID,
     required String cityID,
   }) => '${RealColl.zonesPhids}/$countryID/$cityID';
+  // -----------------------------------------------------------------------------
+
+  /// GTA
+
+  // --------------------
+  static String gta_selected() => '${RealColl.gta}/${RealDoc.gta_selected}';
+  // --------------------
+  static String gta_scrapper() => '${RealColl.gta}/${RealDoc.gta_scrapped}';
   // -----------------------------------------------------------------------------
 }
