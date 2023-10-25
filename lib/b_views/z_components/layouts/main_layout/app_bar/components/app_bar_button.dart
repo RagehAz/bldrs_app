@@ -10,7 +10,7 @@ class AppBarButton extends StatelessWidget {
     this.onDeactivatedTap,
     this.icon,
     this.bubble = true,
-    this.isDeactivated = false,
+    this.isDisabled = false,
     this.bigIcon = false,
     this.width,
     this.loading,
@@ -27,7 +27,7 @@ class AppBarButton extends StatelessWidget {
   final Function? onDeactivatedTap;
   final dynamic icon;
   final bool bubble;
-  final bool isDeactivated;
+  final bool isDisabled;
   final bool bigIcon;
   final double? width;
   final bool? loading;
@@ -57,7 +57,7 @@ class AppBarButton extends StatelessWidget {
       bubble: bubble,
       iconColor: iconColor,
       onTap: onTap,
-      isDisabled: isDeactivated,
+      isDisabled: isDisabled,
       onDisabledTap: onDeactivatedTap,
       verseMaxLines: 2,
       loading: loading ?? false,
