@@ -82,8 +82,6 @@ abstract class FireColl{
   static const String chains = 'chains';
 
   static const String authorships = 'authorships';
-
-  static const String gta = 'gta';
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getPartyCollName(PartyType? partyType){
