@@ -153,7 +153,7 @@ class GtaModel {
         brand: map['brand'],
         stars: map['stars'],
         ratingsCount: map['ratingsCount'],
-        price: map['price'],
+        price: Numeric.transformStringToDouble('${map['price']}'),
         currency: map['currency'],
         about: map['about'],
         description: map['description'],
@@ -200,6 +200,81 @@ class GtaModel {
         final GtaModel? _gtaModel = decipherMap(map: map);
         if (_gtaModel != null){
           _output.add(_gtaModel);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> cipherToRealMap({
+    required List<GtaModel> gtas,
+  }){
+    Map<String, dynamic> _output = {};
+
+    if (Mapper.checkCanLoopList(gtas) == true){
+
+      for (int i = 0; i < gtas.length; i++){
+
+        final String _num = Numeric.formatNumberWithinDigits(
+            num: i,
+            digits: 4,
+        )!;
+
+        final String _id = 'url_$_num';
+
+        final GtaModel _gta = gtas[i].copyWith(
+          id: _id,
+        );
+
+        _output = Mapper.insertPairInMap(
+            map: _output,
+            key: _id,
+            overrideExisting: true,
+            value: cipherMap(gtaModel: _gta),
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<GtaModel> decipherFromRealMap({
+    required Map<String, dynamic>? map,
+  }){
+    final List<GtaModel> _output = [];
+
+    if (map != null){
+
+      List<String> _keys = map.keys.toList();
+
+      if (Mapper.checkCanLoopList(_keys) == true){
+
+        _keys = Stringer.sortAlphabetically(_keys);
+        _keys.remove('id');
+
+        for (final String key in _keys){
+
+          final Map<String, dynamic>? _map = map[key];
+
+          if (_map != null){
+
+            final GtaModel? _gta = decipherMap(
+              map: _map,
+            );
+
+            if (_gta != null){
+              _output.add(_gta);
+            }
+
+          }
+
         }
 
       }
@@ -593,6 +668,29 @@ class GtaModel {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static GtaModel? getGtaByUrl({
+    required List<GtaModel> gtas,
+    required String? url,
+  }){
+    GtaModel? _output;
+
+    if (url != null && Mapper.checkCanLoopList(gtas) == true){
+
+      for (final GtaModel gta in gtas){
+
+        if (gta.url == url){
+          _output = gta;
+          break;
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// CHECKERS
@@ -676,10 +774,10 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<GtaModel> removeModelFromModels({
-    required List<GtaModel>? products,
+    required List<GtaModel>? gtas,
     required String? url,
   }){
-    final List<GtaModel> _output = [...?products];
+    final List<GtaModel> _output = [...?gtas];
 
     if (Mapper.checkCanLoopList(_output) == true){
 
@@ -692,6 +790,45 @@ class GtaModel {
     }
 
     return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogGta({
+    required GtaModel gta,
+    required String invoker,
+  }){
+
+    blog('GtaModel(');
+    blog('  id: ${gta.id},');
+    blog('  url: ${gta.url},');
+    blog('  title: ${gta.title},');
+    blog('  images: ${gta.images},');
+    blog('  brand: ${gta.brand},');
+    blog('  stars: ${gta.stars},');
+    blog('  ratingsCount: ${gta.ratingsCount},');
+    blog('  price: ${gta.price},');
+    blog('  currency: ${gta.currency},');
+    blog('  about: ${gta.about},');
+    blog('  description: ${gta.description},');
+    blog('  importantInfo: ${gta.importantInfo},');
+    blog(')');
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogGtas({
+    required List<GtaModel>? gtas,
+    required String invoker,
+  }){
+
+    if (Mapper.checkCanLoopList(gtas) == true){
+
+      for (final GtaModel gta in gtas!){
+        blogGta(gta: gta, invoker: invoker);
+      }
+
+    }
+
   }
   // -----------------------------------------------------------------------------
 
