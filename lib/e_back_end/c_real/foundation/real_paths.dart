@@ -307,6 +307,6 @@ class RealPath {
   // --------------------
   static String gta_selected() => '${RealColl.gta}/${RealDoc.gta_selected}';
   // --------------------
-  static String gta_scrapper() => '${RealColl.gta}/${RealDoc.gta_scrapped}';
+  static String gta_scrapped() => '${RealColl.gta}/${RealDoc.gta_scrapped}';
   // -----------------------------------------------------------------------------
 }
