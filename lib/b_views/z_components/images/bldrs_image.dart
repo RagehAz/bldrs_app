@@ -25,7 +25,7 @@ class BldrsImage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final dynamic pic;
   final double? width;
-  final double? height;
+  final double height;
   final BoxFit fit;
   final double scale;
   final Color? iconColor;
