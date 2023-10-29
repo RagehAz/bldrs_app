@@ -44,6 +44,7 @@ class GtaModel {
     required this.description,
     required this.importantInfo,
     required this.affiliateLink,
+    required this.countryID,
     /// required this.specifications,
     /// required this.productDetails,
     /// required this.badges,
@@ -62,6 +63,7 @@ class GtaModel {
   final String? description;
   final String? importantInfo;
   final String? affiliateLink;
+  final String? countryID;
   /// final Map<String, dynamic> specifications;
   /// final Map<String, dynamic> productDetails;
   /// final Map<String, dynamic> badges;
@@ -85,6 +87,7 @@ class GtaModel {
     String? description,
     String? importantInfo,
     String? affiliateLink,
+    String? countryID,
   }){
 
     return GtaModel(
@@ -101,6 +104,7 @@ class GtaModel {
       description: description ?? this.description,
       importantInfo: importantInfo ?? this.importantInfo,
       affiliateLink: affiliateLink ?? this.affiliateLink,
+      countryID: countryID ?? this.countryID,
     );
 
   }
@@ -131,6 +135,7 @@ class GtaModel {
         'description': gtaModel.description,
         'importantInfo': gtaModel.importantInfo,
         'affiliateLink': gtaModel.affiliateLink,
+        'countryID': gtaModel.countryID,
       };
 
     }
@@ -159,6 +164,7 @@ class GtaModel {
         description: map['description'],
         importantInfo: map['importantInfo'],
         affiliateLink: map['affiliateLink'],
+        countryID: map['countryID'],
       );
     }
 
@@ -291,6 +297,7 @@ class GtaModel {
   /// TESTED : WORKS PERFECT
   static GtaModel? createGtaModelByUrl({
     required String? url,
+    required String countryID,
   }){
     GtaModel? _output;
 
@@ -309,6 +316,7 @@ class GtaModel {
         description: null,
         importantInfo: null,
         affiliateLink: null,
+        countryID: countryID,
       );
     }
 
@@ -346,7 +354,7 @@ class GtaModel {
         publishState: PublishState.draft,
         phids: const <String>[],
         showsAuthor: false,
-        zone: bzModel?.zone,
+        zone: gtaModel.countryID == null ? null : ZoneModel(countryID: gtaModel.countryID!),
         authorID: Authing.getUserID(),
         bzID: bzModel?.id,
         position: null,
@@ -522,6 +530,7 @@ class GtaModel {
   static GtaModel? createGtaModelScrappedMap({
     required String? url,
     required Map<String, dynamic>? map,
+    required String countryID,
   }){
     GtaModel? _output;
 
@@ -540,6 +549,7 @@ class GtaModel {
         description: map['description'],
         importantInfo: map['importantInfo'],
         affiliateLink: map['affiliateLink'],
+        countryID: countryID,
         // productDetails: null,
         // specifications: null,
         // badges: null,
@@ -811,6 +821,8 @@ class GtaModel {
     blog('  about: ${gta.about},');
     blog('  description: ${gta.description},');
     blog('  importantInfo: ${gta.importantInfo},');
+    blog('  affiliateLink: ${gta.affiliateLink},');
+    blog('  countryID: ${gta.countryID},');
     blog(')');
 
   }
@@ -862,7 +874,9 @@ class GtaModel {
       product1.currency == product2.currency &&
       product1.about == product2.about &&
       product1.description == product2.description &&
-      product1.importantInfo == product2.importantInfo
+      product1.importantInfo == product2.importantInfo &&
+      product1.affiliateLink == product2.affiliateLink &&
+      product1.countryID == product2.countryID
       ){
         _identical = true;
       }
@@ -892,6 +906,8 @@ class GtaModel {
           about: $about,
           description: $description,
           importantInfo: $importantInfo,
+          affiliateLink: $affiliateLink,
+          countryID: $countryID,
        )
       '''
        ;
@@ -927,6 +943,12 @@ class GtaModel {
       currency.hashCode^
       about.hashCode^
       description.hashCode^
-      importantInfo.hashCode;
+      importantInfo.hashCode^
+      affiliateLink.hashCode^
+      countryID.hashCode
+      // specifications.hashCode^
+      // productDetails.hashCode^
+      // badges.hashCode^
+      ;
   // -----------------------------------------------------------------------------
 }
