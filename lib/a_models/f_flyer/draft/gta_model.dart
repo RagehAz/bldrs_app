@@ -3,15 +3,12 @@ import 'dart:typed_data';
 import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/colors/colorizer.dart';
-import 'package:basics/helpers/classes/files/file_size_unit.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:basics/helpers/classes/files/floaters.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
@@ -425,7 +422,7 @@ class GtaModel {
 
   }
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<List<DraftSlide>> createDraftSlidesByGtaProduct({
     required GtaModel? product,
   }) async {
@@ -439,7 +436,11 @@ class GtaModel {
 
         if (ObjectCheck.isAbsoluteURL(_url) == true) {
 
-          final PicModel? _bigPic = await createPicModelByGtaUrl(_url);
+          final PicModel? _bigPic = await createPicModelByGtaUrl(
+            url: _url,
+            picName: '${i}_${product.affiliateLink}',
+            type: SlidePicType.big,
+          );
           final PicModel? _medPic = await BldrsPicMaker.compressSlideBigPicTo(
               slidePic: _bigPic,
               flyerID: DraftFlyer.newDraftID,
@@ -478,7 +479,9 @@ class GtaModel {
             _output.add(_draft);
 
           }
+
         }
+
       }
     }
 
@@ -486,32 +489,30 @@ class GtaModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel?> createPicModelByGtaUrl(String? url) async {
+  static Future<PicModel?> createPicModelByGtaUrl({
+    required String? picName,
+    required String? url,
+    required SlidePicType type,
+  }) async {
     PicModel? _output;
 
-    if (ObjectCheck.isAbsoluteURL(url) == true) {
+    final String? _userID = Authing.getUserID();
 
-      final Uint8List? _bytes = await Floaters.getBytesFromURL(url);
+    if (_userID != null && ObjectCheck.isAbsoluteURL(url) == true) {
+
+      final Uint8List? _bytes = await Storage.readBytesByURL(
+        url: url,
+      );
 
       if (_bytes != null && _bytes.isNotEmpty){
-
-        final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
-        final double? _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
-        final String? _userID = Authing.getUserID();
-
-        final StorageMetaModel? _meta = StorageMetaModel(
-          ownersIDs: _userID == null ? [] : <String>[_userID],
-          name: url,
-          height: _dims?.height,
-          width: _dims?.width,
-          sizeMB: _mega,
+        _output = await PicModel.combinePicModel(
+          bytes: _bytes,
+          picMakerType: PicMakerType.generated,
+          compressWithQuality: BldrsPicMaker.getSlidePicCompressionQuality(type),
+          assignPath: null,
+          ownersIDs: [_userID],
+          name: picName ?? '',
         );
-
-        _output = PicModel(
-        path: null,
-        bytes: _bytes,
-        meta: _meta,
-      );
 
       }
 
@@ -799,6 +800,43 @@ class GtaModel {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<GtaModel> removePicFromModels({
+    required List<GtaModel> models,
+    required GtaModel? model,
+    required String url,
+  }){
+    final List<GtaModel> _output = [...models];
+
+    if (Mapper.checkCanLoopList(models) == true && model != null){
+
+      final int _modelIndex = _output.indexWhere((element) => element.id == model.id);
+
+      if (_modelIndex != -1){
+
+        final List<String> _newImages = Stringer.removeStringsFromStrings(
+          removeThis: [url],
+          removeFrom: model.images,
+        );
+
+        final GtaModel _updatedModel = model.copyWith(
+          images: _newImages,
+        );
+
+        _output.removeAt(_modelIndex);
+        _output.insert(_modelIndex, _updatedModel);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogGta({

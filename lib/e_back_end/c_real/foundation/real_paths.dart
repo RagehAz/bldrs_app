@@ -86,6 +86,7 @@ class RealDoc {
   // --------------------
   static const String gta_selected = 'selected';
   static const String gta_scrapped = 'scrapped';
+  static const String gta_version = 'version';
   // -----------------------------------------------------------------------------
 }
 

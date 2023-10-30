@@ -193,10 +193,22 @@ class DataCreation {
 
     if (sons != null){
 
-      if (sons is DataCreator){
+      if (
+          sons is DataCreator
+          ||
+          sons is DataCreator?
+      ){
         _isDataCreator = true;
       }
-      else if (sons is List<DataCreator>){
+      else if (
+          sons is List<DataCreator>
+          ||
+          sons is List<DataCreator?>
+          ||
+          sons is List<DataCreator>?
+          ||
+          sons is List<DataCreator?>?
+      ){
         _isDataCreator = true;
       }
 
@@ -204,7 +216,15 @@ class DataCreation {
         _isDataCreator = true;
       }
 
-      else if (sons is List<String>){
+      else if (
+          sons is List<String>
+          ||
+          sons is List<String?>
+          ||
+          sons is List<String>?
+          ||
+          sons is List<String?>?
+      ){
 
         final List<String> _sons = sons;
 
