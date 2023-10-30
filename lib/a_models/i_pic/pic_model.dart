@@ -154,18 +154,18 @@ class PicModel {
     required Uint8List? bytes,
     required PicMakerType picMakerType,
     required int? compressWithQuality,
-    required String assignPath,
+    required String? assignPath,
     required List<String> ownersIDs,
     required String name,
   }) async {
     PicModel? _output;
 
-    // blog('  1.combinePicModel start : ${bytes?.length} bytes : picMakerType $picMakerType : '
-    //     'assignPath : $assignPath : name : $name');
+    blog('  1.combinePicModel start : ${bytes?.length} bytes : picMakerType $picMakerType : '
+        'assignPath : $assignPath : name : $name');
 
     if (bytes != null){
 
-      // blog('  2.combinePicModel bytes exists bytes != null');
+      blog('  2.combinePicModel bytes exists bytes != null');
 
       final Dimensions? _dims =  await Dimensions.superDimensions(bytes);
       final double? _aspectRatio = Numeric.roundFractions(_dims?.getAspectRatio(), 2);
@@ -221,7 +221,7 @@ class PicModel {
 
     }
 
-    // blog('  3.combinePicModel _output is null ${_output == null}');
+    blog('  3.combinePicModel _output is null ${_output == null}');
 
     return _output;
   }

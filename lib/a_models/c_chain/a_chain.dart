@@ -307,7 +307,15 @@ class Chain {
       _areChains = true;
     }
 
-    else if (sons is List<Chain>){
+    else if (
+        sons is List<Chain>
+        ||
+        sons is List<Chain?>
+        ||
+        sons is List<Chain>?
+        ||
+        sons is List<Chain?>?
+    ){
       _areChains = true;
     }
 
