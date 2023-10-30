@@ -225,20 +225,11 @@ class GtaModel {
 
       for (int i = 0; i < gtas.length; i++){
 
-        final String _num = Numeric.formatNumberWithinDigits(
-            num: i,
-            digits: 4,
-        )!;
-
-        final String _id = 'url_$_num';
-
-        final GtaModel _gta = gtas[i].copyWith(
-          id: _id,
-        );
+        final GtaModel _gta = gtas[i];
 
         _output = Mapper.insertPairInMap(
             map: _output,
-            key: _id,
+            key: _gta.id,
             overrideExisting: true,
             value: cipherMap(gtaModel: _gta),
         );
@@ -267,9 +258,16 @@ class GtaModel {
 
         for (final String key in _keys){
 
-          final Map<String, dynamic>? _map = map[key];
+          Map<String, dynamic>? _map = map[key];
 
           if (_map != null){
+
+            _map = Mapper.insertPairInMap(
+              map: _map,
+              key: 'id',
+              value: key,
+              overrideExisting: true,
+            );
 
             final GtaModel? _gta = decipherMap(
               map: _map,
@@ -303,7 +301,7 @@ class GtaModel {
 
     if (url != null){
       _output = GtaModel(
-        id: null,
+        id: Numeric.createUniqueID().toString(),
         url: url,
         title: null,
         images: null,
@@ -536,7 +534,7 @@ class GtaModel {
 
     if (map != null){
       _output = GtaModel(
-        id: null,
+        id: Numeric.createUniqueID().toString(),
         url: url,
         title: map['title'],
         images: Stringer.getStringsFromDynamics(map['imageList']),

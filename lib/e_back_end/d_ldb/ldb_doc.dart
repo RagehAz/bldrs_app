@@ -68,10 +68,11 @@ class LDBDoc {
       case LDBDoc.theLastWipe: return 'id';
       case LDBDoc.appState: return 'id';
       case LDBDoc.langCode: return 'id';
+      case LDBDoc.onboarding: return 'id';
       case 'test': return 'id';
 
       case LDBDoc.gta: return 'id';
-      case LDBDoc.onboarding: return 'id';
+      case LDBDoc.webpages: return 'id';
 
       /// COUNTERS
       case LDBDoc.bzzCounters: return 'bzID';
@@ -125,10 +126,12 @@ class LDBDoc {
   static const String appState = 'appState';
   static const String theLastWipe = 'theLastWipe';
   static const String langCode = 'langCode';
+  static const String onboarding = 'onboarding';
   // --------------------
   /// GTA
   static const String gta = 'gta';
-  static const String onboarding = 'onboarding';
+  static const String webpages = 'webpages';
+  // --------------------
   /// COUNTERS
   static const String bzzCounters = 'bzzCounters';
   static const String flyersCounters = 'flyersCounters';
@@ -181,6 +184,7 @@ class LDBDoc {
 
     'headline: Dashboard',
     gta,
+    webpages,
 
     'headline: Counters',
     bzzCounters,
@@ -230,6 +234,7 @@ class LDBDoc {
     required bool onboarding,
     /// DASHBOARD
     required bool gta,
+    required bool webpages,
     /// COUNTERS
     required bool bzzCounters,
     required bool flyersCounters,
@@ -244,7 +249,7 @@ class LDBDoc {
     if (notes == true) {_docs.add(LDBDoc.notes);}
     if (pics == true) {_docs.add(LDBDoc.pics);}
     if (pdfs == true) {_docs.add(LDBDoc.pdfs);}
-    /// MAIN
+    /// USER
     if (users == true) {_docs.add(LDBDoc.users);}
     if (authModel == true) {_docs.add(LDBDoc.authModel);}
     if (accounts == true) {_docs.add(LDBDoc.accounts);}
@@ -273,6 +278,7 @@ class LDBDoc {
     if (onboarding == true) {_docs.add(LDBDoc.onboarding);}
     /// DASHBOARD
     if (gta == true){_docs.add(LDBDoc.gta);}
+    if (webpages == true){_docs.add(LDBDoc.webpages);}
     /// COUNTERS
     if (bzzCounters == true){_docs.add(LDBDoc.bzzCounters);}
     if (flyersCounters == true){_docs.add(LDBDoc.flyersCounters);}
@@ -291,6 +297,7 @@ class LDBDoc {
   static Future<void> mindfulWipeOfEntireLDB() async {
 
     await wipeOutLDBDocs(
+      /// TRUE
       flyers: true,
       bzz: true,
       notes: true,
@@ -303,33 +310,26 @@ class LDBDoc {
       census: true,
       mainPhrases: true,
       appState: true,
-
       gta: true,
+      webpages: true,
       cities: true,
       searches: true,
       bldrsChains: true,
       countriesPhrases: true,
-
-
-
-      
+      bzzCounters: true, // yes this i super temp to stay anyways
+      flyersCounters: true, // yes this i super temp to stay anyways
+      usersCounters: true,  // yes this i super temp to stay anyways
+      /// FALSE
       authModel: false,
       accounts: false,
-
       langCode: false, // lets always keep user language for life
-
       userEditor: false,
       bzEditor: false,
       authorEditor: false,
       flyerMaker: false,
       reviewEditor: false,
       onboarding: false,
-
       theLastWipe: false,
-
-      bzzCounters: true, // yes this i super temp to stay anyways
-      flyersCounters: true, // yes this i super temp to stay anyways
-      usersCounters: true,  // yes this i super temp to stay anyways
     );
 
   }
@@ -350,6 +350,7 @@ class LDBDoc {
       mainPhrases: true,
       appState: true,
       gta: true,
+      webpages: true,
       cities: true,
       searches: true,
       bldrsChains: true,
