@@ -166,6 +166,7 @@ class UiInitializer {
         onboarding: false,
         /// GTA
         gta: false, // this is for dashboard
+        webpages: false, // this is for dashboard
         /// COUNTERS
         bzzCounters: true, // this stays for 10 minutes anyways
         flyersCounters: true, // this stays for 10 minutes anyways
