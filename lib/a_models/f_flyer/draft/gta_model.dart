@@ -580,13 +580,13 @@ class GtaModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static int? _getRatingsFromScrappedString(String ratingsCountString){
+  static int? _getRatingsFromScrappedString(String? ratingsCountString){
     int? _output;
 
     // comes in this form : '6,891 ratings'
     if (TextCheck.isEmpty(ratingsCountString) == false){
       String? _string = TextMod.removeTextAfterFirstSpecialCharacter(
-          text: ratingsCountString.trim(),
+          text: ratingsCountString!.trim(),
           specialCharacter: 'ratings',
       );
       _string = _string?.replaceAll(',', '');
