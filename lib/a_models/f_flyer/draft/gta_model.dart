@@ -34,18 +34,14 @@ class GtaModel {
     required this.images,
     required this.brand,
     required this.stars,
-    required this.ratingsCount,
+    required this.rating,
     required this.price,
+    required this.oldPrice,
     required this.currency,
     required this.about,
-    required this.description,
-    required this.importantInfo,
     required this.affiliateLink,
     required this.countryID,
-    /// required this.specifications,
-    /// required this.productDetails,
-    /// required this.badges,
-});
+  });
   // -----------------------------------------------------------------------------
   final String? id;
   final String? url;
@@ -53,17 +49,13 @@ class GtaModel {
   final List<String>? images;
   final String? brand;
   final double? stars;
-  final int? ratingsCount;
+  final int? rating;
   final double? price;
+  final double? oldPrice;
   final String? currency;
   final String? about;
-  final String? description;
-  final String? importantInfo;
   final String? affiliateLink;
   final String? countryID;
-  /// final Map<String, dynamic> specifications;
-  /// final Map<String, dynamic> productDetails;
-  /// final Map<String, dynamic> badges;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -77,12 +69,13 @@ class GtaModel {
     List<String>? images,
     String? brand,
     double? stars,
-    int? ratingsCount,
+    int? rating,
     double? price,
+    double? oldPrice,
     String? currency,
     String? about,
     String? description,
-    String? importantInfo,
+    String? info,
     String? affiliateLink,
     String? countryID,
   }){
@@ -94,12 +87,11 @@ class GtaModel {
       images: images ?? this.images,
       brand: brand ?? this.brand,
       stars: stars ?? this.stars,
-      ratingsCount: ratingsCount ?? this.ratingsCount,
+      rating: rating ?? this.rating,
       price: price ?? this.price,
+      oldPrice: oldPrice ?? this.oldPrice,
       currency: currency ?? this.currency,
       about: about ?? this.about,
-      description: description ?? this.description,
-      importantInfo: importantInfo ?? this.importantInfo,
       affiliateLink: affiliateLink ?? this.affiliateLink,
       countryID: countryID ?? this.countryID,
     );
@@ -125,12 +117,11 @@ class GtaModel {
         'images': gtaModel.images,
         'brand': gtaModel.brand,
         'stars': gtaModel.stars,
-        'ratingsCount': gtaModel.ratingsCount,
+        'rating': gtaModel.rating,
         'price': gtaModel.price,
+        'oldPrice': gtaModel.oldPrice,
         'currency': gtaModel.currency,
         'about': gtaModel.about,
-        'description': gtaModel.description,
-        'importantInfo': gtaModel.importantInfo,
         'affiliateLink': gtaModel.affiliateLink,
         'countryID': gtaModel.countryID,
       };
@@ -154,12 +145,11 @@ class GtaModel {
         images: Stringer.getStringsFromDynamics(map['images']),
         brand: map['brand'],
         stars: map['stars'],
-        ratingsCount: map['ratingsCount'],
+        rating: map['rating'],
         price: Numeric.transformStringToDouble('${map['price']}'),
+        oldPrice: Numeric.transformStringToDouble('${map['oldPrice']}'),
         currency: map['currency'],
         about: map['about'],
-        description: map['description'],
-        importantInfo: map['importantInfo'],
         affiliateLink: map['affiliateLink'],
         countryID: map['countryID'],
       );
@@ -304,12 +294,11 @@ class GtaModel {
         images: null,
         brand: null,
         stars: null,
-        ratingsCount: null,
+        rating: null,
         price: null,
+        oldPrice: null,
         currency: null,
         about: null,
-        description: null,
-        importantInfo: null,
         affiliateLink: null,
         countryID: countryID,
       );
@@ -374,8 +363,8 @@ class GtaModel {
         gtaLink: gtaModel.url,
         price: gtaModel.price == null ? null : PriceModel(
           current: gtaModel.price!,
+          old: gtaModel.oldPrice,
           currencyID: gtaModel.currency ?? CurrencyModel.usaCurrencyID,
-          // old:
         ),
       );
 
@@ -534,24 +523,23 @@ class GtaModel {
     GtaModel? _output;
 
     if (map != null){
+
+      Mapper.blogMap(map, invoker: 'createGtaModelScrappedMap');
+
       _output = GtaModel(
         id: Numeric.createUniqueID().toString(),
         url: url,
         title: map['title'],
-        images: Stringer.getStringsFromDynamics(map['imageList']),
+        images: Stringer.getStringsFromDynamics(map['images']),
         brand: map['brand'],
         stars: _getStarsFromScrappedString(map['stars']),
-        ratingsCount: _getRatingsFromScrappedString(map['ratings']),
+        rating: _getRatingsFromScrappedString(map['rating']),
         price: _getPriceFromScrappedString(map['price']),
+        oldPrice: _getPriceFromScrappedString(map['oldPrice']),
         currency: _getCurrencyFromScrappedString(map['price']),
         about: _fixAboutItemString(map['about']),
-        description: map['description'],
-        importantInfo: map['importantInfo'],
         affiliateLink: map['affiliateLink'],
         countryID: countryID,
-        // productDetails: null,
-        // specifications: null,
-        // badges: null,
       );
     }
 
@@ -596,7 +584,7 @@ class GtaModel {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// ( AMAZON_COUNTRY_DATA ) : TESTED : WORKS PERFECT
   static double? _getPriceFromScrappedString(String? priceString){
     double? _output;
 
@@ -612,28 +600,35 @@ class GtaModel {
         _output = Numeric.transformStringToDouble(_string?.trim());
       }
 
+      /// AED
+      if (TextCheck.stringStartsExactlyWith(text: priceString, startsWith: 'AED') == true){
+        /// AED620.00
+        final String? _value = TextMod.removeNumberOfCharactersFromBeginningOfAString(
+            string: priceString,
+            numberOfCharacters: 3,
+        );
+        _output = Numeric.transformStringToDouble(_value);
+      }
+
     }
 
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// ( AMAZON_COUNTRY_DATA ) : TESTED : WORKS PERFECT
   static String? _getCurrencyFromScrappedString(String? priceString){
     String? _output;
 
-    // might come in this form : '$179.99'
     if (TextCheck.isEmpty(priceString) == false){
 
-      blog('_getCurrencyFromScrappedString : $priceString');
-
-      /// USD
+      /// USD : $179.99
       if (TextCheck.stringContainsSubString(string: priceString, subString: r'$') == true){
-
-        blog('TextCheck.stringContainsSubString(string: priceString, subString: \$) : ${TextCheck.stringContainsSubString(string: priceString, subString: r'$')}');
-
-        // CurrencyModel.getCurrencyFromCurrenciesByCountryID(currencies: currencies, countryID: countryID)
-
         _output = 'currency_USD';
+      }
+
+      /// AED : AED620.00
+      if (TextCheck.stringStartsExactlyWith(text: priceString, startsWith: 'AED') == true){
+        _output = 'currency_AED';
       }
 
     }
@@ -851,12 +846,11 @@ class GtaModel {
     blog('  images: ${gta.images},');
     blog('  brand: ${gta.brand},');
     blog('  stars: ${gta.stars},');
-    blog('  ratingsCount: ${gta.ratingsCount},');
+    blog('  rating: ${gta.rating},');
     blog('  price: ${gta.price},');
+    blog('  oldPrice: ${gta.oldPrice},');
     blog('  currency: ${gta.currency},');
     blog('  about: ${gta.about},');
-    blog('  description: ${gta.description},');
-    blog('  importantInfo: ${gta.importantInfo},');
     blog('  affiliateLink: ${gta.affiliateLink},');
     blog('  countryID: ${gta.countryID},');
     blog(')');
@@ -905,12 +899,11 @@ class GtaModel {
       Mapper.checkListsAreIdentical(list1: product1.images, list2: product2.images) == true &&
       product1.brand == product2.brand &&
       product1.stars == product2.stars &&
-      product1.ratingsCount == product2.ratingsCount &&
+      product1.rating == product2.rating &&
       product1.price == product2.price &&
+      product1.oldPrice == product2.oldPrice &&
       product1.currency == product2.currency &&
       product1.about == product2.about &&
-      product1.description == product2.description &&
-      product1.importantInfo == product2.importantInfo &&
       product1.affiliateLink == product2.affiliateLink &&
       product1.countryID == product2.countryID
       ){
@@ -936,17 +929,15 @@ class GtaModel {
           images: $images,
           brand: $brand,
           stars: $stars,
-          ratingsCount: $ratingsCount,
+          rating: $rating,
           price: $price,
+          oldPrice: $oldPrice,
           currency: $currency,
           about: $about,
-          description: $description,
-          importantInfo: $importantInfo,
           affiliateLink: $affiliateLink,
           countryID: $countryID,
        )
-      '''
-       ;
+      ''';
   // --------------------
   @override
   bool operator == (Object other){
@@ -974,17 +965,13 @@ class GtaModel {
       images.hashCode^
       brand.hashCode^
       stars.hashCode^
-      ratingsCount.hashCode^
+      rating.hashCode^
       price.hashCode^
+      oldPrice.hashCode^
       currency.hashCode^
       about.hashCode^
-      description.hashCode^
-      importantInfo.hashCode^
       affiliateLink.hashCode^
       countryID.hashCode
-      // specifications.hashCode^
-      // productDetails.hashCode^
-      // badges.hashCode^
       ;
   // -----------------------------------------------------------------------------
 }
