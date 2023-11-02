@@ -75,8 +75,10 @@ class FlyerFooterButtons extends StatelessWidget {
               ),
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
 
+                /// TOP BUTTON : AMAZON / PRICE / DISCOUNT
                 Align(
                   alignment: BldrsAligners.superTopAlignment(context),
                   child: TopButton(
@@ -86,12 +88,14 @@ class FlyerFooterButtons extends StatelessWidget {
                   ),
                 ),
 
+                /// SAVE - REVIEW - SHARE
                 Align(
                   alignment: BldrsAligners.superInverseBottomAlignment(context),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
 
+                      /// SPACING
                       if (_canShow == true)
                         footerButtonSpacer!,
 
@@ -116,7 +120,9 @@ class FlyerFooterButtons extends StatelessWidget {
                               );
                             }),
 
-                      if (_canShow == true) footerButtonSpacer!,
+                      /// SPACING
+                      if (_canShow == true)
+                        footerButtonSpacer!,
 
                       /// REVIEWS
                       if (_canShow == true)
@@ -133,6 +139,7 @@ class FlyerFooterButtons extends StatelessWidget {
                           ),
                         ),
 
+                      /// SPACING
                       if (_canShow == true)
                         footerButtonSpacer!,
 
@@ -152,6 +159,7 @@ class FlyerFooterButtons extends StatelessWidget {
                         },
                       ),
 
+                      /// SPACING
                       footerButtonSpacer!,
 
                     ],

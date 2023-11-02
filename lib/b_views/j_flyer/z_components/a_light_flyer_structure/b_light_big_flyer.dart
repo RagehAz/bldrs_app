@@ -267,7 +267,6 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
 
   }
   // --------------------
-  ///
   Future<void> _imagifyFlyer() async {
 
     if (_flyer.value != null){
