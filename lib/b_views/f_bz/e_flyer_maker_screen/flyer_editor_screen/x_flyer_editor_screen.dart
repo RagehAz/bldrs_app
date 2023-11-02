@@ -413,12 +413,14 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   /// TESTED : WORKS PERFECT
   Verse _createConfirmVerse(){
 
-    if (Mapper.boolIsTrue(widget.draftFlyer?.firstTimer) == true){
-      return const Verse(id: 'phid_createFlyer', translate: true);
-    }
-    else {
-      return const Verse(id: 'phid_edit_flyer', translate: true);
-    }
+    return const Verse(id: 'phid_confirm', translate: true);
+
+    // if (Mapper.boolIsTrue(widget.draftFlyer?.firstTimer) == true){
+    //   return const Verse(id: 'phid_createFlyer', translate: true);
+    // }
+    // else {
+    //   return const Verse(id: 'phid_edit_flyer', translate: true);
+    // }
 
   }
   // -----------------------------------------------------------------------------
