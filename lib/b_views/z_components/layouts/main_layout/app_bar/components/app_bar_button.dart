@@ -7,6 +7,7 @@ class AppBarButton extends StatelessWidget {
     this.verseColor = Colorz.white255,
     this.buttonColor = Colorz.white20,
     this.onTap,
+    this.onLongTap,
     this.onDeactivatedTap,
     this.icon,
     this.bubble = true,
@@ -24,6 +25,7 @@ class AppBarButton extends StatelessWidget {
   final Color verseColor;
   final Color? buttonColor;
   final Function? onTap;
+  final Function? onLongTap;
   final Function? onDeactivatedTap;
   final dynamic icon;
   final bool bubble;
@@ -57,6 +59,7 @@ class AppBarButton extends StatelessWidget {
       bubble: bubble,
       iconColor: iconColor,
       onTap: onTap,
+      onLongTap: onLongTap,
       isDisabled: isDisabled,
       onDisabledTap: onDeactivatedTap,
       verseMaxLines: 2,

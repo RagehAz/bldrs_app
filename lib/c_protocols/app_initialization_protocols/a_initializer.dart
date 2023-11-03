@@ -80,18 +80,6 @@ class Initializer {
   }) async {
     bool _canLoadApp = false;
 
-    // final bool _isConnected = await DeviceChecker.checkConnectivity();
-    //
-    // _report('_isConnected : $_isConnected');
-
-    // if (_isConnected == false){
-    //
-    //   // await Nav.goToNewScreen(context: context, screen: const AppSettingsScreen());
-    //
-    // }
-    //
-    // else {
-
       unawaited(UiInitializer.refreshLDB());
 
       /// LOADING
@@ -113,6 +101,7 @@ class Initializer {
 
         /// CLOCK
         _canLoadApp = await UiInitializer.initializeClock();
+
 
         if (_canLoadApp == true){
 
@@ -140,11 +129,13 @@ class Initializer {
 
         }
 
+        else {
+
+        }
+
       }
 
       UiProvider.clearLoadingVerse();
-
-    // }
 
     return _canLoadApp;
   }

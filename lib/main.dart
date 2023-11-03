@@ -14,12 +14,12 @@ import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_providers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/b_static_router.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+
 import 'bldrs_keys.dart';
 
 // ---------------------------------------------------------------------------
@@ -272,7 +272,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> with WidgetsBindingOb
         // home: ,
         navigatorKey: mainNavKey,
         onGenerateRoute: StaticRouter.router,
-        initialRoute: RouteName.staticLogo,
+        // initialRoute: RouteName.staticLogo,
         // routes: Routing.routesMap,
       ),
     );

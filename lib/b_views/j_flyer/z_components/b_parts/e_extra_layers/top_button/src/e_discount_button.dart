@@ -76,7 +76,7 @@ class _DiscountButton extends StatelessWidget {
                     verse: generateLine_discount_rate(
                       flyerModel: flyerModel
                     ),
-                    scaleFactor: _topLineScaleFactor * 1.35,
+                    scaleFactor: _topLineScaleFactor * 1.7,
                     weight: VerseWeight.black,
                   ),
                 ),
@@ -116,17 +116,21 @@ class _DiscountButton extends StatelessWidget {
                   appIsLTR: _appIsLTR,
                   verticalOffset: _topLineVerticalOffset,
                   enAlignment: Alignment.topLeft,
-                  child: BldrsText(
+                  child: SizedBox(
                     width: _priceLineWidth,
-                    verse: generateLine_current_price(
-                      flyerModel: flyerModel,
+                    child: FittedBox(
+                      child: BldrsText(
+                        verse: generateLine_current_price(
+                          flyerModel: flyerModel,
+                        ),
+                        scaleFactor: _topLineScaleFactor * 1.7,
+                        centered:  false,
+                        weight: VerseWeight.black,
+                        appIsLTR: true,
+                        textDirection: TextDirection.ltr,
+                        margin: EdgeInsets.symmetric(horizontal: _height * 0.2),
+                      ),
                     ),
-                    scaleFactor: _topLineScaleFactor,
-                    centered:  false,
-                    weight: VerseWeight.black,
-                    appIsLTR: true,
-                    textDirection: TextDirection.ltr,
-                    margin: EdgeInsets.symmetric(horizontal: _height * 0.2),
                   ),
                 ),
 
