@@ -18,6 +18,7 @@ class HeroicFlyer extends StatefulWidget {
     required this.screenName,
     required this.gridWidth,
     required this.gridHeight,
+    this.fadeOnStart = true,
     super.key
   });
   
@@ -27,6 +28,7 @@ class HeroicFlyer extends StatefulWidget {
   final String screenName;
   final double gridWidth;
   final double gridHeight;
+  final bool fadeOnStart;
   /// --------------------------------------------------------------------------
   @override
   _HeroicFlyerState createState() => _HeroicFlyerState();
@@ -189,7 +191,7 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
             else {
               blog('(${widget.flyerModel?.id}) renderedSmallFlyer != null');
               return WidgetFader(
-                fadeType: FadeType.fadeIn,
+                fadeType: widget.fadeOnStart == true ? FadeType.fadeIn : FadeType.stillAtMax,
                 duration: const Duration(milliseconds: 300),
                 child: FlyerHero(
                   renderedFlyer: renderedSmallFlyer,

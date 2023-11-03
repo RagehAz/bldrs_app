@@ -61,7 +61,7 @@ class UiInitializer {
   static Future<bool> initializeClock() async {
 
     /// CHECK DEVICE CLOCK
-    final bool _deviceTimeIsCorrect = await BldrsTimers.checkDeviceTimeIsCorrect(
+    bool _deviceTimeIsCorrect = await BldrsTimers.checkDeviceTimeIsCorrect(
       context: getMainContext(),
       showIncorrectTimeDialog: true,
       canThrowError: true,
@@ -77,11 +77,24 @@ class UiInitializer {
     }
     else {
 
-      await BldrsNav.pushLogoRouteAndRemoveAllBelow(
-        animatedLogoScreen: false,
+      await Future.delayed(const Duration(seconds: 5));
+
+      _deviceTimeIsCorrect = await BldrsTimers.checkDeviceTimeIsCorrect(
+        context: getMainContext(),
+        showIncorrectTimeDialog: false,
+        canThrowError: false,
       );
 
-      return false;
+      if (_deviceTimeIsCorrect == true){
+        return true;
+      }
+      else {
+        await BldrsNav.pushLogoRouteAndRemoveAllBelow(
+          animatedLogoScreen: false,
+        );
+        return false;
+      }
+
     }
 
   }
