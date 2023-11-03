@@ -1,10 +1,8 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
-import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/super_tool_tip.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip_with_headline.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/data_strip/the_strip_of_data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +21,7 @@ class DataStrip extends StatelessWidget {
     this.highlightText,
     this.tooTipVerse,
     this.height = 50,
+    this.margins,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -37,10 +36,11 @@ class DataStrip extends StatelessWidget {
   final ValueNotifier<dynamic>? highlightText;
   final Verse? tooTipVerse;
   final double height;
+  final EdgeInsets? margins;
   /// --------------------------------------------------------------------------
   static const double verticalMargin = 2.5;
-  // static const double height = 50;
-  // -----------------------------------------------------------------------------
+  static const double spacing = 5;
+  // --------------------
   static Future<void> onStripTap({
     required dynamic dataValue,
   }) async {
@@ -49,6 +49,32 @@ class DataStrip extends StatelessWidget {
       copy: dataValue.toString(),
     );
 
+  }
+  // --------------------
+  static double getKeyWidth({
+    required BuildContext context,
+    double? width,
+  }){
+
+    final double _rowWidth = Bubble.bubbleWidth(
+      bubbleWidthOverride: width,
+      context: context,
+    );
+
+    return (_rowWidth - spacing) * 0.2;
+  }
+  // --------------------
+  static double getValueWidth({
+    required BuildContext context,
+    double? width,
+  }){
+
+    final double _rowWidth = Bubble.bubbleWidth(
+      bubbleWidthOverride: width,
+      context: context,
+    );
+
+    return (_rowWidth - spacing) * 0.8;
   }
   // -----------------------------------------------------------------------------
   @override
@@ -74,99 +100,55 @@ class DataStrip extends StatelessWidget {
     /// DATA STRIP WITH HEADLINE IN THE ROW
     else {
 
-      final double _rowWidth = Bubble.clearWidth(
+      final double _rowWidth = Bubble.bubbleWidth(
         bubbleWidthOverride: width,
         context: context,
       );
 
-      return Container(
-        key: const ValueKey<String>('DataStrip_tree'),
-        width: _rowWidth,
-        height: height,
-        margin: const EdgeInsets.symmetric(vertical: verticalMargin),
-        // color: Colorz.yellow125,
-        alignment: Alignment.center,
+      return Center(
         child: SizedBox(
+          key: const ValueKey<String>('DataStrip_tree'),
           width: _rowWidth,
-          height: height,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
 
-              SuperToolTip(
-                verse: tooTipVerse,
-                triggerMode: TooltipTriggerMode.longPress,
-                child: Container(
-                  height: height,
-                  width: _rowWidth * 0.2,
-                  decoration: BoxDecoration(
+                /// KEY
+                SuperToolTip(
+                  verse: tooTipVerse,
+                  triggerMode: TooltipTriggerMode.longPress,
+                  child: TheStripOfDataStrip(
+                    width: getKeyWidth(
+                      context: context,
+                      width: width,
+                    ),
+                    height: height,
                     color: color,
-                    borderRadius: Borderers.constantCornersAll10,
-                  ),
-                  child: ClipRRect(
-                    borderRadius: Borderers.constantCornersAll10,
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      child: BldrsBox(
-                        height: height,
-                        verse: Verse(
-                          id: dataKey,
-                          translate: false,
-                        ),
-                        // verseShadow: false,
-                        verseScaleFactor: 0.6,
-                        bubble: false,
-                        color: color,
-                        verseMaxLines: 2,
-                        verseWeight: VerseWeight.thin,
-                        verseHighlight: highlightText,
-                        onTap: onKeyTap ?? () => onStripTap(
-                          dataValue: dataValue,
-                        ),
-                      ),
+                    highlightText: highlightText,
+                    text: dataKey,
+                    onTap: onKeyTap ?? () => onStripTap(
+                      dataValue: dataKey,
                     ),
                   ),
                 ),
-              ),
 
-              /// VALUE
-              Container(
-                height: height,
-                width: _rowWidth * 0.79,
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: Borderers.constantCornersAll10,
-                ),
-                child: ClipRRect(
-                  borderRadius: Borderers.constantCornersAll10,
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    child:  BldrsBox(
-                      height: height,
-                      verse: Verse(
-                        id: dataValue.toString(),
-                        translate: false,
-                      ),
-                      // verseShadow: false,
-                      verseScaleFactor: 0.8,
-                      bubble: false,
-                      color: color,
-                      verseWeight: VerseWeight.thin,
-                      verseCentered: false,
-                      verseHighlight: highlightText,
-                      onTap: onValueTap ?? () => onStripTap(
-                        dataValue: dataValue,
-                      ),
-                    ),
+                /// VALUE
+                TheStripOfDataStrip(
+                  width: getValueWidth(
+                    context: context,
+                    width: width,
+                  ),
+                  height: height,
+                  highlightText: highlightText,
+                  text: dataValue.toString(),
+                  color: Colorz.white20,
+                  onTap: onValueTap ?? () => onStripTap(
+                    dataValue: dataValue,
                   ),
                 ),
-              ),
 
-            ],
-          ),
+              ],
+            ),
         ),
       );
 
