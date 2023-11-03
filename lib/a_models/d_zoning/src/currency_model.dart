@@ -356,6 +356,24 @@ class CurrencyModel {
       translate: false,
     );
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? getCurrencyISO3({
+    required String? currencyID,
+  }){
+    String? _output;
+
+    if (currencyID != null){
+
+      _output = TextMod.removeTextBeforeFirstSpecialCharacter(
+          text: currencyID,
+          specialCharacter: '_',
+      );
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS

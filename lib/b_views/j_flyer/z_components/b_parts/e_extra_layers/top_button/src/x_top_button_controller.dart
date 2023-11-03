@@ -277,11 +277,9 @@ Verse? generateLine_current_price({
       fractions: _currency?.digits ?? 1,
     );
 
-    final String? _currencySymbol = ZoneProvider.proGetCurrencyByCurrencyID(
-      context: getMainContext(),
-      currencyID: flyerModel.price?.currencyID,
-      listen: false,
-    )?.symbol;
+    final String? _currencySymbol = CurrencyModel.getCurrencyISO3(
+      currencyID: _currency?.id,
+    );
 
     final String _line = '$_number $_currencySymbol';
 
@@ -314,16 +312,15 @@ Verse? generateLine_old_price({
       number: flyerModel.price?.old,
       fractions: _currency?.digits ?? 1,
     );
-    final String? _currencySymbol = ZoneProvider.proGetCurrencyByCurrencyID(
-      context: getMainContext(),
-      currencyID: flyerModel.price?.currencyID,
-      listen: false,
-    )?.symbol;
+    final String? _currencySymbol = CurrencyModel.getCurrencyISO3(
+      currencyID: _currency?.id,
+    );
 
     return Verse(
       id: '$_number $_currencySymbol ',
       translate: false,
     );
+
   }
 
 }
@@ -336,7 +333,7 @@ Verse? generateLine_old_price({
 double getTopLiveVerticalOffset({
   required double topButtonHeight,
 }){
-  return topButtonHeight * 0.17;
+  return topButtonHeight * 0.12;
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -350,13 +347,13 @@ double getTopLineScaleFactor({
 double getBottomLiveVerticalOffset({
   required double topButtonHeight,
 }){
-  return topButtonHeight * 0.23;
+  return topButtonHeight * 0.18;
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 double getBottomLineScaleFactor({
   required double topButtonHeight,
 }){
-  return topButtonHeight * 0.01;
+  return topButtonHeight * 0.014;
 }
 // -----------------------------------------------------------------------------
