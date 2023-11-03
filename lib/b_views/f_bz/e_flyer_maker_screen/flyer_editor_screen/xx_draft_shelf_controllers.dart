@@ -428,7 +428,7 @@ void onReorderSlide({
       drafts: _oldSlides,
     );
 
-    draftFlyer.value!.headline!.text = _oldSlides[0].headline!;
+    draftFlyer.value!.headline!.text = _oldSlides[0].headline ?? '';
 
   }
 
