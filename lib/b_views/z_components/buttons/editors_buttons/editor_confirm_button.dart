@@ -120,6 +120,7 @@ class ConfirmButton extends StatelessWidget {
         enAlignment: enAlignment ?? Alignment.bottomCenter,
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
         verticalOffset: spacing,
+        horizontalOffset: spacing,
         child: _confirmButton,
       );
     }
@@ -130,6 +131,7 @@ class ConfirmButton extends StatelessWidget {
         enAlignment: enAlignment ?? Alignment.bottomCenter,
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
         verticalOffset: spacing,
+        horizontalOffset: spacing,
         child: Row(
           children: <Widget>[
 

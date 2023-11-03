@@ -18,6 +18,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,7 @@ class BzBubble extends StatelessWidget {
   const BzBubble({
     required this.bzModel,
     this.boxWidth,
-    this.showID = true,
+    this.showID = false,
     this.onTap,
     this.isSelected = false,
     this.showAuthorsPics = false,
@@ -176,6 +177,17 @@ class BzBubble extends StatelessWidget {
                         scaleFactor: 1.1,
                         maxLines: 2,
                         textDirection: UiProvider.getAppTextDir(),
+                      ),
+                    ),
+
+                    if (showID == true)
+                    BldrsText(
+                      verse: Verse.plain(bzModel?.id),
+                      labelColor: Colorz.blue20,
+                      weight: VerseWeight.thin,
+                      margin: const EdgeInsets.only(top: 5),
+                      onTap: () => Keyboard.copyToClipboardAndNotify(
+                          copy: bzModel?.id,
                       ),
                     ),
 

@@ -1,8 +1,8 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/bz_buttons/bz_long_button.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class BzzList extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -12,6 +12,7 @@ class BzzList extends StatelessWidget {
     this.selectedBzzIDs,
     this.onBzTap,
     this.scrollPadding,
+    this.showBzzIDs = false,
     super.key
   });
   // -----------------------------------------------------------------------------
@@ -20,6 +21,7 @@ class BzzList extends StatelessWidget {
   final List<String>? selectedBzzIDs;
   final Function(BzModel? bz)? onBzTap;
   final EdgeInsets? scrollPadding;
+  final bool showBzzIDs;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -43,6 +45,7 @@ class BzzList extends StatelessWidget {
               strings: selectedBzzIDs,
               string: _bz?.id,
             ),
+            showID: showBzzIDs,
           );
 
         },
