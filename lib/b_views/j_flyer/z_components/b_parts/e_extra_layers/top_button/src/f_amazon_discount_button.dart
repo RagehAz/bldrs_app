@@ -1,9 +1,9 @@
 // ignore_for_file: unused_element
 part of top_button;
 
-class _AmazonPriceButton extends StatelessWidget {
+class _AmazonDiscountButton extends StatelessWidget {
   // -----------------------------------------------------------------------------
-  const _AmazonPriceButton({
+  const _AmazonDiscountButton({
     required this.flyerModel,
     required this.flyerBoxWidth,
     super.key,
@@ -30,11 +30,13 @@ class _AmazonPriceButton extends StatelessWidget {
     );
     // --------------------
     /// RIGHT PRICE BOX
-    final double _pricesBoxWidth = _width - _height;
+    final double _pricesBoxWidth = _width - (_height * 2);
     // --------------------
     final double _bottomLineScaleFactor = getBottomLineScaleFactor(
       flyerBoxWidth: flyerBoxWidth,
     );
+    // --------------------
+    final bool _appIsLTR = UiProvider.checkAppIsLeftToRight();
     // --------------------
     return _LabelStructure(
       flyerBoxWidth: flyerBoxWidth,
@@ -47,21 +49,44 @@ class _AmazonPriceButton extends StatelessWidget {
 
           /// AMAZON LOGO
           _LabelStructure(
-            width: _height,
+            width: _height * 2,
             flyerBoxWidth: flyerBoxWidth,
-            color: _darkColor,
-            child: BldrsBox(
-              width: _height,
-              height: _height,
-              icon: Iconz.amazon,
-              iconColor: _amazonColor,
-              iconSizeFactor: 0.6,
-              corners: getButtonCorners(flyerBoxWidth: flyerBoxWidth),
+            color: _basicColor,
+            child: Stack(
+              children: <Widget>[
+
+                /// AMAZON LOGO
+                SuperPositioned(
+                  appIsLTR: _appIsLTR,
+                  enAlignment: Alignment.centerLeft,
+                  child: BldrsBox(
+                    width: _height,
+                    height: _height,
+                    icon: Iconz.amazon,
+                    color: _darkColor,
+                    iconColor: _amazonColor,
+                    iconSizeFactor: 0.6,
+                    corners: getButtonCorners(flyerBoxWidth: flyerBoxWidth),
+                  ),
+                ),
+
+                /// PERCENTAGE
+                SuperPositioned(
+                  appIsLTR: _appIsLTR,
+                  enAlignment: Alignment.centerRight,
+                  child: _PercentageBox(
+                      flyerBoxWidth: flyerBoxWidth,
+                      flyerModel: flyerModel
+                  ),
+                ),
+
+
+              ],
             ),
           ),
 
           /// PRICE
-          _DiscountStructure(
+          _ThreeLinesStructure(
             columnWidth: _pricesBoxWidth,
             flyerBoxWidth: flyerBoxWidth,
 
@@ -78,6 +103,13 @@ class _AmazonPriceButton extends StatelessWidget {
               margin: getTextMargins(flyerBoxWidth: flyerBoxWidth),
             ),
 
+            /// WAS LINE
+            middleChild: _WasLine(
+              flyerModel: flyerModel,
+              flyerBoxWidth: flyerBoxWidth,
+              textColor: _darkColor,
+            ),
+
             /// BUY ON AMAZON
             bottomChild: BldrsText(
               // width: _priceLineWidth,
@@ -90,7 +122,6 @@ class _AmazonPriceButton extends StatelessWidget {
               // appIsLTR: true,
               // textDirection: TextDirection.ltr,
             ),
-
           ),
 
         ],

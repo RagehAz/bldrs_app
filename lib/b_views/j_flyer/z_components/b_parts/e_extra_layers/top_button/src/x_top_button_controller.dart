@@ -10,6 +10,7 @@ enum TopButtonType {
   discount,
   amazonPrice,
   amazonDiscount,
+  amazon,
   facebook,
   instagram,
   non,
@@ -50,7 +51,7 @@ TopButtonType getTopButtonType(FlyerModel? flyerModel){
         return TopButtonType.amazonDiscount;
       }
       else {
-        return TopButtonType.amazonPrice;
+        return TopButtonType.amazon;
       }
 
     }
@@ -193,19 +194,26 @@ double getTopButtonWidth({
 
   final TopButtonType _type = getTopButtonType(flyerModel);
 
+  final double _buttonHeight = getTopButtonHeight(flyerBoxWidth: flyerBoxWidth,);
+  final double _smallWidth = priceButtonWidth(flyerBoxWidth: flyerBoxWidth);
+  final double _mediumWidth = FlyerDim.gtaButtonWidth(flyerBoxWidth: flyerBoxWidth);
+  final double _bigWidth = _mediumWidth + _buttonHeight;
+
   switch (_type){
 
-      case TopButtonType.price: return priceButtonWidth(flyerBoxWidth: flyerBoxWidth);
+      case TopButtonType.price: return _smallWidth;
 
-      case TopButtonType.discount: return FlyerDim.gtaButtonWidth(flyerBoxWidth: flyerBoxWidth);
+      case TopButtonType.discount: return _mediumWidth;
 
-      case TopButtonType.amazonPrice: return FlyerDim.gtaButtonWidth(flyerBoxWidth: flyerBoxWidth);
+      case TopButtonType.amazonPrice: return _mediumWidth;
 
-      case TopButtonType.amazonDiscount: return FlyerDim.gtaButtonWidth(flyerBoxWidth: flyerBoxWidth);
+      case TopButtonType.amazonDiscount: return _bigWidth;
 
-      case TopButtonType.facebook: return FlyerDim.gtaButtonWidth(flyerBoxWidth: flyerBoxWidth);
+      case TopButtonType.amazon: return _mediumWidth;
 
-      case TopButtonType.instagram: return FlyerDim.gtaButtonWidth(flyerBoxWidth: flyerBoxWidth);
+      case TopButtonType.facebook: return _mediumWidth;
+
+      case TopButtonType.instagram: return _mediumWidth;
 
       case TopButtonType.non: return 0;
 

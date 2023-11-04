@@ -42,18 +42,31 @@ class _TopButtonSwitcher extends StatelessWidget {
 
         /// AMAZON DISCOUNT
       case TopButtonType.amazonDiscount:
-        return _AmazonPriceButton(
+        return _AmazonDiscountButton(
+          flyerModel: flyerModel,
+          flyerBoxWidth: flyerBoxWidth,
+        );
+
+        /// AMAZON DISCOUNT
+      case TopButtonType.amazon:
+        return _AmazonButton(
           flyerModel: flyerModel,
           flyerBoxWidth: flyerBoxWidth,
         );
 
         /// FACEBOOK
       case TopButtonType.facebook:
-        return const SizedBox();
+        return _FacebookButton(
+          flyerModel: flyerModel,
+          flyerBoxWidth: flyerBoxWidth,
+        );
 
         /// INSTAGRAM
       case TopButtonType.instagram:
-        return const SizedBox();
+        return  _InstagramButton(
+          flyerModel: flyerModel,
+          flyerBoxWidth: flyerBoxWidth,
+        );
 
         /// NON
         default:
