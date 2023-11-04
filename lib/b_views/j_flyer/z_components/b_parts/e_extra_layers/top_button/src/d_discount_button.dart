@@ -30,9 +30,6 @@ class _DiscountButton extends StatelessWidget {
     /// RIGHT PRICE BOX
     final double _pricesBoxWidth = _width - _discountBoxWidth;
     // --------------------
-    final double _bottomLineScaleFactor = getBottomLineScaleFactor(
-      flyerBoxWidth: flyerBoxWidth,
-    );
     final double _topTextScaleFactor = getTopLineScaleFactor(
       flyerBoxWidth: flyerBoxWidth,
     );
