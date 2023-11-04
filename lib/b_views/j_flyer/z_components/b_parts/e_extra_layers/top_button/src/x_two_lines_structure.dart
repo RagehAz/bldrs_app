@@ -1,8 +1,8 @@
 part of top_button;
 
-class _DiscountStructure extends StatelessWidget {
+class _TwoLinesStructure extends StatelessWidget {
   // -----------------------------------------------------------------------------
-  const _DiscountStructure({
+  const _TwoLinesStructure({
     required this.columnWidth,
     required this.flyerBoxWidth,
     required this.topChild,
