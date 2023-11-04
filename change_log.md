@@ -1,3 +1,10 @@
+### 2.13.0
+1. Ui updates
+2. Updated price tag designs
+3. Fixed wrong Clock dialog behaviour
+4. Bug fixes
+5. Developed Amazon flyers uploading mechanism
+
 ### 2.12.0
 1. updated scrolling responsiveness quality
 2. updated flyer auditing algorithms
