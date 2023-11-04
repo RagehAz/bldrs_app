@@ -15,38 +15,32 @@ class _PriceButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
    // --------------------
-    /// MAIN SCALES
-    final double _height = getTopButtonHeight(
-      flyerBoxWidth: flyerBoxWidth,
-    );
     final double _width = getTopButtonWidth(
       flyerBoxWidth: flyerBoxWidth,
       flyerModel: flyerModel,
     );
     // --------------------
-    /// TOP LINE SCALES
-    final double _topLineScaleFactor = getTopLineScaleFactor(topButtonHeight: _height);
+    final double _topTextScaleFactor = getTopLineScaleFactor(
+      flyerBoxWidth: flyerBoxWidth,
+    );
     // --------------------
-    return Container(
-      height: _height,
+    return _LabelStructure(
+      flyerBoxWidth: flyerBoxWidth,
+      color: _basicColor,
       width: _width,
-      decoration: BoxDecoration(
-        borderRadius: getButtonCorners(
-          flyerBoxWidth: flyerBoxWidth,
+      child: FittedBox(
+        child: BldrsText(
+          verse: generateLine_current_price(
+            flyerModel: flyerModel,
+          ),
+          scaleFactor: _topTextScaleFactor,
+          weight: VerseWeight.black,
+          margin: getTextMargins(
+            flyerBoxWidth: flyerBoxWidth,
+          ),
+          // appIsLTR: true,
+          // textDirection: TextDirection.ltr,
         ),
-        color: Colorz.black150,
-      ),
-      alignment: Alignment.center,
-      child: BldrsText(
-        width: _width,
-        verse: generateLine_current_price(
-          flyerModel: flyerModel,
-        ),
-        scaleFactor: _topLineScaleFactor,
-        weight: VerseWeight.black,
-        margin: EdgeInsets.symmetric(horizontal: _height * 0.2),
-        appIsLTR: true,
-        textDirection: TextDirection.ltr,
       ),
     );
     // --------------------

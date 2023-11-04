@@ -15,67 +15,49 @@ class _TopButtonSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final PriceModel? _priceModel = flyerModel?.price;
+    final TopButtonType _buttonType = getTopButtonType(flyerModel);
 
-    if (_priceModel == null){
-      return const SizedBox();
-    }
+    switch (_buttonType){
 
-    else {
-
-      /// NORMAL PRICE BUTTON
-      if (_priceModel.old == null || _priceModel.old == 0){
+      /// PRICE
+      case TopButtonType.price:
         return _PriceButton(
           flyerModel: flyerModel,
           flyerBoxWidth: flyerBoxWidth,
         );
-      }
 
-      /// DISCOUNT PRICE BUTTON
-      else {
+        /// DISCOUNT
+      case TopButtonType.discount:
         return _DiscountButton(
           flyerModel: flyerModel,
           flyerBoxWidth: flyerBoxWidth,
         );
-      }
 
-    }
-
-    /// AMAZON BUTTON
-    if (GtaModel.isAmazonAffiliateLink(flyerModel?.affiliateLink) == true){
-      return _AmazonButton(
+        /// AMAZON PRICE
+      case TopButtonType.amazonPrice:
+        return _AmazonPriceButton(
           flyerModel: flyerModel,
           flyerBoxWidth: flyerBoxWidth,
-      );
-    }
+        );
 
-    /// PRICE - DISCOUNT BUTTON
-    else {
+        /// AMAZON DISCOUNT
+      case TopButtonType.amazonDiscount:
+        return _AmazonPriceButton(
+          flyerModel: flyerModel,
+          flyerBoxWidth: flyerBoxWidth,
+        );
 
-      final PriceModel? _priceModel = flyerModel?.price;
-
-      if (_priceModel == null){
+        /// FACEBOOK
+      case TopButtonType.facebook:
         return const SizedBox();
-      }
-      else {
 
-        /// NORMAL PRICE BUTTON
-        if (_priceModel.old == null || _priceModel.old == 0){
-          return _PriceButton(
-            flyerModel: flyerModel,
-            flyerBoxWidth: flyerBoxWidth,
-          );
-        }
+        /// INSTAGRAM
+      case TopButtonType.instagram:
+        return const SizedBox();
 
-        /// DISCOUNT PRICE BUTTON
-        else {
-          return _DiscountButton(
-            flyerModel: flyerModel,
-            flyerBoxWidth: flyerBoxWidth,
-          );
-        }
-
-      }
+        /// NON
+        default:
+          return const SizedBox();
 
     }
 

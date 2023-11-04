@@ -8,7 +8,10 @@ part of top_button;
 enum TopButtonType {
   price,
   discount,
-  amazon,
+  amazonPrice,
+  amazonDiscount,
+  facebook,
+  instagram,
   non,
 }
 // --------------------
@@ -19,33 +22,126 @@ TopButtonType getTopButtonType(FlyerModel? flyerModel){
     flyerModel: flyerModel,
   );
 
+  /// HAS NO BUTTON
   if (flyerModel == null || _canShowTopButton == false){
     return TopButtonType.non;
   }
+
+  /// HAS BUTTON
   else {
 
-    final bool _isAmazon = GtaModel.isAmazonAffiliateLink(flyerModel.affiliateLink);
-
-    if (_isAmazon == true){
-      return TopButtonType.amazon;
+    /// FACEBOOK
+    if (_isFacebookButton(flyerModel) == true){
+      return TopButtonType.facebook;
     }
-    else {
 
-      final PriceModel? _priceModel = flyerModel.price;
+    /// INSTAGRAM
+    else if (_isInstagramButton(flyerModel) == true){
+      return TopButtonType.instagram;
+    }
 
-      /// NORMAL PRICE BUTTON
-      if (_priceModel?.old == null || _priceModel?.old == 0){
-        return TopButtonType.price;
+    /// AMAZON
+    else if (_isAmazonButton(flyerModel) == true){
+
+      if (_isPriceButton(flyerModel) == true){
+        return TopButtonType.amazonPrice;
       }
-      /// DISCOUNT PRICE BUTTON
+      else if (_isDiscountButton(flyerModel) == true){
+        return TopButtonType.amazonDiscount;
+      }
       else {
-        return TopButtonType.discount;
+        return TopButtonType.amazonPrice;
       }
 
+    }
+
+    /// PRICE
+    else if (_isPriceButton(flyerModel) == true){
+      return TopButtonType.price;
+    }
+
+    /// DISCOUNT
+    else if (_isDiscountButton(flyerModel) == true){
+      return TopButtonType.discount;
+    }
+
+    /// NON
+    else {
+      return TopButtonType.non;
     }
 
   }
 
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+bool _isPriceButton(FlyerModel? flyerModel){
+
+  if (flyerModel?.price == null){
+    return false;
+  }
+
+  else {
+
+    final PriceModel _priceModel = flyerModel!.price!;
+
+    /// NORMAL PRICE BUTTON
+    if (_priceModel.old == null || _priceModel.old == 0){
+      return true;
+    }
+    /// DISCOUNT PRICE BUTTON
+    else {
+      return false;
+    }
+
+  }
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+bool _isDiscountButton(FlyerModel? flyerModel){
+
+  if (flyerModel?.price == null){
+    return false;
+  }
+
+  else {
+
+    final PriceModel _priceModel = flyerModel!.price!;
+
+    /// NORMAL PRICE BUTTON
+    if (_priceModel.old == null || _priceModel.old == 0){
+      return false;
+    }
+    /// DISCOUNT PRICE BUTTON
+    else {
+      return true;
+    }
+
+  }
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+bool _isAmazonButton(FlyerModel? flyerModel){
+  return GtaModel.isAmazonAffiliateLink(flyerModel?.affiliateLink);
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+bool _isFacebookButton(FlyerModel? flyerModel){
+  final ContactType? _contactType = ContactModel.concludeContactTypeByURLDomain(
+    url: flyerModel?.affiliateLink,
+  );
+
+  return _contactType == ContactType.facebook;
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+bool _isInstagramButton(FlyerModel? flyerModel){
+  final ContactType? _contactType = ContactModel.concludeContactTypeByURLDomain(
+    url: flyerModel?.affiliateLink,
+  );
+
+  return _contactType == ContactType.instagram;
 }
 // -----------------------------------------------------------------------------
 
@@ -99,23 +195,22 @@ double getTopButtonWidth({
 
   switch (_type){
 
-      case TopButtonType.amazon:
-        return FlyerDim.gtaButtonWidth(
-          flyerBoxWidth: flyerBoxWidth,
-        );
+      case TopButtonType.price: return priceButtonWidth(flyerBoxWidth: flyerBoxWidth);
 
-      case TopButtonType.price:
-        return priceButtonWidth(
-          flyerBoxWidth: flyerBoxWidth,
-        );
+      case TopButtonType.discount: return FlyerDim.gtaButtonWidth(flyerBoxWidth: flyerBoxWidth);
 
-        case TopButtonType.discount:
-          return FlyerDim.gtaButtonWidth(
-            flyerBoxWidth: flyerBoxWidth,
-          );
+      case TopButtonType.amazonPrice: return FlyerDim.gtaButtonWidth(flyerBoxWidth: flyerBoxWidth);
 
-      case TopButtonType.non:
-        return 0;
+      case TopButtonType.amazonDiscount: return FlyerDim.gtaButtonWidth(flyerBoxWidth: flyerBoxWidth);
+
+      case TopButtonType.facebook: return FlyerDim.gtaButtonWidth(flyerBoxWidth: flyerBoxWidth);
+
+      case TopButtonType.instagram: return FlyerDim.gtaButtonWidth(flyerBoxWidth: flyerBoxWidth);
+
+      case TopButtonType.non: return 0;
+
+      default: return 0;
+
   }
 
 }
@@ -168,6 +263,10 @@ double discountButtonWidth({
       - _footerButtonSize
       - (_footerButtonSize * 0.5);
 }
+// -----------------------------------------------------------------------------
+
+/// LABEL CORNERS
+
 // --------------------
 /// TESTED : WORKS PERFECT
 BorderRadius getButtonCorners({
@@ -184,6 +283,30 @@ BorderRadius getButtonCorners({
     enTopRight: _slateCorners.topRight.x,
     enBottomRight: _slateCorners.topRight.x,
   );
+}
+// -----------------------------------------------------------------------------
+
+/// TEXT MARGIN
+
+// --------------------
+/// TESTED : WORKS PERFECT
+double getTextMarginValue({
+  required double flyerBoxWidth,
+}){
+  final double _height = getTopButtonHeight(
+    flyerBoxWidth: flyerBoxWidth,
+  );
+  return _height * 0.2;
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+EdgeInsets getTextMargins({
+  required double flyerBoxWidth,
+}){
+  final double _textMarginValue = getTextMarginValue(
+      flyerBoxWidth: flyerBoxWidth
+  );
+  return EdgeInsets.symmetric(horizontal: _textMarginValue);
 }
 // -----------------------------------------------------------------------------
 
@@ -213,19 +336,7 @@ Verse generateLine_price_symbol({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Verse generateFirstLineForAmazonButton({
-  required FlyerModel? flyerModel,
-}){
-  final Verse _priceVerse = generateLine_price_symbol(
-    flyerModel: flyerModel,
-  );
-  const Verse _buyOnAmazonVerse = Verse(id: 'phid_buy_on_amazon', translate: true);
-  final bool _showPrice =_checkPriceIsGood(flyerModel: flyerModel);
-  return _showPrice == true ? _priceVerse : _buyOnAmazonVerse;
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Verse? generateSecondLineForAmazonButton({
+Verse? generateBuyOnAmazonLine({
   required FlyerModel? flyerModel,
 }){
   const Verse _buyOnAmazonVerse = Verse(id: 'phid_buy_on_amazon', translate: true);
@@ -279,6 +390,7 @@ Verse? generateLine_current_price({
 
     final String? _currencySymbol = CurrencyModel.getCurrencyISO3(
       currencyID: _currency?.id,
+      symbolOverride: CurrencyModel.basicSymbolsOverride,
     );
 
     final String _line = '$_number $_currencySymbol';
@@ -314,6 +426,7 @@ Verse? generateLine_old_price({
     );
     final String? _currencySymbol = CurrencyModel.getCurrencyISO3(
       currencyID: _currency?.id,
+      symbolOverride: CurrencyModel.basicSymbolsOverride,
     );
 
     return Verse(
@@ -326,34 +439,34 @@ Verse? generateLine_old_price({
 }
 // -----------------------------------------------------------------------------
 
+/// COLORS
+
+// --------------------
+Color _basicColor = Colorz.black150;
+Color _darkColor = Colorz.black255;
+Color _amazonColor = const Color.fromARGB(255, 255, 153, 0);
+// -----------------------------------------------------------------------------
+
 /// TEXT SCALING
 
 // --------------------
 /// TESTED : WORKS PERFECT
-double getTopLiveVerticalOffset({
-  required double topButtonHeight,
+double getBottomLineScaleFactor({
+  required double flyerBoxWidth,
 }){
-  return topButtonHeight * 0.12;
+  final double _height = getTopButtonHeight(
+    flyerBoxWidth: flyerBoxWidth,
+  );
+  return _height * 0.014;
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 double getTopLineScaleFactor({
-  required double topButtonHeight,
+  required double flyerBoxWidth,
 }){
-  return topButtonHeight * 0.014;
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-double getBottomLiveVerticalOffset({
-  required double topButtonHeight,
-}){
-  return topButtonHeight * 0.18;
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-double getBottomLineScaleFactor({
-  required double topButtonHeight,
-}){
-  return topButtonHeight * 0.014;
+  final double _bottomLineScaleFactor = getBottomLineScaleFactor(
+    flyerBoxWidth: flyerBoxWidth,
+  );
+  return _bottomLineScaleFactor * 1.7;
 }
 // -----------------------------------------------------------------------------

@@ -23,180 +23,127 @@ class _DiscountButton extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
       flyerModel: flyerModel,
     );
-    final bool _appIsLTR = UiProvider.checkAppIsLeftToRight();
     // --------------------
     /// LEFT DISCOUNT BOX
     final double _discountBoxWidth = _height;
     // --------------------
     /// RIGHT PRICE BOX
     final double _pricesBoxWidth = _width - _discountBoxWidth;
-    final double _priceLineWidth = _pricesBoxWidth;
     // --------------------
-    /// TOP LINE SCALES
-    final double _topLineVerticalOffset = getTopLiveVerticalOffset(topButtonHeight: _height);
-    final double _topLineScaleFactor = getTopLineScaleFactor(topButtonHeight: _height);
+    final double _bottomLineScaleFactor = getBottomLineScaleFactor(
+      flyerBoxWidth: flyerBoxWidth,
+    );
+    final double _topTextScaleFactor = getTopLineScaleFactor(
+      flyerBoxWidth: flyerBoxWidth,
+    );
     // --------------------
-    /// BOTTOM LINE SCALES
-    final double _bottomLineVerticalOffset = getBottomLiveVerticalOffset(topButtonHeight: _height);
-    final double _bottomLineScaleFactor = getBottomLineScaleFactor(topButtonHeight: _height);
+    final double _textMarginValue = getTextMarginValue(
+        flyerBoxWidth: flyerBoxWidth
+    );
     // --------------------
-    return Container(
-      height: _height,
+    return _LabelStructure(
+      flyerBoxWidth: flyerBoxWidth,
       width: _width,
-      decoration: BoxDecoration(
-        borderRadius: getButtonCorners(
-          flyerBoxWidth: flyerBoxWidth,
-        ),
-        color: Colorz.black150,
-      ),
+      color: _basicColor,
       child: Row(
         children: <Widget>[
 
-          /// DISCOUNT RATE
-          Container(
+          /// DISCOUNT PERCENTAGE
+          _LabelStructure(
             width: _discountBoxWidth,
-            height: _height,
-            decoration: BoxDecoration(
-              borderRadius: getButtonCorners(
-                flyerBoxWidth: flyerBoxWidth,
+            flyerBoxWidth: flyerBoxWidth,
+            color: _darkColor,
+            child: _DiscountStructure(
+              flyerBoxWidth: flyerBoxWidth,
+              columnWidth: _discountBoxWidth,
+
+              /// PERCENTAGE
+              topChild: BldrsText(
+                width: _discountBoxWidth,
+                verse: generateLine_discount_rate(
+                    flyerModel: flyerModel
+                ),
+                scaleFactor: _topTextScaleFactor,
+                weight: VerseWeight.black,
               ),
-              color: Colorz.black255,
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
 
-                /// DISCOUNT RATE
-                SuperPositioned(
-                  appIsLTR: _appIsLTR,
-                  verticalOffset: _topLineVerticalOffset,
-                  enAlignment: Alignment.topCenter,
-                  child: BldrsText(
-                    width: _discountBoxWidth,
-                    verse: generateLine_discount_rate(
-                      flyerModel: flyerModel
-                    ),
-                    scaleFactor: _topLineScaleFactor * 1.7,
-                    weight: VerseWeight.black,
-                  ),
+              /// OFF
+              bottomChild: BldrsText(
+                width: _discountBoxWidth,
+                verse: const Verse(
+                    id: 'phid_off',
+                    translate: true,
+                    casing: Casing.upperCase
                 ),
+                scaleFactor: _bottomLineScaleFactor,
+                weight: VerseWeight.black,
+              ),
 
-                /// OFF
-                SuperPositioned(
-                  appIsLTR: _appIsLTR,
-                  verticalOffset: _bottomLineVerticalOffset,
-                  enAlignment: Alignment.bottomCenter,
-                  child: BldrsText(
-                    width: _discountBoxWidth * 0.75,
-                    verse: const Verse(
-                      id: 'phid_off',
-                      translate: true,
-                      casing: Casing.upperCase
-                    ),
-                    scaleFactor: _bottomLineScaleFactor,
-                    // centered:  true,
-                    weight: VerseWeight.black,
-                  ),
-                ),
-
-              ],
             ),
           ),
 
           /// CURRENT - OLD PRICES
-          SizedBox(
-            width: _pricesBoxWidth,
-            height: _height,
-            child: Stack(
-              alignment: AlignmentDirectional.center,
-              children: <Widget>[
+          _DiscountStructure(
+            columnWidth: _pricesBoxWidth,
+            flyerBoxWidth: flyerBoxWidth,
 
-                /// CURRENT
-                SuperPositioned(
-                  appIsLTR: _appIsLTR,
-                  verticalOffset: _topLineVerticalOffset,
-                  enAlignment: Alignment.topLeft,
-                  child: SizedBox(
-                    width: _priceLineWidth,
-                    child: FittedBox(
-                      child: BldrsText(
-                        verse: generateLine_current_price(
-                          flyerModel: flyerModel,
-                        ),
-                        scaleFactor: _topLineScaleFactor * 1.7,
-                        centered:  false,
-                        weight: VerseWeight.black,
-                        appIsLTR: true,
-                        textDirection: TextDirection.ltr,
-                        margin: EdgeInsets.symmetric(horizontal: _height * 0.2),
-                      ),
-                    ),
-                  ),
+              topChild: BldrsText(
+                verse: generateLine_current_price(
+                  flyerModel: flyerModel,
                 ),
+                scaleFactor: _topTextScaleFactor,
+                centered:  false,
+                weight: VerseWeight.black,
+                // appIsLTR: true,
+                // textDirection: TextDirection.ltr,
+                margin: getTextMargins(flyerBoxWidth: flyerBoxWidth),
+              ),
 
-                /// OLD
-                SuperPositioned(
-                  appIsLTR: _appIsLTR,
-                  verticalOffset: _bottomLineVerticalOffset,
-                  enAlignment: Alignment.bottomLeft,
-                  child: SizedBox(
-                    width: _priceLineWidth,
-                    child: Row(
-                      children: <Widget>[
+              bottomChild: Row(
+                children: <Widget>[
 
-                        BldrsText(
-                          // width: _priceLineWidth,
-                          verse: const Verse(
-                            id: 'phid_was',
-                            translate: true,
-                          ),
-                          scaleFactor: _bottomLineScaleFactor,
-                          centered:  false,
-                          weight: VerseWeight.thin,
-                          // margin: EdgeInsets.symmetric(horizontal: _height * 0.2),
-                          margin: Scale.superInsets(
-                            context: context,
-                            appIsLTR: _appIsLTR,
-                            enLeft: _height * 0.2,
-                          ),
-                          italic: true,
-                          appIsLTR: true,
-                          textDirection: TextDirection.ltr,
-                        ),
+                  /// SPACING
+                  Spacing(size: _textMarginValue),
 
-                        BldrsText(
-                          // width: _priceLineWidth,
-                          verse: generateLine_old_price(
-                            flyerModel: flyerModel,
-                          ),
-                          scaleFactor: _bottomLineScaleFactor,
-                          centered:  false,
-                          weight: VerseWeight.regular,
-                          strikeThrough: true,
-                          italic: true,
-                          margin: EdgeInsets.symmetric(horizontal: _height * 0.05),
-                          appIsLTR: true,
-                          textDirection: TextDirection.ltr,
-                        ),
-
-                      ],
+                  /// WAS
+                  BldrsText(
+                    // width: _priceLineWidth,
+                    verse: const Verse(
+                      id: 'phid_was',
+                      translate: true,
                     ),
+                    scaleFactor: _bottomLineScaleFactor,
+                    centered:  false,
+                    weight: VerseWeight.thin,
+                    italic: true,
+                    appIsLTR: true,
+                    textDirection: TextDirection.ltr,
                   ),
-                ),
 
-                /// SEPARATOR LINE
-                // SuperPositioned(
-                //   enAlignment: Alignment.centerLeft,
-                //   appIsLTR: _appIsLTR,
-                //   child: Container(
-                //     width: 1,
-                //     height: _height * 0.5,
-                //     color: Colorz.white20,
-                //   ),
-                // ),
+                  /// SPACING
+                  Spacing(size: _height * 0.05),
 
-              ],
-            ),
+                  /// OLD PRICE
+                  BldrsText(
+                    // width: _priceLineWidth,
+                    verse: generateLine_old_price(
+                      flyerModel: flyerModel,
+                    ),
+                    scaleFactor: _bottomLineScaleFactor,
+                    centered:  false,
+                    weight: VerseWeight.regular,
+                    strikeThrough: true,
+                    italic: true,
+                    appIsLTR: true,
+                    textDirection: TextDirection.ltr,
+                  ),
+
+                  /// SPACING
+                  Spacing(size: _textMarginValue),
+
+                ],
+              ),
+
           ),
 
         ],
