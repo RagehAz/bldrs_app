@@ -31,20 +31,9 @@ class TopButton extends StatelessWidget {
             showTopButton: false,
           ),
           appIsLTR: UiProvider.checkAppIsLeftToRight(),
-          child: Column(
-            children: [
-
-              Container(
-                width: flyerBoxWidth,
-                height: 5,
-                color: Colorz.red255,
-              ),
-
-              _TopButtonSwitcher(
-                flyerModel: flyerModel,
-                flyerBoxWidth: flyerBoxWidth,
-              ),
-            ],
+          child: _TopButtonSwitcher(
+            flyerModel: flyerModel,
+            flyerBoxWidth: flyerBoxWidth,
           ),
         );
       }

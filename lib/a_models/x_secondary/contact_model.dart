@@ -989,17 +989,35 @@ class ContactModel {
     ContactType? _output;
 
     if (ObjectCheck.isURLFormat(url) == true){
-      switch(url){
-        case 'facebook.com':   _output = ContactType.facebook; break;
-        case 'linkedin.com':   _output = ContactType.linkedIn; break;
-        case 'youtube.com':    _output = ContactType.youtube; break;
-        case 'youtu.be':       _output = ContactType.youtube; break;
-        case 'instagram.com':  _output = ContactType.instagram; break;
-        case 'pinterest.com':  _output = ContactType.pinterest; break;
-        case 'tiktok.com':     _output = ContactType.tiktok; break;
-        case 'twitter.com':    _output = ContactType.twitter; break;
-        default:               _output = null;
+
+      if (TextCheck.stringContainsSubString(string: url, subString: 'facebook.com') == true){
+        _output = ContactType.facebook;
       }
+      else if (TextCheck.stringContainsSubString(string: url, subString: 'linkedin.com') == true){
+        _output = ContactType.linkedIn;
+      }
+      else if (TextCheck.stringContainsSubString(string: url, subString: 'youtube.com') == true){
+        _output = ContactType.youtube;
+      }
+      else if (TextCheck.stringContainsSubString(string: url, subString: 'youtu.be') == true){
+        _output = ContactType.youtube;
+      }
+      else if (TextCheck.stringContainsSubString(string: url, subString: 'instagram.com') == true){
+        _output = ContactType.instagram;
+      }
+      else if (TextCheck.stringContainsSubString(string: url, subString: 'pinterest.com') == true){
+        _output = ContactType.pinterest;
+      }
+      else if (TextCheck.stringContainsSubString(string: url, subString: 'tiktok.com') == true){
+        _output = ContactType.tiktok;
+      }
+      else if (TextCheck.stringContainsSubString(string: url, subString: 'twitter.com') == true){
+        _output = ContactType.twitter;
+      }
+      else {
+        _output = ContactType.website;
+      }
+
     }
 
     return _output;
