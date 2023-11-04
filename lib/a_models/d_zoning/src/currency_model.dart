@@ -360,6 +360,7 @@ class CurrencyModel {
   /// TESTED : WORKS PERFECT
   static String? getCurrencyISO3({
     required String? currencyID,
+    Map<String, dynamic>? symbolOverride,
   }){
     String? _output;
 
@@ -370,10 +371,22 @@ class CurrencyModel {
           specialCharacter: '_',
       );
 
+      if (symbolOverride != null){
+        if (symbolOverride[_output] != null){
+          _output = symbolOverride[_output];
+        }
+      }
+
     }
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const Map<String, dynamic> basicSymbolsOverride = {
+    'USD': r'$',
+    'EUR': r'€',
+  };
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS
