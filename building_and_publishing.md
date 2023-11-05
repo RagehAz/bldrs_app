@@ -41,7 +41,7 @@ D:\projects\bldrs\bldrs_app\build\app\outputs\bundle\release
     pod setup
     pod install --verbose
     pod update --verbose
-    flutter build ios-framework --output=Flutter
+    flutter build ios-framework --output=Flutter -v
 
     ### just clean build
     delete ios/Pods
@@ -53,7 +53,7 @@ D:\projects\bldrs\bldrs_app\build\app\outputs\bundle\release
     pod repo remove trunk
     pod setup
     pod install --verbose
-    flutter build ios-framework --output=Flutter
+    flutter build ios-framework --output=Flutter -v
 
 if you want to create Release Files, 
 you should use command
