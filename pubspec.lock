@@ -108,9 +108,11 @@ packages:
   basics:
     dependency: "direct main"
     description:
-      path: "D:/projects/packages/helpers/basics"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "55af666803d0fe17ba1d245cb70d449d9682d6a5"
+      url: "https://github.com/RagehAz/basics.git"
+    source: git
     version: "5.2.2"
   bldrs_keywords:
     dependency: "direct main"
@@ -149,10 +151,10 @@ packages:
     dependency: transitive
     description:
       name: camera_avfoundation
-      sha256: "9495e633cda700717bbe299b0979e6c4a08cee45f298945973dc9cf3e4c1cba5"
+      sha256: "3b6d9f550cfd658c71f34a99509528501e5e5d4fa79f11e3a4d6ef380d8e0254"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.13+6"
+    version: "0.9.13+7"
   camera_platform_interface:
     dependency: transitive
     description:
@@ -397,10 +399,10 @@ packages:
     dependency: transitive
     description:
       name: expressions
-      sha256: "75ca4343f9f8a38087bea130cf51395d737d87c6947cc19cbb8fb2732cae1a27"
+      sha256: "0a3a207dc4697bbb0e17c731c7f10f2df6f88d9dbb99ac83c4168a10b57e7a20"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.5"
+    version: "0.2.5+1"
   extended_image:
     dependency: "direct main"
     description:
@@ -508,9 +510,11 @@ packages:
   fire:
     dependency: "direct main"
     description:
-      path: "D:/projects/packages/backend/fire"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "35ecf08683aed149056ed7260afad9a292560f15"
+      url: "https://github.com/RagehAz/fire.git"
+    source: git
     version: "2.3.1"
   firebase_app_check:
     dependency: "direct main"
@@ -588,10 +592,10 @@ packages:
     dependency: transitive
     description:
       name: firebase_dart
-      sha256: "2dd37029772550d474eaab969e60ce3b4d534f96277041fc53e998c5392d9c63"
+      sha256: a65039f23dd699e52d05edba5404a055c25db97b1e8a0958516189a4c116ae93
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   firebase_database:
     dependency: transitive
     description:
@@ -894,10 +898,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_native_splash
-      sha256: "5bf4c3e5e5a0426c1e2fc8ca3555a9e617e76369c3442e1dae8385c7767ba97a"
+      sha256: d93394f22f73e810bda59e11ebe83329c5511d6460b6b7509c4e1f3c92d6d625
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.4"
+    version: "2.3.5"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -966,10 +970,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_svg
-      sha256: bfc7cc3c75fe1282e8ce2e056d8fd1533f1a6848b65c379b4a5e7a9b623d3371
+      sha256: d39e7f95621fc84376bc0f7d504f05c3a41488c562f4a8ad410569127507402c
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.8"
+    version: "2.0.9"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -1048,10 +1052,10 @@ packages:
     dependency: transitive
     description:
       name: google_sign_in_web
-      sha256: "939e9172a378ec4eaeb7f71eeddac9b55ebd0e8546d336daec476a68e5279766"
+      sha256: "6b08be471f82ff84058d528e1cb01f4f53084fa648b751310cdd1ac39b612d8e"
       url: "https://pub.dev"
     source: hosted
-    version: "0.12.0+5"
+    version: "0.12.1"
   googleapis_auth:
     dependency: transitive
     description:
@@ -1200,10 +1204,10 @@ packages:
     dependency: transitive
     description:
       name: image_picker_ios
-      sha256: c5538cacefacac733c724be7484377923b476216ad1ead35a0d2eadcdc0fc497
+      sha256: "76ec722aeea419d03aa915c2c96bf5b47214b053899088c9abb4086ceecf97a7"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.8+2"
+    version: "0.8.8+4"
   image_picker_linux:
     dependency: transitive
     description:
@@ -1480,10 +1484,10 @@ packages:
     dependency: "direct main"
     description:
       name: pdfx
-      sha256: aa5f6f9156f44ddaaac007591f9b97bf3a6394bcae0591cc91a29a9b0e8274a3
+      sha256: cff993dcbcc08b5ecb10b24d4d10ee91fc7934a3ddf72db13a70c25a8bd0f176
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.0"
+    version: "2.5.0"
   permission_handler:
     dependency: transitive
     description:
@@ -1648,18 +1652,18 @@ packages:
     dependency: transitive
     description:
       name: sentry
-      sha256: "80cc1b38c7219c8072c8a79f124838bd668e0bc840e8a98c0fbf9f55a432997d"
+      sha256: "9cfd325611ab54b57d5e26957466823f05bea9d6cfcc8d48f11817b8bcedf0d1"
       url: "https://pub.dev"
     source: hosted
-    version: "7.11.0"
+    version: "7.12.0"
   sentry_flutter:
     dependency: "direct main"
     description:
       name: sentry_flutter
-      sha256: "01dffb216873d1d31436bc50585fb222d4e7d8bcefcf84ccc8f145dac546c1d5"
+      sha256: "0cd7d622cb63c94fd1b2f87ab508e158b950bd281e2a80f327ebf73bb217eaf3"
       url: "https://pub.dev"
     source: hosted
-    version: "7.11.0"
+    version: "7.12.0"
   share_plus:
     dependency: "direct main"
     description:
@@ -1809,6 +1813,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
+  sprintf:
+    dependency: transitive
+    description:
+      name: sprintf
+      sha256: "1fc9ffe69d4df602376b52949af107d8f5703b77cda567c4d7d86a0693120f23"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.0.0"
   sqflite:
     dependency: transitive
     description:
@@ -1997,10 +2009,10 @@ packages:
     dependency: transitive
     description:
       name: uuid
-      sha256: "648e103079f7c64a36dc7d39369cabb358d377078a051d6ae2ad3aa539519313"
+      sha256: b715b8d3858b6fa9f68f87d20d98830283628014750c2b09b6f516c1da4af2a7
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.7"
+    version: "4.1.0"
   vector_graphics:
     dependency: transitive
     description:
@@ -2037,10 +2049,10 @@ packages:
     dependency: transitive
     description:
       name: video_player
-      sha256: "74b86e63529cf5885130c639d74cd2f9232e7c8a66cbecbddd1dcb9dbd060d1e"
+      sha256: e16f0a83601a78d165dabc17e4dac50997604eb9e4cc76e10fa219046b70cef3
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.2"
+    version: "2.8.1"
   video_player_android:
     dependency: transitive
     description:
@@ -2053,10 +2065,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_avfoundation
-      sha256: "6387c2de77763b45104256b3b00b660089be4f909ded8631457dc11bf635e38f"
+      sha256: fe73d636f82286a3739f5e644f95f09442cacdc436ebbe5436521dc915f3ecac
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.0"
+    version: "2.5.1"
   video_player_platform_interface:
     dependency: transitive
     description:
@@ -2069,10 +2081,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_web
-      sha256: "2dd24f7ba46bfb5d070e9c795001db95e0ca5f2a3d025e98f287c10c9f0fd62f"
+      sha256: ab7a462b07d9ca80bed579e30fb3bce372468f1b78642e0911b10600f2c5cb5b
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.2"
   watcher:
     dependency: transitive
     description:
