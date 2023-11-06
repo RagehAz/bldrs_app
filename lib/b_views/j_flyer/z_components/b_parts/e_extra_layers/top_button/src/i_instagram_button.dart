@@ -31,7 +31,7 @@ class _InstagramButton extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
     // --------------------
-    return _LabelStructure(
+    return TopButtonLabelStructure(
       flyerBoxWidth: flyerBoxWidth,
       width: _width,
       color: _basicColor,
@@ -39,7 +39,7 @@ class _InstagramButton extends StatelessWidget {
         children: <Widget>[
 
           /// INSTAGRAM LOGO
-          _LabelStructure(
+          TopButtonLabelStructure(
             width: _height,
             flyerBoxWidth: flyerBoxWidth,
             color: _darkColor,

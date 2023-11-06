@@ -38,7 +38,7 @@ class _AmazonDiscountButton extends StatelessWidget {
     // --------------------
     final bool _appIsLTR = UiProvider.checkAppIsLeftToRight();
     // --------------------
-    return _LabelStructure(
+    return TopButtonLabelStructure(
       flyerBoxWidth: flyerBoxWidth,
       color: _amazonColor,
       width: _width,
@@ -48,7 +48,7 @@ class _AmazonDiscountButton extends StatelessWidget {
         children: <Widget>[
 
           /// AMAZON LOGO
-          _LabelStructure(
+          TopButtonLabelStructure(
             width: _height * 2,
             flyerBoxWidth: flyerBoxWidth,
             color: _basicColor,
