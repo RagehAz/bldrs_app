@@ -239,7 +239,7 @@ class UserBanner extends StatelessWidget {
 
                   return BzTileButton(
                     bzModel: _bzModel,
-                    height: 50,
+                    height: 40,
                     width: (_bzModel.name?.length ?? 0) > 20 ?
                     _clearWidth - 20
                         :

@@ -28,7 +28,7 @@ Future<void> main() async {
   // -----------------------------------------------------------------------------
   /// PLAN : In optimization : study this : https://pub.dev/packages/keframe
   // --------------------
-  const bool useSentryOnDebug = true;
+  const bool useSentryOnDebug = false;
   const bool _runSentry = useSentryOnDebug == true ? true : !kDebugMode;
   // --------------------
   if (_runSentry == true){

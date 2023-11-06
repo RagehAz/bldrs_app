@@ -205,7 +205,7 @@ class AboutBzBubbles extends StatelessWidget {
         ),
 
         /// FLYERS GALLERY TITLE
-        if (showGallery == true)
+        if (showGallery == true && Mapper.checkCanLoopList(bzModel?.publication.published) == true)
           Container(
             width: Scale.screenWidth(context),
             alignment: Alignment.center,
