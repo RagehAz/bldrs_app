@@ -105,6 +105,7 @@ class Dialogs {
     required Verse verse,
     Verse? body,
     Color? color,
+    Widget? child,
   }) async {
 
     await BldrsCenterDialog.showCenterDialog(
@@ -112,6 +113,7 @@ class Dialogs {
       color: color,
       bodyVerse: body,
       // boolDialog: false,
+      child: child,
     );
 
   }
@@ -175,6 +177,7 @@ class Dialogs {
     bool invertButtons = false,
     Verse? noVerse,
     Verse? yesVerse,
+    Widget? child,
   }) async {
 
     final bool _result = await BldrsCenterDialog.showCenterDialog(
@@ -187,6 +190,7 @@ class Dialogs {
       invertButtons: invertButtons,
       noVerse: noVerse,
       confirmButtonVerse: yesVerse,
+      child: child,
     );
 
     return _result;
