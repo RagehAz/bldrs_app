@@ -148,14 +148,14 @@ class Standards {
   static const double authorPicWidth = 160;
   static const int authorPicQuality = 80;
   // --------------------
-  static const double slideSmallWidth = 250;
-  static const int slideSmallQuality = 75;
+  static const double slideSmallWidth = 300;
+  static const int slideSmallQuality = 80;
   // --------------------
-  static const double slideMediumWidth = 495;
-  static const int slideMediumQuality = 80;
+  static const double slideMediumWidth = 500;
+  static const int slideMediumQuality = 85;
   // --------------------
   static const double slideBigWidth = 1000;
-  static const int slideBigQuality = 80;
+  static const int slideBigQuality = 90;
   // -----------------------------------------------------------------------------
 
   /// POSTER SIZE
