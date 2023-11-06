@@ -1,9 +1,11 @@
 
 import 'package:basics/animators/widgets/animate_widget_to_matrix.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
+import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:basics/super_box/super_box.dart';
 import 'package:basics/super_image/super_image.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -11,14 +13,16 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/top_button/top_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/d_static_footer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/d_footer_template.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_headline_text_field.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_transformer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 
 class SlideEditorSlidePart extends StatelessWidget {
@@ -210,15 +214,42 @@ class SlideEditorSlidePart extends StatelessWidget {
               flyerBoxWidth: _flyerBoxWidth,
             ),
 
-            /// FOOTER
+            // /// FOOTER
+            // Disabler(
+            //   isDisabled: true,
+            //   disabledOpacity: 0.2,
+            //   child: StaticFooter(
+            //     flyerBoxWidth: _flyerBoxWidth,
+            //     flyerID: 'x',
+            //     optionsButtonIsOn: false,
+            //     showAllButtons: true,
+            //   ),
+            // ),
+
+            SuperPositioned(
+              enAlignment: Alignment.bottomLeft,
+              verticalOffset: FlyerDim.footerBoxHeight(
+                flyerBoxWidth: _flyerBoxWidth,
+                infoButtonExpanded: false,
+                showTopButton: false,
+              ),
+              appIsLTR: UiProvider.checkAppIsLeftToRight(),
+              child: Disabler(
+                isDisabled: true,
+                child: TopButtonLabelStructure(
+                  flyerBoxWidth: _flyerBoxWidth,
+                  width: FlyerDim.gtaButtonWidth(flyerBoxWidth: _flyerBoxWidth),
+                  color: Colorz.black50,
+                  child: const SizedBox(),
+                ),
+              ),
+            ),
+
             Disabler(
               isDisabled: true,
-              disabledOpacity: 0.2,
-              child: StaticFooter(
+              child: FooterTemplate(
                 flyerBoxWidth: _flyerBoxWidth,
-                flyerID: 'x',
-                optionsButtonIsOn: false,
-                showAllButtons: true,
+                buttonColor: Colorz.black50,
               ),
             ),
 

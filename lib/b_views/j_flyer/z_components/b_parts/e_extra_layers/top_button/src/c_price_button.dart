@@ -24,7 +24,7 @@ class _PriceButton extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
     // --------------------
-    return _LabelStructure(
+    return TopButtonLabelStructure(
       flyerBoxWidth: flyerBoxWidth,
       color: _basicColor,
       width: _width,

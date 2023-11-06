@@ -1,19 +1,22 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/widgets/drawing/expander.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
+import 'package:basics/helpers/widgets/drawing/spacing.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/f_footer_button_spacer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
 
 class FooterTemplate extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FooterTemplate({
     required this.flyerBoxWidth,
+    this.buttonColor = Colorz.black20,
     super.key
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
+  final Color buttonColor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -22,106 +25,107 @@ class FooterTemplate extends StatelessWidget {
         flyerBoxWidth: flyerBoxWidth,
     );
 
-    return Opacity(
-      key: const ValueKey<String>('StaticFooter'),
-      opacity: 0.5,
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: SizedBox(
-          width: flyerBoxWidth,
-          height: FlyerDim.footerBoxHeight(
-            flyerBoxWidth: flyerBoxWidth,
-            infoButtonExpanded: false,
-            showTopButton: false,
-          ),
-          child: Container(
-            color: Colorz.white20,
-            child: Row(
-              children: <Widget>[
+    final Widget _bigButton = FooterButtonTemplate(
+      color: buttonColor,
+      size: FlyerDim.footerButtonSize(
+        flyerBoxWidth: flyerBoxWidth,
+      ),
+    );
 
-                /// INFO BUTTON
-                Container(
-                  // key: const ValueKey<String>('InfoButtonStarter_animated_container'),
-                  width: FlyerDim.infoButtonWidth(
-                    flyerBoxWidth: flyerBoxWidth,
-                    tinyMode: false,
-                    isExpanded: false,
-                    infoButtonType: InfoButtonType.info,
-                  ),
-                  height: FlyerDim.infoButtonHeight(
-                    flyerBoxWidth: flyerBoxWidth,
-                    tinyMode: false,
-                    isExpanded: false,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colorz.black255,
-                    borderRadius: FlyerDim.infoButtonCorners(
-                        flyerBoxWidth: flyerBoxWidth,
-                        tinyMode: false,
-                        isExpanded: false
-                    ),
-                  ),
-                  margin: FlyerDim.infoButtonMargins(
-                    flyerBoxWidth: flyerBoxWidth,
-                    tinyMode: false,
-                    isExpanded: false,
-                  ),
-                  alignment: Alignment.center,
-                ),
+    final Widget _smallButton = FooterButtonTemplate(
+      color: buttonColor,
+      size: FlyerDim.infoButtonWidth(
+        flyerBoxWidth: flyerBoxWidth,
+        tinyMode: false,
+        isExpanded: false,
+        infoButtonType: InfoButtonType.info,
+      ),
+    );
 
-                const Expander(),
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: SizedBox(
+        width: flyerBoxWidth,
+        height: FlyerDim.footerBoxHeight(
+          flyerBoxWidth: flyerBoxWidth,
+          infoButtonExpanded: false,
+          showTopButton: false,
+        ),
+        child: Row(
+          children: <Widget>[
 
-                _spacer,
-
-                /// SHARE
-                FooterButton(
-                  flyerBoxWidth: flyerBoxWidth,
-                  icon: null, // Iconz.share,
-                  phid:  '', // superPhrase(context, 'phid_send'),
-                  isOn: false,
-                  canTap: true,
-                  onTap: (){},
-                  count: null,
-                  color: Colorz.black255,
-                ),
-
-                _spacer,
-
-                /// COMMENT
-                FooterButton(
-                  flyerBoxWidth: flyerBoxWidth,
-                  icon: null, // Iconz.utPlanning,
-                  phid:  '', // superPhrase(context, 'phid_comment'),
-                  isOn: false,
-                  canTap: false,
-                  onTap: (){},
-                  count: null,
-                  color: Colorz.black255,
-                ),
-
-                _spacer,
-
-                /// SAVE BUTTON
-                FooterButton(
-                  flyerBoxWidth: flyerBoxWidth,
-                  icon: null,
-                  phid:  '', // superPhrase(context, 'phid_save'),
-                  isOn: false,
-                  canTap: false,
-                  onTap: null,
-                  count: null,
-                  color: Colorz.black255,
-                ),
-
-                _spacer,
-
-              ],
+            /// ---> BIG SPACING
+            Spacing(
+              size: FlyerDim.infoButtonMargins(
+                flyerBoxWidth: flyerBoxWidth,
+                tinyMode: false,
+                isExpanded: false,
+              ).left,
             ),
-          ),
+
+            /// INFO BUTTON
+            _smallButton,
+
+            const Expander(),
+
+            /// ---> SPACING
+            _spacer,
+
+            /// SHARE
+            _bigButton,
+
+            /// ---> SPACING
+            _spacer,
+
+            /// COMMENT
+            _bigButton,
+
+            /// ---> SPACING
+            _spacer,
+
+            /// SAVE BUTTON
+            _bigButton,
+
+            /// ---> SPACING
+            _spacer,
+
+          ],
         ),
       ),
     );
 
   }
 /// --------------------------------------------------------------------------
+}
+
+class FooterButtonTemplate extends StatelessWidget {
+
+  const FooterButtonTemplate({
+    required this.size,
+    required this.color,
+    this.child,
+    super.key
+  });
+
+  final double size;
+  final Color color;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context) {
+    // --------------------
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: Borderers.superCorners(
+          corners: size * 0.5,
+        ),
+      ),
+      child: child,
+    );
+
+  }
+
 }

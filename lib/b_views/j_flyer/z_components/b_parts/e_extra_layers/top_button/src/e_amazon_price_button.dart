@@ -36,7 +36,7 @@ class _AmazonPriceButton extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
     // --------------------
-    return _LabelStructure(
+    return TopButtonLabelStructure(
       flyerBoxWidth: flyerBoxWidth,
       color: _amazonColor,
       width: _width,
@@ -46,7 +46,7 @@ class _AmazonPriceButton extends StatelessWidget {
         children: <Widget>[
 
           /// AMAZON LOGO
-          _LabelStructure(
+          TopButtonLabelStructure(
             width: _height,
             flyerBoxWidth: flyerBoxWidth,
             color: _darkColor,

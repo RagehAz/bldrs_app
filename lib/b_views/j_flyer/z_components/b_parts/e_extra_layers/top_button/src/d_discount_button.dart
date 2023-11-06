@@ -34,7 +34,7 @@ class _DiscountButton extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
     // --------------------
-    return _LabelStructure(
+    return TopButtonLabelStructure(
       flyerBoxWidth: flyerBoxWidth,
       width: _width,
       color: _basicColor,
@@ -42,7 +42,7 @@ class _DiscountButton extends StatelessWidget {
         children: <Widget>[
 
           /// DISCOUNT PERCENTAGE
-          _LabelStructure(
+          TopButtonLabelStructure(
             width: _discountBoxWidth,
             flyerBoxWidth: flyerBoxWidth,
             color: _darkColor,
