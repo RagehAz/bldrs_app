@@ -692,6 +692,27 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static FlyerModel? getFlyerFromFlyersByGtaLink({
+    required List<FlyerModel> flyers,
+    required String? gtaLink,
+  }){
+    FlyerModel? _output;
+
+    if (Mapper.checkCanLoopList(flyers) == true && gtaLink != null){
+
+      for (final FlyerModel _flyer in flyers){
+        if (_flyer.gtaLink == gtaLink){
+          _output = _flyer;
+          break;
+        }
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getFlyersIDsFromFlyers(List<FlyerModel>? flyers){
     final List<String> _flyerIDs = <String>[];
 
