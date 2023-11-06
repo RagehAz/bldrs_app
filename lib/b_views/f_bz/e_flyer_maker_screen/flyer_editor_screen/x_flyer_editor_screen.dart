@@ -432,7 +432,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     // --------------------
     return MainLayout(
       key: const ValueKey<String>('FlyerPublisherScreen'),
-      title: _createConfirmVerse(),
+      title: Verse.plain('Flyer Editor'),
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       skyType: SkyType.grey,

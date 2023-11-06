@@ -28,9 +28,10 @@ class ComposeFlyerProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> compose({
+  static Future<FlyerModel?> compose({
     required DraftFlyer? draftFlyer,
   }) async {
+    FlyerModel? _output;
     blog('ComposeFlyerProtocol.compose : START');
 
     // assert(draftFlyer != null, 'Draft is null');
@@ -127,6 +128,8 @@ class ComposeFlyerProtocols {
             zoneModel: _flyerToPublish.zone,
           );
 
+          _output = _flyerToPublish;
+
         }
 
       }
@@ -134,6 +137,8 @@ class ComposeFlyerProtocols {
     }
 
     blog('ComposeFlyerProtocol.compose : END');
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
