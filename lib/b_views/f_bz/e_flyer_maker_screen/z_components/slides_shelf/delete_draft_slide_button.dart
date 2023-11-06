@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
@@ -33,6 +34,7 @@ class DeleteDraftSlideButton extends StatelessWidget {
         corners: FlyerDim.flyerCorners(DraftShelfSlide.flyerBoxWidth).bottomRight.x,
         icon: Iconz.xLarge,
         iconSizeFactor: 0.6,
+        color: Colorz.black50,
         onTap: onTap,
       ),
     );

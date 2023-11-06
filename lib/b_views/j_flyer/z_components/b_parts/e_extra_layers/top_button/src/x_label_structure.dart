@@ -1,14 +1,15 @@
 part of top_button;
 
-class _LabelStructure extends StatelessWidget {
+class TopButtonLabelStructure extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const _LabelStructure({
+  const TopButtonLabelStructure({
     required this.width,
     required this.flyerBoxWidth,
     required this.color,
     required this.child,
     this.onTap,
     this.splashColor = Colorz.white50,
+    super.key,
   });
   /// --------------------
   final double width;
