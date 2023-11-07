@@ -313,6 +313,7 @@ class GtaModel {
     required GtaModel? gtaModel,
     required BzModel? bzModel,
     required FlyerType flyerType,
+    List<String> phids =  const [],
   }) async {
     DraftFlyer? _output;
 
@@ -336,7 +337,7 @@ class GtaModel {
         descriptionNode: FocusNode(),
         flyerType: flyerType,
         publishState: PublishState.draft,
-        phids: const <String>[],
+        phids: phids,
         showsAuthor: false,
         zone: gtaModel.countryID == null ? null : ZoneModel(countryID: gtaModel.countryID!),
         authorID: Authing.getUserID(),
@@ -534,8 +535,8 @@ class GtaModel {
         brand: map['brand'],
         stars: _getStarsFromScrappedString(map['stars']),
         rating: _getRatingsFromScrappedString(map['rating']),
-        price: _getPriceFromScrappedString(map['price']),
-        oldPrice: _getPriceFromScrappedString(map['oldPrice']),
+        price: getPriceFromScrappedString(map['price']),
+        oldPrice: getPriceFromScrappedString(map['oldPrice']),
         currency: _getCurrencyFromScrappedString(map['price']),
         about: _fixAboutItemString(map['about']),
         affiliateLink: map['affiliateLink'],
@@ -585,7 +586,7 @@ class GtaModel {
   }
   // --------------------
   /// ( AMAZON_COUNTRY_DATA ) : TESTED : WORKS PERFECT
-  static double? _getPriceFromScrappedString(String? priceString){
+  static double? getPriceFromScrappedString(String? priceString){
     double? _output;
 
     // might come in this form : '$179.99'
@@ -593,22 +594,62 @@ class GtaModel {
 
       /// USD
       if (TextCheck.stringContainsSubString(string: priceString, subString: r'$') == true){
-       final String? _string = TextMod.removeTextBeforeFirstSpecialCharacter(
+
+        String? _value = TextMod.removeTextBeforeFirstSpecialCharacter(
            text: priceString?.trim(),
            specialCharacter: r'$',
        );
-        _output = Numeric.transformStringToDouble(_string?.trim());
+
+       _value = fixAmazonNumber(_value);
+
+        _output = Numeric.transformStringToDouble(_value);
       }
 
       /// AED
       if (TextCheck.stringStartsExactlyWith(text: priceString, startsWith: 'AED') == true){
-        /// AED620.00
-        final String? _value = TextMod.removeNumberOfCharactersFromBeginningOfAString(
+
+        /// AED1,785.00 -> 1,785.00
+        String? _value = TextMod.removeNumberOfCharactersFromBeginningOfAString(
             string: priceString,
             numberOfCharacters: 3,
         );
+
+        /// 1,785.00 -> 1785.00
+        _value = fixAmazonNumber(_value);
+
         _output = Numeric.transformStringToDouble(_value);
+
       }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? fixAmazonNumber(String? text){
+    /// 1,785.00
+    String? _output;
+
+    if (TextCheck.isEmpty(text) == false){
+
+      _output = text;
+
+      _output = TextMod.modifyAllCharactersWith(
+        input: _output,
+        characterToReplace: ',',
+        replacement: '',
+      );
+      _output = TextMod.modifyAllCharactersWith(
+        input: _output,
+        characterToReplace: ' ',
+        replacement: '',
+      );
+      _output = TextMod.modifyAllCharactersWith(
+        input: _output,
+        characterToReplace: "'",
+        replacement: '',
+      );
 
     }
 

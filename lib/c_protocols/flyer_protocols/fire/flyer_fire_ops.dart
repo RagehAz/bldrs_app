@@ -207,7 +207,7 @@ class FlyerFireOps {
           id: 'phid_report_flyer',
           translate: true,
         ),
-        builder: (_){
+        builder: (_, __){
 
           return <Widget>[
 

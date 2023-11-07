@@ -56,7 +56,7 @@ Future<void> onShowNoteOptions({
         translate: true,
       ),
       buttonHeight: 50,
-      builder: (_){
+      builder: (_, __){
 
         return <Widget>[
 

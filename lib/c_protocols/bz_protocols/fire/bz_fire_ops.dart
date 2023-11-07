@@ -180,7 +180,7 @@ class BzFireOps {
               id: 'phid_report_bz_account',
               translate: true,
             ),
-            builder: (_) {
+            builder: (_, __) {
               return <Widget>[
                 /// INAPPROPRIATE CONTENT
                 BottomDialog.wideButton(
