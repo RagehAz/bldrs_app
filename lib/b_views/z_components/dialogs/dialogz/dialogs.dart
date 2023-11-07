@@ -644,7 +644,7 @@ class Dialogs {
     await BottomDialog.showButtonsBottomDialog(
         buttonHeight: 50,
         numberOfWidgets: cities.length + 1,
-        builder: (_){
+        builder: (_, __){
 
           return <Widget>[
 
@@ -832,7 +832,7 @@ class Dialogs {
 
       await BottomDialog.showButtonsBottomDialog(
         numberOfWidgets: bzzModels!.length,
-        builder: (_){
+        builder: (_, __){
 
           return <Widget>[
 

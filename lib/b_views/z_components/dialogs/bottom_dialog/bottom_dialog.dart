@@ -228,7 +228,7 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   static Future<void> showButtonsBottomDialog({
     required int numberOfWidgets,
-    required List<Widget> Function(BuildContext) builder,
+    required List<Widget> Function(BuildContext, Function? setState) builder,
     double buttonHeight = wideButtonHeight,
     Verse? titleVerse,
   }) async {
@@ -247,9 +247,9 @@ class BottomDialog extends StatelessWidget {
     await showStatefulBottomDialog(
       height: _height,
       titleVerse: titleVerse,
-      builder: (BuildContext ctx, title){
+      builder: (BuildContext ctx, Function setState) {
 
-        final List<Widget> _widgets = builder(ctx);
+        final List<Widget> _widgets = builder(ctx, setState);
 
         return ListView.builder(
           itemCount: _widgets.length,

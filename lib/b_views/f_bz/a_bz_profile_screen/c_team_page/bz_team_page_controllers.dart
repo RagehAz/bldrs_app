@@ -174,7 +174,7 @@ Future<void> onAuthorOptionsTap({
 
   await BottomDialog.showButtonsBottomDialog(
       numberOfWidgets: _buttons.length,
-      builder: (_){
+      builder: (_, __){
         return _buttons;
       }
   );
