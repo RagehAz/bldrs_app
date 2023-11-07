@@ -314,7 +314,7 @@ Future<void> onMoreTap({
   await BottomDialog.showButtonsBottomDialog(
     // buttonHeight: BottomDialog.wideButtonHeight,
     numberOfWidgets: 3,
-    builder: (_){
+    builder: (_, __){
 
       final List<Widget> _widgets = <Widget>[
 
