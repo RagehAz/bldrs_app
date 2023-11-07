@@ -254,7 +254,7 @@ Future<void> onReviewOptions({
 
   await BottomDialog.showButtonsBottomDialog(
       numberOfWidgets: 3,
-      builder: (_){
+      builder: (_, __){
 
         return <Widget>[
 
@@ -601,7 +601,7 @@ Future<void> onReplyOptions({
 
   await BottomDialog.showButtonsBottomDialog(
       numberOfWidgets: 2,
-      builder: (_){
+      builder: (_, __){
 
         return <Widget>[
 
