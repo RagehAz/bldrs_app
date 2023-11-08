@@ -741,8 +741,8 @@ class NoteModel {
 
     if (noteModel != null){
 
-      final bool _canSendNote = noteModel.sendNote != null && noteModel.sendNote! == true;
-      final bool _canSendFCM = noteModel.sendFCM != null && noteModel.sendFCM! == true;
+      final bool _canSendNote = Mapper.boolIsTrue(noteModel.sendNote);
+      final bool _canSendFCM = Mapper.boolIsTrue(noteModel.sendFCM);
 
       if (
 
@@ -752,8 +752,8 @@ class NoteModel {
       noteModel.parties?.senderID != null &&
       noteModel.parties?.senderType != null &&
       noteModel.parties?.senderImageURL != null &&
-      noteModel.title != null &&
-      noteModel.body != null &&
+      TextCheck.isEmpty(noteModel.title) == false  &&
+      TextCheck.isEmpty(noteModel.body) == false &&
       noteModel.topic != null &&
       (_canSendNote == true || _canSendFCM == true)
 
@@ -777,6 +777,9 @@ class NoteModel {
       }
 
     }
+
+    blog('checkNoteIsSendable : _canSend $_canSend');
+    noteModel?.blogNoteModel(invoker: 'checkNoteIsSendable');
 
     return _canSend;
   }

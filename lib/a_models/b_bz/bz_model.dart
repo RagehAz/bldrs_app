@@ -529,7 +529,7 @@ class BzModel{
       name: 'Business Name That os a bit too kinda tall and little bit extra tall aho',
       trigram: Stringer.createTrigram(input: 'Business Name'),
       bzTypes: const <BzType>[BzType.designer, BzType.broker, BzType.contractor, BzType.artisan],
-      zone: ZoneModel.dummyZone(),
+      zone: ZoneModel.dummyZone,
       bzState: BzState.online,
       position: Atlas.dummyLocation(),
       publication: PublicationModel.emptyModel,

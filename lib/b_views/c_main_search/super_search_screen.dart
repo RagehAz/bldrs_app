@@ -668,7 +668,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     /// USERS
     else if (_searchType == ModelType.user){
       return UserSearchFiltersList(
-        searchModel: _searchModel,
         userSearchModel: _userSearchModel,
         onZoneSwitchTap: _onZoneSwitchTap,
         onZoneTap: () async {
@@ -792,6 +791,13 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           await _generateQuery();
 
           },
+        onOnlyCanReceiveNotification: (bool value) async {
+
+          _userSearchModel = _userSearchModel?.copyWith(onlyCanReceiveNotification: value);
+          _setUserSearchModel(model: _userSearchModel);
+          await _generateQuery();
+
+        },
       );
     }
 
