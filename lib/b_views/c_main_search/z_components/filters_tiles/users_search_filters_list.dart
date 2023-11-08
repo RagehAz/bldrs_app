@@ -1,7 +1,6 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/a_models/m_search/user_search_model.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/building_blocks/filter_bool_tile.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/building_blocks/filter_multi_button_tile.dart';
@@ -15,7 +14,6 @@ import 'package:flutter/material.dart';
 class UserSearchFiltersList extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const UserSearchFiltersList({
-    required this.searchModel,
     required this.userSearchModel,
     required this.onZoneSwitchTap,
     required this.onZoneTap,
@@ -31,10 +29,10 @@ class UserSearchFiltersList extends StatelessWidget {
     required this.onOnlyAuthorsSwitchTap,
     required this.onOnlyAdminsSwitchTap,
     required this.onOnlyVerifiedEmailsSwitchTap,
+    required this.onOnlyCanReceiveNotification,
     super.key
   });
   // --------------------
-  final SearchModel? searchModel;
   final UserSearchModel? userSearchModel;
   final Function(bool value) onZoneSwitchTap;
   final Function onZoneTap;
@@ -50,6 +48,7 @@ class UserSearchFiltersList extends StatelessWidget {
   final Function(bool value) onOnlyAuthorsSwitchTap;
   final Function(bool value) onOnlyAdminsSwitchTap;
   final Function(bool value) onOnlyVerifiedEmailsSwitchTap;
+  final Function(bool value) onOnlyCanReceiveNotification;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -58,7 +57,7 @@ class UserSearchFiltersList extends StatelessWidget {
 
       /// ZONE
       ZoneFilterTile(
-        searchModel: searchModel,
+        zone: userSearchModel?.zone,
         onSwitchTap: onZoneSwitchTap,
         onTileTap: onZoneTap,
       ),
@@ -150,6 +149,15 @@ class UserSearchFiltersList extends StatelessWidget {
         iconIsBig: false,
         switchValue: userSearchModel?.onlyBzAuthors,
         onSwitchTap: onOnlyAuthorsSwitchTap,
+      ),
+
+      /// ONLY CAN RECEIVE NOTIFICATION
+      FilterBoolTile(
+        icon: Iconz.notification,
+        verse: Verse.plain('Only Can Receive Notification'),
+        iconIsBig: false,
+        switchValue: userSearchModel?.onlyCanReceiveNotification,
+        onSwitchTap: onOnlyCanReceiveNotification,
       ),
 
       /// ONLY BLDRS ADMIN

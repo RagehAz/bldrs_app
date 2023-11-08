@@ -253,12 +253,10 @@ class ZoneModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneModel dummyZone() {
-    return const ZoneModel(
+  static const ZoneModel dummyZone = ZoneModel(
       countryID: 'egy',
       cityID: 'egy+cairo',
     );
-  }
   // -----------------------------------------------------------------------------
   /// static const ZoneModel planetZone = ZoneModel(
   ///   countryID: planetID,
