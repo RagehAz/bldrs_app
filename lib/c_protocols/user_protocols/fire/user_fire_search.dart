@@ -161,6 +161,13 @@ class UserFireSearchOps{
               value: true,
             ),
 
+          if (Mapper.boolIsTrue(userSearchModel?.onlyCanReceiveNotification) == true)
+            const FireFinder(
+              field: 'device.canBeNotified',
+              comparison: FireComparison.equalTo,
+              value: true,
+            ),
+
       ],
         // orderBy: 'score',
       );

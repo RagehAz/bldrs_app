@@ -57,7 +57,7 @@ class BzSearchFiltersList extends StatelessWidget {
 
         /// ZONE
         ZoneFilterTile(
-          searchModel: searchModel,
+          zone: searchModel?.zone,
           onSwitchTap: onZoneSwitchTap,
           onTileTap: onZoneTap,
         ),

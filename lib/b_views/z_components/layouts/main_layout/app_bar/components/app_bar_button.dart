@@ -18,6 +18,7 @@ class AppBarButton extends StatelessWidget {
     this.iconColor,
     this.margins,
     this.corners,
+    this.verseCentered = true,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -36,6 +37,7 @@ class AppBarButton extends StatelessWidget {
   final Color? iconColor;
   final dynamic margins;
   final dynamic corners;
+  final bool verseCentered;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -64,6 +66,7 @@ class AppBarButton extends StatelessWidget {
       onDisabledTap: onDeactivatedTap,
       verseMaxLines: 2,
       loading: loading ?? false,
+      verseCentered: verseCentered,
       // loading: loading,
     );
 
