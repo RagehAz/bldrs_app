@@ -573,7 +573,7 @@ class FlyerModel {
       shareLink: null,
       price: null,
       isAmazonFlyer: false,
-      zone: ZoneModel.dummyZone(),
+      zone: ZoneModel.dummyZone,
       score: 0,
       pdfPath: null,
       affiliateLink: 'www.google.com',

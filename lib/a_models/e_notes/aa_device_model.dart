@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:flutter/foundation.dart';
 /// => TAMAM
@@ -13,12 +14,14 @@ class DeviceModel {
     required this.name,
     required this.token,
     required this.platform,
+    required this.canBeNotified,
   });
   /// --------------------------------------------------------------------------
   final String? id;
   final String? name;
   final String? token;
   final String? platform;
+  final bool canBeNotified;
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -31,6 +34,7 @@ class DeviceModel {
       'name': name,
       'token': token,
       'platform': platform,
+      'canBeNotified': TextCheck.isEmpty(token) == false,
     };
   }
   // --------------------
@@ -44,6 +48,7 @@ class DeviceModel {
         name: map['name'],
         token: map['token'],
         platform: map['platform'],
+        canBeNotified: TextCheck.isEmpty(map['token']) == false,
       );
     }
 
@@ -63,10 +68,11 @@ class DeviceModel {
     final String devicePlatform = kIsWeb == true ? 'web' : Platform.operatingSystem;
 
     return DeviceModel(
-        id: deviceID,
-        name: deviceName,
-        token: deviceToken,
-        platform: devicePlatform
+      id: deviceID,
+      name: deviceName,
+      token: deviceToken,
+      platform: devicePlatform,
+      canBeNotified: TextCheck.isEmpty(deviceToken) == false,
     );
 
   }
@@ -124,7 +130,8 @@ class DeviceModel {
             device1.id == device2.id &&
             device1.name == device2.name &&
             device1.token == device2.token &&
-            device1.platform == device2.platform
+            device1.platform == device2.platform &&
+            device1.canBeNotified == device2.canBeNotified
         ){
           _identical = true;
         }
@@ -168,6 +175,7 @@ class DeviceModel {
       id.hashCode^
       name.hashCode^
       token.hashCode^
+      canBeNotified.hashCode^
       platform.hashCode;
   // -----------------------------------------------------------------------------
 }

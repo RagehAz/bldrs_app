@@ -1107,7 +1107,7 @@ class UserModel {
       title: 'CEO',
       company: 'Bldrs.LLC',
       gender: Gender.male,
-      zone: ZoneModel.dummyZone(),
+      zone: ZoneModel.dummyZone,
       language: 'en',
       location: Atlas.dummyLocation(),
       contacts: ContactModel.dummyContacts(),
