@@ -143,7 +143,7 @@ Future<bool> rebootLogic() async {
 
     await Future.wait(<Future>[
       /// WIPE OUT LDB
-      LDBDoc.mindfulWipeOfEntireLDB(),
+      LDBDoc.onLightRebootSystem(),
 
       /// WIPE OUT PRO
       GeneralProvider.wipeOutAllProviders(),

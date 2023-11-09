@@ -3,6 +3,8 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:flutter/material.dart';
 
 enum PartyType {
@@ -222,6 +224,28 @@ class NoteParties {
     }
 
     return _phid;
+  }
+  // --------------------
+  ///
+  static Future<List<dynamic>> fetchReceiversModels({
+    required List<String> ids,
+    required PartyType? partyType,
+  }) async {
+    List<dynamic> _output = [];
+
+    if (Mapper.checkCanLoopList(ids) == true){
+
+      if (partyType == PartyType.bz){
+        _output = await BzProtocols.fetchBzz(bzzIDs: ids,);
+      }
+
+      else if (partyType == PartyType.user){
+        _output = await UserProtocols.fetchUsers(usersIDs: ids,);
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
