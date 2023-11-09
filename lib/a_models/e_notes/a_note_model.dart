@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
-
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -777,9 +776,6 @@ class NoteModel {
       }
 
     }
-
-    blog('checkNoteIsSendable : _canSend $_canSend');
-    noteModel?.blogNoteModel(invoker: 'checkNoteIsSendable');
 
     return _canSend;
   }
