@@ -17,7 +17,20 @@
   | --------------------------|
   |
   | - [app]
-  |     | - [appState] : <AppStateModel>
+  |     | - [tests]
+  |     |     | - WHATEVER
+  |     |     | - ...
+  |     |
+  |     | - [history]
+  |     |       | - {yyyy_mm_dd}
+  |     |       |       | - [statistics] : <statistics-Node>
+  |     |       |       | - [zonePhids] : <zonePhids-Node>
+  |     |       |                   
+  |     |       | - {yyyy_mm_dd} ...  
+  |     |
+  |     | - [noteCampaigns]
+  |           | - {campaignID} : <NoteCampaign>
+  |           | - {campaignID} ... 
   |
   | --------------------------|
   |
@@ -177,10 +190,15 @@
   |
   | - [gta]
   |     | - [selected]
-  |           | - {id} : <String>
-  |     
+  |     |     | - {id} : <String>
+  |     |     | - {id} ...
+  |     |
   |     | - [scrapped]
-  |           | - {id} : <GtaModel>
+  |     |     | - {id} : <GtaModel>
+  |     |     | - {id} ...
+  |     |
+  |     | - [version]
+  |           | - [value] : <int>
   |     
   | -------------------------------------------|
 ```

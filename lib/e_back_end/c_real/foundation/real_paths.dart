@@ -48,6 +48,7 @@ class RealDoc {
   // --------------------
   static const String app_tests = 'tests';
   static const String app_history = 'history';
+  static const String app_noteCampaigns = 'noteCampaigns';
   // -----------------------------------------------------------------------------
   /// PICKERS
   // --------------------
@@ -122,6 +123,20 @@ class RealPath {
     required String reviewID,
     required String userID,
   }) => '${RealColl.agrees}/$bzID/$flyerID/$reviewID/$userID';
+  // -----------------------------------------------------------------------------
+
+  /// app
+
+  // --------------------
+  static String app_tests() => '${RealColl.app}/${RealDoc.app_tests}';
+  // --------------------
+  static String app_history() => '${RealColl.app}/${RealDoc.app_history}';
+  // --------------------
+  static String app_noteCampaigns() => '${RealColl.app}/${RealDoc.app_noteCampaigns}';
+  // --------------------
+  static String app_noteCampaigns_campaignID({
+    required String campaignID,
+  }) => '${RealColl.app}/${RealDoc.app_noteCampaigns}/$campaignID';
   // -----------------------------------------------------------------------------
 
   /// bldrsChains

@@ -236,7 +236,7 @@ ${getWord('phid_new_version')} : ${globalState.appVersion}
 
     if (globalState.ldbVersion != _localLDBVersion){
 
-      await LDBDoc.superWipeOfEntireLDB();
+      await LDBDoc.onHardRebootSystem();
 
       await LDBOps.insertMap(
         docName: 'ldbVersion',

@@ -71,8 +71,10 @@ class LDBDoc {
       case LDBDoc.onboarding: return 'id';
       case 'test': return 'id';
 
+      /// DASHBOARD
       case LDBDoc.gta: return 'id';
       case LDBDoc.webpages: return 'id';
+      case LDBDoc.noteCampaigns: return 'id';
 
       /// COUNTERS
       case LDBDoc.bzzCounters: return 'bzID';
@@ -128,9 +130,10 @@ class LDBDoc {
   static const String langCode = 'langCode';
   static const String onboarding = 'onboarding';
   // --------------------
-  /// GTA
+  /// DASHBOARD
   static const String gta = 'gta';
   static const String webpages = 'webpages';
+  static const String noteCampaigns = 'noteCampaigns';
   // --------------------
   /// COUNTERS
   static const String bzzCounters = 'bzzCounters';
@@ -185,6 +188,7 @@ class LDBDoc {
     'headline: Dashboard',
     gta,
     webpages,
+    noteCampaigns,
 
     'headline: Counters',
     bzzCounters,
@@ -235,6 +239,7 @@ class LDBDoc {
     /// DASHBOARD
     required bool gta,
     required bool webpages,
+    required bool noteCampaigns,
     /// COUNTERS
     required bool bzzCounters,
     required bool flyersCounters,
@@ -279,6 +284,7 @@ class LDBDoc {
     /// DASHBOARD
     if (gta == true){_docs.add(LDBDoc.gta);}
     if (webpages == true){_docs.add(LDBDoc.webpages);}
+    if (noteCampaigns == true){_docs.add(LDBDoc.noteCampaigns);}
     /// COUNTERS
     if (bzzCounters == true){_docs.add(LDBDoc.bzzCounters);}
     if (flyersCounters == true){_docs.add(LDBDoc.flyersCounters);}
@@ -294,7 +300,7 @@ class LDBDoc {
 
   }
   // --------------------
-  static Future<void> mindfulWipeOfEntireLDB() async {
+  static Future<void> onLightRebootSystem() async {
 
     await wipeOutLDBDocs(
       /// TRUE
@@ -330,11 +336,12 @@ class LDBDoc {
       reviewEditor: false,
       onboarding: false,
       theLastWipe: false,
+      noteCampaigns: false, // keep them,, they are mine in dashboard
     );
 
   }
   // --------------------
-  static Future<void> superWipeOfEntireLDB() async {
+  static Future<void> onHardRebootSystem() async {
 
     await wipeOutLDBDocs(
       flyers: true,
@@ -351,6 +358,7 @@ class LDBDoc {
       appState: true,
       gta: true,
       webpages: true,
+      noteCampaigns: true,
       cities: true,
       searches: true,
       bldrsChains: true,
