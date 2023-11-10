@@ -26,7 +26,6 @@ class NoteCard extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NoteCard({
     required this.noteModel,
-    required this.isDraftNote,
     this.onNoteOptionsTap,
     this.onCardTap,
     this.bubbleWidth,
@@ -35,7 +34,6 @@ class NoteCard extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final NoteModel? noteModel;
-  final bool isDraftNote;
   final Function? onNoteOptionsTap;
   final Function? onCardTap;
   final double? bubbleWidth;
@@ -145,6 +143,7 @@ class NoteCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
 
+              /// SENDER PIC
               NoteSenderBalloon(
                 noteModel: noteModel,
                 onTap: () => _onSenderBalloonTap(),
@@ -181,6 +180,7 @@ class NoteCard extends StatelessWidget {
                     ),
 
                     /// TIME STAMP
+                    if (noteModel?.sentTime != null)
                     BldrsText(
                       verse: Verse(
                         id: BldrsTimers.calculateSuperTimeDifferenceString(

@@ -746,7 +746,7 @@ class NoteModel {
       if (
 
       /// NECESSARY
-      noteModel.parties?.receiverID != null &&
+      // noteModel.parties?.receiverID != null &&
       noteModel.parties?.receiverType != null &&
       noteModel.parties?.senderID != null &&
       noteModel.parties?.senderType != null &&
@@ -1128,13 +1128,13 @@ class NoteModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NoteModel initialNoteForCreation = NoteModel(
+  static const NoteModel initialNoteForCreation = NoteModel(
     id: null,
     parties: NoteParties(
       senderID: Standards.bldrsNotificationSenderID,
       senderImageURL: Standards.bldrsNotificationIconURL,
       senderType: PartyType.bldrs,
-      receiverID: Authing.getUserID(),
+      receiverID: null,
       receiverType: PartyType.user,
     ),
     title: 'Hello',

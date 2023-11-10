@@ -239,7 +239,6 @@ class _BzNotesPageState extends State<BzNotesPage>{
                   return NoteCard(
                     key: PageStorageKey<String>('bz_note_card_${_note?.id}'),
                     noteModel: _note,
-                    isDraftNote: false,
                     onCardTap: _onNoteTap(_note),
                   );
                   },
