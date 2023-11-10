@@ -226,7 +226,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
                   return NoteCard(
                     key: PageStorageKey<String>('user_note_card_${_note?.id}'),
                     noteModel: _note,
-                    isDraftNote: false,
                     onNoteOptionsTap: () => onShowNoteOptions(
                       context: context,
                       noteModel: _note,

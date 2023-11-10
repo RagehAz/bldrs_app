@@ -110,6 +110,7 @@ class NoteSenderBalloon extends StatelessWidget {
           width: balloonWidth,
           height: balloonWidth,
           icon: Flag.getCountryIcon(noteModel?.parties?.senderID), // countryID
+          bubble: false,
           onTap: onTap,
         );
       }

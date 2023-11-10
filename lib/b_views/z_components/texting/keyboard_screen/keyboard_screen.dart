@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
@@ -235,7 +236,12 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                       isDisabled: !canSubmit,
                       height: 40,
                       verseScaleFactor: 0.6,
-                      margins: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      margins: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          // vertical: 0
+                      ),
+                      color: Colorz.yellow255,
+                      verseColor: Colorz.black255,
                       verse: const Verse(
                         id: 'phid_confirm',
                         translate: true,
