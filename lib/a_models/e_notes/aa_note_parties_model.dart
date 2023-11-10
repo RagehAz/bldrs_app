@@ -226,7 +226,7 @@ class NoteParties {
     return _phid;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<List<dynamic>> fetchReceiversModels({
     required List<String> ids,
     required PartyType? partyType,
@@ -279,6 +279,87 @@ class NoteParties {
 
     return _areIdentical;
   }
+  // --------------------
+  /*
+  static bool checkReceiversAreIdentical({
+    required List<dynamic>? receivers1,
+    required List<dynamic>? receivers2,
+  }){
+    bool _areIdentical = false;
+
+    if (Mapper.checkCanLoopList(receivers1) == true && Mapper.checkCanLoopList(receivers2) == true){
+
+      if (receivers1!.length == receivers2!.length){
+
+        final List<dynamic> _receivers1 = _sortReceiversByIDs(receivers: receivers1);
+        final List<dynamic> _receivers2 = _sortReceiversByIDs(receivers: receivers2);
+
+        for (int i = 0; i < _receivers1.length; i++){
+
+          if (_receivers1[i] == _receivers2[i]){
+            _areIdentical = true;
+          }
+
+          else {
+            _areIdentical = false;
+            break;
+          }
+
+        }
+
+      }
+
+    }
+
+    return _areIdentical;
+  }
+  // --------------------
+  static List<dynamic> _sortReceiversByIDs({
+    required List<dynamic>? receivers,
+  }){
+    List<dynamic> _output = [];
+
+    blog('receivers : $receivers');
+
+    if (Mapper.checkCanLoopList(receivers) == true){
+
+      List<Map<String, dynamic>> _maps = [];
+      final bool _isUserModel = receivers![0] is UserModel;
+      final bool _isBzModel = receivers[0] is BzModel;
+
+      blog('_isUserModel : $_isUserModel : _isBzModel : $_isBzModel');
+
+      if (_isUserModel == true){
+        _maps = UserModel.cipherUsers(
+            users: receivers as List<UserModel>,
+            toJSON: true,
+        );
+      }
+      else if (_isBzModel == true){
+        _maps = BzModel.cipherBzz(
+            bzz: receivers as List<BzModel>,
+            toJSON: true
+        );
+      }
+
+      _maps.sort((Map<String, dynamic> a, Map<String, dynamic> b){
+        final String _idA = a['id'] ?? '';
+        final String _isB = b['id'] ?? '';
+        return _idA.compareTo(_isB);
+      });
+
+      if (_isUserModel == true){
+        _output = UserModel.decipherUsers(maps: _maps, fromJSON: true);
+      }
+      else if (_isBzModel == true){
+        _output = BzModel.decipherBzz(maps: _maps, fromJSON: true);
+      }
+
+    }
+
+    return _output;
+  }
+   */
   // -----------------------------------------------------------------------------
 
   /// BLOGGING
