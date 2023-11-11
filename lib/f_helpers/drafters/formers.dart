@@ -570,7 +570,7 @@ class Formers {
 
         if (_message == null){
 
-          final bool _domainExcluded = _checkStringContainAnyOfSubStrings(
+          final bool _domainExcluded = TextCheck.checkStringContainAnyOfSubStrings(
             subStrings: excludedDomains,
             string: website,
           );
@@ -591,34 +591,6 @@ class Formers {
     }
 
     return _message;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool _checkStringContainAnyOfSubStrings({
-    required String? string,
-    required List<String>? subStrings,
-  }){
-    bool _output = false;
-
-    if (Mapper.checkCanLoopList(subStrings) == true && string != null){
-
-      for (final String subString in subStrings!){
-
-        final bool _contains = TextCheck.stringContainsSubString(
-            string: string,
-            subString: subString
-        );
-
-        if (_contains == true){
-          _output = true;
-          break;
-        }
-
-      }
-
-    }
-
-    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -1374,6 +1346,36 @@ class Formers {
       final int? _int = Numeric.transformStringToInt(text);
       if (_double == null && _int == null){
         _message = getWord('phid_only_numbers_is_to_be_added');
+      }
+
+      /// EMPTY SPACES CHECK
+      final String? _withoutSpaces = TextMod.removeSpacesFromAString(text);
+      if (text != _withoutSpaces){
+        _message = getWord('phid_cant_add_empty_spaces');
+      }
+
+    }
+
+    return _message;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? intOnlyValidator({
+    required String? text,
+  }){
+    String? _message;
+
+    if (TextCheck.isEmpty(text) == false){
+
+      /// PARSING VALIDATION
+      final double? _double = Numeric.transformStringToDouble(text);
+      final int? _int = Numeric.transformStringToInt(text);
+      final bool _hasDot = TextCheck.stringContainsSubString(
+          string: text,
+          subString: '.',
+      );
+      if (_hasDot == true || _int == null || (_double != _int)){
+        _message = getWord('phid_integers_is_to_be_added');
       }
 
       /// EMPTY SPACES CHECK

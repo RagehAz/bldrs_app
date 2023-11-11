@@ -228,7 +228,7 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   static Future<void> showButtonsBottomDialog({
     required int numberOfWidgets,
-    required List<Widget> Function(BuildContext, Function? setState) builder,
+    required List<Widget> Function(BuildContext, Function setState) builder,
     double buttonHeight = wideButtonHeight,
     Verse? titleVerse,
   }) async {

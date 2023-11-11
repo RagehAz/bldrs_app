@@ -63,6 +63,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   late KeyboardModel _keyboardModel;
   final ValueNotifier<bool> _canSubmit = ValueNotifier<bool>(false);
   final TextEditingController _controller = TextEditingController();
+  String _initialText = '';
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -82,7 +83,8 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     super.initState();
 
     _keyboardModel = widget.keyboardModel;
-    _controller.text = widget.initialText ?? _keyboardModel.initialText ?? '';
+    _initialText = widget.initialText ?? _keyboardModel.initialText ?? '';
+    _controller.text = _initialText;
 
   }
   // --------------------
@@ -118,37 +120,40 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       _keyboardModel.onChanged?.call(text);
     }
 
+    bool _can = true;
+
     /// VALIDATOR IS DEFINED
     if (_keyboardModel.validator != null){
 
       /// VALIDATOR IS VALID
       if (_keyboardModel.validator?.call(_controller.text) == null){
-        setNotifier(
-          notifier: _canSubmit,
-          mounted: mounted,
-          value: true,
-        );
+
+        if (_initialText == text){
+          _can = false;
+        }
+        else {
+          _can = true;
+        }
+
       }
 
       /// VALIDATOR IS NOT VALID
       else {
-        setNotifier(
-          notifier: _canSubmit,
-          mounted: mounted,
-          value: false,
-        );
+        _can = false;
       }
 
     }
 
     /// VALIDATOR IS NOT DEFINED
     else {
-      setNotifier(
-        notifier: _canSubmit,
-        mounted: mounted,
-        value: true,
-      );
+      _can = true;
     }
+
+    setNotifier(
+      notifier: _canSubmit,
+      mounted: mounted,
+      value: _can,
+    );
 
   }
   // --------------------
@@ -177,6 +182,8 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    blog('_keyboardModel.titleVerse : ${_keyboardModel.titleVerse}');
 
     return MainLayout(
       skyType: SkyType.grey,
