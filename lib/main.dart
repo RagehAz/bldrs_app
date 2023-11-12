@@ -73,10 +73,10 @@ class BldrsAppStarter extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  static void setLocale(BuildContext context, Locale? locale) {
+  static void setLocale(BuildContext? context, Locale? locale) {
 
     if (locale != null){
-      final _BldrsAppStarterState? state = context.findAncestorStateOfType<_BldrsAppStarterState>();
+      final _BldrsAppStarterState? state = context?.findAncestorStateOfType<_BldrsAppStarterState>();
       state?._setLocale(locale);
     }
 
