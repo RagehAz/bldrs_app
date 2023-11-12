@@ -189,6 +189,7 @@ class AuthorCard extends StatelessWidget {
                           maxLines: 2,
                           centered: false,
                           scaleFactor: 0.8,
+                          textDirection: UiProvider.getAppTextDir(),
                         ),
 
                         // const Expander(),
