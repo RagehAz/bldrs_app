@@ -1,3 +1,4 @@
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -19,7 +20,7 @@ class BzzList extends StatelessWidget {
   final List<BzModel> bzz;
   final ScrollController? scrollController;
   final List<String>? selectedBzzIDs;
-  final Function(BzModel? bz)? onBzTap;
+  final Function(BzModel bz)? onBzTap;
   final EdgeInsets? scrollPadding;
   final bool showBzzIDs;
   // -----------------------------------------------------------------------------
@@ -34,7 +35,7 @@ class BzzList extends StatelessWidget {
         padding: scrollPadding ?? const EdgeInsets.only(bottom: 10, top: 10,),
         itemBuilder: (BuildContext ctx, int index) {
 
-          final BzModel? _bz = bzz[index];
+          final BzModel _bz = bzz[index];
 
           return BzBubble(
             bzModel: _bz,
@@ -43,8 +44,9 @@ class BzzList extends StatelessWidget {
             onTap: onBzTap == null ? null : () => onBzTap?.call(_bz),
             isSelected: Stringer.checkStringsContainString(
               strings: selectedBzzIDs,
-              string: _bz?.id,
+              string: _bz.id,
             ),
+            boxWidth: Bubble.bubbleWidth(context: context),
             showID: showBzzIDs,
           );
 
