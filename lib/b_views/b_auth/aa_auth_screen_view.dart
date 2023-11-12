@@ -258,26 +258,26 @@ class AuthScreenView extends StatelessWidget {
 
               /// PASSWORD - CONFIRMATION
               Disabler(
-                    isDisabled: _currentAccountIsSocial,
-                    disabledOpacity: 0.2,
-                    child: PasswordBubbles(
-                      bubbleWidth: _bubbleWidth,
-                      confirmPasswordNode: confirmPasswordNode,
-                      passwordNode: passwordNode,
-                      appBarType: appBarType,
-                      passwordController: passwordController,
-                      showPasswordOnly: isSigningIn,
-                      passwordValidator: passwordValidator,
-                      passwordConfirmationController: passwordConfirmationController,
-                      passwordConfirmationValidator: passwordConfirmationValidator,
-                      onSubmitted: (String? text) => _onSubmitted(
-                        signingIn: isSigningIn,
-                        isOnConfirmPassword: false,
-                      ),
-                      onForgotPassword: onForgotPassword,
-                      isObscured: isObscured,
-                    ),
+                isDisabled: _currentAccountIsSocial,
+                disabledOpacity: 0.2,
+                child: PasswordBubbles(
+                  bubbleWidth: _bubbleWidth,
+                  confirmPasswordNode: confirmPasswordNode,
+                  passwordNode: passwordNode,
+                  appBarType: appBarType,
+                  passwordController: passwordController,
+                  showPasswordOnly: isSigningIn,
+                  passwordValidator: passwordValidator,
+                  passwordConfirmationController: passwordConfirmationController,
+                  passwordConfirmationValidator: passwordConfirmationValidator,
+                  onSubmitted: (String? text) => _onSubmitted(
+                    signingIn: isSigningIn,
+                    isOnConfirmPassword: false,
                   ),
+                  onForgotPassword: onForgotPassword,
+                  isObscured: isObscured,
+                ),
+              ),
 
               /// SIGN IN - REGISTER BUTTONS
               SizedBox(

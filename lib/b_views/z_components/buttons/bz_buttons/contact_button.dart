@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -37,7 +37,7 @@ class ContactButton extends StatelessWidget {
   }){
     Verse? _output;
 
-    if (contactModel != null){
+    if (contactModel != null && contactModel.value != null){
       final bool _isSocialMediaContact = ContactModel.checkContactIsSocialMedia(contactModel.type);
       final bool _showVerse = forceShowVerse ?? _isSocialMediaContact == false;
 
@@ -47,12 +47,23 @@ class ContactButton extends StatelessWidget {
 
         if (_isURL == true){
 
-          final String? _trimmed = TextMod.removeTextBeforeFirstSpecialCharacter(
-            text: contactModel.value,
-            specialCharacter: '.',
+          String _result = contactModel.value!;
+
+          final bool _textContainsChar = TextCheck.stringContainsSubString(
+            string: contactModel.value,
+            subString: 'www',
           );
 
-          _output = Verse.plain(_trimmed);
+          if (_textContainsChar == true) {
+            final int _position = _result.indexOf('www');
+            _result =
+            (_position != -1) ? _result.substring(_position + 4, _result.length)
+                :
+            _result;
+          }
+
+
+          _output = Verse.plain(_result);
 
         }
 
@@ -91,7 +102,7 @@ class ContactButton extends StatelessWidget {
       verseWeight: VerseWeight.thin,
       verseItalic: true,
       iconSizeFactor: _isSocialMediaContact == true ? 1 : 0.6,
-      verseScaleFactor: _isSocialMediaContact == true ? 0.7 : 0.7/0.6,
+      verseScaleFactor: _isSocialMediaContact == true ? 0.55 : 0.55/0.6,
       bubble: bubble,
       color: Colorz.white10,
       textDirection: TextDirection.ltr,
