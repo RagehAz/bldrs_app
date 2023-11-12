@@ -157,6 +157,19 @@ class BzzProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static void proSetMyBzz({
+    required BuildContext context,
+    required List<BzModel> myBzz,
+    required bool notify,
+  }){
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    _bzzProvider._setMyBzz(
+        bzz: myBzz,
+        notify: notify
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static List<BzModel> proGetMyBzz({
     required BuildContext context,
     required bool listen,
