@@ -269,6 +269,7 @@ class BottomDialog extends StatelessWidget {
 
       },
     );
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
