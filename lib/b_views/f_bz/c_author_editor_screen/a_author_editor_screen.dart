@@ -31,7 +31,6 @@ import 'package:flutter/material.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 
-
 class AuthorEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const AuthorEditorScreen({
