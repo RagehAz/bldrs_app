@@ -82,7 +82,7 @@ class BzBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _bubbleWidth = Bubble.clearWidth(
+    final double _bubbleWidth = Bubble.bubbleWidth(
       context: context,
       bubbleWidthOverride: boxWidth,
     );

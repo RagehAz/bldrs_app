@@ -209,7 +209,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
           paginationController: _paginationController,
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget? child){
 
-
             if (Mapper.checkCanLoopList(maps) == true){
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
