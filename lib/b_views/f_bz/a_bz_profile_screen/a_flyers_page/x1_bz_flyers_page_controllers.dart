@@ -112,7 +112,7 @@ Future<void> onFlyerBzOptionsTap({
           BottomDialog.wideButton(
             verse: const Verse(id: 'phid_edit_flyer', translate: true),
             verseCentered: true,
-            onTap: () => _onEditFlyerButtonTap(
+            onTap: () => onEditFlyerButtonTap(
               flyer: flyer,
             ),
           ),
@@ -160,7 +160,7 @@ Future<void> onFlyerBzOptionsTap({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _onEditFlyerButtonTap({
+Future<void> onEditFlyerButtonTap({
   required FlyerModel flyer,
 }) async {
 

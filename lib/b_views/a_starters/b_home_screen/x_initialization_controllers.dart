@@ -155,6 +155,12 @@ Future<void> initializeUserBzz({
 }) async {
   // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
 
+  BzzProvider.proSetMyBzz(
+    context: getMainContext(),
+    myBzz: [],
+    notify: false,
+  );
+
   final UserModel? _user = UsersProvider.proGetMyUserModel(
     context: getMainContext(),
     listen: false,
