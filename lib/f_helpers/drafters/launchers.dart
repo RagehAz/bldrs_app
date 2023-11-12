@@ -514,105 +514,132 @@ class Launcher {
   }
   // -----------------------------------------------------------------------------
 
+  /// SOCIAL MEDIA LAUNCH TESTS
+
+  // --------------------
+  /// REF : https://stackoverflow.com/questions/55838430/flutter-open-facebook-link-in-facebook-app-android-ios
+  /*
+  static Future<void> openFacebookPage() async {
+
+    const String url = 'https://www.facebook.com/FurnitureEgyptofficial/';
+
+    const String pageID = 's';
+    String? _link;
+
+    if (DeviceChecker.deviceIsIOS() == true) {
+      _link = 'fb://profile/page_id';
+    }
+
+    else if (DeviceChecker.deviceIsAndroid() == true) {
+      _link = 'fb://page/page_id';
+    }
+
+    await tryAndCatch(
+        invoker: 'openFacebookPage',
+        functions: () async {
+          final bool launched = await Launch.launchUrl(_link, forceSafariVC: false);
+          if (!launched) {
+            await Launch.launchUrl(url, forceSafariVC: false);
+          }
+
+          },
+        onError: (String? error) async {
+          await Launch.launchUrl(url, forceSafariVC: false);
+
+        }
+        );
+
+  }
+   */
+  // --------------------
+  /// OLD
+  /*
+  static Future<bool> launchSocial(String? link) async {
+
+    Uri _uri;
+    bool _success = false;
+
+    if (TextCheck.isEmpty(link) == false){
+
+      /// LINK SHOULD CONTAIN 'http://' to work
+      final bool _containsHttp = TextCheck.stringContainsSubString(
+        string: link,
+        subString: 'http://',
+      );
+
+      final bool _containsHttps = TextCheck.stringContainsSubString(
+        string: link,
+        subString: 'https://',
+      );
+
+      if (_containsHttp == true || _containsHttps == true){
+        _uri = Uri.parse(link!);
+      }
+      else {
+        _uri = Uri.parse('http://$link');
+      }
+
+      final bool _canLaunch = await Launch.canLaunchUrl(_uri);
+
+      if (_canLaunch == true) {
+
+        /// WEB
+        if (kIsWeb == true) {
+          unawaited(Launch.launchUrl(
+            _uri,
+            // mode: LaunchMode.inAppWebView,
+            // webOnlyWindowName: ,
+            // webViewConfiguration: ,
+          ));
+          _success = true;
+        }
+
+        else if (DeviceChecker.deviceIsAndroid() == true) {
+          final bool _isFacebookLink = TextCheck.stringStartsExactlyWith(
+            text: _uri.path,
+            startsWith: "https://www.facebook.com/",
+          );
+
+          if (_isFacebookLink == true) {
+            final url2 = 'fb://facewebmodal/f?href=$_isFacebookLink';
+            final intent2 = AndroidIntent(action: "action_view", data: url2);
+            final canWork = await intent2.canResolveActivity();
+            if (canWork == true){
+              intent2.launch();
+            }
+          }
+          final intent = AndroidIntent(action: "action_view", data: url);
+          return intent.launch();
+        }
+
+        else {
+          if (_canLaunch) {
+            await launch(url, forceSafariVC: false);
+          } else {
+            throw "Could not launch $url";
+          }
+        }
 
 
-  //
-  // static Future<bool> launchSocial(String? link) async {
-  //
-  //   Uri _uri;
-  //   bool _success = false;
-  //
-  //   if (TextCheck.isEmpty(link) == false){
-  //
-  //     /// LINK SHOULD CONTAIN 'http://' to work
-  //     final bool _containsHttp = TextCheck.stringContainsSubString(
-  //       string: link,
-  //       subString: 'http://',
-  //     );
-  //
-  //     final bool _containsHttps = TextCheck.stringContainsSubString(
-  //       string: link,
-  //       subString: 'https://',
-  //     );
-  //
-  //     if (_containsHttp == true || _containsHttps == true){
-  //       _uri = Uri.parse(link!);
-  //     }
-  //     else {
-  //       _uri = Uri.parse('http://$link');
-  //     }
-  //
-  //     final bool _canLaunch = await Launch.canLaunchUrl(_uri);
-  //
-  //     if (_canLaunch == true) {
-  //
-  //       /// WEB
-  //       if (kIsWeb == true) {
-  //         unawaited(Launch.launchUrl(
-  //           _uri,
-  //           // mode: LaunchMode.inAppWebView,
-  //           // webOnlyWindowName: ,
-  //           // webViewConfiguration: ,
-  //         ));
-  //         _success = true;
-  //       }
-  //
-  //       else if (DeviceChecker.deviceIsAndroid() == true) {
-  //         final bool _isFacebookLink = TextCheck.stringStartsExactlyWith(
-  //           text: _uri.path,
-  //           startsWith: "https://www.facebook.com/",
-  //         );
-  //
-  //         if (_isFacebookLink == true) {
-  //           final url2 = 'fb://facewebmodal/f?href=$_isFacebookLink';
-  //           final intent2 = AndroidIntent(action: "action_view", data: url2);
-  //           final canWork = await intent2.canResolveActivity();
-  //           if (canWork == true){
-  //             intent2.launch();
-  //           }
-  //         }
-  //         final intent = AndroidIntent(action: "action_view", data: url);
-  //         return intent.launch();
-  //       }
-  //
-  //       else {
-  //         if (_canLaunch) {
-  //           await launch(url, forceSafariVC: false);
-  //         } else {
-  //           throw "Could not launch $url";
-  //         }
-  //       }
-  //
-  //
-  //   }
-  //
-  //     }
-  //     else {
-  //       blog('Can Not launch link');
-  //     }
-  //
-  //   }
-  //
-  //   return _success;
-  // }
-  //
+    }
 
+      }
 
-//
-// Future<void> _launchSocialMediaAppIfInstalled({
-//   String url,
-// }) async {
-//   try {
-//     bool launched = await launch(url, forceSafariVC: false); // Launch the app if installed!
-//
-//     if (!launched) {
-//       launch(url); // Launch web view if app is not installed!
-//     }
-//   } catch (e) {
-//     launch(url); // Launch web view if app is not installed!
-//   }
-// }
-// And then simply call it like this:
+    else {
+      blog('Can Not launch link');
+    }
+
+    return _success;
+  }
+   */
+  // --------------------
+  /// OLD
+  /*
+Future<void> _launchSocialMediaAppIfInstalled({
+  String url,
+}) async {
+
+  // And then simply call it like this:
 //
 // _launchSocialMediaAppIfInstalled(
 //   url: 'https://www.instagram.com/avey.world/', //Instagram
@@ -633,4 +660,19 @@ class Launcher {
 // ...
 // Don't forget to replace the example page by yours ;) and that's it!
 
+
+  try {
+    bool launched = await launch(url, forceSafariVC: false); // Launch the app if installed!
+
+    if (!launched) {
+      launch(url); // Launch web view if app is not installed!
+    }
+  } catch (e) {
+    launch(url); // Launch web view if app is not installed!
+  }
+
+}
+
+ */
+  // -----------------------------------------------------------------------------
 }

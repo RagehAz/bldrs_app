@@ -103,6 +103,7 @@ class BzSlide extends StatelessWidget {
                 verse: const Verse(
                   id: 'phid_followers',
                   translate: true,
+                  casing: Casing.lowerCase,
                 ),
                 icon: Iconz.follow,
                 iconSizeFactor: 0.8,
@@ -114,8 +115,9 @@ class BzSlide extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter?.calls,
                 verse: const Verse(
-                  id: 'phid_callsReceived',
+                  id: 'phid_calls',
                   translate: true,
+                  casing: Casing.lowerCase,
                 ),
                 icon: Iconz.comPhone,
                 iconSizeFactor: 0.8,
@@ -127,8 +129,9 @@ class BzSlide extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 count: bzModel?.publication.published.length,
                 verse: const Verse(
-                  id: 'phid_published_flyers',
+                  id: 'phid_flyers',
                   translate: true,
+                  casing: Casing.lowerCase,
                 ),
                 icon: Iconz.gallery,
                 iconSizeFactor: 0.85,
@@ -140,8 +143,9 @@ class BzSlide extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter?.allSlides,
                 verse: const Verse(
-                  id: 'phid_slidesPublished',
+                  id: 'phid_slides',
                   translate: true,
+                  casing: Casing.lowerCase,
                 ),
                 icon: Iconz.flyerScale,
                 iconSizeFactor: 0.85,
@@ -153,8 +157,9 @@ class BzSlide extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter?.allViews,
                 verse: const Verse(
-                  id: 'phid_totalViews',
+                  id: 'phid_views',
                   translate: true,
+                  casing: Casing.lowerCase,
                 ),
                 icon: Iconz.viewsIcon,
                 iconSizeFactor: 0.85,
@@ -166,8 +171,9 @@ class BzSlide extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter?.allShares,
                 verse: const Verse(
-                  id: 'phid_totalShares',
+                  id: 'phid_shares',
                   translate: true,
+                  casing: Casing.lowerCase,
                 ),
                 icon: Iconz.share,
                 iconSizeFactor: 0.85,
@@ -179,8 +185,9 @@ class BzSlide extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter?.allSaves,
                 verse: const Verse(
-                  id: 'phid_totalSaves',
+                  id: 'phid_saves',
                   translate: true,
+                  casing: Casing.lowerCase,
                 ),
                 icon: Iconz.saveOn,
                 iconSizeFactor: 0.95,

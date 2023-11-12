@@ -52,6 +52,7 @@ class BzStatsBubble extends StatelessWidget {
                   verse: Verse(
                     id: '${_counter.follows} ${getWord('phid_followers')}',
                     translate: false,
+                    casing: Casing.lowerCase,
                   ),
                   icon: Iconz.follow,
                 ),
@@ -59,30 +60,39 @@ class BzStatsBubble extends StatelessWidget {
                 /// CALLS
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.calls} ${getWord('phid_callsReceived')}',
+                    id: '${_counter.calls} ${getWord('phid_calls')}',
                     translate: false,
+                    casing: Casing.lowerCase,
                   ),
                   icon: Iconz.comPhone,
                 ),
 
-                /// SLIDES & FLYERS
+                /// SLIDES
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.allSlides} '
-                        '${getWord('phid_slidesPublished')} '
-                        '${getWord('phid_inn')} '
-                        '${_bzModel?.publication.published.length} '
-                        '${getWord('phid_flyers')}',
+                    id: '${_counter.allSlides} ${getWord('phid_slides')}',
                     translate: false,
+                    casing: Casing.lowerCase,
                   ),
                   icon: Iconz.gallery,
+                ),
+
+                /// SLIDES
+                StatsLine(
+                  verse: Verse(
+                    id: '${_bzModel?.publication.published.length} ${getWord('phid_flyers')}',
+                    translate: false,
+                    casing: Casing.lowerCase,
+                  ),
+                  icon: Iconz.flyer,
                 ),
 
                 /// SAVES
                 StatsLine(
                   verse: Verse(
-                    id:  '${_counter.allSaves} ${getWord('phid_totalSaves')}',
+                    id:  '${_counter.allSaves} ${getWord('phid_saves')}',
                     translate: false,
+                    casing: Casing.lowerCase,
                   ),
                   icon: Iconz.saveOn,
                 ),
@@ -90,8 +100,9 @@ class BzStatsBubble extends StatelessWidget {
                 /// VIEWS
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.allViews} ${getWord('phid_total_flyer_views')}',
+                    id: '${_counter.allViews} ${getWord('phid_views')}',
                     translate: false,
+                    casing: Casing.lowerCase,
                   ),
                   icon: Iconz.viewsIcon,
                 ),
@@ -99,8 +110,9 @@ class BzStatsBubble extends StatelessWidget {
                 /// SHARES
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.allShares} ${getWord('phid_totalShares')}',
+                    id: '${_counter.allShares} ${getWord('phid_shares')}',
                     translate: false,
+                    casing: Casing.lowerCase,
                   ),
                   icon: Iconz.share,
                 ),
@@ -113,7 +125,6 @@ class BzStatsBubble extends StatelessWidget {
                   ),
                   icon: Iconz.calendar,
                 ),
-
               ]
           );
         });
