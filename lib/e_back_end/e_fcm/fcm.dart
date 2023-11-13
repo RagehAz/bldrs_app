@@ -326,12 +326,14 @@ class FCM {
     String? posterURL,
     List<String>? buttonsTexts,
   }) async {
+
     final String? _largeIconURL = await getNootPicURLIfNotURL(largeIconURL);
     final String? _posterURL = await getNootPicURLIfNotURL(posterURL);
 
     await tryAndCatch(
       invoker: 'pushGlobalNotification',
       functions: () async {
+
         final NotificationContent? _content = createGlobalNootContent(
           channelModel: channelModel,
           body: body,
@@ -499,7 +501,7 @@ class FCM {
       // autoDismissible: ,
       // category: ,
       // criticalAlert: ,
-      // fullScreenIntent: ,
+      fullScreenIntent: true,
       // ticker: ,
     );
   }
@@ -726,8 +728,7 @@ class FCM {
 
   // --------------------
   /// TESTED : WORKS PERFECT : TASK : SHOULD BE DONE ON SERVER SIDE TO CONCEAL FCM SERVER KEY
-  static Future<List<String>?> readMySubscribedTopics(
-      BuildContext context) async {
+  static Future<List<String>?> readMySubscribedTopics(BuildContext context) async {
     List<String>? _topics;
 
     final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
@@ -763,7 +764,6 @@ class FCM {
 
     return _topics;
   }
-
   // -----------------------------------------------------------------------------
 
   /// DEVICE TOKEN
