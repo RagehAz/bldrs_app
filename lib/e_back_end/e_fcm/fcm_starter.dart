@@ -271,9 +271,7 @@ class FCMStarter {
 
         // blog('should send a fucking noot title ${_note.title} : body ${_note.body}');
 
-        await Future.wait(<Future>[
-
-          FCM.pushGlobalNoot(
+        await FCM.pushGlobalNoot(
             channelModel: channelModel,
             title: _note.title,
             body: _note.body,
@@ -290,9 +288,8 @@ class FCMStarter {
               hashMap: remoteMessage.data,
               stringifyNonStrings: false,
             ),
-          ),
+          );
 
-        ]);
 
       }
 
