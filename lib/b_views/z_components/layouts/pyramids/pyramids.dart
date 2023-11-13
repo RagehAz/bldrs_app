@@ -1,12 +1,15 @@
 // ignore_for_file: unused_element
-import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 enum PyramidType{
   yellow,
@@ -183,54 +186,82 @@ class _PyramidsWidgetTree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    /// NEW
     return GestureDetector(
-        onTap: onPyramidTap == null ? null : () => onPyramidTap?.call(),
-        onDoubleTap: onPyramidDoubleTap,
-        child:
+      onTap: onPyramidTap == null ? null : () => onPyramidTap?.call(),
+      onDoubleTap: onPyramidDoubleTap,
+      child: _PyramidsLoadingChecker(
+        loading: loading,
+        builder: (bool isLoading){
 
-        loading is ValueNotifier<bool> ?
-        ValueListenableBuilder(
-          valueListenable: loading,
-          child: _PyramidGraphic(pyramidType: pyramidType, color: color),
-          // child: _PyramidGraphic(PyramidType pyramidType, color),
-          builder: (_, bool loading, Widget? child){
-
-            return WidgetFader(
-              fadeType: loading == true ? FadeType.repeatAndReverse : FadeType.fadeIn,
-              duration: const Duration(milliseconds: 600),
-              min: 0.4,
-              child: child,
-            );
+          return WidgetFader(
+            fadeType: isLoading == true ? FadeType.repeatAndReverse : FadeType.fadeIn,
+            duration: const Duration(milliseconds: 600),
+            min: 0.4,
+            child: _PyramidGraphic(
+              pyramidType: pyramidType,
+              color: color,
+              isLoading: isLoading,
+            ),
+          );
 
           },
-        )
 
-            :
-
-        loading is bool ?
-        WidgetFader(
-          fadeType: loading == true ? FadeType.repeatAndReverse : FadeType.fadeIn,
-          duration: const Duration(milliseconds: 600),
-          min: 0.4,
-          child: _PyramidGraphic(
-              pyramidType: pyramidType,
-              color: color,
-          ),
-        )
-
-            :
-
-        WidgetFader(
-          fadeType: FadeType.stillAtMax,
-          duration: const Duration(milliseconds: 400),
-          min: 0.4,
-          child: _PyramidGraphic(
-              pyramidType: pyramidType,
-              color: color,
-          ),
-        )
-
+      ),
     );
+
+    /// OLD
+    // return GestureDetector(
+    //     onTap: onPyramidTap == null ? null : () => onPyramidTap?.call(),
+    //     onDoubleTap: onPyramidDoubleTap,
+    //     child:
+    //
+    //     loading is ValueNotifier<bool> ?
+    //     ValueListenableBuilder(
+    //       valueListenable: loading,
+    //       // child: _PyramidGraphic(PyramidType pyramidType, color),
+    //       builder: (_, bool loading, Widget? child){
+    //
+    //         return WidgetFader(
+    //           fadeType: loading == true ? FadeType.repeatAndReverse : FadeType.fadeIn,
+    //           duration: const Duration(milliseconds: 600),
+    //           min: 0.4,
+    //           child: child,
+    //         );
+    //
+    //       },
+    //       child: _PyramidGraphic(
+    //         pyramidType: pyramidType,
+    //         color: color,
+    //       ),
+    //     )
+    //
+    //         :
+    //
+    //     loading is bool ?
+    //     WidgetFader(
+    //       fadeType: loading == true ? FadeType.repeatAndReverse : FadeType.fadeIn,
+    //       duration: const Duration(milliseconds: 600),
+    //       min: 0.4,
+    //       child: _PyramidGraphic(
+    //           pyramidType: pyramidType,
+    //           color: color,
+    //       ),
+    //     )
+    //
+    //         :
+    //
+    //     WidgetFader(
+    //       fadeType: FadeType.stillAtMax,
+    //       duration: const Duration(milliseconds: 400),
+    //       min: 0.4,
+    //       child: _PyramidGraphic(
+    //           pyramidType: pyramidType,
+    //           color: color,
+    //       ),
+    //     )
+    //
+    // );
 
   }
   /// --------------------------------------------------------------------------
@@ -241,11 +272,13 @@ class _PyramidGraphic extends StatelessWidget {
   const _PyramidGraphic({
     this.pyramidType,
     this.color,
+    this.isLoading = false,
     super.key
   });
   // -----------------------------------------------------------------------------
   final PyramidType? pyramidType;
   final Color? color;
+  final bool isLoading;
   // -----------------------------------------------------------------------------
   String? getPyramid(PyramidType? type){
 
@@ -265,35 +298,25 @@ class _PyramidGraphic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    /// IF ADMIN
-    if (imAdmin(context) == true){
-
       final String? _pyramidIcon = getPyramid(pyramidType);
 
-      return BldrsImage(
-        width: 256 * 0.7,
-        height: 80 * 0.7,
-        iconColor: color,
-        pic: _pyramidIcon,
-        fit: BoxFit.fitWidth,
+      return Column(
+        children: [
+
+          /// TRIANGLE
+          const _RedTriangle(),
+
+          /// PYRAMID
+          BldrsImage(
+            width: 256 * 0.7,
+            height: 80 * 0.7,
+            iconColor: color,
+            pic: _pyramidIcon,
+            fit: BoxFit.fitWidth,
+          ),
+
+        ],
       );
-
-    }
-
-    /// IF USER
-    else {
-
-      final String? _pyramidIcon = getPyramid(pyramidType);
-
-      return BldrsImage(
-        width: 256 * 0.7,
-        height: 80 * 0.7,
-        iconColor: color,
-        pic: _pyramidIcon,
-        fit: BoxFit.fitWidth,
-      );
-
-    }
 
   }
   // -----------------------------------------------------------------------------
@@ -305,4 +328,110 @@ bool imAdmin(BuildContext context){
     listen: true,
   );
   return _userModel?.isAdmin ?? false;
+}
+
+class _PyramidsLoadingChecker extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const _PyramidsLoadingChecker({
+    required this.loading,
+    required this.builder,
+    super.key
+  });
+  /// --------------------------------------------------------------------------
+  final dynamic loading;
+  final Widget Function(bool isLoading) builder;
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+    // --------------------
+    if (loading is ValueNotifier<bool>){
+      return ValueListenableBuilder(
+        valueListenable: loading,
+        builder: (_, bool isLoading, Widget? child){
+          return builder(isLoading);
+          },
+      );
+    }
+    // --------------------
+    else if (loading is bool){
+      return builder(loading);
+    }
+    // --------------------
+    else {
+      return builder(false);
+    }
+    // --------------------
+  }
+  /// --------------------------------------------------------------------------
+}
+
+class _RedTriangle extends StatelessWidget {
+  // -----------------------------------------------------------------------------
+  const _RedTriangle({
+    super.key
+  });
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return Selector<UiProvider, bool>(
+        key: const ValueKey<String>('_RedTriangle'),
+        selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
+        builder: (_, bool? expanded, Widget? child) {
+
+          final bool _isExpanded = Mapper.boolIsTrue(expanded);
+
+          return Selector<NotesProvider, bool>(
+              selector: (_,NotesProvider notesProvider) => notesProvider.isFlashing,
+              builder: (_, bool isFlashing, Widget? child){
+
+                if (_isExpanded == true){
+                  return const SizedBox();
+                }
+
+                else if (isFlashing == false){
+                  return const SizedBox();
+                }
+
+                else {
+                  return IgnorePointer(
+                    child: Container(
+                      width: 256 * 0.7,
+                      height: 40,
+                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.only(
+                          right: 136.2 * 0.7
+                      ),
+                      child: WidgetFader(
+                        fadeType: FadeType.repeatForwards,
+                        duration: const Duration(milliseconds: 600),
+                        builder: (double value, Widget? child) {
+                          return Transform.translate(
+                            offset: Offset(0, value * 10),
+                            child: child,
+                          );
+                          },
+                        child: const RotatedBox(
+                          quarterTurns: 2,
+                          child: BldrsImage(
+                            width: 25 * 0.7,
+                            height: 25 * 0.7,
+                            pic: Iconz.pyramidSingleYellow,
+                            corners: 0,
+                            iconColor: Colorz.yellow255,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }
+
+              }
+              );
+
+        }
+        );
+
+  }
+  // -----------------------------------------------------------------------------
 }

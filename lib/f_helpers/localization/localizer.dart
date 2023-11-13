@@ -184,7 +184,7 @@ class Localizer {
       case 'hi': return 'हिन्दी';
       case 'ru': return 'Русский';
       case 'pt': return 'Português';
-      // case 'fa': return 'فارسی';
+      case 'fa': return 'فارسی';
       default: return '';
     }
 

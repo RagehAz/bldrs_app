@@ -39,10 +39,10 @@ Future<void> bldrsAppOnBackgroundMessageHandler(RemoteMessage remoteMessage) asy
     // nativePersistentStoragePath: ,
   );
 
-  FCM.blogRemoteMessage(
-    remoteMessage: remoteMessage,
-    invoker: 'onBackgroundMessageHandler',
-  );
+  // FCM.blogRemoteMessage(
+  //   remoteMessage: remoteMessage,
+  //   invoker: 'onBackgroundMessageHandler',
+  // );
 
   await FCMStarter.pushGlobalNootFromRemoteMessage(
     channelModel: ChannelModel.bldrsChannel,
@@ -84,7 +84,6 @@ Future<void> bldrsDashboardOnBackgroundMessageHandler(RemoteMessage remoteMessag
   );
 
 }
-
 
 /// WAS TESTING THIS
 Future<void> backgroundPushHandler(RemoteMessage remoteMessage) async {

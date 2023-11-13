@@ -19,7 +19,7 @@ class PyramidFloatingButton extends StatelessWidget {
   });
   /// ---------------------------------------------------------------------------
   final int redDotCount;
-  final String icon;
+  final dynamic icon;
   final Color? color;
   final Function? onTap;
   final Function? onLongTap;

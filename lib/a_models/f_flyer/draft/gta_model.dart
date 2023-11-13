@@ -548,7 +548,7 @@ class GtaModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double? _getStarsFromScrappedString(String starsString){
+  static double? _getStarsFromScrappedString(String? starsString){
     double? _output;
     /// comes in this form  : 4.8 out of 5 stars
 
@@ -556,7 +556,7 @@ class GtaModel {
 
       // (4.8 )
       String? _string = TextMod.removeTextAfterFirstSpecialCharacter(
-          text: starsString.trim(),
+          text: starsString!.trim(),
           specialCharacter: 'out',
       );
       _string = _string?.trim();
@@ -687,6 +687,18 @@ class GtaModel {
 
       // Replace the pattern with an empty string
       _output = aboutItemString?.replaceAll(pattern, '');
+
+      _output = TextMod.modifyAllCharactersWith(
+          input: _output,
+          characterToReplace: '\n',
+          replacement: '\n\n',
+      );
+
+      _output = TextMod.modifyAllCharactersWith(
+          input: _output,
+          characterToReplace: '. ',
+          replacement: '\n\n',
+      );
 
     }
 
