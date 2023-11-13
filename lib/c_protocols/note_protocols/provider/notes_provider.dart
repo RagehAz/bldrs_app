@@ -24,6 +24,15 @@ class NotesProvider extends ChangeNotifier {
   bool get isFlashing => _isFlashing;
   // --------------------
   /// TESTED : WORKS PERFECT
+  static bool proGetIsFlashing({
+    required BuildContext context,
+    required bool listen,
+  }){
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
+    return _notesProvider.isFlashing;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   void _setIsFlashing({
     required bool setTo,
     required bool notify,

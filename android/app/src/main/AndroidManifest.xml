@@ -23,6 +23,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
     <!--    To opt out of the Advertising ID Permission,    -->
@@ -106,7 +107,6 @@
                   android:turnScreenOn="true"
                   android:windowSoftInputMode="adjustResize">
 
-
             <!--  DEPRECATED OLD SPLASH SCREEN -->
             <!--  <meta-data-->
             <!--          android:name="io.flutter.embedding.android.NormalTheme"-->
@@ -163,5 +163,7 @@
         </activity>
 
     </application>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
 </manifest>

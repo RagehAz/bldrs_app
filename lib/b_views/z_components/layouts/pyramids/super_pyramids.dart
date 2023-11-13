@@ -47,27 +47,27 @@ class SuperPyramids extends StatelessWidget {
       },
 
       child: Stack(
-            key: const ValueKey('SuperPyramids_stack'),
-            children: <Widget>[
+        key: const ValueKey('SuperPyramids_stack'),
+        children: <Widget>[
 
-              /// SINGLE PYRAMID
-              const ObeliskExpandingPyramid(),
+          /// SINGLE PYRAMID
+          const ObeliskExpandingPyramid(),
 
-              /// OBELISK
-              Obelisk(
-                onRowTap: onRowTap,
-                progressBarModel: progressBarModel,
-                navModels: navModels,
-              ),
-
-              /// PYRAMIDS
-              ObeliskPyramids(
-                isYellow: isYellow,
-                mounted: mounted,
-              ),
-
-            ],
+          /// OBELISK
+          Obelisk(
+            onRowTap: onRowTap,
+            progressBarModel: progressBarModel,
+            navModels: navModels,
           ),
+
+          /// PYRAMIDS
+          ObeliskPyramids(
+            isYellow: isYellow,
+            mounted: mounted,
+          ),
+
+        ],
+      ),
     );
 
   }
