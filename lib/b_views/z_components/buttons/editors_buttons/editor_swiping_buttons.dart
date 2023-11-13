@@ -99,7 +99,7 @@ class EditorSwipingButtons extends StatelessWidget {
         pageController: pageController,
         toIndex: toIndex,
         curve: Curves.easeInOut,
-        // duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 300),
       );
 
     }

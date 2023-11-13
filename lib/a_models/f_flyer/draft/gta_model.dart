@@ -327,6 +327,11 @@ class GtaModel {
           product: gtaModel,
         );
 
+      final ZoneModel? _zone = await _getGtaFlyerZone(
+        bzModel: bzModel,
+        gtaModel: gtaModel,
+      );
+
       _output = DraftFlyer(
         bzModel: bzModel,
         id: DraftFlyer.newDraftID,
@@ -339,7 +344,7 @@ class GtaModel {
         publishState: PublishState.draft,
         phids: phids,
         showsAuthor: false,
-        zone: gtaModel.countryID == null ? null : ZoneModel(countryID: gtaModel.countryID!),
+        zone: _zone,
         authorID: Authing.getUserID(),
         bzID: bzModel?.id,
         position: null,
@@ -378,6 +383,42 @@ class GtaModel {
       // _output = _output.copyWith(
       //   poster: _poster,
       // );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<ZoneModel?> _getGtaFlyerZone({
+    required BzModel? bzModel,
+    required GtaModel gtaModel,
+}) async {
+    ZoneModel? _output = bzModel?.zone;
+
+    if (bzModel?.zone?.countryID != gtaModel.countryID){
+
+      // final String _langCode = Localizer.getCurrentLangCode();
+      //
+      // final String? _bzCountry = CountryModel.translateCountry(
+      //   langCode: _langCode,
+      //   countryID: bzModel?.zone?.countryID,
+      // );
+      //
+      // final String? _gtaCountry = CountryModel.translateCountry(
+      //   langCode: Localizer.getCurrentLangCode(),
+      //   countryID: gtaModel.countryID,
+      // );
+      //
+      // await Dialogs.topNotice(
+      //   verse: Verse.plain('Bz account is ( $_bzCountry ) but product is ( $_gtaCountry )'),
+      //   // take care
+      //   body: Verse.plain('This will override the flyer zone, and will use the product country instead'),
+      // );
+
+      if (gtaModel.countryID != null){
+        _output = ZoneModel(countryID: gtaModel.countryID!);
+      }
 
     }
 
