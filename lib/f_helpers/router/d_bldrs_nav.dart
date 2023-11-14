@@ -7,12 +7,10 @@ import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/super_image/super_image.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoomable_flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -28,7 +26,6 @@ import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
-import 'package:fire/super_fire.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -285,8 +282,10 @@ class BldrsNav {
 
   }
   // --------------------
+  ///DEPRECATED
+  /*
   /// REBOOT TO INIT NEW BZ SCREEN
-  static Future<void> goRebootToInitNewBzScreen({
+  static Future<void> goRebootToInitNewBzScreenx({
     required BzModel? bzModel,
   }) async {
 
@@ -301,19 +300,16 @@ class BldrsNav {
         navAfterDone: false,
       );
 
-      UiProvider.proSetAfterHomeRoute(
-        routeName: RouteName.myBzAboutPage,
+      await BldrsNav.restartAndRoute(
+        route: RouteName.myBzAboutPage,
         arguments: bzModel.id,
-        notify: true,
-      );
-
-      await pushLogoRouteAndRemoveAllBelow(
-        animatedLogoScreen: true,
+        goToAnimatedLogoScreen: true,
       );
 
     }
 
   }
+   */
   // --------------------
   /// bzEditor
   /*
@@ -588,6 +584,7 @@ class BldrsNav {
   static Future<void> restartAndRoute({
     String? route,
     dynamic arguments,
+    bool goToAnimatedLogoScreen = false,
   }) async {
 
     if (route != null) {
@@ -599,7 +596,7 @@ class BldrsNav {
     }
 
     await BldrsNav.pushLogoRouteAndRemoveAllBelow(
-      animatedLogoScreen: false,
+      animatedLogoScreen: goToAnimatedLogoScreen,
     );
 
   }

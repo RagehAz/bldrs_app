@@ -86,10 +86,10 @@ class NewAuthorshipExit {
     if (_canDelete == true){
 
       /// THIS PREVENTS BZ STREAM FROM FIRING (onIGotRemoved) METHOD
-      await Nav.goBackUntil(
-          context: getMainContext(),
-          routeName: '/',
-      );
+      // await Nav.goBackUntil(
+      //     context: getMainContext(),
+      //     routeName: '/',
+      // );
 
       /// SHOW WAIT DIALOG
       _showRemovingAuthorWaitDialog(
@@ -209,49 +209,54 @@ class NewAuthorshipExit {
       if (_bzModel != null){
 
         /// SHOW NOTICE CENTER DIALOG : is switched of to clean wipe bz sequence
-        // await _iGotDeletedNoticeDialog(
-        //   bzID: bzID,
-        //   isBzDeleted: isBzDeleted,
-        // );
+          // await _iGotDeletedNoticeDialog(
+          //   bzID: bzID,
+          //   isBzDeleted: isBzDeleted,
+          // );
 
-        /// SHOW WAIT DIALOG
-        _showRemovingAuthorWaitDialog(
-          isBzDeleted: isBzDeleted,
-        );
+          /// SHOW WAIT DIALOG
+          _showRemovingAuthorWaitDialog(
+            isBzDeleted: isBzDeleted,
+          );
 
-        await Future.wait(<Future>[
+          await Future.wait(<Future>[
 
-          /// (only i can) : REMOVE BZ FROM PRO MY BZZ
-          /// (only i can) : REMOVE BZ & BZ TOPICS FROM MY USER MODEL
-          /// (only i can) : UNSUBSCRIBE FROM BZ FCM TOPICS
-          /// (only i can) : WIPE AUTHOR PIC
-          /// (only i can) : RENOVATE MY USER MODEL
-          /// (only i can) : REMOVE BZ NOTES FROM OBELISK NUMBERS
-          _doAllMyUserRemovalFromBzOps(
-            bzID: bzID,
-          ),
-          /// (only i can) : UPDATE BZ LOCALLY
-          BzProtocols.deleteLocally(
-            bzID: bzID,
-            invoker: 'onIGotRemoved',
-          ),
+            /// (only i can) : REMOVE BZ FROM PRO MY BZZ
+            /// (only i can) : REMOVE BZ & BZ TOPICS FROM MY USER MODEL
+            /// (only i can) : UNSUBSCRIBE FROM BZ FCM TOPICS
+            /// (only i can) : WIPE AUTHOR PIC
+            /// (only i can) : RENOVATE MY USER MODEL
+            /// (only i can) : REMOVE BZ NOTES FROM OBELISK NUMBERS
+            _doAllMyUserRemovalFromBzOps(
+              bzID: bzID,
+            ),
+            /// (only i can) : UPDATE BZ LOCALLY
+            BzProtocols.deleteLocally(
+              bzID: bzID,
+              invoker: 'onIGotRemoved',
+            ),
 
-        ]);
+          ]);
 
-        /// CLOSE WAIT DIALOG
-        await _closeWaitDialog();
+          // /// CLOSE WAIT DIALOG
+          // await _closeWaitDialog();
 
-        /// GO HOME
-        await Nav.pushHomeAndRemoveAllBelow(
-          context: getMainContext(),
-          invoker: 'NewAuthorshipExit.onRemoveMySelf',
-          homeRoute: RouteName.home,
-        );
+          /// GO HOME
+          if (isBzDeleted == false){
 
-        /// SHOW SUCCESS CENTER DIALOG
-        await _showRemovedAuthorSuccessDialog(
-          isBzDeleted: isBzDeleted,
-        );
+            await Nav.pushHomeAndRemoveAllBelow(
+              context: getMainContext(),
+              invoker: 'NewAuthorshipExit.onRemoveMySelf',
+              homeRoute: RouteName.home,
+            );
+
+            /// SHOW SUCCESS CENTER DIALOG
+            await _showRemovedAuthorSuccessDialog(
+              isBzDeleted: isBzDeleted,
+            );
+
+          }
+
 
       }
 

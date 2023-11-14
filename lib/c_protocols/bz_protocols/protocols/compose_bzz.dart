@@ -20,7 +20,6 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:provider/provider.dart';
 
 /// => TAMAM
@@ -120,11 +119,6 @@ class ComposeBzProtocols {
           translate: true,
         ),
         // color: Colorz.green255,
-      );
-
-      /// NAVIGATE
-      await BldrsNav.goRebootToInitNewBzScreen(
-        bzModel: _bzModel,
       );
 
     }

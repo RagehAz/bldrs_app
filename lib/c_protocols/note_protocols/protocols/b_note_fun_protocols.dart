@@ -157,18 +157,18 @@ class NoteFunProtocols {
         TriggerModel.checkIFiredThisTrigger(noteModel.function) == false
     ){
 
-      await _triggerSwitcher(
-        trigger: noteModel.function!,
-      );
 
-      final NoteModel? _newNote = TriggerModel.addMeToTriggerDones(
-        noteModel: noteModel,
-      );
+      await Future.wait(<Future>[
 
-      await NoteProtocols.renovate(
-        oldNote: noteModel,
-        newNote: _newNote,
-      );
+        _triggerSwitcher(
+          trigger: noteModel.function!,
+        ),
+
+        _addMeToDones(
+          noteModel: noteModel,
+        ),
+
+      ]);
 
       // blog('trigger is done successfully');
     }
@@ -274,6 +274,22 @@ class NoteFunProtocols {
     // else {
     //   blog('X--> Switcher : trigger is null or already fired : END');
     // }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _addMeToDones({
+    required NoteModel noteModel,
+  }) async {
+
+    final NoteModel? _newNote = TriggerModel.addMeToTriggerDones(
+      noteModel: noteModel,
+    );
+
+    await NoteProtocols.renovate(
+      oldNote: noteModel,
+      newNote: _newNote,
+    );
 
   }
   // -----------------------------------------------------------------------------
