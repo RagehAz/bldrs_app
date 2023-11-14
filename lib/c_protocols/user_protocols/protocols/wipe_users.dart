@@ -183,8 +183,8 @@ class WipeUserProtocols {
               context: getMainContext(),
               bzModel: _myBzzICreated[index],
               showWaitDialog: true,
-              includeMyselfInBzDeletionNote: false,
-              deleteBzLocally: true
+              // includeMyselfInBzDeletionNote: true,
+              // deleteBzLocally: true
           );
 
         }),

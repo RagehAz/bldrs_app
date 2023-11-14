@@ -40,8 +40,8 @@ class WipeBzProtocols {
     required BuildContext context,
     required BzModel? bzModel,
     required bool showWaitDialog,
-    required bool includeMyselfInBzDeletionNote,
-    required bool deleteBzLocally,
+    // required bool includeMyselfInBzDeletionNote,
+    // required bool deleteBzLocally,
   }) async {
 
     blog('WipeBzProtocol.wipeBz : START');
@@ -96,20 +96,20 @@ class WipeBzProtocols {
         BzFireOps.delete(
           bzModel: bzModel,
         ),
-        /// DELETE LOCALLY
-        if (deleteBzLocally == true)
-          /// DELETING BZ LOCALLY IMPACTS LISTENING TO NOTE TRIGGERS
-          deleteLocally(
-            bzID: bzModel.id,
-            invoker: 'wipeBz',
-          ),
+        /// DELETE LOCALLY : IS HANDLED BY NOTE TRIGGER FOR EACH AUTHOR
+        // if (deleteBzLocally == true)
+        //   /// DELETING BZ LOCALLY IMPACTS LISTENING TO NOTE TRIGGERS
+        //   deleteLocally(
+        //     bzID: bzModel.id,
+        //     invoker: 'wipeBz',
+        //   ),
 
       ]);
 
       /// SEND DELETION NOTES TO AUTHORS
       await NoteEvent.sendBzDeletionNoteToAllAuthors(
         bzModel: bzModel,
-        includeMyself: includeMyselfInBzDeletionNote,
+        includeMyself: true,
       );
 
       /// CLOSE DIALOG BEFORE SENDING NOTES => FIXES A goBack() bug

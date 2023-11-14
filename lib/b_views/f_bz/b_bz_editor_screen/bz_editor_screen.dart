@@ -543,8 +543,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
             // blog('draft?.logoPicModel : ${draft?.logoPicModel?.bytes}');
             // blog('canValidate : ${draft?.canValidate}');
 
-            blog('chaning draft bz');
-
           return Form(
             key: draft?.formKey,
             child: PagerBuilder(

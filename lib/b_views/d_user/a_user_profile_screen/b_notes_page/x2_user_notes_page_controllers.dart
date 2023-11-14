@@ -169,7 +169,6 @@ Future<void> _wipeNote({
 // --------------------
 ///
 Future<void> onNoteButtonTap({
-  required BuildContext context,
   required String reply,
   required NoteModel noteModel,
 }) async {
@@ -182,7 +181,6 @@ Future<void> onNoteButtonTap({
   if (NoteModel.checkIsAuthorshipNote(noteModel) == true){
 
     await AuthorshipProtocols.respondToInvitation(
-        context: context,
         noteModel: noteModel,
         reply: reply
     );

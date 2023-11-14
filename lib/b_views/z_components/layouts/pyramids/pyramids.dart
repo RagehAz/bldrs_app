@@ -1,6 +1,5 @@
 // ignore_for_file: unused_element
 import 'package:basics/animators/widgets/widget_fader.dart';
-import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -304,7 +303,7 @@ class _PyramidGraphic extends StatelessWidget {
         children: [
 
           /// TRIANGLE
-          const _RedTriangle(),
+          const _PyramidArrow(),
 
           /// PYRAMID
           BldrsImage(
@@ -365,9 +364,9 @@ class _PyramidsLoadingChecker extends StatelessWidget {
   /// --------------------------------------------------------------------------
 }
 
-class _RedTriangle extends StatelessWidget {
+class _PyramidArrow extends StatelessWidget {
   // -----------------------------------------------------------------------------
-  const _RedTriangle({
+  const _PyramidArrow({
     super.key
   });
   // -----------------------------------------------------------------------------
@@ -418,7 +417,7 @@ class _RedTriangle extends StatelessWidget {
                             height: 25 * 0.7,
                             pic: Iconz.pyramidSingleYellow,
                             corners: 0,
-                            iconColor: Colorz.yellow255,
+                            // iconColor: Colorz.red255,
                           ),
                         ),
                       ),
