@@ -59,7 +59,7 @@ class UserCounterBubble extends StatelessWidget {
                 /// VIEWS
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.views} ${getWord('phid_total_flyer_views')}',
+                    id: '${_counter.views} ${getWord('phid_views')}',
                     translate: false,
                   ),
                   icon: Iconz.viewsIcon,
@@ -68,7 +68,7 @@ class UserCounterBubble extends StatelessWidget {
                 /// SAVES
                 StatsLine(
                   verse: Verse(
-                      id: '${_counter.saves} ${getWord('phid_totalSaves')}',
+                      id: '${_counter.saves} ${getWord('phid_saves')}',
                       translate: false,
                   ),
                   icon: Iconz.save,
@@ -77,7 +77,7 @@ class UserCounterBubble extends StatelessWidget {
                 /// REVIEWS
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.reviews} ${getWord('phid_total_reviews')}',
+                    id: '${_counter.reviews} ${getWord('phid_reviews')}',
                     translate: false,
                   ),
                   icon: Iconz.balloonSpeaking,
@@ -86,7 +86,7 @@ class UserCounterBubble extends StatelessWidget {
                 /// SHARES
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.shares} ${getWord('phid_totalShares')}',
+                    id: '${_counter.shares} ${getWord('phid_shares')}',
                     translate: false,
                   ),
                   icon: Iconz.share,
@@ -95,16 +95,16 @@ class UserCounterBubble extends StatelessWidget {
                 /// FOLLOWING
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.follows} ${getWord('phid_totalFollows')}',
+                    id: '${_counter.follows} ${getWord('phid_following')}',
                     translate: false,
                   ),
-                  icon: Iconz.follow,
+                  icon: Iconz.bzWhite,
                 ),
 
                 /// CALLS
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.calls} ${getWord('phid_totalCalls')}',
+                    id: '${_counter.calls} ${getWord('phid_calls')}',
                     translate: false,
                   ),
                   icon: Iconz.comPhone,
