@@ -1,3 +1,10 @@
+### 2.14.0
+1. Font, Text & translations adjustments
+2. Author invitation cycle fixed
+3. Business account creation - deletion cycle fixed
+4. Ui, Sound & UX updates
+5. Flyer Creation & editing fixes
+
 ### 2.13.0
 1. Ui updates
 2. Updated price tag designs
