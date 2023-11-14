@@ -1,6 +1,7 @@
 import 'dart:async';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:fire/super_fire.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
@@ -12,12 +13,13 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
-import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
+import 'package:fire/super_fire.dart';
 /// => TAMAM
 class AuthorshipRespondingProtocols{
   // -----------------------------------------------------------------------------
@@ -27,7 +29,6 @@ class AuthorshipRespondingProtocols{
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> respond({
-    required BuildContext context,
     required String reply,
     required NoteModel noteModel,
   }) async {
@@ -78,7 +79,6 @@ class AuthorshipRespondingProtocols{
       /// ACCEPT AUTHORSHIP
       if (reply == PollModel.accept){
         await _onAcceptInvitation(
-          context: context,
           noteModel: noteModel,
           bzModel: _bzModel,
         );
@@ -87,7 +87,6 @@ class AuthorshipRespondingProtocols{
       /// DECLINE AUTHORSHIP
       else if (reply == PollModel.decline){
         await _onDeclineInvitation(
-          context: context,
           noteModel: noteModel,
         );
       }
@@ -106,7 +105,6 @@ class AuthorshipRespondingProtocols{
   // -------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _onAcceptInvitation({
-    required BuildContext context,
     required NoteModel noteModel,
     required BzModel? bzModel,
   }) async {
@@ -136,7 +134,6 @@ class AuthorshipRespondingProtocols{
       );
 
       await _acceptRequest(
-        context: context,
         bzModel: bzModel,
         noteModel: noteModel,
       );
@@ -159,16 +156,17 @@ class AuthorshipRespondingProtocols{
         ),
       );
 
-      await _goToAuthorEditor(
-        context: context,
+      await goToAuthorEditor(
         bzID: bzModel?.id,
       );
 
       /// NOTE : a system reboot is required at that point
       /// to allow home screen re-init my bzz notes stream to include this bz
       /// and listen to its live notes
-      await BldrsNav.goRebootToInitNewBzScreen(
-        bzModel: bzModel,
+      await BldrsNav.restartAndRoute(
+        route: RouteName.myBzAboutPage,
+        arguments: bzModel?.id,
+        goToAnimatedLogoScreen: true,
       );
 
     }
@@ -176,7 +174,6 @@ class AuthorshipRespondingProtocols{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _acceptRequest({
-    required BuildContext context,
     required BzModel? bzModel,
     required NoteModel? noteModel,
   }) async {
@@ -209,19 +206,19 @@ class AuthorshipRespondingProtocols{
     );
 
     await NoteEvent.sendAuthorshipAcceptanceNote(
-      context: context,
+      context: getMainContext(),
       bzID: noteModel?.parties?.senderID,
     );
 
   }
   // --------------------
-  /// TASK : TEST ME
-  static Future<void> _goToAuthorEditor({
-    required BuildContext context,
+  /// TESTED : WORKS PERFECT
+  static Future<BzModel?> goToAuthorEditor({
     required String? bzID,
+    AuthorModel? author,
   }) async {
 
-    final BzModel? _bzModel = await BzProtocols.fetchBz(
+    BzModel? _bzModel = await BzProtocols.fetchBz(
       bzID: bzID,
     );
 
@@ -229,18 +226,24 @@ class AuthorshipRespondingProtocols{
 
       final AuthorModel? _authorModel = AuthorModel.getAuthorFromAuthorsByID(
         authors: _bzModel?.authors,
-        authorID: Authing.getUserID()!,
+        authorID: author?.userID ?? Authing.getUserID()!,
       );
 
-      await Nav.goToNewScreen(
-        context: context,
+      final BzModel? _bz = await Nav.goToNewScreen(
+        context: getMainContext(),
         screen: AuthorEditorScreen(
           author: _authorModel!,
           bzModel: _bzModel!,
         ),
-
       );
+
+      if (_bz != null){
+        _bzModel = _bz;
+      }
+
     }
+
+    return _bzModel;
   }
   // -----------------------------------------------------------------------------
 
@@ -249,7 +252,6 @@ class AuthorshipRespondingProtocols{
   // -------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _onDeclineInvitation({
-    required BuildContext context,
     required NoteModel noteModel,
   }) async {
     blog('_declineAuthorshipInvitation : decline ');
@@ -273,7 +275,6 @@ class AuthorshipRespondingProtocols{
     if (_result == true){
 
       await _declineRequest(
-        context: context,
         noteModel:  noteModel,
       );
 
@@ -283,7 +284,6 @@ class AuthorshipRespondingProtocols{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _declineRequest({
-    required BuildContext context,
     required NoteModel noteModel,
   }) async {
 
@@ -300,7 +300,7 @@ class AuthorshipRespondingProtocols{
     );
 
     await NoteEvent.sendAuthorshipDeclinationsNote(
-      context: context,
+      context: getMainContext(),
       bzID: noteModel.parties?.senderID,
     );
 

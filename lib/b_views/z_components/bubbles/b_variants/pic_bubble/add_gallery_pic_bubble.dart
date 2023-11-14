@@ -132,9 +132,10 @@ class AddImagePicBubble extends StatelessWidget {
 
                   /// PICTURE LAYER
                   _FilePicSplitter(
-                      picModel: picModel,
-                      bubbleType: bubbleType,
-                      picWidth: picWidth
+                    picModel: picModel,
+                    bubbleType: bubbleType,
+                    picWidth: picWidth,
+
                   ),
 
                   /// PLUS ICON LAYER
@@ -336,6 +337,7 @@ class _PlusIconLayer extends StatelessWidget {
         bubble: false,
         opacity: 0.9,
         iconColor: Colorz.white255,
+        color: Colorz.white20,
         onTap: () => onAddPic?.call(PicMakerType.galleryImage),
         onLongTap: onLongTap,
       );

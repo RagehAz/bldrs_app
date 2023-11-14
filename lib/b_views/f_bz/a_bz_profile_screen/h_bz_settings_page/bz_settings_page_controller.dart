@@ -76,15 +76,15 @@ Future<void> onDeleteBzButtonTap({
       context: context,
       bzModel: bzModel,
       showWaitDialog: true,
-      includeMyselfInBzDeletionNote: true,
-      deleteBzLocally: true,
+      // includeMyselfInBzDeletionNote: true,
+      // deleteBzLocally: true,
     );
 
-    /// DELETE BZ LOCALLY
-    await BzProtocols.deleteLocally(
-      bzID: bzModel?.id,
-      invoker: 'onDeleteBzButtonTap',
-    );
+    // /// DELETE BZ LOCALLY
+    // await BzProtocols.deleteLocally(
+    //   bzID: bzModel?.id,
+    //   invoker: 'onDeleteBzButtonTap',
+    // );
 
     await Dialogs.centerNotice(
       verse: const Verse(
@@ -135,21 +135,16 @@ Future<bool> _preDeleteBzAccountChecks({
     if (_confirmedDeleteBz == true){
 
       /// IF BZ HAS NO FLYERS
-      if (PublicationModel.checkPublicationIsEmpty(publication: bzModel?.publication) == false) {
+      if (PublicationModel.checkPublicationIsEmpty(publication: bzModel?.publication) == true) {
         _canContinue = true;
       }
 
       /// IF BZ HAS FLYERS
       else {
 
-        final bool _confirmDeleteAllBzFlyers = await _showConfirmDeleteAllBzFlyersDialog(
+        _canContinue = await _showConfirmDeleteAllBzFlyersDialog(
           bzModel: bzModel,
         );
-
-        /// IF USER CONFIRMED TO DELETE ALL BZ FLYERS
-        if (_confirmDeleteAllBzFlyers == true){
-          _canContinue = true;
-        }
 
       }
 
