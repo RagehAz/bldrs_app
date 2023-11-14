@@ -4,12 +4,12 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
-import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/b_author_role_editor_screen.dart';
 import 'package:bldrs/b_views/f_bz/d_author_search_screen/a_author_search_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -19,8 +19,8 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
+import 'package:bldrs/c_protocols/authorship_protocols/d_authorship_responding.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
@@ -131,11 +131,18 @@ Future<void> onAuthorOptionsTap({
           invoker: 'onAuthorOptionsTap.Edit $_authorName Author details',
         );
 
-        await onGoToAuthorEditorScreen(
-          bzModel: oldBz,
-          authorModel: authorModel,
-          navAfterDone: true,
+        final BzModel? _newBz = await AuthorshipRespondingProtocols.goToAuthorEditor(
+          author: authorModel,
+          bzID: oldBz?.id,
         );
+
+        if (_newBz != null){
+          await BldrsNav.goToMyBzScreen(
+            bzID: _newBz.id,
+            replaceCurrentScreen: true,
+            initialTab: BzTab.team,
+          );
+        }
 
       },
     ),
@@ -169,6 +176,8 @@ Future<void> onAuthorOptionsTap({
 
       },
     ),
+
+    const DotSeparator(),
 
   ];
 
@@ -233,6 +242,8 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
 /// EDIT AUTHOR
 
 // --------------------
+/// DEPRECATED
+/*
 /// TESTED : WORKS PERFECT
 Future<void> onGoToAuthorEditorScreen({
   required AuthorModel? authorModel,
@@ -257,6 +268,7 @@ Future<void> onGoToAuthorEditorScreen({
   }
 
 }
+ */
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onShowCanNotEditAuthorDialog({
