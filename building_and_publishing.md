@@ -24,41 +24,22 @@ D:\projects\bldrs\bldrs_app\build\app\outputs\bundle\release
 
 ---
 
-### on ios error : No such module 'Flutter' : Xcode 13.2.1
-
-    ### super duper clean
-    delete ios/Pods
-    delete ios/Podfile.lock
-    delete pubspec.lock
-    flutter clean
-    flutter pub get
+### OLD TALISMAN
     pod deintegrate
     pod repo remove trunk
     sudo gem install cocoapods-deintegrate cocoapods-clean
     pod cache clean --all
     sudo gem uninstall cocoapods
     sudo gem install cocoapods
+    pod deintegrate
+    pod repo remove trunk
     pod setup
     pod install --verbose
     pod update --verbose
     flutter build ios-framework --output=Flutter -v
 
-    ### just clean build
-    delete ios/Pods
-    delete ios/Podfile.lock
-    delete pubspec.lock
-    flutter clean
-    flutter pub get
-    pod deintegrate
-    pod repo remove trunk
-    pod setup
-    pod install --verbose
-    flutter build ios-framework --output=Flutter -v
-
-if you want to create Release Files, 
-you should use command
-
-    flutter build ios-framework --no-debug --no-profile --release --output=Flutter
+## if you want to create Release Files, you should use command
+flutter build ios-framework --no-debug --no-profile --release --output=Flutter
 
 ---
 
@@ -78,7 +59,49 @@ https://www.youtube.com/watch?v=6QMadUJF78U
 ### PODS LOCATION
 /Users/rageh/Library/Caches/CocoaPods/Pods
 
-1. Bldrs.net does not track any data for advertising purpose neither shares it to any third party or any data broker.
-2. Bldrs.net does not use user data for third party advertising or my advertising or marketing
-3. data collection will only start if user decides to sign up a user account. and the default usage is the user uses the app anonymously
-4. Any data collected are optional to the user to add but might be mandatory to open authenticated users only sections, and all data collected are properly addressed to the user
+## The Final Building Talisman
+
+1. GO
+cd /Users/rageh/Developer/apps/bldrs
+rm pubspec.lock
+rm -rf ios/Pods
+rm ios/Podfile.lock
+cd /Users/rageh/Developer/apps/bldrs
+flutter clean
+flutter pub get
+brew reinstall cocoapods
+echo 'export PATH=$HOME/.gem/ruby/2.6.0/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+echo $PATH
+pod --version
+cd /Users/rageh/Developer/apps/bldrs/ios
+pod deintegrate
+pod setup
+pod cache clean --all
+pod install --verbose
+pod update --verbose
+flutter build ios-framework --output=Flutter -v
+
+
+
+
+## REINSTALL COCOAPODS
+gem install cocoapods --user-install
+
+## check the log for ruby updates to run
+gem update --system 3.4.22
+
+## fix path
+echo 'export PATH=$HOME/.gem/ruby/2.6.0/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+echo $PATH
+pod --version
+
+## OTHER
+brew install cocoapods
+
+
+
+
+
+
