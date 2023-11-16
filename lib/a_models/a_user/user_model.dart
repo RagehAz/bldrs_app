@@ -88,7 +88,7 @@ class UserModel {
   final AppStateModel? appState;
   final DateTime? lastSeen;
   final QueryDocumentSnapshot<Object?>? docSnapshot;
-   // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATION
 

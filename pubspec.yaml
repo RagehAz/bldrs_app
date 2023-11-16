@@ -31,14 +31,14 @@ dependencies:
 #  translator: ^0.1.7
   # ------------------------------------
   basics:
-#    path: D:/projects/packages/helpers/basics
-    git:
-      url: https://github.com/RagehAz/basics.git
+    path: D:/projects/packages/helpers/basics
+#    git:
+#      url: https://github.com/RagehAz/basics.git
   # ------------------------------------
   fire:
-#    path: D:/projects/packages/backend/fire
-    git:
-      url: https://github.com/RagehAz/fire.git
+    path: D:/projects/packages/backend/fire
+#    git:
+#      url: https://github.com/RagehAz/fire.git
   # ------------------------------------
   bldrs_keywords:
     git:
@@ -66,7 +66,7 @@ dependencies:
   flutter_keyboard_visibility: ^5.4.1
   app_settings: ^5.0.0
   flutter_cache_manager: ^3.3.1
-  photo_manager: ^2.7.1
+  photo_manager: 2.7.1
   share_plus: ^4.5.3
   circle_list: ^1.0.5
   wheel_chooser: ^1.1.2
