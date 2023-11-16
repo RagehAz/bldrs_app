@@ -2,6 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/models/flag_model.dart';
@@ -40,12 +41,14 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/super_tool_tip.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
+import 'package:bldrs/b_views/z_components/poster/variants/aa_bz_poster.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
+import 'package:bldrs/f_helpers/future_model_builders/bz_poster_flyer_builder.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
@@ -871,6 +874,106 @@ class Dialogs {
     }
 
     return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> bzOptionsDialog({
+    required BzModel bzModel,
+    required List<Widget> buttons,
+    Verse? title,
+  }) async {
+
+    final double _posterWidth = BottomDialog.clearWidth();
+    final double _posterHeight = NotePosterBox.getBoxHeight(_posterWidth);
+    const double _spacing = 5;
+    const double _dotHeight = 10;
+    final double _iOffset = _posterHeight * 0.05;
+    final double _iSize = _posterHeight * 0.15;
+    final int _buttonsCounts = buttons.length;
+
+    double _clearHeight =
+            (_buttonsCounts * BottomDialog.wideButtonHeight)
+            + _posterHeight
+            + (_spacing * _buttonsCounts)
+            + _dotHeight
+            + BottomDialog.draggerZoneHeight()
+            + DotSeparator.getTotalHeight();
+    _clearHeight = _clearHeight.clamp(0, Scale.screenHeight(getMainContext()) * 0.8);
+
+    await BottomDialog.showBottomDialog(
+      titleVerse: title,
+      height: _clearHeight,
+      child: Column(
+        children: <Widget>[
+
+          /// POSTER
+          Stack(
+            children: <Widget>[
+
+              /// POSTER IMAGE
+              BzPosterFlyerBuilder(
+                bzID: bzModel.id,
+                builder: (bool loading, FlyerModel? flyer) {
+
+                  return ClipRRect(
+                    borderRadius: Borderers.cornerAll(BottomDialog.dialogClearCornerValue()),
+                    child: BzPoster(
+                        width: _posterWidth,
+                        bzModel: bzModel,
+                        bzSlidesInOneFlyer: flyer,
+                        screenName: 'Dialog',
+                    ),
+                  );
+
+                }
+              ),
+
+              /// I ICON
+              SuperPositioned(
+                enAlignment: Alignment.topRight,
+                appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                verticalOffset: _iOffset,
+                horizontalOffset: _iOffset,
+                child: SuperToolTip(
+                  verse: const Verse(
+                    id: 'phid_poster_for_url',
+                    translate: true,
+                  ),
+                  triggerMode: TooltipTriggerMode.tap,
+                  child: BldrsBox(
+                    width: _iSize,
+                    height: _iSize,
+                    icon: Iconz.info,
+                    corners: _iSize * 0.5,
+                    color: Colorz.black255,
+                    iconSizeFactor: 0.6,
+                  ),
+                ),
+              ),
+
+            ],
+          ),
+
+          /// SEPARATOR
+          const Spacing(size: _spacing),
+
+          /// BUTTONS
+          ...List.generate(_buttonsCounts, (index){
+
+            return Padding(
+              padding: const EdgeInsets.only(bottom: _spacing),
+              child: buttons[index],
+            );
+
+          }),
+
+          /// SEPARATOR
+          const DotSeparator(),
+
+        ],
+      ),
+    );
+
   }
   // -----------------------------------------------------------------------------
 
