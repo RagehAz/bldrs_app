@@ -284,7 +284,6 @@ Future<void> onChangeBzSection({
     bzForm: true,
     inactiveBzForms: true,
     bzTypes: true,
-    scope: true,
   );
 
   setNotifier(
@@ -329,7 +328,6 @@ Future<void> onChangeBzType({
 
   _newDraft = _newDraft?.nullifyField(
     bzForm: true,
-    scope: true,
   );
 
   setNotifier(
