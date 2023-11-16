@@ -5,7 +5,10 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/models/flag_model.dart';
+import 'package:basics/helpers/widgets/drawing/spacing.dart';
+import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/super_image/super_image.dart';
@@ -32,11 +35,16 @@ import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/super_tool_tip.dart';
+import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
@@ -1072,6 +1080,99 @@ class Dialogs {
     );
 
     return _result;
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> flyerOptionsDialog({
+    required FlyerModel flyer,
+    required List<Widget> buttons,
+    Verse? title,
+  }) async {
+
+  flyer.blogFlyer(invoker: 'onFlyerBzOptionsTap');
+
+  final double _posterWidth = BottomDialog.clearWidth();
+  final double _posterHeight = NotePosterBox.getBoxHeight(_posterWidth);
+  const double _spacing = 5;
+  const double _dotHeight = 10;
+  final int _buttonsCounts = buttons.length;
+
+  double _clearHeight =
+          (_buttonsCounts * BottomDialog.wideButtonHeight)
+          + _posterHeight
+          + (_spacing * _buttonsCounts)
+          + _dotHeight
+          + BottomDialog.draggerZoneHeight()
+          + DotSeparator.getTotalHeight();
+
+  _clearHeight = _clearHeight.clamp(0, Scale.screenHeight(getMainContext()) * 0.8);
+
+  final double _iOffset = _posterHeight * 0.05;
+  final double _iSize = _posterHeight * 0.15;
+
+  await BottomDialog.showBottomDialog(
+    height: _clearHeight,
+    titleVerse: title,
+    child: Column(
+      children: <Widget>[
+
+        /// POSTER
+        Stack(
+          children: <Widget>[
+
+            /// POSTER IMAGE
+            BldrsImage(
+              pic: StoragePath.flyers_flyerID_poster(flyer.id),
+              height: _posterHeight,
+              width: _posterWidth,
+              corners: BldrsAppBar.corners,
+            ),
+
+            /// I ICON
+            SuperPositioned(
+              enAlignment: Alignment.topRight,
+              appIsLTR: UiProvider.checkAppIsLeftToRight(),
+              verticalOffset: _iOffset,
+              horizontalOffset: _iOffset,
+              child: SuperToolTip(
+                verse: const Verse(
+                  id: 'phid_poster_for_url',
+                  translate: true,
+                ),
+                triggerMode: TooltipTriggerMode.tap,
+                child: BldrsBox(
+                  width: _iSize,
+                  height: _iSize,
+                  icon: Iconz.info,
+                  corners: _iSize * 0.5,
+                  color: Colorz.black255,
+                  iconSizeFactor: 0.6,
+                ),
+              ),
+            ),
+
+          ],
+        ),
+
+        /// SEPARATOR
+        const Spacing(size: 5),
+
+        ... List.generate(_buttonsCounts, (index){
+
+          return Padding(
+            padding: const EdgeInsets.only(bottom: _spacing),
+            child: buttons[index],
+          );
+
+        }),
+
+        const DotSeparator(),
+
+      ],
+    ),
+
+  );
 
   }
   // -----------------------------------------------------------------------------
