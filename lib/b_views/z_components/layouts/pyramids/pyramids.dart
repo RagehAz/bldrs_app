@@ -46,6 +46,13 @@ class Pyramids extends StatelessWidget {
   // --------------------------------------------------------------------------
   static const double verticalPositionFix = -0.2;
   // --------------------------------------------------------------------------
+  static const double width = 256 * 0.7;
+  static const double height = 80 * 0.7;
+  // --------------------
+  static const double rightMargin = 17 * 0.7;
+  // --------------------
+  static const double rightSpaceToCenterKhufu = 148.2 * 0.7;
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
