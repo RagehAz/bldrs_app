@@ -557,7 +557,10 @@ class FlyerModel {
       authorID: 'x',
       flyerType : FlyerType.property,
       publishState : PublishState.published,
-      phids : const <String>[],
+      phids : const <String>[
+        'phid_a',
+        'phid_b',
+      ],
       showsAuthor : true,
       bzID: 'br1',
       position : const GeoPoint(0,0),
