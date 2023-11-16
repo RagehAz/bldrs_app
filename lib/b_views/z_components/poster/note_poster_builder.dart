@@ -4,15 +4,14 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_bz_poster.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_flyer_poster.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_image_poster.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
+import 'package:bldrs/f_helpers/future_model_builders/bz_builder.dart';
+import 'package:bldrs/f_helpers/future_model_builders/bz_poster_flyer_builder.dart';
+import 'package:bldrs/f_helpers/future_model_builders/flyer_builder.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
 
@@ -76,31 +75,25 @@ class NotePosterBuilder extends StatelessWidget {
       /// BZ POSTER
       else if (noteModel?.poster?.type == PosterType.bz){
 
-        return FutureBuilder(
-            future: BzProtocols.fetchBz(bzID: noteModel?.poster?.modelID),
-            builder: (_, AsyncSnapshot<BzModel?> bzSnap){
-
-              final BzModel? _bzModel = bzSnap.data;
+        return BzBuilder(
+            bzID: noteModel?.poster?.modelID,
+            // future: BzProtocols.fetchBz(bzID: noteModel?.poster?.modelID),
+            builder: (bool loading, BzModel? bzModel){
 
               /// LOADING OR BZ NOT FOUND
-              if (Streamer.connectionIsLoading(bzSnap) == true || _bzModel == null){
+              if (loading == true || bzModel == null){
                 return _empty;
               }
 
               /// BZ FOUND
               else {
 
-                return FutureBuilder(
-                  future: FlyerProtocols.fetchAndCombineBzSlidesInOneFlyer(
-                    bzID: noteModel?.poster?.modelID,
-                    maxSlides: 7,
-                  ),
-                  builder: (_, AsyncSnapshot<FlyerModel?> flyerSnap){
-
-                    final FlyerModel? _bzSlidesInFlyer = flyerSnap.data;
+                return BzPosterFlyerBuilder(
+                  bzID: noteModel?.poster?.modelID,
+                  builder: (bool loading, FlyerModel? flyer){
 
                     /// LOADING
-                    if (Streamer.connectionIsLoading(flyerSnap) == true){
+                    if (loading == true){
                       return _empty;
                     }
 
@@ -108,8 +101,8 @@ class NotePosterBuilder extends StatelessWidget {
                     else {
                       return BzPoster(
                         width: width,
-                        bzModel: _bzModel,
-                        bzSlidesInOneFlyer: _bzSlidesInFlyer,
+                        bzModel: bzModel,
+                        bzSlidesInOneFlyer: flyer,
                         screenName: noteModel?.id,
                       );
                     }

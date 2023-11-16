@@ -5,9 +5,9 @@ import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_he
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_grid_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_stack.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/f_helpers/future_model_builders/flyer_builder.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
 
