@@ -310,6 +310,7 @@ class _PyramidGraphic extends StatelessWidget {
         children: [
 
           /// TRIANGLE
+          if (pyramidType == PyramidType.white || pyramidType == PyramidType.yellow)
           const _PyramidArrow(),
 
           /// PYRAMID
