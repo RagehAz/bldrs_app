@@ -9,6 +9,7 @@ import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -43,7 +44,7 @@ class DraftBz {
     required this.inactiveBzTypes,
     required this.bzForm,
     required this.inactiveBzForms,
-    required this.scope,
+    required this.scopes,
     required this.logoPicModel,
     required this.hasNewLogo,
     required this.canPickImage,
@@ -77,7 +78,7 @@ class DraftBz {
   final List<BzType>? inactiveBzTypes;
   final BzForm? bzForm;
   final List<BzForm>? inactiveBzForms;
-  final Map<String, dynamic>? scope;
+  final ScopeModel? scopes;
   final PicModel? logoPicModel;
   final bool? hasNewLogo;
   final bool? canPickImage;
@@ -183,7 +184,7 @@ class DraftBz {
       ),
       bzForm: null,
       inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes([]),
-      scope: const {},
+      scopes: ScopeModel.emptyModel,
       logoPicModel: null,
       hasNewLogo: false,
       canPickImage: true,
@@ -236,8 +237,7 @@ class DraftBz {
       ),
       bzForm: bzModel.bzForm,
       inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes(bzModel.bzTypes),
-      scope: bzModel.scope,
-
+      scopes: bzModel.scopes,
       logoPicModel: await PicProtocols.fetchPic(StoragePath.bzz_bzID_logo(bzModel.id)),
       hasNewLogo: false,
       canPickImage: true,
@@ -292,7 +292,7 @@ class DraftBz {
       name: draft.nameController?.text,
       trigram: Stringer.createTrigram(input: draft.nameController?.text),
       logoPath: draft.logoPicModel?.path,
-      scope: draft.scope,
+      scopes: draft.scopes,
       zone: draft.zone,
       about: draft.aboutController?.text,
       position: draft.position,
@@ -338,7 +338,7 @@ class DraftBz {
       'inactiveBzTypes': BzTyper.cipherBzTypes(inactiveBzTypes),
       'bzForm': BzTyper.cipherBzForm(bzForm),
       'inactiveBzForms': BzTyper.cipherBzForms(inactiveBzForms),
-      'scope': scope,
+      'scopes': scopes?.toMap(),
       'logoPicModel': PicModel.cipherToLDB(logoPicModel),
       'hasNewLogo': hasNewLogo,
       'canPickImage': canPickImage,
@@ -387,7 +387,7 @@ class DraftBz {
       ),
       bzForm: BzTyper.decipherBzForm(map['bzForm']),
       inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes(_bzTypes),
-      scope: map['scope'],
+      scopes: ScopeModel.decipher(map['scopes']),
       logoPicModel: PicModel.decipherFromLDB(map['logoPicModel']),
       hasNewLogo: map['hasNewLogo'],
       canPickImage: true,
@@ -429,7 +429,7 @@ class DraftBz {
     List<BzType>? inactiveBzTypes,
     BzForm? bzForm,
     List<BzForm>? inactiveBzForms,
-    Map<String, dynamic>? scope,
+    ScopeModel? scopes,
     PicModel? logoPicModel,
     bool? hasNewLogo,
     bool? canPickImage,
@@ -463,7 +463,7 @@ class DraftBz {
       inactiveBzTypes: inactiveBzTypes ?? this.inactiveBzTypes,
       bzForm: bzForm ?? this.bzForm,
       inactiveBzForms: inactiveBzForms ?? this.inactiveBzForms,
-      scope: scope ?? this.scope,
+      scopes: scopes ?? this.scopes,
       logoPicModel: logoPicModel ?? this.logoPicModel,
       hasNewLogo: hasNewLogo ?? this.hasNewLogo,
       canPickImage: canPickImage ?? this.canPickImage,
@@ -500,7 +500,7 @@ class DraftBz {
     bool inactiveBzTypes = false,
     bool bzForm = false,
     bool inactiveBzForms = false,
-    bool scope = false,
+    bool scopes = false,
     bool logoPicModel = false,
     bool hasNewLogo = false,
     bool canPickImage = false,
@@ -534,7 +534,7 @@ class DraftBz {
       inactiveBzTypes: inactiveBzTypes == true ? [] : this.inactiveBzTypes,
       bzForm: bzForm == true ? null : this.bzForm,
       inactiveBzForms: inactiveBzForms == true ? [] : this.inactiveBzForms,
-      scope: scope == true ? null : this.scope,
+      scopes: scopes == true ? null : this.scopes,
       logoPicModel: logoPicModel == true ? null : this.logoPicModel,
       hasNewLogo: hasNewLogo == true ? null : this.hasNewLogo,
       canPickImage: canPickImage == true ? null : this.canPickImage,
@@ -639,7 +639,7 @@ class DraftBz {
     blog('inactiveBzTypes : ${BzTyper.cipherBzTypes(inactiveBzTypes)}');
     blog('bzForm : ${BzTyper.cipherBzForm(bzForm)}');
     blog('inactiveBzForms : ${BzTyper.cipherBzForms(inactiveBzForms)}');
-    Mapper.blogMap(scope, invoker: 'draftBzScope');
+    blog('scopes: $scopes');
     logoPicModel?.blogPic(invoker: 'DraftBz');
     blog('hasNewLogo : $hasNewLogo');
     blog('canPickImage : $canPickImage');
@@ -703,7 +703,7 @@ class DraftBz {
           Mapper.checkListsAreIdentical(list1: draft1.inactiveBzTypes, list2: draft2.inactiveBzTypes) == true &&
           draft1.bzForm == draft2.bzForm &&
           Mapper.checkListsAreIdentical(list1: draft1.inactiveBzForms, list2: draft2.inactiveBzForms) == true &&
-          Mapper.checkMapsAreIdentical(map1: draft1.scope, map2: draft2.scope) == true &&
+          ScopeModel.checkScopesAreIdentical(scope1: draft1.scopes, scope2: draft2.scopes) == true &&
           PicModel.checkPicsAreIdentical(pic1: draft1.logoPicModel, pic2: draft2.logoPicModel) == true &&
           draft1.hasNewLogo == draft2.hasNewLogo &&
           draft1.canPickImage == draft2.canPickImage &&
@@ -754,7 +754,7 @@ class DraftBz {
            inactiveBzTypes: ${BzTyper.cipherBzTypes(inactiveBzTypes)},
            bzForm: ${BzTyper.cipherBzForm(bzForm)},
            inactiveBzForms: ${BzTyper.cipherBzForms(inactiveBzForms)},
-           scope: $scope,
+           scopes: $scopes,
            logoPicModel: $logoPicModel,
            hasNewLogo: $hasNewLogo,
            canPickImage: $canPickImage,
@@ -808,7 +808,7 @@ class DraftBz {
       inactiveBzTypes.hashCode^
       bzForm.hashCode^
       inactiveBzForms.hashCode^
-      scope.hashCode^
+      scopes.hashCode^
       logoPicModel.hashCode^
       hasNewLogo.hashCode^
       canPickImage.hashCode^

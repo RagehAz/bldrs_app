@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
+import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
@@ -174,15 +175,15 @@ class ComposeFlyerProtocols {
         );
 
         /// ADD FLYER PHIDS TO SCOPE
-        final Map<String, dynamic> _newScope = BzModel.insertPhidsToScope(
-            scope: _oldBz.scope,
-            phids: newFlyerToAdd.phids,
+        final ScopeModel? _newScope = ScopeModel.addFlyerToScope(
+            scope: _oldBz.scopes,
+            flyer: newFlyerToAdd,
         );
 
         final BzModel? _newBz = _oldBz.copyWith(
           publication: _pub,
           authors: _newAuthors,
-          scope: _newScope,
+          scopes: _newScope,
         );
 
         // final BzModel _uploadedBzModel =

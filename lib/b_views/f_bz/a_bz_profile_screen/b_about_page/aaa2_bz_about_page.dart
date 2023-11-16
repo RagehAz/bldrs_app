@@ -7,6 +7,7 @@ import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
@@ -116,7 +117,7 @@ class AboutBzBubbles extends StatelessWidget {
     );
     final int _numberOfFlyers = bzModel?.publication.published.length ?? 0;
     final double _gridHeight = (_flyerHeight + _spacing) * (_numberOfFlyers / 2).ceil();
-    final List<String> _scopePhids = BzModel.getScopePhids(bzModel?.scope);
+    final List<String> _scopePhids = ScopeModel.getPhids(bzModel?.scopes);
 
     return ListView(
       physics: const BouncingScrollPhysics(),
