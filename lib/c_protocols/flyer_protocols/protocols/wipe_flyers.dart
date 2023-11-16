@@ -20,7 +20,7 @@ import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
-
+/// => TAMAM
 class WipeFlyerProtocols {
   // -----------------------------------------------------------------------------
 
@@ -138,7 +138,7 @@ class WipeFlyerProtocols {
   /// WIPE MULTIPLE FLYERS ON WIPE BZ
 
   // --------------------
-  /// TASK : TEST ME VERIFY_ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onWipeBz({
     required String? bzID,
   }) async {
