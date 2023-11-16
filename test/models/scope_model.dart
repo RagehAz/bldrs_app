@@ -1,4 +1,5 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, avoid_redundant_argument_values
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
@@ -7,8 +8,9 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
 
   group('ScopeModel Tests', () {
+
     test('toMap should return a valid map', () {
-      final Map<String, dynamic> result = ScopeModel.dummyScopeModel.toMap();
+      final Map<String, dynamic> result = ScopeModel.dummyScope.toMap();
       expect(result, isNotNull);
       // Add more specific expectations for the result if needed.
     });
@@ -67,7 +69,7 @@ void main() {
     });
 
     test('getPhids should return a list of keys from ScopeModel', () {
-      final ScopeModel scopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
       final List<String> result = ScopeModel.getPhids(scopeModel);
       expect(result, isNotEmpty);
       expect(result, equals(['phid_key', 'phid_key2']));
@@ -95,20 +97,20 @@ void main() {
     });
 
     test('getFlyersIDsByPhid should return an empty list when provided with null phid', () {
-      final ScopeModel scopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
       final List<String> result = ScopeModel.getFlyersIDsByPhid(scope: scopeModel, phid: null);
       expect(result, isEmpty);
     });
 
     test('getFlyersIDsByPhid should return an empty list for a non-existing phid', () {
-      final ScopeModel scopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
       final List<String> result =
           ScopeModel.getFlyersIDsByPhid(scope: scopeModel, phid: 'non_existing_phid');
       expect(result, isEmpty);
     });
 
     test('getFlyersIDsByPhid should return a list of IDs for an existing phid', () {
-      final ScopeModel scopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
       final List<String> result =
           ScopeModel.getFlyersIDsByPhid(scope: scopeModel, phid: 'phid_key');
       expect(result, isNotEmpty);
@@ -127,7 +129,7 @@ void main() {
     });
 
     test('getAllFlyersIDs should return a list of all flyers IDs from a valid ScopeModel', () {
-      final ScopeModel scopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
       final List<String> result = ScopeModel.getAllFlyersIDs(scopeModel);
       expect(result, isNotEmpty);
       expect(result, containsAll(['idA', 'idB', 'idC', 'idD', 'idE', 'idF']));
@@ -135,14 +137,14 @@ void main() {
 
     test('addFlyerIDToPhid should return null when provided with null flyerID', () {
       final ScopeModel? result = ScopeModel.addFlyerIDToPhid(
-          flyerID: null, phid: 'phid_key', scope: ScopeModel.dummyScopeModel);
-      expect(result, ScopeModel.dummyScopeModel);
+          flyerID: null, phid: 'phid_key', scope: ScopeModel.dummyScope);
+      expect(result, ScopeModel.dummyScope);
     });
 
     test('addFlyerIDToPhid should return null when provided with null phid', () {
       final ScopeModel? result = ScopeModel.addFlyerIDToPhid(
-          flyerID: 'idX', phid: null, scope: ScopeModel.dummyScopeModel);
-      expect(result, ScopeModel.dummyScopeModel);
+          flyerID: 'idX', phid: null, scope: ScopeModel.dummyScope);
+      expect(result, ScopeModel.dummyScope);
     });
 
     test('addFlyerIDToPhid should return null when provided with null scope', () {
@@ -152,7 +154,7 @@ void main() {
     });
 
     test('addFlyerIDToPhid should return the updated ScopeModel with a new flyerID added', () {
-      final ScopeModel initialScopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel initialScopeModel = ScopeModel.dummyScope;
       final String flyerIDToAdd = 'idX';
       final String phidToUpdate = 'phid_key';
 
@@ -173,19 +175,19 @@ void main() {
     });
 
     test('checkScopeContainPhid should return false when provided with null phid', () {
-      final ScopeModel scopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
       final bool result = ScopeModel.checkScopeContainPhid(scope: scopeModel, phid: null);
       expect(result, isFalse);
     });
 
     test('checkScopeContainPhid should return true for an existing phid', () {
-      final ScopeModel scopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
       final bool result = ScopeModel.checkScopeContainPhid(scope: scopeModel, phid: 'phid_key');
       expect(result, isTrue);
     });
 
     test('checkScopeContainPhid should return false for a non-existing phid', () {
-      final ScopeModel scopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
       final bool result =
           ScopeModel.checkScopeContainPhid(scope: scopeModel, phid: 'non_existing_phid');
       expect(result, isFalse);
@@ -193,26 +195,26 @@ void main() {
 
     test('checkScopeContainsFlyerID should return false when provided with null ScopeModel', () {
       final bool result =
-          ScopeModel.checkScopeContainsFlyerID(scope: ScopeModel.dummyScopeModel, flyerID: 'idX');
+          ScopeModel.checkScopeContainsFlyerID(scope: ScopeModel.dummyScope, flyerID: 'idX');
       expect(result, isFalse);
     });
 
     test('checkScopeContainsFlyerID should return true for an existing flyerID', () {
-      final ScopeModel scopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
       final bool result = ScopeModel.checkScopeContainsFlyerID(scope: scopeModel, flyerID: 'idA');
       expect(result, isTrue);
     });
 
     test('checkScopeContainsFlyerID should return false for a non-existing flyerID', () {
-      final ScopeModel scopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
       final bool result =
           ScopeModel.checkScopeContainsFlyerID(scope: scopeModel, flyerID: 'non_existing_id');
       expect(result, isFalse);
     });
 
     test('checkScopesAreIdentical should return true for two identical ScopeModels', () {
-      final ScopeModel scopeModel1 = ScopeModel.dummyScopeModel;
-      final ScopeModel scopeModel2 = ScopeModel.dummyScopeModel;
+      final ScopeModel scopeModel1 = ScopeModel.dummyScope;
+      final ScopeModel scopeModel2 = ScopeModel.dummyScope;
 
       final bool result =
           ScopeModel.checkScopesAreIdentical(scope1: scopeModel1, scope2: scopeModel2);
@@ -226,7 +228,7 @@ void main() {
 
     test('checkScopesAreIdentical should return false for one null and one non-null ScopeModels',
         () {
-      final ScopeModel scopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
 
       final bool result1 = ScopeModel.checkScopesAreIdentical(scope1: null, scope2: scopeModel);
       expect(result1, isFalse);
@@ -247,7 +249,7 @@ void main() {
     test('checkScopesAreIdentical should return false for one empty and one non-empty ScopeModels',
         () {
       final ScopeModel emptyScopeModel = ScopeModel(map: {});
-      final ScopeModel nonEmptyScopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel nonEmptyScopeModel = ScopeModel.dummyScope;
 
       final bool result1 =
           ScopeModel.checkScopesAreIdentical(scope1: emptyScopeModel, scope2: nonEmptyScopeModel);
@@ -265,13 +267,13 @@ void main() {
     });
 
     test('addFlyerToScope should return null when provided with null FlyerModel', () {
-      final ScopeModel scopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
       final ScopeModel? result = ScopeModel.addFlyerToScope(scope: scopeModel, flyer: null);
       expect(result, scopeModel);
     });
 
     test('addFlyerToScope should return the updated ScopeModel with a new flyer added', () {
-      final ScopeModel initialScopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel initialScopeModel = ScopeModel.dummyScope;
       final FlyerModel flyerToAdd = FlyerModel.dummyFlyer().copyWith(phids: ['phid_c']);
 
       final ScopeModel? result =
@@ -287,7 +289,7 @@ void main() {
     });
 
     test('addFlyerToScope should handle null values within the FlyerModel gracefully', () {
-      final ScopeModel initialScopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel initialScopeModel = ScopeModel.dummyScope;
       final FlyerModel flyerWithNullValues = FlyerModel(
         id: null,
         headline: null,
@@ -329,13 +331,13 @@ void main() {
     });
 
     test('removeFlyer should return null when provided with null FlyerModel', () {
-      final ScopeModel scopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
       final ScopeModel? result = ScopeModel.removeFlyer(scope: scopeModel, flyer: null);
-      expect(result, ScopeModel.dummyScopeModel);
+      expect(result, ScopeModel.dummyScope);
     });
 
     test('removeFlyer should return the updated ScopeModel with the flyer removed', () {
-      final ScopeModel initialScopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel initialScopeModel = ScopeModel.dummyScope;
       final FlyerModel flyerToRemove = FlyerModel.dummyFlyer();
 
       final ScopeModel _modified = ScopeModel.addFlyerToScope(scope: initialScopeModel, flyer: flyerToRemove)!;
@@ -358,7 +360,7 @@ void main() {
     });
 
     test('removeFlyer should handle null values within the FlyerModel gracefully', () {
-      final ScopeModel initialScopeModel = ScopeModel.dummyScopeModel;
+      final ScopeModel initialScopeModel = ScopeModel.dummyScope;
       final FlyerModel flyerWithNullValues = FlyerModel(
         id: null,
         headline: null,
@@ -392,6 +394,88 @@ void main() {
       expect(result, isNotNull);
       expect(result!.map, equals(initialScopeModel.map));
     });
+
+    test('getScopePhidUsage should return 0 when provided with null ScopeModel', () {
+      final int result = ScopeModel.getScopePhidUsage(scope: null, phid: 'phid_key');
+      expect(result, equals(0));
+    });
+
+    test('getScopePhidUsage should return 0 when provided with null phid', () {
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
+      final int result = ScopeModel.getScopePhidUsage(scope: scopeModel, phid: null);
+      expect(result, equals(0));
+    });
+
+    test('getScopePhidUsage should return the number of flyers using the provided phid', () {
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
+      final String phidToCheck = 'phid_key';
+
+      final int result = ScopeModel.getScopePhidUsage(scope: scopeModel, phid: phidToCheck);
+
+      expect(result, equals(scopeModel.map[phidToCheck]?.length ?? 0));
+    });
+
+    test('getScopePhidUsage should return 0 for a non-existing phid', () {
+      final ScopeModel scopeModel = ScopeModel.dummyScope;
+      final String nonExistingPhid = 'non_existing_phid';
+
+      final int result = ScopeModel.getScopePhidUsage(scope: scopeModel, phid: nonExistingPhid);
+
+      expect(result, equals(0));
+    });
+
+    test('removeFlyerFromBz', () {
+      final BzModel? oldBz = BzModel.dummyBz('x');
+      final FlyerModel flyerToRemove = FlyerModel.dummyFlyer();
+
+      final ScopeModel? newScope = ScopeModel.addFlyerToScope(
+          scope: oldBz?.scopes,
+          flyer: flyerToRemove
+      );
+
+      final BzModel? _bz = oldBz?.copyWith(
+        scopes: newScope,
+      );
+
+      expect(oldBz != _bz, true);
+
+
+      final BzModel? _newBz = ScopeModel.removeFlyerFromBz(
+          bzModel: oldBz,
+          flyerModel: flyerToRemove,
+      );
+
+
+      expect(_newBz == oldBz, true);
+    });
+
+     test('clean should return null when provided with null ScopeModel', () {
+      final ScopeModel? result = ScopeModel.clean(null);
+      expect(result, isNull);
+    });
+
+     test('ScopeModel clean', () {
+
+      final ScopeModel? a = ScopeModel(
+        map: {
+          'phid1': ['a', 'b'],
+          'phid2': ['x'],
+          'phid3': [],
+        },
+      );
+
+      final ScopeModel? b = ScopeModel(
+        map: {
+          'phid1': ['a', 'b'],
+          'phid2': ['x'],
+        },
+      );
+
+      final ScopeModel? _clean = ScopeModel.clean(a);
+
+      expect(_clean, b);
+    });
+
   });
 
 }

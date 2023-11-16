@@ -1,8 +1,9 @@
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:flutter/foundation.dart';
-
+/// => TAMAM
 @immutable
 class ScopeModel {
   // -----------------------------------------------------------------------------
@@ -16,7 +17,11 @@ class ScopeModel {
   /// DUMMY
 
   // -------------------
-  static ScopeModel dummyScopeModel = const ScopeModel(
+  static ScopeModel emptyModel = const ScopeModel(
+    map: {},
+  );
+  // -------------------
+  static ScopeModel dummyScope = const ScopeModel(
     map: {
       'phid_key': [
         'idA',
@@ -83,6 +88,27 @@ class ScopeModel {
 
     if (scope != null){
       _output = scope.map.keys.toList();
+    }
+
+    return _output;
+  }
+  // -------------------
+  /// AI TESTED
+  static int getScopePhidUsage({
+    required ScopeModel? scope,
+    required String? phid,
+  }){
+    int _output = 0;
+
+    if (scope != null && phid != null){
+
+      final List<String> _flyersIDs = getFlyersIDsByPhid(
+          scope: scope,
+          phid: phid
+      );
+
+      _output = _flyersIDs.length;
+
     }
 
     return _output;
@@ -197,7 +223,7 @@ class ScopeModel {
 
     }
 
-    return _output;
+    return clean(_output);
   }
   // -------------------
   /// AI TESTED
@@ -228,6 +254,69 @@ class ScopeModel {
       }
 
       _output = decipher(_newMap);
+    }
+
+    return clean(_output);
+  }
+  // -------------------
+  /// TESTED : WORKS PERFECT
+  static BzModel? removeFlyerFromBz({
+    required BzModel? bzModel,
+    required FlyerModel? flyerModel,
+  }){
+    BzModel? _output = bzModel;
+
+    if (bzModel != null && flyerModel != null){
+
+      final ScopeModel? _newScope = removeFlyer(
+          scope: bzModel.scopes,
+          flyer: flyerModel,
+      );
+
+      if (_newScope != null){
+        _output = _output!.copyWith(
+          scopes: _newScope,
+        );
+      }
+
+    }
+
+    return _output;
+  }
+  // -------------------
+  /// AI TESTED
+  static ScopeModel? clean(ScopeModel? scope){
+    ScopeModel? _output = scope;
+
+    if (scope != null){
+
+      final List<String> _phids = getPhids(scope);
+
+      if (Mapper.checkCanLoopList(_phids) == true){
+
+        Map<String, dynamic> _map = {};
+
+        for (final String phid in _phids){
+
+          final List<String> _flyersIDs = getFlyersIDsByPhid(
+              scope: scope,
+              phid: phid,
+          );
+
+          if (Mapper.checkCanLoopList(_flyersIDs) == true){
+            _map = Mapper.insertPairInMap(
+                map: _map,
+                key: phid,
+                value: _flyersIDs,
+                overrideExisting: true,
+            );
+          }
+
+        }
+
+        _output = decipher(_map);
+      }
+
     }
 
     return _output;
@@ -311,5 +400,207 @@ class ScopeModel {
   @override
   int get hashCode =>
       map.hashCode;
+    // -----------------------------------------------------------------------------
+
+  /// OLD SCOPE
+
+  // --------------------
+  /*
+  /// TESTED : WORKS PERFECT
+  static List<String> getScopePhids(Map<String, dynamic>? scope){
+    final List<String> _output = [];
+
+    if (scope != null){
+
+      final List<String> _phids = scope.keys.toList();
+
+      if (_phids.isNotEmpty == true){
+        _output.addAll(_phids);
+      }
+
+    }
+
+    return _output;
+  }
+   */
+  // --------------------
+  /*
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> insertPhidToScope({
+    required Map<String, dynamic>? scope,
+    required String? phid,
+  }){
+    Map<String, dynamic> _output = scope ?? {};
+
+    if (phid != null){
+
+      final int _value = getScopePhidUsage(
+          scope: _output,
+          phid: phid
+      );
+
+      _output = Mapper.insertPairInMap(
+        map: _output,
+        key: phid,
+        value: _value + 1,
+        overrideExisting: true,
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> removePhidFromScope({
+    required Map<String, dynamic>? scope,
+    required String? phid,
+  }){
+    Map<String, dynamic> _output = scope ?? {};
+
+    if (phid != null){
+
+      final int _value = getScopePhidUsage(
+          scope: _output,
+          phid: phid
+      );
+
+      if (_value > 0){
+
+        _output = Mapper.insertPairInMap(
+            map: _output,
+            key: phid,
+            value: _value - 1,
+            overrideExisting: true,
+        );
+
+      }
+      else {
+
+        _output = Mapper.removePair(
+            map: _output,
+            fieldKey: phid,
+        );
+
+      }
+
+    }
+
+    return cleanScope(scope: _output);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> insertPhidsToScope({
+    required Map<String, dynamic>? scope,
+    required List<String>? phids,
+  }){
+    Map<String, dynamic> _output = scope ?? {};
+
+    if (Mapper.checkCanLoopList(phids) == true){
+
+      for (final String phid in phids!){
+
+        _output = insertPhidToScope(
+          scope: _output,
+          phid: phid,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> removePhidsFromScope({
+    required Map<String, dynamic>? scope,
+    required List<String>? phids,
+  }){
+    Map<String, dynamic> _output = scope ?? {};
+
+    if (scope != null && Mapper.checkCanLoopList(phids) == true){
+
+      for (final String phid in phids!){
+
+        _output = removePhidFromScope(
+          scope: _output,
+          phid: phid,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  */
+  // --------------------
+
+  /// TESTED : WORKS PERFECT
+  // static Map<String, dynamic> cleanScope({
+  //   required Map<String, dynamic>? scope,
+  // }){
+  //   Map<String, dynamic> _output = {};
+  //
+  //   if (scope != null){
+  //
+  //     final List<String> _phids = scope.keys.toList();
+  //
+  //     if (Mapper.checkCanLoopList(_phids) == true){
+  //
+  //       for (final String phid in _phids){
+  //
+  //         final int _value = getScopePhidUsage(
+  //             scope: scope,
+  //             phid: phid
+  //         );
+  //
+  //         if (_value > 0){
+  //
+  //           _output = Mapper.insertPairInMap(
+  //               map: _output,
+  //               key: phid,
+  //               value: _value,
+  //               overrideExisting: true,
+  //           );
+  //
+  //         }
+  //
+  //       }
+  //
+  //     }
+  //
+  //   }
+  //
+  //   return _output;
+  // }
+  // --------------------
+  /*
+  /// TESTED : WORKS PERFECT
+  static BzModel? removeFlyerPhidsFromBzScope({
+    required BzModel? oldBz,
+    required FlyerModel? flyer,
+  }){
+    BzModel? _output = oldBz;
+
+    if (_output != null && flyer != null){
+
+      Map<String, dynamic>? _scope = _output.scopeOld;
+
+      _scope = removePhidsFromScope(
+          scope: _scope,
+          phids: flyer.phids,
+      );
+
+      _output = _output.copyWith(
+        scopeOld: _scope,
+      );
+
+    }
+
+    return _output;
+  }
+   */
   // -----------------------------------------------------------------------------
 }
