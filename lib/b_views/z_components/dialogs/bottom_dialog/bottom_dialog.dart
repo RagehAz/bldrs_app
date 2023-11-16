@@ -357,7 +357,7 @@ class BottomDialog extends StatelessWidget {
   static Widget wideButton({
     Verse? verse,
     Function? onTap,
-    String? icon,
+    dynamic icon,
     double height = wideButtonHeight,
     bool verseCentered = false,
     bool isDisabled = false,
