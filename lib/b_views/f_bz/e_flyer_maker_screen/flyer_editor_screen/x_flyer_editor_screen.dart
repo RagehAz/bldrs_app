@@ -513,7 +513,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                     draftFlyer: _draftNotifier,
                     mounted: mounted,
                     scrollController: _slidesShelfScrollController,
-                    flyerWidth: DraftShelfSlide.flyerBoxWidth,
+                    flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                     imagePickerType: imagePickerType,
                   ),
                   onSlideTap: (DraftSlide slide) => onSlideTap(

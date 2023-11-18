@@ -261,7 +261,7 @@ class DynamicRouter {
   /// BLOG
 
   // --------------------
-  static const bool canBlog = true;
+  static const bool canBlog = false;
   static int count = 0;
   static void blogGo(String text){
     if (canBlog == true){

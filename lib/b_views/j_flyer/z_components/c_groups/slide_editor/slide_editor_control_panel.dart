@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
+import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_slide_part.dart';
@@ -11,25 +12,33 @@ import 'package:flutter/material.dart';
 class SlideEditorControlPanel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorControlPanel({
-    required this.onCancel,
     required this.onResetMatrix,
     required this.onCrop,
-    required this.onConfirm,
     required this.height,
     required this.canResetMatrix,
-    required this.draftNotifier,
+    required this.draftSlideNotifier,
     required this.onTriggerAnimation,
+    required this.draftFlyerNotifier,
+
+    required this.onNextSlide,
+    required this.onPreviousSlide,
+    required this.onFirstSlideBack,
+    required this.onLastSlideNext,
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Function onCancel;
   final Function onResetMatrix;
   final Function onCrop;
-  final Function onConfirm;
   final double height;
   final ValueNotifier<bool> canResetMatrix;
-  final ValueNotifier<DraftSlide?> draftNotifier;
+  final ValueNotifier<DraftSlide?> draftSlideNotifier;
+  final ValueNotifier<DraftFlyer?> draftFlyerNotifier;
   final Function onTriggerAnimation;
+
+  final Function(DraftSlide draftSlide) onNextSlide;
+  final Function(DraftSlide draftSlide) onPreviousSlide;
+  final Function onFirstSlideBack;
+  final Function onLastSlideNext;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static double getControlPanelHeight(BuildContext context, double screenHeight){
@@ -58,15 +67,41 @@ class SlideEditorControlPanel extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       columnChildren: <Widget>[
 
-        /// BACK
-        SlideEditorButton(
-          size: _buttonSize,
-          icon: Iconizer.superBackIcon(context),
-          verse: const Verse(
-            id: 'phid_cancel',
-            translate: true,
-          ),
-          onTap: onCancel,
+        /// GO PREVIOUS - EXIT
+        ValueListenableBuilder(
+            valueListenable: draftFlyerNotifier,
+            builder: (_, DraftFlyer? draftFlyer, Widget? child){
+
+            return ValueListenableBuilder(
+                valueListenable: draftSlideNotifier,
+                builder: (_, DraftSlide? draftSlide, Widget? child){
+
+                  final int _slideIndex = draftSlide?.slideIndex ?? 0;
+                  final bool _isFirst = _slideIndex == 0;
+
+                return SlideEditorButton(
+                  size: _buttonSize,
+                  icon: _isFirst == true ? Iconz.exit : Iconizer.superYellowArrowENLeft(context),
+                  verse: Verse(
+                    id: _isFirst == true ? 'phid_exit' : 'phid_previous',
+                    translate: true,
+                  ),
+                  onTap: _isFirst == true ?
+                  onFirstSlideBack
+                      :
+                  () async {
+
+                    final DraftSlide? previousSlide = draftFlyer?.draftSlides?[_slideIndex - 1];
+                    if (previousSlide != null){
+                      onPreviousSlide(previousSlide);
+                    }
+
+                  },
+                );
+
+              }
+            );
+          }
         ),
 
         /// RESET MATRIX
@@ -88,7 +123,7 @@ class SlideEditorControlPanel extends StatelessWidget {
 
         /// ANIMATE
         ValueListenableBuilder(
-            valueListenable: draftNotifier,
+            valueListenable: draftSlideNotifier,
             builder: (_, DraftSlide? draftSlide, Widget? child){
               final bool animate = draftSlide?.animationCurve != null;
               return ValueListenableBuilder(
@@ -101,13 +136,13 @@ class SlideEditorControlPanel extends StatelessWidget {
                         id: animate == true ? 'phid_animated' : 'phid_static',
                         translate: true,
                       ),
-                      isDisabled: !canReset,
+                      // isDisabled: !canReset,
                       onTap: onTriggerAnimation,
                     );
                   });
             }),
 
-        ///  PLAN : SLIDE COLOR FILTER FEATURE
+        /// DEPRECATED : SLIDE COLOR FILTER FEATURE
         // ValueListenableBuilder(
         //     valueListenable: draftNotifier,
         //     builder: (_, DraftSlide draftSlide, Widget child){
@@ -134,16 +169,43 @@ class SlideEditorControlPanel extends StatelessWidget {
         //   onTap: onCrop,
         // ),
 
-        /// BOX FIT
-        SlideEditorButton(
-          size: _buttonSize,
-          icon: Iconz.check,
-          verse: const Verse(
-            id: 'phid_confirm',
-            translate: true,
-          ),
-          onTap: onConfirm,
-        ),
+        /// GO NEXT - CONFIRM
+        ValueListenableBuilder(
+            valueListenable: draftFlyerNotifier,
+            builder: (_, DraftFlyer? draftFlyer, Widget? child){
+
+              return ValueListenableBuilder(
+                  valueListenable: draftSlideNotifier,
+                  builder: (_, DraftSlide? draftSlide, Widget? child){
+
+                    final int _slideIndex = draftSlide?.slideIndex ?? 0;
+                    final int _numberOfSlides = draftFlyer?.draftSlides?.length ?? 0;
+                    final bool _isLast = _slideIndex + 1 == _numberOfSlides;
+
+                    return SlideEditorButton(
+                      size: _buttonSize,
+                      icon: _isLast == true ? Iconz.check : Iconizer.superYellowArrowENRight(context),
+                      verse: Verse(
+                        id: _isLast == true ? 'phid_confirm' : 'phid_next',
+                        translate: true,
+                      ),
+                      onTap: _isLast == true ?
+                      onLastSlideNext
+                          :
+                          () async {
+
+                        final DraftSlide? nextSlide = draftFlyer?.draftSlides?[_slideIndex + 1];
+                        if (nextSlide != null){
+                          await onNextSlide(nextSlide);
+                        }
+
+                        },
+                    );
+
+                  });
+
+            }
+            ),
 
         ],
     );

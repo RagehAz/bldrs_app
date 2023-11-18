@@ -535,7 +535,7 @@ class ChainsProvider extends ChangeNotifier {
 
   // --------------------
   FlyerType? _wallFlyerType = FlyerType.design;
-  String? _wallPhid = 'phid_k_designType_architecture';
+  String? _wallPhid = 'phid_k_designType_interior';
   // --------------------
   FlyerType? get wallFlyerType => _wallFlyerType;
   String? get wallPhid => _wallPhid;

@@ -18,7 +18,6 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
@@ -65,24 +64,24 @@ class BldrsNav {
       /// CLOSE APP
       else {
 
-        final String? _currentPhid = ChainsProvider.proGetHomeWallPhid(
-            context: context,
-            listen: false,
-        );
-
-        /// WHILE WALL HAS PHID
-        if (_currentPhid != null){
-
-            final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-            await _chainsProvider.changeHomeWallFlyerType(
-              notify: true,
-              flyerType: null,
-              phid: null,
-            );
-
-        }
-
-        else {
+        // final String? _currentPhid = ChainsProvider.proGetHomeWallPhid(
+        //     context: context,
+        //     listen: false,
+        // );
+        //
+        // /// WHILE WALL HAS PHID
+        // if (_currentPhid != null){
+        //
+        //     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+        //     await _chainsProvider.changeHomeWallFlyerType(
+        //       notify: true,
+        //       flyerType: null,
+        //       phid: null,
+        //     );
+        //
+        // }
+        //
+        // else {
 
           if (kIsWeb == false){
 
@@ -116,7 +115,7 @@ class BldrsNav {
 
           }
 
-        }
+        // }
 
       }
 

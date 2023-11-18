@@ -117,6 +117,7 @@ class Dialogs {
     Verse? body,
     Color? color,
     Widget? child,
+    Verse? confirmVerse,
   }) async {
 
     await BldrsCenterDialog.showCenterDialog(
@@ -124,6 +125,7 @@ class Dialogs {
       color: color,
       bodyVerse: body,
       // boolDialog: false,
+      confirmButtonVerse: confirmVerse,
       child: child,
     );
 

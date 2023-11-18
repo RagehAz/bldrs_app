@@ -110,7 +110,7 @@ class SectionsButton extends StatelessWidget {
 
       return Builder(
         builder: (BuildContext context) => GestureDetector(
-          onTap: onTap == null ? () => onSectionButtonTap(context) : () => onTap!(),
+          onTap: onTap == null ? () => onSectionButtonTap() : () => onTap!(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
