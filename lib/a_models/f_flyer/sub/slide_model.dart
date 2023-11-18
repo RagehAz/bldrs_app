@@ -27,6 +27,7 @@ class SlideModel {
     required this.description,
     required this.midColor,
     required this.matrix,
+    required this.matrixFrom,
     required this.animationCurve,
     required this.slideIndex,
     required this.frontImage,
@@ -40,6 +41,7 @@ class SlideModel {
   final String? headline;
   final String? description;
   final Matrix4? matrix;
+  final Matrix4? matrixFrom;
   final Color? midColor;
   final String? flyerID;
   final ui.Image? frontImage;
@@ -59,6 +61,7 @@ class SlideModel {
       'description': description,
       'midColor': Colorizer.cipherColor(midColor),
       'matrix' : Trinity.cipherMatrix(matrix),
+      'matrixFrom' : Trinity.cipherMatrix(matrixFrom),
       'animationCurve': Trinity.cipherAnimationCurve(animationCurve),
     };
   }
@@ -75,6 +78,7 @@ class SlideModel {
       description: map['description'],
       midColor: Colorizer.decipherColor(map['midColor']),
       matrix: Trinity.decipherMatrix(map['matrix']),
+      matrixFrom: Trinity.decipherMatrix(map['matrixFrom']),
       animationCurve: Trinity.decipherAnimationCurve(map['animationCurve']),
       frontImage: null,
       frontPicPath: null,
@@ -142,6 +146,7 @@ class SlideModel {
     String? headline,
     String? description,
     Matrix4? matrix,
+    Matrix4? matrixFrom,
     Color? midColor,
     String? flyerID,
     ui.Image? frontImage,
@@ -154,6 +159,7 @@ class SlideModel {
       description: description ?? this.description,
       midColor: midColor ?? this.midColor,
       matrix: matrix ?? this.matrix,
+      matrixFrom: matrixFrom ?? this.matrixFrom,
       frontImage: frontImage ?? this.frontImage,
       backImage: backImage ?? this.backImage,
       animationCurve: animationCurve ?? this.animationCurve,
@@ -172,7 +178,8 @@ class SlideModel {
     blog('  slideIndex : ($slideIndex ): flyerID : ($flyerID)');
     blog('  headline : ($headline) : description : ($description)');
     blog('  midColor : ($midColor) : '
-        'hasCustomMatrix : (${matrix != Matrix4.identity()}) : '
+        'hasCustomMatrix : (${matrix != null}) : '
+        'hasCustomMatrixFrom : (${matrixFrom != null}) : '
         'animationCurve : ($animationCurve) : '
     );
     blog('  has ui.frontPic : (${frontImage != null}) : frontPicPath : $frontPicPath');
@@ -225,6 +232,9 @@ class SlideModel {
     }
     if (Trinity.checkMatrixesAreIdentical(matrix1: slide1?.matrix, matrixReloaded: slide2?.matrix) == false){
       blog('slide1.matrix != slide2.matrix');
+    }
+    if (Trinity.checkMatrixesAreIdentical(matrix1: slide1?.matrixFrom, matrixReloaded: slide2?.matrixFrom) == false){
+      blog('slide1.matrixFrom != slide2.matrixFrom');
     }
     if (Colorizer.checkColorsAreIdentical(slide1?.midColor, slide2?.midColor) == false){
       blog('slide1.midColor !=  slideB.midColor');
@@ -603,6 +613,7 @@ class SlideModel {
       description: 'Descriptor',
       midColor: Colorz.black255,
       matrix: Matrix4.identity(),
+      matrixFrom: Matrix4.identity(),
       animationCurve: null,
       frontImage: null,
       backImage: null,
@@ -651,6 +662,7 @@ class SlideModel {
           slide1.headline == slide2.headline &&
           slide1.description == slide2.description &&
           Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == true &&
+          Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrixFrom, matrixReloaded: slide2.matrixFrom) == true &&
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&
           slide1.flyerID == slide2.flyerID &&
           Floaters.checkUiImagesAreIdentical(slide1.frontImage, slide2.frontImage) == true &&
@@ -756,6 +768,7 @@ class SlideModel {
       description.hashCode^
       midColor.hashCode^
       matrix.hashCode^
+      matrixFrom.hashCode^
       animationCurve.hashCode^
       slideIndex.hashCode^
       headline.hashCode^

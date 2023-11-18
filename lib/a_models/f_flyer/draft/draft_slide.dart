@@ -6,6 +6,7 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class DraftSlide {
     required this.midColor,
     required this.opacity,
     required this.matrix,
+    required this.matrixFrom,
     required this.animationCurve,
   });
   // --------------------------------------------------------------------------
@@ -40,6 +42,7 @@ class DraftSlide {
   final Color? midColor;
   final double? opacity;
   final Matrix4? matrix;
+  final Matrix4? matrixFrom;
   final Curve? animationCurve;
   // -----------------------------------------------------------------------------
 
@@ -53,6 +56,7 @@ class DraftSlide {
     required String? headline,
     required String? flyerID,
     required String? bzID,
+    required double flyerBoxWidth,
   }) async {
     final List<DraftSlide> _output = <DraftSlide>[];
 
@@ -71,6 +75,7 @@ class DraftSlide {
           headline: _newSlideIndex  == 0 ? headline : null,
           flyerID: flyerID,
           bzID: bzID,
+          flyerBoxWidth: flyerBoxWidth,
         );
 
         /// B2 - ADD THIS NEW SLIDE
@@ -92,6 +97,7 @@ class DraftSlide {
     required String? headline,
     required String? flyerID,
     required String? bzID,
+    required double flyerBoxWidth,
   }) async {
     DraftSlide? _slide;
 
@@ -128,6 +134,12 @@ class DraftSlide {
         opacity: 1,
         slideIndex: index,
         matrix: Matrix4.identity(),
+        matrixFrom: Trinity.slightlyZoomed(
+        flyerBoxWidth: flyerBoxWidth,
+        flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
+            flyerBoxWidth: flyerBoxWidth
+        ),
+    ),
         animationCurve: null,
       );
 
@@ -165,6 +177,7 @@ class DraftSlide {
         description: draft.description,
         midColor: draft.midColor,
         matrix: draft.matrix,
+        matrixFrom: draft.matrixFrom,
         animationCurve: draft.animationCurve,
         frontImage: await Floaters.getUiImageFromUint8List(_picModel?.bytes),
         backImage: await Floaters.getUiImageFromUint8List(_backPic?.bytes),
@@ -220,6 +233,7 @@ class DraftSlide {
         midColor: slide.midColor,
         opacity: 1,
         matrix: slide.matrix,
+        matrixFrom: slide.matrixFrom,
         animationCurve: slide.animationCurve,
       );
     }
@@ -287,6 +301,7 @@ class DraftSlide {
         'midColor': Colorizer.cipherColor(draft.midColor),
         'opacity': draft.opacity,
         'matrix' : Trinity.cipherMatrix(draft.matrix),
+        'matrixFrom' : Trinity.cipherMatrix(draft.matrixFrom),
         'animationCurve' : Trinity.cipherAnimationCurve(draft.animationCurve),
       };
     }
@@ -331,6 +346,7 @@ class DraftSlide {
         midColor: Colorizer.decipherColor(map['midColor']),
         opacity: map['opacity'],
         matrix: Trinity.decipherMatrix(map['matrix']),
+        matrixFrom: Trinity.decipherMatrix(map['matrixFrom']),
         animationCurve: Trinity.decipherAnimationCurve(map['animationCurve']),
       );
     }
@@ -375,6 +391,7 @@ class DraftSlide {
     Color? midColor,
     double? opacity,
     Matrix4? matrix,
+    Matrix4? matrixFrom,
     Curve? animationCurve,
   }){
     return DraftSlide(
@@ -389,6 +406,7 @@ class DraftSlide {
       midColor: midColor ?? this.midColor,
       opacity: opacity ?? this.opacity,
       matrix: matrix ?? this.matrix,
+      matrixFrom: matrixFrom ?? this.matrixFrom,
       animationCurve: animationCurve ?? this.animationCurve,
     );
   }
@@ -407,6 +425,7 @@ class DraftSlide {
     bool midColor = false,
     bool opacity = false,
     bool matrix = false,
+    bool matrixFrom = false,
     bool animationCurve = false,
   }){
     return DraftSlide(
@@ -421,6 +440,7 @@ class DraftSlide {
       midColor: midColor == true ? null : this.midColor,
       opacity: opacity == true ? null : this.opacity,
       matrix: matrix == true ? null : this.matrix,
+      matrixFrom: matrixFrom == true ? null : this.matrixFrom,
       animationCurve: animationCurve == true ? null : this.animationCurve,
     );
   }
@@ -590,8 +610,10 @@ class DraftSlide {
 
     blog('[$invoker] : ($slideIndex)=> DraftSlide : flyerID : $flyerID : index : $slideIndex');
     blog('headline : $headline : description : $description');
-    blog('midColor : $midColor : opacity : $opacity :'
-        ' hasCustomMatrix : ${matrix != Matrix4.identity()} : animationCurve L $animationCurve');
+    blog('midColor : $midColor : opacity : $opacity : '
+        'hasCustomMatrix : ${matrix != null} : '
+        'hasCustomMatrixFrom : ${matrixFrom != null} : '
+        'animationCurve L $animationCurve');
     bigPic?.blogPic(invoker: 'draftSlide big pic');
     medPic?.blogPic(invoker: 'draftSlide med pic');
     smallPic?.blogPic(invoker: 'draftSlide small pic');
@@ -662,6 +684,9 @@ class DraftSlide {
     }
     if (Trinity.checkMatrixesAreIdentical(matrix1: slide1?.matrix, matrixReloaded: slide2?.matrix) == false){
       blog('MutableSlidesDifferences : matrixes are not Identical');
+    }
+    if (Trinity.checkMatrixesAreIdentical(matrix1: slide1?.matrixFrom, matrixReloaded: slide2?.matrixFrom) == false){
+      blog('MutableSlidesDifferences : matrixFroms are not Identical');
     }
     if (slide1?.animationCurve != slide2?.animationCurve){
       blog('MutableSlidesDifferences : animationCurves are not Identical');
@@ -788,6 +813,7 @@ class DraftSlide {
   static bool checkSlidesAreIdentical({
     required DraftSlide? slide1,
     required DraftSlide? slide2,
+    bool blogDifferences = false,
   }){
     bool _identical = false;
 
@@ -811,12 +837,13 @@ class DraftSlide {
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&
           slide1.opacity == slide2.opacity &&
           Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == true &&
+          Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrixFrom, matrixReloaded: slide2.matrixFrom) == true &&
           slide1.animationCurve == slide2.animationCurve
       ){
         _identical = true;
       }
 
-      if (_identical == false){
+      if (_identical == false && blogDifferences == true){
         blogDraftSlidesDifferences(
           slide1: slide1,
           slide2: slide2,
@@ -934,6 +961,7 @@ class DraftSlide {
       midColor.hashCode^
       opacity.hashCode^
       matrix.hashCode^
+      matrixFrom.hashCode^
       animationCurve.hashCode;
   // -----------------------------------------------------------------------------
 }

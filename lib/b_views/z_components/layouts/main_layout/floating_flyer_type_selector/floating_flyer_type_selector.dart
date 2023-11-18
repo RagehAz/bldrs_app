@@ -158,6 +158,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
 
+                        /// FLYER TYPES
                         if (Mapper.checkCanLoopList(_types) == true)
                         ...List.generate(_types.length, (index) {
 
@@ -197,6 +198,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
 
                         }),
 
+                        /// NO SECTIONS AVAILABLE
                         if (Mapper.checkCanLoopList(_types) == false)
                            BldrsText(
                              width: _buttonWidth,
@@ -210,12 +212,14 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
                              margin: 20,
                              maxLines: 4,
                           ),
-                        
+
+                        /// SEPARATOR
                         SeparatorLine(
                           width: _buttonWidth,
                           withMargins: true,
                         ),
-                                                
+
+                        /// GO BACK
                         BldrsBox(
                           height: 50,
                           onTap: () => Nav.goBack(context: context),

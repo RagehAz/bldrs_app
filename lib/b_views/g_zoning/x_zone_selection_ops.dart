@@ -232,6 +232,8 @@ class ZoneSelection {
 
       await WaitDialog.closeWaitDialog();
 
+      UiProvider.proSetPyramidsAreExpanded(setTo: false, notify: true);
+
       await Nav.pushHomeAndRemoveAllBelow(
         context: getMainContext(),
         invoker: 'SelectCountryScreen._onCountryTap',

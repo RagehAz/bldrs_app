@@ -163,15 +163,15 @@ class UserRecordModel {
     }
     else {
 
-      final String? _year = Numeric.formatNumberWithinDigits(
+      final String? _year = Numeric.formatIntWithinDigits(
         num: dateTime.year,
         digits: 4,
       );
-      final String? _month = Numeric.formatNumberWithinDigits(
+      final String? _month = Numeric.formatIntWithinDigits(
         num: dateTime.month,
         digits: 2,
       );
-      final String? _day = Numeric.formatNumberWithinDigits(
+      final String? _day = Numeric.formatIntWithinDigits(
         num: dateTime.day,
         digits: 2,
       );

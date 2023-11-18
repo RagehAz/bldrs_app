@@ -310,10 +310,10 @@ Future<void> onRefreshHomeWall({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onSectionButtonTap(BuildContext context) async {
+Future<void> onSectionButtonTap() async {
 
   final FlyerType? flyerType = await Nav.goToNewScreen(
-    context: context,
+    context: getMainContext(),
     pageTransitionType: Nav.superHorizontalTransition(
       enAnimatesLTR: true,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
@@ -324,7 +324,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
   if (flyerType != null){
 
     final String? phid = await PhidsPickerScreen.goPickPhid(
-      context: context,
+      context: getMainContext(),
       flyerType: flyerType,
       event: ViewingEvent.homeView,
       onlyUseZoneChains: true,

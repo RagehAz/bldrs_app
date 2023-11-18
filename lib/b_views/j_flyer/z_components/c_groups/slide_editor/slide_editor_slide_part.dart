@@ -1,4 +1,3 @@
-
 import 'package:basics/animators/widgets/animate_widget_to_matrix.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
@@ -7,7 +6,6 @@ import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:basics/super_box/super_box.dart';
-import 'package:basics/super_image/super_image.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
@@ -16,6 +14,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/top_button/top_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/d_footer_template.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_animator_panel.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_headline_text_field.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_transformer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
@@ -34,6 +33,8 @@ class SlideEditorSlidePart extends StatelessWidget {
     required this.onSlideTap,
     required this.isTransforming,
     required this.matrixNotifier,
+    required this.matrixFromNotifier,
+    required this.isDoingMatrixFrom,
     required this.appBarType,
     required this.globalKey,
     required this.mounted,
@@ -52,6 +53,8 @@ class SlideEditorSlidePart extends StatelessWidget {
   final ValueNotifier<bool> isPlayingAnimation;
   final ValueNotifier<bool> isTransforming;
   final ValueNotifier<Matrix4?> matrixNotifier;
+  final ValueNotifier<Matrix4?> matrixFromNotifier;
+  final ValueNotifier<bool> isDoingMatrixFrom;
   final AppBarType appBarType;
   final GlobalKey globalKey;
   final bool mounted;
@@ -118,63 +121,84 @@ class SlideEditorSlidePart extends StatelessWidget {
 
                 return ValueListenableBuilder(
                   valueListenable: isPlayingAnimation,
+                  child: Stack(
+                    children: <Widget>[
+
+                      /// BACKGROUND
+                      Image.memory(
+                        _slide!.backPic!.bytes!,
+                        key: const ValueKey<String>('SuperImage_slide_back'),
+                        width: _flyerBoxWidth,
+                        height: _flyerBoxHeight,
+                      ),
+
+                      /// SLIDE ANIMATOR
+                      AnimateWidgetToMatrix(
+                        matrix: Trinity.renderSlideMatrix(
+                          matrix: _slide.matrix,
+                          flyerBoxWidth: _flyerBoxWidth,
+                          flyerBoxHeight: _flyerBoxHeight,
+                        ),
+                        matrixFrom: Trinity.renderSlideMatrix(
+                          matrix: _slide.matrixFrom,
+                          flyerBoxWidth: _flyerBoxWidth,
+                          flyerBoxHeight: _flyerBoxHeight,
+                        ),
+                        // canAnimate: true,
+                        curve: _slide.animationCurve ?? Curves.easeIn,
+                        replayOnRebuild: true,
+                        repeat: false,
+                        onAnimationEnds: () async {
+                          await Future<void>.delayed(const Duration(milliseconds: 300));
+                          setNotifier(
+                            notifier: isPlayingAnimation,
+                            mounted: mounted,
+                            value: false,
+                          );
+                          },
+                        // child: SuperFilteredImage(
+                        //   width: _flyerBoxWidth,
+                        //   height: _flyerBoxHeight,
+                        //   pic: _slide?.medPic?.bytes,
+                        //   boxFit: BoxFit.fitWidth,
+                        //   loading: false,
+                        //   canUseFilter: false,
+                        // ),
+                        child: Image.memory(
+                          _slide.medPic!.bytes!,
+                          key: const ValueKey<String>('SuperImage_slide_draft'),
+                          width: _flyerBoxWidth,
+                          height: _flyerBoxHeight,
+                        ),
+                      ),
+
+                    ],
+                  ),
                   builder: (_, bool isPlaying, Widget? animationPlayer) {
 
                     /// WHILE PLAYING ANIMATION
                     if (isPlaying == true) {
-
-                      Trinity.blogMatrix(_slide?.matrix);
-
-                      return Stack(
-                        children: <Widget>[
-
-                          /// BACKGROUND
-                          BldrsImage(
-                            width: _flyerBoxWidth,
-                            height: _flyerBoxHeight,
-                            pic: _slide?.backPic?.bytes,
-                            // loading: false,
-                            // corners: FlyerDim.flyerCorners(_flyerBoxWidth),
-                          ),
-
-                          /// SLIDE ANIMATOR
-                          AnimateWidgetToMatrix(
-                            matrix: Trinity.renderSlideMatrix(
-                              matrix: _slide?.matrix,
-                              flyerBoxWidth: _flyerBoxWidth,
-                              flyerBoxHeight: _flyerBoxHeight,
-                            ),
-                            // canAnimate: true,
-                            curve: _slide?.animationCurve ?? Curves.easeIn,
-                            replayOnRebuild: true,
-                            onAnimationEnds: () {
-                              setNotifier(
-                                  notifier: isPlayingAnimation, mounted: mounted, value: false);
-                              },
-                            child: SuperFilteredImage(
-                              width: _flyerBoxWidth,
-                              height: _flyerBoxHeight,
-                              pic: _slide?.medPic?.bytes,
-                              boxFit: BoxFit.fitWidth,
-                              loading: false,
-                              // canUseFilter: false,
-                            ),
-                          ),
-
-                        ],
-                      );
-
+                      return animationPlayer!;
                     }
 
                     /// WHILE TRANSFORMING SLIDE
                     else {
-                      return SlideTransformer(
-                        matrixNotifier: matrixNotifier,
-                        flyerBoxWidth: _flyerBoxWidth,
-                        flyerBoxHeight: _flyerBoxHeight,
-                        slide: _slide,
-                        isTransforming: isTransforming,
-                        mounted: mounted,
+                      return ValueListenableBuilder(
+                          valueListenable: isDoingMatrixFrom,
+                          builder: (_, bool isMatrixFrom, Widget? child){
+
+                              return SlideTransformer(
+                                matrixFromNotifier: matrixFromNotifier,
+                                matrixNotifier: matrixNotifier,
+                                flyerBoxWidth: _flyerBoxWidth,
+                                flyerBoxHeight: _flyerBoxHeight,
+                                slide: _slide,
+                                isTransforming: isTransforming,
+                                mounted: mounted,
+                                isMatrixFrom: isMatrixFrom,
+                              );
+
+                          }
                       );
                     }
 
@@ -189,7 +213,7 @@ class SlideEditorSlidePart extends StatelessWidget {
               flyerBoxWidth: _flyerBoxWidth,
             ),
 
-            ///  PLAN : SLIDE COLOR FILTER FEATURE
+            ///  DEPRECATED : SLIDE COLOR FILTER FEATURE
             // / FILTER NAME
             // IgnorePointer(
             //   child: ImageFilterAnimatedName(
@@ -214,18 +238,7 @@ class SlideEditorSlidePart extends StatelessWidget {
               flyerBoxWidth: _flyerBoxWidth,
             ),
 
-            // /// FOOTER
-            // Disabler(
-            //   isDisabled: true,
-            //   disabledOpacity: 0.2,
-            //   child: StaticFooter(
-            //     flyerBoxWidth: _flyerBoxWidth,
-            //     flyerID: 'x',
-            //     optionsButtonIsOn: false,
-            //     showAllButtons: true,
-            //   ),
-            // ),
-
+            /// TOP BUTTON FOOTPRINT
             SuperPositioned(
               enAlignment: Alignment.bottomLeft,
               verticalOffset: FlyerDim.footerBoxHeight(
@@ -245,15 +258,32 @@ class SlideEditorSlidePart extends StatelessWidget {
               ),
             ),
 
-            Disabler(
-              isDisabled: true,
-              child: FooterTemplate(
-                flyerBoxWidth: _flyerBoxWidth,
-                buttonColor: Colorz.black50,
-              ),
+            /// FOOTER FOOTPRINT
+            ValueListenableBuilder(
+              valueListenable: draftSlide,
+              builder: (_, DraftSlide? _slide, Widget? child) {
+
+                /// NO ANIMATION
+                if (_slide?.animationCurve == null){
+                  return child!;
+                }
+
+                /// HAS ANIMATION
+                else {
+                  return const SizedBox();
+                }
+
+              },
+              child:  Disabler(
+                  isDisabled: true,
+                  child: FooterTemplate(
+                    flyerBoxWidth: _flyerBoxWidth,
+                    buttonColor: Colorz.black50,
+                  ),
+                ),
             ),
 
-            /// HEADER
+            /// HEADER FOOTPRINT
             Disabler(
               isDisabled: true,
               disabledOpacity: 0.2,
@@ -263,6 +293,35 @@ class SlideEditorSlidePart extends StatelessWidget {
                 authorID: authorID,
                 flyerShowsAuthor: true,
                 showHeaderLabels: true,
+              ),
+            ),
+
+            /// SLIDE ANIMATION PANEL
+            ValueListenableBuilder(
+              valueListenable: draftSlide,
+              builder: (_, DraftSlide? _slide, Widget? child) {
+
+                /// NO ANIMATION
+                if (_slide?.animationCurve == null){
+                  return const SizedBox();
+                }
+
+                /// HAS ANIMATION
+                else {
+                  return child!;
+
+                }
+
+              },
+              child: SlideAnimatorPanel(
+                flyerBoxWidth: _flyerBoxWidth,
+                isDoingMatrixFrom: isDoingMatrixFrom,
+                isPlayingAnimation: isPlayingAnimation,
+                mounted: mounted,
+                matrixFromNotifier: matrixFromNotifier,
+                matrixNotifier: matrixNotifier,
+                draftSlideNotifier: draftSlide,
+                draftFlyerNotifier: draftFlyer,
               ),
             ),
 

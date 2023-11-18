@@ -178,7 +178,6 @@ class MainLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     return WillPopScope(
       key: const ValueKey<String>('Main_layout'),
       onWillPop: () async {
@@ -265,7 +264,7 @@ class MainLayout extends StatelessWidget {
                   ),
                 ),
 
-                /// APP BUTTONS
+                /// WEB DOWNLOAD APP PANEL
                 if (kIsWeb == true)
                 Positioned(
                   left: 0,
