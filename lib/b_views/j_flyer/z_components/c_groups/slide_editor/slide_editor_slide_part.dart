@@ -156,14 +156,6 @@ class SlideEditorSlidePart extends StatelessWidget {
                             value: false,
                           );
                           },
-                        // child: SuperFilteredImage(
-                        //   width: _flyerBoxWidth,
-                        //   height: _flyerBoxHeight,
-                        //   pic: _slide?.medPic?.bytes,
-                        //   boxFit: BoxFit.fitWidth,
-                        //   loading: false,
-                        //   canUseFilter: false,
-                        // ),
                         child: Image.memory(
                           _slide.medPic!.bytes!,
                           key: const ValueKey<String>('SuperImage_slide_draft'),

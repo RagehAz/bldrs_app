@@ -143,7 +143,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     return MainLayout(
       appBarType: AppBarType.non,
       child: Column(
-
         children: <Widget>[
 
           /// SLIDE
