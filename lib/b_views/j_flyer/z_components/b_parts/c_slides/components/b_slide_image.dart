@@ -58,6 +58,11 @@ class SlideImage extends StatelessWidget {
             flyerBoxWidth: flyerBoxWidth,
             flyerBoxHeight: flyerBoxHeight,
           ),
+          matrixFrom: Trinity.renderSlideMatrix(
+            matrix: slideModel?.matrixFrom,
+            flyerBoxWidth: flyerBoxWidth,
+            flyerBoxHeight: flyerBoxHeight,
+          ),
           canAnimate: canAnimateMatrix,
           repeat: false,
           child: BldrsImage(

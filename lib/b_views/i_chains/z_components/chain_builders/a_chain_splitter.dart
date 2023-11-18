@@ -81,8 +81,8 @@ class ChainSplitter extends StatelessWidget {
       final int? _index = Phider.getIndexFromPhid(phid);
       final String? _phid = Phider.removeIndexFromPhid(phid: phid);
 
-      final String? _outsideIndex = Numeric.formatNumberWithinDigits(num: index, digits: 4);
-      final String? _indexFromPhid = Numeric.formatNumberWithinDigits(num: _index, digits: 4);
+      final String? _outsideIndex = Numeric.formatIntWithinDigits(num: index, digits: 4);
+      final String? _indexFromPhid = Numeric.formatIntWithinDigits(num: _index, digits: 4);
       _output = index == null ? '$_indexFromPhid : $_phid' : '$_outsideIndex : $_indexFromPhid : $_phid';
     }
 

@@ -114,13 +114,14 @@ class MainLayoutStackWidgets extends StatelessWidget {
       alignment: alignment,
       children: <Widget>[
 
-          Sky(
-            key: const ValueKey<String>('sky'),
-            skyType: skyType,
-            gradientIsOn: pyramidsAreOn,
-          ),
+        /// SKY
+        Sky(
+          key: const ValueKey<String>('sky'),
+          skyType: skyType,
+          gradientIsOn: pyramidsAreOn,
+        ),
 
-        /// --- LAYOUT WIDGET
+        /// LAYOUT WIDGET
         if (layoutWidget != null)
           Container(
             key: const ValueKey<String>('layoutWidget'),
@@ -130,7 +131,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             child: layoutWidget,
           ),
 
-        /// --- APP BAR
+        /// APP BAR
         if (appBarType != AppBarType.non)
           BldrsAppBar(
             globalKey: globalKey,
@@ -156,7 +157,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             filters: filters,
           ),
 
-        /// --- PYRAMIDS
+        /// PYRAMIDS
         if (pyramidsAreOn == true && confirmButton == null)
           Pyramids(
             key: const ValueKey<String>('pyramids'),
@@ -166,6 +167,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             listenToHideLayout: listenToHideLayout,
           ),
 
+        /// CONFIRM BUTTON
         if (confirmButton != null)
           confirmButton!,
 
