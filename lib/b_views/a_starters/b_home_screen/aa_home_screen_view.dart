@@ -60,6 +60,7 @@ class HomeFlyersGrid extends StatelessWidget {
           }
 
           else {
+
             return const WidgetFader(
                 fadeType: FadeType.fadeIn,
                 duration: Duration(seconds: 1),

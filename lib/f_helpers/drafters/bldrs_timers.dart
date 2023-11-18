@@ -112,7 +112,7 @@ class BldrsTimers {
 
     if (_timeIsEmpty == false){
       final String? _hh = DateFormat('h').format(time!);
-      final String? _mm = Numeric.formatNumberWithinDigits(num: time.minute, digits: 2);
+      final String? _mm = Numeric.formatIntWithinDigits(num: time.minute, digits: 2);
       final String? _ampm = DateFormat('a').format(time);
       final String? _day = Timers.generateDayName(time);
       final String? _dd = '${time.day}';

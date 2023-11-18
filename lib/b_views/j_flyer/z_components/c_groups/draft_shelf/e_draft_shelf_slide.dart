@@ -3,6 +3,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
@@ -15,6 +16,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/super_image/super_image.dart';
@@ -81,7 +83,11 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
     return Container(
       width: DraftShelfSlide.flyerBoxWidth,
       height: DraftShelfSlide.shelfSlideZoneHeight(),
-      margin: const EdgeInsets.only(left: Ratioz.appBarMargin),
+      margin: Scale.superInsets(
+        context: context,
+        appIsLTR: UiProvider.checkAppIsLeftToRight(),
+        enLeft: Ratioz.appBarMargin,
+      ),
       child: Column(
         children: <Widget>[
 
@@ -141,6 +147,11 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                         return AnimateWidgetToMatrix(
                           matrix: Trinity.renderSlideMatrix(
                               matrix: widget.draftSlide?.matrix,
+                              flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
+                              flyerBoxHeight: _flyerBoxHeight
+                          ),
+                          matrixFrom: Trinity.renderSlideMatrix(
+                              matrix: widget.draftSlide?.matrixFrom,
                               flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                               flyerBoxHeight: _flyerBoxHeight
                           ),

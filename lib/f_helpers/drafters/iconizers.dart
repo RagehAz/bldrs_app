@@ -46,6 +46,36 @@ class Iconizer {
   }
   // -----------------------------------------------------------------------------
 
+  /// COLORED ARROW
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String superYellowArrowENRight(BuildContext context) {
+
+    if (Localizer.textDirection() == 'ltr') {
+      return Iconz.arrowYellowRight;
+    }
+
+    else {
+      return Iconz.arrowYellowLeft;
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String superYellowArrowENLeft(BuildContext context) {
+
+    if (Localizer.textDirection() == 'ltr') {
+      return Iconz.arrowYellowLeft;
+    }
+
+    else {
+      return Iconz.arrowYellowRight;
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
   /// BACK ICON
 
   // --------------------

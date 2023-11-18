@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
@@ -26,7 +25,6 @@ import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
-
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -41,7 +39,7 @@ Future<void> onAddNewSlides({
   required ValueNotifier<DraftFlyer?> draftFlyer,
   required bool mounted,
   required ScrollController scrollController,
-  required double flyerWidth,
+  required double flyerBoxWidth,
 }) async {
 
   setNotifier(notifier: isLoading, mounted: mounted, value: true);
@@ -63,7 +61,7 @@ Future<void> onAddNewSlides({
         mounted: mounted,
         scrollController: scrollController,
         draftFlyer: draftFlyer,
-        flyerWidth: flyerWidth,
+        flyerBoxWidth: flyerBoxWidth,
         imagePickerType: imagePickerType,
       );
     // }
@@ -95,7 +93,7 @@ Future<void> _addImagesForNewFlyer({
   required bool mounted,
   required ValueNotifier<DraftFlyer?> draftFlyer,
   required ScrollController scrollController,
-  required double flyerWidth,
+  required double flyerBoxWidth,
   required PicMakerType imagePickerType,
 }) async {
 
@@ -143,6 +141,7 @@ Future<void> _addImagesForNewFlyer({
         headline: draftFlyer.value?.headline?.text,
         bzID: draftFlyer.value?.bzID,
         flyerID: draftFlyer.value?.id,
+        flyerBoxWidth: flyerBoxWidth,
       );
 
       final List<DraftSlide> _combinedSlides = <DraftSlide>[
@@ -171,7 +170,7 @@ Future<void> _addImagesForNewFlyer({
       await Future.delayed(Ratioz.duration150ms,() async {
         await Sliders.scrollTo(
           controller: scrollController,
-          offset: (scrollController.position.maxScrollExtent) - flyerWidth,
+          offset: (scrollController.position.maxScrollExtent) - flyerBoxWidth,
         );
       });
 
@@ -230,30 +229,14 @@ Future<void> onSlideTap({
 
   await Keyboard.closeKeyboard();
 
-  final DraftSlide? _result = await Nav.goToNewScreen(
+  await Nav.goToNewScreen(
       context: getMainContext(),
+      pageTransitionType: Nav.superHorizontalTransition(),
       screen: SlideEditorScreen(
         slide: slide,
-        draftFlyer: draftFlyer,
-      )
+        draftFlyerNotifier: draftFlyer,
+      ),
   );
-
-  if (_result != null){
-
-    final List<DraftSlide> _updatedSlides = DraftSlide.replaceSlide(
-      drafts: draftFlyer.value?.draftSlides,
-      draft: _result,
-    );
-
-    setNotifier(
-        notifier: draftFlyer,
-        mounted: mounted,
-        value: draftFlyer.value?.copyWith(
-          draftSlides: _updatedSlides,
-        ),
-    );
-
-  }
 
 }
 // --------------------
@@ -431,8 +414,6 @@ void onReorderSlide({
     draftFlyer.value!.headline!.text = _oldSlides[0].headline ?? '';
 
   }
-
-
   setNotifier(
     notifier: draftFlyer,
     mounted: mounted,

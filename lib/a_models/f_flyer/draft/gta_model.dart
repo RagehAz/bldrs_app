@@ -504,6 +504,7 @@ class GtaModel {
               midColor: await Colorizer.getAverageColor(_bigPic.bytes),
               opacity: 1,
               matrix: Matrix4.identity(),
+              matrixFrom: Matrix4.identity(),
               animationCurve: null,
             );
 

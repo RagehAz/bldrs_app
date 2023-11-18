@@ -202,7 +202,7 @@ class BldrsAppBar extends StatelessWidget {
     if (listenToHideLayout == false){
       return _theAppBar;
     }
-
+    // --------------------
     else {
       return Selector<UiProvider, bool>(
         selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
