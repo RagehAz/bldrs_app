@@ -30,7 +30,7 @@ class FlyersZGrid extends StatefulWidget {
     this.showAddFlyerButton = false,
     this.onSelectFlyer,
     this.onFlyerNotFound,
-    this.selectionMode,
+    this.selectionMode = false,
     this.onFlyerOptionsTap,
     this.topPadding,
     this.zGridController,
@@ -48,7 +48,7 @@ class FlyersZGrid extends StatefulWidget {
   final bool showAddFlyerButton;
   final Function(FlyerModel flyerModel)? onSelectFlyer;
   final Function(String flyerID)? onFlyerNotFound;
-  final bool? selectionMode;
+  final bool selectionMode;
   final Function(FlyerModel flyerModel)? onFlyerOptionsTap;
   final double? topPadding;
   final ZGridController? zGridController;
@@ -75,6 +75,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
     super.initState();
   }
   // --------------------
+  /*
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -82,13 +83,12 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
     if (_isInit && mounted) {
       _isInit = false; // good
 
-      asyncInSync(() async {
-
-      });
+      asyncInSync(() async {});
 
     }
     super.didChangeDependencies();
   }
+   */
   // --------------------
   /*
   @override
@@ -108,6 +108,10 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+
+  /// ON ZOOMING
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> onZoomInStart() async {
     blog('onZoomInStart');
@@ -144,7 +148,40 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
 
   }
   // -----------------------------------------------------------------------------
-  Future<void> _onFlyerTap({
+
+  /// BAKING FLYER
+
+  // --------------------
+  FlyerModel? _bakeFlyerModel({required int flyerIndex}){
+
+    final int _flyerIndex = widget.showAddFlyerButton == true ? flyerIndex-1 : flyerIndex;
+
+    final FlyerModel? _flyerModel = Mapper.checkCanLoopList(widget.flyers) == true ?
+    widget.flyers![_flyerIndex]
+        :
+    null;
+
+    return _flyerModel;
+  }
+  // --------------------
+  String? _bakeFlyerID({
+    required FlyerModel? flyerModel,
+    required int flyerIndex,
+  }){
+
+    final String? _flyerID = flyerModel == null ?
+    widget.flyersIDs![flyerIndex]
+        :
+    null;
+
+    return _flyerID;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// TAPPING FLYER
+
+  // --------------------
+  Future<void> _onTapFlyerToZoomIn({
     required FlyerModel? flyerModel,
     required int index,
     required ZGridScale gridScale,
@@ -152,39 +189,55 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
 
     if (flyerModel != null) {
 
-      if (widget.onSelectFlyer != null && Mapper.boolIsTrue(widget.selectionMode) == true) {
-        widget.onSelectFlyer?.call(flyerModel);
-      }
-
-      else {
-
-        final FlyerModel? _zoomedFlyer = FlyersProvider.proGetZoomedFlyer(
-            listen: false,
-            context: context,
+      final FlyerModel? _zoomedFlyer = FlyersProvider.proGetZoomedFlyer(
+        listen: false,
+        context: context,
+      );
+      if (_zoomedFlyer == null){
+        FlyersProvider.proSetZoomedFlyer(
+          context: context,
+          flyerModel: flyerModel,
+          notify: true,
         );
-
-        if (_zoomedFlyer == null){
-
-          FlyersProvider.proSetZoomedFlyer(
-              context: context,
-              flyerModel: flyerModel,
-              notify: true,
-          );
-
-          await ZGridController.zoomIn(
-            context: context,
-            itemIndex: index,
-            mounted: true,
-            onZoomInStart: onZoomInStart,
-            onZoomInEnd: onZoomInEnd,
-            gridScale: gridScale,
-            zGridController: _controller,
-          );
-
-        }
-
+        await ZGridController.zoomIn(
+          context: context,
+          itemIndex: index,
+          mounted: true,
+          onZoomInStart: onZoomInStart,
+          onZoomInEnd: onZoomInEnd,
+          gridScale: gridScale,
+          zGridController: _controller,
+        );
       }
 
+    }
+
+  }
+  // --------------------
+  Function? onSelectFlyerFunction({
+    required FlyerModel? flyerModel,
+  }){
+
+    if (widget.onSelectFlyer == null || flyerModel == null){
+      return null;
+    }
+
+    else {
+      return () => widget.onSelectFlyer!.call(flyerModel);
+    }
+
+  }
+  // --------------------
+  Function? onFlyerOptionsFunction({
+    required FlyerModel? flyerModel,
+  }){
+
+    if (widget.onFlyerOptionsTap == null || flyerModel == null){
+      return null;
+    }
+
+    else {
+      return () => widget.onFlyerOptionsTap?.call(flyerModel);
     }
 
   }
@@ -207,6 +260,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
     }
 
     else {
+
       return ZGrid(
         gridScale: _gridScale!,
         blurBackgroundOnZoomedIn: true,
@@ -220,6 +274,8 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
           isLoadingGrid: false,
           numberOfColumnsOrRows: widget.columnCount,
         ),
+
+        /// SMALL FLYERS BUILDER
         builder: (int index) {
           // ---------------------------------------------
           /// AUTHOR MODE FOR FIRST INDEX ADD FLYER BUTTON
@@ -230,13 +286,20 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
           }
           // ---------------------------------------------
           else {
+
             final int _flyerIndex = widget.showAddFlyerButton == true ? index-1 : index;
-            final FlyerModel? _flyerModel = Mapper.checkCanLoopList(widget.flyers) == true ?
-            widget.flyers![_flyerIndex]
-                :
-            null;
-            final String? _flyerID = _flyerModel == null ? widget.flyersIDs![_flyerIndex] : null;
+
+            final FlyerModel? _flyerModel = _bakeFlyerModel(
+                flyerIndex: _flyerIndex,
+            );
+
+            final String? _flyerID = _bakeFlyerID(
+              flyerModel: _flyerModel,
+              flyerIndex: _flyerIndex,
+            );
+
             final double _flyerBoxWidth = _gridScale!.smallItemWidth;
+
             return FlyerBuilder(
               flyerID: _flyerID,
               flyerModel: _flyerModel,
@@ -247,6 +310,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
               slidePicType: SlidePicType.small,
               builder: (bool loading, FlyerModel? flyerModel){
 
+                /// LOADING FLYER
                 if (loading == true && flyerModel == null){
                   return FlyerLoading(
                     flyerBoxWidth: _flyerBoxWidth,
@@ -255,50 +319,47 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
                   );
                 }
 
+                /// SMALL FLYER
                 else {
+
                   return FlyerSelectionStack(
                     flyerModel: flyerModel,
                     flyerBoxWidth: _flyerBoxWidth,
-                    onSelectFlyer: widget.onSelectFlyer == null ?
-                    null //() => _onFlyerTap(flyerModel: flyerModel, index: index)
-                        :
-                        () => widget.onSelectFlyer?.call(flyerModel!),
-                    onFlyerOptionsTap: widget.onFlyerOptionsTap == null ?
-                    null
-                        :
-                        () => widget.onFlyerOptionsTap?.call(flyerModel!),
+                    onSelectFlyer: onSelectFlyerFunction(flyerModel: flyerModel),
+                    onFlyerOptionsTap: onFlyerOptionsFunction(flyerModel: flyerModel),
                     selectionMode: widget.selectionMode,
+                    /// When selectionMode is false, the flyerWidget below is wrapped in IgnorePointer
                     flyerWidget: SmallFlyer(
                       showTopButton: true,
                       flyerModel: flyerModel,
                       flyerBoxWidth: _gridScale!.smallItemWidth,
                       optionsButtonIsOn: widget.onFlyerOptionsTap != null,
-                      onTap: () => _onFlyerTap(
+                      onTap: () => _onTapFlyerToZoomIn(
                         flyerModel: flyerModel,
                         index: index,
                         gridScale: _gridScale!,
                       ),
                     ),
                   );
+
                 }
 
-                },
+              },
             );
+
           }
-          },
-        bigItemFootprint:
-        // null,
-        FlyerBox(
+        },
+
+        /// BIG FLYER FOOTPRINT
+        bigItemFootprint: FlyerBox(
           flyerBoxWidth: _gridScale!.bigItemWidth,
           boxColor: Colorz.black255,
         ),
+
+        /// BIG FLYER
         bigItem: Selector<FlyersProvider, FlyerModel?>(
           selector: (_, FlyersProvider flyersProvider) => flyersProvider.zoomedFlyer,
           builder: (_, FlyerModel? flyerModel, Widget? child) {
-
-            // blog('what is this ????');
-            //
-            // return const SizedBox();
 
             return LightBigFlyer(
               flyerBoxWidth: _gridScale!.bigItemWidth,
@@ -311,16 +372,20 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
                 // );
               },
               onVerticalExit: () async {
-                await zoomOutFlyer(
-                  mounted: mounted,
-                  controller: _controller,
-                  context: context,
-                );
+                blog('this works only in the gallery slide max bounce');
+                // await zoomOutFlyer(
+                //   mounted: mounted,
+                //   controller: _controller,
+                //   context: context,
+                // );
                 },
             );
+
             },
         ),
+
       );
+
     }
 
   }
