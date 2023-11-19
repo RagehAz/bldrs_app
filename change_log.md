@@ -1,3 +1,10 @@
+### 2.15.0
+1. Flyer selection bug fix
+2. Flyer swipe gestures updated
+3. Flyer Editor slide animation interface and functionality updated
+4. Home screen section selection bug fixes
+5. Minor UI updates
+
 ### 2.14.0
 1. Font, Text & translations adjustments
 2. Author invitation cycle fixed
