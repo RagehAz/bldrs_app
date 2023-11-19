@@ -90,6 +90,7 @@ class FlyerPreviewScreen extends StatelessWidget {
                     fadeType: FadeType.fadeIn,
                     duration: const Duration(milliseconds: 500),
                     child: DismissiblePage(
+                      direction: DismissiblePageDismissDirection.down,
                       onDismissed: () => Nav.goBack(context: context),
                       child: LightBigFlyer(
                         flyerBoxWidth: _flyerWidth,
@@ -105,64 +106,6 @@ class FlyerPreviewScreen extends StatelessWidget {
               ),
         ),
     );
-
-    // return SafeArea(
-    //   child: Scaffold(
-    //     backgroundColor: Colorz.black255,
-    //     body: WidgetWaiter(
-    //       waitDuration: const Duration(milliseconds: 500),
-    //       child: FlyerBuilder(
-    //           flyerBoxWidth: _flyerWidth,
-    //           slidePicType: SlidePicType.med,
-    //           onlyFirstSlide: false,
-    //           flyerID: flyerID,
-    //           renderFlyer: RenderFlyer.allSlides,
-    //           onFlyerInitialLoaded: (FlyerModel? flyer) async {
-    //
-    //             if (reviewID != null){
-    //
-    //               await Nav.goToNewScreen(
-    //                 context: context,
-    //                 screen: FlyerReviewsScreen(
-    //                   flyerModel: flyer,
-    //                   highlightReviewID: reviewID,
-    //                 ),
-    //               );
-    //
-    //             }
-    //
-    //           },
-    //           builder: (bool loading, FlyerModel? flyerModel) {
-    //
-    //             if (loading == true && flyerModel == null){
-    //               return const LoadingFullScreenLayer();
-    //             }
-    //
-    //             else if (flyerModel == null){
-    //               return const _NoFlyerFoundView();
-    //             }
-    //
-    //             else {
-    //               return WidgetFader(
-    //                 fadeType: FadeType.fadeIn,
-    //                 duration: const Duration(milliseconds: 500),
-    //                 child: DismissiblePage(
-    //                   onDismissed: () => Nav.goBack(context: context),
-    //                   child: LightBigFlyer(
-    //                     flyerBoxWidth: _flyerWidth,
-    //                     renderedFlyer: flyerModel,
-    //                     onVerticalExit: (){},
-    //                     onHorizontalExit: (){},
-    //                   ),
-    //                 ),
-    //               );
-    //             }
-    //
-    //           }
-    //           ),
-    //     ),
-    //   ),
-    // );
 
   }
 }

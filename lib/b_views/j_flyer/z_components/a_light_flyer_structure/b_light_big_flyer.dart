@@ -570,7 +570,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
       valueListenable: _flyer,
       builder: (_, FlyerModel? flyerModel, Widget? savingNotice) {
 
-        blog('light big flyer is rebuilding : ${flyerModel?.id}');
+        // blog('light big flyer is rebuilding : ${flyerModel?.id}');
 
         return FlyerBox(
           key: const ValueKey<String>('FullScreenFlyer'),

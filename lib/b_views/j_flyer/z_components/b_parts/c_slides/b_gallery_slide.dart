@@ -36,6 +36,7 @@ class GallerySlide extends StatelessWidget {
       onNavigate: onMaxBounce,
       boxDistance: flyerBoxHeight - _headerAndProgressHeights,
       slideLimitRatio: 0.1,
+      isOn: false,
       child: Container(
         color: Colorz.blackSemi255,
         child: FlyersGrid(

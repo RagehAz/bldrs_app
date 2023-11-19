@@ -106,6 +106,7 @@ class ZGrid extends StatelessWidget {
                             onZoomOutStart: onZoomOutStart,
                             onZoomOutEnd: onZoomOutEnd,
                           ),
+                          direction: DismissiblePageDismissDirection.down,
                           // isFullScreen: true,
                           dragSensitivity: .4,
                           maxTransformValue: 4,
@@ -115,7 +116,6 @@ class ZGrid extends StatelessWidget {
                           // startingOpacity: 1,
                           backgroundColor: Colors.transparent,
                           // dragStartBehavior: DragStartBehavior.start,
-                          // direction: DismissiblePageDismissDirection.vertical,
                           child: Material(
                             color: Colors.transparent,
                             type: MaterialType.transparency,

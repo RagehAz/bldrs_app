@@ -51,6 +51,7 @@ class HeroicFlyerBigView extends StatelessWidget {
       maxTransformValue: 4,
       reverseDuration: Ratioz.duration150ms,
       backgroundColor: Colorz.black0,
+      direction: DismissiblePageDismissDirection.down,
       child: Material(
         color: Colorz.bloodTest,
         type: MaterialType.transparency,
