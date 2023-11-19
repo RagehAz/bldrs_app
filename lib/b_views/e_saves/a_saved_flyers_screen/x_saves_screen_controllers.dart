@@ -17,6 +17,8 @@ void onSelectFlyerFromSavedFlyers({
   required FlyerModel flyer,
 }) {
 
+  blog('onSelectFlyerFromSavedFlyers : selecting flyer');
+
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(getMainContext(), listen: false);
   final List<FlyerModel> _selectedFlyers = _flyersProvider.selectedFlyers;
 

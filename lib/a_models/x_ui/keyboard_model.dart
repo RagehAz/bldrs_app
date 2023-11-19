@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
@@ -137,7 +138,87 @@ class KeyboardModel {
   }
   // -----------------------------------------------------------------------------
 
-  /// WIPE OUT
+  /// LISTS
+
+  // --------------------
+  static List<TextInputAction> textInputActions(){
+
+    const List<TextInputAction> _androidSupportedInputActions = <TextInputAction>[
+      TextInputAction.none,
+      TextInputAction.unspecified,
+      TextInputAction.done,
+      TextInputAction.send,
+      TextInputAction.go,
+      TextInputAction.search,
+      TextInputAction.next,
+      TextInputAction.previous,
+      TextInputAction.newline,
+    ];
+
+    const List<TextInputAction> _iOSSupportedInputActions = <TextInputAction>[
+      TextInputAction.unspecified,
+      TextInputAction.done,
+      TextInputAction.send,
+      TextInputAction.go,
+      TextInputAction.search,
+      TextInputAction.next,
+      TextInputAction.newline,
+      TextInputAction.continueAction,
+      TextInputAction.join,
+      TextInputAction.route,
+      TextInputAction.emergencyCall,
+    ];
+
+    const List<TextInputAction> all = [
+      TextInputAction.none,
+      TextInputAction.unspecified,
+      TextInputAction.done,
+      TextInputAction.go,
+      TextInputAction.search,
+      TextInputAction.send,
+      TextInputAction.next,
+      TextInputAction.previous,
+      TextInputAction.continueAction,
+      TextInputAction.join,
+      TextInputAction.route,
+      TextInputAction.emergencyCall,
+      TextInputAction.newline,
+    ];
+
+    if (DeviceChecker.deviceIsIOS()){
+      return _iOSSupportedInputActions;
+    }
+    else if (DeviceChecker.deviceIsAndroid()){
+      return _androidSupportedInputActions;
+    }
+    else {
+      return all;
+    }
+
+  }
+  // --------------------
+  static List<TextInputType> textInputTypes(){
+    return const [
+      TextInputType.name,
+      TextInputType.number,
+      TextInputType.text,
+      TextInputType.url,
+      TextInputType.datetime,
+      TextInputType.emailAddress,
+      TextInputType.multiline,
+      TextInputType.none,
+      TextInputType.phone,
+      TextInputType.streetAddress,
+      TextInputType.visiblePassword,
+      TextInputType.numberWithOptions(decimal: true),
+      TextInputType.numberWithOptions(signed: true),
+      // TextInputType.numberWithOptions(decimal: false),
+      // TextInputType.numberWithOptions(signed: false),
+    ];
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
 
   // --------------------
   /// TESTED : WORKS PERFECT

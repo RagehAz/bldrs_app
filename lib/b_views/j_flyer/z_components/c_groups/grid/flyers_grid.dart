@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/jumper_flyers_grid.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoomable_flyers_grid.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/heroic_flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/loading_flyers_grid.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
@@ -77,22 +77,11 @@ class FlyersGrid extends StatelessWidget {
     return _showLoadingGrid;
   }
   // --------------------
-  @override
-  Widget build(BuildContext context) {
-    // -----------------------------------------------------------------------------
-    final bool _isLoadingGrid = gridType == FlyerGridType.loading;
-    final bool _isHeroicGrid = gridType == FlyerGridType.heroic;
-    final bool _isJumpingGrid = gridType == FlyerGridType.jumper;
-    // -----------------------------------------------------------------------------
-    /// NOTHING TO SHOW
-    if (flyers == null && flyersIDs == null && _isLoadingGrid == false){
-      return const SizedBox();
-    }
+  void assertGivenFlyersAreGood(){
 
-    /// SHOW GRID
-    else {
-      // --------------------
-      assert((){
+    final bool _isLoadingGrid = gridType == FlyerGridType.loading;
+
+    assert((){
         final bool _canBuild =
                 flyers != null
                 ||
@@ -109,6 +98,25 @@ class FlyersGrid extends StatelessWidget {
           '(List<String> flyersIDs) or '
           'switch on (isLoadingGrid) but '
           'never leave me like this empty handed with nulls & nulls');
+
+  }
+  // --------------------
+  @override
+  Widget build(BuildContext context) {
+    // -----------------------------------------------------------------------------
+    final bool _isLoadingGrid = gridType == FlyerGridType.loading;
+    final bool _isHeroicGrid = gridType == FlyerGridType.heroic;
+    final bool _isJumpingGrid = gridType == FlyerGridType.jumper;
+    // -----------------------------------------------------------------------------
+    /// NOTHING TO SHOW
+    if (flyers == null && flyersIDs == null && _isLoadingGrid == false){
+      return const SizedBox();
+    }
+
+    /// SHOW GRID
+    else {
+      // --------------------
+      assertGivenFlyersAreGood();
       // --------------------
       final bool _showLoadingGrid = showLoadingGridInstead(
         flyers : flyers,
@@ -178,6 +186,7 @@ class FlyersGrid extends StatelessWidget {
           bottomPadding: bottomPadding,
         );
       }
+      // --------------------
       /// ZOOMABLE FLYERS GRID
       else {
         return FlyersZGrid(
