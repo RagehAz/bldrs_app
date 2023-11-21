@@ -1,5 +1,7 @@
 import 'dart:async';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
@@ -16,12 +18,10 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
-import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -50,8 +50,7 @@ Future<void> onEditProfileTap({
       listen: false,
   );
 
-  await Nav.goToNewScreen(
-      context: getMainContext(),
+  await BldrsNav.goToNewScreen(
       screen: UserEditorScreen(
         initialTab: initialTab,
         firstTimer: false,
@@ -75,10 +74,9 @@ Future<void> onEditProfileTap({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onGoToFCMTopicsScreen(BuildContext context) async {
+Future<void> onGoToFCMTopicsScreen() async {
 
-  await Nav.goToNewScreen(
-      context: context,
+  await BldrsNav.goToNewScreen(
       screen: const FCMTopicsScreen(
         partyType: PartyType.user,
       ),

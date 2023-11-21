@@ -10,9 +10,9 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -47,12 +47,10 @@ Future<void> onSaveFlyer({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReviewButtonTap({
-  required BuildContext context,
   required FlyerModel? flyerModel,
 }) async {
 
-  await Nav.goToNewScreen(
-    context: context,
+  await BldrsNav.goToNewScreen(
     screen: FlyerReviewsScreen(
       flyerModel: flyerModel,
     ),

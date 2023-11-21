@@ -43,7 +43,6 @@ class BzSettingsPage extends StatelessWidget {
           ),
           icon: Iconz.gears,
           onTap: () => onEditBzButtonTap(
-            context: context,
             bzModel: _bzModel,
           ),
         ),
@@ -54,9 +53,7 @@ class BzSettingsPage extends StatelessWidget {
             translate: true,
           ),
           icon: Iconz.notification,
-          onTap: () => onGoToBzFCMSettings(
-            context: context,
-          ),
+          onTap: () => onGoToBzFCMSettings(),
         ),
 
         if (_userIsCreator == true)

@@ -47,6 +47,7 @@ class AppSettingsScreen extends StatelessWidget {
     final bool _userIsSignedUp = Authing.userIsSignedUp(_userModel?.signInMethod);
     // --------------------
     return FloatingLayout(
+      canSwipeBack: true,
       pyramidButtons: UsersProvider.userIsRage7() == false ? null : <Widget>[
 
         /// SUPER DEV TEST

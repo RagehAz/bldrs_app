@@ -468,6 +468,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
     );
     // --------------------
     return MainLayout(
+      canSwipeBack: false,
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       title: _createConfirmVerse(),

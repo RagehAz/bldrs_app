@@ -48,6 +48,7 @@ class FlyerPreviewScreen extends StatelessWidget {
     );
 
     return MainLayout(
+      canSwipeBack: false,
       onBack: () => BldrsNav.backFromPreviewScreen(),
       skyType: SkyType.non,
       appBarType: AppBarType.non,
@@ -64,8 +65,7 @@ class FlyerPreviewScreen extends StatelessWidget {
 
                 if (reviewID != null){
 
-                  await Nav.goToNewScreen(
-                    context: context,
+                  await BldrsNav.goToNewScreen(
                     screen: FlyerReviewsScreen(
                       flyerModel: flyer,
                       highlightReviewID: reviewID,

@@ -16,7 +16,6 @@ D:\projects\bldrs\bldrs_app\build\app\outputs\bundle\release
 ---
 
 ### to build clean ON IOS
-
     flutter clean
     rm ios/Podfile.lock pubspec.lock
     rm -rf ios/Pods ios/Runner.xcworkspace

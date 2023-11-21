@@ -40,6 +40,25 @@ class BldrsNav {
 
   // --------------------
   /// TESTED : WORKS PERFECT
+  static Future<dynamic> goToNewScreen({
+    required Widget screen,
+    PageTransitionType? pageTransitionType,
+    Duration duration = const Duration(milliseconds: 300),
+  }){
+    return Nav.goToNewScreen(
+      context: getMainContext(),
+      screen: screen,
+      pageTransitionType: pageTransitionType,
+      duration: duration,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+    );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// BACK
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> backFromHomeScreen({
     required BuildContext context,
     required ZGridController? zGridController,
@@ -271,8 +290,7 @@ class BldrsNav {
 
     else {
       blog('GOING TO BZ SCREEN AHOO');
-      await Nav.goToNewScreen(
-          context: getMainContext(),
+      await BldrsNav.goToNewScreen(
           screen: MyBzScreen(
             initialTab: initialTab,
           )
@@ -644,14 +662,12 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> goToImageFullScreenByBytes({
-    required BuildContext context,
     required Uint8List bytes,
     required Dimensions dims,
     required String title,
   }) async {
 
-    await Nav.goToNewScreen(
-        context: context,
+    await BldrsNav.goToNewScreen(
         screen: SlideFullScreen(
           image: bytes,
           imageSize: dims,
@@ -664,15 +680,13 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> goToImageFullScreenByPath({
-    required BuildContext context,
     required String? path,
     required String? title,
   }) async {
 
     final PicModel? _pic = await PicProtocols.fetchPic(path);
 
-    await Nav.goToNewScreen(
-        context: context,
+    await BldrsNav.goToNewScreen(
         screen: SlideFullScreen(
           image: _pic?.bytes,
           imageSize: Dimensions(
@@ -686,4 +700,23 @@ class BldrsNav {
 
   }
   // -----------------------------------------------------------------------------
+
+  /// TRANSITION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static PageTransition<dynamic> transitSuperHorizontal({
+    required Widget screen,
+    bool enAnimatesLTR = true,
+    RouteSettings? settings,
+  }) {
+    return Nav.transitSuperHorizontal(
+      screen: screen,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+      enAnimatesLTR:enAnimatesLTR ,
+      settings: settings,
+    );
+  }
+  // --------------------
+
 }

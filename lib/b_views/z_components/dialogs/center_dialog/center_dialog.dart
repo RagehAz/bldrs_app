@@ -181,7 +181,8 @@ class BldrsCenterDialog extends StatelessWidget {
     );
     // --------------------
     final double _dialogWidth = getWidth(context);
-    // double _dialogVerticalMargin = dialogVerticalMargin(
+    // double _dialogVer
+    // ticalMargin = dialogVerticalMargin(
     //   context: context,
     //   dialogHeight: _dialogHeight,
     // );

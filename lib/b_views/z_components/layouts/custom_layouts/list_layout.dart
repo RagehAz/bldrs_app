@@ -19,6 +19,7 @@ import 'package:basics/helpers/classes/space/scale.dart';
 class ListLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ListLayout({
+    required this.canSwipeBack,
     this.pageTitleVerse,
     this.pyramids,
     this.mapModels,
@@ -38,6 +39,7 @@ class ListLayout extends StatelessWidget {
   final String? pageIcon;
   final Verse? pageIconVerse;
   final SkyType sky;
+  final bool canSwipeBack;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -58,6 +60,7 @@ class ListLayout extends StatelessWidget {
     final double _clearWidth = Bubble.clearWidth(context: context);
     // --------------------
     return MainLayout(
+      canSwipeBack: canSwipeBack,
       skyType: sky,
       appBarType: AppBarType.basic,
       title: pageTitleVerse,

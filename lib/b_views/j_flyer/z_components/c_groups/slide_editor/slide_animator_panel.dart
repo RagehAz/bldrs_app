@@ -264,6 +264,7 @@ class FromToButton extends StatelessWidget {
                           key: const ValueKey<String>('SuperImage_slide_back'),
                           width: _microFlyerWidth,
                           height: _microFlyerHeight,
+                          fit: BoxFit.cover,
                         ),
 
                         /// FRONT PIC

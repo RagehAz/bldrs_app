@@ -3,7 +3,6 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/widgets/drawing/expander.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/c_pdf_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
@@ -19,6 +18,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
@@ -305,8 +305,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                         }
 
                         else {
-                          await Nav.goToNewScreen(
-                            context: context,
+                          await BldrsNav.goToNewScreen(
                             screen: PDFScreen(
                               pdf: pdfModel,
                             ),

@@ -119,6 +119,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     );
 
     return MainLayout(
+      canSwipeBack: true,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
       appBarType: AppBarType.basic,

@@ -141,6 +141,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     );
     // --------------------
     return MainLayout(
+      canSwipeBack: false,
       appBarType: AppBarType.non,
       child: Column(
         children: <Widget>[
@@ -180,6 +181,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             onTriggerAnimation: () => onTriggerAnimation(
               draftNotifier: _draftSlideNotifier,
               isPlayingAnimation: _isPlayingAnimation,
+              isDoingMatrixFrom: _isDoingMatrixFrom,
               canResetMatrix: _canResetMatrix,
               mounted: mounted,
             ),

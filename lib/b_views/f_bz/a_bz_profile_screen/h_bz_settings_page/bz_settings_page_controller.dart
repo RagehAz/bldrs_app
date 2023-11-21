@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:basics/layouts/nav/nav.dart';
+
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
@@ -23,12 +23,10 @@ import 'package:flutter/material.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onEditBzButtonTap({
-  required BuildContext context,
   required BzModel? bzModel,
 }) async {
 
-  await Nav.goToNewScreen(
-    context: context,
+  await BldrsNav.goToNewScreen(
     screen: BzEditorScreen(
       bzModel: bzModel,
       // checkLastSession: true,
@@ -43,12 +41,9 @@ Future<void> onEditBzButtonTap({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onGoToBzFCMSettings({
-  required BuildContext context,
-}) async {
+Future<void> onGoToBzFCMSettings() async {
 
-  await Nav.goToNewScreen(
-    context: context,
+  await BldrsNav.goToNewScreen(
     screen: const FCMTopicsScreen(
       partyType: PartyType.bz,
     ),

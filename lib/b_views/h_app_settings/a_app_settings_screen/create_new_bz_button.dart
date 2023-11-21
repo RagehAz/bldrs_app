@@ -96,7 +96,7 @@ class CreateNewBzButton extends StatelessWidget {
             height: 130,
             color: Colorz.yellow50,
             isDisabled: !_userIsOnline,
-            onTap: () => onCreateNewBzTap(context),
+            onTap: () => onCreateNewBzTap(),
             onDisabledTap: () async {
               await Dialogs.youNeedToBeSignedUpDialog(
                 afterHomeRouteName: RouteName.appSettings,

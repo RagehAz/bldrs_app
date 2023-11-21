@@ -409,7 +409,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
        onPickPhidTap: () async {
 
          final String? _phid = await PhidsPickerScreen.goPickPhid(
-           context: context,
            flyerType: _searchModel?.flyerSearchModel?.flyerType,
            event: ViewingEvent.homeView,
            onlyUseZoneChains: true,
@@ -607,7 +606,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         onScopeTap: (FlyerType flyerType) async {
 
             final String? _phid = await PhidsPickerScreen.goPickPhid(
-              context: context,
               flyerType: flyerType,
               event: ViewingEvent.homeView,
               onlyUseZoneChains: true,
@@ -923,6 +921,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
+      canSwipeBack: true,
       loading: _loading,
       appBarType: AppBarType.search,
       skyType: SkyType.grey,

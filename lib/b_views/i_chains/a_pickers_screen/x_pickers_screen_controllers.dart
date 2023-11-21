@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -116,8 +117,7 @@ Future<void> onGoToPickerScreen({
   required bool mounted,
 }) async {
 
-  final dynamic _result = await Nav.goToNewScreen(
-    context: context,
+  final dynamic _result = await BldrsNav.goToNewScreen(
     pageTransitionType: Nav.superHorizontalTransition(
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
     ),

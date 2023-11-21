@@ -18,6 +18,7 @@ class TheTestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     return MainLayout(
+      canSwipeBack: true,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       title: const Verse(
