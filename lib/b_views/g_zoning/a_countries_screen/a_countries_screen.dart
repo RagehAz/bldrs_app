@@ -344,6 +344,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
+      canSwipeBack: true,
       skyType: SkyType.grey,
       appBarType: AppBarType.search,
       searchButtonIsOn: false,

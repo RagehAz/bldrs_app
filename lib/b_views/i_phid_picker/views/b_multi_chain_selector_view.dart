@@ -59,6 +59,7 @@ class MultiChainSelectorView extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     return ObeliskLayout(
+      canSwipeBack: true,
       appBarIcon: null,
       globalKey: globalKey,
       navModels: navModels,

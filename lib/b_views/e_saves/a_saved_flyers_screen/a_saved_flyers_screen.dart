@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
@@ -32,8 +33,7 @@ class SavedFlyersScreen extends StatefulWidget {
   /// --------------------
   static Future<FlyerModel?> pickFlyer() async {
 
-    final List<FlyerModel>? _selectedFlyers = await Nav.goToNewScreen(
-      context: getMainContext(),
+    final List<FlyerModel>? _selectedFlyers = await BldrsNav.goToNewScreen(
       screen: const SavedFlyersScreen(
         selectionMode: true,
       ),
@@ -50,8 +50,7 @@ class SavedFlyersScreen extends StatefulWidget {
   /// --------------------
   static Future<List<FlyerModel>> pickFlyers() async {
 
-    final List<FlyerModel>? _selectedFlyers = await Nav.goToNewScreen(
-      context: getMainContext(),
+    final List<FlyerModel>? _selectedFlyers = await BldrsNav.goToNewScreen(
       screen: const SavedFlyersScreen(
         selectionMode: true,
       ),
@@ -139,6 +138,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
     );
     // --------------------
     return MainLayout(
+      canSwipeBack: true,
       appBarType: AppBarType.basic,
       skyType: SkyType.grey,
       pyramidsAreOn: true,

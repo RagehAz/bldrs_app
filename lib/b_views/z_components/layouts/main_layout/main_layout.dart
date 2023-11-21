@@ -30,6 +30,7 @@ enum AppBarType {
 class MainLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MainLayout({
+    required this.canSwipeBack,
     this.appBarRowWidgets,
     this.child,
     this.pyramidsAreOn = false,
@@ -70,6 +71,7 @@ class MainLayout extends StatelessWidget {
   final Function? onBack;
   /// canGoBack is impact-less if onBack is not null
   final bool canGoBack;
+  final bool canSwipeBack;
   final Key? scaffoldKey;
   final ScrollController? appBarScrollController;
   final TextEditingController? searchController;
@@ -244,6 +246,7 @@ class MainLayout extends StatelessWidget {
                     pyramidType: pyramidType,
                     onPyramidTap: onPyramidTap,
                     canGoBack: canGoBack,
+                    canSwipeBack: canSwipeBack,
                     onSearchCancelled: onSearchCancelled,
                     confirmButton: confirmButton,
                     listenToHideLayout: listenToHideLayout,

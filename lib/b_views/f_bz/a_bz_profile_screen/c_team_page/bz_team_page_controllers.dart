@@ -33,10 +33,9 @@ import 'package:flutter/material.dart';
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onGoToAddAuthorsScreen(BuildContext context) async {
+Future<void> onGoToAddAuthorsScreen() async {
 
-  await Nav.goToNewScreen(
-    context: context,
+  await BldrsNav.goToNewScreen(
     screen: const AuthorSearchScreen(),
   );
 
@@ -104,7 +103,6 @@ Future<void> onAuthorOptionsTap({
         );
 
         await _onChangeAuthorRole(
-          context: context,
           bzModel: oldBz,
           authorModel: authorModel,
         );
@@ -294,13 +292,11 @@ Future<void> _onShowCanNotEditAuthorDialog({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onChangeAuthorRole({
-  required BuildContext context,
   required AuthorModel? authorModel,
   required BzModel? bzModel,
 }) async {
 
-  await Nav.goToNewScreen(
-    context: context,
+  await BldrsNav.goToNewScreen(
     screen: AuthorRoleEditorScreen(
       authorModel: authorModel,
     ),

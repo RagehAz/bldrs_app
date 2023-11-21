@@ -151,6 +151,7 @@ class _PickerScreenState extends State<PickerScreen> {
     final AppBarType _appBarType = _getAppBarType();
     // --------------------
     return MainLayout(
+      canSwipeBack: true,
       key: const ValueKey<String>('PickerScreen'),
       appBarType: _appBarType,
       searchController: _searchController,

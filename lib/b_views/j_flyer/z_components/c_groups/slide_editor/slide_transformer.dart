@@ -88,17 +88,17 @@ class SlideTransformer extends StatelessWidget {
               flyerBoxHeight: flyerBoxHeight
           )!;
 
-          Trinity.blogMatrix(
-            matrix: m,
-            invoker: 'm',
-            roundDigits: 3,
-          );
-
-          Trinity.blogMatrix(
-            matrix: _slideMatrix,
-            invoker: '_slideMatrix',
-            roundDigits: 3,
-          );
+          // Trinity.blogMatrix(
+          //   matrix: m,
+          //   invoker: 'm',
+          //   roundDigits: 3,
+          // );
+          //
+          // Trinity.blogMatrix(
+          //   matrix: _slideMatrix,
+          //   invoker: '_slideMatrix',
+          //   roundDigits: 3,
+          // );
 
           setNotifier(
             notifier: isMatrixFrom == true ? matrixFromNotifier : matrixNotifier,

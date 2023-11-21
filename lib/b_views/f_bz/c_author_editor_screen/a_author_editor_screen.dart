@@ -369,6 +369,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   Widget build(BuildContext context) {
     // --------------------
     return MainLayout(
+      canSwipeBack: false,
       key: const ValueKey<String>('AuthorEditorScreen'),
       loading: _loading,
       appBarType: AppBarType.basic,

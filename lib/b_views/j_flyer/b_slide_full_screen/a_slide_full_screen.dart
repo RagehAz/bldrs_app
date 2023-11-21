@@ -29,6 +29,7 @@ class SlideFullScreen extends StatelessWidget {
     final double _screenHeight = Scale.screenHeight(context);
     // --------------------
     return MainLayout(
+      canSwipeBack: false,
       title: title,
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,

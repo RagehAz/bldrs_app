@@ -39,6 +39,7 @@ class RoutingTestScreen extends StatelessWidget {
     const String reviewID = 'r9rAUqi5SHj0N6NLJuyS';
     // --------------------
     return MainLayout(
+      canSwipeBack: true,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       title: const Verse(

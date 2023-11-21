@@ -1,24 +1,25 @@
 import 'dart:async';
+
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
-import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_button.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
+import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class ZoneSelectionBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -181,16 +182,13 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onCityButtonTap({
-    required BuildContext context
-  }) async {
+  Future<void> _onCityButtonTap() async {
 
     await Keyboard.closeKeyboard();
 
     if (_selectedZone.value?.countryID != null && _selectedZone.value?.countryModel != null){
 
-      final ZoneModel? _zone = await Nav.goToNewScreen(
-          context: context,
+      final ZoneModel? _zone = await BldrsNav.goToNewScreen(
           screen: CitiesScreen(
             zoneViewingEvent: widget.zoneViewingEvent,
             depth: widget.depth,
@@ -333,7 +331,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                           translate: true,
                         ),
                         verse: _getCityLine(zone),
-                        onTap: () => _onCityButtonTap(context: context),
+                        onTap: () => _onCityButtonTap(),
                         loading: loading,
                       ),
 

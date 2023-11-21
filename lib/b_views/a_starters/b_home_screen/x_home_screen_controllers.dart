@@ -26,6 +26,7 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -250,8 +251,7 @@ Future<void> onNavigate({
     }
 
     else if (_navModel?.screen is Widget){
-      await Nav.goToNewScreen(
-        context: context,
+      await BldrsNav.goToNewScreen(
         screen: _navModel?.screen,
         // pageTransitionType: PageTransitionType.bottomToTop,
       );
@@ -312,19 +312,17 @@ Future<void> onRefreshHomeWall({
 /// TESTED : WORKS PERFECT
 Future<void> onSectionButtonTap() async {
 
-  final FlyerType? flyerType = await Nav.goToNewScreen(
-    context: getMainContext(),
-    pageTransitionType: Nav.superHorizontalTransition(
-      enAnimatesLTR: true,
-      appIsLTR: UiProvider.checkAppIsLeftToRight(),
-    ),
+  final FlyerType? flyerType = await BldrsNav.goToNewScreen(
+    // pageTransitionType: Nav.superHorizontalTransition(
+    //   enAnimatesLTR: true,
+    //   appIsLTR: UiProvider.checkAppIsLeftToRight(),
+    // ),
     screen: const FloatingFlyerTypeSelector(),
   );
 
   if (flyerType != null){
 
     final String? phid = await PhidsPickerScreen.goPickPhid(
-      context: getMainContext(),
       flyerType: flyerType,
       event: ViewingEvent.homeView,
       onlyUseZoneChains: true,

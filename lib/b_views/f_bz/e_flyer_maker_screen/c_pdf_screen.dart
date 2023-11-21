@@ -82,6 +82,7 @@ class _PDFScreenState extends State<PDFScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
+      canSwipeBack: true,
       loading: _loading,
       title: Verse(
         id: '${widget.pdf?.name}.pdf',

@@ -19,9 +19,8 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_preview_screen.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:bldrs/w_web_module/banner_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -47,10 +46,6 @@ class StaticRouter {
 
     // blog('settings.name : ${settings.name}');
     // blog('StaticRouter : router : _path : $_path : _arg : $_arg');
-
-    final BuildContext context = getMainContext();
-    final bool appIsLTR = UiProvider.checkAppIsLeftToRight();
-    final bool _menuEnAnimatesLTR = !Obelisk.isWideScreenObelisk(context);
 
     switch (_path) {
       // ------------------------------------------------------------
@@ -85,27 +80,23 @@ class StaticRouter {
       // --------------------
       /// auth
       case RouteName.auth:
-        return Nav.transit(
+        return BldrsNav.transitSuperHorizontal(
           screen: const AuthScreen(),
           settings: settings,
-          pageTransitionType: PageTransitionType.bottomToTop,
         );
       // --------------------
       /// search
       case RouteName.search:
-        return Nav.transitSuperHorizontal(
+        return BldrsNav.transitSuperHorizontal(
           screen: const SuperSearchScreen(),
           settings: settings,
-          enAnimatesLTR: false,
-          appIsLTR: appIsLTR,
         );
       // --------------------
       /// appSettings
       case RouteName.appSettings:
-        return Nav.transit(
+        return BldrsNav.transitSuperHorizontal(
           screen: const AppSettingsScreen(),
           settings: settings,
-          pageTransitionType: PageTransitionType.bottomToTop,
         );
       // ------------------------------------------------------------
 
@@ -114,55 +105,45 @@ class StaticRouter {
       // --------------------
       /// myUserProfile
       case RouteName.myUserProfile:
-        return Nav.transitSuperHorizontal(
+        return BldrsNav.transitSuperHorizontal(
+          settings: settings,
           screen: const UserProfileScreen(
             // userTab: UserTab.profile, // default
           ),
-          settings: settings,
-          enAnimatesLTR: _menuEnAnimatesLTR,
-          appIsLTR: appIsLTR,
         );
       // --------------------
       /// myUserNotes
       case RouteName.myUserNotes:
-        return Nav.transitSuperHorizontal(
+        return BldrsNav.transitSuperHorizontal(
+          settings: settings,
           screen: const UserProfileScreen(
             userTab: UserTab.notifications,
           ),
-          settings: settings,
-          enAnimatesLTR: _menuEnAnimatesLTR,
-          appIsLTR: appIsLTR,
         );
       // --------------------
       /// myUserFollowing
       case RouteName.myUserFollowing:
-        return Nav.transitSuperHorizontal(
+        return BldrsNav.transitSuperHorizontal(
+          settings: settings,
           screen: const UserProfileScreen(
             userTab: UserTab.following,
           ),
-          settings: settings,
-          enAnimatesLTR: _menuEnAnimatesLTR,
-          appIsLTR: appIsLTR,
         );
       // --------------------
       /// myUserSettings
       case RouteName.myUserSettings:
-        return Nav.transitSuperHorizontal(
+        return BldrsNav.transitSuperHorizontal(
           screen: const UserProfileScreen(
             userTab: UserTab.settings,
           ),
           settings: settings,
-          enAnimatesLTR: _menuEnAnimatesLTR,
-          appIsLTR: appIsLTR,
         );
       // --------------------
       /// savedFlyers
       case RouteName.savedFlyers:
-        return Nav.transitSuperHorizontal(
+        return BldrsNav.transitSuperHorizontal(
           screen: const SavedFlyersScreen(),
           settings: settings,
-          enAnimatesLTR: _menuEnAnimatesLTR,
-          appIsLTR: appIsLTR,
         );
       // --------------------
       /// profileEditor
@@ -179,57 +160,47 @@ class StaticRouter {
       // --------------------
       /// myBzAboutPage : HANDLED MANUALLY BY [goToMyBzScreen]
       case RouteName.myBzAboutPage:
-        return Nav.transitSuperHorizontal(
+        return BldrsNav.transitSuperHorizontal(
+          settings: settings,
           screen: const MyBzScreen(
             initialTab: BzTab.about,
           ),
-          settings: settings,
-          enAnimatesLTR: _menuEnAnimatesLTR,
-          appIsLTR: appIsLTR,
         );
       // --------------------
       /// myBzFlyersPage : HANDLED MANUALLY BY [goToMyBzScreen]
       case RouteName.myBzFlyersPage:
-        return Nav.transitSuperHorizontal(
+        return BldrsNav.transitSuperHorizontal(
+          settings: settings,
           screen: const MyBzScreen(
             // initialTab: BzTab.flyers, // DEFAULT
           ),
-          settings: settings,
-          enAnimatesLTR: _menuEnAnimatesLTR,
-          appIsLTR: appIsLTR,
         );
       // --------------------
       /// myBzTeamPage : HANDLED MANUALLY BY [goToMyBzScreen]
       case RouteName.myBzTeamPage:
-        return Nav.transitSuperHorizontal(
+        return BldrsNav.transitSuperHorizontal(
+          settings: settings,
           screen: const MyBzScreen(
             initialTab: BzTab.team,
           ),
-          settings: settings,
-          enAnimatesLTR: _menuEnAnimatesLTR,
-          appIsLTR: appIsLTR,
         );
       // --------------------
       /// myBzNotesPage : HANDLED MANUALLY BY [goToMyBzScreen]
       case RouteName.myBzNotesPage:
-        return Nav.transitSuperHorizontal(
+        return BldrsNav.transitSuperHorizontal(
+          settings: settings,
           screen: const MyBzScreen(
             initialTab: BzTab.notes,
           ),
-          settings: settings,
-          enAnimatesLTR: _menuEnAnimatesLTR,
-          appIsLTR: appIsLTR,
         );
       // --------------------
       /// myBzSettingsPage : HANDLED MANUALLY BY [goToMyBzScreen]
       case RouteName.myBzSettingsPage:
-        return Nav.transitSuperHorizontal(
+        return BldrsNav.transitSuperHorizontal(
+          settings: settings,
           screen: const MyBzScreen(
             initialTab: BzTab.settings,
           ),
-          settings: settings,
-          enAnimatesLTR: _menuEnAnimatesLTR,
-          appIsLTR: appIsLTR,
         );
       // --------------------
       /// bzEditor
@@ -252,24 +223,20 @@ class StaticRouter {
       // --------------------
       /// userPreview
       case RouteName.userPreview:
-        return Nav.transitSuperHorizontal(
+        return BldrsNav.transitSuperHorizontal(
+          settings: settings,
           screen: UserPreviewScreen(
             userID: _arg,
           ),
-          settings: settings,
-          enAnimatesLTR: _menuEnAnimatesLTR,
-          appIsLTR: appIsLTR,
         );
       // --------------------
       /// bzPreview
       case RouteName.bzPreview:
-        return Nav.transitSuperHorizontal(
+        return BldrsNav.transitSuperHorizontal(
+          settings: settings,
           screen: BzPreviewScreen(
             bzID: _arg,
           ),
-          settings: settings,
-          enAnimatesLTR: _menuEnAnimatesLTR,
-          appIsLTR: appIsLTR,
         );
       // --------------------
       /// flyerPreview
@@ -284,7 +251,8 @@ class StaticRouter {
       // --------------------
       /// flyerReviews
       case RouteName.flyerReviews:
-        return Nav.transit(
+        return BldrsNav.transitSuperHorizontal(
+          settings: settings,
           screen: FlyerPreviewScreen(
             flyerID: ReviewModel.getFlyerIDFromLinkPart(
               linkPart: _arg,
@@ -293,8 +261,6 @@ class StaticRouter {
               linkPart: _arg,
             ),
           ),
-          settings: settings,
-          pageTransitionType: PageTransitionType.bottomToTop,
         );
       // --------------------
       /// countryPreview
@@ -334,7 +300,7 @@ class StaticRouter {
       // --------------------
       /// deleteMyData
       case RouteName.deleteMyData:
-        return Nav.transitFade(
+        return BldrsNav.transitSuperHorizontal(
             screen: const DeleteMyDataScreen(),
             settings: settings,
         );

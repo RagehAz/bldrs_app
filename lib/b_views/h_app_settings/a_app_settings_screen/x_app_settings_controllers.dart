@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/b_views/b_auth/a_auth_screen.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/b_app_langs_screen/b_app_langs_screen.dart';
@@ -22,7 +21,6 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -32,9 +30,7 @@ import 'package:provider/provider.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeAppLanguageTap() async {
-  await Nav.goToNewScreen(
-    context: getMainContext(),
-    pageTransitionType: PageTransitionType.fade,
+  await BldrsNav.goToNewScreen(
     screen: const AppLangsScreen(),
   );
 }
@@ -45,9 +41,7 @@ Future<void> onChangeAppLanguageTap() async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onFeedbackTap() async {
-  await Nav.goToNewScreen(
-    context: getMainContext(),
-    pageTransitionType: PageTransitionType.fade,
+  await BldrsNav.goToNewScreen(
     screen: const FeedbackScreen(),
   );
 }
@@ -79,10 +73,9 @@ Future<void> onInviteFriendsTap() async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onCreateNewBzTap(BuildContext context) async {
+Future<void> onCreateNewBzTap() async {
 
-  await Nav.goToNewScreen(
-      context: context,
+  await BldrsNav.goToNewScreen(
       screen: const BzEditorScreen(
         // bzModel: null,
         // validateOnStartup: false,
@@ -225,8 +218,7 @@ Future<void> onSignOut() async {
 /// TESTED : WORKS PERFECT
 Future<void> signInByAnotherAccount() async {
 
-  await Nav.goToNewScreen(
-      context: getMainContext(),
+  await BldrsNav.goToNewScreen(
       screen: const AuthScreen(),
   );
 

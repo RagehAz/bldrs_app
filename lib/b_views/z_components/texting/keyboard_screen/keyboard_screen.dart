@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
 
 class KeyboardScreen extends StatefulWidget {
@@ -36,14 +37,12 @@ class KeyboardScreen extends StatefulWidget {
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<String?> goToKeyboardScreen({
-    required BuildContext context,
     KeyboardModel? keyboardModel,
     Verse? screenTitleVerse,
     String? initialText,
   }) async {
 
-    final String? _output = await Nav.goToNewScreen(
-      context: context,
+    final String? _output = await BldrsNav.goToNewScreen(
       screen: KeyboardScreen(
         keyboardModel: keyboardModel ?? KeyboardModel.standardModel(),
         screenTitleVerse: screenTitleVerse,
@@ -186,6 +185,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     blog('_keyboardModel.titleVerse : ${_keyboardModel.titleVerse}');
 
     return MainLayout(
+      canSwipeBack: true,
       skyType: SkyType.grey,
       appBarType: AppBarType.basic,
       title: widget.screenTitleVerse,

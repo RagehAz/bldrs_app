@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dar
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 
 class TheStripOfDataStrip extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -38,6 +39,9 @@ class TheStripOfDataStrip extends StatelessWidget {
       corners: Borderers.constantCornersAll10,
       margin: const EdgeInsets.only(bottom: 5),
       onTap: onTap,
+      onLongTap: () => Keyboard.copyToClipboardAndNotify(
+        copy: text,
+      ),
       child: ClipRRect(
         borderRadius: Borderers.constantCornersAll10,
         child: SingleChildScrollView(

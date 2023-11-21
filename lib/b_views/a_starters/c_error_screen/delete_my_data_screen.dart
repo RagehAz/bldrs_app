@@ -113,6 +113,7 @@ class _DeleteMyDataScreenState extends State<DeleteMyDataScreen> {
     final double _bodyWidth = Scale.superWidth(context, 0.6);
 
     return MainLayout(
+      canSwipeBack: true,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,

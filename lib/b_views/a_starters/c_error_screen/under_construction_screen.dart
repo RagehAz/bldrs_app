@@ -20,6 +20,7 @@ class BldrsUnderConstructionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     return MainLayout(
+      canSwipeBack: false,
       appBarType: AppBarType.non,
       pyramidsAreOn: true,
       title: const Verse(

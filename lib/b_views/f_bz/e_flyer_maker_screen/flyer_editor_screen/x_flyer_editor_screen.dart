@@ -431,6 +431,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     super.build(context);
     // --------------------
     return MainLayout(
+      canSwipeBack: false,
       key: const ValueKey<String>('FlyerPublisherScreen'),
       title: const Verse(
         id: 'phid_flyer_editor',
@@ -551,7 +552,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                   canValidate: _canValidate,
                   canGoNext: _canGoFrom2to3(draft: draft),
                   onAddPhidsTap: () => onAddPhidsToFlyerTap(
-                        context: context,
                         mounted: mounted,
                         draftNotifier: _draftNotifier,
                       ),
@@ -564,7 +564,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                     blog('phidSelectorBubble : onPhidTap : phid: $phid');
                     },
                   onAddSpecsToDraft: () => onAddSpecsToDraftTap(
-                    context: context,
                     mounted: mounted,
                     draft: _draftNotifier,
                   ),
