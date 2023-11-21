@@ -20,9 +20,9 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:provider/provider.dart';
 
 class AddFlyerButton extends StatelessWidget {
@@ -105,8 +105,7 @@ class AddFlyerButton extends StatelessWidget {
           oldFlyer: null,
         );
 
-        final bool? _result = await Nav.goToNewScreen(
-          context: getMainContext(),
+        final bool? _result = await BldrsNav.goToNewScreen(
           screen: NewFlyerEditorScreen(
             draftFlyer: _draft,
             onConfirm: (DraftFlyer? draft) async {

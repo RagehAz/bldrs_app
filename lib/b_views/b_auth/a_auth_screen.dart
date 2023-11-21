@@ -226,6 +226,7 @@ class _AuthScreenState extends State<AuthScreen> {
     DynamicRouter.blogGo('AuthScreen');
     // --------------------
     return MainLayout(
+      canSwipeBack: true,
       scaffoldKey: _scaffoldKey,
       pyramidsAreOn: true,
       skyType: SkyType.grey,

@@ -197,6 +197,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       blog('building home screen for after home route');
 
       return MainLayout(
+        canSwipeBack: false,
         onBack: () async {
 
           UiProvider.proClearAfterHomeRoute(
@@ -232,6 +233,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       );
 
       return MainLayout(
+        canSwipeBack: false,
         key: const ValueKey<String>('mainLayout'),
         sectionButtonIsOn: true,
         // navBarIsOn: false,

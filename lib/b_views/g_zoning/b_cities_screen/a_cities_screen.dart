@@ -362,6 +362,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     );
 
     return MainLayout(
+      canSwipeBack: true,
       skyType: SkyType.grey,
       appBarType: AppBarType.search,
       searchButtonIsOn: false,

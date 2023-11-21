@@ -57,7 +57,7 @@ class UserSettingsPage extends StatelessWidget {
             translate: true,
           ),
           icon: Iconz.notification,
-          onTap: () => onGoToFCMTopicsScreen(context),
+          onTap: () => onGoToFCMTopicsScreen(),
         ),
 
         /// DELETE MY ACCOUNT

@@ -102,6 +102,7 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
     _scaleController.repeat(reverse: true, min: 0.97, max: 1);
     // --------------------
     return MainLayout(
+      canSwipeBack: false,
       pyramidsAreOn: true,
       appBarType: AppBarType.non,
       skyType: SkyType.stars,

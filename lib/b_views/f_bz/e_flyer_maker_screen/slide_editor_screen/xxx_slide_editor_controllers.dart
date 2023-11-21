@@ -118,23 +118,19 @@ void onTriggerAnimation({
   required ValueNotifier<DraftSlide?> draftNotifier,
   required ValueNotifier<bool> canResetMatrix,
   required ValueNotifier<bool> isPlayingAnimation,
+  required ValueNotifier<bool> isDoingMatrixFrom,
   required bool mounted,
 }){
 
   final Curve? _oldCurve = draftNotifier.value?.animationCurve;
   final Curve? _newCurve = _oldCurve == Curves.easeInOut ? null : Curves.easeInOut;
-  bool _shouldReanimate = false;
 
   DraftSlide? _newSlide;
   if (_oldCurve == null){
     _newSlide = draftNotifier.value?.copyWith(
       animationCurve: _newCurve,
     );
-
-    _shouldReanimate = true;
-
   }
-
   else {
     _newSlide = draftNotifier.value?.nullifyField(
       animationCurve: true,
@@ -147,20 +143,16 @@ void onTriggerAnimation({
       value: _newSlide,
   );
 
-  if (_shouldReanimate == true){
-    onReplayAnimation(
-       mounted: mounted,
-       draftNotifier: draftNotifier,
-       canResetMatrix: canResetMatrix,
-       isPlayingAnimation: isPlayingAnimation,
-     );
-  }
-  else {
-    stopAnimation(
-      mounted: mounted,
-      isPlayingAnimation: isPlayingAnimation,
-    );
-  }
+  stopAnimation(
+    mounted: mounted,
+    isPlayingAnimation: isPlayingAnimation,
+  );
+
+  setNotifier(
+    notifier: isDoingMatrixFrom,
+    mounted: mounted,
+    value: _newCurve != null,
+  );
 
 }
 // --------------------

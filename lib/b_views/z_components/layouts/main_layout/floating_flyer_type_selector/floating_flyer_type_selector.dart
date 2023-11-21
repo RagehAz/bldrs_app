@@ -10,12 +10,12 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/main_button.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/layout_exit_swiper.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
-import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 
 class FloatingFlyerTypeSelector extends StatefulWidget {
@@ -127,14 +127,11 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
               context: context,
               flyerType: null,
             ),
-          child: DismissiblePage(
-            onDismissed: () => Nav.goBack(
-                context: context,
-              ),
-            direction: DismissiblePageDismissDirection.endToStart,
-            startingOpacity: 0,
-            minScale: 1,
-            // backgroundColor: Colorz.black255,
+          child: LayoutExitSwiper(
+            isOn: true,
+            onBack: () => Nav.goBack(
+              context: context,
+            ),
             child: SizedBox(
               width: _screenWidth,
               height: Scale.screenHeight(context),

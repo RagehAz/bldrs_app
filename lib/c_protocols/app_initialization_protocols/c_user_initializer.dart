@@ -4,7 +4,6 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
@@ -20,6 +19,7 @@ import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
 
 class UserInitializer {
@@ -152,8 +152,7 @@ class UserInitializer {
             users: _signedUpUsers,
           );
 
-          _continue = await Nav.goToNewScreen(
-              context: getMainContext(),
+          _continue = await BldrsNav.goToNewScreen(
               screen: const AuthScreen(),
           );
 

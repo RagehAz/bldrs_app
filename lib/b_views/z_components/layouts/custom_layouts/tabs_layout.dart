@@ -17,6 +17,7 @@ class TabsLayout extends StatefulWidget {
   const TabsLayout({
     required this.views,
     required this.title,
+    required this.canSwipeBack,
     this.appBarRowWidgets,
     this.onBack,
     this.loading,
@@ -28,6 +29,7 @@ class TabsLayout extends StatefulWidget {
   final List<Widget>? appBarRowWidgets;
   final Function? onBack;
   final ValueNotifier<bool>? loading;
+  final bool canSwipeBack;
   /// --------------------------------------------------------------------------
   @override
   _TabsLayoutState createState() => _TabsLayoutState();
@@ -122,6 +124,7 @@ class _TabsLayoutState extends State<TabsLayout> {
     const double _footerButtonHeight = TabsLayout.footerHeight - 10;
     // --------------------
     return MainLayout(
+      canSwipeBack: widget.canSwipeBack,
       title: widget.title,
       progressBarModel: _progressBarModel,
       loading: widget.loading ?? _loading,

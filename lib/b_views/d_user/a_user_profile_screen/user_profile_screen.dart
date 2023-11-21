@@ -25,6 +25,7 @@ class UserProfileScreen extends StatelessWidget {
     _user?.blogUserModel(invoker: 'UserProfileScreen');
     // --------------------
     return ObeliskLayout(
+      canSwipeBack: true,
       canGoBack: true,
       initialIndex: UserTabber.getUserTabIndex(userTab),
       appBarIcon: _user?.picPath,

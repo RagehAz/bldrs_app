@@ -68,6 +68,7 @@ class _UserPreviewScreenState extends State<UserPreviewScreen> {
     final bool _userIsNotFound = _loading == false && userModel == null;
     // --------------------
     return MainLayout(
+      canSwipeBack: true,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       skyType: SkyType.grey,

@@ -253,7 +253,6 @@ void onFlyerPhidLongTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onAddPhidsToFlyerTap({
-  required BuildContext context,
   required ValueNotifier<DraftFlyer?> draftNotifier,
   required bool mounted,
 }) async {
@@ -261,7 +260,6 @@ Future<void> onAddPhidsToFlyerTap({
   await Keyboard.closeKeyboard();
 
   final List<String> _phids = await PhidsPickerScreen.goPickPhids(
-    context: context,
     flyerType: draftNotifier.value?.flyerType,
     event: ViewingEvent.flyerEditor,
     onlyUseZoneChains: false,
@@ -402,13 +400,11 @@ Future<void> onSwitchPrice({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onAddSpecsToDraftTap({
-  required BuildContext context,
   required ValueNotifier<DraftFlyer?> draft,
   required bool mounted,
 }) async {
 
-  final dynamic _result = await Nav.goToNewScreen(
-      context: context,
+  final dynamic _result = await BldrsNav.goToNewScreen(
       screen: PickersScreen(
         pageTitleVerse: const Verse(
           id: 'phid_flyer_specs',

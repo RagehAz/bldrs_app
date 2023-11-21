@@ -21,6 +21,7 @@ class NoPageFoundScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     return MainLayout(
+      canSwipeBack: true,
       appBarType: AppBarType.non,
       pyramidsAreOn: true,
       title: const Verse(

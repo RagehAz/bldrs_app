@@ -18,6 +18,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
 
 class PhidsPickerScreen extends StatefulWidget {
@@ -46,7 +47,6 @@ class PhidsPickerScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<String?> goPickPhid({
-    required BuildContext context,
     required FlyerType? flyerType,
     required ViewingEvent? event,
     required bool onlyUseZoneChains,
@@ -54,12 +54,11 @@ class PhidsPickerScreen extends StatefulWidget {
     List<String>? selectedPhids,
   }) async {
 
-    final String? phid = await Nav.goToNewScreen(
-      context: context,
-      pageTransitionType: Nav.superHorizontalTransition(
-        appIsLTR: UiProvider.checkAppIsLeftToRight(),
-        enAnimatesLTR: !slideScreenFromEnLeftToRight,
-      ),
+    final String? phid = await BldrsNav.goToNewScreen(
+      // pageTransitionType: Nav.superHorizontalTransition(
+      //   appIsLTR: UiProvider.checkAppIsLeftToRight(),
+      //   enAnimatesLTR: !slideScreenFromEnLeftToRight,
+      // ),
       screen: PhidsPickerScreen(
         chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
           flyerType: flyerType,
@@ -77,7 +76,6 @@ class PhidsPickerScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> goPickPhids({
-    required BuildContext context,
     required FlyerType? flyerType,
     required ViewingEvent event,
     required bool onlyUseZoneChains,
@@ -85,12 +83,11 @@ class PhidsPickerScreen extends StatefulWidget {
     List<String>? selectedPhids,
   }) async {
 
-    final List<String>? phids = await Nav.goToNewScreen(
-      context: context,
-      pageTransitionType: Nav.superHorizontalTransition(
-        appIsLTR: UiProvider.checkAppIsLeftToRight(),
-        enAnimatesLTR: slideScreenFromEnLeftToRight,
-      ),
+    final List<String>? phids = await BldrsNav.goToNewScreen(
+      // pageTransitionType: Nav.superHorizontalTransition(
+      //   appIsLTR: UiProvider.checkAppIsLeftToRight(),
+      //   enAnimatesLTR: slideScreenFromEnLeftToRight,
+      // ),
       screen: PhidsPickerScreen(
         chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
           flyerType: flyerType,

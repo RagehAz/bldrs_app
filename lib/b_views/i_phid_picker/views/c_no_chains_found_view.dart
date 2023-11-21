@@ -14,6 +14,7 @@ class NoChainsFoundView extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     return const MainLayout(
+      canSwipeBack: true,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       title: Verse(

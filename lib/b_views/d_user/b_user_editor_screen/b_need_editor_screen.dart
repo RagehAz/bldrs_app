@@ -155,6 +155,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
     final double _clearWidth = Bubble.clearWidth(context: context);
 
     return MainLayout(
+      canSwipeBack: true,
       key: const ValueKey<String>('BzEditorScreen'),
       loading: _loading,
       appBarType: AppBarType.basic,

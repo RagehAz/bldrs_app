@@ -108,6 +108,7 @@ key
         maxLines: 2,
         centered: false,
         scaleFactor: 0.9,
+        textDirection: UiProvider.getAppTextDir(),
       );
     // }
 

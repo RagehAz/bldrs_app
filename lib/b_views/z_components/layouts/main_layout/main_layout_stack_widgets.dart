@@ -2,6 +2,7 @@ import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/layout_exit_swiper.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -31,6 +32,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     required this.pyramidType,
     required this.onPyramidTap,
     required this.canGoBack,
+    required this.canSwipeBack,
     required this.onSearchCancelled,
     required this.confirmButton,
     required this.globalKey,
@@ -62,6 +64,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final PyramidType? pyramidType;
   final Function? onPyramidTap;
   final bool canGoBack;
+  final bool canSwipeBack;
   final Function? onSearchCancelled;
   final Widget? confirmButton;
   final bool listenToHideLayout;
@@ -109,70 +112,141 @@ class MainLayoutStackWidgets extends StatelessWidget {
         progressBarModel != null && loading != null,
     'you have to use the loading parameter when adding progressBarModel');
 
-    return Stack(
-      key: key,
-      alignment: alignment,
-      children: <Widget>[
+    /// NEW TEST
+    return LayoutExitSwiper(
+      isOn: canSwipeBack,
+      onBack: onBack,
+      child: Stack(
+        key: key,
+        alignment: alignment,
+        children: <Widget>[
 
-        /// SKY
-        Sky(
-          key: const ValueKey<String>('sky'),
-          skyType: skyType,
-          gradientIsOn: pyramidsAreOn,
-        ),
-
-        /// LAYOUT WIDGET
-        if (layoutWidget != null)
-          Container(
-            key: const ValueKey<String>('layoutWidget'),
-            width: Scale.screenWidth(context),
-            // height: Scale.superScreenHeight(context),
-            alignment: Alignment.topCenter,
-            child: layoutWidget,
+          /// SKY
+          Sky(
+            key: const ValueKey<String>('sky'),
+            skyType: skyType,
+            gradientIsOn: pyramidsAreOn,
           ),
 
-        /// APP BAR
-        if (appBarType != AppBarType.non)
-          BldrsAppBar(
-            globalKey: globalKey,
-            key: const ValueKey<String>('appBar'),
-            appBarType: appBarType,
-            appBarRowWidgets: appBarRowWidgets,
-            pageTitleVerse: pageTitleVerse,
-            onBack: onBack,
-            loading: loading,
-            progressBarModel: progressBarModel,
-            appBarScrollController: appBarScrollController,
-            sectionButtonIsOn: sectionButtonIsOn,
-            searchController: searchController,
-            onSearchSubmit: onSearchSubmit,
-            onPaste: onPaste,
-            onSearchChanged: onSearchChanged,
-            searchButtonIsOn: searchButtonIsOn,
-            searchHintVerse: searchHintVerse,
-            canGoBack: canGoBack,
-            onSearchCancelled: onSearchCancelled,
-            listenToHideLayout: listenToHideLayout,
-            filtersAreOn: filtersAreOn,
-            filters: filters,
-          ),
+          /// LAYOUT WIDGET
+          if (layoutWidget != null)
+            Container(
+              key: const ValueKey<String>('layoutWidget'),
+              width: Scale.screenWidth(context),
+              // height: Scale.superScreenHeight(context),
+              alignment: Alignment.topCenter,
+              child: layoutWidget,
+            ),
 
-        /// PYRAMIDS
-        if (pyramidsAreOn == true && confirmButton == null)
-          Pyramids(
-            key: const ValueKey<String>('pyramids'),
-            pyramidType: _concludePyramidTypePerSkyType(),
-            loading: loading,
-            onPyramidTap: onPyramidTap,
-            listenToHideLayout: listenToHideLayout,
-          ),
+          /// APP BAR
+          if (appBarType != AppBarType.non)
+            BldrsAppBar(
+              globalKey: globalKey,
+              key: const ValueKey<String>('appBar'),
+              appBarType: appBarType,
+              appBarRowWidgets: appBarRowWidgets,
+              pageTitleVerse: pageTitleVerse,
+              onBack: onBack,
+              loading: loading,
+              progressBarModel: progressBarModel,
+              appBarScrollController: appBarScrollController,
+              sectionButtonIsOn: sectionButtonIsOn,
+              searchController: searchController,
+              onSearchSubmit: onSearchSubmit,
+              onPaste: onPaste,
+              onSearchChanged: onSearchChanged,
+              searchButtonIsOn: searchButtonIsOn,
+              searchHintVerse: searchHintVerse,
+              canGoBack: canGoBack,
+              onSearchCancelled: onSearchCancelled,
+              listenToHideLayout: listenToHideLayout,
+              filtersAreOn: filtersAreOn,
+              filters: filters,
+            ),
 
-        /// CONFIRM BUTTON
-        if (confirmButton != null)
-          confirmButton!,
+          /// PYRAMIDS
+          if (pyramidsAreOn == true && confirmButton == null)
+            Pyramids(
+              key: const ValueKey<String>('pyramids'),
+              pyramidType: _concludePyramidTypePerSkyType(),
+              loading: loading,
+              onPyramidTap: onPyramidTap,
+              listenToHideLayout: listenToHideLayout,
+            ),
 
-      ],
+          /// CONFIRM BUTTON
+          if (confirmButton != null)
+            confirmButton!,
+
+        ],
+      ),
     );
+
+    /// OLD : PERFECT
+    // return Stack(
+    //   key: key,
+    //   alignment: alignment,
+    //   children: <Widget>[
+    //
+    //     /// SKY
+    //     Sky(
+    //       key: const ValueKey<String>('sky'),
+    //       skyType: skyType,
+    //       gradientIsOn: pyramidsAreOn,
+    //     ),
+    //
+    //     /// LAYOUT WIDGET
+    //     if (layoutWidget != null)
+    //       Container(
+    //         key: const ValueKey<String>('layoutWidget'),
+    //         width: Scale.screenWidth(context),
+    //         // height: Scale.superScreenHeight(context),
+    //         alignment: Alignment.topCenter,
+    //         child: layoutWidget,
+    //       ),
+    //
+    //     /// APP BAR
+    //     if (appBarType != AppBarType.non)
+    //       BldrsAppBar(
+    //         globalKey: globalKey,
+    //         key: const ValueKey<String>('appBar'),
+    //         appBarType: appBarType,
+    //         appBarRowWidgets: appBarRowWidgets,
+    //         pageTitleVerse: pageTitleVerse,
+    //         onBack: onBack,
+    //         loading: loading,
+    //         progressBarModel: progressBarModel,
+    //         appBarScrollController: appBarScrollController,
+    //         sectionButtonIsOn: sectionButtonIsOn,
+    //         searchController: searchController,
+    //         onSearchSubmit: onSearchSubmit,
+    //         onPaste: onPaste,
+    //         onSearchChanged: onSearchChanged,
+    //         searchButtonIsOn: searchButtonIsOn,
+    //         searchHintVerse: searchHintVerse,
+    //         canGoBack: canGoBack,
+    //         onSearchCancelled: onSearchCancelled,
+    //         listenToHideLayout: listenToHideLayout,
+    //         filtersAreOn: filtersAreOn,
+    //         filters: filters,
+    //       ),
+    //
+    //     /// PYRAMIDS
+    //     if (pyramidsAreOn == true && confirmButton == null)
+    //       Pyramids(
+    //         key: const ValueKey<String>('pyramids'),
+    //         pyramidType: _concludePyramidTypePerSkyType(),
+    //         loading: loading,
+    //         onPyramidTap: onPyramidTap,
+    //         listenToHideLayout: listenToHideLayout,
+    //       ),
+    //
+    //     /// CONFIRM BUTTON
+    //     if (confirmButton != null)
+    //       confirmButton!,
+    //
+    //   ],
+    // );
 
   }
   // -----------------------------------------------------------------------------

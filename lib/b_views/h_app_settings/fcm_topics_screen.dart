@@ -38,6 +38,7 @@ class FCMTopicsScreen extends StatelessWidget {
      */
     // --------------------
     return MainLayout(
+      canSwipeBack: true,
       skyType: SkyType.grey,
       searchButtonIsOn: false,
       appBarType: AppBarType.basic,

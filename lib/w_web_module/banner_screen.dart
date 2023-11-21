@@ -98,6 +98,7 @@ class _BannerScreenState extends State<BannerScreen> {
       fadeType: FadeType.fadeIn,
       duration: const Duration(seconds: 2),
       child: MainLayout(
+        canSwipeBack: false,
         appBarType: AppBarType.non,
         pyramidsAreOn: true,
         pyramidType: PyramidType.crystalYellow,

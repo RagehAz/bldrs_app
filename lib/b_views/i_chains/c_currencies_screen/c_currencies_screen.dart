@@ -241,6 +241,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
     );
     // --------------------
     return MainLayout(
+      canSwipeBack: true,
       title: const Verse(
         id: 'phid_select_currency',
         translate: true,

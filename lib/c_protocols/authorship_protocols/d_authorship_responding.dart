@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
@@ -229,8 +228,7 @@ class AuthorshipRespondingProtocols{
         authorID: author?.userID ?? Authing.getUserID()!,
       );
 
-      final BzModel? _bz = await Nav.goToNewScreen(
-        context: getMainContext(),
+      final BzModel? _bz = await BldrsNav.goToNewScreen(
         screen: AuthorEditorScreen(
           author: _authorModel!,
           bzModel: _bzModel!,

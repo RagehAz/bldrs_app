@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
 
 class SearchUsersScreen extends StatefulWidget {
@@ -30,10 +31,9 @@ class SearchUsersScreen extends StatefulWidget {
   @override
   _SearchUsersScreenState createState() => _SearchUsersScreenState();
   /// --------------------------------------------------------------------------
-  static Future<UserModel?> selectUser(BuildContext context) async {
+  static Future<UserModel?> selectUser() async {
 
-    final List<UserModel>? _users = await Nav.goToNewScreen(
-        context: context,
+    final List<UserModel>? _users = await BldrsNav.goToNewScreen(
         screen: const SearchUsersScreen(
           userIDsToExcludeInSearch: [],
           // multipleSelection: false,
@@ -210,6 +210,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
+      canSwipeBack: true,
       skyType: SkyType.grey,
       title: const Verse(id: 'phid_search_users', translate: true),
       searchHintVerse: const Verse(id: 'phid_search_users_hint', translate: true),

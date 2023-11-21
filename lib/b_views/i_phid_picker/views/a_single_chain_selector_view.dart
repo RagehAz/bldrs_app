@@ -51,6 +51,7 @@ class SingleChainSelectorView extends StatelessWidget {
 
     // --------------------
     return MainLayout(
+      canSwipeBack: true,
       globalKey: globalKey,
       appBarType: AppBarType.search,
       searchController: searchController,

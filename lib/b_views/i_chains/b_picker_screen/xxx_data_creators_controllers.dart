@@ -18,6 +18,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
@@ -104,8 +105,7 @@ Future<void> onCurrencySelectorButtonTap({
   required bool mounted,
 }) async {
 
-  final CurrencyModel? _currency = await Nav.goToNewScreen(
-    context: context,
+  final CurrencyModel? _currency = await BldrsNav.goToNewScreen(
     screen: CurrenciesScreen(
       viewerCountryID: zone?.countryID,
       selectedCurrencyID: selectedCurrencyID.value,

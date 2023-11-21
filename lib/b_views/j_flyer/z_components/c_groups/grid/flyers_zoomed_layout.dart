@@ -8,11 +8,13 @@ import 'package:basics/helpers/classes/space/scale.dart';
 class FlyersZoomedLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyersZoomedLayout({
+    required this.canSwipeBack,
     this.columnsCount = 2,
     super.key
   });
   /// --------------------------------------------------------------------------
   final int columnsCount;
+  final bool canSwipeBack;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class FlyersZoomedLayout extends StatelessWidget {
     final List<String> _flyersIDs = [...?_user?.savedFlyers?.all];
 
     return MainLayout(
+      canSwipeBack: canSwipeBack,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       listenToHideLayout: true,
