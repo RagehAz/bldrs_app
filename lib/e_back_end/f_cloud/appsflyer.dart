@@ -98,6 +98,7 @@ class _AppsFlyerTestScreenState extends State<AppsFlyerTestScreen> {
   Widget build(BuildContext context) {
     // --------------------
     return FloatingLayout(
+      canSwipeBack: true,
       skyType: SkyType.blackStars,
       titleVerse: Verse.plain('Appsflyer test screen'),
       columnChildren: <Widget>[

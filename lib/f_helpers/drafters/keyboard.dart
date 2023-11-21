@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_clip_board.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
@@ -204,12 +205,36 @@ class Keyboard {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool autoCorrectIsOn(){
-    return false; // android is good
+
+    if (DeviceChecker.deviceIsAndroid() == true){
+      return false;
+    }
+
+    else if (DeviceChecker.deviceIsIOS() == true){
+      return true;
+    }
+
+    else {
+      return false;
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool suggestionsEnabled(){
-    return true; // android is good
+
+    if (DeviceChecker.deviceIsAndroid() == true){
+      return true;
+    }
+
+    else if (DeviceChecker.deviceIsIOS() == true){
+      return true;
+    }
+
+    else {
+      return true;
+    }
+
   }
   // -----------------------------------------------------------------------------
 }

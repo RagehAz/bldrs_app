@@ -25,6 +25,7 @@ class ObeliskLayout extends StatefulWidget {
     required this.navModels,
     required this.canGoBack,
     required this.appBarIcon,
+    required this.canSwipeBack,
     this.appBarRowWidgets,
     this.initialIndex = 0,
     this.onBack,
@@ -59,6 +60,7 @@ class ObeliskLayout extends StatefulWidget {
   final ValueNotifier<bool>? isSearching;
   final ZGridController? zGridController;
   final String? appBarIcon;
+  final bool canSwipeBack;
   /// --------------------------------------------------------------------------
   @override
   _ObeliskLayoutState createState() => _ObeliskLayoutState();
@@ -251,6 +253,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
     );
 
     return MainLayout(
+      canSwipeBack: widget.canSwipeBack,
       globalKey: widget.globalKey,
       skyType: SkyType.grey,
       appBarType: widget.appBarType,

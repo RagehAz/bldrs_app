@@ -67,6 +67,7 @@ class _BzPreviewScreenState extends State<BzPreviewScreen> {
     final bool _bzIsNotFound = bzModel == null || bzModel?.id == null || bzModel?.name == null;
 
     return MainLayout(
+      canSwipeBack: true,
       skyType: SkyType.grey,
       pyramidsAreOn: true,
       title: Verse(

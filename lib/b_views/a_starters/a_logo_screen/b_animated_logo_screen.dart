@@ -309,6 +309,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
     final double _leftOffset = _screenWidth - Ratioz.pyramidsWidth - (_logoBox * 0.5) + 30;
     // -----------------------------------------------------------------------------
     return MainLayout(
+      canSwipeBack: false,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
       appBarType: AppBarType.non,

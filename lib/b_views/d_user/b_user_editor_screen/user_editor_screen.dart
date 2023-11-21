@@ -475,6 +475,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
   Widget build(BuildContext context) {
     // --------------------
     return MainLayout(
+      canSwipeBack: false,
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       title: _createConfirmVerse(),

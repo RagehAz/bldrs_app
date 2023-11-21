@@ -7,7 +7,6 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/helpers/widgets/drawing/spacing.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
@@ -21,6 +20,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
 
 class PriceSelectorBubble extends StatefulWidget {
@@ -292,8 +292,7 @@ class _PriceSelectorBubbleState extends State<PriceSelectorBubble> {
   /// TESTED : WORKS PERFECT
   Future<void> _onChangeCurrency() async {
 
-    final CurrencyModel? _currency = await Nav.goToNewScreen(
-      context: context,
+    final CurrencyModel? _currency = await BldrsNav.goToNewScreen(
       screen: CurrenciesScreen(
         viewerCountryID: widget.draft?.zone?.countryID,
         selectedCurrencyID: widget.draft?.price?.currencyID,

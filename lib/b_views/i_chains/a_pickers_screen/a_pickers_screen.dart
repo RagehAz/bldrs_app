@@ -240,6 +240,7 @@ class _PickersScreenState extends State<PickersScreen> {
     final double _screenHeight = Scale.screenHeight(context);
 
     return MainLayout(
+      canSwipeBack: true,
       skyType: SkyType.grey,
       appBarType: AppBarType.search,
       title: widget.pageTitleVerse,

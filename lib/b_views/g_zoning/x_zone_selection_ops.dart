@@ -13,6 +13,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -87,8 +88,7 @@ class ZoneSelection {
     required ZoneModel? selectedZone,
   }) async {
 
-    final ZoneModel? _zone = await Nav.goToNewScreen(
-      context: getMainContext(),
+    final ZoneModel? _zone = await BldrsNav.goToNewScreen(
       // pageTransitionType: PageTransitionType.bottomToTop,
       duration: const Duration(milliseconds: 350),
       screen: CountriesScreen(
@@ -155,8 +155,7 @@ class ZoneSelection {
     /// Go to Cities Screen
     else {
 
-      final ZoneModel? _zoneWithCity = await Nav.goToNewScreen(
-          context: context,
+      final ZoneModel? _zoneWithCity = await BldrsNav.goToNewScreen(
           screen: CitiesScreen(
             zoneViewingEvent: zoneViewingEvent,
             countryID: countryID,

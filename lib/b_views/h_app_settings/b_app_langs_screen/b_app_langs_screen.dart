@@ -33,6 +33,7 @@ class AppLangsScreen extends StatelessWidget {
     final String _currentLang = Localizer.getCurrentLangCode();
     // --------------------
     return FloatingLayout(
+      canSwipeBack: true,
       columnChildren: <Widget>[
 
         const DotSeparator(color: Colorz.yellow80,),

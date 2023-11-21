@@ -23,6 +23,7 @@ class FlyerReviewsScreen extends StatelessWidget {
     final double _screenHeight = Scale.screenHeight(context);
 
     return MainLayout(
+      canSwipeBack: true,
       title: const Verse(
         id: 'phid_flyer_reviews',
         translate: true,

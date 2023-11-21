@@ -134,7 +134,6 @@ class FlyerFooterButtons extends StatelessWidget {
                           isOn: false,
                           canTap: !tinyMode,
                           onTap: () => onReviewButtonTap(
-                            context: context,
                             flyerModel: flyerModel,
                           ),
                         ),
