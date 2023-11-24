@@ -238,11 +238,20 @@ void onTriggerColorPanel({
 void onSetBackColor({
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
   required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
+  required ValueNotifier<Color?> slideBackColor,
+  required ValueNotifier<bool> isPickingBackColor,
+  required bool setIsPickingColorTo,
   required bool mounted,
   required Color color,
 }){
 
   DraftSlide? _slide = draftSlideNotifier.value;
+
+  setNotifier(
+    notifier: isPickingBackColor,
+    mounted: mounted,
+    value: setIsPickingColorTo,
+  );
 
   /// CLEAR BLUR PIC
   _slide = _slide?.nullifyField(
@@ -254,11 +263,18 @@ void onSetBackColor({
     backColor: color,
   );
 
+  blog('ddd slide and shit');
   _setFlyerAndSlide(
     draftSlide: _slide,
     draftSlideNotifier: draftSlideNotifier,
     draftFlyerNotifier: draftFlyerNotifier,
     mounted: mounted,
+  );
+
+  setNotifier(
+      notifier: slideBackColor,
+      mounted: mounted,
+      value: color,
   );
 
 }
@@ -267,6 +283,8 @@ void onSetBackColor({
 Future<void> onSetBlurBack({
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
   required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
+  required ValueNotifier<Color?> slideBackColor,
+  required ValueNotifier<bool> isPickingBackColor,
   required bool mounted,
 }) async {
 
@@ -274,28 +292,40 @@ Future<void> onSetBlurBack({
 
   if (_slide != null){
 
+    setNotifier(
+      notifier: slideBackColor,
+      mounted: mounted,
+      value: null,
+    );
+
+    setNotifier(
+      notifier: isPickingBackColor,
+      mounted: mounted,
+      value: false,
+    );
+
     /// CLEAR COLOR
     _slide = _slide.nullifyField(
       backColor: true,
     );
 
-      /// SET BLURRED IMAGE
-      final PicModel? _backPic = await SlidePicMaker.createSlideBackground(
-        bigPic: _slide.bigPic,
-        flyerID: _slide.flyerID,
-        slideIndex: _slide.slideIndex,
-        overrideSolidColor: null,
-      );
-      _slide = _slide.copyWith(
-        backPic: _backPic,
-      );
+    /// SET BLURRED IMAGE
+    final PicModel? _backPic = await SlidePicMaker.createSlideBackground(
+      bigPic: _slide.bigPic,
+      flyerID: _slide.flyerID,
+      slideIndex: _slide.slideIndex,
+      overrideSolidColor: null,
+    );
+    _slide = _slide.copyWith(
+      backPic: _backPic,
+    );
 
-      _setFlyerAndSlide(
-          draftSlideNotifier: draftSlideNotifier,
-          draftFlyerNotifier: draftFlyerNotifier,
-          draftSlide: _slide,
-          mounted: mounted
-      );
+    _setFlyerAndSlide(
+        draftSlideNotifier: draftSlideNotifier,
+        draftFlyerNotifier: draftFlyerNotifier,
+        draftSlide: _slide,
+        mounted: mounted
+    );
 
   }
 

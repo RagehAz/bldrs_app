@@ -15,7 +15,7 @@ class SlideAnimationProgressBar extends StatelessWidget {
   });
   // --------------------
   final ValueNotifier<bool> isPlayingAnimation;
-  final DraftSlide draftSlide;
+  final DraftSlide? draftSlide;
   final double flyerBoxWidth;
   // --------------------------------------------------------------------------
   @override
@@ -29,7 +29,7 @@ class SlideAnimationProgressBar extends StatelessWidget {
             return WidgetFader(
               fadeType: isPlaying == true ? FadeType.fadeIn : FadeType.stillAtMin,
               duration:  const Duration(seconds: 3),
-              curve: draftSlide.animationCurve ?? Curves.easeInOut,
+              curve: draftSlide?.animationCurve ?? Curves.easeInOut,
               builder: (double value, Widget? child){
 
                 return DataStripValue(

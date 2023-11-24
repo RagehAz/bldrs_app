@@ -46,6 +46,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   /// COLOR
   final ValueNotifier<bool> _isPickingBackColor = ValueNotifier(false);
   final ValueNotifier<bool> _showColorPanel = ValueNotifier(false);
+  final ValueNotifier<Color?> _slideBackColor = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -128,12 +129,18 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   @override
   void dispose() {
     _draftSlideNotifier.dispose();
-    _isTransforming.dispose();
+
+    _isPlayingAnimation.dispose();
     _matrixNotifier.dispose();
     _matrixFromNotifier.dispose();
     _isDoingMatrixFrom.dispose();
+    _isTransforming.dispose();
     _canResetMatrix.dispose();
-    _isPlayingAnimation.dispose();
+    _showAnimationPanel.dispose();
+
+    _isPickingBackColor.dispose();
+    _showColorPanel.dispose();
+    _slideBackColor.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -159,6 +166,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             globalKey: globalKey,
             bzModel: widget.draftFlyerNotifier.value!.bzModel!,
             authorID: widget.draftFlyerNotifier.value!.authorID!,
+            draftFlyer: widget.draftFlyerNotifier,
             appBarType: AppBarType.non,
             height: _slideZoneHeight,
             draftSlide: _draftSlideNotifier,
@@ -170,6 +178,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             onSlideTap: () => Keyboard.closeKeyboard(),
             isPlayingAnimation: _isPlayingAnimation,
             isPickingBackColor: _isPickingBackColor,
+            slideBackColor: _slideBackColor,
             onSlideDoubleTap: () => onReplayAnimation(
               isPlayingAnimation: _isPlayingAnimation,
               canResetMatrix: _canResetMatrix,
@@ -238,19 +247,35 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               mounted: mounted,
               draftFlyerNotifier: widget.draftFlyerNotifier,
               draftSlideNotifier: _draftSlideNotifier,
+              slideBackColor: _slideBackColor,
+              isPickingBackColor: _isPickingBackColor,
               color: Colorz.white255,
+              setIsPickingColorTo: false,
             ),
             onSetBlackBack: () => onSetBackColor(
               mounted: mounted,
               draftFlyerNotifier: widget.draftFlyerNotifier,
               draftSlideNotifier: _draftSlideNotifier,
+              slideBackColor: _slideBackColor,
+              isPickingBackColor: _isPickingBackColor,
               color: Colorz.black255,
+              setIsPickingColorTo: false,
             ),
-            onSetColorBack: (){},
+            onColorPickerTap: (){
+
+              setNotifier(
+                  notifier: _isPickingBackColor,
+                  mounted: mounted,
+                  value: !_isPickingBackColor.value,
+              );
+
+            },
             onSetBlurBack: () => onSetBlurBack(
               mounted: mounted,
               draftFlyerNotifier: widget.draftFlyerNotifier,
+              slideBackColor: _slideBackColor,
               draftSlideNotifier: _draftSlideNotifier,
+              isPickingBackColor: _isPickingBackColor,
             ),
           ),
 
