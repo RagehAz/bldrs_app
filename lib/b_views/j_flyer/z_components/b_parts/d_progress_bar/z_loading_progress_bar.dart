@@ -17,6 +17,9 @@ class LoadingProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _thickness = FlyerDim.progressStripThickness(flyerBoxWidth);
+    final BorderRadius _corners = FlyerDim.progressStripCorners(
+        flyerBoxWidth: flyerBoxWidth,
+    );
 
     return  ProgressBox(
         flyerBoxWidth: flyerBoxWidth,
@@ -27,14 +30,13 @@ class LoadingProgressBar extends StatelessWidget {
             height: _thickness,
             decoration: BoxDecoration(
               color: FlyerColors.progressStripOffColor,
-              borderRadius: FlyerDim.progressStripCorners(
-                  flyerBoxWidth: flyerBoxWidth,
-              ),
+              borderRadius: _corners,
             ),
             child: LinearProgressIndicator(
               backgroundColor: Colorz.nothing,
               minHeight: _thickness,
               valueColor: const AlwaysStoppedAnimation(FlyerColors.progressStripFadedColor),
+              borderRadius: _corners,
             ),
           ),
 
