@@ -4,8 +4,8 @@ import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/xxx_slide_editor_controllers.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_control_panel.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_slide_part.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/control_panels/slide_editor_control_panel.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_editor_slide_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
@@ -32,13 +32,19 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   final GlobalKey globalKey = GlobalKey();
   // --------------------
   final ValueNotifier<DraftSlide?> _draftSlideNotifier = ValueNotifier(null);
+  // --------------------
+  /// ANIMATION
+  final ValueNotifier<bool> _isPlayingAnimation = ValueNotifier(false);
   final ValueNotifier<Matrix4?> _matrixNotifier = ValueNotifier(null);
   final ValueNotifier<Matrix4?> _matrixFromNotifier = ValueNotifier(null);
   final ValueNotifier<bool> _isDoingMatrixFrom = ValueNotifier(false);
   final ValueNotifier<bool> _isTransforming = ValueNotifier(false);
   final ValueNotifier<bool> _canResetMatrix = ValueNotifier(false);
-  final ValueNotifier<bool> _isPlayingAnimation = ValueNotifier(false);
+  final ValueNotifier<bool> _showAnimationPanel = ValueNotifier(false);
+  // --------------------
+  /// COLOR
   final ValueNotifier<bool> _isPickingBackColor = ValueNotifier(false);
+  final ValueNotifier<bool> _showColorPanel = ValueNotifier(false);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -172,15 +178,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               draftNotifier: _draftSlideNotifier,
               mounted: mounted,
             ),
-          ),
-
-          /// CONTROL PANEL
-          SlideEditorControlPanel(
-            height: _controlPanelHeight,
-            canResetMatrix: _canResetMatrix,
-            draftSlideNotifier: _draftSlideNotifier,
-            draftFlyerNotifier: widget.draftFlyerNotifier,
-            onTriggerAnimation: () => onTriggerAnimation(
+            onTriggerSlideIsAnimated: () => onTriggerSlideIsAnimated(
               draftNotifier: _draftSlideNotifier,
               isPlayingAnimation: _isPlayingAnimation,
               isDoingMatrixFrom: _isDoingMatrixFrom,
@@ -198,6 +196,16 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               flyerBoxHeight: _flyerBoxHeight,
               flyerBoxWidth: _flyerBoxWidth,
             ),
+            canResetMatrix: _canResetMatrix,
+            showColorPanel: _showColorPanel,
+            showAnimationPanel: _showAnimationPanel,
+          ),
+
+          /// CONTROL PANEL
+          SlideEditorControlPanel(
+            height: _controlPanelHeight,
+            draftSlideNotifier: _draftSlideNotifier,
+            draftFlyerNotifier: widget.draftFlyerNotifier,
             onNextSlide: (DraftSlide nextSlide) => onGoNextSlide(
               draftSlideNotifier: _draftSlideNotifier,
               matrixNotifier: _matrixNotifier,
@@ -228,6 +236,42 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               matrixFromNotifier: _matrixFromNotifier,
               mounted: mounted,
             ),
+            showAnimationPanel: _showAnimationPanel,
+            showColorPanel: _showColorPanel,
+            onTriggerAnimationPanel: (){
+
+              /// SWITCH OFF COLOR PANEL
+              setNotifier(
+                  notifier: _showColorPanel,
+                  mounted: mounted,
+                  value: false,
+              );
+
+              /// TRIGGER ANIMATION PANEL
+              setNotifier(
+                notifier: _showAnimationPanel,
+                mounted: mounted,
+                value: !_showAnimationPanel.value,
+              );
+
+            },
+            onTriggerColorPanel: (){
+
+              /// SWITCH OFF ANIMATION PANEL
+              setNotifier(
+                  notifier: _showAnimationPanel,
+                  mounted: mounted,
+                  value: false,
+              );
+
+              /// TRIGGER COLOR PANEL
+              setNotifier(
+                  notifier: _showColorPanel,
+                  mounted: mounted,
+                  value: !_showColorPanel.value,
+              );
+
+            },
           ),
 
         ],

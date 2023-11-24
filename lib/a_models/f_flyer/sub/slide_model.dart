@@ -191,7 +191,7 @@ class SlideModel {
       matrix: matrix == true ? null : this.matrix,
       matrixFrom: matrixFrom == true ? null : this.matrixFrom,
       animationCurve: animationCurve == true ? null : this.animationCurve,
-      slideIndex: this.slideIndex,
+      slideIndex: slideIndex,
       frontImage: frontImage == true ? null : this.frontImage,
       frontPicPath: frontPicPath == true ? null : this.frontPicPath,
       backImage: backImage == true ? null : this.backImage,

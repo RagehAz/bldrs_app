@@ -10,7 +10,7 @@ import 'package:basics/helpers/widgets/drawing/spacing.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selector/c_price_field.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/z_components/specs_selector/c_price_field.dart';
 import 'package:bldrs/b_views/i_chains/c_currencies_screen/c_currencies_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
