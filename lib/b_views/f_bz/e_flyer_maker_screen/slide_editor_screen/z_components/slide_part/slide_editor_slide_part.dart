@@ -9,14 +9,15 @@ import 'package:basics/super_box/super_box.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/control_panels/slide_color_panel.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/top_button/top_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/d_footer_template.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_animator_panel.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_headline_text_field.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_transformer.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/control_panels/slide_animator_panel.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_editor_headline_text_field.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_transformer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
@@ -43,6 +44,11 @@ class SlideEditorSlidePart extends StatelessWidget {
     required this.bzModel,
     required this.authorID,
     required this.isPickingBackColor,
+    required this.onTriggerSlideIsAnimated,
+    required this.onResetMatrix,
+    required this.canResetMatrix,
+    required this.showColorPanel,
+    required this.showAnimationPanel,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -62,6 +68,11 @@ class SlideEditorSlidePart extends StatelessWidget {
   final BzModel bzModel;
   final String authorID;
   final ValueNotifier<bool> isPickingBackColor;
+  final Function onTriggerSlideIsAnimated;
+  final Function onResetMatrix;
+  final ValueNotifier<bool> canResetMatrix;
+  final ValueNotifier<bool> showAnimationPanel;
+  final ValueNotifier<bool> showColorPanel;
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
@@ -290,20 +301,19 @@ class SlideEditorSlidePart extends StatelessWidget {
               ),
             ),
 
-            /// SLIDE ANIMATION PANEL
+            /// ANIMATION PANEL
             ValueListenableBuilder(
-              valueListenable: draftSlide,
-              builder: (_, DraftSlide? _slide, Widget? child) {
+              valueListenable: showAnimationPanel,
+              builder: (_, bool showPanel, Widget? child) {
 
                 /// NO ANIMATION
-                if (_slide?.animationCurve == null){
-                  return const SizedBox();
+                if (showPanel == true){
+                  return child!;
                 }
 
                 /// HAS ANIMATION
                 else {
-                  return child!;
-
+                  return const SizedBox();
                 }
 
               },
@@ -316,6 +326,37 @@ class SlideEditorSlidePart extends StatelessWidget {
                 matrixNotifier: matrixNotifier,
                 draftSlideNotifier: draftSlide,
                 draftFlyerNotifier: draftFlyer,
+                onResetMatrix: onResetMatrix,
+                canResetMatrix: canResetMatrix,
+                onTriggerSlideIsAnimated: onTriggerSlideIsAnimated,
+              ),
+            ),
+
+            /// COLOR PANEL
+            ValueListenableBuilder(
+              valueListenable: showColorPanel,
+              builder: (_, bool showPanel, Widget? child) {
+
+                /// NO ANIMATION
+                if (showPanel == true){
+                  return child!;
+                }
+
+                /// HAS ANIMATION
+                else {
+                  return const SizedBox();
+                }
+
+                },
+              child: SlideColorPanel(
+                flyerBoxWidth: _flyerBoxWidth,
+                mounted: mounted,
+                matrixFromNotifier: matrixFromNotifier,
+                matrixNotifier: matrixNotifier,
+                draftSlideNotifier: draftSlide,
+                onResetMatrix: onResetMatrix,
+                canResetMatrix: canResetMatrix,
+                onTriggerSlideIsAnimated: onTriggerSlideIsAnimated,
               ),
             ),
 
