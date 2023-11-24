@@ -13,6 +13,7 @@ class SlideEditorButton extends StatelessWidget {
     required this.verse,
     required this.onTap,
     this.isDisabled,
+    this.isSelected = false,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -21,6 +22,7 @@ class SlideEditorButton extends StatelessWidget {
   final Verse verse;
   final Function onTap;
   final bool? isDisabled;
+  final bool isSelected;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static double getVerseZoneHeight({
@@ -51,6 +53,7 @@ class SlideEditorButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
 
+          /// ICON
           BldrsBox(
             width: size,
             height: size,
@@ -58,10 +61,12 @@ class SlideEditorButton extends StatelessWidget {
             iconSizeFactor: 0.6,
             margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
             isDisabled: isDisabled,
-            color: Colorz.white20,
+            color: isSelected == true ? Colorz.green125 : Colorz.white20,
+            borderColor: isSelected == true ? Colorz.white255 : null,
             onTap: onTap,
           ),
 
+          /// TEXT
           BldrsText(
             width: size + (2 * Ratioz.appBarMargin),
             height: _verseZoneHeight,

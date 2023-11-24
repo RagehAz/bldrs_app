@@ -11,9 +11,9 @@ import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 
-class SlidesShelf extends StatelessWidget {
+class OldSlidesShelf extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SlidesShelf({
+  const OldSlidesShelf({
     required this.title,
     required this.pics,
     required this.onImageTap,
