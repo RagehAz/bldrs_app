@@ -243,12 +243,23 @@ class _MrAndersonState extends State<MrAnderson> {
   @override
   Widget build(BuildContext context) {
 
-    return GestureDetector(
-      onScaleStart: onScaleStart,
-      onScaleUpdate: onScaleUpdate,
-      child: widget.clipChild ? ClipRect(child: widget.child) : widget.child,
+    if (
+        widget.shouldRotate == false
+            &&
+        widget.shouldScale == false
+            &&
+        widget.shouldTranslate == false
+    ){
+      return widget.child;
+    }
 
-    );
+    else {
+      return GestureDetector(
+        onScaleStart: onScaleStart,
+        onScaleUpdate: onScaleUpdate,
+        child: widget.clipChild ? ClipRect(child: widget.child) : widget.child,
+      );
+    }
 
   }
   // -----------------------------------------------------------------------------
