@@ -1,7 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/xxx_slide_editor_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/e_slide_headline.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
@@ -17,19 +15,17 @@ class EditorSlideHeadlineTextField extends StatelessWidget {
     required this.flyerBoxWidth,
     required this.appBarType,
     required this.globalKey,
-    required this.mounted,
     required this.draftSlide,
-    required this.draftFlyer,
+    required this.onSlideHeadlineChanged,
     super.key
   });
   /// --------------------------------------------------------------------------
   final ValueNotifier<DraftSlide?> draftSlide;
-  final ValueNotifier<DraftFlyer?> draftFlyer;
   final ValueNotifier<bool> isTransforming;
   final double flyerBoxWidth;
   final AppBarType appBarType;
   final GlobalKey globalKey;
-  final bool mounted;
+  final Function(String? text) onSlideHeadlineChanged;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -76,12 +72,7 @@ class EditorSlideHeadlineTextField extends StatelessWidget {
                       // textSize: SlideHeadline.headlineSize,
                       textScaleFactor: flyerBoxWidth * SlideHeadline.headlineScaleFactor * 1.3,
                       centered: true,
-                      onChanged: (String? text) => onSlideHeadlineChanged(
-                        draftFlyer: draftFlyer,
-                        draftSlide: draftSlide,
-                        text: text,
-                        mounted: mounted,
-                      ),
+                      onChanged: onSlideHeadlineChanged,
                       textWeight: VerseWeight.bold,
                       initialValue: draftSlide.value?.headline,
                       autoCorrect: Keyboard.autoCorrectIsOn(),

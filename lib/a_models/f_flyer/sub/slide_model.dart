@@ -168,7 +168,7 @@ class SlideModel {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   SlideModel nullifyField({
     bool description = false,
     bool midColor = false,
