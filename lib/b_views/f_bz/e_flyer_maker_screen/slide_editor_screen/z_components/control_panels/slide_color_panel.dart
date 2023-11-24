@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:flutter/material.dart';
 
 class SlideColorPanel extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const SlideColorPanel({
     required this.flyerBoxWidth,
     required this.mounted,
@@ -20,7 +20,7 @@ class SlideColorPanel extends StatelessWidget {
     required this.onTriggerSlideIsAnimated,
     super.key
   });
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final bool mounted;
   final ValueNotifier<DraftSlide?> draftSlideNotifier;
@@ -29,7 +29,7 @@ class SlideColorPanel extends StatelessWidget {
   final Function onResetMatrix;
   final ValueNotifier<bool> canResetMatrix;
   final Function onTriggerSlideIsAnimated;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -77,5 +77,5 @@ class SlideColorPanel extends StatelessWidget {
     );
 
   }
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 }

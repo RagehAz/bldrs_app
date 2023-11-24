@@ -4,7 +4,7 @@ import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/xxx_slide_editor_controllers.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/control_panels/slide_editor_control_panel.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/control_panels/slide_editor_main_control_panel.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_editor_slide_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -141,7 +141,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     // --------------------
     final double _screenHeight = Scale.screenHeight(context);
     final double _slideZoneHeight = SlideEditorSlidePart.getSlideZoneHeight(context, _screenHeight);
-    final double _controlPanelHeight = SlideEditorControlPanel.getControlPanelHeight(context, _screenHeight);
+    final double _controlPanelHeight = SlideEditorMainControlPanel.getControlPanelHeight(context, _screenHeight);
     final double _flyerBoxWidth = SlideEditorSlidePart.getFlyerZoneWidth(_slideZoneHeight);
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
       flyerBoxWidth:_flyerBoxWidth,
@@ -161,15 +161,12 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             appBarType: AppBarType.non,
             height: _slideZoneHeight,
             draftSlide: _draftSlideNotifier,
-            draftFlyer: widget.draftFlyerNotifier,
             matrixNotifier: _matrixNotifier,
             matrixFromNotifier: _matrixFromNotifier,
             isDoingMatrixFrom: _isDoingMatrixFrom,
             isTransforming: _isTransforming,
             mounted: mounted,
-            onSlideTap: () async {
-              await Keyboard.closeKeyboard();
-            },
+            onSlideTap: () => Keyboard.closeKeyboard(),
             isPlayingAnimation: _isPlayingAnimation,
             isPickingBackColor: _isPickingBackColor,
             onSlideDoubleTap: () => onReplayAnimation(
@@ -199,10 +196,47 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             canResetMatrix: _canResetMatrix,
             showColorPanel: _showColorPanel,
             showAnimationPanel: _showAnimationPanel,
+            onAnimationEnds: () => onAnimationEnds(
+              mounted: mounted,
+              isPlayingAnimation: _isPlayingAnimation,
+            ),
+            onFromTap: () => onFromTap(
+              isPlayingAnimation: _isPlayingAnimation,
+              isDoingMatrixFrom: _isDoingMatrixFrom,
+              mounted: mounted,
+              draftSlideNotifier: _draftSlideNotifier,
+              draftFlyerNotifier: widget.draftFlyerNotifier,
+              matrixFromNotifier: _matrixFromNotifier,
+              matrixNotifier: _matrixNotifier,
+            ),
+            onToTap: () => onToTap(
+              isPlayingAnimation: _isPlayingAnimation,
+              isDoingMatrixFrom: _isDoingMatrixFrom,
+              mounted: mounted,
+              draftSlideNotifier: _draftSlideNotifier,
+              draftFlyerNotifier: widget.draftFlyerNotifier,
+              matrixFromNotifier: _matrixFromNotifier,
+              matrixNotifier: _matrixNotifier,
+            ),
+            onPlayTap: () => onPlayTap(
+              isPlayingAnimation: _isPlayingAnimation,
+              mounted: mounted,
+              draftSlideNotifier: _draftSlideNotifier,
+              draftFlyerNotifier: widget.draftFlyerNotifier,
+              matrixFromNotifier: _matrixFromNotifier,
+              matrixNotifier: _matrixNotifier,
+              isDoingMatrixFrom: _isDoingMatrixFrom,
+            ),
+            onSlideHeadlineChanged: (String? text) => onSlideHeadlineChanged(
+              draftFlyer: widget.draftFlyerNotifier,
+              draftSlide: _draftSlideNotifier,
+              text: text,
+              mounted: mounted,
+            ),
           ),
 
-          /// CONTROL PANEL
-          SlideEditorControlPanel(
+          /// MAIN CONTROL PANEL
+          SlideEditorMainControlPanel(
             height: _controlPanelHeight,
             draftSlideNotifier: _draftSlideNotifier,
             draftFlyerNotifier: widget.draftFlyerNotifier,
@@ -238,40 +272,19 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             ),
             showAnimationPanel: _showAnimationPanel,
             showColorPanel: _showColorPanel,
-            onTriggerAnimationPanel: (){
-
-              /// SWITCH OFF COLOR PANEL
-              setNotifier(
-                  notifier: _showColorPanel,
-                  mounted: mounted,
-                  value: false,
-              );
-
-              /// TRIGGER ANIMATION PANEL
-              setNotifier(
-                notifier: _showAnimationPanel,
-                mounted: mounted,
-                value: !_showAnimationPanel.value,
-              );
-
-            },
-            onTriggerColorPanel: (){
-
-              /// SWITCH OFF ANIMATION PANEL
-              setNotifier(
-                  notifier: _showAnimationPanel,
-                  mounted: mounted,
-                  value: false,
-              );
-
-              /// TRIGGER COLOR PANEL
-              setNotifier(
-                  notifier: _showColorPanel,
-                  mounted: mounted,
-                  value: !_showColorPanel.value,
-              );
-
-            },
+            onTriggerAnimationPanel: () => onTriggerAnimationPanel(
+              draftNotifier: _draftSlideNotifier,
+              isPlayingAnimation: _isPlayingAnimation,
+              mounted: mounted,
+              isDoingMatrixFrom: _isDoingMatrixFrom,
+              showAnimationPanel: _showAnimationPanel,
+              showColorPanel: _showColorPanel,
+            ),
+            onTriggerColorPanel: () => onTriggerColorPanel(
+              showColorPanel: _showColorPanel,
+              showAnimationPanel: _showAnimationPanel,
+              mounted: mounted,
+            ),
           ),
 
         ],

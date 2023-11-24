@@ -11,6 +11,7 @@ class FlyerBox extends StatelessWidget {
     this.boxColor = Colorz.white20,
     this.onTap,
     this.shadowIsOn = false,
+    this.borderColor,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -22,6 +23,7 @@ class FlyerBox extends StatelessWidget {
   final Color? boxColor;
   final void Function()? onTap;
   final bool shadowIsOn;
+  final Color? borderColor;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,10 @@ class FlyerBox extends StatelessWidget {
           decoration: BoxDecoration(
             color: boxColor,
             borderRadius: _flyerBorders,
+            border: borderColor != null ? Border.all(
+              color: borderColor!,
+              // width: 1,
+            ) : null,
           ),
           child: AspectRatio(
             aspectRatio: FlyerDim.flyerAspectRatio(),
