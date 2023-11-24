@@ -1,19 +1,13 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
-import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/b_slide_editor_screen.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -315,6 +309,7 @@ void onPlayTap({
 
 // --------------------
 /// NOT USED ANYMORE
+/*
 Future<void> onCropSlide({
   required ValueNotifier<DraftSlide?> draftNotifier,
   required ValueNotifier<Matrix4?> matrixNotifier,
@@ -332,21 +327,21 @@ Future<void> onCropSlide({
 
     if (_croppedBig != null){
 
-      final PicModel? _med = await BldrsPicMaker.compressSlideBigPicTo(
+      final PicModel? _med = await SlidePicMaker.compressSlideBigPicTo(
           slidePic: _croppedBig,
           flyerID: draftNotifier.value!.flyerID,
           slideIndex: draftNotifier.value!.slideIndex,
           type: SlidePicType.med,
       );
 
-      final PicModel? _small = await BldrsPicMaker.compressSlideBigPicTo(
+      final PicModel? _small = await SlidePicMaker.compressSlideBigPicTo(
           slidePic: _croppedBig,
           flyerID: draftNotifier.value!.flyerID,
           slideIndex: draftNotifier.value!.slideIndex,
           type: SlidePicType.small,
       );
 
-      final PicModel? _back = await BldrsPicMaker.createSlideBackground(
+      final PicModel? _back = await SlidePicMaker.createSlideBackground(
           bigPic: _croppedBig,
           flyerID: draftNotifier.value!.flyerID,
           slideIndex: draftNotifier.value!.slideIndex,
@@ -372,6 +367,7 @@ Future<void> onCropSlide({
   }
 
 }
+ */
 // -----------------------------------------------------------------------------
 
 /// COLOR FILTER

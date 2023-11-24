@@ -63,10 +63,11 @@ class SlideEditorButton extends StatelessWidget {
           ),
 
           BldrsText(
-            width: size,
+            width: size + (2 * Ratioz.appBarMargin),
+            height: _verseZoneHeight,
             verse: verse,
             weight: VerseWeight.thin,
-            scaleFactor: 0.9,
+            scaleFactor: size * 0.014,
           ),
 
         ],

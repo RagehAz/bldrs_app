@@ -2,6 +2,7 @@ import 'package:basics/animators/widgets/animate_widget_to_matrix.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/b_slide_tap_areas.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:flutter/material.dart';

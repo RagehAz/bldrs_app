@@ -137,6 +137,10 @@ flutter:
 #    - assets/sounds/
   # ------------------------------------
   fonts:
+    - family: BldrsLogoFont
+      fonts:
+        - asset: packages/basics/bldrs_theme/assets/fonts/bebas.ttf
+
     - family: BldrsHeadlineFont
       fonts:
         - asset: packages/basics/bldrs_theme/assets/fonts/bldrs_font_bold.ttf

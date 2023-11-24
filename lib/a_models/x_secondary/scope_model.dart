@@ -201,9 +201,9 @@ class ScopeModel {
     required ScopeModel? scope,
     required FlyerModel? flyer,
   }){
-    ScopeModel? _output = scope;
+    ScopeModel? _output = scope ?? ScopeModel.emptyModel;
 
-    if (scope != null && flyer?.id != null){
+    if (flyer?.id != null){
 
       final List<String> _flyerPhids = flyer?.phids ?? [];
 

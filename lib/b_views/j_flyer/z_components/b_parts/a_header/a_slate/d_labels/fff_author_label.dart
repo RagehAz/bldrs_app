@@ -81,49 +81,51 @@ class AuthorLabel extends StatelessWidget {
             Container(
               width: _authorLabelVersesWidth,
               padding: FlyerDim.authorLabelVersesPadding(flyerBoxWidth),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
 
-                  /// AUTHOR NAME
-                  BldrsText(
-                    width: _authorLabelVersesWidth,
-                    verse: Verse(
-                      id: _author?.name,
-                      translate: false,
-                    ),
-                    centered: false,
-                    scaleFactor: _versesScaleFactor,
-                    textDirection: _textDirection,
-                  ),
-
-                  /// AUTHOR TITLE
-                  SizedBox(
-                    width: _authorLabelVersesWidth,
-                    child: BldrsText(
+                    /// AUTHOR NAME
+                    BldrsText(
+                      width: _authorLabelVersesWidth,
                       verse: Verse(
-                        id: _author?.title,
+                        id: _author?.name,
                         translate: false,
                       ),
-                      size: 1,
-                      weight: VerseWeight.regular,
                       centered: false,
-                      italic: true,
                       scaleFactor: _versesScaleFactor,
                       textDirection: _textDirection,
                     ),
-                  ),
 
-                  /// BZ COUNTER LINE
-                  FollowsFlyersCountLine(
-                    width: _authorLabelVersesWidth,
-                    margin: 0,
-                    bzModel: bzModel,
-                    versesScaleFactor: _versesScaleFactor,
-                  ),
+                    /// AUTHOR TITLE
+                    SizedBox(
+                      width: _authorLabelVersesWidth,
+                      child: BldrsText(
+                        verse: Verse(
+                          id: _author?.title,
+                          translate: false,
+                        ),
+                        size: 1,
+                        weight: VerseWeight.regular,
+                        centered: false,
+                        italic: true,
+                        scaleFactor: _versesScaleFactor,
+                        textDirection: _textDirection,
+                      ),
+                    ),
 
-                ],
+                    /// BZ COUNTER LINE
+                    FollowsFlyersCountLine(
+                      width: _authorLabelVersesWidth,
+                      margin: 0,
+                      bzModel: bzModel,
+                      versesScaleFactor: _versesScaleFactor,
+                    ),
+
+                  ],
+                ),
               ),
             ),
 
