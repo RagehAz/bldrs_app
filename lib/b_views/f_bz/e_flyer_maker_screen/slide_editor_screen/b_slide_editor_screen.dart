@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
@@ -232,6 +233,24 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               draftSlide: _draftSlideNotifier,
               text: text,
               mounted: mounted,
+            ),
+            onSetWhiteBack: () => onSetBackColor(
+              mounted: mounted,
+              draftFlyerNotifier: widget.draftFlyerNotifier,
+              draftSlideNotifier: _draftSlideNotifier,
+              color: Colorz.white255,
+            ),
+            onSetBlackBack: () => onSetBackColor(
+              mounted: mounted,
+              draftFlyerNotifier: widget.draftFlyerNotifier,
+              draftSlideNotifier: _draftSlideNotifier,
+              color: Colorz.black255,
+            ),
+            onSetColorBack: (){},
+            onSetBlurBack: () => onSetBlurBack(
+              mounted: mounted,
+              draftFlyerNotifier: widget.draftFlyerNotifier,
+              draftSlideNotifier: _draftSlideNotifier,
             ),
           ),
 

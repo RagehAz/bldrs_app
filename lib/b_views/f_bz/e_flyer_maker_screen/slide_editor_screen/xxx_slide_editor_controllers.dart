@@ -1,4 +1,3 @@
-import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:basics/layouts/nav/nav.dart';
@@ -19,7 +18,7 @@ import 'package:flutter/material.dart';
 
 // --------------------
 /// TESTED : WORKS PERFECT
-void setDraftFlyerSlide({
+void setDraftFlyerSlideMatrixes({
   required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
   required bool mounted,
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
@@ -34,15 +33,36 @@ void setDraftFlyerSlide({
 
   if (_slide != null){
 
+    _setFlyerAndSlide(
+      mounted: mounted,
+      draftFlyerNotifier: draftFlyerNotifier,
+      draftSlideNotifier: draftSlideNotifier,
+      draftSlide: _slide,
+    );
+
+  }
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+void _setFlyerAndSlide({
+  required ValueNotifier<DraftSlide?> draftSlideNotifier,
+  required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
+  required DraftSlide? draftSlide,
+  required bool mounted,
+}){
+
+  if (draftSlide != null && draftSlideNotifier.value != null){
+
     final List<DraftSlide> _updatedSlides = DraftSlide.replaceSlide(
       drafts: draftFlyerNotifier.value?.draftSlides,
-      draft: _slide,
+      draft: draftSlide,
     );
 
     setNotifier(
-        notifier: draftSlideNotifier,
-        mounted: mounted,
-        value: _slide,
+      notifier: draftSlideNotifier,
+      mounted: mounted,
+      value: draftSlide,
     );
 
     setNotifier(
@@ -73,7 +93,7 @@ Future<void> onGoNextSlide({
 
   await Keyboard.closeKeyboard();
 
-  setDraftFlyerSlide(
+  setDraftFlyerSlideMatrixes(
     draftFlyerNotifier: draftFlyerNotifier,
     matrixNotifier: matrixNotifier,
     matrixFromNotifier: matrixFromNotifier,
@@ -108,7 +128,7 @@ Future<void> onGoPreviousSlide({
 
   await Keyboard.closeKeyboard();
 
-  setDraftFlyerSlide(
+  setDraftFlyerSlideMatrixes(
     draftFlyerNotifier: draftFlyerNotifier,
     mounted: mounted,
     draftSlideNotifier: draftSlideNotifier,
@@ -140,7 +160,7 @@ Future<void> onExitSlideEditor({
   required bool mounted,
 }) async {
 
-  setDraftFlyerSlide(
+  setDraftFlyerSlideMatrixes(
     draftFlyerNotifier: draftFlyerNotifier,
     draftSlideNotifier: draftSlideNotifier,
     matrixNotifier: matrixNotifier,
@@ -211,6 +231,73 @@ void onTriggerColorPanel({
     mounted: mounted,
     value: !showColorPanel.value,
   );
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+void onSetBackColor({
+  required ValueNotifier<DraftSlide?> draftSlideNotifier,
+  required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
+  required bool mounted,
+  required Color color,
+}){
+
+  DraftSlide? _slide = draftSlideNotifier.value;
+
+  /// CLEAR BLUR PIC
+  _slide = _slide?.nullifyField(
+    backPic: true,
+  );
+
+  /// SET BACK COLOR
+  _slide = _slide?.copyWith(
+    backColor: color,
+  );
+
+  _setFlyerAndSlide(
+    draftSlide: _slide,
+    draftSlideNotifier: draftSlideNotifier,
+    draftFlyerNotifier: draftFlyerNotifier,
+    mounted: mounted,
+  );
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onSetBlurBack({
+  required ValueNotifier<DraftSlide?> draftSlideNotifier,
+  required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
+  required bool mounted,
+}) async {
+
+  DraftSlide? _slide = draftSlideNotifier.value;
+
+  if (_slide != null){
+
+    /// CLEAR COLOR
+    _slide = _slide.nullifyField(
+      backColor: true,
+    );
+
+      /// SET BLURRED IMAGE
+      final PicModel? _backPic = await SlidePicMaker.createSlideBackground(
+        bigPic: _slide.bigPic,
+        flyerID: _slide.flyerID,
+        slideIndex: _slide.slideIndex,
+        overrideSolidColor: null,
+      );
+      _slide = _slide.copyWith(
+        backPic: _backPic,
+      );
+
+      _setFlyerAndSlide(
+          draftSlideNotifier: draftSlideNotifier,
+          draftFlyerNotifier: draftFlyerNotifier,
+          draftSlide: _slide,
+          mounted: mounted
+      );
+
+  }
 
 }
 // -----------------------------------------------------------------------------
@@ -333,7 +420,7 @@ void onPlayTap({
 }){
 
   /// SET SLIDE
-  setDraftFlyerSlide(
+  setDraftFlyerSlideMatrixes(
     mounted: mounted,
     matrixNotifier: matrixNotifier,
     matrixFromNotifier: matrixFromNotifier,
@@ -470,7 +557,7 @@ Future<void> onResetMatrix({
       value: _matrixFrom,
     );
 
-    setDraftFlyerSlide(
+    setDraftFlyerSlideMatrixes(
       draftFlyerNotifier: draftFlyerNotifier,
       draftSlideNotifier: draftSlideNotifier,
       matrixNotifier: matrixNotifier,
@@ -504,7 +591,7 @@ void onFromTap({
 }){
 
   /// SET SLIDE
-  setDraftFlyerSlide(
+  setDraftFlyerSlideMatrixes(
     mounted: mounted,
     matrixNotifier: matrixNotifier,
     matrixFromNotifier: matrixFromNotifier,
@@ -542,7 +629,7 @@ void onToTap({
 }){
 
   /// SET SLIDE
-  setDraftFlyerSlide(
+  setDraftFlyerSlideMatrixes(
     mounted: mounted,
     matrixNotifier: matrixNotifier,
     matrixFromNotifier: matrixFromNotifier,
@@ -570,66 +657,6 @@ void onToTap({
 // -----------------------------------------------------------------------------
 
 
-
-
-
-Future<void> _triggerColorOld({
-  required DraftSlide? draftSlide,
-  required ValueNotifier<DraftSlide?> draftSlideNotifier,
-}) async {
-
-  final bool _hasBackColor = draftSlide?.backColor != null;
-
-  /// SHOULD SET BLURRED PIC
-  if (_hasBackColor == true){
-
-    /// DELETE BACK COLOR
-    DraftSlide _draftSlide = draftSlide!.nullifyField(
-      backColor: true,
-    );
-
-    /// SET BLURRED IMAGE
-    final PicModel? _backPic = await SlidePicMaker.createSlideBackground(
-      bigPic: draftSlide.bigPic,
-      flyerID: draftSlide.flyerID,
-      slideIndex: draftSlide.slideIndex,
-      overrideSolidColor: null,
-    );
-    _draftSlide = _draftSlide.copyWith(
-      backPic: _backPic,
-    );
-
-    setNotifier(
-      notifier: draftSlideNotifier,
-      mounted: true,
-      value: _draftSlide,
-    );
-
-  }
-
-  /// SHOULD SET COLOR
-  else {
-
-    /// DELETE BACK PIC
-    DraftSlide _draftSlide = draftSlide!.nullifyField(
-      backPic: true,
-    );
-
-    /// SET BACK COLOR
-    _draftSlide = _draftSlide.copyWith(
-      backColor: Colorz.white255,
-    );
-
-    setNotifier(
-      notifier: draftSlideNotifier,
-      mounted: true,
-      value: _draftSlide,
-    );
-
-
-  }
-
-}
 
 
 // -----------------------------------------------------------------------------

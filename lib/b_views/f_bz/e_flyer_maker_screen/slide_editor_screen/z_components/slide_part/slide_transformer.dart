@@ -73,8 +73,6 @@ class SlideTransformer extends StatelessWidget {
       ),
       onMatrixUpdate: (Matrix4 m, Matrix4 tm, Matrix4 sm, Matrix4 rm){
 
-        // blog('matrix is : $m');z
-
         final bool _areTheSame = Trinity.checkMatrixesAreIdentical(
           matrix1: isMatrixFrom == true ? matrixFromNotifier.value : matrixNotifier.value,
           matrixReloaded: m,
@@ -87,18 +85,6 @@ class SlideTransformer extends StatelessWidget {
               flyerBoxWidth: flyerBoxWidth,
               flyerBoxHeight: flyerBoxHeight
           )!;
-
-          // Trinity.blogMatrix(
-          //   matrix: m,
-          //   invoker: 'm',
-          //   roundDigits: 3,
-          // );
-          //
-          // Trinity.blogMatrix(
-          //   matrix: _slideMatrix,
-          //   invoker: '_slideMatrix',
-          //   roundDigits: 3,
-          // );
 
           setNotifier(
             notifier: isMatrixFrom == true ? matrixFromNotifier : matrixNotifier,
@@ -125,8 +111,6 @@ class SlideTransformer extends StatelessWidget {
         valueListenable: isMatrixFrom == true ? matrixFromNotifier : matrixNotifier,
         builder: (_, Matrix4? _matrix, Widget? childA){
 
-          // blog('rebuilding transforming image');
-
           return Transform(
             transform: Trinity.renderSlideMatrix(
               matrix: _matrix,
@@ -143,16 +127,6 @@ class SlideTransformer extends StatelessWidget {
 
         },
 
-        // child: SuperFilteredImage(
-        //   width: flyerBoxWidth,
-        //   height: FlyerDim.flyerHeightByFlyerWidth(
-        //     flyerBoxWidth: flyerBoxWidth,
-        //   ),
-        //   pic: slide?.bigPic?.bytes,
-        //   boxFit: BoxFit.fitWidth,
-        //   loading: false,
-        // ),
-
         child: Image.memory(
           slide!.medPic!.bytes!,
           key: const ValueKey<String>('SuperImage_slide_draft'),
@@ -161,7 +135,6 @@ class SlideTransformer extends StatelessWidget {
             flyerBoxWidth: flyerBoxWidth,
           ),
         ),
-
 
       ),
     );
