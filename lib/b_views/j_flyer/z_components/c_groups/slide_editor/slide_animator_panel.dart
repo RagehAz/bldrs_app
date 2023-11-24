@@ -166,6 +166,7 @@ class PlayButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
 
+        /// PLAY BUTTON
         BldrsBox(
           width: size * 0.7,
           height: size * 0.7,
@@ -258,13 +259,22 @@ class FromToButton extends StatelessWidget {
                     return Stack(
                       children: <Widget>[
 
-                        /// BACKGROUND
+                        /// BACKGROUND PIC
+                        if (draftSlide?.backPic?.bytes != null)
                         Image.memory(
                           draftSlide!.backPic!.bytes!,
                           key: const ValueKey<String>('SuperImage_slide_back'),
                           width: _microFlyerWidth,
                           height: _microFlyerHeight,
                           fit: BoxFit.cover,
+                        ),
+
+                        /// BACKGROUND COLOR
+                        if (draftSlide?.backColor != null)
+                        Container(
+                          width: _microFlyerWidth,
+                          height: _microFlyerHeight,
+                          color: draftSlide!.backColor,
                         ),
 
                         /// FRONT PIC

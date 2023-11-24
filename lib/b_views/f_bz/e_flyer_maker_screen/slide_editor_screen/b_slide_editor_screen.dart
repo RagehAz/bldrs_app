@@ -38,6 +38,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   final ValueNotifier<bool> _isTransforming = ValueNotifier(false);
   final ValueNotifier<bool> _canResetMatrix = ValueNotifier(false);
   final ValueNotifier<bool> _isPlayingAnimation = ValueNotifier(false);
+  final ValueNotifier<bool> _isPickingBackColor = ValueNotifier(false);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -164,6 +165,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               await Keyboard.closeKeyboard();
             },
             isPlayingAnimation: _isPlayingAnimation,
+            isPickingBackColor: _isPickingBackColor,
             onSlideDoubleTap: () => onReplayAnimation(
               isPlayingAnimation: _isPlayingAnimation,
               canResetMatrix: _canResetMatrix,
@@ -195,12 +197,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               draftFlyerNotifier: widget.draftFlyerNotifier,
               flyerBoxHeight: _flyerBoxHeight,
               flyerBoxWidth: _flyerBoxWidth,
-            ),
-            onCrop: () => onCropSlide(
-              draftNotifier: _draftSlideNotifier,
-              matrixNotifier: _matrixNotifier,
-              bzID: widget.draftFlyerNotifier.value?.bzID,
-              mounted: mounted,
             ),
             onNextSlide: (DraftSlide nextSlide) => onGoNextSlide(
               draftSlideNotifier: _draftSlideNotifier,

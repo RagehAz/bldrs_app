@@ -128,13 +128,21 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
               boxColor: widget.draftSlide?.midColor ?? Colorz.white10,
               stackWidgets: <Widget>[
 
-                /// BACKGROUND
-                if (widget.draftSlide != null)
+                /// BACK PIC
+                if (widget.draftSlide?.backPic != null)
                   BldrsImage(
                     width: DraftShelfSlide.flyerBoxWidth,
                     height: _flyerBoxHeight,
                     pic: widget.draftSlide?.backPic?.bytes,
                     // loading: false,
+                  ),
+
+                /// BACK COLOR
+                if (widget.draftSlide?.backColor != null)
+                  Container(
+                    width: DraftShelfSlide.flyerBoxWidth,
+                    height: _flyerBoxHeight,
+                    color: widget.draftSlide!.backColor,
                   ),
 
                 /// IMAGE

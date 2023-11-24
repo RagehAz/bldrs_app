@@ -42,6 +42,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     required this.onSlideDoubleTap,
     required this.bzModel,
     required this.authorID,
+    required this.isPickingBackColor,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -60,6 +61,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   final bool mounted;
   final BzModel bzModel;
   final String authorID;
+  final ValueNotifier<bool> isPickingBackColor;
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
@@ -104,13 +106,27 @@ class SlideEditorSlidePart extends StatelessWidget {
             ValueListenableBuilder(
               valueListenable: draftSlide,
               builder: (_, DraftSlide? _slide, Widget? child) {
-                return BldrsImage(
-                  width: _flyerBoxWidth,
-                  height: _flyerBoxHeight,
-                  pic: _slide?.backPic?.bytes,
-                  // loading: false,
-                  // corners: FlyerDim.flyerCorners(_flyerBoxWidth),
-                );
+
+                /// BLUR BACK
+                if (_slide?.backColor == null){
+                  return BldrsImage(
+                    width: _flyerBoxWidth,
+                    height: _flyerBoxHeight,
+                    pic: _slide?.backPic?.bytes,
+                    // loading: false,
+                    // corners: FlyerDim.flyerCorners(_flyerBoxWidth),
+                  );
+                }
+
+                /// COLOR BACK
+                else {
+                  return Container(
+                    width: _flyerBoxWidth,
+                    height: _flyerBoxHeight,
+                    color: _slide!.backColor,
+                  );
+                }
+
               }
             ),
 
@@ -121,51 +137,6 @@ class SlideEditorSlidePart extends StatelessWidget {
 
                 return ValueListenableBuilder(
                   valueListenable: isPlayingAnimation,
-                  child: Stack(
-                    children: <Widget>[
-
-                      /// BACKGROUND
-                      Image.memory(
-                        _slide!.backPic!.bytes!,
-                        key: const ValueKey<String>('SuperImage_slide_back'),
-                        width: _flyerBoxWidth,
-                        height: _flyerBoxHeight,
-                      ),
-
-                      /// SLIDE ANIMATOR
-                      AnimateWidgetToMatrix(
-                        matrix: Trinity.renderSlideMatrix(
-                          matrix: _slide.matrix,
-                          flyerBoxWidth: _flyerBoxWidth,
-                          flyerBoxHeight: _flyerBoxHeight,
-                        ),
-                        matrixFrom: Trinity.renderSlideMatrix(
-                          matrix: _slide.matrixFrom,
-                          flyerBoxWidth: _flyerBoxWidth,
-                          flyerBoxHeight: _flyerBoxHeight,
-                        ),
-                        // canAnimate: true,
-                        curve: _slide.animationCurve ?? Curves.easeIn,
-                        replayOnRebuild: true,
-                        repeat: false,
-                        onAnimationEnds: () async {
-                          await Future<void>.delayed(const Duration(milliseconds: 300));
-                          setNotifier(
-                            notifier: isPlayingAnimation,
-                            mounted: mounted,
-                            value: false,
-                          );
-                          },
-                        child: Image.memory(
-                          _slide.medPic!.bytes!,
-                          key: const ValueKey<String>('SuperImage_slide_draft'),
-                          width: _flyerBoxWidth,
-                          height: _flyerBoxHeight,
-                        ),
-                      ),
-
-                    ],
-                  ),
                   builder: (_, bool isPlaying, Widget? animationPlayer) {
 
                     /// WHILE PLAYING ANIMATION
@@ -195,6 +166,37 @@ class SlideEditorSlidePart extends StatelessWidget {
                     }
 
                     },
+                  /// SLIDE ANIMATOR
+                  child: AnimateWidgetToMatrix(
+                    matrix: Trinity.renderSlideMatrix(
+                      matrix: _slide?.matrix,
+                      flyerBoxWidth: _flyerBoxWidth,
+                      flyerBoxHeight: _flyerBoxHeight,
+                    ),
+                    matrixFrom: Trinity.renderSlideMatrix(
+                      matrix: _slide?.matrixFrom,
+                      flyerBoxWidth: _flyerBoxWidth,
+                      flyerBoxHeight: _flyerBoxHeight,
+                    ),
+                    // canAnimate: true,
+                    curve: _slide?.animationCurve ?? Curves.easeIn,
+                    replayOnRebuild: true,
+                    repeat: false,
+                    onAnimationEnds: () async {
+                      await Future<void>.delayed(const Duration(milliseconds: 300));
+                      setNotifier(
+                        notifier: isPlayingAnimation,
+                        mounted: mounted,
+                        value: false,
+                      );
+                      },
+                    child: Image.memory(
+                      _slide!.medPic!.bytes!,
+                      key: const ValueKey<String>('SuperImage_slide_draft'),
+                      width: _flyerBoxWidth,
+                      height: _flyerBoxHeight,
+                    ),
+                  ),
                 );
 
                 },
