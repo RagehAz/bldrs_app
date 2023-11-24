@@ -10,23 +10,25 @@ class SlideTransformer extends StatelessWidget {
   const SlideTransformer({
     required this.matrixNotifier,
     required this.matrixFromNotifier,
+    required this.isDoingMatrixFrom,
     required this.flyerBoxWidth,
     required this.flyerBoxHeight,
     required this.slide,
     required this.isTransforming,
     required this.mounted,
-    required this.isMatrixFrom,
+    required this.isPickingColor,
     super.key
   });
   /// --------------------------------------------------------------------------
   final ValueNotifier<Matrix4?> matrixNotifier;
   final ValueNotifier<Matrix4?> matrixFromNotifier;
+  final ValueNotifier<bool> isDoingMatrixFrom;
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   final DraftSlide? slide;
   final ValueNotifier<bool> isTransforming;
   final bool mounted;
-  final bool isMatrixFrom;
+  final ValueNotifier<bool> isPickingColor;
   /// --------------------------------------------------------------------------
   static Matrix4 getInitialMatrix({
     required DraftSlide slide,
@@ -62,82 +64,97 @@ class SlideTransformer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return MrAnderson(
-      /// this key allows differentiating between the two slide, never delete this
-      key: ValueKey<String>('SlideTransformer_$isMatrixFrom'),
-      initialMatrix: getInitialMatrix(
-        slide: slide!,
-        flyerBoxWidth: flyerBoxWidth,
-        flyerBoxHeight: flyerBoxHeight,
-        isMatrixFrom: isMatrixFrom,
-      ),
-      onMatrixUpdate: (Matrix4 m, Matrix4 tm, Matrix4 sm, Matrix4 rm){
+    return ValueListenableBuilder(
+      valueListenable: isPickingColor,
+      builder: (_, bool isPickingColor, Widget? imageMemory) {
 
-        final bool _areTheSame = Trinity.checkMatrixesAreIdentical(
-          matrix1: isMatrixFrom == true ? matrixFromNotifier.value : matrixNotifier.value,
-          matrixReloaded: m,
+        return ValueListenableBuilder(
+            valueListenable: isDoingMatrixFrom,
+            builder: (_, bool isMatrixFrom, Widget? y){
+
+              return MrAnderson(
+                /// this key allows differentiating between the two slide, never delete this
+                key: ValueKey<String>('SlideTransformer_$isMatrixFrom'),
+                // focalPointAlignment: Alignment.center,
+                clipChild: false,
+                initialMatrix: getInitialMatrix(
+                  slide: slide!,
+                  flyerBoxWidth: flyerBoxWidth,
+                  flyerBoxHeight: flyerBoxHeight,
+                  isMatrixFrom: isMatrixFrom,
+                ),
+                shouldRotate: !isPickingColor,
+                shouldScale: !isPickingColor,
+                shouldTranslate: !isPickingColor,
+                onMatrixUpdate: (Matrix4 m, Matrix4 tm, Matrix4 sm, Matrix4 rm){
+
+                  final bool _areTheSame = Trinity.checkMatrixesAreIdentical(
+                    matrix1: isMatrixFrom == true ? matrixFromNotifier.value : matrixNotifier.value,
+                    matrixReloaded: m,
+                  );
+
+                  if (_areTheSame == false){
+
+                    final Matrix4 _slideMatrix = Trinity.generateSlideMatrix(
+                        matrix: m,
+                        flyerBoxWidth: flyerBoxWidth,
+                        flyerBoxHeight: flyerBoxHeight
+                    )!;
+
+                    setNotifier(
+                      notifier: isMatrixFrom == true ? matrixFromNotifier : matrixNotifier,
+                      mounted: mounted,
+                      value: _slideMatrix,
+                    );
+
+                    setNotifier(
+                      notifier: isTransforming,
+                      mounted: mounted,
+                      value: true,
+                    );
+
+                  }
+
+                  },
+                child: ValueListenableBuilder(
+                  valueListenable: isMatrixFrom == true ? matrixFromNotifier : matrixNotifier,
+                  builder: (_, Matrix4? _matrix, Widget? z){
+
+                    return Transform(
+                      transform: Trinity.renderSlideMatrix(
+                        matrix: _matrix,
+                        flyerBoxWidth: flyerBoxWidth,
+                        flyerBoxHeight: flyerBoxHeight,
+                      )!,
+                      // alignment: Alignment.center,
+                      // origin: Offset(0,0),
+                      filterQuality: FilterQuality.low,
+                      transformHitTests: false,
+                      // alignment: Alignment.center,
+                      child: z,
+                    );
+
+                    },
+
+                  child: y,
+
+                ),
+              );
+
+            },
+          child: imageMemory,
         );
-
-        if (_areTheSame == false){
-
-          final Matrix4 _slideMatrix = Trinity.generateSlideMatrix(
-              matrix: m,
-              flyerBoxWidth: flyerBoxWidth,
-              flyerBoxHeight: flyerBoxHeight
-          )!;
-
-          setNotifier(
-            notifier: isMatrixFrom == true ? matrixFromNotifier : matrixNotifier,
-            mounted: mounted,
-            value: _slideMatrix,
-          );
-
-          setNotifier(
-              notifier: isTransforming,
-              mounted: mounted,
-              value: true,
-          );
-
-        }
-
       },
-
-      // shouldRotate: true,
-      // shouldScale: true,
-      // shouldTranslate: true,
-      // focalPointAlignment: Alignment.center,
-      clipChild: false,
-      child: ValueListenableBuilder(
-        valueListenable: isMatrixFrom == true ? matrixFromNotifier : matrixNotifier,
-        builder: (_, Matrix4? _matrix, Widget? childA){
-
-          return Transform(
-            transform: Trinity.renderSlideMatrix(
-              matrix: _matrix,
-              flyerBoxWidth: flyerBoxWidth,
-              flyerBoxHeight: flyerBoxHeight,
-            )!,
-            // alignment: Alignment.center,
-            // origin: Offset(0,0),
-            filterQuality: FilterQuality.low,
-            transformHitTests: false,
-            // alignment: Alignment.center,
-            child: childA,
-          );
-
-        },
-
-        child: Image.memory(
-          slide!.medPic!.bytes!,
-          key: const ValueKey<String>('SuperImage_slide_draft'),
-          width: flyerBoxWidth,
-          height: FlyerDim.flyerHeightByFlyerWidth(
-            flyerBoxWidth: flyerBoxWidth,
-          ),
-        ),
-
-      ),
+      child: Image.memory(
+                    slide!.medPic!.bytes!,
+                    key: const ValueKey<String>('SuperImage_slide_draft'),
+                    width: flyerBoxWidth,
+                    height: FlyerDim.flyerHeightByFlyerWidth(
+                      flyerBoxWidth: flyerBoxWidth,
+                    ),
+                  ),
     );
+
 
   }
 /// --------------------------------------------------------------------------
