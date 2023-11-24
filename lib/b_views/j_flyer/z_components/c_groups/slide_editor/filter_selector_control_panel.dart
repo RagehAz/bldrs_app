@@ -41,7 +41,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
     final double _sliderZoneHeight = _controlPanelHeight * 0.15;
     final double _buttonsZoneHeight = _controlPanelHeight - _sliderZoneHeight;
     // --------------------
-    final double _buttonSize = SlideEditorControlPanel.getButtonSize(context, _buttonsZoneHeight);
+    final double _buttonSize = SlideEditorControlPanel.getButtonSize(_buttonsZoneHeight);
     final double _boxHeight = SlideEditorButton.getBoxHeight(buttonSize: _buttonSize);
     final double _boxWidth = FlyerDim.flyerWidthByFlyerHeight(
       flyerBoxHeight: _boxHeight,

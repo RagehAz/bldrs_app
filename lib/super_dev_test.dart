@@ -45,4 +45,7 @@ write me the key value pairs for each lang in a Map<String, dynamic> {
   langCode: translation,
 }
 
+dont use this ' ' or this " " or this ''' ''' or this """ """
+just write the values
+
 * */

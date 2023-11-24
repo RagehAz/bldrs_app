@@ -425,7 +425,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 ),
                                 corners: Borderers.constantCornersAll20,
                                 color: Colorz.white20,
-                                verseScaleFactor: 0.7,
+                                verseScaleFactor: 0.6,
                                 onTap: _onSkip,
                               ),
 
@@ -473,7 +473,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 ),
                                 corners: Borderers.constantCornersAll20,
                                 color: Colorz.white20,
-                                verseScaleFactor: 0.7,
+                                verseScaleFactor: 0.6,
                                 onTap: _onNext,
                               ),
 

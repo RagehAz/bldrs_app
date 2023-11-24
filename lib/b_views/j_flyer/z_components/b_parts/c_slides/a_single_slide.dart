@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/a_slide_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/b_slide_image.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
@@ -7,9 +8,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/e
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:flutter/material.dart';
 
-/// THE OLD
 class SingleSlide extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const SingleSlide({
     required this.flyerBoxWidth,
     required this.flyerBoxHeight,
@@ -21,13 +21,12 @@ class SingleSlide extends StatelessWidget {
     required this.onSlideBackTap,
     required this.onDoubleTap,
     required this.canTapSlide,
-    // required this.canAnimateMatrix,
     required this.slideShadowIsOn,
     required this.canUseFilter,
     required this.canPinch,
     super.key
   });
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   final SlideModel? slideModel;
@@ -39,10 +38,9 @@ class SingleSlide extends StatelessWidget {
   final Function? onDoubleTap;
   final bool slideShadowIsOn;
   final bool canTapSlide;
-  // final bool canAnimateMatrix;
   final bool canUseFilter;
   final bool canPinch;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -51,22 +49,29 @@ class SingleSlide extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
       flyerBoxHeight: flyerBoxHeight,
       tinyMode: tinyMode,
-      slideMidColor: slideModel?.midColor,
+      slideMidColor: slideModel?.backColor ?? slideModel?.midColor,
       shadowIsOn: slideShadowIsOn,
       stackChildren: <Widget>[
 
-        /// BACKGROUND
-        if (slideModel != null)
-        BldrsImage(
-          width: flyerBoxWidth,
-          height: flyerBoxHeight,
-          pic: slideModel?.backImage ?? SlideModel.generateSlidePicPath(
+        // /// BACKGROUND COLOR
+        // if (slideModel?.backColor != null)
+        //   Container(
+        //     width: flyerBoxWidth,
+        //     height: flyerBoxHeight,
+        //     color: slideModel!.backColor,
+        //   ),
+
+        /// BACKGROUND PIC
+        if (slideModel?.backColor == null)
+          BldrsImage(
+            width: flyerBoxWidth,
+            height: flyerBoxHeight,
+            pic: slideModel?.backImage ?? SlideModel.generateSlidePicPath(
               flyerID: slideModel?.flyerID,
               slideIndex: slideModel?.slideIndex,
               type: SlidePicType.back,
+            ),
           ),
-          // loading: false,
-        ),
 
         /// ANIMATED SLIDE
         if (slideModel != null)

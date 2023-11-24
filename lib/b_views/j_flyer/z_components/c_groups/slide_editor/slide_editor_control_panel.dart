@@ -1,11 +1,16 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_slide_part.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +18,6 @@ class SlideEditorControlPanel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorControlPanel({
     required this.onResetMatrix,
-    required this.onCrop,
     required this.height,
     required this.canResetMatrix,
     required this.draftSlideNotifier,
@@ -28,7 +32,6 @@ class SlideEditorControlPanel extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final Function onResetMatrix;
-  final Function onCrop;
   final double height;
   final ValueNotifier<bool> canResetMatrix;
   final ValueNotifier<DraftSlide?> draftSlideNotifier;
@@ -48,8 +51,16 @@ class SlideEditorControlPanel extends StatelessWidget {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double getButtonSize(BuildContext context, double controlPanelHeight){
-    final double _buttonSize = controlPanelHeight * 0.6;
+  static double getButtonSize(double controlPanelHeight){
+    // final double _screenWidth = Scale.screenWidth(getMainContext());
+    final double _buttonSize = controlPanelHeight * 0.5;
+    // final double _buttonSize = Scale.getUniformRowItemWidth(
+    //   context: getMainContext(),
+    //   numberOfItems: 5,
+    //   boxWidth: _screenWidth,
+    //   spacing: 20,
+    //   // considerMargins: true,
+    // );
     return _buttonSize;
   }
   // -----------------------------------------------------------------------------
@@ -58,7 +69,7 @@ class SlideEditorControlPanel extends StatelessWidget {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
     final double _controlPanelHeight = height;
-    final double _buttonSize = getButtonSize(context, _controlPanelHeight);
+    final double _buttonSize = getButtonSize(_controlPanelHeight);
     // --------------------
     return FloatingList(
       width: _screenWidth,
@@ -121,6 +132,76 @@ class SlideEditorControlPanel extends StatelessWidget {
             }
             ),
 
+        /// BACKGROUND
+        ValueListenableBuilder(
+            valueListenable: draftSlideNotifier,
+            builder: (_, DraftSlide? draftSlide, Widget? child){
+
+              return SlideEditorButton(
+                size: _buttonSize,
+                icon: Iconz.colors,
+                verse: const Verse(
+                  id: 'phid_background',
+                  translate: true,
+                ),
+                onTap: () async {
+
+                  final bool _hasBackColor = draftSlide?.backColor != null;
+
+                  /// SHOULD SET BLURRED PIC
+                  if (_hasBackColor == true){
+
+                    /// DELETE BACK COLOR
+                    DraftSlide _draftSlide = draftSlide!.nullifyField(
+                      backColor: true,
+                    );
+
+                    /// SET BLURRED IMAGE
+                    final PicModel? _backPic = await SlidePicMaker.createSlideBackground(
+                      bigPic: draftSlide.bigPic,
+                      flyerID: draftSlide.flyerID,
+                      slideIndex: draftSlide.slideIndex,
+                      overrideSolidColor: null,
+                    );
+                    _draftSlide = _draftSlide.copyWith(
+                      backPic: _backPic,
+                    );
+
+                    setNotifier(
+                        notifier: draftSlideNotifier,
+                        mounted: true,
+                        value: _draftSlide,
+                    );
+
+                  }
+
+                  /// SHOULD SET COLOR
+                  else {
+
+                    /// DELETE BACK PIC
+                    DraftSlide _draftSlide = draftSlide!.nullifyField(
+                      backPic: true,
+                    );
+
+                    /// SET BACK COLOR
+                    _draftSlide = _draftSlide.copyWith(
+                      backColor: Colorz.white255,
+                    );
+
+                    setNotifier(
+                      notifier: draftSlideNotifier,
+                      mounted: true,
+                      value: _draftSlide,
+                    );
+
+
+                  }
+
+                },
+              );
+            }
+            ),
+
         /// ANIMATE
         ValueListenableBuilder(
             valueListenable: draftSlideNotifier,
@@ -142,22 +223,6 @@ class SlideEditorControlPanel extends StatelessWidget {
                   });
             }),
 
-        /// DEPRECATED : SLIDE COLOR FILTER FEATURE
-        // ValueListenableBuilder(
-        //     valueListenable: draftNotifier,
-        //     builder: (_, DraftSlide draftSlide, Widget child){
-        //
-        //       return SlideEditorButton(
-        //         size: _buttonSize,
-        //         icon: Iconz.colors,
-        //         verse: const Verse(
-        //           text: 'phid_filter',
-        //           translate: true,
-        //         ),
-        //         onTap: onToggleFilter,
-        //       );
-        //     }
-        //     ),
         // /// CROP
         // SlideEditorButton(
         //   size: _buttonSize,

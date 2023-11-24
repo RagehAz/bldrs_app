@@ -757,7 +757,7 @@ class PickerModel {
         if (Mapper.checkCanLoopList(_blockers) == true) {
           for (final PickersBlocker blocker in _blockers!) {
             final bool _isSelected = SpecModel.checkSpecsContainThisSpecValue(
-                specs: selectedSpecs!,
+                specs: selectedSpecs,
                 value: blocker.value
             );
 
