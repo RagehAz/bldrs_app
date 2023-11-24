@@ -9,9 +9,9 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:flutter/material.dart';
 
-class SlideEditorControlPanel extends StatelessWidget {
+class SlideEditorMainControlPanel extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SlideEditorControlPanel({
+  const SlideEditorMainControlPanel({
     required this.height,
     required this.draftSlideNotifier,
     required this.onTriggerAnimationPanel,
@@ -37,7 +37,11 @@ class SlideEditorControlPanel extends StatelessWidget {
   final ValueNotifier<bool> showColorPanel;
   final Function onTriggerColorPanel;
   final ValueNotifier<bool> showAnimationPanel;
-  // --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+
+  /// SCALING
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   static double getControlPanelHeight(BuildContext context, double screenHeight){
     final double _slideZoneHeight = SlideEditorSlidePart.getSlideZoneHeight(context, screenHeight);
@@ -49,6 +53,54 @@ class SlideEditorControlPanel extends StatelessWidget {
   static double getButtonSize(double controlPanelHeight){
     final double _buttonSize = controlPanelHeight * 0.6;
     return _buttonSize;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// FUNCTIONS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Function onGoPreviousFunction({
+    required bool isFirst,
+    required int slideIndex,
+    required DraftFlyer? draftFlyer,
+  }){
+
+    if (isFirst == true){
+      return onFirstSlideBack;
+    }
+    else {
+
+      return () async {
+        final DraftSlide? previousSlide = draftFlyer?.draftSlides?[slideIndex - 1];
+        if (previousSlide != null){
+          onPreviousSlide(previousSlide);
+        }
+      };
+
+    }
+
+  }
+  // --------------------
+  Function onGoNextFunction({
+    required bool isLast,
+    required int slideIndex,
+    required DraftFlyer? draftFlyer,
+  }){
+
+    if (isLast == true){
+      return onLastSlideNext;
+    }
+
+    else {
+      return () async {
+        final DraftSlide? nextSlide = draftFlyer?.draftSlides?[slideIndex + 1];
+        if (nextSlide != null){
+          await onNextSlide(nextSlide);
+        }
+      };
+    }
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -84,17 +136,11 @@ class SlideEditorControlPanel extends StatelessWidget {
                     id: _isFirst == true ? 'phid_exit' : 'phid_previous',
                     translate: true,
                   ),
-                  onTap: _isFirst == true ?
-                  onFirstSlideBack
-                      :
-                  () async {
-
-                    final DraftSlide? previousSlide = draftFlyer?.draftSlides?[_slideIndex - 1];
-                    if (previousSlide != null){
-                      onPreviousSlide(previousSlide);
-                    }
-
-                  },
+                  onTap: onGoPreviousFunction(
+                    isFirst: _isFirst,
+                    slideIndex: _slideIndex,
+                    draftFlyer: draftFlyer,
+                  ),
                 );
 
               }
@@ -158,17 +204,11 @@ class SlideEditorControlPanel extends StatelessWidget {
                         id: _isLast == true ? 'phid_confirm' : 'phid_next',
                         translate: true,
                       ),
-                      onTap: _isLast == true ?
-                      onLastSlideNext
-                          :
-                          () async {
-
-                        final DraftSlide? nextSlide = draftFlyer?.draftSlides?[_slideIndex + 1];
-                        if (nextSlide != null){
-                          await onNextSlide(nextSlide);
-                        }
-
-                        },
+                      onTap: onGoNextFunction(
+                        isLast: _isLast,
+                        slideIndex: _slideIndex,
+                        draftFlyer: draftFlyer,
+                      ),
                     );
 
                   });

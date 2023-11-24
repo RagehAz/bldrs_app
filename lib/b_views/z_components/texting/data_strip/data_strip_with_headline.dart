@@ -70,7 +70,7 @@ class DataStripWithHeadline extends StatelessWidget {
               ),
               width: _rowWidth,
               height: valueRowHeight,
-              color: valueBoxColor,
+              topColor: valueBoxColor,
               valueIsPercentage: _valueIsPercentage,
               dataValue: dataValue,
               horizontalMargin: Ratioz.appBarMargin,
@@ -134,24 +134,26 @@ class DataStripValue extends StatelessWidget {
     required this.onTap,
     required this.width,
     required this.height,
-    required this.color,
     required this.valueIsPercentage,
     required this.dataValue,
     required this.valueString,
     required this.horizontalMargin,
     this.highlightText,
+    this.topColor = Colorz.yellow80,
+    this.backColor = Colorz.yellow80,
     super.key
   });
   /// --------------------------------------------------------------------------
   final Function? onTap;
   final double width;
   final double height;
-  final Color color;
+  final Color topColor;
   final bool valueIsPercentage;
   final dynamic dataValue;
-  final String valueString;
+  final String? valueString;
   final double horizontalMargin;
   final ValueNotifier<dynamic>? highlightText;
+  final Color? backColor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -162,23 +164,35 @@ class DataStripValue extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: color,
+          color: backColor,
           borderRadius: Borderers.constantCornersAll10,
         ),
         child: Stack(
           alignment: BldrsAligners.superCenterAlignment(context),
           children: <Widget>[
 
+            /// BACK COLOR
+            if (valueIsPercentage == true)
+              BldrsBox(
+                width: (dataValue / 100) * width,
+                height: height,
+                color: Colorz.black125,
+                corners: Borderers.cornerAll(Ratioz.boxCorner8),
+                // ),
+              ),
+
+            /// FRONT COLOR
             if (valueIsPercentage == true)
               BldrsBox(
                 width: (dataValue / 100) * width,
                 height: height,
                 // decoration: BoxDecoration(
-                color: Colorz.yellow80,
+                color: topColor,
                 corners: Borderers.cornerAll(Ratioz.boxCorner8),
                 // ),
               ),
 
+            if (valueString != null)
             SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,

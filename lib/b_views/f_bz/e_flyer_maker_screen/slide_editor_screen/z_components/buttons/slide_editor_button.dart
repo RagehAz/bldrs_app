@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:flutter/material.dart';
 
 class SlideEditorButton extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const SlideEditorButton({
     required this.size,
     required this.icon,
@@ -16,7 +16,7 @@ class SlideEditorButton extends StatelessWidget {
     this.isSelected = false,
     super.key
   });
-  /// --------------------------------------------------------------------------
+  // --------------------
   final double size;
   final String icon;
   final Verse verse;
@@ -61,8 +61,8 @@ class SlideEditorButton extends StatelessWidget {
             iconSizeFactor: 0.6,
             margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
             isDisabled: isDisabled,
-            color: isSelected == true ? Colorz.green125 : Colorz.white20,
-            borderColor: isSelected == true ? Colorz.white255 : null,
+            color: isSelected == true ? Colorz.yellow20 : Colorz.white20,
+            borderColor: isSelected == true ? Colorz.yellow255 : null,
             onTap: onTap,
           ),
 
@@ -80,5 +80,5 @@ class SlideEditorButton extends StatelessWidget {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
