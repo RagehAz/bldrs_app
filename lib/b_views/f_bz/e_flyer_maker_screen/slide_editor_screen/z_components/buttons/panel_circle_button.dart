@@ -84,7 +84,7 @@ class PanelCircleButton extends StatelessWidget {
               corners: size * 0.5,
               color: getFrontColor(isSelected: isSelected),
               iconColor: isSelected == true ? Colorz.yellow255 : Colorz.white255,
-              borderColor: getBorderColor(isSelected: isSelected),
+              borderColor: isDisabled == true ? null : getBorderColor(isSelected: isSelected),
               icon: icon,
               iconSizeFactor: 0.5,
               splashColor: Colorz.yellow255,

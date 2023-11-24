@@ -50,6 +50,10 @@ class SlideEditorSlidePart extends StatelessWidget {
     required this.onToTap,
     required this.onPlayTap,
     required this.onSlideHeadlineChanged,
+    required this.onSetColorBack,
+    required this.onSetWhiteBack,
+    required this.onSetBlackBack,
+    required this.onSetBlurBack,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -78,6 +82,10 @@ class SlideEditorSlidePart extends StatelessWidget {
   final Function onToTap;
   final Function onPlayTap;
   final Function(String? text) onSlideHeadlineChanged;
+  final Function onSetColorBack;
+  final Function onSetWhiteBack;
+  final Function onSetBlackBack;
+  final Function onSetBlurBack;
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
@@ -120,7 +128,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                 key: const ValueKey<String>('flyer_box_slide_editor'),
                 flyerBoxWidth: _flyerBoxWidth,
                 boxColor: draftSlide.value?.midColor,
-                borderColor: Colorz.white80,
+                borderColor: Colorz.white20,
                 stackWidgets: <Widget>[
 
                   /// BLUR BACKGROUND
@@ -290,13 +298,11 @@ class SlideEditorSlidePart extends StatelessWidget {
                       },
                     child: SlideColorPanel(
                       flyerBoxWidth: _flyerBoxWidth,
-                      mounted: mounted,
-                      matrixFromNotifier: matrixFromNotifier,
-                      matrixNotifier: matrixNotifier,
                       draftSlideNotifier: draftSlide,
-                      onResetMatrix: onResetMatrix,
-                      canResetMatrix: canResetMatrix,
-                      onTriggerSlideIsAnimated: onTriggerSlideIsAnimated,
+                      onSetBlackBack: onSetBlackBack,
+                      onSetWhiteBack: onSetWhiteBack,
+                      onSetColorBack: onSetColorBack,
+                      onSetBlurBack: onSetBlurBack,
                     ),
                   ),
 

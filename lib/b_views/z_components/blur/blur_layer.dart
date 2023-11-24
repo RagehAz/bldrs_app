@@ -13,6 +13,7 @@ class BlurLayer extends StatelessWidget {
     this.blurIsOn = false,
     this.child,
     this.alignment,
+    this.borderColor,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -24,6 +25,7 @@ class BlurLayer extends StatelessWidget {
   final bool blurIsOn;
   final Widget? child;
   final Alignment? alignment;
+  final Color? borderColor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -35,18 +37,32 @@ class BlurLayer extends StatelessWidget {
         height: height,
         child: ClipRRect(
           borderRadius: borders ?? BorderRadius.zero,
-          child: BackdropFilter(
-            filter: ui.ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-            child: Container(
-              width: width,
-              height: height,
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: borders,
+          child: Stack(
+            alignment: alignment ?? Alignment.center,
+            children: <Widget>[
+
+              if (child != null)
+              child!,
+
+              IgnorePointer(
+                child: BackdropFilter(
+                  filter: ui.ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+                  child: Container(
+                    width: width,
+                    height: height,
+                    decoration: BoxDecoration(
+                      color: color,
+                      borderRadius: borders,
+                      border: borderColor == null ? null : Border.all(
+                        color: borderColor!,
+                        width: 0.7,
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              alignment: alignment,
-              child: child,
-            ),
+
+            ],
           ),
         ),
       );
