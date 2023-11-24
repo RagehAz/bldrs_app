@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';

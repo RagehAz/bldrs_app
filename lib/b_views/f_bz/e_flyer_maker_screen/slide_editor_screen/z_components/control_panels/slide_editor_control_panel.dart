@@ -1,47 +1,42 @@
-import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_button.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_slide_part.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/slide_editor_button.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_editor_slide_part.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:flutter/material.dart';
 
 class SlideEditorControlPanel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorControlPanel({
-    required this.onResetMatrix,
     required this.height,
-    required this.canResetMatrix,
     required this.draftSlideNotifier,
-    required this.onTriggerAnimation,
+    required this.onTriggerAnimationPanel,
+    required this.onTriggerColorPanel,
     required this.draftFlyerNotifier,
-
     required this.onNextSlide,
     required this.onPreviousSlide,
     required this.onFirstSlideBack,
     required this.onLastSlideNext,
+    required this.showColorPanel,
+    required this.showAnimationPanel,
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Function onResetMatrix;
   final double height;
-  final ValueNotifier<bool> canResetMatrix;
   final ValueNotifier<DraftSlide?> draftSlideNotifier;
   final ValueNotifier<DraftFlyer?> draftFlyerNotifier;
-  final Function onTriggerAnimation;
-
+  final Function onTriggerAnimationPanel;
   final Function(DraftSlide draftSlide) onNextSlide;
   final Function(DraftSlide draftSlide) onPreviousSlide;
   final Function onFirstSlideBack;
   final Function onLastSlideNext;
+  final ValueNotifier<bool> showColorPanel;
+  final Function onTriggerColorPanel;
+  final ValueNotifier<bool> showAnimationPanel;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static double getControlPanelHeight(BuildContext context, double screenHeight){
@@ -52,15 +47,7 @@ class SlideEditorControlPanel extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getButtonSize(double controlPanelHeight){
-    // final double _screenWidth = Scale.screenWidth(getMainContext());
-    final double _buttonSize = controlPanelHeight * 0.5;
-    // final double _buttonSize = Scale.getUniformRowItemWidth(
-    //   context: getMainContext(),
-    //   numberOfItems: 5,
-    //   boxWidth: _screenWidth,
-    //   spacing: 20,
-    //   // considerMargins: true,
-    // );
+    final double _buttonSize = controlPanelHeight * 0.6;
     return _buttonSize;
   }
   // -----------------------------------------------------------------------------
@@ -115,27 +102,10 @@ class SlideEditorControlPanel extends StatelessWidget {
           }
         ),
 
-        /// RESET MATRIX
+        /// TRIGGER COLOR PANEL
         ValueListenableBuilder(
-            valueListenable: canResetMatrix,
-            builder: (_, bool _canResetMatrix, Widget? child){
-              return SlideEditorButton(
-                size: _buttonSize,
-                icon: Iconz.reload,
-                verse: const Verse(
-                  id: 'phid_reset',
-                  translate: true,
-                ),
-                isDisabled: !_canResetMatrix,
-                onTap: onResetMatrix,
-              );
-            }
-            ),
-
-        /// BACKGROUND
-        ValueListenableBuilder(
-            valueListenable: draftSlideNotifier,
-            builder: (_, DraftSlide? draftSlide, Widget? child){
+            valueListenable: showColorPanel,
+            builder: (_, bool showPanel, Widget? child){
 
               return SlideEditorButton(
                 size: _buttonSize,
@@ -144,95 +114,29 @@ class SlideEditorControlPanel extends StatelessWidget {
                   id: 'phid_background',
                   translate: true,
                 ),
-                onTap: () async {
-
-                  final bool _hasBackColor = draftSlide?.backColor != null;
-
-                  /// SHOULD SET BLURRED PIC
-                  if (_hasBackColor == true){
-
-                    /// DELETE BACK COLOR
-                    DraftSlide _draftSlide = draftSlide!.nullifyField(
-                      backColor: true,
-                    );
-
-                    /// SET BLURRED IMAGE
-                    final PicModel? _backPic = await SlidePicMaker.createSlideBackground(
-                      bigPic: draftSlide.bigPic,
-                      flyerID: draftSlide.flyerID,
-                      slideIndex: draftSlide.slideIndex,
-                      overrideSolidColor: null,
-                    );
-                    _draftSlide = _draftSlide.copyWith(
-                      backPic: _backPic,
-                    );
-
-                    setNotifier(
-                        notifier: draftSlideNotifier,
-                        mounted: true,
-                        value: _draftSlide,
-                    );
-
-                  }
-
-                  /// SHOULD SET COLOR
-                  else {
-
-                    /// DELETE BACK PIC
-                    DraftSlide _draftSlide = draftSlide!.nullifyField(
-                      backPic: true,
-                    );
-
-                    /// SET BACK COLOR
-                    _draftSlide = _draftSlide.copyWith(
-                      backColor: Colorz.white255,
-                    );
-
-                    setNotifier(
-                      notifier: draftSlideNotifier,
-                      mounted: true,
-                      value: _draftSlide,
-                    );
-
-
-                  }
-
-                },
+                isSelected: showPanel,
+                onTap: onTriggerColorPanel,
               );
             }
             ),
 
-        /// ANIMATE
+        /// ANIMATION TRIGGER
         ValueListenableBuilder(
-            valueListenable: draftSlideNotifier,
-            builder: (_, DraftSlide? draftSlide, Widget? child){
-              final bool animate = draftSlide?.animationCurve != null;
-              return ValueListenableBuilder(
-                  valueListenable: canResetMatrix,
-                  builder: (_, bool canReset, Widget? child) {
-                    return SlideEditorButton(
-                      size: _buttonSize,
-                      icon: animate == true ? Iconz.flyerScale : Iconz.flyer,
-                      verse: Verse(
-                        id: animate == true ? 'phid_animated' : 'phid_static',
-                        translate: true,
-                      ),
-                      // isDisabled: !canReset,
-                      onTap: onTriggerAnimation,
-                    );
-                  });
-            }),
+            valueListenable: showAnimationPanel,
+            builder: (_, bool showPanel, Widget? child){
 
-        // /// CROP
-        // SlideEditorButton(
-        //   size: _buttonSize,
-        //   icon: Iconz.crop,
-        //   verse: const Verse(
-        //     text: 'phid_crop',
-        //     translate: true,
-        //   ),
-        //   onTap: onCrop,
-        // ),
+              return SlideEditorButton(
+                size: _buttonSize,
+                icon: Iconz.flyerScale,
+                verse: const Verse(
+                  id: 'phid_animation',
+                  translate: true,
+                ),
+                isSelected: showPanel,
+                onTap: onTriggerAnimationPanel,
+              );
+
+            }),
 
         /// GO NEXT - CONFIRM
         ValueListenableBuilder(

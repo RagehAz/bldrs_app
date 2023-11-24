@@ -22,7 +22,7 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/flye
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/flyer_editor_pages/f_flyer_editor_page_author_poster.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_maker_controllers.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/xx_draft_shelf_controllers.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_confirm_page.dart';
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';

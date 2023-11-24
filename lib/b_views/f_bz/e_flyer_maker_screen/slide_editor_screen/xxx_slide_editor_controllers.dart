@@ -1,11 +1,14 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/b_slide_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
@@ -108,7 +111,7 @@ Future<void> onResetMatrix({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-void onTriggerAnimation({
+void onTriggerSlideIsAnimated({
   required ValueNotifier<DraftSlide?> draftNotifier,
   required ValueNotifier<bool> canResetMatrix,
   required ValueNotifier<bool> isPlayingAnimation,
@@ -579,3 +582,65 @@ void setDraftFlyerSlide({
 
 }
 // -----------------------------------------------------------------------------
+
+
+
+
+
+Future<void> _triggerColorOld({
+  required DraftSlide? draftSlide,
+  required ValueNotifier<DraftSlide?> draftSlideNotifier,
+}) async {
+
+  final bool _hasBackColor = draftSlide?.backColor != null;
+
+  /// SHOULD SET BLURRED PIC
+  if (_hasBackColor == true){
+
+    /// DELETE BACK COLOR
+    DraftSlide _draftSlide = draftSlide!.nullifyField(
+      backColor: true,
+    );
+
+    /// SET BLURRED IMAGE
+    final PicModel? _backPic = await SlidePicMaker.createSlideBackground(
+      bigPic: draftSlide.bigPic,
+      flyerID: draftSlide.flyerID,
+      slideIndex: draftSlide.slideIndex,
+      overrideSolidColor: null,
+    );
+    _draftSlide = _draftSlide.copyWith(
+      backPic: _backPic,
+    );
+
+    setNotifier(
+      notifier: draftSlideNotifier,
+      mounted: true,
+      value: _draftSlide,
+    );
+
+  }
+
+  /// SHOULD SET COLOR
+  else {
+
+    /// DELETE BACK PIC
+    DraftSlide _draftSlide = draftSlide!.nullifyField(
+      backPic: true,
+    );
+
+    /// SET BACK COLOR
+    _draftSlide = _draftSlide.copyWith(
+      backColor: Colorz.white255,
+    );
+
+    setNotifier(
+      notifier: draftSlideNotifier,
+      mounted: true,
+      value: _draftSlide,
+    );
+
+
+  }
+
+}

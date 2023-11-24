@@ -1,7 +1,7 @@
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/a_slides_shelf_bubble.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/a_slides_shelf_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
