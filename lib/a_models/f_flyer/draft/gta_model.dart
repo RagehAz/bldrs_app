@@ -18,9 +18,8 @@ import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -472,22 +471,23 @@ class GtaModel {
             picName: '${i}_${product.affiliateLink}',
             type: SlidePicType.big,
           );
-          final PicModel? _medPic = await BldrsPicMaker.compressSlideBigPicTo(
+          final PicModel? _medPic = await SlidePicMaker.compressSlideBigPicTo(
               slidePic: _bigPic,
               flyerID: DraftFlyer.newDraftID,
               slideIndex: i,
               type: SlidePicType.med,
           );
-          final PicModel? _smallPic = await BldrsPicMaker.compressSlideBigPicTo(
+          final PicModel? _smallPic = await SlidePicMaker.compressSlideBigPicTo(
               slidePic: _bigPic,
               flyerID: DraftFlyer.newDraftID,
               slideIndex: i,
               type: SlidePicType.small,
           );
-          final PicModel? _backPic = await BldrsPicMaker.createSlideBackground(
-              bigPic: _bigPic,
-              flyerID: DraftFlyer.newDraftID,
-              slideIndex: i,
+          final PicModel? _backPic = await SlidePicMaker.createSlideBackground(
+            bigPic: _bigPic,
+            flyerID: DraftFlyer.newDraftID,
+            slideIndex: i,
+            overrideSolidColor: null,
           );
 
           if (_bigPic != null && _medPic != null && _smallPic != null && _backPic != null) {
@@ -502,6 +502,7 @@ class GtaModel {
               headline: i == 0 ? product.title : null,
               description: null,
               midColor: await Colorizer.getAverageColor(_bigPic.bytes),
+              backColor: null,
               opacity: 1,
               matrix: Matrix4.identity(),
               matrixFrom: Matrix4.identity(),
@@ -540,7 +541,7 @@ class GtaModel {
         _output = await PicModel.combinePicModel(
           bytes: _bytes,
           picMakerType: PicMakerType.generated,
-          compressWithQuality: BldrsPicMaker.getSlidePicCompressionQuality(type),
+          compressWithQuality: SlidePicMaker.getSlidePicCompressionQuality(type),
           assignPath: null,
           ownersIDs: [_userID],
           name: picName ?? '',

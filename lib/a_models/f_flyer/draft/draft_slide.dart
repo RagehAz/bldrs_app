@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
@@ -7,8 +8,8 @@ import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:flutter/material.dart';
 
 /// => TAMAM
@@ -25,6 +26,7 @@ class DraftSlide {
     required this.headline,
     required this.description,
     required this.midColor,
+    required this.backColor,
     required this.opacity,
     required this.matrix,
     required this.matrixFrom,
@@ -40,6 +42,7 @@ class DraftSlide {
   final String? headline;
   final String? description;
   final Color? midColor;
+  final Color? backColor;
   final double? opacity;
   final Matrix4? matrix;
   final Matrix4? matrixFrom;
@@ -76,6 +79,7 @@ class DraftSlide {
           flyerID: flyerID,
           bzID: bzID,
           flyerBoxWidth: flyerBoxWidth,
+          overrideSolidColor: null,
         );
 
         /// B2 - ADD THIS NEW SLIDE
@@ -98,28 +102,30 @@ class DraftSlide {
     required String? flyerID,
     required String? bzID,
     required double flyerBoxWidth,
+    required Color? overrideSolidColor,
   }) async {
     DraftSlide? _slide;
 
     if (bigPic != null){
 
       final Color? _midColor = await Colorizer.getAverageColor(bigPic.bytes);
-      final PicModel? _medPic = await BldrsPicMaker.compressSlideBigPicTo(
+      final PicModel? _medPic = await SlidePicMaker.compressSlideBigPicTo(
         slidePic: bigPic,
         flyerID: flyerID,
         slideIndex: index,
         type: SlidePicType.med,
       );
-      final PicModel? _smallPic = await BldrsPicMaker.compressSlideBigPicTo(
+      final PicModel? _smallPic = await SlidePicMaker.compressSlideBigPicTo(
         slidePic: bigPic,
         flyerID: flyerID,
         slideIndex: index,
         type: SlidePicType.small,
       );
-      final PicModel? _backPic = await BldrsPicMaker.createSlideBackground(
+      final PicModel? _backPic = await SlidePicMaker.createSlideBackground(
         bigPic: bigPic,
         flyerID: flyerID,
         slideIndex: index,
+        overrideSolidColor: overrideSolidColor,
       );
 
       _slide = DraftSlide(
@@ -131,15 +137,14 @@ class DraftSlide {
         headline: '',
         description: '',
         midColor: _midColor,
+        backColor: overrideSolidColor,
         opacity: 1,
         slideIndex: index,
         matrix: Matrix4.identity(),
         matrixFrom: Trinity.slightlyZoomed(
-        flyerBoxWidth: flyerBoxWidth,
-        flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
-            flyerBoxWidth: flyerBoxWidth
+          flyerBoxWidth: flyerBoxWidth,
+          flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(flyerBoxWidth: flyerBoxWidth),
         ),
-    ),
         animationCurve: null,
       );
 
@@ -176,6 +181,7 @@ class DraftSlide {
         headline: draft.headline,
         description: draft.description,
         midColor: draft.midColor,
+        backColor: draft.backColor,
         matrix: draft.matrix,
         matrixFrom: draft.matrixFrom,
         animationCurve: draft.animationCurve,
@@ -227,10 +233,14 @@ class DraftSlide {
         bigPic: await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.big),
         medPic: await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.med),
         smallPic: await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.small),
-        backPic: await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.back),
+        backPic: slide.backColor == null ?
+        await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.back)
+            :
+        null,
         headline: slide.headline,
         description: slide.description,
         midColor: slide.midColor,
+        backColor: slide.backColor,
         opacity: 1,
         matrix: slide.matrix,
         matrixFrom: slide.matrixFrom,
@@ -299,6 +309,7 @@ class DraftSlide {
         'headline': draft.headline,
         'description': draft.description,
         'midColor': Colorizer.cipherColor(draft.midColor),
+        'backColor': Colorizer.cipherColor(draft.backColor),
         'opacity': draft.opacity,
         'matrix' : Trinity.cipherMatrix(draft.matrix),
         'matrixFrom' : Trinity.cipherMatrix(draft.matrixFrom),
@@ -344,6 +355,7 @@ class DraftSlide {
         headline: map['headline'],
         description: map['description'],
         midColor: Colorizer.decipherColor(map['midColor']),
+        backColor: Colorizer.decipherColor(map['backColor']),
         opacity: map['opacity'],
         matrix: Trinity.decipherMatrix(map['matrix']),
         matrixFrom: Trinity.decipherMatrix(map['matrixFrom']),
@@ -389,6 +401,7 @@ class DraftSlide {
     String? headline,
     String? description,
     Color? midColor,
+    Color? backColor,
     double? opacity,
     Matrix4? matrix,
     Matrix4? matrixFrom,
@@ -404,6 +417,7 @@ class DraftSlide {
       headline: headline ?? this.headline,
       description: description ?? this.description,
       midColor: midColor ?? this.midColor,
+      backColor: backColor ?? this.backColor,
       opacity: opacity ?? this.opacity,
       matrix: matrix ?? this.matrix,
       matrixFrom: matrixFrom ?? this.matrixFrom,
@@ -423,6 +437,7 @@ class DraftSlide {
     bool headline = false,
     bool description = false,
     bool midColor = false,
+    bool backColor = false,
     bool opacity = false,
     bool matrix = false,
     bool matrixFrom = false,
@@ -438,6 +453,7 @@ class DraftSlide {
       headline: headline == true ? null : this.headline,
       description: description == true ? null : this.description,
       midColor: midColor == true ? null : this.midColor,
+      backColor: backColor == true ? null : this.backColor,
       opacity: opacity == true ? null : this.opacity,
       matrix: matrix == true ? null : this.matrix,
       matrixFrom: matrixFrom == true ? null : this.matrixFrom,
@@ -522,7 +538,7 @@ class DraftSlide {
 
         final PicModel? _picModel = getPicModel(
             draft: draft,
-            slidePicType: slidePicType
+            slidePicType: slidePicType,
         );
 
         if (_picModel != null){
@@ -610,8 +626,8 @@ class DraftSlide {
 
     blog('[$invoker] : ($slideIndex)=> DraftSlide : flyerID : $flyerID : index : $slideIndex');
     blog('headline : $headline : description : $description');
-    blog('midColor : $midColor : opacity : $opacity : '
-        'hasCustomMatrix : ${matrix != null} : '
+    blog('midColor : $midColor : backColor : $backColor : opacity : $opacity');
+    blog('hasCustomMatrix : ${matrix != null} : '
         'hasCustomMatrixFrom : ${matrixFrom != null} : '
         'animationCurve L $animationCurve');
     bigPic?.blogPic(invoker: 'draftSlide big pic');
@@ -678,6 +694,9 @@ class DraftSlide {
     }
     if (Colorizer.checkColorsAreIdentical(slide1?.midColor, slide2?.midColor) == false){
       blog('MutableSlidesDifferences : midColors are not Identical');
+    }
+    if (Colorizer.checkColorsAreIdentical(slide1?.backColor, slide2?.backColor) == false){
+      blog('MutableSlidesDifferences : backColors are not Identical');
     }
     if (slide1?.opacity != slide2?.opacity){
       blog('MutableSlidesDifferences : opacities are not Identical');
@@ -835,6 +854,7 @@ class DraftSlide {
           slide1.headline == slide2.headline &&
           slide1.description == slide2.description &&
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&
+          Colorizer.checkColorsAreIdentical(slide1.backColor, slide2.backColor) == true &&
           slide1.opacity == slide2.opacity &&
           Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == true &&
           Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrixFrom, matrixReloaded: slide2.matrixFrom) == true &&
@@ -959,6 +979,7 @@ class DraftSlide {
       headline.hashCode^
       description.hashCode^
       midColor.hashCode^
+      backColor.hashCode^
       opacity.hashCode^
       matrix.hashCode^
       matrixFrom.hashCode^

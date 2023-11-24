@@ -174,14 +174,13 @@ class SpecModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSpecsContainThisSpecValue({
-    required List<SpecModel> specs,
+    required List<SpecModel>? specs,
     required dynamic value,
   }) {
     bool _contains = false;
 
     if (Mapper.checkCanLoopList(specs) && value != null) {
-      final List<SpecModel> _specs =
-      specs.where((SpecModel spec) => spec.value == value).toList();
+      final List<SpecModel> _specs = specs!.where((SpecModel spec) => spec.value == value).toList();
 
       if (_specs.isNotEmpty) {
         _contains = true;

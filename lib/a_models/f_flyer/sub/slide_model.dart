@@ -9,15 +9,9 @@ import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:flutter/material.dart';
-
-enum SlidePicType {
-  big,
-  med,
-  small,
-  back,
-}
 
 /// => TAMAM
 @immutable
@@ -26,6 +20,7 @@ class SlideModel {
   const SlideModel({
     required this.description,
     required this.midColor,
+    required this.backColor,
     required this.matrix,
     required this.matrixFrom,
     required this.animationCurve,
@@ -43,6 +38,7 @@ class SlideModel {
   final Matrix4? matrix;
   final Matrix4? matrixFrom;
   final Color? midColor;
+  final Color? backColor;
   final String? flyerID;
   final ui.Image? frontImage;
   final String? frontPicPath;
@@ -60,6 +56,7 @@ class SlideModel {
       'headline': headline,
       'description': description,
       'midColor': Colorizer.cipherColor(midColor),
+      'backColor': Colorizer.cipherColor(backColor),
       'matrix' : Trinity.cipherMatrix(matrix),
       'matrixFrom' : Trinity.cipherMatrix(matrixFrom),
       'animationCurve': Trinity.cipherAnimationCurve(animationCurve),
@@ -77,6 +74,7 @@ class SlideModel {
       headline: map['headline'],
       description: map['description'],
       midColor: Colorizer.decipherColor(map['midColor']),
+      backColor: Colorizer.decipherColor(map['backColor']),
       matrix: Trinity.decipherMatrix(map['matrix']),
       matrixFrom: Trinity.decipherMatrix(map['matrixFrom']),
       animationCurve: Trinity.decipherAnimationCurve(map['animationCurve']),
@@ -148,6 +146,7 @@ class SlideModel {
     Matrix4? matrix,
     Matrix4? matrixFrom,
     Color? midColor,
+    Color? backColor,
     String? flyerID,
     ui.Image? frontImage,
     ui.Image? backImage,
@@ -158,6 +157,7 @@ class SlideModel {
       headline: headline ?? this.headline,
       description: description ?? this.description,
       midColor: midColor ?? this.midColor,
+      backColor: backColor ?? this.backColor,
       matrix: matrix ?? this.matrix,
       matrixFrom: matrixFrom ?? this.matrixFrom,
       frontImage: frontImage ?? this.frontImage,
@@ -166,6 +166,39 @@ class SlideModel {
       flyerID: flyerID ?? this.flyerID,
       frontPicPath: frontPicPath ?? this.frontPicPath,
     );
+  }
+  // --------------------
+  ///
+  SlideModel nullifyField({
+    bool description = false,
+    bool midColor = false,
+    bool backColor = false,
+    bool matrix = false,
+    bool matrixFrom = false,
+    bool animationCurve = false,
+    // bool slideIndex = false,
+    bool frontImage = false,
+    bool frontPicPath = false,
+    bool backImage = false,
+    bool flyerID = false,
+    bool headline = false,
+  }){
+
+    return SlideModel(
+      description: description == true ? null : this.description,
+      midColor: midColor == true ? null : this.midColor,
+      backColor: backColor == true ? null : this.backColor,
+      matrix: matrix == true ? null : this.matrix,
+      matrixFrom: matrixFrom == true ? null : this.matrixFrom,
+      animationCurve: animationCurve == true ? null : this.animationCurve,
+      slideIndex: this.slideIndex,
+      frontImage: frontImage == true ? null : this.frontImage,
+      frontPicPath: frontPicPath == true ? null : this.frontPicPath,
+      backImage: backImage == true ? null : this.backImage,
+      flyerID: flyerID == true ? null : this.flyerID,
+      headline: headline == true ? null : this.headline,
+    );
+
   }
   // -----------------------------------------------------------------------------
 
@@ -177,8 +210,8 @@ class SlideModel {
     blog(' >> SLIDE [ $slideIndex ] --------------------------------------- []');
     blog('  slideIndex : ($slideIndex ): flyerID : ($flyerID)');
     blog('  headline : ($headline) : description : ($description)');
-    blog('  midColor : ($midColor) : '
-        'hasCustomMatrix : (${matrix != null}) : '
+    blog('  midColor : ($midColor) : backColor: ($backColor)');
+    blog('  hasCustomMatrix : (${matrix != null}) : '
         'hasCustomMatrixFrom : (${matrixFrom != null}) : '
         'animationCurve : ($animationCurve) : '
     );
@@ -238,6 +271,9 @@ class SlideModel {
     }
     if (Colorizer.checkColorsAreIdentical(slide1?.midColor, slide2?.midColor) == false){
       blog('slide1.midColor !=  slideB.midColor');
+    }
+    if (Colorizer.checkColorsAreIdentical(slide1?.backColor, slide2?.backColor) == false){
+      blog('slide1.backColor != slide2.backColor');
     }
     if (slide1?.flyerID != slide2?.flyerID){
       blog('slide1.flyerID != slide2.flyerID');
@@ -612,6 +648,7 @@ class SlideModel {
       headline: 'Headliner',
       description: 'Descriptor',
       midColor: Colorz.black255,
+      backColor: null,
       matrix: Matrix4.identity(),
       matrixFrom: Matrix4.identity(),
       animationCurve: null,
@@ -664,6 +701,7 @@ class SlideModel {
           Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == true &&
           Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrixFrom, matrixReloaded: slide2.matrixFrom) == true &&
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&
+          Colorizer.checkColorsAreIdentical(slide1.backColor, slide2.backColor) == true &&
           slide1.flyerID == slide2.flyerID &&
           Floaters.checkUiImagesAreIdentical(slide1.frontImage, slide2.frontImage) == true &&
           Floaters.checkUiImagesAreIdentical(slide1.backImage, slide2.backImage) == true &&
@@ -767,6 +805,7 @@ class SlideModel {
   int get hashCode =>
       description.hashCode^
       midColor.hashCode^
+      backColor.hashCode^
       matrix.hashCode^
       matrixFrom.hashCode^
       animationCurve.hashCode^
