@@ -1,21 +1,20 @@
-import 'package:basics/animators/widgets/animate_widget_to_matrix.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/pixels/pixel_color_picker.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/classes/space/trinity.dart';
-import 'package:basics/super_box/super_box.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/control_panels/animation_progress_bar.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/control_panels/slide_animator_panel.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/control_panels/slide_color_panel.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/footprints/footer_footprint.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/footprints/header_footprint.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/footprints/top_button_footprint.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_editor_headline_text_field.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_transformer.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_tree.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
@@ -26,6 +25,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorSlidePart({
     required this.draftSlide,
+    required this.draftFlyer,
     required this.height,
     required this.onSlideTap,
     required this.isTransforming,
@@ -50,14 +50,16 @@ class SlideEditorSlidePart extends StatelessWidget {
     required this.onToTap,
     required this.onPlayTap,
     required this.onSlideHeadlineChanged,
-    required this.onSetColorBack,
+    required this.onColorPickerTap,
     required this.onSetWhiteBack,
     required this.onSetBlackBack,
     required this.onSetBlurBack,
+    required this.slideBackColor,
     super.key
   });
   /// --------------------------------------------------------------------------
   final ValueNotifier<DraftSlide?> draftSlide;
+  final ValueNotifier<DraftFlyer?> draftFlyer;
   final double height;
   final Function? onSlideTap;
   final Function? onSlideDoubleTap;
@@ -82,10 +84,11 @@ class SlideEditorSlidePart extends StatelessWidget {
   final Function onToTap;
   final Function onPlayTap;
   final Function(String? text) onSlideHeadlineChanged;
-  final Function onSetColorBack;
+  final Function onColorPickerTap;
   final Function onSetWhiteBack;
   final Function onSetBlackBack;
   final Function onSetBlurBack;
+  final ValueNotifier<Color?> slideBackColor;
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
@@ -124,189 +127,133 @@ class SlideEditorSlidePart extends StatelessWidget {
             valueListenable: draftSlide,
             builder: (_, DraftSlide? _slide, Widget? child) {
 
-              return FlyerBox(
-                key: const ValueKey<String>('flyer_box_slide_editor'),
-                flyerBoxWidth: _flyerBoxWidth,
-                boxColor: draftSlide.value?.midColor,
-                borderColor: Colorz.white20,
-                stackWidgets: <Widget>[
+              return PixelColorPicker(
+                initialColor: draftSlide.value?.midColor ?? Colorz.nothing,
+                isOn: isPickingBackColor,
+                mounted: mounted,
+                pickedColor: slideBackColor,
+                child: FlyerBox(
+                    key: const ValueKey<String>('flyer_box_slide_editor'),
+                    flyerBoxWidth: _flyerBoxWidth,
+                    boxColor: draftSlide.value?.midColor,
+                    borderColor: Colorz.white20,
+                    stackWidgets: <Widget>[
 
-                  /// BLUR BACKGROUND
-                  if (_slide?.backColor == null)
-                    BldrsImage(
-                      width: _flyerBoxWidth,
-                      height: _flyerBoxHeight,
-                      pic: _slide?.backPic?.bytes,
-                      // loading: false,
-                      // corners: FlyerDim.flyerCorners(_flyerBoxWidth),
-                    ),
+                      /// BLUR BACKGROUND
+                      if (_slide?.backColor == null)
+                        BldrsImage(
+                          width: _flyerBoxWidth,
+                          height: _flyerBoxHeight,
+                          pic: _slide?.backPic?.bytes,
+                          // loading: false,
+                          // corners: FlyerDim.flyerCorners(_flyerBoxWidth),
+                        ),
 
-                  /// COLOR BACKGROUND
-                  if (_slide?.backColor != null)
-                  Container(
-                    width: _flyerBoxWidth,
-                    height: _flyerBoxHeight,
-                    color: _slide!.backColor,
-                  ),
-
-                  /// SLIDE
-                  ValueListenableBuilder(
-                    valueListenable: isPlayingAnimation,
-                    builder: (_, bool isPlaying, Widget? animationPlayer) {
-
-                      /// WHILE PLAYING ANIMATION
-                      if (isPlaying == true) {
-                        return animationPlayer!;
-                      }
-
-                      /// WHILE TRANSFORMING SLIDE
-                      else {
-                        return ValueListenableBuilder(
-                            valueListenable: isDoingMatrixFrom,
-                            builder: (_, bool isMatrixFrom, Widget? child){
-                              return SlideTransformer(
-                                matrixFromNotifier: matrixFromNotifier,
-                                matrixNotifier: matrixNotifier,
-                                flyerBoxWidth: _flyerBoxWidth,
-                                flyerBoxHeight: _flyerBoxHeight,
-                                slide: _slide,
-                                isTransforming: isTransforming,
-                                mounted: mounted,
-                                isMatrixFrom: isMatrixFrom,
-                              );
-                            }
+                      /// COLOR BACKGROUND
+                        ValueListenableBuilder(
+                          valueListenable: slideBackColor,
+                          builder: (_, Color? color, Widget? child) {
+                            return Container(
+                              width: _flyerBoxWidth,
+                              height: _flyerBoxHeight,
+                              color: color,
                             );
-                      }
-                      },
+                          }
+                        ),
 
-                    /// SLIDE ANIMATOR
-                    child: AnimateWidgetToMatrix(
-                      matrix: Trinity.renderSlideMatrix(
-                        matrix: _slide?.matrix,
+                      /// SLIDE
+                      SlideTree(
+                        mounted: mounted,
                         flyerBoxWidth: _flyerBoxWidth,
                         flyerBoxHeight: _flyerBoxHeight,
+                        slide: _slide,
+                        isTransforming: isTransforming,
+                        matrixFromNotifier: matrixFromNotifier,
+                        matrixNotifier: matrixNotifier,
+                        isDoingMatrixFrom: isDoingMatrixFrom,
+                        isPlayingAnimation: isPlayingAnimation,
+                        onAnimationEnds: onAnimationEnds,
+                        isPickingColor: isPickingBackColor,
                       ),
-                      matrixFrom: Trinity.renderSlideMatrix(
-                        matrix: _slide?.matrixFrom,
+
+                      /// SLIDE SHADOW
+                      SlideShadow(
                         flyerBoxWidth: _flyerBoxWidth,
-                        flyerBoxHeight: _flyerBoxHeight,
                       ),
-                      // canAnimate: true,
-                      curve: _slide?.animationCurve ?? Curves.easeIn,
-                      replayOnRebuild: true,
-                      repeat: false,
-                      onAnimationEnds: onAnimationEnds,
-                      child: Image.memory(
-                        _slide!.medPic!.bytes!,
-                        key: const ValueKey<String>('SuperImage_slide_draft'),
-                        width: _flyerBoxWidth,
-                        height: _flyerBoxHeight,
+
+                      /// HEADLINE TEXT FIELD
+                      EditorSlideHeadlineTextField(
+                        isTransforming: isTransforming,
+                        appBarType: appBarType,
+                        globalKey: globalKey,
+                        draftSlide: draftSlide,
+                        flyerBoxWidth: _flyerBoxWidth,
+                        onSlideHeadlineChanged: onSlideHeadlineChanged,
                       ),
-                    ),
+
+                      /// BOTTOM SHADOW
+                      FooterShadow(
+                        flyerBoxWidth: _flyerBoxWidth,
+                      ),
+
+                      /// TOP BUTTON FOOTPRINT
+                      TopButtonFootprint(
+                        flyerBoxWidth: _flyerBoxWidth,
+                      ),
+
+                      /// FOOTER FOOTPRINT
+                      FooterFootprint(
+                        flyerBoxWidth: _flyerBoxWidth,
+                        showAnimationPanel: showAnimationPanel,
+                        showColorPanel: showColorPanel,
+                      ),
+
+                      /// HEADER FOOTPRINT
+                      HeaderFootprint(
+                        flyerBoxWidth: _flyerBoxWidth,
+                        bzModel: bzModel,
+                        authorID: authorID,
+                      ),
+
+                      /// ANIMATION PANEL
+                      SlideAnimatorPanel(
+                        flyerBoxWidth: _flyerBoxWidth,
+                        isDoingMatrixFrom: isDoingMatrixFrom,
+                        isPlayingAnimation: isPlayingAnimation,
+                        matrixFromNotifier: matrixFromNotifier,
+                        matrixNotifier: matrixNotifier,
+                        draftSlideNotifier: draftSlide,
+                        onResetMatrix: onResetMatrix,
+                        canResetMatrix: canResetMatrix,
+                        onTriggerSlideIsAnimated: onTriggerSlideIsAnimated,
+                        onFromTap: onFromTap,
+                        onToTap: onToTap,
+                        onPlayTap: onPlayTap,
+                        showAnimationPanel: showAnimationPanel,
+                      ),
+
+                      /// ANIMATION PROGRESS BAR
+                      SlideAnimationProgressBar(
+                        flyerBoxWidth: _flyerBoxWidth,
+                        isPlayingAnimation: isPlayingAnimation,
+                        draftSlide: _slide,
+                      ),
+
+                      /// COLOR PANEL
+                      SlideColorPanel(
+                        flyerBoxWidth: _flyerBoxWidth,
+                        draftSlideNotifier: draftSlide,
+                        onSetBlackBack: onSetBlackBack,
+                        onSetWhiteBack: onSetWhiteBack,
+                        onColorPickerTap: onColorPickerTap,
+                        onSetBlurBack: onSetBlurBack,
+                        isPickingBackColor: isPickingBackColor,
+                        showColorPanel: showColorPanel,
+                        slideBackColor: slideBackColor,
+                      ),
+
+                    ],
                   ),
-
-                  /// SLIDE SHADOW
-                  SlideShadow(
-                    flyerBoxWidth: _flyerBoxWidth,
-                  ),
-
-                  ///  DEPRECATED : SLIDE COLOR FILTER FEATURE
-                  // / FILTER NAME
-                  // IgnorePointer(
-                  //   child: ImageFilterAnimatedName(
-                  //     flyerBoxWidth: _flyerBoxWidth,
-                  //     filterModel: filterModel,
-                  //   ),
-                  // ),
-
-                  /// HEADLINE TEXT FIELD
-                  EditorSlideHeadlineTextField(
-                    isTransforming: isTransforming,
-                    appBarType: appBarType,
-                    globalKey: globalKey,
-                    draftSlide: draftSlide,
-                    flyerBoxWidth: _flyerBoxWidth,
-                    onSlideHeadlineChanged: onSlideHeadlineChanged,
-                  ),
-
-                  /// BOTTOM SHADOW
-                  FooterShadow(
-                    flyerBoxWidth: _flyerBoxWidth,
-                  ),
-
-                  /// TOP BUTTON FOOTPRINT
-                  TopButtonFootprint(
-                    flyerBoxWidth: _flyerBoxWidth,
-                  ),
-
-                  /// FOOTER FOOTPRINT
-                  FooterFootprint(
-                    flyerBoxWidth: _flyerBoxWidth,
-                    showAnimationPanel: showAnimationPanel,
-                    showColorPanel: showColorPanel,
-                  ),
-
-                  /// HEADER FOOTPRINT
-                  Disabler(
-                    isDisabled: true,
-                    disabledOpacity: 1,
-                    child: StaticHeader(
-                      flyerBoxWidth: _flyerBoxWidth,
-                      bzModel: bzModel,
-                      authorID: authorID,
-                      flyerShowsAuthor: true,
-                      showHeaderLabels: true,
-                    ),
-                  ),
-
-                  /// ANIMATION PANEL
-                  SlideAnimatorPanel(
-                    flyerBoxWidth: _flyerBoxWidth,
-                    isDoingMatrixFrom: isDoingMatrixFrom,
-                    isPlayingAnimation: isPlayingAnimation,
-                    matrixFromNotifier: matrixFromNotifier,
-                    matrixNotifier: matrixNotifier,
-                    draftSlideNotifier: draftSlide,
-                    onResetMatrix: onResetMatrix,
-                    canResetMatrix: canResetMatrix,
-                    onTriggerSlideIsAnimated: onTriggerSlideIsAnimated,
-                    onFromTap: onFromTap,
-                    onToTap: onToTap,
-                    onPlayTap: onPlayTap,
-                    showAnimationPanel: showAnimationPanel,
-                  ),
-
-                  /// ANIMATION PROGRESS BAR
-                  SlideAnimationProgressBar(
-                    flyerBoxWidth: _flyerBoxWidth,
-                    isPlayingAnimation: isPlayingAnimation,
-                    draftSlide: _slide,
-                  ),
-
-                  /// COLOR PANEL
-                  ValueListenableBuilder(
-                    valueListenable: showColorPanel,
-                    builder: (_, bool showPanel, Widget? child) {
-                      /// NO ANIMATION
-                      if (showPanel == true){
-                        return child!;
-                      }
-                      /// HAS ANIMATION
-                      else {
-                        return const SizedBox();
-                      }
-                      },
-                    child: SlideColorPanel(
-                      flyerBoxWidth: _flyerBoxWidth,
-                      draftSlideNotifier: draftSlide,
-                      onSetBlackBack: onSetBlackBack,
-                      onSetWhiteBack: onSetWhiteBack,
-                      onSetColorBack: onSetColorBack,
-                      onSetBlurBack: onSetBlurBack,
-                    ),
-                  ),
-
-                ],
               );
             }
             ),
