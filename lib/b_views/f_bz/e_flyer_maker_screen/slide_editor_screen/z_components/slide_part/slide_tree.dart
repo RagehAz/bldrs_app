@@ -78,7 +78,7 @@ class SlideTree extends StatelessWidget {
         replayOnRebuild: true,
         repeat: false,
         onAnimationEnds: onAnimationEnds,
-        child: Image.memory(
+        child: slide?.medPic?.bytes == null ? Container() : Image.memory(
           slide!.medPic!.bytes!,
           key: const ValueKey<String>('SuperImage_slide_draft'),
           width: flyerBoxWidth,
