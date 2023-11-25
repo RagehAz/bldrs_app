@@ -107,6 +107,7 @@ class ColorPickerPanelButton extends StatelessWidget {
     required this.size,
     required this.isPickingColor,
     required this.onTap,
+    required this.loadingColorPicker,
     super.key
   });
   // --------------------
@@ -114,6 +115,7 @@ class ColorPickerPanelButton extends StatelessWidget {
   final double size;
   final bool isPickingColor;
   final Function onTap;
+  final ValueNotifier<bool> loadingColorPicker;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -158,15 +160,22 @@ class ColorPickerPanelButton extends StatelessWidget {
           );
           },
 
-        child: BldrsBox(
-          height: _size,
-          width: _size,
-          corners: _size / 2,
-          icon: Icons.colorize,
-          iconColor: Colorz.black255,
-          iconSizeFactor: 0.65,
-          borderColor: isPickingColor == true ? Colorz.yellow255 : Colorz.white125,
-          onTap: onTap,
+        child: ValueListenableBuilder(
+          valueListenable: loadingColorPicker,
+          builder: (_, bool loading, Widget? child) {
+
+            return BldrsBox(
+              height: _size,
+              width: _size,
+              corners: _size / 2,
+              icon: Icons.colorize,
+              loading: loading,
+              iconColor: Colorz.black255,
+              iconSizeFactor: 0.65,
+              borderColor: isPickingColor == true ? Colorz.yellow255 : Colorz.white125,
+              onTap: onTap,
+            );
+          }
         ),
       ),
     );

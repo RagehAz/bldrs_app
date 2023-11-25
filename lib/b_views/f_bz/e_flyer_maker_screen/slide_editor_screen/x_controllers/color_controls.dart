@@ -122,7 +122,7 @@ void switchOffColorPicker({
 /// BUTTONS
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 void onBlurBackTap({
   required bool mounted,
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
@@ -156,7 +156,7 @@ void onBlurBackTap({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 void onWhiteBackTap({
   required bool mounted,
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
@@ -191,7 +191,7 @@ void onWhiteBackTap({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 void onBlackBackTap({
   required bool mounted,
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
@@ -227,7 +227,7 @@ void onBlackBackTap({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 void onColorPickerTap({
   required bool mounted,
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
@@ -297,117 +297,6 @@ Future<void> _updateSlideBlur({
 
     _slide = _slide.copyWith(
       backPic: blurPic,
-    );
-
-    setFlyerAndSlide(
-        draftSlideNotifier: draftSlideNotifier,
-        draftFlyerNotifier: draftFlyerNotifier,
-        draftSlide: _slide,
-        mounted: mounted
-    );
-
-  }
-
-}
-// -----------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-/// TESTED : WORKS PERFECT
-void onSetBackColor({
-  required ValueNotifier<DraftSlide?> draftSlideNotifier,
-  required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
-  required ValueNotifier<Color?> slideBackColor,
-  required ValueNotifier<bool> isPickingBackColor,
-  required bool setIsPickingColorTo,
-  required bool mounted,
-  required Color color,
-}){
-
-  DraftSlide? _slide = draftSlideNotifier.value;
-
-  setNotifier(
-    notifier: isPickingBackColor,
-    mounted: mounted,
-    value: setIsPickingColorTo,
-  );
-
-
-
-  /// CLEAR BLUR PIC
-  _slide = _slide?.nullifyField(
-    backPic: true,
-  );
-
-  /// SET BACK COLOR
-  _slide = _slide?.copyWith(
-    backColor: color,
-  );
-
-  setFlyerAndSlide(
-    draftSlide: _slide,
-    draftSlideNotifier: draftSlideNotifier,
-    draftFlyerNotifier: draftFlyerNotifier,
-    mounted: mounted,
-  );
-
-  setNotifier(
-      notifier: slideBackColor,
-      mounted: mounted,
-      value: color,
-  );
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> onSetBlurBack({
-  required ValueNotifier<DraftSlide?> draftSlideNotifier,
-  required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
-  required ValueNotifier<Color?> slideBackColor,
-  required ValueNotifier<bool> isPickingBackColor,
-  required bool mounted,
-}) async {
-
-  DraftSlide? _slide = draftSlideNotifier.value;
-
-  if (_slide != null){
-
-    setNotifier(
-      notifier: slideBackColor,
-      mounted: mounted,
-      value: null,
-    );
-
-    setNotifier(
-      notifier: isPickingBackColor,
-      mounted: mounted,
-      value: false,
-    );
-
-    /// CLEAR COLOR
-    _slide = _slide.nullifyField(
-      backColor: true,
-    );
-
-    /// SET BLURRED IMAGE
-    final PicModel? _backPic = await SlidePicMaker.createSlideBackground(
-      bigPic: _slide.bigPic,
-      flyerID: _slide.flyerID,
-      slideIndex: _slide.slideIndex,
-      overrideSolidColor: null,
-    );
-    _slide = _slide.copyWith(
-      backPic: _backPic,
     );
 
     setFlyerAndSlide(
