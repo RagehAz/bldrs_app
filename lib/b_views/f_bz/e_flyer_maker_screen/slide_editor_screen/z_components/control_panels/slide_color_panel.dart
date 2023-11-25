@@ -1,13 +1,8 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
-import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:basics/helpers/widgets/drawing/spacing.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/color_panel_buttons.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
-import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:flutter/material.dart';
 
 class SlideColorPanel extends StatelessWidget {
@@ -73,65 +68,47 @@ class SlideColorPanel extends StatelessWidget {
           child: ValueListenableBuilder(
               valueListenable: draftSlideNotifier,
               builder: (_, DraftSlide? _draftSlide, Widget? child){
-
                 return ValueListenableBuilder(
-                  valueListenable: isPickingBackColor,
-                  builder: (_, bool isPicking, Widget? child) {
+                    valueListenable: isPickingBackColor,
+                    builder: (_, bool isPicking, Widget? child) {
 
-                    final bool _isColor = isPicking;
-                    final Color? _slideBackColor = _draftSlide?.backColor;
-                    final bool _isBlur = _isColor == false && _draftSlide?.backPic != null;
-                    final bool _isBlack = _isColor == false && _slideBackColor == Colorz.black255;
-                    final bool _isWhite = _isColor == false && _slideBackColor == Colorz.white255;
+                      final bool _isColor = isPicking;
+                      final Color? _slideBackColor = _draftSlide?.backColor;
+                      final bool _isBlur = _isColor == false && _draftSlide?.backPic != null;
+                      final bool _isBlack = _isColor == false && _slideBackColor == Colorz.black255;
+                      final bool _isWhite = _isColor == false && _slideBackColor == Colorz.white255;
 
-                    return Row(
-                      children: <Widget>[
-                        const Expander(),
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
 
-                        /// BLUR
-                        BlurLayer(
-                          width: _size,
-                          height: _size,
-                          borders: BorderRadius.circular(_size / 2),
-                          blurIsOn: true,
-                          blur: 3,
-                          borderColor: _isBlur == true ? Colorz.yellow255 : Colorz.black255,
-                          child: BldrsBox(
-                            height: _size,
-                            width: _size,
-                            corners: _size / 2,
-                            icon: _draftSlide?.smallPic?.bytes ??
-                                  _draftSlide?.medPic?.bytes ??
-                                  _draftSlide?.bigPic?.bytes,
-                            // color: Colorz.white255,
-                            // borderColor: _isWhite == true ? Colorz.yellow255 : Colorz.black255,
+                          /// BLUR
+                          BlurPanelButton(
+                            isSelected: _isBlur,
+                            size: _size,
+                            draftSlide: _draftSlide,
                             onTap: onBlurBackTap,
                           ),
-                        ),
 
-                        /// SPACING
-                        _spacing,
+                          /// SPACING
+                          _spacing,
 
-                        /// WHITE
-                        BldrsBox(
-                          height: _size,
-                          width: _size,
-                          corners: _size / 2,
-                          color: Colorz.white255,
-                          borderColor: _isWhite == true ? Colorz.yellow255 : Colorz.black255,
-                          onTap: onWhiteBackTap,
-                        ),
+                          /// WHITE
+                          ColorPanelButton(
+                            size: _size,
+                            isSelected: _isWhite,
+                            color: Colorz.white255,
+                            onTap: onWhiteBackTap,
+                          ),
 
-                        /// SPACING
+                          /// SPACING
                         _spacing,
 
                         /// BLACK
-                        BldrsBox(
-                          height: _size,
-                          width: _size,
-                          corners: _size / 2,
+                        ColorPanelButton(
+                          size: _size,
+                          isSelected: _isBlack,
                           color: Colorz.black255,
-                          borderColor: _isBlack == true ? Colorz.yellow255 : Colorz.white125,
                           onTap: onBlackBackTap,
                         ),
 
@@ -139,60 +116,12 @@ class SlideColorPanel extends StatelessWidget {
                         _spacing,
 
                         /// COLOR
-                        ValueListenableBuilder(
-                          valueListenable: slideBackColor,
-                          builder: (_, Color? color, Widget? child) {
-
-                            blog('khara is : isPicking : $isPicking');
-
-                            return Stack(
-                              children: [
-
-                                /// LIVE COLOR
-                                if (isPicking == true)
-                                Container(
-                                  width: _size,
-                                  height: _size,
-                                  decoration: BoxDecoration(
-                                    borderRadius: Borderers.cornerAll(_size / 2),
-                                    color: color,
-                                  ),
-                                ),
-
-                                /// COLOR ROSE
-                                if (isPicking == false)
-                                BldrsBox(
-                                  height: _size,
-                                  width: _size,
-                                  corners: _size / 2,
-                                  icon: Iconz.colorCircle,
-                                  borderColor: _isColor == true ? Colorz.yellow255 : Colorz.white125,
-                                  onTap: onColorPickerTap,
-                                ),
-
-                                /// ICON
-                                // if (showColorRose == false)
-                                child!,
-
-                              ],
-                            );
-                          },
-                          child: BldrsBox(
-                                  height: _size,
-                                  width: _size,
-                                  corners: _size / 2,
-                                  icon: Icons.colorize,
-                                  iconColor: Colorz.black255,
-                                  iconSizeFactor: 0.65,
-                                  borderColor: _isColor == true ? Colorz.yellow255 : Colorz.white125,
-                                  onTap: onColorPickerTap,
-                                ),
+                        ColorPickerPanelButton(
+                          size: _size,
+                          isPickingColor: isPicking,
+                          slideBackColor: slideBackColor,
+                          onTap: onColorPickerTap,
                         ),
-
-                        /// SPACING
-                        _spacing,
-
-                        const Expander(),
 
                       ],
                     );
