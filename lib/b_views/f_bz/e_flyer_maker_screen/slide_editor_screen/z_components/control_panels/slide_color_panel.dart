@@ -17,6 +17,7 @@ class SlideColorPanel extends StatelessWidget {
     required this.isPickingBackColor,
     required this.showColorPanel,
     required this.slideBackColor,
+    required this.loadingColorPicker,
     super.key
   });
   // --------------------------------------------------------------------------
@@ -29,6 +30,7 @@ class SlideColorPanel extends StatelessWidget {
   final ValueNotifier<bool> isPickingBackColor;
   final ValueNotifier<bool> showColorPanel;
   final ValueNotifier<Color?> slideBackColor;
+  final ValueNotifier<bool> loadingColorPicker;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -121,6 +123,7 @@ class SlideColorPanel extends StatelessWidget {
                           isPickingColor: isPicking,
                           slideBackColor: slideBackColor,
                           onTap: onColorPickerTap,
+                          loadingColorPicker: loadingColorPicker,
                         ),
 
                       ],

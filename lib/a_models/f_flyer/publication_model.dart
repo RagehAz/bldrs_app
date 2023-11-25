@@ -434,14 +434,14 @@ class PublicationModel {
     required bool bzIsVerified,
   }){
 
-    // draft,
-    // pending,
-    // published,
-    // unpublished,
-    // suspended,
+    /// draft,
+    /// pending,
+    /// published,
+    /// unpublished,
+    /// suspended,
 
     if (existingState == PublishState.suspended){
-      return PublishState.suspended;
+      return PublishState.pending;
     }
 
     else {
