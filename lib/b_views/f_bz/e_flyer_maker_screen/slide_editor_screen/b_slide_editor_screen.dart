@@ -1,10 +1,12 @@
-import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/xxx_slide_editor_controllers.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/x_controllers/animation_controls.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/x_controllers/color_controls.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/x_controllers/main_controls.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/x_controllers/navigation_controls.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/control_panels/slide_editor_main_control_panel.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_editor_slide_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
@@ -47,6 +49,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   final ValueNotifier<bool> _isPickingBackColor = ValueNotifier(false);
   final ValueNotifier<bool> _showColorPanel = ValueNotifier(false);
   final ValueNotifier<Color?> _slideBackColor = ValueNotifier(null);
+  PicModel? _blurBackPic;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -54,75 +57,44 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     initializeTempSlide();
   }
   // --------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+
+    if (_isInit && mounted) {
+      _isInit = false; // good
+
+      asyncInSync(() async {
+
+        _blurBackPic = await initializeSlideBlur(
+          slide: widget.slide,
+        );
+
+      });
+
+    }
+    super.didChangeDependencies();
+  }
+  // --------------------
   void initializeTempSlide(){
 
-    /// INITIALIZE TEMP SLIDE
-    final DraftSlide? _initialSlide = widget.slide?.copyWith(
-      matrix: widget.slide?.matrix ?? Matrix4.identity(),
-      matrixFrom: widget.slide?.matrixFrom ?? Matrix4.identity(),
-    );
-
-    /// SET DRAFT
-    setNotifier(
-        notifier: _draftSlideNotifier,
-        mounted: mounted,
-        value: _initialSlide,
-    );
-
-    /// SET MATRIX
-    setNotifier(
-      notifier: _matrixNotifier,
+    /// INITIALIZE ANIMATION
+    initializeSlideAnimation(
+      slide: widget.slide,
       mounted: mounted,
-      value: _initialSlide?.matrix,
+      draftSlideNotifier: _draftSlideNotifier,
+      matrixNotifier: _matrixNotifier,
+      matrixFromNotifier: _matrixFromNotifier,
+      canResetMatrix: _canResetMatrix,
+      isTransforming: _isTransforming,
     );
 
-    /// SET MATRIX FROM
+    /// INITIALIZE COLOR
     setNotifier(
-      notifier: _matrixFromNotifier,
+      notifier: _slideBackColor,
       mounted: mounted,
-      value: _initialSlide?.matrixFrom,
+      value: widget.slide?.backColor,
     );
-
-    final bool _initialMatrixIsIdentity = Trinity.checkMatrixesAreIdentical(
-      matrix1: _draftSlideNotifier.value?.matrix,
-      matrixReloaded: Matrix4.identity(),
-    );
-
-    final bool _initialMatrixFromIsIdentity = Trinity.checkMatrixesAreIdentical(
-      matrix1: _draftSlideNotifier.value?.matrixFrom,
-      matrixReloaded: Matrix4.identity(),
-    );
-
-    /// SET CAN RESET
-    setNotifier(
-      notifier: _canResetMatrix,
-      mounted: mounted,
-      value: _initialMatrixIsIdentity == false || _initialMatrixFromIsIdentity == false,
-    );
-
-    /// LISTEN TO TRANSFORMING
-    _isTransforming.addListener(() async {
-      if (_isTransforming.value  == true){
-
-        if (_canResetMatrix.value == false){
-          setNotifier(
-            notifier: _canResetMatrix,
-            mounted: mounted,
-            value: true,
-          );
-        }
-
-        await Future.delayed(const Duration(seconds: 1), (){
-
-          setNotifier(
-              notifier: _isTransforming,
-              mounted: mounted,
-              value: false,
-          );
-
-        });
-      }
-    });
 
   }
   // --------------------
@@ -175,16 +147,31 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             isDoingMatrixFrom: _isDoingMatrixFrom,
             isTransforming: _isTransforming,
             mounted: mounted,
-            onSlideTap: () => Keyboard.closeKeyboard(),
             isPlayingAnimation: _isPlayingAnimation,
             isPickingBackColor: _isPickingBackColor,
             slideBackColor: _slideBackColor,
+            canResetMatrix: _canResetMatrix,
+            showColorPanel: _showColorPanel,
+            showAnimationPanel: _showAnimationPanel,
+
+            /// SLIDE TAPS
+            onSlideTap: () => Keyboard.closeKeyboard(),
             onSlideDoubleTap: () => onReplayAnimation(
               isPlayingAnimation: _isPlayingAnimation,
               canResetMatrix: _canResetMatrix,
               draftNotifier: _draftSlideNotifier,
               mounted: mounted,
             ),
+
+            /// HEADLINE
+            onSlideHeadlineChanged: (String? text) => onSlideHeadlineChanged(
+              draftFlyer: widget.draftFlyerNotifier,
+              draftSlide: _draftSlideNotifier,
+              text: text,
+              mounted: mounted,
+            ),
+
+            /// ANIMATION
             onTriggerSlideIsAnimated: () => onTriggerSlideIsAnimated(
               draftNotifier: _draftSlideNotifier,
               isPlayingAnimation: _isPlayingAnimation,
@@ -203,9 +190,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               flyerBoxHeight: _flyerBoxHeight,
               flyerBoxWidth: _flyerBoxWidth,
             ),
-            canResetMatrix: _canResetMatrix,
-            showColorPanel: _showColorPanel,
-            showAnimationPanel: _showAnimationPanel,
             onAnimationEnds: () => onAnimationEnds(
               mounted: mounted,
               isPlayingAnimation: _isPlayingAnimation,
@@ -237,45 +221,35 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               matrixNotifier: _matrixNotifier,
               isDoingMatrixFrom: _isDoingMatrixFrom,
             ),
-            onSlideHeadlineChanged: (String? text) => onSlideHeadlineChanged(
-              draftFlyer: widget.draftFlyerNotifier,
-              draftSlide: _draftSlideNotifier,
-              text: text,
-              mounted: mounted,
-            ),
-            onSetWhiteBack: () => onSetBackColor(
-              mounted: mounted,
-              draftFlyerNotifier: widget.draftFlyerNotifier,
-              draftSlideNotifier: _draftSlideNotifier,
-              slideBackColor: _slideBackColor,
-              isPickingBackColor: _isPickingBackColor,
-              color: Colorz.white255,
-              setIsPickingColorTo: false,
-            ),
-            onSetBlackBack: () => onSetBackColor(
-              mounted: mounted,
-              draftFlyerNotifier: widget.draftFlyerNotifier,
-              draftSlideNotifier: _draftSlideNotifier,
-              slideBackColor: _slideBackColor,
-              isPickingBackColor: _isPickingBackColor,
-              color: Colorz.black255,
-              setIsPickingColorTo: false,
-            ),
-            onColorPickerTap: (){
 
-              setNotifier(
-                  notifier: _isPickingBackColor,
-                  mounted: mounted,
-                  value: !_isPickingBackColor.value,
-              );
-
-            },
-            onSetBlurBack: () => onSetBlurBack(
+            /// COLOR
+            onBlurBackTap: () => onBlurBackTap(
               mounted: mounted,
               draftFlyerNotifier: widget.draftFlyerNotifier,
               slideBackColor: _slideBackColor,
               draftSlideNotifier: _draftSlideNotifier,
               isPickingBackColor: _isPickingBackColor,
+              blurPic: _blurBackPic,
+            ),
+            onWhiteBackTap: () => onWhiteBackTap(
+              mounted: mounted,
+              draftFlyerNotifier: widget.draftFlyerNotifier,
+              draftSlideNotifier: _draftSlideNotifier,
+              isPickingBackColor: _isPickingBackColor,
+              slideBackColor: _slideBackColor,
+            ),
+            onBlackBackTap: () => onBlackBackTap(
+              mounted: mounted,
+              draftFlyerNotifier: widget.draftFlyerNotifier,
+              draftSlideNotifier: _draftSlideNotifier,
+              isPickingBackColor: _isPickingBackColor,
+              slideBackColor: _slideBackColor,
+            ),
+            onColorPickerTap: () => onColorPickerTap(
+              isPickingBackColor: _isPickingBackColor,
+              mounted: mounted,
+              draftFlyerNotifier: widget.draftFlyerNotifier,
+              draftSlideNotifier: _draftSlideNotifier,
             ),
           ),
 
@@ -284,6 +258,10 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             height: _controlPanelHeight,
             draftSlideNotifier: _draftSlideNotifier,
             draftFlyerNotifier: widget.draftFlyerNotifier,
+            showAnimationPanel: _showAnimationPanel,
+            showColorPanel: _showColorPanel,
+
+            /// NAVIGATION
             onNextSlide: (DraftSlide nextSlide) => onGoNextSlide(
               draftSlideNotifier: _draftSlideNotifier,
               matrixNotifier: _matrixNotifier,
@@ -314,20 +292,29 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               matrixFromNotifier: _matrixFromNotifier,
               mounted: mounted,
             ),
-            showAnimationPanel: _showAnimationPanel,
-            showColorPanel: _showColorPanel,
+
+            /// ANIMATION
             onTriggerAnimationPanel: () => onTriggerAnimationPanel(
-              draftNotifier: _draftSlideNotifier,
+              draftSlideNotifier: _draftSlideNotifier,
               isPlayingAnimation: _isPlayingAnimation,
               mounted: mounted,
               isDoingMatrixFrom: _isDoingMatrixFrom,
               showAnimationPanel: _showAnimationPanel,
               showColorPanel: _showColorPanel,
+              isPickingBackColor: _isPickingBackColor,
+              slideBackColor: _slideBackColor,
+              draftFlyerNotifier: widget.draftFlyerNotifier,
             ),
+
+            /// COLOR
             onTriggerColorPanel: () => onTriggerColorPanel(
               showColorPanel: _showColorPanel,
               showAnimationPanel: _showAnimationPanel,
               mounted: mounted,
+              isPickingBackColor: _isPickingBackColor,
+              draftFlyerNotifier: widget.draftFlyerNotifier,
+              slideBackColor: _slideBackColor,
+              draftSlideNotifier: _draftSlideNotifier,
             ),
           ),
 
