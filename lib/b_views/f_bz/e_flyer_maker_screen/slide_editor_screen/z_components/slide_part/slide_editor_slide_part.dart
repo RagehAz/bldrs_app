@@ -51,9 +51,9 @@ class SlideEditorSlidePart extends StatelessWidget {
     required this.onPlayTap,
     required this.onSlideHeadlineChanged,
     required this.onColorPickerTap,
-    required this.onSetWhiteBack,
-    required this.onSetBlackBack,
-    required this.onSetBlurBack,
+    required this.onWhiteBackTap,
+    required this.onBlackBackTap,
+    required this.onBlurBackTap,
     required this.slideBackColor,
     super.key
   });
@@ -85,9 +85,9 @@ class SlideEditorSlidePart extends StatelessWidget {
   final Function onPlayTap;
   final Function(String? text) onSlideHeadlineChanged;
   final Function onColorPickerTap;
-  final Function onSetWhiteBack;
-  final Function onSetBlackBack;
-  final Function onSetBlurBack;
+  final Function onWhiteBackTap;
+  final Function onBlackBackTap;
+  final Function onBlurBackTap;
   final ValueNotifier<Color?> slideBackColor;
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -243,10 +243,10 @@ class SlideEditorSlidePart extends StatelessWidget {
                       SlideColorPanel(
                         flyerBoxWidth: _flyerBoxWidth,
                         draftSlideNotifier: draftSlide,
-                        onSetBlackBack: onSetBlackBack,
-                        onSetWhiteBack: onSetWhiteBack,
+                        onBlackBackTap: onBlackBackTap,
+                        onWhiteBackTap: onWhiteBackTap,
                         onColorPickerTap: onColorPickerTap,
-                        onSetBlurBack: onSetBlurBack,
+                        onBlurBackTap: onBlurBackTap,
                         isPickingBackColor: isPickingBackColor,
                         showColorPanel: showColorPanel,
                         slideBackColor: slideBackColor,
