@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:basics/helpers/widgets/drawing/spacing.dart';
@@ -14,11 +15,10 @@ class SlideColorPanel extends StatelessWidget {
   const SlideColorPanel({
     required this.flyerBoxWidth,
     required this.draftSlideNotifier,
-    // required this.pickedColor,
-    required this.onSetWhiteBack,
-    required this.onSetBlackBack,
+    required this.onWhiteBackTap,
+    required this.onBlackBackTap,
     required this.onColorPickerTap,
-    required this.onSetBlurBack,
+    required this.onBlurBackTap,
     required this.isPickingBackColor,
     required this.showColorPanel,
     required this.slideBackColor,
@@ -27,11 +27,10 @@ class SlideColorPanel extends StatelessWidget {
   // --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final ValueNotifier<DraftSlide?> draftSlideNotifier;
-  // final ValueNotifier<Color?> pickedColor;
-  final Function onSetWhiteBack;
-  final Function onSetBlackBack;
+  final Function onWhiteBackTap;
+  final Function onBlackBackTap;
   final Function onColorPickerTap;
-  final Function onSetBlurBack;
+  final Function onBlurBackTap;
   final ValueNotifier<bool> isPickingBackColor;
   final ValueNotifier<bool> showColorPanel;
   final ValueNotifier<Color?> slideBackColor;
@@ -106,7 +105,7 @@ class SlideColorPanel extends StatelessWidget {
                                   _draftSlide?.bigPic?.bytes,
                             // color: Colorz.white255,
                             // borderColor: _isWhite == true ? Colorz.yellow255 : Colorz.black255,
-                            onTap: onSetBlurBack,
+                            onTap: onBlurBackTap,
                           ),
                         ),
 
@@ -120,7 +119,7 @@ class SlideColorPanel extends StatelessWidget {
                           corners: _size / 2,
                           color: Colorz.white255,
                           borderColor: _isWhite == true ? Colorz.yellow255 : Colorz.black255,
-                          onTap: onSetWhiteBack,
+                          onTap: onWhiteBackTap,
                         ),
 
                         /// SPACING
@@ -133,7 +132,7 @@ class SlideColorPanel extends StatelessWidget {
                           corners: _size / 2,
                           color: Colorz.black255,
                           borderColor: _isBlack == true ? Colorz.yellow255 : Colorz.white125,
-                          onTap: onSetBlackBack,
+                          onTap: onBlackBackTap,
                         ),
 
                         /// SPACING
@@ -144,16 +143,13 @@ class SlideColorPanel extends StatelessWidget {
                           valueListenable: slideBackColor,
                           builder: (_, Color? color, Widget? child) {
 
-                            final bool _isBlackx = color == Colorz.black255;
-                            final bool _isWhitex = color == Colorz.white255;
-
-                            final bool showColorRose = _isBlackx || _isWhitex || _isBlur;
+                            blog('khara is : isPicking : $isPicking');
 
                             return Stack(
                               children: [
 
                                 /// LIVE COLOR
-                                if (showColorRose == false)
+                                if (isPicking == true)
                                 Container(
                                   width: _size,
                                   height: _size,
@@ -164,7 +160,7 @@ class SlideColorPanel extends StatelessWidget {
                                 ),
 
                                 /// COLOR ROSE
-                                if (showColorRose == true)
+                                if (isPicking == false)
                                 BldrsBox(
                                   height: _size,
                                   width: _size,
@@ -176,7 +172,12 @@ class SlideColorPanel extends StatelessWidget {
 
                                 /// ICON
                                 // if (showColorRose == false)
-                                BldrsBox(
+                                child!,
+
+                              ],
+                            );
+                          },
+                          child: BldrsBox(
                                   height: _size,
                                   width: _size,
                                   corners: _size / 2,
@@ -186,10 +187,6 @@ class SlideColorPanel extends StatelessWidget {
                                   borderColor: _isColor == true ? Colorz.yellow255 : Colorz.white125,
                                   onTap: onColorPickerTap,
                                 ),
-
-                              ],
-                            );
-                          }
                         ),
 
                         /// SPACING
