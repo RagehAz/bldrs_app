@@ -1,14 +1,18 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_preview_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_grid_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_stack.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/small_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/f_helpers/future_model_builders/flyer_builder.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
 
 class JumpingFlyersGrid extends StatelessWidget {
@@ -116,20 +120,38 @@ class JumpingFlyersGrid extends StatelessWidget {
                   );
                 }
                 else {
+
                   return FlyerSelectionStack(
                     flyerModel: smallFlyer,
                     flyerBoxWidth: _gridSlotWidth,
                     onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer?.call(smallFlyer!),
                     onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap?.call(smallFlyer!),
                     selectionMode: selectionMode,
-                    flyerWidget: FlyerBox(
+                    flyerWidget: SmallFlyer(
                       flyerBoxWidth: _gridSlotWidth,
-                      boxColor: Colorz.bloodTest,
-                      onTap: (){
-                        blog('fuck you jumper flyer');
-                        },
+                      flyerModel: smallFlyer,
+                      showTopButton: true,
+                      canUseFilter: false,
+                      // canAnimateMatrix: true,
+                      // flyerShadowIsOn: true,
+                      // isRendering: false,
+                      // optionsButtonIsOn: false,
+                      // slideIndex: 0,
+                      // slideShadowIsOn: true,
+                      onTap: () async {
+
+                        await BldrsNav.goToNewScreen(
+                          pageTransitionType: PageTransitionType.bottomToTop,
+                          screen: FlyerPreviewScreen(
+                            flyerID: null,
+                            flyerModel: smallFlyer,
+                          ),
+                        );
+
+                      },
                     ),
                   );
+
                 }
 
 
