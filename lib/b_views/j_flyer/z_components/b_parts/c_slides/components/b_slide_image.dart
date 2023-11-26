@@ -1,4 +1,4 @@
-import 'package:basics/animators/widgets/animate_widget_to_matrix.dart';
+import 'package:basics/animators/widgets/matrix_animator.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
@@ -53,7 +53,7 @@ class SlideImage extends StatelessWidget {
         onDoubleTap: onDoubleTap,
         canTap: canTapSlide,
         splashColor: slideModel?.midColor ?? Colorz.white20,
-        child: AnimateWidgetToMatrix(
+        child: MatrixAnimator(
           matrix: Trinity.renderSlideMatrix(
             matrix: slideModel?.matrix,
             flyerBoxWidth: flyerBoxWidth,
