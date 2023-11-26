@@ -9,6 +9,7 @@ import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/a_flyer_reviews_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_light_flyer_structure/b_light_big_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -29,11 +30,13 @@ class FlyerPreviewScreen extends StatelessWidget {
   const FlyerPreviewScreen({
     required this.flyerID,
     this.reviewID,
+    this.flyerModel,
     super.key,
   });
   /// --------------------------------------------------------------------------
   final String? flyerID;
   final String? reviewID;
+  final FlyerModel? flyerModel;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -50,61 +53,64 @@ class FlyerPreviewScreen extends StatelessWidget {
     return MainLayout(
       canSwipeBack: false,
       onBack: () => BldrsNav.backFromPreviewScreen(),
-      skyType: SkyType.non,
       appBarType: AppBarType.non,
-      // pyramidsAreOn: false,
-      child: WidgetWaiter(
-          waitDuration: const Duration(milliseconds: 500),
-          child: FlyerBuilder(
-              flyerBoxWidth: _flyerWidth,
-              slidePicType: SlidePicType.med,
-              onlyFirstSlide: false,
-              flyerID: flyerID,
-              renderFlyer: RenderFlyer.allSlides,
-              onFlyerInitialLoaded: (FlyerModel? flyer) async {
+      child: FlyerBuilder(
+          flyerBoxWidth: _flyerWidth,
+          slidePicType: SlidePicType.med,
+          onlyFirstSlide: false,
+          flyerID: flyerID,
+          flyerModel: flyerModel,
+          renderFlyer: RenderFlyer.allSlides,
+          onFlyerInitialLoaded: (FlyerModel? flyer) async {
 
-                if (reviewID != null){
+            if (reviewID != null){
 
-                  await BldrsNav.goToNewScreen(
-                    screen: FlyerReviewsScreen(
-                      flyerModel: flyer,
-                      highlightReviewID: reviewID,
-                    ),
-                  );
+              await BldrsNav.goToNewScreen(
+                screen: FlyerReviewsScreen(
+                  flyerModel: flyer,
+                  highlightReviewID: reviewID,
+                ),
+              );
 
-                }
+            }
 
-              },
-              builder: (bool loading, FlyerModel? flyerModel) {
+          },
+          builder: (bool loading, FlyerModel? flyerModel) {
 
-                if (loading == true && flyerModel == null){
-                  return const LoadingFullScreenLayer();
-                }
+            if (loading == true && flyerModel == null){
+              return WidgetWaiter(
+                waitDuration: const Duration(seconds: 1),
+                child: FlyerLoading(
+                  flyerBoxWidth: _flyerWidth,
+                  animate: true,
+                  direction: Axis.vertical,
+                ),
+              );
+            }
 
-                else if (flyerModel == null){
-                  return const _NoFlyerFoundView();
-                }
+            else if (flyerModel == null){
+              return const _NoFlyerFoundView();
+            }
 
-                else {
-                  return WidgetFader(
-                    fadeType: FadeType.fadeIn,
-                    duration: const Duration(milliseconds: 500),
-                    child: DismissiblePage(
-                      direction: DismissiblePageDismissDirection.down,
-                      onDismissed: () => Nav.goBack(context: context),
-                      child: LightBigFlyer(
-                        flyerBoxWidth: _flyerWidth,
-                        renderedFlyer: flyerModel,
-                        onVerticalExit: () => BldrsNav.backFromPreviewScreen(),
-                        onHorizontalExit: (){},
-                      ),
-                    ),
-                  );
-                }
+            else {
+              return WidgetFader(
+                fadeType: FadeType.fadeIn,
+                duration: const Duration(milliseconds: 750),
+                child: DismissiblePage(
+                  direction: DismissiblePageDismissDirection.down,
+                  onDismissed: () => Nav.goBack(context: context),
+                  child: LightBigFlyer(
+                    flyerBoxWidth: _flyerWidth,
+                    renderedFlyer: flyerModel,
+                    onVerticalExit: () => BldrsNav.backFromPreviewScreen(),
+                    onHorizontalExit: (){},
+                  ),
+                ),
+              );
+            }
 
-              }
-              ),
-        ),
+          }
+          ),
     );
 
   }
