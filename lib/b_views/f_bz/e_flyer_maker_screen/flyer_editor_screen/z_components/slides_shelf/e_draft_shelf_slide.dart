@@ -1,4 +1,4 @@
-import 'package:basics/animators/widgets/animate_widget_to_matrix.dart';
+import 'package:basics/animators/widgets/matrix_animator.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
@@ -152,7 +152,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                     builder: (_, bool _animate, Widget? child){
 
                       if (_animate == true){
-                        return AnimateWidgetToMatrix(
+                        return MatrixAnimator(
                           matrix: Trinity.renderSlideMatrix(
                               matrix: widget.draftSlide?.matrix,
                               flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
