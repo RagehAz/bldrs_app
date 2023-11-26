@@ -166,7 +166,7 @@ class AboutBzBubbles extends StatelessWidget {
             screenName: 'BzAboutPageFlyersGrid',
             gridHeight: _gridHeight,
             scrollable: false,
-            gridType: FlyerGridType.heroic,
+            gridType: FlyerGridType.jumper,
             hasResponsiveSideMargin: true,
             numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 4 : 2,
           ),
