@@ -1,3 +1,11 @@
+### 2.16.0
+1. Bug fixes
+2. Ui, UX updates
+3. Added more translations
+4. Updated the flyer slide editor design
+5. added ability to control flyer animation & background color
+6. IOS keyboard supports autoSuggestions now
+
 ### 2.15.0
 1. Flyer selection bug fix
 2. Flyer swipe gestures updated
