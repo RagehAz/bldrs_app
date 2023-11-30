@@ -41,8 +41,8 @@ class BlurLayer extends StatelessWidget {
             alignment: alignment ?? Alignment.center,
             children: <Widget>[
 
-              if (child != null)
-              child!,
+              // if (child != null)
+              // child!,
 
               IgnorePointer(
                 child: BackdropFilter(
@@ -61,6 +61,9 @@ class BlurLayer extends StatelessWidget {
                   ),
                 ),
               ),
+
+              if (child != null)
+              child!,
 
             ],
           ),
