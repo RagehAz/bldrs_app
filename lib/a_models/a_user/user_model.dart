@@ -4,6 +4,7 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs/a_models/a_user/sub/agenda_model.dart';
@@ -227,7 +228,7 @@ class UserModel {
         // -------------------------
         name: map['name'],
         trigram: Stringer.getStringsFromDynamics(map['trigram'],),
-        picPath: map['picPath'],
+        picPath: _decipherUserPic(map),
         title: map['title'],
         company: map['company'],
         gender: decipherGender(map['gender']),
@@ -251,6 +252,17 @@ class UserModel {
     );
     }
 
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String _decipherUserPic(Map<String, dynamic>? map){
+    String _picPath = Iconz.bxOwnerOff;
+    if (map != null) {
+      if (TextCheck.isEmpty(map['picPath']) == false){
+        _picPath = map['picPath'];
+      }
+    }
+    return _picPath;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
