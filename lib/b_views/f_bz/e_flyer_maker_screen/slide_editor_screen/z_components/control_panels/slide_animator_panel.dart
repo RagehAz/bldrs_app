@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:basics/helpers/widgets/drawing/spacing.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
@@ -110,22 +111,64 @@ class SlideAnimatorPanel extends StatelessWidget {
                                 /// SPACING
                                 _spacing,
 
-                                /// RESET MATRIX
+                                // /// RESET MATRIX
+                                // ValueListenableBuilder(
+                                //     valueListenable: canResetMatrix,
+                                //     builder: (_, bool _canResetMatrix, Widget? child){
+                                //       return PanelCircleButton(
+                                //         verse: const Verse(
+                                //           id: 'phid_reset',
+                                //           translate: true,
+                                //         ),
+                                //         icon: Iconz.reload,
+                                //         size: _size,
+                                //         isSelected: false,
+                                //         isDisabled: !_canResetMatrix,
+                                //         onTap: onResetMatrix,
+                                //       );
+                                //     }),
+
+                                /// NEW RESET MATRIX
                                 ValueListenableBuilder(
-                                    valueListenable: canResetMatrix,
-                                    builder: (_, bool _canResetMatrix, Widget? child){
-                                      return PanelCircleButton(
-                                        verse: const Verse(
-                                          id: 'phid_reset',
-                                          translate: true,
-                                        ),
-                                        icon: Iconz.reload,
-                                        size: _size,
-                                        isSelected: false,
-                                        isDisabled: !_canResetMatrix,
-                                        onTap: onResetMatrix,
-                                      );
-                                    }),
+                                  valueListenable: matrixFromNotifier,
+                                  builder: (_, Matrix4? matrixF, Widget? child){
+
+                                    return ValueListenableBuilder(
+                                        valueListenable: matrixNotifier,
+                                        builder: (_, Matrix4? matrix, Widget? child){
+
+                                          final bool _m = Trinity.checkMatrixesAreIdentical(
+                                              matrix1: matrix,
+                                              matrixReloaded: Matrix4.identity(),
+                                          );
+
+
+                                          final bool _mf = Trinity.checkMatrixesAreIdentical(
+                                              matrix1: matrixF,
+                                              matrixReloaded: Trinity.slightlyZoomed(
+                                                  flyerBoxWidth: flyerBoxWidth,
+                                                  flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
+                                                    flyerBoxWidth: flyerBoxWidth,
+                                                  ),
+                                              )
+                                          );
+
+                                          final bool _isWrong = !_m || !_mf;
+
+                                          return PanelCircleButton(
+                                            verse: const Verse(
+                                              id: 'phid_reset',
+                                              translate: true,
+                                            ),
+                                            icon: Iconz.reload,
+                                            size: _size,
+                                            isSelected: false,
+                                            isDisabled: !_isWrong,
+                                            onTap: onResetMatrix,
+                                          );
+                                        });
+                                  }
+                                ),
 
                                 /// SPACING
                                 _spacing,

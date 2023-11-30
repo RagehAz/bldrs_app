@@ -4,7 +4,7 @@
 3. Added more translations
 4. Updated the flyer slide editor design
 5. added ability to control flyer animation & background color
-6. IOS keyboard supports autoSuggestions now
+6. keyboard supports autoSuggestions now
 
 ### 2.15.0
 1. Flyer selection bug fix

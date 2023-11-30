@@ -250,6 +250,7 @@ class SlideEditorSlidePart extends StatelessWidget {
 
                   ],
                 );
+
             }
             ),
       ),
