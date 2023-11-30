@@ -4,8 +4,6 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/x_controllers/color_controls.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/x_controllers/main_controls.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -329,17 +327,19 @@ Future<void> onResetMatrix({
   required double flyerBoxHeight,
 }) async {
 
-  final bool _go = await Dialogs.confirmProceed(
-    titleVerse: const Verse(
-      id: 'phid_reset_orientation_?',
-      translate: true,
-    ),
-    bodyVerse: const Verse(
-      id: 'phid_this_will_reset_zoom_rotation_of_slide',
-      translate: true,
-    ),
-    invertButtons: true,
-  );
+  // final bool _go = await Dialogs.confirmProceed(
+  //   titleVerse: const Verse(
+  //     id: 'phid_reset_orientation_?',
+  //     translate: true,
+  //   ),
+  //   bodyVerse: const Verse(
+  //     id: 'phid_this_will_reset_zoom_rotation_of_slide',
+  //     translate: true,
+  //   ),
+  //   invertButtons: true,
+  // );
+
+  const bool _go = true;
 
   if (_go == true){
 
