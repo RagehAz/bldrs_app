@@ -160,6 +160,7 @@ Future<void> _addImagesForNewFlyer({
           value: _newDraft,
       );
 
+      /// AUTO OPEN FIRST SLIDE
       if (_newMutableSlides.length == 1){
         await  onSlideTap(
           slide: _newMutableSlides.first,
@@ -168,23 +169,17 @@ Future<void> _addImagesForNewFlyer({
         );
       }
 
-      await Future.delayed(Ratioz.duration150ms,() async {
-        await Sliders.scrollTo(
-          controller: scrollController,
-          offset: (scrollController.position.maxScrollExtent) - flyerBoxWidth,
-        );
-      });
-
-
-      // for (int i = 0; i < _picked.length; i++){
-      //   /// for first headline
-      //   if(i == 0){
-      //     /// keep controller as is
-      //   }
-      //   /// for the nest pages
-      //   else {
-      //   }
-      // }
+      /// AUTO SCROLL TO END OF SLIDES SHELF
+      if (mounted == true){
+        await Future.delayed(Ratioz.duration150ms,() async {
+          if (mounted == true){
+            await Sliders.scrollTo(
+              controller: scrollController,
+              offset: (scrollController.position.maxScrollExtent) - flyerBoxWidth,
+            );
+          }
+        });
+      }
 
     }
 
