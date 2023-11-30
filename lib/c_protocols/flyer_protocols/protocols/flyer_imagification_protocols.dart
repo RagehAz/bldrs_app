@@ -292,17 +292,25 @@ class ImagifyFlyerProtocols {
 
         if (_firstSlide.frontImage == null || _firstSlide.frontPicPath != _frontPicPath){
 
+          /// FRON IMAGE
+          ui.Image? _front = _firstSlide.frontImage;
+          if (_firstSlide.frontImage == null){
+            _front = await PicProtocols.fetchPicUiImage(
+              path: _frontPicPath,
+            );
+          }
 
-          final ui.Image? _front = await PicProtocols.fetchPicUiImage(
-            path: _frontPicPath,
-          );
-          final ui.Image? _back = await PicProtocols.fetchPicUiImage(
-            path: SlideModel.generateSlidePicPath(
+          /// BACK IMAGE
+          ui.Image? _back = _firstSlide.backImage;
+          if (_firstSlide.backImage == null && _firstSlide.backColor == null){
+            _back = await PicProtocols.fetchPicUiImage(
+              path: SlideModel.generateSlidePicPath(
                 flyerID: flyerModel.id,
                 slideIndex: 0,
                 type: SlidePicType.back,
-            ),
-          );
+              ),
+            );
+          }
 
           _firstSlide = _firstSlide.copyWith(
             frontImage: _front,
@@ -360,12 +368,12 @@ class ImagifyFlyerProtocols {
           /// UI IMAGE IS MISSING
           if (_slide.frontImage == null || _slide.frontPicPath != _newPicPath){
 
-            ui.Image? _back;
             final ui.Image? _front = await PicProtocols.fetchPicUiImage(
               path: _newPicPath,
             );
 
-            if (_slide.backImage == null){
+            ui.Image? _back;
+            if (_slide.backImage == null && _slide.backColor == null){
               _back = await PicProtocols.fetchPicUiImage(
                 path: SlideModel.generateSlidePicPath(
                   flyerID: _slide.flyerID,

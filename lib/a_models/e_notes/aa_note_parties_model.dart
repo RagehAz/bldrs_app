@@ -169,11 +169,13 @@ class NoteParties {
     if (Mapper.checkCanLoopList(receiversModels) == true){
 
       if (partyType == PartyType.bz){
-        _ids = BzModel.getBzzIDs(receiversModels as List<BzModel>);
+        final List<BzModel> _bzz = [...?receiversModels];
+        _ids = BzModel.getBzzIDs(_bzz);
       }
 
       else if (partyType == PartyType.user){
-        _ids = UserModel.getUsersIDs(receiversModels as List<UserModel>);
+        final List<UserModel> users = [...?receiversModels];
+        _ids = UserModel.getUsersIDs(users);
       }
 
     }
