@@ -1,6 +1,5 @@
 import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
