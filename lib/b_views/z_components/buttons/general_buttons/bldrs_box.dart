@@ -55,6 +55,7 @@ class BldrsBox extends StatelessWidget {
     this.onDoubleTap,
     this.borderColor,
     this.solidGreyScale = false,
+    this.maxWidth,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -102,6 +103,7 @@ class BldrsBox extends StatelessWidget {
   final Function? onDoubleTap;
   final Color? borderColor;
   final bool solidGreyScale;
+  final double? maxWidth;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Widget getChild({
@@ -116,6 +118,7 @@ class BldrsBox extends StatelessWidget {
       // package: 'bldrs_theme',
       height: height - _borderFix,
       width: width,
+      maxWidth: maxWidth,
       icon: theIcon,
       iconSizeFactor: iconSizeFactor,
       color: color,

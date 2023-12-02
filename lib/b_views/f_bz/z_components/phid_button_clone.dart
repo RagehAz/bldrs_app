@@ -13,6 +13,7 @@ class PhidButtonClone extends StatelessWidget {
     required this.isSelected,
     this.verse,
     this.icon,
+    this.height,
     super.key
   });
   // --------------------
@@ -20,12 +21,13 @@ class PhidButtonClone extends StatelessWidget {
   final dynamic icon;
   final bool isSelected;
   final Function onTap;
+  final double? height;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     return BldrsBox(
-      height: PhidButton.getHeight(),
+      height: height ?? PhidButton.getHeight(),
       verse: verse,
       icon: icon,
       iconSizeFactor: PhidButton.getVerseScaleFactor(xIsOn: false),

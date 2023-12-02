@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/tile_bubble/tile_bubble.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
@@ -41,6 +42,10 @@ class FilterMultiButtonTile extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
+    final double _childWidth = TileBubble.childWidth(
+      context: context,
+      bubbleWidthOverride: _tileWidth,
+    );
 
     return TileBubble(
       bubbleWidth: _tileWidth,
@@ -68,6 +73,7 @@ class FilterMultiButtonTile extends StatelessWidget {
 
             return BldrsBox(
               height: 40,
+              maxWidth: _childWidth - 5,
               verse: itemVerse(item),
               verseScaleFactor: 0.7 / 0.6,
               iconSizeFactor: 0.7,
@@ -75,7 +81,12 @@ class FilterMultiButtonTile extends StatelessWidget {
               color: _isSelected == true ? Colorz.yellow255 : Colorz.white20,
               iconColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
               verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
-              margins: const EdgeInsets.all(5),
+              margins: Scale.superInsets(
+                context: context,
+                appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                bottom: 5,
+                enRight: 5,
+              ),
               onTap: () => onItemTap(item),
               textDirection: UiProvider.getAppTextDir(),
               verseCentered: false,
