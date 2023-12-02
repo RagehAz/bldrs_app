@@ -1,7 +1,5 @@
-import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -115,7 +113,7 @@ class SpecsWrapper extends StatelessWidget {
       picker: picker,
     );
     // --------------------
-    return Container(
+    return SizedBox(
       width: width,
       child: Wrap(
         spacing: Ratioz.appBarPadding,

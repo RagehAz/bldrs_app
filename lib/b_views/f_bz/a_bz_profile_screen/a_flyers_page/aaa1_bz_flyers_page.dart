@@ -90,11 +90,14 @@ class BzFlyersPage extends StatelessWidget {
           Selector<UiProvider, bool>(
               selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
               builder: (_, bool isVisible, Widget? child) {
-                return WidgetFader(
-                  fadeType: isVisible == false ? FadeType.fadeOut : FadeType.fadeIn,
-                  duration: const Duration(milliseconds: 300),
-                  child: AutoScrollingBar(
-                    scrollController: scrollController,
+
+                return AutoScrollingBar(
+                  key: const ValueKey<String>('the_auto_scroll_phid_selector'),
+                  scrollController: scrollController,
+                  child: WidgetFader(
+                    fadeType: isVisible == false ? FadeType.fadeOut : FadeType.fadeIn,
+                    duration: const Duration(milliseconds: 300),
+                    ignorePointer: isVisible == false,
                     child: ActivePhidSelector(
                       bzModel: bzModel,
                       mounted: mounted,
