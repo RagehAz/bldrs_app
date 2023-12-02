@@ -326,7 +326,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     final double _pagesZoneHeight = OnBoardingScreen.getPagesZoneHeight();
     final double _progressBarWidth = OnBoardingScreen.getProgressBarWidth();
     final double _buttonHeight = OnBoardingScreen.getButtonHeight();
-    final double _navButtonWidth = _bubbleWidth * 0.25;
+    final double _navButtonWidth = _bubbleWidth * 0.35;
     final double _middleButtonWidth = _bubbleWidth * 0.3;
 
     return MainLayout(
@@ -425,7 +425,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 ),
                                 corners: Borderers.constantCornersAll20,
                                 color: Colorz.white20,
-                                verseScaleFactor: 0.6,
+                                verseScaleFactor: 0.5,
                                 onTap: _onSkip,
                               ),
 
@@ -473,7 +473,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 ),
                                 corners: Borderers.constantCornersAll20,
                                 color: Colorz.white20,
-                                verseScaleFactor: 0.6,
+                                verseScaleFactor: 0.5,
                                 onTap: _onNext,
                               ),
 

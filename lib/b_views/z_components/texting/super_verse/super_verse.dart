@@ -44,6 +44,7 @@ class BldrsText extends StatelessWidget {
     this.shadowColor,
     this.textDirection,
     this.appIsLTR,
+    this.maxWidth,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -71,6 +72,8 @@ class BldrsText extends StatelessWidget {
   final Color? shadowColor;
   final TextDirection? textDirection;
   final bool? appIsLTR;
+
+  final double? maxWidth;
   // -----------------------------------------------------------------------------
 
   /// READY VERSES
@@ -558,6 +561,7 @@ class BldrsText extends StatelessWidget {
     final String? _text = Verse.bakeVerseToString(verse: verse);
 
     return SuperText(
+      maxWidth: maxWidth,
       text: _text,
       highlight: highlight,
       boxWidth: width,

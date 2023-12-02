@@ -23,6 +23,7 @@ class ActivePhidSelector extends StatelessWidget {
     required this.mounted,
     required this.onlyShowPublished,
     this.stratosphere = true,
+    this.buttonHeight,
     super.key
   });
   // --------------------
@@ -31,6 +32,7 @@ class ActivePhidSelector extends StatelessWidget {
   final bool mounted;
   final bool stratosphere;
   final bool onlyShowPublished;
+  final double? buttonHeight;
   // --------------------------------------------------------------------------
   static void onSelectActivePhid({
     required String? phid,
@@ -50,10 +52,11 @@ class ActivePhidSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
+    final double _buttonHeight = buttonHeight ?? PhidButton.getHeight();
     final double barHeight = stratosphere == true ?
     Stratosphere.bigAppBarStratosphere
         :
-    PhidButton.getHeight() + 5;
+    _buttonHeight + 5;
     // --------------------
     final List<String> _phids = ScopeModel.getBzFlyersPhids(
       bzModel: bzModel,
@@ -82,6 +85,7 @@ class ActivePhidSelector extends StatelessWidget {
 
                 /// ALL
                 PhidButtonClone(
+                  height: _buttonHeight,
                   verse: const Verse(id: 'phid_all', translate: true,),
                   icon: Iconz.flyerCollection,
                   isSelected: thePhid == null,
@@ -127,6 +131,7 @@ class ActivePhidSelector extends StatelessWidget {
 
                   return PhidButton(
                     phid: _phid,
+                    height: _buttonHeight,
                     color: _isSelected == true ? Colorz.yellow125 : Colorz.white20,
                     margins: Scale.superInsets(
                       context: context,
@@ -154,6 +159,7 @@ class ActivePhidSelector extends StatelessWidget {
                     final String _phid = PublicationModel.getPublishStatePhid(PublishState.suspended)!;
 
                     return PhidButtonClone(
+                      height: _buttonHeight,
                       verse: Verse(
                         id: _phid,
                         translate: true,

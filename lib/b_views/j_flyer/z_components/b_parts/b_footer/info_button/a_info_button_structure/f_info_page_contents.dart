@@ -193,7 +193,7 @@ class InfoPageContents extends StatelessWidget {
                 /// KEYWORDS
                 if (Mapper.checkCanLoopList(flyerModel?.phids) == true)
                   PhidsWrapper(
-                    pageWidth: _pageWidth,
+                    width: _pageWidth,
                     phids: flyerModel!.phids!,
                     onPhidTap: (String phid){
                       blog('info page contents : onPhidTap : phid: $phid');

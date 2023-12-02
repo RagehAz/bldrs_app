@@ -39,7 +39,7 @@ class BzPgFields extends StatelessWidget {
           ),
 
           PhidsWrapper(
-            pageWidth: flyerBoxWidth,
+            width: flyerBoxWidth,
             phids: bzScope,
             onPhidTap: (String phid){
               blog('bzAboutPage : onPhidTap : phid: $phid');

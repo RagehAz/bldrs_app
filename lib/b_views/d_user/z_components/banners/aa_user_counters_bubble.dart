@@ -27,6 +27,8 @@ class UserCounterBubble extends StatelessWidget {
 
     else{
 
+      final double _clearWidth = Bubble.clearWidth(context: context);
+
       return FutureBuilder(
         future: RecorderProtocols.fetchUserCounter(
             userID: userModel!.id,
@@ -49,6 +51,7 @@ class UserCounterBubble extends StatelessWidget {
 
                 /// SESSIONS
                 StatsLine(
+                  maxWidth: _clearWidth,
                   verse: Verse(
                     id: '${_counter.sessions} ${getWord('phid_total_times_used_bldrs')}',
                     translate: false,
@@ -58,6 +61,7 @@ class UserCounterBubble extends StatelessWidget {
 
                 /// VIEWS
                 StatsLine(
+                  maxWidth: _clearWidth,
                   verse: Verse(
                     id: '${_counter.views} ${getWord('phid_views')}',
                     translate: false,
@@ -67,6 +71,7 @@ class UserCounterBubble extends StatelessWidget {
 
                 /// SAVES
                 StatsLine(
+                  maxWidth: _clearWidth,
                   verse: Verse(
                       id: '${_counter.saves} ${getWord('phid_saves')}',
                       translate: false,
@@ -76,6 +81,7 @@ class UserCounterBubble extends StatelessWidget {
 
                 /// REVIEWS
                 StatsLine(
+                  maxWidth: _clearWidth,
                   verse: Verse(
                     id: '${_counter.reviews} ${getWord('phid_reviews')}',
                     translate: false,
@@ -85,6 +91,7 @@ class UserCounterBubble extends StatelessWidget {
 
                 /// SHARES
                 StatsLine(
+                  maxWidth: _clearWidth,
                   verse: Verse(
                     id: '${_counter.shares} ${getWord('phid_shares')}',
                     translate: false,
@@ -94,6 +101,7 @@ class UserCounterBubble extends StatelessWidget {
 
                 /// FOLLOWING
                 StatsLine(
+                  maxWidth: _clearWidth,
                   verse: Verse(
                     id: '${_counter.follows} ${getWord('phid_following')}',
                     translate: false,
@@ -103,6 +111,7 @@ class UserCounterBubble extends StatelessWidget {
 
                 /// CALLS
                 StatsLine(
+                  maxWidth: _clearWidth,
                   verse: Verse(
                     id: '${_counter.calls} ${getWord('phid_calls')}',
                     translate: false,

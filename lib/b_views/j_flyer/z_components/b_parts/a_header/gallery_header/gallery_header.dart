@@ -38,6 +38,9 @@ class GalleryHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final double _flyerHeaderHeight = FlyerDim.headerSlateHeight(flyerBoxWidth);
+    final double _halfHeaderHeight = _flyerHeaderHeight / 2;
+
     return ValueListenableBuilder(
       valueListenable: progressBarModel,
       builder: (_, ProgressBarModel? progressBarModel, Widget? child){
@@ -112,7 +115,8 @@ class GalleryHeader extends StatelessWidget {
                   if (ScopeModel.checkBzHasMoreThanOnePhid(bzModel) == true)
                   BldrsText(
                     width: flyerBoxWidth  - (flyerBoxWidth * 0.04),
-                    // maxLines: 1,
+                    height: _halfHeaderHeight,
+                    scaleFactor: flyerBoxWidth * 0.003,
                     verse: Verse.plain(
                       '${Localizer.translate('phid_another_flyers_by')} ${bzModel?.name ?? ''}',
                     ),
@@ -122,17 +126,18 @@ class GalleryHeader extends StatelessWidget {
                     color: Colorz.yellow200,
                     textDirection: UiProvider.getAppTextDir(),
                     margin: EdgeInsets.only(
-                      top: flyerBoxWidth * 0.04,
+                      // top: flyerBoxWidth * 0.04,
                       left:flyerBoxWidth * 0.02,
                       right:flyerBoxWidth * 0.02,
                     ),
                   ),
 
-                  if (ScopeModel.checkBzHasMoreThanOnePhid(bzModel) == true)
-                    const Expander(),
+                  // if (ScopeModel.checkBzHasMoreThanOnePhid(bzModel) == true)
+                  //   const Expander(),
 
                   if (ScopeModel.checkBzHasMoreThanOnePhid(bzModel) == true)
                     ActivePhidSelector(
+                      buttonHeight: _halfHeaderHeight-5,
                       bzModel: bzModel,
                       mounted: mounted,
                       activePhid: activePhid,

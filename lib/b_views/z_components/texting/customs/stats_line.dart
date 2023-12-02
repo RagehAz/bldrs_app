@@ -14,6 +14,7 @@ class StatsLine extends StatelessWidget {
     this.onTap,
     this.bubbleWidth,
     this.color,
+    this.maxWidth,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -23,6 +24,7 @@ class StatsLine extends StatelessWidget {
   final Function? onTap;
   final double? bubbleWidth;
   final Color? color;
+  final double? maxWidth;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class StatsLine extends StatelessWidget {
       child: BldrsBox(
         height: _height,
         width: bubbleWidth,
+        maxWidth: maxWidth,
         icon: icon,
         verse: verse,
         verseWeight: VerseWeight.thin,
