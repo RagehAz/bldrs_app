@@ -1,11 +1,12 @@
 import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/phids_wrapper.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
@@ -16,7 +17,7 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
 
 class PhidsSelectorBubble extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const PhidsSelectorBubble({
     required this.draft,
     required this.onPhidTap,
@@ -25,13 +26,13 @@ class PhidsSelectorBubble extends StatelessWidget {
     required this.canValidate,
     super.key
   });
-  /// --------------------------------------------------------------------------
+  // -------------------------
   final DraftFlyer? draft;
   final Function(String phid) onPhidTap;
   final Function(String phid) onPhidLongTap;
   final Function onAdd;
   final bool canValidate;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -74,11 +75,12 @@ class PhidsSelectorBubble extends StatelessWidget {
 
           /// SELECTED PHIDS
           if (Mapper.checkCanLoopList(draft?.phids) == true)
-            PhidsViewer(
+            PhidsWrapper(
               pageWidth: _bubbleClearWidth,
               phids: draft?.phids ?? [],
               onPhidLongTap: onPhidLongTap,
               onPhidTap: onPhidTap,
+              margins: const EdgeInsets.only(bottom: Ratioz.appBarMargin),
             ),
 
           /// ADD BUTTON

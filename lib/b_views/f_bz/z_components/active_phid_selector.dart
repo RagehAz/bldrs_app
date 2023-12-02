@@ -6,6 +6,7 @@ import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
+import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/b_views/f_bz/z_components/phid_button_clone.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
@@ -20,6 +21,7 @@ class ActivePhidSelector extends StatelessWidget {
     required this.activePhid,
     required this.bzModel,
     required this.mounted,
+    required this.onlyShowPublished,
     this.stratosphere = true,
     super.key
   });
@@ -28,6 +30,7 @@ class ActivePhidSelector extends StatelessWidget {
   final BzModel? bzModel;
   final bool mounted;
   final bool stratosphere;
+  final bool onlyShowPublished;
   // --------------------------------------------------------------------------
   static void onSelectActivePhid({
     required String? phid,
@@ -45,13 +48,17 @@ class ActivePhidSelector extends StatelessWidget {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.screenWidth(context);
     final double barHeight = stratosphere == true ?
     Stratosphere.bigAppBarStratosphere
         :
     PhidButton.getHeight() + 5;
-
+    // --------------------
+    final List<String> _phids = ScopeModel.getBzFlyersPhids(
+      bzModel: bzModel,
+      onlyShowPublished: onlyShowPublished,
+    );
     // --------------------
     return BlurLayer(
       width: _screenWidth,
@@ -61,8 +68,6 @@ class ActivePhidSelector extends StatelessWidget {
       child: ValueListenableBuilder(
           valueListenable: activePhid,
           builder: (_, String? thePhid, Widget? child) {
-
-            final List<String> _phids = bzModel?.scopes?.map.keys.toList() ?? [];
 
             return FloatingList(
               width: _screenWidth,
@@ -88,7 +93,11 @@ class ActivePhidSelector extends StatelessWidget {
                 ),
 
                 /// PENDING
-                if (Mapper.checkCanLoopList(bzModel?.publication.pendings) == true)
+                if (
+                    onlyShowPublished == false
+                    &&
+                    Mapper.checkCanLoopList(bzModel?.publication.pendings) == true
+                )
                 Builder(
                   builder: (context) {
 
@@ -134,7 +143,11 @@ class ActivePhidSelector extends StatelessWidget {
                 }),
 
                 /// SUSPENDED
-                if (Mapper.checkCanLoopList(bzModel?.publication.suspended) == true)
+                if (
+                    onlyShowPublished == false
+                    &&
+                    Mapper.checkCanLoopList(bzModel?.publication.suspended) == true
+                )
                 Builder(
                   builder: (context) {
 

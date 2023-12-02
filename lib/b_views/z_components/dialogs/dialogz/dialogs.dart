@@ -1179,7 +1179,6 @@ class Dialogs {
           canTapSlide: false,
           canPinch: false,
           // canAnimateMatrix: true,
-          canUseFilter: false,
         ),
       ),
     );

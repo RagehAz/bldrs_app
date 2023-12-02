@@ -137,6 +137,7 @@ class GalleryHeader extends StatelessWidget {
                       mounted: mounted,
                       activePhid: activePhid,
                       stratosphere: false,
+                      onlyShowPublished: true,
                     ),
 
                 ],

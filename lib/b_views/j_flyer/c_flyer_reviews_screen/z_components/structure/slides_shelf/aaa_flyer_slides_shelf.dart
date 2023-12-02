@@ -63,7 +63,6 @@ class FlyerSlidesShelf extends StatelessWidget {
                 canTapSlide: false,
                 // canAnimateMatrix: true,
                 slideShadowIsOn: true,
-                canUseFilter: false,
                 canPinch: false,
               ),
             );
