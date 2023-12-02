@@ -25,18 +25,35 @@ import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 
 class FlyerPreviewScreen extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const FlyerPreviewScreen({
     required this.flyerID,
     this.reviewID,
     this.flyerModel,
     super.key,
   });
-  /// --------------------------------------------------------------------------
+  // -------------------------
   final String? flyerID;
   final String? reviewID;
   final FlyerModel? flyerModel;
-  /// --------------------------------------------------------------------------
+  // -------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> openFlyer({
+    required FlyerModel? flyerModel,
+  }) async {
+
+    if (flyerModel != null){
+      await BldrsNav.goToNewScreen(
+        pageTransitionType: PageTransitionType.bottomToTop,
+        screen: FlyerPreviewScreen(
+          flyerID: null,
+          flyerModel: flyerModel,
+        ),
+      );
+    }
+
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

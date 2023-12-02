@@ -1,6 +1,6 @@
 // import 'package:bldrs/a_models/flyer/flyer_model.dart';
 // import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-// import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_shelf.dart';
+// import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_shelf_bubble.dart';
 // import 'package:flutter/material.dart';
 //
 // class FlyersBubble extends StatelessWidget {

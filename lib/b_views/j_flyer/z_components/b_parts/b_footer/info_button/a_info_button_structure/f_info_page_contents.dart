@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
@@ -12,7 +13,7 @@ import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/l_pdf_screen/c_pdf_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/g_flyer_counters_and_records.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/phids_wrapper.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_main_details.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_paragraph.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_separator.dart';
@@ -107,7 +108,6 @@ class InfoPageContents extends StatelessWidget {
             child: Column(
               children: <Widget>[
 
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                 /// INFO HEADLINE
                 if (TextCheck.isEmpty(flyerModel?.description) == false)
                   InfoPageHeadline(
@@ -117,18 +117,20 @@ class InfoPageContents extends StatelessWidget {
                       translate: true,
                     ),
                   ),
+
                 /// INFO
                 if (TextCheck.isEmpty(flyerModel?.description) == false)
                   InfoPageParagraph(
                     pageWidth: _pageWidth,
                     flyerInfo: flyerModel!.description!,
                   ),
+
                 /// INFO LINE
                 if (TextCheck.isEmpty(flyerModel?.description) == false)
                   InfoPageSeparator( /// ------------------------- SEPARATOR
                     pageWidth: _pageWidth,
                   ),
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+
                 /// PDF BUTTON
                 if (flyerModel?.pdfPath != null)
                   FutureBuilder(
@@ -171,13 +173,13 @@ class InfoPageContents extends StatelessWidget {
 
                     },
                   ),
+
                 /// PDF LINE
                 if (flyerModel?.pdfPath != null)
                   InfoPageSeparator( /// ------------------------- SEPARATOR
                     pageWidth: _pageWidth,
                   ),
 
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                 /// KEYWORDS HEADLINE
                 if (Mapper.checkCanLoopList(flyerModel?.phids) == true)
                   InfoPageHeadline(
@@ -187,9 +189,10 @@ class InfoPageContents extends StatelessWidget {
                       translate: true,
                     ),
                   ),
+
                 /// KEYWORDS
                 if (Mapper.checkCanLoopList(flyerModel?.phids) == true)
-                  PhidsViewer(
+                  PhidsWrapper(
                     pageWidth: _pageWidth,
                     phids: flyerModel!.phids!,
                     onPhidTap: (String phid){
@@ -198,13 +201,15 @@ class InfoPageContents extends StatelessWidget {
                     onPhidLongTap: (String phid){
                       blog('info page contents : onPhidLongTap : phid: $phid');
                     },
+                    margins: const EdgeInsets.only(bottom: Ratioz.appBarMargin),
                   ),
+
                 /// KEYWORDS LINE
                 if (Mapper.checkCanLoopList(flyerModel?.phids) == true)
                   InfoPageSeparator( /// ------------------------- SEPARATOR
                     pageWidth: _pageWidth,
                   ),
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+
                 /// SPECS HEADLINE
                 if (Mapper.checkCanLoopList(flyerModel?.specs) == true)
                   InfoPageHeadline(
@@ -214,6 +219,7 @@ class InfoPageContents extends StatelessWidget {
                       translate: true,
                     ),
                   ),
+
                 /// SPECS
                 if (Mapper.checkCanLoopList(flyerModel?.specs) == true)
                   SpecsBuilder(
@@ -230,12 +236,13 @@ class InfoPageContents extends StatelessWidget {
                       unit?.blogSpec();
                     },
                   ),
+
                 /// SPECS LINE
                 if (Mapper.checkCanLoopList(flyerModel?.specs) == true)
                   InfoPageSeparator( /// ------------------------- SEPARATOR
                     pageWidth: _pageWidth,
                   ),
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+
                 /// COUNTERS
                 if (_userIsSignedIn == true)
                   FlyerCountersAndRecords(
@@ -243,12 +250,13 @@ class InfoPageContents extends StatelessWidget {
                   flyerModel: flyerModel,
                   flyerCounter: flyerCounter,
                 ),
+
                 /// COUNTERS LINE
                 if (_userIsSignedIn == true)
                   InfoPageSeparator( /// ------------------------- SEPARATOR
                   pageWidth: _pageWidth,
                 ),
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+
                 /// REPORT BUTTON
                 if (_userIsSignedIn == true)
                 Align(
@@ -262,12 +270,13 @@ class InfoPageContents extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 /// REPORT LINE
                 if (_userIsSignedIn == true)
                   InfoPageSeparator(
                   pageWidth: _pageWidth,
                 ),
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+
               ],
             ),
           ),
