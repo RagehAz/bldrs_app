@@ -76,7 +76,7 @@ class PhidsSelectorBubble extends StatelessWidget {
           /// SELECTED PHIDS
           if (Mapper.checkCanLoopList(draft?.phids) == true)
             PhidsWrapper(
-              pageWidth: _bubbleClearWidth,
+              width: _bubbleClearWidth,
               phids: draft?.phids ?? [],
               onPhidLongTap: onPhidLongTap,
               onPhidTap: onPhidTap,

@@ -130,7 +130,7 @@ class PickerTile extends StatelessWidget {
 
                       /// SELECTED SPECS BOX
                       SpecsWrapper(
-                        boxWidth: _specTileWidth - _specTileHeight,
+                        width: _specTileWidth - _specTileHeight,
                         specs: pickerSelectedSpecs,
                         picker: picker,
                         onSpecTap: onSpecTap,

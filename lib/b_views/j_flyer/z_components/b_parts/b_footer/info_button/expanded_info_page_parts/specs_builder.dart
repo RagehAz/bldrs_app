@@ -63,13 +63,14 @@ class SpecsBuilder extends StatelessWidget {
                   color: Colorz.white50,
                 ),
                 margin: const EdgeInsets.only(bottom: 2.5),
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
 
                     /// SPEC PICKER NAME
                     BldrsText(
+                      width: pageWidth - 20,
                       verse: Verse(
                         id: _picker?.chainID,
                         translate: true,
@@ -79,10 +80,12 @@ class SpecsBuilder extends StatelessWidget {
                       centered: false,
                       size: 1,
                       scaleFactor: 1.3,
+                      maxLines: 2,
                     ),
 
+                    /// SPECS
                     SpecsWrapper(
-                      boxWidth: pageWidth,
+                      width: pageWidth - 20,
                       specs: _specsOfThisPicker,
                       picker: _picker,
                       onSpecTap: onSpecTap,

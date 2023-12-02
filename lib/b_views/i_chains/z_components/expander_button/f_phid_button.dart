@@ -28,6 +28,8 @@ class PhidButton extends StatelessWidget {
     this.secondLine,
     this.onPhidDoubleTap,
     this.onPhidLongTap,
+    this.maxWidth,
+    this.height,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -44,6 +46,8 @@ class PhidButton extends StatelessWidget {
   final Function? onPhidTap;
   final Function? onPhidDoubleTap;
   final Function? onPhidLongTap;
+  final double? maxWidth;
+  final double? height;
   /// --------------------------------------------------------------------------
   static double getHeight(){
     return ChainButtonBox.sonHeight();
@@ -145,8 +149,9 @@ class PhidButton extends StatelessWidget {
       boxWidth: width,
       inverseAlignment: inverseAlignment,
       child: BldrsBox(
-        height: getHeight(),
+        height: height ?? getHeight(),
         width: width,
+        maxWidth: maxWidth,
         color: color,
         verse: _cleanVerse(),
         margins: margins,
