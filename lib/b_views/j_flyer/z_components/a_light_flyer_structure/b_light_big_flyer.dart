@@ -85,6 +85,8 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   late String _heroPath;
   // -----------------------------------------------------------------------------
+  final ValueNotifier<String?> _activePhid = ValueNotifier(null);
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
@@ -599,6 +601,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
               canAnimateSlides: true,
               canPinch: false,
               canUseFilter: false,
+              activePhid: _activePhid,
               showGallerySlide: canShowGalleryPage(
                 bzModel: flyerModel?.bzModel,
                 canShowGallerySlide: checkFlyerHeroTagHasGalleryFlyerID('flyer/${flyerModel?.id}'),
@@ -629,6 +632,8 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
               flyerModel: flyerModel,
               showGallerySlide: widget.showGallerySlide,
               progressBarModel: _progressBarModel,
+              mounted: mounted,
+              activePhid: _activePhid,
             ),
 
             /// FOOTER

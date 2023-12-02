@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -7,8 +8,7 @@ import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyers_shelf/flyers_shelf.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/bz_authors_bubble/bz_authors_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contacts_bubble.dart';
@@ -16,9 +16,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/paragraph_bubble/p
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_stats_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
@@ -40,16 +38,16 @@ class AboutBzBubbles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double flyerBoxWidth = FlyerDim.flyerGridVerticalScrollFlyerBoxWidth(
-      numberOfColumns: 2,
-      gridZoneWidth: Scale.screenWidth(context),
-    );
-    final double _spacing = FlyerDim.flyerGridGridSpacingValue(flyerBoxWidth);
-    final double _flyerHeight = FlyerDim.flyerHeightByFlyerWidth(
-      flyerBoxWidth: flyerBoxWidth,
-    );
-    final int _numberOfFlyers = bzModel?.publication.published.length ?? 0;
-    final double _gridHeight = (_flyerHeight + _spacing) * (_numberOfFlyers / 2).ceil();
+    // final double flyerBoxWidth = FlyerDim.flyerGridVerticalScrollFlyerBoxWidth(
+    //   numberOfColumns: 2,
+    //   gridZoneWidth: Scale.screenWidth(context),
+    // );
+    // final double _spacing = FlyerDim.flyerGridGridSpacingValue(flyerBoxWidth);
+    // final double _flyerHeight = FlyerDim.flyerHeightByFlyerWidth(
+    //   flyerBoxWidth: flyerBoxWidth,
+    // );
+    // final int _numberOfFlyers = bzModel?.publication.published.length ?? 0;
+    // final double _gridHeight = (_flyerHeight + _spacing) * (_numberOfFlyers / 2).ceil();
     final List<String> _scopePhids = ScopeModel.getPhids(bzModel?.scopes);
 
     return ListView(
@@ -138,38 +136,50 @@ class AboutBzBubbles extends StatelessWidget {
           bzModel: bzModel,
         ),
 
-        /// FLYERS GALLERY TITLE
-        if (showGallery == true && Mapper.checkCanLoopList(bzModel?.publication.published) == true)
-          Container(
-            width: Scale.screenWidth(context),
-            alignment: Alignment.center,
-            child: BldrsText(
-              width: Bubble.bubbleWidth(context: context),
-              verse: Verse(
-                id: '${getWord('phid_published_flyers_by')}\n${bzModel?.name}',
-                translate: false,
-              ),
-              centered: false,
-              maxLines: 4,
-              margin: 20,
-              size: 3,
-              appIsLTR: UiProvider.checkAppIsLeftToRight(),
-              textDirection: UiProvider.getAppTextDir(),
-            ),
-          ),
+        // /// FLYERS GALLERY TITLE
+        // if (showGallery == true && Mapper.checkCanLoopList(bzModel?.publication.published) == true)
+        //   Container(
+        //     width: Scale.screenWidth(context),
+        //     alignment: Alignment.center,
+        //     child: BldrsText(
+        //       width: Bubble.bubbleWidth(context: context),
+        //       verse: Verse(
+        //         id: '${getWord('phid_published_flyers_by')}\n${bzModel?.name}',
+        //         translate: false,
+        //       ),
+        //       centered: false,
+        //       maxLines: 4,
+        //       margin: 20,
+        //       size: 3,
+        //       appIsLTR: UiProvider.checkAppIsLeftToRight(),
+        //       textDirection: UiProvider.getAppTextDir(),
+        //     ),
+        //   ),
 
         /// BZ FLYERS
-        if (showGallery == true)
-          FlyersGrid(
-            flyersIDs: bzModel?.publication.published,
-            topPadding: 0,
-            screenName: 'BzAboutPageFlyersGrid',
-            gridHeight: _gridHeight,
-            scrollable: false,
-            gridType: FlyerGridType.jumper,
-            hasResponsiveSideMargin: true,
-            numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 4 : 2,
+        if (showGallery == true && Mapper.checkCanLoopList(bzModel?.publication.published) == true)
+        FlyersShelf(
+          flyerBoxWidth: Scale.screenShortestSide(context) * 0.3,
+          titleIcon: Iconz.flyerGrid,
+          titleVerse: Verse(
+            id: '${getWord('phid_published_flyers_by')} ${bzModel?.name}',
+            translate: false,
           ),
+          flyersIDs: bzModel?.publication.published ?? [],
+        ),
+
+        // /// BZ FLYERS
+        // if (showGallery == true)
+        //   FlyersGrid(
+        //     flyersIDs: bzModel?.publication.published,
+        //     topPadding: 0,
+        //     screenName: 'BzAboutPageFlyersGrid',
+        //     gridHeight: _gridHeight,
+        //     scrollable: false,
+        //     gridType: FlyerGridType.jumper,
+        //     hasResponsiveSideMargin: true,
+        //     numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 4 : 2,
+        //   ),
 
         // const Horizon(),
 

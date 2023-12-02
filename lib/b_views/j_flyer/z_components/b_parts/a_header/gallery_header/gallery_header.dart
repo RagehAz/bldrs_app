@@ -1,12 +1,17 @@
 import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/x_secondary/scope_model.dart';
+import 'package:bldrs/b_views/f_bz/z_components/active_phid_selector.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 class GalleryHeader extends StatelessWidget {
@@ -17,6 +22,8 @@ class GalleryHeader extends StatelessWidget {
     required this.progressBarModel,
     required this.flyerModel,
     required this.showGallerySlide,
+    required this.activePhid,
+    required this.mounted,
     super.key
   });
   //--------------------------------
@@ -25,6 +32,8 @@ class GalleryHeader extends StatelessWidget {
   final ValueNotifier<ProgressBarModel?> progressBarModel;
   final bool showGallerySlide;
   final FlyerModel? flyerModel;
+  final ValueNotifier<String?> activePhid;
+  final bool mounted;
   // -----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -73,6 +82,7 @@ class GalleryHeader extends StatelessWidget {
                 children: <Widget>[
 
                   /// ANOTHER FLYERS BY
+                  if (ScopeModel.checkBzHasMoreThanOnePhid(bzModel) == false)
                   BldrsText(
                     width: flyerBoxWidth * 0.8,
                     // maxLines: 1,
@@ -87,6 +97,7 @@ class GalleryHeader extends StatelessWidget {
                   ),
 
                   /// BZ NAME
+                  if (ScopeModel.checkBzHasMoreThanOnePhid(bzModel) == false)
                   BldrsText(
                     width: flyerBoxWidth * 0.8,
                     maxLines: 2,
@@ -96,6 +107,37 @@ class GalleryHeader extends StatelessWidget {
                     size: 3,
                     margin: 5,
                   ),
+
+                  /// ANOTHER FLYERS BY BZ NAME
+                  if (ScopeModel.checkBzHasMoreThanOnePhid(bzModel) == true)
+                  BldrsText(
+                    width: flyerBoxWidth  - (flyerBoxWidth * 0.04),
+                    // maxLines: 1,
+                    verse: Verse.plain(
+                      '${Localizer.translate('phid_another_flyers_by')} ${bzModel?.name ?? ''}',
+                    ),
+                    // size: 2,
+                    weight: VerseWeight.thin,
+                    italic: true,
+                    color: Colorz.yellow200,
+                    textDirection: UiProvider.getAppTextDir(),
+                    margin: EdgeInsets.only(
+                      top: flyerBoxWidth * 0.04,
+                      left:flyerBoxWidth * 0.02,
+                      right:flyerBoxWidth * 0.02,
+                    ),
+                  ),
+
+                  if (ScopeModel.checkBzHasMoreThanOnePhid(bzModel) == true)
+                    const Expander(),
+
+                  if (ScopeModel.checkBzHasMoreThanOnePhid(bzModel) == true)
+                    ActivePhidSelector(
+                      bzModel: bzModel,
+                      mounted: mounted,
+                      activePhid: activePhid,
+                      stratosphere: false,
+                    ),
 
                 ],
               ),
