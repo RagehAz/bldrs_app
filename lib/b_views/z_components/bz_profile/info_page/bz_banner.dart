@@ -59,6 +59,7 @@ class BzBanner extends StatelessWidget {
 
               /// NAME
               BldrsText(
+                maxWidth: _boxWidth - 20,
                 verse: Verse(
                   id: bzModel?.name ?? '',
                   translate: false,

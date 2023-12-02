@@ -72,6 +72,7 @@ class _BzFlyersPreviewScreenState extends State<BzFlyersPreviewScreen> with Sing
         id: '${getWord('phid_published_flyers_by')}\n${widget.bzModel?.name}',
         translate: false,
       ),
+      listenToHideLayout: true,
       child: BzFlyersPage(
         bzModel: widget.bzModel,
         activePhid: _activePhid,

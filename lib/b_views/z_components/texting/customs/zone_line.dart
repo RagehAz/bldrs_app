@@ -60,6 +60,7 @@ class ZoneLine extends StatelessWidget {
             ),
 
             BldrsText(
+              maxWidth: _width - 5 - flagSize - 30,
               width: centered == true ?
               null
                   :
@@ -71,7 +72,7 @@ class ZoneLine extends StatelessWidget {
               italic: true,
               color: textColor,
               margin: 5,
-              maxLines: 3,
+              // maxLines: 1,
               centered: false,
             ),
 
