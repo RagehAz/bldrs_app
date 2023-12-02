@@ -34,7 +34,7 @@ class BzScopeBubble extends StatelessWidget {
       columnChildren: <Widget>[
 
         PhidsWrapper(
-          pageWidth: Scale.screenWidth(context),
+          width: Bubble.bubbleWidth(context: context),
           phids: phids,
           onPhidTap: onPhidTap,
           onPhidLongTap: onPhidLongTap,

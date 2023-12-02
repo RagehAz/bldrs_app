@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
@@ -13,7 +14,7 @@ import 'package:flutter/material.dart';
 class SpecsWrapper extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SpecsWrapper({
-    required this.boxWidth,
+    required this.width,
     required this.specs,
     required this.onSpecTap,
     required this.onDeleteSpec,
@@ -24,7 +25,7 @@ class SpecsWrapper extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final double boxWidth;
+  final double width;
   final List<SpecModel> specs;
   final bool xIsOn;
   final PickerModel? picker;
@@ -115,8 +116,7 @@ class SpecsWrapper extends StatelessWidget {
     );
     // --------------------
     return Container(
-      width: boxWidth,
-      padding: Scale.superMargins(margin: padding),
+      width: width,
       child: Wrap(
         spacing: Ratioz.appBarPadding,
         children: <Widget>[
@@ -128,7 +128,7 @@ class SpecsWrapper extends StatelessWidget {
                   final SpecModel _spec = specs[index];
 
                   return SpecLabel(
-                    maxBoxWidth: boxWidth - (padding * 2),
+                    maxBoxWidth: width,
                     searchText: searchText,
                     xIsOn: xIsOn,
                     verse: Verse(
@@ -143,6 +143,7 @@ class SpecsWrapper extends StatelessWidget {
 
           if (_combineTwoSpecs == true)
             SpecLabel(
+              maxBoxWidth: width,
               xIsOn: xIsOn,
               searchText: searchText,
               verse: _getCombinedSpecsVerse(

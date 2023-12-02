@@ -1,4 +1,5 @@
 import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/model/bubble_header_vm.dart';
 import 'package:basics/bubbles/tile_bubble/tile_bubble.dart';
@@ -66,17 +67,19 @@ class SearchHistoryView extends StatelessWidget {
                     to: DateTime.now(),
                   ),
                   moreButtonIcon: Iconz.xSmall,
-                  moreButtonIconSizeFactor: 0.7,
+                  moreButtonIconSizeFactor: 0.5,
                   hasMoreButton: true,
                   onMoreButtonTap: () => onDeleteHistoryModel(_model),
                   headlineHeight: 25,
                   leadingIcon: Iconz.clock,
-                  leadingIconSizeFactor: 0.7,
+                  leadingIconSizeFactor: 0.5,
                 ),
                 child: SizedBox(
                   width: TileBubble.childWidth(context: context),
                   child: Wrap(
                     textDirection: UiProvider.getAppTextDir(),
+                    runSpacing: 5,
+                    spacing: 5,
                     children: <Widget>[
 
                       /// SEARCH TEXT

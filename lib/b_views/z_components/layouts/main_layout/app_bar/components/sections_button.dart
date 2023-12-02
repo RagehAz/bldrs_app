@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
@@ -108,77 +109,63 @@ class SectionsButton extends StatelessWidget {
         son: wallPhid,
       );
 
-      return Builder(
-        builder: (BuildContext context) => GestureDetector(
+      final double _maxBoxWidth = BldrsAppBar.width() - 20 - Ratioz.appBarButtonSize;
+      final double _maxTextWidth = _maxBoxWidth - 20 - Ratioz.appBarButtonSize;
+
+      return Material(
+        child: InkWell(
           onTap: onTap == null ? () => onSectionButtonTap() : () => onTap!(),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
+          splashColor: Colorz.yellow125,
+          borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
+          child: Container(
+            height: 40,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
+            ),
+            child: Row(
+              children: <Widget>[
 
-              IntrinsicWidth(
-                child: Container(
+                BldrsBox(
                   height: 40,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
-                  ),
-                  child: Row(
-                    children: <Widget>[
-
-                      BldrsBox(
-                        height: 40,
-                        width: 40,
-                        icon: _icon ?? Iconz.keywords,
-                        bubble: false,
-                        loading: _loadingChains,
-                      ),
-
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-
-                          /// 'Section' TITLE
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: BldrsText(
-                              verse: _loadingChains == true ? _loadingVerse : _titleVerse,
-                              size: 1,
-                              italic: true,
-                              color: Colorz.grey255,
-                              weight: VerseWeight.thin,
-                              centered: false,
-                            ),
-                          ),
-
-                          /// CURRENT SECTION NAME
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: <Widget>[
-                                BldrsText(
-                                  verse: _sectionVerse,
-                                  size: 1,
-                                  centered: false,
-                                  scaleFactor: 1.26,
-                                ),
-                              ],
-                            ),
-                          ),
-
-                        ],
-                      ),
-
-                    ],
-                  ),
+                  width: 40,
+                  icon: _icon ?? Iconz.keywords,
+                  bubble: false,
+                  loading: _loadingChains,
                 ),
-              ),
 
-            ],
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+
+                    /// 'Section' TITLE
+                    BldrsText(
+                      verse: _loadingChains == true ? _loadingVerse : _titleVerse,
+                      size: 1,
+                      italic: true,
+                      color: Colorz.grey255,
+                      weight: VerseWeight.thin,
+                      centered: false,
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      maxWidth: _maxTextWidth,
+                    ),
+
+                    /// CURRENT SECTION NAME
+                    BldrsText(
+                      verse: _sectionVerse,
+                      size: 1,
+                      centered: false,
+                      scaleFactor: 1.26,
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      maxWidth: _maxTextWidth,
+                    ),
+
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       );

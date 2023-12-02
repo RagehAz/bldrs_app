@@ -1,3 +1,4 @@
+import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
@@ -8,8 +9,10 @@ import 'package:bldrs/b_views/f_bz/z_components/active_phid_selector.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/auto_scrolling_bar.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BzFlyersPage extends StatelessWidget {
   // --------------------------------------------------------------------------
@@ -84,15 +87,24 @@ class BzFlyersPage extends StatelessWidget {
         ),
 
         if (ScopeModel.checkBzHasMoreThanOnePhid(bzModel) == true)
-        AutoScrollingBar(
-          scrollController: scrollController,
-          child: ActivePhidSelector(
-            bzModel: bzModel,
-            mounted: mounted,
-            activePhid: activePhid,
-            onlyShowPublished: onlyShowPublished,
-          ),
-        ),
+          Selector<UiProvider, bool>(
+              selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
+              builder: (_, bool isVisible, Widget? child) {
+                return WidgetFader(
+                  fadeType: isVisible == false ? FadeType.fadeOut : FadeType.fadeIn,
+                  duration: const Duration(milliseconds: 300),
+                  child: AutoScrollingBar(
+                    scrollController: scrollController,
+                    child: ActivePhidSelector(
+                      bzModel: bzModel,
+                      mounted: mounted,
+                      activePhid: activePhid,
+                      onlyShowPublished: onlyShowPublished,
+                    ),
+                  ),
+                );
+              }
+              ),
 
       ],
     );

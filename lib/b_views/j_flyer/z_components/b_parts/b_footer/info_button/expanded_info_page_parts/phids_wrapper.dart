@@ -8,7 +8,7 @@ class PhidsWrapper extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PhidsWrapper({
     required this.phids,
-    required this.pageWidth,
+    required this.width,
     required this.onPhidTap,
     required this.onPhidLongTap,
     this.margins = EdgeInsets.zero,
@@ -16,7 +16,7 @@ class PhidsWrapper extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final List<String> phids;
-  final double pageWidth;
+  final double width;
   final Function(String phid)? onPhidTap;
   final Function(String phid)? onPhidLongTap;
   final EdgeInsets margins;
@@ -44,6 +44,7 @@ class PhidsWrapper extends StatelessWidget {
             final String _phid = phids[index];
 
             return PhidButton(
+              maxWidth: width - 20,
               phid: _phid,
               color: Colorz.white50,
               inverseAlignment: false,
