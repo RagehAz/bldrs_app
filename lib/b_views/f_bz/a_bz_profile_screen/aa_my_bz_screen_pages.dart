@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_flyers_page/aaa1_bz_flyers_page.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/b_about_page/aaa2_bz_about_page.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page.dart';
@@ -16,6 +17,9 @@ class MyBzScreenPages extends StatelessWidget {
     required this.tabController,
     required this.scrollController,
     required this.zGridController,
+    required this.activePhid,
+    required this.mounted,
+    required this.bzModel,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -23,10 +27,16 @@ class MyBzScreenPages extends StatelessWidget {
   final TabController tabController;
   final ZGridController zGridController;
   final ScrollController scrollController;
+  final ValueNotifier<String?> activePhid;
+  final bool mounted;
+  final BzModel bzModel;
   /// --------------------------------------------------------------------------
   static List<Widget> pages({
     required ScrollController scrollController,
     required ZGridController zGridController,
+    required ValueNotifier<String?> activePhid,
+    required bool mounted,
+    required BzModel? bzModel,
   }){
     return <Widget>[
 
@@ -35,6 +45,9 @@ class MyBzScreenPages extends StatelessWidget {
     BzFlyersPage(
       zGridController: zGridController,
       scrollController: scrollController,
+      activePhid: activePhid,
+      mounted: mounted,
+      bzModel: bzModel,
     ),
 
     const BzTeamPage(),
@@ -61,6 +74,9 @@ class MyBzScreenPages extends StatelessWidget {
       children: pages(
         zGridController: zGridController,
         scrollController: scrollController,
+        activePhid: activePhid,
+        mounted: mounted,
+        bzModel: bzModel,
       ),
     );
 

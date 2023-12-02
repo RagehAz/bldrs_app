@@ -84,6 +84,8 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   final ValueNotifier<bool> _graphicIsOn = ValueNotifier(false);
   final ValueNotifier<double> _graphicOpacity = ValueNotifier(1);
   // -----------------------------------------------------------------------------
+  final ValueNotifier<String?> _activePhid = ValueNotifier(null);
+  // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(true);
   // --------------------
@@ -340,7 +342,6 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
       _graphicOpacity.dispose();
       _bzCounters.dispose();
     }
-
 
   }
   // -----------------------------------------------------------------------------
@@ -631,6 +632,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
                 canTapSlides: true,
                 showSlidesShadows: true,
                 canAnimateSlides: true,
+                activePhid: _activePhid,
                 onHorizontalExit: (){
                   // Nav.goBack(
                   //     context: context,
@@ -671,6 +673,8 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
                 flyerModel: flyerModel,
                 showGallerySlide: widget.showGallerySlide,
                 progressBarModel: _progressBarModel,
+                mounted: mounted,
+                activePhid: _activePhid,
               ),
 
               /// FOOTER

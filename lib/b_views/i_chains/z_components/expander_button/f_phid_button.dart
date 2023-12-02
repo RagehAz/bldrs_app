@@ -70,7 +70,9 @@ class PhidButton extends StatelessWidget {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  double _getVerseScaleFactor(){
+  static double getVerseScaleFactor({
+    required bool xIsOn,
+  }){
     double _scaleFactor;
 
     if (xIsOn == true){
@@ -151,7 +153,9 @@ class PhidButton extends StatelessWidget {
         // secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
         icon: _getIcon(),
         iconSizeFactor: _getIconScaleFactor(),
-        verseScaleFactor: _getVerseScaleFactor(),
+        verseScaleFactor: getVerseScaleFactor(
+          xIsOn: xIsOn,
+        ),
         verseCentered: false,
         verseMaxLines: secondLine == null ? 2 : 1,
         bubble: false,

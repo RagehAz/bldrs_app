@@ -26,15 +26,17 @@ class MyBzScreen extends StatefulWidget {
   });
   /// --------------------------------------------------------------------------
   final BzTab initialTab;
-
+  /// --------------------------------------------------------------------------
   @override
   State<MyBzScreen> createState() => _MyBzScreenState();
+  /// --------------------------------------------------------------------------
 }
 
 class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateMixin{
   // -----------------------------------------------------------------------------
   late ZGridController _zGridController;
   final ScrollController _scrollController = ScrollController();
+  final ValueNotifier<String?> _activePhid = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -52,6 +54,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
     /// SCROLL_CONTROLLER_IS_DISPOSED_IN_ZOOMABLE_GRID_CONTROLLER
     // _scrollController.dispose(); // so do not dispose here, kept for reference
     _zGridController.dispose();
+    _activePhid.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -113,9 +116,17 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
 
         else {
 
+          final BzModel? bzModel = BzzProvider.proGetActiveBzModel(
+            context: context,
+            listen: true,
+          );
+
           final List<Widget> _pages = MyBzScreenPages.pages(
             scrollController: _scrollController,
             zGridController: _zGridController,
+            activePhid: _activePhid,
+            mounted: mounted,
+            bzModel: bzModel,
           );
 
           return ObeliskLayout(
@@ -197,6 +208,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
                   iconSizeFactor: _bzTab == BzTab.about ? 1 : null,
                   screen: _pages[index],
                 );
+
               }),
             ],
           );
