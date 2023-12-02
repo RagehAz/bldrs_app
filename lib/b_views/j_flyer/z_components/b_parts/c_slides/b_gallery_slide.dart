@@ -2,6 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class GallerySlide extends StatelessWidget {
     required this.flyerModel,
     required this.bzModel,
     required this.onMaxBounce,
+    required this.activePhid,
     this.heroTag,
     super.key
   });
@@ -24,6 +26,7 @@ class GallerySlide extends StatelessWidget {
   final BzModel bzModel;
   final String? heroTag;
   final Function onMaxBounce;
+  final ValueNotifier<String?> activePhid;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -39,18 +42,29 @@ class GallerySlide extends StatelessWidget {
       isOn: false,
       child: Container(
         color: Colorz.blackSemi255,
-        child: FlyersGrid(
-          gridWidth: flyerBoxWidth,
-          gridHeight: flyerBoxHeight,
-          flyersIDs: bzModel.publication.published,
-          gridType: FlyerGridType.heroic,
-          topPadding: _headerAndProgressHeights,
-          bottomPadding: FlyerDim.flyerBottomCornerValue(flyerBoxWidth),
-          // numberOfColumns: 2,
-          screenName: heroTag ?? '',
-          // scrollController: _scrollController,
-          hasResponsiveSideMargin: false,
-          numberOfColumnsOrRows: 2,
+        child: ValueListenableBuilder(
+          valueListenable: activePhid,
+          builder: (_, String? _activePhid, Widget? child) {
+
+            return FlyersGrid(
+              gridWidth: flyerBoxWidth,
+              gridHeight: flyerBoxHeight,
+              flyersIDs: ScopeModel.getBzFlyersIDs(
+                bzModel: bzModel,
+                activePhid: _activePhid,
+                onlyShowPublished: true,
+              ),
+              gridType: FlyerGridType.heroic,
+              topPadding: _headerAndProgressHeights,
+              bottomPadding: FlyerDim.flyerBottomCornerValue(flyerBoxWidth),
+              // numberOfColumns: 2,
+              screenName: heroTag ?? '',
+              // scrollController: _scrollController,
+              hasResponsiveSideMargin: false,
+              numberOfColumnsOrRows: 2,
+            );
+
+          }
         ),
       ),
     );

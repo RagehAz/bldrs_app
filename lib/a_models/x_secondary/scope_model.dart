@@ -2,6 +2,7 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:flutter/foundation.dart';
 /// => TAMAM
 @immutable
@@ -159,6 +160,82 @@ class ScopeModel {
     }
 
     return _output;
+  }
+  // -------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getBzFlyersIDs({
+    required BzModel? bzModel,
+    required String? activePhid,
+    required bool onlyShowPublished,
+  }){
+    List<String> _output = [];
+
+    if (bzModel != null){
+
+      /// HAS MANY SCOPE PHIDS
+      if (checkBzHasMoreThanOnePhid(bzModel) == true){
+
+        /// SHOW ALL
+        if (activePhid == null){
+          _output = _getBzFlyersIDsReversedSortedByPublicationStandard(
+            bzModel: bzModel,
+          );
+        }
+
+        /// SHOW BY ACTIVE PHID
+        else {
+
+          _output = bzModel.scopes?.map[activePhid]?.reversed.toList() ?? [];
+
+          if (onlyShowPublished == true){
+
+            final List<String> _published = bzModel.publication.published.reversed.toList();
+            _output = Stringer.getSharedStrings(
+                strings1: _output,
+                strings2: _published,
+            );
+
+          }
+
+          else {
+            final String _pending = PublicationModel.getPublishStatePhid(PublishState.pending)!;
+            final String _suspended = PublicationModel.getPublishStatePhid(PublishState.suspended)!;
+
+            if (_pending == activePhid){
+              _output = bzModel.publication.pendings.reversed.toList();
+            }
+            else if (_suspended == activePhid){
+              _output = bzModel.publication.suspended.reversed.toList();
+            }
+          }
+
+        }
+
+      }
+
+      /// HAS ONE SCOPE PHID
+      else {
+        _output = _getBzFlyersIDsReversedSortedByPublicationStandard(
+          bzModel: bzModel,
+        );
+      }
+
+    }
+
+    return _output;
+  }
+  // -------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> _getBzFlyersIDsReversedSortedByPublicationStandard({
+    required BzModel? bzModel,
+  }){
+    return <String>[
+      ...?bzModel?.publication.suspended,
+      ...?bzModel?.publication.drafts,
+      ...?bzModel?.publication.unpublished,
+      ...?bzModel?.publication.pendings,
+      ...?bzModel?.publication.published,
+    ].reversed.toList();
   }
   // -----------------------------------------------------------------------------
 
@@ -354,6 +431,29 @@ class ScopeModel {
         string: flyerID,
     );
 
+  }
+  // -------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkBzHasMoreThanOnePhid(BzModel? bzModel) {
+    bool _output = false;
+
+    if (bzModel != null){
+
+      final ScopeModel? _scope = bzModel.scopes;
+
+      if (_scope != null){
+
+        final List<String> _phids = getPhids(_scope);
+
+        if (_phids.length > 1){
+          _output = true;
+        }
+
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

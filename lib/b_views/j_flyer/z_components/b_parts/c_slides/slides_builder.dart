@@ -35,6 +35,7 @@ class SlidesBuilder extends StatelessWidget {
     required this.canUseFilter,
     required this.showGallerySlide,
     required this.onVerticalExit,
+    required this.activePhid,
     this.onHorizontalExit,
     super.key
   });
@@ -60,6 +61,7 @@ class SlidesBuilder extends StatelessWidget {
   final bool canUseFilter;
   final bool canPinch;
   final bool showGallerySlide;
+  final ValueNotifier<String?> activePhid;
   // --------------------
   int concludeNumberOfPages(){
     final int _gallerySlideCount = showGallerySlide == true ? 1 : 0;
@@ -142,6 +144,7 @@ class SlidesBuilder extends StatelessWidget {
                 bzModel: flyerModel!.bzModel!,
                 heroTag: heroTag,
                 onMaxBounce: onVerticalExit!,
+                activePhid: activePhid,
               );
             }
 
