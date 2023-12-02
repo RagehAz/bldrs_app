@@ -21,7 +21,6 @@ class SlideImage extends StatelessWidget {
     required this.onDoubleTap,
     required this.canTapSlide,
     required this.canAnimateMatrix,
-    required this.canUseFilter,
     required this.canPinch,
     super.key
   });
@@ -36,7 +35,6 @@ class SlideImage extends StatelessWidget {
   final Function? onDoubleTap;
   final bool canTapSlide;
   final bool canAnimateMatrix;
-  final bool canUseFilter;
   final bool canPinch;
   /// --------------------------------------------------------------------------
   @override

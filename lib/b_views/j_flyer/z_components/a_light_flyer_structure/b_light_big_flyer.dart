@@ -600,7 +600,6 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
               showSlidesShadows: true,
               canAnimateSlides: true,
               canPinch: false,
-              canUseFilter: false,
               activePhid: _activePhid,
               showGallerySlide: canShowGalleryPage(
                 bzModel: flyerModel?.bzModel,

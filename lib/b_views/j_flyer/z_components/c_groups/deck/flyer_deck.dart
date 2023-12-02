@@ -444,7 +444,6 @@ class _TheDeck extends StatelessWidget {
                 slideShadowIsOn: true,
                 canTapSlide: false,
                 // canAnimateMatrix: true,
-                canUseFilter: false,
                 canPinch: false,
               ),
 
