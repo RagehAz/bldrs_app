@@ -32,7 +32,6 @@ class SlidesBuilder extends StatelessWidget {
     required this.showSlidesShadows,
     required this.canAnimateSlides,
     required this.canPinch,
-    required this.canUseFilter,
     required this.showGallerySlide,
     required this.onVerticalExit,
     required this.activePhid,
@@ -58,7 +57,6 @@ class SlidesBuilder extends StatelessWidget {
   final bool canTapSlides;
   final bool showSlidesShadows;
   final bool canAnimateSlides;
-  final bool canUseFilter;
   final bool canPinch;
   final bool showGallerySlide;
   final ValueNotifier<String?> activePhid;
@@ -124,7 +122,6 @@ class SlidesBuilder extends StatelessWidget {
                 canTapSlide: canTapSlides,
                 slideShadowIsOn: showSlidesShadows,
                 // canAnimateMatrix: _slide.animationCurve != null,// && canAnimateSlides == true,
-                canUseFilter: canUseFilter,
                 canPinch: canPinch,
               );
 

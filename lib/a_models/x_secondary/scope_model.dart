@@ -226,6 +226,50 @@ class ScopeModel {
   }
   // -------------------
   /// TESTED : WORKS PERFECT
+  static List<String> getBzFlyersPhids({
+    required BzModel? bzModel,
+    required bool onlyShowPublished,
+  }){
+    List<String> _output = [];
+
+    if (bzModel != null){
+
+      final List<String> _allPhids = bzModel.scopes?.map.keys.toList() ?? [];
+
+      if (onlyShowPublished == true){
+
+        final List<String> _publishedFlyersIDs = bzModel.publication.published.reversed.toList();
+
+        for (final String phid in _allPhids){
+
+          final List<String> _flyersIDs = ScopeModel.getFlyersIDsByPhid(
+              scope: bzModel.scopes,
+              phid: phid,
+          );
+
+          final List<String> _sharedIDs = Stringer.getSharedStrings(
+              strings1: _publishedFlyersIDs,
+              strings2: _flyersIDs,
+          );
+
+          if (Mapper.checkCanLoopList(_sharedIDs) == true){
+            _output.add(phid);
+          }
+
+        }
+
+      }
+
+      else {
+      _output = _allPhids;
+      }
+
+    }
+
+    return _output;
+  }
+  // -------------------
+  /// TESTED : WORKS PERFECT
   static List<String> _getBzFlyersIDsReversedSortedByPublicationStandard({
     required BzModel? bzModel,
   }){

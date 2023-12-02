@@ -4,7 +4,6 @@ import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_flyers_page/x1_bz_flyers_page_controllers.dart';
 import 'package:bldrs/b_views/f_bz/z_components/active_phid_selector.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/auto_scrolling_bar.dart';
@@ -20,6 +19,9 @@ class BzFlyersPage extends StatelessWidget {
     required this.activePhid,
     required this.mounted,
     required this.bzModel,
+    required this.onlyShowPublished,
+    this.showAddFlyerButton = false,
+    this.onFlyerOptionsTap,
     super.key
   });
   // --------------------------------
@@ -28,6 +30,9 @@ class BzFlyersPage extends StatelessWidget {
   final ValueNotifier<String?> activePhid;
   final bool mounted;
   final BzModel? bzModel;
+  final bool showAddFlyerButton;
+  final Function(FlyerModel flyer)? onFlyerOptionsTap;
+  final bool onlyShowPublished;
   // --------------------------------------------------------------------------
   double _getTopPadding(BzModel? bzModel){
 
@@ -66,10 +71,8 @@ class BzFlyersPage extends StatelessWidget {
               numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 4 : 2,
               bottomPadding: Ratioz.horizon,
               topPadding: _getTopPadding(bzModel),
-              showAddFlyerButton: true,
-              onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerBzOptionsTap(
-                flyer: flyerModel,
-              ),
+              showAddFlyerButton: showAddFlyerButton,
+              onFlyerOptionsTap: onFlyerOptionsTap,
               onFlyerNotFound: (String flyerID){
                 blog('BzFlyersPage : flyer is not found ($flyerID)');
               },
@@ -87,6 +90,7 @@ class BzFlyersPage extends StatelessWidget {
             bzModel: bzModel,
             mounted: mounted,
             activePhid: activePhid,
+            onlyShowPublished: onlyShowPublished,
           ),
         ),
 

@@ -26,7 +26,6 @@ class SmallFlyer extends StatelessWidget {
     this.flyerShadowIsOn = true,
     this.slideShadowIsOn = true,
     this.canAnimateMatrix = true,
-    this.canUseFilter = true,
     this.optionsButtonIsOn = false,
     this.slideIndex = 0,
     this.isRendering = false,
@@ -39,7 +38,6 @@ class SmallFlyer extends StatelessWidget {
   final bool flyerShadowIsOn;
   final bool slideShadowIsOn;
   final bool canAnimateMatrix;
-  final bool canUseFilter;
   final bool optionsButtonIsOn;
   final int slideIndex;
   final bool isRendering;
@@ -85,7 +83,6 @@ class SmallFlyer extends StatelessWidget {
                 canTapSlide: false,
                 slideShadowIsOn: slideShadowIsOn,
                 // canAnimateMatrix: canAnimateMatrix,
-                canUseFilter: canUseFilter,
                 canPinch: false,
               ),
 

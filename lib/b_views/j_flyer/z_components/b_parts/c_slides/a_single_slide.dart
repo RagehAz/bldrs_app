@@ -22,7 +22,6 @@ class SingleSlide extends StatelessWidget {
     required this.onDoubleTap,
     required this.canTapSlide,
     required this.slideShadowIsOn,
-    required this.canUseFilter,
     required this.canPinch,
     super.key
   });
@@ -38,7 +37,6 @@ class SingleSlide extends StatelessWidget {
   final Function? onDoubleTap;
   final bool slideShadowIsOn;
   final bool canTapSlide;
-  final bool canUseFilter;
   final bool canPinch;
   // --------------------------------------------------------------------------
   @override
@@ -87,7 +85,6 @@ class SingleSlide extends StatelessWidget {
             ifStatic: slidePicType,
           ),
           loading: loading,
-          canUseFilter: canUseFilter,
           canTapSlide: canTapSlide,
           onSlideNextTap: onSlideNextTap,
           onSlideBackTap: onSlideBackTap,

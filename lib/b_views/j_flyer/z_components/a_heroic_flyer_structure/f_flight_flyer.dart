@@ -77,7 +77,6 @@ class FlightFlyer extends StatelessWidget {
                     canTapSlide: false,
                     slideShadowIsOn: false,
                     // canAnimateMatrix: canAnimateMatrix,
-                    canUseFilter: false,
                     canPinch: false,
                   ),
 
