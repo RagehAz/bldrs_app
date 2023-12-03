@@ -62,6 +62,7 @@ class CreateNewBzButton extends StatelessWidget {
                 italic: true,
                 size: 3,
                 maxLines: 4,
+                scaleFactor: _buttonWidth * 0.0045,
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 weight: VerseWeight.black,
                 shadow: true,
@@ -76,7 +77,7 @@ class CreateNewBzButton extends StatelessWidget {
               bubbleWidth: _buttonWidth,
               centered: true,
               showBottomLine: false,
-              verseSizeFactor: 0.7,
+              verseSizeFactor: _buttonWidth * 0.0035,
               showDots: false,
               bulletPoints: const <Verse>[
 
