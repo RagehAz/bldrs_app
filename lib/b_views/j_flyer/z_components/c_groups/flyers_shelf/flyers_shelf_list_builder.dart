@@ -20,6 +20,7 @@ class FlyersShelfListBuilder extends StatelessWidget {
     required this.gridHeight,
     required this.shelfTitleVerse,
     this.lastSlideWidget,
+    this.flyerOnTap,
     super.key
   });
   // --------------------
@@ -29,6 +30,7 @@ class FlyersShelfListBuilder extends StatelessWidget {
   final double gridWidth;
   final double gridHeight;
   final Widget? lastSlideWidget;
+  final Function(FlyerModel? flyerModel)? flyerOnTap;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -86,9 +88,18 @@ class FlyersShelfListBuilder extends StatelessWidget {
                         // flyerShadowIsOn: true,
                         // isRendering: false,
                         // slideShadowIsOn: true,
-                        onTap: () => FlyerPreviewScreen.openFlyer(
-                          flyerModel: flyerModel,
-                        ),
+                        onTap: () async {
+
+                          if (flyerOnTap == null){
+                            await   FlyerPreviewScreen.openFlyer(
+                              flyerModel: flyerModel,
+                            );
+                          }
+                          else {
+                            flyerOnTap!(flyerModel);
+                          }
+
+                        },
                       );
                     }
 

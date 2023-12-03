@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyers_shelf/flyers_shelf_list_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
@@ -15,6 +16,7 @@ class FlyersShelfBubble extends StatelessWidget {
     this.titleVerse,
     this.titleIcon,
     this.lastSlideWidget,
+    this.flyerOnTap,
     super.key
   });
   // -------------------------
@@ -24,6 +26,7 @@ class FlyersShelfBubble extends StatelessWidget {
   final List<String> flyersIDs;
   final double? gridWidth;
   final Widget? lastSlideWidget;
+  final Function(FlyerModel? flyerModel)? flyerOnTap;
   // -------------------------
   static const double spacing = Ratioz.appBarMargin;
   static const double titleIconWidth = Ratioz.appBarButtonSize;
@@ -57,6 +60,7 @@ class FlyersShelfBubble extends StatelessWidget {
             flyerBoxWidth: flyerBoxWidth,
             gridHeight: _flyerHeight,
             gridWidth: _gridWidth,
+            flyerOnTap: flyerOnTap,
             lastSlideWidget: lastSlideWidget,
           ),
         ),
