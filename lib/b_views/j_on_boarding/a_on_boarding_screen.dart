@@ -105,7 +105,7 @@ class OnBoardingScreen extends StatefulWidget {
     return Scale.responsive(
         context: context,
         landscape: Scale.screenShortestSide(context) - 80,
-        portrait: Scale.screenWidth(context) - 110
+        portrait: Scale.screenWidth(context) - 50
     );
   }
   // --------------------
@@ -326,7 +326,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     final double _pagesZoneHeight = OnBoardingScreen.getPagesZoneHeight();
     final double _progressBarWidth = OnBoardingScreen.getProgressBarWidth();
     final double _buttonHeight = OnBoardingScreen.getButtonHeight();
-    final double _navButtonWidth = _bubbleWidth * 0.35;
+    final double _navButtonWidth = _bubbleWidth * 0.2;
     final double _middleButtonWidth = _bubbleWidth * 0.3;
 
     return MainLayout(
