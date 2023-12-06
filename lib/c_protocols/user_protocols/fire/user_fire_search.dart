@@ -54,6 +54,13 @@ class UserFireSearchOps{
               value: zoneModel?.cityID,
             ),
 
+          if (userSearchModel?.searchType == UserSearchType.byID && _canSearchText == true)
+            FireFinder(
+                field: 'id',
+                comparison: FireComparison.equalTo,
+                value: searchText?.trim(),
+            ),
+
           if (userSearchModel?.searchType == UserSearchType.byName && _canSearchText == true)
             FireFinder(
                 field: 'trigram',

@@ -33,6 +33,7 @@ class _FlyerSavesPaginatorState extends State<FlyerSavesPaginator> {
     super.initState();
 
     _paginatorController = PaginationController.initialize(
+      mounted: mounted,
       addExtraMapsAtEnd: true,
       // idFieldName: 'id',
       // onDataChanged: ,

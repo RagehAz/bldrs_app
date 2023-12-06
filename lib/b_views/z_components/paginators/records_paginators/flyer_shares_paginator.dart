@@ -34,6 +34,7 @@ class _FlyerSharesPaginatorState extends State<FlyerSharesPaginator> {
     super.initState();
 
     _paginatorController = PaginationController.initialize(
+      mounted: mounted,
       addExtraMapsAtEnd: true,
       // idFieldName: 'id',
       // onDataChanged: ,
