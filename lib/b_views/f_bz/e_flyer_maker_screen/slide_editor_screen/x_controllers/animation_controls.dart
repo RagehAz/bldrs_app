@@ -65,8 +65,6 @@ void initializeSlideAnimation({
     value: _initialMatrixIsIdentity == false || _initialMatrixFromIsIdentity == false,
   );
 
-  /// LISTEN TO TRANSFORMING
-  isTransforming.addListener(() => transformationListener(isTransforming, canResetMatrix, mounted));
 
 }
 // --------------------
@@ -76,7 +74,7 @@ Future<void> transformationListener(
     ValueNotifier<bool>canResetMatrix,
     bool mounted
     ) async {
-  isTransforming.addListener(() async {
+
     if (isTransforming.value  == true){
 
       if (canResetMatrix.value == false){
@@ -97,8 +95,8 @@ Future<void> transformationListener(
 
       });
     }
-  });
-}
+
+  }
 // -----------------------------------------------------------------------------
 
 /// ANIMATION - STILL - CURVE

@@ -151,6 +151,9 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   // --------------------
   @override
   void dispose() {
+
+    _removeDraftAuthorListener();
+
     _loading.dispose();
     _canPickImage.dispose();
 
@@ -195,23 +198,26 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _addSessionListeners(){
+    /// REMOVED
+    _draftAuthor.addListener(_draftAuthorListener);
+  }
+  // --------------------
+  void _removeDraftAuthorListener(){
+    _draftAuthor.removeListener(_draftAuthorListener);
+  }
+  // --------------------
+  Future<void> _draftAuthorListener() async {
+    _stripsListener();
 
-    _draftAuthor.addListener(() async {
+    _switchOnValidation();
 
-      _stripsListener();
-
-      _switchOnValidation();
-
-      await saveAuthorEditorSession(
-        context: context,
-        draftAuthor: _draftAuthor,
-        bzModel: widget.bzModel,
-        oldAuthor: _originalDraft,
-        mounted: mounted,
-      );
-
-    });
-
+    await saveAuthorEditorSession(
+      context: context,
+      draftAuthor: _draftAuthor,
+      bzModel: widget.bzModel,
+      oldAuthor: _originalDraft,
+      mounted: mounted,
+    );
   }
   // -----------------------------------------------------------------------------
 

@@ -165,6 +165,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   void dispose() {
     _loading.dispose();
     _searchController.dispose();
+    _removeIsPaginatingListeners();
     _flyersController.dispose();
     _bzzController.dispose();
     _usersController.dispose();
@@ -173,17 +174,30 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   }
   // -----------------------------------------------------------------------------
   void _listenToPaginationLoading(){
-    _flyersController.isPaginating.addListener(() {
-        _triggerLoading(setTo: _flyersController.isPaginating.value);
-    });
-
-    _bzzController.isPaginating.addListener(() {
-        _triggerLoading(setTo: _bzzController.isPaginating.value);
-    });
-
-    _usersController.isPaginating.addListener(() {
-        _triggerLoading(setTo: _usersController.isPaginating.value);
-    });
+    /// REMOVED
+    _flyersController.isPaginating.addListener(_flyerControllerListener);
+    /// REMOVED
+    _bzzController.isPaginating.addListener(_bzControllerListener);
+    /// REMOVED
+    _usersController.isPaginating.addListener(_usersControllerListener);
+  }
+  // --------------------
+  void _removeIsPaginatingListeners(){
+    _flyersController.isPaginating.removeListener(_flyerControllerListener);
+    _bzzController.isPaginating.removeListener(_bzControllerListener);
+    _usersController.isPaginating.removeListener(_usersControllerListener);
+  }
+  // --------------------
+  void _flyerControllerListener() {
+    _triggerLoading(setTo: _flyersController.isPaginating.value);
+  }
+  // --------------------
+  void _bzControllerListener(){
+    _triggerLoading(setTo: _bzzController.isPaginating.value);
+  }
+  // --------------------
+  void _usersControllerListener(){
+    _triggerLoading(setTo: _usersController.isPaginating.value);
   }
   // -----------------------------------------------------------------------------
   /// SEARCH TYPE

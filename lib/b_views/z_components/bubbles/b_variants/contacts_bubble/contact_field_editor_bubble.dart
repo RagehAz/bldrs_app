@@ -107,25 +107,8 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
     _textController = widget.textController ?? TextEditingController(text: widget.initialTextValue);
 
     if (widget.validator != null){
-
-      _textController.addListener(() {
-
-        final String? _message = widget.validator!.call(_textController.text);
-
-        if (_message != null){
-          setState(() {
-            _error = _message;
-          });
-        }
-
-        if (_message == null && _error != null){
-          setState(() {
-            _error = null;
-          });
-        }
-
-      });
-
+      /// REMOVED
+      _textController.addListener(_textControllerListener);
     }
 
 
@@ -133,6 +116,10 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
   // --------------------
   @override
   void dispose() {
+
+    if (widget.validator != null){
+      _textController.removeListener(_textControllerListener);
+    }
 
     if (widget.textController == null){
       _textController.dispose();
@@ -160,6 +147,32 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
     super.didUpdateWidget(oldWidget);
   }
   // --------------------------------------------------------------------------
+
+  /// TEXT CONTROLLER LISTENER
+
+  // --------------------
+  void _textControllerListener() {
+
+    final String? _message = widget.validator!.call(_textController.text);
+
+    if (_message != null){
+      setState(() {
+        _error = _message;
+      });
+    }
+
+    if (_message == null && _error != null){
+      setState(() {
+        _error = null;
+      });
+    }
+
+  }
+  // --------------------------------------------------------------------------
+
+  /// PASTE
+
+  // --------------------
   Future<void> _pasteFunction() async {
 
     final String? value = await TextClipBoard.paste();
