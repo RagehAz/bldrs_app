@@ -76,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
     _initializeKeyboard();
     _paginationController = PaginationController.initialize(
+      mounted: mounted,
       addExtraMapsAtEnd: true,
     );
 

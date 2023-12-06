@@ -59,6 +59,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
     super.initState();
 
     _paginationController = PaginationController.initialize(
+      mounted: mounted,
       addExtraMapsAtEnd: true,
     );
 

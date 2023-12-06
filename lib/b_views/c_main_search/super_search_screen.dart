@@ -118,14 +118,17 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     _userSearchModel = UserSearchModel.initialModel;
 
     _flyersController = PaginationController.initialize(
+      mounted: mounted,
       addExtraMapsAtEnd: true,
     );
 
     _bzzController = PaginationController.initialize(
+      mounted: mounted,
       addExtraMapsAtEnd: true,
     );
 
     _usersController = PaginationController.initialize(
+      mounted: mounted,
       addExtraMapsAtEnd: true,
     );
 
