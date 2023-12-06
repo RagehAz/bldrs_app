@@ -96,6 +96,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   // --------------------
   @override
   void dispose() {
+    _tabController.animation?.removeListener(_tabControllerListener);
     _tabController.dispose();
     _progressBarModel.dispose();
     _pageTitleVerse?.notifier?.dispose();
@@ -112,46 +113,48 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   /// TESTED : WORKS PERFECT
   void _initializeTabs(){
 
-      setNotifier(
-          notifier: _progressBarModel,
-          mounted: mounted,
+    setNotifier(
+      notifier: _progressBarModel,
+      mounted: mounted,
           value: ProgressBarModel(
             swipeDirection: SwipeDirection.next,
             index: widget.initialIndex,
             numberOfStrips: widget.navModels?.length ?? 1,
-
           ),
-      );
+    );
 
-      // blog('should go now to tab : ${widget.initialIndex}');
-      _tabController = TabController(
-        vsync: this,
-        length: widget.navModels?.length ?? 1,
-        initialIndex: widget.initialIndex,
-        animationDuration: const Duration(milliseconds: 250),
-      );
+    _tabController = TabController(
+      vsync: this,
+      length: widget.navModels?.length ?? 1,
+      initialIndex: widget.initialIndex,
+      animationDuration: const Duration(milliseconds: 250),
+    );
 
-      _tabController.animation?.addListener((){
+    /// REMOVED
+    _tabController.animation?.addListener(_tabControllerListener);
 
-        onChangeTabIndexWhileAnimation(
-          context: context,
-          tabController: _tabController,
-        );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _tabControllerListener(){
 
-        ProgressBarModel.onSwipe(
-          context: context,
-          newIndex: _tabController.index,
-          progressBarModel: _progressBarModel,
-          mounted: mounted,
-        );
+    onChangeTabIndexWhileAnimation(
+      context: context,
+      tabController: _tabController,
+    );
 
-        setNotifier(
-          notifier: _pageTitleVerse?.notifier,
-          mounted: mounted,
-          value: widget.navModels![_progressBarModel.value!.index].titleVerse?.id,
-        );
+    ProgressBarModel.onSwipe(
+      context: context,
+      newIndex: _tabController.index,
+      progressBarModel: _progressBarModel,
+      mounted: mounted,
+    );
 
-      });
+    setNotifier(
+      notifier: _pageTitleVerse?.notifier,
+      mounted: mounted,
+      value: widget.navModels![_progressBarModel.value!.index].titleVerse?.id,
+    );
 
   }
   // --------------------

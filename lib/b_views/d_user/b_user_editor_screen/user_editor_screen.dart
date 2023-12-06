@@ -157,7 +157,8 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
         }
         // -----------------------------
         if (mounted == true){
-          _addSessionListeners();
+          /// REMOVED
+          _draftUser.addListener(_draftUserListener);
         }
         // -----------------------------
         await _triggerLoading(setTo: false);
@@ -170,13 +171,12 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
   // --------------------
   @override
   void dispose() {
-
+    _draftUser.removeListener(_draftUserListener);
     _loading.dispose();
     _draftUser.value?.dispose();
     _draftUser.dispose();
     _pageController.dispose();
     _progressBarModel.dispose();
-
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -221,19 +221,19 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
       firstTimer: widget.firstTimer,
     );
   }
+  // -----------------------------------------------------------------------------
+
+  /// LISTENERS
+
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _addSessionListeners(){
+  Future<void> _draftUserListener() async {
 
-    /// ON DRAFT
-    _draftUser.addListener(() async {
-      // _switchOnValidation();
+    // _switchOnValidation();
 
-      _stripsListener();
+    _stripsListener();
 
-      await UserLDBOps.saveEditorSession(draft: _draftUser.value,);
-
-    });
+    await UserLDBOps.saveEditorSession(draft: _draftUser.value,);
 
   }
   // -----------------------------------------------------------------------------

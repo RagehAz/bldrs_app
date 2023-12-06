@@ -110,7 +110,8 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
         // -----------------------------
         /// ADD SESSION LISTENERS
         if (mounted == true){
-          _addSessionListeners();
+          /// REMOVED
+          _draftNotifier.addListener(_draftListener);
         }
         // -------------------------------
         /// LOAD LAST SESSION
@@ -139,6 +140,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   @override
   void dispose(){
 
+    _draftNotifier.removeListener(_draftListener);
     _slidesShelfScrollController.dispose();
     _loadingPage.dispose();
     _loadingSlides.dispose();
@@ -169,19 +171,15 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _addSessionListeners(){
+  Future<void> _draftListener() async {
 
-    _draftNotifier.addListener(() async {
+    _stripsListener();
 
-      _stripsListener();
+    _switchOnValidation();
 
-      _switchOnValidation();
-
-      await saveFlyerMakerSession(
-        draft: _draftNotifier,
-      );
-
-    });
+    await saveFlyerMakerSession(
+      draft: _draftNotifier,
+    );
 
   }
   // -----------------------------------------------------------------------------

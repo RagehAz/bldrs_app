@@ -128,15 +128,18 @@ class ZGridController {
       end: matrix,
     ).animate(zGridController.animation);
 
-    zGridController.animation.addListener(() {
+    void _listener(){
       zGridController.transformationController.value = _reset.value;
-    });
+    }
+
+    /// REMOVED
+    zGridController.animation.addListener(_listener);
 
     zGridController.animationController.reset();
 
     await zGridController.animationController.forward();
 
-    zGridController.animation.removeListener(() { });
+    zGridController.animation.removeListener(_listener);
   }
   // -----------------------------------------------------------------------------
 

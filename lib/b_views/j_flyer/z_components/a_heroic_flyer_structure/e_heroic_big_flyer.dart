@@ -204,7 +204,8 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
     /// FOR SLIDES
     _horizontalSlidesController = PageController(initialPage: _progressBarModel.value?.index ?? 0);
     // ----------
-    /// FOR FOOTER & PRICE TAG
+    /// REMOVED
+    // FOR FOOTER & PRICE TAG
     _horizontalSlidesController.addListener(_listenToHorizontalController);
     // ----------
     /// FOR SAVING GRAPHIC
@@ -325,6 +326,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
     if (widget.canBuild == true){
 
+      _horizontalSlidesController.removeListener(_listenToHorizontalController);
       _flyer.dispose();
       _loading.dispose();
       _progressBarModel.dispose();
