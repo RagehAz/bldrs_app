@@ -76,8 +76,8 @@ class BldrsAppStarter extends StatefulWidget {
   static void setLocale(BuildContext? context, Locale? locale) {
 
     if (locale != null){
-      final _BldrsAppStarterState? state = context?.findAncestorStateOfType<_BldrsAppStarterState>();
-      state?._setLocale(locale);
+      /// let's see if this works
+      context?.findAncestorStateOfType<_BldrsAppStarterState>()?._setLocale(locale);
     }
 
   }

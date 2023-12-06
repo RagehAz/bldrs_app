@@ -57,6 +57,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
   void initState() {
     super.initState();
     _paginationController = PaginationController.initialize(
+      mounted: mounted,
       addExtraMapsAtEnd: true,
       onDataChanged: _collectUnseenNotesToMarkAtDispose,
     );
@@ -164,9 +165,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     await Future.delayed(const Duration(milliseconds: 200), (){
 
-      _paginationController?.clear(
-        mounted: mounted,
-      );
+      _paginationController?.clear();
 
       setState(() {
         showNotes = true;
@@ -229,7 +228,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
                       context: context,
                       noteModel: _note,
                       paginationController: _paginationController,
-                      mounted: mounted,
                     ),
                     onCardTap: _onNoteTap(_note),
                   );

@@ -5,6 +5,7 @@ import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
 enum UserSearchType {
+  byID,
   byName,
   byEmail,
   byPhone,
@@ -49,6 +50,7 @@ class UserSearchModel {
 
   // --------------------
   static const List<UserSearchType> userSearchTypes = <UserSearchType>[
+    UserSearchType.byID,
     UserSearchType.byName,
     UserSearchType.byEmail,
     UserSearchType.byPhone,
