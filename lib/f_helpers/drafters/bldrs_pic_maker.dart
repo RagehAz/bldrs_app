@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/drafters/debuggers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/foundation.dart';
 
@@ -284,11 +285,16 @@ class BldrsPicMaker {
   /// TESTED : WORKS PERFECT
   static Future<void> onPickingError(String? error) async {
 
+    await throwStandardError(
+      invoker: 'BldrsPicMaker.onPickingError',
+      error: error,
+    );
+
     await Dialogs.centerNotice(
       verse: getVerse('phid_somethingWentWrong')!,
       body: getVerse('phid_please_try_again'),
     );
 
   }
-  // --------------------
+  // -----------------------------------------------------------------------------
 }
