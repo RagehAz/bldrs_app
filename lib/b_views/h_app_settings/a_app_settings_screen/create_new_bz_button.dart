@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -26,10 +25,11 @@ class CreateNewBzButton extends StatelessWidget {
     final UserModel? _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
     final bool _userIsOnline = Authing.userIsSignedUp(_userModel?.signInMethod);
     final double _buttonWidth = Scale.superWidth(context, 0.7);
+    const double _buttonHeight = 130;
 
     return SizedBox(
       width: _buttonWidth,
-      height: 130,
+      height: _buttonHeight,
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -47,45 +47,80 @@ class CreateNewBzButton extends StatelessWidget {
             ),
           ),
 
-          /// TEXT
-          Positioned(
-            top: 0,
-            child: Opacity(
-              opacity: _userIsOnline == true ? 1 : 0.5,
-              child: BldrsText(
-                width: _buttonWidth - 20,
-                verse: const Verse(
-                  id: 'phid_createBzAccount',
-                  translate: true,
-                  casing: Casing.upperCase,
+          /// TEXTS
+          SizedBox(
+            width: _buttonWidth,
+            height: _buttonHeight,
+            child: Column(
+              children: <Widget>[
+
+                SizedBox(
+                  width: _buttonWidth,
+                  height: _buttonHeight * 0.7,
+                  child: FittedBox(
+                    child: BldrsText(
+                      width: _buttonWidth - 20,
+                      verse: const Verse(
+                        id: 'phid_createBzAccount',
+                        translate: true,
+                        casing: Casing.upperCase,
+                      ),
+                      italic: true,
+                      size: 3,
+                      maxLines: 2,
+                      scaleFactor: _buttonWidth * 0.0045,
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      weight: VerseWeight.black,
+                      shadow: true,
+                      color: Colorz.yellow255,
+                    ),
+                  ),
                 ),
-                italic: true,
-                size: 3,
-                maxLines: 4,
-                scaleFactor: _buttonWidth * 0.0045,
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                weight: VerseWeight.black,
-                shadow: true,
-              ),
-            ),
-          ),
 
-          /// BULLETS
-          Positioned(
-            bottom: 0,
-            child: BldrsBulletPoints(
-              bubbleWidth: _buttonWidth,
-              centered: true,
-              showBottomLine: false,
-              verseSizeFactor: _buttonWidth * 0.0035,
-              showDots: false,
-              bulletPoints: const <Verse>[
 
-                Verse(id: 'phid_free_account_no_commissions', translate: true),
+                SizedBox(
+                  width: _buttonWidth,
+                  height: _buttonHeight * 0.15,
+                  child: const FittedBox(
+                    child: BldrsText(
+                      // width: _buttonWidth,
+                      verse: Verse(
+                        id: 'phid_free_account_no_commissions',
+                        translate: true,
+                      ),
+                      italic: true,
+                      size: 3,
+                      // maxLines: 1,
+                      // scaleFactor: _buttonWidth * 0.0045,
+                      margin: EdgeInsets.symmetric(horizontal: 30),
+                      weight: VerseWeight.thin,
+                      shadow: true,
+                      color: Colorz.blue255,
+                    ),
+                  ),
+                ),
 
-                // Verse(id: 'phid_no_deal_commissions', translate: true),
-
-                Verse(id: 'phid_account_addons_are_purchasable', translate: true),
+                SizedBox(
+                  width: _buttonWidth,
+                  height: _buttonHeight * 0.15,
+                  child: const FittedBox(
+                    child: BldrsText(
+                      // width: _buttonWidth,
+                      verse: Verse(
+                        id: 'phid_account_addons_are_purchasable',
+                        translate: true,
+                      ),
+                      italic: true,
+                      size: 3,
+                      // maxLines: 1,
+                      // scaleFactor: _buttonWidth * 0.0045,
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      weight: VerseWeight.thin,
+                      shadow: true,
+                      color: Colorz.blue255,
+                    ),
+                  ),
+                ),
 
               ],
             ),
