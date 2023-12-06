@@ -8,51 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:439018969330:android:eb5211399ceb6de403186b",
-        "android_client_info": {
-          "package_name": "com.bldrs.net"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "439018969330-gd0s8talc5michs970i9neofqc3c6lf6.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.bldrs.net",
-            "certificate_hash": "07e1f27c44635e1816db88ef036a932ee3555e33"
-          }
-        },
-        {
-          "client_id": "439018969330-askc9gq2d8mrv6k4n3u2heodkq1rfb3e.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD5IaZsHjj_rlagXm-9Hq0Epl7bEtdsmho"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "439018969330-askc9gq2d8mrv6k4n3u2heodkq1rfb3e.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "439018969330-o93if8djhfn3naftc361uker0s97n5oj.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.bldrs.net",
-                "app_store_id": "161803398875"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:439018969330:android:0eb854506c2df06e03186b",
         "android_client_info": {
           "package_name": "net.bldrs.app"
@@ -68,6 +23,22 @@
           }
         },
         {
+          "client_id": "439018969330-92f29togvqnhdabhg9p1840t2ianni84.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.bldrs.app",
+            "certificate_hash": "f32dfecb9ccb049695cc4cff6cbb59757f3f6588"
+          }
+        },
+        {
+          "client_id": "439018969330-o83g0cf35kojs13in793tpo6jgbt5ulf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.bldrs.app",
+            "certificate_hash": "4e2333711bece0f3189b9dba4ff59d48a076f573"
+          }
+        },
+        {
           "client_id": "439018969330-askc9gq2d8mrv6k4n3u2heodkq1rfb3e.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -85,10 +56,10 @@
               "client_type": 3
             },
             {
-              "client_id": "439018969330-o93if8djhfn3naftc361uker0s97n5oj.apps.googleusercontent.com",
+              "client_id": "439018969330-33bsolpevjpdhgtj0a382cl0lt0oc08f.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.bldrs.net",
+                "bundle_id": "net.bldrs.dashboard",
                 "app_store_id": "161803398875"
               }
             }
@@ -104,6 +75,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "439018969330-bdsffbi1u9sp5tujh51actsm17ju1q4i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.bldrs.dashboard",
+            "certificate_hash": "f32dfecb9ccb049695cc4cff6cbb59757f3f6588"
+          }
+        },
+        {
+          "client_id": "439018969330-g96i8fp720gpvh4jasbrgui6v8tj0d38.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.bldrs.dashboard",
+            "certificate_hash": "4e2333711bece0f3189b9dba4ff59d48a076f573"
+          }
+        },
         {
           "client_id": "439018969330-rtq83o9p7c8vtlq3gh132jn79vkqrvl5.apps.googleusercontent.com",
           "client_type": 1,
@@ -130,10 +117,10 @@
               "client_type": 3
             },
             {
-              "client_id": "439018969330-o93if8djhfn3naftc361uker0s97n5oj.apps.googleusercontent.com",
+              "client_id": "439018969330-33bsolpevjpdhgtj0a382cl0lt0oc08f.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.bldrs.net",
+                "bundle_id": "net.bldrs.dashboard",
                 "app_store_id": "161803398875"
               }
             }
