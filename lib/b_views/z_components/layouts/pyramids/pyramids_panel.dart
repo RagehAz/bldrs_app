@@ -15,23 +15,25 @@ class PyramidsPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-      return Padding(
-        padding: const EdgeInsets.only(right: 10, bottom: bottomMargin),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
+      return Material(
+        child: Padding(
+          padding: const EdgeInsets.only(right: 10, bottom: bottomMargin),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
 
-            /// EXTRA BUTTONS
-            if (Mapper.checkCanLoopList(pyramidButtons) == true)
-              ...List.generate(pyramidButtons!.length, (index){
+              /// EXTRA BUTTONS
+              if (Mapper.checkCanLoopList(pyramidButtons) == true)
+                ...List.generate(pyramidButtons!.length, (index){
 
-                return pyramidButtons![index];
+                  return pyramidButtons![index];
 
-              }),
+                }),
 
 
-          ],
+            ],
+          ),
         ),
       );
 

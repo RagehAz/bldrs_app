@@ -5,6 +5,7 @@ import 'package:basics/helpers/classes/permissions/permits.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -61,6 +62,7 @@ class BldrsPicMaker {
         confirmText: getWord('phid_continue'),
         compressWithQuality: compressWithQuality,
         onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
+        onError: onPickingError,
         // selectedAsset: selectedAsset,
       );
     }
@@ -76,6 +78,7 @@ class BldrsPicMaker {
         compressWithQuality: compressWithQuality,
         confirmText: getWord('phid_continue'),
         onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
+        onError: onPickingError,
       );
     }
 
@@ -120,6 +123,7 @@ class BldrsPicMaker {
       maxAssets: maxAssets,
       compressWithQuality: compressWithQuality,
       onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
+      onError: onPickingError,
       // selectedAssets: selectedAssets,
     );
 
@@ -273,4 +277,18 @@ class BldrsPicMaker {
 
   }
   // -----------------------------------------------------------------------------
+
+  /// PICKING ERROR
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> onPickingError(String? error) async {
+
+    await Dialogs.centerNotice(
+      verse: getVerse('phid_somethingWentWrong')!,
+      body: getVerse('phid_please_try_again'),
+    );
+
+  }
+  // --------------------
 }
