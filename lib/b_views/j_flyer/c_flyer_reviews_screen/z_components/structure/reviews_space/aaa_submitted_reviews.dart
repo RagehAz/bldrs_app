@@ -83,7 +83,8 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
         //   Formers.validateForm(_formKey);
         // }
         // -----------------------------
-        _createStateListeners();
+          /// REMOVED
+          _reviewTextController.addListener(_reviewControllerListener);
         // -------------------------------
           if (widget.highlightReviewID != null){
 
@@ -111,6 +112,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   // --------------------
   @override
   void dispose() {
+    _reviewTextController.removeListener(_reviewControllerListener);
     _loading.dispose();
     _reviewTextController.dispose();
     _paginationController.dispose();
@@ -118,16 +120,16 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+
+  /// LISTENER
+
+  // --------------------
   /// TESTED : WORKS PERFECT
-  void _createStateListeners(){
-    _reviewTextController.addListener(() async {
-
-      await saveReviewEditorSession(
-        flyerID: widget.flyerModel?.id,
-        reviewController: _reviewTextController,
-      );
-
-    });
+  Future<void> _reviewControllerListener() async {
+    await saveReviewEditorSession(
+      flyerID: widget.flyerModel?.id,
+      reviewController: _reviewTextController,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
