@@ -26,6 +26,7 @@ class _AutoScrollingBarState extends State<AutoScrollingBar> {
   @override
   void initState() {
 
+    /// REMOVED
     widget.scrollController.addListener(_scrollListener);
 
     super.initState();

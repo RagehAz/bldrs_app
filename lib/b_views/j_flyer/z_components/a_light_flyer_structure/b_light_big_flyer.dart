@@ -194,7 +194,8 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     _horizontalSlidesController = PageController(initialPage: _progressBarModel.value?.index ?? 0);
     // blog('horizontalSlidesController initial page : ${_progressBarModel?.value?.index}');
     // ----------
-    /// FOR FOOTER & PRICE TAG
+    /// REMOVED
+    // FOR FOOTER & PRICE TAG
     _horizontalSlidesController.addListener(_controlFooterScroll);
     // ----------
     /// FOR SAVING GRAPHIC
@@ -338,6 +339,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     /// TASK : DISPOSE_IMAGIFIED_FLYER_ISSUE
     // _flyer.value?.authorImage?.dispose();
     // ------->
+    _horizontalSlidesController.removeListener(_controlFooterScroll);
     _flyer.dispose();
     _loading.dispose();
     _progressBarModel.dispose();

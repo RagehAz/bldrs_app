@@ -138,6 +138,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
   // --------------------
   @override
   void dispose() {
+    _removeSessionListeners();
     draftNotifier.value?.disposeDraftBzFocusNodes();
     draftNotifier.value?.nameController?.dispose();
     draftNotifier.value?.aboutController?.dispose();
@@ -172,18 +173,33 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
     );
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// LISTENERS
+
   // --------------------
   /// TESTED : WORKS PERFECT
   void _addSessionListeners(){
-
-    draftNotifier.addListener(() async {
-      unawaited(_onDraftChanged());
-    });
-
-    draftNotifier.value?.nameController?.addListener(() async {
-      setState(() {});
-    });
-
+    /// REMOVED
+    draftNotifier.addListener(_draftListener);
+    /// REMOVED
+    draftNotifier.value?.nameController?.addListener(_nameControllerListener);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _removeSessionListeners(){
+    draftNotifier.removeListener(_draftListener);
+    draftNotifier.value?.nameController?.removeListener(_nameControllerListener);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _nameControllerListener() async {
+    setState(() {});
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _draftListener() async {
+    unawaited(_onDraftChanged());
   }
   // --------------------
   /// TESTED : WORKS PERFECT

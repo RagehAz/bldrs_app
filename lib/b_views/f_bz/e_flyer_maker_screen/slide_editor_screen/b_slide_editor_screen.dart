@@ -56,8 +56,11 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   // -----------------------------------------------------------------------------
   @override
   void initState() {
+
     super.initState();
+
     initializeTempSlide();
+
   }
   // --------------------
   bool _isInit = true;
@@ -79,30 +82,10 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     super.didChangeDependencies();
   }
   // --------------------
-  void initializeTempSlide(){
-
-    /// INITIALIZE ANIMATION
-    initializeSlideAnimation(
-      slide: widget.slide,
-      mounted: mounted,
-      draftSlideNotifier: _draftSlideNotifier,
-      matrixNotifier: _matrixNotifier,
-      matrixFromNotifier: _matrixFromNotifier,
-      canResetMatrix: _canResetMatrix,
-      isTransforming: _isTransforming,
-    );
-
-    /// INITIALIZE COLOR
-    setNotifier(
-      notifier: _slideBackColor,
-      mounted: mounted,
-      value: widget.slide?.backColor,
-    );
-
-  }
-  // --------------------
   @override
   void dispose() {
+
+    _removeTransformationListener();
 
     _draftSlideNotifier.dispose();
 
@@ -120,6 +103,59 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     _loadingColorPicker.dispose();
 
     super.dispose();
+  }
+  // -----------------------------------------------------------------------------
+
+  /// INITIALIZATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void initializeTempSlide(){
+
+    /// INITIALIZE ANIMATION
+    initializeSlideAnimation(
+      slide: widget.slide,
+      mounted: mounted,
+      draftSlideNotifier: _draftSlideNotifier,
+      matrixNotifier: _matrixNotifier,
+      matrixFromNotifier: _matrixFromNotifier,
+      canResetMatrix: _canResetMatrix,
+      isTransforming: _isTransforming,
+    );
+
+    _startTransformationListener();
+
+    /// INITIALIZE COLOR
+    setNotifier(
+      notifier: _slideBackColor,
+      mounted: mounted,
+      value: widget.slide?.backColor,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// TRANSFORMATION LISTENER
+
+  // --------------------
+  /// LISTEN TO TRANSFORMING
+  void _startTransformationListener(){
+    /// REMOVED
+    _isTransforming.addListener(_listenToTransformation);
+  }
+  // --------------------
+  /// REMOVE LISTENER
+  void _removeTransformationListener(){
+    _isTransforming.removeListener(_listenToTransformation);
+  }
+  // --------------------
+  /// TRANSFORMATION LISTENER
+  Future<void> _listenToTransformation() async {
+    await transformationListener(
+      _isTransforming,
+      _canResetMatrix,
+      mounted,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
