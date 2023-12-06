@@ -52,6 +52,18 @@ class Pyramids extends StatelessWidget {
   static const double rightMargin = 17 * 0.7;
   // --------------------
   static const double rightSpaceToCenterKhufu = 148.2 * 0.7;
+  static const double rightSpaceToCenterKhafre = 74.2 * 0.7;
+  static const khafreHeight = 66.4 * 0.7;
+  // --------------------
+  static const Offset khufuTip = Offset(
+    rightMargin + rightSpaceToCenterKhufu,
+    height,
+  );
+  // --------------------
+  static const Offset khafreTip = Offset(
+    rightMargin + rightSpaceToCenterKhafre,
+    khafreHeight,
+  );
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

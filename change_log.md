@@ -1,3 +1,10 @@
+### 2.17.0
+1. Image quality increased
+2. Ui updates in business preview screen
+3. added flyers keywords tab filters
+4. UI bug fixes
+5. database performance optimizations
+
 ### 2.16.0
 1. Bug fixes
 2. Ui, UX updates
