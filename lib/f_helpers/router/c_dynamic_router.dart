@@ -1,13 +1,13 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
+import 'package:bldrs/f_helpers/router/b_static_router.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class DynamicRouter {
   // -----------------------------------------------------------------------------
 
@@ -20,20 +20,15 @@ class DynamicRouter {
   // --------------------
   /// ROUTES_LIST
   static Future<void> goTo({
-    required String? route,
-    String? arguments,
+    required String? routeSettingsName,
+    required String? args,
   }) async {
     Future<void>? _goTo;
 
-    final String? _path = TextMod.removeTextAfterLastSpecialCharacter(
-      text: route,
-      specialCharacter: ':',
-    );
+    final String? _path = StaticRouter.getPathFromRouteSettingsName(routeSettingsName);
 
-    final String? _pathArg = TextMod.removeTextBeforeFirstSpecialCharacter(
-      text: route,
-      specialCharacter: ':',
-    );
+    final String? _pathArguments = StaticRouter.getArgFromRouteSettingsName(routeSettingsName);
+    final String? _args = args ?? _pathArguments;
 
     final BuildContext? _context = getMainContext();
 
@@ -124,7 +119,7 @@ class DynamicRouter {
         /// myBzAboutPage
         case RouteName.myBzAboutPage:
           _goTo = BldrsNav.goToMyBzScreen(
-            bzID: arguments,
+            bzID: _args,
             replaceCurrentScreen: false,
             initialTab: BzTab.about,
           ); break;
@@ -132,7 +127,7 @@ class DynamicRouter {
         /// myBzFlyersPage
         case RouteName.myBzFlyersPage:
           _goTo = BldrsNav.goToMyBzScreen(
-            bzID: arguments,
+            bzID: args,
             replaceCurrentScreen: false,
             // initialTab: BzTab.flyers, // default
           ); break;
@@ -140,7 +135,7 @@ class DynamicRouter {
         /// myBzTeamPage
         case RouteName.myBzTeamPage:
           _goTo = BldrsNav.goToMyBzScreen(
-            bzID: arguments,
+            bzID: args,
             replaceCurrentScreen: false,
             initialTab: BzTab.team,
           ); break;
@@ -148,7 +143,7 @@ class DynamicRouter {
         /// myBzNotesPage
         case RouteName.myBzNotesPage:
           _goTo = BldrsNav.goToMyBzScreen(
-            bzID: arguments,
+            bzID: args,
             replaceCurrentScreen: false,
             initialTab: BzTab.notes,
           ); break;
@@ -156,7 +151,7 @@ class DynamicRouter {
         /// myBzSettingsPage
         case RouteName.myBzSettingsPage:
           _goTo = BldrsNav.goToMyBzScreen(
-            bzID: arguments,
+            bzID: _args,
             replaceCurrentScreen: false,
             initialTab: BzTab.settings,
           ); break;
@@ -182,25 +177,25 @@ class DynamicRouter {
         /// userPreview
         case RouteName.userPreview:
           _goTo = BldrsNav.jumpToUserPreviewScreen(
-            userID: _pathArg,
+            userID: _args,
           ); break;
         // --------------------
         /// bzPreview
         case RouteName.bzPreview:
           _goTo = BldrsNav.jumpToBzPreviewScreen(
-            bzID: _pathArg,
+            bzID: _args,
           ); break;
         // --------------------
         /// flyerPreview
         case RouteName.flyerPreview:
           _goTo = BldrsNav.jumpToFlyerPreviewScreen(
-            flyerID: _pathArg,
+            flyerID: _args,
           ); break;
         // --------------------
         /// flyerReviews
         case RouteName.flyerReviews:
           _goTo = BldrsNav.jumpToFlyerReviewScreen(
-            flyerID_reviewID: _pathArg,
+            flyerID_reviewID: _args,
           ); break;
         // --------------------
         /// countryPreview
@@ -268,6 +263,13 @@ class DynamicRouter {
       blog('SCREEN [$count] : $text');
       count++;
     }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogSettings(RouteSettings settings){
+    blog('blogSettings : START');
+    blog('settings.name : ${settings.name}');
+    blog('settings.arguments : ${settings.arguments}');
   }
   // -----------------------------------------------------------------------------
 }

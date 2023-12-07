@@ -8,9 +8,8 @@ import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/z_noot_controller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
+/// => TAMAM
 class FCMStarter {
   // -----------------------------------------------------------------------------
 
@@ -23,12 +22,9 @@ class FCMStarter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool canInitializeFCM(){
-    if (kIsWeb == true || DeviceChecker.deviceIsWindows() == true){
-      return false;
-    }
-    else {
-      return DeviceChecker.deviceIsIOS() || DeviceChecker.deviceIsAndroid();
-    }
+
+    return DeviceChecker.deviceIsSmartPhone();
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -63,6 +59,7 @@ class FCMStarter {
   }) async {
 
       if (canInitializeFCM() == true) {
+
         /// FCM PERMISSION
         await FCM.requestFCMPermission();
 
@@ -301,7 +298,7 @@ class FCMStarter {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> pushGlobalNootFromReceivedNotification({
     required ReceivedNotification? rNoot,
     required String invoker,
@@ -377,5 +374,34 @@ class FCMStarter {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// DEPRECATED LISTENERS
+
+  // --------------------
+  /*
+  StreamSubscription? _action;
+  StreamSubscription? _created;
+  StreamSubscription? _dismissed;
+  StreamSubscription? _displayed;
+  // --------------------
+  void _initializeNootListeners() {
+    if (FCMStarter.canInitializeFCM() == true) {
+      _action = NootListener.listenToNootActionStream();
+      _created = NootListener.listenToNootCreatedStream();
+      // _dismissed = NootListener.listenToNootDismissedStream(); Unhandled Exception: Bad state: Stream has already been listened to.
+      _displayed = NootListener.listenToNootDisplayedStream();
+    }
+  }
+  // --------------------
+  void _closeNootListeners(){
+    if (FCMStarter.canInitializeFCM() == true) {
+      _action?.cancel();
+      _created?.cancel();
+      _dismissed?.cancel();
+      _displayed?.cancel();
+    }
+  }
+   */
   // -----------------------------------------------------------------------------
 }
