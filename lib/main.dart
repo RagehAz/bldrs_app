@@ -169,35 +169,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> with WidgetsBindingOb
     super.didChangeAppLifecycleState(state);
   }
   // -----------------------------------------------------------------------------
-  /// DEPRECATED
-  /*
-  /// NOOT STREAMS
-
-  // --------------------
-  StreamSubscription? _action;
-  StreamSubscription? _created;
-  StreamSubscription? _dismissed;
-  StreamSubscription? _displayed;
-  // --------------------
-  void _initializeNootListeners() {
-    if (FCMStarter.canInitializeFCM() == true) {
-      _action = NootListener.listenToNootActionStream();
-      _created = NootListener.listenToNootCreatedStream();
-      // _dismissed = NootListener.listenToNootDismissedStream(); Unhandled Exception: Bad state: Stream has already been listened to.
-      _displayed = NootListener.listenToNootDisplayedStream();
-    }
-  }
-  // --------------------
-  void _closeNootListeners(){
-    if (FCMStarter.canInitializeFCM() == true) {
-      _action?.cancel();
-      _created?.cancel();
-      _dismissed?.cancel();
-      _displayed?.cancel();
-    }
-  }
-   */
-  // -----------------------------------------------------------------------------
 
   /// LOCALE
 

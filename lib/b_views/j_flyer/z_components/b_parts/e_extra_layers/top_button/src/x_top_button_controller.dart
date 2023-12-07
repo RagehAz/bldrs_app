@@ -333,7 +333,7 @@ Verse generateLine_price_symbol({
     context: getMainContext(),
     currencyID: _currencyID,
     listen: false,
-  )?.symbol;
+  )?.symbol ?? '';
 
   final String _line = '$_price $_currencySymbol';
 
@@ -396,10 +396,10 @@ Verse? generateLine_current_price({
       fractions: _currency?.digits ?? 1,
     );
 
-    final String? _currencySymbol = CurrencyModel.getCurrencyISO3(
+    final String _currencySymbol = CurrencyModel.getCurrencyISO3(
       currencyID: _currency?.id,
       symbolOverride: CurrencyModel.basicSymbolsOverride,
-    );
+    ) ?? '';
 
     final String _line = '$_number $_currencySymbol';
 
@@ -432,10 +432,10 @@ Verse? generateLine_old_price({
       number: flyerModel.price?.old,
       fractions: _currency?.digits ?? 1,
     );
-    final String? _currencySymbol = CurrencyModel.getCurrencyISO3(
+    final String _currencySymbol = CurrencyModel.getCurrencyISO3(
       currencyID: _currency?.id,
       symbolOverride: CurrencyModel.basicSymbolsOverride,
-    );
+    ) ?? '';
 
     return Verse(
       id: '$_number $_currencySymbol ',
