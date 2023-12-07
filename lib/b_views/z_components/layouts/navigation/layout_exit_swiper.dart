@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/gestures.dart';
@@ -22,6 +23,10 @@ class LayoutExitSwiper extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     if (isOn == true && DeviceChecker.deviceIsSmartPhone() == true){
+
+      final bool _isLandScape = Scale.isLandScape(context);
+      final double _swipeThreshold = _isLandScape == true ? 0.1 : 0.35;
+
       return DismissiblePage(
         // key: ,
 
@@ -40,11 +45,11 @@ class LayoutExitSwiper extends StatelessWidget {
         // disabled: false,
 
         /// ANIMATION
-        dismissThresholds: const {
-          DismissiblePageDismissDirection.startToEnd: 0.6,
-          DismissiblePageDismissDirection.endToStart: 0.6,
+        dismissThresholds: {
+          DismissiblePageDismissDirection.startToEnd: _swipeThreshold,
+          DismissiblePageDismissDirection.endToStart: _swipeThreshold,
         },
-        dragSensitivity: 0.9,
+        dragSensitivity: 1,
         dragStartBehavior: DragStartBehavior.start,
         maxTransformValue: 1,
 
