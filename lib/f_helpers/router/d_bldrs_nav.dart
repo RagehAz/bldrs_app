@@ -588,9 +588,11 @@ class BldrsNav {
         notify: true,
       );
 
+      final String? _args = _afterHomeRoute.arguments as String?;
+
       await DynamicRouter.goTo(
-        route: _afterHomeRoute.name,
-        arguments: _afterHomeRoute.arguments as String?,
+        routeSettingsName: _afterHomeRoute.name,
+        args: _args,
       );
 
     }

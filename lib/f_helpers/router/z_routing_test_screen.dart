@@ -15,15 +15,15 @@ class RoutingTestScreen extends StatelessWidget {
     super.key
   });
   // --------------------------------------------------------------------------
-  Widget _goTo(String route, {bool good = false, String? args}) {
+  Widget _goTo(String routeSettingsName, {bool good = false, String? args}) {
     return WideButton(
-      verse: Verse.plain(route),
+      verse: Verse.plain(routeSettingsName),
       verseColor: good == true ? Colorz.green255 : Colorz.white200,
       onTap: () async {
 
         await DynamicRouter.goTo(
-          route: route,
-          arguments: args
+          routeSettingsName: routeSettingsName,
+          args: args
         );
 
         },
