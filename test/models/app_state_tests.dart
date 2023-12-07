@@ -1,4 +1,5 @@
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
+import 'package:bldrs/f_helpers/router/b_static_router.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -161,6 +162,45 @@ void main() {
         thanThis: localVersion,
       );
       expect(shouldUpdate, false);
+    });
+
+  });
+
+  group('xxxx', () {
+
+    test('a', () {
+      final String? _is = StaticRouter.getRouteSettingsNameFromFullPath('http://localhost:63065/#/home');
+      expect(_is, '/home');
+    });
+
+    test('b', () {
+      final String? _is = StaticRouter.getRouteSettingsNameFromFullPath('http://localhost:63065');
+      expect(_is, '/');
+    });
+
+    test('c', () {
+      final String? _is = StaticRouter.getRouteSettingsNameFromFullPath('http://localhost:63065/#/privacy');
+      expect(_is, '/privacy');
+    });
+
+    test('d', () {
+      final String? _is = StaticRouter.getRouteSettingsNameFromFullPath('http://localhost:63385/#/flyerPreview:0Vyr4hWSwdbH1EsbOC4P');
+      expect(_is, '/flyerPreview:0Vyr4hWSwdbH1EsbOC4P');
+    });
+
+    test('e', () {
+      final String? _is = StaticRouter.getRouteSettingsNameFromFullPath('https://www.bldrs.net/');
+      expect(_is, '/');
+    });
+
+    test('f', () {
+      final String? _is = StaticRouter.getRouteSettingsNameFromFullPath('https://www.bldrs.net/#/home');
+      expect(_is, '/home');
+    });
+
+    test('g', () {
+      final String? _is = StaticRouter.getRouteSettingsNameFromFullPath('https://www.bldrs.net/#/flyerPreview:0Vyr4hWSwdbH1EsbOC4P');
+      expect(_is, '/flyerPreview:0Vyr4hWSwdbH1EsbOC4P');
     });
 
   });
