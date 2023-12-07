@@ -384,13 +384,13 @@ class StaticRouter {
   /// FROM WINDOW URL
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String? getPathFromWindowURL(String? fullPath){
     final String? settingsName = getRouteSettingsNameFromFullPath(fullPath);
     return getPathFromRouteSettingsName(settingsName);
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String? getArgFromWindowURL(String? fullPath){
     final String? settingsName = getRouteSettingsNameFromFullPath(fullPath);
     return getArgFromRouteSettingsName(settingsName);
