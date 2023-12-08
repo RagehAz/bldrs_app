@@ -12,13 +12,13 @@ void setDraftFlyerSlideMatrixes({
   required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
   required bool mounted,
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
-  required ValueNotifier<Matrix4?> matrixNotifier,
-  required ValueNotifier<Matrix4?> matrixFromNotifier,
+  required Matrix4? matrix,
+  required Matrix4? matrixFrom,
 }){
 
   final DraftSlide? _slide = draftSlideNotifier.value?.copyWith(
-    matrix: matrixNotifier.value,
-    matrixFrom: matrixFromNotifier.value,
+    matrix: matrix,
+    matrixFrom: matrixFrom,
   );
 
   if (_slide != null){

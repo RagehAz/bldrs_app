@@ -1,9 +1,9 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/x_controllers/color_controls.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/x_controllers/main_controls.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -17,14 +17,14 @@ void initializeSlideAnimation({
   required bool mounted,
   required ValueNotifier<Matrix4?> matrixNotifier,
   required ValueNotifier<Matrix4?> matrixFromNotifier,
-  required ValueNotifier<bool> canResetMatrix,
   required ValueNotifier<bool> isTransforming,
+  required double flyerBoxWidth,
 }){
 
   /// INITIALIZE TEMP SLIDE
   final DraftSlide? _initialSlide = slide?.copyWith(
-    matrix: slide.matrix ?? Matrix4.identity(),
-    matrixFrom: slide.matrixFrom ?? Matrix4.identity(),
+    matrix: slide.matrix ?? DraftSlide.createInitialMatrix(isMatrixFrom: false, flyerBoxWidth: flyerBoxWidth),
+    matrixFrom: slide.matrixFrom ?? DraftSlide.createInitialMatrix(isMatrixFrom: true, flyerBoxWidth: flyerBoxWidth),
   );
 
   /// SET DRAFT
@@ -48,42 +48,15 @@ void initializeSlideAnimation({
     value: _initialSlide?.matrixFrom,
   );
 
-  final bool _initialMatrixIsIdentity = Trinity.checkMatrixesAreIdentical(
-    matrix1: draftSlideNotifier.value?.matrix,
-    matrixReloaded: Matrix4.identity(),
-  );
-
-  final bool _initialMatrixFromIsIdentity = Trinity.checkMatrixesAreIdentical(
-    matrix1: draftSlideNotifier.value?.matrixFrom,
-    matrixReloaded: Matrix4.identity(),
-  );
-
-  /// SET CAN RESET
-  setNotifier(
-    notifier: canResetMatrix,
-    mounted: mounted,
-    value: _initialMatrixIsIdentity == false || _initialMatrixFromIsIdentity == false,
-  );
-
-
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> transformationListener(
-    ValueNotifier<bool> isTransforming,
-    ValueNotifier<bool>canResetMatrix,
-    bool mounted
-    ) async {
+Future<void> transformationListener({
+  required ValueNotifier<bool> isTransforming,
+  required bool mounted,
+}) async {
 
     if (isTransforming.value  == true){
-
-      if (canResetMatrix.value == false){
-        setNotifier(
-          notifier: canResetMatrix,
-          mounted: mounted,
-          value: true,
-        );
-      }
 
       await Future.delayed(const Duration(seconds: 1), (){
 
@@ -150,53 +123,33 @@ void onTriggerAnimationPanel({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onTriggerSlideIsAnimated({
-  required ValueNotifier<DraftSlide?> draftNotifier,
-  required ValueNotifier<bool> canResetMatrix,
+  required ValueNotifier<DraftSlide?> draftSlideNotifier,
+  required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
   required ValueNotifier<bool> isPlayingAnimation,
   required ValueNotifier<bool> isDoingMatrixFrom,
   required bool mounted,
 }){
 
-  final Curve? _oldCurve = draftNotifier.value?.animationCurve;
+  final Curve? _oldCurve = draftSlideNotifier.value?.animationCurve;
   final Curve? _newCurve = _oldCurve == Curves.easeInOut ? null : Curves.easeInOut;
-
-  setSlideIsAnimated(
-    isDoingMatrixFrom: isDoingMatrixFrom,
-    mounted: mounted,
-    isPlayingAnimation: isPlayingAnimation,
-    draftNotifier: draftNotifier,
-    curve: _newCurve,
-  );
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-void setSlideIsAnimated({
-  required Curve? curve,
-  required ValueNotifier<DraftSlide?> draftNotifier,
-  required bool mounted,
-  required ValueNotifier<bool> isPlayingAnimation,
-  required ValueNotifier<bool> isDoingMatrixFrom,
-}){
-
-  final Curve? _newCurve = curve;
 
   DraftSlide? _newSlide;
   if (_newCurve == null){
-    _newSlide = draftNotifier.value?.nullifyField(
+    _newSlide = draftSlideNotifier.value?.nullifyField(
       animationCurve: true,
     );
   }
   else {
-    _newSlide = draftNotifier.value?.copyWith(
+    _newSlide = draftSlideNotifier.value?.copyWith(
       animationCurve: _newCurve,
     );
   }
 
-  setNotifier(
-      notifier: draftNotifier,
-      mounted: mounted,
-      value: _newSlide,
+  setFlyerAndSlide(
+    mounted: mounted,
+    draftFlyerNotifier: draftFlyerNotifier,
+    draftSlideNotifier: draftSlideNotifier,
+    draftSlide: _newSlide,
   );
 
   stopAnimation(
@@ -209,6 +162,18 @@ void setSlideIsAnimated({
     mounted: mounted,
     value: _newCurve != null,
   );
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+void setSlideIsAnimated({
+  required Curve? curve,
+  required ValueNotifier<DraftSlide?> draftSlideNotifier,
+  required bool mounted,
+  required ValueNotifier<bool> isPlayingAnimation,
+  required ValueNotifier<bool> isDoingMatrixFrom,
+}){
+
 
 
 }
@@ -223,16 +188,16 @@ void onPlayTap({
   required bool mounted,
   required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
-  required ValueNotifier<Matrix4?> matrixNotifier,
-  required ValueNotifier<Matrix4?> matrixFromNotifier,
+  required Matrix4? matrix,
+  required Matrix4? matrixFrom,
   required ValueNotifier<bool> isDoingMatrixFrom,
 }){
 
   /// SET SLIDE
   setDraftFlyerSlideMatrixes(
     mounted: mounted,
-    matrixNotifier: matrixNotifier,
-    matrixFromNotifier: matrixFromNotifier,
+    matrix: matrix,
+    matrixFrom: matrixFrom,
     draftFlyerNotifier: draftFlyerNotifier,
     draftSlideNotifier: draftSlideNotifier,
   );
@@ -256,14 +221,14 @@ void onPlayTap({
 /// TESTED : WORKS PERFECT
 void onReplayAnimation({
   required ValueNotifier<DraftSlide?> draftNotifier,
-  required ValueNotifier<bool> canResetMatrix,
   required ValueNotifier<bool> isPlayingAnimation,
   required bool mounted,
 }){
 
+  Keyboard.closeKeyboard();
+
   if (
   // isPlayingAnimation.value == false && // to allow reanimate when playing
-  canResetMatrix.value == true &&
       draftNotifier.value?.animationCurve != null
   ){
 
@@ -315,9 +280,9 @@ Future<void> onAnimationEnds({
 /// TESTED : WORKS PERFECT
 Future<void> onResetMatrix({
   required DraftSlide? originalDraft,
+  required ValueNotifier<bool> isPlayingAnimation,
   required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
-  required ValueNotifier<bool> canResetMatrix,
   required ValueNotifier<Matrix4?> matrixNotifier,
   required ValueNotifier<Matrix4?> matrixFromNotifier,
   required bool mounted,
@@ -341,19 +306,39 @@ Future<void> onResetMatrix({
 
   if (_go == true){
 
-    final Matrix4 _matrix = Matrix4.identity();
-    final Matrix4 _matrixFrom = Trinity.slightlyZoomed(
+    /// SWITCH OFF ANIMATION IF PLAYING
+    if (isPlayingAnimation.value == true){
+      setNotifier(
+        notifier: isPlayingAnimation,
+        mounted: mounted,
+        value: false,
+      );
+    }
+
+    final Matrix4 _matrix = DraftSlide.createInitialMatrix(
+        isMatrixFrom: false,
         flyerBoxWidth: flyerBoxWidth,
-        flyerBoxHeight: flyerBoxHeight
+    );
+    final Matrix4 _matrixFrom = DraftSlide.createInitialMatrix(
+        isMatrixFrom: true,
+        flyerBoxWidth: flyerBoxWidth,
     );
 
-    setNotifier(
-        notifier: draftSlideNotifier,
+    /// TO LET THE SLIDE TRANSFORMER REBUILD MrAnderson
+    if (draftSlideNotifier.value?.animationCurve == null){
+      setNotifier(
+        notifier: isPlayingAnimation,
         mounted: mounted,
-        value: draftSlideNotifier.value?.copyWith(
-          matrix: _matrix,
-          matrixFrom: _matrixFrom,
-        )
+        value: true,
+      );
+    }
+
+    setDraftFlyerSlideMatrixes(
+      draftFlyerNotifier: draftFlyerNotifier,
+      draftSlideNotifier: draftSlideNotifier,
+      matrix: _matrix,
+      matrixFrom: _matrixFrom,
+      mounted: mounted,
     );
 
     setNotifier(
@@ -368,19 +353,24 @@ Future<void> onResetMatrix({
       value: _matrixFrom,
     );
 
-    setDraftFlyerSlideMatrixes(
-      draftFlyerNotifier: draftFlyerNotifier,
-      draftSlideNotifier: draftSlideNotifier,
-      matrixNotifier: matrixNotifier,
-      matrixFromNotifier: matrixFromNotifier,
-      mounted: mounted,
-    );
+    /// TO LET THE SLIDE TRANSFORMER REBUILD MrAnderson
+    if (draftSlideNotifier.value?.animationCurve == null){
+      await Future.delayed(const Duration(milliseconds: 100));
+      setNotifier(
+        notifier: isPlayingAnimation,
+        mounted: mounted,
+        value: false,
+      );
+    }
 
-    setNotifier(
-      notifier: canResetMatrix,
-      mounted: mounted,
-      value: false,
-    );
+    /// SWITCH ON ANIMATION IF NOT STILL SLIDE
+    if (draftSlideNotifier.value?.animationCurve != null){
+      setNotifier(
+        notifier: isPlayingAnimation,
+        mounted: mounted,
+        value: true,
+      );
+    }
 
   }
 
@@ -397,15 +387,15 @@ void onFromTap({
   required bool mounted,
   required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
-  required ValueNotifier<Matrix4?> matrixNotifier,
-  required ValueNotifier<Matrix4?> matrixFromNotifier,
+  required Matrix4? matrix,
+  required Matrix4? matrixFrom,
 }){
 
   /// SET SLIDE
   setDraftFlyerSlideMatrixes(
     mounted: mounted,
-    matrixNotifier: matrixNotifier,
-    matrixFromNotifier: matrixFromNotifier,
+    matrix: matrix,
+    matrixFrom: matrixFrom,
     draftFlyerNotifier: draftFlyerNotifier,
     draftSlideNotifier: draftSlideNotifier,
   );
@@ -435,15 +425,15 @@ void onToTap({
   required bool mounted,
   required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
-  required ValueNotifier<Matrix4?> matrixNotifier,
-  required ValueNotifier<Matrix4?> matrixFromNotifier,
+  required Matrix4? matrix,
+  required Matrix4? matrixFrom,
 }){
 
   /// SET SLIDE
   setDraftFlyerSlideMatrixes(
     mounted: mounted,
-    matrixNotifier: matrixNotifier,
-    matrixFromNotifier: matrixFromNotifier,
+    matrix: matrix,
+    matrixFrom: matrixFrom,
     draftFlyerNotifier: draftFlyerNotifier,
     draftSlideNotifier: draftSlideNotifier,
   );

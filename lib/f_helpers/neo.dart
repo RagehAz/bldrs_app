@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/widgets.dart';
 
 typedef MatrixGestureDetectorCallback = void Function(
@@ -109,7 +108,32 @@ class _MrAndersonState extends State<MrAnderson> {
   @override
   void initState() {
     super.initState();
+
+    _initialize();
+
+  }
+  // -----------------------------------------------------------------------------
+  @override
+  void didUpdateWidget(MrAnderson oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // if (oldWidget.key != widget.key) {
+    //   setState(() {
+    //     _initialize();
+    //   });
+    // }
+  }
+  // -----------------------------------------------------------------------------
+
+  /// INITIALIZATION
+
+  // --------------------
+  void _initialize(){
+
     if (widget.initialMatrix != null) {
+
+      // translationDeltaMatrix = Matrix4.identity();
+      // scaleDeltaMatrix = Matrix4.identity();
+      // rotationDeltaMatrix = Matrix4.identity();
       matrix = widget.initialMatrix!;
 
       // Trinity.blogMatrix(
@@ -123,6 +147,10 @@ class _MrAndersonState extends State<MrAnderson> {
     }
   }
   // -----------------------------------------------------------------------------
+
+  /// VALUE UPDATERS
+
+  // --------------------
   _ValueUpdater<Offset> translationUpdater = _ValueUpdater(
     onUpdate: (oldVal, newVal) => newVal - (oldVal ?? Offset.zero),
   );
@@ -135,6 +163,10 @@ class _MrAndersonState extends State<MrAnderson> {
     onUpdate: (oldVal, newVal) => newVal - (oldVal ?? 0),
   );
   // -----------------------------------------------------------------------------
+
+  /// ON SCALING
+
+  // --------------------
   void onScaleStart(ScaleStartDetails details) {
     translationUpdater.value = details.focalPoint;
     scaleUpdater.value = 1.0;
@@ -194,6 +226,10 @@ class _MrAndersonState extends State<MrAnderson> {
 
     widget.onMatrixUpdate(matrix, _translationDelta, _scaleDelta, _rotationDelta);
   }
+  // -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
   // --------------------
   Matrix4 _translate(Offset translation) {
     final double dx = translation.dx;

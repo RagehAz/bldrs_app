@@ -16,8 +16,8 @@ import 'package:flutter/material.dart';
 Future<void> onGoNextSlide({
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
   required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
-  required ValueNotifier<Matrix4?> matrixNotifier,
-  required ValueNotifier<Matrix4?> matrixFromNotifier,
+  required Matrix4? matrix,
+  required Matrix4? matrixFrom,
   required ValueNotifier<bool> isPickingBackColor,
   required ValueNotifier<Color?> slideBackColor,
   required DraftSlide nextSlide,
@@ -36,8 +36,8 @@ Future<void> onGoNextSlide({
 
   setDraftFlyerSlideMatrixes(
     draftFlyerNotifier: draftFlyerNotifier,
-    matrixNotifier: matrixNotifier,
-    matrixFromNotifier: matrixFromNotifier,
+    matrix: matrix,
+    matrixFrom: matrixFrom,
     mounted: mounted,
     draftSlideNotifier: draftSlideNotifier,
   );
@@ -61,8 +61,8 @@ Future<void> onGoNextSlide({
 Future<void> onGoPreviousSlide({
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
   required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
-  required ValueNotifier<Matrix4?> matrixNotifier,
-  required ValueNotifier<Matrix4?> matrixFromNotifier,
+  required Matrix4? matrix,
+  required Matrix4? matrixFrom,
   required ValueNotifier<bool> isPickingBackColor,
   required ValueNotifier<Color?> slideBackColor,
   required DraftSlide previousSlide,
@@ -83,8 +83,8 @@ Future<void> onGoPreviousSlide({
     draftFlyerNotifier: draftFlyerNotifier,
     mounted: mounted,
     draftSlideNotifier: draftSlideNotifier,
-    matrixNotifier: matrixNotifier,
-    matrixFromNotifier: matrixFromNotifier,
+    matrix: matrix,
+    matrixFrom: matrixFrom,
   );
 
   await Nav.replaceScreen(
@@ -106,8 +106,8 @@ Future<void> onGoPreviousSlide({
 Future<void> onExitSlideEditor({
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
   required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
-  required ValueNotifier<Matrix4?> matrixNotifier,
-  required ValueNotifier<Matrix4?> matrixFromNotifier,
+  required Matrix4? matrix,
+  required Matrix4? matrixFrom,
   required ValueNotifier<bool> isPickingBackColor,
   required ValueNotifier<Color?> slideBackColor,
   required bool mounted,
@@ -124,8 +124,8 @@ Future<void> onExitSlideEditor({
   setDraftFlyerSlideMatrixes(
     draftFlyerNotifier: draftFlyerNotifier,
     draftSlideNotifier: draftSlideNotifier,
-    matrixNotifier: matrixNotifier,
-    matrixFromNotifier: matrixFromNotifier,
+    matrix: matrix,
+    matrixFrom: matrixFrom,
     mounted: mounted,
   );
 
