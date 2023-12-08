@@ -1,5 +1,4 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:basics/helpers/widgets/drawing/spacing.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
@@ -19,7 +18,6 @@ class SlideAnimatorPanel extends StatelessWidget {
     required this.matrixNotifier,
     required this.matrixFromNotifier,
     required this.onResetMatrix,
-    required this.canResetMatrix,
     required this.onTriggerSlideIsAnimated,
     required this.onFromTap,
     required this.onToTap,
@@ -35,7 +33,6 @@ class SlideAnimatorPanel extends StatelessWidget {
   final ValueNotifier<Matrix4?> matrixNotifier;
   final ValueNotifier<Matrix4?> matrixFromNotifier;
   final Function onResetMatrix;
-  final ValueNotifier<bool> canResetMatrix;
   final Function onTriggerSlideIsAnimated;
   final Function onFromTap;
   final Function onToTap;
@@ -137,23 +134,11 @@ class SlideAnimatorPanel extends StatelessWidget {
                                         valueListenable: matrixNotifier,
                                         builder: (_, Matrix4? matrix, Widget? child){
 
-                                          final bool _m = Trinity.checkMatrixesAreIdentical(
-                                              matrix1: matrix,
-                                              matrixReloaded: Matrix4.identity(),
+                                          final bool _canResetMatrix = DraftSlide.checkCanResetMatrixes(
+                                            matrix: matrix,
+                                            matrixFrom: matrixF,
+                                            flyerBoxWidth: flyerBoxWidth,
                                           );
-
-
-                                          final bool _mf = Trinity.checkMatrixesAreIdentical(
-                                              matrix1: matrixF,
-                                              matrixReloaded: Trinity.slightlyZoomed(
-                                                  flyerBoxWidth: flyerBoxWidth,
-                                                  flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
-                                                    flyerBoxWidth: flyerBoxWidth,
-                                                  ),
-                                              )
-                                          );
-
-                                          final bool _isWrong = !_m || !_mf;
 
                                           return PanelCircleButton(
                                             verse: const Verse(
@@ -163,7 +148,7 @@ class SlideAnimatorPanel extends StatelessWidget {
                                             icon: Iconz.reload,
                                             size: _size,
                                             isSelected: false,
-                                            isDisabled: !_isWrong,
+                                            isDisabled: !_canResetMatrix,
                                             onTap: onResetMatrix,
                                           );
                                         });

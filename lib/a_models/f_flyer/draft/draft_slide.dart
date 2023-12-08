@@ -140,10 +140,13 @@ class DraftSlide {
         backColor: overrideSolidColor,
         opacity: 1,
         slideIndex: index,
-        matrix: Matrix4.identity(),
-        matrixFrom: Trinity.slightlyZoomed(
+        matrix: createInitialMatrix(
+          isMatrixFrom: false,
           flyerBoxWidth: flyerBoxWidth,
-          flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(flyerBoxWidth: flyerBoxWidth),
+        ),
+        matrixFrom: createInitialMatrix(
+          isMatrixFrom: true,
+          flyerBoxWidth: flyerBoxWidth,
         ),
         animationCurve: null,
       );
@@ -553,6 +556,95 @@ class DraftSlide {
   }
   // -----------------------------------------------------------------------------
 
+  /// MATRIXES
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Matrix4 createInitialMatrix({
+    required bool isMatrixFrom,
+    required double flyerBoxWidth,
+  }){
+
+    if (isMatrixFrom == true){
+      return Trinity.slightlyZoomed(
+        flyerBoxWidth: flyerBoxWidth,
+        flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
+          flyerBoxWidth: flyerBoxWidth,
+        ),
+      );
+    }
+
+    else {
+      return Matrix4.identity();
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkCanResetMatrixes({
+    required Matrix4? matrixFrom,
+    required Matrix4? matrix,
+    required double flyerBoxWidth,
+  }){
+
+    /// MATRIX
+    final Matrix4 _matrixShould = createInitialMatrix(
+      flyerBoxWidth: flyerBoxWidth,
+      isMatrixFrom: false,
+    );
+    // Trinity.blogMatrix(matrix: _matrixShould, invoker: 'matrixShould');
+
+    // final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
+    //   flyerBoxWidth: flyerBoxWidth,
+    // );
+
+    final bool _matrixIsGood = _matrixShould == matrix;
+    // Trinity.checkMatrixesAreIdentical(
+    //   matrix1: _matrixShould,
+    //   matrixReloaded: matrix,
+    // );
+    // Trinity.blogMatrix(matrix: matrix, invoker: 'matrix');
+
+    /// MATRIX FROM
+    Matrix4? _matrixFromShould = createInitialMatrix(
+      flyerBoxWidth: flyerBoxWidth,
+      isMatrixFrom: true,
+    );
+
+    _matrixFromShould = Trinity.roundTranslation(
+        matrix: _matrixFromShould,
+        fractions: 1,
+    );
+
+    final Matrix4? _from = Trinity.roundTranslation(
+        matrix: matrixFrom,
+        fractions: 1,
+    );
+
+    // Trinity.blogMatrix(
+    //   matrix: _matrixFromShould,
+    //   invoker: 'matrixFromShould',
+    //   roundDigits: 16,
+    // );
+    final bool _matrixFromIsGood = _from == _matrixFromShould;
+
+    // Trinity.checkMatrixesAreIdentical(
+    //   matrix1: _matrixFromShould,
+    //   matrixReloaded: matrixFrom,
+    // );
+
+    // Trinity.blogMatrix(
+    //   matrix: matrixFrom,
+    //   invoker: 'matrixFrom',
+    //   roundDigits: 16,
+    // );
+
+    // blog('checkCanResetMatrixes => _matrixIsGood : $_matrixIsGood : _matrixFromIsGood : $_matrixFromIsGood');
+
+    return _matrixIsGood == false || _matrixFromIsGood == false;
+  }
+  // -----------------------------------------------------------------------------
+
   /// INDEXES
 
   // --------------------
@@ -616,101 +708,6 @@ class DraftSlide {
     return _assetIndexInAssets;
   }
    */
-  // -----------------------------------------------------------------------------
-
-  /// BLOGGING
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void blogDraft({required String invoker}){
-
-    blog('[$invoker] : ($slideIndex)=> DraftSlide : flyerID : $flyerID : index : $slideIndex');
-    blog('headline : $headline : description : $description');
-    blog('midColor : $midColor : backColor : $backColor : opacity : $opacity');
-    blog('hasCustomMatrix : ${matrix != null} : '
-        'hasCustomMatrixFrom : ${matrixFrom != null} : '
-        'animationCurve L $animationCurve');
-    bigPic?.blogPic(invoker: 'draftSlide big pic');
-    medPic?.blogPic(invoker: 'draftSlide med pic');
-    smallPic?.blogPic(invoker: 'draftSlide small pic');
-    backPic?.blogPic(invoker: 'draftSlide back pic');
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void blogSlides({
-    required List<DraftSlide>? slides,
-    required String invoker,
-  }){
-
-    blog('BLOGGING SLIDES [$invoker] -------- START');
-
-    if (Mapper.checkCanLoopList(slides) == true) {
-      for (final DraftSlide slide in slides!) {
-        slide.blogDraft(
-          invoker: invoker,
-        );
-      }
-    }
-
-    blog('BLOGGING SLIDES [$invoker] -------- END');
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void blogDraftSlidesDifferences({
-    required DraftSlide? slide1,
-    required DraftSlide? slide2,
-  }){
-
-    if (slide1 == null){
-      blog('MutableSlidesDifferences : slide1 is null');
-    }
-    if (slide2 == null){
-      blog('MutableSlidesDifferences : slide2 is null');
-    }
-    if (slide1?.flyerID != slide2?.flyerID){
-      blog('MutableSlidesDifferences : flyerIDs are not Identical');
-    }
-    if (slide1?.slideIndex != slide2?.slideIndex){
-      blog('MutableSlidesDifferences : slideIndexes are not Identical');
-    }
-    if (PicModel.checkPicsAreIdentical(pic1: slide1?.bigPic, pic2: slide2?.bigPic) == false){
-      blog('MutableSlidesDifferences : bigPics are not Identical');
-    }
-    if (PicModel.checkPicsAreIdentical(pic1: slide1?.medPic, pic2: slide2?.medPic) == false){
-      blog('MutableSlidesDifferences : medPics are not Identical');
-    }
-    if (PicModel.checkPicsAreIdentical(pic1: slide1?.smallPic, pic2: slide2?.smallPic) == false){
-      blog('MutableSlidesDifferences : smallPics are not Identical');
-    }
-    if (PicModel.checkPicsAreIdentical(pic1: slide1?.backPic, pic2: slide2?.backPic) == false){
-      blog('MutableSlidesDifferences : backPics are not Identical');
-    }
-    if (slide1?.headline != slide2?.headline){
-      blog('MutableSlidesDifferences : headlines are not Identical');
-    }
-    if (slide1?.description != slide2?.description){
-      blog('MutableSlidesDifferences : descriptions are not Identical');
-    }
-    if (Colorizer.checkColorsAreIdentical(slide1?.midColor, slide2?.midColor) == false){
-      blog('MutableSlidesDifferences : midColors are not Identical');
-    }
-    if (Colorizer.checkColorsAreIdentical(slide1?.backColor, slide2?.backColor) == false){
-      blog('MutableSlidesDifferences : backColors are not Identical');
-    }
-    if (slide1?.opacity != slide2?.opacity){
-      blog('MutableSlidesDifferences : opacities are not Identical');
-    }
-    if (Trinity.checkMatrixesAreIdentical(matrix1: slide1?.matrix, matrixReloaded: slide2?.matrix) == false){
-      blog('MutableSlidesDifferences : matrixes are not Identical');
-    }
-    if (Trinity.checkMatrixesAreIdentical(matrix1: slide1?.matrixFrom, matrixReloaded: slide2?.matrixFrom) == false){
-      blog('MutableSlidesDifferences : matrixFroms are not Identical');
-    }
-    if (slide1?.animationCurve != slide2?.animationCurve){
-      blog('MutableSlidesDifferences : animationCurves are not Identical');
-    }
-  }
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS
@@ -825,6 +822,101 @@ class DraftSlide {
   }
   // -----------------------------------------------------------------------------
 
+  /// BLOGGING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void blogDraft({required String invoker}){
+
+    blog('[$invoker] : ($slideIndex)=> DraftSlide : flyerID : $flyerID : index : $slideIndex');
+    blog('headline : $headline : description : $description');
+    blog('midColor : $midColor : backColor : $backColor : opacity : $opacity');
+    blog('hasCustomMatrix : ${matrix != null} : '
+        'hasCustomMatrixFrom : ${matrixFrom != null} : '
+        'animationCurve L $animationCurve');
+    bigPic?.blogPic(invoker: 'draftSlide big pic');
+    medPic?.blogPic(invoker: 'draftSlide med pic');
+    smallPic?.blogPic(invoker: 'draftSlide small pic');
+    backPic?.blogPic(invoker: 'draftSlide back pic');
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogSlides({
+    required List<DraftSlide>? slides,
+    required String invoker,
+  }){
+
+    blog('BLOGGING SLIDES [$invoker] -------- START');
+
+    if (Mapper.checkCanLoopList(slides) == true) {
+      for (final DraftSlide slide in slides!) {
+        slide.blogDraft(
+          invoker: invoker,
+        );
+      }
+    }
+
+    blog('BLOGGING SLIDES [$invoker] -------- END');
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogDraftSlidesDifferences({
+    required DraftSlide? slide1,
+    required DraftSlide? slide2,
+  }){
+
+    if (slide1 == null){
+      blog('MutableSlidesDifferences : slide1 is null');
+    }
+    if (slide2 == null){
+      blog('MutableSlidesDifferences : slide2 is null');
+    }
+    if (slide1?.flyerID != slide2?.flyerID){
+      blog('MutableSlidesDifferences : flyerIDs are not Identical');
+    }
+    if (slide1?.slideIndex != slide2?.slideIndex){
+      blog('MutableSlidesDifferences : slideIndexes are not Identical');
+    }
+    if (PicModel.checkPicsAreIdentical(pic1: slide1?.bigPic, pic2: slide2?.bigPic) == false){
+      blog('MutableSlidesDifferences : bigPics are not Identical');
+    }
+    if (PicModel.checkPicsAreIdentical(pic1: slide1?.medPic, pic2: slide2?.medPic) == false){
+      blog('MutableSlidesDifferences : medPics are not Identical');
+    }
+    if (PicModel.checkPicsAreIdentical(pic1: slide1?.smallPic, pic2: slide2?.smallPic) == false){
+      blog('MutableSlidesDifferences : smallPics are not Identical');
+    }
+    if (PicModel.checkPicsAreIdentical(pic1: slide1?.backPic, pic2: slide2?.backPic) == false){
+      blog('MutableSlidesDifferences : backPics are not Identical');
+    }
+    if (slide1?.headline != slide2?.headline){
+      blog('MutableSlidesDifferences : headlines are not Identical');
+    }
+    if (slide1?.description != slide2?.description){
+      blog('MutableSlidesDifferences : descriptions are not Identical');
+    }
+    if (Colorizer.checkColorsAreIdentical(slide1?.midColor, slide2?.midColor) == false){
+      blog('MutableSlidesDifferences : midColors are not Identical');
+    }
+    if (Colorizer.checkColorsAreIdentical(slide1?.backColor, slide2?.backColor) == false){
+      blog('MutableSlidesDifferences : backColors are not Identical');
+    }
+    if (slide1?.opacity != slide2?.opacity){
+      blog('MutableSlidesDifferences : opacities are not Identical');
+    }
+    if (Trinity.checkMatrixesAreIdentical(matrix1: slide1?.matrix, matrixReloaded: slide2?.matrix) == false){
+      blog('MutableSlidesDifferences : matrixes are not Identical');
+    }
+    if (Trinity.checkMatrixesAreIdentical(matrix1: slide1?.matrixFrom, matrixReloaded: slide2?.matrixFrom) == false){
+      blog('MutableSlidesDifferences : matrixFroms are not Identical');
+    }
+    if (slide1?.animationCurve != slide2?.animationCurve){
+      blog('MutableSlidesDifferences : animationCurves are not Identical');
+    }
+  }
+  // -----------------------------------------------------------------------------
+
   /// EQUALITY
 
   // --------------------
@@ -868,6 +960,9 @@ class DraftSlide {
           slide1: slide1,
           slide2: slide2,
         );
+      }
+      else if (_identical == true && blogDifferences == true){
+        blog('checkSlidesAreIdentical : Draft Slides Are Identical');
       }
 
     }

@@ -13,6 +13,7 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_co
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_editor_slide_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +30,42 @@ class SlideEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<SlideEditorScreen> createState() => _SlideEditorScreenState();
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+
+  /// SCALES
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double getSlideZoneHeight(){
+    final BuildContext context = getMainContext();
+    final double _screenHeight = Scale.screenHeight(context);
+    final double _slideZoneHeight = SlideEditorSlidePart.getSlideZoneHeight(context, _screenHeight);
+    return  _slideZoneHeight;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double getColorPanelHeight(){
+    final BuildContext context = getMainContext();
+    final double _screenHeight = Scale.screenHeight(context);
+    final double _controlPanelHeight = SlideEditorMainControlPanel.getControlPanelHeight(context, _screenHeight);
+    return _controlPanelHeight;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double getFlyerBoxWidth(){
+    final double _slideZoneHeight = getSlideZoneHeight();
+    final double _flyerBoxWidth = SlideEditorSlidePart.getFlyerZoneWidth(_slideZoneHeight);
+    return _flyerBoxWidth;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double getFlyerBoxHeight(){
+    final double _flyerBoxWidth = getFlyerBoxWidth();
+    return FlyerDim.flyerHeightByFlyerWidth(
+      flyerBoxWidth:_flyerBoxWidth,
+    );
+  }
+  // -----------------------------------------------------------------------------
 }
 
 class _SlideEditorScreenState extends State<SlideEditorScreen> {
@@ -44,7 +80,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   final ValueNotifier<Matrix4?> _matrixFromNotifier = ValueNotifier(null);
   final ValueNotifier<bool> _isDoingMatrixFrom = ValueNotifier(false);
   final ValueNotifier<bool> _isTransforming = ValueNotifier(false);
-  final ValueNotifier<bool> _canResetMatrix = ValueNotifier(false);
   final ValueNotifier<bool> _showAnimationPanel = ValueNotifier(false);
   // --------------------
   /// COLOR
@@ -94,7 +129,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     _matrixFromNotifier.dispose();
     _isDoingMatrixFrom.dispose();
     _isTransforming.dispose();
-    _canResetMatrix.dispose();
     _showAnimationPanel.dispose();
 
     _isPickingBackColor.dispose();
@@ -119,8 +153,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
       draftSlideNotifier: _draftSlideNotifier,
       matrixNotifier: _matrixNotifier,
       matrixFromNotifier: _matrixFromNotifier,
-      canResetMatrix: _canResetMatrix,
       isTransforming: _isTransforming,
+      flyerBoxWidth: SlideEditorScreen.getFlyerBoxWidth(),
     );
 
     _startTransformationListener();
@@ -152,22 +186,18 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   /// TRANSFORMATION LISTENER
   Future<void> _listenToTransformation() async {
     await transformationListener(
-      _isTransforming,
-      _canResetMatrix,
-      mounted,
+      isTransforming: _isTransforming,
+      mounted: mounted,
     );
   }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenHeight = Scale.screenHeight(context);
-    final double _slideZoneHeight = SlideEditorSlidePart.getSlideZoneHeight(context, _screenHeight);
-    final double _controlPanelHeight = SlideEditorMainControlPanel.getControlPanelHeight(context, _screenHeight);
-    final double _flyerBoxWidth = SlideEditorSlidePart.getFlyerZoneWidth(_slideZoneHeight);
-    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
-      flyerBoxWidth:_flyerBoxWidth,
-    );
+    final double _slideZoneHeight = SlideEditorScreen.getSlideZoneHeight();
+    final double _controlPanelHeight = SlideEditorScreen.getColorPanelHeight();
+    final double _flyerBoxWidth = SlideEditorScreen.getFlyerBoxWidth();
+    final double _flyerBoxHeight = SlideEditorScreen.getFlyerBoxHeight();
     // --------------------
     return PixelColorPicker(
       initialColor: _draftSlideNotifier.value?.midColor ?? Colorz.nothing,
@@ -199,16 +229,14 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               isPlayingAnimation: _isPlayingAnimation,
               isPickingBackColor: _isPickingBackColor,
               slideBackColor: _slideBackColor,
-              canResetMatrix: _canResetMatrix,
               showColorPanel: _showColorPanel,
               showAnimationPanel: _showAnimationPanel,
               loadingColorPicker: _loadingColorPicker,
 
               /// SLIDE TAPS
-              onSlideTap: () => Keyboard.closeKeyboard(),
-              onSlideDoubleTap: () => onReplayAnimation(
+              onSlideDoubleTap: () => Keyboard.closeKeyboard(),
+              onSlideTap: () => onReplayAnimation(
                 isPlayingAnimation: _isPlayingAnimation,
-                canResetMatrix: _canResetMatrix,
                 draftNotifier: _draftSlideNotifier,
                 mounted: mounted,
               ),
@@ -223,22 +251,22 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 
               /// ANIMATION
               onTriggerSlideIsAnimated: () => onTriggerSlideIsAnimated(
-                draftNotifier: _draftSlideNotifier,
+                draftSlideNotifier: _draftSlideNotifier,
+                draftFlyerNotifier: widget.draftFlyerNotifier,
                 isPlayingAnimation: _isPlayingAnimation,
                 isDoingMatrixFrom: _isDoingMatrixFrom,
-                canResetMatrix: _canResetMatrix,
                 mounted: mounted,
               ),
               onResetMatrix: () => onResetMatrix(
                 originalDraft: widget.slide,
                 draftSlideNotifier: _draftSlideNotifier,
-                canResetMatrix: _canResetMatrix,
                 matrixNotifier: _matrixNotifier,
                 matrixFromNotifier: _matrixFromNotifier,
                 mounted: mounted,
                 draftFlyerNotifier: widget.draftFlyerNotifier,
                 flyerBoxHeight: _flyerBoxHeight,
                 flyerBoxWidth: _flyerBoxWidth,
+                isPlayingAnimation: _isPlayingAnimation,
               ),
               onAnimationEnds: () => onAnimationEnds(
                 mounted: mounted,
@@ -250,8 +278,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
                 mounted: mounted,
                 draftSlideNotifier: _draftSlideNotifier,
                 draftFlyerNotifier: widget.draftFlyerNotifier,
-                matrixFromNotifier: _matrixFromNotifier,
-                matrixNotifier: _matrixNotifier,
+                matrixFrom: _matrixFromNotifier.value,
+                matrix: _matrixNotifier.value,
               ),
               onToTap: () => onToTap(
                 isPlayingAnimation: _isPlayingAnimation,
@@ -259,16 +287,16 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
                 mounted: mounted,
                 draftSlideNotifier: _draftSlideNotifier,
                 draftFlyerNotifier: widget.draftFlyerNotifier,
-                matrixFromNotifier: _matrixFromNotifier,
-                matrixNotifier: _matrixNotifier,
+                matrixFrom: _matrixFromNotifier.value,
+                matrix: _matrixNotifier.value,
               ),
               onPlayTap: () => onPlayTap(
                 isPlayingAnimation: _isPlayingAnimation,
                 mounted: mounted,
                 draftSlideNotifier: _draftSlideNotifier,
                 draftFlyerNotifier: widget.draftFlyerNotifier,
-                matrixFromNotifier: _matrixFromNotifier,
-                matrixNotifier: _matrixNotifier,
+                matrixFrom: _matrixFromNotifier.value,
+                matrix: _matrixNotifier.value,
                 isDoingMatrixFrom: _isDoingMatrixFrom,
               ),
 
@@ -314,8 +342,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               /// NAVIGATION
               onNextSlide: (DraftSlide nextSlide) => onGoNextSlide(
                 draftSlideNotifier: _draftSlideNotifier,
-                matrixNotifier: _matrixNotifier,
-                matrixFromNotifier: _matrixFromNotifier,
+                matrix: _matrixNotifier.value,
+                matrixFrom: _matrixFromNotifier.value,
                 mounted: mounted,
                 draftFlyerNotifier: widget.draftFlyerNotifier,
                 slideBackColor: _slideBackColor,
@@ -324,8 +352,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               ),
               onPreviousSlide: (DraftSlide previousSlide) => onGoPreviousSlide(
                 draftSlideNotifier: _draftSlideNotifier,
-                matrixNotifier: _matrixNotifier,
-                matrixFromNotifier: _matrixFromNotifier,
+                matrix: _matrixNotifier.value,
+                matrixFrom: _matrixFromNotifier.value,
                 mounted: mounted,
                 draftFlyerNotifier: widget.draftFlyerNotifier,
                 slideBackColor: _slideBackColor,
@@ -335,8 +363,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               onFirstSlideBack: () => onExitSlideEditor(
                 draftFlyerNotifier: widget.draftFlyerNotifier,
                 draftSlideNotifier: _draftSlideNotifier,
-                matrixNotifier: _matrixNotifier,
-                matrixFromNotifier: _matrixFromNotifier,
+                matrix: _matrixNotifier.value,
+                matrixFrom: _matrixFromNotifier.value,
                 slideBackColor: _slideBackColor,
                 isPickingBackColor: _isPickingBackColor,
                 mounted: mounted,
@@ -344,8 +372,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               onLastSlideNext: () => onExitSlideEditor(
                 draftFlyerNotifier: widget.draftFlyerNotifier,
                 draftSlideNotifier: _draftSlideNotifier,
-                matrixNotifier: _matrixNotifier,
-                matrixFromNotifier: _matrixFromNotifier,
+                matrix: _matrixNotifier.value,
+                matrixFrom: _matrixFromNotifier.value,
                 slideBackColor: _slideBackColor,
                 isPickingBackColor: _isPickingBackColor,
                 mounted: mounted,
