@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 class SlidesShelfBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlidesShelfBubble({
-    required this.draft,
+    required this.draftNotifier,
     required this.canValidate,
     required this.scrollController,
     required this.onAddSlides,
@@ -24,7 +24,7 @@ class SlidesShelfBubble extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final DraftFlyer? draft;
+  final ValueNotifier<DraftFlyer?> draftNotifier;
   final bool canValidate;
   final ScrollController scrollController;
   final Function(DraftSlide draft) onSlideTap;
@@ -36,58 +36,65 @@ class SlidesShelfBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Bubble(
-      bubbleColor: Formers.validatorBubbleColor(
-        canErrorize: canValidate,
-        validator: () => Formers.slidesValidator(
-          draftFlyer: draft,
-          canValidate: canValidate,
-        ),
-      ),
-      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-        context: context,
-        headlineVerse: const Verse(
-          id: 'phid_flyerSlides',
-          translate: true,
-        ),
-        redDot: true,
-      ),
-      width: Bubble.bubbleWidth(context: context),
-      columnChildren: <Widget>[
+    return ValueListenableBuilder(
+        valueListenable: draftNotifier,
+        builder: (_, DraftFlyer? draft, Widget? child){
 
-        /// BULLETS
-        const BldrsBulletPoints(
-          bulletPoints: <Verse>[
-            Verse(id: 'phid_can_remove_slides_or_flyer_only', translate: true),
-            Verse(id: 'phid_drag_header_to_reorder', translate: true),
-          ],
-          showBottomLine: false,
-        ),
+          return Bubble(
+            bubbleColor: Formers.validatorBubbleColor(
+              canErrorize: canValidate,
+              validator: () => Formers.slidesValidator(
+                draftFlyer: draft,
+                canValidate: canValidate,
+              ),
+            ),
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              context: context,
+              headlineVerse: const Verse(
+                id: 'phid_flyerSlides',
+                translate: true,
+              ),
+              redDot: true,
+            ),
+            width: Bubble.bubbleWidth(context: context),
+            columnChildren: <Widget>[
 
-        /// SLIDES SHELF
-        SlidesShelf(
-          /// PLAN : ADD FLYER LOCATION SLIDE
-          shelfNumber: 1,
-          draft: draft,
-          scrollController: scrollController,
-          onReorderSlide: onReorderSlide,
-          loadingSlides: loadingSlides,
-          onAddSlides: onAddSlides,
-          onDeleteSlide: onDeleteSlide,
-          onSlideTap: onSlideTap,
-        ),
+              /// BULLETS
+              const BldrsBulletPoints(
+                bulletPoints: <Verse>[
+                  Verse(id: 'phid_can_remove_slides_or_flyer_only', translate: true),
+                  Verse(id: 'phid_drag_header_to_reorder', translate: true),
+                ],
+                showBottomLine: false,
+              ),
 
-        /// VALIDATOR
-        BldrsValidator(
-          width: Bubble.clearWidth(context: context),
-          validator: () => Formers.slidesValidator(
-            draftFlyer: draft,
-            canValidate: canValidate,
-          ),
-        ),
+              /// SLIDES SHELF
+              SlidesShelf(
+                /// PLAN : ADD FLYER LOCATION SLIDE
+                shelfNumber: 1,
+                draft: draft,
+                scrollController: scrollController,
+                onReorderSlide: onReorderSlide,
+                loadingSlides: loadingSlides,
+                onAddSlides: onAddSlides,
+                onDeleteSlide: onDeleteSlide,
+                onSlideTap: onSlideTap,
+              ),
 
-      ],
-    );
+              /// VALIDATOR
+              BldrsValidator(
+                width: Bubble.clearWidth(context: context),
+                validator: () => Formers.slidesValidator(
+                  draftFlyer: draft,
+                  canValidate: canValidate,
+                ),
+              ),
+
+            ],
+          );
+
+        }
+        );
 
   }
   // -----------------------------------------------------------------------------

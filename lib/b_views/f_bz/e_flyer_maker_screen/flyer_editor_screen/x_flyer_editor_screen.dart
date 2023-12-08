@@ -112,6 +112,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
         if (mounted == true){
           /// REMOVED
           _draftNotifier.addListener(_draftListener);
+          _draftNotifier.value?.headline!.addListener(_headlineListener);
         }
         // -------------------------------
         /// LOAD LAST SESSION
@@ -141,6 +142,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   void dispose(){
 
     _draftNotifier.removeListener(_draftListener);
+    _draftNotifier.value?.headline!.removeListener(_headlineListener);
     _slidesShelfScrollController.dispose();
     _loadingPage.dispose();
     _loadingSlides.dispose();
@@ -182,6 +184,24 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     );
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _headlineListener(){
+
+
+    if (_draftNotifier.value?.headline?.text != _headline){
+      blog('_headlineListener : _draftNotifier.value?.headline?.text: ${_draftNotifier.value?.headline?.text}');
+      _headline = _draftNotifier.value?.headline?.text ?? '';
+      onUpdateFlyerHeadline(
+        draftNotifier: _draftNotifier,
+        text: _draftNotifier.value?.headline?.text,
+        mounted: mounted,
+        updateController: false,
+      );
+    }
+
+  }
+  String _headline = '';
   // -----------------------------------------------------------------------------
 
   /// STRIPS
@@ -314,9 +334,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  bool _canGoFrom0to1({
-    required DraftFlyer? draft,
-  }){
+  bool canGoFrom0to1(DraftFlyer? draft){
     return Formers.slidesValidator(draftFlyer: _draftNotifier.value, canValidate: true,) == null
            &&
            Formers.flyerHeadlineValidator(headline: draft?.headline?.text, canValidate: _canValidate,) == null;
@@ -478,7 +496,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
       ],
       child: ValueListenableBuilder(
         valueListenable: _draftNotifier,
-        builder: (_, DraftFlyer? draft, Widget? child){
+        builder: (_, DraftFlyer? draft, Widget? flyerEditorPage0SlidesHeadlines){
 
           return Form(
             key: draft?.formKey,
@@ -488,44 +506,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
               pageBubbles: <Widget>[
 
                 /// 0 - SLIDES - HEADLINE
-                FlyerEditorPage0SlidesHeadlines(
-                  canValidate: _canValidate,
-                  draft: draft,
-                  shelfScrollController: _slidesShelfScrollController,
-                  loadingSlides: _loadingSlides,
-                  onNext: _onNextTap,
-                  canGoNext: _canGoFrom0to1(draft: draft),
-                  onHeadlineTextChanged: (String? text) => onUpdateFlyerHeadline(
-                    draftNotifier: _draftNotifier,
-                    text: text,
-                    mounted: mounted,
-                  ),
-                  onReorderSlide: (int oldIndex, int newIndex) => onReorderSlide(
-                    draftFlyer: _draftNotifier,
-                    mounted: mounted,
-                    oldIndex: oldIndex,
-                    newIndex: newIndex,
-                  ),
-                  onAddSlides: (PicMakerType imagePickerType) => onAddNewSlides(
-                    context: context,
-                    isLoading: _loadingSlides,
-                    draftFlyer: _draftNotifier,
-                    mounted: mounted,
-                    scrollController: _slidesShelfScrollController,
-                    flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
-                    imagePickerType: imagePickerType,
-                  ),
-                  onSlideTap: (DraftSlide slide) => onSlideTap(
-                    slide: slide,
-                    draftFlyer: _draftNotifier,
-                    mounted: mounted,
-                  ),
-                  onDeleteSlide: (DraftSlide slide)=> onDeleteSlide(
-                    draftSlide: slide,
-                    draftFlyer: _draftNotifier,
-                    mounted: mounted,
-                  ),
-                ),
+                flyerEditorPage0SlidesHeadlines!,
 
                 /// 1 - TYPE - DESCRIPTION
                 FlyerEditorPage1TypeDescription(
@@ -676,6 +657,45 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
           );
 
         },
+        child: FlyerEditorPage0SlidesHeadlines(
+          canValidate: _canValidate,
+          draftNotifier: _draftNotifier,
+          shelfScrollController: _slidesShelfScrollController,
+          loadingSlides: _loadingSlides,
+          onNext: _onNextTap,
+          onHeadlineTextChanged: (String? text) => onUpdateFlyerHeadline(
+            draftNotifier: _draftNotifier,
+            text: text,
+            mounted: mounted,
+            updateController: false,
+          ),
+          onReorderSlide: (int oldIndex, int newIndex) => onReorderSlide(
+            draftFlyer: _draftNotifier,
+            mounted: mounted,
+            oldIndex: oldIndex,
+            newIndex: newIndex,
+          ),
+          onAddSlides: (PicMakerType imagePickerType) => onAddNewSlides(
+            context: context,
+            isLoading: _loadingSlides,
+            draftFlyer: _draftNotifier,
+            mounted: mounted,
+            scrollController: _slidesShelfScrollController,
+            flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
+            imagePickerType: imagePickerType,
+          ),
+          onSlideTap: (DraftSlide slide) => onSlideTap(
+            slide: slide,
+            draftFlyer: _draftNotifier,
+            mounted: mounted,
+          ),
+          onDeleteSlide: (DraftSlide slide)=> onDeleteSlide(
+            draftSlide: slide,
+            draftFlyer: _draftNotifier,
+            mounted: mounted,
+          ),
+          canGoFrom0to1: canGoFrom0to1,
+        ),
       ),
     );
     // --------------------
