@@ -66,6 +66,36 @@ class InfoPageTree extends StatelessWidget {
 
           blog('boooo :=>> _buttonIsExpanded : $_buttonIsExpanded');
 
+          // if (_buttonIsExpanded == false){
+          //
+          //   final double _width = FlyerDim.infoButtonWidth(
+          //       flyerBoxWidth: flyerBoxWidth,
+          //       tinyMode: tinyMode,
+          //       isExpanded: false,
+          //       infoButtonType: infoButtonType
+          //   );
+          //
+          //   return Container(
+          //     width: _width,
+          //     height: _width,
+          //     decoration: BoxDecoration(
+          //       borderRadius: FlyerDim.infoButtonCorners(
+          //         flyerBoxWidth: flyerBoxWidth,
+          //         tinyMode: tinyMode,
+          //         isExpanded: false,
+          //       ),
+          //       color: Colorz.blue255,
+          //     ),
+          //     child: BldrsImage(
+          //       pic: Iconz.info,
+          //       width: _width,
+          //       height: _width,
+          //       scale: 0.4,
+          //     ),
+          //   );
+          // }
+          //
+          // else {
           return MaxBounceNavigator(
             boxDistance: FlyerDim.infoButtonHeight(
               flyerBoxWidth: flyerBoxWidth,
@@ -139,7 +169,10 @@ class InfoPageTree extends StatelessWidget {
             ),
           );
 
-        },
+          },
+
+
+        // },
 
         child: ExpandedInfoPageTree(
           buttonIsExpanded: buttonIsExpanded,
