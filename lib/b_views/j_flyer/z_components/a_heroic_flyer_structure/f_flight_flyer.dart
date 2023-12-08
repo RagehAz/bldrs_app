@@ -112,7 +112,7 @@ class FlightFlyer extends StatelessWidget {
                           return FooterButton(
                             color: Colorz.yellow80,
                             flyerBoxWidth: flyerBoxWidth,
-                            icon: Iconz.ankhBlack,
+                            icon: Iconz.saveBlack,
                             phid: 'phid_save',
                             isOn: true,
                             onTap: null,

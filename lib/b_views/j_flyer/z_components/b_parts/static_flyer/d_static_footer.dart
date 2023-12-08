@@ -140,7 +140,7 @@ class StaticFooter extends StatelessWidget {
                       child: FooterButton(
                         color: Colorz.yellow80,
                         flyerBoxWidth: flyerBoxWidth,
-                        icon: Iconz.ankhBlack,
+                        icon: Iconz.saveBlack,
                         phid: 'phid_save',
                         isOn: _isOn,
                         onTap: null,
