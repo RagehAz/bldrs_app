@@ -1,5 +1,8 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/models/flag_model.dart';
+import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -66,6 +69,8 @@ class MiniUserBanner extends StatelessWidget {
       width: width,
     );
 
+    final double _microIconSize = width * 0.28;
+
     return Container(
       width: width,
       height: _height,
@@ -77,16 +82,41 @@ class MiniUserBanner extends StatelessWidget {
       child: Column(
         children: <Widget>[
 
-          BldrsBox(
-            height: width,
-            width: width,
-            icon: userModel?.picPath ?? Iconz.anonymousUser,
-            // margins: Scale.constantHorizontal5,
-            onTap: () => BldrsNav.jumpToUserPreviewScreen(
-              userID: userModel?.id,
-            ),
+          /// USER PIC
+          Stack(
+            children: [
+
+              /// PIC
+              BldrsBox(
+                height: width,
+                width: width,
+                icon: userModel?.picPath ?? Iconz.anonymousUser,
+                // margins: Scale.constantHorizontal5,
+                onTap: () => BldrsNav.jumpToUserPreviewScreen(
+                  userID: userModel?.id,
+                ),
+              ),
+
+              /// FLAG
+              if (userModel?.zone?.countryID != null)
+              SuperPositioned(
+                verticalOffset: _microIconSize * 0.01,
+                horizontalOffset: _microIconSize * 0.01,
+                enAlignment: Alignment.topRight,
+                appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                child: BldrsBox(
+                  height: _microIconSize,
+                  width: _microIconSize,
+                  icon: Flag.getCountryIcon(userModel?.zone?.countryID),
+                  bubble: false,
+                  color: Colorz.black255,
+                ),
+              ),
+
+            ],
           ),
 
+          /// USER NAME
           BldrsText(
             width: width,
             height: _textHeight,
