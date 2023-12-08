@@ -136,7 +136,7 @@ Future<void> _addImagesForNewFlyer({
     /// B - if made new picks
     else {
 
-      final List<DraftSlide> _newMutableSlides = await DraftSlide.createDrafts(
+      final List<DraftSlide> _newDraftSlides = await DraftSlide.createDrafts(
         bigPics: _bigPics,
         existingDrafts: draftFlyer.value?.draftSlides ?? [],
         headline: draftFlyer.value?.headline?.text,
@@ -147,11 +147,18 @@ Future<void> _addImagesForNewFlyer({
 
       final List<DraftSlide> _combinedSlides = <DraftSlide>[
         ...?draftFlyer.value?.draftSlides,
-        ..._newMutableSlides
+        ..._newDraftSlides
       ];
 
-      final DraftFlyer? _newDraft = draftFlyer.value?.copyWith(
+      DraftFlyer? _newDraft = draftFlyer.value?.copyWith(
         draftSlides: _combinedSlides,
+      );
+
+      _newDraft = DraftFlyer.updateHeadline(
+        draft: _newDraft,
+        updateController: false,
+        slideIndex: 0,
+        newHeadline: draftFlyer.value?.headline?.text,
       );
 
       setNotifier(
@@ -161,9 +168,9 @@ Future<void> _addImagesForNewFlyer({
       );
 
       /// AUTO OPEN FIRST SLIDE
-      if (_newMutableSlides.length == 1){
+      if (_newDraft?.draftSlides?.length == 1){
         await  onSlideTap(
-          slide: _newMutableSlides.first,
+          slide: _newDraft!.draftSlides!.first,
           draftFlyer: draftFlyer,
           mounted: mounted,
         );

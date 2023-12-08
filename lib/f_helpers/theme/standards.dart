@@ -77,7 +77,10 @@ class Standards {
   }
   // --------------------
   /// FLYER HEADLINE LENGTH
-  static const int flyerHeadlineMaxLength = 180;
+  static const int flyerHeadlineMaxLength = 200;
+  /// this is paired to
+  /// phid_flyer_headline_should_be_more_than_5_chars
+  /// phid_flyer_headline_should_be_more_than_10_chars
   static const int flyerHeadlineMinLength = 5;
   // -----------------------------------------------------------------------------
 
