@@ -171,15 +171,23 @@ class SlideEditorMainControlPanel extends StatelessWidget {
             valueListenable: showAnimationPanel,
             builder: (_, bool showPanel, Widget? child){
 
-              return SlideEditorButton(
-                size: _buttonSize,
-                icon: Iconz.flyerScale,
-                verse: const Verse(
-                  id: 'phid_animation',
-                  translate: true,
-                ),
-                isSelected: showPanel,
-                onTap: onTriggerAnimationPanel,
+              return ValueListenableBuilder(
+                valueListenable: draftSlideNotifier,
+                builder: (_, DraftSlide? draftSlide, Widget? child){
+
+                  final bool _hasAnimation = draftSlide?.animationCurve != null;
+
+                  return SlideEditorButton(
+                    size: _buttonSize,
+                    icon: _hasAnimation ? Iconz.flyerScale : Iconz.flyer,
+                    verse: const Verse(
+                      id: 'phid_animation',
+                      translate: true,
+                    ),
+                    isSelected: showPanel,
+                    onTap: onTriggerAnimationPanel,
+                  );
+                }
               );
 
             }),

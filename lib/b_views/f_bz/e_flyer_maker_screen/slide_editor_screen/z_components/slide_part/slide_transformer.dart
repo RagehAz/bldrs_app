@@ -77,6 +77,7 @@ class SlideTransformer extends StatelessWidget {
                 key: ValueKey<String>('SlideTransformer_$isMatrixFrom'),
                 // focalPointAlignment: Alignment.center,
                 clipChild: false,
+                // initialMatrix: matrix,
                 initialMatrix: getInitialMatrix(
                   slide: slide!,
                   flyerBoxWidth: flyerBoxWidth,
@@ -128,7 +129,7 @@ class SlideTransformer extends StatelessWidget {
                       )!,
                       // alignment: Alignment.center,
                       // origin: Offset(0,0),
-                      filterQuality: FilterQuality.low,
+                      filterQuality: FilterQuality.medium,
                       transformHitTests: false,
                       // alignment: Alignment.center,
                       child: z,
@@ -146,13 +147,13 @@ class SlideTransformer extends StatelessWidget {
         );
       },
       child: Image.memory(
-                    slide!.medPic!.bytes!,
-                    key: const ValueKey<String>('SuperImage_slide_draft'),
-                    width: flyerBoxWidth,
-                    height: FlyerDim.flyerHeightByFlyerWidth(
-                      flyerBoxWidth: flyerBoxWidth,
-                    ),
-                  ),
+        slide!.medPic!.bytes!,
+        key: const ValueKey<String>('SuperImage_slide_draft'),
+        width: flyerBoxWidth,
+        height: FlyerDim.flyerHeightByFlyerWidth(
+          flyerBoxWidth: flyerBoxWidth,
+        ),
+      ),
     );
 
 
