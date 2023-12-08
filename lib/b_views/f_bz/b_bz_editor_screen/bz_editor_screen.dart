@@ -619,7 +619,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       // autoValidate: true,
                       validator: (String? text) => Formers.companyNameValidator(
                         companyName: text,
-                        canValidate: draft?.canValidate,
+                        canValidate: true, //draft?.canValidate,
                       ),
                       onTextChanged: (String? text) async {
                         blog('the text is $text');
