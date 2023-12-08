@@ -138,6 +138,7 @@ void onUpdateFlyerHeadline({
   required ValueNotifier<DraftFlyer?> draftNotifier,
   required String? text,
   required bool mounted,
+  required bool updateController,
 }){
 
   setNotifier(
@@ -147,6 +148,7 @@ void onUpdateFlyerHeadline({
         draft: draftNotifier.value,
         newHeadline: text,
         slideIndex: 0,
+        updateController: updateController,
       ),
   );
 

@@ -351,6 +351,7 @@ void onFlyerHeadlineChanged({
   required GlobalKey<FormState> formKey,
   required ValueNotifier<DraftFlyer> draftFlyer,
   required bool mounted,
+  required bool updateController,
 }){
 
   /// DO YOU NEED THIS ?
@@ -363,6 +364,7 @@ void onFlyerHeadlineChanged({
         draft: draftFlyer.value,
         newHeadline: text,
         slideIndex: 0,
+        updateController: updateController,
       ),
   );
 

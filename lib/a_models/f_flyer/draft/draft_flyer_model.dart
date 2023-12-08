@@ -604,6 +604,7 @@ class DraftFlyer{
     required String? newHeadline,
     required DraftFlyer? draft,
     required int slideIndex,
+    required bool updateController,
   }){
 
     DraftFlyer? _draft = draft;
@@ -632,7 +633,7 @@ class DraftFlyer{
       }
 
       /// UPDATE FLYER HEADLINE IF ZERO INDEX
-      if (slideIndex == 0){
+      if (slideIndex == 0 && updateController == true){
         draft.headline?.text = newHeadline ?? '';
       }
 

@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
@@ -19,32 +20,34 @@ class FlyerEditorPage0SlidesHeadlines extends StatelessWidget {
   const FlyerEditorPage0SlidesHeadlines({
     required this.canValidate,
     required this.onHeadlineTextChanged,
-    required this.draft,
+    required this.draftNotifier,
     required this.onNext,
-    required this.canGoNext,
     required this.shelfScrollController,
     required this.onAddSlides,
     required this.onReorderSlide,
     required this.onDeleteSlide,
     required this.onSlideTap,
     required this.loadingSlides,
+    required this.canGoFrom0to1,
     super.key,
   });
   // -----------------------------------------------------------------------------
   final bool canValidate;
   final ValueChanged<String?>? onHeadlineTextChanged;
-  final DraftFlyer? draft;
+  final ValueNotifier<DraftFlyer?> draftNotifier;
   final Function? onNext;
-  final bool canGoNext;
   final ScrollController shelfScrollController;
   final Function(DraftSlide draft) onSlideTap;
   final Function(DraftSlide draft) onDeleteSlide;
   final Function(PicMakerType picMakerType) onAddSlides;
   final Function(int oldIndex, int newIndex) onReorderSlide;
   final ValueNotifier<bool> loadingSlides;
+  final bool Function(DraftFlyer? draft) canGoFrom0to1;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    blog('FlyerEditorPage0SlidesHeadlines.build() x');
 
     return BldrsFloatingList(
       columnChildren: <Widget>[
@@ -58,12 +61,12 @@ class FlyerEditorPage0SlidesHeadlines extends StatelessWidget {
           loadingSlides: loadingSlides,
           onReorderSlide: onReorderSlide,
           scrollController: shelfScrollController,
-          draft: draft,
+          draftNotifier: draftNotifier,
         ),
 
         /// FLYER HEADLINE
         BldrsTextFieldBubble(
-          key: const ValueKey<String>('flyer_headline_text_field'),
+          key: const ValueKey<String>('flyer_headline_text_field_x'),
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             context: context,
             headlineVerse: const Verse(
@@ -72,16 +75,16 @@ class FlyerEditorPage0SlidesHeadlines extends StatelessWidget {
             ),
             redDot: true,
           ),
-          formKey: draft?.formKey,
-          focusNode: draft?.headlineNode,
+          formKey: draftNotifier.value?.formKey,
+          focusNode: draftNotifier.value?.headlineNode,
           appBarType: AppBarType.non,
           isFormField: true,
           counterIsOn: true,
           maxLength: Standards.flyerHeadlineMaxLength,
           maxLines: 5,
           keyboardTextInputType: TextInputType.multiline,
-          onTextChanged: onHeadlineTextChanged,
-          textController: draft?.headline,
+          // onTextChanged: onHeadlineTextChanged,
+          textController: draftNotifier.value?.headline,
           validator: (String? text) => Formers.flyerHeadlineValidator(
             headline: text,
             canValidate: canValidate,
@@ -94,9 +97,14 @@ class FlyerEditorPage0SlidesHeadlines extends StatelessWidget {
         ),
 
         /// SWIPING BUTTONS
-        EditorSwipingButtons (
-          onNext: onNext,
-          canGoNext: canGoNext,
+        ValueListenableBuilder(
+          valueListenable: draftNotifier,
+          builder: (_, DraftFlyer? draft, Widget? child){
+            return EditorSwipingButtons (
+              onNext: onNext,
+              canGoNext: canGoFrom0to1(draft),
+            );
+          }
         ),
 
         /// KEYBOARD PUSHER
