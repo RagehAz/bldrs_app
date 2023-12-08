@@ -819,7 +819,7 @@ class Formers {
       }
 
       else if (_isShort == true){
-        _message = getWord('phid_flyer_headline_should_be_more_than_10_chars');
+        _message = getWord('phid_flyer_headline_should_be_more_than_5_chars');
       }
 
     }

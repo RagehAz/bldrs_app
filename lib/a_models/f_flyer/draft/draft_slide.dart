@@ -75,7 +75,7 @@ class DraftSlide {
         final DraftSlide? _newSlide = await createDraft(
           bigPic: _bigPic,
           index: _newSlideIndex,
-          headline: _newSlideIndex  == 0 ? headline : null,
+          headline: null,//_newSlideIndex  == 0 ? headline : null,
           flyerID: flyerID,
           bzID: bzID,
           flyerBoxWidth: flyerBoxWidth,
