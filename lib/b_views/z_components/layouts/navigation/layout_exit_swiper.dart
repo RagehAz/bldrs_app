@@ -25,6 +25,7 @@ class LayoutExitSwiper extends StatelessWidget {
     if (isOn == true && DeviceChecker.deviceIsSmartPhone() == true){
 
       final bool _isLandScape = Scale.isLandScape(context);
+      /// is the swipe threshold in percentage of the screen width
       final double _swipeThreshold = _isLandScape == true ? 0.1 : 0.35;
 
       return DismissiblePage(
@@ -49,8 +50,10 @@ class LayoutExitSwiper extends StatelessWidget {
           DismissiblePageDismissDirection.startToEnd: _swipeThreshold,
           DismissiblePageDismissDirection.endToStart: _swipeThreshold,
         },
-        dragSensitivity: 1,
+        /// feels like friction 0 is heavier than honey 1 is lighter than air
+        dragSensitivity: 0.8,
         dragStartBehavior: DragStartBehavior.start,
+        /// limits the horizontal swipe threshold  by this percentage 0 to 1
         maxTransformValue: 1,
 
         /// SCALE

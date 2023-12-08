@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_co
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/control_panels/slide_color_panel.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/footprints/footer_footprint.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/footprints/header_footprint.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/footprints/play_animation_layer.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/footprints/top_button_footprint.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_editor_headline_text_field.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_tree.dart';
@@ -41,7 +42,6 @@ class SlideEditorSlidePart extends StatelessWidget {
     required this.isPickingBackColor,
     required this.onTriggerSlideIsAnimated,
     required this.onResetMatrix,
-    required this.canResetMatrix,
     required this.showColorPanel,
     required this.showAnimationPanel,
     required this.onAnimationEnds,
@@ -76,7 +76,6 @@ class SlideEditorSlidePart extends StatelessWidget {
   final ValueNotifier<bool> isPickingBackColor;
   final Function onTriggerSlideIsAnimated;
   final Function onResetMatrix;
-  final ValueNotifier<bool> canResetMatrix;
   final ValueNotifier<bool> showAnimationPanel;
   final ValueNotifier<bool> showColorPanel;
   final Function onAnimationEnds;
@@ -219,7 +218,6 @@ class SlideEditorSlidePart extends StatelessWidget {
                       matrixNotifier: matrixNotifier,
                       draftSlideNotifier: draftSlide,
                       onResetMatrix: onResetMatrix,
-                      canResetMatrix: canResetMatrix,
                       onTriggerSlideIsAnimated: onTriggerSlideIsAnimated,
                       onFromTap: onFromTap,
                       onToTap: onToTap,
@@ -246,6 +244,14 @@ class SlideEditorSlidePart extends StatelessWidget {
                       showColorPanel: showColorPanel,
                       slideBackColor: slideBackColor,
                       loadingColorPicker: loadingColorPicker,
+                    ),
+
+                    /// PLAY SLIDE ANIMATION LAYER
+                    PlaySlideAnimationLayer(
+                      flyerBoxWidth: _flyerBoxWidth,
+                      isTransforming: isTransforming,
+                      isPlayingAnimation: isPlayingAnimation,
+                      draftSlide: _slide,
                     ),
 
                   ],
