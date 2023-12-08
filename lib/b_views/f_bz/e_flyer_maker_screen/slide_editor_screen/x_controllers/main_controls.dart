@@ -94,6 +94,7 @@ void onSlideHeadlineChanged({
       draft: draftFlyer.value,
       newHeadline: text,
       slideIndex: draftSlide.value?.slideIndex ?? 0,
+      updateController: true,
     ),
   );
 
