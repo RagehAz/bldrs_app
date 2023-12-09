@@ -1,5 +1,5 @@
 import 'package:basics/helpers/classes/checks/device_checker.dart';
-import 'package:bldrs/bldrs_keys.dart';
+// import 'package:bldrs/bldrs_keys.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/foundation.dart';
 
@@ -21,20 +21,21 @@ class AppCheck {
   /// WILL COME TO YOU LATER
   static Future<void> preInitialize() async {
 
-    final bool _runAppCheck = _checkCanRunAppCheck();
-
-    if (_runAppCheck == true){
-      await FirebaseAppCheck.instance.activate(
-        webRecaptchaSiteKey: BldrsKeys.recaptchaSiteKey, /// this is 'recaptcha-v3-site-key'
-        androidProvider: kDebugMode == true ? AndroidProvider.debug : AndroidProvider.playIntegrity,
-
-      );
-    }
+    // final bool _runAppCheck = checkCanRunAppCheck();
+    //
+    // if (_runAppCheck == true){
+    //   await FirebaseAppCheck.instance.activate(
+    //     // webProvider: WebProvider.,
+    //     webRecaptchaSiteKey: BldrsKeys.recaptchaSiteKey, /// this is 'recaptcha-v3-site-key'
+    //     androidProvider: kDebugMode == true ? AndroidProvider.debug : AndroidProvider.playIntegrity,
+    //
+    //   );
+    // }
 
   }
   // --------------------
   ///
-  static bool _checkCanRunAppCheck(){
+  static bool checkCanRunAppCheck(){
 
     if (kIsWeb == true){
       return false;
