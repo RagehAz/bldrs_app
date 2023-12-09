@@ -129,7 +129,7 @@ class FlyerColors {
   static Color? footerButtonColor({
     required bool buttonIsOn,
   }) {
-    return buttonIsOn ? Colorz.yellow255 : Colorz.black255;
+    return buttonIsOn ? Colorz.white255 : Colorz.black255;
   }
   // --------------------------------------------------------------------------
   static Color infoButtonColor({

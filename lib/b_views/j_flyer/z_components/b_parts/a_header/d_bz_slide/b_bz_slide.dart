@@ -189,8 +189,8 @@ class BzSlide extends StatelessWidget {
                   translate: true,
                   casing: Casing.lowerCase,
                 ),
-                icon: Iconz.saveOn,
-                iconSizeFactor: 0.95,
+                icon: Iconz.love,
+                iconSizeFactor: 0.85,
               ),
 
               /// REPORT

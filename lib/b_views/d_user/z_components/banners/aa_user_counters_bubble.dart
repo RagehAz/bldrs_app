@@ -76,7 +76,7 @@ class UserCounterBubble extends StatelessWidget {
                       id: '${_counter.saves} ${getWord('phid_saves')}',
                       translate: false,
                   ),
-                  icon: Iconz.save,
+                  icon: Iconz.love,
                 ),
 
                 /// REVIEWS
