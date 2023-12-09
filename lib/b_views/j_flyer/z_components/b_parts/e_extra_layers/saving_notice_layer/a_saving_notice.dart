@@ -12,7 +12,7 @@ class SavingNotice extends StatefulWidget {
     required this.animationController,
     required this.graphicIsOn,
     required this.graphicOpacity,
-    this.isStarGraphic = false, // if not star would be Ankh
+    this.isStarGraphic = false, // if not star would be heart
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -26,6 +26,7 @@ class SavingNotice extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<SavingNotice> createState() => _SavingNoticeState();
+  /// --------------------------------------------------------------------------
 }
 
 class _SavingNoticeState extends State<SavingNotice> {
