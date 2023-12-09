@@ -94,7 +94,7 @@ class BzStatsBubble extends StatelessWidget {
                     translate: false,
                     casing: Casing.lowerCase,
                   ),
-                  icon: Iconz.saveOn,
+                  icon: Iconz.love,
                 ),
 
                 /// VIEWS

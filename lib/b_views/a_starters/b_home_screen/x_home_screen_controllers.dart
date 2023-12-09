@@ -118,7 +118,7 @@ List<NavModel?> generateMainNavModels({
         id: 'phid_savedFlyers',
         translate: true,
       ),
-      icon: Iconz.saveOff,
+      icon: Iconz.love,
       screen: RouteName.savedFlyers,
       canShow: _userIsSignedUp,
     ),
