@@ -364,6 +364,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
             return LightBigFlyer(
               flyerBoxWidth: _gridScale!.bigItemWidth,
               renderedFlyer: flyerModel!,
+              // showGallerySlide: true,
               onHorizontalExit: () async {
                 // await zoomOutFlyer(
                 //   mounted: mounted,

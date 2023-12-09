@@ -452,7 +452,7 @@ Verse? generateLine_old_price({
 // --------------------
 Color _basicColor = Colorz.black150;
 Color _darkColor = Colorz.black255;
-Color _amazonColor = const Color.fromARGB(255, 255, 153, 0);
+Color _amazonBack150 = const Color.fromARGB(150, 19, 25, 33);
 // -----------------------------------------------------------------------------
 
 /// TEXT SCALING
