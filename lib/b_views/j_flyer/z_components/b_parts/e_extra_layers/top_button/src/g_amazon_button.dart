@@ -34,7 +34,7 @@ class _AmazonButton extends StatelessWidget {
     return TopButtonLabelStructure(
       flyerBoxWidth: flyerBoxWidth,
       width: _width,
-      color: _amazonColor,
+      color: _amazonBack150,
       onTap: () => Launcher.launchURL(flyerModel?.affiliateLink),
       child: Row(
         children: <Widget>[
@@ -48,7 +48,7 @@ class _AmazonButton extends StatelessWidget {
               width: _height,
               height: _height,
               icon: Iconz.amazon,
-              iconColor: _amazonColor,
+              iconColor: Colorz.white255,
               iconSizeFactor: 0.6,
             ),
           ),
@@ -60,7 +60,7 @@ class _AmazonButton extends StatelessWidget {
             child: FittedBox(
               child: BldrsText(
                 verse: const Verse(id: 'phid_buy_on_amazon', translate: true),
-                color: _darkColor,
+                // color: _darkColor,
                 scaleFactor: _topTextScaleFactor,
                 weight: VerseWeight.black,
                 margin: getTextMargins(

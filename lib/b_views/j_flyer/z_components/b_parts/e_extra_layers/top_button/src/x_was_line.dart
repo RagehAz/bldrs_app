@@ -5,12 +5,12 @@ class _WasLine extends StatelessWidget {
   const _WasLine({
     required this.flyerModel,
     required this.flyerBoxWidth,
-    this.textColor = Colorz.white255,
+    // this.textColor = Colorz.white255,
   });
   // --------------------
   final double flyerBoxWidth;
   final FlyerModel? flyerModel;
-  final Color textColor;
+  // final Color textColor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class _WasLine extends StatelessWidget {
           italic: true,
           appIsLTR: true,
           textDirection: TextDirection.ltr,
-          color: textColor,
+          // color: textColor,
         ),
 
         /// SPACING
@@ -66,7 +66,7 @@ class _WasLine extends StatelessWidget {
           italic: true,
           appIsLTR: true,
           textDirection: TextDirection.ltr,
-          color: textColor,
+          // color: textColor,
         ),
 
         /// SPACING

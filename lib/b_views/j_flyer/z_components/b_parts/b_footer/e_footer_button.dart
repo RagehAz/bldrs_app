@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_verse.dart'
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class FooterButton extends StatelessWidget {
@@ -65,14 +64,13 @@ class FooterButton extends StatelessWidget {
     // --------------------
     else {
       // --------------------
-      final Color _iconAndVerseColor = isOn ? Colorz.black255 : Colorz.white255.withOpacity(0.4);
+      final Color _iconAndVerseColor = isOn ? Colorz.black255 : Colorz.white255;
 
-      final bool _isTinyMode = FlyerDim.isTinyMode(
-        flyerBoxWidth: flyerBoxWidth,
-        gridWidth: Scale.screenWidth(context),
-        gridHeight: Scale.screenHeight(context),
-      );
-
+      // final bool _isTinyMode = FlyerDim.isTinyMode(
+      //   flyerBoxWidth: flyerBoxWidth,
+      //   gridWidth: Scale.screenWidth(context),
+      //   gridHeight: Scale.screenHeight(context),
+      // );
       // --------------------
       return SizedBox(
         key: const ValueKey<String>('Footer_button'),
@@ -104,10 +102,10 @@ class FooterButton extends StatelessWidget {
                   scale: 0.5,
                   child: icon == null ? const SizedBox() : WebsafeSvg.asset(
                     icon!,
-                      // colorFilter: ColorFilter.mode(
-                      //   _iconAndVerseColor,
-                      //   BlendMode.srcIn,
-                      // ),
+                      colorFilter: ColorFilter.mode(
+                        _iconAndVerseColor,
+                        BlendMode.srcIn,
+                      ),
                       // package: Iconz.bldrsTheme,
                       // fit: BoxFit.fitWidth,
                       width: _buttonSize * 0.8,
@@ -119,7 +117,7 @@ class FooterButton extends StatelessWidget {
             ),
 
             /// VERSE
-            if (_isTinyMode == false)
+            if (canTap == true)
               Positioned(
                 bottom: flyerBoxWidth * 0.01,
                 child: BldrsText(
