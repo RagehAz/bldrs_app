@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/saving_notice_layer/b_saving_graphic.dart';
 import 'package:flutter/material.dart';
+import 'package:websafe_svg/websafe_svg.dart';
 
 class SavingNotice extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -64,7 +64,7 @@ class _SavingNoticeState extends State<SavingNotice> {
     // );
 
     return ValueListenableBuilder(
-      key: const ValueKey<String>('SavingNotice'),
+      // key: const ValueKey<String>('SavingNotice'),
       valueListenable: widget.graphicIsOn,
         builder: (_, bool canShowGraphic, Widget? canShowGraphicChild){
 
@@ -112,17 +112,23 @@ class _SavingNoticeState extends State<SavingNotice> {
                   flyerBoxHeight: widget.flyerBoxHeight,
                   isSaved: isSaved,
                   isStarGraphic: widget.isStarGraphic,
-                  ankh: ankh,
+                  saveIcon: ankh,
                 ),
               ),
             );
 
           },
-          child: BldrsImage(
+          child: WebsafeSvg.asset(
+            Iconz.love,
+            // colorFilter: ColorFilter.mode(
+            //   _iconAndVerseColor,
+            //   BlendMode.srcIn,
+            // ),
+            // package: Iconz.bldrsTheme,
+            // fit: BoxFit.fitWidth,
             width: widget.flyerBoxWidth,
-            height: widget.flyerBoxHeight,
-            pic: widget.isStarGraphic ? Iconz.sexyStar : Iconz.saveOn,
-            scale: widget.isStarGraphic ? 0.7 : 0.8,
+            height: widget.flyerBoxWidth,
+            // alignment: Alignment.center,
           ),
         ),
 

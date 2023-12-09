@@ -149,7 +149,7 @@ class FlyerFooterButtons extends StatelessWidget {
                           return FooterButton(
                             count: counter?.saves,
                             flyerBoxWidth: flyerBoxWidth,
-                            icon: isSaved == true ? Iconz.saveBlack : Iconz.saveOff,
+                            icon: isSaved == true ? Iconz.loveBlack : Iconz.love,
                             phid: isSaved == true ? 'phid_saved' : 'phid_save',
                             isOn: isSaved,
                             canTap: true,

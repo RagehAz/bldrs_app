@@ -156,8 +156,8 @@ class RecordTyper {
       case RecordType.call            : return Iconz.comPhone;
       case RecordType.share           : return Iconz.share;
       case RecordType.view            : return Iconz.viewsIcon;
-      case RecordType.save            : return Iconz.saveOn;
-      case RecordType.unSave          : return Iconz.saveOff;
+      case RecordType.save            : return Iconz.love;
+      case RecordType.unSave          : return Iconz.loveSilver;
       default: return Iconz.more;
     }
 

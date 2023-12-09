@@ -108,7 +108,7 @@ class TopicModel {
       TopicModel(
         id: userSavedFlyersUpdates,
         description: 'A flyer I saved gets updated',
-        icon: Iconz.savedFlyers,
+        icon: Iconz.love,
       ),
       // --------------------
     ],
@@ -200,7 +200,7 @@ class TopicModel {
       TopicModel(
         id: bzFlyersNewSaves,
         description: 'A user saves one of my flyers',
-        icon: Iconz.save,
+        icon: Iconz.love,
       ),
       // --------------------
       /// A USER SHARED MY FLYER
