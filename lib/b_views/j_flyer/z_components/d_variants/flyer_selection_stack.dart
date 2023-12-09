@@ -127,27 +127,34 @@ class FlyerSelectionStack extends StatelessWidget {
 
           /// FLYER OPTIONS BUTTON
           if (_showOptionsButton == true)
-            SuperPositioned(
-              enAlignment: Alignment.bottomRight,
-              verticalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth,),
-              horizontalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth,),
-              appIsLTR: UiProvider.checkAppIsLeftToRight(),
-              child: FooterButton(
-                icon: Iconz.more,
-                phid: 'phid_more',
-                flyerBoxWidth: flyerBoxWidth,
-                onTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap!(),
-                isOn: UserModel.checkFlyerIsSaved(
+            Builder(
+              builder: (context) {
+
+                final bool _isOn = UserModel.checkFlyerIsSaved(
                   flyerID: flyerModel?.id,
                   userModel: UsersProvider.proGetMyUserModel(
                     context: context,
                     listen: true,
                   ),
-                ),
-                canTap: true,
-                count: 0,
-              ),
+                );
 
+                return SuperPositioned(
+                  enAlignment: Alignment.bottomRight,
+                  verticalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth,),
+                  horizontalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth,),
+                  appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                  child: FooterButton(
+                    icon: Iconz.more,
+                    phid: _tinyMode == true ? '' : 'phid_more',
+                    flyerBoxWidth: flyerBoxWidth,
+                    onTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap!(),
+                    isOn: _isOn,
+                    canTap: true,
+                    count: 0,
+                  ),
+
+                );
+              }
             ),
 
         ],

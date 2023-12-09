@@ -40,7 +40,7 @@ class _AmazonDiscountButton extends StatelessWidget {
     // --------------------
     return TopButtonLabelStructure(
       flyerBoxWidth: flyerBoxWidth,
-      color: _amazonColor,
+      color: _amazonBack150,
       width: _width,
       splashColor: Colorz.white200,
       onTap: () => Launcher.launchURL(flyerModel?.affiliateLink),
@@ -64,7 +64,7 @@ class _AmazonDiscountButton extends StatelessWidget {
                     height: _height,
                     icon: Iconz.amazon,
                     color: _darkColor,
-                    iconColor: _amazonColor,
+                    iconColor: Colorz.white255,
                     iconSizeFactor: 0.6,
                     corners: getButtonCorners(flyerBoxWidth: flyerBoxWidth),
                   ),
@@ -97,7 +97,7 @@ class _AmazonDiscountButton extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
               ),
               centered:  false,
-              color: _darkColor,
+              // color: _darkColor,
               // appIsLTR: true,
               // textDirection: TextDirection.ltr,
               margin: getTextMargins(flyerBoxWidth: flyerBoxWidth),
@@ -107,7 +107,7 @@ class _AmazonDiscountButton extends StatelessWidget {
             middleChild: _WasLine(
               flyerModel: flyerModel,
               flyerBoxWidth: flyerBoxWidth,
-              textColor: _darkColor,
+              // textColor: _darkColor,
             ),
 
             /// BUY ON AMAZON
@@ -117,7 +117,7 @@ class _AmazonDiscountButton extends StatelessWidget {
               scaleFactor: _bottomLineScaleFactor,
               centered:  false,
               italic: true,
-              color: _darkColor,
+              // color: _darkColor,
               margin: getTextMargins(flyerBoxWidth: flyerBoxWidth),
               // appIsLTR: true,
               // textDirection: TextDirection.ltr,
