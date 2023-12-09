@@ -7,9 +7,9 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/material.dart';
 
-class BzCreditsCounter extends StatelessWidget {
+class BzCreditsCounterX extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BzCreditsCounter({
+  const BzCreditsCounterX({
     required this.width,
     required this.slidesCredit,
     required this.ankhsCredit,
@@ -36,7 +36,7 @@ class BzCreditsCounter extends StatelessWidget {
 
           CreditsRow(
             width: width,
-            icon: Iconz.save,
+            icon: Iconz.love,
             value: ankhsCredit,
           ),
 

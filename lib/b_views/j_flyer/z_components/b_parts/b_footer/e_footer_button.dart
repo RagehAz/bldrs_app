@@ -41,12 +41,15 @@ class FooterButton extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
     // --------------------
+    /// EMPTY
     if (icon == null && color == null){
       return SizedBox(
         width: _buttonSize,
         height: _buttonSize,
       );
     }
+
+    /// COLOR
     else if (icon == null && color != null){
       return Container(
         width: _buttonSize,
@@ -62,7 +65,7 @@ class FooterButton extends StatelessWidget {
     // --------------------
     else {
       // --------------------
-      final Color _iconAndVerseColor = isOn ? Colorz.black255 : Colorz.white255;
+      final Color _iconAndVerseColor = isOn ? Colorz.black255 : Colorz.white255.withOpacity(0.4);
 
       final bool _isTinyMode = FlyerDim.isTinyMode(
         flyerBoxWidth: flyerBoxWidth,
@@ -93,6 +96,7 @@ class FooterButton extends StatelessWidget {
               splashColor: isOn ? Colorz.black255 : Colorz.yellow255,
               bubble: isOn,
               loading: isLoading,
+              borderColor: isOn ? Colorz.black50 : null,
               subChild: SizedBox(
                 width: _buttonSize * 0.8,
                 height: _buttonSize * 0.9,
@@ -127,7 +131,7 @@ class FooterButton extends StatelessWidget {
                   ),
                   size: 1,
                   scaleFactor: flyerBoxWidth * 0.003,
-                  color: _iconAndVerseColor.withOpacity(0.4),
+                  color: _iconAndVerseColor,
                   weight: isOn == true ? VerseWeight.black : VerseWeight.thin,
                   italic: isOn,
                 ),

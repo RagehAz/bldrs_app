@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -234,12 +232,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       );
 
       return MainLayout(
-        canSwipeBack: false,
         key: const ValueKey<String>('mainLayout'),
+        canSwipeBack: false,
         sectionButtonIsOn: true,
         // navBarIsOn: false,
         appBarType: AppBarType.main,
-        skyType: SkyType.blackStars,
+        // skyType: SkyType.black,
+        /// IGNORED AS ARE OVERRIDDEN IN THE BELOW STACK WITH THE PYRAMIDS PANEL
+        // pyramidsAreOn: false,
+        // pyramidType: PyramidType.white,
         listenToHideLayout: true,
         onBack: () => BldrsNav.backFromHomeScreen(
           context: context,
@@ -269,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               ),
               progressBarModel: _progressBarModel,
               navModels: _navModels,
-              isYellow: true,
+              // isYellow: false,
               mounted: mounted,
             ),
 

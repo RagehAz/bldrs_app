@@ -50,7 +50,7 @@ class FlyerCountersAndRecords extends StatelessWidget {
                   FlyerRecordsBox(
                     pageWidth: pageWidth,
                     headlineVerse: Verse.plain('$_saves ${getWord('phid_totalSaves')}'),
-                    icon: Iconz.saveOn,
+                    icon: Iconz.love,
                     recordType: RecordType.save,
                     bzID: flyerModel!.bzID!,
                     flyerID: flyerModel!.id!,
