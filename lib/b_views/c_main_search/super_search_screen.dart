@@ -365,7 +365,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
            selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
          );
 
-         await ZoneSelection.setCurrentZoneProtocol(
+         await ZoneProvider.proSetCurrentZone(
            zone: _newZone,
          );
 
@@ -696,7 +696,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           );
 
 
-          await ZoneSelection.setCurrentZoneProtocol(
+          await ZoneProvider.proSetCurrentZone(
             zone: _newZone,
           );
 
@@ -866,7 +866,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
     );
 
-    await ZoneSelection.setCurrentZoneProtocol(
+    await ZoneProvider.proSetCurrentZone(
       zone: _newZone,
     );
 

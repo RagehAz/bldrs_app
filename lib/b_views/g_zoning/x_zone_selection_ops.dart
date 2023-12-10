@@ -15,7 +15,6 @@ import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 /*
   ------------------------------------------------------------------
@@ -225,7 +224,7 @@ class ZoneSelection {
         ),
       );
 
-      await setCurrentZoneProtocol(
+      await ZoneProvider.proSetCurrentZone(
         zone: zone,
       );
 
@@ -238,37 +237,6 @@ class ZoneSelection {
         invoker: 'SelectCountryScreen._onCountryTap',
         homeRoute: RouteName.home,
       );
-
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> setCurrentZoneProtocol({
-    required ZoneModel? zone,
-  }) async {
-
-    if (zone != null){
-
-      final BuildContext context = getMainContext();
-      final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-        /// SET ZONE + CURRENCY
-        await zoneProvider.setCurrentZone(
-          zone: zone,
-          setCountryOnly: false,
-          notify: true,
-          invoker: 'ZoneSelection.setCurrentZoneProtocol',
-        );
-
-        // /// SET CHAINS
-        // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-        // await _chainsProvider.changeHomeWallFlyerType(
-        //   notify: true,
-        //   flyerType: null,
-        //   phid: null,
-        // );
-        // await _chainsProvider.reInitializeZoneChains();
-
-    }
 
   }
   // -----------------------------------------------------------------------------
