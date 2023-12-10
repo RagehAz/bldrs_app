@@ -752,7 +752,7 @@ class NoteModel {
       noteModel.parties?.senderType != null &&
       noteModel.parties?.senderImageURL != null &&
       TextCheck.isEmpty(noteModel.title) == false  &&
-      TextCheck.isEmpty(noteModel.body) == false &&
+      // TextCheck.isEmpty(noteModel.body) == false &&
       noteModel.topic != null &&
       (_canSendNote == true || _canSendFCM == true)
 
