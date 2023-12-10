@@ -1,3 +1,4 @@
+import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
@@ -10,10 +11,12 @@ import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/b_views/f_bz/z_components/phid_button_clone.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
+import 'package:bldrs/b_views/z_components/layouts/auto_scrolling_bar.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ActivePhidSelector extends StatelessWidget {
   // --------------------------------------------------------------------------
@@ -182,4 +185,50 @@ class ActivePhidSelector extends StatelessWidget {
     // --------------------
   }
   // --------------------------------------------------------------------------
+}
+
+class LiveActivePhidSelector extends StatelessWidget {
+  // -----------------------------------------------------------------------------
+  const LiveActivePhidSelector({
+    required this.mounted,
+    required this.scrollController,
+    required this.activePhid,
+    required this.onlyShowPublished,
+    required this.bzModel,
+    super.key
+  });
+  // -----------------------------------------------------------------------------
+  final bool mounted;
+  final ScrollController scrollController;
+  final BzModel? bzModel;
+  final ValueNotifier<String?> activePhid;
+  final bool onlyShowPublished;
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return Selector<UiProvider, bool>(
+        selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
+        builder: (_, bool isVisible, Widget? child) {
+
+          return AutoScrollingBar(
+            key: const ValueKey<String>('the_auto_scroll_phid_selector'),
+            scrollController: scrollController,
+            child: WidgetFader(
+              fadeType: isVisible == false ? FadeType.fadeOut : FadeType.fadeIn,
+              duration: const Duration(milliseconds: 300),
+              ignorePointer: isVisible == false,
+              child: ActivePhidSelector(
+                bzModel: bzModel,
+                mounted: mounted,
+                activePhid: activePhid,
+                onlyShowPublished: onlyShowPublished,
+              ),
+            ),
+          );
+        }
+    );
+
+  }
+  // -----------------------------------------------------------------------------
 }
