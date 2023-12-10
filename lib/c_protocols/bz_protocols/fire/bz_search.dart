@@ -19,7 +19,7 @@ class BzSearch {
   static FireQueryModel createQuery({
     SearchModel? searchModel,
     String? bzName,
-    String? orderBy,
+    String? orderBy = 'createdAt',
     bool descending = true,
     int limit = 4,
   }){
