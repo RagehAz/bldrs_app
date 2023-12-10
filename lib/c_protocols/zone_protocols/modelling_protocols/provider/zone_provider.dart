@@ -92,6 +92,32 @@ class ZoneProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static Future<void> proSetCurrentZone({
+    required ZoneModel? zone,
+  }) async {
+
+    final BuildContext context = getMainContext();
+    final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    /// SET ZONE + CURRENCY
+    await zoneProvider.setCurrentZone(
+      zone: zone,
+      setCountryOnly: false,
+      notify: true,
+      invoker: 'ZoneSelection.setCurrentZoneProtocol',
+    );
+
+    // /// SET CHAINS
+    // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    // await _chainsProvider.changeHomeWallFlyerType(
+    //   notify: true,
+    //   flyerType: null,
+    //   phid: null,
+    // );
+    // await _chainsProvider.reInitializeZoneChains();
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   void _setZone({
     required ZoneModel zone,
     required bool setCountryOnly,
