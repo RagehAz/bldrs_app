@@ -3,7 +3,7 @@ description: The Builder's Network
 publish_to: "none"
 # --------------------------------------------------------------------------------
 # BLDRS_APP_VERSION
-version: 2.17.1
+version: 2.18.0
 # ----------------------
 # app version should be updated in those locations
 # ----------------------
@@ -31,14 +31,14 @@ dependencies:
 #  translator: ^0.1.7
   # ------------------------------------
   basics:
-    path: D:/projects/packages/basics
-#    git:
-#      url: https://github.com/RagehAz/basics.git
+#    path: D:/projects/packages/basics
+    git:
+      url: https://github.com/RagehAz/basics.git
   # ------------------------------------
   fire:
-    path: D:/projects/packages/fire
-#    git:
-#      url: https://github.com/RagehAz/fire.git
+#    path: D:/projects/packages/fire
+    git:
+      url: https://github.com/RagehAz/fire.git
   # ------------------------------------
   bldrs_keywords:
     git:

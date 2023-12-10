@@ -1,3 +1,12 @@
+### 2.18.0
+1. Fixed Color picker bug
+2. Updated Business accounts list ordering algorithm in search screen
+3. replaced the Ankh with a normal Heart for the people to easily comprehend what is that because the ankh apparently was "too vague"
+4. updated the pyramids colors, as the flyers colors are more important
+5. Fixes in slide editor
+6. Made the screen swipe to exit a little bit more sensitive
+7. optimized ram usage
+
 ### 2.17.0
 1. Image quality increased
 2. Ui updates in business preview screen
