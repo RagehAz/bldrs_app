@@ -15,7 +15,7 @@ import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/floating_flyer_type_selector/floating_flyer_type_selector.dart';
+import 'package:bldrs/b_views/a_starters/d_home_flyer_type_selector/floating_flyer_type_selector.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
