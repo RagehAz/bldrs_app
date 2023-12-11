@@ -101,8 +101,6 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
   @override
   Widget build(BuildContext context) {
 
-    Mapper.blogMaps([{}], invoker: 'FloatingFlyerTypeSelector');
-
     final double _screenWidth = Scale.screenWidth(context);
     final double _buttonWidth = MainButton.getButtonWidth(context: context);
 
