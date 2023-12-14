@@ -41,8 +41,9 @@ dependencies:
 #      url: https://github.com/RagehAz/fire.git
   # ------------------------------------
   bldrs_keywords:
-    git:
-      url: https://github.com/RagehAz/bldrs_keywords.git
+    path: D:/projects/bldrs/bldrs_keywords
+  #    git:
+  #      url: https://github.com/RagehAz/bldrs_keywords.git
   # ------------------------------------
 #  bldrs_dashboard:
 #    path: D:/projects/bldrs/bldrs_dashboard
