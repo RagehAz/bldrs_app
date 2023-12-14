@@ -28,7 +28,7 @@ class BzTypesLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Lister.checkCanLoopList(bzModel?.bzTypes) == false){
+    if (Lister.checkCanLoop(bzModel?.bzTypes) == false){
       return const SizedBox();
     }
     else {

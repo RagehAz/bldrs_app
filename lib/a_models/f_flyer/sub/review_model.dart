@@ -140,7 +140,7 @@ class ReviewModel {
   }) {
     final List<ReviewModel> _reviews = <ReviewModel>[];
 
-    if (Lister.checkCanLoopList(maps) == true) {
+    if (Lister.checkCanLoop(maps) == true) {
       for (final Map<String, dynamic> map in maps!) {
 
         final ReviewModel? _review = decipherReview(
@@ -301,7 +301,7 @@ class ReviewModel {
 
       List<ReviewModel> _output = <ReviewModel>[];
 
-      if (Lister.checkCanLoopList(reviews) == true){
+      if (Lister.checkCanLoop(reviews) == true){
 
         _output = <ReviewModel>[... reviews];
         _output.sort((ReviewModel a, ReviewModel b) => b.time.compareTo(a.time));
@@ -369,7 +369,7 @@ class ReviewModel {
     String? invoker,
   }){
     blog('blogReviews : $invoker -------------------------------------- START');
-    if (Lister.checkCanLoopList(reviews) == true){
+    if (Lister.checkCanLoop(reviews) == true){
       for (final ReviewModel review in reviews){
         review.blogReview(invoker: invoker);
       }

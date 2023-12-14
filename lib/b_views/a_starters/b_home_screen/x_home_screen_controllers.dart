@@ -128,7 +128,7 @@ List<NavModel?> generateMainNavModels({
       null,
 
     /// MY BZZ
-    if (Lister.checkCanLoopList(bzzModels) == true)
+    if (Lister.checkCanLoop(bzzModels) == true)
     ...List.generate(bzzModels!.length, (index){
 
       final BzModel _bzModel = bzzModels[index];

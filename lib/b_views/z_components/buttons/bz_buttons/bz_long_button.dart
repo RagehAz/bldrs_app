@@ -123,11 +123,11 @@ class BzBubble extends StatelessWidget {
                   ),
 
                   // /// SPACING
-                  // if (Lister.checkCanLoopList(bzModel?.contacts) == true)
+                  // if (Lister.checkCanLoop(bzModel?.contacts) == true)
                   // const Spacing(size: 5),
 
                   // /// CONTACTS
-                  // if (Lister.checkCanLoopList(bzModel?.contacts) == true)
+                  // if (Lister.checkCanLoop(bzModel?.contacts) == true)
                   // ... List.generate(bzModel!.contacts!.length, (index){
                   //
                   //   final ContactModel _contact = bzModel!.contacts![index];
@@ -227,11 +227,11 @@ class BzBubble extends StatelessWidget {
                     ),
 
                     /// SPACING
-                    if (Lister.checkCanLoopList(bzModel?.contacts) == true)
+                    if (Lister.checkCanLoop(bzModel?.contacts) == true)
                       const Spacing(),
 
                     /// CONTACTS
-                    if (Lister.checkCanLoopList(bzModel?.contacts) == true)
+                    if (Lister.checkCanLoop(bzModel?.contacts) == true)
                       ContactsWrap(
                         contacts: bzModel!.contacts!,
                         spacing: 10,
@@ -260,7 +260,7 @@ class BzBubble extends StatelessWidget {
                                 const Spacing(size: 5),
 
                                 /// TEAM MEMBERS HEADLINE
-                                if (Lister.checkCanLoopList(bzModel?.authors) == true)
+                                if (Lister.checkCanLoop(bzModel?.authors) == true)
                                   BldrsBox(
                                     height: 25,
                                     width: _teamZoneWidth - 10,

@@ -67,7 +67,7 @@ class SmallFlyer extends StatelessWidget {
           stackWidgets: <Widget>[
 
             /// STATIC SINGLE SLIDE
-            if (Lister.checkCanLoopList(flyerModel?.slides) == true)
+            if (Lister.checkCanLoop(flyerModel?.slides) == true)
               SingleSlide(
                 flyerBoxWidth: flyerBoxWidth,
                 flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(

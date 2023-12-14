@@ -72,7 +72,7 @@ class ShelfSlidesPart extends StatelessWidget {
           boxAlignment: BldrsAligners.superCenterAlignment(context),
           columnChildren: <Widget>[
 
-            if (Lister.checkCanLoopList(draft?.draftSlides) == true)
+            if (Lister.checkCanLoop(draft?.draftSlides) == true)
             slides!,
 
             /// ADD NEW SLIDE

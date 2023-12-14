@@ -61,7 +61,7 @@ class PickersBlocker {
   static List<Map<String, dynamic>> cipherBlockers(List<PickersBlocker>? blockers){
     final List <Map<String, dynamic>> _maps  = <Map<String, dynamic>>[];
 
-    if (Lister.checkCanLoopList(blockers) == true){
+    if (Lister.checkCanLoop(blockers) == true){
 
       for (final PickersBlocker blocker in blockers!){
 
@@ -96,7 +96,7 @@ class PickersBlocker {
       else if (maps is Map<String, dynamic>? || maps is Map<String, dynamic>) {
         final Map<String, dynamic>? _bigMap = maps;
         final List<String>? _keys = _bigMap?.keys.toList();
-        if (Lister.checkCanLoopList(_keys) == true){
+        if (Lister.checkCanLoop(_keys) == true){
           for (final String key in _keys!) {
             final dynamic _map = maps[key];
             final PickersBlocker? _blocker = _decipherBlocker(_map);
@@ -160,7 +160,7 @@ class PickersBlocker {
     else if (blockers1 != null && blockers1.isEmpty == true && blockers2 != null && blockers2.isEmpty == true){
       _listsAreIdentical = true;
     }
-    else if (Lister.checkCanLoopList(blockers1) == true && Lister.checkCanLoopList(blockers2) == true){
+    else if (Lister.checkCanLoop(blockers1) == true && Lister.checkCanLoop(blockers2) == true){
 
       if (blockers1!.length != blockers2!.length){
         _listsAreIdentical = false;

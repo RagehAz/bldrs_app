@@ -584,7 +584,7 @@ class StagingModel {
   }){
     List<String> _output = <String>[...?shownIDs];
 
-    if (Lister.checkCanLoopList(_output) == true && myCityID != null){
+    if (Lister.checkCanLoop(_output) == true && myCityID != null){
 
       final String? _shownCountryID = CityModel.getCountryIDFromCityID(_output.first);
       final String? _myCountryID = CityModel.getCountryIDFromCityID(myCityID);
@@ -681,7 +681,7 @@ class StagingModel {
         viewerCountryID: viewerCountryID,
       );
 
-      _output = Lister.checkCanLoopList(_ids);
+      _output = Lister.checkCanLoop(_ids);
 
     }
 

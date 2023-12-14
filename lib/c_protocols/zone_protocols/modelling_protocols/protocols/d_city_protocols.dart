@@ -106,7 +106,7 @@ class CityProtocols {
 
     final List<CityModel> _cities = <CityModel>[];
 
-    if (Lister.checkCanLoopList(citiesIDs) == true){
+    if (Lister.checkCanLoop(citiesIDs) == true){
 
       await Future.wait(<Future>[
 
@@ -170,7 +170,7 @@ class CityProtocols {
   }) async {
     List<CityModel> _output = <CityModel>[];
 
-    if (Lister.checkCanLoopList(citiesIDsOfThisCountry) == true){
+    if (Lister.checkCanLoop(citiesIDsOfThisCountry) == true){
 
       final List<CityModel> _ldbCities = await CityLDBOps.readCities(
         citiesIDs: citiesIDsOfThisCountry,
@@ -191,7 +191,7 @@ class CityProtocols {
         /// COLLECT NOT FOUND CITIES
         final List<String> _citiesIDsToReadFromReal = <String>[];
 
-        if (Lister.checkCanLoopList(citiesIDsOfThisCountry) == true){
+        if (Lister.checkCanLoop(citiesIDsOfThisCountry) == true){
 
           for (final String cityID in citiesIDsOfThisCountry){
             final bool _wasInLDB = CityModel.checkCitiesIncludeCityID(_ldbCities, cityID);
@@ -205,7 +205,7 @@ class CityProtocols {
             citiesIDs: _citiesIDsToReadFromReal,
           );
 
-          if (Lister.checkCanLoopList(_remainingCities) == true){
+          if (Lister.checkCanLoop(_remainingCities) == true){
 
             await CityLDBOps.insertCities(
               cities: _remainingCities,

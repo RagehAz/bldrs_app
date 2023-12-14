@@ -119,7 +119,7 @@ class _ButtonsBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Lister.checkCanLoopList(buttonsVerses) == false){
+    if (Lister.checkCanLoop(buttonsVerses) == false){
       return const SizedBox();
     }
 

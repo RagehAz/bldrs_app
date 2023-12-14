@@ -140,7 +140,7 @@ class ScopeModel {
 
       final List<String> _phids = getPhids(scope);
 
-      if (Lister.checkCanLoopList(_phids) == true){
+      if (Lister.checkCanLoop(_phids) == true){
 
         for (final String phid in _phids){
 
@@ -253,7 +253,7 @@ class ScopeModel {
               strings2: _flyersIDs,
           );
 
-          if (Lister.checkCanLoopList(_sharedIDs) == true){
+          if (Lister.checkCanLoop(_sharedIDs) == true){
             _output.add(phid);
           }
 
@@ -329,7 +329,7 @@ class ScopeModel {
 
       final List<String> _flyerPhids = flyer?.phids ?? [];
 
-      if (Lister.checkCanLoopList(_flyerPhids) == true){
+      if (Lister.checkCanLoop(_flyerPhids) == true){
 
         for (final String _flyerPhid in _flyerPhids){
 
@@ -360,7 +360,7 @@ class ScopeModel {
       final List<String> phids = getPhids(scope);
       final Map<String, dynamic> _newMap = Mapper.cloneMap(scope.toMap())!;
 
-      if (Lister.checkCanLoopList(phids) == true){
+      if (Lister.checkCanLoop(phids) == true){
 
         for (final String phid in phids){
 
@@ -414,7 +414,7 @@ class ScopeModel {
 
       final List<String> _phids = getPhids(scope);
 
-      if (Lister.checkCanLoopList(_phids) == true){
+      if (Lister.checkCanLoop(_phids) == true){
 
         Map<String, dynamic> _map = {};
 
@@ -425,7 +425,7 @@ class ScopeModel {
               phid: phid,
           );
 
-          if (Lister.checkCanLoopList(_flyersIDs) == true){
+          if (Lister.checkCanLoop(_flyersIDs) == true){
             _map = Mapper.insertPairInMap(
                 map: _map,
                 key: phid,
@@ -641,7 +641,7 @@ class ScopeModel {
   }){
     Map<String, dynamic> _output = scope ?? {};
 
-    if (Lister.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoop(phids) == true){
 
       for (final String phid in phids!){
 
@@ -664,7 +664,7 @@ class ScopeModel {
   }){
     Map<String, dynamic> _output = scope ?? {};
 
-    if (scope != null && Lister.checkCanLoopList(phids) == true){
+    if (scope != null && Lister.checkCanLoop(phids) == true){
 
       for (final String phid in phids!){
 
@@ -692,7 +692,7 @@ class ScopeModel {
   //
   //     final List<String> _phids = scope.keys.toList();
   //
-  //     if (Lister.checkCanLoopList(_phids) == true){
+  //     if (Lister.checkCanLoop(_phids) == true){
   //
   //       for (final String phid in _phids){
   //

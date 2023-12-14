@@ -154,7 +154,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
                       children: <Widget>[
 
                         /// FLYER TYPES
-                        if (Lister.checkCanLoopList(_types) == true)
+                        if (Lister.checkCanLoop(_types) == true)
                         ...List.generate(_types.length, (index) {
 
                           final FlyerType? _flyerType = _types[index];
@@ -194,7 +194,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
                         }),
 
                         /// NO SECTIONS AVAILABLE
-                        if (Lister.checkCanLoopList(_types) == false)
+                        if (Lister.checkCanLoop(_types) == false)
                            BldrsText(
                              width: _buttonWidth,
                              verse: const Verse(

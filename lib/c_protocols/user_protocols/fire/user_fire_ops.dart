@@ -95,7 +95,7 @@ class UserFireOps {
         ),
     );
 
-      if (Lister.checkCanLoopList(_maps) == true){
+      if (Lister.checkCanLoop(_maps) == true){
 
         _output = UserModel.decipherUser(
             map: _maps.first,
@@ -135,7 +135,7 @@ class UserFireOps {
         ),
     );
 
-      if (Lister.checkCanLoopList(_maps) == true){
+      if (Lister.checkCanLoop(_maps) == true){
 
         _output = UserModel.decipherUsers(
             maps: _maps,

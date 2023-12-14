@@ -161,7 +161,7 @@ class BzLDBOps {
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bzEditor),
       );
 
-      if (Lister.checkCanLoopList(_maps) == true) {
+      if (Lister.checkCanLoop(_maps) == true) {
         _draft = DraftBz.fromLDB(
           map: _maps.first,
           context: context,
@@ -219,7 +219,7 @@ class BzLDBOps {
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.authorEditor),
       );
 
-      if (Lister.checkCanLoopList(_maps) == true){
+      if (Lister.checkCanLoop(_maps) == true){
         _author = AuthorModel.decipherAuthor(_maps.first);
       }
 

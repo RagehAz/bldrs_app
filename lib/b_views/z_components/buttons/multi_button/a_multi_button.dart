@@ -42,7 +42,7 @@ class MultiButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Lister.checkCanLoopList(pics) == false){
+    if (Lister.checkCanLoop(pics) == false){
       return BldrsBox(
         width: width,
         height: height,

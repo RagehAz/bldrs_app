@@ -228,7 +228,7 @@ class DataCreation {
 
         final List<String> _sons = sons;
 
-        if (Lister.checkCanLoopList(_sons) == true){
+        if (Lister.checkCanLoop(_sons) == true){
 
           final String _first = _sons.first;
 
@@ -270,7 +270,7 @@ class DataCreation {
 
           final List<String> _sons = sons;
 
-          if (Lister.checkCanLoopList(_sons) == true){
+          if (Lister.checkCanLoop(_sons) == true){
 
             final String _first = _sons.first;
             final String? _cipheredType = DataCreation.cipherDataCreator(dataCreator);

@@ -198,7 +198,7 @@ class FlyerVerificationProtocols {
       ),
     );
 
-    if (Lister.checkCanLoopList(_nonVerifiedFlyers) == true){
+    if (Lister.checkCanLoop(_nonVerifiedFlyers) == true){
 
       for (final FlyerModel _flyer in _nonVerifiedFlyers!){
 

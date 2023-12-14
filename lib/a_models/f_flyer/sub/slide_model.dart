@@ -91,7 +91,7 @@ class SlideModel {
   static Map<String, dynamic> cipherSlides(List<SlideModel>? slides) {
     Map<String, dynamic> _slidesMap = <String, dynamic>{};
 
-    if (Lister.checkCanLoopList(slides) == true) {
+    if (Lister.checkCanLoop(slides) == true) {
       for (final SlideModel slide in slides!) {
         _slidesMap = Mapper.insertPairInMap(
           map: _slidesMap,
@@ -113,7 +113,7 @@ class SlideModel {
     final List<SlideModel> _slides = <SlideModel>[];
     final List<String>? _keys = maps?.keys.toList();
 
-    if (Lister.checkCanLoopList(_keys) == true) {
+    if (Lister.checkCanLoop(_keys) == true) {
 
       final List<String> _sorted = Stringer.sortAlphabetically(_keys);
 
@@ -224,7 +224,7 @@ class SlideModel {
   static void blogSlides(List<SlideModel>? slides) {
 
     blog('blogSlides : ${slides?.length} SLIDES -----------------------------------------START');
-    if (Lister.checkCanLoopList(slides) == false) {
+    if (Lister.checkCanLoop(slides) == false) {
       blog('blogSlides : slides can not be printed : slides are : $slides');
     }
 
@@ -310,7 +310,7 @@ class SlideModel {
       blog(' > slides1.length [ ${slides1?.length} ] != [ ${slides2?.length} ] slides2.length');
     }
 
-    if (Lister.checkCanLoopList(slides1) == true && Lister.checkCanLoopList(slides2) == true){
+    if (Lister.checkCanLoop(slides1) == true && Lister.checkCanLoop(slides2) == true){
 
       if (slides1!.length != slides2!.length) {
         blog(' > maps1.length != maps2.length');
@@ -473,7 +473,7 @@ class SlideModel {
   }){
     final List<SlideModel> _output = [...?slides];
 
-    if (slide != null && Lister.checkCanLoopList(_output) == true){
+    if (slide != null && Lister.checkCanLoop(_output) == true){
 
       final int _index = _output.indexWhere((SlideModel x){
         return x.slideIndex == slide.slideIndex;
@@ -500,7 +500,7 @@ class SlideModel {
   static Future<List<File>> getImageFilesFromPublishedSlides(List<SlideModel> slides) async {
     final List<File> _files = <File>[];
 
-    if (Lister.checkCanLoopList(slides)) {
+    if (Lister.checkCanLoop(slides)) {
       for (final SlideModel slide in slides) {
         final File _file = await Filers.getFileFromURL(slide.picPath);
 
@@ -519,7 +519,7 @@ class SlideModel {
   }){
     final List<String> _paths = <String>[];
 
-    if (Lister.checkCanLoopList(slides) == true){
+    if (Lister.checkCanLoop(slides) == true){
 
       for (final SlideModel slide in slides!){
 
@@ -585,7 +585,7 @@ class SlideModel {
   static List<BoxFit> getSlidesBoxFits(List<SlideModel> slides) {
     final List<BoxFit> _boxFits = <BoxFit>[];
 
-    if (Lister.checkCanLoopList(slides)) {
+    if (Lister.checkCanLoop(slides)) {
       for (final SlideModel slide in slides) {
         final BoxFit _fit = slide.picFit;
 
@@ -666,7 +666,7 @@ class SlideModel {
   /// TESTED : WORKS PERFECT
   static List<SlideModel> sortSlidesByIndexes(List<SlideModel> slides){
 
-    if (Lister.checkCanLoopList(slides) == true){
+    if (Lister.checkCanLoop(slides) == true){
       final List<SlideModel> _slides = [...slides];
       _slides.sort((a, b) => a.slideIndex.compareTo(b.slideIndex));
       return _slides;
@@ -737,9 +737,9 @@ class SlideModel {
       _identical = true;
     }
     else if (
-        Lister.checkCanLoopList(slides1) == true
+        Lister.checkCanLoop(slides1) == true
         &&
-        Lister.checkCanLoopList(slides2) == true
+        Lister.checkCanLoop(slides2) == true
     ){
 
       if (slides1!.length == slides2!.length){

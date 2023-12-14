@@ -131,7 +131,7 @@ class AgendaModel {
           )
       );
 
-      if (Lister.checkCanLoopList(bzModel.bzTypes) == true){
+      if (Lister.checkCanLoop(bzModel.bzTypes) == true){
         for (final BzType bzType in bzModel.bzTypes!){
 
           switch(bzType){
@@ -216,7 +216,7 @@ class AgendaModel {
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
-    if (Lister.checkCanLoopList(bzzModels) == true){
+    if (Lister.checkCanLoop(bzzModels) == true){
 
       for (final BzModel bzModel in bzzModels!){
         _newAgenda = addBz(
@@ -246,7 +246,7 @@ class AgendaModel {
           )
       );
 
-      if (Lister.checkCanLoopList(bzModel.bzTypes) == true){
+      if (Lister.checkCanLoop(bzModel.bzTypes) == true){
 
         for (final BzType bzType in bzModel.bzTypes!){
 
@@ -320,7 +320,7 @@ class AgendaModel {
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
-    if (Lister.checkCanLoopList(bzModels) == true){
+    if (Lister.checkCanLoop(bzModels) == true){
 
       for (final BzModel bzModel in bzModels!){
 
@@ -353,7 +353,7 @@ class AgendaModel {
           )
       );
 
-      if (Lister.checkCanLoopList(bz.bzTypes) == true){
+      if (Lister.checkCanLoop(bz.bzTypes) == true){
 
         for (final BzType bzType in bz.bzTypes!){
 
@@ -442,7 +442,7 @@ class AgendaModel {
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
-    if (Lister.checkCanLoopList(bzz) == true){
+    if (Lister.checkCanLoop(bzz) == true){
 
       for (final BzModel bz in bzz!){
 
@@ -544,7 +544,7 @@ class AgendaModel {
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
-    if (Lister.checkCanLoopList(bzzIDs) == true){
+    if (Lister.checkCanLoop(bzzIDs) == true){
 
       for (final String bzID in bzzIDs!){
 

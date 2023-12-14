@@ -30,7 +30,7 @@ class UserFollowingPage extends StatelessWidget {
     final List<String> _followedBzzIds = userModel?.followedBzz?.all ?? [];
     // --------------------
     /// FOLLOWS EXIST
-    if (Lister.checkCanLoopList(_followedBzzIds) == false){
+    if (Lister.checkCanLoop(_followedBzzIds) == false){
       return const BldrsText(
         verse: Verse(
             id: 'phid_no_bzz_are_followed',

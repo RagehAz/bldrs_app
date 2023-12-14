@@ -253,7 +253,7 @@ class NotesProvider extends ChangeNotifier {
     final List<dynamic> _values = MapModel.getValuesFromMapModels(_profileNumbers);
 
     int _totalCount = 0;
-    if (Lister.checkCanLoopList(_values) == true){
+    if (Lister.checkCanLoop(_values) == true){
 
       for (final dynamic value in _values){
 
@@ -288,7 +288,7 @@ class NotesProvider extends ChangeNotifier {
 
     final List<String> _bzzIDs = BzModel.getBzzIDs(_myBzz);
 
-    if (Lister.checkCanLoopList(_bzzIDs) == true){
+    if (Lister.checkCanLoop(_bzzIDs) == true){
 
       for (int i = 0; i < _bzzIDs.length; i++){
 
@@ -329,7 +329,7 @@ class NotesProvider extends ChangeNotifier {
       final List<dynamic> _values = MapModel.getValuesFromMapModels(_bzNumbers);
 
       int _totalCount = 0;
-      if (Lister.checkCanLoopList(_values) == true){
+      if (Lister.checkCanLoop(_values) == true){
 
         for (final dynamic value in _values){
 
@@ -383,7 +383,7 @@ class NotesProvider extends ChangeNotifier {
     /// CALCULATE OBELISK TOTAL
     int _obeliskTotal = 0;
     final List<dynamic> _values = MapModel.getValuesFromMapModels(_obeliskBadges);
-    if (Lister.checkCanLoopList(_values) == true){
+    if (Lister.checkCanLoop(_values) == true){
       for (final dynamic value in _values){
         if (value != null && value is! String){
           final int _addOn = value.toInt();

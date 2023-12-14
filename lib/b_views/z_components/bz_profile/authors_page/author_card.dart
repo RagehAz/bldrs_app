@@ -262,7 +262,7 @@ class AuthorCard extends StatelessWidget {
               ),
 
               /// CONTACTS
-              if (Lister.checkCanLoopList(author.contacts) == true)
+              if (Lister.checkCanLoop(author.contacts) == true)
               ...List.generate(author.contacts!.length, (index){
 
                 final ContactModel _contact = author.contacts![index];

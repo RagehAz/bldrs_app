@@ -441,7 +441,7 @@ Future<bool> _checkAndNotifyShouldPicLogo({
         authors: draftNotifier.value?.authors,
       );
 
-    if (Lister.checkCanLoopList(_flyersIDs) == true){
+    if (Lister.checkCanLoop(_flyersIDs) == true){
 
       _canPick = await Dialogs.postersDialogs(
         titleVerse: getVerse('phid_change_bz_logo_?')!,
@@ -512,7 +512,7 @@ Future<void> onChangeBzScope({
     slideScreenFromEnLeftToRight: false,
   );
 
-  if (Lister.checkCanLoopList(_phids) == true){
+  if (Lister.checkCanLoop(_phids) == true){
 
     setNotifier(
         notifier: draftNotifier,

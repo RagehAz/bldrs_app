@@ -117,15 +117,15 @@ class ListLayout extends StatelessWidget {
                           child: BldrsBox(
                             height: 40,
                             width: _clearWidth - 10,
-                            icon: Lister.checkCanLoopList(icons) == false ? null : icons![index],
+                            icon: Lister.checkCanLoop(icons) == false ? null : icons![index],
                             iconSizeFactor: 0.8,
-                            verse: Lister.checkCanLoopList(mapModels) == false ? null : mapModels![index].value,
+                            verse: Lister.checkCanLoop(mapModels) == false ? null : mapModels![index].value,
                             bubble: false,
                             margins: const EdgeInsets.symmetric(vertical: 5),
                             verseScaleFactor: 0.8,
                             color: Colorz.white10,
                             // textDirection: superTextDirection(context),
-                            onTap: Lister.checkCanLoopList(mapModels) == false ? null
+                            onTap: Lister.checkCanLoop(mapModels) == false ? null
                                 :
                                 () => onItemTap?.call(mapModels![index].key!),
                           ),

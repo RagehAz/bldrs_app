@@ -79,7 +79,7 @@ class FetchFlyerProtocols {
 
     final List<FlyerModel> _flyers = <FlyerModel>[];
 
-    if (Lister.checkCanLoopList(flyersIDs) == true){
+    if (Lister.checkCanLoop(flyersIDs) == true){
 
       await Future.wait(<Future>[
 
@@ -171,7 +171,7 @@ class FetchFlyerProtocols {
 
         final List<String>? _ids = bzModel.publication.published;
 
-        if (Lister.checkCanLoopList(_ids) == true){
+        if (Lister.checkCanLoop(_ids) == true){
 
           final List<SlideModel> _bzSlides = <SlideModel>[];
 
@@ -183,7 +183,7 @@ class FetchFlyerProtocols {
               flyerID: _flyerID,
             );
 
-            if (Lister.checkCanLoopList(_flyer?.slides) == true){
+            if (Lister.checkCanLoop(_flyer?.slides) == true){
 
               for (final SlideModel _slide in _flyer!.slides!) {
                 _bzSlides.add(_slide);

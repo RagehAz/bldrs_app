@@ -117,7 +117,7 @@ class PicModel {
   }) async {
     final List<PicModel> _output = [];
 
-    if (Lister.checkCanLoopList(assets) == true){
+    if (Lister.checkCanLoop(assets) == true){
 
       for (final String asset in assets){
         
@@ -349,7 +349,7 @@ class PicModel {
       _listsAreIdentical = true;
     }
 
-    else if (Lister.checkCanLoopList(list1) == true && Lister.checkCanLoopList(list2) == true){
+    else if (Lister.checkCanLoop(list1) == true && Lister.checkCanLoop(list2) == true){
 
       if (list1!.length != list2!.length) {
         _listsAreIdentical = false;

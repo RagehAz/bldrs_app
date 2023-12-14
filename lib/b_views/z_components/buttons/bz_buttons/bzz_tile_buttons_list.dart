@@ -29,7 +29,7 @@ class BzzTilesButtonsList extends StatelessWidget {
         builder: (_, List<BzModel>? foundBzz, Widget? child){
 
           /// FOUND BZZ
-          if (Lister.checkCanLoopList(foundBzz) == true){
+          if (Lister.checkCanLoop(foundBzz) == true){
 
             return ValueListenableBuilder(
               valueListenable: selectedBzz,

@@ -78,7 +78,7 @@ class FlyerFireOps {
 
     final List<String>? _allIDs = bzModel?.publication.getAllFlyersIDs();
 
-    if (Lister.checkCanLoopList(_allIDs) == true) {
+    if (Lister.checkCanLoop(_allIDs) == true) {
 
       final List<String> _flyersIDs =
       publishState == null ?
@@ -110,7 +110,7 @@ class FlyerFireOps {
   }) async {
     final List<FlyerModel> _allFlyers = <FlyerModel>[];
 
-    if (Lister.checkCanLoopList(bzzModels) == true) {
+    if (Lister.checkCanLoop(bzzModels) == true) {
 
       for (final BzModel bz in bzzModels!) {
 
@@ -119,7 +119,7 @@ class FlyerFireOps {
           bzModel: bz,
         );
 
-        if (Lister.checkCanLoopList(_bzFlyers)) {
+        if (Lister.checkCanLoop(_bzFlyers)) {
           _allFlyers.addAll(_bzFlyers);
         }
 

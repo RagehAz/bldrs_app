@@ -41,7 +41,7 @@ class UserTileButtonsList extends StatelessWidget {
         builder: (_, List<UserModel>? users, Widget? child){
 
           /// FOUND USERS
-          if (Lister.checkCanLoopList(users) == true){
+          if (Lister.checkCanLoop(users) == true){
 
             blog('UserTileButtonsList: found users (${users!.length})');
 

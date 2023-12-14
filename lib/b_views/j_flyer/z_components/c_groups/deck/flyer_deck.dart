@@ -250,7 +250,7 @@ class FlyerDeck extends StatelessWidget {
 
     final List<SlideModel> _flyerSlides = <SlideModel>[];
 
-    if (Lister.checkCanLoopList(_flyer?.slides) == true){
+    if (Lister.checkCanLoop(_flyer?.slides) == true){
 
       for (int i = 0; i < _flyer!.slides!.length; i++){
 

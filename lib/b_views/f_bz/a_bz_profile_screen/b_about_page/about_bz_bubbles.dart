@@ -69,7 +69,7 @@ class AboutBzBubbles extends StatelessWidget {
           ),
 
         /// SCOPE
-        if (Lister.checkCanLoopList(_scopePhids) == true)
+        if (Lister.checkCanLoop(_scopePhids) == true)
           BzScopeBubble(
             headline: const Verse(
               id: 'phid_scopeOfServices',
@@ -85,7 +85,7 @@ class AboutBzBubbles extends StatelessWidget {
         ),
 
         /// BZ CONTACT
-        if (showContacts == true && Lister.checkCanLoopList(bzModel?.contacts) == true)
+        if (showContacts == true && Lister.checkCanLoop(bzModel?.contacts) == true)
           ContactsBubble(
             contacts: bzModel?.contacts,
             location: bzModel?.position,
@@ -102,7 +102,7 @@ class AboutBzBubbles extends StatelessWidget {
         ),
 
         /// BZ FLYERS
-        if (showGallery == true && Lister.checkCanLoopList(bzModel?.publication.published) == true)
+        if (showGallery == true && Lister.checkCanLoop(bzModel?.publication.published) == true)
         BzFlyersBubble(
           bzModel: bzModel,
         ),

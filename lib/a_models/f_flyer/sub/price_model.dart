@@ -147,7 +147,7 @@ class PriceModel {
   }){
     bool _output = false;
 
-    if (Lister.checkCanLoopList(bzTypes) == true){
+    if (Lister.checkCanLoop(bzTypes) == true){
 
       for (final bzType in bzTypes!){
 

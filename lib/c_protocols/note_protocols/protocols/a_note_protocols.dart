@@ -39,7 +39,7 @@ class NoteProtocols {
 
     blog('should compose note to multiple receivers');
 
-    // if (Lister.checkCanLoopList(receiversIDs) == true && note != null){
+    // if (Lister.checkCanLoop(receiversIDs) == true && note != null){
     //
     //   NoteModel _note = await _uploadNotePoster(
     //     context: context,
@@ -595,7 +595,7 @@ class NoteProtocols {
           ),
         );
 
-        if (Lister.checkCanLoopList(_maps) == true){
+        if (Lister.checkCanLoop(_maps) == true){
 
           final List<NoteModel> _notes = NoteModel.decipherNotes(
             maps: _maps,
@@ -613,7 +613,7 @@ class NoteProtocols {
       }
 
       /// DELETE ALL NOTES
-      if (Lister.checkCanLoopList(_notesToDelete) == true){
+      if (Lister.checkCanLoop(_notesToDelete) == true){
 
         await Future.wait(<Future>[
 
@@ -770,7 +770,7 @@ class NoteProtocols {
     required bool renovateUser,
   }) async {
 
-    if (Lister.checkCanLoopList(bzzIDs) == true){
+    if (Lister.checkCanLoop(bzzIDs) == true){
 
       await Future.wait(<Future>[
 

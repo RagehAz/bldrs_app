@@ -206,7 +206,7 @@ class FlyerModel {
   }){
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Lister.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoop(flyers) == true){
 
       for (final FlyerModel flyer in flyers!){
 
@@ -278,7 +278,7 @@ class FlyerModel {
   }){
     final List<FlyerModel> _flyersList = <FlyerModel>[];
 
-    if (Lister.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoop(maps) == true){
 
       for (final Map<String, dynamic> map in maps!){
 
@@ -304,7 +304,7 @@ class FlyerModel {
   }){
     Map<String, dynamic>? _output;
 
-    if (Lister.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoop(phids) == true){
 
       _output = {};
 
@@ -330,7 +330,7 @@ class FlyerModel {
 
     if (map != null){
       final List<String>? _keys = map.keys.toList();
-      if (Lister.checkCanLoopList(_keys) == true){
+      if (Lister.checkCanLoop(_keys) == true){
         _output.addAll(_keys!);
       }
     }
@@ -355,7 +355,7 @@ class FlyerModel {
   static List<TextEditingController> createHeadlinesControllersForExistingFlyer(FlyerModel? flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
-    if (flyerModel != null && Lister.checkCanLoopList(flyerModel.slides) == true){
+    if (flyerModel != null && Lister.checkCanLoop(flyerModel.slides) == true){
 
       for (final SlideModel slide in flyerModel.slides!){
         final TextEditingController _controller = TextEditingController(text: slide.headline);
@@ -371,7 +371,7 @@ class FlyerModel {
   static List<TextEditingController> createDescriptionsControllersForExistingFlyer(FlyerModel? flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
-    if (flyerModel != null && Lister.checkCanLoopList(flyerModel.slides) == true){
+    if (flyerModel != null && Lister.checkCanLoop(flyerModel.slides) == true){
 
       for (final SlideModel slide in flyerModel.slides!){
         final TextEditingController _controller = TextEditingController(text: slide.description);
@@ -435,7 +435,7 @@ class FlyerModel {
     String invoker = 'BLOGGING FLYERS',
   }){
 
-    if (Lister.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoop(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
         flyer.blogFlyer(invoker: invoker);
@@ -605,7 +605,7 @@ class FlyerModel {
   static int getTotalSaves(FlyerModel flyer){
     int _totalSaves = 0;
 
-    if (flyer != null && Lister.checkCanLoopList(flyer.slides)){
+    if (flyer != null && Lister.checkCanLoop(flyer.slides)){
 
       for (final SlideModel slide in flyer.slides){
         _totalSaves = _totalSaves + slide.savesCount;
@@ -621,7 +621,7 @@ class FlyerModel {
   static int getTotalShares(FlyerModel flyer){
     int _totalShares = 0;
 
-    if (flyer != null && Lister.checkCanLoopList(flyer?.slides)){
+    if (flyer != null && Lister.checkCanLoop(flyer?.slides)){
 
       for (final SlideModel slide in flyer.slides){
         _totalShares = _totalShares + slide.sharesCount;
@@ -637,7 +637,7 @@ class FlyerModel {
   static int getTotalViews(FlyerModel flyer){
     int _totalViews = 0;
 
-    if (flyer != null &&Lister.checkCanLoopList(flyer?.slides)){
+    if (flyer != null &&Lister.checkCanLoop(flyer?.slides)){
 
       for (final SlideModel slide in flyer.slides){
         _totalViews = _totalViews + slide.viewsCount;
@@ -665,7 +665,7 @@ class FlyerModel {
   static int getNumberOfFlyersSlides(List<FlyerModel>? flyers){
     int _count = 0;
 
-    if (Lister.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoop(flyers) == true){
 
       for (final FlyerModel flyer in flyers!){
 
@@ -689,7 +689,7 @@ class FlyerModel {
   }){
     FlyerModel? _output;
 
-    if (Lister.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoop(flyers) == true){
       _output = flyers!.singleWhereOrNull((FlyerModel tinyFlyer) => tinyFlyer.id == flyerID);
     }
 
@@ -703,7 +703,7 @@ class FlyerModel {
   }){
     FlyerModel? _output;
 
-    if (Lister.checkCanLoopList(flyers) == true && gtaLink != null){
+    if (Lister.checkCanLoop(flyers) == true && gtaLink != null){
 
       for (final FlyerModel _flyer in flyers){
         if (_flyer.gtaLink == gtaLink){
@@ -721,7 +721,7 @@ class FlyerModel {
   static List<String> getFlyersIDsFromFlyers(List<FlyerModel>? flyers){
     final List<String> _flyerIDs = <String>[];
 
-    if (Lister.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoop(flyers) == true){
 
       for (final FlyerModel flyer in flyers!){
         if (flyer.id != null){
@@ -741,7 +741,7 @@ class FlyerModel {
   }){
     final List<FlyerModel> _filteredFlyers = <FlyerModel>[];
 
-    if(Lister.checkCanLoopList(flyers) == true){
+    if(Lister.checkCanLoop(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
         if (flyer.flyerType == flyerType){
@@ -761,7 +761,7 @@ class FlyerModel {
 
     final List<FlyerModel> _authorFlyers = <FlyerModel>[];
 
-    if (Lister.checkCanLoopList(flyers) == true && authorID != null){
+    if (Lister.checkCanLoop(flyers) == true && authorID != null){
 
       for (final FlyerModel flyer in flyers!){
 
@@ -783,7 +783,7 @@ class FlyerModel {
   }){
     bool _hasTheID = false;
 
-    if (flyerID != null && Lister.checkCanLoopList(flyers) == true){
+    if (flyerID != null && Lister.checkCanLoop(flyers) == true){
 
       for (final FlyerModel flyer in flyers!){
 
@@ -807,7 +807,7 @@ class FlyerModel {
   }){
     List<FlyerModel> _output = <FlyerModel>[];
 
-    if (Lister.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoop(flyers) == true){
       _output = <FlyerModel>[...flyers!];
     }
 
@@ -848,7 +848,7 @@ class FlyerModel {
   }){
     final List<FlyerModel> _output = <FlyerModel>[...?flyers];
 
-    if (Lister.checkCanLoopList(flyers) == true && flyerIDToRemove != null){
+    if (Lister.checkCanLoop(flyers) == true && flyerIDToRemove != null){
       _output.removeWhere((flyer) => flyer.id == flyerIDToRemove);
     }
 
@@ -961,7 +961,7 @@ class FlyerModel {
   }){
     List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(flyer?.slides) == true){
+    if (Lister.checkCanLoop(flyer?.slides) == true){
 
       _output = SlideModel.generateSlidesPicsPaths(
           slides: flyer?.slides,
@@ -979,7 +979,7 @@ class FlyerModel {
   }){
     final List<String> _links = [];
 
-    if (Lister.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoop(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
 

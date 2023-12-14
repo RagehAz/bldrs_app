@@ -63,7 +63,7 @@ class DraftSlide {
   }) async {
     final List<DraftSlide> _output = <DraftSlide>[];
 
-    if (Lister.checkCanLoopList(bigPics) == true){
+    if (Lister.checkCanLoop(bigPics) == true){
 
       for (int i = 0; i < bigPics!.length; i++){
 
@@ -205,7 +205,7 @@ class DraftSlide {
   }) async {
     final List<SlideModel> _slides = <SlideModel>[];
 
-    if (Lister.checkCanLoopList(drafts) == true){
+    if (Lister.checkCanLoop(drafts) == true){
 
       for (final DraftSlide draft in drafts!){
 
@@ -258,7 +258,7 @@ class DraftSlide {
   static Future<List<DraftSlide>> draftsFromSlides(List<SlideModel>? slides) async {
     final List<DraftSlide> _output = <DraftSlide>[];
 
-    if (Lister.checkCanLoopList(slides) == true){
+    if (Lister.checkCanLoop(slides) == true){
 
       await Future.wait(<Future>[
 
@@ -327,7 +327,7 @@ class DraftSlide {
   static List<Map<String, dynamic>> draftsToLDB(List<DraftSlide>? drafts){
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Lister.checkCanLoopList(drafts) == true){
+    if (Lister.checkCanLoop(drafts) == true){
 
       for (final DraftSlide draft in drafts!){
 
@@ -373,7 +373,7 @@ class DraftSlide {
   static List<DraftSlide> draftsFromLDB(List<dynamic>? maps){
     final List<DraftSlide> drafts = <DraftSlide>[];
 
-    if (Lister.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoop(maps) == true){
 
       for (final Map<String, dynamic> map in maps!){
 
@@ -535,7 +535,7 @@ class DraftSlide {
   }){
     final List<PicModel> _output = <PicModel>[];
 
-    if (Lister.checkCanLoopList(drafts) == true){
+    if (Lister.checkCanLoop(drafts) == true){
 
       for (final DraftSlide draft in drafts!){
 
@@ -720,7 +720,7 @@ class DraftSlide {
   }){
     List<DraftSlide> _output = <DraftSlide>[];
 
-    if (Lister.checkCanLoopList(drafts) == true){
+    if (Lister.checkCanLoop(drafts) == true){
 
       _output = [...drafts!];
       _output.removeAt(draft!.slideIndex);
@@ -738,7 +738,7 @@ class DraftSlide {
   }){
     List<DraftSlide> _output = <DraftSlide>[];
 
-    if (Lister.checkCanLoopList(drafts) == true){
+    if (Lister.checkCanLoop(drafts) == true){
 
       final List<DraftSlide> _list = [...drafts!];
       _list.removeAt(draft.slideIndex);
@@ -760,7 +760,7 @@ class DraftSlide {
   }){
     final List<DraftSlide> _output = <DraftSlide>[];
 
-    if (Lister.checkCanLoopList(drafts) == true && flyerID != null){
+    if (Lister.checkCanLoop(drafts) == true && flyerID != null){
 
       for (final DraftSlide draft in drafts!){
 
@@ -804,7 +804,7 @@ class DraftSlide {
   }){
     final List<DraftSlide> _output = <DraftSlide>[];
 
-    if (Lister.checkCanLoopList(drafts) == true){
+    if (Lister.checkCanLoop(drafts) == true){
 
       for (int i = 0; i < drafts.length; i++){
 
@@ -849,7 +849,7 @@ class DraftSlide {
 
     blog('BLOGGING SLIDES [$invoker] -------- START');
 
-    if (Lister.checkCanLoopList(slides) == true) {
+    if (Lister.checkCanLoop(slides) == true) {
       for (final DraftSlide slide in slides!) {
         slide.blogDraft(
           invoker: invoker,
@@ -987,7 +987,7 @@ class DraftSlide {
       _listsAreIdentical = true;
       // blog('checkSlidesListsAreIdentical : both are empty');
     }
-    else if (Lister.checkCanLoopList(slides1) == true && Lister.checkCanLoopList(slides2) == true){
+    else if (Lister.checkCanLoop(slides1) == true && Lister.checkCanLoop(slides2) == true){
 
       if (slides1!.length != slides2!.length){
         _listsAreIdentical = false;

@@ -308,7 +308,7 @@ bool canShowGalleryPage({
   if (canShowGallerySlide == true){
     // if (bzModel != null){
 
-      if (Lister.checkCanLoopList(bzModel?.publication.published) == true){
+      if (Lister.checkCanLoop(bzModel?.publication.published) == true){
 
         final bool _bzHasMoreThanOneFlyer = (bzModel?.publication.published.length ?? 0) > 1;
 

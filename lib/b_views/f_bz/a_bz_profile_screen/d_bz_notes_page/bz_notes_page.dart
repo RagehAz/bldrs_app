@@ -126,7 +126,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   /// TESTED : WORKS PERFECT
   void _collectUnseenNotesToMarkAtDispose(List<Map<String, dynamic>> paginatorMaps){
 
-    if (Lister.checkCanLoopList(paginatorMaps) == true){
+    if (Lister.checkCanLoop(paginatorMaps) == true){
 
       /// DECIPHER NEW MAPS TO NOTES
       final List<NoteModel> _newNotes = NoteModel.decipherNotes(
@@ -226,7 +226,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
           paginationController: _paginationController,
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget? child){
 
-            if (Lister.checkCanLoopList(maps) == true){
+            if (Lister.checkCanLoop(maps) == true){
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 controller: _paginationController?.scrollController,

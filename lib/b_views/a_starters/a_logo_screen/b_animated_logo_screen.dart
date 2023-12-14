@@ -141,7 +141,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
     _logoAniController.dispose();
     _logoCurvedAnimation.dispose();
 
-    if (Lister.checkCanLoopList(_linesControllers) == true) {
+    if (Lister.checkCanLoop(_linesControllers) == true) {
       for (final CurvedAnimation cont in _linesControllers) {
         cont.dispose();
       }
@@ -248,7 +248,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   List<CurvedAnimation> _initializedLinesAnimations() {
     final List<CurvedAnimation> _animations = <CurvedAnimation>[];
 
-    if (Lister.checkCanLoopList(_linesMap) == true){
+    if (Lister.checkCanLoop(_linesMap) == true){
 
       for (final Map<String, dynamic> map in _linesMap!) {
       final CurvedAnimation _curvedAni = CurvedAnimation(
@@ -451,7 +451,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
               children: <Widget>[
 
                 /// LINES
-                if (Lister.checkCanLoopList(_linesMap) == true)
+                if (Lister.checkCanLoop(_linesMap) == true)
                 ...List.generate(_linesControllers.length, (index) {
                   return AnimatedLine(
                     curvedAnimation: _linesControllers[index],

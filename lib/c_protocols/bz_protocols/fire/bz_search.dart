@@ -140,7 +140,7 @@ class BzSearch {
 
   List<BzModel> _bzz = <BzModel>[];
 
-  if (Lister.checkCanLoopList(_result)) {
+  if (Lister.checkCanLoop(_result)) {
     _bzz = BzModel.decipherBzz(
       maps: _result,
       fromJSON: false,

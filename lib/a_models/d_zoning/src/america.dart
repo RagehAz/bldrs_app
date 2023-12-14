@@ -314,14 +314,14 @@ class America {
         value: stateName
     );
 
-    if (Lister.checkCanLoopList(_keys) == false){
+    if (Lister.checkCanLoop(_keys) == false){
       _keys = MapperSS.getKeysHavingThisValue(
           map: statesNamesMapWidthISO2,
           value: stateName
       );
     }
 
-    if (Lister.checkCanLoopList(_keys) == true){
+    if (Lister.checkCanLoop(_keys) == true){
       _output = _keys.first;
     }
 
@@ -335,7 +335,7 @@ class America {
   }){
     final List<String> _output = [];
 
-    if (Lister.checkCanLoopList(statesIDs) == true){
+    if (Lister.checkCanLoop(statesIDs) == true){
 
       for (final String stateID in statesIDs){
         final String? _stateName = getStateName(
@@ -358,7 +358,7 @@ class America {
   }){
     final List<String> _output = [];
 
-    if (Lister.checkCanLoopList(statesNames) == true){
+    if (Lister.checkCanLoop(statesNames) == true){
 
       for (final String stateName in statesNames){
 
@@ -383,7 +383,7 @@ class America {
   }){
     final List<String> _statesIDs = [];
 
-    if (Lister.checkCanLoopList(countriesIDs) == true){
+    if (Lister.checkCanLoop(countriesIDs) == true){
 
       for (final String countryID in countriesIDs!){
 
@@ -410,7 +410,7 @@ class America {
   }){
     List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(statesIDs) == true){
+    if (Lister.checkCanLoop(statesIDs) == true){
 
       List<String> _statesNames = getStatesNames(
         statesIDs: statesIDs,
@@ -525,7 +525,7 @@ class America {
   }){
     final List<Phrase> _output = <Phrase>[];
 
-    if (Lister.checkCanLoopList(statesIDs) == true){
+    if (Lister.checkCanLoop(statesIDs) == true){
 
       for (final String stateID in statesIDs){
 
@@ -563,7 +563,7 @@ class America {
   }){
     final List<String> _output = [...countriesIDs];
 
-    if (Lister.checkCanLoopList(countriesIDs) == true){
+    if (Lister.checkCanLoop(countriesIDs) == true){
 
       final bool _hasAStateID = checkCountriesIDsIncludeAStateID(
         countriesIDs: countriesIDs,
@@ -584,7 +584,7 @@ class America {
   }){
     final List<Phrase> _output = [...phrases];
 
-    if (Lister.checkCanLoopList(phrases) == true){
+    if (Lister.checkCanLoop(phrases) == true){
 
       final List<String> _phrasesIDs = Phrase.getPhrasesIDs(phrases);
 
@@ -624,7 +624,7 @@ class America {
   }){
     final List<Phrase> _output = [];
 
-    if (Lister.checkCanLoopList(removeFrom) == true){
+    if (Lister.checkCanLoop(removeFrom) == true){
 
       for (final Phrase phrase in removeFrom){
 
@@ -671,7 +671,7 @@ class America {
   }){
     bool _output = false;
 
-    if (Lister.checkCanLoopList(countriesIDs) == true){
+    if (Lister.checkCanLoop(countriesIDs) == true){
 
       for (final String countryID in countriesIDs){
 

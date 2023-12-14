@@ -34,7 +34,7 @@ class FlyersProvider extends ChangeNotifier {
     required bool notify,
   }){
 
-    if (Lister.checkCanLoopList(flyersIDs) == true){
+    if (Lister.checkCanLoop(flyersIDs) == true){
 
       for (int i = 0; i < flyersIDs!.length; i++){
 

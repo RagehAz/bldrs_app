@@ -118,7 +118,7 @@ class AccountModel {
   }){
     final List<Map<String, dynamic>> _output = [];
 
-    if (Lister.checkCanLoopList(accounts) == true){
+    if (Lister.checkCanLoop(accounts) == true){
 
       for (final AccountModel account in accounts){
 
@@ -142,7 +142,7 @@ class AccountModel {
   }){
     AccountModel? _output;
 
-    if (Lister.checkCanLoopList(accounts) == true){
+    if (Lister.checkCanLoop(accounts) == true){
 
       for (final AccountModel account in accounts){
 
@@ -173,7 +173,7 @@ class AccountModel {
   }){
     final List<AccountModel> _output = [];
 
-    if (Lister.checkCanLoopList(accounts) == true){
+    if (Lister.checkCanLoop(accounts) == true){
 
       for (final AccountModel account in accounts){
 

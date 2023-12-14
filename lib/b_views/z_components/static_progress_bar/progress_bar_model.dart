@@ -189,7 +189,7 @@ class ProgressBarModel {
     required List<Color>? colors,
   }){
 
-    if (Lister.checkCanLoopList(colors) == true){
+    if (Lister.checkCanLoop(colors) == true){
       blog('generateColors : colors : $colors');
       return colors!;
     }

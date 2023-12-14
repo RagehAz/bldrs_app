@@ -295,7 +295,7 @@ class TopicModel {
   }){
     final List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(bzzIDs) == true){
+    if (Lister.checkCanLoop(bzzIDs) == true){
 
       for (final String bzID in bzzIDs){
 
@@ -350,7 +350,7 @@ class TopicModel {
   }) async {
     final List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(bzzModels) == true){
+    if (Lister.checkCanLoop(bzzModels) == true){
 
       for (final BzModel bz in bzzModels!){
 
@@ -360,7 +360,7 @@ class TopicModel {
             receiverPartyType: PartyType.bz,
         );
 
-        if (Lister.checkCanLoopList(bz.authors) == true){
+        if (Lister.checkCanLoop(bz.authors) == true){
 
           for (final AuthorModel _author in bz.authors!) {
             final bool _isSubscribed = await _checkUserIsSubscribedToTopic(
@@ -391,7 +391,7 @@ class TopicModel {
   }) async {
     final List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(usersModels) == true){
+    if (Lister.checkCanLoop(usersModels) == true){
 
       for (final UserModel user in usersModels){
 
@@ -535,7 +535,7 @@ class TopicModel {
   }){
     final List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(topics) == true){
+    if (Lister.checkCanLoop(topics) == true){
 
       for (final String topic in topics){
 
@@ -557,7 +557,7 @@ class TopicModel {
   }){
     final List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(topics) == true && bzID != null){
+    if (Lister.checkCanLoop(topics) == true && bzID != null){
 
       for (final String topic in topics!){
 
@@ -583,7 +583,7 @@ class TopicModel {
   }){
     final List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(topics) == true){
+    if (Lister.checkCanLoop(topics) == true){
 
       final List<String> _userPossibleTopics = getAllPossibleUserTopicsIDs();
 

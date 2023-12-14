@@ -136,7 +136,7 @@ class ContactModel {
   static Map<String, dynamic> cipherContacts(List<ContactModel>? contacts) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
-    if (Lister.checkCanLoopList(contacts) == true) {
+    if (Lister.checkCanLoop(contacts) == true) {
       for (final ContactModel contact in contacts!) {
         if (contact.value != null && contact.value != '') {
           _map = Mapper.insertPairInMap(
@@ -159,7 +159,7 @@ class ContactModel {
     if (map != null) {
       final List<String> _keys = map.keys.toList();
 
-      if (Lister.checkCanLoopList(_keys) == true) {
+      if (Lister.checkCanLoop(_keys) == true) {
 
         for (final String key in _keys) {
 
@@ -314,7 +314,7 @@ class ContactModel {
 
     final List<ContactModel> _output = <ContactModel>[];
 
-    if (Lister.checkCanLoopList(contacts) == true){
+    if (Lister.checkCanLoop(contacts) == true){
 
       for (int i = 0; i < contacts!.length; i++){
 
@@ -405,7 +405,7 @@ class ContactModel {
 
     String? _contactValue;
 
-    if (Lister.checkCanLoopList(contacts) == true){
+    if (Lister.checkCanLoop(contacts) == true){
 
       _contactValue = getContactFromContacts(
         contacts: contacts,
@@ -628,7 +628,7 @@ class ContactModel {
     String invoker = 'Contacts Models',
   }){
 
-    if (Lister.checkCanLoopList(contacts) == true){
+    if (Lister.checkCanLoop(contacts) == true){
       for (final ContactModel contact in contacts!){
 
         contact.blogContact(

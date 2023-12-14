@@ -92,7 +92,7 @@ class PollModel {
   static String? cipherButtons(List<String>? buttons){
     String? _output;
 
-    if (Lister.checkCanLoopList(buttons) == true){
+    if (Lister.checkCanLoop(buttons) == true){
 
       _output = Stringer.generateStringFromStrings(
           strings: buttons,
@@ -116,13 +116,13 @@ class PollModel {
 
       // blog('2 - decipherButtons : _nodes: $_nodes');
 
-      if (Lister.checkCanLoopList(_nodes) == true){
+      if (Lister.checkCanLoop(_nodes) == true){
 
         final List<String> _cleaned = Stringer.cleanListNullItems(_nodes);
 
         // blog('3 - decipherButtons : _cleaned: $_cleaned');
 
-        if (Lister.checkCanLoopList(_cleaned) == true){
+        if (Lister.checkCanLoop(_cleaned) == true){
           _buttons = _cleaned;
         }
 

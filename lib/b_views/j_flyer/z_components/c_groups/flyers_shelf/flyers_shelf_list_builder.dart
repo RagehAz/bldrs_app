@@ -35,7 +35,7 @@ class FlyersShelfListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Lister.checkCanLoopList(flyersIDs) == true){
+    if (Lister.checkCanLoop(flyersIDs) == true){
 
       return SizedBox(
         width: gridWidth,
