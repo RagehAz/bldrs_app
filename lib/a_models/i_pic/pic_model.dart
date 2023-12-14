@@ -147,7 +147,7 @@ class PicModel {
   }
   // -----------------------------------------------------------------------------
 
-  /// COMBINERS
+  /// COMBINER
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -211,7 +211,7 @@ class PicModel {
                 'aspectRatio': _aspectRatio.toString(),
                 'sizeB': bytes.length.toString(),
                 'sizeKB': _kilo.toString(),
-                'compressionQuality': compressWithQuality.toString(),
+                'compressionQuality': compressWithQuality?.toString(),
                 'source': PicMaker.cipherPicMakerType(picMakerType),
                 'deviceID': _deviceID,
                 'deviceName': _deviceName,
