@@ -24,11 +24,11 @@
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
     <!--    To opt out of the Advertising ID Permission,    -->
     <!--    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/> -->
-    <!--    But to use it,, this is it -->
+    <!--    But to use it, this is it -->
     <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 

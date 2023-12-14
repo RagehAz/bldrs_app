@@ -1,7 +1,9 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/strings/pathing.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
-import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -18,9 +20,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:provider/provider.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 enum ChainSecondLinesType {
   non,
@@ -104,7 +104,7 @@ class ChainSplitter extends StatelessWidget {
     if (Phider.checkIsPhid(chainOrChainsOrSonOrSons) == true) {
 
       final String _phid = chainOrChainsOrSonOrSons;
-      final String? _path = ChainPathConverter.fixPathFormatting('$previousPath/$_phid/');
+      final String? _path = Pathing.fixPathFormatting('$previousPath/$_phid/');
 
       final bool _isSelected = Stringer.checkStringsContainString(
         strings: Phider.removePhidsIndexes(selectedPhids),
@@ -204,7 +204,7 @@ class ChainSplitter extends StatelessWidget {
     else if (DataCreation.checkIsDataCreator(chainOrChainsOrSonOrSons) == true){
 
       // final DataCreator _dataCreator = DataCreation.decipherDataCreator(chainOrChainsOrSonOrSons);
-      final String? _chainID = ChainPathConverter.getLastPathNode(previousPath);
+      final String? _chainID = Pathing.getLastPathNode(previousPath);
       final PickerModel? _picker = PickerModel.getPickerByChainID(
           pickers: ChainsProvider.proGetAllPickers(
             context: context,

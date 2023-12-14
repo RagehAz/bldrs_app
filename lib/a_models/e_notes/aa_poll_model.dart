@@ -1,10 +1,10 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/pathing.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
-import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 @immutable
 class PollModel {
@@ -112,7 +112,7 @@ class PollModel {
 
     if (TextCheck.isEmpty(buttonsString) == false){
 
-      final List<String> _nodes = ChainPathConverter.splitPathNodes(buttonsString);
+      final List<String> _nodes = Pathing.splitPathNodes(buttonsString);
 
       // blog('2 - decipherButtons : _nodes: $_nodes');
 

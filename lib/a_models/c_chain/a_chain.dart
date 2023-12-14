@@ -1,6 +1,7 @@
 import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/pathing.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
@@ -630,7 +631,7 @@ class Chain {
           chains: chains,
       );
 
-      ChainPathConverter.blogPaths(_paths);
+      Pathing.blogPaths(_paths);
     }
   }
   // --------------------
@@ -730,7 +731,7 @@ class Chain {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getChainsIDs(List<Chain>? chains) {
+  static List<String> getChainsRootsIDs(List<Chain>? chains) {
     final List<String> chainsIDs = <String>[];
 
     if (Mapper.checkCanLoopList(chains) == true) {
@@ -745,7 +746,7 @@ class Chain {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getOnlyChainSonsIDs({
+  static List<String> getChainSonsIDs({
     required Chain? chain,
   }) {
     /// NOTE : THIS GETS IDS OF ONLY "CHAIN SONS" OF THE GIVEN CHAIN
@@ -763,6 +764,37 @@ class Chain {
     }
 
     return _chainSonsIDs;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getChainsRootsAndSonsIDs(List<Chain>? chains){
+    List<String> _output = [];
+
+    if (Mapper.checkCanLoopList(chains) == true){
+
+      final List<String> _paths = ChainPathConverter.generateChainsPaths(
+          parentID: '',
+          chains: chains
+      );
+
+      if (Mapper.checkCanLoopList(_paths) == true){
+
+        for (final path in _paths){
+
+          final List<String> _nodes = Pathing.splitPathNodes(path);
+
+          _output = Stringer.addStringsToStringsIfDoNotContainThem(
+              listToTake: _output,
+              listToAdd: _nodes,
+          );
+
+        }
+
+      }
+
+    }
+
+    return _output;
   }
   // --------------------
   ///
@@ -997,7 +1029,7 @@ class Chain {
 
         /// PATH CONTAINS OLD PHID
         if (_pathContainOldPhid == true) {
-          final List<String> _nodes = ChainPathConverter.splitPathNodes(_path);
+          final List<String> _nodes = Pathing.splitPathNodes(_path);
 
           /// get level / index of the old phid
           final int _index = _nodes.indexOf(oldPhid);
@@ -1018,9 +1050,9 @@ class Chain {
 
             // if (_result == true){
             _nodes[_index] = newPhid;
-            final String _combinedPath = ChainPathConverter.combinePathNodes(_nodes);
+            final String _combinedPath = Pathing.combinePathNodes(_nodes);
 
-            _modifiedPaths = ChainPathConverter.addPathToPaths(
+            _modifiedPaths = Pathing.addPathToPaths(
               paths: _modifiedPaths,
               path: _combinedPath,
             );
@@ -1038,7 +1070,7 @@ class Chain {
 
         /// PATH DOES NOT CONTAIN OLD PHID
         else {
-          _modifiedPaths = ChainPathConverter.addPathToPaths(
+          _modifiedPaths = Pathing.addPathToPaths(
             paths: _modifiedPaths,
             path: _path,
           );
@@ -1114,8 +1146,10 @@ class Chain {
         chains: chain.sons,
       );
 
-      final List<String> _updated =
-          ChainPathConverter.addPathToPaths(paths: _chainPaths, path: path);
+      final List<String> _updated = Pathing.addPathToPaths(
+          paths: _chainPaths,
+          path: path,
+      );
 
       _output = ChainPathConverter.createChainFromPaths(
         chainID: chain.id,
@@ -1146,7 +1180,7 @@ class Chain {
 
       // blog('addPathToChains : _chainPaths.length : ${_chainPaths.length}');
 
-      final List<String> _updated = ChainPathConverter.addPathToPaths(
+      final List<String> _updated = Pathing.addPathToPaths(
           paths: _chainPaths,
           path: path,
       );
@@ -1205,7 +1239,7 @@ class Chain {
         chains: chain.sons,
       );
 
-      final String? _fixedPath = ChainPathConverter.fixPathFormatting(path);
+      final String? _fixedPath = Pathing.fixPathFormatting(path);
 
       final List<String> _updated = Stringer.removeStringsFromStrings(
         removeFrom: _chainPaths,
@@ -1237,7 +1271,7 @@ class Chain {
         chains: chains,
       );
 
-      final String? _fixedPath = ChainPathConverter.fixPathFormatting(path);
+      final String? _fixedPath = Pathing.fixPathFormatting(path);
 
       final List<String> _updated = Stringer.removeStringsFromStrings(
         removeFrom: _chainsPaths,
@@ -1448,7 +1482,7 @@ class Chain {
 
     if (Mapper.checkCanLoopList(chains) == true){
 
-      List<String> _ids = getChainsIDs(chains);
+      List<String> _ids = getChainsRootsIDs(chains);
       _ids = Phider.sortPhidsAlphabetically(
         phids: _ids,
       );

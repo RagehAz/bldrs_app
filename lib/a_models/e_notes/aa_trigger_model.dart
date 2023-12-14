@@ -1,10 +1,10 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:fire/super_fire.dart';
-import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
-import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/pathing.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:fire/super_fire.dart';
+import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
 class TriggerModel {
@@ -45,7 +45,7 @@ class TriggerModel {
     return {
       'functionName': name,
       'argument': argument,
-      'done': ChainPathConverter.combinePathNodes(done),
+      'done': Pathing.combinePathNodes(done),
     };
   }
   // --------------------

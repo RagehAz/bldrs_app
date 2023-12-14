@@ -164,7 +164,6 @@ class CollapsedTile extends StatelessWidget {
                             italic: true,
                             size: 1,
                             color: Colorz.white125,
-                            maxLines: 2,
                             centered: false,
                             highlight: searchText,
                           ),

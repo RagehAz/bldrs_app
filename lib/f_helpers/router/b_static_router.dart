@@ -347,7 +347,7 @@ class StaticRouter {
   https://www.bldrs.net/
   .......................
   DEBUG EXAMPLES
- http://localhost:60214/#/home
+  http://localhost:60214/#/home
   http://localhost:60214/#/privacy
   http://localhost:60214/#/flyerPreview:0Vyr4hWSwdbH1EsbOC4P
   .......................

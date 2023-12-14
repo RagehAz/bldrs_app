@@ -1,9 +1,13 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/strings/pathing.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
-import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
@@ -15,10 +19,6 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 enum DuplicatesAlgorithm {
   keepSecond,
@@ -218,7 +218,7 @@ class NoteModel {
       'topic': topic,
       'functionName': function?.name,
       'functionArgument': function?.argument,
-      'functionDone': ChainPathConverter.combinePathNodes(function?.done),
+      'functionDone': Pathing.combinePathNodes(function?.done),
       'navToName': navTo?.name,
       'navToArgument': navTo?.argument,
       // 'navToDone': [], // ChainPathConverter.combinePathNodes(navTo?.done), no Need, it should always fire
@@ -289,7 +289,7 @@ class NoteModel {
         function: TriggerModel.decipherTrigger(
           functionName: map['functionName'],
           argument: map['functionArgument'],
-          done: ChainPathConverter.splitPathNodes(map['functionDone']),
+          done: Pathing.splitPathNodes(map['functionDone']),
         ),
         navTo: TriggerModel(
           name: map['navToName'],
@@ -382,7 +382,7 @@ class NoteModel {
         function: TriggerModel(
           name: get('functionName'),
           argument: get('functionArgument'),
-          done: ChainPathConverter.splitPathNodes(get('functionDone')),
+          done: Pathing.splitPathNodes(get('functionDone')),
         ),
         navTo: TriggerModel(
           name: get('navToName'),
