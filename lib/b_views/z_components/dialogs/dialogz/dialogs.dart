@@ -1457,7 +1457,7 @@ class Dialogs {
       boolDialog: false,
       picsHeights: 120,
       pics: await PicModel.createPicsFromLocalAssets(
-        width: 300,
+        // width: 300,
         assets: [
           Iconz.mailJunkScreenshot,
           Iconz.mailSpamScreenshot,

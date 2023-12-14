@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
@@ -8,7 +9,6 @@ import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/a_models/x_ui/ui_image_cache_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -115,7 +115,7 @@ class UiProvider extends ChangeNotifier {
   Future<void> getSetLocalAssetsPaths({
     required bool notify,
   }) async {
-    final List<String> _paths = await Iconizer.getLocalAssetsPaths();
+    final List<String> _paths = await Filers.getLocalAssetsPaths();
 
     _setLocalAssetPaths(
       paths: _paths,
@@ -729,7 +729,7 @@ bool localAssetExists({
 }){
   final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
   final List<String> _localAssetsPaths = _uiProvider.localAssetsPaths;
-  final String? _path = Iconizer.getLocalAssetPathFromLocalPaths(
+  final String? _path = Filers.getLocalAssetPathFromLocalPaths(
       allAssetsPaths: _localAssetsPaths,
       assetName: assetName
   );
@@ -748,7 +748,7 @@ String? getLocalAssetPath({
 }){
   final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
   final List<String> _localAssetsPaths = _uiProvider.localAssetsPaths;
-  final String? _path = Iconizer.getLocalAssetPathFromLocalPaths(
+  final String? _path = Filers.getLocalAssetPathFromLocalPaths(
       allAssetsPaths: _localAssetsPaths,
       assetName: assetName
   );

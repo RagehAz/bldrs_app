@@ -112,7 +112,7 @@ class PicModel {
   /// TESTED : WORKS PERFECT
   static Future<List<PicModel>> createPicsFromLocalAssets({
     required List<String> assets,
-    required int width,
+    // required int width,
   }) async {
     final List<PicModel> _output = [];
 
@@ -122,7 +122,7 @@ class PicModel {
         
         final Uint8List? _bytes = await Floaters.getBytesFromLocalAsset(
             localAsset: asset,
-            width: width,
+            // width: width,
         );
 
         final PicModel? _pic = await combinePicModel(

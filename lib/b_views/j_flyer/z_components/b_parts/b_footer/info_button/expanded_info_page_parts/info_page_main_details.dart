@@ -68,13 +68,15 @@ class InfoPageMainDetails extends StatelessWidget {
     );
     // --------------------
 
+    final double _lineWidth = pageWidth - 20;
+
     return Column(
       key: const ValueKey<String>('InfoPageMainDetails'),
       children: <Widget>[
 
         /// Flyer Type
         StatsLine(
-          bubbleWidth: pageWidth - 20,
+          width: _lineWidth,
           verse: Verse(
             id: '${getWord('phid_flyer_type')} : ${getWord(_flyerTypePhid)}',
             translate: false,
@@ -85,7 +87,7 @@ class InfoPageMainDetails extends StatelessWidget {
 
         /// PUBLISH TIME
         StatsLine(
-          bubbleWidth: pageWidth - 20,
+          width: _lineWidth,
           verse: Verse(
             id: '${getWord('phid_since')} $_timeDifferance',
             translate: false,
@@ -106,7 +108,7 @@ class InfoPageMainDetails extends StatelessWidget {
             final ZoneModel? _zone = snap.data;
 
             return StatsLine(
-              bubbleWidth: pageWidth - 20,
+              width: _lineWidth,
               verse: Verse.plain(_getZoneLine(
                 context: context,
                 zone: _zone,

@@ -12,7 +12,7 @@ class StatsLine extends StatelessWidget {
     required this.verse,
     this.bigIcon = false,
     this.onTap,
-    this.bubbleWidth,
+    this.width,
     this.color,
     this.maxWidth,
     super.key
@@ -22,7 +22,7 @@ class StatsLine extends StatelessWidget {
   final bool bigIcon;
   final Verse verse;
   final Function? onTap;
-  final double? bubbleWidth;
+  final double? width;
   final Color? color;
   final double? maxWidth;
   /// --------------------------------------------------------------------------
@@ -33,11 +33,11 @@ class StatsLine extends StatelessWidget {
     final double _height = onTap == null ? 30 : 50;
 
     return Container(
-      width: bubbleWidth,
+      width: width,
       alignment: BldrsAligners.superCenterAlignment(context),
       child: BldrsBox(
         height: _height,
-        width: bubbleWidth,
+        width: width,
         maxWidth: maxWidth,
         icon: icon,
         verse: verse,
