@@ -1,8 +1,8 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:flutter/material.dart';
@@ -166,7 +166,7 @@ class NoteParties {
   }){
     List<String> _ids = [];
 
-    if (Mapper.checkCanLoopList(receiversModels) == true){
+    if (Lister.checkCanLoopList(receiversModels) == true){
 
       if (partyType == PartyType.bz){
         final List<BzModel> _bzz = [...?receiversModels];
@@ -190,7 +190,7 @@ class NoteParties {
   }){
     List<String> _pics = [];
 
-    if (Mapper.checkCanLoopList(receiversModels) == true){
+    if (Lister.checkCanLoopList(receiversModels) == true){
 
       if (partyType == PartyType.bz){
         _pics = BzModel.getBzzLogos(receiversModels as List<BzModel>);
@@ -213,7 +213,7 @@ class NoteParties {
   }){
     String _phid = '';
 
-    if (Mapper.checkCanLoopList(receiversModels) == true){
+    if (Lister.checkCanLoopList(receiversModels) == true){
 
       if (partyType == PartyType.bz){
         _phid = plural == true ? 'phid_bzz' : 'phid_bz';
@@ -235,7 +235,7 @@ class NoteParties {
   }) async {
     List<dynamic> _output = [];
 
-    if (Mapper.checkCanLoopList(ids) == true){
+    if (Lister.checkCanLoopList(ids) == true){
 
       if (partyType == PartyType.bz){
         _output = await BzProtocols.fetchBzz(bzzIDs: ids,);
@@ -289,7 +289,7 @@ class NoteParties {
   }){
     bool _areIdentical = false;
 
-    if (Mapper.checkCanLoopList(receivers1) == true && Mapper.checkCanLoopList(receivers2) == true){
+    if (Lister.checkCanLoopList(receivers1) == true && Lister.checkCanLoopList(receivers2) == true){
 
       if (receivers1!.length == receivers2!.length){
 
@@ -323,7 +323,7 @@ class NoteParties {
 
     blog('receivers : $receivers');
 
-    if (Mapper.checkCanLoopList(receivers) == true){
+    if (Lister.checkCanLoopList(receivers) == true){
 
       List<Map<String, dynamic>> _maps = [];
       final bool _isUserModel = receivers![0] is UserModel;

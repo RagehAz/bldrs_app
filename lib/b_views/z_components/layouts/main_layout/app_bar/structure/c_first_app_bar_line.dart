@@ -34,7 +34,7 @@ class FirstAppBarLine extends StatelessWidget {
     else {
 
       final bool _hasTitle =  TextCheck.isEmpty(pageTitleVerse?.id) == false;
-      final bool _hasWidgets = Mapper.checkCanLoopList(appBarRowWidgets) == true;
+      final bool _hasWidgets = Lister.checkCanLoopList(appBarRowWidgets) == true;
 
       /// TITLE + WIDGETS
       if (_hasTitle == true && _hasWidgets == true){

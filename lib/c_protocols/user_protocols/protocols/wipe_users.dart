@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -20,7 +21,6 @@ import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class WipeUserProtocols {
   // -----------------------------------------------------------------------------
@@ -132,7 +132,7 @@ class WipeUserProtocols {
 
     final List<String> _bzzIDs = userModel.myBzzIDs;
 
-    if (Mapper.checkCanLoopList(_bzzIDs) == true){
+    if (Lister.checkCanLoopList(_bzzIDs) == true){
 
       await Future.wait(<Future>[
 
@@ -173,7 +173,7 @@ class WipeUserProtocols {
       creatorID: userModel?.id,
     );
 
-    if (Mapper.checkCanLoopList(_myBzzICreated) == true){
+    if (Lister.checkCanLoopList(_myBzzICreated) == true){
 
       await Future.wait(<Future>[
 
@@ -214,7 +214,7 @@ class WipeUserProtocols {
       userID: userModel?.id,
     );
 
-    if (Mapper.checkCanLoopList(_myBzzIDidNotCreate) == true){
+    if (Lister.checkCanLoopList(_myBzzIDidNotCreate) == true){
 
       await Future.wait(<Future>[
 

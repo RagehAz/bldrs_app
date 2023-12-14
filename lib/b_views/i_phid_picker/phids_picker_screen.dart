@@ -1,5 +1,6 @@
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/layouts/nav/nav.dart';
@@ -190,7 +191,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
       phids: widget.chainsIDs,
     );
 
-    if (Mapper.checkCanLoopList(_chainsByIDs) == true){
+    if (Lister.checkCanLoopList(_chainsByIDs) == true){
 
       if (
           _chainsByIDs.length == 1
@@ -239,7 +240,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
     final List<NavModel> _output = [];
 
-    if (Mapper.checkCanLoopList(_chains) == true){
+    if (Lister.checkCanLoopList(_chains) == true){
 
       for (final Chain _chain in _chains!){
 
@@ -442,7 +443,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     bool _canGoBack = true;
 
     if (widget.multipleSelectionMode == true){
-      final bool _selectionsHaveChanged = !Mapper.checkListsAreIdentical(
+      final bool _selectionsHaveChanged = !Lister.checkListsAreIdentical(
           list1: widget.selectedPhids,
           list2: _selectedPhidsNotifier.value,
       );
@@ -460,7 +461,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   @override
   Widget build(BuildContext context) {
 
-    if (Mapper.checkCanLoopList(_chains) == false){
+    if (Lister.checkCanLoopList(_chains) == false){
       return const NoChainsFoundView();
     }
 
@@ -497,7 +498,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     /// SINGLE CHAIN
     else {
       return SingleChainSelectorView(
-        chain: Mapper.checkCanLoopList(_chains) == true ? _chains?.first : null,
+        chain: Lister.checkCanLoopList(_chains) == true ? _chains?.first : null,
         globalKey: _globalKey,
         searchController: _searchController,
         onSearchSubmit: _onSearchSubmit,

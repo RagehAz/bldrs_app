@@ -2,7 +2,7 @@ import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -103,7 +103,7 @@ class ActivePhidSelector extends StatelessWidget {
                 if (
                     onlyShowPublished == false
                     &&
-                    Mapper.checkCanLoopList(bzModel?.publication.pendings) == true
+                    Lister.checkCanLoopList(bzModel?.publication.pendings) == true
                 )
                 Builder(
                   builder: (context) {
@@ -126,7 +126,7 @@ class ActivePhidSelector extends StatelessWidget {
                 ),
 
                 /// SCOPES
-                if (Mapper.checkCanLoopList(_phids) == true)...List.generate(_phids.length, (index){
+                if (Lister.checkCanLoopList(_phids) == true)...List.generate(_phids.length, (index){
 
                   final String? _phid = bzModel?.scopes?.map.keys.toList()[index];
 
@@ -154,7 +154,7 @@ class ActivePhidSelector extends StatelessWidget {
                 if (
                     onlyShowPublished == false
                     &&
-                    Mapper.checkCanLoopList(bzModel?.publication.suspended) == true
+                    Lister.checkCanLoopList(bzModel?.publication.suspended) == true
                 )
                 Builder(
                   builder: (context) {

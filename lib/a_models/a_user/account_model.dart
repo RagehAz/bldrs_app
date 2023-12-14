@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -118,7 +118,7 @@ class AccountModel {
   }){
     final List<Map<String, dynamic>> _output = [];
 
-    if (Mapper.checkCanLoopList(accounts) == true){
+    if (Lister.checkCanLoopList(accounts) == true){
 
       for (final AccountModel account in accounts){
 
@@ -142,7 +142,7 @@ class AccountModel {
   }){
     AccountModel? _output;
 
-    if (Mapper.checkCanLoopList(accounts) == true){
+    if (Lister.checkCanLoopList(accounts) == true){
 
       for (final AccountModel account in accounts){
 
@@ -173,7 +173,7 @@ class AccountModel {
   }){
     final List<AccountModel> _output = [];
 
-    if (Mapper.checkCanLoopList(accounts) == true){
+    if (Lister.checkCanLoopList(accounts) == true){
 
       for (final AccountModel account in accounts){
 

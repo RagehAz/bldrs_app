@@ -1,8 +1,8 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:fire/super_fire.dart';
 
 class PickerRealOps {
   // -----------------------------------------------------------------------------
@@ -82,7 +82,7 @@ class PickerRealOps {
     if (
         _doc != null
         &&
-        Mapper.checkCanLoopList(updatedPickers) == true
+        Lister.checkCanLoopList(updatedPickers) == true
     ){
 
       await Real.updateDoc(

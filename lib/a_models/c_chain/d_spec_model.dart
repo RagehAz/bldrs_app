@@ -1,9 +1,10 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 @immutable
 class SpecModel {
@@ -61,7 +62,7 @@ class SpecModel {
   static Map<String, dynamic>? cipherSpecs(List<SpecModel>? specs) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
-    if (Mapper.checkCanLoopList(specs) == true) {
+    if (Lister.checkCanLoopList(specs) == true) {
 
       final List<SpecModel> sorted = sortByKeysAlphabetically(specs: specs);
 
@@ -113,7 +114,7 @@ class SpecModel {
 
       final List<String> _keys = map.keys.toList();
 
-      if (Mapper.checkCanLoopList(_keys)) {
+      if (Lister.checkCanLoopList(_keys)) {
         for (final String key in _keys) {
 
           final dynamic _value = map[key];
@@ -157,7 +158,7 @@ class SpecModel {
   }) {
     bool _contains = false;
 
-    if (Mapper.checkCanLoopList(specs) && spec != null) {
+    if (Lister.checkCanLoopList(specs) && spec != null) {
       final SpecModel? _result = specs!.firstWhereOrNull(
               (SpecModel sp) => SpecModel.checkSpecsAreIdentical(sp, spec) == true,
           );
@@ -179,7 +180,7 @@ class SpecModel {
   }) {
     bool _contains = false;
 
-    if (Mapper.checkCanLoopList(specs) && value != null) {
+    if (Lister.checkCanLoopList(specs) && value != null) {
       final List<SpecModel> _specs = specs!.where((SpecModel spec) => spec.value == value).toList();
 
       if (_specs.isNotEmpty) {
@@ -197,7 +198,7 @@ class SpecModel {
   }) {
     bool _contains = false;
 
-    if (Mapper.checkCanLoopList(specs) && pickerChainID != null) {
+    if (Lister.checkCanLoopList(specs) && pickerChainID != null) {
       final SpecModel? _result = specs?.firstWhereOrNull(
               (SpecModel sp) => sp.pickerChainID == pickerChainID,
           );
@@ -251,7 +252,7 @@ class SpecModel {
   }){
     bool _include = false;
 
-    if (Mapper.checkCanLoopList(specs) == true && Mapper.checkCanLoopList(pickers) == true){
+    if (Lister.checkCanLoopList(specs) == true && Lister.checkCanLoopList(pickers) == true){
 
       for (final SpecModel spec in specs!){
 
@@ -303,7 +304,7 @@ class SpecModel {
   static void blogSpecs(List<SpecModel>? specs) {
     blog('SPECS-PRINT -------------------------------------------------- START');
 
-    if (Mapper.checkCanLoopList(specs) == true){
+    if (Lister.checkCanLoopList(specs) == true){
       for (final SpecModel spec in specs!) {
         blog('${spec.pickerChainID} : ${spec.value}');
       }
@@ -326,7 +327,7 @@ class SpecModel {
   }){
     final List<SpecModel> _result = <SpecModel>[];
 
-    if (Mapper.checkCanLoopList(specs) == true && picker != null) {
+    if (Lister.checkCanLoopList(specs) == true && picker != null) {
 
       final List<SpecModel> _belongingSpecs = <SpecModel>[];
 
@@ -359,7 +360,7 @@ class SpecModel {
   }) {
     List<SpecModel> _result = <SpecModel>[];
 
-    if (Mapper.checkCanLoopList(specs) == true && pickerChainID != null) {
+    if (Lister.checkCanLoopList(specs) == true && pickerChainID != null) {
       _result = specs!.where(
             (SpecModel spec) => Phider.removeIndexFromPhid(phid: spec.pickerChainID) == Phider.removeIndexFromPhid(phid: pickerChainID),
       )
@@ -376,7 +377,7 @@ class SpecModel {
   }){
     SpecModel? _result;
 
-    if (Mapper.checkCanLoopList(specs) == true && pickerChainID != null) {
+    if (Lister.checkCanLoopList(specs) == true && pickerChainID != null) {
 
       for (final SpecModel spec in specs!){
         if (spec.pickerChainID == pickerChainID){
@@ -394,7 +395,7 @@ class SpecModel {
   static List<String> getSpecsIDs(List<SpecModel>? specs){
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(specs) == true){
+    if (Lister.checkCanLoopList(specs) == true){
       for (final SpecModel spec in specs!){
 
         if (spec.value is String){
@@ -411,7 +412,7 @@ class SpecModel {
   static List<SpecModel> getChainKSpecs(List<SpecModel> specs){
     final List<SpecModel> _output = <SpecModel>[];
 
-    if (Mapper.checkCanLoopList(specs) == true){
+    if (Lister.checkCanLoopList(specs) == true){
       for (final SpecModel spec in specs){
 
         final bool _specIsKeywordID = SpecModel.checkSpecIsFromChainK(
@@ -443,11 +444,11 @@ class SpecModel {
     ///
     final List<SpecModel> _specs = <SpecModel>[];
 
-    if (Mapper.checkCanLoopList(parentSpecs) == true){
+    if (Lister.checkCanLoopList(parentSpecs) == true){
       _specs.addAll(parentSpecs);
     }
 
-    if (Mapper.checkCanLoopList(inputSpecs)) {
+    if (Lister.checkCanLoopList(inputSpecs)) {
       for (final SpecModel inputSpec in inputSpecs) {
 
         /// A - CAN PICK MANY "of this list ID"
@@ -504,7 +505,7 @@ class SpecModel {
   static List<SpecModel> cleanSpecs(List<SpecModel>? specs) {
     final List<SpecModel> _output = <SpecModel>[];
 
-    if (Mapper.checkCanLoopList(specs) == true) {
+    if (Lister.checkCanLoopList(specs) == true) {
       for (final SpecModel spec in specs!) {
         if (
             // spec != null &&
@@ -529,7 +530,7 @@ class SpecModel {
 
     List<SpecModel> _output = <SpecModel>[];
 
-    if (Mapper.checkCanLoopList(specs) == true){
+    if (Lister.checkCanLoopList(specs) == true){
       _output = <SpecModel>[...specs!];
 
       _output.remove(spec);
@@ -551,9 +552,9 @@ class SpecModel {
     List<SpecModel> _output = <SpecModel>[...sourceSpecs];
 
     if (
-    Mapper.checkCanLoopList(_output) == true
+    Lister.checkCanLoopList(_output) == true
         &&
-        Mapper.checkCanLoopList(specsToRemove) == true
+        Lister.checkCanLoopList(specsToRemove) == true
     ){
 
       // blog('removeSpecsFromSpecs : can remove them');
@@ -585,7 +586,7 @@ class SpecModel {
 
     blog('generateSpecsByPhids : phids : $phids');
 
-    if (Mapper.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoopList(phids) == true){
 
       // final List<String> _chainsIDs = FlyerTyper.getChainsIDsPerViewingEvent(
       //   flyerType: flyerType,
@@ -626,7 +627,7 @@ class SpecModel {
   }){
     final List<String> _output = <String>[];
 
-    if (flyerType != null && Mapper.checkCanLoopList(specs) == true) {
+    if (flyerType != null && Lister.checkCanLoopList(specs) == true) {
 
       final List<String> _chainsIDs = FlyerTyper.getChainsIDsPerViewingEvent(
         flyerType: flyerType,
@@ -700,7 +701,7 @@ class SpecModel {
   }){
     List<SpecModel> _output = [];
 
-    if (Mapper.checkCanLoopList(specs) == true){
+    if (Lister.checkCanLoopList(specs) == true){
 
       _output = <SpecModel>[...specs!];
 
@@ -758,10 +759,10 @@ class SpecModel {
     if (specs1 == null && specs2 == null){
       _listsAreIdentical = true;
     }
-    else if (Mapper.checkCanLoopList(specs1) == false && Mapper.checkCanLoopList(specs2) == false){
+    else if (Lister.checkCanLoopList(specs1) == false && Lister.checkCanLoopList(specs2) == false){
       _listsAreIdentical = true;
     }
-    else if (Mapper.checkCanLoopList(specs1) == true && Mapper.checkCanLoopList(specs2) == true){
+    else if (Lister.checkCanLoopList(specs1) == true && Lister.checkCanLoopList(specs2) == true){
 
       if (specs1!.length != specs2!.length){
         _listsAreIdentical = false;
@@ -865,7 +866,7 @@ class Speccer {
   // --------------------
   static bool checkSpecsHavePrice(List<SpecModel>? specs){
 
-    if (Mapper.checkCanLoopList(specs) == false){
+    if (Lister.checkCanLoopList(specs) == false){
       return false;
     }
     else {

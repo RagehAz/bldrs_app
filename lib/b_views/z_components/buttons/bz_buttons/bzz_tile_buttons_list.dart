@@ -1,11 +1,11 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/bz_buttons/bz_long_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
 
 class BzzTilesButtonsList extends StatelessWidget {
@@ -29,7 +29,7 @@ class BzzTilesButtonsList extends StatelessWidget {
         builder: (_, List<BzModel>? foundBzz, Widget? child){
 
           /// FOUND BZZ
-          if (Mapper.checkCanLoopList(foundBzz) == true){
+          if (Lister.checkCanLoopList(foundBzz) == true){
 
             return ValueListenableBuilder(
               valueListenable: selectedBzz,

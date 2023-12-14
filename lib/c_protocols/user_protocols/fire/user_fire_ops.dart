@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
@@ -95,7 +95,7 @@ class UserFireOps {
         ),
     );
 
-      if (Mapper.checkCanLoopList(_maps) == true){
+      if (Lister.checkCanLoopList(_maps) == true){
 
         _output = UserModel.decipherUser(
             map: _maps.first,
@@ -135,7 +135,7 @@ class UserFireOps {
         ),
     );
 
-      if (Mapper.checkCanLoopList(_maps) == true){
+      if (Lister.checkCanLoopList(_maps) == true){
 
         _output = UserModel.decipherUsers(
             maps: _maps,

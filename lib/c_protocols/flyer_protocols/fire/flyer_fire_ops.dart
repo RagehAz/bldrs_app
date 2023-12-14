@@ -1,5 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -78,7 +78,7 @@ class FlyerFireOps {
 
     final List<String>? _allIDs = bzModel?.publication.getAllFlyersIDs();
 
-    if (Mapper.checkCanLoopList(_allIDs) == true) {
+    if (Lister.checkCanLoopList(_allIDs) == true) {
 
       final List<String> _flyersIDs =
       publishState == null ?
@@ -110,7 +110,7 @@ class FlyerFireOps {
   }) async {
     final List<FlyerModel> _allFlyers = <FlyerModel>[];
 
-    if (Mapper.checkCanLoopList(bzzModels) == true) {
+    if (Lister.checkCanLoopList(bzzModels) == true) {
 
       for (final BzModel bz in bzzModels!) {
 
@@ -119,7 +119,7 @@ class FlyerFireOps {
           bzModel: bz,
         );
 
-        if (Mapper.checkCanLoopList(_bzFlyers)) {
+        if (Lister.checkCanLoopList(_bzFlyers)) {
           _allFlyers.addAll(_bzFlyers);
         }
 

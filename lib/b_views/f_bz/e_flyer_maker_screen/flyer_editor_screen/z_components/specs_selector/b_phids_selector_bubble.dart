@@ -3,7 +3,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/phids_wrapper.dart';
@@ -74,7 +74,7 @@ class PhidsSelectorBubble extends StatelessWidget {
           ),
 
           /// SELECTED PHIDS
-          if (Mapper.checkCanLoopList(draft?.phids) == true)
+          if (Lister.checkCanLoopList(draft?.phids) == true)
             PhidsWrapper(
               width: _bubbleClearWidth,
               phids: draft?.phids ?? [],
@@ -87,7 +87,7 @@ class PhidsSelectorBubble extends StatelessWidget {
           BldrsBox(
             height: PhidButton.getHeight(),
             verse: Verse(
-              id: Mapper.checkCanLoopList(draft?.specs) ? 'phid_edit_keywords' : 'phid_add_keywords',
+              id: Lister.checkCanLoopList(draft?.specs) ? 'phid_edit_keywords' : 'phid_add_keywords',
               translate: true,
             ),
             bubble: false,

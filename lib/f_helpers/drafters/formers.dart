@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/colors/colorizer.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
@@ -644,7 +645,7 @@ class Formers {
   }){
     bool _valid = true;
 
-    if (Mapper.checkCanLoopList(contacts) == true){
+    if (Lister.checkCanLoopList(contacts) == true){
 
       String? _message;
       for (final ContactModel _contact in contacts!){
@@ -722,7 +723,7 @@ class Formers {
     String? _message;
 
     if (Mapper.boolIsTrue(canValidate) == true){
-      if (Mapper.checkCanLoopList(selectedTypes) == false){
+      if (Lister.checkCanLoopList(selectedTypes) == false){
         _message = getWord('phid_select_at_least_one_bz_type');
       }
     }
@@ -784,7 +785,7 @@ class Formers {
     String? _message;
 
     if (canValidate == true){
-      if (Mapper.checkCanLoopList(scope) == false){
+      if (Lister.checkCanLoopList(scope) == false){
         _message = getWord('phid_select_bz_scope_to_describe');
       }
 
@@ -836,7 +837,7 @@ class Formers {
 
     if (canValidate == true){
 
-      final bool _hasSlides = Mapper.checkCanLoopList(draftFlyer?.draftSlides);
+      final bool _hasSlides = Lister.checkCanLoopList(draftFlyer?.draftSlides);
 
       if (_hasSlides == false){
         _message = getWord('phid_flyer_should_have_atleast_one_slide');
@@ -960,7 +961,7 @@ class Formers {
       if (flyerType == null){
         _message = getWord('phid_select_flyer_type_first');
       }
-      else if (Mapper.checkCanLoopList(phids) == false){
+      else if (Lister.checkCanLoopList(phids) == false){
         _message = getWord('phid_select_flyer_phids_to_filter');
       }
 
@@ -1009,7 +1010,7 @@ class Formers {
       userModel: userModel,
     );
 
-    if (Mapper.checkCanLoopList(_missingFields) == true){
+    if (Lister.checkCanLoopList(_missingFields) == true){
       _thereAreMissingFields = true;
     }
 
@@ -1094,7 +1095,7 @@ class Formers {
       userModel: userModel,
     );
 
-    if (Mapper.checkCanLoopList(_missingFields) == true){
+    if (Lister.checkCanLoopList(_missingFields) == true){
       _output = Stringer.generateStringFromStrings(
         strings: _missingFields,
       );

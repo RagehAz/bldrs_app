@@ -1,7 +1,7 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 /// => TAMAM
 class PhraseLDBOps {
   // -----------------------------------------------------------------------------
@@ -18,7 +18,7 @@ class PhraseLDBOps {
     required List<Phrase> mixedLangsPhrases,
   }) async {
 
-    if (Mapper.checkCanLoopList(mixedLangsPhrases) == true){
+    if (Lister.checkCanLoopList(mixedLangsPhrases) == true){
 
       final List<Map<String, dynamic>> _allMaps = Phrase.cipherMixedLangPhrasesToMaps(
         phrases: mixedLangsPhrases,
@@ -40,7 +40,7 @@ class PhraseLDBOps {
     required List<Phrase> countriesMixedLangsPhrases,
   }) async {
 
-    if (Mapper.checkCanLoopList(countriesMixedLangsPhrases) == true){
+    if (Lister.checkCanLoopList(countriesMixedLangsPhrases) == true){
 
       await LDBOps.insertMaps(
         inputs: Phrase.cipherMixedLangPhrasesToMaps(phrases: countriesMixedLangsPhrases),
@@ -66,7 +66,7 @@ class PhraseLDBOps {
       docName: LDBDoc.mainPhrases,
     );
 
-    if (Mapper.checkCanLoopList(_maps) == true){
+    if (Lister.checkCanLoopList(_maps) == true){
 
       _mainPhrases = Phrase.decipherMixedLangPhrasesFromMaps(
         maps: _maps,
@@ -107,7 +107,7 @@ class PhraseLDBOps {
 
     // Mapper.blogMaps(_maps);
 
-    if (Mapper.checkCanLoopList(_maps) == true){
+    if (Lister.checkCanLoopList(_maps) == true){
 
       _output = Phrase.decipherMixedLangPhrasesFromMaps(
         maps: _maps,
@@ -133,7 +133,7 @@ class PhraseLDBOps {
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.mainPhrases),
       );
 
-      if (Mapper.checkCanLoopList(_maps) == true){
+      if (Lister.checkCanLoopList(_maps) == true){
 
         final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(
           maps: _maps,
@@ -161,7 +161,7 @@ class PhraseLDBOps {
     required List<Phrase> updatedMixedLangsPhrases,
   }) async {
 
-    if (Mapper.checkCanLoopList(updatedMixedLangsPhrases) == true){
+    if (Lister.checkCanLoopList(updatedMixedLangsPhrases) == true){
 
       await deleteMainPhrases();
 
@@ -178,7 +178,7 @@ class PhraseLDBOps {
     required List<Phrase> updatedCountriesMixedLangsPhrases,
   }) async {
 
-    if (Mapper.checkCanLoopList(updatedCountriesMixedLangsPhrases) == true){
+    if (Lister.checkCanLoopList(updatedCountriesMixedLangsPhrases) == true){
 
       await deleteCountriesPhrases();
 

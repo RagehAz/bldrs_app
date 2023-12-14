@@ -4,6 +4,7 @@ import 'package:basics/animators/widgets/widget_waiter.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -21,7 +22,6 @@ import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class BzNotesPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -126,7 +126,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   /// TESTED : WORKS PERFECT
   void _collectUnseenNotesToMarkAtDispose(List<Map<String, dynamic>> paginatorMaps){
 
-    if (Mapper.checkCanLoopList(paginatorMaps) == true){
+    if (Lister.checkCanLoopList(paginatorMaps) == true){
 
       /// DECIPHER NEW MAPS TO NOTES
       final List<NoteModel> _newNotes = NoteModel.decipherNotes(
@@ -226,7 +226,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
           paginationController: _paginationController,
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget? child){
 
-            if (Mapper.checkCanLoopList(maps) == true){
+            if (Lister.checkCanLoopList(maps) == true){
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 controller: _paginationController?.scrollController,

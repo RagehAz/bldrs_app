@@ -1,8 +1,8 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class PDFLDBOps {
   // -----------------------------------------------------------------------------
@@ -45,7 +45,7 @@ class PDFLDBOps {
         ids: [path!],
       );
 
-      if (Mapper.checkCanLoopList(maps) == true){
+      if (Lister.checkCanLoopList(maps) == true){
 
         _picModel = PDFModel.decipherFromMap(maps.first);
 

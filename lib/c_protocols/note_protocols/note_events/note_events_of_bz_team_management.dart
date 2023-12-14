@@ -1,5 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -223,7 +223,7 @@ class NoteEventsOfBzTeamManagement {
   }) async {
     blog('NoteEventsOfBzTeamManagement.sendBzDeletionNoteToAllAuthors : START');
 
-    if (bzModel?.id != null && Mapper.checkCanLoopList(bzModel?.authors) == true){
+    if (bzModel?.id != null && Lister.checkCanLoopList(bzModel?.authors) == true){
 
       // final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(bzModel.authors);
 
@@ -237,7 +237,7 @@ class NoteEventsOfBzTeamManagement {
       }
 
       /// SEND NOTE TO AUTHORS
-      if (Mapper.checkCanLoopList(_authors) == true){
+      if (Lister.checkCanLoopList(_authors) == true){
 
         await Future.wait(<Future>[
 

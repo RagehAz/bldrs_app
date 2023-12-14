@@ -1,7 +1,7 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:basics/ldb/methods/ldb_ops.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class CityLDBOps{
   // -----------------------------------------------------------------------------
@@ -35,7 +35,7 @@ class CityLDBOps{
     required List<CityModel> cities,
   }) async {
 
-    if (Mapper.checkCanLoopList(cities) == true){
+    if (Lister.checkCanLoopList(cities) == true){
 
       await LDBOps.insertMaps(
         docName: LDBDoc.cities,
@@ -83,7 +83,7 @@ class CityLDBOps{
   }) async {
     List<CityModel> _output = <CityModel>[];
 
-    if (Mapper.checkCanLoopList(citiesIDs) == true){
+    if (Lister.checkCanLoopList(citiesIDs) == true){
 
       final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
         docName: LDBDoc.cities,

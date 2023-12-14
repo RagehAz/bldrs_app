@@ -45,7 +45,7 @@ class AuthLDBOps {
       docName: LDBDoc.authModel,
     );
 
-    if (Mapper.checkCanLoopList(_list) == true){
+    if (Lister.checkCanLoopList(_list) == true){
 
       _authModel = AuthModel.decipher(
         map: _list.first,

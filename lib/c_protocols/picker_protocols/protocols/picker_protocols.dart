@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -10,7 +11,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/picker_protocols/ldb/picker_ldb_ops.dart';
 import 'package:bldrs/c_protocols/picker_protocols/real/picker_real_ops.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 class PickerProtocols {
@@ -58,14 +58,14 @@ class PickerProtocols {
     );
 
     /// 2 - bigChainK is not found in LDB
-    if (Mapper.checkCanLoopList(_pickers) == false){
+    if (Lister.checkCanLoopList(_pickers) == false){
 
       _pickers = await PickerRealOps.readPickers(
         flyerType: flyerType,
       );
 
       /// 3 - insert in LDB when found on firebase
-      if (Mapper.checkCanLoopList(_pickers) == true){
+      if (Lister.checkCanLoopList(_pickers) == true){
 
         await PickerLDBOps.insertPickers(
           pickers: _pickers,
@@ -89,7 +89,7 @@ class PickerProtocols {
     required List<PickerModel> pickers,
   }) async {
 
-    if (Mapper.checkCanLoopList(pickers) == true){
+    if (Lister.checkCanLoopList(pickers) == true){
 
       WaitDialog.showUnawaitedWaitDialog();
 
@@ -123,7 +123,7 @@ class PickerProtocols {
     required bool showWaitDialog,
   }) async {
 
-    if (Mapper.checkCanLoopList(pickers) == true){
+    if (Lister.checkCanLoopList(pickers) == true){
 
       if (showWaitDialog == true){
         WaitDialog.showUnawaitedWaitDialog();

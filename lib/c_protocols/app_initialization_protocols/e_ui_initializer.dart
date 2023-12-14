@@ -207,7 +207,7 @@ class UiInitializer {
       double? _diff;
       DateTime? _lastWipe;
 
-      if (Mapper.checkCanLoopList(_maps) == true){
+      if (Lister.checkCanLoopList(_maps) == true){
 
         _lastWipe = Timers.decipherTime(
           time: _maps.first['time'],

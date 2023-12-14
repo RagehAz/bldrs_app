@@ -1,12 +1,13 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/cc_pickers_blocker.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -129,7 +130,7 @@ class PickerModel {
   static Map<String, dynamic>? cipherPickers(List<PickerModel>? pickers){
     Map<String, dynamic>? _output;
 
-    if (Mapper.checkCanLoopList(pickers) == true){
+    if (Lister.checkCanLoopList(pickers) == true){
       _output = {};
 
       for (final PickerModel picker in pickers!){
@@ -163,7 +164,7 @@ class PickerModel {
       //   invoker: decipherPickers,
       // );
 
-      if (Mapper.checkCanLoopList(_keys) == true){
+      if (Lister.checkCanLoopList(_keys) == true){
 
         for (final String chainID in _keys){
 
@@ -206,7 +207,7 @@ class PickerModel {
   static List<dynamic> cipherRange(List<dynamic>? range){
     List<dynamic> _output = [];
 
-    if (Mapper.checkCanLoopList(range) == true){
+    if (Lister.checkCanLoopList(range) == true){
 
       _output = <dynamic>[];
 
@@ -223,7 +224,7 @@ class PickerModel {
   static List<dynamic> decipherRange(List<dynamic>? dynamics){
     List<dynamic> _output = [];
 
-    if (Mapper.checkCanLoopList(dynamics) == true){
+    if (Lister.checkCanLoopList(dynamics) == true){
 
       _output = Stringer.getStringsFromDynamics(dynamics);
 
@@ -243,7 +244,7 @@ class PickerModel {
   }) {
     bool _contains = false;
 
-    if (Mapper.checkCanLoopList(pickers) == true && picker != null) {
+    if (Lister.checkCanLoopList(pickers) == true && picker != null) {
       for (int i = 0; i < pickers!.length; i++) {
 
         final PickerModel _picker = pickers[i];
@@ -282,7 +283,7 @@ class PickerModel {
               blockers2: picker2.blockers
           ) == true &&
 
-          Mapper.checkListsAreIdentical(
+          Lister.checkListsAreIdentical(
             list1: picker1.range,
             list2: picker2.range,
           ) == true
@@ -309,7 +310,7 @@ class PickerModel {
     else if (pickers1 != null && pickers1.isEmpty == true && pickers2 != null && pickers2.isEmpty== true){
       _listsAreIdentical = true;
     }
-    else if (Mapper.checkCanLoopList(pickers1) == true && Mapper.checkCanLoopList(pickers2) == true){
+    else if (Lister.checkCanLoopList(pickers1) == true && Lister.checkCanLoopList(pickers2) == true){
 
       if (pickers1!.length != pickers2!.length){
         _listsAreIdentical = false;
@@ -366,7 +367,7 @@ class PickerModel {
   static void blogPickers(List<PickerModel>? pickers, {String? invoker = 'PICKER'}) {
 
 
-    if (Mapper.checkCanLoopList(pickers) == true) {
+    if (Lister.checkCanLoopList(pickers) == true) {
 
       final List<PickerModel> _pickers = sortPickersByIndexes(pickers);
 
@@ -383,7 +384,7 @@ class PickerModel {
   static void blogIndexes(List<PickerModel> pickers){
     blog('blogIndexes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~start');
 
-    if (Mapper.checkCanLoopList(pickers)) {
+    if (Lister.checkCanLoopList(pickers)) {
       for (final PickerModel _picker in pickers) {
 
         final String _indent = Mapper.boolIsTrue(_picker.isHeadline) == true ? '->' : '---->';
@@ -410,7 +411,7 @@ class PickerModel {
   }){
     final List<PickerModel> _pickers = <PickerModel>[];
 
-    if (Mapper.checkCanLoopList(bldrsChains) == true){
+    if (Lister.checkCanLoopList(bldrsChains) == true){
 
       for (final FlyerType flyerType in FlyerTyper.flyerTypesList){
 
@@ -468,7 +469,7 @@ class PickerModel {
     final List<PickerModel> _pickers = <PickerModel>[];
 
     /// IF SPECIFIC TYPES ARE GIVEN, ADD WHATS ENLISTED
-    if (Mapper.checkCanLoopList(onlyUseTheseFlyerTypes) == true){
+    if (Lister.checkCanLoopList(onlyUseTheseFlyerTypes) == true){
 
       for (final PickerModel picker in allChainKPickers){
 
@@ -619,7 +620,7 @@ class PickerModel {
 
     PickerModel? _specPicker;
 
-    if (Mapper.checkCanLoopList(pickers) == true && chainIDOrUnitChainID != null) {
+    if (Lister.checkCanLoopList(pickers) == true && chainIDOrUnitChainID != null) {
       _specPicker = pickers!.firstWhereOrNull(
               (PickerModel picker) =>
               picker.chainID == chainIDOrUnitChainID
@@ -644,7 +645,7 @@ class PickerModel {
 
     PickerModel? _specPicker;
 
-    if (Mapper.checkCanLoopList(pickers) == true && chainID != null) {
+    if (Lister.checkCanLoopList(pickers) == true && chainID != null) {
       _specPicker = pickers!.firstWhereOrNull((PickerModel picker) => picker.chainID == chainID);
     }
 
@@ -658,7 +659,7 @@ class PickerModel {
   }){
     final List<PickerModel> _output = <PickerModel>[];
 
-    if (Mapper.checkCanLoopList(pickers) == true && Mapper.checkCanLoopList(chainsIDs) == true){
+    if (Lister.checkCanLoopList(pickers) == true && Lister.checkCanLoopList(chainsIDs) == true){
 
       for (final String chainID in chainsIDs!){
 
@@ -686,7 +687,7 @@ class PickerModel {
   }) {
     final List<PickerModel> _output = <PickerModel>[];
 
-    if (Mapper.checkCanLoopList(pickers)) {
+    if (Lister.checkCanLoopList(pickers)) {
       for (final PickerModel picker in pickers) {
         if (picker.groupID == groupID) {
           _output.add(picker);
@@ -720,7 +721,7 @@ class PickerModel {
   static List<String> getPickersChainsIDs(List<PickerModel> pickers){
     List<String> _chainsIDs = <String>[];
 
-    if (Mapper.checkCanLoopList(pickers) == true){
+    if (Lister.checkCanLoopList(pickers) == true){
 
       for (final PickerModel picker in pickers) {
         _chainsIDs = Stringer.addStringToListIfDoesNotContainIt(
@@ -746,7 +747,7 @@ class PickerModel {
   }) {
     final List<PickerModel> _pickers = <PickerModel>[];
 
-    if (Mapper.checkCanLoopList(sourcePickers) == true) {
+    if (Lister.checkCanLoopList(sourcePickers) == true) {
       final List<String> _allPickersIDsToBlock = <String>[];
 
       /// GET BLOCKED PICKERS
@@ -754,7 +755,7 @@ class PickerModel {
 
         final List<PickersBlocker>? _blockers = picker.blockers;
 
-        if (Mapper.checkCanLoopList(_blockers) == true) {
+        if (Lister.checkCanLoopList(_blockers) == true) {
           for (final PickersBlocker blocker in _blockers!) {
             final bool _isSelected = SpecModel.checkSpecsContainThisSpecValue(
                 specs: selectedSpecs,
@@ -792,7 +793,7 @@ class PickerModel {
   }){
     List<PickerModel> _output = <PickerModel>[];
 
-    if (Mapper.checkCanLoopList(sourcePickers) == true){
+    if (Lister.checkCanLoopList(sourcePickers) == true){
       _output = <PickerModel>[...sourcePickers];
 
       if (pickerChainIDtoReplace != null && updatedPicker != null){
@@ -829,7 +830,7 @@ class PickerModel {
   }){
     List<PickerModel> _output = <PickerModel>[];
 
-    if (Mapper.checkCanLoopList(pickers) == true){
+    if (Lister.checkCanLoopList(pickers) == true){
 
       _output = <PickerModel>[...pickers];
 
@@ -875,7 +876,7 @@ class PickerModel {
 
     final List<PickerModel> _output = <PickerModel>[];
 
-    if (Mapper.checkCanLoopList(pickers) == true){
+    if (Lister.checkCanLoopList(pickers) == true){
 
       final List<PickerModel> _pickers = <PickerModel>[... pickers!];
 
@@ -896,7 +897,7 @@ class PickerModel {
   static List<PickerModel> correctModelsIndexes(List<PickerModel> pickers){
     final List<PickerModel> _output = <PickerModel>[];
 
-    if (Mapper.checkCanLoopList(pickers) == true) {
+    if (Lister.checkCanLoopList(pickers) == true) {
 
       for (int i = 0; i < pickers.length; i++){
 
@@ -964,7 +965,7 @@ class PickerModel {
 
     final List<PickerModel> _pickers = <PickerModel>[];
 
-    if (Mapper.checkCanLoopList(phids) == true && Mapper.checkCanLoopList(allPickers) == true){
+    if (Lister.checkCanLoopList(phids) == true && Lister.checkCanLoopList(allPickers) == true){
 
       for (final String phid in phids){
 

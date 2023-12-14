@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
@@ -308,7 +308,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                   ),
                   columnChildren: <Widget>[
 
-                    if (Mapper.checkCanLoopList(widget.bulletPoints) == true)
+                    if (Lister.checkCanLoopList(widget.bulletPoints) == true)
                       bulletPoints!,
 
                     /// COUNTRY BUTTON

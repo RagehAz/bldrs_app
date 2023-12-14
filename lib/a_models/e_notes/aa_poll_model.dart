@@ -1,5 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/pathing.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
@@ -92,7 +92,7 @@ class PollModel {
   static String? cipherButtons(List<String>? buttons){
     String? _output;
 
-    if (Mapper.checkCanLoopList(buttons) == true){
+    if (Lister.checkCanLoopList(buttons) == true){
 
       _output = Stringer.generateStringFromStrings(
           strings: buttons,
@@ -116,13 +116,13 @@ class PollModel {
 
       // blog('2 - decipherButtons : _nodes: $_nodes');
 
-      if (Mapper.checkCanLoopList(_nodes) == true){
+      if (Lister.checkCanLoopList(_nodes) == true){
 
         final List<String> _cleaned = Stringer.cleanListNullItems(_nodes);
 
         // blog('3 - decipherButtons : _cleaned: $_cleaned');
 
-        if (Mapper.checkCanLoopList(_cleaned) == true){
+        if (Lister.checkCanLoopList(_cleaned) == true){
           _buttons = _cleaned;
         }
 
@@ -177,7 +177,7 @@ class PollModel {
       if (poll1 != null && poll2 != null){
 
         if (
-            Mapper.checkListsAreIdentical(list1: poll1.buttons, list2: poll2.buttons) &&
+            Lister.checkListsAreIdentical(list1: poll1.buttons, list2: poll2.buttons) &&
             poll1.reply == poll2.reply &&
             Timers.checkTimesAreIdentical(
                 accuracy: TimeAccuracy.microSecond,

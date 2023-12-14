@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -14,7 +15,6 @@ import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 
 /// => TAMAM
@@ -207,7 +207,7 @@ class BzModel{
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Mapper.checkCanLoopList(bzz) == true){
+    if (Lister.checkCanLoopList(bzz) == true){
 
       for (final BzModel bz in bzz!){
 
@@ -276,7 +276,7 @@ class BzModel{
   }) {
     final List<BzModel> _bzList = <BzModel>[];
 
-    if (Mapper.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoopList(maps) == true){
       for (final Map<String, dynamic> map in maps!) {
         final BzModel? _bz = decipherBz(
           map: map,
@@ -356,7 +356,7 @@ class BzModel{
 
     if (bzModel != null){
 
-      if (Mapper.checkCanLoopList(bzzModels) == true){
+      if (Lister.checkCanLoopList(bzzModels) == true){
         _output.addAll(bzzModels!);
       }
 
@@ -497,7 +497,7 @@ class BzModel{
     BzModel _output;
 
 
-    if (bzModel != null && Mapper.checkCanLoopList(flyersIDs) == true){
+    if (bzModel != null && Lister.checkCanLoopList(flyersIDs) == true){
 
       final List<String> _updatedFlyersIDs = Mapper.removeStringsFromStrings(
         removeFrom: bzModel.flyersIDs,
@@ -593,7 +593,7 @@ class BzModel{
     String? invoker,
   }){
 
-    if (Mapper.checkCanLoopList(bzz) == true){
+    if (Lister.checkCanLoopList(bzz) == true){
 
       for (final BzModel bz in bzz!){
         bz.blogBz(invoker: invoker);
@@ -624,7 +624,7 @@ class BzModel{
       if (bz1.id != bz2.id){
         blog('ids are not identical');
       }
-      if (Mapper.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) == false){
+      if (Lister.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) == false){
         blog('bzTypes are not identical');
       }
       if (bz1.bzForm != bz2.bzForm){
@@ -639,7 +639,7 @@ class BzModel{
       if (bz1.name != bz2.name){
         blog('names are not identical');
       }
-      if (Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) == false){
+      if (Lister.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) == false){
         blog('trigrams are not identical');
       }
       if (bz1.logoPath != bz2.logoPath){
@@ -704,7 +704,7 @@ class BzModel{
   static List<String> getBzzIDs(List<BzModel> bzzModels) {
     final List<String> _ids = <String>[];
 
-    if (Mapper.checkCanLoopList(bzzModels) == true) {
+    if (Lister.checkCanLoopList(bzzModels) == true) {
       for (final BzModel bz in bzzModels) {
         if (bz.id != null){
           _ids.add(bz.id!);
@@ -719,7 +719,7 @@ class BzModel{
   static List<String> getBzzLogos(List<BzModel>? bzzModels) {
     final List<String> _pics = <String>[];
 
-    if (Mapper.checkCanLoopList(bzzModels) == true) {
+    if (Lister.checkCanLoopList(bzzModels) == true) {
       for (final BzModel bz in bzzModels!) {
         if (bz.logoPath != null){
           _pics.add(bz.logoPath!);
@@ -738,7 +738,7 @@ class BzModel{
 
     final List<BzModel> _output = <BzModel>[];
 
-    if (Mapper.checkCanLoopList(bzz) && bzType != null){
+    if (Lister.checkCanLoopList(bzz) && bzType != null){
       for (final BzModel bz in bzz){
 
         final List<BzType>? _bzTypesOfThisBz = bz.bzTypes;
@@ -761,7 +761,7 @@ class BzModel{
   static List<String> getBzTeamIDs(BzModel? bzModel) {
     final List<String> _bzTeamIDs = <String>[];
 
-    if (Mapper.checkCanLoopList(bzModel?.authors) == true) {
+    if (Lister.checkCanLoopList(bzModel?.authors) == true) {
       for (final AuthorModel author in bzModel!.authors!) {
         if (author.userID != null){
           _bzTeamIDs.add(author.userID!);
@@ -779,7 +779,7 @@ class BzModel{
   }){
     final List<BzModel> _bzzModels = <BzModel>[];
 
-    if (creatorID != null && Mapper.checkCanLoopList(bzzModels) == true){
+    if (creatorID != null && Lister.checkCanLoopList(bzzModels) == true){
 
       for (final BzModel bzModel in bzzModels!){
 
@@ -803,7 +803,7 @@ class BzModel{
   }){
     final List<BzModel> _bzzModels = <BzModel>[];
 
-    if (userID != null && Mapper.checkCanLoopList(bzzModels) == true){
+    if (userID != null && Lister.checkCanLoopList(bzzModels) == true){
 
       for (final BzModel bzModel in bzzModels!){
 
@@ -831,7 +831,7 @@ class BzModel{
   }) {
     bool _contains = false;
 
-    if (Mapper.checkCanLoopList(bzz) == true && bzModel != null) {
+    if (Lister.checkCanLoopList(bzz) == true && bzModel != null) {
       for (final BzModel bz in bzz!) {
         if (bz.id == bzModel.id) {
           _contains = true;
@@ -849,16 +849,16 @@ class BzModel{
   }){
     bool _hasContacts = false;
 
-    if (Mapper.checkCanLoopList(bzModel?.authors) == true){
+    if (Lister.checkCanLoopList(bzModel?.authors) == true){
 
-      if (Mapper.checkCanLoopList(bzModel!.contacts) == true){
+      if (Lister.checkCanLoopList(bzModel!.contacts) == true){
         _hasContacts = true;
       }
       else {
 
         for (final AuthorModel author in bzModel.authors!){
 
-          if (Mapper.checkCanLoopList(author.contacts) == true){
+          if (Lister.checkCanLoopList(author.contacts) == true){
             _hasContacts = true;
             break;
           }
@@ -878,7 +878,7 @@ class BzModel{
   }){
     bool _has = false;
 
-    if (Mapper.checkCanLoopList(authors) == true){
+    if (Lister.checkCanLoopList(authors) == true){
 
       for (final AuthorModel author in authors!){
 
@@ -909,7 +909,7 @@ class BzModel{
     //     _bzAboutTextController.text.length < 6
     //     // _currentBzContacts.length == 0 ||
 
-    if (Mapper.checkCanLoopList(bzModel?.bzTypes) == false){
+    if (Lister.checkCanLoopList(bzModel?.bzTypes) == false){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzType',
@@ -949,7 +949,7 @@ class BzModel{
       );
     }
 
-    if (Mapper.checkCanLoopList(bzModel?.scope) == false){
+    if (Lister.checkCanLoopList(bzModel?.scope) == false){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzScope',
@@ -1012,12 +1012,12 @@ class BzModel{
 
       if (
           bz1.id == bz2.id &&
-          Mapper.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) == true &&
+          Lister.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) == true &&
           bz1.bzForm == bz2.bzForm &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) == true &&
           bz1.accountType == bz2.accountType &&
           bz1.name == bz2.name &&
-          Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) == true &&
+          Lister.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) == true &&
           bz1.logoPath == bz2.logoPath &&
           ScopeModel.checkScopesAreIdentical(scope1: bz1.scopes, scope2: bz2.scopes) == true &&
           ZoneModel.checkZonesIDsAreIdentical(zone1: bz1.zone, zone2: bz2.zone) == true &&

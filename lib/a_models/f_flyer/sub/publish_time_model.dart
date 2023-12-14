@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
@@ -37,7 +38,7 @@ class PublishTime {
   }) {
     Map<String, dynamic> _outPut = <String, dynamic>{};
 
-    if (Mapper.checkCanLoopList(times) == true) {
+    if (Lister.checkCanLoopList(times) == true) {
       for (final PublishTime time in times!) {
         _outPut = Mapper.insertPairInMap(
           map: _outPut,
@@ -62,7 +63,7 @@ class PublishTime {
       final List<String> _keys = map.keys.toList();
       final List<dynamic> _values = map.values.toList();
 
-      if (Mapper.checkCanLoopList(_keys) == true && Mapper.checkCanLoopList(_values) == true) {
+      if (Lister.checkCanLoopList(_keys) == true && Lister.checkCanLoopList(_values) == true) {
         for (int i = 0; i < _keys.length; i++) {
 
           final PublishState? _flyerStateString = PublicationModel.decipherPublishState(_keys[i]);
@@ -101,7 +102,7 @@ class PublishTime {
   static List<PublishTime> cloneTimes(List<PublishTime> times) {
     final List<PublishTime> _times = <PublishTime>[];
 
-    if (Mapper.checkCanLoopList(times)) {
+    if (Lister.checkCanLoopList(times)) {
       for (final PublishTime time in times) {
         _times.add(time.clone());
       }
@@ -125,7 +126,7 @@ class PublishTime {
   /// TESTED : WORKS PERFECT
   static void blogTimes(List<PublishTime>? times){
 
-    if (Mapper.checkCanLoopList(times) == true){
+    if (Lister.checkCanLoopList(times) == true){
 
       for (final PublishTime time in times!){
         time.blogPublishTime();
@@ -195,7 +196,7 @@ class PublishTime {
 
     PublishTime? _publishTime;
 
-    if (state != null && Mapper.checkCanLoopList(times) == true) {
+    if (state != null && Lister.checkCanLoopList(times) == true) {
       _publishTime = times!.firstWhereOrNull((PublishTime time) => time.state == state);
     }
 
@@ -207,7 +208,7 @@ class PublishTime {
   static PublishTime getLastRecord(List<PublishTime> publishTimes){
     PublishTime _publishTime;
 
-    if (Mapper.checkCanLoopList(publishTimes) == true){
+    if (Lister.checkCanLoopList(publishTimes) == true){
 
       _publishTime = publishTimes[0];
 
@@ -240,7 +241,7 @@ class PublishTime {
 
     final List<PublishTime> _output = <PublishTime>[];
 
-    if (Mapper.checkCanLoopList(times) == true){
+    if (Lister.checkCanLoopList(times) == true){
       _output.addAll(times);
     }
 
@@ -301,9 +302,9 @@ class PublishTime {
     }
 
     else if (
-        Mapper.checkCanLoopList(times1) == true
+        Lister.checkCanLoopList(times1) == true
             &&
-        Mapper.checkCanLoopList(times2) == true
+        Lister.checkCanLoopList(times2) == true
     ){
 
       if (times1!.length == times2!.length){

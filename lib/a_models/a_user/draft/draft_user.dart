@@ -1,5 +1,8 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs/a_models/a_user/sub/agenda_model.dart';
 import 'package:bldrs/a_models/a_user/sub/deck_model.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
@@ -13,9 +16,6 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 /// => TAMAM
 @immutable
@@ -519,7 +519,7 @@ class DraftUser {
       location: draft?.location,
       contactsArePublic: draft?.contactsArePublic,
       myBzzIDs: draft?.myBzzIDs,
-      isAuthor: Mapper.checkCanLoopList(draft?.myBzzIDs),
+      isAuthor: Lister.checkCanLoopList(draft?.myBzzIDs),
       emailIsVerified: draft?.emailIsVerified,
       isAdmin: draft?.isAdmin,
       device: draft?.device,
@@ -576,7 +576,7 @@ class DraftUser {
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: draft1.createdAt, time2: draft2.createdAt) == true &&
           NeedModel.checkNeedsAreIdentical(draft1.need, draft2.need) == true &&
           draft1.name == draft2.name &&
-          Mapper.checkListsAreIdentical(list1: draft1.trigram, list2: draft2.trigram) == true &&
+          Lister.checkListsAreIdentical(list1: draft1.trigram, list2: draft2.trigram) == true &&
           PicModel.checkPicsAreIdentical(pic1: draft1.picModel, pic2: draft2.picModel) == true &&
           draft1.title == draft2.title &&
           draft1.company == draft2.company &&
@@ -586,14 +586,14 @@ class DraftUser {
           Atlas.checkPointsAreIdentical(point1: draft1.location, point2: draft2.location) == true &&
           ContactModel.checkContactsListsAreIdentical(contacts1: draft1.contacts, contacts2: draft2.contacts) == true &&
           draft1.contactsArePublic == draft2.contactsArePublic &&
-          Mapper.checkListsAreIdentical(list1: draft1.myBzzIDs, list2: draft2.myBzzIDs) == true &&
+          Lister.checkListsAreIdentical(list1: draft1.myBzzIDs, list2: draft2.myBzzIDs) == true &&
           draft1.emailIsVerified == draft2.emailIsVerified &&
           draft1.isAdmin == draft2.isAdmin &&
           DeckModel.checkDecksAreIdentical(deck1: draft1.savedFlyers, deck2: draft2.savedFlyers) == true &&
           AgendaModel.checkAgendasAreIdentical(agenda1: draft1.followedBzz, agenda2: draft2.followedBzz) == true &&
           AppStateModel.checkAppStatesAreIdentical(state1: draft1.appState, state2: draft2.appState, isInUserModel: true) == true &&
           DeviceModel.checkDevicesAreIdentical(device1: draft1.device, device2: draft2.device) == true &&
-          Mapper.checkListsAreIdentical(list1: draft1.fcmTopics, list2: draft2.fcmTopics) == true &&
+          Lister.checkListsAreIdentical(list1: draft1.fcmTopics, list2: draft2.fcmTopics) == true &&
           draft1.nameController?.text == draft2.nameController?.text &&
           draft1.titleController?.text == draft2.titleController?.text &&
           draft1.companyController?.text == draft2.companyController?.text &&

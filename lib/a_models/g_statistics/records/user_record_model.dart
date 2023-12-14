@@ -1,5 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
@@ -73,7 +73,7 @@ class UserRecordModel {
       final List<String> _keys = map.keys.toList();
       _keys.remove('id');
 
-      if (Mapper.checkCanLoopList(_keys) == true){
+      if (Lister.checkCanLoopList(_keys) == true){
 
         for (final String dayNode in _keys){
 
@@ -107,7 +107,7 @@ class UserRecordModel {
       final List<String> _recordsIDs = dayMap.keys.toList();
       _recordsIDs.remove('id');
 
-      if (Mapper.checkCanLoopList(_recordsIDs) == true){
+      if (Lister.checkCanLoopList(_recordsIDs) == true){
 
         for (final String recordID in _recordsIDs){
 
@@ -252,7 +252,7 @@ class UserRecordModel {
   }){
     List<Map<String, dynamic>> _output = [];
 
-    if (Mapper.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoopList(maps) == true){
 
       _output = <Map<String, dynamic>>[...maps!];
 
@@ -287,7 +287,7 @@ class UserRecordModel {
   static List<UserRecordModel> sortRecordsByTime(List<UserRecordModel> records){
     List<UserRecordModel> _output = [];
 
-    if (Mapper.checkCanLoopList(records) == true){
+    if (Lister.checkCanLoopList(records) == true){
 
       _output = [...records];
 

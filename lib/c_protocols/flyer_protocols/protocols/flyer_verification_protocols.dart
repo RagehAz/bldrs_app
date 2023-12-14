@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
@@ -198,7 +198,7 @@ class FlyerVerificationProtocols {
       ),
     );
 
-    if (Mapper.checkCanLoopList(_nonVerifiedFlyers) == true){
+    if (Lister.checkCanLoopList(_nonVerifiedFlyers) == true){
 
       for (final FlyerModel _flyer in _nonVerifiedFlyers!){
 

@@ -69,7 +69,7 @@ class BigMac {
 
     final List<BigMac> _bigMacs = <BigMac>[];
 
-    if (Mapper.checkCanLoopList(maps) == true) {
+    if (Lister.checkCanLoopList(maps) == true) {
       for (final Map<String, dynamic> map in maps!) {
 
         final BigMac? _mac = decipherBigMac(map);
@@ -88,7 +88,7 @@ class BigMac {
   static Map<String, dynamic> cipherBigMacs(List<BigMac>? bigMacs) {
     Map<String, dynamic> _bigMacsMap = <String, dynamic>{};
 
-    if (Mapper.checkCanLoopList(bigMacs) == true) {
+    if (Lister.checkCanLoopList(bigMacs) == true) {
       for (final BigMac mac in bigMacs!) {
         _bigMacsMap = Mapper.insertPairInMap(
           map: _bigMacsMap,
@@ -109,7 +109,7 @@ class BigMac {
   }){
     List<BigMac> _output = [];
 
-    if (rates == null || Mapper.checkCanLoopList(bigMacs) == false){
+    if (rates == null || Lister.checkCanLoopList(bigMacs) == false){
       _output = getBigMacs();
     }
     else {
@@ -150,7 +150,7 @@ class BigMac {
   static List<String> getCountriesIDsFromBigMacs(List<BigMac>? bigMacs) {
     final List<String> _countriesIDs = <String>[];
 
-    if (Mapper.checkCanLoopList(bigMacs) == true) {
+    if (Lister.checkCanLoopList(bigMacs) == true) {
       for (final BigMac bigMac in bigMacs!) {
 
         if (bigMac.countryID != null){
@@ -203,7 +203,7 @@ class BigMac {
     required List<BigMac>? bigMacs,
   }) {
 
-    if (Mapper.checkCanLoopList(bigMacs) == false || iso3 == null){
+    if (Lister.checkCanLoopList(bigMacs) == false || iso3 == null){
       return null;
     }
 
@@ -221,9 +221,9 @@ class BigMac {
     final List<BigMac> _output = [];
 
     if (
-        Mapper.checkCanLoopList(countriesIDs) == true
+        Lister.checkCanLoopList(countriesIDs) == true
         &&
-        Mapper.checkCanLoopList(bigMacs) == true
+        Lister.checkCanLoopList(bigMacs) == true
     ){
 
       for (final String countryID in countriesIDs!){
@@ -252,7 +252,7 @@ class BigMac {
   }){
     BigMac? _output;
 
-    if (currencyID != null && Mapper.checkCanLoopList(bigMacs) == true){
+    if (currencyID != null && Lister.checkCanLoopList(bigMacs) == true){
 
       _output = bigMacs!.singleWhereOrNull(
           (BigMac bigMac) => bigMac.currencyID?.toLowerCase() == currencyID.toLowerCase());
@@ -271,7 +271,7 @@ class BigMac {
     required List<BigMac>? bigMacs,
   }) {
 
-    if (Mapper.checkCanLoopList(bigMacs) == false || countryID == null){
+    if (Lister.checkCanLoopList(bigMacs) == false || countryID == null){
       return null;
     }
 
@@ -296,7 +296,7 @@ class BigMac {
 }) {
     final List<BigMac> _macs = <BigMac>[];
 
-    if (Mapper.checkCanLoopList(bigMacs) == false){
+    if (Lister.checkCanLoopList(bigMacs) == false){
       bigMacs.sort((BigMac a, BigMac b) => a.localPrice?.compareTo(b.localPrice as num) ?? 0);
       _macs.addAll(bigMacs);
     }
@@ -312,7 +312,7 @@ class BigMac {
     required String langCode,
   }){
 
-    if (Mapper.checkCanLoopList(toSort) == true ) {
+    if (Lister.checkCanLoopList(toSort) == true ) {
 
       final List<String> _bigMacsCountriesIDs = getCountriesIDsFromBigMacs(toSort);
 
@@ -342,9 +342,9 @@ class BigMac {
     final List<BigMac> _output = [];
 
     if (
-    Mapper.checkCanLoopList(bigMacs) == true
+    Lister.checkCanLoopList(bigMacs) == true
     &&
-    Mapper.checkCanLoopList(allMacs) == true
+    Lister.checkCanLoopList(allMacs) == true
     ){
 
       blog('bigMacs length : ${bigMacs?.length} : ${allMacs?.length}');
@@ -470,7 +470,7 @@ class BigMac {
     required List<BigMac>? bigMacs,
   }) {
 
-    if (accountPrice == null || Mapper.checkCanLoopList(bigMacs) == false){
+    if (accountPrice == null || Lister.checkCanLoopList(bigMacs) == false){
       return 0;
     }
     else {

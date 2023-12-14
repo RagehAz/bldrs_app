@@ -1,6 +1,7 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:flutter/foundation.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 @immutable
 class PickersBlocker {
@@ -60,7 +61,7 @@ class PickersBlocker {
   static List<Map<String, dynamic>> cipherBlockers(List<PickersBlocker>? blockers){
     final List <Map<String, dynamic>> _maps  = <Map<String, dynamic>>[];
 
-    if (Mapper.checkCanLoopList(blockers) == true){
+    if (Lister.checkCanLoopList(blockers) == true){
 
       for (final PickersBlocker blocker in blockers!){
 
@@ -95,7 +96,7 @@ class PickersBlocker {
       else if (maps is Map<String, dynamic>? || maps is Map<String, dynamic>) {
         final Map<String, dynamic>? _bigMap = maps;
         final List<String>? _keys = _bigMap?.keys.toList();
-        if (Mapper.checkCanLoopList(_keys) == true){
+        if (Lister.checkCanLoopList(_keys) == true){
           for (final String key in _keys!) {
             final dynamic _map = maps[key];
             final PickersBlocker? _blocker = _decipherBlocker(_map);
@@ -128,7 +129,7 @@ class PickersBlocker {
     }
     else if (blocker1 != null && blocker2 != null){
 
-      final bool _blockersAreIdentical = Mapper.checkListsAreIdentical(
+      final bool _blockersAreIdentical = Lister.checkListsAreIdentical(
         list1: blocker1.pickersIDsToBlock,
         list2: blocker2.pickersIDsToBlock,
       );
@@ -159,7 +160,7 @@ class PickersBlocker {
     else if (blockers1 != null && blockers1.isEmpty == true && blockers2 != null && blockers2.isEmpty == true){
       _listsAreIdentical = true;
     }
-    else if (Mapper.checkCanLoopList(blockers1) == true && Mapper.checkCanLoopList(blockers2) == true){
+    else if (Lister.checkCanLoopList(blockers1) == true && Lister.checkCanLoopList(blockers2) == true){
 
       if (blockers1!.length != blockers2!.length){
         _listsAreIdentical = false;

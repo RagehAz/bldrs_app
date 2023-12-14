@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -39,7 +39,7 @@ class AccountLDBOps {
     required List<UserModel> users,
   }) async {
 
-    if (Mapper.checkCanLoopList(users) == true){
+    if (Lister.checkCanLoopList(users) == true){
 
       final List<AccountModel> _accounts = [];
       for (final UserModel user in users){
@@ -62,7 +62,7 @@ class AccountLDBOps {
 
       }
 
-      if (Mapper.checkCanLoopList(_accounts) == true){
+      if (Lister.checkCanLoopList(_accounts) == true){
 
         final List<Map<String, dynamic>> _maps = AccountModel.cipherAccounts(
           accounts: _accounts,
@@ -106,7 +106,7 @@ class AccountLDBOps {
       docName: LDBDoc.accounts,
     );
 
-    if (Mapper.checkCanLoopList(_maps) == true){
+    if (Lister.checkCanLoopList(_maps) == true){
       for (final Map<String, dynamic> _map in _maps){
         final AccountModel? _model = AccountModel.decipher(_map);
         if (_model != null){
@@ -124,7 +124,7 @@ class AccountLDBOps {
 
     final List<AccountModel> _all = await readAllAccounts();
 
-    if (Mapper.checkCanLoopList(_all) == true){
+    if (Lister.checkCanLoopList(_all) == true){
 
       for (final AccountModel account in _all){
 

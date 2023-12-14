@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/pathing.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
@@ -308,7 +308,7 @@ bool canShowGalleryPage({
   if (canShowGallerySlide == true){
     // if (bzModel != null){
 
-      if (Mapper.checkCanLoopList(bzModel?.publication.published) == true){
+      if (Lister.checkCanLoopList(bzModel?.publication.published) == true){
 
         final bool _bzHasMoreThanOneFlyer = (bzModel?.publication.published.length ?? 0) > 1;
 

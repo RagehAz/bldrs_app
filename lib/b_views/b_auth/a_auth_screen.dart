@@ -1,5 +1,9 @@
 import 'dart:async';
+
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/b_views/b_auth/aa_auth_screen_view.dart';
 import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
@@ -9,9 +13,6 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -89,7 +90,7 @@ class _AuthScreenState extends State<AuthScreen> {
           accounts: myAccounts,
         );
 
-        if (Mapper.checkCanLoopList(myAccounts) == true){
+        if (Lister.checkCanLoopList(myAccounts) == true){
 
           _setAccount(myAccounts[0]);
 
@@ -186,7 +187,7 @@ class _AuthScreenState extends State<AuthScreen> {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _onSelectAccount(int index){
-    if (Mapper.checkCanLoopList(_myAccounts) == true){
+    if (Lister.checkCanLoopList(_myAccounts) == true){
       _setAccount(_myAccounts[index]);
     }
   }

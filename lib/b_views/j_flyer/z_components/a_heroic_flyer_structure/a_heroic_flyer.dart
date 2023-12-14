@@ -83,7 +83,7 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
 
     //
     // if (mounted == true){
-    //   if (Mapper.checkCanLoopList(_flyerModel?.slides) == true){
+    //   if (Lister.checkCanLoopList(_flyerModel?.slides) == true){
     //     blog('xxxxx - === >>> disposing flyer[0] SLIDE IMAGE');
     //     _flyerModel?.slides?.first?.uiImage?.dispose();
     //   }

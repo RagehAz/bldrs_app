@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
@@ -269,7 +269,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
               builder: (context, List<CurrencyModel> found, Widget? child) {
 
                 /// NO RESULT FOUND
-                if (Mapper.checkCanLoopList(found) == false){
+                if (Lister.checkCanLoopList(found) == false){
                   return const Center(
                       child: NoResultFound(),
                   );

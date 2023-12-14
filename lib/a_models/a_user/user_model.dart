@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
@@ -172,7 +172,7 @@ class UserModel {
       'contactsArePublic': contactsArePublic,
 // -------------------------
       'myBzzIDs': myBzzIDs ?? <String>[],
-      'isAuthor': Mapper.checkCanLoopList(myBzzIDs),
+      'isAuthor': Lister.checkCanLoopList(myBzzIDs),
       'emailIsVerified': emailIsVerified,
       'isAdmin': isAdmin,
       'device': device?.toMap(),
@@ -192,7 +192,7 @@ class UserModel {
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Mapper.checkCanLoopList(users) == true){
+    if (Lister.checkCanLoopList(users) == true){
 
       for (final UserModel user in users){
 
@@ -239,7 +239,7 @@ class UserModel {
         contactsArePublic: map['contactsArePublic'],
         // -------------------------
         myBzzIDs: _myBzzIDs,
-        isAuthor: Mapper.checkCanLoopList(_myBzzIDs),
+        isAuthor: Lister.checkCanLoopList(_myBzzIDs),
         emailIsVerified: map['emailIsVerified'],
         isAdmin: map['isAdmin'],
         device: DeviceModel.decipherDeviceModel(map['device']),
@@ -272,7 +272,7 @@ class UserModel {
   }) {
     final List<UserModel> _users = <UserModel>[];
 
-    if (Mapper.checkCanLoopList(maps) == true) {
+    if (Lister.checkCanLoopList(maps) == true) {
       for (final Map<String, dynamic> map in maps!) {
 
         final UserModel? _user = decipherUser(
@@ -485,7 +485,7 @@ class UserModel {
   static bool checkUserIsAuthor(UserModel? userModel) {
     bool _userIsAuthor = false;
 
-    if (userModel != null && Mapper.checkCanLoopList(userModel.myBzzIDs)) {
+    if (userModel != null && Lister.checkCanLoopList(userModel.myBzzIDs)) {
       _userIsAuthor = true;
     }
 
@@ -499,7 +499,7 @@ class UserModel {
   }){
     bool _contains = false;
 
-    if (Mapper.checkCanLoopList(usersModels) == true && userModel != null){
+    if (Lister.checkCanLoopList(usersModels) == true && userModel != null){
 
       for (final UserModel user in usersModels!){
 
@@ -563,7 +563,7 @@ class UserModel {
   static List<String> getUsersIDs(List<UserModel>? usersModels){
     final List<String> _usersIDs = <String>[];
 
-    if (Mapper.checkCanLoopList(usersModels) == true){
+    if (Lister.checkCanLoopList(usersModels) == true){
       for (final UserModel user in usersModels!){
 
         if (user.id != null){
@@ -580,7 +580,7 @@ class UserModel {
   static List<String> getUsersPics(List<UserModel>? usersModels){
     final List<String> _pics = <String>[];
 
-    if (Mapper.checkCanLoopList(usersModels) == true){
+    if (Lister.checkCanLoopList(usersModels) == true){
       for (final UserModel user in usersModels!){
         if (user.picPath != null){
           _pics.add(user.picPath!);
@@ -610,7 +610,7 @@ class UserModel {
   }){
     final List<UserModel> _output = [];
 
-    if (Mapper.checkCanLoopList(users) == true){
+    if (Lister.checkCanLoopList(users) == true){
 
       for (final UserModel user in users){
 
@@ -631,7 +631,7 @@ class UserModel {
   }){
     UserModel? _output;
 
-    if (Mapper.checkCanLoopList(users) == true){
+    if (Lister.checkCanLoopList(users) == true){
 
       for (final UserModel user in users){
 
@@ -709,7 +709,7 @@ class UserModel {
 
     List<UserModel> _output = [...?usersToGet];
 
-    if (Mapper.checkCanLoopList(usersToAdd) == true){
+    if (Lister.checkCanLoopList(usersToAdd) == true){
 
       for (final UserModel user in usersToAdd!){
 
@@ -754,7 +754,7 @@ class UserModel {
   }){
     UserModel? _newUser = oldUser;
 
-    if (Mapper.checkCanLoopList(oldUser?.myBzzIDs) == true && bzIDToRemove != null) {
+    if (Lister.checkCanLoopList(oldUser?.myBzzIDs) == true && bzIDToRemove != null) {
 
       final List<String> _newList = Stringer.removeStringsFromStrings(
         removeFrom: oldUser!.myBzzIDs,
@@ -899,7 +899,7 @@ class UserModel {
   }){
     final List<UserModel> _output = [];
 
-    if (Mapper.checkCanLoopList(users) == true) {
+    if (Lister.checkCanLoopList(users) == true) {
       for (final UserModel model in users!) {
         final bool _contains = checkUsersContainUser(
           usersModels: _output,
@@ -964,7 +964,7 @@ class UserModel {
     String? invoker,
   }){
 
-    if (Mapper.checkCanLoopList(usersModels) == true){
+    if (Lister.checkCanLoopList(usersModels) == true){
 
       for (final UserModel user in usersModels){
         user.blogUserModel(invoker: invoker);
@@ -1013,7 +1013,7 @@ class UserModel {
         blog('blogUserDifferences : [name] are not identical');
       }
 
-      if (Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) == false){
+      if (Lister.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) == false){
         blog('blogUserDifferences : [trigram] are not identical');
       }
 
@@ -1053,7 +1053,7 @@ class UserModel {
         blog('blogUserDifferences : [contactsArePublic] are not identical');
       }
 
-      if (Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) == false){
+      if (Lister.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) == false){
         blog('blogUserDifferences : [myBzzIDs] are not identical');
       }
 
@@ -1085,7 +1085,7 @@ class UserModel {
         blog('blogUserDifferences : [device] are not identical');
       }
 
-      if (Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == false){
+      if (Lister.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == false){
         blog('blogUserDifferences : [fcmTopics] are not identical');
       }
 
@@ -1359,7 +1359,7 @@ class UserModel {
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) == true &&
           NeedModel.checkNeedsAreIdentical(user1.need, user2.need) == true &&
           user1.name == user2.name &&
-          Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) == true &&
+          Lister.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) == true &&
           user1.picPath == user2.picPath &&
           user1.title == user2.title &&
           user1.company == user2.company &&
@@ -1369,7 +1369,7 @@ class UserModel {
           Atlas.checkPointsAreIdentical(point1: user1.location, point2: user2.location) == true &&
           ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) == true &&
           user1.contactsArePublic == user2.contactsArePublic &&
-          Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) == true &&
+          Lister.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) == true &&
           user1.isAuthor == user2.isAuthor &&
           user1.emailIsVerified == user2.emailIsVerified &&
           user1.isAdmin == user2.isAdmin &&
@@ -1377,7 +1377,7 @@ class UserModel {
           AgendaModel.checkAgendasAreIdentical(agenda1: user1.followedBzz, agenda2: user2.followedBzz) == true &&
           AppStateModel.checkAppStatesAreIdentical(state1: user1.appState, state2: user2.appState, isInUserModel: true) == true &&
           DeviceModel.checkDevicesAreIdentical(device1: user1.device, device2: user2.device) == true &&
-          Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == true &&
+          Lister.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == true &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.lastSeen, time2: user2.lastSeen) == true
       // DocumentSnapshot docSnapshot;
 

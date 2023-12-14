@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/colors/colorizer.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
@@ -163,7 +164,7 @@ class GtaModel {
   }){
     final List<Map<String, dynamic>> _output = [];
 
-    if (Mapper.checkCanLoopList(gtaModels) == true){
+    if (Lister.checkCanLoopList(gtaModels) == true){
 
       for (final GtaModel model in gtaModels!){
 
@@ -185,7 +186,7 @@ class GtaModel {
   }){
     final List<GtaModel> _output = [];
 
-    if (Mapper.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoopList(maps) == true){
 
       for (final Map<String, dynamic> map in maps!){
 
@@ -207,7 +208,7 @@ class GtaModel {
   }){
     Map<String, dynamic> _output = {};
 
-    if (Mapper.checkCanLoopList(gtas) == true){
+    if (Lister.checkCanLoopList(gtas) == true){
 
       for (int i = 0; i < gtas.length; i++){
 
@@ -237,7 +238,7 @@ class GtaModel {
 
       List<String> _keys = map.keys.toList();
 
-      if (Mapper.checkCanLoopList(_keys) == true){
+      if (Lister.checkCanLoopList(_keys) == true){
 
         _keys = Stringer.sortAlphabetically(_keys);
         _keys.remove('id');
@@ -458,7 +459,7 @@ class GtaModel {
   }) async {
     final List<DraftSlide> _output = [];
 
-    if (product != null && Mapper.checkCanLoopList(product.images) == true){
+    if (product != null && Lister.checkCanLoopList(product.images) == true){
 
       for (int i = 0; i < product.images!.length; i++){
 
@@ -758,7 +759,7 @@ class GtaModel {
   }){
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(gtaModels) == true){
+    if (Lister.checkCanLoopList(gtaModels) == true){
       for (final GtaModel model in gtaModels!){
         if (model.url != null){
           _output.add(model.url!);
@@ -776,7 +777,7 @@ class GtaModel {
   }){
     GtaModel? _output;
 
-    if (url != null && Mapper.checkCanLoopList(gtas) == true){
+    if (url != null && Lister.checkCanLoopList(gtas) == true){
 
       for (final GtaModel gta in gtas){
 
@@ -803,7 +804,7 @@ class GtaModel {
   }){
     bool _output = false;
 
-    if (Mapper.checkCanLoopList(products) == true && TextCheck.isEmpty(url) == false){
+    if (Lister.checkCanLoopList(products) == true && TextCheck.isEmpty(url) == false){
       for (final GtaModel product in products){
         if (product.url == url){
           _output = true;
@@ -879,7 +880,7 @@ class GtaModel {
   }){
     final List<GtaModel> _output = [...?gtas];
 
-    if (Mapper.checkCanLoopList(_output) == true){
+    if (Lister.checkCanLoopList(_output) == true){
 
       final int _index = _output.indexWhere((element) => element.url == url);
 
@@ -900,7 +901,7 @@ class GtaModel {
   }){
     final List<GtaModel> _output = [...models];
 
-    if (Mapper.checkCanLoopList(models) == true && model != null){
+    if (Lister.checkCanLoopList(models) == true && model != null){
 
       final int _modelIndex = _output.indexWhere((element) => element.id == model.id);
 
@@ -959,7 +960,7 @@ class GtaModel {
     required String invoker,
   }){
 
-    if (Mapper.checkCanLoopList(gtas) == true){
+    if (Lister.checkCanLoopList(gtas) == true){
 
       for (final GtaModel gta in gtas!){
         blogGta(gta: gta, invoker: invoker);
@@ -992,7 +993,7 @@ class GtaModel {
       product1.id == product2.id &&
       product1.url == product2.url &&
       product1.title == product2.title &&
-      Mapper.checkListsAreIdentical(list1: product1.images, list2: product2.images) == true &&
+      Lister.checkListsAreIdentical(list1: product1.images, list2: product2.images) == true &&
       product1.brand == product2.brand &&
       product1.stars == product2.stars &&
       product1.rating == product2.rating &&

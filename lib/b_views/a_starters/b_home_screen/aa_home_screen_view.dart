@@ -1,6 +1,6 @@
 import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/aa_no_flyers_view.dart';
@@ -48,7 +48,7 @@ class HomeFlyersGrid extends StatelessWidget {
           fromJSON: false,
         );
 
-        if (Mapper.checkCanLoopList(_wallFlyers) == false){
+        if (Lister.checkCanLoopList(_wallFlyers) == false){
 
           if (isLoading == true){
             return FlyersGrid(
