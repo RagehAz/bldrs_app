@@ -35,7 +35,7 @@ class CensusLDBOps {
     required List<CensusModel> censuses,
   }) async {
 
-    if (Lister.checkCanLoopList(censuses) == true){
+    if (Lister.checkCanLoop(censuses) == true){
 
       final List<Map<String, dynamic>> _maps = CensusModel.cipherCensuses(
         censuses: censuses,
@@ -70,7 +70,7 @@ class CensusLDBOps {
         ids: <String>[id],
       );
 
-      if (Lister.checkCanLoopList(_maps) == true){
+      if (Lister.checkCanLoop(_maps) == true){
 
         _output = CensusModel.decipher(
             map: _maps.first,

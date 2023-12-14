@@ -31,7 +31,7 @@ String? word(String? phid){
 List<String> words(List<String> phids){
   final List<String> _output = <String>[];
 
-  if (Lister.checkCanLoopList(phids) == true){
+  if (Lister.checkCanLoop(phids) == true){
 
     for (final String phid in phids){
       final String? _trans = word(phid);
@@ -127,7 +127,7 @@ List<String> words(List<String> phids){
   // --------------------
   void refreshPhidsPendingTranslation(){
 
-    if (Lister.checkCanLoopList(_phidsPendingTranslation) == true){
+    if (Lister.checkCanLoop(_phidsPendingTranslation) == true){
 
       for (final String phid in _phidsPendingTranslation){
 
@@ -226,7 +226,7 @@ List<String> words(List<String> phids){
   //
   //   /// NOTE : FILTERS GIVEN PHRASES AS PER CURRENT LANG + REMOVE TRIGRAMS
   //
-  //   if (Lister.checkCanLoopList(setTo) == true){
+  //   if (Lister.checkCanLoop(setTo) == true){
   //
   //     /// FILTER BY LANG
   //     final List<Phrase> _phrasesByLang = Phrase.searchPhrasesByLang(
@@ -254,7 +254,7 @@ List<String> words(List<String> phids){
   //
   //   String? _translation;
   //
-  //   if (Lister.checkCanLoopList(_mainPhrases) == true && phid != null){
+  //   if (Lister.checkCanLoop(_mainPhrases) == true && phid != null){
   //
   //     final Phrase? _phrase = _mainPhrases.firstWhereOrNull(
   //             (phrase) => phrase.id == phid,

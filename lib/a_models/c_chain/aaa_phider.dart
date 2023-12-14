@@ -152,7 +152,7 @@ class Phider {
   static List<String> removePhidsIndexes(List<String>? phids){
     final List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoop(phids) == true){
       for (final String phid in phids!){
         final String? _list = removeIndexFromPhid(phid: phid);
         if (_list != null){
@@ -190,7 +190,7 @@ class Phider {
   static List<String> removePathsIndexes(List<String> paths){
     final List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(paths) == true){
+    if (Lister.checkCanLoop(paths) == true){
 
       for (final String path in paths){
 
@@ -296,7 +296,7 @@ class Phider {
   static List<Chain> sortChainsByIndexes(List<Chain>? input){
     final List<Chain> _output = <Chain>[];
 
-    if (Lister.checkCanLoopList(input) == true){
+    if (Lister.checkCanLoop(input) == true){
 
       final List<Chain> _sortedChainsIDs = <Chain>[...input!];
 
@@ -324,7 +324,7 @@ class Phider {
   static List<String> sortPhidsByIndexes(List<String> input){
     List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(input) == true){
+    if (Lister.checkCanLoop(input) == true){
 
       final List<String> _phids = <String>[...input];
 
@@ -396,7 +396,7 @@ class Phider {
 
     // Chain.blogChains(chains);
 
-    if (Lister.checkCanLoopList(chains) == true){
+    if (Lister.checkCanLoop(chains) == true){
 
       for (int i = 0; i< chains!.length; i++){
 
@@ -424,7 +424,7 @@ class Phider {
 
     /// NOTE : OVERRIDES EXISTING INDEX
 
-    if (Lister.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoop(phids) == true){
 
       for (int i = 0; i< phids.length; i++){
 
@@ -488,7 +488,7 @@ class Phider {
 
         final List<String> _sons = sons;
 
-        if (Lister.checkCanLoopList(_sons) == true){
+        if (Lister.checkCanLoop(_sons) == true){
           _arePhids = Phider.checkIsPhid(_sons.first);
         }
 
@@ -498,7 +498,7 @@ class Phider {
         if (sons is List && sons.isNotEmpty == true){
           final List<dynamic> dynamics = sons;
           final List<String> _strings = Stringer.getStringsFromDynamics(dynamics);
-          if (Lister.checkCanLoopList(_strings) == true){
+          if (Lister.checkCanLoop(_strings) == true){
             _arePhids = Phider.checkIsPhid(_strings.first);
           }
         }
@@ -648,7 +648,7 @@ class Phider {
   }){
     List<String> _output = [];
 
-    if (Lister.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoop(phids) == true){
 
       List<Phrase> _phrases = [];
       for (final String phid in phids){

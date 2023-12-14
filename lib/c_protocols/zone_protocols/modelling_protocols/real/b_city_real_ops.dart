@@ -77,7 +77,7 @@ class CityRealOps {
   }) async {
     final List<CityModel> _output = [];
 
-    if (Lister.checkCanLoopList(citiesIDs) == true){
+    if (Lister.checkCanLoop(citiesIDs) == true){
 
       await Future.wait(<Future>[
 

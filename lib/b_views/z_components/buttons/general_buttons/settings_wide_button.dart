@@ -90,7 +90,7 @@ class SettingsToSettingsButtons extends StatelessWidget {
       final double _rowWidth = MainButton.getButtonWidth(context: context);
       const double _spacing = 10;
       final double _halfRowButtonWidth = (_rowWidth - _spacing) / 2;
-      final bool _userHasBzz = Lister.checkCanLoopList(_userModel?.myBzzIDs);
+      final bool _userHasBzz = Lister.checkCanLoop(_userModel?.myBzzIDs);
 
       final double _userButtonWidth = _userHasBzz == true ? _halfRowButtonWidth : _rowWidth;
       const double _buttonHeight = SettingsWideButton.height * 1;

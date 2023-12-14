@@ -180,7 +180,7 @@ Future<bool> _authorshipDeletionCheckups() async {
       );
 
       /// USER HAS CREATED SOME BZZ
-      if (Lister.checkCanLoopList(_myBzzICreated) == true){
+      if (Lister.checkCanLoop(_myBzzICreated) == true){
 
         /// SHOW WILL DELETE BZZ DIALOG
         _canDelete = await Dialogs.bzzBannersDialog(
@@ -211,7 +211,7 @@ Future<bool> _authorshipDeletionCheckups() async {
 
       /// USER IS AUTHOR BUT DID NOT CREATE ANY BZZ
       if (_canDelete == true){
-        if (Lister.checkCanLoopList(_myBzzIDidNotCreate) == true){
+        if (Lister.checkCanLoop(_myBzzIDidNotCreate) == true){
 
             /// SHOW WILL EXIT BZZ DIALOG
             _canDelete = await Dialogs.bzzBannersDialog(

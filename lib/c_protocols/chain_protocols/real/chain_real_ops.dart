@@ -31,7 +31,7 @@ class ChainRealOps {
   }) async {
     List<Chain>? _uploaded;
 
-    if (Lister.checkCanLoopList(chains) == true){
+    if (Lister.checkCanLoop(chains) == true){
 
       final Map<String, dynamic> _map = Chain.cipherBldrsChains(
         chains: chains,

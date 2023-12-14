@@ -107,7 +107,7 @@ class WipeReviewProtocols {
       await Future.wait(<Future>[
 
         /// WIPE ALL REVIEWS OF ALL FLYERS
-        if (Lister.checkCanLoopList(flyersIDs) == true)
+        if (Lister.checkCanLoop(flyersIDs) == true)
           ...List.generate(flyersIDs!.length, (index) {
             return Fire.deleteColl(
               coll: FireColl.flyers,

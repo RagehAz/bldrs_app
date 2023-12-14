@@ -79,7 +79,7 @@ class FlyerViewModel {
   }){
     final List<FlyerViewModel> _output = [];
 
-    if (Lister.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoop(maps) == true){
 
       for (final Map<String, dynamic> map in maps!){
 
@@ -165,7 +165,7 @@ class FlyerViewModel {
   }){
     List<String> _output = [];
 
-    if (Lister.checkCanLoopList(models) == true){
+    if (Lister.checkCanLoop(models) == true){
 
       for (final FlyerViewModel model in models!){
         _output = Stringer.addStringToListIfDoesNotContainIt(

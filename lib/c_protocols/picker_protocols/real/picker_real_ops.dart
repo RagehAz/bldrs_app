@@ -82,7 +82,7 @@ class PickerRealOps {
     if (
         _doc != null
         &&
-        Lister.checkCanLoopList(updatedPickers) == true
+        Lister.checkCanLoop(updatedPickers) == true
     ){
 
       await Real.updateDoc(

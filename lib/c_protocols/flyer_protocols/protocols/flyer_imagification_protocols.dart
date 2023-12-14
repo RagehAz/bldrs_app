@@ -225,7 +225,7 @@ class ImagifyFlyerProtocols {
     if (flyerModel != null && mounted == true){
 
       /// SLIDES
-      if (Lister.checkCanLoopList(flyerModel.slides) == true){
+      if (Lister.checkCanLoop(flyerModel.slides) == true){
         for (int i = 0; i < flyerModel.slides!.length; i++){
           blog('disposeRenderedFlyer ($invoker) : ${flyerModel.id} => disposing flyer[$i] SLIDE '
               'IMAGE : '
@@ -279,7 +279,7 @@ class ImagifyFlyerProtocols {
 
       _output = flyerModel;
 
-      if (Lister.checkCanLoopList(flyerModel.slides) == true){
+      if (Lister.checkCanLoop(flyerModel.slides) == true){
 
         SlideModel _firstSlide = flyerModel.slides![0];
         final String? _frontPicPath = SlideModel.generateSlidePicPath(
@@ -349,7 +349,7 @@ class ImagifyFlyerProtocols {
 
       _output = flyerModel;
 
-      if (Lister.checkCanLoopList(flyerModel.slides) == true){
+      if (Lister.checkCanLoop(flyerModel.slides) == true){
 
         List<SlideModel> _flyerSlides = SlideModel.sortSlidesByIndexes(flyerModel.slides!);
 

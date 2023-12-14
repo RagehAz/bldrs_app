@@ -185,7 +185,7 @@ Future<void> onSelectFlyerType({
 
   final FlyerType _selectedFlyerType = FlyerTyper.flyerTypesList[index];
 
-  // blog('_selectedFlyerType : $_selectedFlyerType : Lister.checkCanLoopList(draft.value.specs) : ${draftNotifier.value.specs}' );
+  // blog('_selectedFlyerType : $_selectedFlyerType : Lister.checkCanLoop(draft.value.specs) : ${draftNotifier.value.specs}' );
 
   draftNotifier.value?.blogDraft(
     invoker: 'onSelectFlyerType',
@@ -196,7 +196,7 @@ Future<void> onSelectFlyerType({
     bool _canUpdate = true;
 
     /// SOME SPECS ARE SELECTED
-    if (Lister.checkCanLoopList(draftNotifier.value?.phids) == true){
+    if (Lister.checkCanLoop(draftNotifier.value?.phids) == true){
 
       _canUpdate = await BldrsCenterDialog.showCenterDialog(
         titleVerse: const Verse(
@@ -270,7 +270,7 @@ Future<void> onAddPhidsToFlyerTap({
     slideScreenFromEnLeftToRight: true,
   );
 
-  if (Lister.checkCanLoopList(_phids) == true){
+  if (Lister.checkCanLoop(_phids) == true){
 
     setNotifier(
       notifier: draftNotifier,
@@ -425,7 +425,7 @@ Future<void> onAddSpecsToDraftTap({
 
     final List<SpecModel>? _receivedSpecs = _result;
 
-    if (Lister.checkCanLoopList(_receivedSpecs) == true){
+    if (Lister.checkCanLoop(_receivedSpecs) == true){
 
       SpecModel.blogSpecs(_receivedSpecs);
 
@@ -684,7 +684,7 @@ Future<bool> _preFlyerUpdateCheck({
   }
 
   else {
-    if (Lister.checkCanLoopList(draft?.draftSlides) == false){
+    if (Lister.checkCanLoop(draft?.draftSlides) == false){
 
       await BldrsCenterDialog.showCenterDialog(
         titleVerse: const Verse(

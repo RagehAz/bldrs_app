@@ -27,7 +27,7 @@ class BzzList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Lister.checkCanLoopList(bzz) == true){
+    if (Lister.checkCanLoop(bzz) == true){
       return ListView.builder(
         controller: scrollController,
         physics: const BouncingScrollPhysics(),

@@ -46,7 +46,7 @@ class CountriesScreenSearchView extends StatelessWidget {
         );
 
         /// WHEN SEARCH RESULTS
-        if (Lister.checkCanLoopList(foundPhrases) == true){
+        if (Lister.checkCanLoop(foundPhrases) == true){
 
           List<Phrase> _countriesButtons = [...foundPhrases!];
 

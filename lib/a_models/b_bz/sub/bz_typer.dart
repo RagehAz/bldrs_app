@@ -96,7 +96,7 @@ class BzTyper {
   static Map<String, dynamic>? cipherBzTypes(List<BzType>? bzTypes){
     Map<String, dynamic>? _output;
 
-    if (Lister.checkCanLoopList(bzTypes) == true){
+    if (Lister.checkCanLoop(bzTypes) == true){
 
       _output = {};
 
@@ -140,7 +140,7 @@ class BzTyper {
 
       final List<String> _ciphered = map.keys.toList();
 
-      if (Lister.checkCanLoopList(_ciphered) == true) {
+      if (Lister.checkCanLoop(_ciphered) == true) {
         for (final String _string in _ciphered) {
           final BzType? _bzType = decipherBzType(_string);
           if (_bzType != null){
@@ -236,7 +236,7 @@ class BzTyper {
   }){
     bool _contains = false;
 
-    if (Lister.checkCanLoopList(bzTypes) == true){
+    if (Lister.checkCanLoop(bzTypes) == true){
 
       if (bzTypes!.contains(bzType) == true){
         _contains = true;
@@ -325,7 +325,7 @@ class BzTyper {
   }){
     final List<String> _strings = <String>[];
 
-    if (Lister.checkCanLoopList(bzTypes) == true){
+    if (Lister.checkCanLoop(bzTypes) == true){
 
       for (final BzType type in bzTypes!){
 
@@ -480,7 +480,7 @@ class BzTyper {
       }
 
       /// ADD ARTISAN IF STARTING WITH DESIGNERS OR CONTRACTORS
-      if (Lister.checkCanLoopList(initialBzTypes) == true){
+      if (Lister.checkCanLoop(initialBzTypes) == true){
         if (bzSection == BzSection.construction){
           if (
               initialBzTypes!.contains(BzType.designer) == true
@@ -568,7 +568,7 @@ class BzTyper {
     _inactiveTypes.remove(selectedBzType);
 
     /// REMOVE MIXABLE TYPES FROM ALL TYPE TO GET INACTIVE TYPES
-    if (Lister.checkCanLoopList(_mixableTypes) == true){
+    if (Lister.checkCanLoop(_mixableTypes) == true){
       for (final BzType bzType in _mixableTypes!){
         _inactiveTypes.remove(bzType);
       }
@@ -700,7 +700,7 @@ class BzTyper {
   static List<String> cipherBzForms(List<BzForm>? x){
     final List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(x) == true){
+    if (Lister.checkCanLoop(x) == true){
 
       for (final BzForm form in x!){
         _output.add(cipherBzForm(form)!);
@@ -715,7 +715,7 @@ class BzTyper {
   static List<BzForm> decipherBzForms(List<String> y){
     final List<BzForm> _output = <BzForm>[];
 
-    if (Lister.checkCanLoopList(y) == true){
+    if (Lister.checkCanLoop(y) == true){
 
       for (final String form in y){
         _output.add(decipherBzForm(form)!);
@@ -753,7 +753,7 @@ class BzTyper {
   }){
     final List<String> _strings = <String>[];
 
-    if (Lister.checkCanLoopList(bzForms) == true){
+    if (Lister.checkCanLoop(bzForms) == true){
 
       for (final BzForm bzForm in bzForms!){
         final String _translation = getBzFormPhid(bzForm)!;
@@ -776,7 +776,7 @@ class BzTyper {
   }){
     bool _contains = false;
 
-    if (Lister.checkCanLoopList(bzForms) == true){
+    if (Lister.checkCanLoop(bzForms) == true){
 
       if (bzForms.contains(bzForm) == true){
         _contains = true;
@@ -797,7 +797,7 @@ class BzTyper {
     /// INITIAL LIST OF ALL BZ FORMS
     List<BzForm>? _bzForms = <BzForm>[...bzFormsList];
 
-    if (Lister.checkCanLoopList(selectedBzTypes) == true){
+    if (Lister.checkCanLoop(selectedBzTypes) == true){
 
       /// MORE THAN ONE BZ TYPE
       if (selectedBzTypes!.length > 1){
@@ -942,7 +942,7 @@ class BzTyper {
   }){
     final List<String> _strings = <String>[];
 
-    if (Lister.checkCanLoopList(bzSections) == true){
+    if (Lister.checkCanLoop(bzSections) == true){
 
       for (final BzSection section in bzSections){
         final String _translation = getBzSectionPhid(
@@ -960,7 +960,7 @@ class BzTyper {
   static BzSection? concludeBzSectionByBzTypes(List<BzType>? selectedBzTypes){
 
     BzType? _bzType;
-    if (Lister.checkCanLoopList(selectedBzTypes) == true){
+    if (Lister.checkCanLoop(selectedBzTypes) == true){
       _bzType = selectedBzTypes?[0];
     }
 

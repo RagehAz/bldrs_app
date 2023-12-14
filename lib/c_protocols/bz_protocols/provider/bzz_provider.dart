@@ -95,7 +95,7 @@ class BzzProvider extends ChangeNotifier {
     // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     final List<String> _sponsorsBzzIDs = []; /// TASK : RESTRUCTURE SPONSORS THING
 
-    if (Lister.checkCanLoopList(_sponsorsBzzIDs)) {
+    if (Lister.checkCanLoop(_sponsorsBzzIDs)) {
       /// 2 - fetch bzz
       final List<BzModel> _bzzSponsors = await BzProtocols.fetchBzz(
           bzzIDs: _sponsorsBzzIDs
@@ -199,7 +199,7 @@ class BzzProvider extends ChangeNotifier {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
     final List<String>? _userBzzIDs = _usersProvider.myUserModel?.myBzzIDs;
 
-    if (Lister.checkCanLoopList(_userBzzIDs) == true) {
+    if (Lister.checkCanLoop(_userBzzIDs) == true) {
       /// 2 - fetch bzz
       final List<BzModel> _bzz = await BzProtocols.fetchBzz(
         bzzIDs: _userBzzIDs,
@@ -254,7 +254,7 @@ class BzzProvider extends ChangeNotifier {
     required bool notify,
   }) {
 
-    if (Lister.checkCanLoopList(_myBzz) == true) {
+    if (Lister.checkCanLoop(_myBzz) == true) {
 
       final int _index = _myBzz.indexWhere((BzModel bzModel) => bzModel.id == bzID);
 
@@ -289,7 +289,7 @@ class BzzProvider extends ChangeNotifier {
     required bool notify,
   }) {
 
-    if (Lister.checkCanLoopList(_myBzz) == true && modifiedBz != null) {
+    if (Lister.checkCanLoop(_myBzz) == true && modifiedBz != null) {
 
       final int _index = _myBzz.indexWhere((BzModel bz) => modifiedBz.id == bz.id);
 
@@ -329,7 +329,7 @@ class BzzProvider extends ChangeNotifier {
     final UserModel? _myUserModel = _usersProvider.myUserModel;
     final List<String>? _followedBzzIDs = _myUserModel?.followedBzz?.all;
 
-    if (Lister.checkCanLoopList(_followedBzzIDs)) {
+    if (Lister.checkCanLoop(_followedBzzIDs)) {
 
       final List<BzModel> _bzz = await BzProtocols.fetchBzz(
         bzzIDs: _followedBzzIDs,

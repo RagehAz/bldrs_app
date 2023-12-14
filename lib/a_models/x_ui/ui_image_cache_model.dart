@@ -24,7 +24,7 @@ class Cacher {
   }){
     Cacher? _output;
 
-    if (Lister.checkCanLoopList(cachers) == true && cacherID != null){
+    if (Lister.checkCanLoop(cachers) == true && cacherID != null){
 
       for (final Cacher cacher in cachers!){
 
@@ -86,7 +86,7 @@ class Cacher {
   }){
     final List<Cacher> _output = <Cacher>[...?cachers];
 
-    if (Lister.checkCanLoopList(cachers) == true && cacherID != null){
+    if (Lister.checkCanLoop(cachers) == true && cacherID != null){
 
       final Cacher? _cacher = Cacher.getCacherFromCachers(
         cachers: cachers,
@@ -114,7 +114,7 @@ class Cacher {
   }){
     bool _contains = false;
 
-    if (Lister.checkCanLoopList(cachers) == true && cacherID != null){
+    if (Lister.checkCanLoop(cachers) == true && cacherID != null){
 
       for (final Cacher cacher in cachers!){
 

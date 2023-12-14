@@ -30,7 +30,7 @@ class PhidsSearchView extends StatelessWidget {
         valueListenable: foundChains,
         builder: (BuildContext context, List<Chain>? foundChains, Widget? child) {
 
-          if (Lister.checkCanLoopList(foundChains) == true){
+          if (Lister.checkCanLoop(foundChains) == true){
             return PhidsBuilderPage(
               chain: Chain(
                 id: 'foundChains',

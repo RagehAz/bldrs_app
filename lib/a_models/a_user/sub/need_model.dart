@@ -236,7 +236,7 @@ class NeedModel {
   }){
     final List<Verse> _output = <Verse>[];
 
-    if (Lister.checkCanLoopList(needsTypes) == true){
+    if (Lister.checkCanLoop(needsTypes) == true){
 
       for (final NeedType type in needsTypes){
 

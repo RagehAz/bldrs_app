@@ -48,7 +48,7 @@ class CensusProtocols {
   }) async {
     final List<CensusModel> _output = [];
 
-    if (Lister.checkCanLoopList(countriesIDs) == true){
+    if (Lister.checkCanLoop(countriesIDs) == true){
 
       await Future.wait(<Future>[
 
@@ -77,7 +77,7 @@ class CensusProtocols {
 
     final List<CensusModel> _output = await CensusRealOps.readAllCountriesCensuses();
 
-    if (Lister.checkCanLoopList(_output) == true){
+    if (Lister.checkCanLoop(_output) == true){
 
       await CensusLDBOps.insertCensuses(
         censuses: _output,
@@ -154,7 +154,7 @@ class CensusProtocols {
   }) async {
     final List<CensusModel> _output = <CensusModel>[];
 
-    if (Lister.checkCanLoopList(citiesIDs) == true){
+    if (Lister.checkCanLoop(citiesIDs) == true){
 
       await Future.wait(<Future>[
 
@@ -191,7 +191,7 @@ class CensusProtocols {
           countryID: countryID,
       );
 
-      if (Lister.checkCanLoopList(_output) == true){
+      if (Lister.checkCanLoop(_output) == true){
 
         await CensusLDBOps.insertCensuses(
             censuses: _output,

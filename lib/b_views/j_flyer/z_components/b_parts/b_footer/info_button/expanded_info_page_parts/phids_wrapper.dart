@@ -38,7 +38,7 @@ class PhidsWrapper extends StatelessWidget {
         // alignment: WrapAlignment.spaceAround,
         children: <Widget>[
 
-          if (Lister.checkCanLoopList(phids) == true)
+          if (Lister.checkCanLoop(phids) == true)
           ...List<Widget>.generate(phids.length, (int index) {
 
             final String _phid = phids[index];

@@ -33,7 +33,7 @@ class SpecsBuilder extends StatelessWidget {
       listen: true,
     );
 
-    if (Lister.checkCanLoopList(_specsPickers) == true){
+    if (Lister.checkCanLoop(_specsPickers) == true){
 
       // PickerModel.blogPickers(_specsPickers, invoker: 'fuckii');
 

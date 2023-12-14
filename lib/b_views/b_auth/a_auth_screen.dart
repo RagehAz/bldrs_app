@@ -90,7 +90,7 @@ class _AuthScreenState extends State<AuthScreen> {
           accounts: myAccounts,
         );
 
-        if (Lister.checkCanLoopList(myAccounts) == true){
+        if (Lister.checkCanLoop(myAccounts) == true){
 
           _setAccount(myAccounts[0]);
 
@@ -187,7 +187,7 @@ class _AuthScreenState extends State<AuthScreen> {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _onSelectAccount(int index){
-    if (Lister.checkCanLoopList(_myAccounts) == true){
+    if (Lister.checkCanLoop(_myAccounts) == true){
       _setAccount(_myAccounts[index]);
     }
   }

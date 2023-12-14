@@ -76,7 +76,7 @@ class SectionsButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context);
-    final bool _zoneHasChains = Lister.checkCanLoopList(_chainsProvider.zoneChains);
+    final bool _zoneHasChains = Lister.checkCanLoop(_chainsProvider.zoneChains);
     final bool _loadingChains = _chainsProvider.loadingChains;
 
     if (_loadingChains == false && _zoneHasChains == false){

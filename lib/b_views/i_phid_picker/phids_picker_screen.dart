@@ -1,7 +1,6 @@
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
@@ -11,8 +10,8 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/xx_pickers_search_controller.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_builder_page.dart';
-import 'package:bldrs/b_views/i_phid_picker/views/b_multi_chain_selector_view.dart';
 import 'package:bldrs/b_views/i_phid_picker/views/a_single_chain_selector_view.dart';
+import 'package:bldrs/b_views/i_phid_picker/views/b_multi_chain_selector_view.dart';
 import 'package:bldrs/b_views/i_phid_picker/views/c_no_chains_found_view.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/phids_bubble.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
@@ -148,7 +147,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
       _triggerLoading(setTo: true).then((_) async {
 
-        if (Mapper.superLength(_chains) > 1){
+        if (Lister.superLength(_chains) > 1){
           await Future.delayed(const Duration(milliseconds: 500));
           UiProvider.proSetPyramidsAreExpanded(setTo: true, notify: true);
         }
@@ -191,7 +190,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
       phids: widget.chainsIDs,
     );
 
-    if (Lister.checkCanLoopList(_chainsByIDs) == true){
+    if (Lister.checkCanLoop(_chainsByIDs) == true){
 
       if (
           _chainsByIDs.length == 1
@@ -240,7 +239,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
     final List<NavModel> _output = [];
 
-    if (Lister.checkCanLoopList(_chains) == true){
+    if (Lister.checkCanLoop(_chains) == true){
 
       for (final Chain _chain in _chains!){
 
@@ -461,12 +460,12 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   @override
   Widget build(BuildContext context) {
 
-    if (Lister.checkCanLoopList(_chains) == false){
+    if (Lister.checkCanLoop(_chains) == false){
       return const NoChainsFoundView();
     }
 
     /// MULTIPLE CHAINS
-    else if (Mapper.superLength(_chains) > 1){
+    else if (Lister.superLength(_chains) > 1){
       return MultiChainSelectorView(
         globalKey: _globalKey,
         navModels: _navModels,
@@ -498,7 +497,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     /// SINGLE CHAIN
     else {
       return SingleChainSelectorView(
-        chain: Lister.checkCanLoopList(_chains) == true ? _chains?.first : null,
+        chain: Lister.checkCanLoop(_chains) == true ? _chains?.first : null,
         globalKey: _globalKey,
         searchController: _searchController,
         onSearchSubmit: _onSearchSubmit,

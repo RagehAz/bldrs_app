@@ -25,7 +25,7 @@ class PendingAuthorsBubble extends StatelessWidget {
     );
 
     /// PENDING AUTHORS EXIST
-    if (Lister.checkCanLoopList(_bzModel?.pendingAuthors) == true){
+    if (Lister.checkCanLoop(_bzModel?.pendingAuthors) == true){
 
       return Bubble(
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
@@ -41,7 +41,7 @@ class PendingAuthorsBubble extends StatelessWidget {
         // },
         columnChildren: <Widget>[
 
-          if (Lister.checkCanLoopList(_bzModel?.pendingAuthors) == true)
+          if (Lister.checkCanLoop(_bzModel?.pendingAuthors) == true)
           ...List.generate(_bzModel!.pendingAuthors!.length, (index){
 
             final String _userID = _bzModel.pendingAuthors![index].userID;

@@ -129,7 +129,7 @@ Future<List<String>> _searchKeywordsPhrases({
   blog('_searchKeywordsPhrases : found ${_searched.length} phrases');
 
 
-  if (Lister.checkCanLoopList(_searched) == true) {
+  if (Lister.checkCanLoop(_searched) == true) {
 
     _phids = Phrase.getPhrasesIDs(_searched);
 
@@ -162,7 +162,7 @@ List<String> _removeCurrenciesFromPhids({
 }){
   final List<String> _output = <String>[];
 
-  if (Lister.checkCanLoopList(phids) == true){
+  if (Lister.checkCanLoop(phids) == true){
 
     for (final String phid in phids){
 
@@ -186,10 +186,10 @@ List<String> _removePhidsOutOfScope({
 }){
   List<String> _output = <String>[];
 
-  if (Lister.checkCanLoopList(phids) == true){
+  if (Lister.checkCanLoop(phids) == true){
     _output = <String>[...phids];
 
-    if (Lister.checkCanLoopList(scope) == true){
+    if (Lister.checkCanLoop(scope) == true){
 
       for (final String phid in phids){
 
@@ -218,7 +218,7 @@ List<Chain> _getChainsFromPhids({
 
   List<Chain> _chains = <Chain>[];
 
-  if (Lister.checkCanLoopList(phids) == true){
+  if (Lister.checkCanLoop(phids) == true){
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
 
@@ -241,7 +241,7 @@ Future<void> _setFoundResults({
 }) async {
 
   /// found results
-  if (Lister.checkCanLoopList(foundChainsResult) == true) {
+  if (Lister.checkCanLoop(foundChainsResult) == true) {
 
     setNotifier(
         notifier: foundChainsNotifier,

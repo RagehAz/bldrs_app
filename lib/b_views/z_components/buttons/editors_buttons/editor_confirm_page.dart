@@ -81,7 +81,7 @@ class EditorConfirmPage extends StatelessWidget {
           verseMaxLines: 2,
         ),
 
-        if (canConfirm == true && Lister.checkCanLoopList(bulletPoints) == true)
+        if (canConfirm == true && Lister.checkCanLoop(bulletPoints) == true)
         Padding(
           padding: const EdgeInsets.only(top: 10),
           child: BldrsBulletPoints(

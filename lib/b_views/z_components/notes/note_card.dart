@@ -113,7 +113,7 @@ class NoteCard extends StatelessWidget {
       widthOverride: bubbleWidth,
     );
     const double _moreButtonSize = 35;
-    final bool _noteHasButtons = Lister.checkCanLoopList(noteModel?.poll?.buttons);
+    final bool _noteHasButtons = Lister.checkCanLoop(noteModel?.poll?.buttons);
     // --------------------
     final double _bubbleWidth = bubbleWidth ?? getBubbleWidth(context);
     final double _clearWidth = Bubble.clearWidth(
@@ -259,7 +259,7 @@ class NoteCard extends StatelessWidget {
             ),
 
           /// BUTTONS
-          if (Lister.checkCanLoopList(noteModel?.poll?.buttons) == true)
+          if (Lister.checkCanLoop(noteModel?.poll?.buttons) == true)
             Container(
               width: _clearWidth,
               alignment: BldrsAligners.superInverseCenterAlignment(context),

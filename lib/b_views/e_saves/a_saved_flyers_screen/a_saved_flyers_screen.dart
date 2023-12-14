@@ -39,7 +39,7 @@ class SavedFlyersScreen extends StatefulWidget {
       ),
     );
 
-    if (Lister.checkCanLoopList(_selectedFlyers) == true){
+    if (Lister.checkCanLoop(_selectedFlyers) == true){
       return _selectedFlyers!.first;
     }
     else {

@@ -24,7 +24,7 @@ class CityPhraseFireOps {
 
       final String? _countryID = cityModel.getCountryID();
 
-      if (Lister.checkCanLoopList(cityModel.phrases) == true){
+      if (Lister.checkCanLoop(cityModel.phrases) == true){
 
         await Future.wait(<Future>[
 
@@ -83,7 +83,7 @@ class CityPhraseFireOps {
     required CityModel? cityModel,
   }) async {
 
-    if (cityModel != null && Lister.checkCanLoopList(cityModel.phrases) == true){
+    if (cityModel != null && Lister.checkCanLoop(cityModel.phrases) == true){
 
       await Future.wait(<Future>[
 

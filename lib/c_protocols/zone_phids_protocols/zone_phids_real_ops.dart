@@ -162,7 +162,7 @@ class ZonePhidsRealOps {
     required bool isIncrementing,
   }) async {
 
-    if (Lister.checkCanLoopList(flyersModels) == true){
+    if (Lister.checkCanLoop(flyersModels) == true){
 
       await Future.wait(<Future>[
 

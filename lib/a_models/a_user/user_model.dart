@@ -172,7 +172,7 @@ class UserModel {
       'contactsArePublic': contactsArePublic,
 // -------------------------
       'myBzzIDs': myBzzIDs ?? <String>[],
-      'isAuthor': Lister.checkCanLoopList(myBzzIDs),
+      'isAuthor': Lister.checkCanLoop(myBzzIDs),
       'emailIsVerified': emailIsVerified,
       'isAdmin': isAdmin,
       'device': device?.toMap(),
@@ -192,7 +192,7 @@ class UserModel {
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Lister.checkCanLoopList(users) == true){
+    if (Lister.checkCanLoop(users) == true){
 
       for (final UserModel user in users){
 
@@ -239,7 +239,7 @@ class UserModel {
         contactsArePublic: map['contactsArePublic'],
         // -------------------------
         myBzzIDs: _myBzzIDs,
-        isAuthor: Lister.checkCanLoopList(_myBzzIDs),
+        isAuthor: Lister.checkCanLoop(_myBzzIDs),
         emailIsVerified: map['emailIsVerified'],
         isAdmin: map['isAdmin'],
         device: DeviceModel.decipherDeviceModel(map['device']),
@@ -272,7 +272,7 @@ class UserModel {
   }) {
     final List<UserModel> _users = <UserModel>[];
 
-    if (Lister.checkCanLoopList(maps) == true) {
+    if (Lister.checkCanLoop(maps) == true) {
       for (final Map<String, dynamic> map in maps!) {
 
         final UserModel? _user = decipherUser(
@@ -485,7 +485,7 @@ class UserModel {
   static bool checkUserIsAuthor(UserModel? userModel) {
     bool _userIsAuthor = false;
 
-    if (userModel != null && Lister.checkCanLoopList(userModel.myBzzIDs)) {
+    if (userModel != null && Lister.checkCanLoop(userModel.myBzzIDs)) {
       _userIsAuthor = true;
     }
 
@@ -499,7 +499,7 @@ class UserModel {
   }){
     bool _contains = false;
 
-    if (Lister.checkCanLoopList(usersModels) == true && userModel != null){
+    if (Lister.checkCanLoop(usersModels) == true && userModel != null){
 
       for (final UserModel user in usersModels!){
 
@@ -563,7 +563,7 @@ class UserModel {
   static List<String> getUsersIDs(List<UserModel>? usersModels){
     final List<String> _usersIDs = <String>[];
 
-    if (Lister.checkCanLoopList(usersModels) == true){
+    if (Lister.checkCanLoop(usersModels) == true){
       for (final UserModel user in usersModels!){
 
         if (user.id != null){
@@ -580,7 +580,7 @@ class UserModel {
   static List<String> getUsersPics(List<UserModel>? usersModels){
     final List<String> _pics = <String>[];
 
-    if (Lister.checkCanLoopList(usersModels) == true){
+    if (Lister.checkCanLoop(usersModels) == true){
       for (final UserModel user in usersModels!){
         if (user.picPath != null){
           _pics.add(user.picPath!);
@@ -610,7 +610,7 @@ class UserModel {
   }){
     final List<UserModel> _output = [];
 
-    if (Lister.checkCanLoopList(users) == true){
+    if (Lister.checkCanLoop(users) == true){
 
       for (final UserModel user in users){
 
@@ -631,7 +631,7 @@ class UserModel {
   }){
     UserModel? _output;
 
-    if (Lister.checkCanLoopList(users) == true){
+    if (Lister.checkCanLoop(users) == true){
 
       for (final UserModel user in users){
 
@@ -709,7 +709,7 @@ class UserModel {
 
     List<UserModel> _output = [...?usersToGet];
 
-    if (Lister.checkCanLoopList(usersToAdd) == true){
+    if (Lister.checkCanLoop(usersToAdd) == true){
 
       for (final UserModel user in usersToAdd!){
 
@@ -754,7 +754,7 @@ class UserModel {
   }){
     UserModel? _newUser = oldUser;
 
-    if (Lister.checkCanLoopList(oldUser?.myBzzIDs) == true && bzIDToRemove != null) {
+    if (Lister.checkCanLoop(oldUser?.myBzzIDs) == true && bzIDToRemove != null) {
 
       final List<String> _newList = Stringer.removeStringsFromStrings(
         removeFrom: oldUser!.myBzzIDs,
@@ -899,7 +899,7 @@ class UserModel {
   }){
     final List<UserModel> _output = [];
 
-    if (Lister.checkCanLoopList(users) == true) {
+    if (Lister.checkCanLoop(users) == true) {
       for (final UserModel model in users!) {
         final bool _contains = checkUsersContainUser(
           usersModels: _output,
@@ -964,7 +964,7 @@ class UserModel {
     String? invoker,
   }){
 
-    if (Lister.checkCanLoopList(usersModels) == true){
+    if (Lister.checkCanLoop(usersModels) == true){
 
       for (final UserModel user in usersModels){
         user.blogUserModel(invoker: invoker);

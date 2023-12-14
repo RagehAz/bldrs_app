@@ -48,7 +48,7 @@ class ChainPathConverter {
         paths: <String>[path!],
       );
 
-      if (Lister.checkCanLoopList(chains) == true){
+      if (Lister.checkCanLoop(chains) == true){
         _chain = chains.first;
       }
     }
@@ -123,7 +123,7 @@ class ChainPathConverter {
   }){
     Chain? _output;
 
-    if (Lister.checkCanLoopList(chains) == true && rootChainID != null){
+    if (Lister.checkCanLoop(chains) == true && rootChainID != null){
 
       final List<Chain> combinesSons = <Chain>[];
 
@@ -237,7 +237,7 @@ class ChainPathConverter {
 
     // final String _space = Chain.getChainBlogTreeSpacing(level);
 
-    if (Lister.checkCanLoopList(nestedSonsIDs) == true && parentChain != null){
+    if (Lister.checkCanLoop(nestedSonsIDs) == true && parentChain != null){
 
       // _dBlog('$_space A - starting to add nested sons IDs ( $nestedSonsIDs ) to chainID ( ${parentChain.id} )');
 
@@ -349,7 +349,7 @@ class ChainPathConverter {
 
     List<String>? _output;
 
-    if (Lister.checkCanLoopList(dividedPath) == true){
+    if (Lister.checkCanLoop(dividedPath) == true){
       _output = dividedPath!.sublist(1);
     }
 
@@ -423,7 +423,7 @@ class ChainPathConverter {
   }){
     final List<String> _allPaths = <String>[];
 
-    if (Lister.checkCanLoopList(chains) == true && parentID != null){
+    if (Lister.checkCanLoop(chains) == true && parentID != null){
 
       for (final Chain sonChain in chains!){
 
@@ -520,7 +520,7 @@ class ChainPathConverter {
 
     List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(chains) == true && TextCheck.isEmpty(startsWith) == false){
+    if (Lister.checkCanLoop(chains) == true && TextCheck.isEmpty(startsWith) == false){
 
       final List<String> _paths = generateChainsPaths(
           parentID: '',

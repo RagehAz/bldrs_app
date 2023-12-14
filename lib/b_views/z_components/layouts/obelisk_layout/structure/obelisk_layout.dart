@@ -75,7 +75,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   void initState() {
     super.initState();
 
-    if (Lister.checkCanLoopList(widget.navModels) == true){
+    if (Lister.checkCanLoop(widget.navModels) == true){
       _pageTitleVerse = Verse(
         id: widget.navModels![widget.initialIndex].titleVerse?.id,
         translate: widget.navModels![widget.initialIndex].titleVerse?.translate,

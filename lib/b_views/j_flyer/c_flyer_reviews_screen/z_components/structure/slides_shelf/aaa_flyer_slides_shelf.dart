@@ -40,7 +40,7 @@ class FlyerSlidesShelf extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       columnChildren: <Widget>[
 
-        if (Lister.checkCanLoopList(flyerModel?.slides) == true)
+        if (Lister.checkCanLoop(flyerModel?.slides) == true)
           ...List.generate(flyerModel!.slides!.length, (index){
 
             return Container(
@@ -83,7 +83,7 @@ class FlyerSlidesShelf extends StatelessWidget {
     //       mainAxisAlignment: MainAxisAlignment.center,
     //       children: <Widget>[
     //
-    //         if (Lister.checkCanLoopList(flyerModel?.slides) == true)
+    //         if (Lister.checkCanLoop(flyerModel?.slides) == true)
     //         ...List.generate(flyerModel!.slides!.length, (index){
     //
     //           return Container(

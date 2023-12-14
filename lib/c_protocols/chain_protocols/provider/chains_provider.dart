@@ -279,7 +279,7 @@ class ChainsProvider extends ChangeNotifier {
       onlyUseZoneChains: true,
       listen: true,
     );
-    return Lister.checkCanLoopList(_bldrsChains);
+    return Lister.checkCanLoop(_bldrsChains);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -303,7 +303,7 @@ class ChainsProvider extends ChangeNotifier {
     required bool notify,
   }) async {
 
-    if (Lister.checkCanLoopList(_bldrsChains) == false){
+    if (Lister.checkCanLoop(_bldrsChains) == false){
 
       List<Chain>? _bldrsChains = await ChainProtocols.fetchBldrsChains();
 
@@ -425,7 +425,7 @@ class ChainsProvider extends ChangeNotifier {
     required bool notify,
   }) async {
 
-    if (Lister.checkCanLoopList(_chainsPhrases) == false){
+    if (Lister.checkCanLoop(_chainsPhrases) == false){
 
       final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChains(
         context: getMainContext(),
@@ -474,7 +474,7 @@ class ChainsProvider extends ChangeNotifier {
   }){
     final List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoop(phids) == true){
 
       for (final String phid in phids){
 
@@ -665,7 +665,7 @@ class ChainsProvider extends ChangeNotifier {
   }){
     final List<PickerModel> _output = <PickerModel>[];
 
-    if (Lister.checkCanLoopList(flyerTypes) == true){
+    if (Lister.checkCanLoop(flyerTypes) == true){
 
       for (final FlyerType type in flyerTypes){
 
@@ -693,7 +693,7 @@ class ChainsProvider extends ChangeNotifier {
   }){
     final List<PickerModel> _output = <PickerModel>[];
 
-    if (Lister.checkCanLoopList(specs) == true){
+    if (Lister.checkCanLoop(specs) == true){
 
       final List<PickerModel> _allPickers = ChainsProvider.proGetAllPickers(
         context: context,

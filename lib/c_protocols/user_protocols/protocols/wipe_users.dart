@@ -132,7 +132,7 @@ class WipeUserProtocols {
 
     final List<String> _bzzIDs = userModel.myBzzIDs;
 
-    if (Lister.checkCanLoopList(_bzzIDs) == true){
+    if (Lister.checkCanLoop(_bzzIDs) == true){
 
       await Future.wait(<Future>[
 
@@ -173,7 +173,7 @@ class WipeUserProtocols {
       creatorID: userModel?.id,
     );
 
-    if (Lister.checkCanLoopList(_myBzzICreated) == true){
+    if (Lister.checkCanLoop(_myBzzICreated) == true){
 
       await Future.wait(<Future>[
 
@@ -214,7 +214,7 @@ class WipeUserProtocols {
       userID: userModel?.id,
     );
 
-    if (Lister.checkCanLoopList(_myBzzIDidNotCreate) == true){
+    if (Lister.checkCanLoop(_myBzzIDidNotCreate) == true){
 
       await Future.wait(<Future>[
 

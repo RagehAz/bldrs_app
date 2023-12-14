@@ -92,7 +92,7 @@ class ComposeUserProtocols {
         url: picURL,
       );
 
-      if (Lister.checkCanLoopList(_bytes) == true){
+      if (Lister.checkCanLoop(_bytes) == true){
 
         final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
         final String? _picPath = StoragePath.users_userID_pic(userID);

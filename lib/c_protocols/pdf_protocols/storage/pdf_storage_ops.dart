@@ -21,7 +21,7 @@ class PDFStorageOps {
     assert(pdfModel != null, 'picModel is null');
     assert(pdfModel?.bytes != null, 'bytes is null');
     assert(pdfModel?.path != null, 'path is null');
-    assert(Lister.checkCanLoopList(pdfModel?.ownersIDs) == true, 'owners are Empty');
+    assert(Lister.checkCanLoop(pdfModel?.ownersIDs) == true, 'owners are Empty');
 
     if (pdfModel != null && pdfModel.bytes != null && pdfModel.path != null) {
 
@@ -62,7 +62,7 @@ class PDFStorageOps {
         path: path!,
       );
 
-      if (Lister.checkCanLoopList(_bytes) == true){
+      if (Lister.checkCanLoop(_bytes) == true){
 
         /// GET META
         final StorageMetaModel? _meta = await Storage.readMetaByPath(

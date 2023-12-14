@@ -46,7 +46,7 @@ void onSearchCurrencies({
     // Phrase.blogPhrases(_phrases);
 
     /// WHEN FOUND PHRASES
-    if (Lister.checkCanLoopList(_phrases) == true){
+    if (Lister.checkCanLoop(_phrases) == true){
 
       /// FILTER CURRENCIES FROM PHRASES
       final List<String> _filteredIDs = <String>[];

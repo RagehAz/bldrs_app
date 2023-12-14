@@ -73,7 +73,7 @@ class UserRecordModel {
       final List<String> _keys = map.keys.toList();
       _keys.remove('id');
 
-      if (Lister.checkCanLoopList(_keys) == true){
+      if (Lister.checkCanLoop(_keys) == true){
 
         for (final String dayNode in _keys){
 
@@ -107,7 +107,7 @@ class UserRecordModel {
       final List<String> _recordsIDs = dayMap.keys.toList();
       _recordsIDs.remove('id');
 
-      if (Lister.checkCanLoopList(_recordsIDs) == true){
+      if (Lister.checkCanLoop(_recordsIDs) == true){
 
         for (final String recordID in _recordsIDs){
 
@@ -252,7 +252,7 @@ class UserRecordModel {
   }){
     List<Map<String, dynamic>> _output = [];
 
-    if (Lister.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoop(maps) == true){
 
       _output = <Map<String, dynamic>>[...maps!];
 
@@ -287,7 +287,7 @@ class UserRecordModel {
   static List<UserRecordModel> sortRecordsByTime(List<UserRecordModel> records){
     List<UserRecordModel> _output = [];
 
-    if (Lister.checkCanLoopList(records) == true){
+    if (Lister.checkCanLoop(records) == true){
 
       _output = [...records];
 

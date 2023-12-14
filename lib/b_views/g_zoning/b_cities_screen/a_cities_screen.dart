@@ -387,7 +387,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       //   // const Expander(),
       //
       //   // /// LOADING COUNTER
-      //   // if (Lister.checkCanLoopList(_stages?.getAllIDs()) == true)
+      //   // if (Lister.checkCanLoop(_stages?.getAllIDs()) == true)
       //   //   ValueListenableBuilder(
       //   //       valueListenable: _loading,
       //   //       builder: (_, bool isLoading, Widget child){

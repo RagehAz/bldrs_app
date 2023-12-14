@@ -53,7 +53,7 @@ class FlyerSaveModel {
   }){
     final List<FlyerSaveModel> _output = [];
 
-    if (Lister.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoop(maps) == true){
 
       for (final Map<String, dynamic> map in maps!){
 
@@ -83,7 +83,7 @@ class FlyerSaveModel {
   }){
     List<String> _output = [];
 
-    if (Lister.checkCanLoopList(models) == true){
+    if (Lister.checkCanLoop(models) == true){
 
       for (final FlyerSaveModel model in models!){
         _output = Stringer.addStringToListIfDoesNotContainIt(

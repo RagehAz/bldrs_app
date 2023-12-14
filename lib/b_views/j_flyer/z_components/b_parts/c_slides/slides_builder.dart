@@ -83,7 +83,7 @@ class SlidesBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Lister.checkCanLoopList(flyerModel?.slides) == true){
+    if (Lister.checkCanLoop(flyerModel?.slides) == true){
 
       final int _realNumberOfSlide = flyerModel?.slides?.length ?? 0;
       final int _numberOfStrips = concludeNumberOfPages();

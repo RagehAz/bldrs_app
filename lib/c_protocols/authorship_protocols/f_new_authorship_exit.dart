@@ -307,7 +307,7 @@ class NewAuthorshipExit {
     required BzModel? bzModel,
   }) async {
 
-    if (Lister.checkCanLoopList(authorModel?.flyersIDs) == true){
+    if (Lister.checkCanLoop(authorModel?.flyersIDs) == true){
 
       await Future.wait(<Future>[
 

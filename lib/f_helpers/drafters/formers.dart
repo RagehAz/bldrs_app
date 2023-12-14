@@ -645,7 +645,7 @@ class Formers {
   }){
     bool _valid = true;
 
-    if (Lister.checkCanLoopList(contacts) == true){
+    if (Lister.checkCanLoop(contacts) == true){
 
       String? _message;
       for (final ContactModel _contact in contacts!){
@@ -723,7 +723,7 @@ class Formers {
     String? _message;
 
     if (Mapper.boolIsTrue(canValidate) == true){
-      if (Lister.checkCanLoopList(selectedTypes) == false){
+      if (Lister.checkCanLoop(selectedTypes) == false){
         _message = getWord('phid_select_at_least_one_bz_type');
       }
     }
@@ -785,7 +785,7 @@ class Formers {
     String? _message;
 
     if (canValidate == true){
-      if (Lister.checkCanLoopList(scope) == false){
+      if (Lister.checkCanLoop(scope) == false){
         _message = getWord('phid_select_bz_scope_to_describe');
       }
 
@@ -837,7 +837,7 @@ class Formers {
 
     if (canValidate == true){
 
-      final bool _hasSlides = Lister.checkCanLoopList(draftFlyer?.draftSlides);
+      final bool _hasSlides = Lister.checkCanLoop(draftFlyer?.draftSlides);
 
       if (_hasSlides == false){
         _message = getWord('phid_flyer_should_have_atleast_one_slide');
@@ -961,7 +961,7 @@ class Formers {
       if (flyerType == null){
         _message = getWord('phid_select_flyer_type_first');
       }
-      else if (Lister.checkCanLoopList(phids) == false){
+      else if (Lister.checkCanLoop(phids) == false){
         _message = getWord('phid_select_flyer_phids_to_filter');
       }
 
@@ -1010,7 +1010,7 @@ class Formers {
       userModel: userModel,
     );
 
-    if (Lister.checkCanLoopList(_missingFields) == true){
+    if (Lister.checkCanLoop(_missingFields) == true){
       _thereAreMissingFields = true;
     }
 
@@ -1095,7 +1095,7 @@ class Formers {
       userModel: userModel,
     );
 
-    if (Lister.checkCanLoopList(_missingFields) == true){
+    if (Lister.checkCanLoop(_missingFields) == true){
       _output = Stringer.generateStringFromStrings(
         strings: _missingFields,
       );

@@ -78,7 +78,7 @@ class FlyerShareModel {
   }){
     final List<FlyerShareModel> _output = [];
 
-    if (Lister.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoop(maps) == true){
 
       for (final Map<String, dynamic> map in maps!){
 
@@ -108,7 +108,7 @@ class FlyerShareModel {
   }){
     List<String> _output = [];
 
-    if (Lister.checkCanLoopList(models) == true){
+    if (Lister.checkCanLoop(models) == true){
 
       for (final FlyerShareModel model in models!){
 

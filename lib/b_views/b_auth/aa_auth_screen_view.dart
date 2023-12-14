@@ -195,7 +195,7 @@ class AuthScreenView extends StatelessWidget {
                 enableSuggestions: Keyboard.suggestionsEnabled(),
                 columnChildren: <Widget>[
 
-                  if (Lister.checkCanLoopList(myAccounts) == true)
+                  if (Lister.checkCanLoop(myAccounts) == true)
                     FloatingList(
                       mainAxisAlignment:  MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,

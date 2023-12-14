@@ -45,7 +45,7 @@ class PDFLDBOps {
         ids: [path!],
       );
 
-      if (Lister.checkCanLoopList(maps) == true){
+      if (Lister.checkCanLoop(maps) == true){
 
         _picModel = PDFModel.decipherFromMap(maps.first);
 

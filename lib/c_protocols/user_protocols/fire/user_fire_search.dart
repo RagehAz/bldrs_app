@@ -212,14 +212,14 @@ class UserFireSearchOps{
 
     List<UserModel> _usersModels = <UserModel>[];
 
-    if (Lister.checkCanLoopList(_result) == true) {
+    if (Lister.checkCanLoop(_result) == true) {
       _usersModels = UserModel.decipherUsers(
         maps: _result,
         fromJSON: false,
       );
     }
 
-    if (Lister.checkCanLoopList(userIDsToExclude) == true){
+    if (Lister.checkCanLoop(userIDsToExclude) == true){
       for (final String userID in userIDsToExclude){
         _usersModels.removeWhere((user) => user.id == userID);
       }
@@ -262,7 +262,7 @@ class UserFireSearchOps{
 
     List<UserModel> _usersModels = <UserModel>[];
 
-    if (Lister.checkCanLoopList(_result)) {
+    if (Lister.checkCanLoop(_result)) {
       _usersModels = UserModel.decipherUsers(
         maps: _result,
         fromJSON: false,

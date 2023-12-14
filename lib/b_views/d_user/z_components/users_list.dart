@@ -30,7 +30,7 @@ class UsersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Lister.checkCanLoopList(users) == true){
+    if (Lister.checkCanLoop(users) == true){
       return ListView.builder(
         controller: scrollController,
         physics: const BouncingScrollPhysics(),

@@ -68,7 +68,7 @@ class NoteEventsOfProfileDeletion {
           startAfter: _notesToDelete.isNotEmpty == true ? _notesToDelete?.last?.docSnapshot : null,
         );
 
-        if (Lister.checkCanLoopList(_notes) == true){
+        if (Lister.checkCanLoop(_notes) == true){
           _notesToDelete.addAll(_notes);
         }
 
@@ -79,7 +79,7 @@ class NoteEventsOfProfileDeletion {
       }
 
       /// DELETE ALL NOTES
-      if (Lister.checkCanLoopList(_notesToDelete) == true){
+      if (Lister.checkCanLoop(_notesToDelete) == true){
 
         await NoteFireOps.deleteNotes(
           notes: _notesToDelete,
@@ -116,7 +116,7 @@ class NoteEventsOfProfileDeletion {
         ),
       );
 
-      if (Lister.checkCanLoopList(_maps) == true){
+      if (Lister.checkCanLoop(_maps) == true){
 
         _notes = NoteModel.decipherNotes(
           maps: _maps,

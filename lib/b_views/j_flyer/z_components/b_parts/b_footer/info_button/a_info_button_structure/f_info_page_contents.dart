@@ -181,7 +181,7 @@ class InfoPageContents extends StatelessWidget {
                   ),
 
                 /// KEYWORDS HEADLINE
-                if (Lister.checkCanLoopList(flyerModel?.phids) == true)
+                if (Lister.checkCanLoop(flyerModel?.phids) == true)
                   InfoPageHeadline(
                     pageWidth: _pageWidth,
                     verse: const Verse(
@@ -191,7 +191,7 @@ class InfoPageContents extends StatelessWidget {
                   ),
 
                 /// KEYWORDS
-                if (Lister.checkCanLoopList(flyerModel?.phids) == true)
+                if (Lister.checkCanLoop(flyerModel?.phids) == true)
                   PhidsWrapper(
                     width: _pageWidth,
                     phids: flyerModel!.phids!,
@@ -205,13 +205,13 @@ class InfoPageContents extends StatelessWidget {
                   ),
 
                 /// KEYWORDS LINE
-                if (Lister.checkCanLoopList(flyerModel?.phids) == true)
+                if (Lister.checkCanLoop(flyerModel?.phids) == true)
                   InfoPageSeparator( /// ------------------------- SEPARATOR
                     pageWidth: _pageWidth,
                   ),
 
                 /// SPECS HEADLINE
-                if (Lister.checkCanLoopList(flyerModel?.specs) == true)
+                if (Lister.checkCanLoop(flyerModel?.specs) == true)
                   InfoPageHeadline(
                     pageWidth: _pageWidth,
                     verse: const Verse(
@@ -221,7 +221,7 @@ class InfoPageContents extends StatelessWidget {
                   ),
 
                 /// SPECS
-                if (Lister.checkCanLoopList(flyerModel?.specs) == true)
+                if (Lister.checkCanLoop(flyerModel?.specs) == true)
                   SpecsBuilder(
                     pageWidth: _pageWidth,
                     specs: flyerModel!.specs,
@@ -238,7 +238,7 @@ class InfoPageContents extends StatelessWidget {
                   ),
 
                 /// SPECS LINE
-                if (Lister.checkCanLoopList(flyerModel?.specs) == true)
+                if (Lister.checkCanLoop(flyerModel?.specs) == true)
                   InfoPageSeparator( /// ------------------------- SEPARATOR
                     pageWidth: _pageWidth,
                   ),
