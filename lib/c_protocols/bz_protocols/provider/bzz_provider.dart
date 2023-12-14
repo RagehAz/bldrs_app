@@ -1,13 +1,13 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:collection/collection.dart';
 
 // final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 class BzzProvider extends ChangeNotifier {
@@ -95,7 +95,7 @@ class BzzProvider extends ChangeNotifier {
     // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     final List<String> _sponsorsBzzIDs = []; /// TASK : RESTRUCTURE SPONSORS THING
 
-    if (Mapper.checkCanLoopList(_sponsorsBzzIDs)) {
+    if (Lister.checkCanLoopList(_sponsorsBzzIDs)) {
       /// 2 - fetch bzz
       final List<BzModel> _bzzSponsors = await BzProtocols.fetchBzz(
           bzzIDs: _sponsorsBzzIDs
@@ -199,7 +199,7 @@ class BzzProvider extends ChangeNotifier {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
     final List<String>? _userBzzIDs = _usersProvider.myUserModel?.myBzzIDs;
 
-    if (Mapper.checkCanLoopList(_userBzzIDs) == true) {
+    if (Lister.checkCanLoopList(_userBzzIDs) == true) {
       /// 2 - fetch bzz
       final List<BzModel> _bzz = await BzProtocols.fetchBzz(
         bzzIDs: _userBzzIDs,
@@ -254,7 +254,7 @@ class BzzProvider extends ChangeNotifier {
     required bool notify,
   }) {
 
-    if (Mapper.checkCanLoopList(_myBzz) == true) {
+    if (Lister.checkCanLoopList(_myBzz) == true) {
 
       final int _index = _myBzz.indexWhere((BzModel bzModel) => bzModel.id == bzID);
 
@@ -289,7 +289,7 @@ class BzzProvider extends ChangeNotifier {
     required bool notify,
   }) {
 
-    if (Mapper.checkCanLoopList(_myBzz) == true && modifiedBz != null) {
+    if (Lister.checkCanLoopList(_myBzz) == true && modifiedBz != null) {
 
       final int _index = _myBzz.indexWhere((BzModel bz) => modifiedBz.id == bz.id);
 
@@ -329,7 +329,7 @@ class BzzProvider extends ChangeNotifier {
     final UserModel? _myUserModel = _usersProvider.myUserModel;
     final List<String>? _followedBzzIDs = _myUserModel?.followedBzz?.all;
 
-    if (Mapper.checkCanLoopList(_followedBzzIDs)) {
+    if (Lister.checkCanLoopList(_followedBzzIDs)) {
 
       final List<BzModel> _bzz = await BzProtocols.fetchBzz(
         bzzIDs: _followedBzzIDs,
@@ -505,7 +505,7 @@ class BzzProvider extends ChangeNotifier {
       blog('_receiversIDs : $_receiversIDs');
       blog('_pendingAuthorshipInvitationsUsersIDs : $_pendingAuthorshipInvitationsUsersIDs');
 
-      final bool _idsAreIdentical = Mapper.checkListsAreIdentical(
+      final bool _idsAreIdentical = Lister.checkListsAreIdentical(
           list1: _pendingAuthorshipInvitationsUsersIDs,
           list2: _receiversIDs
       );

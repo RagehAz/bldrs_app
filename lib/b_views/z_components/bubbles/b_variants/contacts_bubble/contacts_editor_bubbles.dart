@@ -48,7 +48,7 @@
 //         const DotSeparator(),
 //
 //         /// CONTACTS
-//         if (Mapper.checkCanLoopList(_types) == true)
+//         if (Lister.checkCanLoopList(_types) == true)
 //         ...List.generate(_types.length, (index){
 //
 //           final ContactType? _contactType = _types[index];

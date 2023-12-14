@@ -77,7 +77,7 @@
 //   }
 //   // --------------------
 //   void _initializeLocalVariables(){
-//     _flyerTypesExist = Mapper.checkCanLoopList(widget.flyerTypes) == true;
+//     _flyerTypesExist = Lister.checkCanLoopList(widget.flyerTypes) == true;
 //   }
 //   // --------------------
 //   bool _isInit = true;
@@ -112,7 +112,7 @@
 //     }
 //     else if (
 //         widget.headlineVerse != oldWidget.headlineVerse ||
-//         Mapper.checkListsAreIdentical(list1: widget.bulletPoints, list2: oldWidget.bulletPoints) == false ||
+//         Lister.checkListsAreIdentical(list1: widget.bulletPoints, list2: oldWidget.bulletPoints) == false ||
 //         widget.addButtonVerse != oldWidget.addButtonVerse ||
 //         widget.validator != oldWidget.validator ||
 //         widget.autoValidate != oldWidget.autoValidate ||
@@ -221,7 +221,7 @@
 //           //                 columnChildren: <Widget>[
 //           //
 //           //                   /// SELECTED PHIDS
-//           //                   if (Mapper.checkCanLoopList(_phids) == true)
+//           //                   if (Lister.checkCanLoopList(_phids) == true)
 //           //                     PhidsViewer(
 //           //                       pageWidth: _phidsZoneWidth,
 //           //                       phids: _flyerTypePhids,
@@ -231,7 +231,7 @@
 //           //                       },
 //           //                     ),
 //           //
-//           //                   if (Mapper.checkCanLoopList(_phids) == false)
+//           //                   if (Lister.checkCanLoopList(_phids) == false)
 //           //                     SizedBox(
 //           //                       width: _phidsZoneWidth,
 //           //                       height: PhidButton.getHeight(),
@@ -244,7 +244,7 @@
 //           //                   //   height: PhidButton.getHeight(),
 //           //                   //   // width: Bubble.clearWidth(context),
 //           //                   //   verse: widget.addButtonVerse ?? Verse(
-//           //                   //     id: Mapper.checkCanLoopList(_phids) ?
+//           //                   //     id: Lister.checkCanLoopList(_phids) ?
 //           //                   //     'phid_add_bz_scope' // phid_edit_scope
 //           //                   //         :
 //           //                   //     'phid_add_bz_scope',

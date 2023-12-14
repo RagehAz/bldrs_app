@@ -1,16 +1,16 @@
 import 'package:basics/animators/helpers/app_scroll_behavior.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/b_gallery_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/horizontal_bouncer.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class SlidesBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -83,7 +83,7 @@ class SlidesBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Mapper.checkCanLoopList(flyerModel?.slides) == true){
+    if (Lister.checkCanLoopList(flyerModel?.slides) == true){
 
       final int _realNumberOfSlide = flyerModel?.slides?.length ?? 0;
       final int _numberOfStrips = concludeNumberOfPages();

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
@@ -440,7 +441,7 @@ Future<bool> _checkAndNotifyShouldPicLogo({
         authors: draftNotifier.value?.authors,
       );
 
-    if (Mapper.checkCanLoopList(_flyersIDs) == true){
+    if (Lister.checkCanLoopList(_flyersIDs) == true){
 
       _canPick = await Dialogs.postersDialogs(
         titleVerse: getVerse('phid_change_bz_logo_?')!,
@@ -511,7 +512,7 @@ Future<void> onChangeBzScope({
     slideScreenFromEnLeftToRight: false,
   );
 
-  if (Mapper.checkCanLoopList(_phids) == true){
+  if (Lister.checkCanLoopList(_phids) == true){
 
     setNotifier(
         notifier: draftNotifier,

@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_builder_page.dart';
@@ -30,7 +30,7 @@ class PhidsSearchView extends StatelessWidget {
         valueListenable: foundChains,
         builder: (BuildContext context, List<Chain>? foundChains, Widget? child) {
 
-          if (Mapper.checkCanLoopList(foundChains) == true){
+          if (Lister.checkCanLoopList(foundChains) == true){
             return PhidsBuilderPage(
               chain: Chain(
                 id: 'foundChains',

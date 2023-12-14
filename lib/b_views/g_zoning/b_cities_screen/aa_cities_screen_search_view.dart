@@ -1,13 +1,13 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/city_tile_button.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:flutter/material.dart';
 
 class CitiesScreenSearchView extends StatelessWidget {
@@ -56,7 +56,7 @@ class CitiesScreenSearchView extends StatelessWidget {
                 );
 
                 /// WHEN SEARCH RESULTS
-                if (Mapper.checkCanLoopList(foundCities) == true){
+                if (Lister.checkCanLoopList(foundCities) == true){
 
                   return ListView.builder(
                       physics: const BouncingScrollPhysics(),

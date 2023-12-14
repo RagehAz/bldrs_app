@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/models/flag_model.dart';
 import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
@@ -162,7 +162,7 @@ class ZonePhidsRealOps {
     required bool isIncrementing,
   }) async {
 
-    if (Mapper.checkCanLoopList(flyersModels) == true){
+    if (Lister.checkCanLoopList(flyersModels) == true){
 
       await Future.wait(<Future>[
 
@@ -188,7 +188,7 @@ class ZonePhidsRealOps {
       final List<String>? _oldPhids = oldFlyer.phids;
       final List<String>? _newPhids = flyerModel.phids;
 
-      final bool _areIdentical = Mapper.checkListsAreIdentical(
+      final bool _areIdentical = Lister.checkListsAreIdentical(
           list1: _oldPhids,
           list2: _newPhids,
       );

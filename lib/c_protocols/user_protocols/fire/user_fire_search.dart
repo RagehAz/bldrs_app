@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
@@ -211,14 +212,14 @@ class UserFireSearchOps{
 
     List<UserModel> _usersModels = <UserModel>[];
 
-    if (Mapper.checkCanLoopList(_result) == true) {
+    if (Lister.checkCanLoopList(_result) == true) {
       _usersModels = UserModel.decipherUsers(
         maps: _result,
         fromJSON: false,
       );
     }
 
-    if (Mapper.checkCanLoopList(userIDsToExclude) == true){
+    if (Lister.checkCanLoopList(userIDsToExclude) == true){
       for (final String userID in userIDsToExclude){
         _usersModels.removeWhere((user) => user.id == userID);
       }
@@ -261,7 +262,7 @@ class UserFireSearchOps{
 
     List<UserModel> _usersModels = <UserModel>[];
 
-    if (Mapper.checkCanLoopList(_result)) {
+    if (Lister.checkCanLoopList(_result)) {
       _usersModels = UserModel.decipherUsers(
         maps: _result,
         fromJSON: false,

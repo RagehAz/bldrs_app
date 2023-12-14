@@ -1,5 +1,5 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 enum DataCreator{
 
@@ -228,7 +228,7 @@ class DataCreation {
 
         final List<String> _sons = sons;
 
-        if (Mapper.checkCanLoopList(_sons) == true){
+        if (Lister.checkCanLoopList(_sons) == true){
 
           final String _first = _sons.first;
 
@@ -270,7 +270,7 @@ class DataCreation {
 
           final List<String> _sons = sons;
 
-          if (Mapper.checkCanLoopList(_sons) == true){
+          if (Lister.checkCanLoopList(_sons) == true){
 
             final String _first = _sons.first;
             final String? _cipheredType = DataCreation.cipherDataCreator(dataCreator);

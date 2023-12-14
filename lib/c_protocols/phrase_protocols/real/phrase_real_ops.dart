@@ -1,10 +1,11 @@
 import 'dart:async';
+
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/debuggers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class PhraseRealOps {
   // -----------------------------------------------------------------------------
@@ -22,7 +23,7 @@ class PhraseRealOps {
     required List<Phrase> phrases,
   }) async {
 
-    if (langCode != null && Mapper.checkCanLoopList(phrases) == true){
+    if (langCode != null && Lister.checkCanLoopList(phrases) == true){
 
       /// ASSURE ALL PHRASES ARE ON THIS LAND CODE
       final List<Phrase> _phrasesOfLang = Phrase.searchPhrasesByLang(
@@ -30,7 +31,7 @@ class PhraseRealOps {
           langCode: langCode
       );
 
-      if (Mapper.checkCanLoopList(_phrasesOfLang) == true){
+      if (Lister.checkCanLoopList(_phrasesOfLang) == true){
 
         await Real.createDoc(
             coll: RealColl.phrases,
@@ -126,7 +127,7 @@ class PhraseRealOps {
     required List<Phrase> updatedPhrases,
   }) async {
 
-    if (Mapper.checkCanLoopList(updatedPhrases) == true && langCode != null){
+    if (Lister.checkCanLoopList(updatedPhrases) == true && langCode != null){
 
       await Real.updateDoc(
           coll: RealColl.phrases,
@@ -147,7 +148,7 @@ class PhraseRealOps {
     List<String> langCodes = const <String>['en', 'ar'],
   }) async {
 
-    if (Mapper.checkCanLoopList(langCodes) == true){
+    if (Lister.checkCanLoopList(langCodes) == true){
 
       await Future.wait(<Future>[
 

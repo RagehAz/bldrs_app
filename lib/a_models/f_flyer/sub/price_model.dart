@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
@@ -146,7 +147,7 @@ class PriceModel {
   }){
     bool _output = false;
 
-    if (Mapper.checkCanLoopList(bzTypes) == true){
+    if (Lister.checkCanLoopList(bzTypes) == true){
 
       for (final bzType in bzTypes!){
 

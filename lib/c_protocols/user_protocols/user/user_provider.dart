@@ -118,7 +118,7 @@ class UsersProvider extends ChangeNotifier {
   bool canSearchContacts(){
     bool _canSearch = false;
 
-    if (Mapper.checkCanLoopList(myDeviceContacts) == true){
+    if (Lister.checkCanLoopList(myDeviceContacts) == true){
       _canSearch = true;
     }
     else {
@@ -172,7 +172,7 @@ class UsersProvider extends ChangeNotifier {
     List<Contact> _foundContacts = <Contact>[];
 
     /// A - WHEN CONTACTS NOT YET IMPORTED
-    if (Mapper.checkCanLoopList(_myDeviceContacts) == false){
+    if (Lister.checkCanLoopList(_myDeviceContacts) == false){
       blog('can not search device contacts as they are not yet imported');
     }
 
@@ -201,7 +201,7 @@ class UsersProvider extends ChangeNotifier {
     }
 
     /// B - WHEN FOUND CONTACTS
-    if (Mapper.checkCanLoopList(_foundContacts) == true){
+    if (Lister.checkCanLoopList(_foundContacts) == true){
       _triggerIsSearchingDeviceContacts(searchString: searchString, notify: false);
       _serSearchedDeviceContacts(
         setTo: _foundContacts,

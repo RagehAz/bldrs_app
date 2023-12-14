@@ -1,8 +1,8 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_ldb_ops.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class CensusProtocols {
   // -----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ class CensusProtocols {
   }) async {
     final List<CensusModel> _output = [];
 
-    if (Mapper.checkCanLoopList(countriesIDs) == true){
+    if (Lister.checkCanLoopList(countriesIDs) == true){
 
       await Future.wait(<Future>[
 
@@ -77,7 +77,7 @@ class CensusProtocols {
 
     final List<CensusModel> _output = await CensusRealOps.readAllCountriesCensuses();
 
-    if (Mapper.checkCanLoopList(_output) == true){
+    if (Lister.checkCanLoopList(_output) == true){
 
       await CensusLDBOps.insertCensuses(
         censuses: _output,
@@ -154,7 +154,7 @@ class CensusProtocols {
   }) async {
     final List<CensusModel> _output = <CensusModel>[];
 
-    if (Mapper.checkCanLoopList(citiesIDs) == true){
+    if (Lister.checkCanLoopList(citiesIDs) == true){
 
       await Future.wait(<Future>[
 
@@ -191,7 +191,7 @@ class CensusProtocols {
           countryID: countryID,
       );
 
-      if (Mapper.checkCanLoopList(_output) == true){
+      if (Lister.checkCanLoopList(_output) == true){
 
         await CensusLDBOps.insertCensuses(
             censuses: _output,

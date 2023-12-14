@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
@@ -100,7 +101,7 @@ class Verse {
   }){
     final List<Verse> _output = <Verse>[];
 
-    if (Mapper.checkCanLoopList(strings) == true){
+    if (Lister.checkCanLoopList(strings) == true){
 
       for (final String? string in strings!){
 
@@ -131,7 +132,7 @@ class Verse {
   static List<String> getVersesIDs(List<Verse>? verses){
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(verses) == true){
+    if (Lister.checkCanLoopList(verses) == true){
 
       for (final Verse verse in verses!){
 
@@ -152,7 +153,7 @@ class Verse {
   }){
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(verses) == true){
+    if (Lister.checkCanLoopList(verses) == true){
 
       for (final Verse verse in verses!){
 

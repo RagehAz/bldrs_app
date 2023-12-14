@@ -84,7 +84,7 @@ key
   Widget build(BuildContext context) {
 
 
-    // if (Mapper.checkCanLoopList(appBarRowWidgets) == true){
+    // if (Lister.checkCanLoopList(appBarRowWidgets) == true){
     //   return BldrsText(
     //     verse: title.copyWith(casing: Casing.upperCase),
     //     weight: VerseWeight.black,

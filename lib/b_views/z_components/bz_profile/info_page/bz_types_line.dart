@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
@@ -28,7 +28,7 @@ class BzTypesLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Mapper.checkCanLoopList(bzModel?.bzTypes) == false){
+    if (Lister.checkCanLoopList(bzModel?.bzTypes) == false){
       return const SizedBox();
     }
     else {

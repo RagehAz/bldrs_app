@@ -1,5 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/pathing.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -147,7 +147,7 @@ class TriggerModel {
         if (
           trigger1.name == trigger2.name &&
           trigger1.argument == trigger2.argument &&
-          Mapper.checkListsAreIdentical(list1: trigger1.done, list2: trigger2.done) == true
+          Lister.checkListsAreIdentical(list1: trigger1.done, list2: trigger2.done) == true
         ){
           _identical = true;
         }

@@ -2,6 +2,8 @@ import 'package:basics/animators/widgets/scroller.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/super_box/super_box.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
@@ -10,8 +12,6 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/add_k
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class PhidsBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -96,7 +96,7 @@ class PhidsBubble extends StatelessWidget {
       columnChildren: <Widget>[
 
         /// STRINGS
-        if (Mapper.checkCanLoopList(phids) == true)
+        if (Lister.checkCanLoopList(phids) == true)
           Container(
             width: Bubble.clearWidth(context: context, bubbleWidthOverride: bubbleWidth),
             constraints: maxLines == null ? null : BoxConstraints(
@@ -121,7 +121,7 @@ class PhidsBubble extends StatelessWidget {
                     child: Wrap(
                       children: <Widget>[
 
-                        if (Mapper.checkCanLoopList(phids) == true)
+                        if (Lister.checkCanLoopList(phids) == true)
                         ...List<Widget>.generate(phids!.length, (int index) {
 
                           final String _phid = phids![index];

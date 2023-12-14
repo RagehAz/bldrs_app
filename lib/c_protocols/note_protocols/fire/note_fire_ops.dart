@@ -1,9 +1,10 @@
 import 'dart:async';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
 class NoteFireOps {
@@ -66,7 +67,7 @@ class NoteFireOps {
     final List<NoteModel> _output = <NoteModel>[];
     bool _success = false;
 
-    if (noteModel != null && Mapper.checkCanLoopList(receiversIDs) == true){
+    if (noteModel != null && Lister.checkCanLoopList(receiversIDs) == true){
 
       await Future.wait(<Future>[
 
@@ -176,7 +177,7 @@ class NoteFireOps {
     required List<NoteModel>? notes,
   }) async {
 
-    if (Mapper.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoopList(notes) == true){
 
       /// MARK ON FIREBASE
       for (final NoteModel note in notes!){
@@ -217,7 +218,7 @@ class NoteFireOps {
     required List<NoteModel>? notes,
   }) async {
 
-    if (Mapper.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoopList(notes) == true){
 
       await Future.wait(<Future>[
 

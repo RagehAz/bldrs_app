@@ -23,7 +23,7 @@ class ScrollableAppBarWidgets extends StatelessWidget {
         height: BldrsAppBar.clearLineHeight(context),
         alignment: BldrsAligners.superInverseCenterAlignment(context),
         // color: Colorz.white10,
-        child: Mapper.checkCanLoopList(children) == false ?
+        child: Lister.checkCanLoopList(children) == false ?
         Container(
           width: width - 20,
           height: BldrsAppBar.clearLineHeight(context),

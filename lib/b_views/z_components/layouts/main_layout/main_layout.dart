@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/widgets/sensors/connectivity_sensor.dart';
 import 'package:basics/layouts/nav/nav.dart';
@@ -258,7 +258,7 @@ class MainLayout extends StatelessWidget {
                 ),
 
                 /// PYRAMIDS PANEL
-                if (Mapper.checkCanLoopList(pyramidButtons) == true)
+                if (Lister.checkCanLoopList(pyramidButtons) == true)
                 Positioned(
                   bottom: 0,
                   right: 0,

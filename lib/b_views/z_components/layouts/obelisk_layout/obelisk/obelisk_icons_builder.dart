@@ -97,7 +97,7 @@ class ObeliskIconsBuilder extends StatelessWidget{
       //   padding: EdgeInsets.zero,
       //   children: <Widget>[
       //
-      //     if (Mapper.checkCanLoopList(navModels) == true)
+      //     if (Lister.checkCanLoopList(navModels) == true)
       //       SizedBox(
       //         height: Obelisk.gotContentsScrollableHeight(
       //           context: context,

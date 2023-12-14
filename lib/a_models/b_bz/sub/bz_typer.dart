@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -95,7 +96,7 @@ class BzTyper {
   static Map<String, dynamic>? cipherBzTypes(List<BzType>? bzTypes){
     Map<String, dynamic>? _output;
 
-    if (Mapper.checkCanLoopList(bzTypes) == true){
+    if (Lister.checkCanLoopList(bzTypes) == true){
 
       _output = {};
 
@@ -139,7 +140,7 @@ class BzTyper {
 
       final List<String> _ciphered = map.keys.toList();
 
-      if (Mapper.checkCanLoopList(_ciphered) == true) {
+      if (Lister.checkCanLoopList(_ciphered) == true) {
         for (final String _string in _ciphered) {
           final BzType? _bzType = decipherBzType(_string);
           if (_bzType != null){
@@ -235,7 +236,7 @@ class BzTyper {
   }){
     bool _contains = false;
 
-    if (Mapper.checkCanLoopList(bzTypes) == true){
+    if (Lister.checkCanLoopList(bzTypes) == true){
 
       if (bzTypes!.contains(bzType) == true){
         _contains = true;
@@ -324,7 +325,7 @@ class BzTyper {
   }){
     final List<String> _strings = <String>[];
 
-    if (Mapper.checkCanLoopList(bzTypes) == true){
+    if (Lister.checkCanLoopList(bzTypes) == true){
 
       for (final BzType type in bzTypes!){
 
@@ -479,7 +480,7 @@ class BzTyper {
       }
 
       /// ADD ARTISAN IF STARTING WITH DESIGNERS OR CONTRACTORS
-      if (Mapper.checkCanLoopList(initialBzTypes) == true){
+      if (Lister.checkCanLoopList(initialBzTypes) == true){
         if (bzSection == BzSection.construction){
           if (
               initialBzTypes!.contains(BzType.designer) == true
@@ -567,7 +568,7 @@ class BzTyper {
     _inactiveTypes.remove(selectedBzType);
 
     /// REMOVE MIXABLE TYPES FROM ALL TYPE TO GET INACTIVE TYPES
-    if (Mapper.checkCanLoopList(_mixableTypes) == true){
+    if (Lister.checkCanLoopList(_mixableTypes) == true){
       for (final BzType bzType in _mixableTypes!){
         _inactiveTypes.remove(bzType);
       }
@@ -699,7 +700,7 @@ class BzTyper {
   static List<String> cipherBzForms(List<BzForm>? x){
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(x) == true){
+    if (Lister.checkCanLoopList(x) == true){
 
       for (final BzForm form in x!){
         _output.add(cipherBzForm(form)!);
@@ -714,7 +715,7 @@ class BzTyper {
   static List<BzForm> decipherBzForms(List<String> y){
     final List<BzForm> _output = <BzForm>[];
 
-    if (Mapper.checkCanLoopList(y) == true){
+    if (Lister.checkCanLoopList(y) == true){
 
       for (final String form in y){
         _output.add(decipherBzForm(form)!);
@@ -752,7 +753,7 @@ class BzTyper {
   }){
     final List<String> _strings = <String>[];
 
-    if (Mapper.checkCanLoopList(bzForms) == true){
+    if (Lister.checkCanLoopList(bzForms) == true){
 
       for (final BzForm bzForm in bzForms!){
         final String _translation = getBzFormPhid(bzForm)!;
@@ -775,7 +776,7 @@ class BzTyper {
   }){
     bool _contains = false;
 
-    if (Mapper.checkCanLoopList(bzForms) == true){
+    if (Lister.checkCanLoopList(bzForms) == true){
 
       if (bzForms.contains(bzForm) == true){
         _contains = true;
@@ -796,7 +797,7 @@ class BzTyper {
     /// INITIAL LIST OF ALL BZ FORMS
     List<BzForm>? _bzForms = <BzForm>[...bzFormsList];
 
-    if (Mapper.checkCanLoopList(selectedBzTypes) == true){
+    if (Lister.checkCanLoopList(selectedBzTypes) == true){
 
       /// MORE THAN ONE BZ TYPE
       if (selectedBzTypes!.length > 1){
@@ -941,7 +942,7 @@ class BzTyper {
   }){
     final List<String> _strings = <String>[];
 
-    if (Mapper.checkCanLoopList(bzSections) == true){
+    if (Lister.checkCanLoopList(bzSections) == true){
 
       for (final BzSection section in bzSections){
         final String _translation = getBzSectionPhid(
@@ -959,7 +960,7 @@ class BzTyper {
   static BzSection? concludeBzSectionByBzTypes(List<BzType>? selectedBzTypes){
 
     BzType? _bzType;
-    if (Mapper.checkCanLoopList(selectedBzTypes) == true){
+    if (Lister.checkCanLoopList(selectedBzTypes) == true){
       _bzType = selectedBzTypes?[0];
     }
 

@@ -2,7 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -10,16 +10,16 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_statistics/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
-import 'package:bldrs/b_views/l_pdf_screen/c_pdf_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/g_flyer_counters_and_records.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/phids_wrapper.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_main_details.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_paragraph.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_separator.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/phids_wrapper.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/report_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/specs_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/b_views/l_pdf_screen/c_pdf_screen.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
@@ -181,7 +181,7 @@ class InfoPageContents extends StatelessWidget {
                   ),
 
                 /// KEYWORDS HEADLINE
-                if (Mapper.checkCanLoopList(flyerModel?.phids) == true)
+                if (Lister.checkCanLoopList(flyerModel?.phids) == true)
                   InfoPageHeadline(
                     pageWidth: _pageWidth,
                     verse: const Verse(
@@ -191,7 +191,7 @@ class InfoPageContents extends StatelessWidget {
                   ),
 
                 /// KEYWORDS
-                if (Mapper.checkCanLoopList(flyerModel?.phids) == true)
+                if (Lister.checkCanLoopList(flyerModel?.phids) == true)
                   PhidsWrapper(
                     width: _pageWidth,
                     phids: flyerModel!.phids!,
@@ -205,13 +205,13 @@ class InfoPageContents extends StatelessWidget {
                   ),
 
                 /// KEYWORDS LINE
-                if (Mapper.checkCanLoopList(flyerModel?.phids) == true)
+                if (Lister.checkCanLoopList(flyerModel?.phids) == true)
                   InfoPageSeparator( /// ------------------------- SEPARATOR
                     pageWidth: _pageWidth,
                   ),
 
                 /// SPECS HEADLINE
-                if (Mapper.checkCanLoopList(flyerModel?.specs) == true)
+                if (Lister.checkCanLoopList(flyerModel?.specs) == true)
                   InfoPageHeadline(
                     pageWidth: _pageWidth,
                     verse: const Verse(
@@ -221,7 +221,7 @@ class InfoPageContents extends StatelessWidget {
                   ),
 
                 /// SPECS
-                if (Mapper.checkCanLoopList(flyerModel?.specs) == true)
+                if (Lister.checkCanLoopList(flyerModel?.specs) == true)
                   SpecsBuilder(
                     pageWidth: _pageWidth,
                     specs: flyerModel!.specs,
@@ -238,7 +238,7 @@ class InfoPageContents extends StatelessWidget {
                   ),
 
                 /// SPECS LINE
-                if (Mapper.checkCanLoopList(flyerModel?.specs) == true)
+                if (Lister.checkCanLoopList(flyerModel?.specs) == true)
                   InfoPageSeparator( /// ------------------------- SEPARATOR
                     pageWidth: _pageWidth,
                   ),

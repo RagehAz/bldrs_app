@@ -69,7 +69,7 @@ class CountryModel {
   }) {
     final List<CountryModel> _countries = <CountryModel>[];
 
-    if (Mapper.checkCanLoopList(maps) == true) {
+    if (Lister.checkCanLoopList(maps) == true) {
       for (final Map<String, dynamic> map in maps!) {
 
         final CountryModel? _map = decipherCountryMap(
@@ -103,7 +103,7 @@ class CountryModel {
   /// TESTED : WORKS PERFECT
   static void blogCountries(List<CountryModel> countries){
 
-    if (Mapper.checkCanLoopList(countries) == true){
+    if (Lister.checkCanLoopList(countries) == true){
 
       for (final CountryModel country in countries){
 
@@ -280,7 +280,7 @@ class CountryModel {
   }){
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(countriesIDs) == true){
+    if (Lister.checkCanLoopList(countriesIDs) == true){
 
       final List<String> _allIDsSorted = getAllCountriesIDsSortedByName(
         langCode: langCode,

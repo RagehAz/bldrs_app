@@ -5,6 +5,7 @@ import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/error_helpers.dart';
 import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/rest/rest.dart';
@@ -166,7 +167,7 @@ class DynamicLinks {
 
         final List<String> _nodes = Pathing.splitPathNodes(link);
 
-        if (Mapper.checkCanLoopList(_nodes) == true) {
+        if (Lister.checkCanLoopList(_nodes) == true) {
           final String _firstNode = _nodes.first;
 
           if (_firstNode == flyer_page) {

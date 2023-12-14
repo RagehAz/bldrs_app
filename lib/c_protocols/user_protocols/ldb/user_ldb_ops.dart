@@ -1,8 +1,8 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:basics/ldb/methods/ldb_ops.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 /// => TAMAM
 class UserLDBOps {
@@ -36,7 +36,7 @@ class UserLDBOps {
   /// TESTED : WORKS PERFECT
   static Future<void> insertUsers(List<UserModel>? users) async {
 
-    if (Mapper.checkCanLoopList(users) == true){
+    if (Lister.checkCanLoopList(users) == true){
 
       await LDBOps.insertMaps(
         // allowDuplicateIDs: false,
@@ -173,7 +173,7 @@ class UserLDBOps {
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.userEditor),
       );
 
-      if (Mapper.checkCanLoopList(_maps) == true) {
+      if (Lister.checkCanLoopList(_maps) == true) {
         _draft = DraftUser.fromLDB(_maps.first);
       }
 

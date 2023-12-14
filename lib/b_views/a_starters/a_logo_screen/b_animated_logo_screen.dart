@@ -7,7 +7,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
@@ -141,7 +141,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
     _logoAniController.dispose();
     _logoCurvedAnimation.dispose();
 
-    if (Mapper.checkCanLoopList(_linesControllers) == true) {
+    if (Lister.checkCanLoopList(_linesControllers) == true) {
       for (final CurvedAnimation cont in _linesControllers) {
         cont.dispose();
       }
@@ -248,7 +248,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   List<CurvedAnimation> _initializedLinesAnimations() {
     final List<CurvedAnimation> _animations = <CurvedAnimation>[];
 
-    if (Mapper.checkCanLoopList(_linesMap) == true){
+    if (Lister.checkCanLoopList(_linesMap) == true){
 
       for (final Map<String, dynamic> map in _linesMap!) {
       final CurvedAnimation _curvedAni = CurvedAnimation(
@@ -451,7 +451,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
               children: <Widget>[
 
                 /// LINES
-                if (Mapper.checkCanLoopList(_linesMap) == true)
+                if (Lister.checkCanLoopList(_linesMap) == true)
                 ...List.generate(_linesControllers.length, (index) {
                   return AnimatedLine(
                     curvedAnimation: _linesControllers[index],

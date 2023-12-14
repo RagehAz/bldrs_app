@@ -1,4 +1,6 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -6,7 +8,6 @@ import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 /// => TAMAM
@@ -342,7 +343,7 @@ class CensusModel {
   }){
     final List<Map<String, dynamic>> _output = [];
 
-    if (Mapper.checkCanLoopList(censuses) == true){
+    if (Lister.checkCanLoopList(censuses) == true){
 
       for (final CensusModel _census in censuses){
 
@@ -433,7 +434,7 @@ class CensusModel {
   static List<CensusModel> decipherCensuses(List<Map<String, dynamic>>? maps){
     final List<CensusModel> _output = <CensusModel>[];
 
-    if (Mapper.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoopList(maps) == true){
 
       for (final Map<String, dynamic> _map in maps!){
 
@@ -634,7 +635,7 @@ class CensusModel {
 
     if (bzModel != null){
 
-      if (Mapper.checkCanLoopList(bzModel.bzTypes) == true){
+      if (Lister.checkCanLoopList(bzModel.bzTypes) == true){
 
         final int _increment = isIncrementing ? count : -count;
 
@@ -711,7 +712,7 @@ class CensusModel {
     );
 
     /// TYPE
-    if (Mapper.checkCanLoopList(bzModel?.bzTypes) == true){
+    if (Lister.checkCanLoopList(bzModel?.bzTypes) == true){
       for (final BzType bzType in bzModel!.bzTypes!){
         _map = Mapper.insertPairInMap(
           map: _map,
@@ -755,7 +756,7 @@ class CensusModel {
 
     if (bzModel != null){
 
-      if (Mapper.checkCanLoopList(bzModel.bzTypes) == true){
+      if (Lister.checkCanLoopList(bzModel.bzTypes) == true){
 
         final int _increment = isIncrementing ? count : -count;
 
@@ -803,7 +804,7 @@ class CensusModel {
     //
     // if (_callsCount != null && _callsCount > 0){
     //
-    //   if (Mapper.checkCanLoopList(bzModel.bzTypes) == true){
+    //   if (Lister.checkCanLoopList(bzModel.bzTypes) == true){
     //
     //     for (final BzType bzType in bzModel.bzTypes){
     //       _map = Mapper.insertPairInMap(
@@ -904,7 +905,7 @@ class CensusModel {
     if (maw != null){
 
       final List<String> _keys = maw.keys.toList();
-      if (Mapper.checkCanLoopList(_keys) == true){
+      if (Lister.checkCanLoopList(_keys) == true){
 
         for (final String key in _keys){
 
@@ -927,7 +928,7 @@ class CensusModel {
   }){
     CensusModel? _output;
 
-    if (Mapper.checkCanLoopList(models) == true){
+    if (Lister.checkCanLoopList(models) == true){
 
       _output = createEmptyModel(id: 'usa');
 
@@ -1219,7 +1220,7 @@ class CensusModel {
   }){
     CensusModel? _output;
 
-    if (Mapper.checkCanLoopList(censuses) == true && censusID != null){
+    if (Lister.checkCanLoopList(censuses) == true && censusID != null){
       _output = censuses!.firstWhereOrNull((census) => census.id == censusID);
     }
 
@@ -1241,7 +1242,7 @@ class CensusModel {
 
 
       final List<String> _keys = map.keys.toList();
-      if (Mapper.checkCanLoopList(_keys) == true){
+      if (Lister.checkCanLoopList(_keys) == true){
 
         _keys.remove('id');
 
@@ -1373,7 +1374,7 @@ class CensusModel {
   static void blogCensuses({
     required List<CensusModel> censuses,
   }){
-    if (Mapper.checkCanLoopList(censuses) == true){
+    if (Lister.checkCanLoopList(censuses) == true){
       for (final CensusModel census in censuses) {
         census.blogCensus();
       }

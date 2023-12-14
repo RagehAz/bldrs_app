@@ -1,7 +1,8 @@
 import 'dart:typed_data';
+
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:fire/super_fire.dart';
 
 class PDFStorageOps {
@@ -20,7 +21,7 @@ class PDFStorageOps {
     assert(pdfModel != null, 'picModel is null');
     assert(pdfModel?.bytes != null, 'bytes is null');
     assert(pdfModel?.path != null, 'path is null');
-    assert(Mapper.checkCanLoopList(pdfModel?.ownersIDs) == true, 'owners are Empty');
+    assert(Lister.checkCanLoopList(pdfModel?.ownersIDs) == true, 'owners are Empty');
 
     if (pdfModel != null && pdfModel.bytes != null && pdfModel.path != null) {
 
@@ -61,7 +62,7 @@ class PDFStorageOps {
         path: path!,
       );
 
-      if (Mapper.checkCanLoopList(_bytes) == true){
+      if (Lister.checkCanLoopList(_bytes) == true){
 
         /// GET META
         final StorageMetaModel? _meta = await Storage.readMetaByPath(

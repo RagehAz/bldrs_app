@@ -1,8 +1,8 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class PicLDBOps {
   // -----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ class PicLDBOps {
         ids: [path!],
       );
 
-      if (Mapper.checkCanLoopList(maps) == true){
+      if (Lister.checkCanLoopList(maps) == true){
         _picModel = PicModel.decipherFromLDB(maps.first);
       }
 
@@ -73,7 +73,7 @@ class PicLDBOps {
   /// TASK : TEST ME
   static Future<void> deletePics(List<String> paths) async {
 
-    if (Mapper.checkCanLoopList(paths) == true){
+    if (Lister.checkCanLoopList(paths) == true){
       await LDBOps.deleteMaps(
         docName: LDBDoc.pics,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pics),

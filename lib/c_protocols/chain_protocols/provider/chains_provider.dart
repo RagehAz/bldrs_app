@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
@@ -278,7 +279,7 @@ class ChainsProvider extends ChangeNotifier {
       onlyUseZoneChains: true,
       listen: true,
     );
-    return Mapper.checkCanLoopList(_bldrsChains);
+    return Lister.checkCanLoopList(_bldrsChains);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -302,7 +303,7 @@ class ChainsProvider extends ChangeNotifier {
     required bool notify,
   }) async {
 
-    if (Mapper.checkCanLoopList(_bldrsChains) == false){
+    if (Lister.checkCanLoopList(_bldrsChains) == false){
 
       List<Chain>? _bldrsChains = await ChainProtocols.fetchBldrsChains();
 
@@ -424,7 +425,7 @@ class ChainsProvider extends ChangeNotifier {
     required bool notify,
   }) async {
 
-    if (Mapper.checkCanLoopList(_chainsPhrases) == false){
+    if (Lister.checkCanLoopList(_chainsPhrases) == false){
 
       final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChains(
         context: getMainContext(),
@@ -473,7 +474,7 @@ class ChainsProvider extends ChangeNotifier {
   }){
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoopList(phids) == true){
 
       for (final String phid in phids){
 
@@ -664,7 +665,7 @@ class ChainsProvider extends ChangeNotifier {
   }){
     final List<PickerModel> _output = <PickerModel>[];
 
-    if (Mapper.checkCanLoopList(flyerTypes) == true){
+    if (Lister.checkCanLoopList(flyerTypes) == true){
 
       for (final FlyerType type in flyerTypes){
 
@@ -692,7 +693,7 @@ class ChainsProvider extends ChangeNotifier {
   }){
     final List<PickerModel> _output = <PickerModel>[];
 
-    if (Mapper.checkCanLoopList(specs) == true){
+    if (Lister.checkCanLoopList(specs) == true){
 
       final List<PickerModel> _allPickers = ChainsProvider.proGetAllPickers(
         context: context,

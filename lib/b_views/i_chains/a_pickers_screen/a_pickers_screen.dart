@@ -1,4 +1,9 @@
+import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
@@ -16,12 +21,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:provider/provider.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/animators/widgets/widget_fader.dart';
 
 class PickersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -190,7 +190,7 @@ class _PickersScreenState extends State<PickersScreen> {
   List<String> _phidsOfAllPickers = <String>[];
   void _generatePhidsFromAllPickers(List<PickerModel> refinedPickers){
 
-    if (Mapper.checkCanLoopList(refinedPickers) == true){
+    if (Lister.checkCanLoopList(refinedPickers) == true){
 
       final List<Chain> _sons = <Chain>[];
 
@@ -204,7 +204,7 @@ class _PickersScreenState extends State<PickersScreen> {
         }
       }
 
-      if (Mapper.checkCanLoopList(_sons) == true){
+      if (Lister.checkCanLoopList(_sons) == true){
 
         final List<String> _phidsWithIndexes = Chain.getOnlyPhidsSonsFromChains(
             chains: _sons

@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/pathing.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
@@ -48,7 +48,7 @@ class ChainPathConverter {
         paths: <String>[path!],
       );
 
-      if (Mapper.checkCanLoopList(chains) == true){
+      if (Lister.checkCanLoopList(chains) == true){
         _chain = chains.first;
       }
     }
@@ -123,7 +123,7 @@ class ChainPathConverter {
   }){
     Chain? _output;
 
-    if (Mapper.checkCanLoopList(chains) == true && rootChainID != null){
+    if (Lister.checkCanLoopList(chains) == true && rootChainID != null){
 
       final List<Chain> combinesSons = <Chain>[];
 
@@ -237,7 +237,7 @@ class ChainPathConverter {
 
     // final String _space = Chain.getChainBlogTreeSpacing(level);
 
-    if (Mapper.checkCanLoopList(nestedSonsIDs) == true && parentChain != null){
+    if (Lister.checkCanLoopList(nestedSonsIDs) == true && parentChain != null){
 
       // _dBlog('$_space A - starting to add nested sons IDs ( $nestedSonsIDs ) to chainID ( ${parentChain.id} )');
 
@@ -349,7 +349,7 @@ class ChainPathConverter {
 
     List<String>? _output;
 
-    if (Mapper.checkCanLoopList(dividedPath) == true){
+    if (Lister.checkCanLoopList(dividedPath) == true){
       _output = dividedPath!.sublist(1);
     }
 
@@ -423,7 +423,7 @@ class ChainPathConverter {
   }){
     final List<String> _allPaths = <String>[];
 
-    if (Mapper.checkCanLoopList(chains) == true && parentID != null){
+    if (Lister.checkCanLoopList(chains) == true && parentID != null){
 
       for (final Chain sonChain in chains!){
 
@@ -520,7 +520,7 @@ class ChainPathConverter {
 
     List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(chains) == true && TextCheck.isEmpty(startsWith) == false){
+    if (Lister.checkCanLoopList(chains) == true && TextCheck.isEmpty(startsWith) == false){
 
       final List<String> _paths = generateChainsPaths(
           parentID: '',

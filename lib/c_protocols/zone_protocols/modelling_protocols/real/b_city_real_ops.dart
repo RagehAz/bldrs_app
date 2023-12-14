@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
@@ -76,7 +77,7 @@ class CityRealOps {
   }) async {
     final List<CityModel> _output = [];
 
-    if (Mapper.checkCanLoopList(citiesIDs) == true){
+    if (Lister.checkCanLoopList(citiesIDs) == true){
 
       await Future.wait(<Future>[
 

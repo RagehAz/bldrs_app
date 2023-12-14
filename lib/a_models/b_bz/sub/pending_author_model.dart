@@ -1,8 +1,9 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
@@ -24,7 +25,7 @@ class PendingAuthor {
   static Map<String, dynamic>? cipherPendingAuthors(List<PendingAuthor>? pendings){
     Map<String, dynamic>? _map;
 
-    if (Mapper.checkCanLoopList(pendings) == true){
+    if (Lister.checkCanLoopList(pendings) == true){
 
       _map = {};
 
@@ -52,7 +53,7 @@ class PendingAuthor {
 
       final List<String> _usersIDs = map.keys.toList();
 
-      if (Mapper.checkCanLoopList(_usersIDs) == true){
+      if (Lister.checkCanLoopList(_usersIDs) == true){
 
         for (final String userID in _usersIDs){
 
@@ -79,7 +80,7 @@ class PendingAuthor {
   static List<String> getPendingsUsersIDs(List<PendingAuthor>? pendingAuthors){
     final List<String> _usersIDs = <String>[];
 
-    if (Mapper.checkCanLoopList(pendingAuthors) == true){
+    if (Lister.checkCanLoopList(pendingAuthors) == true){
 
       final Map<String, dynamic>? _map = cipherPendingAuthors(pendingAuthors);
       if (_map != null){
@@ -98,7 +99,7 @@ class PendingAuthor {
   }){
     PendingAuthor? _output;
 
-    if (Mapper.checkCanLoopList(pendingAuthors) == true && userID != null){
+    if (Lister.checkCanLoopList(pendingAuthors) == true && userID != null){
       _output = pendingAuthors!.firstWhere((element) => element.userID == userID);
     }
 
@@ -117,7 +118,7 @@ class PendingAuthor {
   }){
     final List<PendingAuthor> _output = <PendingAuthor>[];
 
-    if (Mapper.checkCanLoopList(pendingAuthors) == true){
+    if (Lister.checkCanLoopList(pendingAuthors) == true){
       _output.addAll(pendingAuthors!);
     }
 
@@ -139,7 +140,7 @@ class PendingAuthor {
   }){
     final List<PendingAuthor> _output = <PendingAuthor>[];
 
-    if (Mapper.checkCanLoopList(pendingAuthors) == true){
+    if (Lister.checkCanLoopList(pendingAuthors) == true){
       _output.addAll(pendingAuthors!);
     }
 
@@ -216,7 +217,7 @@ class PendingAuthor {
       _listsAreIdentical = true;
     }
 
-    else if (Mapper.checkCanLoopList(list1) == true && Mapper.checkCanLoopList(list2) == true){
+    else if (Lister.checkCanLoopList(list1) == true && Lister.checkCanLoopList(list2) == true){
 
       if (list1!.length != list2!.length) {
         // blog('lists do not have the same length : list1 is ${list1.length} : list2 is ${list2.length}');
@@ -314,7 +315,7 @@ class PendingAuthor {
   /// TESTED : WORKS PERFECT
   static void blogPendingAuthors(List<PendingAuthor>? pendingAuthors){
 
-    if (Mapper.checkCanLoopList(pendingAuthors) == true){
+    if (Lister.checkCanLoopList(pendingAuthors) == true){
 
       for (int i = 0; i < pendingAuthors!.length; i++){
 

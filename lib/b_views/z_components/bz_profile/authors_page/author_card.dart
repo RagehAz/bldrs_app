@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -261,7 +262,7 @@ class AuthorCard extends StatelessWidget {
               ),
 
               /// CONTACTS
-              if (Mapper.checkCanLoopList(author.contacts) == true)
+              if (Lister.checkCanLoopList(author.contacts) == true)
               ...List.generate(author.contacts!.length, (index){
 
                 final ContactModel _contact = author.contacts![index];

@@ -79,7 +79,7 @@ class CurrencyModel {
   static Map<String, dynamic>? cipherCurrencies(List<CurrencyModel>? currencies) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
-    if (Mapper.checkCanLoopList(currencies) == true) {
+    if (Lister.checkCanLoopList(currencies) == true) {
       for (final CurrencyModel currency in currencies!) {
         _map = Mapper.insertPairInMap(
           map: _map,
@@ -108,7 +108,7 @@ class CurrencyModel {
     if (map != null) {
       final List<String> _keys = map.keys.toList();
 
-      if (Mapper.checkCanLoopList(_keys)) {
+      if (Lister.checkCanLoopList(_keys)) {
         for (final String key in _keys) {
 
           if (map[key] != currenciesMapID){
@@ -137,7 +137,7 @@ class CurrencyModel {
   /// TESTED : WORKS PERFECT
   static void blogCurrencies(List<CurrencyModel>? currencies){
 
-    if (Mapper.checkCanLoopList(currencies) == true){
+    if (Lister.checkCanLoopList(currencies) == true){
       for (final CurrencyModel currency in currencies!){
 
         currency.blogCurrency();
@@ -162,7 +162,7 @@ class CurrencyModel {
   }) {
     bool _contains = false;
 
-    if (Mapper.checkCanLoopList(currencies) && currencyCode != null) {
+    if (Lister.checkCanLoopList(currencies) && currencyCode != null) {
       for (final CurrencyModel currency in currencies!) {
         if (currency.id == currencyCode) {
           _contains = true;
@@ -185,7 +185,7 @@ class CurrencyModel {
   }) {
     CurrencyModel? _currency;
 
-    if (Mapper.checkCanLoopList(currencies) == true && countryID != null) {
+    if (Lister.checkCanLoopList(currencies) == true && countryID != null) {
 
       final String _countryID = countryID == Flag.planetID ? 'usa' : countryID;
 
@@ -211,7 +211,7 @@ class CurrencyModel {
   }){
     final List<String> _output = [];
 
-    if (Mapper.checkCanLoopList(allCurrencies) == true && Mapper.checkCanLoopList(countriesIDs) == true){
+    if (Lister.checkCanLoopList(allCurrencies) == true && Lister.checkCanLoopList(countriesIDs) == true){
 
       for (final String countryID in countriesIDs){
 
@@ -235,7 +235,7 @@ class CurrencyModel {
   static List<String> getCurrenciesIDs(List<CurrencyModel>? currencies){
     final List<String> _ids = <String>[];
 
-    if (Mapper.checkCanLoopList(currencies) == true){
+    if (Lister.checkCanLoopList(currencies) == true){
 
       for (final CurrencyModel currency in currencies!){
         if (currency.id != null){
@@ -255,7 +255,7 @@ class CurrencyModel {
   }){
     CurrencyModel? _currency;
 
-    if (Mapper.checkCanLoopList(allCurrencies) == true && currencyID != null){
+    if (Lister.checkCanLoopList(allCurrencies) == true && currencyID != null){
 
       _currency = allCurrencies!.firstWhereOrNull(
               (element) => element.id == currencyID,
@@ -273,9 +273,9 @@ class CurrencyModel {
   }){
     final List<CurrencyModel> _output = [];
 
-    if (Mapper.checkCanLoopList(allCurrencies) == true){
+    if (Lister.checkCanLoopList(allCurrencies) == true){
 
-      if (Mapper.checkCanLoopList(currenciesIDs) == true){
+      if (Lister.checkCanLoopList(currenciesIDs) == true){
 
         for (final String currencyID in currenciesIDs){
 
@@ -313,7 +313,7 @@ class CurrencyModel {
 
       final List<String> _phids = _langMap.keys.toList();
 
-      if (Mapper.checkCanLoopList(_phids) == true){
+      if (Lister.checkCanLoopList(_phids) == true){
 
         for (final String phid in _phids){
 
@@ -399,10 +399,10 @@ class CurrencyModel {
   }){
     List<CurrencyModel> _output = <CurrencyModel>[];
 
-    if (Mapper.checkCanLoopList(currencies) == true){
+    if (Lister.checkCanLoopList(currencies) == true){
       _output = <CurrencyModel>[...currencies];
 
-      if (Mapper.checkCanLoopList(removeIDs) == true){
+      if (Lister.checkCanLoopList(removeIDs) == true){
 
         for (final String id in removeIDs){
           _output.removeWhere((element) => element.id == id);
@@ -422,7 +422,7 @@ class CurrencyModel {
   }){
     List<CurrencyModel> _output = currencies;
 
-    if (Mapper.checkCanLoopList(phrases) == true){
+    if (Lister.checkCanLoopList(phrases) == true){
 
       _output = [];
 
@@ -465,7 +465,7 @@ class CurrencyModel {
 
       if (
           cur1.id == cur2.id &&
-          Mapper.checkListsAreIdentical(list1: cur1.countriesIDs, list2: cur2.countriesIDs) == true &&
+          Lister.checkListsAreIdentical(list1: cur1.countriesIDs, list2: cur2.countriesIDs) == true &&
           cur1.symbol == cur2.symbol &&
           cur1.digits == cur2.digits
       ){

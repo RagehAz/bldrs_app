@@ -1,15 +1,15 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/z_add_slides_button.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/z_loading_shelf_slide.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/gestures.dart';
@@ -72,7 +72,7 @@ class ShelfSlidesPart extends StatelessWidget {
           boxAlignment: BldrsAligners.superCenterAlignment(context),
           columnChildren: <Widget>[
 
-            if (Mapper.checkCanLoopList(draft?.draftSlides) == true)
+            if (Lister.checkCanLoopList(draft?.draftSlides) == true)
             slides!,
 
             /// ADD NEW SLIDE

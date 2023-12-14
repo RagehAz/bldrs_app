@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
@@ -73,7 +73,7 @@ class FlyerTyper{
   static List<String> cipherFlyersTypes(List<FlyerType> flyersTypes){
     final List<String> _strings = <String>[];
 
-    if (Mapper.checkCanLoopList(flyersTypes) == true){
+    if (Lister.checkCanLoopList(flyersTypes) == true){
 
       for (final FlyerType type in flyersTypes){
         final String? _str = cipherFlyerType(type);
@@ -91,7 +91,7 @@ class FlyerTyper{
   static List<FlyerType> decipherFlyersTypes(List<dynamic> strings){
     final List<FlyerType> _flyersTypes = <FlyerType>[];
 
-    if (Mapper.checkCanLoopList(strings) == true){
+    if (Lister.checkCanLoopList(strings) == true){
       for (final String str in strings){
         final FlyerType? _type = decipherFlyerType(str);
         if (_type != null){
@@ -207,7 +207,7 @@ class FlyerTyper{
   }){
     final List<FlyerType> _flyerTypes = <FlyerType>[];
 
-    if (Mapper.checkCanLoopList(bzTypes) == true){
+    if (Lister.checkCanLoopList(bzTypes) == true){
 
       for (final BzType bzType in bzTypes!){
 
@@ -259,7 +259,7 @@ class FlyerTyper{
   }){
     bool _includes = false;
 
-    if (Mapper.checkCanLoopList(flyerTypes) == true){
+    if (Lister.checkCanLoopList(flyerTypes) == true){
       if (flyerTypes.contains(flyerType) == true){
         _includes = true;
       }
@@ -274,7 +274,7 @@ class FlyerTyper{
     final List<String> _a = cipherFlyersTypes(types1);
     final List<String> _b = cipherFlyersTypes(types2);
 
-    return Mapper.checkListsAreIdentical(list1: _a, list2: _b);
+    return Lister.checkListsAreIdentical(list1: _a, list2: _b);
   }
   // -----------------------------------------------------------------------------
 
@@ -329,7 +329,7 @@ class FlyerTyper{
   }){
     final List<String> _translations = <String>[];
 
-    if (Mapper.checkCanLoopList(flyerTypes) == true){
+    if (Lister.checkCanLoopList(flyerTypes) == true){
 
       for (final FlyerType type in flyerTypes){
 
@@ -457,7 +457,7 @@ class FlyerTyper{
   static List<FlyerType> concludePossibleFlyerTypesByChains(List<Chain>? chains){
     final List<FlyerType> _types = <FlyerType>[];
 
-    if (Mapper.checkCanLoopList(chains) == true){
+    if (Lister.checkCanLoopList(chains) == true){
 
       Chain.blogChains(chains);
 

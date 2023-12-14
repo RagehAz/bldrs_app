@@ -1,6 +1,6 @@
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/d_progress_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
@@ -133,7 +133,7 @@ class StaticStrips extends StatelessWidget {
 
     // blog('stripsColors : $stripsColors}');
 
-    if (Mapper.checkCanLoopList(stripsColors) == true){
+    if (Lister.checkCanLoopList(stripsColors) == true){
       return stripsColors![index]; // ?? Colorz.white10;
     }
 

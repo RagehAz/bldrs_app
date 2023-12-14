@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/assets/planet/all_flags_list.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/models/flag_model.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
@@ -11,7 +12,6 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 /// => TAMAM
 class ZoneSearchOps {
@@ -110,7 +110,7 @@ class ZoneSearchOps {
       searchValue: text,
     );
 
-    if (Mapper.checkCanLoopList(_maps) == true) {
+    if (Lister.checkCanLoopList(_maps) == true) {
       _phrases = Phrase.decipherMixedLangPhrasesFromMaps(
         maps: _maps,
       );
@@ -287,11 +287,11 @@ class ZoneSearchOps {
   }) {
     final List<CityModel> _foundCities = <CityModel>[];
 
-    if (Mapper.checkCanLoopList(sourceCities) && Mapper.checkCanLoopList(phrases)) {
+    if (Lister.checkCanLoopList(sourceCities) && Lister.checkCanLoopList(phrases)) {
       for (final Phrase phrase in phrases) {
         for (final CityModel city in sourceCities) {
 
-          if (Mapper.checkCanLoopList(phrases) == true){
+          if (Lister.checkCanLoopList(phrases) == true){
             if (city.phrases!.contains(phrase) == true) {
               if (!_foundCities.contains(city) == true) {
                 _foundCities.add(city);
@@ -339,7 +339,7 @@ class ZoneSearchOps {
         );
 
         /// C - trial 3 search firebase if no result found in LDB
-        if (Mapper.checkCanLoopList(_foundCities) == false) {
+        if (Lister.checkCanLoopList(_foundCities) == false) {
           /// C-1 - trial 3 if countryID is not available
           if (countryID == null) {
             _foundCities = await _fetchCitiesByCityName(
@@ -364,7 +364,7 @@ class ZoneSearchOps {
         }
 
         /// D - if firebase or LDB found any cities
-        if (Mapper.checkCanLoopList(_foundCities) == true) {
+        if (Lister.checkCanLoopList(_foundCities) == true) {
           // blog('aho fetchCityByName : _foundCities.length = ${_foundCities.length}');
 
           /// D-1 if only one city found
@@ -402,7 +402,7 @@ class ZoneSearchOps {
         // limit: 10,
       );
 
-      if (Mapper.checkCanLoopList(_phrases) == true) {
+      if (Lister.checkCanLoopList(_phrases) == true) {
         final List<String> _citiesIDs = Phrase.getPhrasesIDs(_phrases);
 
         _cities = await ZoneProtocols.fetchCities(
@@ -429,7 +429,7 @@ class ZoneSearchOps {
         // limit: 10,
       );
 
-      if (Mapper.checkCanLoopList(_phrases) == true) {
+      if (Lister.checkCanLoopList(_phrases) == true) {
         final List<String> _citiesIDs = Phrase.getPhrasesIDs(_phrases);
 
         _cities = await ZoneProtocols.fetchCitiesOfCountryByIDs(

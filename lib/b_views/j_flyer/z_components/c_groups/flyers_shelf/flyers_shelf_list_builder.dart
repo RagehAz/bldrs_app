@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_preview_screen.dart';
@@ -35,7 +35,7 @@ class FlyersShelfListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Mapper.checkCanLoopList(flyersIDs) == true){
+    if (Lister.checkCanLoopList(flyersIDs) == true){
 
       return SizedBox(
         width: gridWidth,

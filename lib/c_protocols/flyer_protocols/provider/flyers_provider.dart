@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class FlyersProvider extends ChangeNotifier {
     required bool notify,
   }){
 
-    if (Mapper.checkCanLoopList(flyersIDs) == true){
+    if (Lister.checkCanLoopList(flyersIDs) == true){
 
       for (int i = 0; i < flyersIDs!.length; i++){
 

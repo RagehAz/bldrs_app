@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -205,7 +206,7 @@ class FlyerModel {
   }){
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Mapper.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers!){
 
@@ -277,7 +278,7 @@ class FlyerModel {
   }){
     final List<FlyerModel> _flyersList = <FlyerModel>[];
 
-    if (Mapper.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoopList(maps) == true){
 
       for (final Map<String, dynamic> map in maps!){
 
@@ -303,7 +304,7 @@ class FlyerModel {
   }){
     Map<String, dynamic>? _output;
 
-    if (Mapper.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoopList(phids) == true){
 
       _output = {};
 
@@ -329,7 +330,7 @@ class FlyerModel {
 
     if (map != null){
       final List<String>? _keys = map.keys.toList();
-      if (Mapper.checkCanLoopList(_keys) == true){
+      if (Lister.checkCanLoopList(_keys) == true){
         _output.addAll(_keys!);
       }
     }
@@ -354,7 +355,7 @@ class FlyerModel {
   static List<TextEditingController> createHeadlinesControllersForExistingFlyer(FlyerModel? flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
-    if (flyerModel != null && Mapper.checkCanLoopList(flyerModel.slides) == true){
+    if (flyerModel != null && Lister.checkCanLoopList(flyerModel.slides) == true){
 
       for (final SlideModel slide in flyerModel.slides!){
         final TextEditingController _controller = TextEditingController(text: slide.headline);
@@ -370,7 +371,7 @@ class FlyerModel {
   static List<TextEditingController> createDescriptionsControllersForExistingFlyer(FlyerModel? flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
-    if (flyerModel != null && Mapper.checkCanLoopList(flyerModel.slides) == true){
+    if (flyerModel != null && Lister.checkCanLoopList(flyerModel.slides) == true){
 
       for (final SlideModel slide in flyerModel.slides!){
         final TextEditingController _controller = TextEditingController(text: slide.description);
@@ -434,7 +435,7 @@ class FlyerModel {
     String invoker = 'BLOGGING FLYERS',
   }){
 
-    if (Mapper.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
         flyer.blogFlyer(invoker: invoker);
@@ -464,7 +465,7 @@ class FlyerModel {
       if (flyer1.headline != flyer2.headline){
         blog('flyers headlines are not identical');
       }
-      if (Mapper.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == false){
+      if (Lister.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == false){
         blog('flyers trigrams are not identical');
       }
       if (flyer1.description != flyer2.description){
@@ -476,7 +477,7 @@ class FlyerModel {
       if (flyer1.publishState != flyer2.publishState){
         blog('flyers publishStates are not identical');
       }
-      if (Mapper.checkListsAreIdentical(list1: flyer1.phids, list2: flyer2.phids) == false){
+      if (Lister.checkListsAreIdentical(list1: flyer1.phids, list2: flyer2.phids) == false){
         blog('flyers keywordsIDs are not identical');
       }
       if (flyer1.showsAuthor != flyer2.showsAuthor){
@@ -604,7 +605,7 @@ class FlyerModel {
   static int getTotalSaves(FlyerModel flyer){
     int _totalSaves = 0;
 
-    if (flyer != null && Mapper.checkCanLoopList(flyer.slides)){
+    if (flyer != null && Lister.checkCanLoopList(flyer.slides)){
 
       for (final SlideModel slide in flyer.slides){
         _totalSaves = _totalSaves + slide.savesCount;
@@ -620,7 +621,7 @@ class FlyerModel {
   static int getTotalShares(FlyerModel flyer){
     int _totalShares = 0;
 
-    if (flyer != null && Mapper.checkCanLoopList(flyer?.slides)){
+    if (flyer != null && Lister.checkCanLoopList(flyer?.slides)){
 
       for (final SlideModel slide in flyer.slides){
         _totalShares = _totalShares + slide.sharesCount;
@@ -636,7 +637,7 @@ class FlyerModel {
   static int getTotalViews(FlyerModel flyer){
     int _totalViews = 0;
 
-    if (flyer != null &&Mapper.checkCanLoopList(flyer?.slides)){
+    if (flyer != null &&Lister.checkCanLoopList(flyer?.slides)){
 
       for (final SlideModel slide in flyer.slides){
         _totalViews = _totalViews + slide.viewsCount;
@@ -664,7 +665,7 @@ class FlyerModel {
   static int getNumberOfFlyersSlides(List<FlyerModel>? flyers){
     int _count = 0;
 
-    if (Mapper.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers!){
 
@@ -688,7 +689,7 @@ class FlyerModel {
   }){
     FlyerModel? _output;
 
-    if (Mapper.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoopList(flyers) == true){
       _output = flyers!.singleWhereOrNull((FlyerModel tinyFlyer) => tinyFlyer.id == flyerID);
     }
 
@@ -702,7 +703,7 @@ class FlyerModel {
   }){
     FlyerModel? _output;
 
-    if (Mapper.checkCanLoopList(flyers) == true && gtaLink != null){
+    if (Lister.checkCanLoopList(flyers) == true && gtaLink != null){
 
       for (final FlyerModel _flyer in flyers){
         if (_flyer.gtaLink == gtaLink){
@@ -720,7 +721,7 @@ class FlyerModel {
   static List<String> getFlyersIDsFromFlyers(List<FlyerModel>? flyers){
     final List<String> _flyerIDs = <String>[];
 
-    if (Mapper.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers!){
         if (flyer.id != null){
@@ -740,7 +741,7 @@ class FlyerModel {
   }){
     final List<FlyerModel> _filteredFlyers = <FlyerModel>[];
 
-    if(Mapper.checkCanLoopList(flyers) == true){
+    if(Lister.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
         if (flyer.flyerType == flyerType){
@@ -760,7 +761,7 @@ class FlyerModel {
 
     final List<FlyerModel> _authorFlyers = <FlyerModel>[];
 
-    if (Mapper.checkCanLoopList(flyers) == true && authorID != null){
+    if (Lister.checkCanLoopList(flyers) == true && authorID != null){
 
       for (final FlyerModel flyer in flyers!){
 
@@ -782,7 +783,7 @@ class FlyerModel {
   }){
     bool _hasTheID = false;
 
-    if (flyerID != null && Mapper.checkCanLoopList(flyers) == true){
+    if (flyerID != null && Lister.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers!){
 
@@ -806,7 +807,7 @@ class FlyerModel {
   }){
     List<FlyerModel> _output = <FlyerModel>[];
 
-    if (Mapper.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoopList(flyers) == true){
       _output = <FlyerModel>[...flyers!];
     }
 
@@ -847,7 +848,7 @@ class FlyerModel {
   }){
     final List<FlyerModel> _output = <FlyerModel>[...?flyers];
 
-    if (Mapper.checkCanLoopList(flyers) == true && flyerIDToRemove != null){
+    if (Lister.checkCanLoopList(flyers) == true && flyerIDToRemove != null){
       _output.removeWhere((flyer) => flyer.id == flyerIDToRemove);
     }
 
@@ -960,7 +961,7 @@ class FlyerModel {
   }){
     List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(flyer?.slides) == true){
+    if (Lister.checkCanLoopList(flyer?.slides) == true){
 
       _output = SlideModel.generateSlidesPicsPaths(
           slides: flyer?.slides,
@@ -978,7 +979,7 @@ class FlyerModel {
   }){
     final List<String> _links = [];
 
-    if (Mapper.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
 
@@ -1053,11 +1054,11 @@ class FlyerModel {
       if (
           flyer1.id == flyer2.id &&
           flyer1.headline == flyer2.headline &&
-          Mapper.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == true &&
+          Lister.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == true &&
           flyer1.description == flyer2.description &&
           flyer1.flyerType == flyer2.flyerType &&
           flyer1.publishState == flyer2.publishState &&
-          Mapper.checkListsAreIdentical(list1: flyer1.phids, list2: flyer2.phids) == true &&
+          Lister.checkListsAreIdentical(list1: flyer1.phids, list2: flyer2.phids) == true &&
           flyer1.showsAuthor == flyer2.showsAuthor &&
           ZoneModel.checkZonesIDsAreIdentical(zone1: flyer1.zone, zone2: flyer2.zone) == true &&
           flyer1.authorID == flyer2.authorID &&

@@ -1,7 +1,7 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:basics/ldb/methods/ldb_ops.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class StagingLDBOps {
   // -----------------------------------------------------------------------------
@@ -44,7 +44,7 @@ class StagingLDBOps {
       ids: id == null ? [] : <String>[id],
     );
 
-    if (Mapper.checkCanLoopList(_maps) == true){
+    if (Lister.checkCanLoopList(_maps) == true){
 
       _output = StagingModel.decipher(
         id: id,
@@ -78,7 +78,7 @@ class StagingLDBOps {
     required List<String> ids,
   }) async {
 
-    if (Mapper.checkCanLoopList(ids) == true){
+    if (Lister.checkCanLoopList(ids) == true){
 
       await  LDBOps.deleteMaps(
         docName: LDBDoc.staging,

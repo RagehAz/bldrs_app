@@ -1,14 +1,12 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/b_notes_page/x2_user_notes_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-
-
 import 'package:flutter/material.dart';
 
 class NoteCardButtons extends StatelessWidget {
@@ -109,9 +107,9 @@ class NoteCardButtons extends StatelessWidget {
           /// BUTTONS : WHEN NOT YET REPLIED
           if (_replyIsNull == true || _replyIsPending == true)
             Row(
-              children: [
+              children: <Widget>[
 
-                if (Mapper.checkCanLoopList(noteModel?.poll?.buttons) == true)
+                if (Lister.checkCanLoopList(noteModel?.poll?.buttons) == true)
                 ...List<Widget>.generate(noteModel!.poll!.buttons!.length,
                         (int index) {
                       final String _phid = noteModel!.poll!.buttons![index];

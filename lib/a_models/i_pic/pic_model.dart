@@ -5,7 +5,8 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/file_size_unit.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/maps/mapper_ss.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
@@ -116,7 +117,7 @@ class PicModel {
   }) async {
     final List<PicModel> _output = [];
 
-    if (Mapper.checkCanLoopList(assets) == true){
+    if (Lister.checkCanLoopList(assets) == true){
 
       for (final String asset in assets){
         
@@ -205,16 +206,18 @@ class PicModel {
             height: _dims.height,
             name: name,
             ownersIDs: ownersIDs,
-            data: {
-              'aspectRatio': _aspectRatio.toString(),
-              'sizeB': bytes.length.toString(),
-              'sizeKB': _kilo.toString(),
-              'compressionQuality': compressWithQuality.toString(),
-              'source': PicMaker.cipherPicMakerType(picMakerType),
-              'deviceID': _deviceID,
-              'deviceName': _deviceName,
-              'platform': _devicePlatform,
-            },
+            data: MapperSS.cleanNullPairs(
+              map: {
+                'aspectRatio': _aspectRatio.toString(),
+                'sizeB': bytes.length.toString(),
+                'sizeKB': _kilo.toString(),
+                'compressionQuality': compressWithQuality.toString(),
+                'source': PicMaker.cipherPicMakerType(picMakerType),
+                'deviceID': _deviceID,
+                'deviceName': _deviceName,
+                'platform': _devicePlatform,
+              },
+            ),
           ),
         );
       }
@@ -320,7 +323,7 @@ class PicModel {
       if (
           pic1.path == pic2.path &&
           pic1.bytes?.length == pic2.bytes?.length &&
-          Mapper.checkListsAreIdentical(list1: pic1.bytes, list2: pic2.bytes) == true &&
+          Lister.checkListsAreIdentical(list1: pic1.bytes, list2: pic2.bytes) == true &&
           StorageMetaModel.checkMetaDatasAreIdentical(meta1: pic1.meta, meta2: pic2.meta) == true
       ){
         _identical = true;
@@ -346,7 +349,7 @@ class PicModel {
       _listsAreIdentical = true;
     }
 
-    else if (Mapper.checkCanLoopList(list1) == true && Mapper.checkCanLoopList(list2) == true){
+    else if (Lister.checkCanLoopList(list1) == true && Lister.checkCanLoopList(list2) == true){
 
       if (list1!.length != list2!.length) {
         _listsAreIdentical = false;

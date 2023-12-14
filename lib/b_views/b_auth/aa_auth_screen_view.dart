@@ -3,7 +3,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:basics/layouts/views/floating_list.dart';
@@ -195,7 +195,7 @@ class AuthScreenView extends StatelessWidget {
                 enableSuggestions: Keyboard.suggestionsEnabled(),
                 columnChildren: <Widget>[
 
-                  if (Mapper.checkCanLoopList(myAccounts) == true)
+                  if (Lister.checkCanLoopList(myAccounts) == true)
                     FloatingList(
                       mainAxisAlignment:  MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,

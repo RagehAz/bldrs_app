@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -40,7 +40,7 @@ class FlyerSlidesShelf extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       columnChildren: <Widget>[
 
-        if (Mapper.checkCanLoopList(flyerModel?.slides) == true)
+        if (Lister.checkCanLoopList(flyerModel?.slides) == true)
           ...List.generate(flyerModel!.slides!.length, (index){
 
             return Container(
@@ -83,7 +83,7 @@ class FlyerSlidesShelf extends StatelessWidget {
     //       mainAxisAlignment: MainAxisAlignment.center,
     //       children: <Widget>[
     //
-    //         if (Mapper.checkCanLoopList(flyerModel?.slides) == true)
+    //         if (Lister.checkCanLoopList(flyerModel?.slides) == true)
     //         ...List.generate(flyerModel!.slides!.length, (index){
     //
     //           return Container(

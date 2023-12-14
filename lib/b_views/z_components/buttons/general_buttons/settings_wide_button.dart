@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
@@ -90,7 +90,7 @@ class SettingsToSettingsButtons extends StatelessWidget {
       final double _rowWidth = MainButton.getButtonWidth(context: context);
       const double _spacing = 10;
       final double _halfRowButtonWidth = (_rowWidth - _spacing) / 2;
-      final bool _userHasBzz = Mapper.checkCanLoopList(_userModel?.myBzzIDs);
+      final bool _userHasBzz = Lister.checkCanLoopList(_userModel?.myBzzIDs);
 
       final double _userButtonWidth = _userHasBzz == true ? _halfRowButtonWidth : _rowWidth;
       const double _buttonHeight = SettingsWideButton.height * 1;

@@ -1,8 +1,9 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
+
 import 'c_non_collapsable_tile.dart';
 import 'd_collapsable_tile.dart';
 
@@ -155,7 +156,7 @@ class ExpandingTile extends StatelessWidget {
     required List<String> phids,
   }) {
 
-    if (Mapper.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoopList(phids) == true){
       return 0;
     }
     else {

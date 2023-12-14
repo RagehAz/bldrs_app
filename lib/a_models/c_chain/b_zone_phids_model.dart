@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/models/flag_model.dart';
@@ -74,7 +75,7 @@ class ZonePhidsModel {
       final String? countryID = map['id'];
       _citiesIDs?.remove('id');
 
-      if (countryID != null && Mapper.checkCanLoopList(_citiesIDs) == true) {
+      if (countryID != null && Lister.checkCanLoopList(_citiesIDs) == true) {
 
         for (final String cityID in _citiesIDs!) {
 
@@ -123,7 +124,7 @@ class ZonePhidsModel {
 
       // Mapper.blogMap(map, invoker: 'decipherPlanetNodeMap input map');
 
-      if (Mapper.checkCanLoopList(_countriesIDs) == true) {
+      if (Lister.checkCanLoopList(_countriesIDs) == true) {
 
         // blog('decipherPlanetNodeMap here we start : _countriesIDs : $_countriesIDs');
 
@@ -175,7 +176,7 @@ class ZonePhidsModel {
   }){
     List<MapModel> _maps = <MapModel>[];
 
-    if (Mapper.checkCanLoopList(specs) == true){
+    if (Lister.checkCanLoopList(specs) == true){
 
       for (final SpecModel spec in specs){
 
@@ -232,7 +233,7 @@ class ZonePhidsModel {
   }){
     List<MapModel> _maps = <MapModel>[];
 
-    if (Mapper.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoopList(phids) == true){
 
       for (final String phid in phids!){
 
@@ -302,7 +303,7 @@ class ZonePhidsModel {
     Map<String, dynamic>? _incrementationMap = {};
 
       /// ADD REMOVED SPECS WITH DECREMENT VALUES
-    if (Mapper.checkCanLoopList(removedPhids) == true){
+    if (Lister.checkCanLoopList(removedPhids) == true){
       for (final String phidToRemove in removedPhids){
         _incrementationMap = Mapper.insertPairInMap(
           map: _incrementationMap,
@@ -314,7 +315,7 @@ class ZonePhidsModel {
     }
 
     /// ADD ADDED SPECS WITH INCREMENT VALUES
-    if (Mapper.checkCanLoopList(addedPhids) == true){
+    if (Lister.checkCanLoopList(addedPhids) == true){
       for (final String phidToAdd in addedPhids){
         _incrementationMap = Mapper.insertPairInMap(
           map: _incrementationMap,
@@ -375,13 +376,13 @@ class ZonePhidsModel {
   }){
     final List<FlyerType> _output = <FlyerType>[];
 
-    if (Mapper.checkCanLoopList(bldrsChains) == true){
+    if (Lister.checkCanLoopList(bldrsChains) == true){
 
       final List<String> _phids = getPhidsFromZonePhidsModel(
         zonePhidsModel: zonePhidsModel,
       );
 
-      if (Mapper.checkCanLoopList(_phids) == true){
+      if (Lister.checkCanLoopList(_phids) == true){
 
         for (final String phid in _phids){
 
@@ -510,7 +511,7 @@ class ZonePhidsModel {
         phidsMaps: <MapModel>[...?base?.phidsMaps],
       );
 
-      if (Mapper.checkCanLoopList(add?.phidsMaps) == true){
+      if (Lister.checkCanLoopList(add?.phidsMaps) == true){
 
         List<MapModel> _combined = <MapModel>[...?base?.phidsMaps];
 
@@ -540,7 +541,7 @@ class ZonePhidsModel {
 
         }
 
-        if (Mapper.checkCanLoopList(_combined) == true){
+        if (Lister.checkCanLoopList(_combined) == true){
 
           _output = ZonePhidsModel(
             zoneID: zoneID,

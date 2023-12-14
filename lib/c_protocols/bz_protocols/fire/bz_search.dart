@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
@@ -139,7 +140,7 @@ class BzSearch {
 
   List<BzModel> _bzz = <BzModel>[];
 
-  if (Mapper.checkCanLoopList(_result)) {
+  if (Lister.checkCanLoopList(_result)) {
     _bzz = BzModel.decipherBzz(
       maps: _result,
       fromJSON: false,
