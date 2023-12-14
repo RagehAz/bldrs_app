@@ -11,6 +11,14 @@
   |
   | --------------------------|
   |
+  | - [phids]
+  |     | - {phid}
+  |     |     | - phid.jpeg
+  |     |     | - ...
+  |     |
+  |     | - ...
+  |
+  | --------------------------|  |
   | - [users]
   |     | - {userID}
   |     |     | - pic.jpeg
@@ -60,5 +68,6 @@ abstract class StorageColl{
   static const String bzz           = 'storage/bzz';
   static const String flyers        = 'storage/flyers';
   static const String users         = 'storage/users';
+  static const String phids         = 'storage/phids';
   // --------------------
 }

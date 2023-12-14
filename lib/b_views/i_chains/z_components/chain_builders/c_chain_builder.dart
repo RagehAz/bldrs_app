@@ -1,11 +1,11 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/strings/pathing.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
-import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
+import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/a_chain_button_box.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
-import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
@@ -87,7 +87,7 @@ class ChainBuilder extends StatelessWidget {
       parentWidth: boxWidth,
     );
     // --------------------
-    final String? _cleanedPath = ChainPathConverter.fixPathFormatting('$previousPath/${chain.id}');
+    final String? _cleanedPath = Pathing.fixPathFormatting('$previousPath/${chain.id}');
     // --------------------
     return ChainButtonBox(
       key: ValueKey<String>('ChainExpanderStarter_${chain.id}'),

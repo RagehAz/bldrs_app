@@ -1,13 +1,13 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/pathing.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/records_protocols/recorder_protocols.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 // -----------------------------------------------------------------------------
 
@@ -168,7 +168,7 @@ String? createFlyerHeroTag({
   /// heroTag = 'screenName/firstFlyerID/galleryFlyerID';
   // ------
 
-  final List<String> _nodes = ChainPathConverter.splitPathNodes(heroPath);
+  final List<String> _nodes = Pathing.splitPathNodes(heroPath);
 
   if (_nodes.length == 1){
     return '$heroPath$flyerID/';
@@ -193,7 +193,7 @@ bool checkFlyerHeroTagHasGalleryFlyerID(String heroTag){
 
   if (TextCheck.isEmpty(heroTag) == false){
 
-    final List<String> _nodes = ChainPathConverter.splitPathNodes(heroTag);
+    final List<String> _nodes = Pathing.splitPathNodes(heroTag);
     _has = _nodes.length == 2;
 
   }

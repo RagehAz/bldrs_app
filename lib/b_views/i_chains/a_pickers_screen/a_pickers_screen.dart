@@ -209,7 +209,7 @@ class _PickersScreenState extends State<PickersScreen> {
         final List<String> _phidsWithIndexes = Chain.getOnlyPhidsSonsFromChains(
             chains: _sons
         );
-        final List<String> _chainsIDs = Chain.getOnlyChainSonsIDs(chain: Chain(
+        final List<String> _chainsIDs = Chain.getChainSonsIDs(chain: Chain(
           id: '',
           sons: _sons,
         ));

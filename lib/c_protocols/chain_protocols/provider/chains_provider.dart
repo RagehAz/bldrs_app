@@ -863,17 +863,7 @@ class ChainsProvider extends ChangeNotifier {
     required dynamic son,
   }) {
 
-    String? _phid;
-
-    /// WHEN SON IS KEYWORD ID
-    if (son.runtimeType == String) {
-      _phid  = Phider.removeIndexFromPhid(phid: son);
-    }
-    /// WHEN SON IS A CHAIN
-    else if (son.runtimeType == Chain) {
-      final Chain _chain = son;
-      _phid = Phider.removeIndexFromPhid(phid: _chain.id);
-    }
+    final String? _phid = cleanUpPhid(son);
 
     return getLocalAssetPath(
       assetName: _phid,
@@ -887,6 +877,23 @@ class ChainsProvider extends ChangeNotifier {
   }){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
     return _chainsProvider.getPhidIcon(son: son);
+  }
+
+  static String? cleanUpPhid(dynamic son){
+
+    String? _phid;
+
+    /// WHEN SON IS KEYWORD ID
+    if (son.runtimeType == String) {
+      _phid  = Phider.removeIndexFromPhid(phid: son);
+    }
+    /// WHEN SON IS A CHAIN
+    else if (son.runtimeType == Chain) {
+      final Chain _chain = son;
+      _phid = Phider.removeIndexFromPhid(phid: _chain.id);
+    }
+
+    return _phid;
   }
   // -----------------------------------------------------------------------------o
 }

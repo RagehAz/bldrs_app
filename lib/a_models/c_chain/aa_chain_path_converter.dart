@@ -1,12 +1,11 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/pathing.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:flutter/foundation.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 @immutable
 class ChainPathConverter {
@@ -14,37 +13,6 @@ class ChainPathConverter {
 
   const ChainPathConverter();
 
-  // -----------------------------------------------------------------------------
-
-  /// DEBUG BLOGGING
-
-  // --------------------
-  /*
-  static const canBlog = false;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void _dBlog(String text){
-    if (canBlog == true){
-      blog(text);
-    }
-  }
-   */
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void blogPaths(List<String> paths){
-
-    if (Mapper.checkCanLoopList(paths) == true){
-      Stringer.blogStrings(
-        strings: paths,
-        invoker: 'blogPaths',
-      );
-    }
-
-    else {
-      blog('ALERT : paths are empty');
-    }
-
-  }
   // -----------------------------------------------------------------------------
 
   /// CREATE CHAINS FROM PATHS
@@ -187,7 +155,7 @@ class ChainPathConverter {
     required String pathToAdd,
   }){
 
-    final List<String> _divided = splitPathNodes(pathToAdd);
+    final List<String> _divided = Pathing.splitPathNodes(pathToAdd);
 
     // _dBlog('XXX - adding path of ( $pathToAdd )');
 
@@ -387,69 +355,6 @@ class ChainPathConverter {
 
     return _output;
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String? getFirstPathNode({
-    required String? path
-  }){
-
-    if (path == null){
-      return null;
-    }
-
-    else {
-      /// FIRST PATH NODE IS CHAIN ROOT ID, in this example it's [phid_a] => 'phid_a/phid_b/phid_c'
-      final String? _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(
-          text: path,
-          specialCharacter: '/',
-      );
-      /// => <String>[phid_a, phid_b, phid_c]
-      final List<String>? _pathNodes = _cleanedPath?.split('/');
-      /// => phid_c
-      return Mapper.checkCanLoopList(_pathNodes) == true ? _pathNodes?.first : null;
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String? getLastPathNode(String? path){
-    /// LAST PATH NODE IS the FURTHEST FROM ROOT ID, in this example it's [phid_c] => 'phid_a/phid_b/phid_c'
-
-    String? _node;
-
-    if (TextCheck.isEmpty(path) == false){
-
-      final String? _fixed = fixPathFormatting(path!);
-      final String? _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(
-          text: _fixed,
-          specialCharacter: '/',
-      );
-      final List<String>? _pathNodes = _cleanedPath?.split('/');
-      _node = _pathNodes?.last;
-
-    }
-    return _node;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> getPathsLastNodes(List<String>? paths){
-    final List<String> _lastNodes = <String>[];
-
-    if (Mapper.checkCanLoopList(paths) == true){
-
-      for (final String path in paths!){
-
-        final String? _node = getLastPathNode(path);
-        if (_node != null){
-          _lastNodes.add(_node);
-        }
-
-      }
-
-    }
-
-    return _lastNodes;
-  }
   // -----------------------------------------------------------------------------
 
   /// CREATE PATHS FROM CHAINS
@@ -473,9 +378,9 @@ class ChainPathConverter {
       if (Phider.checkIsPhids(chain.sons) == true){
 
         final List<String> _sons = chain.sons;
-        final List<String> _sonsPaths = _generateChainPathsFromPhidsSons(
-          parentID: chain.id,
-          phids: _sons,
+        final List<String> _sonsPaths = Pathing.generatePathsForLastNodes(
+          parentNode: chain.id,
+          lastNodes: _sons,
           previousPath: previousPath,
         );
         _allPaths.addAll(_sonsPaths);
@@ -541,89 +446,11 @@ class ChainPathConverter {
 
     return _cleaned;
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> _generateChainPathsFromPhidsSons({
-    required String? parentID,
-    required List<String>? phids,
-    String previousPath = '', // ...xx/
-  }){
 
-    final List<String> _paths = <String>[];
-
-    if (Mapper.checkCanLoopList(phids) == true && parentID != null){
-
-      for (final String phid in phids!){
-
-        _paths.add('$previousPath$parentID/$phid/');
-
-      }
-
-    }
-
-    return _paths;
-  }
   // -----------------------------------------------------------------------------
 
   /// PATHS FINDERS
 
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> findPathsContainingPhid({
-    required List<String>? paths,
-    required String? phid,
-  }){
-    final List<String> _foundPaths = <String>[];
-
-    if (Mapper.checkCanLoopList(paths) && phid != null){
-
-      for (final String path in paths!){
-
-        final bool _containsSubString = TextCheck.stringContainsSubString(
-          string: path,
-          subString: phid,
-        );
-
-        if (_containsSubString == true){
-          _foundPaths.add(path);
-        }
-
-      }
-
-    }
-
-    return _foundPaths;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> findPathsContainingPhids({
-    required List<String>? paths,
-    required List<String>? phids,
-  }){
-    List<String> _output = <String>[];
-
-    if (Mapper.checkCanLoopList(paths) == true && Mapper.checkCanLoopList(phids) == true){
-
-      for (final String phid in phids!){
-
-        final List<String> _foundPaths = ChainPathConverter.findPathsContainingPhid(
-          paths: paths,
-          phid: phid,
-        );
-
-        if (Mapper.checkCanLoopList(_foundPaths) == true){
-          _output = Stringer.addStringsToStringsIfDoNotContainThem(
-            listToTake: _output,
-            listToAdd: _foundPaths,
-          );
-        }
-
-      }
-
-    }
-
-    return _output;
-  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> findPhidRelatedChains({
@@ -644,9 +471,9 @@ class ChainPathConverter {
     );
 
     /// SEARCH CHAINS FOR MATCH CASES
-    final List<String> _foundPaths = ChainPathConverter.findPathsContainingPhid(
+    final List<String> _foundPaths = Pathing.findPathsContainingSubstring(
       paths: _allChainsPaths,
-      phid: phid,
+      subString: phid,
     );
 
     final List<Chain> _foundPathsChains = ChainPathConverter.createChainsFromPaths(
@@ -669,9 +496,9 @@ class ChainPathConverter {
       chains: chains,
     );
 
-    final List<String> _foundPaths = ChainPathConverter.findPathsContainingPhids(
+    final List<String> _foundPaths = Pathing.findPathsContainingSubStrings(
       paths: _allChainsPaths,
-      phids: phids,
+      subStrings: phids,
     );
 
     final List<Chain> _foundPathsChains = ChainPathConverter.createChainsFromPaths(
@@ -710,83 +537,6 @@ class ChainPathConverter {
     }
 
     return _output;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// PATHS MODIFIERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> addPathToPaths({
-    required List<String>? paths,
-    required String? path,
-  }){
-
-    final List<String> _output = <String>[...?paths];
-
-    if (TextCheck.isEmpty(path) == false){
-
-      if (_output.contains(path) == false){
-        _output.add(path!);
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> splitPathNodes(String? path){
-
-    List<String> _divisions = <String>[];
-
-    if (TextCheck.isEmpty(path) == false){
-
-      // final String _cleaned = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
-      _divisions = path!.split('/').toList();
-      _divisions.removeWhere((element) => element == '');
-
-    }
-
-    return _divisions;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String combinePathNodes(List<String>? nodes){
-    String _path = '';
-
-    if (Mapper.checkCanLoopList(nodes) == true){
-
-      for (final String node in nodes!){
-
-        _path = _path == '' ? '$node/' : '$_path$node/';
-
-      }
-
-    }
-
-    return _path;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String? removeLastPathNode({
-    required String? path
-  }){
-    String? _output;
-
-    if (path != null){
-
-      final String? _fixed = fixPathFormatting(path);
-      final List<String> _nodes = splitPathNodes(_fixed);
-
-      if (Mapper.checkCanLoopList(_nodes) == true){
-        _nodes.removeAt(_nodes.length - 1);
-        _output = combinePathNodes(_nodes);
-      }
-
-    }
-
-    return fixPathFormatting(_output);
   }
   // -----------------------------------------------------------------------------
 
@@ -966,50 +716,5 @@ class ChainPathConverter {
   }
 
  */
-  // -----------------------------------------------------------------------------
-
-  /// FIXERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String? fixPathFormatting(String? path){
-
-    /// NOTE : GOOD FORMAT SHOULD BE
-    // 'chainK/blah_blah/phid/
-    /// => no '/' in the beggining
-    /// => there MUST '/' in the end
-
-    String? _output = path?.trim();
-
-    if (TextCheck.isEmpty(_output) == false){
-
-      /// REMOVE INITIAL SLASH IS EXISTS
-      if (_output![0] == '/'){
-        _output = TextMod.removeTextBeforeFirstSpecialCharacter(
-            text: _output,
-            specialCharacter: '/',
-        );
-      }
-
-      /// REMOVE LAST '//////' IF EXISTS
-      int _lastIndex = _output!.length - 1;
-      if (_output[_lastIndex] == '/'){
-        _output = TextMod.removeTextAfterLastSpecialCharacter(
-            text: _output,
-            specialCharacter: '/',
-        );
-        _output = '$_output/'; // should always keep one last slash
-      }
-
-      /// ASSURE LAST SLASH EXISTS
-      _lastIndex = _output.length - 1;
-      if (_output[_lastIndex] != '/'){
-        _output = '$_output/'; // should always keep one last slash
-      }
-
-    }
-
-    return _output;
-  }
   // -----------------------------------------------------------------------------
 }
