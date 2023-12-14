@@ -205,7 +205,7 @@ class WipeFlyerProtocols {
         await Future.wait(<Future>[
 
           /// WIPE FLYERS
-          if (Lister.checkCanLoopList(_flyersIDs) == true)
+          if (Lister.checkCanLoop(_flyersIDs) == true)
             ...List.generate(_flyersIDs.length, (index){
 
               final String _flyerID = _flyersIDs[index];

@@ -258,7 +258,7 @@ class MainLayout extends StatelessWidget {
                 ),
 
                 /// PYRAMIDS PANEL
-                if (Lister.checkCanLoopList(pyramidButtons) == true)
+                if (Lister.checkCanLoop(pyramidButtons) == true)
                 Positioned(
                   bottom: 0,
                   right: 0,

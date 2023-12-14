@@ -73,7 +73,7 @@ class FlyerTyper{
   static List<String> cipherFlyersTypes(List<FlyerType> flyersTypes){
     final List<String> _strings = <String>[];
 
-    if (Lister.checkCanLoopList(flyersTypes) == true){
+    if (Lister.checkCanLoop(flyersTypes) == true){
 
       for (final FlyerType type in flyersTypes){
         final String? _str = cipherFlyerType(type);
@@ -91,7 +91,7 @@ class FlyerTyper{
   static List<FlyerType> decipherFlyersTypes(List<dynamic> strings){
     final List<FlyerType> _flyersTypes = <FlyerType>[];
 
-    if (Lister.checkCanLoopList(strings) == true){
+    if (Lister.checkCanLoop(strings) == true){
       for (final String str in strings){
         final FlyerType? _type = decipherFlyerType(str);
         if (_type != null){
@@ -207,7 +207,7 @@ class FlyerTyper{
   }){
     final List<FlyerType> _flyerTypes = <FlyerType>[];
 
-    if (Lister.checkCanLoopList(bzTypes) == true){
+    if (Lister.checkCanLoop(bzTypes) == true){
 
       for (final BzType bzType in bzTypes!){
 
@@ -259,7 +259,7 @@ class FlyerTyper{
   }){
     bool _includes = false;
 
-    if (Lister.checkCanLoopList(flyerTypes) == true){
+    if (Lister.checkCanLoop(flyerTypes) == true){
       if (flyerTypes.contains(flyerType) == true){
         _includes = true;
       }
@@ -329,7 +329,7 @@ class FlyerTyper{
   }){
     final List<String> _translations = <String>[];
 
-    if (Lister.checkCanLoopList(flyerTypes) == true){
+    if (Lister.checkCanLoop(flyerTypes) == true){
 
       for (final FlyerType type in flyerTypes){
 
@@ -457,7 +457,7 @@ class FlyerTyper{
   static List<FlyerType> concludePossibleFlyerTypesByChains(List<Chain>? chains){
     final List<FlyerType> _types = <FlyerType>[];
 
-    if (Lister.checkCanLoopList(chains) == true){
+    if (Lister.checkCanLoop(chains) == true){
 
       Chain.blogChains(chains);
 

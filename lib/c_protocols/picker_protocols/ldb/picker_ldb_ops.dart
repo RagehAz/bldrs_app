@@ -20,7 +20,7 @@ class PickerLDBOps{
     required FlyerType? flyerType,
   }) async {
 
-    if (Lister.checkCanLoopList(pickers) == true) {
+    if (Lister.checkCanLoop(pickers) == true) {
       await LDBOps.insertMap(
         docName: LDBDoc.pickers,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pickers),
@@ -54,7 +54,7 @@ class PickerLDBOps{
         ids: <String>[_pickersID]
     );
 
-    if (Lister.checkCanLoopList(_maps) == true){
+    if (Lister.checkCanLoop(_maps) == true){
 
       final Map<String, dynamic> _map = _maps.first['pickers'];
 
@@ -77,7 +77,7 @@ class PickerLDBOps{
     required FlyerType flyerType,
   }) async {
 
-    if (Lister.checkCanLoopList(pickers) == true){
+    if (Lister.checkCanLoop(pickers) == true){
       await LDBOps.insertMap(
         docName: LDBDoc.pickers,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pickers),

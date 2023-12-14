@@ -34,7 +34,7 @@ class FlightFlyer extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
     final List<SlideModel> _slides = renderedFlyer?.slides ?? <SlideModel>[];
-    final SlideModel? slideModel = Lister.checkCanLoopList(_slides) == true ? _slides.first : null;
+    final SlideModel? slideModel = Lister.checkCanLoop(_slides) == true ? _slides.first : null;
     final double aspectRatio = FlyerDim.flyerAspectRatio();
     final EdgeInsets _saveButtonPadding = FlyerDim.footerButtonEnRightMargin(
       buttonNumber: 1,

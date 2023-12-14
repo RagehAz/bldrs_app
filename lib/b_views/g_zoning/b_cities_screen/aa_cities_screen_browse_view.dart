@@ -43,7 +43,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
       valueListenable: countryCities,
       builder: (_, List<CityModel> cities, Widget? child){
 
-        if (Lister.checkCanLoopList(cities) == false){
+        if (Lister.checkCanLoop(cities) == false){
           return const SizedBox();
         }
 
@@ -65,7 +65,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
 
                 else {
 
-                  final CityModel? _city = Lister.checkCanLoopList(cities) == true ? cities.first : null;
+                  final CityModel? _city = Lister.checkCanLoop(cities) == true ? cities.first : null;
                   final String? _countryID = CityModel.getCountryIDFromCityID(_city?.cityID);
 
                   return CountryTileButton(

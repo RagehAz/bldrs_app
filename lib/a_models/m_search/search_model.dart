@@ -177,7 +177,7 @@ class SearchModel {
   }){
     final List<Map<String, dynamic>> _output = [];
 
-    if (Lister.checkCanLoopList(models) == true){
+    if (Lister.checkCanLoop(models) == true){
 
       for (final SearchModel model in models){
 
@@ -224,7 +224,7 @@ class SearchModel {
   }){
     final List<SearchModel> _output = [];
 
-    if (Lister.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoop(maps) == true){
 
       for (final Map<String, dynamic> map in maps){
 
@@ -252,7 +252,7 @@ class SearchModel {
     required List<SearchModel> models,
   }){
 
-    if (Lister.checkCanLoopList(models) == true){
+    if (Lister.checkCanLoop(models) == true){
       final List<SearchModel> _models = [...models];
 
       _models.sort((a, b) => b.time!.compareTo(a.time!));

@@ -64,7 +64,7 @@ class CensusRealOps {
       // addChildrenIDs: true, // DEFAULT
     );
 
-    if (Lister.checkCanLoopList(_maps) == true){
+    if (Lister.checkCanLoop(_maps) == true){
 
       _output = CensusModel.decipherCensuses(_maps);
 
@@ -128,7 +128,7 @@ class CensusRealOps {
         // addChildrenIDs: true, // DEFAULT
       );
 
-      if (Lister.checkCanLoopList(_maps) == true){
+      if (Lister.checkCanLoop(_maps) == true){
         _output = CensusModel.decipherCensuses(_maps);
       }
 

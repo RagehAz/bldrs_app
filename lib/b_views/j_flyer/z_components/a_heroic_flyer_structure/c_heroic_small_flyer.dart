@@ -103,7 +103,7 @@ class HeroicSmallFlyer extends StatelessWidget {
     // );
 
     final List<SlideModel> _slides = renderedFlyer?.slides ?? <SlideModel>[];
-    final SlideModel? _firstSlide = Lister.checkCanLoopList(_slides) == true ? _slides.first : null;
+    final SlideModel? _firstSlide = Lister.checkCanLoop(_slides) == true ? _slides.first : null;
 
     return FlyerBox(
       key: const ValueKey<String>('StaticFlyer'),

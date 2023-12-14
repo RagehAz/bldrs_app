@@ -840,7 +840,7 @@ class Dialogs {
   }) async {
     BzModel? _output;
 
-    if (Lister.checkCanLoopList(bzzModels) == true){
+    if (Lister.checkCanLoop(bzzModels) == true){
 
       final BuildContext context = getMainContext();
 
@@ -1413,7 +1413,7 @@ class Dialogs {
       flyersIDs: flyersIDs,
     );
 
-    if (Lister.checkCanLoopList(_posters) == true){
+    if (Lister.checkCanLoop(_posters) == true){
 
       _continue = await picsDialog(
         pics: _posters,

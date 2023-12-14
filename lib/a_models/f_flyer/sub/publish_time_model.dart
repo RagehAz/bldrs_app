@@ -38,7 +38,7 @@ class PublishTime {
   }) {
     Map<String, dynamic> _outPut = <String, dynamic>{};
 
-    if (Lister.checkCanLoopList(times) == true) {
+    if (Lister.checkCanLoop(times) == true) {
       for (final PublishTime time in times!) {
         _outPut = Mapper.insertPairInMap(
           map: _outPut,
@@ -63,7 +63,7 @@ class PublishTime {
       final List<String> _keys = map.keys.toList();
       final List<dynamic> _values = map.values.toList();
 
-      if (Lister.checkCanLoopList(_keys) == true && Lister.checkCanLoopList(_values) == true) {
+      if (Lister.checkCanLoop(_keys) == true && Lister.checkCanLoop(_values) == true) {
         for (int i = 0; i < _keys.length; i++) {
 
           final PublishState? _flyerStateString = PublicationModel.decipherPublishState(_keys[i]);
@@ -102,7 +102,7 @@ class PublishTime {
   static List<PublishTime> cloneTimes(List<PublishTime> times) {
     final List<PublishTime> _times = <PublishTime>[];
 
-    if (Lister.checkCanLoopList(times)) {
+    if (Lister.checkCanLoop(times)) {
       for (final PublishTime time in times) {
         _times.add(time.clone());
       }
@@ -126,7 +126,7 @@ class PublishTime {
   /// TESTED : WORKS PERFECT
   static void blogTimes(List<PublishTime>? times){
 
-    if (Lister.checkCanLoopList(times) == true){
+    if (Lister.checkCanLoop(times) == true){
 
       for (final PublishTime time in times!){
         time.blogPublishTime();
@@ -196,7 +196,7 @@ class PublishTime {
 
     PublishTime? _publishTime;
 
-    if (state != null && Lister.checkCanLoopList(times) == true) {
+    if (state != null && Lister.checkCanLoop(times) == true) {
       _publishTime = times!.firstWhereOrNull((PublishTime time) => time.state == state);
     }
 
@@ -208,7 +208,7 @@ class PublishTime {
   static PublishTime getLastRecord(List<PublishTime> publishTimes){
     PublishTime _publishTime;
 
-    if (Lister.checkCanLoopList(publishTimes) == true){
+    if (Lister.checkCanLoop(publishTimes) == true){
 
       _publishTime = publishTimes[0];
 
@@ -241,7 +241,7 @@ class PublishTime {
 
     final List<PublishTime> _output = <PublishTime>[];
 
-    if (Lister.checkCanLoopList(times) == true){
+    if (Lister.checkCanLoop(times) == true){
       _output.addAll(times);
     }
 
@@ -302,9 +302,9 @@ class PublishTime {
     }
 
     else if (
-        Lister.checkCanLoopList(times1) == true
+        Lister.checkCanLoop(times1) == true
             &&
-        Lister.checkCanLoopList(times2) == true
+        Lister.checkCanLoop(times2) == true
     ){
 
       if (times1!.length == times2!.length){

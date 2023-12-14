@@ -122,7 +122,7 @@ List<StreamSubscription> listenToMyBzzUnseenNotes({
 
   final List<BzModel> _myBzz = _getMyBz();
 
-  if (Lister.checkCanLoopList(_myBzz) == true){
+  if (Lister.checkCanLoop(_myBzz) == true){
 
     for (int i = 0; i < _myBzz.length; i++){
 
@@ -200,7 +200,7 @@ List<ValueNotifier<List<Map<String, dynamic>>>> createMyBzOldUnseenNotesMaps(){
 
   final List<BzModel> _myBzz = _getMyBz();
 
-  if (Lister.checkCanLoopList(_myBzz) == true){
+  if (Lister.checkCanLoop(_myBzz) == true){
 
     for (int i = 0; i < _myBzz.length; i++){
 
@@ -219,7 +219,7 @@ void disposeMyBzOldUnseenNotesMaps({
   required List<ValueNotifier<List<Map<String, dynamic>>>> notifiers
 }){
 
-  if (Lister.checkCanLoopList(notifiers) == true){
+  if (Lister.checkCanLoop(notifiers) == true){
 
     for (final ValueNotifier<List<Map<String, dynamic>>> notifier in notifiers){
       notifier.dispose();
@@ -271,7 +271,7 @@ bool _checkNoteDotIsOn({
   }
   else {
 
-    if (Lister.checkCanLoopList(unseenNotes) == true){
+    if (Lister.checkCanLoop(unseenNotes) == true){
       _isOn = NoteModel.checkThereAreUnSeenNotes(unseenNotes);
     }
 

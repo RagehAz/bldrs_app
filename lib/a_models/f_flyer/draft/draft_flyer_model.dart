@@ -612,7 +612,7 @@ class DraftFlyer{
 
     if (draft != null){
 
-      if (Lister.checkCanLoopList(draft.draftSlides) == true){
+      if (Lister.checkCanLoop(draft.draftSlides) == true){
 
         /// UPDATE HEADLINE IN SLIDE
         final DraftSlide _newSlide = draft.draftSlides![slideIndex].copyWith(
@@ -680,7 +680,7 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? getFirstSlideHeadline(DraftFlyer? draft){
-    return Lister.checkCanLoopList(draft?.draftSlides) == true ?
+    return Lister.checkCanLoop(draft?.draftSlides) == true ?
     draft!.draftSlides![0].headline
         :
     null;
@@ -690,7 +690,7 @@ class DraftFlyer{
   static List<PicModel> getPics(DraftFlyer? draft){
     final List<PicModel> _output = [];
 
-    if (Lister.checkCanLoopList(draft?.draftSlides) == true){
+    if (Lister.checkCanLoop(draft?.draftSlides) == true){
 
       for (final DraftSlide _slide in draft!.draftSlides!){
         if (_slide.bigPic != null){

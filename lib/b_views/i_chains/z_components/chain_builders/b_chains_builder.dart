@@ -79,7 +79,7 @@ class ChainsBuilder extends StatelessWidget {
       level: level,
     );
 
-    if (Lister.checkCanLoopList(sons) == false){
+    if (Lister.checkCanLoop(sons) == false){
       return const SizedBox();
     }
 

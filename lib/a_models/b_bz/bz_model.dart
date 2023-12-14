@@ -207,7 +207,7 @@ class BzModel{
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Lister.checkCanLoopList(bzz) == true){
+    if (Lister.checkCanLoop(bzz) == true){
 
       for (final BzModel bz in bzz!){
 
@@ -276,7 +276,7 @@ class BzModel{
   }) {
     final List<BzModel> _bzList = <BzModel>[];
 
-    if (Lister.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoop(maps) == true){
       for (final Map<String, dynamic> map in maps!) {
         final BzModel? _bz = decipherBz(
           map: map,
@@ -356,7 +356,7 @@ class BzModel{
 
     if (bzModel != null){
 
-      if (Lister.checkCanLoopList(bzzModels) == true){
+      if (Lister.checkCanLoop(bzzModels) == true){
         _output.addAll(bzzModels!);
       }
 
@@ -497,7 +497,7 @@ class BzModel{
     BzModel _output;
 
 
-    if (bzModel != null && Lister.checkCanLoopList(flyersIDs) == true){
+    if (bzModel != null && Lister.checkCanLoop(flyersIDs) == true){
 
       final List<String> _updatedFlyersIDs = Mapper.removeStringsFromStrings(
         removeFrom: bzModel.flyersIDs,
@@ -593,7 +593,7 @@ class BzModel{
     String? invoker,
   }){
 
-    if (Lister.checkCanLoopList(bzz) == true){
+    if (Lister.checkCanLoop(bzz) == true){
 
       for (final BzModel bz in bzz!){
         bz.blogBz(invoker: invoker);
@@ -704,7 +704,7 @@ class BzModel{
   static List<String> getBzzIDs(List<BzModel> bzzModels) {
     final List<String> _ids = <String>[];
 
-    if (Lister.checkCanLoopList(bzzModels) == true) {
+    if (Lister.checkCanLoop(bzzModels) == true) {
       for (final BzModel bz in bzzModels) {
         if (bz.id != null){
           _ids.add(bz.id!);
@@ -719,7 +719,7 @@ class BzModel{
   static List<String> getBzzLogos(List<BzModel>? bzzModels) {
     final List<String> _pics = <String>[];
 
-    if (Lister.checkCanLoopList(bzzModels) == true) {
+    if (Lister.checkCanLoop(bzzModels) == true) {
       for (final BzModel bz in bzzModels!) {
         if (bz.logoPath != null){
           _pics.add(bz.logoPath!);
@@ -738,7 +738,7 @@ class BzModel{
 
     final List<BzModel> _output = <BzModel>[];
 
-    if (Lister.checkCanLoopList(bzz) && bzType != null){
+    if (Lister.checkCanLoop(bzz) && bzType != null){
       for (final BzModel bz in bzz){
 
         final List<BzType>? _bzTypesOfThisBz = bz.bzTypes;
@@ -761,7 +761,7 @@ class BzModel{
   static List<String> getBzTeamIDs(BzModel? bzModel) {
     final List<String> _bzTeamIDs = <String>[];
 
-    if (Lister.checkCanLoopList(bzModel?.authors) == true) {
+    if (Lister.checkCanLoop(bzModel?.authors) == true) {
       for (final AuthorModel author in bzModel!.authors!) {
         if (author.userID != null){
           _bzTeamIDs.add(author.userID!);
@@ -779,7 +779,7 @@ class BzModel{
   }){
     final List<BzModel> _bzzModels = <BzModel>[];
 
-    if (creatorID != null && Lister.checkCanLoopList(bzzModels) == true){
+    if (creatorID != null && Lister.checkCanLoop(bzzModels) == true){
 
       for (final BzModel bzModel in bzzModels!){
 
@@ -803,7 +803,7 @@ class BzModel{
   }){
     final List<BzModel> _bzzModels = <BzModel>[];
 
-    if (userID != null && Lister.checkCanLoopList(bzzModels) == true){
+    if (userID != null && Lister.checkCanLoop(bzzModels) == true){
 
       for (final BzModel bzModel in bzzModels!){
 
@@ -831,7 +831,7 @@ class BzModel{
   }) {
     bool _contains = false;
 
-    if (Lister.checkCanLoopList(bzz) == true && bzModel != null) {
+    if (Lister.checkCanLoop(bzz) == true && bzModel != null) {
       for (final BzModel bz in bzz!) {
         if (bz.id == bzModel.id) {
           _contains = true;
@@ -849,16 +849,16 @@ class BzModel{
   }){
     bool _hasContacts = false;
 
-    if (Lister.checkCanLoopList(bzModel?.authors) == true){
+    if (Lister.checkCanLoop(bzModel?.authors) == true){
 
-      if (Lister.checkCanLoopList(bzModel!.contacts) == true){
+      if (Lister.checkCanLoop(bzModel!.contacts) == true){
         _hasContacts = true;
       }
       else {
 
         for (final AuthorModel author in bzModel.authors!){
 
-          if (Lister.checkCanLoopList(author.contacts) == true){
+          if (Lister.checkCanLoop(author.contacts) == true){
             _hasContacts = true;
             break;
           }
@@ -878,7 +878,7 @@ class BzModel{
   }){
     bool _has = false;
 
-    if (Lister.checkCanLoopList(authors) == true){
+    if (Lister.checkCanLoop(authors) == true){
 
       for (final AuthorModel author in authors!){
 
@@ -909,7 +909,7 @@ class BzModel{
     //     _bzAboutTextController.text.length < 6
     //     // _currentBzContacts.length == 0 ||
 
-    if (Lister.checkCanLoopList(bzModel?.bzTypes) == false){
+    if (Lister.checkCanLoop(bzModel?.bzTypes) == false){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzType',
@@ -949,7 +949,7 @@ class BzModel{
       );
     }
 
-    if (Lister.checkCanLoopList(bzModel?.scope) == false){
+    if (Lister.checkCanLoop(bzModel?.scope) == false){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzScope',

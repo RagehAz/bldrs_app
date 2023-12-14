@@ -21,7 +21,7 @@ class HashGroup {
   }) {
     List<HashModel>? _output = <HashModel>[];
 
-    if (id != null && Lister.checkCanLoopList(hashGroups) == true) {
+    if (id != null && Lister.checkCanLoop(hashGroups) == true) {
 
       _output = hashGroups!.firstWhere((HashGroup hashModel) => hashModel.id == id).hashtags;
 

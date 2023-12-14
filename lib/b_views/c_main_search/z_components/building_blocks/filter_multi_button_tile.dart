@@ -66,7 +66,7 @@ class FilterMultiButtonTile extends StatelessWidget {
       child: Wrap(
         children: <Widget>[
 
-          if (Lister.checkCanLoopList(items) == true)
+          if (Lister.checkCanLoop(items) == true)
           ...List.generate(items.length, (index){
 
             final dynamic item = items[index];

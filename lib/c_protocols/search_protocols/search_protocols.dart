@@ -44,7 +44,7 @@ class SearchProtocols {
 
     _output = await SearchLDBOps.readAll();
 
-    if (Lister.checkCanLoopList(_output) == false){
+    if (Lister.checkCanLoop(_output) == false){
 
       _output = await SearchRealOps.readAll(
           userID: userID,
@@ -65,7 +65,7 @@ class SearchProtocols {
   static Future<List<SearchModel>> _completeSearchesZoneModels(List<SearchModel>? searches) async {
     final List<SearchModel> _output = [];
 
-    if (Lister.checkCanLoopList(searches) == true){
+    if (Lister.checkCanLoop(searches) == true){
 
       for (final SearchModel model in searches!){
 

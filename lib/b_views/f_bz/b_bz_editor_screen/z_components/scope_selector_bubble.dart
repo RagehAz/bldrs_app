@@ -77,7 +77,7 @@
 //   }
 //   // --------------------
 //   void _initializeLocalVariables(){
-//     _flyerTypesExist = Lister.checkCanLoopList(widget.flyerTypes) == true;
+//     _flyerTypesExist = Lister.checkCanLoop(widget.flyerTypes) == true;
 //   }
 //   // --------------------
 //   bool _isInit = true;
@@ -221,7 +221,7 @@
 //           //                 columnChildren: <Widget>[
 //           //
 //           //                   /// SELECTED PHIDS
-//           //                   if (Lister.checkCanLoopList(_phids) == true)
+//           //                   if (Lister.checkCanLoop(_phids) == true)
 //           //                     PhidsViewer(
 //           //                       pageWidth: _phidsZoneWidth,
 //           //                       phids: _flyerTypePhids,
@@ -231,7 +231,7 @@
 //           //                       },
 //           //                     ),
 //           //
-//           //                   if (Lister.checkCanLoopList(_phids) == false)
+//           //                   if (Lister.checkCanLoop(_phids) == false)
 //           //                     SizedBox(
 //           //                       width: _phidsZoneWidth,
 //           //                       height: PhidButton.getHeight(),
@@ -244,7 +244,7 @@
 //           //                   //   height: PhidButton.getHeight(),
 //           //                   //   // width: Bubble.clearWidth(context),
 //           //                   //   verse: widget.addButtonVerse ?? Verse(
-//           //                   //     id: Lister.checkCanLoopList(_phids) ?
+//           //                   //     id: Lister.checkCanLoop(_phids) ?
 //           //                   //     'phid_add_bz_scope' // phid_edit_scope
 //           //                   //         :
 //           //                   //     'phid_add_bz_scope',

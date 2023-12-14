@@ -39,7 +39,7 @@ class AccountLDBOps {
     required List<UserModel> users,
   }) async {
 
-    if (Lister.checkCanLoopList(users) == true){
+    if (Lister.checkCanLoop(users) == true){
 
       final List<AccountModel> _accounts = [];
       for (final UserModel user in users){
@@ -62,7 +62,7 @@ class AccountLDBOps {
 
       }
 
-      if (Lister.checkCanLoopList(_accounts) == true){
+      if (Lister.checkCanLoop(_accounts) == true){
 
         final List<Map<String, dynamic>> _maps = AccountModel.cipherAccounts(
           accounts: _accounts,
@@ -106,7 +106,7 @@ class AccountLDBOps {
       docName: LDBDoc.accounts,
     );
 
-    if (Lister.checkCanLoopList(_maps) == true){
+    if (Lister.checkCanLoop(_maps) == true){
       for (final Map<String, dynamic> _map in _maps){
         final AccountModel? _model = AccountModel.decipher(_map);
         if (_model != null){
@@ -124,7 +124,7 @@ class AccountLDBOps {
 
     final List<AccountModel> _all = await readAllAccounts();
 
-    if (Lister.checkCanLoopList(_all) == true){
+    if (Lister.checkCanLoop(_all) == true){
 
       for (final AccountModel account in _all){
 

@@ -23,7 +23,7 @@ class PhraseRealOps {
     required List<Phrase> phrases,
   }) async {
 
-    if (langCode != null && Lister.checkCanLoopList(phrases) == true){
+    if (langCode != null && Lister.checkCanLoop(phrases) == true){
 
       /// ASSURE ALL PHRASES ARE ON THIS LAND CODE
       final List<Phrase> _phrasesOfLang = Phrase.searchPhrasesByLang(
@@ -31,7 +31,7 @@ class PhraseRealOps {
           langCode: langCode
       );
 
-      if (Lister.checkCanLoopList(_phrasesOfLang) == true){
+      if (Lister.checkCanLoop(_phrasesOfLang) == true){
 
         await Real.createDoc(
             coll: RealColl.phrases,
@@ -127,7 +127,7 @@ class PhraseRealOps {
     required List<Phrase> updatedPhrases,
   }) async {
 
-    if (Lister.checkCanLoopList(updatedPhrases) == true && langCode != null){
+    if (Lister.checkCanLoop(updatedPhrases) == true && langCode != null){
 
       await Real.updateDoc(
           coll: RealColl.phrases,
@@ -148,7 +148,7 @@ class PhraseRealOps {
     List<String> langCodes = const <String>['en', 'ar'],
   }) async {
 
-    if (Lister.checkCanLoopList(langCodes) == true){
+    if (Lister.checkCanLoop(langCodes) == true){
 
       await Future.wait(<Future>[
 

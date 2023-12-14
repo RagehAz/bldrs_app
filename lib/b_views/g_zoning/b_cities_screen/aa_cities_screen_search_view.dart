@@ -56,7 +56,7 @@ class CitiesScreenSearchView extends StatelessWidget {
                 );
 
                 /// WHEN SEARCH RESULTS
-                if (Lister.checkCanLoopList(foundCities) == true){
+                if (Lister.checkCanLoop(foundCities) == true){
 
                   return ListView.builder(
                       physics: const BouncingScrollPhysics(),

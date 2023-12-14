@@ -269,7 +269,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
               builder: (context, List<CurrencyModel> found, Widget? child) {
 
                 /// NO RESULT FOUND
-                if (Lister.checkCanLoopList(found) == false){
+                if (Lister.checkCanLoop(found) == false){
                   return const Center(
                       child: NoResultFound(),
                   );

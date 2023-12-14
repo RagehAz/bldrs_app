@@ -72,7 +72,7 @@ class SpecsSelectorBubble extends StatelessWidget {
           BldrsBox(
             height: PhidButton.getHeight(),
             verse: Verse(
-              id: Lister.checkCanLoopList(draft?.specs) ? 'phid_edit_specs' : 'phid_add_specs',
+              id: Lister.checkCanLoop(draft?.specs) ? 'phid_edit_specs' : 'phid_add_specs',
               translate: true,
             ),
             bubble: false,

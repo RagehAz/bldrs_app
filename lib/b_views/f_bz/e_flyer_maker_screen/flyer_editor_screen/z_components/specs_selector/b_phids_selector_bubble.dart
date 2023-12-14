@@ -74,7 +74,7 @@ class PhidsSelectorBubble extends StatelessWidget {
           ),
 
           /// SELECTED PHIDS
-          if (Lister.checkCanLoopList(draft?.phids) == true)
+          if (Lister.checkCanLoop(draft?.phids) == true)
             PhidsWrapper(
               width: _bubbleClearWidth,
               phids: draft?.phids ?? [],
@@ -87,7 +87,7 @@ class PhidsSelectorBubble extends StatelessWidget {
           BldrsBox(
             height: PhidButton.getHeight(),
             verse: Verse(
-              id: Lister.checkCanLoopList(draft?.specs) ? 'phid_edit_keywords' : 'phid_add_keywords',
+              id: Lister.checkCanLoop(draft?.specs) ? 'phid_edit_keywords' : 'phid_add_keywords',
               translate: true,
             ),
             bubble: false,

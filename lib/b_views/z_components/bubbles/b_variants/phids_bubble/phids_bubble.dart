@@ -96,7 +96,7 @@ class PhidsBubble extends StatelessWidget {
       columnChildren: <Widget>[
 
         /// STRINGS
-        if (Lister.checkCanLoopList(phids) == true)
+        if (Lister.checkCanLoop(phids) == true)
           Container(
             width: Bubble.clearWidth(context: context, bubbleWidthOverride: bubbleWidth),
             constraints: maxLines == null ? null : BoxConstraints(
@@ -121,7 +121,7 @@ class PhidsBubble extends StatelessWidget {
                     child: Wrap(
                       children: <Widget>[
 
-                        if (Lister.checkCanLoopList(phids) == true)
+                        if (Lister.checkCanLoop(phids) == true)
                         ...List<Widget>.generate(phids!.length, (int index) {
 
                           final String _phid = phids![index];

@@ -30,7 +30,7 @@
 //
 //     final List<Map <String, dynamic>> _maps = <Map<String, dynamic>>[];
 //
-//     if (Lister.checkCanLoopList(alertModels) == true){
+//     if (Lister.checkCanLoop(alertModels) == true){
 //
 //       for (final AlertModel alert in alertModels){
 //
@@ -56,7 +56,7 @@
 //
 //     final List<AlertModel> _alerts = <AlertModel>[];
 //
-//     if (Lister.checkCanLoopList(maps) == true){
+//     if (Lister.checkCanLoop(maps) == true){
 //
 //       for (final Map<String, dynamic> map in maps){
 //
@@ -77,7 +77,7 @@
 //   static List<String> getAlertsIDs(List<AlertModel> alerts){
 //     final List<String> _ids = <String>[];
 //
-//     if (Lister.checkCanLoopList(alerts) == true){
+//     if (Lister.checkCanLoop(alerts) == true){
 //
 //       for (final AlertModel alertModel in alerts){
 //         _ids.add(alertModel.alertID);

@@ -88,7 +88,7 @@ class CountryProtocols {
   }) async {
     final List<CountryModel> _output = <CountryModel>[];
 
-    if (Lister.checkCanLoopList(countriesIDs) == true){
+    if (Lister.checkCanLoop(countriesIDs) == true){
 
       await Future.wait(<Future>[
 

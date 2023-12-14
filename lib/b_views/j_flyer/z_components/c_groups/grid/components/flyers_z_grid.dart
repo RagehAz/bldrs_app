@@ -157,7 +157,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
 
     final int _flyerIndex = widget.showAddFlyerButton == true ? flyerIndex-1 : flyerIndex;
 
-    final FlyerModel? _flyerModel = Lister.checkCanLoopList(widget.flyers) == true ?
+    final FlyerModel? _flyerModel = Lister.checkCanLoop(widget.flyers) == true ?
     widget.flyers![_flyerIndex]
         :
     null;

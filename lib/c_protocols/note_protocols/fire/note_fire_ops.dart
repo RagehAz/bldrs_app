@@ -67,7 +67,7 @@ class NoteFireOps {
     final List<NoteModel> _output = <NoteModel>[];
     bool _success = false;
 
-    if (noteModel != null && Lister.checkCanLoopList(receiversIDs) == true){
+    if (noteModel != null && Lister.checkCanLoop(receiversIDs) == true){
 
       await Future.wait(<Future>[
 
@@ -177,7 +177,7 @@ class NoteFireOps {
     required List<NoteModel>? notes,
   }) async {
 
-    if (Lister.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoop(notes) == true){
 
       /// MARK ON FIREBASE
       for (final NoteModel note in notes!){
@@ -218,7 +218,7 @@ class NoteFireOps {
     required List<NoteModel>? notes,
   }) async {
 
-    if (Lister.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoop(notes) == true){
 
       await Future.wait(<Future>[
 

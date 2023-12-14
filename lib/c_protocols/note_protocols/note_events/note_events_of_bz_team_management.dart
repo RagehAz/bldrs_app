@@ -223,7 +223,7 @@ class NoteEventsOfBzTeamManagement {
   }) async {
     blog('NoteEventsOfBzTeamManagement.sendBzDeletionNoteToAllAuthors : START');
 
-    if (bzModel?.id != null && Lister.checkCanLoopList(bzModel?.authors) == true){
+    if (bzModel?.id != null && Lister.checkCanLoop(bzModel?.authors) == true){
 
       // final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(bzModel.authors);
 
@@ -237,7 +237,7 @@ class NoteEventsOfBzTeamManagement {
       }
 
       /// SEND NOTE TO AUTHORS
-      if (Lister.checkCanLoopList(_authors) == true){
+      if (Lister.checkCanLoop(_authors) == true){
 
         await Future.wait(<Future>[
 

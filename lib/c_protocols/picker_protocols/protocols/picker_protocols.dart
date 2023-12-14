@@ -58,14 +58,14 @@ class PickerProtocols {
     );
 
     /// 2 - bigChainK is not found in LDB
-    if (Lister.checkCanLoopList(_pickers) == false){
+    if (Lister.checkCanLoop(_pickers) == false){
 
       _pickers = await PickerRealOps.readPickers(
         flyerType: flyerType,
       );
 
       /// 3 - insert in LDB when found on firebase
-      if (Lister.checkCanLoopList(_pickers) == true){
+      if (Lister.checkCanLoop(_pickers) == true){
 
         await PickerLDBOps.insertPickers(
           pickers: _pickers,
@@ -89,7 +89,7 @@ class PickerProtocols {
     required List<PickerModel> pickers,
   }) async {
 
-    if (Lister.checkCanLoopList(pickers) == true){
+    if (Lister.checkCanLoop(pickers) == true){
 
       WaitDialog.showUnawaitedWaitDialog();
 
@@ -123,7 +123,7 @@ class PickerProtocols {
     required bool showWaitDialog,
   }) async {
 
-    if (Lister.checkCanLoopList(pickers) == true){
+    if (Lister.checkCanLoop(pickers) == true){
 
       if (showWaitDialog == true){
         WaitDialog.showUnawaitedWaitDialog();

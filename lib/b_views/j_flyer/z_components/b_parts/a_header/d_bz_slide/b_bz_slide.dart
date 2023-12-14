@@ -50,7 +50,7 @@ class BzSlide extends StatelessWidget {
     // --------------------
     final List<String> _bzTeamIDs = <String>[];
     // --------------------
-    if (Lister.checkCanLoopList(_bzAuthors) == true) {
+    if (Lister.checkCanLoop(_bzAuthors) == true) {
       for (final AuthorModel author in _bzAuthors) {
         if (author.userID != null){
           _bzTeamIDs.add(author.userID!);
@@ -71,7 +71,7 @@ class BzSlide extends StatelessWidget {
             children: <Widget>[
 
               /// BUSINESS SCOPE
-              // if (Lister.checkCanLoopList(_bzScope) == true)
+              // if (Lister.checkCanLoop(_bzScope) == true)
               // BzPgFields(
               //   key: const ValueKey<String>('max_header_bzPageFields'),
               //   flyerBoxWidth: flyerBoxWidth,

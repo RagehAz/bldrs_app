@@ -53,7 +53,7 @@ class AddFlyerButton extends StatelessWidget {
 
     await WaitDialog.closeWaitDialog();
 
-    if (Lister.checkCanLoopList(_bzz) == true){
+    if (Lister.checkCanLoop(_bzz) == true){
       BzModel? _bzModel;
 
       if (_bzz.length == 1){

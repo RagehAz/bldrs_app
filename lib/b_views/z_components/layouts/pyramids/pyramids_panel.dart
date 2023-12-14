@@ -24,7 +24,7 @@ class PyramidsPanel extends StatelessWidget {
             children: <Widget>[
 
               /// EXTRA BUTTONS
-              if (Lister.checkCanLoopList(pyramidButtons) == true)
+              if (Lister.checkCanLoop(pyramidButtons) == true)
                 ...List.generate(pyramidButtons!.length, (index){
 
                   return pyramidButtons![index];

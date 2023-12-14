@@ -68,7 +68,7 @@ class CityJsonOps{
   }) async {
     final List<CityModel> _output = [];
 
-    if (Lister.checkCanLoopList(citiesIDs) == true){
+    if (Lister.checkCanLoop(citiesIDs) == true){
 
       final List<String> _countriesIDs = CityModel.getCountriesIDsFromCitiesIDs(
         citiesIDs: citiesIDs,
@@ -124,7 +124,7 @@ class CityJsonOps{
   }) async {
     final List<CityModel> _output = [];
 
-    if (countryID != null && Lister.checkCanLoopList(citiesIDs) == true){
+    if (countryID != null && Lister.checkCanLoop(citiesIDs) == true){
 
       final Map<String, dynamic>? _countryCities = await _readCountryCitiesJson(
         countryID: countryID,
@@ -225,7 +225,7 @@ class CityJsonOps{
   }) async {
     Map<String, dynamic>? _output;
 
-    if (Lister.checkCanLoopList(countriesIDs) == true){
+    if (Lister.checkCanLoop(countriesIDs) == true){
 
       _output = {};
 
@@ -265,7 +265,7 @@ class CityJsonOps{
   }) async {
     Map<String, dynamic>? _output;
 
-    if (Lister.checkCanLoopList(countriesIDs) == true){
+    if (Lister.checkCanLoop(countriesIDs) == true){
 
       _output = {};
 

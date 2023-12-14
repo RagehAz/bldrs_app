@@ -109,7 +109,7 @@ class NoteCardButtons extends StatelessWidget {
             Row(
               children: <Widget>[
 
-                if (Lister.checkCanLoopList(noteModel?.poll?.buttons) == true)
+                if (Lister.checkCanLoop(noteModel?.poll?.buttons) == true)
                 ...List<Widget>.generate(noteModel!.poll!.buttons!.length,
                         (int index) {
                       final String _phid = noteModel!.poll!.buttons![index];

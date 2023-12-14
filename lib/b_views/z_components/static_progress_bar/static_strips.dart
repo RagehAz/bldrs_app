@@ -133,7 +133,7 @@ class StaticStrips extends StatelessWidget {
 
     // blog('stripsColors : $stripsColors}');
 
-    if (Lister.checkCanLoopList(stripsColors) == true){
+    if (Lister.checkCanLoop(stripsColors) == true){
       return stripsColors![index]; // ?? Colorz.white10;
     }
 

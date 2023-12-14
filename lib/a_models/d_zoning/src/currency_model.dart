@@ -79,7 +79,7 @@ class CurrencyModel {
   static Map<String, dynamic>? cipherCurrencies(List<CurrencyModel>? currencies) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
-    if (Lister.checkCanLoopList(currencies) == true) {
+    if (Lister.checkCanLoop(currencies) == true) {
       for (final CurrencyModel currency in currencies!) {
         _map = Mapper.insertPairInMap(
           map: _map,
@@ -108,7 +108,7 @@ class CurrencyModel {
     if (map != null) {
       final List<String> _keys = map.keys.toList();
 
-      if (Lister.checkCanLoopList(_keys)) {
+      if (Lister.checkCanLoop(_keys)) {
         for (final String key in _keys) {
 
           if (map[key] != currenciesMapID){
@@ -137,7 +137,7 @@ class CurrencyModel {
   /// TESTED : WORKS PERFECT
   static void blogCurrencies(List<CurrencyModel>? currencies){
 
-    if (Lister.checkCanLoopList(currencies) == true){
+    if (Lister.checkCanLoop(currencies) == true){
       for (final CurrencyModel currency in currencies!){
 
         currency.blogCurrency();
@@ -162,7 +162,7 @@ class CurrencyModel {
   }) {
     bool _contains = false;
 
-    if (Lister.checkCanLoopList(currencies) && currencyCode != null) {
+    if (Lister.checkCanLoop(currencies) && currencyCode != null) {
       for (final CurrencyModel currency in currencies!) {
         if (currency.id == currencyCode) {
           _contains = true;
@@ -185,7 +185,7 @@ class CurrencyModel {
   }) {
     CurrencyModel? _currency;
 
-    if (Lister.checkCanLoopList(currencies) == true && countryID != null) {
+    if (Lister.checkCanLoop(currencies) == true && countryID != null) {
 
       final String _countryID = countryID == Flag.planetID ? 'usa' : countryID;
 
@@ -211,7 +211,7 @@ class CurrencyModel {
   }){
     final List<String> _output = [];
 
-    if (Lister.checkCanLoopList(allCurrencies) == true && Lister.checkCanLoopList(countriesIDs) == true){
+    if (Lister.checkCanLoop(allCurrencies) == true && Lister.checkCanLoop(countriesIDs) == true){
 
       for (final String countryID in countriesIDs){
 
@@ -235,7 +235,7 @@ class CurrencyModel {
   static List<String> getCurrenciesIDs(List<CurrencyModel>? currencies){
     final List<String> _ids = <String>[];
 
-    if (Lister.checkCanLoopList(currencies) == true){
+    if (Lister.checkCanLoop(currencies) == true){
 
       for (final CurrencyModel currency in currencies!){
         if (currency.id != null){
@@ -255,7 +255,7 @@ class CurrencyModel {
   }){
     CurrencyModel? _currency;
 
-    if (Lister.checkCanLoopList(allCurrencies) == true && currencyID != null){
+    if (Lister.checkCanLoop(allCurrencies) == true && currencyID != null){
 
       _currency = allCurrencies!.firstWhereOrNull(
               (element) => element.id == currencyID,
@@ -273,9 +273,9 @@ class CurrencyModel {
   }){
     final List<CurrencyModel> _output = [];
 
-    if (Lister.checkCanLoopList(allCurrencies) == true){
+    if (Lister.checkCanLoop(allCurrencies) == true){
 
-      if (Lister.checkCanLoopList(currenciesIDs) == true){
+      if (Lister.checkCanLoop(currenciesIDs) == true){
 
         for (final String currencyID in currenciesIDs){
 
@@ -313,7 +313,7 @@ class CurrencyModel {
 
       final List<String> _phids = _langMap.keys.toList();
 
-      if (Lister.checkCanLoopList(_phids) == true){
+      if (Lister.checkCanLoop(_phids) == true){
 
         for (final String phid in _phids){
 
@@ -399,10 +399,10 @@ class CurrencyModel {
   }){
     List<CurrencyModel> _output = <CurrencyModel>[];
 
-    if (Lister.checkCanLoopList(currencies) == true){
+    if (Lister.checkCanLoop(currencies) == true){
       _output = <CurrencyModel>[...currencies];
 
-      if (Lister.checkCanLoopList(removeIDs) == true){
+      if (Lister.checkCanLoop(removeIDs) == true){
 
         for (final String id in removeIDs){
           _output.removeWhere((element) => element.id == id);
@@ -422,7 +422,7 @@ class CurrencyModel {
   }){
     List<CurrencyModel> _output = currencies;
 
-    if (Lister.checkCanLoopList(phrases) == true){
+    if (Lister.checkCanLoop(phrases) == true){
 
       _output = [];
 

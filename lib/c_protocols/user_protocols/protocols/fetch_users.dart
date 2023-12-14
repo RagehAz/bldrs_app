@@ -67,7 +67,7 @@ class FetchUserProtocols {
 
     final List<UserModel> _userModels = <UserModel>[];
 
-    if (Lister.checkCanLoopList(usersIDs) == true){
+    if (Lister.checkCanLoop(usersIDs) == true){
 
       for (final String userID in usersIDs){
 

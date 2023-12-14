@@ -69,7 +69,7 @@ class PicStorageOps {
       }
 
       /// GET META DATA
-      if (Lister.checkCanLoopList(_bytes) == true && _pathIsURL == false){
+      if (Lister.checkCanLoop(_bytes) == true && _pathIsURL == false){
         _meta = await Storage.readMetaByPath(
           path: path,
         );
@@ -132,7 +132,7 @@ class PicStorageOps {
   /// TESTED : WORKS PERFECT
   static Future<void> deletePics(List<String>? paths) async {
 
-    if (Authing.getUserID() != null && Lister.checkCanLoopList(paths) == true){
+    if (Authing.getUserID() != null && Lister.checkCanLoop(paths) == true){
 
       await Storage.deleteDocs(
         paths: paths!,

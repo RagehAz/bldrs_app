@@ -514,7 +514,7 @@ class FCM {
   }) {
 
     /// BUTTONS ARE DEFINED
-    if (Lister.checkCanLoopList(buttonsTexts) == true) {
+    if (Lister.checkCanLoop(buttonsTexts) == true) {
       final List<NotificationActionButton> _nootButtons = [];
 
       for (final String buttonText in buttonsTexts!) {

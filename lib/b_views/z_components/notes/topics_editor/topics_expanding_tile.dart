@@ -36,7 +36,7 @@ class TopicsExpandingTile extends StatelessWidget {
     final List<Widget> _output = <Widget>[];
 
     final List<String> _groups = map.keys.toList();
-    if (Lister.checkCanLoopList(_groups) == true){
+    if (Lister.checkCanLoop(_groups) == true){
 
       for (final String group in _groups){
 

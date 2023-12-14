@@ -108,7 +108,7 @@ class AddImagePicBubble extends StatelessWidget {
         ),
         columnChildren: <Widget>[
 
-          if (Lister.checkCanLoopList(bulletPoints) == true)
+          if (Lister.checkCanLoop(bulletPoints) == true)
           BldrsBulletPoints(
             bulletPoints: bulletPoints,
             showBottomLine: false,

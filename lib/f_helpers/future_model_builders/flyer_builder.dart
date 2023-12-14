@@ -58,7 +58,7 @@ class FlyerBuilder extends StatelessWidget {
       /// WHEN RENDER FIRST SLIDE
       else if (renderFlyer == RenderFlyer.firstSlide){
         final List<SlideModel>? _slides = [...?flyerModel?.slides];
-        if (Lister.checkCanLoopList(_slides) == true){
+        if (Lister.checkCanLoop(_slides) == true){
           final SlideModel? _firstSlide = _slides!.first;
           _shouldBuildByFlyer = _firstSlide?.frontImage != null;
         }

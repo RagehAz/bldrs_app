@@ -167,7 +167,7 @@ class DynamicLinks {
 
         final List<String> _nodes = Pathing.splitPathNodes(link);
 
-        if (Lister.checkCanLoopList(_nodes) == true) {
+        if (Lister.checkCanLoop(_nodes) == true) {
           final String _firstNode = _nodes.first;
 
           if (_firstNode == flyer_page) {

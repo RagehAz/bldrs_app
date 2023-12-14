@@ -35,7 +35,7 @@ class FlyerColors {
     required List<SlideModel>? slides,
   }){
 
-    if (Lister.checkCanLoopList(slides) == true){
+    if (Lister.checkCanLoop(slides) == true){
       return slides![0].midColor;
     }
 
