@@ -124,7 +124,7 @@ class NoteFunProtocols {
     required List<NoteModel> notes,
   }) async {
 
-    if (Lister.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoop(notes) == true){
 
       await Future.wait(<Future>[
 

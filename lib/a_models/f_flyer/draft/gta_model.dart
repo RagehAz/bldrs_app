@@ -164,7 +164,7 @@ class GtaModel {
   }){
     final List<Map<String, dynamic>> _output = [];
 
-    if (Lister.checkCanLoopList(gtaModels) == true){
+    if (Lister.checkCanLoop(gtaModels) == true){
 
       for (final GtaModel model in gtaModels!){
 
@@ -186,7 +186,7 @@ class GtaModel {
   }){
     final List<GtaModel> _output = [];
 
-    if (Lister.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoop(maps) == true){
 
       for (final Map<String, dynamic> map in maps!){
 
@@ -208,7 +208,7 @@ class GtaModel {
   }){
     Map<String, dynamic> _output = {};
 
-    if (Lister.checkCanLoopList(gtas) == true){
+    if (Lister.checkCanLoop(gtas) == true){
 
       for (int i = 0; i < gtas.length; i++){
 
@@ -238,7 +238,7 @@ class GtaModel {
 
       List<String> _keys = map.keys.toList();
 
-      if (Lister.checkCanLoopList(_keys) == true){
+      if (Lister.checkCanLoop(_keys) == true){
 
         _keys = Stringer.sortAlphabetically(_keys);
         _keys.remove('id');
@@ -459,7 +459,7 @@ class GtaModel {
   }) async {
     final List<DraftSlide> _output = [];
 
-    if (product != null && Lister.checkCanLoopList(product.images) == true){
+    if (product != null && Lister.checkCanLoop(product.images) == true){
 
       for (int i = 0; i < product.images!.length; i++){
 
@@ -759,7 +759,7 @@ class GtaModel {
   }){
     final List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(gtaModels) == true){
+    if (Lister.checkCanLoop(gtaModels) == true){
       for (final GtaModel model in gtaModels!){
         if (model.url != null){
           _output.add(model.url!);
@@ -777,7 +777,7 @@ class GtaModel {
   }){
     GtaModel? _output;
 
-    if (url != null && Lister.checkCanLoopList(gtas) == true){
+    if (url != null && Lister.checkCanLoop(gtas) == true){
 
       for (final GtaModel gta in gtas){
 
@@ -804,7 +804,7 @@ class GtaModel {
   }){
     bool _output = false;
 
-    if (Lister.checkCanLoopList(products) == true && TextCheck.isEmpty(url) == false){
+    if (Lister.checkCanLoop(products) == true && TextCheck.isEmpty(url) == false){
       for (final GtaModel product in products){
         if (product.url == url){
           _output = true;
@@ -880,7 +880,7 @@ class GtaModel {
   }){
     final List<GtaModel> _output = [...?gtas];
 
-    if (Lister.checkCanLoopList(_output) == true){
+    if (Lister.checkCanLoop(_output) == true){
 
       final int _index = _output.indexWhere((element) => element.url == url);
 
@@ -901,7 +901,7 @@ class GtaModel {
   }){
     final List<GtaModel> _output = [...models];
 
-    if (Lister.checkCanLoopList(models) == true && model != null){
+    if (Lister.checkCanLoop(models) == true && model != null){
 
       final int _modelIndex = _output.indexWhere((element) => element.id == model.id);
 
@@ -960,7 +960,7 @@ class GtaModel {
     required String invoker,
   }){
 
-    if (Lister.checkCanLoopList(gtas) == true){
+    if (Lister.checkCanLoop(gtas) == true){
 
       for (final GtaModel gta in gtas!){
         blogGta(gta: gta, invoker: invoker);

@@ -44,7 +44,7 @@ class StagingLDBOps {
       ids: id == null ? [] : <String>[id],
     );
 
-    if (Lister.checkCanLoopList(_maps) == true){
+    if (Lister.checkCanLoop(_maps) == true){
 
       _output = StagingModel.decipher(
         id: id,
@@ -78,7 +78,7 @@ class StagingLDBOps {
     required List<String> ids,
   }) async {
 
-    if (Lister.checkCanLoopList(ids) == true){
+    if (Lister.checkCanLoop(ids) == true){
 
       await  LDBOps.deleteMaps(
         docName: LDBDoc.staging,

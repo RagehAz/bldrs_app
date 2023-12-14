@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 List<String> getNamesFromDeviceContacts(List<Contact> deviceContacts){
   final List<String> _names = <String>[];
 
-  if (Lister.checkCanLoopList(deviceContacts)){
+  if (Lister.checkCanLoop(deviceContacts)){
     for (final Contact contact in deviceContacts){
       final String _nameString = contact.displayName; //?? '${contact.givenName} ${contact.middleName} ${contact.familyName}';
       _names.add(_nameString);
@@ -65,7 +65,7 @@ class InviteBusinessesScreenView extends StatelessWidget {
     // final List<Contact> _searchedContacts = _usersProvider.searchedDeviceContacts;
     // final bool _isSearching = _usersProvider.isSearchingDeviceContacts;
 
-    // if (Lister.checkCanLoopList(_allContacts) == false){
+    // if (Lister.checkCanLoop(_allContacts) == false){
     //   return Column(
     //     mainAxisAlignment: MainAxisAlignment.center,
     //     // crossAxisAlignment: CrossAxisAlignment.center,

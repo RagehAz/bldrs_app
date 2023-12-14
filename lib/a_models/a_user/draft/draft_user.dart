@@ -519,7 +519,7 @@ class DraftUser {
       location: draft?.location,
       contactsArePublic: draft?.contactsArePublic,
       myBzzIDs: draft?.myBzzIDs,
-      isAuthor: Lister.checkCanLoopList(draft?.myBzzIDs),
+      isAuthor: Lister.checkCanLoop(draft?.myBzzIDs),
       emailIsVerified: draft?.emailIsVerified,
       isAdmin: draft?.isAdmin,
       device: draft?.device,

@@ -40,7 +40,7 @@ class SearchUsersScreen extends StatefulWidget {
         ),
     );
 
-    if (Lister.checkCanLoopList(_users) == true){
+    if (Lister.checkCanLoop(_users) == true){
       return _users!.first;
     }
     else {

@@ -51,7 +51,7 @@ class MapModel{
   static Map<String, dynamic> cipherMapModels(List<MapModel>? maps){
     Map<String, dynamic> _bigMap = {};
 
-    if (Lister.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoop(maps) == true){
 
       for (final MapModel map in maps!){
 
@@ -91,7 +91,7 @@ class MapModel{
       /// looping key algorithm
       if (loopingAlgorithm == true){
         final List<String> _bigMapKeys = bigMap.keys.toList();
-        if (Lister.checkCanLoopList(_bigMapKeys) == true){
+        if (Lister.checkCanLoop(_bigMapKeys) == true){
 
           for (final String key in _bigMapKeys){
 
@@ -133,7 +133,7 @@ class MapModel{
   static Map<String, int> cipherIntsMapModels(List<MapModel>? maps){
     final Map<String, int> _ints = {};
 
-    if (Lister.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoop(maps) == true){
 
       for (final MapModel map in maps!){
 
@@ -163,7 +163,7 @@ class MapModel{
     String invoker = 'MapModels',
   }){
     blog('$invoker ------------------------------------------- START');
-    if (Lister.checkCanLoopList(phidsMaps) == true){
+    if (Lister.checkCanLoop(phidsMaps) == true){
       for (int i = 0; i < phidsMaps!.length; i++){
         final int _num = i+1;
         final MapModel _mapModel = phidsMaps[i];
@@ -194,7 +194,7 @@ class MapModel{
   static List<dynamic> getValuesFromMapModels(List<MapModel>? mapModels){
     final List<dynamic> _values = <dynamic>[];
 
-    if (Lister.checkCanLoopList(mapModels) == true){
+    if (Lister.checkCanLoop(mapModels) == true){
 
       for (final MapModel mm in mapModels!){
 
@@ -213,7 +213,7 @@ class MapModel{
   static List<String> getKeysFromMapModels(List<MapModel>? mapModels){
     final List<String> _values = <String>[];
 
-    if (Lister.checkCanLoopList(mapModels) == true){
+    if (Lister.checkCanLoop(mapModels) == true){
       for (final MapModel mm in mapModels!){
 
         final String? _key = mm.key;
@@ -235,7 +235,7 @@ class MapModel{
   }){
     MapModel? _model;
 
-    if (Lister.checkCanLoopList(models) == true){
+    if (Lister.checkCanLoop(models) == true){
       _model = models!.firstWhereOrNull((m) => m.key == key);
     }
 
@@ -249,9 +249,9 @@ class MapModel{
   }){
     final List<MapModel> _output = <MapModel>[];
 
-    if (Lister.checkCanLoopList(allModels) == true
+    if (Lister.checkCanLoop(allModels) == true
         &&
-        Lister.checkCanLoopList(keys) == true
+        Lister.checkCanLoop(keys) == true
     ){
 
       for (final String key in keys!){
@@ -284,7 +284,7 @@ class MapModel{
 
     final List<MapModel> _output = mapModels ?? <MapModel>[];
 
-    if (Lister.checkCanLoopList(mapModels) && mapModel != null){
+    if (Lister.checkCanLoop(mapModels) && mapModel != null){
 
       final int _index = mapModels!.indexWhere((m) => m.key == mapModel.key);
 
@@ -360,7 +360,7 @@ class MapModel{
   }){
     final List<MapModel> _output = mapModels ?? <MapModel>[];
 
-    if (Lister.checkCanLoopList(mapModels) == true && value != null){
+    if (Lister.checkCanLoop(mapModels) == true && value != null){
       _output.removeWhere((element) => element.value  == value);
     }
 
@@ -379,7 +379,7 @@ class MapModel{
 
     bool _exists = false;
 
-    if (Lister.checkCanLoopList(mapModels) && mapModel != null){
+    if (Lister.checkCanLoop(mapModels) && mapModel != null){
 
       final MapModel? _found = getModelByKey(
         models: mapModels,
@@ -403,7 +403,7 @@ class MapModel{
   }){
     bool _include = false;
 
-    if (Lister.checkCanLoopList(mapModels) == true){
+    if (Lister.checkCanLoop(mapModels) == true){
 
       final MapModel? _map = mapModels!.firstWhereOrNull(
               (element) => element.key == key,

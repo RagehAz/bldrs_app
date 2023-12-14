@@ -48,7 +48,7 @@ class HomeFlyersGrid extends StatelessWidget {
           fromJSON: false,
         );
 
-        if (Lister.checkCanLoopList(_wallFlyers) == false){
+        if (Lister.checkCanLoop(_wallFlyers) == false){
 
           if (isLoading == true){
             return FlyersGrid(

@@ -120,7 +120,7 @@ class UserInitializer {
       _report('noID : _withoutAnonymous : ${_withoutAnonymous.length}');
 
       /// HAS NORMAL ACCOUNT IN LDB ALREADY
-      if (Lister.checkCanLoopList(_withoutAnonymous) == true){
+      if (Lister.checkCanLoop(_withoutAnonymous) == true){
         _continue = await _signInAccount(account: _withoutAnonymous.first);
       }
 
@@ -146,7 +146,7 @@ class UserInitializer {
         _report('noLDB : _signedUpUsers _continue : ${_signedUpUsers.length}');
 
         /// HAS A FIRE USER MODELS LOST FROM LDB
-        if (Lister.checkCanLoopList(_signedUpUsers) == true){
+        if (Lister.checkCanLoop(_signedUpUsers) == true){
 
           await AccountLDBOps.insertUserModels(
             users: _signedUpUsers,
@@ -430,7 +430,7 @@ class UserInitializer {
 
       }
 
-      if (Lister.checkCanLoopList(_topicsIShouldSubscribeTo) == true){
+      if (Lister.checkCanLoop(_topicsIShouldSubscribeTo) == true){
 
         /// UNSUBSCRIBE
         await Future.wait(<Future>[

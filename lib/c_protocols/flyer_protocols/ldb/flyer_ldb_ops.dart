@@ -32,7 +32,7 @@ class FlyerLDBOps {
   /// TESTED : WORKS PERFECT
   static Future<void> insertFlyers(List<FlyerModel>? flyers) async {
 
-    if (Lister.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoop(flyers) == true){
 
       await LDBOps.insertMaps(
         docName: LDBDoc.flyers,
@@ -75,7 +75,7 @@ class FlyerLDBOps {
 
     List<FlyerModel>? _flyers = <FlyerModel>[];
 
-    if (Lister.checkCanLoopList(flyersIDs) == false){
+    if (Lister.checkCanLoop(flyersIDs) == false){
       return <FlyerModel>[];
     }
     else {
@@ -167,7 +167,7 @@ class FlyerLDBOps {
       primaryKey: LDBDoc.getPrimaryKey(LDBDoc.flyerMaker),
     );
 
-    if (Lister.checkCanLoopList(_maps) == true){
+    if (Lister.checkCanLoop(_maps) == true){
 
       final Map<String, dynamic>? _map = Mapper.getMapFromMapsByID(
         maps: _maps,
@@ -227,7 +227,7 @@ class FlyerLDBOps {
       primaryKey: LDBDoc.getPrimaryKey(LDBDoc.reviewEditor),
     );
 
-    if (Lister.checkCanLoopList(_maps) == true){
+    if (Lister.checkCanLoop(_maps) == true){
       _review = ReviewModel.decipherReview(
         map: _maps.first,
         fromJSON: true,

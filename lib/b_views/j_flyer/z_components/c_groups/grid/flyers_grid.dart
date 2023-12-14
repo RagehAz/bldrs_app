@@ -193,7 +193,7 @@ class FlyersGrid extends StatelessWidget {
           hasResponsiveSideMargin: hasResponsiveSideMargin,
           gridWidth: gridWidth ?? MediaQuery.of(context).size.width,
           gridHeight: gridHeight ?? MediaQuery.of(context).size.height,
-          flyersIDs: Lister.checkCanLoopList(flyers) == false ? flyersIDs : null,
+          flyersIDs: Lister.checkCanLoop(flyers) == false ? flyersIDs : null,
           flyers: flyers,
           columnCount: numberOfColumnsOrRows,
           onFlyerNotFound: onFlyerNotFound,

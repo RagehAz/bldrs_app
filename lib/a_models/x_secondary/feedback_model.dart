@@ -63,7 +63,7 @@ class FeedbackModel {
 
     final List<FeedbackModel> _feedbacks = <FeedbackModel>[];
 
-    if (Lister.checkCanLoopList(maps) == true) {
+    if (Lister.checkCanLoop(maps) == true) {
       for (final Map<String, dynamic> map in maps!) {
 
         final FeedbackModel? _feedback = FeedbackModel.decipherFeedback(map);

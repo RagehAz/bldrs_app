@@ -52,7 +52,7 @@ class Obelisk extends StatelessWidget {
     double _result = 0;
     // int _numberOfCircles = 0;
 
-    if (Lister.checkCanLoopList(navModels) == true){
+    if (Lister.checkCanLoop(navModels) == true){
 
       for (final NavModel? navModel in navModels){
 

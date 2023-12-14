@@ -162,7 +162,7 @@ class UsersStripBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Lister.checkCanLoopList(usersIDs) == false){
+    if (Lister.checkCanLoop(usersIDs) == false){
       return const SizedBox();
     }
 

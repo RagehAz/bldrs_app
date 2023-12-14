@@ -102,7 +102,7 @@ class PickersScreenBrowseView extends StatelessWidget {
       builder: (_, List<PickerModel> _refinedPickers, Widget? instructions){
 
         /// WHEN PICKERS ARE PROVIDED
-        if (Lister.checkCanLoopList(_refinedPickers) == true){
+        if (Lister.checkCanLoop(_refinedPickers) == true){
           return ValueListenableBuilder(
             valueListenable: selectedSpecsNotifier,
             builder: (_, List<SpecModel> _allSelectedSpecs, Widget? childC){

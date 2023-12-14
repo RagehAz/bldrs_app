@@ -101,7 +101,7 @@ class Verse {
   }){
     final List<Verse> _output = <Verse>[];
 
-    if (Lister.checkCanLoopList(strings) == true){
+    if (Lister.checkCanLoop(strings) == true){
 
       for (final String? string in strings!){
 
@@ -132,7 +132,7 @@ class Verse {
   static List<String> getVersesIDs(List<Verse>? verses){
     final List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(verses) == true){
+    if (Lister.checkCanLoop(verses) == true){
 
       for (final Verse verse in verses!){
 
@@ -153,7 +153,7 @@ class Verse {
   }){
     final List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(verses) == true){
+    if (Lister.checkCanLoop(verses) == true){
 
       for (final Verse verse in verses!){
 

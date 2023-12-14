@@ -35,7 +35,7 @@ class CityLDBOps{
     required List<CityModel> cities,
   }) async {
 
-    if (Lister.checkCanLoopList(cities) == true){
+    if (Lister.checkCanLoop(cities) == true){
 
       await LDBOps.insertMaps(
         docName: LDBDoc.cities,
@@ -83,7 +83,7 @@ class CityLDBOps{
   }) async {
     List<CityModel> _output = <CityModel>[];
 
-    if (Lister.checkCanLoopList(citiesIDs) == true){
+    if (Lister.checkCanLoop(citiesIDs) == true){
 
       final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
         docName: LDBDoc.cities,

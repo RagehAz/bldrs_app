@@ -320,7 +320,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   void _disposeBigFlyer(){
 
     // ------->
-    if (Lister.checkCanLoopList(_flyer.value?.slides) == true){
+    if (Lister.checkCanLoop(_flyer.value?.slides) == true){
       for (int i = 0; i < _flyer.value!.slides!.length; i++){
       if (i != 0){
 

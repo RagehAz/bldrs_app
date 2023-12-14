@@ -46,7 +46,7 @@ class AmericaStatesTileButtons extends StatelessWidget {
   static bool checkUSABoxIsActive({
     required List<String> activeStatesIDs,
   }){
-    return Lister.checkCanLoopList(activeStatesIDs);
+    return Lister.checkCanLoop(activeStatesIDs);
   }
   // --------------------
   /// TESTED : WORKS PERFECT

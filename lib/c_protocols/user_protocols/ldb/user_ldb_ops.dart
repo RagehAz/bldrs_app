@@ -36,7 +36,7 @@ class UserLDBOps {
   /// TESTED : WORKS PERFECT
   static Future<void> insertUsers(List<UserModel>? users) async {
 
-    if (Lister.checkCanLoopList(users) == true){
+    if (Lister.checkCanLoop(users) == true){
 
       await LDBOps.insertMaps(
         // allowDuplicateIDs: false,
@@ -173,7 +173,7 @@ class UserLDBOps {
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.userEditor),
       );
 
-      if (Lister.checkCanLoopList(_maps) == true) {
+      if (Lister.checkCanLoop(_maps) == true) {
         _draft = DraftUser.fromLDB(_maps.first);
       }
 

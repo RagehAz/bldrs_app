@@ -159,7 +159,7 @@ class NavModel {
     for (final MainNavModel mainNavModel in mainNavModels){
 
       if (mainNavModel == MainNavModel.bz){
-        if (Lister.checkCanLoopList(myBzzIDs) == true){
+        if (Lister.checkCanLoop(myBzzIDs) == true){
           for (final String bzID in myBzzIDs){
             final String? _navID = getMainNavIDString(
               navID: MainNavModel.bz,
@@ -226,7 +226,7 @@ class NavModel {
 
     final List<String> _allBzzTabsNavModelsIDs = <String>[];
 
-    if (Lister.checkCanLoopList(myBzzIDs) == true){
+    if (Lister.checkCanLoop(myBzzIDs) == true){
       for (final String bzID in myBzzIDs){
 
         final List<String> _bzTabsNavModelsIDs = generateBzTabsNavModelsIDs(

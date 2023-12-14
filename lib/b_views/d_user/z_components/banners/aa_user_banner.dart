@@ -232,7 +232,7 @@ class UserBanner extends StatelessWidget {
               spacing: 5,
               children: <Widget>[
 
-                if (Lister.checkCanLoopList(_bzzModels) == true)
+                if (Lister.checkCanLoop(_bzzModels) == true)
                 ...List.generate(_bzzModels!.length, (index){
 
                   final BzModel _bzModel = _bzzModels[index];

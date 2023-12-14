@@ -74,7 +74,7 @@ class Streamer {
   /// TESTED : WORKS PERFECT
   static Future<void> disposeStreamSubscriptions(List<StreamSubscription>? subs) async {
 
-    if (Lister.checkCanLoopList(subs) == true){
+    if (Lister.checkCanLoop(subs) == true){
 
       for (final StreamSubscription sub in subs!){
 

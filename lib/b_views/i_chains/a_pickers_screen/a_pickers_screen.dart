@@ -190,7 +190,7 @@ class _PickersScreenState extends State<PickersScreen> {
   List<String> _phidsOfAllPickers = <String>[];
   void _generatePhidsFromAllPickers(List<PickerModel> refinedPickers){
 
-    if (Lister.checkCanLoopList(refinedPickers) == true){
+    if (Lister.checkCanLoop(refinedPickers) == true){
 
       final List<Chain> _sons = <Chain>[];
 
@@ -204,7 +204,7 @@ class _PickersScreenState extends State<PickersScreen> {
         }
       }
 
-      if (Lister.checkCanLoopList(_sons) == true){
+      if (Lister.checkCanLoop(_sons) == true){
 
         final List<String> _phidsWithIndexes = Chain.getOnlyPhidsSonsFromChains(
             chains: _sons

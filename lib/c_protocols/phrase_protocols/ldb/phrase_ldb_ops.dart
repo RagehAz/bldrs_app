@@ -18,7 +18,7 @@ class PhraseLDBOps {
     required List<Phrase> mixedLangsPhrases,
   }) async {
 
-    if (Lister.checkCanLoopList(mixedLangsPhrases) == true){
+    if (Lister.checkCanLoop(mixedLangsPhrases) == true){
 
       final List<Map<String, dynamic>> _allMaps = Phrase.cipherMixedLangPhrasesToMaps(
         phrases: mixedLangsPhrases,
@@ -40,7 +40,7 @@ class PhraseLDBOps {
     required List<Phrase> countriesMixedLangsPhrases,
   }) async {
 
-    if (Lister.checkCanLoopList(countriesMixedLangsPhrases) == true){
+    if (Lister.checkCanLoop(countriesMixedLangsPhrases) == true){
 
       await LDBOps.insertMaps(
         inputs: Phrase.cipherMixedLangPhrasesToMaps(phrases: countriesMixedLangsPhrases),
@@ -66,7 +66,7 @@ class PhraseLDBOps {
       docName: LDBDoc.mainPhrases,
     );
 
-    if (Lister.checkCanLoopList(_maps) == true){
+    if (Lister.checkCanLoop(_maps) == true){
 
       _mainPhrases = Phrase.decipherMixedLangPhrasesFromMaps(
         maps: _maps,
@@ -107,7 +107,7 @@ class PhraseLDBOps {
 
     // Mapper.blogMaps(_maps);
 
-    if (Lister.checkCanLoopList(_maps) == true){
+    if (Lister.checkCanLoop(_maps) == true){
 
       _output = Phrase.decipherMixedLangPhrasesFromMaps(
         maps: _maps,
@@ -133,7 +133,7 @@ class PhraseLDBOps {
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.mainPhrases),
       );
 
-      if (Lister.checkCanLoopList(_maps) == true){
+      if (Lister.checkCanLoop(_maps) == true){
 
         final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(
           maps: _maps,
@@ -161,7 +161,7 @@ class PhraseLDBOps {
     required List<Phrase> updatedMixedLangsPhrases,
   }) async {
 
-    if (Lister.checkCanLoopList(updatedMixedLangsPhrases) == true){
+    if (Lister.checkCanLoop(updatedMixedLangsPhrases) == true){
 
       await deleteMainPhrases();
 
@@ -178,7 +178,7 @@ class PhraseLDBOps {
     required List<Phrase> updatedCountriesMixedLangsPhrases,
   }) async {
 
-    if (Lister.checkCanLoopList(updatedCountriesMixedLangsPhrases) == true){
+    if (Lister.checkCanLoop(updatedCountriesMixedLangsPhrases) == true){
 
       await deleteCountriesPhrases();
 

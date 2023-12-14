@@ -123,7 +123,7 @@ class PhraseProtocols {
     final List<Phrase> _allPhrases = await PhraseLDBOps.readMainPhrases();
 
     /// 2 - if not found in LDB , read from firebase
-    if (Lister.checkCanLoopList(_allPhrases) == false){
+    if (Lister.checkCanLoop(_allPhrases) == false){
       // blog('fetchPhrasesByLangCode : phrases NOT found in local db');
 
       /// 2.1 read from firebase
@@ -149,7 +149,7 @@ class PhraseProtocols {
 
 
       /// 2.2 if found on firebase, store in LDB
-      if (Lister.checkCanLoopList(_allPhrases) == true){
+      if (Lister.checkCanLoop(_allPhrases) == true){
         // blog('fetchPhrasesByLangCode : phrases found in Firestore');
 
         await PhraseLDBOps.insertMainPhrases(
@@ -246,7 +246,7 @@ class PhraseProtocols {
     required bool showWaitDialog,
   }) async {
 
-    if (Lister.checkCanLoopList(updatedMixedMainPhrases) == true){
+    if (Lister.checkCanLoop(updatedMixedMainPhrases) == true){
 
       if (showWaitDialog == true){
         WaitDialog.showUnawaitedWaitDialog(
@@ -299,7 +299,7 @@ class PhraseProtocols {
     required List<Phrase> newMainPhrases,
   }) async {
 
-    if (Lister.checkCanLoopList(newMainPhrases) == true){
+    if (Lister.checkCanLoop(newMainPhrases) == true){
       /// UPDATE LDB
       await PhraseLDBOps.updateMainPhrases(
         updatedMixedLangsPhrases: newMainPhrases,
@@ -342,7 +342,7 @@ class PhraseProtocols {
 
     List<Phrase> _phrases = <Phrase>[];
 
-    if (Lister.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoop(phids) == true){
 
       final List<Phrase> _found = await PhraseLDBOps.searchMainPhrasesByIDs(
           phids: phids
@@ -373,7 +373,7 @@ class PhraseProtocols {
     List<Phrase> _allCountriesPhrases = await PhraseLDBOps.readCountriesPhrases();
 
     /// 2 - WHEN LDB IS EMPTY
-    if (Lister.checkCanLoopList(_allCountriesPhrases) == false) {
+    if (Lister.checkCanLoop(_allCountriesPhrases) == false) {
 
       /// CREATE THEM
       _allCountriesPhrases = Flag.createAllCountriesPhrasesForLDB(
@@ -426,7 +426,7 @@ class PhraseProtocols {
   }) async {
     final List<Phrase> _phrases = <Phrase>[];
 
-    if (Lister.checkCanLoopList(chains) == true){
+    if (Lister.checkCanLoop(chains) == true){
 
       Future<void> _generate(Chain chain) async {
         final List<Phrase> _chainPhrases = await generatePhrasesFromChain(

@@ -156,7 +156,7 @@ class ExpandingTile extends StatelessWidget {
     required List<String> phids,
   }) {
 
-    if (Lister.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoop(phids) == true){
       return 0;
     }
     else {

@@ -407,7 +407,7 @@ void onReorderSlide({
 }){
   List<DraftSlide>? _oldSlides = draftFlyer.value?.draftSlides;
 
-  if (Lister.checkCanLoopList(_oldSlides) == true) {
+  if (Lister.checkCanLoop(_oldSlides) == true) {
 
     final DraftSlide _slide = _oldSlides![oldIndex];
     _oldSlides.removeAt(oldIndex);

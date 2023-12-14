@@ -211,7 +211,7 @@ class DeckModel {
   }){
     DeckModel _newDeck = deckModel ?? newDeck();
 
-    if (Lister.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoop(flyers) == true){
 
       for (final FlyerModel flyer in flyers!){
 
@@ -324,7 +324,7 @@ class DeckModel {
   }){
     DeckModel _newDeck = deckModel ?? newDeck();
 
-    if (Lister.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoop(flyers) == true){
 
       for (final FlyerModel flyer in flyers!){
 
@@ -437,7 +437,7 @@ class DeckModel {
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
-    if (Lister.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoop(flyers) == true){
 
       for (final FlyerModel flyer in flyers!){
 
@@ -539,7 +539,7 @@ class DeckModel {
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
-    if (Lister.checkCanLoopList(flyersIDs) == true){
+    if (Lister.checkCanLoop(flyersIDs) == true){
 
       for (final String flyerID in flyersIDs!){
 

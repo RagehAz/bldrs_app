@@ -46,7 +46,7 @@ class PicLDBOps {
         ids: [path!],
       );
 
-      if (Lister.checkCanLoopList(maps) == true){
+      if (Lister.checkCanLoop(maps) == true){
         _picModel = PicModel.decipherFromLDB(maps.first);
       }
 
@@ -73,7 +73,7 @@ class PicLDBOps {
   /// TASK : TEST ME
   static Future<void> deletePics(List<String> paths) async {
 
-    if (Lister.checkCanLoopList(paths) == true){
+    if (Lister.checkCanLoop(paths) == true){
       await LDBOps.deleteMaps(
         docName: LDBDoc.pics,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pics),

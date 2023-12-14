@@ -238,7 +238,7 @@ class NoteModel {
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Lister.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoop(notes) == true){
 
       for (final NoteModel note in notes){
         _maps.add(note.toMap(toJSON: toJSON));
@@ -315,7 +315,7 @@ class NoteModel {
   }) {
     final List<NoteModel> _notesModels = <NoteModel>[];
 
-    if (Lister.checkCanLoopList(maps) == true) {
+    if (Lister.checkCanLoop(maps) == true) {
       for (final Map<String, dynamic> map in maps!) {
 
         final NoteModel? _notiModel = decipherNote(
@@ -438,7 +438,7 @@ class NoteModel {
     String? invoker,
   }){
 
-    if (Lister.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoop(notes) == true){
 
       for (final NoteModel note in notes!){
 
@@ -467,7 +467,7 @@ class NoteModel {
 
     final List<String> _output = <String>[];
 
-    if (Lister.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoop(notes) == true){
 
       for (final NoteModel note in notes!){
         if (note.parties?.receiverID != null){
@@ -488,7 +488,7 @@ class NoteModel {
 
     NoteModel? _output;
 
-    if (Lister.checkCanLoopList(notes) == true && receiverID != null){
+    if (Lister.checkCanLoop(notes) == true && receiverID != null){
 
       _output = notes!.firstWhereOrNull(
               (note) => note.parties?.receiverID == receiverID
@@ -506,14 +506,14 @@ class NoteModel {
   }){
     final List<NoteModel> _notes = <NoteModel>[];
 
-    if (Lister.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoop(notes) == true){
 
       final List<NoteModel>? _found = notes?.where((note){
 
         return note.parties?.receiverID == receiverID;
       }).toList();
 
-      if (Lister.checkCanLoopList(_found) == true){
+      if (Lister.checkCanLoop(_found) == true){
         _notes.addAll(_found!);
       }
 
@@ -529,7 +529,7 @@ class NoteModel {
   }){
     final List<NoteModel> _output = <NoteModel>[];
 
-    if (Lister.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoop(notes) == true){
 
       for (final NoteModel note in notes){
 
@@ -552,7 +552,7 @@ class NoteModel {
   static int getNumberOfUnseenNotes(List<NoteModel> notes){
     int _count = 0;
 
-    if (Lister.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoop(notes) == true){
 
       for (final NoteModel note in notes){
         if (note.seen == false){
@@ -572,7 +572,7 @@ class NoteModel {
   }){
     final List<NoteModel> _notes = <NoteModel>[];
 
-    if (Lister.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoop(notes) == true){
 
       for (final NoteModel note in notes){
 
@@ -595,7 +595,7 @@ class NoteModel {
   }){
     final List<NoteModel> _output = <NoteModel>[];
 
-    if (Lister.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoop(notes) == true){
 
       for (final NoteModel note in notes){
 
@@ -719,7 +719,7 @@ class NoteModel {
   static bool checkThereAreUnSeenNotes(List<NoteModel> notes){
     bool _thereAreUnseenNotes = false;
 
-    if (Lister.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoop(notes) == true){
 
       for (final NoteModel note in notes){
 
@@ -789,7 +789,7 @@ class NoteModel {
 
     bool _contains = false;
 
-    if (Lister.checkCanLoopList(notes) == true && noteID != null){
+    if (Lister.checkCanLoop(notes) == true && noteID != null){
 
       for (final NoteModel noteModel in notes!){
         if (noteModel.id == noteID){
@@ -926,7 +926,7 @@ class NoteModel {
   }){
     List<NoteModel> _output = notesToGet ?? <NoteModel>[];
 
-    if (Lister.checkCanLoopList(notesToInsert) == true){
+    if (Lister.checkCanLoop(notesToInsert) == true){
 
       for (final NoteModel note in notesToInsert!){
 
@@ -956,7 +956,7 @@ class NoteModel {
 
     // blog('removeNoteFromNotes : notes : ${_output.length}');
 
-    if (Lister.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoop(notes) == true){
 
       final int _index = notes!.indexWhere((note) => note.id == noteID);
 
@@ -980,7 +980,7 @@ class NoteModel {
 
     List<NoteModel> _output = sourceNotes ?? <NoteModel>[];
 
-    if (Lister.checkCanLoopList(notesToRemove) == true && Lister.checkCanLoopList(_output) == true){
+    if (Lister.checkCanLoop(notesToRemove) == true && Lister.checkCanLoop(_output) == true){
 
       for (final NoteModel note in notesToRemove){
 
@@ -1003,7 +1003,7 @@ class NoteModel {
   }){
     final List<NoteModel> _output = <NoteModel>[];
 
-    if (Lister.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoop(notes) == true){
 
       _output.addAll(notes);
 
@@ -1035,7 +1035,7 @@ class NoteModel {
 
     final List<String> _bzzIDs = bzzNotesMap.keys.toList();
 
-    if (Lister.checkCanLoopList(_bzzIDs) == true){
+    if (Lister.checkCanLoop(_bzzIDs) == true){
 
       for (final String bzID in _bzzIDs){
 
@@ -1077,7 +1077,7 @@ class NoteModel {
 
     final List<String> _bzzIDs = bzzNotesMap.keys.toList();
 
-    if (Lister.checkCanLoopList(_bzzIDs) == true){
+    if (Lister.checkCanLoop(_bzzIDs) == true){
 
       for (final String bzID in _bzzIDs){
 
@@ -1117,7 +1117,7 @@ class NoteModel {
   /*
   /// TESTED : WORKS PERFECT
   static List<NoteModel> sortNotesBySentTime(List<NoteModel> notes){
-    if (Lister.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoop(notes) == true){
       notes.sort((NoteModel a, NoteModel b) => b.sentTime.compareTo(a.sentTime));
     }
     return notes;
@@ -1320,7 +1320,7 @@ class NoteModel {
   }){
     bool _areIdentical = true;
 
-    if (Lister.checkCanLoopList(notes1) == true && Lister.checkCanLoopList(notes2) == true){
+    if (Lister.checkCanLoop(notes1) == true && Lister.checkCanLoop(notes2) == true){
 
       if (notes1!.length != notes2!.length){
         _areIdentical = false;

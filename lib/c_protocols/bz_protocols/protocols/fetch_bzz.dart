@@ -113,7 +113,7 @@ class FetchBzProtocols {
 
     final List<BzModel> _bzz = <BzModel>[];
 
-    if (Lister.checkCanLoopList(bzzIDs) == true) {
+    if (Lister.checkCanLoop(bzzIDs) == true) {
       for (final String bzID in bzzIDs!) {
 
         final BzModel? _bz = await fetch(

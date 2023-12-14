@@ -37,7 +37,7 @@ class SearchHistoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Lister.checkCanLoopList(searchHistoryModels) == false) {
+    if (Lister.checkCanLoop(searchHistoryModels) == false) {
       return SizedBox(
         width: Scale.screenWidth(context),
         height: Scale.screenHeight(context),

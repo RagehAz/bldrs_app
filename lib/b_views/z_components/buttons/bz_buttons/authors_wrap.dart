@@ -52,7 +52,7 @@ class AuthorsWrap extends StatelessWidget {
         spacing: 10,
         children: <Widget>[
 
-          if (Lister.checkCanLoopList(_authors) == true)
+          if (Lister.checkCanLoop(_authors) == true)
             ...List.generate( _authors!.length, (index){
 
               final AuthorModel _author = _authors[index];

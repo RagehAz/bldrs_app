@@ -166,7 +166,7 @@ class NoteParties {
   }){
     List<String> _ids = [];
 
-    if (Lister.checkCanLoopList(receiversModels) == true){
+    if (Lister.checkCanLoop(receiversModels) == true){
 
       if (partyType == PartyType.bz){
         final List<BzModel> _bzz = [...?receiversModels];
@@ -190,7 +190,7 @@ class NoteParties {
   }){
     List<String> _pics = [];
 
-    if (Lister.checkCanLoopList(receiversModels) == true){
+    if (Lister.checkCanLoop(receiversModels) == true){
 
       if (partyType == PartyType.bz){
         _pics = BzModel.getBzzLogos(receiversModels as List<BzModel>);
@@ -213,7 +213,7 @@ class NoteParties {
   }){
     String _phid = '';
 
-    if (Lister.checkCanLoopList(receiversModels) == true){
+    if (Lister.checkCanLoop(receiversModels) == true){
 
       if (partyType == PartyType.bz){
         _phid = plural == true ? 'phid_bzz' : 'phid_bz';
@@ -235,7 +235,7 @@ class NoteParties {
   }) async {
     List<dynamic> _output = [];
 
-    if (Lister.checkCanLoopList(ids) == true){
+    if (Lister.checkCanLoop(ids) == true){
 
       if (partyType == PartyType.bz){
         _output = await BzProtocols.fetchBzz(bzzIDs: ids,);
@@ -289,7 +289,7 @@ class NoteParties {
   }){
     bool _areIdentical = false;
 
-    if (Lister.checkCanLoopList(receivers1) == true && Lister.checkCanLoopList(receivers2) == true){
+    if (Lister.checkCanLoop(receivers1) == true && Lister.checkCanLoop(receivers2) == true){
 
       if (receivers1!.length == receivers2!.length){
 
@@ -323,7 +323,7 @@ class NoteParties {
 
     blog('receivers : $receivers');
 
-    if (Lister.checkCanLoopList(receivers) == true){
+    if (Lister.checkCanLoop(receivers) == true){
 
       List<Map<String, dynamic>> _maps = [];
       final bool _isUserModel = receivers![0] is UserModel;

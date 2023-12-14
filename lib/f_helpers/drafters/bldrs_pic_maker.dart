@@ -129,7 +129,7 @@ class BldrsPicMaker {
       // selectedAssets: selectedAssets,
     );
 
-    if (Lister.checkCanLoopList(_bytezz) == true){
+    if (Lister.checkCanLoop(_bytezz) == true){
 
       for (int i = 0; i < _bytezz.length; i++){
 

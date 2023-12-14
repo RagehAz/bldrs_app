@@ -75,7 +75,7 @@ class ZonePhidsModel {
       final String? countryID = map['id'];
       _citiesIDs?.remove('id');
 
-      if (countryID != null && Lister.checkCanLoopList(_citiesIDs) == true) {
+      if (countryID != null && Lister.checkCanLoop(_citiesIDs) == true) {
 
         for (final String cityID in _citiesIDs!) {
 
@@ -124,7 +124,7 @@ class ZonePhidsModel {
 
       // Mapper.blogMap(map, invoker: 'decipherPlanetNodeMap input map');
 
-      if (Lister.checkCanLoopList(_countriesIDs) == true) {
+      if (Lister.checkCanLoop(_countriesIDs) == true) {
 
         // blog('decipherPlanetNodeMap here we start : _countriesIDs : $_countriesIDs');
 
@@ -176,7 +176,7 @@ class ZonePhidsModel {
   }){
     List<MapModel> _maps = <MapModel>[];
 
-    if (Lister.checkCanLoopList(specs) == true){
+    if (Lister.checkCanLoop(specs) == true){
 
       for (final SpecModel spec in specs){
 
@@ -233,7 +233,7 @@ class ZonePhidsModel {
   }){
     List<MapModel> _maps = <MapModel>[];
 
-    if (Lister.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoop(phids) == true){
 
       for (final String phid in phids!){
 
@@ -303,7 +303,7 @@ class ZonePhidsModel {
     Map<String, dynamic>? _incrementationMap = {};
 
       /// ADD REMOVED SPECS WITH DECREMENT VALUES
-    if (Lister.checkCanLoopList(removedPhids) == true){
+    if (Lister.checkCanLoop(removedPhids) == true){
       for (final String phidToRemove in removedPhids){
         _incrementationMap = Mapper.insertPairInMap(
           map: _incrementationMap,
@@ -315,7 +315,7 @@ class ZonePhidsModel {
     }
 
     /// ADD ADDED SPECS WITH INCREMENT VALUES
-    if (Lister.checkCanLoopList(addedPhids) == true){
+    if (Lister.checkCanLoop(addedPhids) == true){
       for (final String phidToAdd in addedPhids){
         _incrementationMap = Mapper.insertPairInMap(
           map: _incrementationMap,
@@ -376,13 +376,13 @@ class ZonePhidsModel {
   }){
     final List<FlyerType> _output = <FlyerType>[];
 
-    if (Lister.checkCanLoopList(bldrsChains) == true){
+    if (Lister.checkCanLoop(bldrsChains) == true){
 
       final List<String> _phids = getPhidsFromZonePhidsModel(
         zonePhidsModel: zonePhidsModel,
       );
 
-      if (Lister.checkCanLoopList(_phids) == true){
+      if (Lister.checkCanLoop(_phids) == true){
 
         for (final String phid in _phids){
 
@@ -511,7 +511,7 @@ class ZonePhidsModel {
         phidsMaps: <MapModel>[...?base?.phidsMaps],
       );
 
-      if (Lister.checkCanLoopList(add?.phidsMaps) == true){
+      if (Lister.checkCanLoop(add?.phidsMaps) == true){
 
         List<MapModel> _combined = <MapModel>[...?base?.phidsMaps];
 
@@ -541,7 +541,7 @@ class ZonePhidsModel {
 
         }
 
-        if (Lister.checkCanLoopList(_combined) == true){
+        if (Lister.checkCanLoop(_combined) == true){
 
           _output = ZonePhidsModel(
             zoneID: zoneID,

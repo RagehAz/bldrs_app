@@ -54,7 +54,7 @@ class PickersScreenSearchView extends StatelessWidget {
         valueListenable: foundChains,
         builder: (_, List<Chain> _foundChains, Widget? childB){
 
-          final bool _noResultsFound = Lister.checkCanLoopList(_foundChains) == false;
+          final bool _noResultsFound = Lister.checkCanLoop(_foundChains) == false;
 
           /// NO RESULT FOUND
           if (_noResultsFound == true){

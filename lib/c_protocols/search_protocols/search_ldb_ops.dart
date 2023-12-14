@@ -33,7 +33,7 @@ class SearchLDBOps{
     required List<SearchModel> searchModels,
   }) async {
 
-    if (Lister.checkCanLoopList(searchModels) == true){
+    if (Lister.checkCanLoop(searchModels) == true){
 
       await LDBOps.insertMaps(
           docName: LDBDoc.searches,

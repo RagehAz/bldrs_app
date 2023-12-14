@@ -73,7 +73,7 @@ class Chain {
       'id': bldrsChainsMapID,
     };
 
-    if (Lister.checkCanLoopList(chains) == true) {
+    if (Lister.checkCanLoop(chains) == true) {
 
       final List<String> paths = ChainPathConverter.generateChainsPaths(
         parentID: '',
@@ -172,7 +172,7 @@ class Chain {
   static List<Map<String, dynamic>> cipherChainsOLD(List<Chain>? chains) {
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Lister.checkCanLoopList(chains) == true) {
+    if (Lister.checkCanLoop(chains) == true) {
       for (final Chain chain in chains!) {
         final Map<String, dynamic> _map = chain.toMapOLD();
         _maps.add(_map);
@@ -240,7 +240,7 @@ class Chain {
   static List<Chain> decipherChainsOLD(List<dynamic>? maps) {
     final List<Chain> _chains = <Chain>[];
 
-    if (Lister.checkCanLoopList(maps) == true) {
+    if (Lister.checkCanLoop(maps) == true) {
       for (final Map<String, dynamic> map in maps!) {
         final Chain? _chain = decipherChainOLD(map);
         if (_chain != null){
@@ -269,9 +269,9 @@ class Chain {
     );
 
     if (
-        Lister.checkCanLoopList(_filteredChain?.sons) == true
+        Lister.checkCanLoop(_filteredChain?.sons) == true
         &&
-        Lister.checkCanLoopList(picker?.range) == true
+        Lister.checkCanLoop(picker?.range) == true
     ) {
 
       final List<String> _rangeIDs = Stringer.getStringsFromDynamics(picker?.range);
@@ -416,7 +416,7 @@ class Chain {
   }) {
     bool _listsAreIdentical = false;
 
-    if (Lister.checkCanLoopList(chains1) == true && Lister.checkCanLoopList(chains2) == true) {
+    if (Lister.checkCanLoop(chains1) == true && Lister.checkCanLoop(chains2) == true) {
       if (chains1!.length == chains2!.length) {
         blog('checkChainsListsAreIdentical : chains1.length (${chains1.length}) == chains2.length (${chains2.length})');
 
@@ -535,7 +535,7 @@ class Chain {
   }) {
     bool _includes = false;
 
-    if (Lister.checkCanLoopList(chains) == true && phid != null) {
+    if (Lister.checkCanLoop(chains) == true && phid != null) {
       for (final Chain chain in chains!) {
         final bool _chainIncludes = checkChainIncludeThisPhid(
             chain: chain,
@@ -605,7 +605,7 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogChains(List<Chain>? chains, {int level = 0}) {
-    if (Lister.checkCanLoopList(chains) == true) {
+    if (Lister.checkCanLoop(chains) == true) {
       // int _count = 1;
       for (final Chain chain in chains!) {
         // blog('--- --- --- --- --->>> BLOGGING CHAIN : $_count / ${chains.length} chains');
@@ -622,7 +622,7 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogChainsPaths(List<Chain> chains) {
-    if (Lister.checkCanLoopList(chains) == true) {
+    if (Lister.checkCanLoop(chains) == true) {
 
       final List<String> _paths = ChainPathConverter.generateChainsPaths(
           parentID: '',
@@ -653,7 +653,7 @@ class Chain {
     if (chains2 != null && chains2.isEmpty == true) {
       blog('--> chains2 is empty');
     }
-    if (Lister.checkCanLoopList(chains1) == true && Lister.checkCanLoopList(chains2) == true) {
+    if (Lister.checkCanLoop(chains1) == true && Lister.checkCanLoop(chains2) == true) {
       if (chains1!.length != chains2!.length) {
         blog('--> chains1.length (${chains1.length}) != chains2.length (${chains2.length})');
       }
@@ -732,7 +732,7 @@ class Chain {
   static List<String> getChainsRootsIDs(List<Chain>? chains) {
     final List<String> chainsIDs = <String>[];
 
-    if (Lister.checkCanLoopList(chains) == true) {
+    if (Lister.checkCanLoop(chains) == true) {
       for (final Chain chain in chains!) {
         if (chain.id != null){
           chainsIDs.add(chain.id!);
@@ -750,7 +750,7 @@ class Chain {
     /// NOTE : THIS GETS IDS OF ONLY "CHAIN SONS" OF THE GIVEN CHAIN
     final List<String> _chainSonsIDs = <String>[];
 
-    if (chain != null && Lister.checkCanLoopList(chain.sons) == true) {
+    if (chain != null && Lister.checkCanLoop(chain.sons) == true) {
       for (final dynamic son in chain.sons) {
         if (son is Chain) {
           final Chain _chain = son;
@@ -768,14 +768,14 @@ class Chain {
   static List<String> getChainsRootsAndSonsIDs(List<Chain>? chains){
     List<String> _output = [];
 
-    if (Lister.checkCanLoopList(chains) == true){
+    if (Lister.checkCanLoop(chains) == true){
 
       final List<String> _paths = ChainPathConverter.generateChainsPaths(
           parentID: '',
           chains: chains
       );
 
-      if (Lister.checkCanLoopList(_paths) == true){
+      if (Lister.checkCanLoop(_paths) == true){
 
         for (final path in _paths){
 
@@ -804,7 +804,7 @@ class Chain {
 
     Chain? _chain;
 
-    if (Lister.checkCanLoopList(chains) == true) {
+    if (Lister.checkCanLoop(chains) == true) {
       for (final Chain chain in chains!) {
 
         if (Phider.removeIndexFromPhid(phid: chain.id) == Phider.removeIndexFromPhid(phid: chainID)
@@ -837,14 +837,14 @@ class Chain {
   }) {
     String? _chainID;
 
-    if (Lister.checkCanLoopList(allChains) == true && phid != null) {
+    if (Lister.checkCanLoop(allChains) == true && phid != null) {
 
       final List<Chain> _chains = ChainPathConverter.findPhidRelatedChains(
           chains: allChains,
           phid: phid,
       );
 
-      if (Lister.checkCanLoopList(_chains) == true) {
+      if (Lister.checkCanLoop(_chains) == true) {
         final Chain _chain = _chains.first;
         _chainID = _chain.id;
       }
@@ -860,7 +860,7 @@ class Chain {
   }) {
     final List<String> _chainsIDs = <String>[];
 
-    if (Lister.checkCanLoopList(allChains) == true && Lister.checkCanLoopList(phids) == true) {
+    if (Lister.checkCanLoop(allChains) == true && Lister.checkCanLoop(phids) == true) {
       for (final String phid in phids!) {
         final String? _chainID = getRootChainIDOfPhid(allChains: allChains, phid: phid);
 
@@ -880,7 +880,7 @@ class Chain {
   }) {
     final List<Chain> _foundChains = <Chain>[];
 
-    if (Lister.checkCanLoopList(phids) == true && Lister.checkCanLoopList(allChains) == true) {
+    if (Lister.checkCanLoop(phids) == true && Lister.checkCanLoop(allChains) == true) {
       for (final String id in phids!) {
 
         final Chain? _chain = getChainFromChainsByID(
@@ -928,7 +928,7 @@ class Chain {
   }) {
     final List<String> _phids = <String>[];
 
-    if (Lister.checkCanLoopList(chains) == true) {
+    if (Lister.checkCanLoop(chains) == true) {
       for (final Chain chain in chains) {
         final List<String> _strings = getOnlyPhidsSonsFromChain(
           chain: chain,
@@ -953,7 +953,7 @@ class Chain {
     Chain? _output = chainToTake;
 
     if (
-        Lister.checkCanLoopList(chainsToAdd) == true
+        Lister.checkCanLoop(chainsToAdd) == true
         &&
         chainToTake != null
         &&
@@ -1016,7 +1016,7 @@ class Chain {
       chain: sourceChain,
     );
 
-    if (Lister.checkCanLoopList(_chainPaths)) {
+    if (Lister.checkCanLoop(_chainPaths)) {
       for (int i = 0; i < _chainPaths.length; i++) {
         final String _path = _chainPaths[i];
 
@@ -1078,7 +1078,7 @@ class Chain {
 
     final List<Chain> _output = ChainPathConverter.createChainsFromPaths(paths: _modifiedPaths);
 
-    return Lister.checkCanLoopList(_output) == true ? _output.first : null;
+    return Lister.checkCanLoop(_output) == true ? _output.first : null;
   }
   // --------------------
   /// TASK : TEST ME
@@ -1088,7 +1088,7 @@ class Chain {
   }) {
     List<Chain> _output = <Chain>[];
 
-    if (Lister.checkCanLoopList(chains) == true && chainToReplace != null) {
+    if (Lister.checkCanLoop(chains) == true && chainToReplace != null) {
 
       final int _index = chains!.indexWhere((chain) => chainToReplace.id == chain.id);
 
@@ -1116,7 +1116,7 @@ class Chain {
     List<Chain>? _output;
 
     if (chains != null) {
-      if (Lister.checkCanLoopList(usedPhids) == true) {
+      if (Lister.checkCanLoop(usedPhids) == true) {
         final List<Chain> _foundPathsChains = ChainPathConverter.findPhidsRelatedChains(
           chains: chains,
           phids: usedPhids,
@@ -1206,10 +1206,10 @@ class Chain {
   }) {
     List<Chain>? _output = <Chain>[];
 
-    if (Lister.checkCanLoopList(chains) == true) {
+    if (Lister.checkCanLoop(chains) == true) {
       _output = chains;
 
-      if (Lister.checkCanLoopList(paths) == true) {
+      if (Lister.checkCanLoop(paths) == true) {
         for (final String path in paths!) {
           _output = addPathToChains(
             chains: chains,
@@ -1263,7 +1263,7 @@ class Chain {
 
     List<Chain>? _output = chains;
 
-    if (Lister.checkCanLoopList(chains) == true && path != null) {
+    if (Lister.checkCanLoop(chains) == true && path != null) {
       final List<String> _chainsPaths = ChainPathConverter.generateChainsPaths(
         parentID: '',
         chains: chains,
@@ -1292,7 +1292,7 @@ class Chain {
   }) {
     List<Chain>? _chains = chains;
 
-    if (Lister.checkCanLoopList(_chains) == true && Lister.checkCanLoopList(paths) == true) {
+    if (Lister.checkCanLoop(_chains) == true && Lister.checkCanLoop(paths) == true) {
       for (final String path in paths!) {
         _chains = removePathFromChains(
             chains: _chains,
@@ -1351,7 +1351,7 @@ class Chain {
   }) {
     List<Chain>? _output = chains;
 
-    if (Lister.checkCanLoopList(chains) == true &&
+    if (Lister.checkCanLoop(chains) == true &&
         pathToRemove != null &&
         pathToReplace != null &&
         pathToRemove != pathToReplace) {
@@ -1478,7 +1478,7 @@ class Chain {
   }) {
     final List<Chain> _output = <Chain>[];
 
-    if (Lister.checkCanLoopList(chains) == true){
+    if (Lister.checkCanLoop(chains) == true){
 
       List<String> _ids = getChainsRootsIDs(chains);
       _ids = Phider.sortPhidsAlphabetically(
@@ -1552,7 +1552,7 @@ class Chain {
 
     Map<String, dynamic> _map = {};
 
-    if (Lister.checkCanLoopList(chainKPaths) == true){
+    if (Lister.checkCanLoop(chainKPaths) == true){
 
       for (int i = 0; i < chainKPaths.length; i++){
 
@@ -1623,7 +1623,7 @@ class Chain {
 
     Map<String, dynamic> _map = {};
 
-    if (Lister.checkCanLoopList(chainSPaths) == true){
+    if (Lister.checkCanLoop(chainSPaths) == true){
 
       for (int i = 0; i < chainSPaths.length; i++){
 

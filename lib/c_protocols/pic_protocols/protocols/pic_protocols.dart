@@ -45,7 +45,7 @@ class PicProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> composePics(List<PicModel> pics) async {
 
-    if (Lister.checkCanLoopList(pics) == true){
+    if (Lister.checkCanLoop(pics) == true){
 
       await Future.wait(<Future>[
 
@@ -88,7 +88,7 @@ class PicProtocols {
   static Future<List<PicModel>> fetchPics(List<String>? paths) async {
     final List<PicModel> _output = <PicModel>[];
 
-    if (Lister.checkCanLoopList(paths) == true){
+    if (Lister.checkCanLoop(paths) == true){
 
       await Future.wait(<Future>[
 
@@ -158,7 +158,7 @@ class PicProtocols {
 
     List<PicModel> _output = <PicModel>[];
 
-    if (Lister.checkCanLoopList(paths) == true){
+    if (Lister.checkCanLoop(paths) == true){
 
       await PicLDBOps.deletePics(paths);
 
@@ -210,7 +210,7 @@ class PicProtocols {
   }) async {
     final List<PicModel> _posters = [];
 
-    if (Lister.checkCanLoopList(flyersIDs) == true){
+    if (Lister.checkCanLoop(flyersIDs) == true){
 
       await Future.wait(<Future>[
 
@@ -290,7 +290,7 @@ class PicProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> downloadPics(List<String> paths) async {
 
-    if (Lister.checkCanLoopList(paths) == true){
+    if (Lister.checkCanLoop(paths) == true){
 
       await Future.wait(<Future>[
 
@@ -348,7 +348,7 @@ class PicProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> renovatePics(List<PicModel> picModels) async {
 
-    if (Lister.checkCanLoopList(picModels) == true){
+    if (Lister.checkCanLoop(picModels) == true){
 
       await Future.wait(<Future>[
 
@@ -386,7 +386,7 @@ class PicProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> wipePics(List<String> paths) async {
 
-    if (Lister.checkCanLoopList(paths) == true){
+    if (Lister.checkCanLoop(paths) == true){
 
       await Future.wait(<Future>[
 

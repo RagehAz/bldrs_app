@@ -308,7 +308,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                   ),
                   columnChildren: <Widget>[
 
-                    if (Lister.checkCanLoopList(widget.bulletPoints) == true)
+                    if (Lister.checkCanLoop(widget.bulletPoints) == true)
                       bulletPoints!,
 
                     /// COUNTRY BUTTON

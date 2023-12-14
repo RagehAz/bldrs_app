@@ -103,7 +103,7 @@ class ActivePhidSelector extends StatelessWidget {
                 if (
                     onlyShowPublished == false
                     &&
-                    Lister.checkCanLoopList(bzModel?.publication.pendings) == true
+                    Lister.checkCanLoop(bzModel?.publication.pendings) == true
                 )
                 Builder(
                   builder: (context) {
@@ -126,7 +126,7 @@ class ActivePhidSelector extends StatelessWidget {
                 ),
 
                 /// SCOPES
-                if (Lister.checkCanLoopList(_phids) == true)...List.generate(_phids.length, (index){
+                if (Lister.checkCanLoop(_phids) == true)...List.generate(_phids.length, (index){
 
                   final String? _phid = bzModel?.scopes?.map.keys.toList()[index];
 
@@ -154,7 +154,7 @@ class ActivePhidSelector extends StatelessWidget {
                 if (
                     onlyShowPublished == false
                     &&
-                    Lister.checkCanLoopList(bzModel?.publication.suspended) == true
+                    Lister.checkCanLoop(bzModel?.publication.suspended) == true
                 )
                 Builder(
                   builder: (context) {

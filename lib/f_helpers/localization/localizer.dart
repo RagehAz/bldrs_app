@@ -420,7 +420,7 @@ String getWord(String? phid){
 List<String> getWords(List<String> phids){
   final List<String> _output = <String>[];
 
-  if (Lister.checkCanLoopList(phids) == true){
+  if (Lister.checkCanLoop(phids) == true){
 
     for (final String phid in phids){
       final String? _trans = getWord(phid);

@@ -90,7 +90,7 @@ class SpecsWrapper extends StatelessWidget {
 
     Verse? _verse;
 
-    if (Lister.checkCanLoopList(specs) == true && specs.length == 2){
+    if (Lister.checkCanLoop(specs) == true && specs.length == 2){
 
       final SpecModel? _value = getValueSpec(picker, specs);
       final SpecModel? _unit = getUnitSpec(picker, specs);

@@ -110,7 +110,7 @@ class ZoneSearchOps {
       searchValue: text,
     );
 
-    if (Lister.checkCanLoopList(_maps) == true) {
+    if (Lister.checkCanLoop(_maps) == true) {
       _phrases = Phrase.decipherMixedLangPhrasesFromMaps(
         maps: _maps,
       );
@@ -287,11 +287,11 @@ class ZoneSearchOps {
   }) {
     final List<CityModel> _foundCities = <CityModel>[];
 
-    if (Lister.checkCanLoopList(sourceCities) && Lister.checkCanLoopList(phrases)) {
+    if (Lister.checkCanLoop(sourceCities) && Lister.checkCanLoop(phrases)) {
       for (final Phrase phrase in phrases) {
         for (final CityModel city in sourceCities) {
 
-          if (Lister.checkCanLoopList(phrases) == true){
+          if (Lister.checkCanLoop(phrases) == true){
             if (city.phrases!.contains(phrase) == true) {
               if (!_foundCities.contains(city) == true) {
                 _foundCities.add(city);
@@ -339,7 +339,7 @@ class ZoneSearchOps {
         );
 
         /// C - trial 3 search firebase if no result found in LDB
-        if (Lister.checkCanLoopList(_foundCities) == false) {
+        if (Lister.checkCanLoop(_foundCities) == false) {
           /// C-1 - trial 3 if countryID is not available
           if (countryID == null) {
             _foundCities = await _fetchCitiesByCityName(
@@ -364,7 +364,7 @@ class ZoneSearchOps {
         }
 
         /// D - if firebase or LDB found any cities
-        if (Lister.checkCanLoopList(_foundCities) == true) {
+        if (Lister.checkCanLoop(_foundCities) == true) {
           // blog('aho fetchCityByName : _foundCities.length = ${_foundCities.length}');
 
           /// D-1 if only one city found
@@ -402,7 +402,7 @@ class ZoneSearchOps {
         // limit: 10,
       );
 
-      if (Lister.checkCanLoopList(_phrases) == true) {
+      if (Lister.checkCanLoop(_phrases) == true) {
         final List<String> _citiesIDs = Phrase.getPhrasesIDs(_phrases);
 
         _cities = await ZoneProtocols.fetchCities(
@@ -429,7 +429,7 @@ class ZoneSearchOps {
         // limit: 10,
       );
 
-      if (Lister.checkCanLoopList(_phrases) == true) {
+      if (Lister.checkCanLoop(_phrases) == true) {
         final List<String> _citiesIDs = Phrase.getPhrasesIDs(_phrases);
 
         _cities = await ZoneProtocols.fetchCitiesOfCountryByIDs(

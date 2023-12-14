@@ -155,7 +155,7 @@ class BzContactsBubble extends StatelessWidget {
             children: <Widget>[
 
               /// CONTACTS
-              if (Lister.checkCanLoopList(bzModel?.contacts) == true)
+              if (Lister.checkCanLoop(bzModel?.contacts) == true)
               ...List.generate(bzModel!.contacts!.length, (index){
 
                 final ContactModel _contact = bzModel!.contacts![index];
