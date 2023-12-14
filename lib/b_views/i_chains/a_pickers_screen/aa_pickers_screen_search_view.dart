@@ -1,8 +1,9 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/pathing.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
-import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -16,7 +17,6 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_b
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 
 class PickersScreenSearchView extends StatelessWidget {
@@ -165,7 +165,7 @@ class PickersScreenSearchView extends StatelessWidget {
                               selectedSpecsNotifier: selectedSpecsNotifier,
                               picker: PickerModel.getPickerByChainID(
                                 pickers: allPickers,
-                                chainID: ChainPathConverter.getFirstPathNode(path: Phider.removePathIndexes(path)),
+                                chainID: Pathing.getFirstPathNode(path: Phider.removePathIndexes(path)),
                               ),
                             ),
 

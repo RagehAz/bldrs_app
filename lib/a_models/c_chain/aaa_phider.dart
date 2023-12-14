@@ -2,12 +2,12 @@
 import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/strings/pathing.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
-import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 
@@ -169,7 +169,7 @@ class Phider {
     String? _output;
     if (TextCheck.isEmpty(path) == false){
 
-      final List<String> _nodes = ChainPathConverter.splitPathNodes(path);
+      final List<String> _nodes = Pathing.splitPathNodes(path);
 
       final List<String> _nodesWithoutIndexes = <String>[];
       for (final String node in _nodes){
@@ -179,7 +179,7 @@ class Phider {
         }
       }
 
-      _output = ChainPathConverter.combinePathNodes(_nodesWithoutIndexes);
+      _output = Pathing.combinePathNodes(_nodesWithoutIndexes);
 
     }
 
@@ -459,9 +459,9 @@ class Phider {
     // => '{secondNode_xxx} + {yyy}
     // => key = 'xxx_yyy'
 
-    final String? _phidWithIndex = ChainPathConverter.getLastPathNode(path);
+    final String? _phidWithIndex = Pathing.getLastPathNode(path);
     final String? _phid = Phider.removeIndexFromPhid(phid: _phidWithIndex);
-    final List<String> _split = ChainPathConverter.splitPathNodes(path);
+    final List<String> _split = Pathing.splitPathNodes(path);
 
     final String _groupLine = _split[_split.length - 2];
     final String? group = TextMod.removeTextBeforeLastSpecialCharacter(

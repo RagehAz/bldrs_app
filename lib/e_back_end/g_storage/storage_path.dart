@@ -5,7 +5,23 @@ class StoragePath {
   // -----------------------------------------------------------------------------
 
   const StoragePath();
+  // -----------------------------------------------------------------------------
 
+  /// PHIDS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? phids_phid(String? phid){
+
+    if (phid == null){
+      return null;
+    }
+
+    else {
+      return '${StorageColl.phids}/$phid';
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// USERS
