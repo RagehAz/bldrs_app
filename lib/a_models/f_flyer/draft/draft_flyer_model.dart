@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
@@ -611,7 +612,7 @@ class DraftFlyer{
 
     if (draft != null){
 
-      if (Mapper.checkCanLoopList(draft.draftSlides) == true){
+      if (Lister.checkCanLoopList(draft.draftSlides) == true){
 
         /// UPDATE HEADLINE IN SLIDE
         final DraftSlide _newSlide = draft.draftSlides![slideIndex].copyWith(
@@ -679,7 +680,7 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? getFirstSlideHeadline(DraftFlyer? draft){
-    return Mapper.checkCanLoopList(draft?.draftSlides) == true ?
+    return Lister.checkCanLoopList(draft?.draftSlides) == true ?
     draft!.draftSlides![0].headline
         :
     null;
@@ -689,7 +690,7 @@ class DraftFlyer{
   static List<PicModel> getPics(DraftFlyer? draft){
     final List<PicModel> _output = [];
 
-    if (Mapper.checkCanLoopList(draft?.draftSlides) == true){
+    if (Lister.checkCanLoopList(draft?.draftSlides) == true){
 
       for (final DraftSlide _slide in draft!.draftSlides!){
         if (_slide.bigPic != null){
@@ -778,7 +779,7 @@ class DraftFlyer{
       if (draft1.publishState != draft2.publishState){
         blog('publishStates are not identical');
       }
-      if (Mapper.checkListsAreIdentical(list1: draft1.phids, list2: draft2.phids) == false){
+      if (Lister.checkListsAreIdentical(list1: draft1.phids, list2: draft2.phids) == false){
         blog('keywordsIDs are not identical');
       }
       if (draft1.showsAuthor != draft2.showsAuthor){
@@ -992,7 +993,7 @@ class DraftFlyer{
           // FocusNode descriptionNode,
           draft1.flyerType == draft2.flyerType &&
           draft1.publishState == draft2.publishState &&
-          Mapper.checkListsAreIdentical(list1: draft1.phids, list2: draft2.phids) == true &&
+          Lister.checkListsAreIdentical(list1: draft1.phids, list2: draft2.phids) == true &&
           draft1.showsAuthor == draft2.showsAuthor &&
           ZoneModel.checkZonesIDsAreIdentical(zone1: draft1.zone, zone2: draft2.zone) == true &&
           draft1.authorID == draft2.authorID &&

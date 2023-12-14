@@ -1,8 +1,8 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -131,7 +131,7 @@ class AgendaModel {
           )
       );
 
-      if (Mapper.checkCanLoopList(bzModel.bzTypes) == true){
+      if (Lister.checkCanLoopList(bzModel.bzTypes) == true){
         for (final BzType bzType in bzModel.bzTypes!){
 
           switch(bzType){
@@ -216,7 +216,7 @@ class AgendaModel {
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
-    if (Mapper.checkCanLoopList(bzzModels) == true){
+    if (Lister.checkCanLoopList(bzzModels) == true){
 
       for (final BzModel bzModel in bzzModels!){
         _newAgenda = addBz(
@@ -246,7 +246,7 @@ class AgendaModel {
           )
       );
 
-      if (Mapper.checkCanLoopList(bzModel.bzTypes) == true){
+      if (Lister.checkCanLoopList(bzModel.bzTypes) == true){
 
         for (final BzType bzType in bzModel.bzTypes!){
 
@@ -320,7 +320,7 @@ class AgendaModel {
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
-    if (Mapper.checkCanLoopList(bzModels) == true){
+    if (Lister.checkCanLoopList(bzModels) == true){
 
       for (final BzModel bzModel in bzModels!){
 
@@ -353,7 +353,7 @@ class AgendaModel {
           )
       );
 
-      if (Mapper.checkCanLoopList(bz.bzTypes) == true){
+      if (Lister.checkCanLoopList(bz.bzTypes) == true){
 
         for (final BzType bzType in bz.bzTypes!){
 
@@ -442,7 +442,7 @@ class AgendaModel {
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
-    if (Mapper.checkCanLoopList(bzz) == true){
+    if (Lister.checkCanLoopList(bzz) == true){
 
       for (final BzModel bz in bzz!){
 
@@ -544,7 +544,7 @@ class AgendaModel {
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
-    if (Mapper.checkCanLoopList(bzzIDs) == true){
+    if (Lister.checkCanLoopList(bzzIDs) == true){
 
       for (final String bzID in bzzIDs!){
 
@@ -623,14 +623,14 @@ class AgendaModel {
     else if (agenda1 != null && agenda2 != null){
 
       if (
-          Mapper.checkListsAreIdentical(list1: agenda1.all           ,list2: agenda2.all           ) == true &&
-          Mapper.checkListsAreIdentical(list1: agenda1.developers    ,list2: agenda2.developers    ) == true &&
-          Mapper.checkListsAreIdentical(list1: agenda1.brokers       ,list2: agenda2.brokers       ) == true &&
-          Mapper.checkListsAreIdentical(list1: agenda1.designers     ,list2: agenda2.designers     ) == true &&
-          Mapper.checkListsAreIdentical(list1: agenda1.contractors   ,list2: agenda2.contractors   ) == true &&
-          Mapper.checkListsAreIdentical(list1: agenda1.artisans      ,list2: agenda2.artisans      ) == true &&
-          Mapper.checkListsAreIdentical(list1: agenda1.manufacturers ,list2: agenda2.manufacturers ) == true &&
-          Mapper.checkListsAreIdentical(list1: agenda1.suppliers     ,list2: agenda2.suppliers     ) == true
+          Lister.checkListsAreIdentical(list1: agenda1.all           ,list2: agenda2.all           ) == true &&
+          Lister.checkListsAreIdentical(list1: agenda1.developers    ,list2: agenda2.developers    ) == true &&
+          Lister.checkListsAreIdentical(list1: agenda1.brokers       ,list2: agenda2.brokers       ) == true &&
+          Lister.checkListsAreIdentical(list1: agenda1.designers     ,list2: agenda2.designers     ) == true &&
+          Lister.checkListsAreIdentical(list1: agenda1.contractors   ,list2: agenda2.contractors   ) == true &&
+          Lister.checkListsAreIdentical(list1: agenda1.artisans      ,list2: agenda2.artisans      ) == true &&
+          Lister.checkListsAreIdentical(list1: agenda1.manufacturers ,list2: agenda2.manufacturers ) == true &&
+          Lister.checkListsAreIdentical(list1: agenda1.suppliers     ,list2: agenda2.suppliers     ) == true
       ){
         _areIdentical = true;
       }

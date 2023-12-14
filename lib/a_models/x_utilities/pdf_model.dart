@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/maps/mapper_ss.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:fire/super_fire.dart';
@@ -121,7 +123,7 @@ class PDFModel {
       ownersIDs: ownersIDs ?? [],
       name: name,
       sizeMB: sizeMB,
-      data: Mapper.combineStringStringMap(
+      data: MapperSS.combineStringStringMap(
         baseMap: {},
         insert: extraData,
         replaceDuplicateKeys: true,
@@ -151,8 +153,8 @@ class PDFModel {
 
       pdf1.name == pdf2.name &&
       pdf1.path == pdf2.path &&
-      Mapper.checkListsAreIdentical(list1: pdf1.ownersIDs, list2: pdf2.ownersIDs) &&
-      Mapper.checkListsAreIdentical(list1: pdf1.bytes, list2: pdf2.bytes) == true &&
+      Lister.checkListsAreIdentical(list1: pdf1.ownersIDs, list2: pdf2.ownersIDs) &&
+      Lister.checkListsAreIdentical(list1: pdf1.bytes, list2: pdf2.bytes) == true &&
       pdf1.sizeMB == pdf2.sizeMB
       ){
         _areIdentical = true;

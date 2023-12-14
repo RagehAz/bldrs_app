@@ -2,7 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/widgets/drawing/spacing.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -123,11 +123,11 @@ class BzBubble extends StatelessWidget {
                   ),
 
                   // /// SPACING
-                  // if (Mapper.checkCanLoopList(bzModel?.contacts) == true)
+                  // if (Lister.checkCanLoopList(bzModel?.contacts) == true)
                   // const Spacing(size: 5),
 
                   // /// CONTACTS
-                  // if (Mapper.checkCanLoopList(bzModel?.contacts) == true)
+                  // if (Lister.checkCanLoopList(bzModel?.contacts) == true)
                   // ... List.generate(bzModel!.contacts!.length, (index){
                   //
                   //   final ContactModel _contact = bzModel!.contacts![index];
@@ -227,11 +227,11 @@ class BzBubble extends StatelessWidget {
                     ),
 
                     /// SPACING
-                    if (Mapper.checkCanLoopList(bzModel?.contacts) == true)
+                    if (Lister.checkCanLoopList(bzModel?.contacts) == true)
                       const Spacing(),
 
                     /// CONTACTS
-                    if (Mapper.checkCanLoopList(bzModel?.contacts) == true)
+                    if (Lister.checkCanLoopList(bzModel?.contacts) == true)
                       ContactsWrap(
                         contacts: bzModel!.contacts!,
                         spacing: 10,
@@ -260,7 +260,7 @@ class BzBubble extends StatelessWidget {
                                 const Spacing(size: 5),
 
                                 /// TEAM MEMBERS HEADLINE
-                                if (Mapper.checkCanLoopList(bzModel?.authors) == true)
+                                if (Lister.checkCanLoopList(bzModel?.authors) == true)
                                   BldrsBox(
                                     height: 25,
                                     width: _teamZoneWidth - 10,

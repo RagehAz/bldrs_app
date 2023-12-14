@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_builder_page.dart';
 import 'package:bldrs/b_views/i_phid_picker/views/phids_search_view.dart';
@@ -72,7 +72,7 @@ class SingleChainSelectorView extends StatelessWidget {
         valueListenable: selectedPhidsNotifier,
         builder: (context, List<String> phids, Widget? child) {
 
-          final bool _identical = Mapper.checkListsAreIdentical(
+          final bool _identical = Lister.checkListsAreIdentical(
             list1: selectedPhids,
             list2: phids,
           );

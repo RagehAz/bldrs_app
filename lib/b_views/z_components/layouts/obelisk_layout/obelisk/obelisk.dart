@@ -1,6 +1,7 @@
 // ignore_for_file: unused_element
 
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
@@ -51,7 +52,7 @@ class Obelisk extends StatelessWidget {
     double _result = 0;
     // int _numberOfCircles = 0;
 
-    if (Mapper.checkCanLoopList(navModels) == true){
+    if (Lister.checkCanLoopList(navModels) == true){
 
       for (final NavModel? navModel in navModels){
 

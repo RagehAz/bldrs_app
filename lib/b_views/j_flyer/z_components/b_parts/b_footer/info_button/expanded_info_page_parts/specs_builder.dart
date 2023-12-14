@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -7,7 +8,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class SpecsBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -33,7 +33,7 @@ class SpecsBuilder extends StatelessWidget {
       listen: true,
     );
 
-    if (Mapper.checkCanLoopList(_specsPickers) == true){
+    if (Lister.checkCanLoopList(_specsPickers) == true){
 
       // PickerModel.blogPickers(_specsPickers, invoker: 'fuckii');
 

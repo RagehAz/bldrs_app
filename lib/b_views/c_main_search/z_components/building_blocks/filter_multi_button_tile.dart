@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/tile_bubble/tile_bubble.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
@@ -65,7 +66,7 @@ class FilterMultiButtonTile extends StatelessWidget {
       child: Wrap(
         children: <Widget>[
 
-          if (Mapper.checkCanLoopList(items) == true)
+          if (Lister.checkCanLoopList(items) == true)
           ...List.generate(items.length, (index){
 
             final dynamic item = items[index];

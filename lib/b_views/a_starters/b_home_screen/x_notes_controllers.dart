@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -121,7 +122,7 @@ List<StreamSubscription> listenToMyBzzUnseenNotes({
 
   final List<BzModel> _myBzz = _getMyBz();
 
-  if (Mapper.checkCanLoopList(_myBzz) == true){
+  if (Lister.checkCanLoopList(_myBzz) == true){
 
     for (int i = 0; i < _myBzz.length; i++){
 
@@ -199,7 +200,7 @@ List<ValueNotifier<List<Map<String, dynamic>>>> createMyBzOldUnseenNotesMaps(){
 
   final List<BzModel> _myBzz = _getMyBz();
 
-  if (Mapper.checkCanLoopList(_myBzz) == true){
+  if (Lister.checkCanLoopList(_myBzz) == true){
 
     for (int i = 0; i < _myBzz.length; i++){
 
@@ -218,7 +219,7 @@ void disposeMyBzOldUnseenNotesMaps({
   required List<ValueNotifier<List<Map<String, dynamic>>>> notifiers
 }){
 
-  if (Mapper.checkCanLoopList(notifiers) == true){
+  if (Lister.checkCanLoopList(notifiers) == true){
 
     for (final ValueNotifier<List<Map<String, dynamic>>> notifier in notifiers){
       notifier.dispose();
@@ -270,7 +271,7 @@ bool _checkNoteDotIsOn({
   }
   else {
 
-    if (Mapper.checkCanLoopList(unseenNotes) == true){
+    if (Lister.checkCanLoopList(unseenNotes) == true){
       _isOn = NoteModel.checkThereAreUnSeenNotes(unseenNotes);
     }
 

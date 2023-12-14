@@ -1,7 +1,7 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 
 enum MainNavModel {
@@ -159,7 +159,7 @@ class NavModel {
     for (final MainNavModel mainNavModel in mainNavModels){
 
       if (mainNavModel == MainNavModel.bz){
-        if (Mapper.checkCanLoopList(myBzzIDs) == true){
+        if (Lister.checkCanLoopList(myBzzIDs) == true){
           for (final String bzID in myBzzIDs){
             final String? _navID = getMainNavIDString(
               navID: MainNavModel.bz,
@@ -226,7 +226,7 @@ class NavModel {
 
     final List<String> _allBzzTabsNavModelsIDs = <String>[];
 
-    if (Mapper.checkCanLoopList(myBzzIDs) == true){
+    if (Lister.checkCanLoopList(myBzzIDs) == true){
       for (final String bzID in myBzzIDs){
 
         final List<String> _bzTabsNavModelsIDs = generateBzTabsNavModelsIDs(

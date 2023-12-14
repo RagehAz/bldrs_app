@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 
 class HashGroup {
   // -----------------------------------------------------------------------------
@@ -21,7 +21,7 @@ class HashGroup {
   }) {
     List<HashModel>? _output = <HashModel>[];
 
-    if (id != null && Mapper.checkCanLoopList(hashGroups) == true) {
+    if (id != null && Lister.checkCanLoopList(hashGroups) == true) {
 
       _output = hashGroups!.firstWhere((HashGroup hashModel) => hashModel.id == id).hashtags;
 

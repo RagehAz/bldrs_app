@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
@@ -142,9 +143,9 @@ class AuthorModel {
   static List<AuthorModel> combineAllBzzAuthors(List<BzModel> allBzz) {
     final List<AuthorModel> _allAuthors = <AuthorModel>[];
 
-    if (Mapper.checkCanLoopList(allBzz) == true) {
+    if (Lister.checkCanLoopList(allBzz) == true) {
       for (final BzModel bz in allBzz) {
-        if (Mapper.checkCanLoopList(bz.authors) == true){
+        if (Lister.checkCanLoopList(bz.authors) == true){
           _allAuthors.addAll(bz.authors!);
         }
       }
@@ -204,7 +205,7 @@ class AuthorModel {
   static Map<String, dynamic> cipherAuthors(List<AuthorModel>? authors) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
-    if (Mapper.checkCanLoopList(authors) == true) {
+    if (Lister.checkCanLoopList(authors) == true) {
       for (final AuthorModel author in authors!) {
         _map = Mapper.insertPairInMap(
           map: _map,
@@ -226,7 +227,7 @@ class AuthorModel {
 
       final List<String> _keys = maps.keys.toList();
 
-      if (Mapper.checkCanLoopList(_keys)) {
+      if (Lister.checkCanLoopList(_keys)) {
         for (final String key in _keys) {
           final AuthorModel _author = decipherAuthor(maps[key]);
           _authors.add(_author);
@@ -296,7 +297,7 @@ class AuthorModel {
   }){
     final List<String> _output = [];
 
-    if (Mapper.checkCanLoopList(authors) == true){
+    if (Lister.checkCanLoopList(authors) == true){
       for (final AuthorModel author in authors!){
         _output.addAll(author.flyersIDs??[]);
       }
@@ -318,7 +319,7 @@ class AuthorModel {
 
     final List<String> _authorFlyersIDs = <String>[];
 
-    if (Mapper.checkCanLoopList(_authorFlyersIDs)){
+    if (Lister.checkCanLoopList(_authorFlyersIDs)){
       for (final FlyerModel flyerModel in bzFlyers) {
         if (flyerModel.authorID == _authorID) {
           _authorFlyersIDs.add(flyerModel.id);
@@ -362,7 +363,7 @@ class AuthorModel {
   }) {
     final List<String> _authorsIDs = <String>[];
 
-    if (Mapper.checkCanLoopList(authors) == true) {
+    if (Lister.checkCanLoopList(authors) == true) {
       for (final AuthorModel author in authors!) {
         if (author.userID != null) {
           _authorsIDs.add(author.userID!);
@@ -381,7 +382,7 @@ class AuthorModel {
 
     AuthorModel? _author;
 
-    if (Mapper.checkCanLoopList(authors) == true){
+    if (Lister.checkCanLoopList(authors) == true){
       _author = authors!.firstWhereOrNull((au) => au.userID == authorID);
     }
 
@@ -395,9 +396,9 @@ class AuthorModel {
     final List<AuthorModel> _bzAuthors = <AuthorModel>[];
 
     if (
-        Mapper.checkCanLoopList(allAuthors) == true
+        Lister.checkCanLoopList(allAuthors) == true
         &&
-        Mapper.checkCanLoopList(authorsIDs) == true
+        Lister.checkCanLoopList(authorsIDs) == true
     ) {
 
       for (final String id in authorsIDs!) {
@@ -426,7 +427,7 @@ class AuthorModel {
   }){
     final List<String> _names = <String>[];
 
-    if (Mapper.checkCanLoopList(authors) == true){
+    if (Lister.checkCanLoopList(authors) == true){
 
       for (final AuthorModel author in authors){
         if (author.name != null){
@@ -446,7 +447,7 @@ class AuthorModel {
   }){
     AuthorModel? _author;
 
-    if (Mapper.checkCanLoopList(authors) == true){
+    if (Lister.checkCanLoopList(authors) == true){
 
       _author = authors.firstWhere((AuthorModel authorModel){
 
@@ -467,7 +468,7 @@ class AuthorModel {
   static List<PicModel> getPicModels(List<AuthorModel> authors){
     final List<PicModel> _output = <PicModel>[];
 
-    if (Mapper.checkCanLoopList(authors) == true){
+    if (Lister.checkCanLoopList(authors) == true){
 
       for (final AuthorModel author in authors){
 
@@ -487,7 +488,7 @@ class AuthorModel {
   static List<String> getAuthorsPicsPaths(List<AuthorModel>? authors){
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(authors) == true){
+    if (Lister.checkCanLoopList(authors) == true){
 
       for (final AuthorModel author in authors!){
 
@@ -567,7 +568,7 @@ class AuthorModel {
 
     List<AuthorModel> _output = <AuthorModel>[];
 
-    if (Mapper.checkCanLoopList(authors) == true){
+    if (Lister.checkCanLoopList(authors) == true){
       _output = <AuthorModel>[...authors!];
     }
 
@@ -647,7 +648,7 @@ class AuthorModel {
 
     List<AuthorModel>? _output;
 
-    if (Mapper.checkCanLoopList(authors) == true && authorIDToRemove != null){
+    if (Lister.checkCanLoopList(authors) == true && authorIDToRemove != null){
 
       _output = <AuthorModel>[...authors!];
 
@@ -675,7 +676,7 @@ class AuthorModel {
     List<AuthorModel> _output = [...?oldAuthors];
 
     if (
-    Mapper.checkCanLoopList(oldAuthors) == true
+    Lister.checkCanLoopList(oldAuthors) == true
         &&
         flyerID != null
         &&
@@ -726,7 +727,7 @@ class AuthorModel {
     List<AuthorModel>? _newAuthors = oldAuthors;
 
     if (
-        Mapper.checkCanLoopList(oldAuthors) == true
+        Lister.checkCanLoopList(oldAuthors) == true
         &&
         flyerID != null
         &&
@@ -778,7 +779,7 @@ class AuthorModel {
 
     List<AuthorModel> _output = authors;
 
-    if (flyerID != null && Mapper.checkCanLoopList(authors) == true){
+    if (flyerID != null && Lister.checkCanLoopList(authors) == true){
 
       final AuthorModel _ownerOfFlyer = getFlyerAuthor(
         authors: authors,
@@ -808,7 +809,7 @@ class AuthorModel {
   }){
     final List<AuthorModel> _output = <AuthorModel>[];
 
-    if (Mapper.checkCanLoopList(authors) == true){
+    if (Lister.checkCanLoopList(authors) == true){
 
       for (final AuthorModel author in authors!){
 
@@ -864,7 +865,7 @@ class AuthorModel {
   }){
     bool _contains = false;
 
-    if (Mapper.checkCanLoopList(authors) == true && userID != null){
+    if (Lister.checkCanLoopList(authors) == true && userID != null){
 
       final int? _index = authors?.indexWhere((a) => a.userID == userID);
 
@@ -1044,13 +1045,13 @@ class AuthorModel {
 
     final List<AuthorModel> _masterAuthors = getCreatorAuthorsFromBz(bzModel);
 
-    if (Mapper.checkCanLoopList(_masterAuthors) == true){
+    if (Lister.checkCanLoopList(_masterAuthors) == true){
 
       final List<String> _names = getAuthorsNames(
         authors: _masterAuthors,
       );
 
-      if (Mapper.checkCanLoopList(_names) == true){
+      if (Lister.checkCanLoopList(_names) == true){
 
         _string = TextGen.generateStringFromStrings(
           strings: _names,
@@ -1121,7 +1122,7 @@ class AuthorModel {
     String? invoker,
   }){
 
-    if (Mapper.checkCanLoopList(authors) == true){
+    if (Lister.checkCanLoopList(authors) == true){
 
       for (final AuthorModel author in authors!){
         author.blogAuthor(
@@ -1346,7 +1347,7 @@ class AuthorModel {
           author1.picPath == author2.picPath &&
           author1.title == author2.title &&
           author1.role == author2.role &&
-          Mapper.checkListsAreIdentical(
+          Lister.checkListsAreIdentical(
             list1: author1.flyersIDs,
             list2: author2.flyersIDs,
           ) == true &&

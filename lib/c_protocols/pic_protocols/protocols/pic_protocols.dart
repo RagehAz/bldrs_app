@@ -1,6 +1,8 @@
 import 'dart:ui' as ui;
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
@@ -10,7 +12,6 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/storage/pic_storage_ops.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 
 /// => TAMAM
@@ -44,7 +45,7 @@ class PicProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> composePics(List<PicModel> pics) async {
 
-    if (Mapper.checkCanLoopList(pics) == true){
+    if (Lister.checkCanLoopList(pics) == true){
 
       await Future.wait(<Future>[
 
@@ -87,7 +88,7 @@ class PicProtocols {
   static Future<List<PicModel>> fetchPics(List<String>? paths) async {
     final List<PicModel> _output = <PicModel>[];
 
-    if (Mapper.checkCanLoopList(paths) == true){
+    if (Lister.checkCanLoopList(paths) == true){
 
       await Future.wait(<Future>[
 
@@ -157,7 +158,7 @@ class PicProtocols {
 
     List<PicModel> _output = <PicModel>[];
 
-    if (Mapper.checkCanLoopList(paths) == true){
+    if (Lister.checkCanLoopList(paths) == true){
 
       await PicLDBOps.deletePics(paths);
 
@@ -209,7 +210,7 @@ class PicProtocols {
   }) async {
     final List<PicModel> _posters = [];
 
-    if (Mapper.checkCanLoopList(flyersIDs) == true){
+    if (Lister.checkCanLoopList(flyersIDs) == true){
 
       await Future.wait(<Future>[
 
@@ -289,7 +290,7 @@ class PicProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> downloadPics(List<String> paths) async {
 
-    if (Mapper.checkCanLoopList(paths) == true){
+    if (Lister.checkCanLoopList(paths) == true){
 
       await Future.wait(<Future>[
 
@@ -347,7 +348,7 @@ class PicProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> renovatePics(List<PicModel> picModels) async {
 
-    if (Mapper.checkCanLoopList(picModels) == true){
+    if (Lister.checkCanLoopList(picModels) == true){
 
       await Future.wait(<Future>[
 
@@ -385,7 +386,7 @@ class PicProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> wipePics(List<String> paths) async {
 
-    if (Mapper.checkCanLoopList(paths) == true){
+    if (Lister.checkCanLoopList(paths) == true){
 
       await Future.wait(<Future>[
 

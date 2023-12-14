@@ -1,5 +1,5 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
-import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
@@ -7,7 +7,7 @@ import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dar
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:fire/super_fire.dart';
 /// => TAMAM
 class NoteFunProtocols {
   /// --------------------------------------------------------------------------
@@ -124,7 +124,7 @@ class NoteFunProtocols {
     required List<NoteModel> notes,
   }) async {
 
-    if (Mapper.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoopList(notes) == true){
 
       await Future.wait(<Future>[
 

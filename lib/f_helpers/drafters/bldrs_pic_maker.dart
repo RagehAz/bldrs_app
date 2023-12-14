@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/permissions/permits.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
@@ -128,7 +129,7 @@ class BldrsPicMaker {
       // selectedAssets: selectedAssets,
     );
 
-    if (Mapper.checkCanLoopList(_bytezz) == true){
+    if (Lister.checkCanLoopList(_bytezz) == true){
 
       for (int i = 0; i < _bytezz.length; i++){
 

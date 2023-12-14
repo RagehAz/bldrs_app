@@ -1,5 +1,8 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -16,9 +19,6 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 @immutable
 class DraftBz {
@@ -687,7 +687,7 @@ class DraftBz {
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: draft1.createdAt, time2: draft2.createdAt) == true &&
           draft1.accountType == draft2.accountType &&
           draft1.nameController?.text   == draft2.nameController?.text &&
-          Mapper.checkListsAreIdentical(list1: draft1.trigram, list2: draft2.trigram) == true &&
+          Lister.checkListsAreIdentical(list1: draft1.trigram, list2: draft2.trigram) == true &&
           ZoneModel.checkZonesAreIdentical(zone1: draft1.zone, zone2: draft2.zone) == true &&
           draft1.aboutController?.text == draft2.aboutController?.text &&
           Atlas.checkPointsAreIdentical(point1: draft1.position, point2: draft2.position) &&
@@ -699,10 +699,10 @@ class DraftBz {
           draft1.bzState == draft2.bzState &&
           PublicationModel.checkPublicationsAreIdentical(pub1: draft1.publication, pub2: draft2.publication) == true &&
           draft1.bzSection == draft2.bzSection &&
-          Mapper.checkListsAreIdentical(list1: draft1.bzTypes, list2: draft2.bzTypes) == true &&
-          Mapper.checkListsAreIdentical(list1: draft1.inactiveBzTypes, list2: draft2.inactiveBzTypes) == true &&
+          Lister.checkListsAreIdentical(list1: draft1.bzTypes, list2: draft2.bzTypes) == true &&
+          Lister.checkListsAreIdentical(list1: draft1.inactiveBzTypes, list2: draft2.inactiveBzTypes) == true &&
           draft1.bzForm == draft2.bzForm &&
-          Mapper.checkListsAreIdentical(list1: draft1.inactiveBzForms, list2: draft2.inactiveBzForms) == true &&
+          Lister.checkListsAreIdentical(list1: draft1.inactiveBzForms, list2: draft2.inactiveBzForms) == true &&
           ScopeModel.checkScopesAreIdentical(scope1: draft1.scopes, scope2: draft2.scopes) == true &&
           PicModel.checkPicsAreIdentical(pic1: draft1.logoPicModel, pic2: draft2.logoPicModel) == true &&
           draft1.hasNewLogo == draft2.hasNewLogo &&

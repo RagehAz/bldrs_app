@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/models/flag_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
@@ -63,7 +64,7 @@ class CensusRealOps {
       // addChildrenIDs: true, // DEFAULT
     );
 
-    if (Mapper.checkCanLoopList(_maps) == true){
+    if (Lister.checkCanLoopList(_maps) == true){
 
       _output = CensusModel.decipherCensuses(_maps);
 
@@ -127,7 +128,7 @@ class CensusRealOps {
         // addChildrenIDs: true, // DEFAULT
       );
 
-      if (Mapper.checkCanLoopList(_maps) == true){
+      if (Lister.checkCanLoopList(_maps) == true){
         _output = CensusModel.decipherCensuses(_maps);
       }
 

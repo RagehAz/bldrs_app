@@ -1,9 +1,9 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:basics/ldb/methods/ldb_ops.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class BzLDBOps {
@@ -161,7 +161,7 @@ class BzLDBOps {
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bzEditor),
       );
 
-      if (Mapper.checkCanLoopList(_maps) == true) {
+      if (Lister.checkCanLoopList(_maps) == true) {
         _draft = DraftBz.fromLDB(
           map: _maps.first,
           context: context,
@@ -219,7 +219,7 @@ class BzLDBOps {
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.authorEditor),
       );
 
-      if (Mapper.checkCanLoopList(_maps) == true){
+      if (Lister.checkCanLoopList(_maps) == true){
         _author = AuthorModel.decipherAuthor(_maps.first);
       }
 

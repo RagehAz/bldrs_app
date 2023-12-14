@@ -1,9 +1,9 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/c_protocols/records_protocols/recorder_protocols.dart';
-import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:fire/super_fire.dart';
 
 class WipeReviewProtocols {
   // -----------------------------------------------------------------------------
@@ -107,7 +107,7 @@ class WipeReviewProtocols {
       await Future.wait(<Future>[
 
         /// WIPE ALL REVIEWS OF ALL FLYERS
-        if (Mapper.checkCanLoopList(flyersIDs) == true)
+        if (Lister.checkCanLoopList(flyersIDs) == true)
           ...List.generate(flyersIDs!.length, (index) {
             return Fire.deleteColl(
               coll: FireColl.flyers,

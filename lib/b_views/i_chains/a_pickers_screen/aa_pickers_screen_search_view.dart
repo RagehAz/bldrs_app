@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/pathing.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
@@ -54,7 +54,7 @@ class PickersScreenSearchView extends StatelessWidget {
         valueListenable: foundChains,
         builder: (_, List<Chain> _foundChains, Widget? childB){
 
-          final bool _noResultsFound = Mapper.checkCanLoopList(_foundChains) == false;
+          final bool _noResultsFound = Lister.checkCanLoopList(_foundChains) == false;
 
           /// NO RESULT FOUND
           if (_noResultsFound == true){

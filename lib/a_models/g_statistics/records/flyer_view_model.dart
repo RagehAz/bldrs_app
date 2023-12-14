@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
@@ -79,7 +79,7 @@ class FlyerViewModel {
   }){
     final List<FlyerViewModel> _output = [];
 
-    if (Mapper.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoopList(maps) == true){
 
       for (final Map<String, dynamic> map in maps!){
 
@@ -165,7 +165,7 @@ class FlyerViewModel {
   }){
     List<String> _output = [];
 
-    if (Mapper.checkCanLoopList(models) == true){
+    if (Lister.checkCanLoopList(models) == true){
 
       for (final FlyerViewModel model in models!){
         _output = Stringer.addStringToListIfDoesNotContainIt(

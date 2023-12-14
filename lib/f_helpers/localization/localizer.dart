@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/langs.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -420,7 +420,7 @@ String getWord(String? phid){
 List<String> getWords(List<String> phids){
   final List<String> _output = <String>[];
 
-  if (Mapper.checkCanLoopList(phids) == true){
+  if (Lister.checkCanLoopList(phids) == true){
 
     for (final String phid in phids){
       final String? _trans = getWord(phid);

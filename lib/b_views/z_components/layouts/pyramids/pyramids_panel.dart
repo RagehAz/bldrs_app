@@ -1,5 +1,5 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class PyramidsPanel extends StatelessWidget {
   // ---------------------------------------------------------------------------
@@ -24,7 +24,7 @@ class PyramidsPanel extends StatelessWidget {
             children: <Widget>[
 
               /// EXTRA BUTTONS
-              if (Mapper.checkCanLoopList(pyramidButtons) == true)
+              if (Lister.checkCanLoopList(pyramidButtons) == true)
                 ...List.generate(pyramidButtons!.length, (index){
 
                   return pyramidButtons![index];

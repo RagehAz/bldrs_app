@@ -1,15 +1,15 @@
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/f_bz/d_author_search_screen/x_author_search_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/user_buttons/users_tile_buttons_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +40,7 @@ class SearchUsersScreen extends StatefulWidget {
         ),
     );
 
-    if (Mapper.checkCanLoopList(_users) == true){
+    if (Lister.checkCanLoopList(_users) == true){
       return _users!.first;
     }
     else {

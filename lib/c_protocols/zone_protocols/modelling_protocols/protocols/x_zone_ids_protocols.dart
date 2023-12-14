@@ -37,7 +37,7 @@ class ZoneIDsProtocols {
     //
     //   // blog('_getCountryData : got place marks : ${_marks.length}');
     //
-    //   if (Mapper.checkCanLoopList(_marks) == true){
+    //   if (Lister.checkCanLoopList(_marks) == true){
     //
     //     final Placemark _mark = _marks[0];
     //
@@ -52,7 +52,7 @@ class ZoneIDsProtocols {
     //
     //     CityModel _foundCity;
     //
-    //     if (Mapper.checkCanLoopList(_countryCities) == true) {
+    //     if (Lister.checkCanLoopList(_countryCities) == true) {
     //
     //       /// by subAdministrativeArea
     //       List<CityModel> _foundCities = ZoneSearchOps.searchCitiesByNameFromCities(
@@ -66,7 +66,7 @@ class ZoneIDsProtocols {
     //       );
     //
     //       /// by administrativeArea
-    //       if (Mapper.checkCanLoopList(_foundCities) == false) {
+    //       if (Lister.checkCanLoopList(_foundCities) == false) {
     //         _foundCities = ZoneSearchOps.searchCitiesByNameFromCities(
     //           context: context,
     //           sourceCities: _countryCities,
@@ -79,7 +79,7 @@ class ZoneIDsProtocols {
     //       }
     //
     //       /// by locality
-    //       if (Mapper.checkCanLoopList(_foundCities) == false) {
+    //       if (Lister.checkCanLoopList(_foundCities) == false) {
     //         _foundCities = ZoneSearchOps.searchCitiesByNameFromCities(
     //           context: context,
     //           sourceCities: _countryCities,
@@ -91,7 +91,7 @@ class ZoneIDsProtocols {
     //         );
     //       }
     //
-    //       if (Mapper.checkCanLoopList(_foundCities) == true){
+    //       if (Lister.checkCanLoopList(_foundCities) == true){
     //         _foundCity = _foundCities.first;
     //       }
     //

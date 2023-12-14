@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +35,7 @@ class FlyerColors {
     required List<SlideModel>? slides,
   }){
 
-    if (Mapper.checkCanLoopList(slides) == true){
+    if (Lister.checkCanLoopList(slides) == true){
       return slides![0].midColor;
     }
 

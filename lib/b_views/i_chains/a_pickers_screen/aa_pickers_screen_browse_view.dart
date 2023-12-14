@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
@@ -102,7 +102,7 @@ class PickersScreenBrowseView extends StatelessWidget {
       builder: (_, List<PickerModel> _refinedPickers, Widget? instructions){
 
         /// WHEN PICKERS ARE PROVIDED
-        if (Mapper.checkCanLoopList(_refinedPickers) == true){
+        if (Lister.checkCanLoopList(_refinedPickers) == true){
           return ValueListenableBuilder(
             valueListenable: selectedSpecsNotifier,
             builder: (_, List<SpecModel> _allSelectedSpecs, Widget? childC){

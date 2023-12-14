@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
 import 'package:flutter/foundation.dart';
@@ -63,7 +63,7 @@ class FeedbackModel {
 
     final List<FeedbackModel> _feedbacks = <FeedbackModel>[];
 
-    if (Mapper.checkCanLoopList(maps) == true) {
+    if (Lister.checkCanLoopList(maps) == true) {
       for (final Map<String, dynamic> map in maps!) {
 
         final FeedbackModel? _feedback = FeedbackModel.decipherFeedback(map);

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
@@ -205,7 +205,7 @@ class WipeFlyerProtocols {
         await Future.wait(<Future>[
 
           /// WIPE FLYERS
-          if (Mapper.checkCanLoopList(_flyersIDs) == true)
+          if (Lister.checkCanLoopList(_flyersIDs) == true)
             ...List.generate(_flyersIDs.length, (index){
 
               final String _flyerID = _flyersIDs[index];

@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -90,7 +90,7 @@ class SpecsWrapper extends StatelessWidget {
 
     Verse? _verse;
 
-    if (Mapper.checkCanLoopList(specs) == true && specs.length == 2){
+    if (Lister.checkCanLoopList(specs) == true && specs.length == 2){
 
       final SpecModel? _value = getValueSpec(picker, specs);
       final SpecModel? _unit = getUnitSpec(picker, specs);

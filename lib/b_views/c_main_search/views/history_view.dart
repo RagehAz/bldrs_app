@@ -2,6 +2,7 @@ import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/model/bubble_header_vm.dart';
 import 'package:basics/bubbles/tile_bubble/tile_bubble.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
@@ -36,7 +37,7 @@ class SearchHistoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Mapper.checkCanLoopList(searchHistoryModels) == false) {
+    if (Lister.checkCanLoopList(searchHistoryModels) == false) {
       return SizedBox(
         width: Scale.screenWidth(context),
         height: Scale.screenHeight(context),

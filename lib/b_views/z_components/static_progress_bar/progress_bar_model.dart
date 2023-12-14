@@ -2,9 +2,9 @@ import 'package:basics/animators/helpers/animators.dart';
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 ///=> TAMAM
 class ProgressBarModel {
@@ -189,7 +189,7 @@ class ProgressBarModel {
     required List<Color>? colors,
   }){
 
-    if (Mapper.checkCanLoopList(colors) == true){
+    if (Lister.checkCanLoopList(colors) == true){
       blog('generateColors : colors : $colors');
       return colors!;
     }

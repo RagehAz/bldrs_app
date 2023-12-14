@@ -5,19 +5,19 @@ import 'dart:ui' as ui;
 import 'package:basics/animators/helpers/animators.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/small_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
 
 class FlyerDeck extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -250,7 +250,7 @@ class FlyerDeck extends StatelessWidget {
 
     final List<SlideModel> _flyerSlides = <SlideModel>[];
 
-    if (Mapper.checkCanLoopList(_flyer?.slides) == true){
+    if (Lister.checkCanLoopList(_flyer?.slides) == true){
 
       for (int i = 0; i < _flyer!.slides!.length; i++){
 

@@ -1,11 +1,11 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_non_collabsable_tile.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/d_collapsable_tile.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
 
 class BldrsExpandingButton extends StatelessWidget {
@@ -167,7 +167,7 @@ class BldrsExpandingButton extends StatelessWidget {
     required List<String> phids,
   }) {
 
-    if (Mapper.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoopList(phids) == true){
       return 0;
     }
     else {

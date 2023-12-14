@@ -1,5 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
@@ -46,7 +46,7 @@ void onSearchCurrencies({
     // Phrase.blogPhrases(_phrases);
 
     /// WHEN FOUND PHRASES
-    if (Mapper.checkCanLoopList(_phrases) == true){
+    if (Lister.checkCanLoopList(_phrases) == true){
 
       /// FILTER CURRENCIES FROM PHRASES
       final List<String> _filteredIDs = <String>[];

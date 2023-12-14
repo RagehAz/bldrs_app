@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/separators/separator_line.dart';
@@ -232,7 +232,7 @@ class UserBanner extends StatelessWidget {
               spacing: 5,
               children: <Widget>[
 
-                if (Mapper.checkCanLoopList(_bzzModels) == true)
+                if (Lister.checkCanLoopList(_bzzModels) == true)
                 ...List.generate(_bzzModels!.length, (index){
 
                   final BzModel _bzModel = _bzzModels[index];

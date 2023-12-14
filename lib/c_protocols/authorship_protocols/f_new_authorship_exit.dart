@@ -1,4 +1,6 @@
 // ignore_for_file: avoid_redundant_argument_values, unused_element
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -23,8 +25,6 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
-import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class NewAuthorshipExit {
   // -----------------------------------------------------------------------------
@@ -307,7 +307,7 @@ class NewAuthorshipExit {
     required BzModel? bzModel,
   }) async {
 
-    if (Mapper.checkCanLoopList(authorModel?.flyersIDs) == true){
+    if (Lister.checkCanLoopList(authorModel?.flyersIDs) == true){
 
       await Future.wait(<Future>[
 

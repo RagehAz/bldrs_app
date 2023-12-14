@@ -1,11 +1,12 @@
 // ignore_for_file: unused_element
 import 'dart:async';
+
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:flutter/material.dart';
 
 enum RenderFlyer {
@@ -57,7 +58,7 @@ class FlyerBuilder extends StatelessWidget {
       /// WHEN RENDER FIRST SLIDE
       else if (renderFlyer == RenderFlyer.firstSlide){
         final List<SlideModel>? _slides = [...?flyerModel?.slides];
-        if (Mapper.checkCanLoopList(_slides) == true){
+        if (Lister.checkCanLoopList(_slides) == true){
           final SlideModel? _firstSlide = _slides!.first;
           _shouldBuildByFlyer = _firstSlide?.frontImage != null;
         }

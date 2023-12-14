@@ -1,20 +1,20 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/bubbles/model/bubble_header_vm.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/models/continent_model.dart';
 import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class ListLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -117,15 +117,15 @@ class ListLayout extends StatelessWidget {
                           child: BldrsBox(
                             height: 40,
                             width: _clearWidth - 10,
-                            icon: Mapper.checkCanLoopList(icons) == false ? null : icons![index],
+                            icon: Lister.checkCanLoopList(icons) == false ? null : icons![index],
                             iconSizeFactor: 0.8,
-                            verse: Mapper.checkCanLoopList(mapModels) == false ? null : mapModels![index].value,
+                            verse: Lister.checkCanLoopList(mapModels) == false ? null : mapModels![index].value,
                             bubble: false,
                             margins: const EdgeInsets.symmetric(vertical: 5),
                             verseScaleFactor: 0.8,
                             color: Colorz.white10,
                             // textDirection: superTextDirection(context),
-                            onTap: Mapper.checkCanLoopList(mapModels) == false ? null
+                            onTap: Lister.checkCanLoopList(mapModels) == false ? null
                                 :
                                 () => onItemTap?.call(mapModels![index].key!),
                           ),

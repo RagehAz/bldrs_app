@@ -1,5 +1,8 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -10,9 +13,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 enum NeedType {
   seekProperty,
@@ -236,7 +236,7 @@ class NeedModel {
   }){
     final List<Verse> _output = <Verse>[];
 
-    if (Mapper.checkCanLoopList(needsTypes) == true){
+    if (Lister.checkCanLoopList(needsTypes) == true){
 
       for (final NeedType type in needsTypes){
 
@@ -321,9 +321,9 @@ class NeedModel {
       if (
           need1.needType == need2.needType &&
           need1.notes == need2.notes &&
-          Mapper.checkListsAreIdentical(list1: need1.flyerIDs , list2: need2.flyerIDs) == true &&
-          Mapper.checkListsAreIdentical(list1: need1.bzzIDs , list2: need2.bzzIDs) == true &&
-          Mapper.checkListsAreIdentical(list1: need1.scope , list2: need2.scope) == true &&
+          Lister.checkListsAreIdentical(list1: need1.flyerIDs , list2: need2.flyerIDs) == true &&
+          Lister.checkListsAreIdentical(list1: need1.bzzIDs , list2: need2.bzzIDs) == true &&
+          Lister.checkListsAreIdentical(list1: need1.scope , list2: need2.scope) == true &&
           Atlas.checkPointsAreIdentical(point1: need1.location, point2: need2.location) == true
       ){
         _identical = true;

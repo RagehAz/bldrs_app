@@ -1,7 +1,7 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:basics/ldb/methods/ldb_ops.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class CensusLDBOps {
   // -----------------------------------------------------------------------------
@@ -35,7 +35,7 @@ class CensusLDBOps {
     required List<CensusModel> censuses,
   }) async {
 
-    if (Mapper.checkCanLoopList(censuses) == true){
+    if (Lister.checkCanLoopList(censuses) == true){
 
       final List<Map<String, dynamic>> _maps = CensusModel.cipherCensuses(
         censuses: censuses,
@@ -70,7 +70,7 @@ class CensusLDBOps {
         ids: <String>[id],
       );
 
-      if (Mapper.checkCanLoopList(_maps) == true){
+      if (Lister.checkCanLoopList(_maps) == true){
 
         _output = CensusModel.decipher(
             map: _maps.first,

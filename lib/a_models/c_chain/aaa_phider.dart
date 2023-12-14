@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 import 'package:basics/helpers/classes/checks/object_check.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/pathing.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
@@ -152,7 +152,7 @@ class Phider {
   static List<String> removePhidsIndexes(List<String>? phids){
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoopList(phids) == true){
       for (final String phid in phids!){
         final String? _list = removeIndexFromPhid(phid: phid);
         if (_list != null){
@@ -190,7 +190,7 @@ class Phider {
   static List<String> removePathsIndexes(List<String> paths){
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(paths) == true){
+    if (Lister.checkCanLoopList(paths) == true){
 
       for (final String path in paths){
 
@@ -296,7 +296,7 @@ class Phider {
   static List<Chain> sortChainsByIndexes(List<Chain>? input){
     final List<Chain> _output = <Chain>[];
 
-    if (Mapper.checkCanLoopList(input) == true){
+    if (Lister.checkCanLoopList(input) == true){
 
       final List<Chain> _sortedChainsIDs = <Chain>[...input!];
 
@@ -324,7 +324,7 @@ class Phider {
   static List<String> sortPhidsByIndexes(List<String> input){
     List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(input) == true){
+    if (Lister.checkCanLoopList(input) == true){
 
       final List<String> _phids = <String>[...input];
 
@@ -396,7 +396,7 @@ class Phider {
 
     // Chain.blogChains(chains);
 
-    if (Mapper.checkCanLoopList(chains) == true){
+    if (Lister.checkCanLoopList(chains) == true){
 
       for (int i = 0; i< chains!.length; i++){
 
@@ -424,7 +424,7 @@ class Phider {
 
     /// NOTE : OVERRIDES EXISTING INDEX
 
-    if (Mapper.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoopList(phids) == true){
 
       for (int i = 0; i< phids.length; i++){
 
@@ -488,7 +488,7 @@ class Phider {
 
         final List<String> _sons = sons;
 
-        if (Mapper.checkCanLoopList(_sons) == true){
+        if (Lister.checkCanLoopList(_sons) == true){
           _arePhids = Phider.checkIsPhid(_sons.first);
         }
 
@@ -498,7 +498,7 @@ class Phider {
         if (sons is List && sons.isNotEmpty == true){
           final List<dynamic> dynamics = sons;
           final List<String> _strings = Stringer.getStringsFromDynamics(dynamics);
-          if (Mapper.checkCanLoopList(_strings) == true){
+          if (Lister.checkCanLoopList(_strings) == true){
             _arePhids = Phider.checkIsPhid(_strings.first);
           }
         }
@@ -648,7 +648,7 @@ class Phider {
   }){
     List<String> _output = [];
 
-    if (Mapper.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoopList(phids) == true){
 
       List<Phrase> _phrases = [];
       for (final String phid in phids){

@@ -1,9 +1,9 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/c_protocols/search_protocols/search_ldb_ops.dart';
 import 'package:bldrs/c_protocols/search_protocols/search_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class SearchProtocols {
   // -----------------------------------------------------------------------------
@@ -44,7 +44,7 @@ class SearchProtocols {
 
     _output = await SearchLDBOps.readAll();
 
-    if (Mapper.checkCanLoopList(_output) == false){
+    if (Lister.checkCanLoopList(_output) == false){
 
       _output = await SearchRealOps.readAll(
           userID: userID,
@@ -65,7 +65,7 @@ class SearchProtocols {
   static Future<List<SearchModel>> _completeSearchesZoneModels(List<SearchModel>? searches) async {
     final List<SearchModel> _output = [];
 
-    if (Mapper.checkCanLoopList(searches) == true){
+    if (Lister.checkCanLoopList(searches) == true){
 
       for (final SearchModel model in searches!){
 

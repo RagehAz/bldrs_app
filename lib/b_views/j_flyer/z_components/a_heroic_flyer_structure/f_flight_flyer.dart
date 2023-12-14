@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -34,7 +34,7 @@ class FlightFlyer extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
     final List<SlideModel> _slides = renderedFlyer?.slides ?? <SlideModel>[];
-    final SlideModel? slideModel = Mapper.checkCanLoopList(_slides) == true ? _slides.first : null;
+    final SlideModel? slideModel = Lister.checkCanLoopList(_slides) == true ? _slides.first : null;
     final double aspectRatio = FlyerDim.flyerAspectRatio();
     final EdgeInsets _saveButtonPadding = FlyerDim.footerButtonEnRightMargin(
       buttonNumber: 1,
