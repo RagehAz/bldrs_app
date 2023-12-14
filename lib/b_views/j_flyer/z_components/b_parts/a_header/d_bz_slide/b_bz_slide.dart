@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -50,7 +50,7 @@ class BzSlide extends StatelessWidget {
     // --------------------
     final List<String> _bzTeamIDs = <String>[];
     // --------------------
-    if (Mapper.checkCanLoopList(_bzAuthors) == true) {
+    if (Lister.checkCanLoopList(_bzAuthors) == true) {
       for (final AuthorModel author in _bzAuthors) {
         if (author.userID != null){
           _bzTeamIDs.add(author.userID!);
@@ -71,7 +71,7 @@ class BzSlide extends StatelessWidget {
             children: <Widget>[
 
               /// BUSINESS SCOPE
-              // if (Mapper.checkCanLoopList(_bzScope) == true)
+              // if (Lister.checkCanLoopList(_bzScope) == true)
               // BzPgFields(
               //   key: const ValueKey<String>('max_header_bzPageFields'),
               //   flyerBoxWidth: flyerBoxWidth,

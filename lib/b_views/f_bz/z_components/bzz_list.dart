@@ -1,5 +1,5 @@
 import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/bz_buttons/bz_long_button.dart';
@@ -27,7 +27,7 @@ class BzzList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Mapper.checkCanLoopList(bzz) == true){
+    if (Lister.checkCanLoopList(bzz) == true){
       return ListView.builder(
         controller: scrollController,
         physics: const BouncingScrollPhysics(),

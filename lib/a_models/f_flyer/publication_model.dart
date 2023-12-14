@@ -1,5 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:flutter/material.dart';
 
@@ -540,11 +540,11 @@ class PublicationModel {
     else if (pub1 != null && pub2 != null){
 
       if (
-      Mapper.checkListsAreIdentical(list1: pub1.drafts, list2: pub2.drafts) &&
-      Mapper.checkListsAreIdentical(list1: pub1.pendings, list2: pub2.pendings) &&
-      Mapper.checkListsAreIdentical(list1: pub1.published, list2: pub2.published) &&
-      Mapper.checkListsAreIdentical(list1: pub1.unpublished, list2: pub2.unpublished) &&
-      Mapper.checkListsAreIdentical(list1: pub1.suspended, list2: pub2.suspended)
+      Lister.checkListsAreIdentical(list1: pub1.drafts, list2: pub2.drafts) &&
+      Lister.checkListsAreIdentical(list1: pub1.pendings, list2: pub2.pendings) &&
+      Lister.checkListsAreIdentical(list1: pub1.published, list2: pub2.published) &&
+      Lister.checkListsAreIdentical(list1: pub1.unpublished, list2: pub2.unpublished) &&
+      Lister.checkListsAreIdentical(list1: pub1.suspended, list2: pub2.suspended)
       ){
         _identical = true;
       }

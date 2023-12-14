@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/separators/separator_line.dart';
@@ -154,7 +154,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
                       children: <Widget>[
 
                         /// FLYER TYPES
-                        if (Mapper.checkCanLoopList(_types) == true)
+                        if (Lister.checkCanLoopList(_types) == true)
                         ...List.generate(_types.length, (index) {
 
                           final FlyerType? _flyerType = _types[index];
@@ -194,7 +194,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
                         }),
 
                         /// NO SECTIONS AVAILABLE
-                        if (Mapper.checkCanLoopList(_types) == false)
+                        if (Lister.checkCanLoopList(_types) == false)
                            BldrsText(
                              width: _buttonWidth,
                              verse: const Verse(

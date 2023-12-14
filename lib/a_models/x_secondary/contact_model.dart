@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
@@ -135,7 +136,7 @@ class ContactModel {
   static Map<String, dynamic> cipherContacts(List<ContactModel>? contacts) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
-    if (Mapper.checkCanLoopList(contacts) == true) {
+    if (Lister.checkCanLoopList(contacts) == true) {
       for (final ContactModel contact in contacts!) {
         if (contact.value != null && contact.value != '') {
           _map = Mapper.insertPairInMap(
@@ -158,7 +159,7 @@ class ContactModel {
     if (map != null) {
       final List<String> _keys = map.keys.toList();
 
-      if (Mapper.checkCanLoopList(_keys) == true) {
+      if (Lister.checkCanLoopList(_keys) == true) {
 
         for (final String key in _keys) {
 
@@ -313,7 +314,7 @@ class ContactModel {
 
     final List<ContactModel> _output = <ContactModel>[];
 
-    if (Mapper.checkCanLoopList(contacts) == true){
+    if (Lister.checkCanLoopList(contacts) == true){
 
       for (int i = 0; i < contacts!.length; i++){
 
@@ -404,7 +405,7 @@ class ContactModel {
 
     String? _contactValue;
 
-    if (Mapper.checkCanLoopList(contacts) == true){
+    if (Lister.checkCanLoopList(contacts) == true){
 
       _contactValue = getContactFromContacts(
         contacts: contacts,
@@ -627,7 +628,7 @@ class ContactModel {
     String invoker = 'Contacts Models',
   }){
 
-    if (Mapper.checkCanLoopList(contacts) == true){
+    if (Lister.checkCanLoopList(contacts) == true){
       for (final ContactModel contact in contacts!){
 
         contact.blogContact(

@@ -1,13 +1,13 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/city_tile_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/country_tile_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class CitiesScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -43,7 +43,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
       valueListenable: countryCities,
       builder: (_, List<CityModel> cities, Widget? child){
 
-        if (Mapper.checkCanLoopList(cities) == false){
+        if (Lister.checkCanLoopList(cities) == false){
           return const SizedBox();
         }
 
@@ -65,7 +65,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
 
                 else {
 
-                  final CityModel? _city = Mapper.checkCanLoopList(cities) == true ? cities.first : null;
+                  final CityModel? _city = Lister.checkCanLoopList(cities) == true ? cities.first : null;
                   final String? _countryID = CityModel.getCountryIDFromCityID(_city?.cityID);
 
                   return CountryTileButton(

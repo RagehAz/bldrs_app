@@ -1,7 +1,11 @@
 import 'dart:async';
 import 'dart:typed_data';
+
 import 'package:basics/helpers/classes/files/file_size_unit.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
@@ -11,9 +15,6 @@ import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
 
 /// => TAMAM
 class ComposeUserProtocols {
@@ -91,7 +92,7 @@ class ComposeUserProtocols {
         url: picURL,
       );
 
-      if (Mapper.checkCanLoopList(_bytes) == true){
+      if (Lister.checkCanLoopList(_bytes) == true){
 
         final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
         final String? _picPath = StoragePath.users_userID_pic(userID);

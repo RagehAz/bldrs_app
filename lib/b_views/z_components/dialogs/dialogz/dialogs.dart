@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
@@ -839,7 +840,7 @@ class Dialogs {
   }) async {
     BzModel? _output;
 
-    if (Mapper.checkCanLoopList(bzzModels) == true){
+    if (Lister.checkCanLoopList(bzzModels) == true){
 
       final BuildContext context = getMainContext();
 
@@ -1412,7 +1413,7 @@ class Dialogs {
       flyersIDs: flyersIDs,
     );
 
-    if (Mapper.checkCanLoopList(_posters) == true){
+    if (Lister.checkCanLoopList(_posters) == true){
 
       _continue = await picsDialog(
         pics: _posters,

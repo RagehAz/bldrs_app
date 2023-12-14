@@ -66,7 +66,7 @@ bool allChainsCanNotBeBuiltt({
 /*
 /// TESTED : WORKS PERFECT
 bool canBuildChain(Chain chain){
-  return Mapper.checkCanLoopList(chain?.sons) == true;
+  return Lister.checkCanLoopList(chain?.sons) == true;
 }
  */
 // -----------------------------------------------------------------------------

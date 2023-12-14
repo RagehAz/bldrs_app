@@ -1,8 +1,8 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:basics/ldb/methods/ldb_ops.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class PickerLDBOps{
   // -----------------------------------------------------------------------------
@@ -20,7 +20,7 @@ class PickerLDBOps{
     required FlyerType? flyerType,
   }) async {
 
-    if (Mapper.checkCanLoopList(pickers) == true) {
+    if (Lister.checkCanLoopList(pickers) == true) {
       await LDBOps.insertMap(
         docName: LDBDoc.pickers,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pickers),
@@ -54,7 +54,7 @@ class PickerLDBOps{
         ids: <String>[_pickersID]
     );
 
-    if (Mapper.checkCanLoopList(_maps) == true){
+    if (Lister.checkCanLoopList(_maps) == true){
 
       final Map<String, dynamic> _map = _maps.first['pickers'];
 
@@ -77,7 +77,7 @@ class PickerLDBOps{
     required FlyerType flyerType,
   }) async {
 
-    if (Mapper.checkCanLoopList(pickers) == true){
+    if (Lister.checkCanLoopList(pickers) == true){
       await LDBOps.insertMap(
         docName: LDBDoc.pickers,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pickers),

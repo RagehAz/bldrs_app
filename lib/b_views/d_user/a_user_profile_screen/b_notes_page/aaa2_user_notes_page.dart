@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/b_notes_page/x2_user_notes_page_controllers.dart';
@@ -121,7 +121,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
   /// TESTED : WORKS PERFECT
   void _collectUnseenNotesToMarkAtDispose(List<Map<String, dynamic>> paginatorMaps){
 
-    if (Mapper.checkCanLoopList(paginatorMaps) == true){
+    if (Lister.checkCanLoopList(paginatorMaps) == true){
 
       /// DECIPHER NEW MAPS TO NOTES
       final List<NoteModel> _newNotes = NoteModel.decipherNotes(
@@ -208,7 +208,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
           paginationController: _paginationController,
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget? child){
 
-            if (Mapper.checkCanLoopList(maps) == true){
+            if (Lister.checkCanLoopList(maps) == true){
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 controller: _paginationController?.scrollController,

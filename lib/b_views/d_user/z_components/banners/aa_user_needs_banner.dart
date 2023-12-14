@@ -89,7 +89,7 @@
 //         ),
 //
 //         /// SPECS
-//         // if (Mapper.checkCanLoopList(userModel?.need?.scope) == true)
+//         // if (Lister.checkCanLoopList(userModel?.need?.scope) == true)
 //         //   SpecsBuilder(
 //         //     pageWidth: PageBubble.clearWidth(context),
 //         //     specs: SpecModel.generateSpecsByPhids(

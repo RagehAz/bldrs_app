@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -52,7 +52,7 @@ class AuthorsWrap extends StatelessWidget {
         spacing: 10,
         children: <Widget>[
 
-          if (Mapper.checkCanLoopList(_authors) == true)
+          if (Lister.checkCanLoopList(_authors) == true)
             ...List.generate( _authors!.length, (index){
 
               final AuthorModel _author = _authors[index];

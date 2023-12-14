@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
@@ -7,7 +8,6 @@ import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 // -----------------------------------------------------------------------------
@@ -129,7 +129,7 @@ Future<List<String>> _searchKeywordsPhrases({
   blog('_searchKeywordsPhrases : found ${_searched.length} phrases');
 
 
-  if (Mapper.checkCanLoopList(_searched) == true) {
+  if (Lister.checkCanLoopList(_searched) == true) {
 
     _phids = Phrase.getPhrasesIDs(_searched);
 
@@ -162,7 +162,7 @@ List<String> _removeCurrenciesFromPhids({
 }){
   final List<String> _output = <String>[];
 
-  if (Mapper.checkCanLoopList(phids) == true){
+  if (Lister.checkCanLoopList(phids) == true){
 
     for (final String phid in phids){
 
@@ -186,10 +186,10 @@ List<String> _removePhidsOutOfScope({
 }){
   List<String> _output = <String>[];
 
-  if (Mapper.checkCanLoopList(phids) == true){
+  if (Lister.checkCanLoopList(phids) == true){
     _output = <String>[...phids];
 
-    if (Mapper.checkCanLoopList(scope) == true){
+    if (Lister.checkCanLoopList(scope) == true){
 
       for (final String phid in phids){
 
@@ -218,7 +218,7 @@ List<Chain> _getChainsFromPhids({
 
   List<Chain> _chains = <Chain>[];
 
-  if (Mapper.checkCanLoopList(phids) == true){
+  if (Lister.checkCanLoopList(phids) == true){
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
 
@@ -241,7 +241,7 @@ Future<void> _setFoundResults({
 }) async {
 
   /// found results
-  if (Mapper.checkCanLoopList(foundChainsResult) == true) {
+  if (Lister.checkCanLoopList(foundChainsResult) == true) {
 
     setNotifier(
         notifier: foundChainsNotifier,

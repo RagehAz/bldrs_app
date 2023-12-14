@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:basics/helpers/models/flag_model.dart';
@@ -176,7 +177,7 @@ class SearchModel {
   }){
     final List<Map<String, dynamic>> _output = [];
 
-    if (Mapper.checkCanLoopList(models) == true){
+    if (Lister.checkCanLoopList(models) == true){
 
       for (final SearchModel model in models){
 
@@ -223,7 +224,7 @@ class SearchModel {
   }){
     final List<SearchModel> _output = [];
 
-    if (Mapper.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoopList(maps) == true){
 
       for (final Map<String, dynamic> map in maps){
 
@@ -251,7 +252,7 @@ class SearchModel {
     required List<SearchModel> models,
   }){
 
-    if (Mapper.checkCanLoopList(models) == true){
+    if (Lister.checkCanLoopList(models) == true){
       final List<SearchModel> _models = [...models];
 
       _models.sort((a, b) => b.time!.compareTo(a.time!));

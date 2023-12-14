@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
@@ -38,7 +39,7 @@ class NoteProtocols {
 
     blog('should compose note to multiple receivers');
 
-    // if (Mapper.checkCanLoopList(receiversIDs) == true && note != null){
+    // if (Lister.checkCanLoopList(receiversIDs) == true && note != null){
     //
     //   NoteModel _note = await _uploadNotePoster(
     //     context: context,
@@ -594,7 +595,7 @@ class NoteProtocols {
           ),
         );
 
-        if (Mapper.checkCanLoopList(_maps) == true){
+        if (Lister.checkCanLoopList(_maps) == true){
 
           final List<NoteModel> _notes = NoteModel.decipherNotes(
             maps: _maps,
@@ -612,7 +613,7 @@ class NoteProtocols {
       }
 
       /// DELETE ALL NOTES
-      if (Mapper.checkCanLoopList(_notesToDelete) == true){
+      if (Lister.checkCanLoopList(_notesToDelete) == true){
 
         await Future.wait(<Future>[
 
@@ -769,7 +770,7 @@ class NoteProtocols {
     required bool renovateUser,
   }) async {
 
-    if (Mapper.checkCanLoopList(bzzIDs) == true){
+    if (Lister.checkCanLoopList(bzzIDs) == true){
 
       await Future.wait(<Future>[
 

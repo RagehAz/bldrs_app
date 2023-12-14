@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
@@ -120,7 +120,7 @@ class UserInitializer {
       _report('noID : _withoutAnonymous : ${_withoutAnonymous.length}');
 
       /// HAS NORMAL ACCOUNT IN LDB ALREADY
-      if (Mapper.checkCanLoopList(_withoutAnonymous) == true){
+      if (Lister.checkCanLoopList(_withoutAnonymous) == true){
         _continue = await _signInAccount(account: _withoutAnonymous.first);
       }
 
@@ -146,7 +146,7 @@ class UserInitializer {
         _report('noLDB : _signedUpUsers _continue : ${_signedUpUsers.length}');
 
         /// HAS A FIRE USER MODELS LOST FROM LDB
-        if (Mapper.checkCanLoopList(_signedUpUsers) == true){
+        if (Lister.checkCanLoopList(_signedUpUsers) == true){
 
           await AccountLDBOps.insertUserModels(
             users: _signedUpUsers,
@@ -430,7 +430,7 @@ class UserInitializer {
 
       }
 
-      if (Mapper.checkCanLoopList(_topicsIShouldSubscribeTo) == true){
+      if (Lister.checkCanLoopList(_topicsIShouldSubscribeTo) == true){
 
         /// UNSUBSCRIBE
         await Future.wait(<Future>[

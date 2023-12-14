@@ -39,7 +39,7 @@ Future<void> onSearchUsers({
 
     final List<UserModel> _users = await UserFireSearchOps.usersByUserName(
       name: _fixedText,
-      // startAfter: Mapper.checkCanLoopList(foundUsers?.value) ? foundUsers?.value?.last?.docSnapshot : null,
+      // startAfter: Lister.checkCanLoopList(foundUsers?.value) ? foundUsers?.value?.last?.docSnapshot : null,
       userIDsToExclude: userIDsToExclude,
     );
 

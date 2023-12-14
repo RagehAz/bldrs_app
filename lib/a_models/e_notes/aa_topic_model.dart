@@ -1,12 +1,12 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 /// => TAMAM
 class TopicModel {
@@ -295,7 +295,7 @@ class TopicModel {
   }){
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(bzzIDs) == true){
+    if (Lister.checkCanLoopList(bzzIDs) == true){
 
       for (final String bzID in bzzIDs){
 
@@ -350,7 +350,7 @@ class TopicModel {
   }) async {
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(bzzModels) == true){
+    if (Lister.checkCanLoopList(bzzModels) == true){
 
       for (final BzModel bz in bzzModels!){
 
@@ -360,7 +360,7 @@ class TopicModel {
             receiverPartyType: PartyType.bz,
         );
 
-        if (Mapper.checkCanLoopList(bz.authors) == true){
+        if (Lister.checkCanLoopList(bz.authors) == true){
 
           for (final AuthorModel _author in bz.authors!) {
             final bool _isSubscribed = await _checkUserIsSubscribedToTopic(
@@ -391,7 +391,7 @@ class TopicModel {
   }) async {
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(usersModels) == true){
+    if (Lister.checkCanLoopList(usersModels) == true){
 
       for (final UserModel user in usersModels){
 
@@ -535,7 +535,7 @@ class TopicModel {
   }){
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(topics) == true){
+    if (Lister.checkCanLoopList(topics) == true){
 
       for (final String topic in topics){
 
@@ -557,7 +557,7 @@ class TopicModel {
   }){
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(topics) == true && bzID != null){
+    if (Lister.checkCanLoopList(topics) == true && bzID != null){
 
       for (final String topic in topics!){
 
@@ -583,7 +583,7 @@ class TopicModel {
   }){
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(topics) == true){
+    if (Lister.checkCanLoopList(topics) == true){
 
       final List<String> _userPossibleTopics = getAllPossibleUserTopicsIDs();
 

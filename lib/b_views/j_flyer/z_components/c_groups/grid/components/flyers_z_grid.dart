@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_light_flyer_structure/b_light_big_flyer.dart';
@@ -156,7 +157,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
 
     final int _flyerIndex = widget.showAddFlyerButton == true ? flyerIndex-1 : flyerIndex;
 
-    final FlyerModel? _flyerModel = Mapper.checkCanLoopList(widget.flyers) == true ?
+    final FlyerModel? _flyerModel = Lister.checkCanLoopList(widget.flyers) == true ?
     widget.flyers![_flyerIndex]
         :
     null;

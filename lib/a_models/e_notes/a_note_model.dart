@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/pathing.dart';
@@ -237,7 +238,7 @@ class NoteModel {
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Mapper.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoopList(notes) == true){
 
       for (final NoteModel note in notes){
         _maps.add(note.toMap(toJSON: toJSON));
@@ -314,7 +315,7 @@ class NoteModel {
   }) {
     final List<NoteModel> _notesModels = <NoteModel>[];
 
-    if (Mapper.checkCanLoopList(maps) == true) {
+    if (Lister.checkCanLoopList(maps) == true) {
       for (final Map<String, dynamic> map in maps!) {
 
         final NoteModel? _notiModel = decipherNote(
@@ -437,7 +438,7 @@ class NoteModel {
     String? invoker,
   }){
 
-    if (Mapper.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoopList(notes) == true){
 
       for (final NoteModel note in notes!){
 
@@ -466,7 +467,7 @@ class NoteModel {
 
     final List<String> _output = <String>[];
 
-    if (Mapper.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoopList(notes) == true){
 
       for (final NoteModel note in notes!){
         if (note.parties?.receiverID != null){
@@ -487,7 +488,7 @@ class NoteModel {
 
     NoteModel? _output;
 
-    if (Mapper.checkCanLoopList(notes) == true && receiverID != null){
+    if (Lister.checkCanLoopList(notes) == true && receiverID != null){
 
       _output = notes!.firstWhereOrNull(
               (note) => note.parties?.receiverID == receiverID
@@ -505,14 +506,14 @@ class NoteModel {
   }){
     final List<NoteModel> _notes = <NoteModel>[];
 
-    if (Mapper.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoopList(notes) == true){
 
       final List<NoteModel>? _found = notes?.where((note){
 
         return note.parties?.receiverID == receiverID;
       }).toList();
 
-      if (Mapper.checkCanLoopList(_found) == true){
+      if (Lister.checkCanLoopList(_found) == true){
         _notes.addAll(_found!);
       }
 
@@ -528,7 +529,7 @@ class NoteModel {
   }){
     final List<NoteModel> _output = <NoteModel>[];
 
-    if (Mapper.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoopList(notes) == true){
 
       for (final NoteModel note in notes){
 
@@ -551,7 +552,7 @@ class NoteModel {
   static int getNumberOfUnseenNotes(List<NoteModel> notes){
     int _count = 0;
 
-    if (Mapper.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoopList(notes) == true){
 
       for (final NoteModel note in notes){
         if (note.seen == false){
@@ -571,7 +572,7 @@ class NoteModel {
   }){
     final List<NoteModel> _notes = <NoteModel>[];
 
-    if (Mapper.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoopList(notes) == true){
 
       for (final NoteModel note in notes){
 
@@ -594,7 +595,7 @@ class NoteModel {
   }){
     final List<NoteModel> _output = <NoteModel>[];
 
-    if (Mapper.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoopList(notes) == true){
 
       for (final NoteModel note in notes){
 
@@ -718,7 +719,7 @@ class NoteModel {
   static bool checkThereAreUnSeenNotes(List<NoteModel> notes){
     bool _thereAreUnseenNotes = false;
 
-    if (Mapper.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoopList(notes) == true){
 
       for (final NoteModel note in notes){
 
@@ -788,7 +789,7 @@ class NoteModel {
 
     bool _contains = false;
 
-    if (Mapper.checkCanLoopList(notes) == true && noteID != null){
+    if (Lister.checkCanLoopList(notes) == true && noteID != null){
 
       for (final NoteModel noteModel in notes!){
         if (noteModel.id == noteID){
@@ -925,7 +926,7 @@ class NoteModel {
   }){
     List<NoteModel> _output = notesToGet ?? <NoteModel>[];
 
-    if (Mapper.checkCanLoopList(notesToInsert) == true){
+    if (Lister.checkCanLoopList(notesToInsert) == true){
 
       for (final NoteModel note in notesToInsert!){
 
@@ -955,7 +956,7 @@ class NoteModel {
 
     // blog('removeNoteFromNotes : notes : ${_output.length}');
 
-    if (Mapper.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoopList(notes) == true){
 
       final int _index = notes!.indexWhere((note) => note.id == noteID);
 
@@ -979,7 +980,7 @@ class NoteModel {
 
     List<NoteModel> _output = sourceNotes ?? <NoteModel>[];
 
-    if (Mapper.checkCanLoopList(notesToRemove) == true && Mapper.checkCanLoopList(_output) == true){
+    if (Lister.checkCanLoopList(notesToRemove) == true && Lister.checkCanLoopList(_output) == true){
 
       for (final NoteModel note in notesToRemove){
 
@@ -1002,7 +1003,7 @@ class NoteModel {
   }){
     final List<NoteModel> _output = <NoteModel>[];
 
-    if (Mapper.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoopList(notes) == true){
 
       _output.addAll(notes);
 
@@ -1034,7 +1035,7 @@ class NoteModel {
 
     final List<String> _bzzIDs = bzzNotesMap.keys.toList();
 
-    if (Mapper.checkCanLoopList(_bzzIDs) == true){
+    if (Lister.checkCanLoopList(_bzzIDs) == true){
 
       for (final String bzID in _bzzIDs){
 
@@ -1076,7 +1077,7 @@ class NoteModel {
 
     final List<String> _bzzIDs = bzzNotesMap.keys.toList();
 
-    if (Mapper.checkCanLoopList(_bzzIDs) == true){
+    if (Lister.checkCanLoopList(_bzzIDs) == true){
 
       for (final String bzID in _bzzIDs){
 
@@ -1116,7 +1117,7 @@ class NoteModel {
   /*
   /// TESTED : WORKS PERFECT
   static List<NoteModel> sortNotesBySentTime(List<NoteModel> notes){
-    if (Mapper.checkCanLoopList(notes) == true){
+    if (Lister.checkCanLoopList(notes) == true){
       notes.sort((NoteModel a, NoteModel b) => b.sentTime.compareTo(a.sentTime));
     }
     return notes;
@@ -1319,7 +1320,7 @@ class NoteModel {
   }){
     bool _areIdentical = true;
 
-    if (Mapper.checkCanLoopList(notes1) == true && Mapper.checkCanLoopList(notes2) == true){
+    if (Lister.checkCanLoopList(notes1) == true && Lister.checkCanLoopList(notes2) == true){
 
       if (notes1!.length != notes2!.length){
         _areIdentical = false;

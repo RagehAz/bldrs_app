@@ -3,19 +3,19 @@ import 'dart:async';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
+import 'package:bldrs/b_views/a_starters/d_home_flyer_type_selector/floating_flyer_type_selector.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
-import 'package:bldrs/b_views/a_starters/d_home_flyer_type_selector/floating_flyer_type_selector.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
@@ -128,7 +128,7 @@ List<NavModel?> generateMainNavModels({
       null,
 
     /// MY BZZ
-    if (Mapper.checkCanLoopList(bzzModels) == true)
+    if (Lister.checkCanLoopList(bzzModels) == true)
     ...List.generate(bzzModels!.length, (index){
 
       final BzModel _bzModel = bzzModels[index];

@@ -1,14 +1,14 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/future_user_tile_button.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page_controllers.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class PendingAuthorsBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -25,7 +25,7 @@ class PendingAuthorsBubble extends StatelessWidget {
     );
 
     /// PENDING AUTHORS EXIST
-    if (Mapper.checkCanLoopList(_bzModel?.pendingAuthors) == true){
+    if (Lister.checkCanLoopList(_bzModel?.pendingAuthors) == true){
 
       return Bubble(
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
@@ -41,7 +41,7 @@ class PendingAuthorsBubble extends StatelessWidget {
         // },
         columnChildren: <Widget>[
 
-          if (Mapper.checkCanLoopList(_bzModel?.pendingAuthors) == true)
+          if (Lister.checkCanLoopList(_bzModel?.pendingAuthors) == true)
           ...List.generate(_bzModel!.pendingAuthors!.length, (index){
 
             final String _userID = _bzModel.pendingAuthors![index].userID;

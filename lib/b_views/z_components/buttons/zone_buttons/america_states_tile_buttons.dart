@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/models/flag_model.dart';
@@ -46,7 +46,7 @@ class AmericaStatesTileButtons extends StatelessWidget {
   static bool checkUSABoxIsActive({
     required List<String> activeStatesIDs,
   }){
-    return Mapper.checkCanLoopList(activeStatesIDs);
+    return Lister.checkCanLoopList(activeStatesIDs);
   }
   // --------------------
   /// TESTED : WORKS PERFECT

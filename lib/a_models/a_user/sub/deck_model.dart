@@ -1,6 +1,6 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -211,7 +211,7 @@ class DeckModel {
   }){
     DeckModel _newDeck = deckModel ?? newDeck();
 
-    if (Mapper.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers!){
 
@@ -324,7 +324,7 @@ class DeckModel {
   }){
     DeckModel _newDeck = deckModel ?? newDeck();
 
-    if (Mapper.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers!){
 
@@ -437,7 +437,7 @@ class DeckModel {
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
-    if (Mapper.checkCanLoopList(flyers) == true){
+    if (Lister.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers!){
 
@@ -539,7 +539,7 @@ class DeckModel {
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
-    if (Mapper.checkCanLoopList(flyersIDs) == true){
+    if (Lister.checkCanLoopList(flyersIDs) == true){
 
       for (final String flyerID in flyersIDs!){
 
@@ -602,14 +602,14 @@ class DeckModel {
     else if (deck1 != null && deck2 != null){
 
       if (
-        Mapper.checkListsAreIdentical(list1: deck1.general,       list2: deck2.general) == true &&
-        Mapper.checkListsAreIdentical(list1: deck1.all,           list2: deck2.all) == true &&
-        Mapper.checkListsAreIdentical(list1: deck1.properties,    list2: deck2.properties) == true &&
-        Mapper.checkListsAreIdentical(list1: deck1.designs,       list2: deck2.designs) == true &&
-        Mapper.checkListsAreIdentical(list1: deck1.undertakings,  list2: deck2.undertakings) == true &&
-        Mapper.checkListsAreIdentical(list1: deck1.trades,        list2: deck2.trades) == true &&
-        Mapper.checkListsAreIdentical(list1: deck1.products,      list2: deck2.products) == true &&
-        Mapper.checkListsAreIdentical(list1: deck1.equipment,     list2: deck2.equipment) == true
+        Lister.checkListsAreIdentical(list1: deck1.general,       list2: deck2.general) == true &&
+        Lister.checkListsAreIdentical(list1: deck1.all,           list2: deck2.all) == true &&
+        Lister.checkListsAreIdentical(list1: deck1.properties,    list2: deck2.properties) == true &&
+        Lister.checkListsAreIdentical(list1: deck1.designs,       list2: deck2.designs) == true &&
+        Lister.checkListsAreIdentical(list1: deck1.undertakings,  list2: deck2.undertakings) == true &&
+        Lister.checkListsAreIdentical(list1: deck1.trades,        list2: deck2.trades) == true &&
+        Lister.checkListsAreIdentical(list1: deck1.products,      list2: deck2.products) == true &&
+        Lister.checkListsAreIdentical(list1: deck1.equipment,     list2: deck2.equipment) == true
       ){
         _areIdentical = true;
       }

@@ -1,6 +1,6 @@
 import 'dart:ui' as ui;
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 @immutable
 class Cacher {
@@ -24,7 +24,7 @@ class Cacher {
   }){
     Cacher? _output;
 
-    if (Mapper.checkCanLoopList(cachers) == true && cacherID != null){
+    if (Lister.checkCanLoopList(cachers) == true && cacherID != null){
 
       for (final Cacher cacher in cachers!){
 
@@ -86,7 +86,7 @@ class Cacher {
   }){
     final List<Cacher> _output = <Cacher>[...?cachers];
 
-    if (Mapper.checkCanLoopList(cachers) == true && cacherID != null){
+    if (Lister.checkCanLoopList(cachers) == true && cacherID != null){
 
       final Cacher? _cacher = Cacher.getCacherFromCachers(
         cachers: cachers,
@@ -114,7 +114,7 @@ class Cacher {
   }){
     bool _contains = false;
 
-    if (Mapper.checkCanLoopList(cachers) == true && cacherID != null){
+    if (Lister.checkCanLoopList(cachers) == true && cacherID != null){
 
       for (final Cacher cacher in cachers!){
 

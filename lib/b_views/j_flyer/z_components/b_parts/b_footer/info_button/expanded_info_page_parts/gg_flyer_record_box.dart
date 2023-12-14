@@ -1,6 +1,6 @@
 import 'package:basics/animators/helpers/app_scroll_behavior.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/g_statistics/records/flyer_save_model.dart';
@@ -162,7 +162,7 @@ class UsersStripBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Mapper.checkCanLoopList(usersIDs) == false){
+    if (Lister.checkCanLoopList(usersIDs) == false){
       return const SizedBox();
     }
 

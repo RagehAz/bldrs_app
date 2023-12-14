@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/ldb/a_country_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/real/a_country_real_ops.dart';
@@ -88,7 +88,7 @@ class CountryProtocols {
   }) async {
     final List<CountryModel> _output = <CountryModel>[];
 
-    if (Mapper.checkCanLoopList(countriesIDs) == true){
+    if (Lister.checkCanLoopList(countriesIDs) == true){
 
       await Future.wait(<Future>[
 

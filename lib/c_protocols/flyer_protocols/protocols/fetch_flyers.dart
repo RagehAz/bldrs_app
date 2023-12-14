@@ -1,16 +1,16 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 
 /// => TAMAM
 class FetchFlyerProtocols {
@@ -79,7 +79,7 @@ class FetchFlyerProtocols {
 
     final List<FlyerModel> _flyers = <FlyerModel>[];
 
-    if (Mapper.checkCanLoopList(flyersIDs)){
+    if (Lister.checkCanLoopList(flyersIDs) == true){
 
       await Future.wait(<Future>[
 
@@ -171,7 +171,7 @@ class FetchFlyerProtocols {
 
         final List<String>? _ids = bzModel.publication.published;
 
-        if (Mapper.checkCanLoopList(_ids) == true){
+        if (Lister.checkCanLoopList(_ids) == true){
 
           final List<SlideModel> _bzSlides = <SlideModel>[];
 
@@ -183,7 +183,7 @@ class FetchFlyerProtocols {
               flyerID: _flyerID,
             );
 
-            if (Mapper.checkCanLoopList(_flyer?.slides) == true){
+            if (Lister.checkCanLoopList(_flyer?.slides) == true){
 
               for (final SlideModel _slide in _flyer!.slides!) {
                 _bzSlides.add(_slide);

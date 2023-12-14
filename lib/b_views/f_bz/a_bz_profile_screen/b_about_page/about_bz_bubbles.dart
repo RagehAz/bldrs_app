@@ -1,5 +1,5 @@
 import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
@@ -69,7 +69,7 @@ class AboutBzBubbles extends StatelessWidget {
           ),
 
         /// SCOPE
-        if (Mapper.checkCanLoopList(_scopePhids) == true)
+        if (Lister.checkCanLoopList(_scopePhids) == true)
           BzScopeBubble(
             headline: const Verse(
               id: 'phid_scopeOfServices',
@@ -85,7 +85,7 @@ class AboutBzBubbles extends StatelessWidget {
         ),
 
         /// BZ CONTACT
-        if (showContacts == true && Mapper.checkCanLoopList(bzModel?.contacts) == true)
+        if (showContacts == true && Lister.checkCanLoopList(bzModel?.contacts) == true)
           ContactsBubble(
             contacts: bzModel?.contacts,
             location: bzModel?.position,
@@ -102,7 +102,7 @@ class AboutBzBubbles extends StatelessWidget {
         ),
 
         /// BZ FLYERS
-        if (showGallery == true && Mapper.checkCanLoopList(bzModel?.publication.published) == true)
+        if (showGallery == true && Lister.checkCanLoopList(bzModel?.publication.published) == true)
         BzFlyersBubble(
           bzModel: bzModel,
         ),

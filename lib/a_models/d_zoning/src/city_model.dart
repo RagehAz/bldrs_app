@@ -98,7 +98,7 @@ class CityModel {
   }) {
     final List<Map<String, dynamic>> _output = [];
 
-    if (Mapper.checkCanLoopList(cities) == true){
+    if (Lister.checkCanLoopList(cities) == true){
 
       for (final CityModel _city in cities!){
 
@@ -155,7 +155,7 @@ class CityModel {
   }) {
     final List<CityModel> _cities = <CityModel>[];
 
-    if (Mapper.checkCanLoopList(maps) == true) {
+    if (Lister.checkCanLoopList(maps) == true) {
       for (final Map<String, dynamic> map in maps) {
 
         final CityModel? _city = decipherCity(
@@ -240,7 +240,7 @@ class CityModel {
   }){
     List<String> _output = [];
 
-    if (Mapper.checkCanLoopList(citiesIDs) == true){
+    if (Lister.checkCanLoopList(citiesIDs) == true){
 
       for (final String cityID in citiesIDs){
 
@@ -269,7 +269,7 @@ class CityModel {
   }){
     final List<String> _output = [];
 
-    if (Mapper.checkCanLoopList(citiesIDs) == true && countryID != null){
+    if (Lister.checkCanLoopList(citiesIDs) == true && countryID != null){
 
       for (final String cityID in citiesIDs){
 
@@ -314,7 +314,7 @@ class CityModel {
   }) {
     final List<MapModel> _citiesMapModels = <MapModel>[];
 
-    if (Mapper.checkCanLoopList(cities)) {
+    if (Lister.checkCanLoopList(cities)) {
       for (final CityModel city in cities) {
 
         _citiesMapModels.add(MapModel(
@@ -357,7 +357,7 @@ class CityModel {
     required String cityID,
   }) {
     CityModel _city;
-    if (Mapper.checkCanLoopList(cities) == true) {
+    if (Lister.checkCanLoopList(cities) == true) {
       _city = cities.firstWhere((CityModel city) => city.cityID == cityID,
           orElse: () => null);
     }
@@ -372,7 +372,7 @@ class CityModel {
   }){
     final List<CityModel> _output = [];
 
-    if (Mapper.checkCanLoopList(citiesModels) == true && Mapper.checkCanLoopList(citiesIDs) == true){
+    if (Lister.checkCanLoopList(citiesModels) == true && Lister.checkCanLoopList(citiesIDs) == true){
 
       for (final CityModel city in citiesModels!){
 
@@ -402,7 +402,7 @@ class CityModel {
 
     final List<String> _citiesIDs = <String>[];
 
-    if (Mapper.checkCanLoopList(cities) == true) {
+    if (Lister.checkCanLoopList(cities) == true) {
       for (final CityModel city in cities!) {
         if (city.cityID != null){
           _citiesIDs.add(city.cityID!);
@@ -455,7 +455,7 @@ class CityModel {
   /// TESTED : WORKS PERFECT
   static void blogCities(List<CityModel> cities){
 
-    if (Mapper.checkCanLoopList(cities) == true){
+    if (Lister.checkCanLoopList(cities) == true){
       for (final CityModel city in cities){
         city.blogCity();
       }
@@ -544,7 +544,7 @@ class CityModel {
   }){
     List<CityModel> _output = <CityModel>[];
 
-    if (Mapper.checkCanLoopList(cities) == true){
+    if (Lister.checkCanLoopList(cities) == true){
 
       _output = cities!;
 
@@ -586,7 +586,7 @@ class CityModel {
 
     List<CityModel> _output = <CityModel>[];
 
-    if (Mapper.checkCanLoopList(cities) == true){
+    if (Lister.checkCanLoopList(cities) == true){
       _output = cities!;
     }
 
@@ -645,7 +645,7 @@ class CityModel {
   static bool checkCitiesIncludeCityID(List<CityModel>? cities, String? cityID){
     bool _output = false;
 
-    if (Mapper.checkCanLoopList(cities) == true && cityID != null){
+    if (Lister.checkCanLoopList(cities) == true && cityID != null){
       for (final CityModel city in cities!){
         if (city.cityID == cityID){
           _output = true;

@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/widgets/drawing/expander.dart';
@@ -155,7 +155,7 @@ class BzContactsBubble extends StatelessWidget {
             children: <Widget>[
 
               /// CONTACTS
-              if (Mapper.checkCanLoopList(bzModel?.contacts) == true)
+              if (Lister.checkCanLoopList(bzModel?.contacts) == true)
               ...List.generate(bzModel!.contacts!.length, (index){
 
                 final ContactModel _contact = bzModel!.contacts![index];

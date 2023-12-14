@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -179,7 +180,7 @@ Future<bool> _authorshipDeletionCheckups() async {
       );
 
       /// USER HAS CREATED SOME BZZ
-      if (Mapper.checkCanLoopList(_myBzzICreated) == true){
+      if (Lister.checkCanLoopList(_myBzzICreated) == true){
 
         /// SHOW WILL DELETE BZZ DIALOG
         _canDelete = await Dialogs.bzzBannersDialog(
@@ -210,7 +211,7 @@ Future<bool> _authorshipDeletionCheckups() async {
 
       /// USER IS AUTHOR BUT DID NOT CREATE ANY BZZ
       if (_canDelete == true){
-        if (Mapper.checkCanLoopList(_myBzzIDidNotCreate) == true){
+        if (Lister.checkCanLoopList(_myBzzIDidNotCreate) == true){
 
             /// SHOW WILL EXIT BZZ DIALOG
             _canDelete = await Dialogs.bzzBannersDialog(

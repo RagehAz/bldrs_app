@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
@@ -224,7 +225,7 @@ class ImagifyFlyerProtocols {
     if (flyerModel != null && mounted == true){
 
       /// SLIDES
-      if (Mapper.checkCanLoopList(flyerModel.slides) == true){
+      if (Lister.checkCanLoopList(flyerModel.slides) == true){
         for (int i = 0; i < flyerModel.slides!.length; i++){
           blog('disposeRenderedFlyer ($invoker) : ${flyerModel.id} => disposing flyer[$i] SLIDE '
               'IMAGE : '
@@ -278,7 +279,7 @@ class ImagifyFlyerProtocols {
 
       _output = flyerModel;
 
-      if (Mapper.checkCanLoopList(flyerModel.slides) == true){
+      if (Lister.checkCanLoopList(flyerModel.slides) == true){
 
         SlideModel _firstSlide = flyerModel.slides![0];
         final String? _frontPicPath = SlideModel.generateSlidePicPath(
@@ -348,7 +349,7 @@ class ImagifyFlyerProtocols {
 
       _output = flyerModel;
 
-      if (Mapper.checkCanLoopList(flyerModel.slides) == true){
+      if (Lister.checkCanLoopList(flyerModel.slides) == true){
 
         List<SlideModel> _flyerSlides = SlideModel.sortSlidesByIndexes(flyerModel.slides!);
 

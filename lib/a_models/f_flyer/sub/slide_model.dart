@@ -4,6 +4,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
@@ -90,7 +91,7 @@ class SlideModel {
   static Map<String, dynamic> cipherSlides(List<SlideModel>? slides) {
     Map<String, dynamic> _slidesMap = <String, dynamic>{};
 
-    if (Mapper.checkCanLoopList(slides) == true) {
+    if (Lister.checkCanLoopList(slides) == true) {
       for (final SlideModel slide in slides!) {
         _slidesMap = Mapper.insertPairInMap(
           map: _slidesMap,
@@ -112,7 +113,7 @@ class SlideModel {
     final List<SlideModel> _slides = <SlideModel>[];
     final List<String>? _keys = maps?.keys.toList();
 
-    if (Mapper.checkCanLoopList(_keys) == true) {
+    if (Lister.checkCanLoopList(_keys) == true) {
 
       final List<String> _sorted = Stringer.sortAlphabetically(_keys);
 
@@ -223,7 +224,7 @@ class SlideModel {
   static void blogSlides(List<SlideModel>? slides) {
 
     blog('blogSlides : ${slides?.length} SLIDES -----------------------------------------START');
-    if (Mapper.checkCanLoopList(slides) == false) {
+    if (Lister.checkCanLoopList(slides) == false) {
       blog('blogSlides : slides can not be printed : slides are : $slides');
     }
 
@@ -309,7 +310,7 @@ class SlideModel {
       blog(' > slides1.length [ ${slides1?.length} ] != [ ${slides2?.length} ] slides2.length');
     }
 
-    if (Mapper.checkCanLoopList(slides1) == true && Mapper.checkCanLoopList(slides2) == true){
+    if (Lister.checkCanLoopList(slides1) == true && Lister.checkCanLoopList(slides2) == true){
 
       if (slides1!.length != slides2!.length) {
         blog(' > maps1.length != maps2.length');
@@ -472,7 +473,7 @@ class SlideModel {
   }){
     final List<SlideModel> _output = [...?slides];
 
-    if (slide != null && Mapper.checkCanLoopList(_output) == true){
+    if (slide != null && Lister.checkCanLoopList(_output) == true){
 
       final int _index = _output.indexWhere((SlideModel x){
         return x.slideIndex == slide.slideIndex;
@@ -499,7 +500,7 @@ class SlideModel {
   static Future<List<File>> getImageFilesFromPublishedSlides(List<SlideModel> slides) async {
     final List<File> _files = <File>[];
 
-    if (Mapper.checkCanLoopList(slides)) {
+    if (Lister.checkCanLoopList(slides)) {
       for (final SlideModel slide in slides) {
         final File _file = await Filers.getFileFromURL(slide.picPath);
 
@@ -518,7 +519,7 @@ class SlideModel {
   }){
     final List<String> _paths = <String>[];
 
-    if (Mapper.checkCanLoopList(slides) == true){
+    if (Lister.checkCanLoopList(slides) == true){
 
       for (final SlideModel slide in slides!){
 
@@ -584,7 +585,7 @@ class SlideModel {
   static List<BoxFit> getSlidesBoxFits(List<SlideModel> slides) {
     final List<BoxFit> _boxFits = <BoxFit>[];
 
-    if (Mapper.checkCanLoopList(slides)) {
+    if (Lister.checkCanLoopList(slides)) {
       for (final SlideModel slide in slides) {
         final BoxFit _fit = slide.picFit;
 
@@ -665,7 +666,7 @@ class SlideModel {
   /// TESTED : WORKS PERFECT
   static List<SlideModel> sortSlidesByIndexes(List<SlideModel> slides){
 
-    if (Mapper.checkCanLoopList(slides) == true){
+    if (Lister.checkCanLoopList(slides) == true){
       final List<SlideModel> _slides = [...slides];
       _slides.sort((a, b) => a.slideIndex.compareTo(b.slideIndex));
       return _slides;
@@ -736,9 +737,9 @@ class SlideModel {
       _identical = true;
     }
     else if (
-        Mapper.checkCanLoopList(slides1) == true
+        Lister.checkCanLoopList(slides1) == true
         &&
-        Mapper.checkCanLoopList(slides2) == true
+        Lister.checkCanLoopList(slides2) == true
     ){
 
       if (slides1!.length == slides2!.length){

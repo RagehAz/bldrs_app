@@ -1,12 +1,12 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/jumper_flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/heroic_flyers_grid.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/jumper_flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/loading_flyers_grid.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 enum FlyerGridType {
   zoomable,
@@ -193,7 +193,7 @@ class FlyersGrid extends StatelessWidget {
           hasResponsiveSideMargin: hasResponsiveSideMargin,
           gridWidth: gridWidth ?? MediaQuery.of(context).size.width,
           gridHeight: gridHeight ?? MediaQuery.of(context).size.height,
-          flyersIDs: Mapper.checkCanLoopList(flyers) == false ? flyersIDs : null,
+          flyersIDs: Lister.checkCanLoopList(flyers) == false ? flyersIDs : null,
           flyers: flyers,
           columnCount: numberOfColumnsOrRows,
           onFlyerNotFound: onFlyerNotFound,

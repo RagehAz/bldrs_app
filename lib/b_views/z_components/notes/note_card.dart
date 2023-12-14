@@ -5,6 +5,7 @@ import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/bubbles/model/bubble_header_vm.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
@@ -112,7 +113,7 @@ class NoteCard extends StatelessWidget {
       widthOverride: bubbleWidth,
     );
     const double _moreButtonSize = 35;
-    final bool _noteHasButtons = Mapper.checkCanLoopList(noteModel?.poll?.buttons);
+    final bool _noteHasButtons = Lister.checkCanLoopList(noteModel?.poll?.buttons);
     // --------------------
     final double _bubbleWidth = bubbleWidth ?? getBubbleWidth(context);
     final double _clearWidth = Bubble.clearWidth(
@@ -258,7 +259,7 @@ class NoteCard extends StatelessWidget {
             ),
 
           /// BUTTONS
-          if (Mapper.checkCanLoopList(noteModel?.poll?.buttons) == true)
+          if (Lister.checkCanLoopList(noteModel?.poll?.buttons) == true)
             Container(
               width: _clearWidth,
               alignment: BldrsAligners.superInverseCenterAlignment(context),

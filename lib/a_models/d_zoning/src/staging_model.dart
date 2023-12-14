@@ -584,7 +584,7 @@ class StagingModel {
   }){
     List<String> _output = <String>[...?shownIDs];
 
-    if (Mapper.checkCanLoopList(_output) == true && myCityID != null){
+    if (Lister.checkCanLoopList(_output) == true && myCityID != null){
 
       final String? _shownCountryID = CityModel.getCountryIDFromCityID(_output.first);
       final String? _myCountryID = CityModel.getCountryIDFromCityID(myCityID);
@@ -651,7 +651,7 @@ class StagingModel {
       final List<String> _allIDs = staging.getAllIDs();
       final List<String>? _emptyStageIDs = staging.getIDsByType(StageType.emptyStage);
 
-      _output = Mapper.checkListsAreIdentical(
+      _output = Lister.checkListsAreIdentical(
           list1: _allIDs,
           list2: _emptyStageIDs,
       );
@@ -681,7 +681,7 @@ class StagingModel {
         viewerCountryID: viewerCountryID,
       );
 
-      _output = Mapper.checkCanLoopList(_ids);
+      _output = Lister.checkCanLoopList(_ids);
 
     }
 
@@ -723,10 +723,10 @@ class StagingModel {
 
     else if (staging1 != null && staging2 != null) {
       if (
-          Mapper.checkListsAreIdentical(list1: staging1.emptyStageIDs, list2: staging2.emptyStageIDs) == true &&
-          Mapper.checkListsAreIdentical(list1: staging1.bzzStageIDs, list2: staging2.bzzStageIDs) == true &&
-          Mapper.checkListsAreIdentical(list1: staging1.flyersStageIDs, list2: staging2.flyersStageIDs) == true &&
-          Mapper.checkListsAreIdentical(list1: staging1.publicStageIDs, list2: staging2.publicStageIDs) == true
+          Lister.checkListsAreIdentical(list1: staging1.emptyStageIDs, list2: staging2.emptyStageIDs) == true &&
+          Lister.checkListsAreIdentical(list1: staging1.bzzStageIDs, list2: staging2.bzzStageIDs) == true &&
+          Lister.checkListsAreIdentical(list1: staging1.flyersStageIDs, list2: staging2.flyersStageIDs) == true &&
+          Lister.checkListsAreIdentical(list1: staging1.publicStageIDs, list2: staging2.publicStageIDs) == true
       ) {
         _identical = true;
       }

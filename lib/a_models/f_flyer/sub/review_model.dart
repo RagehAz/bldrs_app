@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/foundation.dart';
@@ -139,7 +140,7 @@ class ReviewModel {
   }) {
     final List<ReviewModel> _reviews = <ReviewModel>[];
 
-    if (Mapper.checkCanLoopList(maps) == true) {
+    if (Lister.checkCanLoopList(maps) == true) {
       for (final Map<String, dynamic> map in maps!) {
 
         final ReviewModel? _review = decipherReview(
@@ -300,7 +301,7 @@ class ReviewModel {
 
       List<ReviewModel> _output = <ReviewModel>[];
 
-      if (Mapper.checkCanLoopList(reviews) == true){
+      if (Lister.checkCanLoopList(reviews) == true){
 
         _output = <ReviewModel>[... reviews];
         _output.sort((ReviewModel a, ReviewModel b) => b.time.compareTo(a.time));
@@ -368,7 +369,7 @@ class ReviewModel {
     String? invoker,
   }){
     blog('blogReviews : $invoker -------------------------------------- START');
-    if (Mapper.checkCanLoopList(reviews) == true){
+    if (Lister.checkCanLoopList(reviews) == true){
       for (final ReviewModel review in reviews){
         review.blogReview(invoker: invoker);
       }

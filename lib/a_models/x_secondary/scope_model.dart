@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -139,7 +140,7 @@ class ScopeModel {
 
       final List<String> _phids = getPhids(scope);
 
-      if (Mapper.checkCanLoopList(_phids) == true){
+      if (Lister.checkCanLoopList(_phids) == true){
 
         for (final String phid in _phids){
 
@@ -252,7 +253,7 @@ class ScopeModel {
               strings2: _flyersIDs,
           );
 
-          if (Mapper.checkCanLoopList(_sharedIDs) == true){
+          if (Lister.checkCanLoopList(_sharedIDs) == true){
             _output.add(phid);
           }
 
@@ -328,7 +329,7 @@ class ScopeModel {
 
       final List<String> _flyerPhids = flyer?.phids ?? [];
 
-      if (Mapper.checkCanLoopList(_flyerPhids) == true){
+      if (Lister.checkCanLoopList(_flyerPhids) == true){
 
         for (final String _flyerPhid in _flyerPhids){
 
@@ -359,7 +360,7 @@ class ScopeModel {
       final List<String> phids = getPhids(scope);
       final Map<String, dynamic> _newMap = Mapper.cloneMap(scope.toMap())!;
 
-      if (Mapper.checkCanLoopList(phids) == true){
+      if (Lister.checkCanLoopList(phids) == true){
 
         for (final String phid in phids){
 
@@ -413,7 +414,7 @@ class ScopeModel {
 
       final List<String> _phids = getPhids(scope);
 
-      if (Mapper.checkCanLoopList(_phids) == true){
+      if (Lister.checkCanLoopList(_phids) == true){
 
         Map<String, dynamic> _map = {};
 
@@ -424,7 +425,7 @@ class ScopeModel {
               phid: phid,
           );
 
-          if (Mapper.checkCanLoopList(_flyersIDs) == true){
+          if (Lister.checkCanLoopList(_flyersIDs) == true){
             _map = Mapper.insertPairInMap(
                 map: _map,
                 key: phid,
@@ -640,7 +641,7 @@ class ScopeModel {
   }){
     Map<String, dynamic> _output = scope ?? {};
 
-    if (Mapper.checkCanLoopList(phids) == true){
+    if (Lister.checkCanLoopList(phids) == true){
 
       for (final String phid in phids!){
 
@@ -663,7 +664,7 @@ class ScopeModel {
   }){
     Map<String, dynamic> _output = scope ?? {};
 
-    if (scope != null && Mapper.checkCanLoopList(phids) == true){
+    if (scope != null && Lister.checkCanLoopList(phids) == true){
 
       for (final String phid in phids!){
 
@@ -691,7 +692,7 @@ class ScopeModel {
   //
   //     final List<String> _phids = scope.keys.toList();
   //
-  //     if (Mapper.checkCanLoopList(_phids) == true){
+  //     if (Lister.checkCanLoopList(_phids) == true){
   //
   //       for (final String phid in _phids){
   //

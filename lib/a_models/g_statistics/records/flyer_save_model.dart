@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +53,7 @@ class FlyerSaveModel {
   }){
     final List<FlyerSaveModel> _output = [];
 
-    if (Mapper.checkCanLoopList(maps) == true){
+    if (Lister.checkCanLoopList(maps) == true){
 
       for (final Map<String, dynamic> map in maps!){
 
@@ -83,7 +83,7 @@ class FlyerSaveModel {
   }){
     List<String> _output = [];
 
-    if (Mapper.checkCanLoopList(models) == true){
+    if (Lister.checkCanLoopList(models) == true){
 
       for (final FlyerSaveModel model in models!){
         _output = Stringer.addStringToListIfDoesNotContainIt(

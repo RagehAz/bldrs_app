@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
@@ -9,7 +10,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/real/b_city
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class CityProtocols {
   // -----------------------------------------------------------------------------
@@ -106,7 +106,7 @@ class CityProtocols {
 
     final List<CityModel> _cities = <CityModel>[];
 
-    if (Mapper.checkCanLoopList(citiesIDs) == true){
+    if (Lister.checkCanLoopList(citiesIDs) == true){
 
       await Future.wait(<Future>[
 
@@ -170,7 +170,7 @@ class CityProtocols {
   }) async {
     List<CityModel> _output = <CityModel>[];
 
-    if (Mapper.checkCanLoopList(citiesIDsOfThisCountry) == true){
+    if (Lister.checkCanLoopList(citiesIDsOfThisCountry) == true){
 
       final List<CityModel> _ldbCities = await CityLDBOps.readCities(
         citiesIDs: citiesIDsOfThisCountry,
@@ -191,7 +191,7 @@ class CityProtocols {
         /// COLLECT NOT FOUND CITIES
         final List<String> _citiesIDsToReadFromReal = <String>[];
 
-        if (Mapper.checkCanLoopList(citiesIDsOfThisCountry) == true){
+        if (Lister.checkCanLoopList(citiesIDsOfThisCountry) == true){
 
           for (final String cityID in citiesIDsOfThisCountry){
             final bool _wasInLDB = CityModel.checkCitiesIncludeCityID(_ldbCities, cityID);
@@ -205,7 +205,7 @@ class CityProtocols {
             citiesIDs: _citiesIDsToReadFromReal,
           );
 
-          if (Mapper.checkCanLoopList(_remainingCities) == true){
+          if (Lister.checkCanLoopList(_remainingCities) == true){
 
             await CityLDBOps.insertCities(
               cities: _remainingCities,

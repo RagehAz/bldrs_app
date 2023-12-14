@@ -1,10 +1,10 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/b_double_pics_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/c_many_pics_box.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +42,7 @@ class MultiButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Mapper.checkCanLoopList(pics) == false){
+    if (Lister.checkCanLoopList(pics) == false){
       return BldrsBox(
         width: width,
         height: height,
