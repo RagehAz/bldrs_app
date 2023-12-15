@@ -29,6 +29,7 @@ class BldrsBubbleHeaderVM {
     this.onMoreButtonTap,
     this.redDot = false,
     this.centered = false,
+    this.moreButtonIcon = Iconz.more,
   });
   /// --------------------------------------------------------------------------
   final double? headerWidth;
@@ -46,6 +47,7 @@ class BldrsBubbleHeaderVM {
   final ValueChanged<bool>? onSwitchTap;
   final Function? onMoreButtonTap;
   final bool redDot;
+  final String moreButtonIcon;
   /// --------------------------------------------------------------------------
   static BubbleHeaderVM bake({
     required BuildContext context,
@@ -68,6 +70,7 @@ class BldrsBubbleHeaderVM {
     TextDirection? textDirection,
     bool? appIsLTR,
     bool loading = false,
+    String? moreButtonIcon,
   }){
 
         final double _textSizeValue = BldrsText.superVerseRealHeight(context: context, size: 2, sizeFactor: 1, hasLabelBox: false);
@@ -87,6 +90,7 @@ class BldrsBubbleHeaderVM {
           switchValue: switchValue ?? false,
           onSwitchTap: onSwitchTap,
           onMoreButtonTap: onMoreButtonTap,
+          moreButtonIcon: moreButtonIcon,
           redDot: redDot,
           centered: centered,
           font: BldrsText.superVerseFont(weight),
@@ -130,6 +134,7 @@ class BldrsBubbleHeaderVM {
     bool? redDot,
     Function? onLeadingIconTap,
     bool? centered,
+    String? moreButtonIcon,
   }){
     return BldrsBubbleHeaderVM(
       headerWidth: headerWidth ?? this.headerWidth,
@@ -147,6 +152,7 @@ class BldrsBubbleHeaderVM {
       redDot: redDot ?? this.redDot,
       onLeadingIconTap: onLeadingIconTap ?? this.onLeadingIconTap,
       centered: centered ?? this.centered,
+      moreButtonIcon: moreButtonIcon ?? this.moreButtonIcon,
     );
   }
   /// --------------------------------------------------------------------------
@@ -251,6 +257,7 @@ class BldrsBubbleHeader extends StatelessWidget {
 
           const Expander(),
 
+          /// SWITCH
           if (viewModel.hasSwitch == true)
             BubbleSwitcher(
               width: _switcherWidth,
@@ -263,11 +270,12 @@ class BldrsBubbleHeader extends StatelessWidget {
           //   width: 5,
           // ),
 
+          /// MORE BUTTON
           if (viewModel.hasMoreButton == true)
             BldrsBox(
               height: moreButtonSize,
               width: moreButtonSize,
-              icon: Iconz.more,
+              icon: viewModel.moreButtonIcon,
               iconSizeFactor: 0.6,
               onTap: viewModel.onMoreButtonTap,
               // margins: const EdgeInsets.symmetric(horizontal: 5),
