@@ -71,6 +71,7 @@ class CacheOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> clearAppDocsDirectory() async {
+    /// THIS CLOSES LDB
     final Directory directory = await getApplicationDocumentsDirectory();
     await Directory(directory.path).delete(recursive: true);
   }

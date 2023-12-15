@@ -163,7 +163,7 @@ class BldrsPicMaker {
   static Future<PicModel?> cropPic({
     required PicModel? pic,
     required double aspectRatio,
-    required int compressionQuality,
+    required int? compressionQuality,
   }) async {
     PicModel? _output;
 
