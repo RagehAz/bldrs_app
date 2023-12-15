@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/debug_widgets/cache_preview_bubble.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -119,15 +120,30 @@ class WaitDialog extends StatelessWidget {
                   Selector<UiProvider, Verse?>(
                     selector: (_, UiProvider uiProvider) => uiProvider.loadingVerse,
                     builder: (BuildContext context, Verse? verse, Widget? child) {
+                     
                       if (verse == null) {
                         return const SizedBox();
-                      } else {
-                        return BldrsText(
-                          verse: verse,
-                          color: Colorz.yellow200,
-                          maxLines: 3,
+                      }
+                      
+                      else {
+                        return Column(
+                          children: [
+
+                            BldrsText(
+                              verse: verse,
+                              color: Colorz.yellow200,
+                              maxLines: 3,
+                            ),
+
+                            if (kDebugMode)
+                              CachePreviewBubble(
+                                verse: verse,
+                              ),
+
+                          ],
                         );
                       }
+                      
                     },
                   ),
 
