@@ -313,30 +313,28 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> renovatePic(PicModel? picModel) async {
+  static Future<void> renovatePic({
+    required PicModel? newPic,
+    /// USE THIS IN CASE YOU WANT TO WIPE THE OLD PATH BEFORE INSERTING A NEW WITH DIFFERENT PATH
+    required PicModel? oldPic,
+  }) async {
 
     // blog('1 - reno.vatePic : picModel : $picModel');
 
-    if (picModel != null){
-
-      final PicModel? _oldPic = await fetchPic(picModel.path);
+    if (newPic != null){
 
       final bool _areIdentical = PicModel.checkPicsAreIdentical(
-          pic1: _oldPic,
-          pic2: picModel,
+          pic1: oldPic,
+          pic2: newPic,
       );
 
       // blog('2 - renovate.Pic : _areIdentical : $_areIdentical');
 
       if (_areIdentical == false){
 
-        await Future.wait(<Future>[
+        await wipePic(oldPic?.path);
 
-          PicStorageOps.updatePic(picModel: picModel),
-
-          PicLDBOps.insertPic(picModel),
-
-        ]);
+        await composePic(newPic);
 
       }
 
@@ -353,7 +351,10 @@ class PicProtocols {
       await Future.wait(<Future>[
 
         ...List.generate(picModels.length, (index){
-          return renovatePic(picModels[index]);
+          return renovatePic(
+            newPic: picModels[index],
+            oldPic: null,
+          );
         }),
 
       ]);
