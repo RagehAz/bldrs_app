@@ -142,23 +142,23 @@ class Standards {
   /// IMAGES WIDTHS & QUALITIES
 
   // --------------------
-  static const double bzLogoPicWidth = 350;
-  static const int bzLogoPicQuality = 85;
+  static const double bzLogoPicWidth = 200;
+  static const int bzLogoPicQuality = 95;
   // --------------------
-  static const double userPicWidth = 160;
-  static const int userPicQuality = 85;
+  static const double userPicWidth = 150;
+  static const int userPicQuality = 95;
   // --------------------
-  static const double authorPicWidth = 160;
-  static const int authorPicQuality = 85;
+  static const double authorPicWidth = 150;
+  static const int authorPicQuality = 95;
   // --------------------
   static const double slideSmallWidth = 300;
-  static const int slideSmallQuality = 85;
+  static const int slideSmallQuality = 98;
   // --------------------
   static const double slideMediumWidth = 700;
-  static const int slideMediumQuality = 90;
+  static const int slideMediumQuality = 99;
   // --------------------
   static const double slideBigWidth = 1200;
-  static const int slideBigQuality = 92;
+  static const int slideBigQuality = 100;
   // -----------------------------------------------------------------------------
 
   /// POSTER SIZE

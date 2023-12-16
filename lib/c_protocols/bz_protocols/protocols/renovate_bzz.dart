@@ -61,7 +61,10 @@ class RenovateBzProtocols {
 
         /// UPDATE BZ LOGO
         if (newLogo != null)
-          PicProtocols.renovatePic(newLogo),
+          PicProtocols.renovatePic(
+            newPic: newLogo,
+            oldPic: null,
+          ),
 
         /// CENSUS
         if (_areIdentical == false)
@@ -218,7 +221,10 @@ class RenovateBzProtocols {
     );
 
     /// UPDATE AUTHOR PIC
-    await PicProtocols.renovatePic(newAuthor?.picModel);
+    await PicProtocols.renovatePic(
+      newPic: newAuthor?.picModel,
+      oldPic: null,
+    );
 
     /// UPDATE BZ ON FIREBASE
     await renovateBz(

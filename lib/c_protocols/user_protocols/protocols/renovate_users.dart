@@ -66,7 +66,10 @@ class RenovateUserProtocols {
 
           /// STORAGE RENOVATE PIC
           if (newPic != null)
-          PicProtocols.renovatePic(newPic),
+          PicProtocols.renovatePic(
+            newPic: newPic,
+            oldPic: null,
+          ),
 
         ]);
 
