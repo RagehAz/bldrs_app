@@ -79,14 +79,24 @@ class CloudFunction {
 
     dynamic _output;
 
+    String? _showNotSentDialog;
+
     try {
+      blog('Cloud Function call : start');
+
       final HttpsCallable _function = _createHttpsCallableFunction(
         funcName: functionName,
       );
 
+      blog('Cloud Function call : _function : $_function');
+
       final Map<String, dynamic> _map = mapToPass ?? <String, dynamic>{};
 
+      blog('Cloud Function call : _map : $_map');
+
       final HttpsCallableResult _result = await _function.call(_map);
+
+      blog('Cloud Function call : _map : $_map');
 
       blog('call : _result : $_result');
       _output = _result.data;
@@ -99,6 +109,7 @@ class CloudFunction {
       blog('callFunction : exception.code       : ${exception.code}');
       blog('callFunction : exception.plugin     : ${exception.plugin}');
       blog('callFunction : exception.stackTrace : ${exception.stackTrace}');
+      _showNotSentDialog = exception.message;
     }
 
     on Exception catch (error){
@@ -127,17 +138,24 @@ class CloudFunction {
       }
 
       else {
-        await BldrsCenterDialog.showCenterDialog(
-          titleVerse: const Verse(
-            id: 'phid_error',
-            translate: true,
-          ),
-          bodyVerse: Verse(
-            id: error.toString(),
-            translate: false,
-          ),
-        );
+        _showNotSentDialog = error.toString();
       }
+
+    }
+
+    if (_showNotSentDialog != null){
+
+      await BldrsCenterDialog.showCenterDialog(
+        titleVerse: const Verse(
+          id: 'phid_error',
+          translate: true,
+        ),
+        bodyVerse: Verse(
+          id: _showNotSentDialog,
+          translate: false,
+        ),
+      );
+
     }
 
     if (onFinish != null){
