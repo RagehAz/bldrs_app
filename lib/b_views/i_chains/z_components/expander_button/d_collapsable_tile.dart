@@ -236,7 +236,7 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
         // height: widget.height,
         width: widget.width,
         alignment: Alignment.topCenter,
-        margin: BldrsExpandingButton.getMargins(margin: widget.margin),
+        // margin: BldrsExpandingButton.getMargins(margin: widget.margin),
         // color: Colorz.bloodTest,
         child: AnimatedBuilder(
           key: const ValueKey<String>('ExpandingTile_AnimatedBuilder'),

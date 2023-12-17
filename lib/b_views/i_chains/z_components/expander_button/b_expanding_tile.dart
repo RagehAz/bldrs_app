@@ -1,7 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_non_collabsable_tile.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/d_collapsable_tile.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
@@ -209,12 +208,12 @@ class BldrsExpandingButton extends StatelessWidget {
     dynamic margin,
   }){
 
-    if (margin == null){
-      return const EdgeInsets.only(bottom: 10);
-    }
-    else {
-      return Scale.superMargins(margin: margin);
-    }
+    // if (margin == null){
+      return const EdgeInsets.only(bottom: 5);
+    // }
+    // else {
+    //   return Scale.superMargins(margin: margin);
+    // }
 
   }
   // -----------------------------------------------------------------------------
