@@ -146,7 +146,7 @@ class PhidButton extends StatelessWidget {
 
     return ChainButtonBox(
       key: const ValueKey<String>('PhidButton'),
-      boxWidth: width,
+      width: width,
       inverseAlignment: inverseAlignment,
       child: BldrsBox(
         height: height ?? getHeight(),
