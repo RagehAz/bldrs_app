@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class ChainButtonBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainButtonBox({
-    required this.boxWidth,
+    required this.width,
     required this.child,
     this.isDisabled = false,
     this.inverseAlignment = true,
@@ -14,7 +14,7 @@ class ChainButtonBox extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final bool isDisabled;
-  final double? boxWidth;
+  final double? width;
   final Widget child;
   final bool? inverseAlignment;
   /// --------------------------------------------------------------------------
@@ -23,7 +23,7 @@ class ChainButtonBox extends StatelessWidget {
     required int? level,
   }){
     final int _level = level ?? 0;
-    const double _padding = 2 * Ratioz.appBarMargin;
+    const double _padding = 2 * Ratioz.appBarPadding;
     final double _levelOffset = _level * _level * 0.01;
     final double _sonWidth = parentWidth - _padding - _levelOffset;
 
@@ -40,7 +40,7 @@ class ChainButtonBox extends StatelessWidget {
     return Opacity(
       opacity: isDisabled == true ? 0.3 : 1,
       child: Container(
-        width: boxWidth,
+        width: width,
         alignment: Mapper.boolIsTrue(inverseAlignment) == true ? BldrsAligners.superInverseCenterAlignment(context) : null,
         // margin: const EdgeInsets.all(Ratioz.appBarPadding),
         child: child,

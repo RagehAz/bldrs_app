@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
@@ -266,6 +267,61 @@ class ChainsProvider extends ChangeNotifier {
     }
     else {
       return _chainsProvider.bldrsChains;
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Chain> proGetMainChains({
+    required BuildContext context,
+    required bool onlyUseZoneChains,
+    required bool listen,
+  }){
+
+    final List<Chain>? _allChains = proGetBldrsChains(
+        context: context,
+        onlyUseZoneChains: onlyUseZoneChains,
+        listen: listen
+    );
+
+    return Chain.getChainsFromChainsByIDs(
+      allChains: _allChains ?? [],
+      phids: FlyerTyper.chainKSonsIDs,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Chain> proGetSpecChains({
+    required BuildContext context,
+    required bool onlyUseZoneChains,
+    required bool listen,
+  }){
+
+    final List<Chain>? _allChains = proGetBldrsChains(
+        context: context,
+        onlyUseZoneChains: onlyUseZoneChains,
+        listen: listen
+    );
+
+    if (Lister.checkCanLoop(_allChains) == true){
+
+      final List<String> _allCainsIDs = Chain.getChainsRootsIDs(_allChains);
+
+      final List<String> _specChainsIDs = Stringer.removeStringsFromStrings(
+        removeFrom: _allCainsIDs,
+        removeThis: FlyerTyper.chainKSonsIDs,
+      );
+
+      return Chain.getChainsFromChainsByIDs(
+        allChains: _allChains,
+        phids: _specChainsIDs,
+      );
+
+    }
+
+    else {
+      return [];
     }
 
   }
