@@ -264,7 +264,13 @@ class Localizer {
   static Future<Map<String, String>> getLangMap({
     required String? langCode
   }) async {
-    Map<String, String> _output = {};
+
+    Map<String, String>? _output;
+
+    // final Map<String, String>
+    // _output = await LangMapProtocols.fetchLangMap(
+    //   langCode: langCode,
+    // );
 
     final String? _langFilePath = BldrsThemeLangs.getLangFilePath(
       langCode: langCode,
@@ -282,7 +288,7 @@ class Localizer {
 
     }
 
-    return _output;
+    return _output ?? {};
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -376,14 +382,14 @@ class Localizer {
 
   // --------------------
   static String getCurrentLangCode(){
-    return Localizer.translate('phid_languageCode')!;
+    return Localizer.translate('phid_languageCode') ?? 'en';
   }
   // --------------------
-  static String activeLanguage () => Localizer.translate('phid_activeLanguage')!;
-  static String headlineFont () => Localizer.translate('phid_headlineFont')!;
-  static String bodyFont () => Localizer.translate('phid_bodyFont')!;
-  static String languageName () => Localizer.translate('phid_languageName')!;
-  static String textDirection () => Localizer.translate('textDirection')!;
+  static String activeLanguage () => Localizer.translate('phid_activeLanguage') ?? 'English';
+  static String headlineFont () => Localizer.translate('phid_headlineFont') ?? 'BldrsHeadlineFont';
+  static String bodyFont () => Localizer.translate('phid_bodyFont') ?? 'BldrsBodyFont';
+  static String languageName () => Localizer.translate('phid_languageName') ?? 'English';
+  static String textDirection () => Localizer.translate('textDirection') ?? 'ltr';
   // --------------------
 }
 //---------------------

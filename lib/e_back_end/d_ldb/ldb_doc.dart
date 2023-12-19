@@ -23,6 +23,62 @@ class LDBDoc {
 
   // -----------------------------------------------------------------------------
 
+  /// DOCS
+
+  // --------------------
+  /// MAIN
+  static const String flyers = 'flyers';
+  static const String bzz = 'bzz';
+  static const String notes = 'notes';
+  static const String pics = 'pics';
+  static const String pdfs = 'pdfs';
+  // --------------------
+  /// USER
+  static const String users = 'users';
+  static const String authModel = 'authModel';
+  static const String accounts = 'accounts';
+  static const String searches = 'searches';
+  // --------------------
+  /// CHAINS
+  static const String bldrsChains = 'chains';
+  static const String pickers = 'pickers';
+  // --------------------
+  /// ZONES
+  static const String countries = 'countries';
+  static const String cities = 'cities';
+  static const String staging = 'staging';
+  static const String census = 'census';
+  // --------------------
+  /// PHRASES
+  // all docs include mixed lang phrases with extra primary key of "id_langCodo"
+  static const String mainPhrases = 'mainPhrases';
+  static const String countriesPhrases = 'countriesPhrases';
+  // --------------------
+  /// EDITORS
+  static const String userEditor = 'userEditor';
+  static const String bzEditor = 'bzEditor';
+  static const String authorEditor = 'authorEditor';
+  static const String flyerMaker = 'flyerMaker';
+  static const String reviewEditor = 'reviewEditor';
+  // --------------------
+  /// SETTINGS
+  static const String appState = 'appState';
+  static const String theLastWipe = 'theLastWipe';
+  static const String langCode = 'langCode';
+  static const String langMaps = 'langMaps';
+  static const String onboarding = 'onboarding';
+  // --------------------
+  /// DASHBOARD
+  static const String gta = 'gta';
+  static const String webpages = 'webpages';
+  static const String noteCampaigns = 'noteCampaigns';
+  // --------------------
+  /// COUNTERS
+  static const String bzzCounters = 'bzzCounters';
+  static const String flyersCounters = 'flyersCounters';
+  static const String usersCounters = 'usersCounters';
+  // -----------------------------------------------------------------------------
+
   /// PRIMARY KEYS
 
   // --------------------
@@ -68,6 +124,7 @@ class LDBDoc {
       case LDBDoc.theLastWipe: return 'id';
       case LDBDoc.appState: return 'id';
       case LDBDoc.langCode: return 'id';
+      case LDBDoc.langMaps: return 'id';
       case LDBDoc.onboarding: return 'id';
       case 'test': return 'id';
 
@@ -84,61 +141,6 @@ class LDBDoc {
       default: return 'id';
     }
   }
-  // -----------------------------------------------------------------------------
-
-  /// DOCS
-
-  // --------------------
-  /// MAIN
-  static const String flyers = 'flyers';
-  static const String bzz = 'bzz';
-  static const String notes = 'notes';
-  static const String pics = 'pics';
-  static const String pdfs = 'pdfs';
-  // --------------------
-  /// USER
-  static const String users = 'users';
-  static const String authModel = 'authModel';
-  static const String accounts = 'accounts';
-  static const String searches = 'searches';
-  // --------------------
-  /// CHAINS
-  static const String bldrsChains = 'chains';
-  static const String pickers = 'pickers';
-  // --------------------
-  /// ZONES
-  static const String countries = 'countries';
-  static const String cities = 'cities';
-  static const String staging = 'staging';
-  static const String census = 'census';
-  // --------------------
-  /// PHRASES
-  // all docs include mixed lang phrases with extra primary key of "id_langCodo"
-  static const String mainPhrases = 'mainPhrases';
-  static const String countriesPhrases = 'countriesPhrases';
-  // --------------------
-  /// EDITORS
-  static const String userEditor = 'userEditor';
-  static const String bzEditor = 'bzEditor';
-  static const String authorEditor = 'authorEditor';
-  static const String flyerMaker = 'flyerMaker';
-  static const String reviewEditor = 'reviewEditor';
-  // --------------------
-  /// SETTINGS
-  static const String appState = 'appState';
-  static const String theLastWipe = 'theLastWipe';
-  static const String langCode = 'langCode';
-  static const String onboarding = 'onboarding';
-  // --------------------
-  /// DASHBOARD
-  static const String gta = 'gta';
-  static const String webpages = 'webpages';
-  static const String noteCampaigns = 'noteCampaigns';
-  // --------------------
-  /// COUNTERS
-  static const String bzzCounters = 'bzzCounters';
-  static const String flyersCounters = 'flyersCounters';
-  static const String usersCounters = 'usersCounters';
   // -----------------------------------------------------------------------------
 
   /// ALL DOCS LIST
@@ -183,6 +185,7 @@ class LDBDoc {
     theLastWipe,
     appState,
     langCode,
+    langMaps,
     onboarding,
 
     'headline: Dashboard',
@@ -235,6 +238,7 @@ class LDBDoc {
     required bool theLastWipe,
     required bool appState,
     required bool langCode,
+    required bool langMaps,
     required bool onboarding,
     /// DASHBOARD
     required bool gta,
@@ -280,6 +284,7 @@ class LDBDoc {
     if (theLastWipe == true) {_docs.add(LDBDoc.theLastWipe);}
     if (appState == true) {_docs.add(LDBDoc.appState);}
     if (langCode == true) {_docs.add(LDBDoc.langCode);}
+    if (langMaps == true) {_docs.add(LDBDoc.langMaps);}
     if (onboarding == true) {_docs.add(LDBDoc.onboarding);}
     /// DASHBOARD
     if (gta == true){_docs.add(LDBDoc.gta);}
@@ -329,6 +334,7 @@ class LDBDoc {
       authModel: false,
       accounts: false,
       langCode: false, // lets always keep user language for life
+      langMaps: true, // yes, lets refresh the lang maps whenever user reboots
       userEditor: false,
       bzEditor: false,
       authorEditor: false,
@@ -366,6 +372,7 @@ class LDBDoc {
       authModel: true,
       accounts: true,
       langCode: true,
+      langMaps: true,
       userEditor: true,
       bzEditor: true,
       authorEditor: true,
