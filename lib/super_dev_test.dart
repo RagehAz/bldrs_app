@@ -1,8 +1,14 @@
 import 'dart:async';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/real/lang_map_real_ops.dart';
 
 /// SUPER_DEV_TEST
 Future<void> superDevTestGoX() async {
   // await Nav.goToNewScreen(context: getMainContext(), screen: const RoutingTestScreen());
+
+  final Map<String, String>? _map = await LangMapProtocols.fetchLangMap(langCode: 'en');
+
+  Mapper.blogMap(_map);
 
 }
 
