@@ -119,15 +119,13 @@ packages:
       path: "D:/projects/packages/basics"
       relative: false
     source: path
-    version: "5.4.6"
+    version: "5.5.0"
   bldrs_keywords:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "4a5ae9a9af7002dfe0352afa0af39f62c5f2b1b9"
-      url: "https://github.com/RagehAz/bldrs_keywords.git"
-    source: git
+      path: "D:/projects/bldrs/bldrs_keywords"
+      relative: false
+    source: path
     version: "1.0.1"
   boolean_selector:
     dependency: transitive
@@ -519,7 +517,7 @@ packages:
       path: "D:/projects/packages/fire"
       relative: false
     source: path
-    version: "2.4.2"
+    version: "2.5.0"
   firebase_app_check:
     dependency: "direct main"
     description:
