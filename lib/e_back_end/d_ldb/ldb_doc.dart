@@ -40,8 +40,9 @@ class LDBDoc {
   static const String searches = 'searches';
   // --------------------
   /// CHAINS
-  static const String bldrsChains = 'chains';
-  static const String pickers = 'pickers';
+  static const String bldrsChains = 'chains'; /// ERADICATE_CHAINS
+  static const String pickers = 'pickers'; /// ERADICATE_CHAINS
+  static const String keywords = 'keywords';
   // --------------------
   /// ZONES
   static const String countries = 'countries';
