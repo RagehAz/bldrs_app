@@ -94,7 +94,7 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static double dialogWidth() {
-    return Bubble.bubbleWidth(context: getMainContext());
+    return Bubble.bubbleWidth(context: getMainContext()) + 20;
   }
   // --------------------
   static const double dialogMarginValue = Ratioz.appBarMargin + Ratioz.appBarPadding;

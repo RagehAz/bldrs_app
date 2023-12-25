@@ -71,6 +71,7 @@ class DataStripWithHeadline extends StatelessWidget {
               width: _rowWidth,
               height: valueRowHeight,
               topColor: valueBoxColor,
+              backColor: valueBoxColor,
               valueIsPercentage: _valueIsPercentage,
               dataValue: dataValue,
               horizontalMargin: Ratioz.appBarMargin,
