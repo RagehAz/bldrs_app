@@ -17,6 +17,7 @@ class TheStripOfDataStrip extends StatelessWidget {
     this.highlightText,
     this.onTap,
     this.textColor = Colorz.white255,
+    this.hasBottomMargin = true,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -27,6 +28,7 @@ class TheStripOfDataStrip extends StatelessWidget {
   final Color textColor;
   final ValueNotifier<dynamic>? highlightText;
   final Function? onTap;
+  final bool hasBottomMargin;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class TheStripOfDataStrip extends StatelessWidget {
       boxColor: color,
       splashColor: Colorz.yellow200,
       corners: Borderers.constantCornersAll10,
-      margin: const EdgeInsets.only(bottom: 5),
+      margin: hasBottomMargin == true ? const EdgeInsets.only(bottom: 5) : null,
       onTap: onTap,
       onLongTap: () => Keyboard.copyToClipboardAndNotify(
         copy: text,
