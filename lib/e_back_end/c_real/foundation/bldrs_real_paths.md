@@ -40,6 +40,14 @@
   |
   | --------------------------|
   |
+  | - [keywords]
+  |     | - {phid_k}
+  |             | - {phid_k}
+  |                     | - {phid_k}
+  |                             | - {phid_k}
+  |
+  | --------------------------|
+  |
   | - [records]
   |     |
   |     | here we need to record user activity log
