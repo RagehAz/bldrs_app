@@ -182,8 +182,6 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   @override
   Widget build(BuildContext context) {
 
-    blog('_keyboardModel.titleVerse : ${_keyboardModel.titleVerse}');
-
     return MainLayout(
       canSwipeBack: true,
       skyType: SkyType.grey,
