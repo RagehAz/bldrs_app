@@ -13,7 +13,8 @@ class RealColl {
   // --------------------
   static const String app = 'app';
   // --------------------
-  static const String bldrsChains = 'bldrsChains';
+  static const String bldrsChains = 'bldrsChains'; /// ERADICATE_CHAINS
+  static const String keywords = 'keywords';
   // --------------------
   static const String records = 'records';
   // --------------------
