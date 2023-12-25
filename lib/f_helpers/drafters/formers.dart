@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_catches_without_on_clauses
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:basics/helpers/classes/colors/colorizer.dart';
@@ -1383,6 +1384,33 @@ class Formers {
       final String? _withoutSpaces = TextMod.removeSpacesFromAString(text);
       if (text != _withoutSpaces){
         _message = getWord('phid_cant_add_empty_spaces');
+      }
+
+    }
+
+    return _message;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// STRING ONLY VALIDATION
+
+  // --------------------
+  ///
+  static String? stringOnlyValidator({
+    required String? text,
+  }){
+    String? _message;
+
+    if (TextCheck.isEmpty(text) == false){
+
+      try {
+        Map<String, dynamic>? testMap = {text!: 'x'};
+        testMap = Mapper.cloneMap(testMap);
+      }
+
+      catch (e) {
+        // If an exception occurs, the key is not valid
+        _message = 'fuck'; //getWord('phid_only_strings_is_to_be_added');
       }
 
     }
