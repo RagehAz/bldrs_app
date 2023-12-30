@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:fire/super_fire.dart';
 /// => TAMAM
@@ -24,7 +25,7 @@ class KeywordsRealOps{
         path: RealColl.keywords,
     );
 
-    return _map;
+    return Mapper.sortKeysAlphabetically(map: _map);
   }
   // --------------------------------------------------------------------------
 

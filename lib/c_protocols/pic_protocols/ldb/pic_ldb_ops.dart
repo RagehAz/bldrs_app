@@ -3,7 +3,7 @@ import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-
+/// => TAMAM
 class PicLDBOps {
   // -----------------------------------------------------------------------------
 
@@ -70,7 +70,7 @@ class PicLDBOps {
     }
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deletePics(List<String> paths) async {
 
     if (Lister.checkCanLoop(paths) == true){
