@@ -68,29 +68,34 @@ class PicStorageOps {
         );
       }
 
-      /// GET META DATA
-      if (Lister.checkCanLoop(_bytes) == true && _pathIsURL == false){
-        _meta = await Storage.readMetaByPath(
-          path: path,
-        );
-      }
-      else if (_pathIsURL == true){
-      final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
-      final double? _mega = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
-        _meta = StorageMetaModel(
-          ownersIDs: const ['non'],
-          name: path,
-          height: _dims?.height,
-          width: _dims?.width,
-          sizeMB: _mega,
-        );
-      }
+      if (Lister.checkCanLoop(_bytes) == true){
 
-      _picModel = PicModel(
-          path: path,
-          bytes: _bytes,
-          meta: _meta,
-        );
+        /// GET META DATA
+        if (_pathIsURL == false){
+          _meta = await Storage.readMetaByPath(
+            path: path,
+          );
+        }
+
+        else if (_pathIsURL == true){
+          final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
+          final double? _mega = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
+          _meta = StorageMetaModel(
+            ownersIDs: const ['non'],
+            name: path,
+            height: _dims?.height,
+            width: _dims?.width,
+            sizeMB: _mega,
+          );
+        }
+
+        _picModel = PicModel(
+            path: path,
+            bytes: _bytes,
+            meta: _meta,
+          );
+
+      }
 
     }
 

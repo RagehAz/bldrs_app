@@ -193,7 +193,7 @@ class _SearchBarState extends State<SearchBar> {
                 valueListenable: _searchTextController,
                 builder: (_, TextEditingValue value, Widget? child){
 
-                  final bool _canSubmit = value.text.length >= Standards.minSearchChar;
+                  final bool _canSubmit = value.text.length >= 2;
 
                   return Row(
                     children: <Widget>[
