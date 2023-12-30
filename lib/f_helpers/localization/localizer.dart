@@ -217,6 +217,15 @@ class Localizer {
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const List<String> gSheetColumns = [
+    'key',
+    'en', 'ar',
+    'es', 'it', 'de', 'fr', 'zh',
+    'tr', 'hi', 'ru', 'pt',
+    'fa',
+  ];
   // -----------------------------------------------------------------------------
 
   /// LANG CODE IN LDB
@@ -362,20 +371,22 @@ class Localizer {
 
   }
   // --------------------
-  // /// TESTED : WORKS PERFECT
-  // static Future<Locale?> _setLocale(String languageCode) async {
-  //
-  //   await LDBOps.insertMap(
-  //       docName: LDBDoc.langCode,
-  //       primaryKey: LDBDoc.getPrimaryKey(LDBDoc.langCode),
-  //       input: {
-  //         'id': LDBDoc.langCode,
-  //         LDBDoc.langCode: languageCode,
-  //       },
-  //   );
-  //
-  //   return _concludeLocaleByLingoCode(languageCode);
-  // }
+  /*
+  /// TESTED : WORKS PERFECT
+  static Future<Locale?> _setLocale(String languageCode) async {
+
+    await LDBOps.insertMap(
+        docName: LDBDoc.langCode,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.langCode),
+        input: {
+          'id': LDBDoc.langCode,
+          LDBDoc.langCode: languageCode,
+        },
+    );
+
+    return _concludeLocaleByLingoCode(languageCode);
+  }
+   */
   // -----------------------------------------------------------------------------
 
   /// GETTERS

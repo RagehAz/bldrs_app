@@ -35,6 +35,16 @@ class KeywordsProtocols{
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>?> refetch() async {
+
+    await KeywordsLDBOps.delete();
+
+    final Map<String, dynamic>? _output = await fetch();
+
+    return _output;
+  }
   // --------------------------------------------------------------------------
 
   /// RENOVATE
