@@ -43,6 +43,20 @@ class PicModel {
       meta: meta ?? this.meta,
     );
   }
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  PicModel nullifyField({
+    bool bytes = false,
+    bool path = false,
+    bool meta = false,
+  }){
+    return PicModel(
+      bytes: bytes   == true ? null : this.bytes,
+      path: path     == true ? null : this.path,
+      meta: meta     == true ? null : this.meta,
+    );
+  }
   // -----------------------------------------------------------------------------
 
   /// LDB CYPHERS

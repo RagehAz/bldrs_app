@@ -454,11 +454,15 @@ class Chain {
     required List<Chain>? chains2,
     bool blogDifferences = true,
   }) {
-    final List<String> _pathsA =
-        ChainPathConverter.generateChainsPaths(parentID: '', chains: chains1);
+    final List<String> _pathsA = ChainPathConverter.generateChainsPaths(
+        parentID: '',
+        chains: chains1,
+    );
 
-    final List<String> _pathsB =
-        ChainPathConverter.generateChainsPaths(parentID: '', chains: chains2);
+    final List<String> _pathsB = ChainPathConverter.generateChainsPaths(
+        parentID: '',
+        chains: chains2,
+    );
 
     // Stringer.blogStrings(strings: _pathsA, invoker: '_pathsA');
     // Stringer.blogStrings(strings: _pathsB, invoker: '_pathsB');

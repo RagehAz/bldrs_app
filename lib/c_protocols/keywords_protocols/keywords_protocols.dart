@@ -1,6 +1,9 @@
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:bldrs/a_models/c_chain/a_chain.dart';
+import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/c_protocols/keywords_protocols/keywords_ldb_ops.dart';
 import 'package:bldrs/c_protocols/keywords_protocols/keywords_real_ops.dart';
+import 'package:basics/helpers/classes/maps/map_pathing.dart';
 /// TAMAM
 class KeywordsProtocols{
   // --------------------------------------------------------------------------
@@ -37,7 +40,19 @@ class KeywordsProtocols{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Map<String, dynamic>?> refetch() async {
+  static Future<List<Chain>> fetchChainedKeywords() async {
+
+    final Map<String, dynamic>? _keywordsMap = await KeywordsProtocols.fetch();
+
+    final List<String> _paths = MapPathing.generatePathsFromMap(map: _keywordsMap);
+
+    final List<Chain> _reChained = ChainPathConverter.createChainsFromPaths(paths: _paths);
+
+    return _reChained;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>?> reFetch() async {
 
     await KeywordsLDBOps.delete();
 
