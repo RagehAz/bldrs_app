@@ -1,5 +1,4 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/pathing.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
@@ -114,7 +113,7 @@ class ChainSplitter extends StatelessWidget {
       return PhidButton(
         phid: _phid,
         secondLine: createSecondLineVerse(secondLinesType, _phid),
-        width: _width,
+        width: _width - 10,
         level: level,
         searchText: searchText,
         color: _isSelected == true ? Colorz.blue125 : Colorz.white20,
@@ -133,7 +132,7 @@ class ChainSplitter extends StatelessWidget {
     else if (Phider.checkIsPhids(chainOrChainsOrSonOrSons) == true){
 
       return ChainsBuilder(
-        width: _width,
+        width: _width - 10,
         sons: chainOrChainsOrSonOrSons,
         previousPath: previousPath,
         level: level,
@@ -163,7 +162,7 @@ class ChainSplitter extends StatelessWidget {
         key: PageStorageKey<String>('${_chain.id}'),
         previousPath: previousPath,
         chain: _chain,
-        boxWidth: _width,
+        boxWidth: _width - 10,
         icon: _chainsProvider.getPhidIcon(son: chainOrChainsOrSonOrSons),
         firstHeadline: Verse(
           id: Phider.removeIndexFromPhid(phid: _chain.id),
@@ -220,7 +219,7 @@ class ChainSplitter extends StatelessWidget {
 
       return DataCreatorSplitter(
         height: 100,
-        width: Bubble.clearWidth(context: context) - 40,
+        width: _width - 40,
         picker: _picker,
         appBarType: AppBarType.non,
         searchText: searchText,
@@ -241,7 +240,7 @@ class ChainSplitter extends StatelessWidget {
       return ChainsBuilder(
         sons: chainOrChainsOrSonOrSons,
         previousPath: previousPath, // good
-        width: _width,
+        width: _width - 10,
         level: level,
         selectedPhids: selectedPhids,
         initiallyExpanded: initiallyExpanded,
