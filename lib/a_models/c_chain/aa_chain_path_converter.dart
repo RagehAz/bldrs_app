@@ -717,4 +717,74 @@ class ChainPathConverter {
 
  */
   // -----------------------------------------------------------------------------
+
+  /// TEMP KEYWORDS MAP TO CHAIN
+
+  // --------------------
+  /// SHOOF KEDA
+  static List<Chain> createChainsKeywordsMap({
+    required Map<String, dynamic>? keywordsMap,
+  }){
+    final List<Chain> _chains = [];
+
+    // blog('createChainsKeywordsMap : ${keywordsMap?.keys.length} keys');
+    //
+    // if (keywordsMap != null){
+    //
+    //   final List<String> _keys = keywordsMap.keys.toList();
+    //
+    //   if (Lister.checkCanLoop(_keys) == true){
+    //
+    //     for (final String key in _keys){
+    //
+    //       final dynamic _son = keywordsMap[key];
+    //       blog('key : $key : _son is $_son');
+    //
+    //       dynamic _chainSons;
+    //
+    //       // if (_son is List){
+    //       //   _chainSons = [..._son];
+    //       // }
+    //       // else
+    //         if (_son is Map){
+    //
+    //         final Map<String, dynamic> _sonMap = Mapper.convertDynamicMap(_son);
+    //         final List<String> _sonMapKeys = _sonMap.keys.toList();
+    //         if (_sonMapKeys.isNotEmpty){
+    //           final String _key = _sonMapKeys.first;
+    //           final dynamic _sonObj = _sonMap[_key];
+    //           if (_sonObj is bool){
+    //             _chainSons = _sonMapKeys;
+    //           }
+    //           else {
+    //             _chainSons = createChainsKeywordsMap(
+    //               keywordsMap: _sonMap,
+    //             );
+    //           }
+    //
+    //         }
+    //
+    //       }
+    //       // else if (_son is String){
+    //       //   _chainSons = _son;
+    //       // }
+    //       // else {
+    //       //   _chainSons = _son;
+    //       // }
+    //
+    //       final Chain _chain = Chain(
+    //         id: key,
+    //         sons: _chainSons,
+    //       );
+    //
+    //       _chains.add(_chain);
+    //
+    //     }
+    //
+    //   }
+    //
+    // }
+
+    return _chains;
+  }
 }

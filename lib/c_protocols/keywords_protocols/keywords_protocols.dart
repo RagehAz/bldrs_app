@@ -46,6 +46,7 @@ class KeywordsProtocols{
 
     final List<String> _paths = MapPathing.generatePathsFromMap(map: _keywordsMap);
 
+    // final List<Chain> _reChained = ChainPathConverter.createChainsKeywordsMap(keywordsMap: _keywordsMap);
     final List<Chain> _reChained = ChainPathConverter.createChainsFromPaths(paths: _paths);
 
     return _reChained;

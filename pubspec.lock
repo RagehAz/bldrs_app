@@ -119,7 +119,7 @@ packages:
       path: "D:/projects/packages/basics"
       relative: false
     source: path
-    version: "5.5.0"
+    version: "5.5.2"
   bldrs_keywords:
     dependency: "direct main"
     description:
