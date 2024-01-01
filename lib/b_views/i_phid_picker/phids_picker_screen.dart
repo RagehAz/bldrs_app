@@ -111,7 +111,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   final TextEditingController _searchController = TextEditingController();
   final GlobalKey _globalKey = GlobalKey();
   // --------------------
-  List<Chain>? _chains;
+  List<Chain> _chains = [];
   List<NavModel> _navModels = [];
   final ValueNotifier<List<String>> _selectedPhidsNotifier = ValueNotifier<List<String>>([]);
   final ScrollController _selectedPhidsScrollController = ScrollController();
@@ -135,7 +135,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   @override
   void initState() {
     super.initState();
-    _initializeChains();
+
   }
   // --------------------
   bool _isInit = true;
@@ -147,10 +147,14 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
       _triggerLoading(setTo: true).then((_) async {
 
+        await _initializeChains();
+
         if (Lister.superLength(_chains) > 1){
           await Future.delayed(const Duration(milliseconds: 500));
           UiProvider.proSetPyramidsAreExpanded(setTo: true, notify: true);
         }
+
+        setState(() {});
 
         await _triggerLoading(setTo: false);
       });
@@ -177,13 +181,16 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _initializeChains(){
+  Future<void> _initializeChains() async {
 
+    /// ERADICATE_CHAINS
     final List<Chain>? _allChains = ChainsProvider.proGetBldrsChains(
       context: context,
       onlyUseZoneChains: widget.onlyUseZoneChains,
       listen: false,
     );
+
+    // final List<Chain> _allChains = await KeywordsProtocols.fetchChainedKeywords();
 
     final List<Chain> _chainsByIDs = Chain.getChainsFromChainsByIDs(
       allChains: _allChains,
@@ -210,13 +217,13 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     }
 
     _allPhids = Chain.getOnlyPhidsSonsFromChains(
-      chains: _chains ?? [],
+      chains: _chains,
     );
 
     _tabBarController = TabController(
       vsync: this,
       animationDuration: const Duration(milliseconds: 300),
-      length: _chains?.length ?? 1,
+      length: _chains.isEmpty ? 1 : _chains.length,
       // initialIndex: 0,
     );
 
@@ -241,7 +248,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
     if (Lister.checkCanLoop(_chains) == true){
 
-      for (final Chain _chain in _chains!){
+      for (final Chain _chain in _chains){
 
       final NavModel _navModel = NavModel(
         id: _chain.id,
@@ -497,7 +504,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     /// SINGLE CHAIN
     else {
       return SingleChainSelectorView(
-        chain: Lister.checkCanLoop(_chains) == true ? _chains?.first : null,
+        chain: Lister.checkCanLoop(_chains) == true ? _chains.first : null,
         globalKey: _globalKey,
         searchController: _searchController,
         onSearchSubmit: _onSearchSubmit,

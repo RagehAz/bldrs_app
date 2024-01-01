@@ -47,10 +47,12 @@ class _PhidPicState extends State<PhidPic> {
 
         final PicModel? _pic = await PicProtocols.fetchPic(StoragePath.phids_phid(widget.phid));
 
-        setState(() {
-          _loading = false;
-          _picModel = _pic;
-        });
+        if (mounted == true){
+          setState(() {
+            _loading = false;
+            _picModel = _pic;
+          });
+        }
 
       });
 
