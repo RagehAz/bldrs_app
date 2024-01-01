@@ -34,7 +34,7 @@ class PhidsBuilderPage extends StatelessWidget {
           return ListView.builder(
             physics: const BouncingScrollPhysics(),
             padding: Stratosphere.getStratosphereSandwich(context: context, appBarType: AppBarType.search),
-            itemCount: chain.sons.length,
+            itemCount: chain.sons?.length,
             itemBuilder: (BuildContext context, int index) {
 
               final dynamic _son = chain.sons[index];
