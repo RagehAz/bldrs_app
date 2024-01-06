@@ -53,7 +53,16 @@ class Pyramids extends StatelessWidget {
   // --------------------
   static const double rightSpaceToCenterKhufu = 148.2 * 0.7;
   static const double rightSpaceToCenterKhafre = 74.2 * 0.7;
+  // --------------------
+
   static const khafreHeight = 66.4 * 0.7;
+  static const khafreWidth = 143.1 * 0.7;
+  static const leftSpaceToKhafreTip = 68.9 * 0.7;
+  static const rightSpaceToKhafreTip = 74.2 * 0.7;
+  static const leftSpaceToKhafreBase = 46 * 0.7;
+  static const rightSpaceToKhafreBase = 97.1 * 0.7;
+
+  static const leftSpaceToKhufuBase = 38 * 0.7;
   // --------------------
   static const Offset khufuTip = Offset(
     rightMargin + rightSpaceToCenterKhufu,
