@@ -2,22 +2,19 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/d_micro_pic.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
 class ManyPicsBox extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const ManyPicsBox({
     required this.pics,
     required this.size,
     super.key
   });
-  
-  final List<String>? pics;
+  // -----------------------
+  final List<dynamic>? pics;
   final double size;
-  /// --------------------------------------------------------------------------
-
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -81,9 +78,9 @@ class ManyPicsBox extends StatelessWidget {
                   BldrsBox(
                     height: _size,
                     width: _size,
-                    verse: Verse.plain('+${pics!.length - 3}'),
-                    verseWeight: VerseWeight.thin,
-                    verseScaleFactor: 0.35,
+                    icon: '+${pics!.length - 3}',
+                    // verseWeight: VerseWeight.thin,
+                    // verseScaleFactor: 0.35,
                     bubble: false,
                   ),
 
@@ -100,6 +97,6 @@ class ManyPicsBox extends StatelessWidget {
       return const SizedBox();
     }
 
-
   }
+  // --------------------------------------------------------------------------
 }

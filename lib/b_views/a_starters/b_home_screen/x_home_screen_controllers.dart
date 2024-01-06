@@ -80,6 +80,7 @@ List<NavModel?> generateMainNavModels({
       screen: RouteName.auth,
       iconSizeFactor: 0.6,
       canShow: _userIsSignedUp == false,
+
     ),
 
     /// QUESTIONS
@@ -94,15 +95,9 @@ List<NavModel?> generateMainNavModels({
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.profile),
       titleVerse: userModel?.name == null ?
-      const Verse(
-        id: 'phid_complete_my_profile',
-        translate: true,
-      )
+      const Verse(id: 'phid_complete_my_profile', translate: true)
           :
-      Verse(
-        id: userModel?.name,
-        translate: false,
-      ),
+      Verse(id: userModel?.name, translate: false),
       icon: userModel?.picPath ?? Iconz.normalUser,
       screen: RouteName.myUserProfile,
       iconSizeFactor: userModel?.picPath == null ? 0.55 : 1,

@@ -27,6 +27,67 @@ class ObeliskIcon extends StatelessWidget {
   final int navModelIndex;
   final Function onTap;
   final MapModel? badge;
+  // --------------------------------------------------------------------------
+  static int? getCount({
+    required MapModel? badge,
+  }){
+    final int? count = badge == null ? null
+        :
+    badge.value is int ? badge.value
+        :
+    null;
+
+    return count;
+  }
+  // --------------------
+  static bool checkHasCount({
+    required MapModel? badge,
+  }){
+    final int? count = getCount(badge: badge);
+    return count != null && count > 0;
+  }
+  // --------------------
+  static Verse? getRedDotVerse({
+    required MapModel? badge,
+  }){
+    final Verse? verse = badge == null ? null
+        :
+    badge.value is String ? Verse.plain(badge.value)
+        :
+    null;
+
+    return verse;
+  }
+  // --------------------
+  static bool checkHasDot({
+    required MapModel? badge,
+  }){
+    final bool _hasCount = checkHasCount(badge: badge);
+    final Verse? verse = getRedDotVerse(badge: badge);
+    final bool _hasVerse = verse != null;
+    return badge != null && (_hasCount || _hasVerse);
+  }
+  // --------------------
+  static bool checkRedDotIsOn({
+    required bool? forceRedDot,
+    required MapModel? badge,
+  }){
+    final bool _hasDot = checkHasDot(badge: badge);
+    return Mapper.boolIsTrue(forceRedDot) == true || _hasDot;
+  }
+  // --------------------
+  static Color? getIconColor({
+    required bool isSelected,
+    required NavModel? navModel,
+  }){
+    return navModel?.iconColor == Colorz.nothing ? null : isSelected ? Colorz.black255 : Colorz.white255;
+  }
+  // --------------------
+  static double getIconSizeFactor({
+    required NavModel? navModel,
+  }){
+    return navModel?.iconSizeFactor ?? 0.45;
+  }
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -41,21 +102,9 @@ class ObeliskIcon extends StatelessWidget {
           /// BUTTON CIRCLE
           if (Mapper.boolIsTrue(navModel?.canShow) == true){
             // ---->
-            final int? count = badge == null ? null
-                :
-            badge?.value is int ? badge?.value
-                :
-            null;
-            final bool _hasCount = count != null && count > 0;
-            // ---->
-            final Verse? verse = badge == null ? null
-                :
-            badge?.value is String ? Verse.plain(badge?.value)
-                :
-            null;
+            final int? count = getCount(badge: badge);
+            final Verse? verse = getRedDotVerse(badge: badge);
             final bool _hasVerse = verse != null;
-            // ---->
-            final bool _hasDot = badge != null && (_hasCount || _hasVerse);
             // ---->
             return GestureDetector(
               onTap: () => onTap.call(),
@@ -65,23 +114,23 @@ class ObeliskIcon extends StatelessWidget {
                 color: Colorz.nothing,
                 alignment: Alignment.centerLeft,
                 child: RedDotBadge(
-                      redDotIsOn: Mapper.boolIsTrue(navModel?.forceRedDot) == true || _hasDot,
-                      count: count,
-                      verse: verse,
-                      childWidth: Obelisk.circleWidth,
-                      shrinkChild: true,
-                      isNano: _hasVerse,
-                      child: BldrsBox(
+                  redDotIsOn: checkRedDotIsOn(forceRedDot: navModel?.forceRedDot, badge: badge),
+                  count: count,
+                  verse: verse,
+                  childWidth: Obelisk.circleWidth,
+                  shrinkChild: true,
+                  isNano: _hasVerse,
+                  child: BldrsBox(
                     width: Obelisk.circleWidth,
                     height: Obelisk.circleWidth,
                     corners: Obelisk.circleWidth * 0.5,
                     color: _isSelected ? Colorz.yellow255 : Colorz.black255,
                     icon: navModel?.icon,
-                    iconColor: navModel?.iconColor == Colorz.nothing ? null : _isSelected ? Colorz.black255 : Colorz.white255,
-                    iconSizeFactor: navModel?.iconSizeFactor ?? 0.45,
+                    iconColor: getIconColor(navModel: navModel, isSelected: _isSelected),
+                    iconSizeFactor: getIconSizeFactor(navModel: navModel),
                     // margins: const EdgeInsets.only(bottom: 5),
                   ),
-                    ),
+                ),
               ),
             );
           }

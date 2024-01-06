@@ -9,7 +9,7 @@ class MicroPic extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final String pic;
+  final dynamic pic;
   final double size;
   /// --------------------------------------------------------------------------
   @override

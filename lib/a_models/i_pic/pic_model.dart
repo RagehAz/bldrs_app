@@ -159,6 +159,23 @@ class PicModel {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Uint8List> getBytezzFromPicModels({
+    required List<PicModel> pics,
+  }){
+    final List<Uint8List> _output = [];
+
+    if (Lister.checkCanLoop(pics) == true){
+      for (final PicModel pic in pics){
+        if (pic.bytes != null){
+          _output.add(pic.bytes!);
+        }
+      }
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// COMBINER
