@@ -23,12 +23,14 @@ class MultiButton extends StatelessWidget {
     this.verseScaleFactor = 0.7,
     this.verseItalic = false,
     this.verseCentered = false,
+    this.verseMaxLines,
+    this.loading = false,
     super.key
   });
   /// --------------------------------------------------------------------------
   final double height;
   final double? width;
-  final List<String>? pics;
+  final List<dynamic>? pics;
   final Verse? verse;
   final Verse? secondLine;
   final Color? color;
@@ -38,16 +40,20 @@ class MultiButton extends StatelessWidget {
   final bool verseItalic;
   final double? verseScaleFactor;
   final bool verseCentered;
+  final int? verseMaxLines;
+  final bool loading;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    if (Lister.checkCanLoop(pics) == false){
+    if (Lister.checkCanLoop(pics) == false || loading == true){
       return BldrsBox(
         width: width,
         height: height,
         margins: Scale.superMargins(margin: margins),
         color: color,
+        verseMaxLines: verseMaxLines,
+        loading: loading,
       );
     }
 
@@ -73,7 +79,7 @@ class MultiButton extends StatelessWidget {
                 iconColor: pics?.length == 1 ? null : Colorz.nothing,
                 bubble: bubble,
                 color: color,
-                verseMaxLines: 3,
+                verseMaxLines: verseMaxLines ?? 2,
                 verseItalic: verseItalic,
               ),
 
@@ -94,7 +100,6 @@ class MultiButton extends StatelessWidget {
         ),
       );
     }
-
 
   }
 

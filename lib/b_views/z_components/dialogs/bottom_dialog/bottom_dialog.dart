@@ -33,21 +33,29 @@ class BottomDialog extends StatelessWidget {
   final double? height;
   final Widget? child;
   final Verse? titleVerse;
-  /// --------------------------------------------------------------------------
-  /// one side value only
+  // --------------------------------------------------------------------------
+
+  /// DRAGGER MARGIN
+
+  // --------------------
   static double draggerMarginValue() {
+  /// one side value only
     // final double _draggerHeight = draggerHeight();
     // final double _draggerZoneHeight = draggerZoneHeight();
     const double _draggerMarginValue = 0;
     return _draggerMarginValue;
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   static EdgeInsets draggerMargins() {
     final EdgeInsets _draggerMargins = EdgeInsets.symmetric(
         vertical: draggerMarginValue()
     );
     return _draggerMargins;
   }
+  // --------------------------------------------------------------------------
+
+  /// DRAGGER SCALES
+
   // --------------------
   static double draggerZoneHeight() {
     return Ratioz.appBarMargin * 3;
@@ -63,6 +71,10 @@ class BottomDialog extends StatelessWidget {
     final double _draggerWidth = Scale.screenWidth(context) * 0.35;
     return _draggerWidth;
   }
+  // --------------------------------------------------------------------------
+
+  /// ZONE SCALES
+
   // --------------------
   static double titleZoneHeight({
     required bool? titleIsOn,
@@ -80,32 +92,14 @@ class BottomDialog extends StatelessWidget {
 
     return _titleZoneHeight;
   }
-  // --------------------
-  static double calculateDialogHeight({
-    required bool titleIsOn,
-    required double childHeight,
-  }){
-    final double _draggerHeight = draggerZoneHeight();
-    final double _titleHeight = titleZoneHeight(titleIsOn: titleIsOn);
 
-    final double _topZoneHeight = _draggerHeight + _titleHeight + childHeight;
+  // --------------------------------------------------------------------------
 
-    return _topZoneHeight;
-  }
+  /// DIALOG SCALES
+
   // --------------------
   static double dialogWidth() {
     return Bubble.bubbleWidth(context: getMainContext()) + 20;
-  }
-  // --------------------
-  static const double dialogMarginValue = Ratioz.appBarMargin + Ratioz.appBarPadding;
-  // --------------------
-  static const EdgeInsets dialogMargins = EdgeInsets.symmetric(
-      horizontal: dialogMarginValue
-  );
-  // --------------------
-  static double clearWidth() {
-    final double _dialogClearWidth = dialogWidth() - (dialogMarginValue * 2);
-    return _dialogClearWidth;
   }
   // --------------------
   static double dialogHeight(
@@ -130,6 +124,27 @@ class BottomDialog extends StatelessWidget {
     return _dialogHeight;
   }
   // --------------------
+  static double calculateDialogHeight({
+    required bool titleIsOn,
+    required double childHeight,
+  }){
+    final double _draggerHeight = draggerZoneHeight();
+    final double _titleHeight = titleZoneHeight(titleIsOn: titleIsOn);
+
+    final double _topZoneHeight = _draggerHeight + _titleHeight + childHeight;
+
+    return _topZoneHeight;
+  }
+  // --------------------------------------------------------------------------
+
+  /// CLEAR SCALES
+
+  // --------------------
+  static double clearWidth() {
+    final double _dialogClearWidth = dialogWidth() - (dialogMarginValue * 2);
+    return _dialogClearWidth;
+  }
+  // --------------------
   static double clearHeight({
     required BuildContext context,
     double? overridingDialogHeight,
@@ -143,6 +158,20 @@ class BottomDialog extends StatelessWidget {
     final double _dialogClearHeight = _dialogHeight - _titleZoneHeight - _draggerZoneHeight;
     return _dialogClearHeight;
   }
+  // --------------------------------------------------------------------------
+
+  /// DIALOG MARGIN
+
+  // --------------------
+  static const double dialogMarginValue = Ratioz.appBarMargin + Ratioz.appBarPadding;
+  // --------------------
+  static const EdgeInsets dialogMargins = EdgeInsets.symmetric(
+      horizontal: dialogMarginValue
+  );
+  // --------------------------------------------------------------------------
+
+  /// DIALOG CORNERS
+
   // --------------------
   static BorderRadius dialogCorners() {
     final BorderRadius _dialogCorners = Borderers.cornerOnly(
@@ -169,6 +198,10 @@ class BottomDialog extends StatelessWidget {
     );
     return _corners;
   }
+  // --------------------------------------------------------------------------
+
+  /// SHOW
+
   // --------------------
   static Future<void> showBottomDialog({
     required Widget child,
@@ -351,6 +384,10 @@ class BottomDialog extends StatelessWidget {
       // )
     );
   }
+  // --------------------------------------------------------------------------
+
+  /// BUTTON
+
   // --------------------
   static const double wideButtonHeight = 40;
   // --------------------

@@ -2,16 +2,16 @@ import 'package:bldrs/b_views/z_components/buttons/multi_button/d_micro_pic.dart
 import 'package:flutter/material.dart';
 
 class DoublePicsBox extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const DoublePicsBox({
     required this.pics,
     required this.size,
     super.key
   });
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   final double size;
-  final List<String>? pics;
-  /// --------------------------------------------------------------------------
+  final List<dynamic>? pics;
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -50,4 +50,5 @@ class DoublePicsBox extends StatelessWidget {
     }
 
   }
+  // --------------------------------------------------------------------------
 }
