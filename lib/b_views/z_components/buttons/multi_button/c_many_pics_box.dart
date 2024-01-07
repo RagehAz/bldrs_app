@@ -9,11 +9,13 @@ class ManyPicsBox extends StatelessWidget {
   const ManyPicsBox({
     required this.pics,
     required this.size,
+    this.textColor = Colorz.white255,
     super.key
   });
   // -----------------------
   final List<dynamic>? pics;
   final double size;
+  final Color textColor;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -81,6 +83,7 @@ class ManyPicsBox extends StatelessWidget {
                     icon: '+${pics!.length - 3}',
                     // verseWeight: VerseWeight.thin,
                     // verseScaleFactor: 0.35,
+                    iconColor: textColor,
                     bubble: false,
                   ),
 
