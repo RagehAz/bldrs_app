@@ -265,7 +265,7 @@ class AppSettingsScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 15),
                               child: RedDotBadge(
-                                childWidth: _buttonWidth,
+                                approxChildWidth: _buttonWidth,
                                 redDotIsOn: true,
                                 verse: const Verse(
                                   id: 'phid_update',

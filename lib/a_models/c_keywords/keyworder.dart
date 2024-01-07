@@ -1,5 +1,3 @@
-
-
 import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/map_pathing.dart';
 import 'package:basics/helpers/classes/strings/pathing.dart';

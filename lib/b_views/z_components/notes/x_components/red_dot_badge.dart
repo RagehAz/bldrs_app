@@ -1,5 +1,4 @@
 // ignore_for_file: unused_element
-
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
@@ -101,12 +100,13 @@ class RedDotBadge extends StatelessWidget {
   const RedDotBadge({
     required this.child,
     required this.redDotIsOn,
-    required this.childWidth,
+    required this.approxChildWidth,
     this.count,
     this.shrinkChild = false,
     this.isNano = false,
     this.verse,
     this.color,
+    this.height,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -115,9 +115,10 @@ class RedDotBadge extends StatelessWidget {
   final Widget child;
   final bool shrinkChild;
   final bool isNano;
-  final double childWidth;
+  final double approxChildWidth;
   final Verse? verse;
   final Color? color;
+  final double? height;
   /// --------------------------------------------------------------------------
   static double getShrinkageScale({
     required double childWidth,
@@ -140,48 +141,46 @@ class RedDotBadge extends StatelessWidget {
 
     return _dx;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return Center(
-      child: SizedBox(
-        width: childWidth,
-        child: Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
+    return SizedBox(
+      height: height,
+      child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
 
-            if (shrinkChild == true)
-              Transform.scale(
-                scale: getShrinkageScale(
-                  isNano: isNano,
-                  childWidth: childWidth,
-                ),
-                alignment: BldrsAligners.superBottomAlignment(context),
-                child: child,
+          if (shrinkChild == true)
+            Transform.scale(
+              scale: getShrinkageScale(
+                isNano: isNano,
+                childWidth: approxChildWidth,
               ),
+              alignment: BldrsAligners.superBottomAlignment(context),
+              child: child,
+            ),
 
-            if (shrinkChild == false)
-              child,
+          if (shrinkChild == false)
+            child,
 
-            if (redDotIsOn == true)
-              SuperPositioned(
-                enAlignment: Alignment.topRight,
-                // horizontalOffset: -(NoteRedDot.size * 0.5),
-                appIsLTR: UiProvider.checkAppIsLeftToRight(),
-                child: _RedDot(
-                  count: count,
-                  isNano: isNano,
-                  verse: verse,
-                  color: color,
-                ),
+          if (redDotIsOn == true)
+            SuperPositioned(
+              enAlignment: Alignment.topRight,
+              // horizontalOffset: -(NoteRedDot.size * 0.5),
+              appIsLTR: UiProvider.checkAppIsLeftToRight(),
+              child: _RedDot(
+                count: count,
+                isNano: isNano,
+                verse: verse,
+                color: color,
               ),
+            ),
 
-          ],
-        ),
+        ],
       ),
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

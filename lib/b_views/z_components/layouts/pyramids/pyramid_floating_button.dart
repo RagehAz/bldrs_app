@@ -36,7 +36,7 @@ class PyramidFloatingButton extends StatelessWidget {
       triggerMode: TooltipTriggerMode.longPress,
       verse: toolTip,
       child: RedDotBadge(
-        childWidth: size,
+        approxChildWidth: size,
         redDotIsOn: redDotCount > 0,
         count: redDotCount,
         shrinkChild: true,
