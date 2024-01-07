@@ -22,6 +22,7 @@ class SectionsButton extends StatelessWidget {
     this.textColor = Colorz.white255,
     this.titleColor = Colorz.grey255,
     this.borderColor,
+    this.height,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -30,6 +31,7 @@ class SectionsButton extends StatelessWidget {
   final Color textColor;
   final Color titleColor;
   final Color? borderColor;
+  final double? height;
   /// --------------------------------------------------------------------------
   static Verse getTitle({
     required BuildContext context,
@@ -120,6 +122,7 @@ class SectionsButton extends StatelessWidget {
       final double _maxTextWidth = _maxBoxWidth - 20 - Ratioz.appBarButtonSize;
 
       final double _borderFix = borderColor == null ? 0 : 1;
+      final double _height = height ?? 40;
 
       return Material(
         child: InkWell(
@@ -127,7 +130,7 @@ class SectionsButton extends StatelessWidget {
           splashColor: Colorz.yellow125,
           borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
           child: Container(
-            height: 40 - _borderFix,
+            height: _height - _borderFix,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: color,
@@ -141,8 +144,8 @@ class SectionsButton extends StatelessWidget {
 
                 /// PIC
                 BldrsBox(
-                  height: 40,
-                  width: 40,
+                  height: _height,
+                  width: _height,
                   icon: _icon ?? Iconz.keywords,
                   bubble: false,
                   loading: _loadingChains,

@@ -13,6 +13,7 @@ class MultiButton extends StatelessWidget {
   const MultiButton({
     required this.pics,
     required this.height,
+    this.maxWidth,
     this.width,
     this.verse,
     this.secondLine,
@@ -31,6 +32,7 @@ class MultiButton extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double height;
+  final double? maxWidth;
   final double? width;
   final List<dynamic>? pics;
   final Verse? verse;
@@ -53,6 +55,7 @@ class MultiButton extends StatelessWidget {
     if (Lister.checkCanLoop(pics) == false || loading == true){
       return BldrsBox(
         width: width,
+        maxWidth: maxWidth,
         height: height,
         margins: Scale.superMargins(margin: margins),
         color: color,
@@ -74,6 +77,7 @@ class MultiButton extends StatelessWidget {
 
               BldrsBox(
                 width: width,
+                maxWidth: maxWidth,
                 height: height,
                 verse: verse,
                 verseScaleFactor: verseScaleFactor,

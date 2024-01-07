@@ -12,11 +12,11 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
-
 /// => TAMAM
 @immutable
 class BzModel{
@@ -818,6 +818,26 @@ class BzModel{
     }
 
     return _bzzModels;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getBzzLogosPaths(List<String>? bzzIDs){
+    final List<String> _paths = [];
+
+    if (Lister.checkCanLoop(bzzIDs) == true){
+
+      for (final String bzID in bzzIDs!){
+
+        final String? _path = StoragePath.bzz_bzID_logo(bzID);
+        if (_path != null){
+          _paths.add(_path);
+        }
+
+      }
+
+    }
+
+    return _paths;
   }
   // -----------------------------------------------------------------------------
 
