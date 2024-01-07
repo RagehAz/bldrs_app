@@ -2,6 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
@@ -18,11 +19,17 @@ class SectionsButton extends StatelessWidget {
   const SectionsButton({
     this.onTap,
     this.color = Colorz.white10,
+    this.textColor = Colorz.white255,
+    this.titleColor = Colorz.grey255,
+    this.borderColor,
     super.key
   });
   /// --------------------------------------------------------------------------
   final Function? onTap;
   final Color color;
+  final Color textColor;
+  final Color titleColor;
+  final Color? borderColor;
   /// --------------------------------------------------------------------------
   static Verse getTitle({
     required BuildContext context,
@@ -112,21 +119,27 @@ class SectionsButton extends StatelessWidget {
       final double _maxBoxWidth = BldrsAppBar.width() - 20 - Ratioz.appBarButtonSize;
       final double _maxTextWidth = _maxBoxWidth - 20 - Ratioz.appBarButtonSize;
 
+      final double _borderFix = borderColor == null ? 0 : 1;
+
       return Material(
         child: InkWell(
           onTap: onTap == null ? () => onSectionButtonTap() : () => onTap!(),
           splashColor: Colorz.yellow125,
           borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
           child: Container(
-            height: 40,
+            height: 40 - _borderFix,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
+              border: TapLayer.getBorder(
+                color: borderColor,
+              )
             ),
             child: Row(
               children: <Widget>[
 
+                /// PIC
                 BldrsBox(
                   height: 40,
                   width: 40,
@@ -135,6 +148,7 @@ class SectionsButton extends StatelessWidget {
                   loading: _loadingChains,
                 ),
 
+                /// TEXTS
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,7 +159,7 @@ class SectionsButton extends StatelessWidget {
                       verse: _loadingChains == true ? _loadingVerse : _titleVerse,
                       size: 1,
                       italic: true,
-                      color: Colorz.grey255,
+                      color: titleColor,
                       weight: VerseWeight.thin,
                       centered: false,
                       margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -160,6 +174,7 @@ class SectionsButton extends StatelessWidget {
                       scaleFactor: 1.26,
                       margin: const EdgeInsets.symmetric(horizontal: 10),
                       maxWidth: _maxTextWidth,
+                      color: textColor,
                     ),
 
                   ],
