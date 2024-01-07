@@ -1,5 +1,4 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/d_micro_pic.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class ManyPicsBox extends StatelessWidget {
         width: size,
         height: size,
         // decoration: BoxDecoration(
-        //   color: Colorz.bloodTest,
+          color: Colorz.nothing,
         //   borderRadius: SuperBoxController.boxCorners(
         //     context: context,
         //     cornersOverride: null,
@@ -41,15 +40,16 @@ class ManyPicsBox extends StatelessWidget {
           height: _innerSize,
           alignment: Alignment.center,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 
-              SizedBox(
+              Container(
                 width: _innerSize,
                 height: _innerSize * 0.5,
+                color: Colorz.nothing,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
 
                     MicroPic(
@@ -57,7 +57,7 @@ class ManyPicsBox extends StatelessWidget {
                       pic: pics![0],
                     ),
 
-                    const Expander(),
+                    // const Expander(),
 
                     MicroPic(
                       size: _picSize,
@@ -68,12 +68,13 @@ class ManyPicsBox extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(
+              Container(
                 width: _innerSize,
                 height: _innerSize * 0.5,
+                color: Colorz.nothing,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
 
                     MicroPic(
