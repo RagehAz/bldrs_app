@@ -22,75 +22,96 @@ class ManyPicsBox extends StatelessWidget {
 
     if (pics != null && pics!.length >= 3){
 
-      final double _size = size * 0.47;
+      final double _innerSize = size * 0.88;
+      final double _picSize = _innerSize * 0.45;
 
-      return SizedBox(
+      return Container(
         width: size,
         height: size,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
+        // decoration: BoxDecoration(
+        //   color: Colorz.bloodTest,
+        //   borderRadius: SuperBoxController.boxCorners(
+        //     context: context,
+        //     cornersOverride: null,
+        //   ),
+        // ),
+        alignment: Alignment.center,
+        child: Container(
+          width: _innerSize,
+          height: _innerSize,
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+              SizedBox(
+                width: _innerSize,
+                height: _innerSize * 0.5,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
 
-                MicroPic(
-                  size: _size,
-                  pic: pics![0],
+                    MicroPic(
+                      size: _picSize,
+                      pic: pics![0],
+                    ),
+
+                    const Expander(),
+
+                    MicroPic(
+                      size: _picSize,
+                      pic: pics![1],
+                    ),
+
+                  ],
                 ),
+              ),
 
-                const Expander(),
+              SizedBox(
+                width: _innerSize,
+                height: _innerSize * 0.5,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
 
-                MicroPic(
-                  size: _size,
-                  pic: pics![1],
+                    MicroPic(
+                      size: _picSize,
+                      pic: pics![2],
+                    ),
+
+                    if (pics!.length == 3)
+                      Container(
+                        width: _picSize,
+                        height: _picSize,
+                        color: Colorz.nothing,
+                      ),
+
+                    if (pics!.length == 4)
+                      MicroPic(
+                        size: _picSize,
+                        pic: pics![3],
+                      ),
+
+                    if (pics!.length > 4)
+                      BldrsBox(
+                        height: _picSize,
+                        width: _picSize,
+                        icon: '+${pics!.length - 3}',
+                        iconColor: textColor,
+                        bubble: false,
+                        iconSizeFactor: 0.7,
+                        color: textColor == Colorz.white255 ? Colorz.white20 : Colorz.black80,
+                        corners: _picSize/2,
+                      ),
+
+                  ],
                 ),
+              ),
 
-              ],
-            ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-
-                MicroPic(
-                  size: _size,
-                  pic: pics![2],
-                ),
-
-                const Expander(),
-
-                if (pics!.length == 3)
-                  Container(
-                    width: _size,
-                    height: _size,
-                    color: Colorz.nothing,
-                  ),
-
-                if (pics!.length == 4)
-                  MicroPic(
-                    size: _size,
-                    pic: pics![3],
-                  ),
-
-                if (pics!.length > 4)
-                  BldrsBox(
-                    height: _size,
-                    width: _size,
-                    icon: '+${pics!.length - 3}',
-                    // verseWeight: VerseWeight.thin,
-                    // verseScaleFactor: 0.35,
-                    iconColor: textColor,
-                    bubble: false,
-                  ),
-
-              ],
-            ),
-
-          ],
+            ],
+          ),
         ),
       );
 
