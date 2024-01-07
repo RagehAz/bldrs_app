@@ -1,5 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/dialogs/center_dialog.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -24,6 +26,7 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/password_screen.dart';
 import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_banner.dart';
+import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/a_heroic_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
@@ -1476,6 +1479,7 @@ class Dialogs {
   /// PARAGRAPH
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> paragraphDialog({
     required Verse paragraph,
     bool paragraphCentered = true,
@@ -1511,6 +1515,73 @@ class Dialogs {
         )
     );
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// PHIDS DIALOG
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String?> phidsDialogs({
+    required Verse? headline,
+    required List<String> phids,
+  }) async {
+    String? _output;
+
+    final BuildContext context = getMainContext();
+    final double _dialogWidth = Bubble.bubbleWidth(context: context) * 0.8;
+    final double _buttonWidth = Bubble.clearWidth(context: context, bubbleWidthOverride: _dialogWidth);
+    final double _contentHeight = Scale.screenHeight(context) * 0.6;
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      backgroundColor: Colorz.nothing,
+      bubble: Bubble(
+        bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+          context: context,
+          headlineVerse: headline,
+        ),
+        width: _dialogWidth,
+        appIsLTR: UiProvider.checkAppIsLeftToRight(),
+        bubbleColor: Colorz.black200,
+        child: ClipRRect(
+          borderRadius: Bubble.clearBorders(),
+          child: SizedBox(
+            height: _contentHeight,
+            child: FloatingList(
+              width: _dialogWidth,
+              height: _contentHeight,
+              boxCorners: Bubble.clearBorders(),
+              columnChildren: <Widget>[
+
+                ...List.generate(phids.length, (index){
+
+                  final String _phid = phids[index];
+
+                  return PhidButton(
+                    phid: _phid,
+                    width: _buttonWidth,
+                    height: 50,
+                    margins: const EdgeInsets.only(bottom: 5),
+                    onPhidTap: () async {
+
+                      _output = _phid;
+
+                      await Nav.goBack(context: context);
+
+                    },
+                  );
+
+                }),
+
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 }
