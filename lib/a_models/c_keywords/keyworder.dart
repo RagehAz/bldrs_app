@@ -125,4 +125,40 @@ class Keyworder {
     return _output;
   }
   // --------------------------------------------------------------------------
+
+  /// CHECKERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkMapSonsAreMaps({
+    required Map<String, dynamic>? map,
+  }){
+    bool _output = false;
+
+    if (map != null){
+
+      final List<String> _keys = map.keys.toList();
+
+      if (Lister.checkCanLoop(_keys) == true){
+
+        final dynamic _firstSon = map[_keys.first];
+
+        if (_firstSon is bool){
+          _output = false;
+        }
+        else if (_firstSon is Map){
+          _output = true;
+        }
+        else {
+          _output = false;
+        }
+
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------------------------------------------------------------
 }
