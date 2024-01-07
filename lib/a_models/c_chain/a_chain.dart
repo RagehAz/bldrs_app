@@ -732,7 +732,7 @@ class Chain {
   /// GETTERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TESTED : WORKS PERFECT (mirrored_in_keyworder)
   static List<String> getChainsRootsIDs(List<Chain>? chains) {
     final List<String> chainsIDs = <String>[];
 
@@ -834,7 +834,7 @@ class Chain {
     return _chain;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT FOR [ FlyerTyper.concludeFlyerTypeByChainID() ]
+  /// TESTED : WORKS PERFECT FOR [ FlyerTyper.concludeFlyerTypeByChainID() ] (mirrored_in_keyworder)
   static String? getRootChainIDOfPhid({
     required List<Chain>? allChains,
     required String? phid,
