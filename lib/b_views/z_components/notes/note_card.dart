@@ -122,7 +122,7 @@ class NoteCard extends StatelessWidget {
     );
     // --------------------
     return RedDotBadge(
-      childWidth: _bubbleWidth,
+      approxChildWidth: _bubbleWidth,
       redDotIsOn: noteModel?.seen != true,
       shrinkChild: true,
       child: Bubble(

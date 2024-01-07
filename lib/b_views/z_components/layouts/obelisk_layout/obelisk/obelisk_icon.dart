@@ -117,7 +117,7 @@ class ObeliskIcon extends StatelessWidget {
                   redDotIsOn: checkRedDotIsOn(forceRedDot: navModel?.forceRedDot, badge: badge),
                   count: count,
                   verse: verse,
-                  childWidth: Obelisk.circleWidth,
+                  approxChildWidth: Obelisk.circleWidth,
                   shrinkChild: true,
                   isNano: _hasVerse,
                   child: BldrsBox(
