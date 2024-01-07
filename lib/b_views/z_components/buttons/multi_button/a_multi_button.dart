@@ -25,6 +25,8 @@ class MultiButton extends StatelessWidget {
     this.verseCentered = false,
     this.verseMaxLines,
     this.loading = false,
+    this.textColor = Colorz.white255,
+    this.borderColor,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -42,6 +44,8 @@ class MultiButton extends StatelessWidget {
   final bool verseCentered;
   final int? verseMaxLines;
   final bool loading;
+  final Color textColor;
+  final Color? borderColor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -79,8 +83,10 @@ class MultiButton extends StatelessWidget {
                 iconColor: pics?.length == 1 ? null : Colorz.nothing,
                 bubble: bubble,
                 color: color,
+                borderColor: borderColor,
                 verseMaxLines: verseMaxLines ?? 2,
                 verseItalic: verseItalic,
+                verseColor: textColor,
               ),
 
               if (pics?.length == 2)
@@ -92,6 +98,7 @@ class MultiButton extends StatelessWidget {
               if ((pics?.length ?? 0) > 2)
                 ManyPicsBox(
                   size: height,
+                  textColor: textColor,
                   pics: pics ?? [],
                 ),
 

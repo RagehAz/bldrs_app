@@ -368,74 +368,6 @@ class ZonePhidsModel {
 
     return _output;
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<FlyerType> getFlyerTypesByZonePhids({
-    required ZonePhidsModel? zonePhidsModel,
-    required List<Chain>? bldrsChains,
-  }){
-    final List<FlyerType> _output = <FlyerType>[];
-
-    if (Lister.checkCanLoop(bldrsChains) == true){
-
-      final List<String> _phids = getPhidsFromZonePhidsModel(
-        zonePhidsModel: zonePhidsModel,
-      );
-
-      if (Lister.checkCanLoop(_phids) == true){
-
-        for (final String phid in _phids){
-
-          final bool _isPhidK = Phider.checkIsPhidK(phid);
-
-          if (_isPhidK == true){
-
-            final FlyerType? _flyerType = getFlyerTypeByPhid(
-              phid: phid,
-              bldrsChains: bldrsChains,
-            );
-
-            // blog('phid => $phid =>> _isPhidK : $_isPhidK : _flyerType : $_flyerType');
-
-            if (_flyerType != null && _output.contains(_flyerType) == false){
-              _output.add(_flyerType);
-            }
-
-          }
-
-        }
-
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static FlyerType? getFlyerTypeByPhid({
-    required String? phid,
-    required List<Chain>? bldrsChains,
-  }){
-    FlyerType? _output;
-
-    if (phid != null && bldrsChains != null){
-
-      final String? _rootChainID = Chain.getRootChainIDOfPhid(
-          allChains: bldrsChains,
-          phid: phid
-      );
-
-      _output = FlyerTyper.concludeFlyerTypeByChainID(
-        chainID: _rootChainID,
-      );
-
-      // blog('root chain id is ($_rootChainID) : flyerType : ($_output) : for this phid ($phid)');
-
-    }
-
-    return _output;
-  }
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS
@@ -473,24 +405,6 @@ class ZonePhidsModel {
     // blog('_cleanZeroValuesPhids START : ${_output?.phidsMaps?.length} KEYS for (${zonePhids?.zoneID}');
 
     return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<Chain> removeUnusedPhidsFromBldrsChainsForThisZone({
-    required List<Chain>? bldrsChains,
-    required ZonePhidsModel? currentZonePhidsModel,
-  }) {
-
-    final List<String> _usedPhids = ZonePhidsModel.getPhidsFromZonePhidsModel(
-      zonePhidsModel: currentZonePhidsModel,
-    );
-
-    final List<Chain>? _refined = Chain.removeAllPhidsNotUsedInThisList(
-      chains: bldrsChains,
-      usedPhids: _usedPhids,
-    );
-
-    return _refined ?? [];
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -561,6 +475,96 @@ class ZonePhidsModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// CHAINS RELATED
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Chain> removeUnusedPhidsFromBldrsChainsForThisZone({
+    required List<Chain>? bldrsChains,
+    required ZonePhidsModel? currentZonePhidsModel,
+  }) {
+
+    final List<String> _usedPhids = ZonePhidsModel.getPhidsFromZonePhidsModel(
+      zonePhidsModel: currentZonePhidsModel,
+    );
+
+    final List<Chain>? _refined = Chain.removeAllPhidsNotUsedInThisList(
+      chains: bldrsChains,
+      usedPhids: _usedPhids,
+    );
+
+    return _refined ?? [];
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT (mirrored_in_keyworder)
+  static List<FlyerType> getFlyerTypesByZonePhids({
+    required ZonePhidsModel? zonePhidsModel,
+    required List<Chain>? bldrsChains,
+  }){
+    final List<FlyerType> _output = <FlyerType>[];
+
+    if (Lister.checkCanLoop(bldrsChains) == true){
+
+      final List<String> _phids = getPhidsFromZonePhidsModel(
+        zonePhidsModel: zonePhidsModel,
+      );
+
+      if (Lister.checkCanLoop(_phids) == true){
+
+        for (final String phid in _phids){
+
+          final bool _isPhidK = Phider.checkIsPhidK(phid);
+
+          if (_isPhidK == true){
+
+            final FlyerType? _flyerType = getFlyerTypeByPhid(
+              phid: phid,
+              bldrsChains: bldrsChains,
+            );
+
+            // blog('phid => $phid =>> _isPhidK : $_isPhidK : _flyerType : $_flyerType');
+
+            if (_flyerType != null && _output.contains(_flyerType) == false){
+              _output.add(_flyerType);
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT (mirrored_in_keyworder)
+  static FlyerType? getFlyerTypeByPhid({
+    required String? phid,
+    required List<Chain>? bldrsChains,
+  }){
+    FlyerType? _output;
+
+    if (phid != null && bldrsChains != null){
+
+      final String? _rootChainID = Chain.getRootChainIDOfPhid(
+          allChains: bldrsChains,
+          phid: phid
+      );
+
+      _output = FlyerTyper.concludeFlyerTypeByChainID(
+        chainID: _rootChainID,
+      );
+
+      // blog('root chain id is ($_rootChainID) : flyerType : ($_output) : for this phid ($phid)');
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
   /// CHECKERS
 
   // --------------------
@@ -590,6 +594,7 @@ class ZonePhidsModel {
 
     return _identical;
   }
+
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES
