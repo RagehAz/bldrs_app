@@ -129,7 +129,7 @@ class SectionsButton extends StatelessWidget {
           onTap: onTap == null ? () => onSectionButtonTap() : () => onTap!(),
           splashColor: Colorz.yellow125,
           borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
-          child: Container(
+          child: AnimatedContainer(
             height: _height - _borderFix,
             alignment: Alignment.center,
             decoration: BoxDecoration(
@@ -139,6 +139,8 @@ class SectionsButton extends StatelessWidget {
                 color: borderColor,
               )
             ),
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
             child: Row(
               children: <Widget>[
 
@@ -182,6 +184,7 @@ class SectionsButton extends StatelessWidget {
 
                   ],
                 ),
+
               ],
             ),
           ),
