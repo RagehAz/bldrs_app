@@ -2,7 +2,6 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:flutter/material.dart';
 
 enum UserTab {
   profile,
@@ -67,10 +66,7 @@ class UserTabber {
   }
   // --------------------
   /// TAMAM : WORKS PERFECT
-  static Verse translateUserTab({
-    required BuildContext context,
-    required UserTab userTab,
-  }){
+  static Verse translateUserTab(UserTab userTab){
     final String? _tabPhraseID = _getUserTabPhid(userTab);
     return Verse(
       id: _tabPhraseID,
