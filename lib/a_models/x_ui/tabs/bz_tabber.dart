@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
 enum BzTab{
@@ -40,27 +41,25 @@ class BzTabber {
     BzTab.settings,
   ];
   // --------------------
-  /*
-//   /// CAUTION : THESE TITLES CAN NOT BE TRANSLATED DUE TO THEIR USE IN WIDGET KEYS
-//   static const List<String> bzPagesTabsTitlesInEnglishOnly = <String>[
-//     'Flyers',
-//     'About',
-//     'Authors',
-//     'Notifications',
-//     'Targets',
-//     'Powers',
-//     'Network',
-//     'settings',
-//   ];
-   */
+  /// TAMAM : WORKS PERFECT
+  static String? getBzTabID(BzTab? bzTab){
+    switch(bzTab){
+      case BzTab.about        : return  'about'     ;
+      case BzTab.flyers       : return  'flyers'    ;
+      case BzTab.team         : return  'team'      ;
+      case BzTab.notes        : return  'notes'     ;
+      case BzTab.settings     : return  'settings'  ;
+      default: return null;
+    }
+  }
   // --------------------
   /// TESTED: WORKS PERFECT
   static String? getBzTabPhid({
     required BzTab? bzTab,
   }){
     switch(bzTab){
-      case BzTab.flyers   : return 'phid_flyers';
       case BzTab.about    : return 'phid_info';
+      case BzTab.flyers   : return 'phid_flyers';
       case BzTab.team  : return 'phid_team';
       case BzTab.notes    : return 'phid_notifications';
       // case BzTab.targets  : return 'phid_targets'  ; break;
@@ -69,6 +68,15 @@ class BzTabber {
       case BzTab.settings : return 'phid_settings';
       default : return null;
     }
+  }
+  // --------------------
+  /// TAMAM : WORKS PERFECT
+  static Verse translateBzTab(BzTab bzTab){
+    final String? _tabPhraseID = getBzTabPhid(bzTab: bzTab)!;
+    return Verse(
+      id: _tabPhraseID,
+      translate: true,
+    );
   }
   // --------------------
   /// TESTED: WORKS PERFECT

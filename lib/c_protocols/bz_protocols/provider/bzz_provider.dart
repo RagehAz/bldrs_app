@@ -418,6 +418,23 @@ class BzzProvider extends ChangeNotifier {
   BzModel? get myActiveBz => _myActiveBz;
   // --------------------
   /// TESTED : WORKS PERFECT
+  static void proSetActiveBzByID({
+    required String bzID,
+    required BuildContext context,
+    required bool notify,
+  }){
+
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final List<BzModel> _myBzz = _bzzProvider.myBzz;
+    final BzModel? _bzModel = BzModel.getBzFromBzzByBzID(
+        bzz: _myBzz,
+        bzID: bzID
+    );
+    _bzzProvider.setActiveBz(bzModel: _bzModel, notify: false);
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static void proSetActiveBzModel({
     required BzModel bzModel,
     required BuildContext context,
