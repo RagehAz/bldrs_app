@@ -4,7 +4,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/widgets/buttons/stores_buttons/store_button.dart';
 import 'package:basics/helpers/widgets/drawing/spacing.dart';
-import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
+import 'package:basics/helpers/widgets/layers/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';

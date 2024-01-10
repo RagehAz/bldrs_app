@@ -20,7 +20,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/future_model_builders/flyer_builder.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
-import 'package:bldrs/z_grid/z_grid.dart';
+import 'package:basics/z_grid/z_grid.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 
@@ -61,6 +61,7 @@ class FlyerPreviewScreen extends StatelessWidget {
     final double _screenHeight = Scale.screenHeight(context);
 
     final double _flyerWidth = ZGridScale.getBigItemWidth(
+      context: context,
       gridWidth: _screenWidth,
       gridHeight: _screenHeight,
       itemAspectRatio: FlyerDim.flyerAspectRatio(),

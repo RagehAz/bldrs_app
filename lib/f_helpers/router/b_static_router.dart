@@ -23,7 +23,7 @@ import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_setting
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_preview_screen.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
-import 'package:bldrs/w_web_module/banner_screen.dart';
+import 'package:bldrs/b_views/a_starters/x_banner_screen/banner_screen.dart';
 import 'package:flutter/material.dart';
 
 class StaticRouter {
