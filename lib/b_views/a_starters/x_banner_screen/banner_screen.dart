@@ -7,7 +7,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/widgets/buttons/stores_buttons/store_button.dart';
+import 'package:basics/helpers/widgets/buttons/store_button.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/super_box/super_box.dart';
