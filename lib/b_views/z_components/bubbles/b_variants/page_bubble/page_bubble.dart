@@ -5,7 +5,7 @@ import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:basics/helpers/widgets/drawing/stratosphere.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 

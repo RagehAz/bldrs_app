@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
-import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
+import 'package:basics/helpers/widgets/layers/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/password_bubble/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';

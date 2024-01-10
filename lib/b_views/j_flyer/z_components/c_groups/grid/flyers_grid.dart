@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flye
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/heroic_flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/jumper_flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/loading_flyers_grid.dart';
-import 'package:bldrs/z_grid/z_grid.dart';
+import 'package:basics/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
 
 enum FlyerGridType {

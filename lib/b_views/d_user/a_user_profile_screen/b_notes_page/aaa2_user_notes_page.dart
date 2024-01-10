@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/d_user/a_user_profile_screen/b_notes_page/x2_user_
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/d_bz_notes_page/bz_notes_page.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:basics/helpers/widgets/drawing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';

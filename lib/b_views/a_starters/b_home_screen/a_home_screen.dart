@@ -22,7 +22,7 @@ import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
-import 'package:bldrs/z_grid/z_grid.dart';
+import 'package:basics/z_grid/z_grid.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';

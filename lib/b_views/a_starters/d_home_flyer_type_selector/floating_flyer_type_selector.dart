@@ -7,7 +7,7 @@ import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
+import 'package:basics/helpers/widgets/layers/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/main_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/layout_exit_swiper.dart';

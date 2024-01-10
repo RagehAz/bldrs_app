@@ -20,7 +20,7 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_builder.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:basics/helpers/widgets/drawing/horizon.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';

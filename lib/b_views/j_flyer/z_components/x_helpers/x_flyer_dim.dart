@@ -5,7 +5,7 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/z_grid/z_grid.dart';
+import 'package:basics/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 /// => TAMAM
@@ -1029,9 +1029,10 @@ class FlyerDim {
   }){
 
     final double _bigFlyerWidth = ZGridScale.getBigItemWidth(
-        gridWidth: gridWidth,
-        gridHeight: gridHeight,
-        itemAspectRatio: flyerAspectRatio(),
+      context: getMainContext(),
+      gridWidth: gridWidth,
+      gridHeight: gridHeight,
+      itemAspectRatio: flyerAspectRatio(),
     );
 
     return flyerBoxWidth == _bigFlyerWidth;
@@ -1180,6 +1181,7 @@ class FlyerDim {
   }){
 
     final double gridSideMargin = ZGridScale.getGridSideMargin(
+      context: getMainContext(),
       gridWidth: gridWidth,
       gridHeight: gridHeight,
       itemAspectRatio: flyerAspectRatio(),
@@ -1254,6 +1256,7 @@ class FlyerDim {
     if (scrollDirection == Axis.vertical){
 
       return ZGridScale.getSmallItemWidth(
+        context: getMainContext(),
         gridWidth: gridWidth,
         gridHeight: gridHeight,
         columnCount: numberOfColumnsOrRows,
