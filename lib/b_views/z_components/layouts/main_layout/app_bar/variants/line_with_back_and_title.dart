@@ -1,18 +1,18 @@
 part of bldrs_app_bar;
 
 class LineWithBackAndTitle extends StatelessWidget {
-
+  // -----------------------------------------------------------------------------
   const LineWithBackAndTitle({
     required this.pageTitleVerse,
     required this.onBack,
     required this.canGoBack,
     super.key
   });
-  
+  // -----------------------------------------------------------------------------
   final Verse? pageTitleVerse;
   final Function onBack;
   final bool canGoBack;
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -49,5 +49,5 @@ class LineWithBackAndTitle extends StatelessWidget {
     );
 
   }
-
+  // -----------------------------------------------------------------------------
 }

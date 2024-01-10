@@ -3,7 +3,6 @@ part of bldrs_app_bar;
 class BldrsAppBarTree extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsAppBarTree({
-    required this.globalKey,
     required this.appBarType,
     required this.onBack,
     required this.pageTitleVerse,
@@ -41,7 +40,6 @@ class BldrsAppBarTree extends StatelessWidget {
   final Verse? searchHintVerse;
   final bool canGoBack;
   final Function? onSearchCancelled;
-  final GlobalKey? globalKey;
   final ValueNotifier<bool?>? filtersAreOn;
   final Widget? filters;
   // -----------------------------------------------------------------------------
@@ -61,7 +59,6 @@ class BldrsAppBarTree extends StatelessWidget {
       appBarType: appBarType,
       appBarScrollController: appBarScrollController,
       filtersAreOn: filtersAreOn,
-      globalKey: globalKey,
       onPaste: onPaste,
       onSearchCancelled: onSearchCancelled,
       onSearchChanged: onSearchChanged,
@@ -116,7 +113,6 @@ class BldrsAppBarTree extends StatelessWidget {
 class _AppBarContents extends StatelessWidget {
   // --------------------------------------------------------------------------
   const _AppBarContents({
-    required this.globalKey,
     required this.appBarType,
     required this.onBack,
     required this.pageTitleVerse,
@@ -153,7 +149,6 @@ class _AppBarContents extends StatelessWidget {
   final Verse? searchHintVerse;
   final bool canGoBack;
   final Function? onSearchCancelled;
-  final GlobalKey? globalKey;
   final ValueNotifier<bool?>? filtersAreOn;
   final Widget? filters;
   // -----------------------------------------------------------------------------
@@ -220,11 +215,16 @@ class _AppBarContents extends StatelessWidget {
                 minBoxHeight: _collapsedHeight,
                 sectionButtonIsOn: _sectionButtonIsOn,
                 appBarRowWidgets: appBarRowWidgets,
+                hintVerse: searchHintVerse,
+                onSearchSubmit: onSearchSubmit,
+                onSearchCancelled: onSearchCancelled,
+                searchController: searchController,
+                onSearchChanged: onSearchChanged,
               ),
 
               /// SEARCH BAR,
               if (appBarType == AppBarType.search)
-                SearchBar(
+                BldrsSearchBar(
                   searchController: searchController,
                   onSearchSubmit: onSearchSubmit,
                   onPaste: onPaste,
@@ -233,7 +233,6 @@ class _AppBarContents extends StatelessWidget {
                   hintVerse: searchHintVerse,
                   onSearchCancelled: onSearchCancelled,
                   appBarType: appBarType,
-                  globalKey: globalKey,
                   filtersAreOn: filtersAreOn,
                   onFilterTap: (){
 

@@ -54,7 +54,6 @@ class MainLayout extends StatelessWidget {
     this.onPyramidTap,
     this.onSearchCancelled,
     this.confirmButton,
-    this.globalKey,
     this.pyramidButtons,
     this.listenToHideLayout = false,
     this.filtersAreOn,
@@ -87,7 +86,6 @@ class MainLayout extends StatelessWidget {
   final Function? onPyramidTap;
   final Function? onSearchCancelled;
   final Widget? confirmButton;
-  final GlobalKey? globalKey;
   final List<Widget>? pyramidButtons;
   final bool listenToHideLayout;
   final ValueNotifier<bool?>? filtersAreOn;
@@ -225,7 +223,6 @@ class MainLayout extends StatelessWidget {
                   /// BODY CONTENT
                   body: MainLayoutStackWidgets(
                     key: const ValueKey<String>('mainStack'),
-                    globalKey: globalKey,
                     alignment: Alignment.topCenter,
                     skyType: skyType,
                     appBarType: appBarType,
