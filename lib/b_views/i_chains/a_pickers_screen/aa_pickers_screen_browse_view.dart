@@ -11,7 +11,7 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/x_pickers_screen_controllers.dart';
 import 'package:bldrs/b_views/i_chains/z_components/others/spec_picker_instruction.dart';
 import 'package:bldrs/b_views/i_chains/z_components/pickers/picker_splitter.dart';
-import 'package:basics/helpers/widgets/drawing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';

@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dar
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/widgets/drawing/horizon.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:basics/layouts/nav/nav.dart';

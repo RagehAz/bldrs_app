@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
-import 'package:basics/helpers/widgets/buttons/stores_buttons/store_button.dart';
+import 'package:basics/helpers/widgets/buttons/store_button.dart';
 import 'package:basics/helpers/widgets/drawing/spacing.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
