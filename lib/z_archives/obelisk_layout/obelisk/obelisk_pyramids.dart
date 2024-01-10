@@ -76,6 +76,7 @@ class ObeliskPyramids extends StatelessWidget {
               pyramidType: PyramidType.white,
               color: Colorz.black255,
               putInCorner: false,
+              isSinglePyramid: true,
             ),
 
             /// PYRAMIDS GRAPHIC
@@ -89,7 +90,7 @@ class ObeliskPyramids extends StatelessWidget {
                   pyramidType: isYellow ? PyramidType.yellow : PyramidType.white,
                   loading: isFlashing,
                   putInCorner: false,
-
+                  isSinglePyramid: true,
                 );
 
               },

@@ -109,7 +109,6 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   // -----------------------------------------------------------------------------
   TabController? _tabBarController;
   final TextEditingController _searchController = TextEditingController();
-  final GlobalKey _globalKey = GlobalKey();
   // --------------------
   List<Chain> _chains = [];
   List<NavModel> _navModels = [];
@@ -474,7 +473,6 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     /// MULTIPLE CHAINS
     else if (Lister.superLength(_chains) > 1){
       return MultiChainSelectorView(
-        globalKey: _globalKey,
         navModels: _navModels,
         searchController: _searchController,
         onSearchSubmit: _onSearchSubmit,
@@ -505,7 +503,6 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     else {
       return SingleChainSelectorView(
         chain: Lister.checkCanLoop(_chains) == true ? _chains.first : null,
-        globalKey: _globalKey,
         searchController: _searchController,
         onSearchSubmit: _onSearchSubmit,
         onSearchCancelled: _onSearchCancelled,
