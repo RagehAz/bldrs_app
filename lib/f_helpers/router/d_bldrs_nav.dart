@@ -24,7 +24,7 @@ import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs/z_grid/z_grid.dart';
+import 'package:basics/z_grid/z_grid.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

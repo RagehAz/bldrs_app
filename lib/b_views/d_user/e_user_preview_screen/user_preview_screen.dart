@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dar
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:basics/helpers/widgets/drawing/stratosphere.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';

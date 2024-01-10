@@ -12,7 +12,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart
 import 'package:bldrs/f_helpers/future_model_builders/bz_builder.dart';
 import 'package:bldrs/f_helpers/future_model_builders/bz_poster_flyer_builder.dart';
 import 'package:bldrs/f_helpers/future_model_builders/flyer_builder.dart';
-import 'package:bldrs/z_grid/z_grid.dart';
+import 'package:basics/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
 
 class NotePosterBuilder extends StatelessWidget {
@@ -48,6 +48,7 @@ class NotePosterBuilder extends StatelessWidget {
           flyerID: noteModel?.poster?.modelID,
           renderFlyer: RenderFlyer.allSlides,
           flyerBoxWidth: ZGridScale.getBigItemWidth(
+              context: context,
               gridWidth: Scale.screenWidth(context),
               gridHeight: Scale.screenHeight(context),
               itemAspectRatio: FlyerDim.flyerAspectRatio()

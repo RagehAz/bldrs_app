@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/currency_tile_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:basics/helpers/widgets/drawing/stratosphere.dart';
 import 'package:flutter/material.dart';
 
 class CurrenciesBuilder extends StatelessWidget {
