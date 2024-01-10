@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/co
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/paragraph_bubble/paragraph_bubble.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_stats_bubble.dart';
-import 'package:basics/helpers/widgets/drawing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
