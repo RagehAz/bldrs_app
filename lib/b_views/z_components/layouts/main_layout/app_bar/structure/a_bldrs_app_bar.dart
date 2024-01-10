@@ -3,7 +3,6 @@ part of bldrs_app_bar;
 class BldrsAppBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsAppBar({
-    required this.globalKey,
     required this.appBarType,
     required this.onBack,
     required this.pageTitleVerse,
@@ -42,7 +41,6 @@ class BldrsAppBar extends StatelessWidget {
   final Verse? searchHintVerse;
   final bool canGoBack;
   final Function? onSearchCancelled;
-  final GlobalKey? globalKey;
   final bool listenToHideLayout;
   final ValueNotifier<bool?>? filtersAreOn;
   final Widget? filters;
@@ -177,7 +175,6 @@ class BldrsAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final Widget _theAppBar = BldrsAppBarTree(
-      globalKey: globalKey,
       appBarType: appBarType,
       onBack: onBack,
       pageTitleVerse: pageTitleVerse,

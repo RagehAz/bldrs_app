@@ -10,7 +10,6 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
-import 'package:bldrs/b_views/a_starters/d_home_flyer_type_selector/floating_flyer_type_selector.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
@@ -27,6 +26,7 @@ import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/z_archives/d_home_flyer_type_selector/floating_flyer_type_selector.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -308,10 +308,6 @@ Future<void> onRefreshHomeWall({
 Future<void> onSectionButtonTap() async {
 
   final FlyerType? flyerType = await BldrsNav.goToNewScreen(
-    // pageTransitionType: Nav.superHorizontalTransition(
-    //   enAnimatesLTR: true,
-    //   appIsLTR: UiProvider.checkAppIsLeftToRight(),
-    // ),
     screen: const FloatingFlyerTypeSelector(),
   );
 

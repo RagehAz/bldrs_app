@@ -35,7 +35,6 @@ class ObeliskLayout extends StatefulWidget {
     this.onSearchChanged,
     this.searchController,
     this.onSearchSubmit,
-    this.globalKey,
     this.abovePyramidsChild,
     this.searchView,
     this.isSearching,
@@ -54,7 +53,6 @@ class ObeliskLayout extends StatefulWidget {
   final ValueChanged<String?>? onSearchChanged;
   final TextEditingController? searchController;
   final ValueChanged<String?>? onSearchSubmit;
-  final GlobalKey? globalKey;
   final Widget? abovePyramidsChild;
   final Widget? searchView;
   final ValueNotifier<bool>? isSearching;
@@ -257,7 +255,6 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
     return MainLayout(
       canSwipeBack: widget.canSwipeBack,
-      globalKey: widget.globalKey,
       skyType: SkyType.grey,
       appBarType: widget.appBarType,
       title: _pageTitleVerse,

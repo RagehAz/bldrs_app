@@ -35,7 +35,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
     required this.canSwipeBack,
     required this.onSearchCancelled,
     required this.confirmButton,
-    required this.globalKey,
     required this.listenToHideLayout,
     required this.filtersAreOn,
     required this.filters,
@@ -68,7 +67,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final Function? onSearchCancelled;
   final Widget? confirmButton;
   final bool listenToHideLayout;
-  final GlobalKey? globalKey;
   final ValueNotifier<bool?>? filtersAreOn;
   final Widget? filters;
   /// --------------------------------------------------------------------------
@@ -141,7 +139,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
           /// APP BAR
           if (appBarType != AppBarType.non)
             BldrsAppBar(
-              globalKey: globalKey,
               key: const ValueKey<String>('appBar'),
               appBarType: appBarType,
               appBarRowWidgets: appBarRowWidgets,

@@ -1,12 +1,11 @@
 part of bldrs_app_bar;
 
-class SearchBar extends StatefulWidget {
+class BldrsSearchBar extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const SearchBar({
+  const BldrsSearchBar({
     required this.onSearchSubmit,
     required this.searchButtonIsOn,
     required this.appBarType,
-    required this.globalKey,
     this.searchController,
     this.onSearchChanged,
     this.onPaste,
@@ -16,6 +15,7 @@ class SearchBar extends StatefulWidget {
     this.onSearchCancelled,
     this.filtersAreOn,
     this.onFilterTap,
+    this.width,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -29,16 +29,16 @@ class SearchBar extends StatefulWidget {
   final double? height;
   final Function? onSearchCancelled;
   final AppBarType? appBarType;
-  final GlobalKey? globalKey;
   final ValueNotifier<bool?>? filtersAreOn;
   final Function? onFilterTap;
+  final double? width;
   /// --------------------------------------------------------------------------
   @override
-  _SearchBarState createState() => _SearchBarState();
+  _BldrsSearchBarState createState() => _BldrsSearchBarState();
   /// --------------------------------------------------------------------------
 }
 
-class _SearchBarState extends State<SearchBar> {
+class _BldrsSearchBarState extends State<BldrsSearchBar> {
   // -----------------------------------------------------------------------------
   final GlobalKey globalKey = GlobalKey();
   // --------------------
@@ -77,7 +77,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _appBarClearWidth = BldrsAppBar.width();
+    final double _appBarClearWidth = widget.width ?? BldrsAppBar.clearWidth(context);
     const double _padding = Ratioz.appBarPadding;
     final double _searchButtonWidth = widget.searchButtonIsOn == true ? 40 : 0;
     const double _searchButtonHeight = 40;
