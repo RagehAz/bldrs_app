@@ -1,6 +1,6 @@
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_expanding_pyramid.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_pyramids.dart';
+import 'package:bldrs/z_archives/obelisk_layout/obelisk/obelisk.dart';
+import 'package:bldrs/z_archives/obelisk_layout/obelisk/obelisk_expanding_pyramid.dart';
+import 'package:bldrs/z_archives/obelisk_layout/obelisk/obelisk_pyramids.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
