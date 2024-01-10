@@ -15,7 +15,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
-import 'package:bldrs/z_grid/z_grid.dart';
+import 'package:basics/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

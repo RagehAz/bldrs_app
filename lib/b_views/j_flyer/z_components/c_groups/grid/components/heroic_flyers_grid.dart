@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_st
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/f_helpers/future_model_builders/flyer_builder.dart';
-import 'package:bldrs/z_grid/z_grid.dart';
+import 'package:basics/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
 
 class HeroicFlyersGrid extends StatelessWidget {
@@ -65,6 +65,7 @@ class HeroicFlyersGrid extends StatelessWidget {
     // );
 
     final ZGridScale _gridScale = ZGridScale.initialize(
+      context: context,
       gridWidth: gridWidth,
       gridHeight: gridHeight,
       columnCount: numberOfColumnsOrRows,

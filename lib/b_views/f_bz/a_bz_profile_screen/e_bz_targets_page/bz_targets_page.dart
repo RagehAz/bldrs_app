@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:basics/helpers/widgets/drawing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:basics/helpers/widgets/drawing/stratosphere.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 

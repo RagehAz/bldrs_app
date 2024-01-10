@@ -13,8 +13,9 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/future_model_builders/flyer_builder.dart';
-import 'package:bldrs/z_grid/z_grid.dart';
+import 'package:basics/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -208,6 +209,8 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
           onZoomInEnd: onZoomInEnd,
           gridScale: gridScale,
           zGridController: _controller,
+          appIsLTR: UiProvider.checkAppIsLeftToRight(),
+          closeKeyboardFunction: Keyboard.closeKeyboard,
         );
       }
 
@@ -247,6 +250,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
   Widget build(BuildContext context) {
 
     _gridScale = ZGridScale.initialize(
+      context: context,
       gridWidth: widget.gridWidth,
       gridHeight: widget.gridHeight,
       columnCount: widget.columnCount,
@@ -263,6 +267,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
     else {
 
       return ZGrid(
+        appIsLTR: UiProvider.checkAppIsLeftToRight(),
         gridScale: _gridScale!,
         blurBackgroundOnZoomedIn: true,
         controller: _controller,

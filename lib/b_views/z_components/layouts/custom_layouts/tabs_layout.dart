@@ -3,7 +3,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
-import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
+import 'package:basics/helpers/widgets/layers/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_builder.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';

@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
+import 'package:basics/helpers/widgets/layers/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
