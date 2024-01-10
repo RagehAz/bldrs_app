@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 class SingleChainSelectorView extends StatelessWidget {
   // --------------------------------------------------------------------------
   const SingleChainSelectorView({
-    required this.globalKey,
     required this.searchController,
     required this.onSearchSubmit,
     required this.onSearchCancelled,
@@ -30,7 +29,6 @@ class SingleChainSelectorView extends StatelessWidget {
     super.key
   });
   // --------------------
-  final GlobalKey globalKey;
   final TextEditingController searchController;
   final void Function(String?)? onSearchSubmit;
   final Function? onSearchCancelled;
@@ -52,7 +50,6 @@ class SingleChainSelectorView extends StatelessWidget {
     // --------------------
     return MainLayout(
       canSwipeBack: true,
-      globalKey: globalKey,
       appBarType: AppBarType.search,
       searchController: searchController,
       onSearchSubmit: onSearchSubmit,

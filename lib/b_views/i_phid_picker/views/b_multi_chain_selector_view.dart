@@ -19,7 +19,6 @@ import 'package:flutter/material.dart';
 class MultiChainSelectorView extends StatelessWidget {
   // --------------------------------------------------------------------------
   const MultiChainSelectorView({
-    required this.globalKey,
     required this.navModels,
     required this.searchController,
     required this.onSearchSubmit,
@@ -39,7 +38,6 @@ class MultiChainSelectorView extends StatelessWidget {
   });
   // --------------------
   final List<NavModel>? navModels;
-  final GlobalKey globalKey;
   final TextEditingController searchController;
   final void Function(String?)? onSearchSubmit;
   final Function? onSearchCancelled;
@@ -61,7 +59,6 @@ class MultiChainSelectorView extends StatelessWidget {
     return ObeliskLayout(
       canSwipeBack: true,
       appBarIcon: null,
-      globalKey: globalKey,
       navModels: navModels,
       canGoBack: true,
       appBarType: AppBarType.search,

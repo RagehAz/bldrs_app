@@ -11,6 +11,11 @@ class FirstAppBarLine extends StatelessWidget {
     required this.appBarRowWidgets,
     required this.appBarScrollController,
     required this.minBoxHeight,
+    required this.searchController,
+    required this.onSearchSubmit,
+    required this.onSearchChanged,
+    required this.hintVerse,
+    required this.onSearchCancelled,
     super.key
   });
   // -----------------------------------------------------------------------------
@@ -22,13 +27,25 @@ class FirstAppBarLine extends StatelessWidget {
   final List<Widget>? appBarRowWidgets;
   final ScrollController? appBarScrollController;
   final double minBoxHeight;
+  final TextEditingController? searchController;
+  final ValueChanged<String?>? onSearchSubmit;
+  final ValueChanged<String?>? onSearchChanged;
+  final Verse? hintVerse;
+  final Function? onSearchCancelled;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
 
     if (appBarType == AppBarType.main){
-      return const LineWithSectionAndSearchButtons();
+      return LineWithSearchbar(
+        onSearchChanged: onSearchChanged,
+        searchController: searchController,
+        onSearchCancelled: onSearchCancelled,
+        onSearchSubmit: onSearchSubmit,
+        hintVerse: hintVerse,
+      );
+      // return const LineWithSectionAndSearchButtons();
     }
 
     else {
