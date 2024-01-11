@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
@@ -28,59 +29,69 @@ class LineWithSearchbar extends StatelessWidget {
 
     final double _clearWidth = BldrsAppBar.clearWidth(context);
     const double _spacing = Ratioz.appBarPadding;
-    final double _searchBarWidth = _clearWidth - (_spacing * 3);
+    final double _searchBarWidth = _clearWidth - _spacing - Ratioz.appBarButtonSize;
 
-    return LineBox(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
+    return Container(
+      height: BldrsAppBar.clearLineHeight(context),
+      width: BldrsAppBar.clearWidth(context),
+      // color: Colorz.bloodTest,
+      margin: const EdgeInsets.symmetric(
+        vertical: Ratioz.appBarPadding,
+      ),
+      child: Row(
+        children: <Widget>[
 
-        const SizedBox(
-          width: Ratioz.appBarPadding,
-          height: Ratioz.appBarButtonSize,
-        ),
+          /// SEARCH ICON
+          const BldrsBox(
+            height: Ratioz.appBarButtonSize,
+            width: Ratioz.appBarButtonSize,
+            corners: Ratioz.appBarButtonCorner,
+            // margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+            icon: Iconz.search,
+            color: Colorz.white10,
+            iconSizeFactor: 0.5,
+            bubble: false,
+            // textDirection: superInverseTextDirection(context),
+            // onTap: () => BldrsNav.pushSearchRoute(),
+          ),
 
-        const BldrsBox(
-          height: Ratioz.appBarButtonSize,
-          width: Ratioz.appBarButtonSize,
-          corners: Ratioz.appBarButtonCorner,
-          // margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-          icon: Iconz.search,
-          iconSizeFactor: 0.5,
-          bubble: false,
-          // textDirection: superInverseTextDirection(context),
-          // onTap: () => BldrsNav.pushSearchRoute(),
-        ),
+          /// STARTING SPACER
+          const SizedBox(
+            width: _spacing,
+            height: _spacing,
+          ),
 
-        /// SEARCH BAR
-        BldrsSearchBar(
-          searchController: searchController,
-          onSearchSubmit: onSearchSubmit,
-          onSearchChanged: onSearchChanged,
-          onSearchCancelled: onSearchCancelled,
-          searchButtonIsOn: false,
-          hintVerse: hintVerse,
-          width: _searchBarWidth-25,
-          height: 40,
-          appBarType: AppBarType.non,
-          // onPaste: null,
-          // filtersAreOn: null,
-          onFilterTap: (){
+          /// SEARCH BAR
+          BldrsSearchBar(
+            searchController: searchController,
+            onSearchSubmit: onSearchSubmit,
+            onSearchChanged: onSearchChanged,
+            onSearchCancelled: onSearchCancelled,
+            searchButtonIsOn: false,
+            hintVerse: hintVerse,
+            width: _searchBarWidth,
+            height: Ratioz.appBarButtonSize,
+            appBarType: AppBarType.non,
+            // onPaste: null,
+            // filtersAreOn: null,
+            onFilterTap: (){
 
-            // if (filtersAreOn != null){
-            //
-            //   setNotifier(
-            //     notifier: filtersAreOn,
-            //     mounted: true,
-            //     value: !Mapper.boolIsTrue(filtersAreOn?.value),
-            //   );
-            //
-            // }
+              // if (filtersAreOn != null){
+              //
+              //   setNotifier(
+              //     notifier: filtersAreOn,
+              //     mounted: true,
+              //     value: !Mapper.boolIsTrue(filtersAreOn?.value),
+              //   );
+              //
+              // }
 
-          },
-        ),
+            },
+          ),
 
-        const SizedBox(width: Ratioz.appBarPadding),
-      ],
+          // const SizedBox(width: Ratioz.appBarPadding),
+        ],
+      ),
     );
 
   }

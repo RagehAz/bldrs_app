@@ -15,6 +15,7 @@ class BldrsTextField extends StatelessWidget {
   const BldrsTextField({
     required this.appBarType,
     required this.width,
+    this.height,
     this.globalKey,
     this.textController,
 
@@ -87,6 +88,7 @@ class BldrsTextField extends StatelessWidget {
 
   /// box
   final double width;
+  final double? height;
   final dynamic margins;
   final double corners;
   final Color fieldColor;
@@ -198,6 +200,7 @@ class BldrsTextField extends StatelessWidget {
     );
 
     return SuperTextField(
+      height: height,
       width: width,
       globalKey: globalKey,
       textController: textController,
@@ -268,7 +271,9 @@ class BldrsTextField extends StatelessWidget {
       isObscured: isObscured,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
 
-      textPadding: EdgeInsets.all(_textFieldPadding),
+      textPadding: EdgeInsets.symmetric(
+        horizontal: _textFieldPadding,
+      ),
       errorTextColor: Colorz.red255,
       enabledBorderColor: Colorz.nothing,
       focusedBorderColor: Colorz.yellow80,

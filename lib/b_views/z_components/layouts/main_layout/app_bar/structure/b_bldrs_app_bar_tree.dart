@@ -205,7 +205,7 @@ class _AppBarContents extends StatelessWidget {
             // mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
 
-              /// BACK / SEARCH / SECTION / ZONE
+              /// BACK / SEARCH
               FirstAppBarLine(
                 canGoBack: canGoBack,
                 appBarType: appBarType,
@@ -224,29 +224,34 @@ class _AppBarContents extends StatelessWidget {
 
               /// SEARCH BAR,
               if (appBarType == AppBarType.search)
-                BldrsSearchBar(
-                  searchController: searchController,
-                  onSearchSubmit: onSearchSubmit,
-                  onPaste: onPaste,
-                  searchButtonIsOn: searchButtonIsOn,
-                  onSearchChanged: onSearchChanged,
-                  hintVerse: searchHintVerse,
-                  onSearchCancelled: onSearchCancelled,
-                  appBarType: appBarType,
-                  filtersAreOn: filtersAreOn,
-                  onFilterTap: (){
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: Ratioz.appBarPadding,
+                  ),
+                  child: BldrsSearchBar(
+                    searchController: searchController,
+                    onSearchSubmit: onSearchSubmit,
+                    onPaste: onPaste,
+                    searchButtonIsOn: searchButtonIsOn,
+                    onSearchChanged: onSearchChanged,
+                    hintVerse: searchHintVerse,
+                    onSearchCancelled: onSearchCancelled,
+                    appBarType: appBarType,
+                    filtersAreOn: filtersAreOn,
+                    onFilterTap: (){
 
-                    if (filtersAreOn != null){
+                      if (filtersAreOn != null){
 
-                      setNotifier(
-                          notifier: filtersAreOn,
-                          mounted: true,
-                          value: !Mapper.boolIsTrue(filtersAreOn?.value),
-                      );
+                        setNotifier(
+                            notifier: filtersAreOn,
+                            mounted: true,
+                            value: !Mapper.boolIsTrue(filtersAreOn?.value),
+                        );
 
-                    }
+                      }
 
-                  },
+                    },
+                  ),
                 ),
 
             ],

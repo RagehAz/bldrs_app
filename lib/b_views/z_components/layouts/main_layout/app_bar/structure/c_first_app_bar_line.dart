@@ -36,7 +36,6 @@ class FirstAppBarLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     if (appBarType == AppBarType.main){
       return LineWithSearchbar(
         onSearchChanged: onSearchChanged,
@@ -45,7 +44,6 @@ class FirstAppBarLine extends StatelessWidget {
         onSearchSubmit: onSearchSubmit,
         hintVerse: hintVerse,
       );
-      // return const LineWithSectionAndSearchButtons();
     }
 
     else {
