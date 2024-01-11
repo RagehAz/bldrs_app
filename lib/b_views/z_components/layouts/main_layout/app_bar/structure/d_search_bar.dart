@@ -74,6 +74,26 @@ class _BldrsSearchBarState extends State<BldrsSearchBar> {
 
   }
   // -----------------------------------------------------------------------------
+  int _getNumberOfSpacings(){
+    int _output = 0;
+
+    if (widget.searchButtonIsOn == true){
+      _output++;
+    }
+    if (widget.filtersAreOn != null){
+      _output++;
+    }
+    if (_checkPasteButtonIsOn() == true){
+      _output++;
+    }
+
+    return _output;
+  }
+  // --------------------
+  bool _checkPasteButtonIsOn(){
+    return widget.searchButtonIsOn == true && widget.filtersAreOn == null;
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -81,25 +101,19 @@ class _BldrsSearchBarState extends State<BldrsSearchBar> {
     const double _padding = Ratioz.appBarPadding;
     final double _searchButtonWidth = widget.searchButtonIsOn == true ? 40 : 0;
     const double _searchButtonHeight = 40;
-    final int _numberOFPaddings = widget.searchButtonIsOn == true ? 4 : 2;
+    final int _numberOFPaddings = _getNumberOfSpacings();
     // _appBarClearWidth - (Ratioz.appBarButtonSize + Ratioz.appBarPadding * 3) - 3;
     final double _textFieldWidth = _appBarClearWidth - (_searchButtonWidth*2) - (_padding * _numberOFPaddings);
+    final double _boxHeight = widget.height ?? Ratioz.appBarButtonSize;
     // --------------------
     return Container(
       width: _appBarClearWidth,
-      height: widget.height ?? Ratioz.appBarButtonSize + Ratioz.appBarPadding,
+      height: _boxHeight,
       // color: Colorz.bloodTest,
       alignment: Alignment.center, //Aligners.superTopAlignment(context),
-      margin: const EdgeInsets.only(top: Ratioz.appBarPadding),
+      // margin: const EdgeInsets.only(top: Ratioz.appBarPadding),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-
-          /// STARTING SPACER
-          const SizedBox(
-            width: _padding,
-            height: _padding,
-          ),
 
           /// SEARCH BUTTON
           if (widget.searchButtonIsOn == true)
@@ -142,6 +156,7 @@ class _BldrsSearchBarState extends State<BldrsSearchBar> {
 
           /// SEARCH TEXT FIELD
           BldrsTextField(
+            height: _boxHeight,
             appBarType: widget.appBarType,
             globalKey: globalKey,
             // autofocus: false,
@@ -174,7 +189,7 @@ class _BldrsSearchBarState extends State<BldrsSearchBar> {
             ),
             textColor: Colorz.yellow255,
             textWeight: VerseWeight.thin,
-            textScaleFactor: 1.15,
+            textScaleFactor: _boxHeight * 0.0365,
             autoCorrect: Keyboard.autoCorrectIsOn(),
             enableSuggestions: Keyboard.suggestionsEnabled(),
             onSubmitted: (String? val) {
@@ -184,11 +199,8 @@ class _BldrsSearchBarState extends State<BldrsSearchBar> {
             },
           ),
 
-          /// MIDDLE SPACER
-          // if (widget.searchIconIsOn == true)
-
           /// PASTE BUTTON
-          if (widget.searchButtonIsOn == true && widget.filtersAreOn == null)
+          if (_checkPasteButtonIsOn() == true)
             ValueListenableBuilder(
                 valueListenable: _searchTextController,
                 builder: (_, TextEditingValue value, Widget? child){
@@ -258,12 +270,6 @@ class _BldrsSearchBarState extends State<BldrsSearchBar> {
                   );
                 }
                 ),
-
-          /// END SPACER
-          const SizedBox(
-            width: _padding,
-            height: _padding,
-          ),
 
         ],
       ),
