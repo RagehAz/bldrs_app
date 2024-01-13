@@ -11,6 +11,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -114,9 +115,8 @@ class SectionsButton extends StatelessWidget {
           currentSection: _wallFlyerType
       );
 
-      final String? _icon = _chainsProvider.getPhidIcon(
-        son: wallPhid,
-      );
+      final String? _icon = StoragePath.phids_phid(wallPhid);
+      // _chainsProvider.getPhidIcon(son: wallPhid);
 
       final double _maxBoxWidth = BldrsAppBar.width() - 20 - Ratioz.appBarButtonSize;
       final double _maxTextWidth = _maxBoxWidth - 20 - Ratioz.appBarButtonSize;
