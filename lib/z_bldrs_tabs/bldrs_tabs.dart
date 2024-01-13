@@ -61,6 +61,7 @@ class BldrsTabs {
   /// ALL VIEWS WIDGETS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Widget _getViewWidget(BldrsTab bldrsTab){
 
     switch (bldrsTab){
@@ -88,6 +89,7 @@ class BldrsTabs {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<Widget> getAllViewsWidgets() {
     final List<Widget> _views = [];
 
@@ -104,6 +106,7 @@ class BldrsTabs {
   /// TAB GETTERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getTabID(BldrsTab tab){
     return TextMod.removeTextBeforeFirstSpecialCharacter(
         text: tab.toString(),
@@ -111,6 +114,7 @@ class BldrsTabs {
     )!;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static int _getTabIndex(BldrsTab tab){
     final int _index = allTabs.indexWhere((element) => element == tab);
     return _index == -1 ? 0 : _index;
@@ -120,6 +124,7 @@ class BldrsTabs {
   /// GO TO TAP
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> goToTab({
     required BldrsTab tab,
   }) async {
