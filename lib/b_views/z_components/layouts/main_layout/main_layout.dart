@@ -17,7 +17,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 enum AppBarType {
   basic,
@@ -157,10 +156,7 @@ class MainLayout extends StatelessWidget {
 
     else {
 
-      final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
-      if (_uiProvider.keyboardIsOn == true){
-        await Keyboard.closeKeyboard();
-      }
+      await Keyboard.closeKeyboard();
 
       if (canGoBack == true){
         await Nav.goBack(
