@@ -38,7 +38,7 @@ class TabsProvider extends ChangeNotifier {
       vsync: vsync,
     );
 
-    _tabBarController!.addListener(() {
+    // _tabBarController!.addListener(() {
 
       // TabsProvider.proSetCurrentTab(
       //   context: context,
@@ -46,7 +46,7 @@ class TabsProvider extends ChangeNotifier {
       //   notify: true,
       // );
 
-    });
+    // });
 
   }
   // --------------------
@@ -108,14 +108,14 @@ class TabsProvider extends ChangeNotifier {
     required bool notify,
   }) {
     final TabsProvider _uiProvider = Provider.of<TabsProvider>(context, listen: false);
-    _uiProvider.setCurrentTab(
+    _uiProvider._setCurrentTab(
       tab: tab,
       notify: notify,
     );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void setCurrentTab({
+  void _setCurrentTab({
     required BldrsTab tab,
     required bool notify,
   }){
