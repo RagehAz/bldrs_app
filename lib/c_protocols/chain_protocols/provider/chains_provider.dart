@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/protocols/a_chain_protocols.dart';
 import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
@@ -922,7 +923,7 @@ class ChainsProvider extends ChangeNotifier {
 
     final String? _phid = cleanUpPhid(son);
 
-    return getLocalAssetPath(
+    return GeneralProvider.proGetLocalAssetPath( /// ERADICATE_CHAINS
       assetName: _phid,
     );
 

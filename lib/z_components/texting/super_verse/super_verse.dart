@@ -152,6 +152,14 @@ class BldrsText extends StatelessWidget {
       ],
     );
   }
+  // --------------------
+  static String? getCounterCaliber(int? x){
+    return Numeric.formatNumToCounterCaliber(
+      x: x,
+      thousand: getWord('phid_thousand'),
+      million: getWord('phid_million'),
+    );
+  }
   // -----------------------------------------------------------------------------
 
   /// SCALES
