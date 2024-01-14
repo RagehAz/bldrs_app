@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/a_starters/b_home_screen/x_initialization_controll
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_notes_controllers.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/e_ui_initializer.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
@@ -40,7 +41,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
-  PaginationController? _paginationController;
   // --------------------
   /// NOTES STREAM SUBSCRIPTIONS
   StreamSubscription? _userNotesStreamSub;
@@ -48,7 +48,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   List<StreamSubscription>? _bzzNotesStreamsSubs;
   late List<ValueNotifier<List<Map<String, dynamic>>>> _myBzzOldNotesNotifiers;
   // -----------------------------------------------------------------------------
-  ZGridController? _zGridController;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -69,14 +68,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
     UiProvider.proInitializeKeyboard();
 
-    _paginationController = PaginationController.initialize(
-      mounted: mounted,
-      addExtraMapsAtEnd: true,
-    );
-
-    _zGridController = ZGridController.initialize(
+    HomeProvider.proInitializeHomeGrid(
       vsync: this,
-      scrollController: _paginationController?.scrollController,
+      mounted: mounted,
     );
 
   }
@@ -133,8 +127,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     _userNotesStreamSub?.cancel();
     Streamer.disposeStreamSubscriptions(_bzzNotesStreamsSubs);
     _progressBarModel.dispose();
-    _paginationController?.dispose();
-    _zGridController?.dispose();
+
+    HomeProvider.proDisposeHomeGrid();
+
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -225,20 +220,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         listenToHideLayout: true,
         onBack: () => BldrsNav.backFromHomeScreen(
           context: context,
-          zGridController: _zGridController,
         ),
         child: Stack(
           children: <Widget>[
 
             /// PAGE CONTENTS
-            HomeFlyersGrid(
-                paginationController: _paginationController,
-                zGridController: _zGridController,
-                loading: _loading,
-              ),
-
-            /// PLAN : SECTION_WHEEL
-            // const SectionWheel(),
+            const HomeFlyersGrid(),
 
             /// PYRAMIDS NAVIGATOR
             SuperPyramids(
