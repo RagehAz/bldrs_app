@@ -1,7 +1,7 @@
 import 'dart:core';
 
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/checks/device_checker.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';

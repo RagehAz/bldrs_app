@@ -1,5 +1,5 @@
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';

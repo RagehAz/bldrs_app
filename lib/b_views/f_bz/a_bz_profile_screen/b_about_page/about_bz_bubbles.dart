@@ -1,6 +1,6 @@
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/strings/text_check.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';

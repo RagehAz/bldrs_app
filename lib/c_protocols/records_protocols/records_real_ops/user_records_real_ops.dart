@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/a_models/g_statistics/counters/user_counter_model.dart';
 import 'package:bldrs/a_models/g_statistics/records/user_record_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';

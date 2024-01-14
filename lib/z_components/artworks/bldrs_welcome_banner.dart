@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/helpers/space/borderers.dart';
 import 'package:bldrs/z_components/images/bldrs_image.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/mediator/models/dimension_model.dart';

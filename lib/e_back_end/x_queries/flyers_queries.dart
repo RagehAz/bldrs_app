@@ -1,4 +1,4 @@
-import 'package:basics/helpers/models/flag_model.dart';
+import 'package:basics/models/flag_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/m_search/flyer_search_model.dart';

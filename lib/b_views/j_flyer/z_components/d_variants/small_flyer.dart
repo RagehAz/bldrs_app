@@ -1,6 +1,6 @@
-import 'package:basics/animators/widgets/widget_fader.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
+import 'package:basics/components/animators/widget_fader.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/components/drawing/super_positioned.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/top_button/top_button.dart';

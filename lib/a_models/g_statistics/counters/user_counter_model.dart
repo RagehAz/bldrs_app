@@ -1,5 +1,5 @@
 // ignore_for_file: constant_identifier_names
-import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable

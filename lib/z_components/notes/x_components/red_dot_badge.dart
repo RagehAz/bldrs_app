@@ -1,7 +1,7 @@
 // ignore_for_file: unused_element
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
-import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
+import 'package:basics/helpers/space/borderers.dart';
+import 'package:basics/components/drawing/super_positioned.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';

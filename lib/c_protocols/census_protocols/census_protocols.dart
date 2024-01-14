@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/maps/lister.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_ldb_ops.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_real_ops.dart';

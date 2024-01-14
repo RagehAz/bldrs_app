@@ -1,7 +1,7 @@
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/strings/pathing.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/strings/pathing.dart';
+import 'package:basics/helpers/strings/stringer.dart';
+import 'package:basics/helpers/strings/text_check.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/z_components/static_progress_bar/progress_bar_model.dart';

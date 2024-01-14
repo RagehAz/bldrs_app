@@ -1,9 +1,9 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/space/scale.dart';
 
 class GoBackWidget extends StatefulWidget {
   // -----------------------------------------------------------------------------

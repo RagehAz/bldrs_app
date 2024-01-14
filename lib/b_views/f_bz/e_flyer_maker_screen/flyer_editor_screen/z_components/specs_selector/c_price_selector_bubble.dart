@@ -1,12 +1,12 @@
 // ignore_for_file: join_return_with_assignment
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/bubbles/tile_bubble/tile_bubble.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
-import 'package:basics/helpers/widgets/drawing/spacing.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/components/bubbles/tile_bubble/tile_bubble.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/nums/numeric.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
+import 'package:basics/components/drawing/spacing.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';

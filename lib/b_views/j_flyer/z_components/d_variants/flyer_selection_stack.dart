@@ -1,8 +1,8 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
-import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/components/drawing/super_positioned.dart';
+import 'package:basics/components/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';

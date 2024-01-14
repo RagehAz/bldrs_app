@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:basics/animators/helpers/app_scroll_behavior.dart';
+import 'package:basics/helpers/animators/app_scroll_behavior.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/checks/device_checker.dart';
-import 'package:basics/helpers/classes/checks/errorize.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/checks/device_checker.dart';
+import 'package:basics/helpers/checks/errorize.dart';
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/mediator/sounder/sounder.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
+import 'package:bldrs/b_new_views/new_static_router.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/a_initializer.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -14,11 +15,11 @@ import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_providers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/b_static_router.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+
 import 'bldrs_keys.dart';
 
 // ---------------------------------------------------------------------------
@@ -241,7 +242,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> with WidgetsBindingOb
         // onUnknownRoute: ,
         // home: ,
         navigatorKey: mainNavKey,
-        onGenerateRoute: StaticRouter.router,
+        onGenerateRoute: NewStaticRouter.router,
         // initialRoute: RouteName.staticLogo,
         // routes: Routing.routesMap,
       ),

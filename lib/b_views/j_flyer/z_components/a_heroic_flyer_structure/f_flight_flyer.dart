@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/components/drawing/super_positioned.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';

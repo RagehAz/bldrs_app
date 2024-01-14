@@ -1,6 +1,6 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/components/sensors/app_version_builder.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM

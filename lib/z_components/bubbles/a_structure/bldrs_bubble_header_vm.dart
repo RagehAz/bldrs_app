@@ -1,9 +1,9 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/bubbles/bubble/bubble_switcher.dart';
-import 'package:basics/bubbles/model/bubble_header_vm.dart';
-import 'package:basics/helpers/widgets/drawing/expander.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/components/bubbles/bubble/bubble_switcher.dart';
+import 'package:basics/components/bubbles/model/bubble_header_vm.dart';
+import 'package:basics/components/drawing/expander.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';

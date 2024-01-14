@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
+import 'package:basics/components/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:flutter/material.dart';
 

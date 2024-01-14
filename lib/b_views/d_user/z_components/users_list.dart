@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';

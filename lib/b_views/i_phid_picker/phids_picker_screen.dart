@@ -1,7 +1,7 @@
-import 'package:basics/animators/helpers/sliders.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/helpers/animators/sliders.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';

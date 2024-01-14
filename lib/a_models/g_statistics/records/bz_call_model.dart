@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/time/timers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable

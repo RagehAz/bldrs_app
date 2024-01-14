@@ -1,9 +1,9 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/z_components/loading/loading.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:basics/helpers/classes/streamers/streamer.dart';
+import 'package:basics/helpers/streamers/streamer.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 typedef BzModelWidgetBuilder = Widget Function(

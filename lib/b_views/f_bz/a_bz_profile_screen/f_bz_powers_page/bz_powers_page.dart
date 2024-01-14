@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/layouts/separators/dot_separator.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/components/drawing/dot_separator.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/sizing/horizon.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';

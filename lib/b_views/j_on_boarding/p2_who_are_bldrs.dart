@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/widgets/drawing/spacing.dart';
+import 'package:basics/helpers/nums/numeric.dart';
+import 'package:basics/components/drawing/spacing.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';

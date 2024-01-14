@@ -2,11 +2,11 @@ import 'dart:async';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/bubbles/model/bubble_header_vm.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/components/bubbles/model/bubble_header_vm.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/strings/text_check.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
@@ -21,7 +21,7 @@ import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 
 class NoteCard extends StatelessWidget {
   /// --------------------------------------------------------------------------

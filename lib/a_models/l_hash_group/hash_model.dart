@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/maps/lister.dart';
 
 class HashGroup {
   // -----------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/maps/lister.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';

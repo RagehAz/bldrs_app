@@ -1,6 +1,6 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/strings/text_check.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/legalizer/legalizer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';

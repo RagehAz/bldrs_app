@@ -1,10 +1,10 @@
-import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/maps/lister.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 /// => TAMAM
 class FlyerLDBOps {
   // -----------------------------------------------------------------------------

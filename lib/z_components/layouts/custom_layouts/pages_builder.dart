@@ -1,6 +1,6 @@
-import 'package:basics/animators/helpers/app_scroll_behavior.dart';
+import 'package:basics/helpers/animators/app_scroll_behavior.dart';
 import 'package:bldrs/z_components/static_progress_bar/progress_bar_model.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:flutter/material.dart';
 
 class PagerBuilder extends StatefulWidget {

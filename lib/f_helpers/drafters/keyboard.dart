@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:basics/helpers/classes/checks/device_checker.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/strings/text_clip_board.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/helpers/checks/device_checker.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/strings/text_clip_board.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';

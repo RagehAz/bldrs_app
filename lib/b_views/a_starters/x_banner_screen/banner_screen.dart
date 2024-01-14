@@ -1,18 +1,18 @@
 import 'dart:async';
 
-import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/fonts.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/widgets/buttons/store_button.dart';
-import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/components/buttons/store_button.dart';
+import 'package:basics/components/sensors/app_version_builder.dart';
 import 'package:basics/layouts/views/floating_list.dart';
-import 'package:basics/super_box/super_box.dart';
-import 'package:basics/super_image/super_image.dart';
-import 'package:basics/super_text/super_text.dart';
+import 'package:basics/components/super_box/super_box.dart';
+import 'package:basics/components/super_image/super_image.dart';
+import 'package:basics/components/texting/super_text/super_text.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';

@@ -1,8 +1,8 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/super_text_field/super_text_field.dart';
+import 'package:basics/components/texting/super_text_field/super_text_field.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/space/scale.dart';
 
 class BldrsValidator extends StatelessWidget {
   // -----------------------------------------------------------------------------

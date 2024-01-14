@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:basics/helpers/classes/checks/device_checker.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/files/file_size_unit.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:basics/helpers/classes/files/floaters.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/maps/mapper_ss.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/checks/device_checker.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/files/file_size_unit.dart';
+import 'package:basics/helpers/files/filers.dart';
+import 'package:basics/helpers/files/floaters.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/maps/mapper_ss.dart';
+import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:fire/super_fire.dart';

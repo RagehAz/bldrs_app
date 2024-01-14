@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/aa_static_logo_screen_view.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';

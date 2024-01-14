@@ -1,11 +1,11 @@
 // ignore_for_file: unused_element
 
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
-import 'package:basics/layouts/separators/separator_line.dart';
+import 'package:basics/components/drawing/separator_line.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';

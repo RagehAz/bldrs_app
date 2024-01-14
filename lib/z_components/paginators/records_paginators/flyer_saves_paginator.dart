@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/g_statistics/records/flyer_save_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:fire/super_fire.dart';

@@ -1,11 +1,11 @@
 import 'dart:ui' as ui;
 
-import 'package:basics/helpers/classes/checks/object_check.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/files/floaters.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/space/atlas.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/helpers/checks/object_check.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/files/floaters.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/space/atlas.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -20,9 +20,9 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/time/timers.dart';
+import 'package:basics/helpers/strings/stringer.dart';
 
 /// TAMAM
 @immutable

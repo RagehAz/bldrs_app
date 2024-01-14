@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
-import 'package:basics/helpers/models/flag_model.dart';
+import 'package:basics/helpers/strings/text_check.dart';
+import 'package:basics/models/flag_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 /// => GEOLOCATOR_DOES_NOT_WORK
@@ -8,7 +8,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 // import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
 // import 'package:bldrs/f_helpers/theme/standards.dart';
 // import 'package:geocoding/geocoding.dart';
-// import 'package:basics/helpers/classes/maps/mapper.dart';
+// import 'package:basics/helpers/maps/mapper.dart';
 /// => TAMAM
 class ZoneIDsProtocols {
   // -----------------------------------------------------------------------------

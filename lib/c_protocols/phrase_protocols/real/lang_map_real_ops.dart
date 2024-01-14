@@ -1,7 +1,7 @@
 
 
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper_ss.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/mapper_ss.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';

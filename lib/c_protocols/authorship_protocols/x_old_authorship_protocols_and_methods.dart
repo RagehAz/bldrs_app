@@ -25,8 +25,8 @@
 // import 'package:bldrs/e_back_end/g_storage/storage.dart';
 // import 'package:bldrs/main.dart';
 // 
-// import 'package:basics/helpers/classes/strings/stringer.dart';
-// import 'package:basics/helpers/classes/files/filers.dart';
+// import 'package:basics/helpers/strings/stringer.dart';
+// import 'package:basics/helpers/files/filers.dart';
 // import 'package:flutter/material.dart';
 //
 // class OldAuthorshipExit {

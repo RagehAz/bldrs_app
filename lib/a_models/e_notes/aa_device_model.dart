@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/checks/device_checker.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/checks/device_checker.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/strings/text_check.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:flutter/foundation.dart';
 /// => TAMAM
