@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/b
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/e_slide_headline.dart';
-import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
+import 'package:bldrs/z_components/images/bldrs_image.dart';
 import 'package:flutter/material.dart';
 
 class SingleSlide extends StatelessWidget {

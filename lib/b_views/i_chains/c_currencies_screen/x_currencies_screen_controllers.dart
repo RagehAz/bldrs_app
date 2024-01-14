@@ -1,6 +1,6 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/searching.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
@@ -24,7 +24,7 @@ void onSearchCurrencies({
   required bool mounted,
 }){
 
-  TextCheck.triggerIsSearchingNotifier(
+  Searching.triggerIsSearchingNotifier(
     text: searchController.text,
     isSearching: isSearching,
     mounted: mounted,

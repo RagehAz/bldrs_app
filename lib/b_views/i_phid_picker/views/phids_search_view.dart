@@ -2,7 +2,7 @@ import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_builder_page.dart';
-import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
+import 'package:bldrs/z_components/texting/customs/no_result_found.dart';
 import 'package:flutter/material.dart';
 
 class PhidsSearchView extends StatelessWidget {

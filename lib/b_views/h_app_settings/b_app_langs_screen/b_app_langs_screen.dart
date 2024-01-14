@@ -1,8 +1,8 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
-import 'package:bldrs/b_views/z_components/buttons/general_buttons/settings_wide_button.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/buttons/general_buttons/settings_wide_button.dart';
+import 'package:bldrs/z_components/layouts/custom_layouts/floating_layout.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';

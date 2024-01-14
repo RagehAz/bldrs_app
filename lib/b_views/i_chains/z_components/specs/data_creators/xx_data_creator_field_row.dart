@@ -1,11 +1,11 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
-import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
+import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 

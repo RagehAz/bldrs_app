@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
-import 'package:bldrs/b_views/z_components/texting/customs/leading_verse.dart';
+import 'package:bldrs/z_components/artworks/bldrs_name_logo_slogan.dart';
+import 'package:bldrs/z_components/texting/customs/leading_verse.dart';
 import 'package:flutter/material.dart';
 
 class LogoScreenView extends StatelessWidget {

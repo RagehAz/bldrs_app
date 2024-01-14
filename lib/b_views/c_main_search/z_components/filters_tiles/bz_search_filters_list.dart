@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/c_main_search/z_components/building_blocks/filter_
 import 'package:bldrs/b_views/c_main_search/z_components/building_blocks/filter_multi_button_tile.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/building_blocks/filters_box.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/zone_filter_tile.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
+import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:flutter/material.dart';
 
 class SlideTapAreas extends StatelessWidget {

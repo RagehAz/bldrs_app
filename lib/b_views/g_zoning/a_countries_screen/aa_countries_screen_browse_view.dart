@@ -2,11 +2,11 @@ import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/models/flag_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/zone_buttons/america_states_tile_buttons.dart';
-import 'package:bldrs/b_views/z_components/buttons/zone_buttons/country_tile_button.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/buttons/zone_buttons/america_states_tile_buttons.dart';
+import 'package:bldrs/z_components/buttons/zone_buttons/country_tile_button.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
 class CountriesScreenBrowseView extends StatelessWidget {

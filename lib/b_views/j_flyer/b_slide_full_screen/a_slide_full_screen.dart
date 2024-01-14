@@ -1,7 +1,7 @@
-import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/images/bldrs_image.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/super_image/super_image.dart';
