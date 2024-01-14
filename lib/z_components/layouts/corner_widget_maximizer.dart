@@ -1,17 +1,17 @@
 // ignore_for_file: unused_element
-import 'package:basics/animators/helpers/animators.dart';
+import 'package:basics/helpers/animators/animators.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/components/drawing/super_positioned.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/components/animators/widget_fader.dart';
 
 class CornerWidgetMaximizer extends StatelessWidget {
   /// --------------------------------------------------------------------------

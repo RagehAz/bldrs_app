@@ -1,4 +1,4 @@
-import 'package:basics/helpers/widgets/sensors/connectivity_sensor.dart';
+import 'package:basics/components/sensors/connectivity_sensor.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';

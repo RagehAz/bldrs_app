@@ -1,9 +1,9 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/colors/colorizer.dart';
-import 'package:basics/helpers/classes/files/file_size_unit.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/colors/colorizer.dart';
+import 'package:basics/helpers/files/file_size_unit.dart';
+import 'package:basics/helpers/files/filers.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/data_strip/data_strip.dart';

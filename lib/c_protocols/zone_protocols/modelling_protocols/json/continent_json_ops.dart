@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/assets/planet/paths.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:basics/helpers/models/continent_model.dart';
+import 'package:basics/helpers/files/filers.dart';
+import 'package:basics/models/continent_model.dart';
 /// => TAMAM
 class ContinentJsonOps {
   // -----------------------------------------------------------------------------

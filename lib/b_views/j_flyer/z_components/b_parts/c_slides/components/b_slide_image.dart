@@ -1,12 +1,12 @@
-import 'package:basics/animators/widgets/matrix_animator.dart';
+import 'package:basics/components/animators/matrix_animator.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/space/trinity.dart';
+import 'package:basics/helpers/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/b_slide_tap_areas.dart';
 import 'package:bldrs/z_components/images/bldrs_image.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/super_image/super_image.dart';
+import 'package:basics/components/super_image/super_image.dart';
 
 class SlideImage extends StatelessWidget {
   /// --------------------------------------------------------------------------

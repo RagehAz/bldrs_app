@@ -6,8 +6,8 @@
 // import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 // 
 // import 'package:flutter/material.dart';
-// import 'package:basics/helpers/classes/maps/mapper.dart';
-// import 'package:basics/animators/widgets/widget_fader.dart';
+// import 'package:basics/helpers/maps/mapper.dart';
+// import 'package:basics/components/animators/widget_fader.dart';
 //
 // class ScopeSelectorBubble extends StatefulWidget {
 //   /// --------------------------------------------------------------------------

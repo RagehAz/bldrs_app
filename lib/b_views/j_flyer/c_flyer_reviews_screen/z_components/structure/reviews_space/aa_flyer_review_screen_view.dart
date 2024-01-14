@@ -1,5 +1,5 @@
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/layouts/separators/separator_line.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/components/drawing/separator_line.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/reviews_space/aaa_submitted_reviews.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/slides_shelf/aaa_flyer_slides_shelf.dart';

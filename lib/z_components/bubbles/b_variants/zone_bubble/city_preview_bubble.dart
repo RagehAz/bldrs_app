@@ -1,10 +1,10 @@
 import 'package:basics/bldrs_theme/assets/planet/all_flags_list.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/models/flag_model.dart';
-import 'package:basics/helpers/models/phrase_model.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/nums/numeric.dart';
+import 'package:basics/models/flag_model.dart';
+import 'package:basics/models/phrase_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/zone_bubble/lines/zone_bubble_line.dart';

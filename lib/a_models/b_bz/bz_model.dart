@@ -1,8 +1,8 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/space/atlas.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/space/atlas.dart';
+import 'package:basics/helpers/time/timers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
@@ -16,7 +16,7 @@ import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/helpers/strings/stringer.dart';
 /// => TAMAM
 @immutable
 class BzModel{

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/real/lang_map_real_ops.dart';
 
 /// SUPER_DEV_TEST

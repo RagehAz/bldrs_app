@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
-import 'package:basics/helpers/widgets/layers/blur_layer.dart';
+import 'package:basics/components/layers/blur_layer.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

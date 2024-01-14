@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:basics/animators/widgets/widget_fader.dart';
-import 'package:basics/animators/widgets/widget_waiter.dart';
+import 'package:basics/components/animators/widget_fader.dart';
+import 'package:basics/components/animators/widget_waiter.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';

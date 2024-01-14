@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 /// => TAMAM

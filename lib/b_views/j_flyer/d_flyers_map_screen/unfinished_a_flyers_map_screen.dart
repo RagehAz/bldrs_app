@@ -8,8 +8,8 @@
 // import 'package:bldrs/z_components/loading/loading.dart';
 // import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 // 
-// import 'package:basics/helpers/classes/space/scale.dart';
-// import 'package:basics/helpers/classes/files/filers.dart';
+// import 'package:basics/helpers/space/scale.dart';
+// import 'package:basics/helpers/files/filers.dart';
 // 
 // import 'package:fire/super_fire.dart';
 // import 'package:flutter/material.dart';

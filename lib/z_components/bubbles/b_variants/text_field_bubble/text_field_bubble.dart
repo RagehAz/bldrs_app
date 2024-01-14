@@ -1,9 +1,9 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/bubbles/model/bubble_header_vm.dart';
-import 'package:basics/bubbles/text_field_bubble/text_field_bubble.dart';
-import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:basics/components/bubbles/model/bubble_header_vm.dart';
+import 'package:basics/components/bubbles/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';

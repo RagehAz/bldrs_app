@@ -1,5 +1,5 @@
 import 'dart:ui' as ui;
-import 'package:basics/super_box/super_box.dart';
+import 'package:basics/components/super_box/super_box.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/a_left_spacer/static_slate_spacer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';

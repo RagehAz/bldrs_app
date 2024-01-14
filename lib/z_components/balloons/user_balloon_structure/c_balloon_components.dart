@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/colors/colorizer.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/colors/colorizer.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/z_components/images/bldrs_image.dart';
 import 'package:bldrs/z_components/loading/loading.dart';
 import 'package:flutter/material.dart';

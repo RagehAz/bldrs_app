@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/tabbing/tabs_provider.dart';
 import 'package:flutter/material.dart';

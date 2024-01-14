@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/layouts/separators/separator_line.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/components/drawing/separator_line.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';

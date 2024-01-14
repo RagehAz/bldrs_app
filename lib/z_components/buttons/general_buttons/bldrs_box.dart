@@ -1,8 +1,8 @@
 import 'dart:ui' as ui;
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/checks/object_check.dart';
-import 'package:basics/super_box/super_box.dart';
+import 'package:basics/helpers/checks/object_check.dart';
+import 'package:basics/components/super_box/super_box.dart';
 import 'package:bldrs/z_components/images/bldrs_image_path_to_ui_image.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';

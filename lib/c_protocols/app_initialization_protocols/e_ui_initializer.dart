@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/checks/device_checker.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';

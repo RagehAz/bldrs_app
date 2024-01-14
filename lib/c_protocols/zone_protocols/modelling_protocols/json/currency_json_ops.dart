@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/assets/planet/paths.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/helpers/files/filers.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 /// => TAMAM
 class CurrencyJsonOps {

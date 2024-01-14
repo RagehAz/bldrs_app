@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 /// => TAMAM
 class SearchRealOps {
   // -----------------------------------------------------------------------------

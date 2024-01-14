@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
-import 'package:basics/helpers/widgets/drawing/expander.dart';
-import 'package:basics/helpers/widgets/drawing/spacing.dart';
+import 'package:basics/helpers/space/borderers.dart';
+import 'package:basics/components/drawing/expander.dart';
+import 'package:basics/components/drawing/spacing.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/f_footer_button_spacer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';

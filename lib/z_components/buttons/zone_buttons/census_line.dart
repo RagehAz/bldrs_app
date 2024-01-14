@@ -1,8 +1,8 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/space/borderers.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/a_tile_button.dart';
 import 'package:bldrs/z_components/buttons/zone_buttons/census_line_unit.dart';

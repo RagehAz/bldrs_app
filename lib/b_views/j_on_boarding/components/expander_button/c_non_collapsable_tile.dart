@@ -1,5 +1,5 @@
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/bubbles/model/bubble_header_vm.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/components/bubbles/model/bubble_header_vm.dart';
 import 'package:flutter/material.dart';
 import 'b_expanding_tile.dart';
 

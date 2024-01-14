@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:basics/animators/helpers/sliders.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:basics/helpers/models/flag_model.dart';
-import 'package:basics/helpers/models/phrase_model.dart';
+import 'package:basics/helpers/animators/sliders.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/helpers/strings/stringer.dart';
+import 'package:basics/models/flag_model.dart';
+import 'package:basics/models/phrase_model.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';

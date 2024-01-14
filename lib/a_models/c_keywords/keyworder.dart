@@ -1,6 +1,6 @@
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/maps/map_pathing.dart';
-import 'package:basics/helpers/classes/strings/pathing.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/maps/map_pathing.dart';
+import 'package:basics/helpers/strings/pathing.dart';
 import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 
