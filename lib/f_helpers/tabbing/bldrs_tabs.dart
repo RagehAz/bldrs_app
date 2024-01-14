@@ -1,6 +1,6 @@
 import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/tabbing/tabs_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:flutter/material.dart';
 
 enum BldrsTab {
@@ -131,13 +131,13 @@ class BldrsTabs {
 
     final BuildContext context = getMainContext();
 
-    TabsProvider.proSetCurrentTab(
+    HomeProvider.proSetCurrentTab(
       context: context,
       tab: tab,
       notify: true,
     );
 
-    final TabController? _controller  = TabsProvider.proGetTabController(
+    final TabController? _controller  = HomeProvider.proGetTabController(
       context: context,
       listen: false,
     );

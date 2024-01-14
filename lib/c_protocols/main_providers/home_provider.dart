@@ -1,12 +1,14 @@
+import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/tabbing/bldrs_tabs.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
 /// => TAMAM
 // final TabsProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-class TabsProvider extends ChangeNotifier {
+class HomeProvider extends ChangeNotifier {
   // -----------------------------------------------------------------------------
 
   /// TAB BAR CONTROLLER
@@ -20,7 +22,7 @@ class TabsProvider extends ChangeNotifier {
     required BuildContext context,
     required TickerProvider vsync,
   }){
-    final TabsProvider _uiProvider = Provider.of<TabsProvider>(context, listen: false);
+    final HomeProvider _uiProvider = Provider.of<HomeProvider>(context, listen: false);
     _uiProvider._initializeTabBarController(
       context: context,
       vsync: vsync,
@@ -52,7 +54,7 @@ class TabsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proDisposeTabBarController(){
-    final TabsProvider _uiProvider = Provider.of<TabsProvider>(getMainContext(), listen: false);
+    final HomeProvider _uiProvider = Provider.of<HomeProvider>(getMainContext(), listen: false);
     _uiProvider._tabBarController?.dispose();
   }
   // --------------------
@@ -61,7 +63,7 @@ class TabsProvider extends ChangeNotifier {
     required BuildContext context,
     required bool listen,
   }){
-    final TabsProvider _uiProvider = Provider.of<TabsProvider>(context, listen: listen);
+    final HomeProvider _uiProvider = Provider.of<HomeProvider>(context, listen: listen);
     return _uiProvider.tabBarController;
   }
   // --------------------
@@ -71,7 +73,7 @@ class TabsProvider extends ChangeNotifier {
     required TabController controller,
     required bool notify,
   }) {
-    final TabsProvider _uiProvider = Provider.of<TabsProvider>(context, listen: false);
+    final HomeProvider _uiProvider = Provider.of<HomeProvider>(context, listen: false);
     _uiProvider._setTabBarController(
       controller: controller,
       notify: notify,
@@ -107,8 +109,8 @@ class TabsProvider extends ChangeNotifier {
     required BldrsTab tab,
     required bool notify,
   }) {
-    final TabsProvider _uiProvider = Provider.of<TabsProvider>(context, listen: false);
-    _uiProvider._setCurrentTab(
+    final HomeProvider _pro = Provider.of<HomeProvider>(context, listen: false);
+    _pro._setCurrentTab(
       tab: tab,
       notify: notify,
     );
@@ -128,6 +130,70 @@ class TabsProvider extends ChangeNotifier {
       }
     }
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// HOME GRID
+
+  // --------------------
+  PaginationController? _homePaginationController;
+  ZGridController? _homeGridController;
+  // --------------------
+  void _initializeHomeGrid({
+    required TickerProvider vsync,
+    required bool mounted,
+  }){
+
+
+    _homePaginationController ??= PaginationController.initialize(
+      mounted: mounted,
+      addExtraMapsAtEnd: true,
+    );
+
+    _homeGridController ??= ZGridController.initialize(
+      vsync: vsync,
+      scrollController: _homePaginationController?.scrollController,
+    );
+
+  }
+  // --------------------
+  void _disposeHomeGrid(){
+    _homePaginationController?.dispose();
+    _homePaginationController = null;
+    _homeGridController?.dispose();
+    _homeGridController = null;
+  }
+  // --------------------
+  static void proInitializeHomeGrid({
+    required TickerProvider vsync,
+    required bool mounted,
+  }){
+    final HomeProvider _pro = Provider.of<HomeProvider>(getMainContext(), listen: false);
+    _pro._initializeHomeGrid(
+      mounted: mounted,
+      vsync: vsync,
+    );
+  }
+  // --------------------
+  static void proDisposeHomeGrid(){
+    final HomeProvider _pro = Provider.of<HomeProvider>(getMainContext(), listen: false);
+    _pro._disposeHomeGrid();
+  }
+  // --------------------
+  static PaginationController? proGetHomePaginationController({
+    required BuildContext context,
+    required bool listen,
+  }){
+    final HomeProvider _pro = Provider.of<HomeProvider>(context, listen: listen);
+    return _pro._homePaginationController;
+  }
+  // --------------------
+  static ZGridController? proGetHomeZGridController({
+    required BuildContext context,
+    required bool listen,
+  }){
+    final HomeProvider _pro = Provider.of<HomeProvider>(context, listen: listen);
+    return _pro._homeGridController;
   }
   // -----------------------------------------------------------------------------
 }

@@ -13,6 +13,7 @@ import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -61,7 +62,6 @@ class BldrsNav {
   /// TESTED : WORKS PERFECT
   static Future<void> backFromHomeScreen({
     required BuildContext context,
-    required ZGridController? zGridController,
   }) async {
 
       final bool _flyerIsOpen = !UiProvider.proGetLayoutIsVisible(
@@ -72,10 +72,15 @@ class BldrsNav {
       /// CLOSE FLYER
       if (_flyerIsOpen == true){
 
+        final ZGridController? _controller = HomeProvider.proGetHomeZGridController(
+            context: context,
+            listen: false,
+        );
+
         await zoomOutFlyer(
           context: context,
           mounted: true,
-          controller: zGridController,
+          controller: _controller,
         );
 
       }

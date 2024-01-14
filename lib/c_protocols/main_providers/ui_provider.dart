@@ -199,6 +199,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   void _disposeKeyboard(){
     _keyboardSubscription?.cancel();
+    keyboardVisibilityController = null;
+    _keyboardSubscription = null;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
