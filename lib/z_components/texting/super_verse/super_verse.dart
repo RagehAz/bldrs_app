@@ -1,10 +1,10 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/colors/colorizer.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
-import 'package:basics/super_text/super_text.dart';
+import 'package:basics/helpers/colors/colorizer.dart';
+import 'package:basics/helpers/nums/numeric.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/helpers/strings/text_check.dart';
+import 'package:basics/components/texting/super_text/super_text.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';

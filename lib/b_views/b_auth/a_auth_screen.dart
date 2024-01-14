@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/b_views/b_auth/aa_auth_screen_view.dart';

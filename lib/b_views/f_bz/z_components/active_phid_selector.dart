@@ -1,17 +1,17 @@
-import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/b_views/f_bz/z_components/phid_button_clone.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
-import 'package:basics/helpers/widgets/layers/blur_layer.dart';
-import 'package:bldrs/z_components/layouts/auto_scrolling_bar.dart';
+import 'package:basics/components/layers/blur_layer.dart';
+import 'package:basics/components/animators/auto_scrolling_bar.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -214,6 +214,7 @@ class LiveActivePhidSelector extends StatelessWidget {
           return AutoScrollingBar(
             key: const ValueKey<String>('the_auto_scroll_phid_selector'),
             scrollController: scrollController,
+            height: Stratosphere.bigAppBarStratosphere,
             child: WidgetFader(
               fadeType: isVisible == false ? FadeType.fadeOut : FadeType.fadeIn,
               duration: const Duration(milliseconds: 300),

@@ -6,8 +6,8 @@
 // import 'package:bldrs/c_controllers/i_flyer_maker_controllers/xx_draft_shelf_controllers.dart';
 // import 'package:bldrs/d_providers/phrase_provider.dart';
 // import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-// import 'package:basics/helpers/classes/maps/mapper.dart';
-// import 'package:basics/helpers/classes/space/scale.dart';
+// import 'package:basics/helpers/maps/mapper.dart';
+// import 'package:basics/helpers/space/scale.dart';
 //
 // 
 // 

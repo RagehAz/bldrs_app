@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:basics/dialogs/center_dialog.dart';
-import 'package:basics/helpers/classes/checks/device_checker.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
-import 'package:basics/helpers/widgets/drawing/spacing.dart';
+import 'package:basics/components/dialogs/center_dialog.dart';
+import 'package:basics/helpers/checks/device_checker.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/strings/text_check.dart';
+import 'package:basics/components/drawing/spacing.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';

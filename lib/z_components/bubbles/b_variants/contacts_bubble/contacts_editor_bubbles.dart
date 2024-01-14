@@ -1,6 +1,6 @@
-// import 'package:basics/helpers/classes/checks/tracers.dart';
-// import 'package:basics/helpers/classes/maps/mapper.dart';
-// import 'package:basics/layouts/separators/dot_separator.dart';
+// import 'package:basics/helpers/checks/tracers.dart';
+// import 'package:basics/helpers/maps/mapper.dart';
+// import 'package:basics/components/drawing/dot_separator.dart';
 // import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 // import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 // import 'package:bldrs/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';

@@ -1,4 +1,4 @@
-import 'package:basics/animators/helpers/app_scroll_behavior.dart';
+import 'package:basics/helpers/animators/app_scroll_behavior.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';

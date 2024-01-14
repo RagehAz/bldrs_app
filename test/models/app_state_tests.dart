@@ -1,4 +1,4 @@
-import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
+import 'package:basics/components/sensors/app_version_builder.dart';
 import 'package:bldrs/f_helpers/router/b_static_router.dart';
 import 'package:flutter_test/flutter_test.dart';
 

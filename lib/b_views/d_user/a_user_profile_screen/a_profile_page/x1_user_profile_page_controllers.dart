@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/space/atlas.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/space/atlas.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:fire/super_fire.dart';

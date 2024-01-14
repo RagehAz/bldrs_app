@@ -1,5 +1,5 @@
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/models/flag_model.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/models/flag_model.dart';
 import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';

@@ -1,10 +1,10 @@
-import 'package:basics/animators/helpers/animators.dart';
-import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/helpers/animators/animators.dart';
+import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/nums/numeric.dart';
 
 class Loading extends StatelessWidget {
   /// --------------------------------------------------------------------------

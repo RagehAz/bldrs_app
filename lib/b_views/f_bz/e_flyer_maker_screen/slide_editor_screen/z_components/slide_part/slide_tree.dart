@@ -1,5 +1,5 @@
-import 'package:basics/animators/widgets/matrix_animator.dart';
-import 'package:basics/helpers/classes/space/trinity.dart';
+import 'package:basics/components/animators/matrix_animator.dart';
+import 'package:basics/helpers/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_transformer.dart';
 import 'package:flutter/material.dart';

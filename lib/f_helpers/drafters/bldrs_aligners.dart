@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/space/aligner.dart';
+import 'package:basics/helpers/space/aligner.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM

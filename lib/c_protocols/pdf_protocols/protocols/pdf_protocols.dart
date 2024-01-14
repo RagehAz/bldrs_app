@@ -1,8 +1,8 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/files/file_size_unit.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/files/file_size_unit.dart';
+import 'package:basics/helpers/files/filers.dart';
+import 'package:basics/helpers/strings/text_check.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/ldb/pdf_ldb_ops.dart';

@@ -6,10 +6,10 @@
 // import 'package:bldrs/z_components/texting/super_verse.dart';
 // import 'package:bldrs/d_providers/phrase_provider.dart';
 // import 'package:bldrs/f_helpers/drafters/borderers.dart';
-// import 'package:basics/helpers/classes/nums/numeric.dart';
+// import 'package:basics/helpers/nums/numeric.dart';
 // import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-// import 'package:basics/helpers/classes/space/scale.dart';
-// import 'package:basics/helpers/classes/files/filers.dart';
+// import 'package:basics/helpers/space/scale.dart';
+// import 'package:basics/helpers/files/filers.dart';
 // 
 // 
 //

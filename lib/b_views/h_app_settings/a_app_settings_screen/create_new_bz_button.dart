@@ -10,8 +10,8 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/super_image/super_image.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/components/super_image/super_image.dart';
 
 class CreateNewBzButton extends StatelessWidget {
   // -----------------------------------------------------------------------------

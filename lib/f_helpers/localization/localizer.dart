@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/langs.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/files/filers.dart';
+import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';

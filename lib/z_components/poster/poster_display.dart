@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/z_components/poster/structure/poster_switcher.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_providers.dart';

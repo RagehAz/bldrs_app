@@ -1,9 +1,9 @@
-import 'package:basics/animators/widgets/widget_fader.dart';
-import 'package:basics/animators/widgets/widget_waiter.dart';
+import 'package:basics/components/animators/widget_fader.dart';
+import 'package:basics/components/animators/widget_waiter.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/components/drawing/super_positioned.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';

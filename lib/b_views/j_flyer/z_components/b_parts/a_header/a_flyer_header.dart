@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:basics/animators/helpers/animators.dart';
+import 'package:basics/helpers/animators/animators.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';

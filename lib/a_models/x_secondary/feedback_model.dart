@@ -1,5 +1,5 @@
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/time/timers.dart';
 import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
 import 'package:flutter/foundation.dart';
 /// => TAMAM

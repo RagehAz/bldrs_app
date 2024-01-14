@@ -1,12 +1,12 @@
 import 'dart:typed_data';
 
-import 'package:basics/helpers/classes/checks/object_check.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/files/file_size_unit.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:basics/helpers/classes/files/floaters.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/checks/object_check.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/files/file_size_unit.dart';
+import 'package:basics/helpers/files/filers.dart';
+import 'package:basics/helpers/files/floaters.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:fire/super_fire.dart';

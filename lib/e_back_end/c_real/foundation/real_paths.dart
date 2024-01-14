@@ -1,5 +1,5 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
-import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/strings/text_check.dart';
 import 'package:bldrs/a_models/g_statistics/records/user_record_model.dart';
 
 /// => TAMAM

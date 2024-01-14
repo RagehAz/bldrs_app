@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 
 @immutable
 class BzSearchModel {

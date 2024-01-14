@@ -1,13 +1,13 @@
-import 'package:basics/animators/helpers/animators.dart';
+import 'package:basics/helpers/animators/animators.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/space/borderers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:basics/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/space/scale.dart';
 /// => TAMAM
 class FlyerDim {
   /// --------------------------------------------------------------------------

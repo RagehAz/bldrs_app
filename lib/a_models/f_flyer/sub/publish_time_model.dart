@@ -1,7 +1,7 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/time/timers.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';

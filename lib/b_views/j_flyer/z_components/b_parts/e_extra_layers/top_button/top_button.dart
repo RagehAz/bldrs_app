@@ -2,10 +2,10 @@ library top_button;
 // -----------------------------------------------------------------------------
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
-import 'package:basics/helpers/widgets/drawing/spacing.dart';
-import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
+import 'package:basics/helpers/nums/numeric.dart';
+import 'package:basics/helpers/space/borderers.dart';
+import 'package:basics/components/drawing/spacing.dart';
+import 'package:basics/components/drawing/super_positioned.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/gta_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';

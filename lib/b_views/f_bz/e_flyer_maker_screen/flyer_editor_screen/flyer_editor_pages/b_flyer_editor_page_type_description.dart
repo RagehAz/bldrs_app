@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/strings/text_clip_board.dart';
+import 'package:basics/helpers/strings/text_clip_board.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
