@@ -28,13 +28,9 @@ class Keyboard {
     /// Subscribe
     final StreamSubscription<bool> _keyboardSubscription = controller.onChange.listen((bool visible) {
 
-      // blog('Keyboard visibility update. Is visible: $visible');
-
-      final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
-
       if (visible == false){
         FocusManager.instance.primaryFocus?.unfocus();
-        _uiProvider.setKeyboardIsOn(
+        UiProvider.proSetKeyboardIsOn(
           setTo: false,
           notify: true,
         );
@@ -46,7 +42,7 @@ class Keyboard {
       }
 
       else {
-        _uiProvider.setKeyboardIsOn(
+        UiProvider.proSetKeyboardIsOn(
           setTo: true,
           notify: true,
         );
@@ -76,11 +72,10 @@ class Keyboard {
     /// SOLUTION 4
     // final bool _keyboardIsOn = KeyboardVisibilityProvider.isKeyboardVisible(context);
     /// FINAL SOLUTION ISA
-    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
-    final bool _keyboardIsOn = _uiProvider.keyboardIsOn;
+    final bool _keyboardIsOn = UiProvider.proGetKeyboardIsOn();
     if (_keyboardIsOn == true){
       FocusManager.instance.primaryFocus?.unfocus();
-      _uiProvider.setKeyboardIsOn(
+      UiProvider.proSetKeyboardIsOn(
         setTo: false,
         notify: true,
       );

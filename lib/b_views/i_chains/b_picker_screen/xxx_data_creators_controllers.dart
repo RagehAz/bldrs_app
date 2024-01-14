@@ -245,7 +245,9 @@ Future<void> onUnitSelectorButtonTap({
                     id: Phider.removeIndexFromPhid(phid: _unitID),
                     translate: true,
                   ),
-                  icon: phidIcon(_unitID),
+                  icon: ChainsProvider.proGetPhidIcon(
+                    son: _unitID,
+                  ),
                   verseCentered: true,
                   onTap: () async {
 

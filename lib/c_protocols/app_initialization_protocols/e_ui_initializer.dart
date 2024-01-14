@@ -1,6 +1,7 @@
 import 'package:basics/helpers/checks/device_checker.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
+import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -12,7 +13,6 @@ import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:provider/provider.dart';
 /// => TAMAM
 class UiInitializer {
   // -----------------------------------------------------------------------------
@@ -115,12 +115,9 @@ class UiInitializer {
       notify: true,
     );
 
-    final BuildContext context = getMainContext();
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-
     await Future.wait([
 
-      _uiProvider.getSetLocalAssetsPaths(notify: true),
+      GeneralProvider.proGetSetLocalAssetsPaths(notify: true),
 
       PhraseProtocols.generateCountriesPhrases(),
 

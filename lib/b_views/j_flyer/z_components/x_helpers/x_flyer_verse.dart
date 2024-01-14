@@ -1,6 +1,6 @@
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class FlyerVerses {
@@ -24,7 +24,7 @@ class FlyerVerses {
     final int _count = count ?? 0;
     if (_count >= 1000){
       _output = Verse(
-        id: getCounterCaliber(_count),
+        id: BldrsText.getCounterCaliber(_count),
         translate: false,
       );
     }
@@ -90,11 +90,11 @@ class FlyerVerses {
     String _dot = '';
 
     if (followersCount != null && followersCount > 0){
-      _followsLine = '${getCounterCaliber(followersCount)} ${getWord('phid_followers')}';
+      _followsLine = '${BldrsText.getCounterCaliber(followersCount)} ${getWord('phid_followers')}';
     }
 
     if (flyersCount != null && flyersCount > 0){
-      _flyersLine = '${getCounterCaliber(flyersCount)} ${getWord('phid_flyers')}';
+      _flyersLine = '${BldrsText.getCounterCaliber(flyersCount)} ${getWord('phid_flyers')}';
     }
 
     if (_followsLine != '' && _flyersLine != ''){
