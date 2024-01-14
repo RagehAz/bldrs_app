@@ -11,8 +11,8 @@ import 'package:bldrs/z_components/bubbles/b_variants/zone_bubble/lines/zone_bub
 import 'package:bldrs/z_components/bubbles/b_variants/zone_bubble/lines/zone_name_line.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/buttons/zone_buttons/flagbox_button.dart';
+import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 
 class CityPreviewBubble extends StatelessWidget {
@@ -46,8 +46,8 @@ class CityPreviewBubble extends StatelessWidget {
       flags: allFlags,
       countryID: _countryID,
     );
-    final String? _countryPop = getCounterCaliber(_flag?.population);
-    final String? _cityPop = getCounterCaliber(cityModel?.population);
+    final String? _countryPop = BldrsText.getCounterCaliber(_flag?.population);
+    final String? _cityPop = BldrsText.getCounterCaliber(cityModel?.population);
     final String? _percentage = Numeric.formatNumToSeparatedKilos(
       number: (cityModel?.population?? 0 / (_flag?.population ?? 0)) * 100,
       fractions: 1,

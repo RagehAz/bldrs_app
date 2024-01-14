@@ -83,7 +83,7 @@ class CensusLineUnit extends StatelessWidget {
                 /// NUMBER
                 BldrsText(
                   width: _numberZoneWidth,
-                  verse: text ?? Verse.plain(getCounterCaliber(number)),
+                  verse: text ?? Verse.plain(BldrsText.getCounterCaliber(number)),
                   size: 1,
                   centered: false,
                   textDirection: UiProvider.getAppTextDir(),
