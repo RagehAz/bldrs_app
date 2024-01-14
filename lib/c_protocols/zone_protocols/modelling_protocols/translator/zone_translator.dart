@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 /// => TAMAM
 class ZoneTranslator {

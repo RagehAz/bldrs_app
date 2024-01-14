@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
+import 'package:basics/helpers/classes/streamers/streamer.dart';
 import 'package:flutter/material.dart';
 
 class BzPosterFlyerBuilder extends StatelessWidget {

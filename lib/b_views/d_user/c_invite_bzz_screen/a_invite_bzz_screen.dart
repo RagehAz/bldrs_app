@@ -1,5 +1,5 @@
 // import 'package:bldrs/b_views/x_screens/d_user/c_invite_people/aa_invite_bzz_screen_view.dart';
-// import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+// import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 // import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 // import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/z_invite_bzz_screen_controllers.dart';
 // import 'package:bldrs/d_providers/user_provider.dart';

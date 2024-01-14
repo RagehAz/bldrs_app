@@ -1,8 +1,8 @@
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';

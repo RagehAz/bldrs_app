@@ -3,6 +3,7 @@ import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/classes/strings/searching.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
@@ -14,12 +15,13 @@ import 'package:bldrs/b_views/i_chains/a_pickers_screen/aa_pickers_screen_browse
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/aa_pickers_screen_search_view.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/x_pickers_screen_controllers.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/xx_pickers_search_controller.dart';
-import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/buttons/editors_buttons/editor_confirm_button.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
+import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -292,11 +294,12 @@ class _PickersScreenState extends State<PickersScreen> {
         chains: _pickersChains,
         mounted: mounted,
       ),
-      onSearchCancelled: () => MainLayout.onCancelSearch(
+      onSearchCancelled: () => Searching.onCancelSearch(
         controller: _searchTextController,
         foundResultNotifier: _foundChains,
         isSearching: _isSearching,
         mounted: mounted,
+        closKeyboardFunction: Keyboard.closeKeyboard,
       ),
       searchController: _searchTextController,
       searchHintVerse: const Verse(

@@ -1,6 +1,7 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/searching.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
@@ -9,7 +10,6 @@ import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart'
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 // -----------------------------------------------------------------------------
 
 /// CHAINS SEARCH TRIGGER
@@ -29,7 +29,7 @@ Future<void> onChainsSearchChanged({
 
   blog('drawer receives text : $text : Length ${text?.length}: isSearching : ${isSearching.value}');
 
-  TextCheck.triggerIsSearchingNotifier(
+  Searching.triggerIsSearchingNotifier(
     text: text,
     isSearching: isSearching,
     mounted: mounted,

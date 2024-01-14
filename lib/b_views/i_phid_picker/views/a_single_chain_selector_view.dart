@@ -3,9 +3,9 @@ import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_builder_page.dart';
 import 'package:bldrs/b_views/i_phid_picker/views/phids_search_view.dart';
-import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/buttons/editors_buttons/editor_confirm_button.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 

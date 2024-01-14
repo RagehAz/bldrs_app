@@ -6,8 +6,8 @@ import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
 import 'package:bldrs/b_views/j_on_boarding/components/bz_types_wheel.dart';
 import 'package:bldrs/b_views/j_on_boarding/components/onboarding_headline.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
 class BWhoAreBldrs extends StatefulWidget {

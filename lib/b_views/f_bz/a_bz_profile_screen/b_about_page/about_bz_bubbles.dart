@@ -3,16 +3,16 @@ import 'package:basics/helpers/classes/maps/lister.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/bz_authors_bubble/bz_authors_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/bz_flyers_bubble/bz_flyers_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/bz_scope_bubble/bz_scope_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contacts_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/paragraph_bubble/paragraph_bubble.dart';
-import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
-import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_stats_bubble.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
+import 'package:bldrs/z_components/bubbles/b_variants/bz_authors_bubble/bz_authors_bubble.dart';
+import 'package:bldrs/z_components/bubbles/b_variants/bz_flyers_bubble/bz_flyers_bubble.dart';
+import 'package:bldrs/z_components/bubbles/b_variants/bz_scope_bubble/bz_scope_bubble.dart';
+import 'package:bldrs/z_components/bubbles/b_variants/contacts_bubble/contacts_bubble.dart';
+import 'package:bldrs/z_components/bubbles/b_variants/paragraph_bubble/paragraph_bubble.dart';
+import 'package:bldrs/z_components/bz_profile/info_page/bz_banner.dart';
+import 'package:bldrs/z_components/bz_profile/info_page/bz_stats_bubble.dart';
+import 'package:bldrs/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
 class AboutBzBubbles extends StatelessWidget {

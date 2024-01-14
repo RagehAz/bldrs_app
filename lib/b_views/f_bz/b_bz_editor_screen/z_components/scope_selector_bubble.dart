@@ -1,9 +1,9 @@
 // import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 // import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-// import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-// import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
-// import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
-// import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+// import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
+// import 'package:bldrs/z_components/texting/bldrs_text_field/bldrs_validator.dart';
+// import 'package:bldrs/z_components/texting/bullet_points/bldrs_bullet_points.dart';
+// import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 // 
 // import 'package:flutter/material.dart';
 // import 'package:basics/helpers/classes/maps/mapper.dart';

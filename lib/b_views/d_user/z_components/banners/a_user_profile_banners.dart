@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/user_
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
 import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_banner.dart';
 import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_counters_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contacts_bubble.dart';
+import 'package:bldrs/z_components/bubbles/b_variants/contacts_bubble/contacts_bubble.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
