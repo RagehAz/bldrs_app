@@ -1,16 +1,17 @@
+import 'dart:async';
+
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/files/filers.dart';
-import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/a_models/x_ui/ui_image_cache_model.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
@@ -105,47 +106,6 @@ class UiProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// LOCAL ASSETS
-
-  // --------------------
-  List<String> _localAssetsPaths = <String>[];
-  List<String> get localAssetsPaths => _localAssetsPaths;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> getSetLocalAssetsPaths({
-    required bool notify,
-  }) async {
-    final List<String> _paths = await Filers.getLocalAssetsPaths();
-
-    _setLocalAssetPaths(
-      paths: _paths,
-      notify: notify,
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void _setLocalAssetPaths({
-    required List<String> paths,
-    required bool notify,
-  }){
-
-    _localAssetsPaths = paths;
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> proGetLocalAssetsPaths(){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
-    return _uiProvider.localAssetsPaths;
-  }
-  // -----------------------------------------------------------------------------
-
   /// AFTER HOME ROUTE
 
   // --------------------
@@ -213,6 +173,34 @@ class UiProvider extends ChangeNotifier {
   bool _keyboardIsOn = false;
   bool get keyboardIsOn => _keyboardIsOn;
   // --------------------
+  StreamSubscription<bool>? _keyboardSubscription;
+  KeyboardVisibilityController? keyboardVisibilityController;
+  // --------------------
+  static void proInitializeKeyboard(){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
+    _uiProvider._initializeKeyboard();
+  }
+  // --------------------
+  static void disposeKeyword(){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
+    _uiProvider._disposeKeyboard();
+  }
+  // --------------------
+  void _initializeKeyboard(){
+
+    keyboardVisibilityController ??= KeyboardVisibilityController();
+
+    /// Subscribe
+    _keyboardSubscription ??= Keyboard.initializeKeyboardListener(
+      controller: keyboardVisibilityController!,
+    );
+
+  }
+  // --------------------
+  void _disposeKeyboard(){
+    _keyboardSubscription?.cancel();
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool proGetKeyboardIsOn () {
     final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
@@ -220,8 +208,19 @@ class UiProvider extends ChangeNotifier {
     return _keyboardIsOn;
   }
   // --------------------
+  static void proSetKeyboardIsOn({
+    required bool setTo,
+    required bool notify,
+  }){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
+    _uiProvider._setKeyboardIsOn(
+      notify: notify,
+      setTo: setTo,
+    );
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
-  void setKeyboardIsOn({
+  void _setKeyboardIsOn({
     required bool setTo,
     required bool notify,
   }){
@@ -236,127 +235,6 @@ class UiProvider extends ChangeNotifier {
 
     }
 
-  }
-  // -----------------------------------------------------------------------------
-
-  /// SAVED FLYERS TAB CURRENT FLYER TYPE
-
-  // --------------------
-  FlyerType _currentSavedFlyerTypeTab = FlyerType.general;
-  // --------------------
-  FlyerType get currentSavedFlyerTypeTab => _currentSavedFlyerTypeTab;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void setCurrentFlyerTypeTab({
-    required FlyerType flyerType,
-    required bool notify,
-  }){
-
-    _currentSavedFlyerTypeTab = flyerType;
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// MY BZ SCREEN CURRENT TAB
-
-  // --------------------
-  BzTab _currentBzTab = BzTab.flyers;
-  // --------------------
-  BzTab get currentBzTab => _currentBzTab;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void setCurrentBzTab({
-    required BzTab bzTab,
-    required bool notify,
-  }){
-    _currentBzTab = bzTab;
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// USER SCREEN CURRENT TAB
-
-  // --------------------
-  UserTab _currentUserTab = UserTab.profile;
-  // --------------------
-  UserTab get currentUserTab => _currentUserTab;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void setCurrentUserTab({
-    required UserTab userTab,
-    required bool notify,
-  }){
-    _currentUserTab = userTab;
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// FLYER TWEEN
-
-  // --------------------
-  double _flyerWidthFactor = 1;
-  // --------------------
-  double get flyerWidthFactor => _flyerWidthFactor;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void calculateSetFlyerWidthFactor({
-    required double tween,
-    required bool notify,
-    double minFactor = 0.3,
-    double maxFactor = 1,
-  }){
-
-    /// tween geos from 0 --> to 1, or inverse
-    final double _widthFactor = _flyerWidthSizeFactor(
-        tween: tween,
-        minFactor: minFactor,
-        maxFactor: maxFactor
-    );
-
-    blog('setFlyerWidthFactor : $_widthFactor');
-
-    _setFlyerWidthSizeFactor(
-      widthFactor: _widthFactor,
-      notify: notify,
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void _setFlyerWidthSizeFactor({
-    required double widthFactor,
-    required bool notify,
-  }){
-
-    _flyerWidthFactor = widthFactor;
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  double _flyerWidthSizeFactor({
-    required double tween,
-    required double minFactor,
-    required double maxFactor,
-  }){
-    /// EW3AAA
-    final double _flyerWidthSizeFactor = minFactor + (tween * (maxFactor - minFactor));
-    return _flyerWidthSizeFactor;
   }
   // -----------------------------------------------------------------------------
 
@@ -702,74 +580,76 @@ class UiProvider extends ChangeNotifier {
 
     final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
 
-    /// _localAssetsPaths
-    _uiProvider._setLocalAssetPaths(paths: <String>[], notify: false);
     /// _keyboardModel
     // _uiProvider.setKeyboard(model: null, notify: false, invoker: 'Ui provider wipeOut');
     /// _keyboardIsOn
-    _uiProvider.setKeyboardIsOn(setTo: false, notify: false);
+    UiProvider.proSetKeyboardIsOn(setTo: false, notify: false);
     /// _currentSavedFlyerTypeTab
     _uiProvider.setCurrentFlyerTypeTab(flyerType: FlyerType.general, notify: false);
     /// _currentBzTab
     _uiProvider.setCurrentBzTab(bzTab: BzTab.flyers, notify: false);
     /// _currentUserTab
     _uiProvider.setCurrentUserTab(userTab: UserTab.profile, notify: false);
-    /// _flyerWidthFactor
-    _uiProvider._setFlyerWidthSizeFactor(widthFactor: 1,notify: false);
 
     _uiProvider._setLayoutIsVisible(setTo: true, notify: false);
     _uiProvider._setPyramidsAreExpanded(setTo: false, notify: notify);
   }
   // -----------------------------------------------------------------------------
-}
+
+  /// DEPRECATED
+
   // --------------------
-/// TESTED : WORKS PERFECT
-bool localAssetExists({
-  required String assetName,
-}){
-  final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
-  final List<String> _localAssetsPaths = _uiProvider.localAssetsPaths;
-  final String? _path = Filers.getLocalAssetPathFromLocalPaths(
-      allAssetsPaths: _localAssetsPaths,
-      assetName: assetName
-  );
+  FlyerType _currentSavedFlyerTypeTab = FlyerType.general;
+  // --------------------
+  FlyerType get currentSavedFlyerTypeTab => _currentSavedFlyerTypeTab;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void setCurrentFlyerTypeTab({
+    required FlyerType flyerType,
+    required bool notify,
+  }){
 
-  if (_path == null){
-    return false;
-  }
-  else {
-    return true;
-  }
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-String? getLocalAssetPath({
-  required String? assetName,
-}){
-  final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
-  final List<String> _localAssetsPaths = _uiProvider.localAssetsPaths;
-  final String? _path = Filers.getLocalAssetPathFromLocalPaths(
-      allAssetsPaths: _localAssetsPaths,
-      assetName: assetName
-  );
+    _currentSavedFlyerTypeTab = flyerType;
 
-  return _path;
-}
-// -----------------------------------------------------------------------------
-/// TESTED : WORKS PERFECT
-String? getCounterCaliber(int? x){
-  return Numeric.formatNumToCounterCaliber(
-    x: x,
-    thousand: getWord('phid_thousand'),
-    million: getWord('phid_million'),
-  );
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-String? phidIcon(dynamic icon){
-  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
-  return _chainsProvider.getPhidIcon(
-    son: icon,
-  );
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+  // --------------------
+  BzTab _currentBzTab = BzTab.flyers;
+  // --------------------
+  BzTab get currentBzTab => _currentBzTab;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void setCurrentBzTab({
+    required BzTab bzTab,
+    required bool notify,
+  }){
+    _currentBzTab = bzTab;
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+  // --------------------
+  UserTab _currentUserTab = UserTab.profile;
+  // --------------------
+  UserTab get currentUserTab => _currentUserTab;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void setCurrentUserTab({
+    required UserTab userTab,
+    required bool notify,
+  }){
+    _currentUserTab = userTab;
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+  // -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
