@@ -4,9 +4,9 @@ import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/user_settings_page_controllers.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
-import 'package:bldrs/b_views/z_components/buttons/general_buttons/settings_wide_button.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/buttons/general_buttons/settings_wide_button.dart';
+import 'package:bldrs/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
 class UserSettingsPage extends StatelessWidget {

@@ -1,9 +1,9 @@
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/pdf_bubble/pdf_selection_bubble.dart';
-import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/bubbles/b_variants/pdf_bubble/pdf_selection_bubble.dart';
+import 'package:bldrs/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
+import 'package:bldrs/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class FlyerEditorPage3PDF extends StatelessWidget {

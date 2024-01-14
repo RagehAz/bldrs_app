@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/searching.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -7,14 +8,15 @@ import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/x_pickers_screen_controllers.dart';
 import 'package:bldrs/b_views/i_chains/b_picker_screen/bb_picker_screen_browse_view.dart';
 import 'package:bldrs/b_views/i_chains/b_picker_screen/x_picker_screen_controllers.dart';
-import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/buttons/editors_buttons/editor_confirm_button.dart';
+import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
 
 class PickerScreen extends StatefulWidget {
@@ -157,11 +159,12 @@ class _PickerScreenState extends State<PickerScreen> {
       searchController: _searchController,
       onSearchChanged: (String? text){blog('PickerScreen : onSearchChanged : $text');},
       onSearchSubmit: (String? text){blog('PickerScreen : onSearchSubmit : $text');},
-      onSearchCancelled: () => MainLayout.onCancelSearch(
+      onSearchCancelled: () => Searching.onCancelSearch(
         controller: _searchController,
         foundResultNotifier: null,
         isSearching: null,
         mounted: mounted,
+        closKeyboardFunction: Keyboard.closeKeyboard,
       ),
       searchHintVerse: const Verse(id: 'phid_search_keywords', translate: true),
       // appBarBackButton: true,

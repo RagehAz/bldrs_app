@@ -4,9 +4,9 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/z_components/specs_selector/b_phids_selector_bubble.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/z_components/specs_selector/c_price_selector_bubble.dart';
-import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
-import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
+import 'package:bldrs/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
+import 'package:bldrs/z_components/sizing/horizon.dart';
 import 'package:flutter/material.dart';
 
 class FlyerEditorPage2KeywordsSpecs extends StatelessWidget {

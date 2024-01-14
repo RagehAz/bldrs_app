@@ -5,7 +5,7 @@ import 'package:basics/helpers/models/flag_model.dart';
 import 'package:basics/helpers/models/phrase_model.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/ldb/b_city_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';

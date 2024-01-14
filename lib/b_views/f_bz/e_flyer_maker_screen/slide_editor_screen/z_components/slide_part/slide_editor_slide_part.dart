@@ -17,8 +17,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/images/bldrs_image.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class SlideEditorSlidePart extends StatelessWidget {

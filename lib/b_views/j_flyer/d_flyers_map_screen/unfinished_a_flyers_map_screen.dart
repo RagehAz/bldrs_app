@@ -2,11 +2,11 @@
 // import 'dart:typed_data';
 // import 'dart:ui' as ui;
 //
-// import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
-// import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+// import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
+// import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 // import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-// import 'package:bldrs/b_views/z_components/loading/loading.dart';
-// import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+// import 'package:bldrs/z_components/loading/loading.dart';
+// import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 // 
 // import 'package:basics/helpers/classes/space/scale.dart';
 // import 'package:basics/helpers/classes/files/filers.dart';
