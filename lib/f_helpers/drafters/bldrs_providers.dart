@@ -6,7 +6,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/f_helpers/tabbing/tabs_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -48,8 +48,8 @@ class BldrsProviders extends StatelessWidget {
           ChangeNotifierProvider<ChainsProvider>(
             create: (BuildContext ctx) => ChainsProvider(),
           ),
-          ChangeNotifierProvider<TabsProvider>(
-            create: (BuildContext ctx) => TabsProvider(),
+          ChangeNotifierProvider<HomeProvider>(
+            create: (BuildContext ctx) => HomeProvider(),
           ),
         ],
         child: child,

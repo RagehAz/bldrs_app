@@ -34,7 +34,7 @@ class MirageLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final TabController? _controller  = TabsProvider.proGetTabController(
+    final TabController? _controller  = HomeProvider.proGetTabController(
       context: context,
       listen: true,
     );

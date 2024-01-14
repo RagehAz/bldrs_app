@@ -25,7 +25,7 @@ import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/f_helpers/tabbing/bldrs_tabs.dart';
-import 'package:bldrs/f_helpers/tabbing/tabs_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/buttons/keywords_buttons/sections_button.dart';
 import 'package:bldrs/z_components/buttons/multi_button/a_multi_button.dart';

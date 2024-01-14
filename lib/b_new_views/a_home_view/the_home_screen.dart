@@ -1,6 +1,6 @@
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/tabbing/tabs_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class _TheHomeScreenState extends State<TheHomeScreen> with TickerProviderStateM
     super.initState();
 
     /// TAB BAR CONTROLLER
-    TabsProvider.proInitializeTabBarController(
+    HomeProvider.proInitializeTabBarController(
       context: context,
       vsync: this,
     );
@@ -50,7 +50,7 @@ class _TheHomeScreenState extends State<TheHomeScreen> with TickerProviderStateM
   // --------------------
   @override
   void dispose() {
-    TabsProvider.proDisposeTabBarController();
+    HomeProvider.proDisposeTabBarController();
     UiProvider.disposeKeyword();
 
     super.dispose();
