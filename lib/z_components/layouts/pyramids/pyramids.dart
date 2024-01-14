@@ -1,8 +1,8 @@
 // ignore_for_file: unused_element
-import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/z_components/images/bldrs_image.dart';
 import 'package:bldrs/z_components/layouts/pyramids/khufu.dart';

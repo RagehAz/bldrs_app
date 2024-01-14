@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
-import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
+import 'package:basics/helpers/space/borderers.dart';
+import 'package:basics/components/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';

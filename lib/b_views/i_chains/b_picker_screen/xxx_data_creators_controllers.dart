@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/nums/numeric.dart';
+import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';

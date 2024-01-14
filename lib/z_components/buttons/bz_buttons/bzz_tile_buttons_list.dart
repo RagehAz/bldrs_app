@@ -1,5 +1,5 @@
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/z_components/buttons/bz_buttons/bz_long_button.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';

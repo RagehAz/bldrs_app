@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:async';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/models/flag_model.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/models/flag_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';

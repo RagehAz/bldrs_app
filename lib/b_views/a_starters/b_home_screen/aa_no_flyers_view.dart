@@ -1,8 +1,8 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/layouts/separators/separator_line.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/components/drawing/separator_line.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';

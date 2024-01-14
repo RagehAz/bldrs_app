@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/zz_archives/obelisk_layout/obelisk/obelisk.dart';
@@ -7,7 +7,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/zz_archives/obelisk_layout/obelisk/obelisk_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/components/animators/widget_fader.dart';
 
 class ObeliskVersesBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------

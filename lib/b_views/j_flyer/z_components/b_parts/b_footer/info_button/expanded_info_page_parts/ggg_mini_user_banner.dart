@@ -1,8 +1,8 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/models/flag_model.dart';
-import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/models/flag_model.dart';
+import 'package:basics/components/drawing/super_positioned.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';

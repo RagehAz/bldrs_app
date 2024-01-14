@@ -1,8 +1,8 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/checks/object_check.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/helpers/checks/object_check.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/space/borderers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/images/bldrs_image.dart';

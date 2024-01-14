@@ -1,5 +1,5 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/strings/searching.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/strings/searching.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -14,7 +14,7 @@ import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';

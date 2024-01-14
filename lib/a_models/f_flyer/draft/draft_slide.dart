@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/colors/colorizer.dart';
-import 'package:basics/helpers/classes/files/floaters.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/space/trinity.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/colors/colorizer.dart';
+import 'package:basics/helpers/files/floaters.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';

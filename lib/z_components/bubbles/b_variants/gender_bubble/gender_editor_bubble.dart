@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';

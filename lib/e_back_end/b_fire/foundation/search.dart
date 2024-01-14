@@ -1,7 +1,7 @@
 // import 'package:fire/super_fire.dart';
-// import 'package:basics/helpers/classes/files/filers.dart';
+// import 'package:basics/helpers/files/filers.dart';
 // import 'package:flutter/material.dart';
-// import 'package:basics/helpers/classes/maps/mapper.dart';
+// import 'package:basics/helpers/maps/mapper.dart';
 // // -----------------------------------------------------------------------------
 //
 // /// GENERAL

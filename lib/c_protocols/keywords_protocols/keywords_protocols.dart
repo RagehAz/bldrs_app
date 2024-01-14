@@ -1,9 +1,9 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/c_protocols/keywords_protocols/keywords_ldb_ops.dart';
 import 'package:bldrs/c_protocols/keywords_protocols/keywords_real_ops.dart';
-import 'package:basics/helpers/classes/maps/map_pathing.dart';
+import 'package:basics/helpers/maps/map_pathing.dart';
 /// TAMAM
 class KeywordsProtocols{
   // --------------------------------------------------------------------------

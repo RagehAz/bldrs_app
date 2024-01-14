@@ -5,7 +5,7 @@ import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/space/scale.dart';
 
 class FlyersPaginatorView extends StatelessWidget {
   /// --------------------------------------------------------------------------

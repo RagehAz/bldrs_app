@@ -1,4 +1,4 @@
-import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/checks/device_checker.dart';
 // import 'package:bldrs/bldrs_keys.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/foundation.dart';

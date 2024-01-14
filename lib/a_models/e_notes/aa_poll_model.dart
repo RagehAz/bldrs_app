@@ -1,9 +1,9 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/strings/pathing.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/strings/pathing.dart';
+import 'package:basics/helpers/strings/stringer.dart';
+import 'package:basics/helpers/strings/text_check.dart';
+import 'package:basics/helpers/time/timers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable

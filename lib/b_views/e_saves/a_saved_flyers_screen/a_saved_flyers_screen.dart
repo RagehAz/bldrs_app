@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';

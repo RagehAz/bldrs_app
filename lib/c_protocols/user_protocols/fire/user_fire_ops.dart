@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';

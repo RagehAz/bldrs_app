@@ -1,7 +1,7 @@
-import 'package:basics/animators/widgets/widget_fader.dart';
-import 'package:basics/animators/widgets/widget_waiter.dart';
+import 'package:basics/components/animators/widget_fader.dart';
+import 'package:basics/components/animators/widget_waiter.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';

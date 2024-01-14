@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/maps/lister.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/heroic_flyers_grid.dart';

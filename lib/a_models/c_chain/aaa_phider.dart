@@ -1,12 +1,12 @@
 // ignore_for_file: constant_identifier_names
-import 'package:basics/helpers/classes/checks/object_check.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/classes/strings/pathing.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
-import 'package:basics/helpers/models/phrase_model.dart';
+import 'package:basics/helpers/checks/object_check.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/nums/numeric.dart';
+import 'package:basics/helpers/strings/pathing.dart';
+import 'package:basics/helpers/strings/stringer.dart';
+import 'package:basics/helpers/strings/text_check.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
+import 'package:basics/models/phrase_model.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';

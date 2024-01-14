@@ -1,5 +1,5 @@
 import 'dart:ui' as ui;
-import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,7 @@
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:basics/helpers/models/flag_model.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/strings/stringer.dart';
+import 'package:basics/models/flag_model.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';

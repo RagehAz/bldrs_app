@@ -1,9 +1,9 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';

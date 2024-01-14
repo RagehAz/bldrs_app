@@ -1,10 +1,10 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/bubbles/model/bubble_header_vm.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
-import 'package:basics/helpers/classes/strings/text_clip_board.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/components/bubbles/model/bubble_header_vm.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/strings/text_check.dart';
+import 'package:basics/helpers/strings/text_clip_board.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/texting/bldrs_text_field/bldrs_text_field.dart';

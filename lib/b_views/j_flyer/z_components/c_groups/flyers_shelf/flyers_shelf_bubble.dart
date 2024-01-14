@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyers_shelf/flyers_shelf_list_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';

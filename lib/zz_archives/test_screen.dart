@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/widgets/drawing/expander.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/components/drawing/expander.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';

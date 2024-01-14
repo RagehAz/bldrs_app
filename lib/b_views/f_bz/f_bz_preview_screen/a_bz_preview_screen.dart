@@ -1,6 +1,6 @@
 // ignore_for_file: unused_element
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/b_about_page/aaa2_bz_about_page.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';

@@ -1,11 +1,11 @@
-import 'package:basics/animators/widgets/matrix_animator.dart';
+import 'package:basics/components/animators/matrix_animator.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/checks/device_checker.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/classes/space/trinity.dart';
-import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
+import 'package:basics/helpers/checks/device_checker.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/helpers/space/trinity.dart';
+import 'package:basics/components/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/delete_draft_slide_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
@@ -19,7 +19,7 @@ import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/super_image/super_image.dart';
+import 'package:basics/components/super_image/super_image.dart';
 
 class DraftShelfSlide extends StatefulWidget {
   /// --------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';

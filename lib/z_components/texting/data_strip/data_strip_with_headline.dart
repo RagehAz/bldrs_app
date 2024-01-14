@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/helpers/space/borderers.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/z_components/texting/data_strip/data_strip.dart';

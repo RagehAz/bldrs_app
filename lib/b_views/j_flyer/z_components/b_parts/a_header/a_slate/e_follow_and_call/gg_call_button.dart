@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
+import 'package:basics/components/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';

@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:bldrs/z_components/layouts/super_tool_tip.dart';
 import 'package:bldrs/z_components/texting/data_strip/data_strip_with_headline.dart';
 import 'package:bldrs/z_components/texting/data_strip/the_strip_of_data_strip.dart';

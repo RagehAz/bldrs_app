@@ -1,5 +1,5 @@
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/super_text/super_text.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/components/texting/super_text/super_text.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';

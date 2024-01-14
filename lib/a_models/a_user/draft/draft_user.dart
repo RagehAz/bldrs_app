@@ -1,8 +1,8 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/space/atlas.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/space/atlas.dart';
+import 'package:basics/helpers/strings/stringer.dart';
+import 'package:basics/helpers/time/timers.dart';
 import 'package:bldrs/a_models/a_user/sub/agenda_model.dart';
 import 'package:bldrs/a_models/a_user/sub/deck_model.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';

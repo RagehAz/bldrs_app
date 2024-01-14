@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/models/flag_model.dart';
+import 'package:basics/models/flag_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';

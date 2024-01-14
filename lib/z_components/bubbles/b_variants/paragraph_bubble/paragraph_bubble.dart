@@ -1,17 +1,17 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/bubbles/model/bubble_header_vm.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/components/bubbles/model/bubble_header_vm.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/text_lines_analyzer.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/space/scale.dart';
 
 class ParagraphBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------

@@ -1,12 +1,12 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/widgets/layers/blur_layer.dart';
+import 'package:basics/components/layers/blur_layer.dart';
 import 'package:bldrs/zz_archives/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/nums/numeric.dart';
 import 'package:provider/provider.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/space/scale.dart';
 
 class ObeliskExpandingPyramid extends StatelessWidget {
   // --------------------------------------------------------------------------

@@ -1,9 +1,9 @@
-import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/classes/strings/searching.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/helpers/strings/searching.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';

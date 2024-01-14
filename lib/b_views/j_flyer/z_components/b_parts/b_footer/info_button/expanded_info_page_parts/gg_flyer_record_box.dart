@@ -1,7 +1,7 @@
-import 'package:basics/animators/helpers/app_scroll_behavior.dart';
+import 'package:basics/helpers/animators/app_scroll_behavior.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/space/borderers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/g_statistics/records/flyer_save_model.dart';
 import 'package:bldrs/a_models/g_statistics/records/flyer_share_model.dart';

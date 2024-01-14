@@ -2,11 +2,11 @@
 import 'dart:convert';
 
 import 'package:app_settings/app_settings.dart';
-import 'package:basics/helpers/classes/checks/device_checker.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/classes/rest/rest.dart';
-import 'package:basics/helpers/classes/time/internet_time.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/checks/device_checker.dart';
+import 'package:basics/helpers/nums/numeric.dart';
+import 'package:basics/helpers/rest/rest.dart';
+import 'package:basics/helpers/time/internet_time.dart';
+import 'package:basics/helpers/time/timers.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';

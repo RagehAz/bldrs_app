@@ -1,5 +1,5 @@
 import 'package:bldrs/z_components/loading/loading.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:flutter/material.dart';
 
 class LoadingFullScreenLayer extends StatelessWidget {

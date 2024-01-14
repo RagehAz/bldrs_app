@@ -1,6 +1,6 @@
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/nums/numeric.dart';
+import 'package:basics/helpers/time/timers.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/g_statistics/counters/bz_counter_model.dart';

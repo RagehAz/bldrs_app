@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';

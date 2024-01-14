@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/widgets/drawing/expander.dart';
-import 'package:basics/helpers/widgets/drawing/spacing.dart';
+import 'package:basics/components/drawing/expander.dart';
+import 'package:basics/components/drawing/spacing.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/animation_frame_button.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/panel_circle_button.dart';

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/checks/device_checker.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/bldrs_keys.dart';

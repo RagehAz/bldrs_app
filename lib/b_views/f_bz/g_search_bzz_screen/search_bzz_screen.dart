@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/strings/searching.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/strings/searching.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/z_components/buttons/bz_buttons/bzz_tile_buttons_list.dart';

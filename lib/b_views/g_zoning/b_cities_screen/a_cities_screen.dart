@@ -1,11 +1,11 @@
 // ignore_for_file: invariant_booleans
-import 'package:basics/animators/widgets/scroller.dart';
+import 'package:basics/components/animators/scroller.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/strings/searching.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
-import 'package:basics/helpers/models/flag_model.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/strings/searching.dart';
+import 'package:basics/helpers/strings/stringer.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
+import 'package:basics/models/flag_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';

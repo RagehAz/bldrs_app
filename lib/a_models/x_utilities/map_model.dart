@@ -1,6 +1,6 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 

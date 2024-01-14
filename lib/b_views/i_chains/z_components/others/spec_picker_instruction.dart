@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/i_chains/b_picker_screen/b_picker_screen.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:flutter/material.dart';
 
 class ChainInstructions extends StatelessWidget {

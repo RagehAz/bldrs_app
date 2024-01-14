@@ -77,7 +77,7 @@ class SlideBox extends StatelessWidget {
 }
 
 /// NEW PROPOSAL
-// import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
+// import 'package:basics/components/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 // import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 // import 'package:flutter/material.dart';
 //

@@ -1,9 +1,9 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/widgets/drawing/expander.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/space/borderers.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/components/drawing/expander.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';

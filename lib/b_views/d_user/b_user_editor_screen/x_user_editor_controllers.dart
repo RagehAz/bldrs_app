@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';

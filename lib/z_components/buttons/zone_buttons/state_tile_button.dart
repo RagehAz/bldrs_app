@@ -1,4 +1,4 @@
-import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';

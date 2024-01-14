@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/helpers/space/borderers.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';

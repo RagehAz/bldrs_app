@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/widgets.dart';

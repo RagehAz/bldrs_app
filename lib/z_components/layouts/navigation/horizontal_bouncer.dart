@@ -1,5 +1,5 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 

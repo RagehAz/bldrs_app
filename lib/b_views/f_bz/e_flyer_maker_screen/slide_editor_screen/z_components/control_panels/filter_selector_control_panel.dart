@@ -9,9 +9,9 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/z_co
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/super_image/super_image.dart';
+import 'package:basics/components/super_image/super_image.dart';
 
 class FiltersSelectorControlPanel extends StatelessWidget {
   /// --------------------------------------------------------------------------

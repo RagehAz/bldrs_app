@@ -1,12 +1,12 @@
 // import 'package:alphabet_list_scroll_view/alphabet_list_scroll_view.dart';
-// import 'package:basics/helpers/classes/space/scale.dart';
+// import 'package:basics/helpers/space/scale.dart';
 // 
 // import 'package:bldrs/z_components/texting/super_verse.dart';
 // import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 // import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 // import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/z_invite_bzz_screen_controllers.dart';
 // import 'package:bldrs/d_providers/user_provider.dart';
-// import 'package:basics/helpers/classes/maps/mapper.dart';
+// import 'package:basics/helpers/maps/mapper.dart';
 // 
 // import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';

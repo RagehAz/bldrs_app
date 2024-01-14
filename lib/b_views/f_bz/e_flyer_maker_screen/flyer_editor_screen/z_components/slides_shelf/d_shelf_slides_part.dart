@@ -1,8 +1,8 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';

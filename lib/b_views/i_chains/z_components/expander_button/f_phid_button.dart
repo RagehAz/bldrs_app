@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/a_chain_button_box.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';

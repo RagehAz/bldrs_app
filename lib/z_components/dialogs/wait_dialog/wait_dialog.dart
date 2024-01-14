@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/debug_widgets/cache_preview_bubble.dart';
 import 'package:bldrs/z_components/loading/loading.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
@@ -11,7 +11,7 @@ import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/space/scale.dart';
 
 class WaitDialog extends StatelessWidget {
   // --------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
+import 'package:basics/components/sensors/app_version_builder.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
 import 'package:bldrs/c_protocols/main_providers/general_provider.dart';

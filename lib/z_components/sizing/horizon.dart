@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:flutter/material.dart';
 
 /// --- THE HORIZON IS BOTTOM SCREEN PADDING THAT RESPECTS PYRAMIDS HEIGHT

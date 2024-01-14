@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:basics/animators/widgets/widget_fader.dart';
-import 'package:basics/animators/widgets/widget_waiter.dart';
+import 'package:basics/components/animators/widget_fader.dart';
+import 'package:basics/components/animators/widget_waiter.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/nums/numeric.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';

@@ -1,6 +1,6 @@
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/strings/stringer.dart';
+import 'package:basics/helpers/time/timers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable

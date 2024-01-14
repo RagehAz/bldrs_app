@@ -5,8 +5,8 @@ import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/helpers/nums/numeric.dart';
+import 'package:basics/components/animators/widget_fader.dart';
 
 class FlyerAuditLayer extends StatelessWidget {
   /// --------------------------------------------------------------------------

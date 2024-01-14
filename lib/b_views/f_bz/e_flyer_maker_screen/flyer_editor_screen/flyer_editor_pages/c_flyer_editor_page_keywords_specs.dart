@@ -1,4 +1,4 @@
-import 'package:basics/super_box/super_box.dart';
+import 'package:basics/components/super_box/super_box.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';

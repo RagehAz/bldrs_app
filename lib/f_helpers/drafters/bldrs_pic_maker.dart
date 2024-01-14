@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/permissions/permits.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/permissions/permits.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';

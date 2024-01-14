@@ -1,11 +1,11 @@
 // ignore_for_file: unused_element
 
-import 'package:basics/animators/helpers/sliders.dart';
-import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/helpers/animators/sliders.dart';
+import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';

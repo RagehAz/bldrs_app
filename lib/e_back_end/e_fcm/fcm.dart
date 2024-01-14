@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/classes/checks/device_checker.dart';
-import 'package:basics/helpers/classes/checks/error_helpers.dart';
-import 'package:basics/helpers/classes/checks/object_check.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/files/floaters.dart';
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/checks/device_checker.dart';
+import 'package:basics/helpers/checks/error_helpers.dart';
+import 'package:basics/helpers/checks/object_check.dart';
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/files/floaters.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
@@ -23,10 +23,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/mediator/sounder/sounder.dart';
-import 'package:basics/helpers/classes/rest/rest.dart';
+import 'package:basics/helpers/rest/rest.dart';
 import 'dart:io';
 
 /*

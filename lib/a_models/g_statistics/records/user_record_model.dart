@@ -1,9 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
-import 'package:basics/helpers/classes/maps/lister.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/nums/numeric.dart';
+import 'package:basics/helpers/strings/text_check.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
+import 'package:basics/helpers/time/timers.dart';
 import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM

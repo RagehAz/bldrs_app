@@ -1,4 +1,4 @@
-import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
