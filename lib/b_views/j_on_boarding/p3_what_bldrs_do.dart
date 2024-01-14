@@ -8,9 +8,9 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/j_on_boarding/a_on_boarding_screen.dart';
 import 'package:bldrs/b_views/j_on_boarding/components/onboarding_headline.dart';
 import 'package:bldrs/b_views/j_on_boarding/components/phids_wheel.dart';
-import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
+import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/protocols/a_chain_protocols.dart';
 import 'package:flutter/material.dart';
 

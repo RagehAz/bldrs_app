@@ -2,7 +2,7 @@ import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip_with_headline.dart';
+import 'package:bldrs/z_components/texting/data_strip/data_strip_with_headline.dart';
 import 'package:flutter/material.dart';
 
 class SlideAnimationProgressBar extends StatelessWidget {

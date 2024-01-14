@@ -8,12 +8,12 @@ import 'package:bldrs/a_models/g_statistics/records/flyer_share_model.dart';
 import 'package:bldrs/a_models/g_statistics/records/flyer_view_model.dart';
 import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/ggg_mini_user_banner.dart';
-import 'package:bldrs/b_views/z_components/buttons/general_buttons/bldrs_box.dart';
-import 'package:bldrs/b_views/z_components/paginators/records_paginators/flyer_saves_paginator.dart';
-import 'package:bldrs/b_views/z_components/paginators/records_paginators/flyer_shares_paginator.dart';
-import 'package:bldrs/b_views/z_components/paginators/records_paginators/flyer_views_paginator.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
+import 'package:bldrs/z_components/paginators/records_paginators/flyer_saves_paginator.dart';
+import 'package:bldrs/z_components/paginators/records_paginators/flyer_shares_paginator.dart';
+import 'package:bldrs/z_components/paginators/records_paginators/flyer_views_paginator.dart';
+import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:flutter/material.dart';
 

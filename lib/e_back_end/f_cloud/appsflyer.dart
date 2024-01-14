@@ -1,8 +1,8 @@
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:bldrs/b_views/z_components/buttons/general_buttons/wide_button.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/buttons/general_buttons/wide_button.dart';
+import 'package:bldrs/z_components/layouts/custom_layouts/floating_layout.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
 class AppsFlyering {

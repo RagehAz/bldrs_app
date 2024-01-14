@@ -13,9 +13,9 @@ import 'package:bldrs/b_views/i_chains/a_pickers_screen/x_pickers_screen_control
 import 'package:bldrs/b_views/i_chains/b_picker_screen/x_picker_screen_controllers.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/i_chains/z_components/pickers/picker_splitter.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
+import 'package:bldrs/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:flutter/material.dart';
 

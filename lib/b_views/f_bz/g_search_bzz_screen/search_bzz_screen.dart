@@ -1,16 +1,16 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
-import 'package:basics/helpers/classes/strings/text_mod.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/bz_buttons/bzz_tile_buttons_list.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:fire/super_fire.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:bldrs/b_views/z_components/loading/loading.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/searching.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/z_components/buttons/bz_buttons/bzz_tile_buttons_list.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/loading/loading.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
-import 'package:basics/layouts/nav/nav.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
 Future<void> onSearchBzz({
@@ -25,7 +25,7 @@ Future<void> onSearchBzz({
 
   blog('starting onSearchUsers : text : $text');
 
-  TextCheck.triggerIsSearchingNotifier(
+  Searching.triggerIsSearchingNotifier(
       text: text,
       isSearching: isSearching,
       mounted: mounted,

@@ -21,9 +21,9 @@ import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/flyer_sea
 import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/users_search_filters_list.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_search.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';

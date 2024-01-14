@@ -2,8 +2,8 @@
 import 'package:basics/animators/widgets/scroller.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/searching.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/helpers/models/flag_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
@@ -12,9 +12,9 @@ import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_search_view.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b_zone_search_protocols.dart';
@@ -258,7 +258,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _onSearchCity(String? inputText) async {
 
-    TextCheck.triggerIsSearchingNotifier(
+    Searching.triggerIsSearchingNotifier(
       text: inputText,
       isSearching: _isSearching,
       mounted: mounted,

@@ -7,8 +7,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_he
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/b_gallery_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
-import 'package:bldrs/b_views/z_components/layouts/navigation/horizontal_bouncer.dart';
-import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
+import 'package:bldrs/z_components/layouts/navigation/horizontal_bouncer.dart';
+import 'package:bldrs/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:flutter/material.dart';
 
