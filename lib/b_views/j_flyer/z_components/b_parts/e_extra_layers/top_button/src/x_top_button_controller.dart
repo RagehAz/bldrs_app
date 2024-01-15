@@ -329,10 +329,8 @@ Verse generateLine_price_symbol({
   final double? _price = flyerModel?.price?.current;
   final String? _currencyID = flyerModel?.price?.currencyID;
 
-  final String? _currencySymbol = ZoneProvider.proGetCurrencyByCurrencyID(
-    context: getMainContext(),
+  final String? _currencySymbol = CurrencyJsonOps.proGetCurrencyByCurrencyID(
     currencyID: _currencyID,
-    listen: false,
   )?.symbol ?? '';
 
   final String _line = '$_price $_currencySymbol';
@@ -385,10 +383,8 @@ Verse? generateLine_current_price({
 
   else {
 
-    final CurrencyModel? _currency = ZoneProvider.proGetCurrencyByCurrencyID(
-        context: getMainContext(),
-        currencyID: flyerModel.price?.currencyID,
-        listen: false,
+    final CurrencyModel? _currency = CurrencyJsonOps.proGetCurrencyByCurrencyID(
+      currencyID: flyerModel.price?.currencyID,
     );
 
     final String _number = Numeric.formatNumToSeparatedKilos(
@@ -422,10 +418,8 @@ Verse? generateLine_old_price({
 
   else {
 
-    final CurrencyModel? _currency = ZoneProvider.proGetCurrencyByCurrencyID(
-        context: getMainContext(),
-        currencyID: flyerModel.price?.currencyID,
-        listen: false,
+    final CurrencyModel? _currency = CurrencyJsonOps.proGetCurrencyByCurrencyID(
+      currencyID: flyerModel.price?.currencyID,
     );
 
     final String _number = Numeric.formatNumToSeparatedKilos(
