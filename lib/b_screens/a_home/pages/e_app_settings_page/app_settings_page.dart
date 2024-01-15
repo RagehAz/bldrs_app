@@ -13,6 +13,7 @@ import 'package:bldrs/b_screens/a_home/pages/e_app_settings_page/x_app_settings_
 import 'package:bldrs/z_components/buttons/general_buttons/settings_wide_button.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/layouts/custom_layouts/floating_layout.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramid_floating_button.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/z_components/notes/x_components/red_dot_badge.dart';
@@ -49,6 +50,7 @@ class AppSettingsPage extends StatelessWidget {
     // --------------------
     return FloatingLayout(
       canSwipeBack: false,
+      appBarType: AppBarType.non,
       pyramidButtons: UsersProvider.userIsRage7() == false ? null : <Widget>[
 
         /// SUPER DEV TEST
