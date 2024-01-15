@@ -14,7 +14,6 @@ import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
@@ -245,9 +244,6 @@ class BldrsEngine {
 
       /// UI - ICONS - PHRASES
       UiInitializer.initializeIconsAndPhrases(),
-
-      /// ALL CURRENCIES
-      ZoneProvider.proInitializeAllCurrencies(),
 
     ]);
 
