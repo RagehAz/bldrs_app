@@ -1,9 +1,8 @@
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/legalizer/legalizer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
-import 'package:bldrs/b_new_views/a_home_view/the_home_screen.dart';
+import 'package:bldrs/b_screens/a_home/the_home_screen.dart';
 import 'package:bldrs/b_views/a_starters/c_error_screen/delete_my_data_screen.dart';
-import 'package:bldrs/b_views/a_starters/c_error_screen/no_page_found.dart';
 import 'package:bldrs/b_views/a_starters/c_error_screen/under_construction_screen.dart';
 import 'package:bldrs/b_views/a_starters/x_banner_screen/banner_screen.dart';
 import 'package:bldrs/b_views/b_auth/a_auth_screen.dart';
@@ -35,13 +34,22 @@ class NewStaticRouter {
     switch (_path) {
     // ------------------------------------------------------------
     /// home
-      case '/': return Nav.transitFade(screen: const TheHomeScreen(), settings: settings);
+      case '/': return Nav.transitFade(
+          screen: const TheHomeScreen(),
+          settings: settings,
+      );
     // --------------------
     /// auth
-      case RouteName.auth: return BldrsNav.transitSuperHorizontal(screen: const AuthScreen(), settings: settings);
+      case RouteName.auth: return BldrsNav.transitSuperHorizontal(
+          screen: const AuthScreen(),
+          settings: settings
+      );
     // --------------------
     /// userPreview
-      case RouteName.userPreview: return BldrsNav.transitSuperHorizontal(settings: settings, screen: UserPreviewScreen(userID: _arg,),);
+      case RouteName.userPreview: return BldrsNav.transitSuperHorizontal(
+        settings: settings,
+        screen: UserPreviewScreen(userID: _arg,),
+      );
     // --------------------
     /// bzPreview
       case RouteName.bzPreview: return BldrsNav.transitSuperHorizontal(
@@ -133,7 +141,7 @@ class NewStaticRouter {
     // --------------------
       default:
         return Nav.transitFade(
-          screen: const NoPageFoundScreen(),
+          screen: const TheHomeScreen(),
           settings: settings,
         );
     // ------------------------------------------------------------
