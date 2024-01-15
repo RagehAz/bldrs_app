@@ -106,10 +106,6 @@ class UiInitializer {
   /// TESTED : WORKS PERFECT
   static Future<void> initializeIconsAndPhrases() async {
 
-    UiProvider.proSetScreenDimensions(
-      notify: false,
-    );
-
     UiProvider.proSetLayoutIsVisible(
       setTo: true,
       notify: true,
