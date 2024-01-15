@@ -117,10 +117,6 @@ class _PriceSelectorBubbleState extends State<PriceSelectorBubble> {
 
     _defineControllers();
 
-    _validate(
-      draft: widget.draft,
-    );
-
     super.initState();
   }
   // --------------------
@@ -132,6 +128,10 @@ class _PriceSelectorBubbleState extends State<PriceSelectorBubble> {
       _isInit = false; // good
 
       asyncInSync(() async {
+
+        _validate(
+          draft: widget.draft,
+        );
 
       });
 

@@ -1,16 +1,16 @@
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
-import 'package:basics/models/phrase_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/models/phrase_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/b_views/i_chains/c_currencies_screen/b_currencies_list_builder.dart';
 import 'package:bldrs/b_views/i_chains/c_currencies_screen/x_currencies_screen_controllers.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 class CurrenciesScreen extends StatefulWidget {
@@ -103,10 +103,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
 
     final List<Phrase> _otherPhrases = await _loadCurrentLangCurrencyPhrases();
 
-    final List<CurrencyModel> _all = ZoneProvider.proGetAllCurrencies(
-      context: context,
-      listen: false,
-    );
+    final List<CurrencyModel> _all = ZoneProtocols.fetchCurrencies();
 
     final List<String> _idsOnTop = _getCurrenciesIDsToPutOnTop(
       all: _all,
@@ -208,6 +205,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       pageController: null, //_pageController,
       mounted: mounted,
       allCurrenciesPhrases: _allCurrenciesPhrases,
+      allCurrencies: _allCurrencies,
     );
   }
   // --------------------
@@ -234,9 +232,8 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final CurrencyModel? _selectedCurrency = ZoneProvider.proGetCurrencyByCurrencyID(
-        context: context,
-        listen: false,
+    final CurrencyModel? _selectedCurrency = CurrencyModel.getCurrencyByID(
+        allCurrencies: _allCurrencies,
         currencyID: widget.selectedCurrencyID,
     );
     // --------------------
