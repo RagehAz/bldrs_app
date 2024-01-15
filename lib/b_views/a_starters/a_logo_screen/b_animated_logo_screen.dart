@@ -17,7 +17,7 @@ import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/z_components/texting/customs/leading_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_initialization_protocols/a_initializer.dart';
+import 'package:bldrs/c_protocols/app_initialization_protocols/sub/a_initializer.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_sounder.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';

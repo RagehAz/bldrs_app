@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         //   );
         // }
 
-        await initializeHomeScreen(context: context);
+        await initializeHomeScreen();
 
         await NotesProvider.proInitializeNoteStreams(mounted: mounted);
 

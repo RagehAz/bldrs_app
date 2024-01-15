@@ -11,7 +11,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -20,9 +19,7 @@ import 'package:provider/provider.dart';
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeHomeScreen({
-  required BuildContext context,
-}) async {
+Future<void> initializeHomeScreen() async {
 
   await _checkIfUserIsMissingFields();
 
