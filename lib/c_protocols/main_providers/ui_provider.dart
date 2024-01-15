@@ -1,8 +1,5 @@
 import 'dart:async';
-
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/space/scale.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
@@ -61,47 +58,6 @@ class UiProvider extends ChangeNotifier {
 
     else {
       return TextDirection.rtl;
-    }
-  }
-  // -----------------------------------------------------------------------------
-
-  /// SCREEN DIMENSIONS
-
-  // --------------------
-  Dimensions? _screenDims;
-  Dimensions? get screenDims => _screenDims;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Dimensions? proGetScreenDimensions({
-    required BuildContext context,
-    required bool listen,
-  }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
-    return _uiProvider.screenDims;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void proSetScreenDimensions({
-    required bool notify,
-  }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
-    _uiProvider.getSetScreenDimensions(
-      notify: notify,
-    );
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void getSetScreenDimensions({
-    required bool notify,
-  }){
-
-    _screenDims = Dimensions(
-        width: Scale.screenWidth(getMainContext()),
-        height: Scale.screenHeight(getMainContext())
-    );
-
-    if (notify == true){
-      notifyListeners();
     }
   }
   // -----------------------------------------------------------------------------
