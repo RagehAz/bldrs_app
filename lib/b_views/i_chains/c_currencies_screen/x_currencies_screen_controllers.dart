@@ -1,13 +1,12 @@
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/searching.dart';
-import 'package:basics/models/phrase_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/models/phrase_model.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -21,6 +20,7 @@ void onSearchCurrencies({
   required ValueNotifier<List<CurrencyModel>> foundCurrencies,
   required PageController? pageController,
   required List<Phrase> allCurrenciesPhrases,
+  required List<CurrencyModel> allCurrencies,
   required bool mounted,
 }){
 
@@ -64,14 +64,11 @@ void onSearchCurrencies({
       //   invoker: 'onSearchCurrencies',
       // );
 
-      final BuildContext _context = getMainContext();
-
       for (final String id in _filteredIDs){
 
-        final CurrencyModel? _currency = ZoneProvider.proGetCurrencyByCurrencyID(
-          context: _context,
+        final CurrencyModel? _currency = CurrencyModel.getCurrencyByID(
+          allCurrencies: allCurrencies,
           currencyID: id,
-          listen: false
       );
 
         _currency?.blogCurrency();

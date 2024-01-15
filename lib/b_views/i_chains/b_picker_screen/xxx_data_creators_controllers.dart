@@ -11,16 +11,16 @@ import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/b_views/i_chains/c_currencies_screen/c_currencies_screen.dart';
-import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/json/currency_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
 /// CURRENCY DATA CREATOR
@@ -36,7 +36,7 @@ void initializeCurrencyData({
   required DataCreator? dataCreatorType,
   required String initialCurrencyID,
   required bool mounted,
-}){
+}) {
 
   /// INITIALIZE CURRENCY
   _initializeInitialCurrency(
@@ -66,18 +66,19 @@ void _initializeInitialCurrency({
   required ZoneModel? zone,
   required ValueNotifier<String?> selectedCurrencyID,
   required bool mounted,
-}){
+}) {
 
   String? _initialCurrencyID = initialCurrencyID;
 
   if (_initialCurrencyID == null){
 
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
-    final String? _countryID = zone?.countryID ?? _zoneProvider.currentZone?.countryID;
-    final CurrencyModel? _initialCurrency = ZoneProvider.proGetCurrencyByCountryID(
-      context: getMainContext(),
+    final String? _countryID = zone?.countryID ?? ZoneProvider.proGetCurrentCountryID(
+        context: getMainContext(),
+        listen: false,
+    );
+
+    final CurrencyModel? _initialCurrency = CurrencyJsonOps.proGetCurrencyByCountryID(
       countryID: _countryID,
-      listen: false,
     );
 
     _initialCurrencyID = _initialCurrency?.id ?? CurrencyModel.usaCurrencyID;
