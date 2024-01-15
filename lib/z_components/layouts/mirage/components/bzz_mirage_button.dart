@@ -12,6 +12,7 @@ class _BzzMirageButton extends StatelessWidget {
     required this.redDotIsOn,
     required this.canShow,
     required this.isSelected,
+    this.loading = false,
     super.key
   });
   // --------------------
@@ -23,6 +24,7 @@ class _BzzMirageButton extends StatelessWidget {
   final bool redDotIsOn;
   final bool canShow;
   final bool isSelected;
+  final bool loading;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,7 @@ class _BzzMirageButton extends StatelessWidget {
           onTap: onTap,
           bubble: true,
           margins: EdgeInsets.zero,
+          loading: loading,
           // verseScaleFactor: 0.7 / 1,
           // verseCentered: false,
           // verseItalic: false,

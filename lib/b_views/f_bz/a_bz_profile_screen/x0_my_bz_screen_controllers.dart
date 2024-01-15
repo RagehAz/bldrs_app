@@ -2,45 +2,17 @@ import 'dart:async';
 
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:fire/super_fire.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:provider/provider.dart';
-// -----------------------------------------------------------------------------
-
-/// MY BZ SCREEN INITIALIZERS
-
-// --------------------
-Future<void> initializeMyBzScreen({
-  required BzModel bzModel,
-}) async {
-
-  await _setBzModel(
-    completedZoneBzModel: bzModel,
-  );
-
-}
-// --------------------
-Future<void> _setBzModel({
-  required BzModel completedZoneBzModel,
-}) async {
-
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
-
-  /// SET ACTIVE BZ
-  _bzzProvider.setActiveBz(
-    bzModel: completedZoneBzModel,
-    notify: true,
-  );
-
-}
 // -----------------------------------------------------------------------------
 
 /// MY BZ SCREEN INITIALIZERS
@@ -73,7 +45,7 @@ Future<void> onMyActiveBzStreamChanged({
 
   else {
 
-    final BzModel? _activeBz = BzzProvider.proGetActiveBzModel(
+    final BzModel? _activeBz = HomeProvider.proGetActiveBzModel(
         context: getMainContext(),
         listen: false,
     );
@@ -126,12 +98,11 @@ Future<void> onMyActiveBzStreamChanged({
 
 // --------------------
 Future<void> onCloseMyBzScreen() async {
+
   blog('onCloseMyBzScreen : CLOSING');
 
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
-  _bzzProvider.clearMyActiveBz(notify: true);
-  // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-  // _notesProvider.clearPendingSentAuthorshipNotes(notify: true);
+  HomeProvider.proClearActiveBz(notify: true);
+
   await Nav.goBack(
     context: getMainContext(),
     invoker: 'onCloseMyBzScreen',

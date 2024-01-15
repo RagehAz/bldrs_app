@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/streamers/streamer.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
@@ -10,8 +9,8 @@ import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_notes_controllers.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
@@ -175,13 +174,13 @@ class NotesProvider extends ChangeNotifier {
 
     /// NOTE: generates all navModels and creates a MapModel for each one in Obelisk
 
-    final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(
+    final List<String> _myBzzIDs = UsersProvider.proGetMyBzzIDs(
       context: getMainContext(),
       listen: false,
     );
 
     final List<String> _allNavModelsIDs = NavModel.generateAllNavModelsIDs(
-      myBzzIDs: BzModel.getBzzIDs(_bzzModels),
+      myBzzIDs: _myBzzIDs,
     );
 
     final List<MapModel> _initialList = <MapModel>[];
@@ -339,12 +338,10 @@ class NotesProvider extends ChangeNotifier {
     required bool notify,
   }) async {
 
-    final List<BzModel> _myBzz = BzzProvider.proGetMyBzz(
+    final List<String> _bzzIDs = UsersProvider.proGetMyBzzIDs(
       context: getMainContext(),
       listen: false,
     );
-
-    final List<String> _bzzIDs = BzModel.getBzzIDs(_myBzz);
 
     if (Lister.checkCanLoop(_bzzIDs) == true){
 

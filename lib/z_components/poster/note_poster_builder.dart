@@ -79,7 +79,7 @@ class NotePosterBuilder extends StatelessWidget {
         return BzBuilder(
             bzID: noteModel?.poster?.modelID,
             // future: BzProtocols.fetchBz(bzID: noteModel?.poster?.modelID),
-            builder: (bool loading, BzModel? bzModel){
+            builder: (bool loading, BzModel? bzModel, Widget? child){
 
               /// LOADING OR BZ NOT FOUND
               if (loading == true || bzModel == null){

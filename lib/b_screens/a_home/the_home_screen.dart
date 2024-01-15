@@ -39,6 +39,7 @@ class _TheHomeScreenState extends State<TheHomeScreen> with TickerProviderStateM
       asyncInSync(() async {
 
         await BldrsEngine.homeInit(
+          context: context,
           mounted: mounted,
         );
 

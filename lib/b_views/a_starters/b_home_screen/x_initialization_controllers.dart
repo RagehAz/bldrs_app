@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -21,30 +20,12 @@ import 'package:provider/provider.dart';
 /// TESTED : WORKS PERFECT
 Future<void> initializeHomeScreen() async {
 
-  await _checkIfUserIsMissingFields();
+  await checkIfUserIsMissingFields();
 
   await initializeUserZone();
 
   /// D - ZONES
   await initializeCurrentZone();
-
-  await Future.wait(
-      <Future<void>>[
-        /// A - SHOW AD FLYER
-        //
-        /// F - SPONSORS : USES BZZ PROVIDER
-        _initializeSponsors(
-          notify: true,
-        ),
-        /// G - USER BZZ : USES BZZ PROVIDER
-        initializeUserBzz(
-          notify: true,
-        ),
-        /// H - USER FOLLOWED BZZ : USES BZZ PROVIDER
-        initializeUserFollowedBzz(
-            notify: true,
-        ),
-      ]);
 
   /// I - KEYWORDS
   unawaited(initializeAllChains());
@@ -56,7 +37,7 @@ Future<void> initializeHomeScreen() async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _checkIfUserIsMissingFields() async {
+Future<void> checkIfUserIsMissingFields() async {
   // blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ START');
 
   final UserModel? _userModel = UsersProvider.proGetMyUserModel(
@@ -122,52 +103,6 @@ Future<void> _controlMissingFieldsCase({
 
   );
 
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> initializeUserFollowedBzz({
-  required bool notify,
-}) async {
-  // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
-
-  final UserModel? _user = UsersProvider.proGetMyUserModel(
-    context: getMainContext(),
-    listen: false,
-  );
-
-  if (Authing.userIsSignedUp(_user?.signInMethod) == true){
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
-    await _bzzProvider.fetchSetFollowedBzz(
-      notify: notify,
-    );
-  }
-  // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ END');
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> initializeUserBzz({
-  required bool notify,
-}) async {
-  // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
-
-  BzzProvider.proSetMyBzz(
-    context: getMainContext(),
-    myBzz: [],
-    notify: false,
-  );
-
-  final UserModel? _user = UsersProvider.proGetMyUserModel(
-    context: getMainContext(),
-    listen: false,
-  );
-
-  if (Authing.userIsSignedUp(_user?.signInMethod) == true){
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
-    await _bzzProvider.fetchSetMyBzz(
-      notify: notify,
-    );
-  }
-  // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ END');
 }
 // -----------------------------------------------------------------------------
 
@@ -266,21 +201,5 @@ Future<void> initializeAllChains() async {
     notify: true,
   );
   // blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ END');
-}
-// -----------------------------------------------------------------------------
-
-/// SPONSORS AND ADS INITIALIZATIONS
-
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> _initializeSponsors({
-  required bool notify,
-}) async {
-  // blog('initializeHomeScreen._initializeSponsors : ~~~~~~~~~~ START');
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
-  await _bzzProvider.fetchSetSponsors(
-    notify: notify,
-  );
-  // blog('initializeHomeScreen._initializeSponsors : ~~~~~~~~~~ END');
 }
 // -----------------------------------------------------------------------------

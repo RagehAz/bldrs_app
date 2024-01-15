@@ -31,10 +31,6 @@ class _MainMirageStrip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(
-      context: context,
-      listen: true,
-    );
     final UserModel? _userModel = UsersProvider.proGetMyUserModel(
       context: context,
       /// if true, rebuilds the grid for each flyer save
@@ -163,43 +159,44 @@ class _MainMirageStrip extends StatelessWidget {
                         ),
 
                     /// ONE BZ ONLY
-                    if (Lister.superLength(_bzzModels) == 1)
-                      Builder(
-                          builder: (context) {
-
-                            final BzModel _bzModel = _bzzModels[0];
+                    if (Lister.superLength(_userModel?.myBzzIDs) == 1)
+                      BzBuilder(
+                          bzID: _userModel!.myBzzIDs!.first,
+                          builder: (bool loading, BzModel? bzModel, Widget? child) {
 
                             final MapModel? _badge = MapModel.getModelByKey(
                               models: badges,
                               key: NavModel.getMainNavIDString(
                                 navID: MainNavModel.bz,
-                                bzID: _bzModel.id,
+                                bzID: bzModel?.id,
                               ),
                             );
                             final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
 
                             return _MirageButton(
+                              loading: loading,
                               isSelected: false,
                               verse: Verse(
-                                id: _bzModel.name,
+                                id: bzModel?.name,
                                 translate: false,
                               ),
-                              icon: _bzModel.logoPath,
+                              icon: StoragePath.bzz_bzID_logo(_userModel.myBzzIDs!.first),
                               bigIcon: true,
                               iconColor: null,
                               canShow: true,
                               redDotCount: ObeliskIcon.getCount(badge: _badge),
                               redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
                               redDotVerse: _redDotVerse,
-                              onTap: () => onMyBzTap(_bzModel),
+                              onTap: bzModel == null ? (){} : () => onMyBzTap(bzModel),
                             );
                           }
                           ),
 
                     /// MY BZZ
-                    if (Lister.superLength(_bzzModels) > 1)
-                      Builder(
-                          builder: (_) {
+                    if (Lister.superLength(_userModel?.myBzzIDs) > 1)
+                      BzzBuilder(
+                          bzzIDs: _userModel?.myBzzIDs,
+                          builder: (bool loading, List<BzModel> bzzModels, Widget? child) {
 
                             final MapModel? _badge = MapModel.getModelByKey(
                               models: badges,
@@ -210,15 +207,15 @@ class _MainMirageStrip extends StatelessWidget {
 
                             return _BzzMirageButton(
                               verse: const Verse(id: 'phid_my_bzz', translate: true,),
-                              bzzModels: _bzzModels,
-                              canShow: Lister.superLength(_bzzModels.length) > 1,
+                              bzzModels: bzzModels,
+                              canShow: Lister.superLength(bzzModels.length) > 1,
                               redDotCount: ObeliskIcon.getCount(badge: _badge),
                               redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
                               redDotVerse: _redDotVerse,
                               isSelected: _isSelected,
                               onTap: onMyBzzTap,
+                              loading: loading,
                             );
-
                           }
                           ),
 
