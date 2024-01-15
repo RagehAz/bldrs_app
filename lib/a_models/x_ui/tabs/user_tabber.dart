@@ -6,6 +6,7 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 enum UserTab {
   profile,
   notifications,
+  saves,
   following,
   settings,
 }
@@ -23,6 +24,7 @@ class UserTabber {
   static const List<UserTab> userProfileTabsList = <UserTab>[
     UserTab.profile,
     UserTab.notifications,
+    UserTab.saves,
     UserTab.following,
     UserTab.settings,
   ];
@@ -35,6 +37,7 @@ class UserTabber {
                                                 listen: false
                                               )?.picPath;
       case UserTab.notifications  : return Iconz.notification ;
+      case UserTab.saves          : return Iconz.love ;
       case UserTab.following      : return Iconz.follow       ;
       case UserTab.settings       : return Iconz.gears        ;
       default : return null;
@@ -48,6 +51,7 @@ class UserTabber {
     switch(userTab){
       case UserTab.profile        : return  'Profile'       ;
       case UserTab.notifications  : return  'Notifications' ;
+      case UserTab.saves          : return  'saves' ;
       case UserTab.following      : return  'Following'     ;
       case UserTab.settings       : return  'Settings'      ;
       default: return null;
@@ -59,6 +63,7 @@ class UserTabber {
     switch(userTab){
       case UserTab.profile        : return  'phid_profile'       ;
       case UserTab.notifications  : return  'phid_notifications' ;
+      case UserTab.saves          : return  'phid_savedFlyers' ;
       case UserTab.following      : return  'phid_followed_bz'   ;
       case UserTab.settings       : return  'phid_settings'      ;
       default: return null;

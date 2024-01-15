@@ -4,21 +4,29 @@ part of mirage;
 class _MainMirageStrip extends StatelessWidget {
   // --------------------------------------------------------------------------
   const _MainMirageStrip({
-    required this.mirage1,
+    required this.mirage0,
     required this.mounted,
     required this.allMirages,
     required this.onMyBzzTap,
     required this.onSectionsTap,
     required this.onUserProfileButtonTap,
+    required this.onZoneButtonTap,
+    required this.onSignInButtonTap,
+    required this.onMyBzTap,
+    required this.onSettingsButtonTap,
     super.key
   });
   // --------------------
-  final _MirageModel mirage1;
+  final _MirageModel mirage0;
   final List<_MirageModel> allMirages;
   final bool mounted;
   final Function onMyBzzTap;
   final Function onSectionsTap;
   final Function onUserProfileButtonTap;
+  final Function onZoneButtonTap;
+  final Function onSignInButtonTap;
+  final Function(BzModel bzModel) onMyBzTap;
+  final Function onSettingsButtonTap;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -42,288 +50,209 @@ class _MainMirageStrip extends StatelessWidget {
         selector: (_, NotesProvider notesProvider) => notesProvider.obeliskBadges,
         builder: (_, List<MapModel>? badges, Widget? child){
 
-          return _MirageStripFloatingList(
-            columnChildren: <Widget>[
+          return ValueListenableBuilder(
+              valueListenable: mirage0.selectedButton,
+              builder: (_, String? selectedButton, Widget? child) {
 
-              /// SECTIONS
-              ValueListenableBuilder(
-                valueListenable: mirage1.selectedButton,
-                builder: (_, String? selectedButton, Widget? child) {
+                return _MirageStripFloatingList(
+                  columnChildren: <Widget>[
 
-                  final bool _isSelected = selectedButton == _MirageModel.sectionsButtonID;
+                    /// SECTIONS
+                    Builder(
+                        builder: (_) {
 
-                  return RedDotBadge(
-                    height: _MirageButton.getHeight,
-                    redDotIsOn: false,
-                    approxChildWidth: _MirageButton.getWidth,
-                    shrinkChild: true,
-                    child: SectionsButton(
-                      height: _MirageButton.getHeight,
-                      color: _isSelected ? _MirageModel.selectedButtonColor : _MirageModel.buttonColor,
-                      textColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      titleColor: _isSelected ? _MirageModel.selectedTextColor : Colorz.grey255,
-                      borderColor: _isSelected ? Colorz.black255 : null,
-                      onTap: onSectionsTap,
-                    ),
-                  );
-                }
-              ),
+                          final bool _isSelected = selectedButton == _MirageModel.sectionsButtonID;
 
-              /// ZONE
-              Builder(
-                  builder: (context) {
-
-                    final String _countryFlag = _currentZone?.icon ?? Iconz.planet;
-
-                    final MapModel? _badge = MapModel.getModelByKey(
-                      models: badges,
-                      key: NavModel.getMainNavIDString(navID: MainNavModel.zone),
-                    );
-                    final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
-
-                    return _MirageButton(
-                      isSelected: false,
-                      verse: ZoneModel.generateObeliskVerse(zone: _currentZone),
-                      icon: _countryFlag,
-                      bigIcon: true,
-                      iconColor: null,
-                      canShow: true,
-                      redDotCount: ObeliskIcon.getCount(badge: _badge),
-                      redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
-                      redDotVerse: _redDotVerse,
-                      onTap: () async {
-
-                        await _MirageModel.hideAllAndShowPyramid(
-                          models: allMirages,
-                          mounted: mounted,
-                          mirage0: mirage1,
-                        );
-
-                        await ZoneSelection.goBringAZone(
-                          depth: ZoneDepth.city,
-                          zoneViewingEvent: ViewingEvent.homeView,
-                          settingCurrentZone: true,
-                          viewerZone: _userModel?.zone,
-                          selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
-                        );
-
-                      },
-                    );
-                  }
-              ),
-
-              /// SIGN IN
-              Builder(
-                builder: (context) {
-
-                  final MapModel? _badge = MapModel.getModelByKey(
-                    models: badges,
-                    key: NavModel.getMainNavIDString(navID: MainNavModel.signIn),
-                  );
-                  final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
-
-                  return _MirageButton(
-                    isSelected: false,
-                    verse: const Verse(id: 'phid_sign', translate: true),
-                    icon: Iconz.normalUser,
-                    bigIcon: false,
-                    iconColor: Colorz.white255,
-                    canShow: !_userIsSignedUp,
-                    redDotCount: ObeliskIcon.getCount(badge: _badge),
-                    redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
-                    redDotVerse: _redDotVerse,
-                    onTap: () async {
-
-                      await _MirageModel.hideAllAndShowPyramid(
-                        models: allMirages,
-                        mounted: mounted,
-                        mirage0: mirage1,
-                      );
-
-                      await Nav.goToRoute(context, RouteName.auth);
-
-                    },
-                  );
-                }
-              ),
-
-              /// PROFILE
-              ValueListenableBuilder(
-                  valueListenable: mirage1.selectedButton,
-                  builder: (_, String? selectedButton, Widget? child) {
-
-                    final MapModel? _badge = MapModel.getModelByKey(
-                      models: badges,
-                      key: NavModel.getMainNavIDString(navID: MainNavModel.profile),
-                    );
-                    final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
-
-                    final bool _forceRedDot = _userModel == null || Formers.checkUserHasMissingFields(userModel: _userModel);
-
-                    return _MirageButton(
-                      isSelected: selectedButton == _MirageModel.userTabID,
-                      verse: _userModel?.name == null ?
-                      const Verse(id: 'phid_complete_my_profile', translate: true)
-                          :
-                      Verse(id: _userModel?.name, translate: false),
-                      icon: _userModel?.picPath ?? Iconz.normalUser,
-                      bigIcon: _userModel?.picPath != null,
-                      iconColor: Colorz.nothing,
-                      canShow: _userIsSignedUp,
-                      redDotCount: ObeliskIcon.getCount(badge: _badge),
-                      redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: _forceRedDot, badge: _badge),
-                      redDotVerse: _redDotVerse,
-                      onTap: onUserProfileButtonTap,
-                    );
-                  }
-              ),
-
-              /// SAVED FLYERS
-              Builder(
-                  builder: (context) {
-
-                    final MapModel? _badge = MapModel.getModelByKey(
-                      models: badges,
-                      key: NavModel.getMainNavIDString(navID: MainNavModel.savedFlyers),
-                    );
-                    final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
-
-                    return _MirageButton(
-                      isSelected: false,
-                      verse: const Verse(id: 'phid_savedFlyers', translate: true,),
-                      icon: Iconz.love,
-                      bigIcon: false,
-                      iconColor: Colorz.white255,
-                      canShow: _userIsSignedUp,
-                      redDotCount: ObeliskIcon.getCount(badge: _badge),
-                      redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
-                      redDotVerse: _redDotVerse,
-                      onTap: () async {
-
-                        await _MirageModel.hideAllAndShowPyramid(
-                          models: allMirages,
-                          mounted: mounted,
-                          mirage0: mirage1,
-                        );
-
-                        await Nav.goToRoute(context, RouteName.savedFlyers);
-
-                      },
-                    );
-                  }
-              ),
-
-              /// ONE BZ ONLY
-              if (Lister.superLength(_bzzModels) == 1)
-                Builder(
-                    builder: (context) {
-
-                      final BzModel _bzModel = _bzzModels[0];
-
-                      final MapModel? _badge = MapModel.getModelByKey(
-                        models: badges,
-                        key: NavModel.getMainNavIDString(
-                          navID: MainNavModel.bz,
-                          bzID: _bzModel.id,
-                        ),
-                      );
-                      final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
-
-                      return _MirageButton(
-                        isSelected: false,
-                        verse: Verse(
-                          id: _bzModel.name,
-                          translate: false,
-                        ),
-                        icon: _bzModel.logoPath,
-                        bigIcon: true,
-                        iconColor: null,
-                        canShow: true,
-                        redDotCount: ObeliskIcon.getCount(badge: _badge),
-                        redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
-                        redDotVerse: _redDotVerse,
-                        onTap: () async {
-
-                          await _MirageModel.hideAllAndShowPyramid(
-                            models: allMirages,
-                            mounted: mounted,
-                            mirage0: mirage1,
+                          return RedDotBadge(
+                            height: _MirageButton.getHeight,
+                            redDotIsOn: false,
+                            approxChildWidth: _MirageButton.getWidth,
+                            shrinkChild: true,
+                            child: SectionsButton(
+                              height: _MirageButton.getHeight,
+                              color: _isSelected ? _MirageModel.selectedButtonColor : _MirageModel.buttonColor,
+                              textColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
+                              titleColor: _isSelected ? _MirageModel.selectedTextColor : Colorz.grey255,
+                              borderColor: _isSelected ? Colorz.black255 : null,
+                              onTap: onSectionsTap,
+                            ),
                           );
+                        }
+                        ),
 
-                          final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-                          _bzzProvider.setActiveBz(bzModel: _bzModel, notify: true);
-                          await Nav.goToRoute(context, RouteName.myBzFlyersPage);
-                        },
-                      );
-                    }
-                ),
+                    /// ZONE
+                    Builder(
+                        builder: (context) {
 
-              /// MY BZZ
-              if (Lister.superLength(_bzzModels) > 1)
-                ValueListenableBuilder(
-                    valueListenable: mirage1.selectedButton,
-                    builder: (_, String? selectedButton, Widget? child) {
+                          final String _countryFlag = _currentZone?.icon ?? Iconz.planet;
 
-                    final MapModel? _badge = MapModel.getModelByKey(
-                      models: badges,
-                      key: '',//NavModel.getMainNavIDString(navID: ''),
-                    );
-                    final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
+                          final MapModel? _badge = MapModel.getModelByKey(
+                            models: badges,
+                            key: NavModel.getMainNavIDString(navID: MainNavModel.zone),
+                          );
+                          final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
 
-                    final bool _isSelected = selectedButton == _MirageModel.bzzButtonID;
+                          return _MirageButton(
+                            isSelected: false,
+                            verse: ZoneModel.generateObeliskVerse(zone: _currentZone),
+                            icon: _countryFlag,
+                            bigIcon: true,
+                            iconColor: null,
+                            canShow: true,
+                            redDotCount: ObeliskIcon.getCount(badge: _badge),
+                            redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
+                            redDotVerse: _redDotVerse,
+                            onTap: onZoneButtonTap,
+                          );
+                        }
+                        ),
 
-                    return _BzzMirageButton(
-                      verse: const Verse(id: 'phid_my_bzz', translate: true,),
-                      bzzModels: _bzzModels,
-                      canShow: Lister.superLength(_bzzModels.length) > 1,
-                      redDotCount: ObeliskIcon.getCount(badge: _badge),
-                      redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
-                      redDotVerse: _redDotVerse,
-                      isSelected: _isSelected,
-                      onTap: onMyBzzTap,
-                    );
-                  }
-              ),
+                    /// SIGN IN
+                    Builder(
+                        builder: (context) {
 
-              /// SETTINGS
-              Builder(
-                  builder: (context) {
+                          final MapModel? _badge = MapModel.getModelByKey(
+                            models: badges,
+                            key: NavModel.getMainNavIDString(navID: MainNavModel.signIn),
+                          );
+                          final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
 
-                    final MapModel? _badge = MapModel.getModelByKey(
-                      models: badges,
-                      key: NavModel.getMainNavIDString(navID: MainNavModel.settings),
-                    );
-                    final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
+                          return _MirageButton(
+                            isSelected: false,
+                            verse: const Verse(id: 'phid_sign', translate: true),
+                            icon: Iconz.normalUser,
+                            bigIcon: false,
+                            iconColor: Colorz.white255,
+                            canShow: !_userIsSignedUp,
+                            redDotCount: ObeliskIcon.getCount(badge: _badge),
+                            redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
+                            redDotVerse: _redDotVerse,
+                            onTap: onSignInButtonTap,
+                          );
+                        }
+                        ),
 
-                    return _MirageButton(
-                      isSelected: false,
-                      verse: const Verse(id: 'phid_settings', translate: true),
-                      icon: Iconz.more,
-                      bigIcon: false,
-                      iconColor: Colorz.white255,
-                      canShow: true,
-                      redDotCount: ObeliskIcon.getCount(badge: _badge),
-                      redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
-                      redDotVerse: _redDotVerse,
-                      onTap: () async {
+                    /// PROFILE
+                    Builder(
+                        builder: (_) {
 
-                        await _MirageModel.hideAllAndShowPyramid(
-                          models: allMirages,
-                          mounted: mounted,
-                          mirage0: mirage1,
-                        );
+                          final MapModel? _badge = MapModel.getModelByKey(
+                            models: badges,
+                            key: NavModel.getMainNavIDString(navID: MainNavModel.profile),
+                          );
+                          final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
 
-                        await Nav.goToRoute(context, RouteName.appSettings);
+                          final bool _forceRedDot = _userModel == null || Formers.checkUserHasMissingFields(userModel: _userModel);
 
-                        },
-                    );
-                  }
-                  ),
+                          return _MirageButton(
+                            isSelected: selectedButton == _MirageModel.userTabID,
+                            verse: _userModel?.name == null ?
+                            const Verse(id: 'phid_complete_my_profile', translate: true)
+                                :
+                            Verse(id: _userModel?.name, translate: false),
+                            icon: _userModel?.picPath ?? Iconz.normalUser,
+                            bigIcon: _userModel?.picPath != null,
+                            iconColor: Colorz.nothing,
+                            canShow: _userIsSignedUp,
+                            redDotCount: ObeliskIcon.getCount(badge: _badge),
+                            redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: _forceRedDot, badge: _badge),
+                            redDotVerse: _redDotVerse,
+                            onTap: onUserProfileButtonTap,
+                          );
+                        }
+                        ),
 
-          ],
+                    /// ONE BZ ONLY
+                    if (Lister.superLength(_bzzModels) == 1)
+                      Builder(
+                          builder: (context) {
+
+                            final BzModel _bzModel = _bzzModels[0];
+
+                            final MapModel? _badge = MapModel.getModelByKey(
+                              models: badges,
+                              key: NavModel.getMainNavIDString(
+                                navID: MainNavModel.bz,
+                                bzID: _bzModel.id,
+                              ),
+                            );
+                            final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
+
+                            return _MirageButton(
+                              isSelected: false,
+                              verse: Verse(
+                                id: _bzModel.name,
+                                translate: false,
+                              ),
+                              icon: _bzModel.logoPath,
+                              bigIcon: true,
+                              iconColor: null,
+                              canShow: true,
+                              redDotCount: ObeliskIcon.getCount(badge: _badge),
+                              redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
+                              redDotVerse: _redDotVerse,
+                              onTap: () => onMyBzTap(_bzModel),
+                            );
+                          }
+                          ),
+
+                    /// MY BZZ
+                    if (Lister.superLength(_bzzModels) > 1)
+                      Builder(
+                          builder: (_) {
+
+                            final MapModel? _badge = MapModel.getModelByKey(
+                              models: badges,
+                              key: '',//NavModel.getMainNavIDString(navID: ''),
+                            );
+                            final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
+                            final bool _isSelected = selectedButton == _MirageModel.bzzButtonID;
+
+                            return _BzzMirageButton(
+                              verse: const Verse(id: 'phid_my_bzz', translate: true,),
+                              bzzModels: _bzzModels,
+                              canShow: Lister.superLength(_bzzModels.length) > 1,
+                              redDotCount: ObeliskIcon.getCount(badge: _badge),
+                              redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
+                              redDotVerse: _redDotVerse,
+                              isSelected: _isSelected,
+                              onTap: onMyBzzTap,
+                            );
+
+                          }
+                          ),
+
+                    /// SETTINGS
+                    Builder(
+                        builder: (context) {
+
+                          final MapModel? _badge = MapModel.getModelByKey(
+                            models: badges,
+                            key: NavModel.getMainNavIDString(navID: MainNavModel.settings),
+                          );
+                          final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
+
+                          return _MirageButton(
+                            isSelected: selectedButton == _MirageModel.appSettingsID,
+                            verse: const Verse(id: 'phid_settings', translate: true),
+                            icon: Iconz.more,
+                            bigIcon: false,
+                            iconColor: Colorz.white255,
+                            canShow: true,
+                            redDotCount: ObeliskIcon.getCount(badge: _badge),
+                            redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
+                            redDotVerse: _redDotVerse,
+                            onTap: onSettingsButtonTap,
+                          );
+                        }
+                        ),
+
+                  ],
+                );
+              }
+              );
+        }
         );
-      }
-    );
     // --------------------
   }
   // --------------------------------------------------------------------------

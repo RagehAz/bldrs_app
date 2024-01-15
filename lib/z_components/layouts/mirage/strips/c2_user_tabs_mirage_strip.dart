@@ -70,6 +70,62 @@ class _UserTabsMirageStrip extends StatelessWidget {
                   }
               ),
 
+              /// SAVED FLYERS
+              // Builder(
+              //     builder: (context) {
+              //
+              //       final MapModel? _badge = MapModel.getModelByKey(
+              //         models: badges,
+              //         key: NavModel.getMainNavIDString(navID: MainNavModel.savedFlyers),
+              //       );
+              //       final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
+              //
+              //       return _MirageButton(
+              //         isSelected: false,
+              //         verse: const Verse(id: 'phid_savedFlyers', translate: true,),
+              //         icon: Iconz.love,
+              //         bigIcon: false,
+              //         iconColor: Colorz.white255,
+              //         canShow: _userIsSignedUp,
+              //         redDotCount: ObeliskIcon.getCount(badge: _badge),
+              //         redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
+              //         redDotVerse: _redDotVerse,
+              //         onTap: () async {
+              //
+              //           await _MirageModel.hideAllAndShowPyramid(
+              //             models: allMirages,
+              //             mounted: mounted,
+              //             mirage0: mirage0,
+              //           );
+              //
+              //           await Nav.goToRoute(context, RouteName.savedFlyers);
+              //
+              //         },
+              //       );
+              //     }
+              // ),
+              Builder(
+                  builder: (context) {
+
+                    const UserTab _tab = UserTab.saves;
+                    final String _tabID = UserTabber.getUserTabID(_tab)!;
+                    final bool _isSelected = selectedButton == _tabID;
+
+                    return _MirageButton(
+                      verse: UserTabber.translateUserTab(_tab),
+                      icon: UserTabber.getUserTabIcon(_tab),
+                      redDotIsOn: false,
+                      isSelected: _isSelected,
+                      redDotVerse: null,
+                      redDotCount: null,
+                      canShow: true,
+                      bigIcon: false,
+                      iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
+                      onTap: () => onTabChanged(_tabID),
+                    );
+                  }
+              ),
+
               /// FOLLOWS
               Builder(
                   builder: (context) {

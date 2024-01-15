@@ -1,4 +1,6 @@
 import 'package:basics/helpers/strings/text_mod.dart';
+import 'package:bldrs/b_views/a_starters/b_home_screen/aa_home_screen_view.dart';
+import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +68,7 @@ class BldrsTabs {
 
     switch (bldrsTab){
       // --------------------
-      case BldrsTab.home              : return Container();
+      case BldrsTab.home              : return const HomeFlyersGrid();
       case BldrsTab.zone              : return Container();
       case BldrsTab.signIn            : return Container();
 
@@ -82,7 +84,7 @@ class BldrsTabs {
       case BldrsTab.myBzNotifications : return Container();
       case BldrsTab.myBzSettings      : return Container();
 
-      case BldrsTab.appSettings       : return Container();
+      case BldrsTab.appSettings       : return const AppSettingsScreen();
       default: return Container();
       // --------------------
     }

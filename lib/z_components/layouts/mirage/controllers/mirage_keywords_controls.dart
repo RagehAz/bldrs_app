@@ -17,6 +17,8 @@ class _MirageKeywordsControls {
     required bool mounted,
   }) async {
 
+    await BldrsTabs.goToTab(tab: BldrsTab.home);
+
     final _MirageModel _mirage1 = allMirages[0];
     final _MirageModel _mirage2 = allMirages[1];
 
