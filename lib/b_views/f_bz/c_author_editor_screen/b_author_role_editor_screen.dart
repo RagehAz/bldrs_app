@@ -1,20 +1,20 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/components/bubbles/model/bubble_header_vm.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/z_components/author_role_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/z_components/layouts/custom_layouts/floating_layout.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/space/scale.dart';
 
 class AuthorRoleEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -92,7 +92,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = HomeProvider.proGetActiveBzModel(
       context: context,
       listen: true,
     );

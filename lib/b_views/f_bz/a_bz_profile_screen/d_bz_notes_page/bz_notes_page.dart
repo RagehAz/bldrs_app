@@ -1,8 +1,9 @@
 import 'dart:async';
-import 'package:basics/components/animators/widget_fader.dart';
-import 'package:basics/components/animators/widget_waiter.dart';
+
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/components/animators/widget_fader.dart';
+import 'package:basics/components/animators/widget_waiter.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/layouts/handlers/pull_to_refresh.dart';
@@ -10,16 +11,16 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/b_notes_page/x2_user_notes_page_controllers.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/d_bz_notes_page/bz_notes_page_controllers.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
+import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
+import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
+import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/main_button.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/z_components/notes/note_card.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
-import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
-import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -208,7 +209,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   Widget build(BuildContext context) {
     // super.build(context);
 
-    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = HomeProvider.proGetActiveBzModel(
       context: context,
       listen: true,
     );

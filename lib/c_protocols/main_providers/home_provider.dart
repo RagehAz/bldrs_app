@@ -1,5 +1,8 @@
+import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/z_grid/z_grid.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/tabbing/bldrs_tabs.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -195,6 +198,85 @@ class HomeProvider extends ChangeNotifier {
   }){
     final HomeProvider _pro = Provider.of<HomeProvider>(context, listen: listen);
     return _pro._homeGridController;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// MY ACTIVE BZ
+
+  // --------------------
+  BzModel? _myActiveBz;
+  BzModel? get myActiveBz => _myActiveBz;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static BzModel? proGetActiveBzModel({
+    required BuildContext context,
+    required bool listen,
+  }) {
+    final HomeProvider _pro = Provider.of<HomeProvider>(context, listen: listen,);
+    return _pro.myActiveBz;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> proSetActiveBzByID({
+    required String? bzID,
+    required BuildContext context,
+    required bool notify,
+  }) async {
+
+    if (TextCheck.isEmpty(bzID) == false){
+
+      final List<BzModel> _myBzz = await UsersProvider.proFetchMyBzz();
+      final BzModel? _bzModel = BzModel.getBzFromBzzByBzID(
+          bzz: _myBzz,
+          bzID: bzID!,
+      );
+
+      proSetActiveBzModel(
+        notify: notify,
+        context: context,
+        bzModel: _bzModel,
+      );
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void proSetActiveBzModel({
+    required BzModel? bzModel,
+    required BuildContext context,
+    required bool notify,
+  }) {
+    final HomeProvider _pro = Provider.of<HomeProvider>(context, listen: false);
+    _pro._setActiveBz(
+      bzModel: bzModel,
+      notify: notify,
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _setActiveBz({
+    required BzModel? bzModel,
+    required bool notify,
+  }) {
+
+    _myActiveBz = bzModel;
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void proClearActiveBz({
+    required bool notify,
+  }){
+    proSetActiveBzModel(
+      context: getMainContext(),
+      bzModel: null,
+      notify: notify,
+    );
   }
   // -----------------------------------------------------------------------------
 }

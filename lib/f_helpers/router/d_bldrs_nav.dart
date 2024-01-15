@@ -1,11 +1,12 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:async';
 
+import 'package:basics/components/super_image/super_image.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
-import 'package:basics/components/super_image/super_image.dart';
+import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
@@ -13,22 +14,19 @@ import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
-import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
-import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:basics/z_grid/z_grid.dart';
+import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 /// => TAMAM
 class BldrsNav {
   // -----------------------------------------------------------------------------
@@ -274,13 +272,12 @@ class BldrsNav {
     BzTab initialTab = BzTab.flyers,
   }) async {
 
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
-
     final BzModel? _bzModel = await BzProtocols.fetchBz(
       bzID: bzID,
     );
 
-    _bzzProvider.setActiveBz(
+    HomeProvider.proSetActiveBzModel(
+      context: getMainContext(),
       bzModel: _bzModel,
       notify: true,
     );

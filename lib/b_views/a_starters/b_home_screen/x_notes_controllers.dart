@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
@@ -91,46 +89,26 @@ StreamSubscription? listenToUserUnseenNotes({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-List<BzModel> _getMyBz(){
-
-  final UserModel? _userModel = UsersProvider.proGetMyUserModel(
-    context: getMainContext(),
-    listen: false,
-  );
-
-  final bool _userIsAuthor = UserModel.checkUserIsAuthor(_userModel);
-
-  if (_userIsAuthor == true){
-    return BzzProvider.proGetMyBzz(
-      context: getMainContext(),
-      listen: false,
-    );
-  }
-
-  else {
-    return [];
-  }
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
 List<StreamSubscription> listenToMyBzzUnseenNotes({
   required List<ValueNotifier<List<Map<String, dynamic>>>> bzzOldMaps,
   required bool mounted,
 }){
   final List<StreamSubscription> _subs = <StreamSubscription>[];
 
-  final List<BzModel> _myBzz = _getMyBz();
+  final List<String> _myBzzIDs = UsersProvider.proGetMyBzzIDs(
+    context: getMainContext(),
+    listen: false,
+  );
 
-  if (Lister.checkCanLoop(_myBzz) == true){
+  if (Lister.checkCanLoop(_myBzzIDs) == true){
 
-    for (int i = 0; i < _myBzz.length; i++){
+    for (int i = 0; i < _myBzzIDs.length; i++){
 
-      final BzModel bzModel = _myBzz[i];
+      final String _bzID = _myBzzIDs[i];
       final ValueNotifier<List<Map<String, dynamic>>> oldMaps = bzzOldMaps[i];
 
       final StreamSubscription? _sub = _listenToMyBzUnseenNotes(
-        bzID: bzModel.id,
+        bzID: _bzID,
         mounted: mounted,
         oldMaps: oldMaps,
       );
@@ -198,11 +176,14 @@ List<ValueNotifier<List<Map<String, dynamic>>>> createMyBzOldUnseenNotesMaps(){
 
   final List<ValueNotifier<List<Map<String, dynamic>>>> _output = [];
 
-  final List<BzModel> _myBzz = _getMyBz();
+  final List<String> _myBzzIDs = UsersProvider.proGetMyBzzIDs(
+    context: getMainContext(),
+    listen: false,
+  );
 
-  if (Lister.checkCanLoop(_myBzz) == true){
+  if (Lister.checkCanLoop(_myBzzIDs) == true){
 
-    for (int i = 0; i < _myBzz.length; i++){
+    for (int i = 0; i < _myBzzIDs.length; i++){
 
       final ValueNotifier<List<Map<String, dynamic>>> notifier = ValueNotifier([]);
       _output.add(notifier);

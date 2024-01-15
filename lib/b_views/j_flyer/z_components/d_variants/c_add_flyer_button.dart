@@ -11,20 +11,19 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_fl
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class AddFlyerButton extends StatelessWidget {
   // --------------------------------------------------------------------------
@@ -66,8 +65,13 @@ class AddFlyerButton extends StatelessWidget {
       }
 
       if (_bzModel != null){
-        final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
-        _bzzProvider.setActiveBz(bzModel: _bzModel, notify: true);
+
+        HomeProvider.proSetActiveBzModel(
+            bzModel: _bzModel,
+            context: getMainContext(),
+            notify: true,
+        );
+
         await AddFlyerButton.goToFlyerMaker(
           bzModel: _bzModel,
         );
@@ -141,7 +145,10 @@ class AddFlyerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: false);
+    final BzModel? _bzModel = HomeProvider.proGetActiveBzModel(
+        context: context,
+        listen: false,
+    );
     // --------------------
     return FlyerBox(
       flyerBoxWidth: flyerBoxWidth,

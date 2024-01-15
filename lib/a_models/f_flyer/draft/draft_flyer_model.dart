@@ -16,9 +16,9 @@ import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
@@ -124,7 +124,7 @@ class DraftFlyer{
   /// TESTED : WORKS PERFECT
   static Future<DraftFlyer?> _createNewDraft() async {
 
-    final BzModel? bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? bzModel = HomeProvider.proGetActiveBzModel(
       context: getMainContext(),
       listen: false,
     );

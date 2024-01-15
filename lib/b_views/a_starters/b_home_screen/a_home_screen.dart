@@ -10,7 +10,6 @@ import 'package:bldrs/b_views/a_starters/b_home_screen/aa_home_screen_view.dart'
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_initialization_controllers.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/e_ui_initializer.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
@@ -154,10 +153,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     /// WHEN AFTER HOME ROUTE IS NULL
     else {
 
-      final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(
-        context: context,
-        listen: true,
-      );
+      final List<BzModel> _bzzModels = [];
       final UserModel? _userModel = UsersProvider.proGetMyUserModel(
         context: context,
         /// if true, rebuilds the grid for each flyer save

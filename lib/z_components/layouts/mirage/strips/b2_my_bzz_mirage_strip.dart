@@ -19,7 +19,7 @@ class _MyBzzMirageStrip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(
+    final List<String> _myBzzIDs = UsersProvider.proGetMyBzzIDs(
       context: context,
       listen: true,
     );
@@ -42,44 +42,48 @@ class _MyBzzMirageStrip extends StatelessWidget {
                   );
 
                   return _MirageStripFloatingList(
-                  columnChildren: <Widget>[
+                    columnChildren: <Widget>[
 
-                    if (Lister.checkCanLoop(_bzzModels) == true)
-                    ...List.generate(_bzzModels.length, (index){
+                      if (Lister.checkCanLoop(_myBzzIDs) == true)
+                        ...List.generate(_myBzzIDs.length, (index){
 
-                      final BzModel _bzModel = _bzzModels[index];
+                          final String _bzID = _myBzzIDs[index];
+                          final MapModel? _badge = MapModel.getModelByKey(
+                            models: badges,
+                            key: NavModel.getMainNavIDString(
+                              navID: MainNavModel.bz,
+                              bzID: _bzID,
+                            ),
+                          );
+                          final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
 
-                      final MapModel? _badge = MapModel.getModelByKey(
-                        models: badges,
-                        key: NavModel.getMainNavIDString(
-                          navID: MainNavModel.bz,
-                          bzID: _bzModel.id,
-                        ),
-                      );
-                      final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
+                          return BzBuilder(
+                              bzID: _bzID,
+                              builder: (bool loading, BzModel? bzModel, Widget? child) {
+                                return _MirageButton(
+                                  isSelected: _selectedBzID == _bzID,
+                                  verse: Verse(
+                                    id: bzModel?.name,
+                                    translate: false,
+                                  ),
+                                  icon: StoragePath.bzz_bzID_logo(_bzID),
+                                  bigIcon: true,
+                                  iconColor: null,
+                                  canShow: true,
+                                  redDotCount: ObeliskIcon.getCount(badge: _badge),
+                                  redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
+                                  redDotVerse: _redDotVerse,
+                                  onTap: bzModel == null ? (){} : () => onBzTap(_bzID),
+                                  loading: loading,
+                                );
+                              }
+                              );
 
-                      return _MirageButton(
-                        isSelected: _selectedBzID == _bzModel.id,
-                        verse: Verse(
-                          id: _bzModel.name,
-                          translate: false,
-                        ),
-                        icon: _bzModel.logoPath,
-                        bigIcon: true,
-                        iconColor: null,
-                        canShow: true,
-                        redDotCount: ObeliskIcon.getCount(badge: _badge),
-                        redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
-                        redDotVerse: _redDotVerse,
-                        onTap: () => onBzTap(_bzModel.id!),
-                      );
+                        }),
 
-                    }),
-
-
-                  ],
-                );
-              }
+                    ],
+                  );
+                }
             );
 
           }

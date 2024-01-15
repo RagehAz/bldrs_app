@@ -242,14 +242,20 @@ class _MirageNavBarState extends State<MirageNavBar> {
                 allMirages: _allMirages,
             ),
             onMyBzTap: (BzModel bzModel) async {
+
               await _MirageModel.hideAllAndShowPyramid(
                 models: _allMirages,
                 mounted: mounted,
                 mirage0: _mirageX0,
               );
-              final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-              _bzzProvider.setActiveBz(bzModel: bzModel, notify: true);
+              HomeProvider.proSetActiveBzModel(
+                  bzModel: bzModel,
+                  context: context,
+                  notify: true
+              );
+
               await Nav.goToRoute(context, RouteName.myBzFlyersPage);
+
               },
             onSignInButtonTap: () async {
 

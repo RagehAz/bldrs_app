@@ -5,16 +5,15 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:provider/provider.dart';
+import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 /// => TAMAM
 class RenovateBzProtocols {
   // -----------------------------------------------------------------------------
@@ -134,18 +133,11 @@ class RenovateBzProtocols {
         bzModel: _finalBz,
       );
 
-      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
-
-      /// UPDATE MY BZZ
-      _bzzProvider.updateBzInMyBzz(
-        modifiedBz: _finalBz,
-        notify: false,
-      );
-
       /// UPDATE ACTIVE BZ
-      _bzzProvider.setActiveBz(
-        bzModel: _finalBz,
-        notify: true,
+      HomeProvider.proSetActiveBzModel(
+          bzModel: _finalBz,
+          context: getMainContext(),
+          notify: true,
       );
 
       // blog('RenovateBzProtocol.updateBzLocally : my active bz updated in PRO & LDB');

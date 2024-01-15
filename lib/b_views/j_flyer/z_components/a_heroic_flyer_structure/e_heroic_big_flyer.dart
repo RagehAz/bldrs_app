@@ -267,7 +267,9 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
       setNotifier(
         notifier: _followIsOn,
         mounted: mounted,
-        value: checkFollowIsOn(bzModel: _flyer.value?.bzModel),
+        value: UsersProvider.proCheckIsFollowingBz(
+            bzID: _flyer.value?.bzID,
+        ),
       );
 
     }
