@@ -19,7 +19,7 @@ import 'package:bldrs/b_views/d_user/e_user_preview_screen/user_preview_screen.d
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
-import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
+import 'package:bldrs/b_screens/a_home/pages/e_app_settings_page/app_settings_page.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_preview_screen.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
@@ -91,7 +91,7 @@ class StaticRouter {
       /// appSettings
       case RouteName.appSettings:
         return BldrsNav.transitSuperHorizontal(
-          screen: const AppSettingsScreen(),
+          screen: const AppSettingsPage(),
           settings: settings,
         );
       // ------------------------------------------------------------

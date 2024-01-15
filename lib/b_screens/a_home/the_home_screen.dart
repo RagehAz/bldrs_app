@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/aa_static_logo_screen_view.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_initialization_controllers.dart';
@@ -9,18 +10,24 @@ import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/f_helpers/tabbing/bldrs_tabs.dart';
+import 'package:bldrs/z_components/layouts/download_app_panel/download_app_panel.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/layouts/main_layout/pre_layout.dart';
 import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TheHomeScreen extends StatefulWidget {
   // --------------------------------------------------------------------------
   const TheHomeScreen({
     super.key
   });
-
+  // --------------------
   @override
   State<TheHomeScreen> createState() => _TheHomeScreenState();
+  // --------------------------------------------------------------------------
 }
 
 class _TheHomeScreenState extends State<TheHomeScreen> with TickerProviderStateMixin {
@@ -108,18 +115,58 @@ class _TheHomeScreenState extends State<TheHomeScreen> with TickerProviderStateM
     // --------------------
     /// WHEN AFTER HOME ROUTE IS DEFINED => works as loading screen until didChangedDependencies methods finish
     if (_afterHomeRoute != null){
-
       return MainLayout(
         canSwipeBack: false,
         onBack: () => UiProvider.proClearAfterHomeRoute(notify: true),
         child: const LogoScreenView(),
       );
-
     }
-
+    // --------------------
     else {
       // --------------------
-      return const MirageLayout();
+      return PreLayout(
+        key: const ValueKey<String>('home_screen_tree'),
+        connectivitySensorIsOn: true,
+        canGoBack: false,
+        child: Scaffold(
+          /// INSETS
+          resizeToAvoidBottomInset: false, /// if false : prevents keyboard from pushing pyramids up / bottom sheet
+          // resizeToAvoidBottomPadding: false,
+          body: Stack(
+            alignment: Alignment.topCenter,
+            children: <Widget>[
+
+              /// SKY
+              const Sky(
+                key: ValueKey<String>('sky'),
+                skyType: SkyType.black,
+                // gradientIsOn: false,
+              ),
+
+              /// HOME VIEWS
+              Selector<HomeProvider, TabController?>(
+                  selector: (_, HomeProvider homePro) => homePro.tabBarController,
+                  builder: (_, TabController? tabController, Widget? child) {
+                    return TabBarView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      controller: tabController,
+                      children: BldrsTabs.getAllViewsWidgets(),
+                    );
+                  }
+              ),
+
+              /// LAYOUT WIDGET
+              const MirageNavBar(),
+
+              /// WEB DOWNLOAD APP PANEL
+              if (kIsWeb == true)
+                const DownloadAppPanel(),
+
+            ],
+          ),
+
+        ),
+      );
       // --------------------
     }
     // --------------------
