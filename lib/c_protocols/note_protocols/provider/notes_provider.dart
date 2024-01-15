@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/streamers/streamer.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
+import 'package:bldrs/b_views/a_starters/b_home_screen/x_notes_controllers.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -65,13 +69,67 @@ class NotesProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
+  /// NOTES STREAM SUBSCRIPTIONS
+
+  // --------------------
+  StreamSubscription? _userNotesStreamSub;
+  List<StreamSubscription>? _bzzNotesStreamsSubs;
+  ValueNotifier<List<Map<String, dynamic>>>? _userOldNotesNotifier = ValueNotifier<List<Map<String, dynamic>>>([]);
+  List<ValueNotifier<List<Map<String, dynamic>>>>? _myBzzOldNotesNotifiers;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _initializeNoteStreams({
+    required bool mounted,
+  }) async{
+    if (mounted){
+
+      _userOldNotesNotifier ??= ValueNotifier<List<Map<String, dynamic>>>([]);
+      _myBzzOldNotesNotifiers ??= createMyBzOldUnseenNotesMaps();
+
+      await initializeObeliskNumbers();
+
+      _userNotesStreamSub ??= listenToUserUnseenNotes(
+        mounted: mounted,
+        oldMaps: _userOldNotesNotifier!,
+      );
+      _bzzNotesStreamsSubs ??= listenToMyBzzUnseenNotes(
+        mounted: mounted,
+        bzzOldMaps: _myBzzOldNotesNotifiers!,
+      );
+    }
+  }
+  // --------------------
+  void _disposeNoteStreams(){
+    disposeMyBzOldUnseenNotesMaps(
+      notifiers: _myBzzOldNotesNotifiers,
+    );
+    _userOldNotesNotifier?.dispose();
+    _userNotesStreamSub?.cancel();
+    Streamer.disposeStreamSubscriptions(_bzzNotesStreamsSubs);
+    _myBzzOldNotesNotifiers = null;
+    _userOldNotesNotifier = null;
+  }
+  // --------------------
+  static Future<void> proInitializeNoteStreams({
+    required bool mounted,
+  }) async {
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
+    await _notesProvider._initializeNoteStreams(mounted: mounted);
+  }
+  // --------------------
+  static void disposeNoteStreams(){
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
+    _notesProvider._disposeNoteStreams();
+  }
+  // -----------------------------------------------------------------------------
+
   /// OBELISK NOTES BADGE NUMBERS
 
-  // -------------------------------------------------
+  // --------------------
   /// MapModel(key: navModelID, value: numberOfNotes)
   List<MapModel> _obeliskBadges = <MapModel>[];
   List<MapModel> get obeliskBadges => _obeliskBadges;
-  // -------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> proInitializeObeliskBadges({
     required bool notify,
@@ -107,7 +165,7 @@ class NotesProvider extends ChangeNotifier {
       notify: notify,
     );
   }
-  // -------------------------------------------------
+  // --------------------
   /// INITIALIZATION
   // -----
   /// TESTED : WORKS PERFECT
@@ -153,7 +211,7 @@ class NotesProvider extends ChangeNotifier {
     );
 
   }
-  // -------------------------------------------------
+  // --------------------
   /// SETTING
   // -----
   /// TESTED : WORKS PERFECT

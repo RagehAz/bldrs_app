@@ -204,22 +204,84 @@ class _HomeMirageState extends State<HomeMirage> {
           mirage: _mirageX0,
           mounted: mounted,
           miragesAbove: [_mirageX1, _mirageX2, _mirageX3, _mirageX4],
+          onHide: (){
+            blog('a7axx');
+          },
           child: _MainMirageStrip(
-            mirage1: _mirageX0,
+            mirage0: _mirageX0,
             allMirages: _allMirages,
             mounted: mounted,
-            onMyBzzTap: () => _MirageMyBzzControls.onMyBzzButtonTap(
-                mounted: mounted,
-                allMirages: _allMirages,
-            ),
             onSectionsTap: () => _MirageKeywordsControls.onSectionsButtonTap(
               mounted: mounted,
               allMirages: _allMirages,
             ),
+            onZoneButtonTap: () async {
+
+              await _MirageModel.hideAllAndShowPyramid(
+                models: _allMirages,
+                mounted: mounted,
+                mirage0: _mirageX0,
+              );
+
+              final UserModel? _userModel = UsersProvider.proGetMyUserModel(
+                context: context,
+                listen: false,
+              );
+
+              await ZoneSelection.goBringAZone(
+                depth: ZoneDepth.city,
+                zoneViewingEvent: ViewingEvent.homeView,
+                settingCurrentZone: true,
+                viewerZone: _userModel?.zone,
+                selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
+              );
+
+            },
+            onMyBzzTap: () => _MirageMyBzzControls.onMyBzzButtonTap(
+                mounted: mounted,
+                allMirages: _allMirages,
+            ),
+            onMyBzTap: (BzModel bzModel) async {
+              await _MirageModel.hideAllAndShowPyramid(
+                models: _allMirages,
+                mounted: mounted,
+                mirage0: _mirageX0,
+              );
+              final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+              _bzzProvider.setActiveBz(bzModel: bzModel, notify: true);
+              await Nav.goToRoute(context, RouteName.myBzFlyersPage);
+              },
+            onSignInButtonTap: () async {
+
+              await _MirageModel.hideAllAndShowPyramid(
+                models: _allMirages,
+                mounted: mounted,
+                mirage0: _mirageX0,
+              );
+
+              await Nav.goToRoute(context, RouteName.auth);
+
+            },
             onUserProfileButtonTap: () => _MirageMyUserControls.onUserProfileButtonTap(
               mounted: mounted,
               allMirages: _allMirages,
             ),
+            onSettingsButtonTap: () async {
+
+              _mirageX0.selectButton(
+                button: _MirageModel.appSettingsID,
+                mounted: mounted,
+              );
+
+              await BldrsTabs.goToTab(tab: BldrsTab.appSettings);
+
+              await _MirageModel.hideMiragesAbove(
+                  allMirages: _allMirages,
+                  aboveThisMirage: _mirageX0,
+                  mounted: mounted
+              );
+
+              },
           ),
         ),
 
