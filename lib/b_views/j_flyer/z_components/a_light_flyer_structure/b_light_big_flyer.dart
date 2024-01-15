@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:basics/helpers/animators/sliders.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/animators/sliders.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/scale.dart';
@@ -20,12 +20,12 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/a_prog
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/saving_notice_layer/a_saving_notice.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
+import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -263,7 +263,9 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
       setNotifier(
         notifier: _followIsOn,
         mounted: mounted,
-        value: checkFollowIsOn(bzModel: _flyer.value?.bzModel),
+        value: UsersProvider.proCheckIsFollowingBz(
+          bzID: _flyer.value?.bzID,
+        ),
       );
 
     }

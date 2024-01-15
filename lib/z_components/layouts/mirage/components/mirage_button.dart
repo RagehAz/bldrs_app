@@ -14,6 +14,7 @@ class _MirageButton extends StatelessWidget {
     required this.redDotIsOn,
     required this.canShow,
     required this.isSelected,
+    this.loading = false,
     super.key
   });
   // --------------------
@@ -27,6 +28,7 @@ class _MirageButton extends StatelessWidget {
   final bool redDotIsOn;
   final bool canShow;
   final bool isSelected;
+  final bool loading;
   // --------------------------------------------------------------------------
   static double getWidth = 150;
   static double getMaxWidth = getWidth * 2;
@@ -61,6 +63,7 @@ class _MirageButton extends StatelessWidget {
           verseMaxLines: 2,
           verseCentered: false,
           onTap: onTap,
+          loading: loading,
         ),
       );
       // --------------------

@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:async';
 
-import 'package:basics/helpers/animators/sliders.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:basics/helpers/animators/sliders.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
@@ -23,6 +23,8 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/flye
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_maker_controllers.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/xx_draft_shelf_controllers.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/e_draft_shelf_slide.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/z_components/buttons/editors_buttons/editor_confirm_page.dart';
 import 'package:bldrs/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
@@ -31,8 +33,6 @@ import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dar
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -467,8 +467,8 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
       appBarRowWidgets: <Widget>[
 
         /// BZ LOGO IN APP BAR
-        Selector<BzzProvider, BzModel?>(
-          selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
+        Selector<HomeProvider, BzModel?>(
+          selector: (_, HomeProvider pro) => pro.myActiveBz,
           builder: (BuildContext context, BzModel? bzModel, Widget? child){
 
             return AppBarButton(

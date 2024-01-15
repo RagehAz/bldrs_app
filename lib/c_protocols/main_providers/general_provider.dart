@@ -5,8 +5,6 @@ import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
-import 'package:bldrs/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -14,6 +12,7 @@ import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -261,8 +260,6 @@ class GeneralProvider extends ChangeNotifier {
     UsersProvider.wipeOut(notify: true);
     /// ZoneProvider
     ZoneProvider.wipeOut(notify: true);
-    /// BzzProvider
-    BzzProvider.wipeOut(notify: true);
     /// FlyersProvider
     FlyersProvider.wipeOut(notify: true);
     /// ChainsProvider

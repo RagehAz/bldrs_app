@@ -1,7 +1,6 @@
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
@@ -177,7 +176,6 @@ class RenovateFlyerProtocols {
         updateLocally(
           flyerModel: newFlyer,
           notifyFlyerPro: true,
-          resetActiveBz: false,
         ),
 
       ]);
@@ -300,7 +298,6 @@ class RenovateFlyerProtocols {
   static Future<void> updateLocally({
     required FlyerModel? flyerModel,
     required bool notifyFlyerPro,
-    required bool resetActiveBz,
   }) async {
     blog('RenovateFlyerProtocols.updateLocally : START');
 
@@ -313,10 +310,6 @@ class RenovateFlyerProtocols {
           flyerModel: flyerModel,
           notify: notifyFlyerPro
       );
-
-      if (resetActiveBz == true){
-        BzzProvider.resetActiveBz();
-      }
 
     }
 
