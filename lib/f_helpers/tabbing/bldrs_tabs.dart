@@ -1,8 +1,8 @@
 import 'package:basics/helpers/strings/text_mod.dart';
-import 'package:bldrs/b_views/a_starters/b_home_screen/aa_home_screen_view.dart';
-import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/b_screens/a_home/pages/a_flyers_wall_page/flyers_wall_page.dart';
+import 'package:bldrs/b_screens/a_home/pages/e_app_settings_page/app_settings_page.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 
 enum BldrsTab {
@@ -68,7 +68,7 @@ class BldrsTabs {
 
     switch (bldrsTab){
       // --------------------
-      case BldrsTab.home              : return const HomeFlyersGrid();
+      case BldrsTab.home              : return const FlyersWallPage();
       case BldrsTab.zone              : return Container();
       case BldrsTab.signIn            : return Container();
 
@@ -84,7 +84,7 @@ class BldrsTabs {
       case BldrsTab.myBzNotifications : return Container();
       case BldrsTab.myBzSettings      : return Container();
 
-      case BldrsTab.appSettings       : return const AppSettingsScreen();
+      case BldrsTab.appSettings       : return const AppSettingsPage();
       default: return Container();
       // --------------------
     }
