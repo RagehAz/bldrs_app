@@ -8,8 +8,8 @@ import 'package:basics/components/drawing/dot_separator.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
-import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/create_new_bz_button.dart';
-import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
+import 'package:bldrs/z_components/buttons/bz_buttons/create_new_bz_button.dart';
+import 'package:bldrs/b_screens/a_home/pages/e_app_settings_page/x_app_settings_controllers.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/settings_wide_button.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/layouts/custom_layouts/floating_layout.dart';
@@ -33,9 +33,9 @@ import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AppSettingsScreen extends StatelessWidget {
+class AppSettingsPage extends StatelessWidget {
   // --------------------------------------------------------------------------
-  const AppSettingsScreen({
+  const AppSettingsPage({
     super.key
   });
   // --------------------------------------------------------------------------

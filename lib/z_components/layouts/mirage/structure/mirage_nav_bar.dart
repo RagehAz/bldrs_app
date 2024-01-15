@@ -1,19 +1,19 @@
 part of mirage;
 
-class HomeMirage extends StatefulWidget {
+class MirageNavBar extends StatefulWidget {
   // --------------------------------------------------------------------------
-  const HomeMirage({
+  const MirageNavBar({
     super.key
   });
   // --------------------
   ///
   // --------------------
   @override
-  _HomeMirageState createState() => _HomeMirageState();
+  _MirageNavBarState createState() => _MirageNavBarState();
   // --------------------------------------------------------------------------
 }
 
-class _HomeMirageState extends State<HomeMirage> {
+class _MirageNavBarState extends State<MirageNavBar> {
 
   Map<String, dynamic>? _keywordsMap;
   // -----------------------------------------------------------------------------

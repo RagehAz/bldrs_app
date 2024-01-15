@@ -7,7 +7,7 @@ import 'package:basics/helpers/checks/errorize.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/mediator/sounder/sounder.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
-import 'package:bldrs/b_new_views/new_static_router.dart';
+import 'package:bldrs/b_screens/new_static_router.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/a_initializer.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
