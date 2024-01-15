@@ -517,7 +517,7 @@ packages:
       path: "D:/projects/packages/fire"
       relative: false
     source: path
-    version: "2.5.0"
+    version: "2.5.1"
   firebase_app_check:
     dependency: "direct main"
     description:

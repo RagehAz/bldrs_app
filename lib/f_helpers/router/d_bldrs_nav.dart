@@ -232,10 +232,11 @@ class BldrsNav {
     String? _path;
 
     switch (userTab){
-      case UserTab.profile: _path =       RouteName.myUserProfile; break;
-      case UserTab.notifications: _path = RouteName.myUserNotes; break;
-      case UserTab.following: _path =     RouteName.myUserFollowing; break;
-      case UserTab.settings: _path =      RouteName.myUserSettings; break;
+      case UserTab.profile:         _path = RouteName.myUserProfile; break;
+      case UserTab.notifications:   _path = RouteName.myUserNotes; break;
+      case UserTab.saves:           _path = RouteName.savedFlyers; break;
+      case UserTab.following:       _path = RouteName.myUserFollowing; break;
+      case UserTab.settings:        _path = RouteName.myUserSettings; break;
     }
 
     await Nav.goToRoute(getMainContext(), _path);

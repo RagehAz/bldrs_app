@@ -216,12 +216,12 @@ List<ValueNotifier<List<Map<String, dynamic>>>> createMyBzOldUnseenNotesMaps(){
 // --------------------
 /// TESTED : WORKS PERFECT
 void disposeMyBzOldUnseenNotesMaps({
-  required List<ValueNotifier<List<Map<String, dynamic>>>> notifiers
+  required List<ValueNotifier<List<Map<String, dynamic>>>>? notifiers
 }){
 
   if (Lister.checkCanLoop(notifiers) == true){
 
-    for (final ValueNotifier<List<Map<String, dynamic>>> notifier in notifiers){
+    for (final ValueNotifier<List<Map<String, dynamic>>> notifier in notifiers!){
       notifier.dispose();
     }
 
