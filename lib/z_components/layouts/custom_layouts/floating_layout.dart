@@ -14,6 +14,7 @@ class FloatingLayout extends StatelessWidget {
     this.pyramidType = PyramidType.crystalYellow,
     this.titleVerse,
     this.pyramidButtons,
+    this.appBarType = AppBarType.basic,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -23,6 +24,7 @@ class FloatingLayout extends StatelessWidget {
   final Verse? titleVerse;
   final List<Widget>? pyramidButtons;
   final bool canSwipeBack;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class FloatingLayout extends StatelessWidget {
     return MainLayout(
       canSwipeBack: canSwipeBack,
       title: titleVerse,
-      appBarType: AppBarType.basic,
+      appBarType: appBarType,
       pyramidType: pyramidType,
       skyType: skyType,
       pyramidsAreOn: true,

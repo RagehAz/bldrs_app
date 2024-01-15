@@ -56,6 +56,7 @@ class HomeProvider extends ChangeNotifier {
   static void proDisposeTabBarController(){
     final HomeProvider _uiProvider = Provider.of<HomeProvider>(getMainContext(), listen: false);
     _uiProvider._tabBarController?.dispose();
+    _uiProvider._tabBarController = null;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
