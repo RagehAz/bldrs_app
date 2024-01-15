@@ -5,13 +5,8 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
@@ -25,6 +20,10 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
+import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 /// => TAMAM
 class NewAuthorshipExit {
   // -----------------------------------------------------------------------------
@@ -393,12 +392,6 @@ class NewAuthorshipExit {
       ),
 
     ]);
-
-    /// (only i can) : REMOVE BZ FROM PRO MY BZZ
-    BzzProvider.proRemoveBzFromMyBzz(
-      bzID: bzID,
-      notify: true,
-    );
 
     /// (only i can) : REMOVE BZ NOTES FROM OBELISK NUMBERS
     NotesProvider.proAuthorResignationNotesRemovalOps(

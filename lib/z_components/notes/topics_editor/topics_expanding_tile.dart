@@ -4,11 +4,11 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:flutter/material.dart';
 
 class TopicsExpandingTile extends StatelessWidget {
@@ -65,7 +65,7 @@ class TopicsExpandingTile extends StatelessWidget {
 
     String? _bzID;
     if (partyType == PartyType.bz){
-      final BzModel? _activeBz = BzzProvider.proGetActiveBzModel(
+      final BzModel? _activeBz = HomeProvider.proGetActiveBzModel(
         context: context,
         listen: true,
       );

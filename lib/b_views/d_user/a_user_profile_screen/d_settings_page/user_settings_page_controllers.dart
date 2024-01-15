@@ -7,20 +7,19 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
 import 'package:bldrs/b_screens/a_home/pages/e_app_settings_page/x_app_settings_controllers.dart';
+import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/fcm_topics_screen.dart';
-import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -164,10 +163,7 @@ Future<bool> _authorshipDeletionCheckups() async {
     /// USER IS AN AUTHOR
     if (_userIsAuthor == true){
 
-      final List<BzModel> _myBzzModels = BzzProvider.proGetMyBzz(
-        context: getMainContext(),
-        listen: false,
-      );
+      final List<BzModel> _myBzzModels = await UsersProvider.proFetchMyBzz();
 
       final List<BzModel> _myBzzICreated = BzModel.getBzzByCreatorID(
         bzzModels: _myBzzModels,

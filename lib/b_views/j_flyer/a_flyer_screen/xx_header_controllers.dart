@@ -1,25 +1,23 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/records_protocols/recorder_protocols.dart';
-import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_statistics/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
+import 'package:bldrs/c_protocols/records_protocols/recorder_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/f_helpers/drafters/launchers.dart';
+import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
-import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
-import 'package:bldrs/f_helpers/drafters/launchers.dart';
-import 'package:bldrs/f_helpers/router/a_route_name.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
 /// EXPANSION INITIALIZATION
@@ -228,20 +226,6 @@ void _animateHeaderExpansion({
 
 /// TAPS - BUTTONS
 
-// --------------------
-/// TESTED : WORKS PERFECT
-bool checkFollowIsOn({
-  required BzModel? bzModel,
-}){
-
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
-
-  final _followIsOn = _bzzProvider.checkFollow(
-      bzID: bzModel?.id
-  );
-
-  return _followIsOn;
-}
 // --------------------
 /// ON FOLLOW
 Future<void> onFollowTap({

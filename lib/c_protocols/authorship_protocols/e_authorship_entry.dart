@@ -1,6 +1,6 @@
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
@@ -8,9 +8,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:provider/provider.dart';
 /// => TAMAM
 class AuthorshipEntryProtocols {
   // -----------------------------------------------------------------------------
@@ -77,13 +75,6 @@ class AuthorshipEntryProtocols {
     _newBz = PendingAuthor.removePendingAuthorFromBz(
         bzModel: _newBz,
         userID: _uploadedUser?.id,
-    );
-
-    /// ADD BZ MODEL TO MY BZZ --------------------------
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
-    _bzzProvider.addBzToMyBzz(
-      bzModel: _newBz,
-      notify: false, // uploaded model will update it and notify listeners
     );
 
     /// UPDATE BZ EVERYWHERE PROTOCOL --------------------------

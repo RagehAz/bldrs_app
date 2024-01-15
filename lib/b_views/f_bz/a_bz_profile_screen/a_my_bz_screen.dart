@@ -1,5 +1,6 @@
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
@@ -7,16 +8,14 @@ import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aa_my_bz_screen_pages.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x0_my_bz_screen_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
-import 'package:bldrs/zz_archives/obelisk_layout/structure/obelisk_layout.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/router/x_go_back_widget.dart';
-import 'package:basics/z_grid/z_grid.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/zz_archives/obelisk_layout/structure/obelisk_layout.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class MyBzScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -62,13 +61,14 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     // --------------------
     /// NO NEED TO REBUILD WHEN BZ MODEL CHANGES
-    final BzzProvider _bzzPro = Provider.of<BzzProvider>(context);
-    final String? bzID = _bzzPro.myActiveBz?.id;
-    blog('MyBzScreen : bzID : $bzID : initialTab : ${widget.initialTab}');
+    final BzModel? _myActiveBz = HomeProvider.proGetActiveBzModel(
+        context: context,
+        listen: false
+    );
     // --------------------
     return FireDocStreamer(
       collName: FireColl.bzz,
-      docName: bzID ?? '',
+      docName: _myActiveBz?.id ?? '',
       onChanged: (Map<String, dynamic>? oldMap, Map<String, dynamic>? newMap) async {
 
         await onMyActiveBzStreamChanged(
@@ -116,8 +116,8 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
 
         else {
 
-          final BzModel? bzModel = BzzProvider.proGetActiveBzModel(
-            context: context,
+          final BzModel? bzModel = HomeProvider.proGetActiveBzModel(
+            context: getMainContext(),
             listen: true,
           );
 
@@ -163,7 +163,8 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
               }
 
               else {
-                _bzzPro.clearMyActiveBz(notify: false);
+
+                HomeProvider.proClearActiveBz(notify: false);
 
                 await Nav.goBack(
                   context: context,

@@ -1,5 +1,8 @@
+import 'package:basics/helpers/strings/stringer.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/bldrs_keys.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -56,7 +59,7 @@ class UsersProvider extends ChangeNotifier {
     return _usersProvider.myUserModel;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void proSetMyUserModel({
     required UserModel? userModel,
     required bool notify,
@@ -65,7 +68,7 @@ class UsersProvider extends ChangeNotifier {
     _usersProvider._setMyUserModel(userModel: userModel, notify: notify);
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void _setMyUserModel({
     required UserModel? userModel,
     required bool notify,
@@ -86,6 +89,53 @@ class UsersProvider extends ChangeNotifier {
     if (notify == true) {
       notifyListeners();
     }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool proCheckIsFollowingBz({
+    required String? bzID,
+  }){
+    bool _output = false;
+
+    if (bzID != null){
+
+      final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
+        context: getMainContext(),
+        listen: false,
+      );
+
+      _output = Stringer.checkStringsContainString(
+          strings: _myUserModel?.followedBzz?.all,
+          string: bzID,
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<BzModel>> proFetchMyBzz() async {
+
+    return BzProtocols.fetchBzz(
+      bzzIDs: proGetMyBzzIDs(
+        context: getMainContext(),
+        listen: false,
+      ),
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> proGetMyBzzIDs({
+    required BuildContext context,
+    required bool listen,
+  }){
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: listen,
+    );
+    return _userModel?.myBzzIDs ?? [];
   }
   // -----------------------------------------------------------------------------
 

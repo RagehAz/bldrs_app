@@ -4,6 +4,12 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
@@ -11,12 +17,6 @@ import 'package:bldrs/z_components/notes/topics_editor/topics_expanding_tile.dar
 import 'package:bldrs/z_components/sizing/horizon.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:flutter/material.dart';
 
 class BzFCMTopicsScreenView extends StatelessWidget {
@@ -31,7 +31,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
     required bool value,
   }) async {
 
-    final BzModel? _activeBz = BzzProvider.proGetActiveBzModel(
+    final BzModel? _activeBz = HomeProvider.proGetActiveBzModel(
       context: getMainContext(),
       listen: false,
     );
@@ -67,7 +67,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
     required bool value,
   }) async {
 
-    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = HomeProvider.proGetActiveBzModel(
       context: getMainContext(),
       listen: false,
     );
@@ -106,7 +106,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
       listen: true,
     );
 
-    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = HomeProvider.proGetActiveBzModel(
       context: context,
       listen: true,
     );

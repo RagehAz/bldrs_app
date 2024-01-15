@@ -3,10 +3,9 @@ import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/b_about_page/about_bz_bubbles.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class BzAboutPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -26,8 +25,8 @@ class BzAboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final BzModel? _bzModel = bzModel ?? BzzProvider.proGetActiveBzModel(
-      context: context,
+    final BzModel? _bzModel = bzModel ?? HomeProvider.proGetActiveBzModel(
+      context: getMainContext(),
       listen: true,
     );
 
@@ -41,10 +40,10 @@ class BzAboutPage extends StatelessWidget {
               bzID:_bzModel?.id,
           );
 
-          final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
-          _bzzProvider.setActiveBz(
+          HomeProvider.proSetActiveBzModel(
               bzModel: _bz,
-              notify: true,
+              context: context,
+              notify: true
           );
 
         },
