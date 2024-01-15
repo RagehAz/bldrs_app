@@ -26,6 +26,7 @@ class _MirageModel {
   static const String bzTabsID = 'bz';
   static const String userTabID = 'user';
   static const String sectionsButtonID = 'sections';
+  static const String appSettingsID = 'appSettings';
   // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -116,10 +117,6 @@ class _MirageModel {
       notifier: position,
       mounted: mounted,
       value: stripHeight,
-    );
-    selectButton(
-      mounted: mounted,
-      button: null,
     );
   }
   // --------------------

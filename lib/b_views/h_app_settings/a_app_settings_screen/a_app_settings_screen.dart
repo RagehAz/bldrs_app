@@ -14,6 +14,7 @@ import 'package:bldrs/z_components/buttons/general_buttons/settings_wide_button.
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/layouts/custom_layouts/floating_layout.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramid_floating_button.dart';
+import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/z_components/notes/x_components/red_dot_badge.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -47,7 +48,7 @@ class AppSettingsScreen extends StatelessWidget {
     final bool _userIsSignedUp = Authing.userIsSignedUp(_userModel?.signInMethod);
     // --------------------
     return FloatingLayout(
-      canSwipeBack: true,
+      canSwipeBack: false,
       pyramidButtons: UsersProvider.userIsRage7() == false ? null : <Widget>[
 
         /// SUPER DEV TEST
@@ -143,6 +144,7 @@ class AppSettingsScreen extends StatelessWidget {
 
 
       ],
+      pyramidType: PyramidType.non,
       columnChildren: <Widget>[
 
         /// ------> SEPARATOR

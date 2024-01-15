@@ -68,51 +68,34 @@ class MirageLayout extends StatelessWidget {
             /// LAYOUT WIDGET
             const HomeMirage(),
 
-            Center(
-              child: BldrsBox(
-                height: 50,
-                width: 100,
-                color: Colorz.black255,
-                icon: Iconz.bz,
-                onTap: () async {
+            // /// APP BAR
+            //   BldrsAppBar(
+            //     key: const ValueKey<String>('appBar'),
+            //     appBarType: AppBarType.main,
+            //     appBarRowWidgets: null,
+            //     pageTitleVerse: null,
+            //     onBack: () => PreLayout.onGoBack(
+            //         onBack: onBack,
+            //         canGoBack: false,
+            //     ),
+            //     loading: loading,
+            //     progressBarModel: progressBarModel,
+            //     appBarScrollController: null,
+            //     sectionButtonIsOn: false,
+            //     searchController: searchController,
+            //     onSearchSubmit: onSearchSubmit,
+            //     onPaste: onPaste,
+            //     onSearchChanged: onSearchChanged,
+            //     searchButtonIsOn: searchButtonIsOn,
+            //     searchHintVerse: searchHintVerse,
+            //     canGoBack: kDebugMode,
+            //     onSearchCancelled: onSearchCancelled,
+            //     listenToHideLayout: true,
+            //     filtersAreOn: filtersAreOn,
+            //     filters: filters,
+            //   ),
 
-                  // final int _newIndex = Numeric.createRandomIndex(listLength: 3);
-                  // blog('x should go to : $_newIndex');
-
-                  await BldrsTabs.goToTab(tab: BldrsTab.home);
-
-                },
-              ),
-            ),
-
-            /// APP BAR
-              BldrsAppBar(
-                key: const ValueKey<String>('appBar'),
-                appBarType: AppBarType.main,
-                appBarRowWidgets: null,
-                pageTitleVerse: null,
-                onBack: () => PreLayout.onGoBack(
-                    onBack: onBack,
-                    canGoBack: false,
-                ),
-                loading: loading,
-                progressBarModel: progressBarModel,
-                appBarScrollController: null,
-                sectionButtonIsOn: false,
-                searchController: searchController,
-                onSearchSubmit: onSearchSubmit,
-                onPaste: onPaste,
-                onSearchChanged: onSearchChanged,
-                searchButtonIsOn: searchButtonIsOn,
-                searchHintVerse: searchHintVerse,
-                canGoBack: kDebugMode,
-                onSearchCancelled: onSearchCancelled,
-                listenToHideLayout: true,
-                filtersAreOn: filtersAreOn,
-                filters: filters,
-              ),
-
-            /// WEB DOWNLOAD APP PANEL
+            /// WEB DOWNLOAD APP PANEL\
             if (kIsWeb == true)
               const DownloadAppPanel(),
 
