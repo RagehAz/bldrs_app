@@ -401,10 +401,13 @@ class UsersProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneModel? proGetUserZone(){
+  static ZoneModel? proGetUserZone({
+    required BuildContext context,
+    required bool listen,
+  }){
     final UserModel? _user = UsersProvider.proGetMyUserModel(
-      context: getMainContext(),
-      listen: false,
+      context: context,
+      listen: listen,
     );
     return _user?.zone;
   }

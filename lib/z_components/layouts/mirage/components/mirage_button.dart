@@ -58,7 +58,7 @@ class _MirageButton extends StatelessWidget {
           verse: verse,
           color: isSelected == true ? _MirageModel.selectedButtonColor : _MirageModel.buttonColor,
           verseColor: isSelected == true ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-          iconColor: isSelected == true ? _MirageModel.selectedTextColor : iconColor,
+          iconColor: iconColor == Colorz.nothing ? null : isSelected == true ? _MirageModel.selectedTextColor : iconColor,
           borderColor: isSelected == true ? Colorz.black255 : null,
           verseMaxLines: 2,
           verseCentered: false,

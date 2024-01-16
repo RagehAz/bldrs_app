@@ -16,6 +16,7 @@ class NootActionProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> onNootTap({
     required NoteModel? noteModel,
+    required bool mounted,
     bool? startFromHome,
   }) async {
 
@@ -42,6 +43,7 @@ class NootActionProtocols {
             routeName: _routeName,
             arguments: _argument,
             startFromHome: startFromHome ?? BldrsNav.checkNootTapStartsFromHome(_routeName),
+            mounted: mounted
         );
 
       }

@@ -81,8 +81,8 @@ class _MirageNavBarState extends State<MirageNavBar> {
           mounted: mounted,
           miragesAbove: const [],
           onHide: () async {
-            await _MirageModel.waitAnimation();
-            _mirageX3.clearButton(mounted: mounted);
+            // await _MirageModel.waitAnimation();
+            // _mirageX3.clearButton(mounted: mounted);
           },
           child: _Mirage4StripSwitcher(
             keywordsMap: _keywordsMap,
@@ -108,8 +108,8 @@ class _MirageNavBarState extends State<MirageNavBar> {
           mounted: mounted,
           miragesAbove: [_mirageX4],
           onHide: () async {
-            await _MirageModel.waitAnimation();
-            _mirageX2.clearButton(mounted: mounted);
+            // await _MirageModel.waitAnimation();
+            // _mirageX2.clearButton(mounted: mounted);
           },
           child: _Mirage3StripSwitcher(
             mounted: mounted,
@@ -136,8 +136,8 @@ class _MirageNavBarState extends State<MirageNavBar> {
           mounted: mounted,
           miragesAbove: [_mirageX3, _mirageX4],
           onHide: () async {
-            await _MirageModel.waitAnimation();
-            _mirageX1.clearButton(mounted: mounted);
+            // await _MirageModel.waitAnimation();
+            // _mirageX1.clearButton(mounted: mounted);
           },
           child: _Mirage2StripSwitcher(
             allMirages: _allMirages,
@@ -155,10 +155,10 @@ class _MirageNavBarState extends State<MirageNavBar> {
               allMirages: _allMirages,
               mirageAbove: _mirageX3,
             ),
-            onBzTabChanged: (String tab) => _MirageMyBzzControls.onBzTabChanged(
+            onBzTabChanged: (String bid) => _MirageMyBzzControls.onBzTabChanged(
               mounted: mounted,
               allMirages: _allMirages,
-              tab: tab,
+              bid: bid,
             ),
           ),
         ),
@@ -169,8 +169,8 @@ class _MirageNavBarState extends State<MirageNavBar> {
           mounted: mounted,
           miragesAbove: [_mirageX2, _mirageX3, _mirageX4],
           onHide: () async {
-            await _MirageModel.waitAnimation();
-            _mirageX0.clearButton(mounted: mounted);
+            // await _MirageModel.waitAnimation();
+            // _mirageX0.clearButton(mounted: mounted);
           },
           child: _Mirage1StripSwitcher(
             mirage0: _mirageX0,
@@ -205,7 +205,7 @@ class _MirageNavBarState extends State<MirageNavBar> {
           mounted: mounted,
           miragesAbove: [_mirageX1, _mirageX2, _mirageX3, _mirageX4],
           onHide: (){
-            blog('a7axx');
+
           },
           child: _MainMirageStrip(
             mirage0: _mirageX0,
@@ -217,24 +217,48 @@ class _MirageNavBarState extends State<MirageNavBar> {
             ),
             onZoneButtonTap: () async {
 
-              await _MirageModel.hideAllAndShowPyramid(
-                models: _allMirages,
+              _mirageX0.selectButton(
+                button: BldrsTabs.bidZone,
                 mounted: mounted,
-                mirage0: _mirageX0,
               );
 
-              final UserModel? _userModel = UsersProvider.proGetMyUserModel(
-                context: context,
-                listen: false,
+              await _MirageModel.hideMiragesAbove(
+                  allMirages: _allMirages,
+                  aboveThisMirage: _mirageX0,
+                  mounted: mounted
               );
 
-              await ZoneSelection.goBringAZone(
-                depth: ZoneDepth.city,
-                zoneViewingEvent: ViewingEvent.homeView,
-                settingCurrentZone: true,
-                viewerZone: _userModel?.zone,
-                selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
+              await BldrsTabs.goToTab(tab: BldrsTab.zone);
+
+              // final UserModel? _userModel = UsersProvider.proGetMyUserModel(
+              //   context: context,
+              //   listen: false,
+              // );
+              //
+              // await ZoneSelection.goBringAZone(
+              //   depth: ZoneDepth.city,
+              //   zoneViewingEvent: ViewingEvent.homeView,
+              //   settingCurrentZone: true,
+              //   viewerZone: _userModel?.zone,
+              //   selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
+              // );
+
+            },
+            onSignInButtonTap: () async {
+
+              _mirageX0.selectButton(
+                button: BldrsTabs.bidSign,
+                mounted: mounted,
               );
+
+              await _MirageModel.hideMiragesAbove(
+                  allMirages: _allMirages,
+                  aboveThisMirage: _mirageX0,
+                  mounted: mounted
+              );
+
+              await BldrsTabs.goToTab(tab: BldrsTab.signIn);
+              // await Nav.goToRoute(context, RouteName.auth);
 
             },
             onMyBzzTap: () => _MirageMyBzzControls.onMyBzzButtonTap(
@@ -243,21 +267,16 @@ class _MirageNavBarState extends State<MirageNavBar> {
             ),
             onMyBzTap: (BzModel bzModel) async {
 
-              await _MirageModel.hideAllAndShowPyramid(
-                models: _allMirages,
-                mounted: mounted,
-                mirage0: _mirageX0,
-              );
               HomeProvider.proSetActiveBzModel(
                   bzModel: bzModel,
                   context: context,
                   notify: true
               );
 
-              await Nav.goToRoute(context, RouteName.myBzFlyersPage);
-
-              },
-            onSignInButtonTap: () async {
+              _mirageX0.selectButton(
+                button: BldrsTabs.bidBzz,
+                mounted: mounted,
+              );
 
               await _MirageModel.hideAllAndShowPyramid(
                 models: _allMirages,
@@ -265,9 +284,11 @@ class _MirageNavBarState extends State<MirageNavBar> {
                 mirage0: _mirageX0,
               );
 
-              await Nav.goToRoute(context, RouteName.auth);
 
-            },
+              // await Nav.goToRoute(context, RouteName.myBzFlyersPage);
+
+              },
+
             onUserProfileButtonTap: () => _MirageMyUserControls.onUserProfileButtonTap(
               mounted: mounted,
               allMirages: _allMirages,
@@ -275,7 +296,7 @@ class _MirageNavBarState extends State<MirageNavBar> {
             onSettingsButtonTap: () async {
 
               _mirageX0.selectButton(
-                button: _MirageModel.appSettingsID,
+                button: BldrsTabs.bidAppSettings,
                 mounted: mounted,
               );
 

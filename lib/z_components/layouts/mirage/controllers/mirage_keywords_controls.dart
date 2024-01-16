@@ -29,8 +29,8 @@ class _MirageKeywordsControls {
     );
 
     /// ALREADY SELECTED
-    if (_mirage1.selectedButton.value == _MirageModel.sectionsButtonID){
-      _mirage1.clearButton(mounted: mounted,);
+    if (_mirage1.selectedButton.value == BldrsTabs.bidSections){
+      // _mirage1.clearButton(mounted: mounted,);
     }
 
     /// SHOULD SELECT
@@ -38,7 +38,7 @@ class _MirageKeywordsControls {
       await _mirage2.reShow(
         mounted: mounted,
         onBetweenReShow: () => _mirage1.selectButton(
-          button: _MirageModel.sectionsButtonID,
+          button: BldrsTabs.bidSections,
           mounted: mounted,
         ),
       );

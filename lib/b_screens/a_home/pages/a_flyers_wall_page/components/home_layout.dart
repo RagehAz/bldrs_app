@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:basics/components/animators/widget_fader.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/f_helpers/tabbing/bldrs_tabs.dart';
 import 'package:bldrs/z_components/layouts/download_app_panel/download_app_panel.dart';
@@ -27,37 +28,42 @@ class HomeLayout extends StatelessWidget {
         /// INSETS
         resizeToAvoidBottomInset: false, /// if false : prevents keyboard from pushing pyramids up / bottom sheet
         // resizeToAvoidBottomPadding: false,
-        body: Stack(
-          alignment: Alignment.topCenter,
-          children: <Widget>[
+        body: WidgetFader(
+          fadeType: FadeType.fadeIn,
+          curve: Curves.easeOutSine,
+          duration: const Duration(seconds: 1),
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: <Widget>[
 
-            /// SKY
-            const Sky(
-              key: ValueKey<String>('sky'),
-              skyType: SkyType.black,
-              // gradientIsOn: false,
-            ),
+              /// SKY
+              const Sky(
+                key: ValueKey<String>('sky'),
+                skyType: SkyType.black,
+                // gradientIsOn: false,
+              ),
 
-            /// HOME VIEWS
-            Selector<HomeProvider, TabController?>(
-                selector: (_, HomeProvider homePro) => homePro.tabBarController,
-                builder: (_, TabController? tabController, Widget? child) {
-                  return TabBarView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    controller: tabController,
-                    children: BldrsTabs.getAllViewsWidgets(),
-                  );
-                }
-            ),
+              /// HOME VIEWS
+              Selector<HomeProvider, TabController?>(
+                  selector: (_, HomeProvider homePro) => homePro.tabBarController,
+                  builder: (_, TabController? tabController, Widget? child) {
+                    return TabBarView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      controller: tabController,
+                      children: BldrsTabs.getAllViewsWidgets(),
+                    );
+                  }
+              ),
 
-            /// LAYOUT WIDGET
-            const MirageNavBar(),
+              /// LAYOUT WIDGET
+              const MirageNavBar(),
 
-            /// WEB DOWNLOAD APP PANEL
-            if (kIsWeb == true)
-              const DownloadAppPanel(),
+              /// WEB DOWNLOAD APP PANEL
+              if (kIsWeb == true)
+                const DownloadAppPanel(),
 
-          ],
+            ],
+          ),
         ),
 
       ),

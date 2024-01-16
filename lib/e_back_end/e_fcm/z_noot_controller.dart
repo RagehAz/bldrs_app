@@ -77,6 +77,7 @@ abstract class NootController {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
 
       await NootActionProtocols.onNootTap(
+        mounted: true,
         noteModel: NoteModel.decipherRemoteMessage(
           map: receivedAction.payload,
         ),
