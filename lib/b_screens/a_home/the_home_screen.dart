@@ -21,6 +21,9 @@ class _TheHomeScreenState extends State<TheHomeScreen> with TickerProviderStateM
   // -----------------------------------------------------------------------------
   @override
   void initState() {
+
+    blog('init TheHomeScreen');
+
     super.initState();
 
     BldrsEngine.homePreInit(

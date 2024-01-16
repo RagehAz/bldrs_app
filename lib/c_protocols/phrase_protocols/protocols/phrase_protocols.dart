@@ -369,7 +369,7 @@ class PhraseProtocols {
     /// NOTE : this generates all counties phrases
     // NOTE : gets phrases from LDB or creates countries phrases then stores in LDB
 
-    /// 1 - GET THEM FROM LDB
+    /// 1 - GET THEM FROM LDB ( OPTIMIZE_COUNTRIES_PHRASES_PROTOCOL )
     List<Phrase> _allCountriesPhrases = await PhraseLDBOps.readCountriesPhrases();
 
     /// 2 - WHEN LDB IS EMPTY

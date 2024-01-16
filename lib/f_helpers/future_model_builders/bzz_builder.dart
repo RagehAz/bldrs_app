@@ -66,7 +66,7 @@ class _BzzBuilderState extends State<BzzBuilder> {
   void didUpdateWidget(BzzBuilder oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (Lister.checkListsAreIdentical(list1: oldWidget.bzzIDs, list2: widget.bzzIDs)) {
+    if (Lister.checkListsAreIdentical(list1: oldWidget.bzzIDs, list2: widget.bzzIDs) == false) {
       unawaited(_loadBzz(widget.bzzIDs));
     }
 

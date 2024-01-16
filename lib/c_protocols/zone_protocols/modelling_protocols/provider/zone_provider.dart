@@ -155,42 +155,4 @@ class ZoneProvider extends ChangeNotifier {
 
   }
   // -----------------------------------------------------------------------------
-
-  /// DEPRECATED
-
-  // --------------------
-  // List<CurrencyModel>? _allCurrencies = <CurrencyModel>[];
-  // List<CurrencyModel>? get allCurrencies => _allCurrencies;
-  // --------------------
-  // CurrencyModel? _currentCurrency;
-  // CurrencyModel? get currentCurrency => _currentCurrency;
-  // --------------------
-  // /// TESTED : WORKS PERFECT
-  // static List<CurrencyModel> proGetAllCurrencies({
-  //   required BuildContext context,
-  //   required bool listen,
-  // }){
-  //   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
-  //   return _zoneProvider.allCurrencies ?? [];
-  // }
-  // --------------------
-  // /// TESTED : WORKS PERFECT
-  // static Future<void> proInitializeAllCurrencies() async {
-  //   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
-  //   await _zoneProvider._initializeAllCurrencies(
-  //     notify: true,
-  //   );
-  // }
-  // --------------------
-  // /// TESTED : WORKS PERFECT
-  // Future<void> _initializeAllCurrencies({
-  //   required bool notify,
-  // }) async {
-  //   final List<CurrencyModel> _currencies = await ZoneProtocols.fetchCurrencies();
-  //   _allCurrencies = _currencies;
-  //   if (notify == true){
-  //     notifyListeners();
-  //   }
-  // }
-  // -----------------------------------------------------------------------------
 }

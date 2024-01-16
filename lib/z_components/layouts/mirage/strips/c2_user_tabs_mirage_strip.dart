@@ -28,9 +28,8 @@ class _UserTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const UserTab _tab = UserTab.profile;
-                    final String _tabID = UserTabber.getUserTabID(_tab)!;
-                    final bool _isSelected = selectedButton == _tabID;
+                    const UserTab _tab = UserTab.profile; /// MOVE_USER_TABS_TO_BLDRS_TABS
+                    final bool _isSelected = selectedButton == BldrsTabs.bidProfileInfo;
 
                     return _MirageButton(
                       verse: UserTabber.translateUserTab(_tab),
@@ -42,7 +41,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(_tabID),
+                      onTap: () => onTabChanged(BldrsTabs.bidProfileInfo),
                     );
                   }
               ),
@@ -52,8 +51,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
                   builder: (context) {
 
                     const UserTab _tab = UserTab.notifications;
-                    final String _tabID = UserTabber.getUserTabID(_tab)!;
-                    final bool _isSelected = selectedButton == _tabID;
+                    final bool _isSelected = selectedButton == BldrsTabs.bidProfileNotifications;
 
                     return _MirageButton(
                       verse: UserTabber.translateUserTab(_tab),
@@ -65,51 +63,17 @@ class _UserTabsMirageStrip extends StatelessWidget {
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(_tabID),
+                      onTap: () => onTabChanged(BldrsTabs.bidProfileNotifications),
                     );
                   }
               ),
 
               /// SAVED FLYERS
-              // Builder(
-              //     builder: (context) {
-              //
-              //       final MapModel? _badge = MapModel.getModelByKey(
-              //         models: badges,
-              //         key: NavModel.getMainNavIDString(navID: MainNavModel.savedFlyers),
-              //       );
-              //       final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
-              //
-              //       return _MirageButton(
-              //         isSelected: false,
-              //         verse: const Verse(id: 'phid_savedFlyers', translate: true,),
-              //         icon: Iconz.love,
-              //         bigIcon: false,
-              //         iconColor: Colorz.white255,
-              //         canShow: _userIsSignedUp,
-              //         redDotCount: ObeliskIcon.getCount(badge: _badge),
-              //         redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
-              //         redDotVerse: _redDotVerse,
-              //         onTap: () async {
-              //
-              //           await _MirageModel.hideAllAndShowPyramid(
-              //             models: allMirages,
-              //             mounted: mounted,
-              //             mirage0: mirage0,
-              //           );
-              //
-              //           await Nav.goToRoute(context, RouteName.savedFlyers);
-              //
-              //         },
-              //       );
-              //     }
-              // ),
               Builder(
                   builder: (context) {
 
                     const UserTab _tab = UserTab.saves;
-                    final String _tabID = UserTabber.getUserTabID(_tab)!;
-                    final bool _isSelected = selectedButton == _tabID;
+                    final bool _isSelected = selectedButton == BldrsTabs.bidProfileSaves;
 
                     return _MirageButton(
                       verse: UserTabber.translateUserTab(_tab),
@@ -121,7 +85,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(_tabID),
+                      onTap: () => onTabChanged(BldrsTabs.bidProfileSaves),
                     );
                   }
               ),
@@ -131,8 +95,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
                   builder: (context) {
 
                     const UserTab _tab = UserTab.following;
-                    final String _tabID = UserTabber.getUserTabID(_tab)!;
-                    final bool _isSelected = selectedButton == _tabID;
+                    final bool _isSelected = selectedButton == BldrsTabs.bidProfileFollowing;
 
                     return _MirageButton(
                       verse: UserTabber.translateUserTab(_tab),
@@ -144,7 +107,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(_tabID),
+                      onTap: () => onTabChanged(BldrsTabs.bidProfileFollowing),
                     );
                   }
               ),
@@ -154,8 +117,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
                   builder: (context) {
 
                     const UserTab _tab = UserTab.settings;
-                    final String _tabID = UserTabber.getUserTabID(_tab)!;
-                    final bool _isSelected = selectedButton == _tabID;
+                    final bool _isSelected = selectedButton == BldrsTabs.bidProfileSettings;
 
                     return _MirageButton(
                       verse: UserTabber.translateUserTab(_tab),
@@ -167,7 +129,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(_tabID),
+                      onTap: () => onTabChanged(BldrsTabs.bidProfileSettings),
                     );
                   }
               ),

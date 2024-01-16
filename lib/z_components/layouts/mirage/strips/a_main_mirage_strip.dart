@@ -33,11 +33,6 @@ class _MainMirageStrip extends StatelessWidget {
     // --------------------
     final UserModel? _userModel = UsersProvider.proGetMyUserModel(
       context: context,
-      /// if true, rebuilds the grid for each flyer save
-      listen: false,
-    );
-    final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(
-      context: context,
       listen: true,
     );
     final bool _userIsSignedUp = Authing.userIsSignedUp(_userModel?.signInMethod);
@@ -57,7 +52,7 @@ class _MainMirageStrip extends StatelessWidget {
                     Builder(
                         builder: (_) {
 
-                          final bool _isSelected = selectedButton == _MirageModel.sectionsButtonID;
+                          final bool _isSelected = selectedButton == BldrsTabs.bidSections;
 
                           return RedDotBadge(
                             height: _MirageButton.getHeight,
@@ -77,10 +72,11 @@ class _MainMirageStrip extends StatelessWidget {
                         ),
 
                     /// ZONE
-                    Builder(
-                        builder: (context) {
+                    Selector<ZoneProvider, ZoneModel?>(
+                        selector: (_, ZoneProvider pro) => pro.currentZone,
+                        builder: (BuildContext context, ZoneModel? currentZone, Widget? child){
 
-                          final String _countryFlag = _currentZone?.icon ?? Iconz.planet;
+                          final String _countryFlag = currentZone?.icon ?? Iconz.planet;
 
                           final MapModel? _badge = MapModel.getModelByKey(
                             models: badges,
@@ -89,11 +85,11 @@ class _MainMirageStrip extends StatelessWidget {
                           final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
 
                           return _MirageButton(
-                            isSelected: false,
-                            verse: ZoneModel.generateObeliskVerse(zone: _currentZone),
+                            isSelected: selectedButton == BldrsTabs.bidZone,
+                            verse: ZoneModel.generateObeliskVerse(zone: currentZone),
                             icon: _countryFlag,
                             bigIcon: true,
-                            iconColor: null,
+                            iconColor: Colorz.nothing,
                             canShow: true,
                             redDotCount: ObeliskIcon.getCount(badge: _badge),
                             redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
@@ -114,7 +110,7 @@ class _MainMirageStrip extends StatelessWidget {
                           final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
 
                           return _MirageButton(
-                            isSelected: false,
+                            isSelected: selectedButton == BldrsTabs.bidSign,
                             verse: const Verse(id: 'phid_sign', translate: true),
                             icon: Iconz.normalUser,
                             bigIcon: false,
@@ -141,7 +137,7 @@ class _MainMirageStrip extends StatelessWidget {
                           final bool _forceRedDot = _userModel == null || Formers.checkUserHasMissingFields(userModel: _userModel);
 
                           return _MirageButton(
-                            isSelected: selectedButton == _MirageModel.userTabID,
+                            isSelected: selectedButton == BldrsTabs.bidProfile,
                             verse: _userModel?.name == null ?
                             const Verse(id: 'phid_complete_my_profile', translate: true)
                                 :
@@ -175,7 +171,7 @@ class _MainMirageStrip extends StatelessWidget {
 
                             return _MirageButton(
                               loading: loading,
-                              isSelected: false,
+                              isSelected: selectedButton == BldrsTabs.bidBzz,
                               verse: Verse(
                                 id: bzModel?.name,
                                 translate: false,
@@ -203,7 +199,7 @@ class _MainMirageStrip extends StatelessWidget {
                               key: '',//NavModel.getMainNavIDString(navID: ''),
                             );
                             final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
-                            final bool _isSelected = selectedButton == _MirageModel.bzzButtonID;
+                            final bool _isSelected = selectedButton == BldrsTabs.bidBzz;
 
                             return _BzzMirageButton(
                               verse: const Verse(id: 'phid_my_bzz', translate: true,),
@@ -230,7 +226,7 @@ class _MainMirageStrip extends StatelessWidget {
                           final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
 
                           return _MirageButton(
-                            isSelected: selectedButton == _MirageModel.appSettingsID,
+                            isSelected: selectedButton == BldrsTabs.bidAppSettings,
                             verse: const Verse(id: 'phid_settings', translate: true),
                             icon: Iconz.more,
                             bigIcon: false,
