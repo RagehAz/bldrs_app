@@ -1,5 +1,6 @@
 import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/b_screens/a_home/pages/a_flyers_wall_page/flyers_wall_page.dart';
+import 'package:bldrs/b_screens/a_home/pages/b_zones_page/zone_page.dart';
 import 'package:bldrs/b_screens/a_home/pages/e_app_settings_page/app_settings_page.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -60,6 +61,29 @@ class BldrsTabs {
   ];
   // -----------------------------------------------------------------------------
 
+  /// MIRAGE BUTTONS
+
+  // --------------------
+  static const String bidSections = 'bid_sections';
+  static const String bidZone = 'bid_zone';
+  static const String bidSign = 'bid_sign';
+  static const String bidProfile = 'bid_profile';
+  static const String bidBzz = 'bid_bzz';
+  static const String bidAppSettings = 'appSettings';
+  // --------------------
+  static const String bidProfileInfo = 'bigProfileInfo';
+  static const String bidProfileNotifications = 'bidProfileNotifications';
+  static const String bidProfileSaves = 'bidProfileSaves';
+  static const String bidProfileFollowing = 'bidProfileFollowing';
+  static const String bidProfileSettings = 'bidProfileSettings';
+  // --------------------
+  static const String bidMyBzAbout = 'bidMyBzAbout';
+  static const String bidMyBzFlyers = 'bidMyBzFlyers';
+  static const String bidMyBzTeam = 'bidMyBzTeam';
+  static const String bidMyBzNotes = 'bidMyBzNotes';
+  static const String bidMyBzSettings = 'bidMyBzSettings';
+  // -----------------------------------------------------------------------------
+
   /// ALL VIEWS WIDGETS
 
   // --------------------
@@ -69,7 +93,7 @@ class BldrsTabs {
     switch (bldrsTab){
       // --------------------
       case BldrsTab.home              : return const FlyersWallPage();
-      case BldrsTab.zone              : return Container();
+      case BldrsTab.zone              : return const ZonePage();
       case BldrsTab.signIn            : return Container();
 
       case BldrsTab.myProfile         : return Container();

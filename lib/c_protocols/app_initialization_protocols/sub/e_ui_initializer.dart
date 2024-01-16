@@ -58,45 +58,54 @@ class UiInitializer {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<bool> initializeClock() async {
+  static Future<bool> initializeClock({
+    required bool mounted,
+}) async {
+    bool _good = true;
 
-    /// CHECK DEVICE CLOCK
-    bool _deviceTimeIsCorrect = await BldrsTimers.checkDeviceTimeIsCorrect(
-      context: getMainContext(),
-      showIncorrectTimeDialog: true,
-      canThrowError: true,
-    );
+    if (mounted == true){
 
-    /// OVERRIDE : FOR WEB AND WINDOWS
-    if (
-        _deviceTimeIsCorrect == true ||
-        kIsWeb == true ||
-        DeviceChecker.deviceIsWindows() == true
-    ){
-      return true;
-    }
-    else {
-
-      await Future.delayed(const Duration(seconds: 5));
-
-      _deviceTimeIsCorrect = await BldrsTimers.checkDeviceTimeIsCorrect(
-        context: getMainContext(),
-        showIncorrectTimeDialog: false,
-        canThrowError: false,
-      );
-
-      if (_deviceTimeIsCorrect == true){
-        return true;
-      }
-      else {
-        await BldrsNav.pushLogoRouteAndRemoveAllBelow(
-          animatedLogoScreen: false,
+        /// CHECK DEVICE CLOCK
+        bool _deviceTimeIsCorrect = await BldrsTimers.checkDeviceTimeIsCorrect(
+          context: getMainContext(),
+          showIncorrectTimeDialog: true,
+          canThrowError: true,
         );
-        return false;
-      }
+
+        /// OVERRIDE : FOR WEB AND WINDOWS
+        if (
+            _deviceTimeIsCorrect == true ||
+            kIsWeb == true ||
+            DeviceChecker.deviceIsWindows() == true
+        ){
+          _good = true;
+        }
+        else {
+
+          await Future.delayed(const Duration(seconds: 5));
+
+          _deviceTimeIsCorrect = await BldrsTimers.checkDeviceTimeIsCorrect(
+            context: getMainContext(),
+            showIncorrectTimeDialog: false,
+            canThrowError: false,
+          );
+
+          if (_deviceTimeIsCorrect == true){
+            _good = true;
+          }
+
+          else {
+            await BldrsNav.pushLogoRouteAndRemoveAllBelow(
+              animatedLogoScreen: false,
+            );
+            _good = false;
+          }
+
+        }
 
     }
 
+    return _good;
   }
   // -----------------------------------------------------------------------------
 
@@ -248,17 +257,23 @@ Last Wipe : $_lastWipe
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> initializeOnBoarding() async {
+  static Future<void> initializeOnBoarding({
+    required bool mounted,
+  }) async {
 
-    final bool autoOnBoardingIsActive = await OnBoardingScreen.autoOnBoardingIsActive();
+    if (mounted == true){
 
-      if (autoOnBoardingIsActive == true){
+      final bool autoOnBoardingIsActive = await OnBoardingScreen.autoOnBoardingIsActive();
 
-        await OnBoardingScreen.goToOnboardingScreen(
-          showDontShowAgainButton: true,
-        );
+        if (autoOnBoardingIsActive == true){
 
-      }
+          await OnBoardingScreen.goToOnboardingScreen(
+            showDontShowAgainButton: true,
+          );
+
+        }
+
+    }
 
   }
   // -----------------------------------------------------------------------------

@@ -26,8 +26,8 @@ class _MirageMyBzzControls {
     );
 
     /// ALREADY SELECTED
-    if (_mirageX0.selectedButton.value == _MirageModel.bzzButtonID){
-      _mirageX0.clearButton(mounted: mounted);
+    if (_mirageX0.selectedButton.value == BldrsTabs.bidBzz){
+      // _mirageX0.clearButton(mounted: mounted);
     }
 
     /// SHOULD SELECT
@@ -36,7 +36,7 @@ class _MirageMyBzzControls {
       await _mirageX1.reShow(
         mounted: mounted,
         onBetweenReShow: () => _mirageX0.selectButton(
-          button: _MirageModel.bzzButtonID,
+          button: BldrsTabs.bidBzz,
           mounted: mounted,
         ),
       );
@@ -105,13 +105,13 @@ class _MirageMyBzzControls {
   static Future<void> onBzTabChanged({
     required bool mounted,
     required List<_MirageModel> allMirages,
-    required String tab,
+    required String bid,
   }) async {
 
     final _MirageModel _mirage2 = allMirages[2];
 
     _mirage2.selectButton(
-      button: tab,
+      button: bid,
       mounted: mounted,
     );
 

@@ -547,6 +547,7 @@ class BldrsNav {
   static Future<void> autoNav({
     required String? routeName,
     required bool startFromHome,
+    required bool mounted,
     String? arguments,
   }) async {
 
@@ -567,7 +568,7 @@ class BldrsNav {
       }
 
       else {
-        await autoNavigateFromHomeScreen();
+        await autoNavigateFromHomeScreen(mounted: mounted);
       }
 
     }
@@ -575,28 +576,34 @@ class BldrsNav {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> autoNavigateFromHomeScreen() async {
+  static Future<void> autoNavigateFromHomeScreen({
+    required bool mounted,
+  }) async {
 
-    final RouteSettings? _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
-      context: getMainContext(),
-      listen: false,
-    );
+    if (mounted == true){
 
-    blog('autoNavigateFromHomeScreen : _afterHomeRoute : ${_afterHomeRoute?.name} : arg : ${_afterHomeRoute?.arguments}');
-
-    if (_afterHomeRoute != null){
-
-      /// CLEAR AFTER HOME ROUTE
-      UiProvider.proClearAfterHomeRoute(
-        notify: true,
+      final RouteSettings? _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
+        context: getMainContext(),
+        listen: false,
       );
 
-      final String? _args = _afterHomeRoute.arguments as String?;
+      blog('autoNavigateFromHomeScreen : _afterHomeRoute : ${_afterHomeRoute?.name} : arg : ${_afterHomeRoute?.arguments}');
 
-      await DynamicRouter.goTo(
-        routeSettingsName: _afterHomeRoute.name,
-        args: _args,
-      );
+      if (_afterHomeRoute != null){
+
+        /// CLEAR AFTER HOME ROUTE
+        UiProvider.proClearAfterHomeRoute(
+          notify: true,
+        );
+
+        final String? _args = _afterHomeRoute.arguments as String?;
+
+        await DynamicRouter.goTo(
+          routeSettingsName: _afterHomeRoute.name,
+          args: _args,
+        );
+
+      }
 
     }
 
