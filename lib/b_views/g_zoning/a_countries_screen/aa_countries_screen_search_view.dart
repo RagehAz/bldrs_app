@@ -7,6 +7,8 @@ import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/z_components/buttons/zone_buttons/america_states_tile_buttons.dart';
 import 'package:bldrs/z_components/buttons/zone_buttons/country_tile_button.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,7 @@ class CountriesScreenSearchView extends StatelessWidget {
     required this.disabledCountriesIDs,
     required this.countriesCensus,
     required this.selectedZone,
+    this.appBarType = AppBarType.search,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -31,6 +34,7 @@ class CountriesScreenSearchView extends StatelessWidget {
   final List<String> disabledCountriesIDs;
   final List<CensusModel>? countriesCensus;
   final ZoneModel? selectedZone;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -40,8 +44,8 @@ class CountriesScreenSearchView extends StatelessWidget {
       valueListenable: foundCountries,
       builder: (_, List<Phrase>? foundPhrases, Widget? child){
 
-        const EdgeInsets _topMargin = EdgeInsets.only(
-          top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2,
+        final EdgeInsets _topMargin = EdgeInsets.only(
+          top: Stratosphere.getStratosphereValue(context: context, appBarType: appBarType),
           bottom: Ratioz.horizon,
         );
 

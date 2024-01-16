@@ -86,14 +86,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
         await _triggerLoading(setTo: false);
 
-        if (mounted){
-          await BldrsNav.autoNavigateFromHomeScreen();
-        }
+        await BldrsNav.autoNavigateFromHomeScreen(mounted: mounted);
 
         /// DYNAMIC LINKS
-        await DynamicLinks.initDynamicLinks();
+        await DynamicLinks.initDynamicLinks(mounted: mounted);
 
-        await UiInitializer.initializeOnBoarding();
+        await UiInitializer.initializeOnBoarding(mounted: mounted);
 
       });
 

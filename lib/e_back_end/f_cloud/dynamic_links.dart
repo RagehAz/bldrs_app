@@ -93,31 +93,37 @@ class DynamicLinks {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> initDynamicLinks() async {
+  static Future<void> initDynamicLinks({
+    required bool mounted,
+  }) async {
 
-    if (DeviceChecker.deviceIsIOS() == true || DeviceChecker.deviceIsAndroid() == true) {
+    if (mounted == true){
 
-      await tryAndCatch(
-        invoker: 'initDynamicLinks',
-        functions: () async {
+      if (DeviceChecker.deviceIsIOS() == true || DeviceChecker.deviceIsAndroid() == true) {
 
-          /// FOR APP WHEN WAS TERMINATED
-          final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
-          if (initialLink != null) {
-            await _onDynamicLink(initialLink);
-          }
+        await tryAndCatch(
+          invoker: 'initDynamicLinks',
+          functions: () async {
 
-          /// WHILE APP IN BACKGROUND OR FOREGROUND
-          getFireDynamicLinks().onLink.listen((PendingDynamicLinkData? dynamicLinkData) async {
+            /// FOR APP WHEN WAS TERMINATED
+            final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
+            if (initialLink != null) {
+              await _onDynamicLink(initialLink);
+            }
 
-            await _onDynamicLink(dynamicLinkData);
+            /// WHILE APP IN BACKGROUND OR FOREGROUND
+            getFireDynamicLinks().onLink.listen((PendingDynamicLinkData? dynamicLinkData) async {
 
-          }).onError((Object error) async {
-            blog('initDynamicLinks : error : ${error.runtimeType} : $error');
-          });
+              await _onDynamicLink(dynamicLinkData);
 
-        },
-      );
+            }).onError((Object error) async {
+              blog('initDynamicLinks : error : ${error.runtimeType} : $error');
+            });
+
+          },
+        );
+
+      }
 
     }
 

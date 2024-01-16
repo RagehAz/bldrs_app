@@ -9,6 +9,7 @@ import 'package:bldrs/f_helpers/router/a_route_name.dart';
 /// TESTED : WORKS PERFECT
 Future<void> onBzNoteTap({
   required NoteModel? noteModel,
+  required bool mounted,
 }) async {
 
   // blog('namexxx : ${noteModel.navTo.name}');
@@ -21,6 +22,7 @@ Future<void> onBzNoteTap({
     await NootActionProtocols.onNootTap(
       noteModel: noteModel,
       startFromHome: false,
+        mounted: mounted
     );
 
   }

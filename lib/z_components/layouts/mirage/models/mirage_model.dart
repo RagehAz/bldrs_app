@@ -19,16 +19,6 @@ class _MirageModel {
   final int index;
   // -----------------------------------------------------------------------------
 
-  /// MIRAGE STRIP NAMES
-
-  // --------------------
-  static const String bzzButtonID = 'bzz';
-  static const String bzTabsID = 'bz';
-  static const String userTabID = 'user';
-  static const String sectionsButtonID = 'sections';
-  static const String appSettingsID = 'appSettings';
-  // -----------------------------------------------------------------------------
-
   /// CONSTANTS
 
   // --------------------

@@ -58,7 +58,7 @@ class Initializer {
       if (_canLoadApp == true){
 
         /// CLOCK
-        _canLoadApp = await UiInitializer.initializeClock();
+        _canLoadApp = await UiInitializer.initializeClock(mounted: mounted);
 
         if (_canLoadApp == true){
 

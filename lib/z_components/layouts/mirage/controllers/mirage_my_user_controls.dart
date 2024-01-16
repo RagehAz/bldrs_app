@@ -34,16 +34,24 @@ class _MirageMyUserControls {
     );
 
     /// ALREADY SELECTED
-    if (_mirageX0.selectedButton.value == _MirageModel.userTabID){
-      _mirageX0.clearButton(mounted: mounted);
+    if (_mirageX0.selectedButton.value == BldrsTabs.bidProfile){
+      // _mirageX0.clearButton(mounted: mounted);
     }
 
     /// SHOULD SELECT
     else {
+
+      _mirageX1.selectButton(
+        button: BldrsTabs.bidProfileInfo,
+        mounted: mounted,
+      );
+
+      await BldrsTabs.goToTab(tab: BldrsTab.myProfile);
+
       await _mirageX1.reShow(
         mounted: mounted,
         onBetweenReShow: () => _mirageX0.selectButton(
-          button: _MirageModel.userTabID,
+          button: BldrsTabs.bidProfile,
           mounted: mounted,
         ),
       );

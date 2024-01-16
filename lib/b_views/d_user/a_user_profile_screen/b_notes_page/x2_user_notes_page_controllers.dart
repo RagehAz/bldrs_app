@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 /// TESTED : WORKS PERFECT
 Future<void> onUserNoteTap({
   required NoteModel? noteModel,
+  required bool mounted,
 }) async {
 
   // noteModel.blogNoteModel(invoker: 'onUserNoteTap');
@@ -29,6 +30,7 @@ Future<void> onUserNoteTap({
     await NootActionProtocols.onNootTap(
       noteModel: noteModel,
       startFromHome: false,
+      mounted: mounted,
     );
 
   }

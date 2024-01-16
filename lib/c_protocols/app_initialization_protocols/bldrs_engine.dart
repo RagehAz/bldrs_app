@@ -151,6 +151,9 @@ class BldrsEngine {
       await AuthProtocols.signInAsRage7(context: getMainContext());
     }
 
+    /// REFRESH LDB
+    unawaited(UiInitializer.refreshLDB());
+
     /// INITIALIZE NOOTS
     await FCMStarter.initializeNootsInBldrsAppStarter(
       channelModel: ChannelModel.bldrsChannel,
@@ -219,54 +222,41 @@ class BldrsEngine {
     required bool mounted,
   }) async {
 
+    await UiInitializer.initializeAppLanguage(
+      context: context,
+      mounted: mounted,
+    );
+
+    /// APP STATE
+    await AppStateInitializer.initialize();
+
     /// CLOSE KEYBOARD
     unawaited(Keyboard.closeKeyboard());
 
-    /// REFRESH LDB
-    unawaited(UiInitializer.refreshLDB());
+    /// UI - ICONS - PHRASES
+    unawaited(UiInitializer.initializeIconsAndPhrases());
 
-    /// APP LANGUAGE
-    unawaited(UiInitializer.initializeAppLanguage(
-      context: context,
-      mounted: mounted,
-    ));
+    unawaited(
+        /// APP LANGUAGE
+        UiInitializer.initializeClock(mounted: mounted)
+        .then(
+                /// AUTO NAV
+                (value) => BldrsNav.autoNavigateFromHomeScreen(mounted: mounted)
+        ).then(
+                /// DYNAMIC LINKS
+                (value) => DynamicLinks.initDynamicLinks(mounted: mounted)
+        ).then(
+                /// ON BOARDING
+                (value) => UiInitializer.initializeOnBoarding(mounted: mounted)
+        )
+    );
 
     /// USER
-    unawaited(UserInitializer.initializeUser());
-
-    /// APP STATE
-    unawaited(AppStateInitializer.initialize());
-
-    /// CLOCK
-    unawaited(UiInitializer.initializeClock());
-
-    await Future.wait(<Future>[
-
-      /// UI - ICONS - PHRASES
-      UiInitializer.initializeIconsAndPhrases(),
-
-    ]);
+    await UserInitializer.initializeUser();
+    /// NOTIFICATIONS
+    await NotesProvider.proInitializeNoteStreams(mounted: mounted);
 
     await checkIfUserIsMissingFields();
-
-    await initializeUserZone();
-
-    /// D - ZONES
-    await initializeCurrentZone();
-
-    /// I - KEYWORDS
-    unawaited(initializeAllChains());
-
-      await NotesProvider.proInitializeNoteStreams(mounted: mounted);
-
-      if (mounted){
-        await BldrsNav.autoNavigateFromHomeScreen();
-      }
-
-      /// DYNAMIC LINKS
-      await DynamicLinks.initDynamicLinks();
-
-      await UiInitializer.initializeOnBoarding();
 
   }
   // --------------------

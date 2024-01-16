@@ -6,6 +6,7 @@ import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/components/sensors/app_version_builder.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -18,6 +19,7 @@ import 'package:bldrs/c_protocols/records_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
@@ -49,6 +51,11 @@ class UserInitializer {
       /// USER DEVICE MODEL
       UserModel? _new = await _userDeviceModelOps(
         userModel: _old,
+      );
+
+      /// USER ZONE
+      _new = await _completeUserZone(
+        userModel: _new,
       );
 
       /// USER APP STATE
@@ -463,7 +470,37 @@ class UserInitializer {
     }
 
   }
-    // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+
+  /// USER ZONE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<UserModel?> _completeUserZone({
+    required UserModel? userModel,
+  }) async {
+    UserModel? _output = userModel;
+
+    if (userModel != null){
+
+      ZoneModel? _userZoneCompleted = userModel.zone;
+
+      _userZoneCompleted ??= await ZoneProtocols.getZoneByIP();
+
+      _userZoneCompleted = await ZoneProtocols.completeZoneModel(
+        incompleteZoneModel: _userZoneCompleted,
+        invoker: 'initializeHomeScreen.initializeUserZone',
+      );
+
+      _output = userModel.copyWith(
+        zone: _userZoneCompleted,
+      );
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
 
   /// USER APP STATE
 

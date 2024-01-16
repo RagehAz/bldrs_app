@@ -22,6 +22,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
     required this.onPlanetTap,
     required this.selectedZone,
     this.padding,
+    this.appBarType = AppBarType.search,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -35,6 +36,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
   final CensusModel? planetCensus;
   final Function onPlanetTap;
   final ZoneModel? selectedZone;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
       itemCount: _countriesButtons.length + 1,
-      padding: padding ?? Stratosphere.getStratosphereSandwich(context: context, appBarType: AppBarType.search),
+      padding: padding ?? Stratosphere.getStratosphereSandwich(context: context, appBarType: appBarType),
       itemBuilder: (_, int index) {
 
         if (index == 0){
