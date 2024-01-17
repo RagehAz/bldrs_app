@@ -13,6 +13,7 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/a_models/m_search/user_search_model.dart';
+import 'package:bldrs/b_screens/x_keywords_picker_screen/keywords_picker_screen.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
 import 'package:bldrs/b_views/c_main_search/views/search_view_splitter.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/building_blocks/search_type_button.dart';
@@ -20,7 +21,6 @@ import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/bz_search
 import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/flyer_search_filters_list.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/users_search_filters_list.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
-import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -425,7 +425,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
          },
        onPickPhidTap: () async {
 
-         final String? _phid = await PhidsPickerScreen.goPickPhid(
+         /// KEYWORDS_PICKER_SCREEN
+         final String? _phid = await KeywordsPickerScreen.goPickPhid(
            flyerType: _searchModel?.flyerSearchModel?.flyerType,
            event: ViewingEvent.homeView,
            onlyUseZoneChains: true,
@@ -622,7 +623,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           },
         onScopeTap: (FlyerType flyerType) async {
 
-            final String? _phid = await PhidsPickerScreen.goPickPhid(
+          /// KEYWORDS_PICKER_SCREEN
+            final String? _phid = await KeywordsPickerScreen.goPickPhid(
               flyerType: flyerType,
               event: ViewingEvent.homeView,
               onlyUseZoneChains: true,
