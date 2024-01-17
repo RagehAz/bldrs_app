@@ -1,7 +1,6 @@
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
-import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/b_static_router.dart';
@@ -82,23 +81,23 @@ class DynamicRouter {
               // userTab: UserTab.profile // default
           ); break;
         // --------------------
-        /// myUserNotes
-        case RouteName.myUserNotes:
-          _goTo = BldrsNav.pushMyUserScreen(
-              userTab: UserTab.notifications,
-          ); break;
-        // --------------------
-        /// myUserFollowing
-        case RouteName.myUserFollowing:
-          _goTo = BldrsNav.pushMyUserScreen(
-              userTab: UserTab.following,
-          ); break;
-        // --------------------
-        /// myUserSettings
-        case RouteName.myUserSettings:
-          _goTo = BldrsNav.pushMyUserScreen(
-              userTab: UserTab.settings,
-          ); break;
+        // /// myUserNotes
+        // case RouteName.myUserNotes:
+        //   _goTo = BldrsNav.pushMyUserScreen(
+        //       userTab: UserTab.notifications,
+        //   ); break;
+        // // --------------------
+        // /// myUserFollowing
+        // case RouteName.myUserFollowing:
+        //   _goTo = BldrsNav.pushMyUserScreen(
+        //       userTab: UserTab.following,
+        //   ); break;
+        // // --------------------
+        // /// myUserSettings
+        // case RouteName.myUserSettings:
+        //   _goTo = BldrsNav.pushMyUserScreen(
+        //       userTab: UserTab.settings,
+        //   ); break;
         // --------------------
         /// savedFlyers
         case RouteName.savedFlyers:

@@ -3,7 +3,7 @@ import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/x_ui/nav_model.dart';
+import 'package:bldrs/zz_archives/nav_model.dart';
 import 'package:bldrs/b_views/i_phid_picker/views/phids_search_view.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/slides_shelf/aaa_flyer_slides_shelf.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/phids_bubble/phids_bubble.dart';

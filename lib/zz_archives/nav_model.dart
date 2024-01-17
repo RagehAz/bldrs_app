@@ -1,6 +1,5 @@
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
-import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
@@ -82,29 +81,29 @@ class NavModel {
     return _count;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static String? getMainNavIDString({
-    required MainNavModel navID,
-    String? bzID,
-  }){
-    switch (navID){
-      case MainNavModel.signIn:       return 'sign_in';
-      case MainNavModel.questions:    return 'questions';
-      case MainNavModel.profile:      return 'profile';
-      case MainNavModel.savedFlyers:  return 'savedFlyers';
-      case MainNavModel.bz:           return 'bz_$bzID';
-      case MainNavModel.zone:         return 'zone';
-      case MainNavModel.onBoarding:   return 'onBoarding';
-      case MainNavModel.settings:     return 'settings';
-      default: return null;
-    }
-  }
+  // /// TESTED : WORKS PERFECT
+  // static String? getMainNavIDString({
+  //   required MainNavModel navID,
+  //   String? bzID,
+  // }){
+  //   switch (navID){
+  //     case MainNavModel.signIn:       return 'sign_in';
+  //     case MainNavModel.questions:    return 'questions';
+  //     case MainNavModel.profile:      return 'profile';
+  //     case MainNavModel.savedFlyers:  return 'savedFlyers';
+  //     case MainNavModel.bz:           return 'bz_$bzID';
+  //     case MainNavModel.zone:         return 'zone';
+  //     case MainNavModel.onBoarding:   return 'onBoarding';
+  //     case MainNavModel.settings:     return 'settings';
+  //     default: return null;
+  //   }
+  // }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getUserTabNavID(UserTab userTab){
-    final String? _tabID = UserTabber.getUserTabID(userTab);
-    return 'user_$_tabID';
-  }
+  // /// TESTED : WORKS PERFECT
+  // static String getUserTabNavID(UserTab userTab){
+  //   final String? _tabID = UserTabber.getUserTabID(userTab);
+  //   return 'user_$_tabID';
+  // }
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getBzTabNavID({
@@ -119,83 +118,83 @@ class NavModel {
   /// GENERATOR
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> generateSuperBzNavIDs({
-    required String? bzID,
-  }){
-
-    /// NOTE : INCLUDES MAIN NAV MODEL AS WELL AS INTERNAL NAV MODELS
-
-    final String? _mainNavModel = getMainNavIDString(
-      navID: MainNavModel.bz,
-      bzID: bzID,
-    );
-
-    final List<String> _bzTabsNavModelsIDs = <String>[];
-
-    for (final BzTab bzTab in BzTabber.bzTabsList){
-      final String _bzTabNavID = getBzTabNavID(
-          bzTab: bzTab,
-          bzID: bzID
-      );
-      _bzTabsNavModelsIDs.add(_bzTabNavID);
-    }
-
-
-    return <String>[
-      if (_mainNavModel != null)
-      _mainNavModel,
-      ..._bzTabsNavModelsIDs
-    ];
-  }
+  // /// TESTED : WORKS PERFECT
+  // static List<String> generateSuperBzNavIDs({
+  //   required String? bzID,
+  // }){
+  //
+  //   /// NOTE : INCLUDES MAIN NAV MODEL AS WELL AS INTERNAL NAV MODELS
+  //
+  //   final String? _mainNavModel = getMainNavIDString(
+  //     navID: MainNavModel.bz,
+  //     bzID: bzID,
+  //   );
+  //
+  //   final List<String> _bzTabsNavModelsIDs = <String>[];
+  //
+  //   for (final BzTab bzTab in BzTabber.bzTabsList){
+  //     final String _bzTabNavID = getBzTabNavID(
+  //         bzTab: bzTab,
+  //         bzID: bzID
+  //     );
+  //     _bzTabsNavModelsIDs.add(_bzTabNavID);
+  //   }
+  //
+  //
+  //   return <String>[
+  //     if (_mainNavModel != null)
+  //     _mainNavModel,
+  //     ..._bzTabsNavModelsIDs
+  //   ];
+  // }
+  // --------------------
+  // /// TESTED : WORKS PERFECT
+  // static List<String> generateMainNavModelsIDs({
+  //   required List<String> myBzzIDs,
+  // }){
+  //
+  //   final List<String> _mainNavModelsIDs = <String>[];
+  //
+  //   for (final MainNavModel mainNavModel in mainNavModels){
+  //
+  //     if (mainNavModel == MainNavModel.bz){
+  //       if (Lister.checkCanLoop(myBzzIDs) == true){
+  //         for (final String bzID in myBzzIDs){
+  //           final String? _navID = getMainNavIDString(
+  //             navID: MainNavModel.bz,
+  //             bzID: bzID,
+  //           );
+  //           if (_navID != null){
+  //             _mainNavModelsIDs.add(_navID);
+  //           }
+  //         }
+  //       }
+  //     }
+  //
+  //     else {
+  //       final String? _navID = getMainNavIDString(navID: mainNavModel);
+  //       if (_navID != null){
+  //         _mainNavModelsIDs.add(_navID);
+  //       }
+  //     }
+  //
+  //   }
+  //
+  //   return _mainNavModelsIDs;
+  // }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> generateMainNavModelsIDs({
-    required List<String> myBzzIDs,
-  }){
+  // static List<String> generateUserTabsNavModelsIDs(){
+  //
+  //   final List<String> _userTabsNavModelsIDs = <String>[];
 
-    final List<String> _mainNavModelsIDs = <String>[];
+    // for (final UserTab userTab in UserTabber.userProfileTabsList){
+    //   final String _navID = getUserTabNavID(userTab);
+    //   _userTabsNavModelsIDs.add(_navID);
+    // }
 
-    for (final MainNavModel mainNavModel in mainNavModels){
-
-      if (mainNavModel == MainNavModel.bz){
-        if (Lister.checkCanLoop(myBzzIDs) == true){
-          for (final String bzID in myBzzIDs){
-            final String? _navID = getMainNavIDString(
-              navID: MainNavModel.bz,
-              bzID: bzID,
-            );
-            if (_navID != null){
-              _mainNavModelsIDs.add(_navID);
-            }
-          }
-        }
-      }
-
-      else {
-        final String? _navID = getMainNavIDString(navID: mainNavModel);
-        if (_navID != null){
-          _mainNavModelsIDs.add(_navID);
-        }
-      }
-
-    }
-
-    return _mainNavModelsIDs;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> generateUserTabsNavModelsIDs(){
-
-    final List<String> _userTabsNavModelsIDs = <String>[];
-
-    for (final UserTab userTab in UserTabber.userProfileTabsList){
-      final String _navID = getUserTabNavID(userTab);
-      _userTabsNavModelsIDs.add(_navID);
-    }
-
-    return _userTabsNavModelsIDs;
-  }
+  //   return _userTabsNavModelsIDs;
+  // }
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> generateBzTabsNavModelsIDs({
@@ -241,31 +240,31 @@ class NavModel {
     return _allBzzTabsNavModelsIDs;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> generateAllNavModelsIDs({
-    required List<String> myBzzIDs,
-  }){
-
-    final List<String> _allNavModelsIDs = <String>[];
-
-    /// MAIN
-    final List<String> _mainNavModelsIDs = generateMainNavModelsIDs(
-        myBzzIDs: myBzzIDs,
-    );
-    _allNavModelsIDs.addAll(_mainNavModelsIDs);
-
-    /// USER PROFILE
-    final List<String> _userTabsNavModelsIDs = generateUserTabsNavModelsIDs();
-      _allNavModelsIDs.addAll(_userTabsNavModelsIDs);
-
-    /// BZZ PROFILES
-    final List<String> _allBzzTabsNavModelsIDs = generateAllBzzTabsNavModelsIDs(
-      myBzzIDs: myBzzIDs,
-    );
-    _allNavModelsIDs.addAll(_allBzzTabsNavModelsIDs);
-
-    return _allNavModelsIDs;
-  }
+  // /// TESTED : WORKS PERFECT
+  // static List<String> generateAllNavModelsIDs({
+  //   required List<String> myBzzIDs,
+  // }){
+  //
+  //   final List<String> _allNavModelsIDs = <String>[];
+  //
+  //   /// MAIN
+  //   final List<String> _mainNavModelsIDs = generateMainNavModelsIDs(
+  //       myBzzIDs: myBzzIDs,
+  //   );
+  //   _allNavModelsIDs.addAll(_mainNavModelsIDs);
+  //
+  //   /// USER PROFILE
+  //   final List<String> _userTabsNavModelsIDs = generateUserTabsNavModelsIDs();
+  //     _allNavModelsIDs.addAll(_userTabsNavModelsIDs);
+  //
+  //   /// BZZ PROFILES
+  //   final List<String> _allBzzTabsNavModelsIDs = generateAllBzzTabsNavModelsIDs(
+  //     myBzzIDs: myBzzIDs,
+  //   );
+  //   _allNavModelsIDs.addAll(_allBzzTabsNavModelsIDs);
+  //
+  //   return _allNavModelsIDs;
+  // }
   // -----------------------------------------------------------------------------
   static const List<MainNavModel> mainNavModels = <MainNavModel>[
     MainNavModel.signIn,

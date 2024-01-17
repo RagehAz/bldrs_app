@@ -13,7 +13,7 @@ import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/components/super_box/super_box.dart';
 import 'package:basics/components/super_image/super_image.dart';
 import 'package:basics/components/texting/super_text/super_text.dart';
-import 'package:bldrs/b_screens/a_home/pages/e_app_settings_page/x_app_settings_controllers.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/e_app_settings_page/x_app_settings_controllers.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';

@@ -9,19 +9,10 @@ import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/tabbing/bldrs_tabs.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-// -----------------------------------------------------------------------------
 
-/// OBELISK
-
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> initializeObeliskNumbers() async {
-  await NotesProvider.proInitializeObeliskBadges(
-    notify: false,
-  );
-}
 // -----------------------------------------------------------------------------
 
 /// USER NOTES
@@ -58,9 +49,10 @@ StreamSubscription? listenToUserUnseenNotes({
           fromJSON: false,
         );
 
-        await NotesProvider.proSetUserObeliskBadge(
-          unseenNotes: _unseenNotes,
-          notify: true,
+        await NotesProvider.proSetBadge(
+            bid: BldrsTabber.bidProfileNotifications,
+            value: _unseenNotes.length,
+            notify: true
         );
 
         concludeAndActivatePyramidsFlashing(
@@ -130,43 +122,48 @@ StreamSubscription? _listenToMyBzUnseenNotes({
   required ValueNotifier<List<Map<String, dynamic>>> oldMaps,
   required bool mounted,
 }){
+  StreamSubscription? _streamSubscription;
 
-  final Stream<List<Map<String, dynamic>>>? _bzUnseenNotesStream  = bzUnseenNotesStream(
-    bzID: bzID,
-  );
+  if (bzID != null){
 
-  final StreamSubscription? _streamSubscription = FireCollStreamer.initializeStreamListener(
-    stream: _bzUnseenNotesStream,
-    oldMaps: oldMaps,
-    mounted: mounted,
-    onChanged: (List<Map<String, dynamic>> oldMaps, List<Map<String, dynamic>> newMaps) async {
-
-      final List<NoteModel> _unseenNotes = NoteModel.decipherNotes(
-        maps: newMaps,
-        fromJSON: false,
+      final Stream<List<Map<String, dynamic>>>? _bzUnseenNotesStream  = bzUnseenNotesStream(
+        bzID: bzID,
       );
 
-      await NotesProvider.proSetBzObeliskBadge(
-          bzID: bzID,
-          unseenNotes: _unseenNotes,
-          notify: true
+      _streamSubscription = FireCollStreamer.initializeStreamListener(
+        stream: _bzUnseenNotesStream,
+        oldMaps: oldMaps,
+        mounted: mounted,
+        onChanged: (List<Map<String, dynamic>> oldMaps, List<Map<String, dynamic>> newMaps) async {
+
+          final List<NoteModel> _unseenNotes = NoteModel.decipherNotes(
+            maps: newMaps,
+            fromJSON: false,
+          );
+
+          await NotesProvider.proSetBadge(
+              bid: BldrsTabber.generateBzBid(bzID: bzID, bid: BldrsTabber.bidMyBzNotes),
+              value: _unseenNotes.length,
+              notify: true
+          );
+
+          concludeAndActivatePyramidsFlashing(
+            unseenNotes: _unseenNotes,
+          );
+
+          await NoteFunProtocols.fireTriggers(
+            notes: _unseenNotes,
+          );
+
+          // await _bzCheckLocalFlyerUpdatesNotesAndProceed(
+          //   context: context,
+          //   newBzNotes: _unseenNotes,
+          // );
+
+        },
       );
 
-      concludeAndActivatePyramidsFlashing(
-        unseenNotes: _unseenNotes,
-      );
-
-      await NoteFunProtocols.fireTriggers(
-        notes: _unseenNotes,
-      );
-
-      // await _bzCheckLocalFlyerUpdatesNotesAndProceed(
-      //   context: context,
-      //   newBzNotes: _unseenNotes,
-      // );
-
-    },
-  );
+  }
 
   return _streamSubscription;
 }

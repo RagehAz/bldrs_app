@@ -1,6 +1,9 @@
 import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/components/drawing/spacing.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
@@ -105,10 +108,17 @@ class PasswordBubbles extends StatelessWidget {
           isFloatingField: isTheSuperKeyboardField,
           columnChildren: <Widget>[
 
+            const Spacing(size: 5),
+
             if (showPasswordOnly == true)
             Container(
-              width: Bubble.clearWidth(context: context) - 35,
+              width: Bubble.clearWidth(context: context),
               alignment: BldrsAligners.superInverseCenterAlignment(context),
+              padding: Scale.superInsets(
+                context: context,
+                appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                enRight: 35 + 5,
+              ),
               child: BldrsBox(
                 height: 30,
                 verse: const Verse(

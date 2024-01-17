@@ -2,7 +2,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/b_views/d_user/a_user_profile_screen/a_profile_page/x1_user_profile_page_controllers.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/a_my_profile_page/x1_user_profile_page_controllers.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/buttons/bz_buttons/contact_button.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';

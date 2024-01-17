@@ -28,12 +28,12 @@ class _UserTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const UserTab _tab = UserTab.profile; /// MOVE_USER_TABS_TO_BLDRS_TABS
-                    final bool _isSelected = selectedButton == BldrsTabs.bidProfileInfo;
+                    const String _bid = BldrsTabber.bidProfileInfo;
+                    final bool _isSelected = selectedButton == _bid;
 
                     return _MirageButton(
-                      verse: UserTabber.translateUserTab(_tab),
-                      icon: Iconz.normalUser,//UserTabber.getUserTabIcon(_tab),
+                      verse: BldrsTabber.translateBid(_bid),
+                      icon: BldrsTabber.getBidIcon(_bid),
                       redDotIsOn: false,
                       isSelected: _isSelected,
                       redDotVerse: null,
@@ -41,29 +41,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(BldrsTabs.bidProfileInfo),
-                    );
-                  }
-              ),
-
-              /// NOTIFICATIONS
-              Builder(
-                  builder: (context) {
-
-                    const UserTab _tab = UserTab.notifications;
-                    final bool _isSelected = selectedButton == BldrsTabs.bidProfileNotifications;
-
-                    return _MirageButton(
-                      verse: UserTabber.translateUserTab(_tab),
-                      icon: UserTabber.getUserTabIcon(_tab),
-                      redDotIsOn: false,
-                      isSelected: _isSelected,
-                      redDotVerse: null,
-                      redDotCount: null,
-                      canShow: true,
-                      bigIcon: false,
-                      iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(BldrsTabs.bidProfileNotifications),
+                      onTap: () => onTabChanged(_bid),
                     );
                   }
               ),
@@ -72,12 +50,12 @@ class _UserTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const UserTab _tab = UserTab.saves;
-                    final bool _isSelected = selectedButton == BldrsTabs.bidProfileSaves;
+                    const String _bid = BldrsTabber.bidProfileSaves;
+                    final bool _isSelected = selectedButton == _bid;
 
                     return _MirageButton(
-                      verse: UserTabber.translateUserTab(_tab),
-                      icon: UserTabber.getUserTabIcon(_tab),
+                      verse: BldrsTabber.translateBid(_bid),
+                      icon: BldrsTabber.getBidIcon(_bid),
                       redDotIsOn: false,
                       isSelected: _isSelected,
                       redDotVerse: null,
@@ -85,7 +63,29 @@ class _UserTabsMirageStrip extends StatelessWidget {
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(BldrsTabs.bidProfileSaves),
+                      onTap: () => onTabChanged(_bid),
+                    );
+                  }
+              ),
+
+              /// NOTIFICATIONS
+              Builder(
+                  builder: (context) {
+
+                    const String _bid = BldrsTabber.bidProfileNotifications;
+                    final bool _isSelected = selectedButton == _bid;
+
+                    return _MirageButton(
+                      verse: BldrsTabber.translateBid(_bid),
+                      icon: BldrsTabber.getBidIcon(_bid),
+                      redDotIsOn: false,
+                      isSelected: _isSelected,
+                      redDotVerse: null,
+                      redDotCount: null,
+                      canShow: true,
+                      bigIcon: false,
+                      iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
+                      onTap: () => onTabChanged(_bid),
                     );
                   }
               ),
@@ -94,12 +94,12 @@ class _UserTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const UserTab _tab = UserTab.following;
-                    final bool _isSelected = selectedButton == BldrsTabs.bidProfileFollowing;
+                    const String _bid = BldrsTabber.bidProfileFollowing;
+                    final bool _isSelected = selectedButton == _bid;
 
                     return _MirageButton(
-                      verse: UserTabber.translateUserTab(_tab),
-                      icon: UserTabber.getUserTabIcon(_tab),
+                      verse: BldrsTabber.translateBid(_bid),
+                      icon: BldrsTabber.getBidIcon(_bid),
                       redDotIsOn: false,
                       isSelected: _isSelected,
                       redDotVerse: null,
@@ -107,7 +107,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(BldrsTabs.bidProfileFollowing),
+                      onTap: () => onTabChanged(_bid),
                     );
                   }
               ),
@@ -116,12 +116,12 @@ class _UserTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const UserTab _tab = UserTab.settings;
-                    final bool _isSelected = selectedButton == BldrsTabs.bidProfileSettings;
+                    const String _bid = BldrsTabber.bidProfileSettings;
+                    final bool _isSelected = selectedButton == _bid;
 
                     return _MirageButton(
-                      verse: UserTabber.translateUserTab(_tab),
-                      icon: UserTabber.getUserTabIcon(_tab),
+                      verse: BldrsTabber.translateBid(_bid),
+                      icon: BldrsTabber.getBidIcon(_bid),
                       redDotIsOn: false,
                       isSelected: _isSelected,
                       redDotVerse: null,
@@ -129,7 +129,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(BldrsTabs.bidProfileSettings),
+                      onTap: () => onTabChanged(_bid),
                     );
                   }
               ),

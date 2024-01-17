@@ -1,29 +1,31 @@
 import 'dart:async';
 
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/b_views/b_auth/aa_auth_screen_view.dart';
 import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
-import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class AuthScreen extends StatefulWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const AuthScreen({
+    this.appBarType = AppBarType.basic,
     super.key
   });
-  /// --------------------------------------------------------------------------
+  // --------------------
+  final AppBarType appBarType;
+  // --------------------
   @override
   _AuthScreenState createState() => _AuthScreenState();
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 }
 
 class _AuthScreenState extends State<AuthScreen> {
@@ -227,11 +229,10 @@ class _AuthScreenState extends State<AuthScreen> {
     DynamicRouter.blogGo('AuthScreen');
     // --------------------
     return MainLayout(
-      canSwipeBack: true,
+      canSwipeBack: widget.appBarType != AppBarType.non,
+      canGoBack: widget.appBarType != AppBarType.non,
       scaffoldKey: _scaffoldKey,
-      pyramidsAreOn: true,
-      skyType: SkyType.grey,
-      appBarType: AppBarType.basic,
+      appBarType: widget.appBarType,
       onBack: () async {
 
         if (_isSigningIn == true){
