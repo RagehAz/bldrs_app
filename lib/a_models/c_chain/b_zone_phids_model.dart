@@ -40,13 +40,13 @@ class ZonePhidsModel {
   /// CYPHERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// AI TESTED
   Map<String, int> toMap(){
     final Map<String, int> _map = phidsMap ?? {};
     return _map;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// AI TESTED
   static ZonePhidsModel? decipherCityNodePhids({
     required Map<String, dynamic>? map,
     required String? cityID,
@@ -58,7 +58,7 @@ class ZonePhidsModel {
         zoneID: cityID,
         phidsMap: MapperSI.convertDynamicMap(
           originalMap: map,
-          transformDoubles: false,
+          transformDoubles: true,
         ),
       );
     }
@@ -66,7 +66,7 @@ class ZonePhidsModel {
     return _zonePhids;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// AI TESTED
   static ZonePhidsModel? decipherCountryNodeMap({
     required Map<String, dynamic>? map,
   }) {
@@ -215,7 +215,7 @@ class ZonePhidsModel {
     return _map;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// AI TESTED
   static Map<String, int> createPhidsMapFromFlyerPhids({
     required List<String>? phids,
   }){
@@ -250,7 +250,7 @@ class ZonePhidsModel {
     return _map;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// AI TESTED
   static ZonePhidsModel? createZonePhidModelFromFlyer({
     required FlyerModel? flyerModel,
   }){
@@ -326,14 +326,14 @@ class ZonePhidsModel {
   /// GETTERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// AI TESTED
   static List<String> getPhidsFromZonePhidsModel({
     required ZonePhidsModel? zonePhidsModel,
   }){
     List<String> _output = <String>[];
 
     if (zonePhidsModel != null){
-      final ZonePhidsModel? _cleanedZonePhids = _cleanZeroValuesPhids(zonePhidsModel);
+      final ZonePhidsModel? _cleanedZonePhids = cleanZeroValuesPhids(zonePhidsModel);
       _output = _cleanedZonePhids?.phidsMap?.keys.toList() ?? [];
       _output.removeWhere((element) => element == 'id');
     }
@@ -345,8 +345,8 @@ class ZonePhidsModel {
   /// MODIFIERS
 
   // --------------------
-  /// TASK : TEST ME
-  static ZonePhidsModel? _cleanZeroValuesPhids(ZonePhidsModel? zonePhids){
+  /// AI TESTED
+  static ZonePhidsModel? cleanZeroValuesPhids(ZonePhidsModel? zonePhids){
 
     ZonePhidsModel? _output = zonePhids;
 
@@ -378,7 +378,7 @@ class ZonePhidsModel {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// AI TESTED
   static ZonePhidsModel? combineModels({
     required String? zoneID,
     required ZonePhidsModel? base,
@@ -398,7 +398,7 @@ class ZonePhidsModel {
 
     }
 
-    return _cleanZeroValuesPhids(_output);
+    return cleanZeroValuesPhids(_output);
   }
   // -----------------------------------------------------------------------------
 
@@ -495,7 +495,7 @@ class ZonePhidsModel {
   /// CHECKERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool checkZonePhidsAreIdentical({
     required ZonePhidsModel? model1,
     required ZonePhidsModel? model2,
