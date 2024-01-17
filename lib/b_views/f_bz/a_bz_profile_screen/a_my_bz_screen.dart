@@ -1,19 +1,12 @@
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/zz_archives/nav_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aa_my_bz_screen_pages.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x0_my_bz_screen_controllers.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/router/x_go_back_widget.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/zz_archives/obelisk_layout/structure/obelisk_layout.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -116,103 +109,105 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
 
         else {
 
-          final BzModel? bzModel = HomeProvider.proGetActiveBzModel(
-            context: getMainContext(),
-            listen: true,
-          );
+          // final BzModel? bzModel = HomeProvider.proGetActiveBzModel(
+          //   context: getMainContext(),
+          //   listen: true,
+          // );
 
-          final List<Widget> _pages = MyBzScreenPages.pages(
-            scrollController: _scrollController,
-            zGridController: _zGridController,
-            activePhid: _activePhid,
-            mounted: mounted,
-            bzModel: bzModel,
-          );
+          // final List<Widget> _pages = MyBzScreenPages.pages(
+          //   scrollController: _scrollController,
+          //   zGridController: _zGridController,
+          //   activePhid: _activePhid,
+          //   mounted: mounted,
+          //   bzModel: bzModel,
+          // );
 
-          return ObeliskLayout(
-            canSwipeBack: true,
-            zGridController: _zGridController,
-            canGoBack: true,
-            appBarIcon: _bzModel?.logoPath,
-            onBack: () async {
+          return Container();
 
-              final bool _flyerIsOpen = ! UiProvider.proGetLayoutIsVisible(
-                context: context,
-                listen: false,
-              );
-
-              final bool _pyramidsExpanded = UiProvider.proGetPyramidsAreExpanded(
-                context: context,
-                listen: false,
-              );
-
-              /// CLOSE FLYER
-              if (_flyerIsOpen == true || _pyramidsExpanded == true) {
-
-                  UiProvider.proSetPyramidsAreExpanded(
-                    notify: true,
-                    setTo: false,
-                  );
-
-                  await zoomOutFlyer(
-                    context: context,
-                    mounted: true,
-                    controller: _zGridController,
-                  );
-
-              }
-
-              else {
-
-                HomeProvider.proClearActiveBz(notify: false);
-
-                await Nav.goBack(
-                  context: context,
-                  invoker: 'ObeliskLayout.onBack',
-                );
-              }
-
-            },
-            initialIndex: BzTabber.getBzTabIndex(widget.initialTab),
-            // appBarRowWidgets: <Widget>[
-            //
-            //   const Expander(),
-            //
-            //   BzCreditsCounter(
-            //     width: Ratioz.appBarButtonSize * 1.4,
-            //     slidesCredit: counterCaliber(context, 1234),
-            //     ankhsCredit: counterCaliber(context, 123),
-            //
-            //   ),
-            //
-            //   BzLogo(
-            //     width: 40,
-            //     image: _bzModel.logoPath,
-            //     isVerified: _bzModel.isVerified,
-            //     margins: const EdgeInsets.symmetric(horizontal: 5),
-            //     corners: BldrsAppBar.clearCorners,
-            //   ),
-            //
-            // ],
-
-            navModels: <NavModel>[
-              ...List.generate(BzTabber.bzTabsList.length, (index) {
-                final BzTab _bzTab = BzTabber.bzTabsList[index];
-
-                return NavModel(
-                  id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel?.id),
-                  titleVerse: Verse(
-                    id: BzTabber.getBzTabPhid(bzTab: _bzTab),
-                    translate: true,
-                  ),
-                  icon: _bzTab == BzTab.about ? _bzModel?.logoPath : BzTabber.getBzTabIcon(_bzTab),
-                  iconSizeFactor: _bzTab == BzTab.about ? 1 : null,
-                  screen: _pages[index],
-                );
-
-              }),
-            ],
-          );
+          // return ObeliskLayout(
+          //   canSwipeBack: true,
+          //   zGridController: _zGridController,
+          //   canGoBack: true,
+          //   appBarIcon: _bzModel?.logoPath,
+          //   onBack: () async {
+          //
+          //     final bool _flyerIsOpen = ! UiProvider.proGetLayoutIsVisible(
+          //       context: context,
+          //       listen: false,
+          //     );
+          //
+          //     final bool _pyramidsExpanded = UiProvider.proGetPyramidsAreExpanded(
+          //       context: context,
+          //       listen: false,
+          //     );
+          //
+          //     /// CLOSE FLYER
+          //     if (_flyerIsOpen == true || _pyramidsExpanded == true) {
+          //
+          //         UiProvider.proSetPyramidsAreExpanded(
+          //           notify: true,
+          //           setTo: false,
+          //         );
+          //
+          //         await zoomOutFlyer(
+          //           context: context,
+          //           mounted: true,
+          //           controller: _zGridController,
+          //         );
+          //
+          //     }
+          //
+          //     else {
+          //
+          //       HomeProvider.proClearActiveBz(notify: false);
+          //
+          //       await Nav.goBack(
+          //         context: context,
+          //         invoker: 'ObeliskLayout.onBack',
+          //       );
+          //     }
+          //
+          //   },
+          //   initialIndex: BzTabber.getBzTabIndex(widget.initialTab),
+          //   // appBarRowWidgets: <Widget>[
+          //   //
+          //   //   const Expander(),
+          //   //
+          //   //   BzCreditsCounter(
+          //   //     width: Ratioz.appBarButtonSize * 1.4,
+          //   //     slidesCredit: counterCaliber(context, 1234),
+          //   //     ankhsCredit: counterCaliber(context, 123),
+          //   //
+          //   //   ),
+          //   //
+          //   //   BzLogo(
+          //   //     width: 40,
+          //   //     image: _bzModel.logoPath,
+          //   //     isVerified: _bzModel.isVerified,
+          //   //     margins: const EdgeInsets.symmetric(horizontal: 5),
+          //   //     corners: BldrsAppBar.clearCorners,
+          //   //   ),
+          //   //
+          //   // ],
+          //
+          //   navModels: <NavModel>[
+          //     ...List.generate(BzTabber.bzTabsList.length, (index) {
+          //       final BzTab _bzTab = BzTabber.bzTabsList[index];
+          //
+          //       return NavModel(
+          //         id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel?.id),
+          //         titleVerse: Verse(
+          //           id: BzTabber.getBzTabPhid(bzTab: _bzTab),
+          //           translate: true,
+          //         ),
+          //         icon: _bzTab == BzTab.about ? _bzModel?.logoPath : BzTabber.getBzTabIcon(_bzTab),
+          //         iconSizeFactor: _bzTab == BzTab.about ? 1 : null,
+          //         screen: _pages[index],
+          //       );
+          //
+          //     }),
+          //   ],
+          // );
 
         }
       },
