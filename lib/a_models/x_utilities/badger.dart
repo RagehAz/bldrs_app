@@ -1,8 +1,10 @@
+import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/f_helpers/tabbing/bldrs_tabs.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
+@immutable
 class Badger {
   // -----------------------------------------------------------------------------
   /// THIS HOLDS NUMBERS AND TEXTS AS BADGES TO BUTTONS OF NAV BAR
@@ -28,7 +30,7 @@ class Badger {
   /// CLONING
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// AI TESTED
   Badger copyWith({
     Map<String, dynamic>? map,
   }){
@@ -41,6 +43,7 @@ class Badger {
   /// GETTER
 
   // --------------------
+  /// AI TESTED
   dynamic getBadge(String key){
     return map[key];
   }
@@ -49,7 +52,7 @@ class Badger {
   /// INSERT
 
   // --------------------
-  ///
+  /// AI TESTED
   static Badger insertBadge({
     required Badger badger,
     required String? key,
@@ -67,9 +70,9 @@ class Badger {
         );
       }
 
-      else {
+      else if (value is String){
         _output = _insertStringToBadge(
-          value: value.toString(),
+          value: value,
           key: key,
           badger: _output,
         );
@@ -80,7 +83,7 @@ class Badger {
     return _output;
   }
   // --------------------
-  ///
+  /// AI TESTED
   static Badger _insertStringToBadge({
     required Badger badger,
     required String? key,
@@ -108,7 +111,7 @@ class Badger {
     return _output;
   }
   // --------------------
-  ///
+  /// AI TESTED
   static Badger _insertNumToBadge({
     required Badger badger,
     required String? key,
@@ -119,7 +122,7 @@ class Badger {
     if (key != null && value != null && value is num){
 
       Map<String, dynamic> _map = _output.map;
-      final num _oldValue = _map[key] ?? 0;
+      final num _oldValue = (_map[key] is num ? _map[key] : 0) ?? 0;
       final num _newValue = _oldValue + value;
 
       if (_newValue > 0){
@@ -153,7 +156,7 @@ class Badger {
   /// REMOVE
 
   // --------------------
-  ///
+  /// AI TESTED
   static Badger removeBadge({
     required Badger badger,
     required String? key,
@@ -191,7 +194,7 @@ class Badger {
     return _output;
   }
   // --------------------
-  ///
+  /// AI TESTED
   static Badger _deleteBadge({
     required Badger badger,
     required String? key,
@@ -216,7 +219,7 @@ class Badger {
     return _output;
   }
   // --------------------
-  ///
+  /// AI TESTED
   static Badger _decrementBadge({
     required Badger badger,
     required String? key,
@@ -229,27 +232,42 @@ class Badger {
       Map<String, dynamic> _map = _output.map;
       final dynamic _oldValue = _map[key] ?? 0;
 
-      if (value == null || value !is num || _oldValue !is num || _oldValue == 0){
-        _output = _deleteBadge(
-          key: key,
-          badger: _output,
-        );
-      }
+        // blog('value == null : ${value == null}');
+        // blog('value is int : ${value is int}');
+        // blog('value is int : ${value is double}');
+        // blog('_oldValue is int : ${_oldValue is int}');
+        // blog('_oldValue is double : ${_oldValue is double}');
+        // blog('_oldValue == 0 : ${_oldValue == 0}');
 
-      else {
-        final num _oldNum = _oldValue;
-        final num _newValue = _oldNum - value;
+        if (
+            value != null &&
+            (value is int || value is double) &&
+            (_oldValue is int || _oldValue is double) &&
+            _oldValue != 0
+        ){
 
-        if (_newValue > 0){
-          _map = Mapper.insertPairInMap(
-            map: _map,
-            key: key,
-            value: _newValue,
-            overrideExisting: true,
-          );
-          _output = _output.copyWith(
-            map: _map,
-          );
+          final num _oldNum = _oldValue;
+          final num _newValue = _oldNum - value;
+
+          if (_newValue > 0){
+            _map = Mapper.insertPairInMap(
+              map: _map,
+              key: key,
+              value: _newValue,
+              overrideExisting: true,
+            );
+            _output = _output.copyWith(
+              map: _map,
+            );
+          }
+
+          else {
+            _output = _deleteBadge(
+              key: key,
+              badger: _output,
+            );
+          }
+
         }
 
         else {
@@ -258,8 +276,6 @@ class Badger {
             badger: _output,
           );
         }
-
-      }
 
     }
 
@@ -270,7 +286,7 @@ class Badger {
   /// CALCULATE
 
   // --------------------
-  ///
+  /// AI TESTED
   static int calculateGrandTotal({
     required Badger badger,
     required bool onlyNumbers,
@@ -284,7 +300,7 @@ class Badger {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static int calculateAllMyBzz({
     required Badger badger,
     required BuildContext context,
@@ -305,7 +321,7 @@ class Badger {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static int calculateBzTotal({
     required String bzID,
     required Badger badger,
@@ -319,7 +335,7 @@ class Badger {
     return _calculateThose(bids: _bzBids, badger: badger, onlyNumbers: onlyNumbers);
   }
   // --------------------
-  ///
+  /// AI TESTED
   static int _calculateThose({
     required List<String> bids,
     required Badger badger,
@@ -327,14 +343,15 @@ class Badger {
   }){
     int _output = 0;
 
-    if (onlyNumbers == true){
+    if (Lister.checkCanLoop(bids) == true){
 
       for (final String key in bids){
 
         final dynamic _value = badger.map[key];
 
-        if (_value is num){
-          _output = _output + _value.toInt();
+        if (_value is int || _value is double){
+          final int _addThis = _value.toInt();
+          _output = _output + _addThis;
         }
 
         else if (onlyNumbers == false){
@@ -352,7 +369,7 @@ class Badger {
   /// WIPE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Badger wipeAllRelatedToBzID({
     required String bzID,
     required Badger badger,
@@ -380,7 +397,7 @@ class Badger {
   /// GETTERS
 
   // --------------------
-  ///
+  /// AI TESTED
   static int? getBadgeCount({
     required String bid,
     required Badger badger,
@@ -396,7 +413,7 @@ class Badger {
     return _output;
   }
   // --------------------
-  ///
+  /// AI TESTED
   static Verse? getBadgeVerse({
     required String bid,
     required Badger badger,
@@ -415,7 +432,7 @@ class Badger {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkBadgeRedDotIsOn({
     required String bid,
     required Badger badger,
@@ -431,5 +448,57 @@ class Badger {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
+  // --------------------
+  /// AI TESTED
+  static bool checkBadgersAreIdentical({
+    required Badger? badger1,
+    required Badger? badger2,
+  }){
+    return Mapper.checkMapsAreIdentical(map1: badger1?.map, map2: badger2?.map);
+  }
+  // -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+  // --------------------
+  @override
+  String toString(){
+
+    final String _blog =
+    '''
+    Badger(
+      map: $map,
+    );
+    ''';
+
+    return _blog;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is Badger){
+      _areIdentical = checkBadgersAreIdentical(
+        badger1: this,
+        badger2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+  // --------------------
+  @override
+  int get hashCode =>
+      map.hashCode;
   // -----------------------------------------------------------------------------
 }
