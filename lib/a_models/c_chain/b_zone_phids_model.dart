@@ -7,7 +7,7 @@ import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/a_models/x_utilities/map_model.dart';
+import 'package:bldrs/zz_archives/map_model.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
