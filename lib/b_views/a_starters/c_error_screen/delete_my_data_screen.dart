@@ -8,7 +8,7 @@ import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/components/drawing/dot_separator.dart';
 import 'package:basics/components/drawing/separator_line.dart';
 import 'package:basics/layouts/views/floating_list.dart';
-import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/user_settings_page_controllers.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/e_my_settings_page/user_settings_page_controllers.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';

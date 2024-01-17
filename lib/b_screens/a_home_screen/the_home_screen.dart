@@ -1,5 +1,5 @@
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:bldrs/b_screens/a_home/pages/a_flyers_wall_page/components/home_layout.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/a_flyers_wall_page/components/home_layout.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/aa_static_logo_screen_view.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/bldrs_engine.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';

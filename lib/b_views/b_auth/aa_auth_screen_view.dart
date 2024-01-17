@@ -1,11 +1,14 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/components/drawing/spacing.dart';
+import 'package:basics/components/drawing/super_positioned.dart';
 import 'package:basics/helpers/checks/device_checker.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/components/drawing/dot_separator.dart';
 import 'package:basics/components/drawing/separator_line.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/legalizer/legalizer.dart';
 import 'package:basics/components/super_box/super_box.dart';
@@ -13,7 +16,7 @@ import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
-import 'package:bldrs/b_screens/a_home/pages/e_app_settings_page/x_app_settings_controllers.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/e_app_settings_page/x_app_settings_controllers.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/password_bubble/password_bubble.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
@@ -195,13 +198,15 @@ class AuthScreenView extends StatelessWidget {
                 enableSuggestions: Keyboard.suggestionsEnabled(),
                 columnChildren: <Widget>[
 
+                  const Spacing(),
+
                   if (Lister.checkCanLoop(myAccounts) == true)
                     FloatingList(
                       mainAxisAlignment:  MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       boxAlignment: BldrsAligners.superInverseCenterAlignment(context),
                       width: Bubble.clearWidth(context: context),
-                      height: 45,
+                      height: 35,
                       scrollDirection: Axis.horizontal,
                       columnChildren: <Widget>[
 
@@ -221,35 +226,52 @@ class AuthScreenView extends StatelessWidget {
 
                               final bool _isSelected = _userEmail == currentEmail.text;
 
-                              return Stack(
-                                children: <Widget>[
+                              return Container(
+                                width: 40,
+                                height: 35,
+                                margin: Scale.superInsets(
+                                  context: context,
+                                  appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                                  enLeft: 10,
+                                ),
+                                child: Stack(
+                                  children: <Widget>[
 
-                                  BldrsBox(
-                                    height: 35,
-                                    width: 35,
-                                    icon: _userModel?.picPath,
-                                    margins: 5,
-                                    greyscale: !_isSelected,
-                                    borderColor: _isSelected == true ? Colorz.white200 : null,
-                                    solidGreyScale: _userModel?.picPath == Iconz.anonymousUser,
-                                    onTap: () => onSelectAccount(index),
-                                  ),
-
-                                  BldrsBox(
-                                    width: 10,
-                                    height: 10,
-                                    icon: AuthModel.getSignInMethodIcon(
-                                      signInMethod: _account.signInMethod,
+                                    SuperPositioned(
+                                      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                                      enAlignment: Alignment.bottomRight,
+                                      child: BldrsBox(
+                                        height: 35,
+                                        width: 35,
+                                        icon: _userModel?.picPath,
+                                        greyscale: !_isSelected,
+                                        borderColor: _isSelected == true ? Colorz.white200 : null,
+                                        solidGreyScale: _userModel?.picPath == Iconz.anonymousUser,
+                                        onTap: () => onSelectAccount(index),
+                                      ),
                                     ),
-                                  ),
 
-                                ],
+                                    SuperPositioned(
+                                      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                                      enAlignment: Alignment.topLeft,
+                                      child: BldrsBox(
+                                        width: 12,
+                                        height: 12,
+                                        icon: AuthModel.getSignInMethodIcon(
+                                          signInMethod: _account.signInMethod,
+                                        ),
+                                      ),
+                                    ),
+
+                                  ],
+                                ),
                               );
 
                               },
                           );
 
                         }),
+
                       ],
                     ),
 

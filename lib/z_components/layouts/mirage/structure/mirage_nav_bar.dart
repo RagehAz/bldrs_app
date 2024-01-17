@@ -185,10 +185,10 @@ class _MirageNavBarState extends State<MirageNavBar> {
               mounted: mounted,
               keywordsMap: _keywordsMap,
             ),
-            onUserTabChanged: (String tab) => _MirageMyUserControls.onUserTabChanged(
+            onUserTabChanged: (String bid) => _MirageMyUserControls.onUserTabChanged(
               mounted: mounted,
               allMirages: _allMirages,
-              tab: tab,
+              bid: bid,
             ),
             onBzTap: (String bzID) => _MirageMyBzzControls.onBzTap(
               bzID: bzID,
@@ -218,7 +218,7 @@ class _MirageNavBarState extends State<MirageNavBar> {
             onZoneButtonTap: () async {
 
               _mirageX0.selectButton(
-                button: BldrsTabs.bidZone,
+                button: BldrsTabber.bidZone,
                 mounted: mounted,
               );
 
@@ -228,7 +228,7 @@ class _MirageNavBarState extends State<MirageNavBar> {
                   mounted: mounted
               );
 
-              await BldrsTabs.goToTab(tab: BldrsTab.zone);
+              await BldrsTabber.goToTab(tab: BldrsTab.zone);
 
               // final UserModel? _userModel = UsersProvider.proGetMyUserModel(
               //   context: context,
@@ -247,7 +247,7 @@ class _MirageNavBarState extends State<MirageNavBar> {
             onSignInButtonTap: () async {
 
               _mirageX0.selectButton(
-                button: BldrsTabs.bidSign,
+                button: BldrsTabber.bidSign,
                 mounted: mounted,
               );
 
@@ -257,7 +257,7 @@ class _MirageNavBarState extends State<MirageNavBar> {
                   mounted: mounted
               );
 
-              await BldrsTabs.goToTab(tab: BldrsTab.signIn);
+              await BldrsTabber.goToTab(tab: BldrsTab.signIn);
               // await Nav.goToRoute(context, RouteName.auth);
 
             },
@@ -274,7 +274,7 @@ class _MirageNavBarState extends State<MirageNavBar> {
               );
 
               _mirageX0.selectButton(
-                button: BldrsTabs.bidBzz,
+                button: BldrsTabber.bidBzz,
                 mounted: mounted,
               );
 
@@ -296,11 +296,11 @@ class _MirageNavBarState extends State<MirageNavBar> {
             onSettingsButtonTap: () async {
 
               _mirageX0.selectButton(
-                button: BldrsTabs.bidAppSettings,
+                button: BldrsTabber.bidAppSettings,
                 mounted: mounted,
               );
 
-              await BldrsTabs.goToTab(tab: BldrsTab.appSettings);
+              await BldrsTabber.goToTab(tab: BldrsTab.appSettings);
 
               await _MirageModel.hideMiragesAbove(
                   allMirages: _allMirages,

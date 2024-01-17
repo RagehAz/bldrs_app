@@ -2,7 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/components/drawing/separator_line.dart';
-import 'package:bldrs/a_models/x_ui/nav_model.dart';
+import 'package:bldrs/zz_archives/nav_model.dart';
 import 'package:bldrs/zz_archives/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';

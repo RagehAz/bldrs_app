@@ -39,7 +39,7 @@ class HomeProvider extends ChangeNotifier {
   }){
 
     _tabBarController = TabController(
-      length: BldrsTabs.allTabs.length,
+      length: BldrsTabber.allTabs.length,
       vsync: vsync,
     );
 
