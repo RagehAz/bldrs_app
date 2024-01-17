@@ -503,6 +503,7 @@ Future<void> onChangeBzScope({
 
   await Keyboard.closeKeyboard();
 
+  /// KEYWORDS_PICKER_SCREEN
   final List<String> _phids = await PhidsPickerScreen.goPickPhids(
     context: context,
     flyerType: flyerType,

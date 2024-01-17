@@ -7,7 +7,7 @@ import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/models/continent_model.dart';
 import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
-import 'package:bldrs/a_models/x_utilities/map_model.dart';
+import 'package:bldrs/zz_archives/map_model.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';

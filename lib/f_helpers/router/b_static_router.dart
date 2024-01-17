@@ -10,7 +10,6 @@ import 'package:bldrs/b_screens/a_home_screen/pages/e_app_settings_page/app_sett
 import 'package:bldrs/b_screens/d_user_preview_screen/user_preview_screen.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
-import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
 import 'package:bldrs/b_views/a_starters/c_error_screen/delete_my_data_screen.dart';
 import 'package:bldrs/b_views/a_starters/c_error_screen/no_page_found.dart';
 import 'package:bldrs/b_views/a_starters/c_error_screen/under_construction_screen.dart';
@@ -65,12 +64,12 @@ class StaticRouter {
       /// MAIN
 
       // --------------------
-      /// home
-      case RouteName.home:
-        return Nav.transitFade(
-            screen: const HomeScreen(),
-            settings: settings,
-        );
+      // /// home
+      // case RouteName.home:
+      //   return Nav.transitFade(
+      //       screen: const HomeScreen(),
+      //       settings: settings,
+      //   );
       // --------------------
       /// auth
       case RouteName.auth:
