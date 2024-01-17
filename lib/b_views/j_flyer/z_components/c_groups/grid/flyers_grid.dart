@@ -1,11 +1,13 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/heroic_flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/jumper_flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/loading_flyers_grid.dart';
-import 'package:basics/z_grid/z_grid.dart';
+import 'package:bldrs/z_components/texting/customs/no_result_found.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
 enum FlyerGridType {
@@ -109,8 +111,15 @@ class FlyersGrid extends StatelessWidget {
     final bool _isJumpingGrid = gridType == FlyerGridType.jumper;
     // -----------------------------------------------------------------------------
     /// NOTHING TO SHOW
-    if (flyers == null && flyersIDs == null && _isLoadingGrid == false){
-      return const SizedBox();
+    if (Lister.checkCanLoop(flyers) == false && Lister.checkCanLoop(flyersIDs) == false && _isLoadingGrid == false){
+      return const Center(
+        child: NoResultFound(
+          verse: Verse(
+            id: 'phid_no_flyers_to_show',
+            translate: true,
+          ),
+        ),
+      );
     }
 
     /// SHOW GRID

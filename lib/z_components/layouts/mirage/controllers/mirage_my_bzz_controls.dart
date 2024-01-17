@@ -26,7 +26,7 @@ class _MirageMyBzzControls {
     );
 
     /// ALREADY SELECTED
-    if (_mirageX0.selectedButton.value == BldrsTabs.bidBzz){
+    if (_mirageX0.selectedButton.value == BldrsTabber.bidBzz){
       // _mirageX0.clearButton(mounted: mounted);
     }
 
@@ -36,7 +36,7 @@ class _MirageMyBzzControls {
       await _mirageX1.reShow(
         mounted: mounted,
         onBetweenReShow: () => _mirageX0.selectButton(
-          button: BldrsTabs.bidBzz,
+          button: BldrsTabber.bidBzz,
           mounted: mounted,
         ),
       );

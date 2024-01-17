@@ -4,7 +4,7 @@ import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
-import 'package:bldrs/a_models/x_ui/nav_model.dart';
+import 'package:bldrs/zz_archives/nav_model.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/aa_static_logo_screen_view.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/aa_home_screen_view.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';

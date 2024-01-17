@@ -5,7 +5,7 @@ import 'package:basics/helpers/strings/searching.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_banner.dart';
+import 'package:bldrs/z_components/bubbles/b_variants/user_bubbles/aa_user_banner.dart';
 import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_search.dart';
 import 'package:flutter/material.dart';

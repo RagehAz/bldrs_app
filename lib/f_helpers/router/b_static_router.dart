@@ -5,25 +5,23 @@ import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/legalizer/legalizer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
-import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/b_my_saves_page/saved_flyers_screen.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/e_app_settings_page/app_settings_page.dart';
+import 'package:bldrs/b_screens/d_user_preview_screen/user_preview_screen.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
 import 'package:bldrs/b_views/a_starters/c_error_screen/delete_my_data_screen.dart';
 import 'package:bldrs/b_views/a_starters/c_error_screen/no_page_found.dart';
 import 'package:bldrs/b_views/a_starters/c_error_screen/under_construction_screen.dart';
+import 'package:bldrs/b_views/a_starters/x_banner_screen/banner_screen.dart';
 import 'package:bldrs/b_views/b_auth/a_auth_screen.dart';
 import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
-import 'package:bldrs/b_views/d_user/a_user_profile_screen/user_profile_screen.dart';
-import 'package:bldrs/b_views/d_user/e_user_preview_screen/user_preview_screen.dart';
-import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
-import 'package:bldrs/b_screens/a_home/pages/e_app_settings_page/app_settings_page.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_preview_screen.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
-import 'package:bldrs/b_views/a_starters/x_banner_screen/banner_screen.dart';
 import 'package:flutter/material.dart';
 
 class StaticRouter {
@@ -99,41 +97,41 @@ class StaticRouter {
       /// PROFILE
 
       // --------------------
-      /// myUserProfile
-      case RouteName.myUserProfile:
-        return BldrsNav.transitSuperHorizontal(
-          settings: settings,
-          screen: const UserProfileScreen(
-            // userTab: UserTab.profile, // default
-          ),
-        );
+      // /// myUserProfile
+      // case RouteName.myUserProfile:
+      //   return BldrsNav.transitSuperHorizontal(
+      //     settings: settings,
+      //     screen: const UserProfileScreen(
+      //       // userTab: UserTab.profile, // default
+      //     ),
+      //   );
       // --------------------
-      /// myUserNotes
-      case RouteName.myUserNotes:
-        return BldrsNav.transitSuperHorizontal(
-          settings: settings,
-          screen: const UserProfileScreen(
-            userTab: UserTab.notifications,
-          ),
-        );
+      // /// myUserNotes
+      // case RouteName.myUserNotes:
+      //   return BldrsNav.transitSuperHorizontal(
+      //     settings: settings,
+      //     screen: const UserProfileScreen(
+      //       userTab: UserTab.notifications,
+      //     ),
+      //   );
       // --------------------
-      /// myUserFollowing
-      case RouteName.myUserFollowing:
-        return BldrsNav.transitSuperHorizontal(
-          settings: settings,
-          screen: const UserProfileScreen(
-            userTab: UserTab.following,
-          ),
-        );
+      // /// myUserFollowing
+      // case RouteName.myUserFollowing:
+      //   return BldrsNav.transitSuperHorizontal(
+      //     settings: settings,
+      //     screen: const UserProfileScreen(
+      //       userTab: UserTab.following,
+      //     ),
+      //   );
       // --------------------
-      /// myUserSettings
-      case RouteName.myUserSettings:
-        return BldrsNav.transitSuperHorizontal(
-          screen: const UserProfileScreen(
-            userTab: UserTab.settings,
-          ),
-          settings: settings,
-        );
+      // /// myUserSettings
+      // case RouteName.myUserSettings:
+      //   return BldrsNav.transitSuperHorizontal(
+      //     screen: const UserProfileScreen(
+      //       userTab: UserTab.settings,
+      //     ),
+      //     settings: settings,
+      //   );
       // --------------------
       /// savedFlyers
       case RouteName.savedFlyers:

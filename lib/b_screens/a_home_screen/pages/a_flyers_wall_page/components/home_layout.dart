@@ -50,7 +50,7 @@ class HomeLayout extends StatelessWidget {
                     return TabBarView(
                       physics: const NeverScrollableScrollPhysics(),
                       controller: tabController,
-                      children: BldrsTabs.getAllViewsWidgets(),
+                      children: BldrsTabber.getAllViewsWidgets(),
                     );
                   }
               ),

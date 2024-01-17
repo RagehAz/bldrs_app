@@ -1,12 +1,12 @@
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/legalizer/legalizer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
-import 'package:bldrs/b_screens/a_home/the_home_screen.dart';
+import 'package:bldrs/b_screens/a_home_screen/the_home_screen.dart';
 import 'package:bldrs/b_views/a_starters/c_error_screen/delete_my_data_screen.dart';
 import 'package:bldrs/b_views/a_starters/c_error_screen/under_construction_screen.dart';
 import 'package:bldrs/b_views/a_starters/x_banner_screen/banner_screen.dart';
 import 'package:bldrs/b_views/b_auth/a_auth_screen.dart';
-import 'package:bldrs/b_views/d_user/e_user_preview_screen/user_preview_screen.dart';
+import 'package:bldrs/b_screens/d_user_preview_screen/user_preview_screen.dart';
 import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_preview_screen.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
