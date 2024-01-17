@@ -1,19 +1,19 @@
 import 'dart:async';
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/b_views/d_user/a_user_profile_screen/b_notes_page/x2_user_notes_page_controllers.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/c_my_notifications_page/user_notes_page_controllers.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/d_bz_notes_page/bz_notes_page.dart';
-import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/z_components/notes/note_card.dart';
-import 'package:bldrs/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
+import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/z_components/notes/note_card.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -214,7 +214,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
                 physics: const BouncingScrollPhysics(),
                 controller: _paginationController?.scrollController,
                 itemCount: maps.length,
-                padding: Stratosphere.stratosphereSandwich,
+                padding: Ratioz.mirageInsets,
                 itemBuilder: (BuildContext ctx, int index) {
 
                   final NoteModel? _note = NoteModel.decipherNote(

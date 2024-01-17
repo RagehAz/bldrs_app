@@ -33,29 +33,29 @@ class _MirageMyUserControls {
         mounted: mounted
     );
 
-    /// ALREADY SELECTED
-    if (_mirageX0.selectedButton.value == BldrsTabs.bidProfile){
-      // _mirageX0.clearButton(mounted: mounted);
-    }
-
-    /// SHOULD SELECT
-    else {
+    // /// ALREADY SELECTED
+    // if (_mirageX0.selectedButton.value == BldrsTabs.bidProfile){
+    //   // _mirageX0.clearButton(mounted: mounted);
+    // }
+    //
+    // /// SHOULD SELECT
+    // else {
 
       _mirageX1.selectButton(
-        button: BldrsTabs.bidProfileInfo,
+        button: BldrsTabber.bidProfileInfo,
         mounted: mounted,
       );
 
-      await BldrsTabs.goToTab(tab: BldrsTab.myProfile);
+      await BldrsTabber.goToTab(tab: BldrsTab.myProfile);
 
       await _mirageX1.reShow(
         mounted: mounted,
         onBetweenReShow: () => _mirageX0.selectButton(
-          button: BldrsTabs.bidProfile,
+          button: BldrsTabber.bidProfile,
           mounted: mounted,
         ),
       );
-    }
+    // }
 
   }
   // -----------------------------------------------------------------------------
@@ -67,14 +67,18 @@ class _MirageMyUserControls {
   static Future<void> onUserTabChanged({
     required bool mounted,
     required List<_MirageModel> allMirages,
-    required String tab,
+    required String bid,
   }) async {
 
     final _MirageModel _mirage1 = allMirages[1];
 
     _mirage1.selectButton(
-      button: tab,
+      button: bid,
       mounted: mounted,
+    );
+
+    await BldrsTabber.goToTab(
+        tab: BldrsTabber.getTabByBid(bid),
     );
 
   }

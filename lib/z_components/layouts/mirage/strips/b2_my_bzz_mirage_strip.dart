@@ -28,9 +28,9 @@ class _MyBzzMirageStrip extends StatelessWidget {
       width: mirageX1.getWidth(),
       height: mirageX1.getClearHeight(),
       alignment: Alignment.topCenter,
-      child: Selector<NotesProvider, List<MapModel>>(
-          selector: (_, NotesProvider notesProvider) => notesProvider.obeliskBadges,
-          builder: (_, List<MapModel>? badges, Widget? child){
+      child: Selector<NotesProvider, Badger>(
+          selector: (_, NotesProvider notesProvider) => notesProvider.badger,
+          builder: (_, Badger badger, Widget? child){
 
             return ValueListenableBuilder(
                 valueListenable: mirageX1.selectedButton,
@@ -48,14 +48,12 @@ class _MyBzzMirageStrip extends StatelessWidget {
                         ...List.generate(_myBzzIDs.length, (index){
 
                           final String _bzID = _myBzzIDs[index];
-                          final MapModel? _badge = MapModel.getModelByKey(
-                            models: badges,
-                            key: NavModel.getMainNavIDString(
-                              navID: MainNavModel.bz,
-                              bzID: _bzID,
-                            ),
+
+                          final int _count = Badger.calculateBzTotal(
+                            bzID: _bzID,
+                            badger: badger,
+                            onlyNumbers: true,
                           );
-                          final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
 
                           return BzBuilder(
                               bzID: _bzID,
@@ -70,9 +68,9 @@ class _MyBzzMirageStrip extends StatelessWidget {
                                   bigIcon: true,
                                   iconColor: null,
                                   canShow: true,
-                                  redDotCount: ObeliskIcon.getCount(badge: _badge),
-                                  redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
-                                  redDotVerse: _redDotVerse,
+                                  redDotCount: _count,
+                                  redDotIsOn: _count > 0,
+                                  redDotVerse: null,
                                   onTap: bzModel == null ? (){} : () => onBzTap(_bzID),
                                   loading: loading,
                                 );

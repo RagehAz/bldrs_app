@@ -29,7 +29,7 @@ class _BzTabsMirageStrip extends StatelessWidget {
                   builder: (context) {
 
                     const BzTab _tab = BzTab.about;
-                    final bool _isSelected = selectedButton == BldrsTabs.bidMyBzAbout;
+                    final bool _isSelected = selectedButton == BldrsTabber.bidMyBzAbout;
 
                     return _MirageButton(
                       verse: BzTabber.translateBzTab(_tab),
@@ -41,7 +41,7 @@ class _BzTabsMirageStrip extends StatelessWidget {
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(BldrsTabs.bidMyBzAbout),
+                      onTap: () => onTabChanged(BldrsTabber.bidMyBzAbout),
                     );
                   }
               ),
@@ -51,7 +51,7 @@ class _BzTabsMirageStrip extends StatelessWidget {
                   builder: (context) {
 
                     const BzTab _tab = BzTab.flyers;
-                    final bool _isSelected = selectedButton == BldrsTabs.bidMyBzFlyers;
+                    final bool _isSelected = selectedButton == BldrsTabber.bidMyBzFlyers;
 
                     return _MirageButton(
                       verse: BzTabber.translateBzTab(_tab),
@@ -63,7 +63,7 @@ class _BzTabsMirageStrip extends StatelessWidget {
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(BldrsTabs.bidMyBzFlyers),
+                      onTap: () => onTabChanged(BldrsTabber.bidMyBzFlyers),
                     );
                   }
               ),
@@ -73,7 +73,7 @@ class _BzTabsMirageStrip extends StatelessWidget {
                   builder: (context) {
 
                     const BzTab _tab = BzTab.team;
-                    final bool _isSelected = selectedButton == BldrsTabs.bidMyBzTeam;
+                    final bool _isSelected = selectedButton == BldrsTabber.bidMyBzTeam;
 
                     return _MirageButton(
                       verse: BzTabber.translateBzTab(_tab),
@@ -85,7 +85,7 @@ class _BzTabsMirageStrip extends StatelessWidget {
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(BldrsTabs.bidMyBzTeam),
+                      onTap: () => onTabChanged(BldrsTabber.bidMyBzTeam),
                     );
                   }
               ),
@@ -95,7 +95,7 @@ class _BzTabsMirageStrip extends StatelessWidget {
                   builder: (context) {
 
                     const BzTab _tab = BzTab.notes;
-                    final bool _isSelected = selectedButton == BldrsTabs.bidMyBzNotes;
+                    final bool _isSelected = selectedButton == BldrsTabber.bidMyBzNotes;
 
                     return _MirageButton(
                       verse: BzTabber.translateBzTab(_tab),
@@ -107,7 +107,7 @@ class _BzTabsMirageStrip extends StatelessWidget {
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(BldrsTabs.bidMyBzNotes),
+                      onTap: () => onTabChanged(BldrsTabber.bidMyBzNotes),
                     );
                   }
               ),
@@ -117,7 +117,7 @@ class _BzTabsMirageStrip extends StatelessWidget {
                   builder: (context) {
 
                     const BzTab _tab = BzTab.settings;
-                    final bool _isSelected = selectedButton == BldrsTabs.bidMyBzSettings;
+                    final bool _isSelected = selectedButton == BldrsTabber.bidMyBzSettings;
 
                     return _MirageButton(
                       verse: BzTabber.translateBzTab(_tab),
@@ -129,7 +129,7 @@ class _BzTabsMirageStrip extends StatelessWidget {
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(BldrsTabs.bidMyBzSettings),
+                      onTap: () => onTabChanged(BldrsTabber.bidMyBzSettings),
                     );
                   }
               ),

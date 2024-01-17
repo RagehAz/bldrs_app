@@ -17,7 +17,7 @@ class _MirageKeywordsControls {
     required bool mounted,
   }) async {
 
-    await BldrsTabs.goToTab(tab: BldrsTab.home);
+    await BldrsTabber.goToTab(tab: BldrsTab.home);
 
     final _MirageModel _mirage1 = allMirages[0];
     final _MirageModel _mirage2 = allMirages[1];
@@ -29,7 +29,7 @@ class _MirageKeywordsControls {
     );
 
     /// ALREADY SELECTED
-    if (_mirage1.selectedButton.value == BldrsTabs.bidSections){
+    if (_mirage1.selectedButton.value == BldrsTabber.bidSections){
       // _mirage1.clearButton(mounted: mounted,);
     }
 
@@ -38,7 +38,7 @@ class _MirageKeywordsControls {
       await _mirage2.reShow(
         mounted: mounted,
         onBetweenReShow: () => _mirage1.selectButton(
-          button: BldrsTabs.bidSections,
+          button: BldrsTabber.bidSections,
           mounted: mounted,
         ),
       );

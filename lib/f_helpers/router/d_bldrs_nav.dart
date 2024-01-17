@@ -10,7 +10,6 @@ import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
-import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
@@ -223,21 +222,23 @@ class BldrsNav {
 
   // --------------------
   /// user : profile - notifications - following - settings
-  static Future<void> pushMyUserScreen({
-    UserTab userTab = UserTab.profile,
-  }) async {
+  static Future<void> pushMyUserScreen(
+  //     {
+  //   UserTab userTab = UserTab.profile,
+  // }
+  ) async {
 
-    String? _path;
-
-    switch (userTab){
-      case UserTab.profile:         _path = RouteName.myUserProfile; break;
-      case UserTab.notifications:   _path = RouteName.myUserNotes; break;
-      case UserTab.saves:           _path = RouteName.savedFlyers; break;
-      case UserTab.following:       _path = RouteName.myUserFollowing; break;
-      case UserTab.settings:        _path = RouteName.myUserSettings; break;
-    }
-
-    await Nav.goToRoute(getMainContext(), _path);
+    // String? _path;
+    //
+    // switch (userTab){
+    //   case UserTab.profile:         _path = RouteName.myUserProfile; break;
+    //   case UserTab.notifications:   _path = RouteName.myUserNotes; break;
+    //   case UserTab.saves:           _path = RouteName.savedFlyers; break;
+    //   case UserTab.following:       _path = RouteName.myUserFollowing; break;
+    //   case UserTab.settings:        _path = RouteName.myUserSettings; break;
+    // }
+    //
+    // await Nav.goToRoute(getMainContext(), _path);
 
     // await Nav.goToNewScreen(
     //   context: getMainContext(),

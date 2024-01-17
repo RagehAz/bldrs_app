@@ -1,8 +1,8 @@
 import 'dart:async';
+
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
-import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/a_models/x_ui/ui_image_cache_model.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -546,8 +546,6 @@ class UiProvider extends ChangeNotifier {
     _uiProvider.setCurrentFlyerTypeTab(flyerType: FlyerType.general, notify: false);
     /// _currentBzTab
     _uiProvider.setCurrentBzTab(bzTab: BzTab.flyers, notify: false);
-    /// _currentUserTab
-    _uiProvider.setCurrentUserTab(userTab: UserTab.profile, notify: false);
 
     _uiProvider._setLayoutIsVisible(setTo: true, notify: false);
     _uiProvider._setPyramidsAreExpanded(setTo: false, notify: notify);
@@ -592,22 +590,22 @@ class UiProvider extends ChangeNotifier {
 
   }
   // --------------------
-  UserTab _currentUserTab = UserTab.profile;
-  // --------------------
-  UserTab get currentUserTab => _currentUserTab;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void setCurrentUserTab({
-    required UserTab userTab,
-    required bool notify,
-  }){
-    _currentUserTab = userTab;
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
+  // UserTab _currentUserTab = UserTab.profile;
+  // // --------------------
+  // UserTab get currentUserTab => _currentUserTab;
+  // // --------------------
+  // /// TESTED : WORKS PERFECT
+  // void setCurrentUserTab({
+  //   required UserTab userTab,
+  //   required bool notify,
+  // }){
+  //   _currentUserTab = userTab;
+  //
+  //   if (notify == true){
+  //     notifyListeners();
+  //   }
+  //
+  // }
   // -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------

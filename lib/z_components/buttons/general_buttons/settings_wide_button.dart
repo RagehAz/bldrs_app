@@ -2,17 +2,14 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
-import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/main_button.dart';
 import 'package:bldrs/z_components/buttons/multi_button/a_multi_button.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -119,9 +116,11 @@ class SettingsToSettingsButtons extends StatelessWidget {
                 verseCentered: false,
                 onTap: () async {
 
-                  await BldrsNav.pushMyUserScreen(
-                    userTab: UserTab.settings,
-                  );
+                  /// go_to_settings_issue
+
+                  // await BldrsNav.pushMyUserScreen(
+                  //   userTab: UserTab.settings,
+                  // );
 
                 }
             ),
@@ -169,11 +168,14 @@ class SettingsToSettingsButtons extends StatelessWidget {
                     }
 
                     if (_bzModel != null) {
-                      await BldrsNav.goToMyBzScreen(
-                        bzID: _bzModel.id,
-                        initialTab: BzTab.settings,
-                        replaceCurrentScreen: false,
-                      );
+
+                      /// go_to_settings_issue
+
+                      // await BldrsNav.goToMyBzScreen(
+                      //   bzID: _bzModel.id,
+                      //   initialTab: BzTab.settings,
+                      //   replaceCurrentScreen: false,
+                      // );
                     }
 
                     },

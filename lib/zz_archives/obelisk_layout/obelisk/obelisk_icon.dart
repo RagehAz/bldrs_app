@@ -1,14 +1,13 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/components/drawing/separator_line.dart';
-import 'package:bldrs/a_models/x_ui/nav_model.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
-import 'package:bldrs/zz_archives/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/z_components/notes/x_components/red_dot_badge.dart';
 import 'package:bldrs/z_components/static_progress_bar/progress_bar_model.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
+import 'package:bldrs/zz_archives/nav_model.dart';
+import 'package:bldrs/zz_archives/obelisk_layout/obelisk/obelisk.dart';
 import 'package:flutter/material.dart';
 
 class ObeliskIcon extends StatelessWidget {
@@ -47,34 +46,34 @@ class ObeliskIcon extends StatelessWidget {
     return count != null && count > 0;
   }
   // --------------------
-  static Verse? getRedDotVerse({
-    required MapModel? badge,
-  }){
-    final Verse? verse = badge == null ? null
-        :
-    badge.value is String ? Verse.plain(badge.value)
-        :
-    null;
-
-    return verse;
-  }
+  // static Verse? getRedDotVerse({
+  //   required MapModel? badge,
+  // }){
+  //   final Verse? verse = badge == null ? null
+  //       :
+  //   badge.value is String ? Verse.plain(badge.value)
+  //       :
+  //   null;
+  //
+  //   return verse;
+  // }
   // --------------------
-  static bool checkHasDot({
-    required MapModel? badge,
-  }){
-    final bool _hasCount = checkHasCount(badge: badge);
-    final Verse? verse = getRedDotVerse(badge: badge);
-    final bool _hasVerse = verse != null;
-    return badge != null && (_hasCount || _hasVerse);
-  }
+  // static bool checkHasDot({
+  //   required MapModel? badge,
+  // }){
+  //   final bool _hasCount = checkHasCount(badge: badge);
+  //   final Verse? verse = getRedDotVerse(badge: badge);
+  //   final bool _hasVerse = verse != null;
+  //   return badge != null && (_hasCount || _hasVerse);
+  // }
   // --------------------
-  static bool checkRedDotIsOn({
-    required bool? forceRedDot,
-    required MapModel? badge,
-  }){
-    final bool _hasDot = checkHasDot(badge: badge);
-    return Mapper.boolIsTrue(forceRedDot) == true || _hasDot;
-  }
+  // static bool checkRedDotIsOn({
+  //   required bool? forceRedDot,
+  //   required MapModel? badge,
+  // }){
+  //   final bool _hasDot = checkHasDot(badge: badge);
+  //   return Mapper.boolIsTrue(forceRedDot) == true || _hasDot;
+  // }
   // --------------------
   static Color? getIconColor({
     required bool isSelected,
@@ -103,8 +102,8 @@ class ObeliskIcon extends StatelessWidget {
           if (Mapper.boolIsTrue(navModel?.canShow) == true){
             // ---->
             final int? count = getCount(badge: badge);
-            final Verse? verse = getRedDotVerse(badge: badge);
-            final bool _hasVerse = verse != null;
+            // final Verse? verse = getRedDotVerse(badge: badge);
+            // final bool _hasVerse = verse != null;
             // ---->
             return GestureDetector(
               onTap: () => onTap.call(),
@@ -114,12 +113,12 @@ class ObeliskIcon extends StatelessWidget {
                 color: Colorz.nothing,
                 alignment: Alignment.centerLeft,
                 child: RedDotBadge(
-                  redDotIsOn: checkRedDotIsOn(forceRedDot: navModel?.forceRedDot, badge: badge),
+                  redDotIsOn: false, //checkRedDotIsOn(forceRedDot: navModel?.forceRedDot, badge: badge),
                   count: count,
-                  verse: verse,
+                  // verse: null, //verse,
                   approxChildWidth: Obelisk.circleWidth,
                   shrinkChild: true,
-                  isNano: _hasVerse,
+                  // isNano: false, //_hasVerse,
                   child: BldrsBox(
                     width: Obelisk.circleWidth,
                     height: Obelisk.circleWidth,

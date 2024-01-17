@@ -1,21 +1,20 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/x_saves_screen_controllers.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/b_my_saves_page/saves_screen_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
-import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
-import 'package:basics/z_grid/z_grid.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,10 +22,12 @@ class SavedFlyersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SavedFlyersScreen({
     this.selectionMode = false,
+    this.appBarType = AppBarType.basic,
     super.key
   });
   /// --------------------
   final bool selectionMode;
+  final AppBarType appBarType;
   /// --------------------
   @override
   _SavedFlyersScreenState createState() => _SavedFlyersScreenState();
@@ -138,10 +139,9 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
     );
     // --------------------
     return MainLayout(
-      canSwipeBack: true,
-      appBarType: AppBarType.basic,
-      skyType: SkyType.grey,
-      pyramidsAreOn: true,
+      canSwipeBack: widget.appBarType != AppBarType.non,
+      canGoBack: widget.appBarType != AppBarType.non,
+      appBarType: widget.appBarType,
       title: const Verse(
         id: 'phid_savedFlyers',
         translate: true,
@@ -165,6 +165,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
         gridWidth: Scale.screenWidth(context),
         zGridController: _zGridController,
         bottomPadding: Ratioz.horizon,
+        topPadding: widget.appBarType == AppBarType.non ? Ratioz.appBarMargin : Ratioz.stratosphere,
         hasResponsiveSideMargin: true,
         // showAddFlyerButton: false,
         // scrollDirection: Axis.vertical,

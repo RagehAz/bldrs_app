@@ -37,9 +37,9 @@ class _MainMirageStrip extends StatelessWidget {
     );
     final bool _userIsSignedUp = Authing.userIsSignedUp(_userModel?.signInMethod);
     // --------------------
-    return Selector<NotesProvider, List<MapModel>>(
-        selector: (_, NotesProvider notesProvider) => notesProvider.obeliskBadges,
-        builder: (_, List<MapModel>? badges, Widget? child){
+    return Selector<NotesProvider, Badger>(
+        selector: (_, NotesProvider notesProvider) => notesProvider.badger,
+        builder: (_, Badger badger, Widget? child){
 
           return ValueListenableBuilder(
               valueListenable: mirage0.selectedButton,
@@ -52,7 +52,7 @@ class _MainMirageStrip extends StatelessWidget {
                     Builder(
                         builder: (_) {
 
-                          final bool _isSelected = selectedButton == BldrsTabs.bidSections;
+                          final bool _isSelected = selectedButton == BldrsTabber.bidSections;
 
                           return RedDotBadge(
                             height: _MirageButton.getHeight,
@@ -76,24 +76,18 @@ class _MainMirageStrip extends StatelessWidget {
                         selector: (_, ZoneProvider pro) => pro.currentZone,
                         builder: (BuildContext context, ZoneModel? currentZone, Widget? child){
 
-                          final String _countryFlag = currentZone?.icon ?? Iconz.planet;
-
-                          final MapModel? _badge = MapModel.getModelByKey(
-                            models: badges,
-                            key: NavModel.getMainNavIDString(navID: MainNavModel.zone),
-                          );
-                          final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
+                          const String _bid = BldrsTabber.bidZone;
 
                           return _MirageButton(
-                            isSelected: selectedButton == BldrsTabs.bidZone,
+                            isSelected: selectedButton == BldrsTabber.bidZone,
                             verse: ZoneModel.generateObeliskVerse(zone: currentZone),
-                            icon: _countryFlag,
+                            icon: currentZone?.icon ?? Iconz.planet,
                             bigIcon: true,
                             iconColor: Colorz.nothing,
                             canShow: true,
-                            redDotCount: ObeliskIcon.getCount(badge: _badge),
-                            redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
-                            redDotVerse: _redDotVerse,
+                            redDotCount: Badger.getBadgeCount(badger: badger, bid: _bid),
+                            redDotIsOn: Badger.checkBadgeRedDotIsOn(badger: badger, bid: _bid),
+                            redDotVerse: Badger.getBadgeVerse(badger: badger, bid: _bid),
                             onTap: onZoneButtonTap,
                           );
                         }
@@ -103,22 +97,18 @@ class _MainMirageStrip extends StatelessWidget {
                     Builder(
                         builder: (context) {
 
-                          final MapModel? _badge = MapModel.getModelByKey(
-                            models: badges,
-                            key: NavModel.getMainNavIDString(navID: MainNavModel.signIn),
-                          );
-                          final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
+                          const String _bid = BldrsTabber.bidSign;
 
                           return _MirageButton(
-                            isSelected: selectedButton == BldrsTabs.bidSign,
+                            isSelected: selectedButton == BldrsTabber.bidSign,
                             verse: const Verse(id: 'phid_sign', translate: true),
                             icon: Iconz.normalUser,
                             bigIcon: false,
                             iconColor: Colorz.white255,
                             canShow: !_userIsSignedUp,
-                            redDotCount: ObeliskIcon.getCount(badge: _badge),
-                            redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
-                            redDotVerse: _redDotVerse,
+                            redDotCount: Badger.getBadgeCount(badger: badger, bid: _bid),
+                            redDotIsOn: Badger.checkBadgeRedDotIsOn(badger: badger, bid: _bid),
+                            redDotVerse: Badger.getBadgeVerse(badger: badger, bid: _bid),
                             onTap: onSignInButtonTap,
                           );
                         }
@@ -128,16 +118,11 @@ class _MainMirageStrip extends StatelessWidget {
                     Builder(
                         builder: (_) {
 
-                          final MapModel? _badge = MapModel.getModelByKey(
-                            models: badges,
-                            key: NavModel.getMainNavIDString(navID: MainNavModel.profile),
-                          );
-                          final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
-
+                          const String _bid = BldrsTabber.bidSign;
                           final bool _forceRedDot = _userModel == null || Formers.checkUserHasMissingFields(userModel: _userModel);
 
                           return _MirageButton(
-                            isSelected: selectedButton == BldrsTabs.bidProfile,
+                            isSelected: selectedButton == BldrsTabber.bidProfile,
                             verse: _userModel?.name == null ?
                             const Verse(id: 'phid_complete_my_profile', translate: true)
                                 :
@@ -146,9 +131,9 @@ class _MainMirageStrip extends StatelessWidget {
                             bigIcon: _userModel?.picPath != null,
                             iconColor: Colorz.nothing,
                             canShow: _userIsSignedUp,
-                            redDotCount: ObeliskIcon.getCount(badge: _badge),
-                            redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: _forceRedDot, badge: _badge),
-                            redDotVerse: _redDotVerse,
+                            redDotCount: Badger.getBadgeCount(badger: badger, bid: _bid),
+                            redDotIsOn: Badger.checkBadgeRedDotIsOn(badger: badger, bid: _bid, forceRedDot: _forceRedDot),
+                            redDotVerse: Badger.getBadgeVerse(badger: badger, bid: _bid),
                             onTap: onUserProfileButtonTap,
                           );
                         }
@@ -160,18 +145,15 @@ class _MainMirageStrip extends StatelessWidget {
                           bzID: _userModel!.myBzzIDs!.first,
                           builder: (bool loading, BzModel? bzModel, Widget? child) {
 
-                            final MapModel? _badge = MapModel.getModelByKey(
-                              models: badges,
-                              key: NavModel.getMainNavIDString(
-                                navID: MainNavModel.bz,
-                                bzID: bzModel?.id,
-                              ),
+                            final int _count = Badger.calculateBzTotal(
+                              bzID: _userModel.myBzzIDs!.first,
+                              onlyNumbers: true,
+                              badger: badger,
                             );
-                            final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
 
                             return _MirageButton(
                               loading: loading,
-                              isSelected: selectedButton == BldrsTabs.bidBzz,
+                              isSelected: selectedButton == BldrsTabber.bidBzz,
                               verse: Verse(
                                 id: bzModel?.name,
                                 translate: false,
@@ -180,9 +162,9 @@ class _MainMirageStrip extends StatelessWidget {
                               bigIcon: true,
                               iconColor: null,
                               canShow: true,
-                              redDotCount: ObeliskIcon.getCount(badge: _badge),
-                              redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
-                              redDotVerse: _redDotVerse,
+                              redDotCount: _count,
+                              redDotIsOn: _count > 0,
+                              redDotVerse: null,
                               onTap: bzModel == null ? (){} : () => onMyBzTap(bzModel),
                             );
                           }
@@ -194,21 +176,21 @@ class _MainMirageStrip extends StatelessWidget {
                           bzzIDs: _userModel?.myBzzIDs,
                           builder: (bool loading, List<BzModel> bzzModels, Widget? child) {
 
-                            final MapModel? _badge = MapModel.getModelByKey(
-                              models: badges,
-                              key: '',//NavModel.getMainNavIDString(navID: ''),
+                            final int _count = Badger.calculateAllMyBzz(
+                                badger: badger,
+                                context: context,
+                                listen: true,
+                                onlyNumbers: true,
                             );
-                            final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
-                            final bool _isSelected = selectedButton == BldrsTabs.bidBzz;
 
                             return _BzzMirageButton(
                               verse: const Verse(id: 'phid_my_bzz', translate: true,),
                               bzzModels: bzzModels,
                               canShow: Lister.superLength(bzzModels.length) > 1,
-                              redDotCount: ObeliskIcon.getCount(badge: _badge),
-                              redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
-                              redDotVerse: _redDotVerse,
-                              isSelected: _isSelected,
+                              redDotCount: _count,
+                              redDotIsOn: _count > 0,
+                              redDotVerse: null,
+                              isSelected: selectedButton == BldrsTabber.bidBzz,
                               onTap: onMyBzzTap,
                               loading: loading,
                             );
@@ -219,22 +201,18 @@ class _MainMirageStrip extends StatelessWidget {
                     Builder(
                         builder: (context) {
 
-                          final MapModel? _badge = MapModel.getModelByKey(
-                            models: badges,
-                            key: NavModel.getMainNavIDString(navID: MainNavModel.settings),
-                          );
-                          final Verse? _redDotVerse = ObeliskIcon.getRedDotVerse(badge: _badge);
+                          const String _bid = BldrsTabber.bidAppSettings;
 
                           return _MirageButton(
-                            isSelected: selectedButton == BldrsTabs.bidAppSettings,
+                            isSelected: selectedButton == BldrsTabber.bidAppSettings,
                             verse: const Verse(id: 'phid_settings', translate: true),
                             icon: Iconz.more,
                             bigIcon: false,
                             iconColor: Colorz.white255,
                             canShow: true,
-                            redDotCount: ObeliskIcon.getCount(badge: _badge),
-                            redDotIsOn: ObeliskIcon.checkRedDotIsOn(forceRedDot: false, badge: _badge),
-                            redDotVerse: _redDotVerse,
+                            redDotCount: Badger.getBadgeCount(badger: badger, bid: _bid),
+                            redDotIsOn: Badger.checkBadgeRedDotIsOn(badger: badger, bid: _bid),
+                            redDotVerse: Badger.getBadgeVerse(badger: badger, bid: _bid),
                             onTap: onSettingsButtonTap,
                           );
                         }
