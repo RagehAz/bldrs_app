@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'package:basics/helpers/streamers/streamer.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_utilities/badger.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_notes_controllers.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/tabbing/bldrs_tabs.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -76,22 +79,32 @@ class NotesProvider extends ChangeNotifier {
   }) async{
     if (mounted){
 
-      _userOldNotesNotifier ??= ValueNotifier<List<Map<String, dynamic>>>([]);
-      _myBzzOldNotesNotifiers ??= createMyBzOldUnseenNotesMaps();
-
-      await NotesProvider.proInitializeBadger(
-        notify: false,
+      final UserModel? _userModel = UsersProvider.proGetMyUserModel(
+        context: getMainContext(),
+        listen: false,
       );
 
-      _userNotesStreamSub ??= listenToUserUnseenNotes(
-        mounted: mounted,
-        oldMaps: _userOldNotesNotifier!,
-      );
-      _bzzNotesStreamsSubs ??= listenToMyBzzUnseenNotes(
-        mounted: mounted,
-        bzzOldMaps: _myBzzOldNotesNotifiers!,
-      );
-    }
+      if (Authing.userIsSignedUp(_userModel?.signInMethod) == true){
+
+        _userOldNotesNotifier ??= ValueNotifier<List<Map<String, dynamic>>>([]);
+        _myBzzOldNotesNotifiers ??= createMyBzOldUnseenNotesMaps();
+
+        await NotesProvider.proInitializeBadger(
+          notify: false,
+        );
+
+        _userNotesStreamSub ??= listenToUserUnseenNotes(
+          mounted: mounted,
+          oldMaps: _userOldNotesNotifier!,
+        );
+        _bzzNotesStreamsSubs ??= listenToMyBzzUnseenNotes(
+          mounted: mounted,
+          bzzOldMaps: _myBzzOldNotesNotifiers!,
+        );
+      }
+
+      }
+
   }
   // --------------------
   void _disposeNoteStreams(){

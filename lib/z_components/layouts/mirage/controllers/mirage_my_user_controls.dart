@@ -13,7 +13,7 @@ class _MirageMyUserControls {
   /// TESTED : WORKS PERFECT
   static Future<void> onUserProfileButtonTap({
     required bool mounted,
-    required List<_MirageModel> allMirages,
+    required List<MirageModel> allMirages,
   }) async {
 
     // await _MirageModel.hideAllAndShowPyramid(
@@ -24,10 +24,10 @@ class _MirageMyUserControls {
     //
     // await Nav.goToRoute(context, RouteName.myUserProfile);
 
-    final _MirageModel _mirageX0 = allMirages[0];
-    final _MirageModel _mirageX1 = allMirages[1];
+    final MirageModel _mirageX0 = allMirages[0];
+    final MirageModel _mirageX1 = allMirages[1];
 
-    await _MirageModel.hideMiragesAbove(
+    await MirageModel.hideMiragesAbove(
         allMirages: allMirages,
         aboveThisMirage: allMirages[0],
         mounted: mounted
@@ -66,11 +66,11 @@ class _MirageMyUserControls {
   /// TESTED : WORKS PERFECT
   static Future<void> onUserTabChanged({
     required bool mounted,
-    required List<_MirageModel> allMirages,
+    required List<MirageModel> allMirages,
     required String bid,
   }) async {
 
-    final _MirageModel _mirage1 = allMirages[1];
+    final MirageModel _mirage1 = allMirages[1];
 
     _mirage1.selectButton(
       button: bid,
