@@ -14,7 +14,7 @@ class MirageNavBar extends StatefulWidget {
 }
 
 class _MirageNavBarState extends State<MirageNavBar> {
-
+  // -----------------------------------------------------------------------------
   Map<String, dynamic>? _keywordsMap;
   // -----------------------------------------------------------------------------
   final MirageModel _mirageX0 = MirageModel.initialize(index: 0,height: Pyramids.khafreHeight * 1.1, controlPyramid: true);
