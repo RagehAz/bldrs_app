@@ -46,7 +46,6 @@ enum BldrsTab {
 class BldrsTabber {
   // -----------------------------------------------------------------------------
 
-  /// BID is ButtonID
   const BldrsTabber();
 
   // -----------------------------------------------------------------------------
@@ -77,7 +76,7 @@ class BldrsTabber {
   ];
   // -----------------------------------------------------------------------------
 
-  /// MIRAGE BUTTONS
+  /// MIRAGE BUTTONS (BID is ButtonID)
 
   // --------------------
   static const String bidSections = 'bidSections';
@@ -149,7 +148,7 @@ class BldrsTabber {
   /// GENERATORS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<String> generateAllBids({
     required BuildContext context,
     required bool listen,
@@ -182,7 +181,7 @@ class BldrsTabber {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<String> generateMyBzzBids({
     required BuildContext context,
     required bool listen,
@@ -209,7 +208,7 @@ class BldrsTabber {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<String> generateBzBids({
     required String bzID,
   }){
@@ -228,7 +227,7 @@ class BldrsTabber {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String generateBzBid({
     required String bzID,
     required String? bid,
@@ -248,7 +247,7 @@ class BldrsTabber {
   /// BidBz break-down
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String? getBzIDFromBidBz({
     required String? bzBid,
   }){
@@ -266,7 +265,7 @@ class BldrsTabber {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String? getBidFromBidBz({
     required String? bzBid,
   }){
@@ -289,7 +288,7 @@ class BldrsTabber {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkBidIsBidBz({
     required String? bid,
   }){
