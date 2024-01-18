@@ -155,6 +155,15 @@ class HomeProvider extends ChangeNotifier {
     return _pro.mirages;
   }
   // --------------------
+  static MirageModel proGetMirageByIndex({
+    required BuildContext context,
+    required bool listen,
+    required int index,
+  }){
+    final List<MirageModel> _mirages = proGetMirages(context: context, listen: listen);
+    return _mirages[index];
+  }
+  // --------------------
   static void proInitializeMirages(){
     final HomeProvider _pro = Provider.of<HomeProvider>(getMainContext(), listen: false);
     final MirageModel _mirageX0 = MirageModel.initialize(index: 0,height: Pyramids.khafreHeight * 1.1, controlPyramid: true);
@@ -170,6 +179,25 @@ class HomeProvider extends ChangeNotifier {
     MirageModel.disposeMirages(
       models: _pro.mirages,
     );
+  }
+  // --------------------
+  static void proSelectMirageButton({
+    required int mirageIndex,
+    required bool mounted,
+    required String button,
+  }){
+
+    final MirageModel _mirage = proGetMirageByIndex(
+        context: getMainContext(),
+        listen: false,
+        index: mirageIndex,
+    );
+
+    _mirage.selectButton(
+      button: button,
+      mounted: mounted,
+    );
+
   }
   // -----------------------------------------------------------------------------
 

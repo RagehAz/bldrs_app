@@ -5,7 +5,6 @@ class _MyBzzMirageStrip extends StatelessWidget {
   // --------------------------------------------------------------------------
   const _MyBzzMirageStrip({
     required this.mirageX1,
-    required this.mounted,
     required this.allMirages,
     required this.onBzTap,
     super.key
@@ -13,7 +12,6 @@ class _MyBzzMirageStrip extends StatelessWidget {
   // --------------------
   final MirageModel mirageX1;
   final List<MirageModel> allMirages;
-  final bool mounted;
   final Function(String bzID) onBzTap;
   // --------------------------------------------------------------------------
   @override

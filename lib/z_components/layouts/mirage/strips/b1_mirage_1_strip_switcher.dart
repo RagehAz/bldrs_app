@@ -4,11 +4,6 @@ part of mirage;
 class Mirage1StripSwitcher extends StatelessWidget {
   // --------------------------------------------------------------------------
   const Mirage1StripSwitcher({
-    required this.mirage0,
-    required this.mirage1,
-    required this.mirage2,
-    required this.mounted,
-    required this.allMirages,
     required this.onSelectFlyerType,
     required this.keywordsMap,
     required this.onUserTabChanged,
@@ -17,11 +12,6 @@ class Mirage1StripSwitcher extends StatelessWidget {
     super.key
   });
   // --------------------
-  final MirageModel mirage0;
-  final MirageModel mirage1;
-  final MirageModel mirage2;
-  final List<MirageModel> allMirages;
-  final bool mounted;
   final Function(String path) onSelectFlyerType;
   final Map<String, dynamic>? keywordsMap;
   final Function(String tab) onUserTabChanged;
@@ -31,6 +21,14 @@ class Mirage1StripSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
+    final List<MirageModel> allMirages = HomeProvider.proGetMirages(
+      context: context,
+      listen: true,
+    );
+    final MirageModel mirage0 = allMirages[0];
+    final MirageModel mirage1 = allMirages[1];
+    final MirageModel mirage2 = allMirages[2];
+    // --------------------
     return ValueListenableBuilder(
       valueListenable: mirage0.selectedButton,
       builder: (_, String? selectedButton, Widget? child){
@@ -38,7 +36,7 @@ class Mirage1StripSwitcher extends StatelessWidget {
         /// USER TABS
         if (selectedButton == BldrsTabber.bidProfile){
           return _UserTabsMirageStrip(
-            mirage1: allMirages[1],
+            mirage1: mirage1,
             allMirages: allMirages,
             onTabChanged: onUserTabChanged,
           );
@@ -48,7 +46,6 @@ class Mirage1StripSwitcher extends StatelessWidget {
         else if (selectedButton == BldrsTabber.bidBzz){
           return _MyBzzMirageStrip(
             mirageX1: mirage1,
-            mounted: mounted,
             allMirages: allMirages,
             onBzTap: onBzTap,
           );

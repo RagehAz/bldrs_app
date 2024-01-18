@@ -13,17 +13,18 @@ class _MirageMyBzzControls {
   /// TESTED : WORKS PERFECT
   static Future<void> onMyBzzButtonTap({
     required bool mounted,
-    required List<MirageModel> allMirages,
   }) async {
 
-    blog('wtffff is going onnn');
+    final List<MirageModel> allMirages = HomeProvider.proGetMirages(
+        context: getMainContext(),
+        listen: false,
+    );
 
     final MirageModel _mirageX0 = allMirages[0];
     final MirageModel _mirageX1 = allMirages[1];
 
     await MirageModel.hideMiragesAbove(
-        allMirages: allMirages,
-        aboveThisMirage: allMirages[0],
+        index: 0,
         mounted: mounted
     );
 
@@ -55,9 +56,13 @@ class _MirageMyBzzControls {
   static Future<void> onBzTap({
     required String bzID,
     required bool mounted,
-    required List<MirageModel> allMirages,
-    required MirageModel thisMirage,
+    required int mirageIndex,
   }) async {
+
+    final List<MirageModel> allMirages = HomeProvider.proGetMirages(
+        context: getMainContext(),
+        listen: false,
+    );
 
     await HomeProvider.proSetActiveBzByID(
         bzID: bzID,
@@ -71,16 +76,16 @@ class _MirageMyBzzControls {
     );
 
     await MirageModel.hideMiragesAbove(
-        allMirages: allMirages,
-        aboveThisMirage: thisMirage,
+        index: mirageIndex,
         mounted: mounted
     );
 
-    final MirageModel _nextMirage = allMirages[thisMirage.index+1];
+    final MirageModel _nextMirage = allMirages[mirageIndex+1];
 
-    thisMirage.selectButton(
-      button: _bidBz,
-      mounted: mounted,
+    HomeProvider.proSelectMirageButton(
+        mirageIndex: mirageIndex,
+        mounted: mounted,
+        button: _bidBz
     );
 
     await _nextMirage.reShow(
@@ -104,9 +109,8 @@ class _MirageMyBzzControls {
   /// TESTED : WORKS PERFECT
   static Future<void> onBzTabChanged({
     required bool mounted,
-    required List<MirageModel> allMirages,
-    required MirageModel thisMirage,
     required String bid,
+    required int mirageIndex,
   }) async {
 
 
@@ -115,14 +119,14 @@ class _MirageMyBzzControls {
       bid: bid,
     );
 
-    thisMirage.selectButton(
-      button: _bidBz,
-      mounted: mounted,
+    HomeProvider.proSelectMirageButton(
+        mirageIndex: mirageIndex,
+        mounted: mounted,
+        button: _bidBz
     );
 
     await MirageModel.hideMiragesAbove(
-        allMirages: allMirages,
-        aboveThisMirage: thisMirage,
+        index: mirageIndex,
         mounted: mounted
     );
 
