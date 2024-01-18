@@ -11,8 +11,8 @@ class _MyBzzMirageStrip extends StatelessWidget {
     super.key
   });
   // --------------------
-  final _MirageModel mirageX1;
-  final List<_MirageModel> allMirages;
+  final MirageModel mirageX1;
+  final List<MirageModel> allMirages;
   final bool mounted;
   final Function(String bzID) onBzTap;
   // --------------------------------------------------------------------------
@@ -36,9 +36,8 @@ class _MyBzzMirageStrip extends StatelessWidget {
                 valueListenable: mirageX1.selectedButton,
                 builder: (_, String? selectedButton, Widget? child) {
 
-                  final String? _selectedBzID = TextMod.removeTextBeforeFirstSpecialCharacter(
-                      text: selectedButton,
-                      specialCharacter: '_',
+                  final String? _selectedBzID = BldrsTabber.getBzIDFromBidBz(
+                      bzBid: selectedButton,
                   );
 
                   return _MirageStripFloatingList(

@@ -1,9 +1,9 @@
 part of mirage;
 // ignore_for_file: unused_element
 
-class _Mirage3StripSwitcher extends StatelessWidget {
+class Mirage3StripSwitcher extends StatelessWidget {
   // --------------------------------------------------------------------------
-  const _Mirage3StripSwitcher({
+  const Mirage3StripSwitcher({
     required this.mounted,
     required this.allMirages,
     required this.mirageX4,
@@ -14,11 +14,11 @@ class _Mirage3StripSwitcher extends StatelessWidget {
     super.key
   });
   // -------------------
-  final List<_MirageModel> allMirages;
+  final List<MirageModel> allMirages;
   final bool mounted;
-  final _MirageModel mirageX4;
-  final _MirageModel mirageX3;
-  final _MirageModel mirageX2;
+  final MirageModel mirageX4;
+  final MirageModel mirageX3;
+  final MirageModel mirageX2;
   final Map<String, dynamic>? keywordsMap;
   final Function (String path) onPhidTap;
   // --------------------------------------------------------------------------
@@ -30,14 +30,14 @@ class _Mirage3StripSwitcher extends StatelessWidget {
       builder: (_, String? selectedButton, Widget? child){
 
         /// NOTHING SELECTED IN MIRAGE1
-        if (selectedButton == null){
+        if (BldrsTabber.checkBidIsBidBz(bid: selectedButton) == true){
           return const SizedBox();
         }
 
         /// IS path
         else if (Pathing.checkIsPath(selectedButton) == true){
 
-          final String previousPath = selectedButton;
+          final String previousPath = selectedButton!;
           final String _parentPath = Pathing.removeLastPathNode(path: previousPath) ?? '';
           final Map<String, dynamic> _parentMap = MapPathing.getNodeValue(
               path: _parentPath,

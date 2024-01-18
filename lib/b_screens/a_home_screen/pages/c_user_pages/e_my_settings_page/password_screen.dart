@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_auth_page/x_auth_controllers.dart';
 import 'package:basics/components/layers/blur_layer.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/password_bubble/password_bubble.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';

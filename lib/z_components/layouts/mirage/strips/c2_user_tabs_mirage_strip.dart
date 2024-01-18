@@ -10,8 +10,8 @@ class _UserTabsMirageStrip extends StatelessWidget {
     super.key
   });
   // --------------------
-  final _MirageModel mirage1;
-  final List<_MirageModel> allMirages;
+  final MirageModel mirage1;
+  final List<MirageModel> allMirages;
   final Function(String tab) onTabChanged;
   // --------------------------------------------------------------------------
   @override
@@ -40,7 +40,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
                       redDotCount: null,
                       canShow: true,
                       bigIcon: false,
-                      iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
+                      iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
                       onTap: () => onTabChanged(_bid),
                     );
                   }
@@ -62,7 +62,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
                       redDotCount: null,
                       canShow: true,
                       bigIcon: false,
-                      iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
+                      iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
                       onTap: () => onTabChanged(_bid),
                     );
                   }
@@ -84,7 +84,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
                       redDotCount: null,
                       canShow: true,
                       bigIcon: false,
-                      iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
+                      iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
                       onTap: () => onTabChanged(_bid),
                     );
                   }
@@ -106,7 +106,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
                       redDotCount: null,
                       canShow: true,
                       bigIcon: false,
-                      iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
+                      iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
                       onTap: () => onTabChanged(_bid),
                     );
                   }
@@ -128,7 +128,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
                       redDotCount: null,
                       canShow: true,
                       bigIcon: false,
-                      iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
+                      iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
                       onTap: () => onTabChanged(_bid),
                     );
                   }

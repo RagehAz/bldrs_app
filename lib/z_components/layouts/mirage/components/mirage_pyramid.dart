@@ -9,7 +9,7 @@ class _MiragePyramid extends StatelessWidget {
     super.key
   });
   // --------------------
-  final _MirageModel mirage1;
+  final MirageModel mirage1;
   final bool mounted;
   // --------------------------------------------------------------------------
   @override

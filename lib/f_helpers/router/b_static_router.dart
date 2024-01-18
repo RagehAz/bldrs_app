@@ -4,17 +4,14 @@ import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/legalizer/legalizer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
-import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/b_my_saves_page/saved_flyers_screen.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/e_app_settings_page/app_settings_page.dart';
 import 'package:bldrs/b_screens/d_user_preview_screen/user_preview_screen.dart';
-import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
-import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/c_error_screen/delete_my_data_screen.dart';
 import 'package:bldrs/b_views/a_starters/c_error_screen/no_page_found.dart';
 import 'package:bldrs/b_views/a_starters/c_error_screen/under_construction_screen.dart';
 import 'package:bldrs/b_views/a_starters/x_banner_screen/banner_screen.dart';
-import 'package:bldrs/b_views/b_auth/a_auth_screen.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_auth_page/a_auth_screen.dart';
 import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
@@ -46,19 +43,19 @@ class StaticRouter {
       /// LOADING
 
       // --------------------
-      /// staticLogoScreen
-      case RouteName.staticLogo:
-        return Nav.transitFade(
-            screen: const StaticLogoScreen(),
-            settings: settings,
-        );
-      // --------------------
-      /// animatedLogoScreen
-      case RouteName.animatedLogo:
-        return Nav.transitFade(
-            screen: const AnimatedLogoScreen(),
-            settings: settings,
-        );
+      // /// staticLogoScreen
+      // case RouteName.staticLogo:
+      //   return Nav.transitFade(
+      //       screen: const StaticLogoScreen(),
+      //       settings: settings,
+      //   );
+      // // --------------------
+      // /// animatedLogoScreen
+      // case RouteName.animatedLogo:
+      //   return Nav.transitFade(
+      //       screen: const AnimatedLogoScreen(),
+      //       settings: settings,
+      //   );
       // ------------------------------------------------------------
 
       /// MAIN
@@ -151,14 +148,14 @@ class StaticRouter {
       /// MY BZ
 
       // --------------------
-      /// myBzAboutPage : HANDLED MANUALLY BY [goToMyBzScreen]
-      case RouteName.myBzAboutPage:
-        return BldrsNav.transitSuperHorizontal(
-          settings: settings,
-          screen: const MyBzScreen(
-            initialTab: BzTab.about,
-          ),
-        );
+      // /// myBzAboutPage : HANDLED MANUALLY BY [goToMyBzScreen]
+      // case RouteName.myBzAboutPage:
+      //   return BldrsNav.transitSuperHorizontal(
+      //     settings: settings,
+      //     screen: const MyBzScreen(
+      //       initialTab: BzTab.about,
+      //     ),
+      //   );
       // --------------------
       /// myBzFlyersPage : HANDLED MANUALLY BY [goToMyBzScreen]
       case RouteName.myBzFlyersPage:
@@ -169,32 +166,32 @@ class StaticRouter {
           ),
         );
       // --------------------
-      /// myBzTeamPage : HANDLED MANUALLY BY [goToMyBzScreen]
-      case RouteName.myBzTeamPage:
-        return BldrsNav.transitSuperHorizontal(
-          settings: settings,
-          screen: const MyBzScreen(
-            initialTab: BzTab.team,
-          ),
-        );
+      // /// myBzTeamPage : HANDLED MANUALLY BY [goToMyBzScreen]
+      // case RouteName.myBzTeamPage:
+      //   return BldrsNav.transitSuperHorizontal(
+      //     settings: settings,
+      //     screen: const MyBzScreen(
+      //       initialTab: BzTab.team,
+      //     ),
+      //   );
       // --------------------
-      /// myBzNotesPage : HANDLED MANUALLY BY [goToMyBzScreen]
-      case RouteName.myBzNotesPage:
-        return BldrsNav.transitSuperHorizontal(
-          settings: settings,
-          screen: const MyBzScreen(
-            initialTab: BzTab.notes,
-          ),
-        );
+      // /// myBzNotesPage : HANDLED MANUALLY BY [goToMyBzScreen]
+      // case RouteName.myBzNotesPage:
+      //   return BldrsNav.transitSuperHorizontal(
+      //     settings: settings,
+      //     screen: const MyBzScreen(
+      //       initialTab: BzTab.notes,
+      //     ),
+      //   );
       // --------------------
-      /// myBzSettingsPage : HANDLED MANUALLY BY [goToMyBzScreen]
-      case RouteName.myBzSettingsPage:
-        return BldrsNav.transitSuperHorizontal(
-          settings: settings,
-          screen: const MyBzScreen(
-            initialTab: BzTab.settings,
-          ),
-        );
+      // /// myBzSettingsPage : HANDLED MANUALLY BY [goToMyBzScreen]
+      // case RouteName.myBzSettingsPage:
+      //   return BldrsNav.transitSuperHorizontal(
+      //     settings: settings,
+      //     screen: const MyBzScreen(
+      //       initialTab: BzTab.settings,
+      //     ),
+      //   );
       // --------------------
       /// bzEditor
       /*

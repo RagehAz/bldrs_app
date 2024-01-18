@@ -9,7 +9,7 @@ import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
+import 'package:bldrs/zz_archives/bz_tabber.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
@@ -170,7 +170,7 @@ class BldrsNav {
     if (animatedLogoScreen){
       await Nav.pushNamedAndRemoveAllBelow(
         context: getMainContext(),
-        goToRoute: RouteName.animatedLogo,
+        goToRoute: RouteName.home,
       );
     }
     else {
@@ -180,7 +180,7 @@ class BldrsNav {
 
       await Nav.pushNamedAndRemoveAllBelow(
         context: getMainContext(),
-        goToRoute: RouteName.staticLogo,
+        goToRoute: RouteName.home,
       );
     }
 
