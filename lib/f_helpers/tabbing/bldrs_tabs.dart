@@ -364,6 +364,9 @@ class BldrsTabber {
       case bidMyBzTeam              : return Iconz.bz;
       case bidMyBzNotes             : return Iconz.notification;
       case bidMyBzSettings          : return Iconz.gears;
+    // case BzTab.targets  : return Iconz.target     ;
+    // case BzTab.powers   : return Iconz.power      ;
+    // case BzTab.network  : return Iconz.follow     ;
 
       default : return null;
     }
@@ -373,9 +376,8 @@ class BldrsTabber {
   static String? _getBidPhid(String? bid){
 
     String? _bid = bid;
-    if (TextCheck.stringStartsExactlyWith(text: _bid, startsWith: 'bidBz') == true){
-      _bid = TextMod.removeTextBeforeFirstSpecialCharacter(text: _bid, specialCharacter: '_');
-      _bid = TextMod.removeTextAfterLastSpecialCharacter(text: _bid, specialCharacter: '/');
+    if (checkBidIsBidBz(bid: _bid) == true){
+      _bid = getBidFromBidBz(bzBid: _bid);
     }
 
     switch(_bid){
@@ -391,6 +393,9 @@ class BldrsTabber {
       case bidMyBzTeam              : return 'phid_team';
       case bidMyBzNotes             : return 'phid_notifications';
       case bidMyBzSettings          : return 'phid_settings';
+    // case BzTab.targets  : return 'phid_targets'  ; break;
+    // case BzTab.powers   : return 'phid_powers'  ; break;
+    // case BzTab.network  : return 'phid_network'  ; break;
 
       default: return null;
     }
