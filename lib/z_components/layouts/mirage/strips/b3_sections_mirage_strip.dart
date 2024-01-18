@@ -12,9 +12,9 @@ class _SectionsMirageStrip extends StatelessWidget {
     super.key
   });
   // --------------------
-  final _MirageModel mirageX1;
-  final _MirageModel mirageX2;
-  final List<_MirageModel> allMirages;
+  final MirageModel mirageX1;
+  final MirageModel mirageX2;
+  final List<MirageModel> allMirages;
   final Function(String path) onSelectFlyerType;
   final Map<String, dynamic>? keywordsMap;
   // --------------------------------------------------------------------------

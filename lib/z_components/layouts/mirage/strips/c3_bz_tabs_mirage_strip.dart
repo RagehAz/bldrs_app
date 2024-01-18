@@ -4,22 +4,28 @@ part of mirage;
 class _BzTabsMirageStrip extends StatelessWidget {
   // --------------------------------------------------------------------------
   const _BzTabsMirageStrip({
-    required this.mirage2,
+    required this.thisMirage,
     required this.allMirages,
     required this.onTabChanged,
+    required this.bzID,
+    // required this.bid,
     super.key
   });
   // --------------------
-  final _MirageModel mirage2;
-  final List<_MirageModel> allMirages;
+  final MirageModel thisMirage;
+  final List<MirageModel> allMirages;
   final Function(String tab) onTabChanged;
+  final String bzID;
+  // final String bid;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     return ValueListenableBuilder(
-        valueListenable: mirage2.selectedButton,
+        valueListenable: thisMirage.selectedButton,
         builder: (_, String? selectedButton, Widget? child) {
+
+          final String? _bidBz = selectedButton;
 
           return _MirageStripFloatingList(
             columnChildren: <Widget>[
@@ -28,20 +34,20 @@ class _BzTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const BzTab _tab = BzTab.about;
-                    final bool _isSelected = selectedButton == BldrsTabber.bidMyBzAbout;
+                    const String? _bid = BldrsTabber.bidMyBzAbout;
+                    final bool _isSelected = _bid == BldrsTabber.getBidFromBidBz(bzBid: _bidBz);
 
                     return _MirageButton(
-                      verse: BzTabber.translateBzTab(_tab),
-                      icon: BzTabber.getBzTabIcon(_tab),
+                      verse: BldrsTabber.translateBid(_bid),
+                      icon: BldrsTabber.getBidIcon(_bid),
                       redDotIsOn: false,
                       isSelected: _isSelected,
                       redDotVerse: null,
                       redDotCount: null,
                       canShow: true,
                       bigIcon: false,
-                      iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(BldrsTabber.bidMyBzAbout),
+                      iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
+                      onTap: () => onTabChanged(_bid),
                     );
                   }
               ),
@@ -50,20 +56,20 @@ class _BzTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const BzTab _tab = BzTab.flyers;
-                    final bool _isSelected = selectedButton == BldrsTabber.bidMyBzFlyers;
+                    const String? _bid = BldrsTabber.bidMyBzFlyers;
+                    final bool _isSelected = _bid == BldrsTabber.getBidFromBidBz(bzBid: _bidBz);
 
                     return _MirageButton(
-                      verse: BzTabber.translateBzTab(_tab),
-                      icon: BzTabber.getBzTabIcon(_tab),
+                      verse: BldrsTabber.translateBid(_bid),
+                      icon: BldrsTabber.getBidIcon(_bid),
                       redDotIsOn: false,
                       isSelected: _isSelected,
                       redDotVerse: null,
                       redDotCount: null,
                       canShow: true,
                       bigIcon: false,
-                      iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(BldrsTabber.bidMyBzFlyers),
+                      iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
+                      onTap: () => onTabChanged(_bid),
                     );
                   }
               ),
@@ -72,20 +78,20 @@ class _BzTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const BzTab _tab = BzTab.team;
-                    final bool _isSelected = selectedButton == BldrsTabber.bidMyBzTeam;
+                    const String? _bid = BldrsTabber.bidMyBzTeam;
+                    final bool _isSelected = _bid == BldrsTabber.getBidFromBidBz(bzBid: _bidBz);
 
                     return _MirageButton(
-                      verse: BzTabber.translateBzTab(_tab),
-                      icon: BzTabber.getBzTabIcon(_tab),
+                      verse: BldrsTabber.translateBid(_bid),
+                      icon: BldrsTabber.getBidIcon(_bid),
                       redDotIsOn: false,
                       isSelected: _isSelected,
                       redDotVerse: null,
                       redDotCount: null,
                       canShow: true,
                       bigIcon: false,
-                      iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(BldrsTabber.bidMyBzTeam),
+                      iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
+                      onTap: () => onTabChanged(_bid),
                     );
                   }
               ),
@@ -94,20 +100,20 @@ class _BzTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const BzTab _tab = BzTab.notes;
-                    final bool _isSelected = selectedButton == BldrsTabber.bidMyBzNotes;
+                    const String? _bid = BldrsTabber.bidMyBzNotes;
+                    final bool _isSelected = _bid == BldrsTabber.getBidFromBidBz(bzBid: _bidBz);
 
                     return _MirageButton(
-                      verse: BzTabber.translateBzTab(_tab),
-                      icon: BzTabber.getBzTabIcon(_tab),
+                      verse: BldrsTabber.translateBid(_bid),
+                      icon: BldrsTabber.getBidIcon(_bid),
                       redDotIsOn: false,
                       isSelected: _isSelected,
                       redDotVerse: null,
                       redDotCount: null,
                       canShow: true,
                       bigIcon: false,
-                      iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(BldrsTabber.bidMyBzNotes),
+                      iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
+                      onTap: () => onTabChanged(_bid),
                     );
                   }
               ),
@@ -116,20 +122,20 @@ class _BzTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const BzTab _tab = BzTab.settings;
-                    final bool _isSelected = selectedButton == BldrsTabber.bidMyBzSettings;
+                    const String? _bid = BldrsTabber.bidMyBzSettings;
+                    final bool _isSelected = _bid == BldrsTabber.getBidFromBidBz(bzBid: _bidBz);
 
                     return _MirageButton(
-                      verse: BzTabber.translateBzTab(_tab),
-                      icon: BzTabber.getBzTabIcon(_tab),
+                      verse: BldrsTabber.translateBid(_bid),
+                      icon: BldrsTabber.getBidIcon(_bid),
                       redDotIsOn: false,
                       isSelected: _isSelected,
                       redDotVerse: null,
                       redDotCount: null,
                       canShow: true,
                       bigIcon: false,
-                      iconColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                      onTap: () => onTabChanged(BldrsTabber.bidMyBzSettings),
+                      iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
+                      onTap: () => onTabChanged(_bid),
                     );
                   }
               ),

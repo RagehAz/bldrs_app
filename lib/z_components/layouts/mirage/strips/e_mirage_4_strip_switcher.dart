@@ -1,8 +1,8 @@
 part of mirage;
 // ignore_for_file: unused_element
-class _Mirage4StripSwitcher extends StatelessWidget {
+class Mirage4StripSwitcher extends StatelessWidget {
   // --------------------------------------------------------------------------
-  const _Mirage4StripSwitcher({
+  const Mirage4StripSwitcher({
     required this.mounted,
     required this.allMirages,
     required this.mirageX4,
@@ -13,10 +13,10 @@ class _Mirage4StripSwitcher extends StatelessWidget {
   });
   // -------------------
 
-  final List<_MirageModel> allMirages;
+  final List<MirageModel> allMirages;
   final bool mounted;
-  final _MirageModel mirageX4;
-  final _MirageModel mirageX3;
+  final MirageModel mirageX4;
+  final MirageModel mirageX3;
   final Map<String, dynamic>? keywordsMap;
   final Function (String path) onPhidTap;
   // --------------------------------------------------------------------------

@@ -20,7 +20,7 @@ class _MirageStripFloatingList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       boxAlignment: Alignment.topCenter,
       scrollDirection: Axis.horizontal,
-      padding: _MirageStrip.getStripPaddings(),
+      padding: MirageStrip.getStripPaddings(),
       columnChildren: columnChildren,
     );
     // --------------------

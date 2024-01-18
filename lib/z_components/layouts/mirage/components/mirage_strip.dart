@@ -1,9 +1,9 @@
 part of mirage;
 // ignore_for_file: unused_element
 
-class _MirageStrip extends StatelessWidget {
+class MirageStrip extends StatelessWidget {
   // --------------------------------------------------------------------------
-  const _MirageStrip({
+  const MirageStrip({
     required this.mirage,
     required this.mounted,
     required this.miragesAbove,
@@ -13,9 +13,9 @@ class _MirageStrip extends StatelessWidget {
     super.key
   });
   // --------------------
-  final _MirageModel mirage;
+  final MirageModel mirage;
   final bool mounted;
-  final List<_MirageModel> miragesAbove;
+  final List<MirageModel> miragesAbove;
   final Widget child;
   final Function? onHide;
   final Function? onShow;
@@ -40,7 +40,7 @@ class _MirageStrip extends StatelessWidget {
       builder: (_, double position, Widget? child) {
 
         return AnimatedPositioned(
-          duration: _MirageModel.getMirageDuration(mirage: mirage),
+          duration: MirageModel.getMirageDuration(mirage: mirage),
           bottom: -position,
           right: 0,
           child: child!,
@@ -77,10 +77,10 @@ class _MirageStrip extends StatelessWidget {
                 /// DRAGGER
                 Container(
                   width: _width - 20,
-                  height: _MirageModel.draggerHeight,
+                  height: MirageModel.draggerHeight,
                   decoration: const BoxDecoration(
-                    color: _MirageModel.draggerColor,
-                    borderRadius: _MirageModel.draggerCorners,
+                    color: MirageModel.draggerColor,
+                    borderRadius: MirageModel.draggerCorners,
                   ),
                 ),
 

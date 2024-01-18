@@ -1,6 +1,8 @@
+import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/tabbing/bldrs_tabs.dart';
@@ -225,17 +227,19 @@ class HomeProvider extends ChangeNotifier {
 
     if (TextCheck.isEmpty(bzID) == false){
 
-      final List<BzModel> _myBzz = await UsersProvider.proFetchMyBzz();
-      final BzModel? _bzModel = BzModel.getBzFromBzzByBzID(
-          bzz: _myBzz,
-          bzID: bzID!,
-      );
+      final List<String> _myBzzIDs = UsersProvider.proGetMyBzzIDs(context: context, listen: false);
 
-      proSetActiveBzModel(
-        notify: notify,
-        context: context,
-        bzModel: _bzModel,
-      );
+      if (Stringer.checkStringsContainString(strings: _myBzzIDs, string: bzID) == true){
+
+        final BzModel? _bzModel = await BzProtocols.fetchBz(bzID: bzID);
+
+        proSetActiveBzModel(
+          notify: notify,
+          context: context,
+          bzModel: _bzModel,
+        );
+
+      }
 
     }
 

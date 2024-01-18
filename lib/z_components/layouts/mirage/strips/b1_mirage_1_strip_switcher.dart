@@ -1,9 +1,9 @@
 part of mirage;
 // ignore_for_file: unused_element
 
-class _Mirage1StripSwitcher extends StatelessWidget {
+class Mirage1StripSwitcher extends StatelessWidget {
   // --------------------------------------------------------------------------
-  const _Mirage1StripSwitcher({
+  const Mirage1StripSwitcher({
     required this.mirage0,
     required this.mirage1,
     required this.mirage2,
@@ -13,18 +13,20 @@ class _Mirage1StripSwitcher extends StatelessWidget {
     required this.keywordsMap,
     required this.onUserTabChanged,
     required this.onBzTap,
+    required this.onBzTabChanged,
     super.key
   });
   // --------------------
-  final _MirageModel mirage0;
-  final _MirageModel mirage1;
-  final _MirageModel mirage2;
-  final List<_MirageModel> allMirages;
+  final MirageModel mirage0;
+  final MirageModel mirage1;
+  final MirageModel mirage2;
+  final List<MirageModel> allMirages;
   final bool mounted;
   final Function(String path) onSelectFlyerType;
   final Map<String, dynamic>? keywordsMap;
   final Function(String tab) onUserTabChanged;
   final Function(String bzID) onBzTap;
+  final Function(String tab) onBzTabChanged;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,16 @@ class _Mirage1StripSwitcher extends StatelessWidget {
             mounted: mounted,
             allMirages: allMirages,
             onBzTap: onBzTap,
+          );
+        }
+
+        /// BZ TABS
+        else if (BldrsTabber.checkBidIsBidBz(bid: selectedButton) == true){
+          return _BzTabsMirageStrip(
+            thisMirage: mirage1,
+            allMirages: allMirages,
+            onTabChanged: onBzTabChanged,
+            bzID: BldrsTabber.getBzIDFromBidBz(bzBid: selectedButton)!,
           );
         }
 

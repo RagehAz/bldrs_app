@@ -5,7 +5,7 @@ import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
+import 'package:bldrs/zz_archives/bz_tabber.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';

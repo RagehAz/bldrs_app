@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_screens/c_user_editor_screen/user_editor_screen.dart';
+import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
+import 'package:bldrs/f_helpers/tabbing/bldrs_tabs.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -162,16 +164,17 @@ Future<void> _navAfterAuth({
         if (_thereAreMissingFields == true){
           await _goToUserEditorForFirstTime(
             userModel: userModel,
+              mounted: mounted,
           );
         }
         else {
-          await _goToLogoScreen();
+          await _goToLogoScreen(mounted: mounted);
         }
 
       }
 
       else {
-        await _goToLogoScreen();
+        await _goToLogoScreen(mounted: mounted);
       }
 
     }
@@ -270,15 +273,20 @@ Future<void> showMissingFieldsDialog({
 */
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _goToLogoScreen() async {
-  await BldrsNav.pushLogoRouteAndRemoveAllBelow(
-      animatedLogoScreen: true,
-  );
+Future<void> _goToLogoScreen({
+  required bool mounted,
+}) async {
+
+  await NotesProvider.proInitializeNoteStreams(mounted: mounted);
+
+  await BldrsTabber.goToTab(tab: BldrsTab.myProfile);
+
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _goToUserEditorForFirstTime({
   required UserModel userModel,
+  required bool mounted,
 }) async {
 
   await BldrsNav.goToNewScreen(
@@ -291,7 +299,7 @@ Future<void> _goToUserEditorForFirstTime({
         validateOnStartup: false,
         checkLastSession: false,
         onFinish: () async {
-          await _goToLogoScreen();
+          await _goToLogoScreen(mounted: mounted);
         },
       )
 
