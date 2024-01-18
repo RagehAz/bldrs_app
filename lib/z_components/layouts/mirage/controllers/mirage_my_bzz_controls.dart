@@ -62,7 +62,7 @@ class _MirageMyBzzControls {
     await HomeProvider.proSetActiveBzByID(
         bzID: bzID,
         context: getMainContext(),
-        notify: false,
+        notify: true,
     );
 
     final String _bidBz = BldrsTabber.generateBzBid(
