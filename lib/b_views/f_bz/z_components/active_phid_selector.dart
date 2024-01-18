@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/f_bz/z_components/phid_button_clone.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:basics/components/layers/blur_layer.dart';
 import 'package:basics/components/animators/auto_scrolling_bar.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -195,6 +196,7 @@ class LiveActivePhidSelector extends StatelessWidget {
     required this.activePhid,
     required this.onlyShowPublished,
     required this.bzModel,
+    this.appBarType = AppBarType.basic,
     super.key
   });
   // -----------------------------------------------------------------------------
@@ -203,6 +205,7 @@ class LiveActivePhidSelector extends StatelessWidget {
   final BzModel? bzModel;
   final ValueNotifier<String?> activePhid;
   final bool onlyShowPublished;
+  final AppBarType appBarType;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -214,7 +217,7 @@ class LiveActivePhidSelector extends StatelessWidget {
           return AutoScrollingBar(
             key: const ValueKey<String>('the_auto_scroll_phid_selector'),
             scrollController: scrollController,
-            height: Stratosphere.bigAppBarStratosphere,
+            height: appBarType == AppBarType.non ? Stratosphere.smallAppBarStratosphere : Stratosphere.bigAppBarStratosphere,
             child: WidgetFader(
               fadeType: isVisible == false ? FadeType.fadeOut : FadeType.fadeIn,
               duration: const Duration(milliseconds: 300),
@@ -224,6 +227,7 @@ class LiveActivePhidSelector extends StatelessWidget {
                 mounted: mounted,
                 activePhid: activePhid,
                 onlyShowPublished: onlyShowPublished,
+                stratosphere: appBarType != AppBarType.non,
               ),
             ),
           );

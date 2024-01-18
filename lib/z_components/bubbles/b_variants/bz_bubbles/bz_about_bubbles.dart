@@ -1,17 +1,18 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/z_components/bubbles/b_variants/bz_authors_bubble/bz_authors_bubble.dart';
-import 'package:bldrs/z_components/bubbles/b_variants/bz_flyers_bubble/bz_flyers_bubble.dart';
-import 'package:bldrs/z_components/bubbles/b_variants/bz_scope_bubble/bz_scope_bubble.dart';
+import 'package:bldrs/z_components/bubbles/b_variants/bz_bubbles/bz_authors_bubble/bz_authors_bubble.dart';
+import 'package:bldrs/z_components/bubbles/b_variants/bz_bubbles/bz_flyers_bubble/bz_flyers_bubble.dart';
+import 'package:bldrs/z_components/bubbles/b_variants/bz_bubbles/bz_scope_bubble.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/contacts_bubble/contacts_bubble.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/paragraph_bubble/paragraph_bubble.dart';
 import 'package:bldrs/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/z_components/bz_profile/info_page/bz_stats_bubble.dart';
-import 'package:bldrs/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,7 @@ class AboutBzBubbles extends StatelessWidget {
     required this.showGallery,
     required this.showContacts,
     required this.showAuthors,
+    required this.appBarType,
     super.key
   });
   // --------------------
@@ -29,6 +31,7 @@ class AboutBzBubbles extends StatelessWidget {
   final bool showGallery;
   final bool showContacts;
   final bool showAuthors;
+  final AppBarType appBarType;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,10 @@ class AboutBzBubbles extends StatelessWidget {
 
     return ListView(
       physics: const BouncingScrollPhysics(),
-      padding: Stratosphere.stratosphereSandwich,
+      padding: EdgeInsets.only(
+        top: appBarType == AppBarType.non ? Ratioz.appBarMargin : Ratioz.stratosphere,
+        bottom: Ratioz.horizon,
+      ),
       children: <Widget>[
 
         // const GoogleAdRectangleBanner(),

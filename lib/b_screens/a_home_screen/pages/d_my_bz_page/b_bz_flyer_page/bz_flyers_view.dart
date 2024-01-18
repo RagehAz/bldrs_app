@@ -6,13 +6,14 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/b_views/f_bz/z_components/active_phid_selector.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:basics/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
 
-class BzFlyersPage extends StatelessWidget {
+class BzFlyersView extends StatelessWidget {
   // --------------------------------------------------------------------------
-  const BzFlyersPage({
+  const BzFlyersView({
     required this.zGridController,
     required this.scrollController,
     required this.activePhid,
@@ -21,6 +22,7 @@ class BzFlyersPage extends StatelessWidget {
     required this.onlyShowPublished,
     this.showAddFlyerButton = false,
     this.onFlyerOptionsTap,
+    this.appBarType = AppBarType.basic,
     super.key
   });
   // --------------------------------
@@ -32,15 +34,19 @@ class BzFlyersPage extends StatelessWidget {
   final bool showAddFlyerButton;
   final Function(FlyerModel flyer)? onFlyerOptionsTap;
   final bool onlyShowPublished;
+  final AppBarType appBarType;
   // --------------------------------------------------------------------------
   double _getTopPadding(BzModel? bzModel){
 
+    final double _big = appBarType == AppBarType.non ? Stratosphere.smallAppBarStratosphere : Stratosphere.bigAppBarStratosphere;
+    final double _small = appBarType == AppBarType.non ? Ratioz.appBarMargin : Stratosphere.smallAppBarStratosphere;
+
     if (ScopeModel.checkBzHasMoreThanOnePhid(bzModel) == true){
-      return Stratosphere.bigAppBarStratosphere;
+      return _big;
     }
 
     else {
-      return Stratosphere.smallAppBarStratosphere;
+      return _small;
     }
 
   }
@@ -89,6 +95,7 @@ class BzFlyersPage extends StatelessWidget {
             activePhid: activePhid,
             onlyShowPublished: onlyShowPublished,
             scrollController: scrollController,
+            appBarType: appBarType,
           ),
 
       ],
