@@ -17,17 +17,9 @@ class _MirageNavBarState extends State<MirageNavBar> {
   // -----------------------------------------------------------------------------
   Map<String, dynamic>? _keywordsMap;
   // -----------------------------------------------------------------------------
-  final MirageModel _mirageX0 = MirageModel.initialize(index: 0,height: Pyramids.khafreHeight * 1.1, controlPyramid: true);
-  final MirageModel _mirageX1 = MirageModel.initialize(index: 1,height: Pyramids.khafreHeight * 2.2);
-  final MirageModel _mirageX2 = MirageModel.initialize(index: 2,height: Pyramids.khafreHeight * 3.3);
-  final MirageModel _mirageX3 = MirageModel.initialize(index: 3,height: Pyramids.khafreHeight * 4.4);
-  final MirageModel _mirageX4 = MirageModel.initialize(index: 4,height: Pyramids.khafreHeight * 5.5);
-  late List<MirageModel> _allMirages;
-  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    _allMirages = [_mirageX0, _mirageX1, _mirageX2, _mirageX3, _mirageX4];
   }
   // --------------------
   bool _isInit = true;
@@ -63,9 +55,6 @@ class _MirageNavBarState extends State<MirageNavBar> {
   // --------------------
   @override
   void dispose() {
-    MirageModel.disposeMirages(
-      models: [_mirageX0, _mirageX1, _mirageX2, _mirageX3, _mirageX4],
-    );
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -77,131 +66,78 @@ class _MirageNavBarState extends State<MirageNavBar> {
 
         /// MIRAGE 4
         MirageStrip(
-          mirage: _mirageX4,
+          index: 4,
           mounted: mounted,
-          miragesAbove: const [],
-          onHide: () async {
-            // await _MirageModel.waitAnimation();
-            // _mirageX3.clearButton(mounted: mounted);
-          },
           child: Mirage4StripSwitcher(
             keywordsMap: _keywordsMap,
-            mirageX3: _mirageX3,
-            mirageX4: _mirageX4,
-            mounted: mounted,
-            allMirages: _allMirages,
             onPhidTap: (String path) => _MirageKeywordsControls.onPhidTap(
-              mirageAbove: null,
-              thisMirage: _mirageX4,
-              mirageBelow: _mirageX3,
+              index: 4,
               path: path,
               keywordsMap: _keywordsMap,
               mounted: mounted,
-              allMirages: _allMirages,
             ),
           ),
         ),
 
         /// MIRAGE 3
         MirageStrip(
-          mirage: _mirageX3,
+          index: 3,
           mounted: mounted,
-          miragesAbove: [_mirageX4],
-          onHide: () async {
-            // await _MirageModel.waitAnimation();
-            // _mirageX2.clearButton(mounted: mounted);
-          },
           child: Mirage3StripSwitcher(
-            mounted: mounted,
             keywordsMap: _keywordsMap,
-            mirageX2: _mirageX2,
-            mirageX3: _mirageX3,
-            mirageX4: _mirageX4,
-            allMirages: _allMirages,
             onPhidTap: (String path) => _MirageKeywordsControls.onPhidTap(
-              mirageAbove: _mirageX4,
-              thisMirage: _mirageX3,
-              mirageBelow: _mirageX2,
+              index: 3,
               path: path,
               keywordsMap: _keywordsMap,
               mounted: mounted,
-              allMirages: _allMirages,
             ),
           ),
         ),
 
         /// MIRAGE 2
         MirageStrip(
-          mirage: _mirageX2,
+          index: 2,
           mounted: mounted,
-          miragesAbove: [_mirageX3, _mirageX4],
-          onHide: () async {
-            // await _MirageModel.waitAnimation();
-            // _mirageX1.clearButton(mounted: mounted);
-          },
           child: Mirage2StripSwitcher(
-            allMirages: _allMirages,
-            mirageX3: _mirageX3,
-            mirageX2: _mirageX2,
-            mirageX1: _mirageX1,
-            mounted: mounted,
             keywordsMap: _keywordsMap,
             onPhidTap: (String path) => _MirageKeywordsControls.onPhidTap(
-              mirageBelow: _mirageX1,
-              thisMirage: _mirageX2,
+              index: 2,
               path: path,
               keywordsMap: _keywordsMap,
               mounted: mounted,
-              allMirages: _allMirages,
-              mirageAbove: _mirageX3,
             ),
             onBzTabChanged: (String bid) => _MirageMyBzzControls.onBzTabChanged(
               mounted: mounted,
-              allMirages: _allMirages,
+              mirageIndex: 2,
               bid: bid,
-              thisMirage: _mirageX2,
             ),
           ),
         ),
 
         /// MIRAGE 1
         MirageStrip(
-          mirage: _mirageX1,
+          index: 1,
           mounted: mounted,
-          miragesAbove: [_mirageX2, _mirageX3, _mirageX4],
-          onHide: () async {
-            // await _MirageModel.waitAnimation();
-            // _mirageX0.clearButton(mounted: mounted);
-          },
           child: Mirage1StripSwitcher(
-            mirage0: _mirageX0,
-            mirage1: _mirageX1,
-            mirage2: _mirageX2,
-            allMirages: _allMirages,
-            mounted: mounted,
             keywordsMap: _keywordsMap,
             onSelectFlyerType: (String path) => _MirageKeywordsControls.onSelectFlyerType(
               path: path,
-              allMirages: _allMirages,
               mounted: mounted,
               keywordsMap: _keywordsMap,
             ),
             onUserTabChanged: (String bid) => _MirageMyUserControls.onUserTabChanged(
               mounted: mounted,
-              allMirages: _allMirages,
               bid: bid,
             ),
             onBzTabChanged: (String bid) => _MirageMyBzzControls.onBzTabChanged(
               mounted: mounted,
-              allMirages: _allMirages,
+              mirageIndex: 1,
               bid: bid,
-              thisMirage: _mirageX1,
             ),
             onBzTap: (String bzID) => _MirageMyBzzControls.onBzTap(
               bzID: bzID,
               mounted: mounted,
-              allMirages: _allMirages,
-              thisMirage: _mirageX1,
+              mirageIndex: 1,
             ),
           ),
 
@@ -209,30 +145,22 @@ class _MirageNavBarState extends State<MirageNavBar> {
 
         /// MIRAGE 0
         MirageStrip(
-          mirage: _mirageX0,
+          index: 0,
           mounted: mounted,
-          miragesAbove: [_mirageX1, _mirageX2, _mirageX3, _mirageX4],
-          onHide: (){
-
-          },
           child: MainMirageStrip(
-            mirage0: _mirageX0,
-            allMirages: _allMirages,
-            mounted: mounted,
             onSectionsTap: () => _MirageKeywordsControls.onSectionsButtonTap(
               mounted: mounted,
-              allMirages: _allMirages,
             ),
             onZoneButtonTap: () async {
 
-              _mirageX0.selectButton(
-                button: BldrsTabber.bidZone,
-                mounted: mounted,
+              HomeProvider.proSelectMirageButton(
+                  mirageIndex: 0,
+                  mounted: mounted,
+                  button: BldrsTabber.bidZone,
               );
 
               await MirageModel.hideMiragesAbove(
-                  allMirages: _allMirages,
-                  aboveThisMirage: _mirageX0,
+                  index: 0,
                   mounted: mounted
               );
 
@@ -254,14 +182,14 @@ class _MirageNavBarState extends State<MirageNavBar> {
             },
             onSignInButtonTap: () async {
 
-              _mirageX0.selectButton(
-                button: BldrsTabber.bidSign,
-                mounted: mounted,
+              HomeProvider.proSelectMirageButton(
+                  mirageIndex: 0,
+                  mounted: mounted,
+                  button: BldrsTabber.bidSign,
               );
 
               await MirageModel.hideMiragesAbove(
-                  allMirages: _allMirages,
-                  aboveThisMirage: _mirageX0,
+                  index: 0,
                   mounted: mounted
               );
 
@@ -270,8 +198,7 @@ class _MirageNavBarState extends State<MirageNavBar> {
 
             },
             onMyBzzTap: () => _MirageMyBzzControls.onMyBzzButtonTap(
-                mounted: mounted,
-                allMirages: _allMirages,
+              mounted: mounted,
             ),
             onMyBzTap: (BzModel bzModel) async {
 
@@ -286,15 +213,15 @@ class _MirageNavBarState extends State<MirageNavBar> {
                 bid: BldrsTabber.bidMyBzAbout,
               );
 
-              _mirageX0.selectButton(
-                button: _bidBz,
-                mounted: mounted,
+              HomeProvider.proSelectMirageButton(
+                  mirageIndex: 0,
+                  mounted: mounted,
+                  button: _bidBz,
               );
 
               await MirageModel.hideMiragesAbove(
-                  allMirages: _allMirages,
-                  aboveThisMirage: _mirageX0,
-                  mounted: mounted,
+                index: 0,
+                mounted: mounted,
               );
 
               // await Nav.goToRoute(context, RouteName.myBzFlyersPage);
@@ -302,21 +229,20 @@ class _MirageNavBarState extends State<MirageNavBar> {
               },
             onUserProfileButtonTap: () => _MirageMyUserControls.onUserProfileButtonTap(
               mounted: mounted,
-              allMirages: _allMirages,
             ),
             onSettingsButtonTap: () async {
 
-              _mirageX0.selectButton(
-                button: BldrsTabber.bidAppSettings,
-                mounted: mounted,
+              HomeProvider.proSelectMirageButton(
+                  mirageIndex: 0,
+                  mounted: mounted,
+                  button: BldrsTabber.bidAppSettings
               );
 
               await BldrsTabber.goToTab(tab: BldrsTab.appSettings);
 
               await MirageModel.hideMiragesAbove(
-                  allMirages: _allMirages,
-                  aboveThisMirage: _mirageX0,
-                  mounted: mounted
+                  index: 0,
+                  mounted: mounted,
               );
 
               },
@@ -326,7 +252,6 @@ class _MirageNavBarState extends State<MirageNavBar> {
         /// PYRAMID
         _MiragePyramid(
           mounted: mounted,
-          mirage1: _mirageX0,
         ),
 
       ],

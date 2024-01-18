@@ -4,29 +4,26 @@ part of mirage;
 class Mirage3StripSwitcher extends StatelessWidget {
   // --------------------------------------------------------------------------
   const Mirage3StripSwitcher({
-    required this.mounted,
-    required this.allMirages,
-    required this.mirageX4,
-    required this.mirageX3,
-    required this.mirageX2,
     required this.keywordsMap,
     required this.onPhidTap,
     super.key
   });
   // -------------------
-  final List<MirageModel> allMirages;
-  final bool mounted;
-  final MirageModel mirageX4;
-  final MirageModel mirageX3;
-  final MirageModel mirageX2;
   final Map<String, dynamic>? keywordsMap;
   final Function (String path) onPhidTap;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
+    final List<MirageModel> allMirages = HomeProvider.proGetMirages(
+      context: context,
+      listen: true,
+    );
+    final MirageModel mirage2 = allMirages[2];
+    final MirageModel mirage3 = allMirages[3];
+    // --------------------
     return ValueListenableBuilder(
-      valueListenable: mirageX2.selectedButton,
+      valueListenable: mirage2.selectedButton,
       builder: (_, String? selectedButton, Widget? child){
 
         /// NOTHING SELECTED IN MIRAGE1
@@ -45,8 +42,8 @@ class Mirage3StripSwitcher extends StatelessWidget {
           );
 
           return _MapSonMirageStrip(
-            thisMirage: mirageX3,
-            mirageBelow: mirageX2,
+            thisMirage: mirage3,
+            mirageBelow: mirage2,
             previousPath: previousPath,
             parentMap: _parentMap,
             onPhidTap: onPhidTap,

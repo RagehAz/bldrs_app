@@ -13,23 +13,17 @@ class _MirageMyUserControls {
   /// TESTED : WORKS PERFECT
   static Future<void> onUserProfileButtonTap({
     required bool mounted,
-    required List<MirageModel> allMirages,
   }) async {
 
-    // await _MirageModel.hideAllAndShowPyramid(
-    //   models: allMirages,
-    //   mounted: mounted,
-    //   mirage0: allMirages[0],
-    // );
-    //
-    // await Nav.goToRoute(context, RouteName.myUserProfile);
-
+    final List<MirageModel> allMirages = HomeProvider.proGetMirages(
+        context: getMainContext(),
+        listen: false,
+    );
     final MirageModel _mirageX0 = allMirages[0];
     final MirageModel _mirageX1 = allMirages[1];
 
     await MirageModel.hideMiragesAbove(
-        allMirages: allMirages,
-        aboveThisMirage: allMirages[0],
+        index: 0,
         mounted: mounted
     );
 
@@ -41,20 +35,21 @@ class _MirageMyUserControls {
     // /// SHOULD SELECT
     // else {
 
-      _mirageX1.selectButton(
-        button: BldrsTabber.bidProfileInfo,
-        mounted: mounted,
-      );
+    HomeProvider.proSelectMirageButton(
+      mirageIndex: 1,
+      mounted: mounted,
+      button: BldrsTabber.bidProfileInfo,
+    );
 
-      await BldrsTabber.goToTab(tab: BldrsTab.myProfile);
+    await BldrsTabber.goToTab(tab: BldrsTab.myProfile);
 
-      await _mirageX1.reShow(
+    await _mirageX1.reShow(
+      mounted: mounted,
+      onBetweenReShow: () => _mirageX0.selectButton(
+        button: BldrsTabber.bidProfile,
         mounted: mounted,
-        onBetweenReShow: () => _mirageX0.selectButton(
-          button: BldrsTabber.bidProfile,
-          mounted: mounted,
-        ),
-      );
+      ),
+    );
     // }
 
   }
@@ -66,15 +61,13 @@ class _MirageMyUserControls {
   /// TESTED : WORKS PERFECT
   static Future<void> onUserTabChanged({
     required bool mounted,
-    required List<MirageModel> allMirages,
     required String bid,
   }) async {
 
-    final MirageModel _mirage1 = allMirages[1];
-
-    _mirage1.selectButton(
-      button: bid,
-      mounted: mounted,
+    HomeProvider.proSelectMirageButton(
+        mirageIndex: 1,
+        mounted: mounted,
+        button: bid
     );
 
     await BldrsTabber.goToTab(
