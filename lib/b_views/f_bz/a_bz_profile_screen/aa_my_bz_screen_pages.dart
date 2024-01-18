@@ -1,14 +1,14 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_flyers_page/aaa1_bz_flyers_page.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_flyers_page/x1_bz_flyers_page_controllers.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/b_about_page/aaa2_bz_about_page.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/d_bz_notes_page/bz_notes_page.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_page/b_bz_flyer_page/bz_flyers_view.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_page/b_bz_flyer_page/bz_flyers_page_controllers.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_page/a_bz_about_page/bz_about_page.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_page/c_bz_team_page/bz_team_page.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_page/d_bz_notes_page/bz_notes_page.dart';
 // import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/bz_targets_page.dart';
 // import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/bz_powers_page.dart';
 // import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aaa7_bz_network_page.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/h_bz_settings_page/bz_settings_page.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_page/e_bz_settings_page/bz_settings_page.dart';
 import 'package:basics/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +44,7 @@ class MyBzScreenPages extends StatelessWidget {
 
     const BzAboutPage(),
 
-    BzFlyersPage(
+    BzFlyersView(
       zGridController: zGridController,
       scrollController: scrollController,
       activePhid: activePhid,

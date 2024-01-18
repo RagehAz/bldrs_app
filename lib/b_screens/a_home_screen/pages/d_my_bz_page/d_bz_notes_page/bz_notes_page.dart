@@ -10,15 +10,15 @@ import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/c_my_notifications_page/user_notes_page_controllers.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/d_bz_notes_page/bz_notes_page_controllers.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_page/d_bz_notes_page/bz_notes_page_controllers.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/main_button.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/notes/note_card.dart';
-import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
@@ -27,8 +27,11 @@ import 'package:flutter/material.dart';
 class BzNotesPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BzNotesPage({
+    this.appBarType = AppBarType.basic,
     super.key
   });
+
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   State<BzNotesPage> createState() => _BzNotesPageState();
@@ -233,7 +236,10 @@ class _BzNotesPageState extends State<BzNotesPage>{
                 physics: const BouncingScrollPhysics(),
                 controller: _paginationController?.scrollController,
                 itemCount: maps.length,
-                padding: Stratosphere.stratosphereSandwich,
+                padding: EdgeInsets.only(
+                  top: widget.appBarType == AppBarType.non ? Ratioz.appBarMargin : Ratioz.stratosphere,
+                  bottom: Ratioz.horizon,
+                ),
                 itemBuilder: (BuildContext ctx, int index) {
                   final NoteModel? _note = NoteModel.decipherNote(
                     map: maps[index],
