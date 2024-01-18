@@ -13,6 +13,7 @@ import 'package:bldrs/z_components/bubbles/b_variants/paragraph_bubble/paragraph
 import 'package:bldrs/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/z_components/bz_profile/info_page/bz_stats_bubble.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/layouts/page_fader.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
@@ -38,82 +39,84 @@ class AboutBzBubbles extends StatelessWidget {
 
     final List<String> _scopePhids = ScopeModel.getPhids(bzModel?.scopes);
 
-    return ListView(
-      physics: const BouncingScrollPhysics(),
-      padding: EdgeInsets.only(
-        top: appBarType == AppBarType.non ? Ratioz.appBarMargin : Ratioz.stratosphere,
-        bottom: Ratioz.horizon,
-      ),
-      children: <Widget>[
-
-        // const GoogleAdRectangleBanner(),
-
-        /// BZ BANNER
-        BzBanner(
-          boxWidth: Bubble.bubbleWidth(context: context),
-          // boxHeight: BldrsAppBar.width(),
-          // margins: 10,
-          bzModel: bzModel,
-          corners: Bubble.cornersValue,
-          bigName: true,
+    return PageFader(
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
+        padding: EdgeInsets.only(
+          top: appBarType == AppBarType.non ? Ratioz.appBarMargin : Ratioz.stratosphere,
+          bottom: Ratioz.horizon,
         ),
+        children: <Widget>[
 
-        /// ABOUT
-        if (TextCheck.isEmpty(bzModel?.about) == false)
-          ParagraphBubble(
-            headerViewModel: BldrsBubbleHeaderVM.bake(
-              context: context,
-              headlineVerse: const Verse(
-                id: 'phid_about_us',
-                translate: true,
+          // const GoogleAdRectangleBanner(),
+
+          /// BZ BANNER
+          BzBanner(
+            boxWidth: Bubble.bubbleWidth(context: context),
+            // boxHeight: BldrsAppBar.width(),
+            // margins: 10,
+            bzModel: bzModel,
+            corners: Bubble.cornersValue,
+            bigName: true,
+          ),
+
+          /// ABOUT
+          if (TextCheck.isEmpty(bzModel?.about) == false)
+            ParagraphBubble(
+              headerViewModel: BldrsBubbleHeaderVM.bake(
+                context: context,
+                headlineVerse: const Verse(
+                  id: 'phid_about_us',
+                  translate: true,
+                ),
+              ),
+              paragraph: Verse(
+                id: bzModel?.about,
+                translate: false,
               ),
             ),
-            paragraph: Verse(
-              id: bzModel?.about,
-              translate: false,
+
+          /// SCOPE
+          if (Lister.checkCanLoop(_scopePhids) == true)
+            BzScopeBubble(
+              headline: const Verse(
+                id: 'phid_scopeOfServices',
+                translate: true,
+              ),
+              phids: _scopePhids,
             ),
+
+          /// AUTHORS
+          if (showAuthors == true)
+          BzAuthorsBubble(
+            bzModel: bzModel,
           ),
 
-        /// SCOPE
-        if (Lister.checkCanLoop(_scopePhids) == true)
-          BzScopeBubble(
-            headline: const Verse(
-              id: 'phid_scopeOfServices',
-              translate: true,
+          /// BZ CONTACT
+          if (showContacts == true && Lister.checkCanLoop(bzModel?.contacts) == true)
+            ContactsBubble(
+              contacts: bzModel?.contacts,
+              location: bzModel?.position,
+              canLaunchOnTap: true,
+              showMoreButton: false,
+              showBulletPoints: true,
+              contactsArePublic: true,
+              onMoreTap: null,
             ),
-            phids: _scopePhids,
+
+          /// STATS
+          BzStatsBubble(
+            bzModel: bzModel,
           ),
 
-        /// AUTHORS
-        if (showAuthors == true)
-        BzAuthorsBubble(
-          bzModel: bzModel,
-        ),
-
-        /// BZ CONTACT
-        if (showContacts == true && Lister.checkCanLoop(bzModel?.contacts) == true)
-          ContactsBubble(
-            contacts: bzModel?.contacts,
-            location: bzModel?.position,
-            canLaunchOnTap: true,
-            showMoreButton: false,
-            showBulletPoints: true,
-            contactsArePublic: true,
-            onMoreTap: null,
+          /// BZ FLYERS
+          if (showGallery == true && Lister.checkCanLoop(bzModel?.publication.published) == true)
+          BzFlyersBubble(
+            bzModel: bzModel,
           ),
 
-        /// STATS
-        BzStatsBubble(
-          bzModel: bzModel,
-        ),
-
-        /// BZ FLYERS
-        if (showGallery == true && Lister.checkCanLoop(bzModel?.publication.published) == true)
-        BzFlyersBubble(
-          bzModel: bzModel,
-        ),
-
-      ],
+        ],
+      ),
     );
 
   }

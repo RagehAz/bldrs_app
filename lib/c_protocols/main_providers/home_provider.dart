@@ -6,6 +6,8 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/tabbing/bldrs_tabs.dart';
+import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
+import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -139,6 +141,38 @@ class HomeProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
+  /// MIRAGES
+
+  // --------------------
+  List<MirageModel> _mirages = [];
+  List<MirageModel> get mirages => _mirages;
+  // --------------------
+  static List<MirageModel> proGetMirages({
+    required BuildContext context,
+    required bool listen,
+  }){
+    final HomeProvider _pro = Provider.of<HomeProvider>(context, listen: listen);
+    return _pro.mirages;
+  }
+  // --------------------
+  static void proInitializeMirages(){
+    final HomeProvider _pro = Provider.of<HomeProvider>(getMainContext(), listen: false);
+    final MirageModel _mirageX0 = MirageModel.initialize(index: 0,height: Pyramids.khafreHeight * 1.1, controlPyramid: true);
+    final MirageModel _mirageX1 = MirageModel.initialize(index: 1,height: Pyramids.khafreHeight * 2.2);
+    final MirageModel _mirageX2 = MirageModel.initialize(index: 2,height: Pyramids.khafreHeight * 3.3);
+    final MirageModel _mirageX3 = MirageModel.initialize(index: 3,height: Pyramids.khafreHeight * 4.4);
+    final MirageModel _mirageX4 = MirageModel.initialize(index: 4,height: Pyramids.khafreHeight * 5.5);
+    _pro._mirages = [_mirageX0, _mirageX1, _mirageX2, _mirageX3, _mirageX4];
+  }
+  // --------------------
+  static void proDisposeMirages(){
+    final HomeProvider _pro = Provider.of<HomeProvider>(getMainContext(), listen: false);
+    MirageModel.disposeMirages(
+      models: _pro.mirages,
+    );
+  }
+  // -----------------------------------------------------------------------------
+
   /// HOME GRID
 
   // --------------------
@@ -264,10 +298,11 @@ class HomeProvider extends ChangeNotifier {
     required bool notify,
   }) {
 
-    _myActiveBz = bzModel;
-
-    if (notify == true){
-      notifyListeners();
+    if (_myActiveBz != bzModel){
+      _myActiveBz = bzModel;
+      if (notify == true){
+        notifyListeners();
+      }
     }
 
   }
