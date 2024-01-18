@@ -32,7 +32,7 @@ class _MirageButton extends StatelessWidget {
   // --------------------------------------------------------------------------
   static double getWidth = 150;
   static double getMaxWidth = getWidth * 2;
-  static double getHeight = _MirageModel.standardStripHeight * 0.95;
+  static double getHeight = MirageModel.standardStripHeight * 0.95;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -56,9 +56,9 @@ class _MirageButton extends StatelessWidget {
           iconSizeFactor: _iconSizeFactor,
           verseScaleFactor: 0.6 / _iconSizeFactor,
           verse: verse,
-          color: isSelected == true ? _MirageModel.selectedButtonColor : _MirageModel.buttonColor,
-          verseColor: isSelected == true ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-          iconColor: iconColor == Colorz.nothing ? null : isSelected == true ? _MirageModel.selectedTextColor : iconColor,
+          color: isSelected == true ? MirageModel.selectedButtonColor : MirageModel.buttonColor,
+          verseColor: isSelected == true ? MirageModel.selectedTextColor : MirageModel.textColor,
+          iconColor: iconColor == Colorz.nothing ? null : isSelected == true ? MirageModel.selectedTextColor : iconColor,
           borderColor: isSelected == true ? Colorz.black255 : null,
           verseMaxLines: 2,
           verseCentered: false,

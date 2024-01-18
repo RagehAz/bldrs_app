@@ -13,25 +13,27 @@ class _MirageMyBzzControls {
   /// TESTED : WORKS PERFECT
   static Future<void> onMyBzzButtonTap({
     required bool mounted,
-    required List<_MirageModel> allMirages,
+    required List<MirageModel> allMirages,
   }) async {
 
-    final _MirageModel _mirageX0 = allMirages[0];
-    final _MirageModel _mirageX1 = allMirages[1];
+    blog('wtffff is going onnn');
 
-    await _MirageModel.hideMiragesAbove(
+    final MirageModel _mirageX0 = allMirages[0];
+    final MirageModel _mirageX1 = allMirages[1];
+
+    await MirageModel.hideMiragesAbove(
         allMirages: allMirages,
         aboveThisMirage: allMirages[0],
         mounted: mounted
     );
 
-    /// ALREADY SELECTED
-    if (_mirageX0.selectedButton.value == BldrsTabber.bidBzz){
-      // _mirageX0.clearButton(mounted: mounted);
-    }
-
-    /// SHOULD SELECT
-    else {
+    // /// ALREADY SELECTED
+    // if (_mirageX0.selectedButton.value == BldrsTabber.bidBzz){
+    //   // _mirageX0.clearButton(mounted: mounted);
+    // }
+    //
+    // /// SHOULD SELECT
+    // else {
 
       await _mirageX1.reShow(
         mounted: mounted,
@@ -41,7 +43,7 @@ class _MirageMyBzzControls {
         ),
       );
 
-    }
+    // }
 
   }
   // -----------------------------------------------------------------------------
@@ -53,47 +55,45 @@ class _MirageMyBzzControls {
   static Future<void> onBzTap({
     required String bzID,
     required bool mounted,
-    required List<_MirageModel> allMirages,
+    required List<MirageModel> allMirages,
+    required MirageModel thisMirage,
   }) async {
 
-    // BzzProvider.proSetActiveBzByID(
-    //     bzID: bzID,
-    //     context: getMainContext(),
-    //     notify: false,
-    // );
-    //
-    // await _MirageModel.hideAllAndShowPyramid(
-    //   models: allMirages,
-    //   mounted: mounted,
-    //   mirage0: allMirages[0],
-    // );
-    //
-    // await Nav.goToRoute(getMainContext(), RouteName.myBzFlyersPage);
+    await HomeProvider.proSetActiveBzByID(
+        bzID: bzID,
+        context: getMainContext(),
+        notify: false,
+    );
 
-    final _MirageModel _mirageX1 = allMirages[1];
-    final _MirageModel _mirageX2 = allMirages[2];
+    final String _bidBz = BldrsTabber.generateBzBid(
+      bzID: bzID,
+      bid: BldrsTabber.bidMyBzAbout,
+    );
 
-    await _MirageModel.hideMiragesAbove(
+    await MirageModel.hideMiragesAbove(
         allMirages: allMirages,
-        aboveThisMirage: allMirages[1],
+        aboveThisMirage: thisMirage,
         mounted: mounted
     );
 
-    /// ALREADY SELECTED
-    if (_mirageX1.selectedButton.value == 'bzID_$bzID'){
-      _mirageX1.clearButton(mounted: mounted);
-    }
+    final MirageModel _nextMirage = allMirages[thisMirage.index+1];
 
-    /// SHOULD SELECT
-    else {
-      await _mirageX2.reShow(
+    thisMirage.selectButton(
+      button: _bidBz,
+      mounted: mounted,
+    );
+
+    await _nextMirage.reShow(
+      mounted: mounted,
+      onBetweenReShow: () => _nextMirage.selectButton(
+        button: _bidBz,
         mounted: mounted,
-        onBetweenReShow: () => _mirageX1.selectButton(
-          button: 'bzID_$bzID',
-          mounted: mounted,
-        ),
-      );
-    }
+      ),
+    );
+
+
+    await BldrsTabber.goToTab(tab: BldrsTab.myBzProfile);
+
 
   }
   // -----------------------------------------------------------------------------
@@ -104,16 +104,31 @@ class _MirageMyBzzControls {
   ///
   static Future<void> onBzTabChanged({
     required bool mounted,
-    required List<_MirageModel> allMirages,
+    required List<MirageModel> allMirages,
+    required MirageModel thisMirage,
     required String bid,
   }) async {
 
-    final _MirageModel _mirage2 = allMirages[2];
 
-    _mirage2.selectButton(
-      button: bid,
+    final String _bidBz = BldrsTabber.generateBzBid(
+      bzID: HomeProvider.proGetActiveBzModel(context: getMainContext(), listen: false)!.id!,
+      bid: bid,
+    );
+
+    thisMirage.selectButton(
+      button: _bidBz,
       mounted: mounted,
     );
+
+    await MirageModel.hideMiragesAbove(
+        allMirages: allMirages,
+        aboveThisMirage: thisMirage,
+        mounted: mounted
+    );
+
+    final BldrsTab _tab = BldrsTabber.getTabByBid(bid);
+
+    await BldrsTabber.goToTab(tab: _tab);
 
   }
   // -----------------------------------------------------------------------------

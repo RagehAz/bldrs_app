@@ -1,10 +1,10 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, unused_element
 part of mirage;
 
 /// => TAMAM
-class _MirageModel {
+class MirageModel {
   // -----------------------------------------------------------------------------
-  const _MirageModel({
+  const MirageModel({
     required this.position,
     required this.stripHeight,
     required this.selectedButton,
@@ -44,13 +44,13 @@ class _MirageModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static _MirageModel initialize({
+  static MirageModel initialize({
     required double height,
     required int index,
     bool controlPyramid = false,
     String? selectedButton,
   }){
-    return _MirageModel(
+    return MirageModel(
       position: ValueNotifier(height),
       index: index,
       stripHeight: height,
@@ -89,13 +89,13 @@ class _MirageModel {
 
     if (checkIsOpened() == true){
       hide(mounted: mounted);
-      await _MirageModel.waitAnimation();
+      await MirageModel.waitAnimation();
     }
 
     await onBetweenReShow?.call();
 
     show(mounted: mounted);
-    await _MirageModel.waitAnimation();
+    await MirageModel.waitAnimation();
 
   }
   // --------------------
@@ -117,22 +117,22 @@ class _MirageModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> hideMiragesAbove({
-    required List<_MirageModel> allMirages,
-    required _MirageModel aboveThisMirage,
+    required List<MirageModel> allMirages,
+    required MirageModel aboveThisMirage,
     required bool mounted,
   }) async {
 
-    final List<_MirageModel> _miragesAbove = _MirageModel.getMiragesAbove(
+    final List<MirageModel> _miragesAbove = MirageModel.getMiragesAbove(
       allMirages: allMirages,
       aboveIndex: aboveThisMirage.index,
     );
 
-    _MirageModel.hideMirages(
+    MirageModel.hideMirages(
         models: _miragesAbove,
         mounted: mounted
     );
 
-    await _MirageModel.waitAnimation();
+    await MirageModel.waitAnimation();
 
   }
   // -----------------------------------------------------------------------------
@@ -144,7 +144,7 @@ class _MirageModel {
   void onDragUpdate({
     required DragUpdateDetails details,
     required bool mounted,
-    required List<_MirageModel> miragesAbove,
+    required List<MirageModel> miragesAbove,
     Function? onHide,
   }) {
 
@@ -288,13 +288,13 @@ class _MirageModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void hideMirages({
-    required List<_MirageModel> models,
+    required List<MirageModel> models,
     required bool mounted,
   }){
 
     if (Lister.checkCanLoop(models) == true){
 
-      for (final _MirageModel model in models){
+      for (final MirageModel model in models){
         model.hide(mounted: mounted);
       }
 
@@ -304,25 +304,25 @@ class _MirageModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> hideAllAndShowPyramid({
-    required List<_MirageModel> models,
-    required _MirageModel mirage0,
+    required List<MirageModel> models,
+    required MirageModel mirage0,
     required bool mounted,
   }) async {
 
-    _MirageModel.hideMirages(models: models, mounted: mounted);
+    MirageModel.hideMirages(models: models, mounted: mounted);
     mirage0.showPyramid(mounted: mounted);
-    await _MirageModel.waitAnimation();
+    await MirageModel.waitAnimation();
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static void disposeMirages({
-    required List<_MirageModel> models,
+    required List<MirageModel> models,
   }){
 
     if (Lister.checkCanLoop(models) == true){
 
-      for (final _MirageModel model in models){
+      for (final MirageModel model in models){
         model.dispose();
       }
 
@@ -369,12 +369,12 @@ class _MirageModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void clearAllMirageButtons({
-    required List<_MirageModel> mirages,
+    required List<MirageModel> mirages,
     required bool mounted,
   }){
 
     if (Lister.checkCanLoop(mirages) == true){
-      for (final _MirageModel mirage in mirages){
+      for (final MirageModel mirage in mirages){
         mirage.clearButton(mounted: mounted);
       }
     }
@@ -386,12 +386,12 @@ class _MirageModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<_MirageModel> getMiragesAbove({
-    required List<_MirageModel> allMirages,
+  static List<MirageModel> getMiragesAbove({
+    required List<MirageModel> allMirages,
     /// this index is excluded from the output
     required int aboveIndex,
   }){
-    final List<_MirageModel> _output = [];
+    final List<MirageModel> _output = [];
 
     for (int i = 0; i < allMirages.length; i++){
 
@@ -412,10 +412,10 @@ class _MirageModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Duration getMirageDuration({
-    required _MirageModel mirage,
+    required MirageModel mirage,
   }){
 
-    const int value = _MirageModel.slidingDurationValue;
+    const int value = MirageModel.slidingDurationValue;
 
     return Duration(
         milliseconds: value + (value * mirage.index * 0.2).toInt(),

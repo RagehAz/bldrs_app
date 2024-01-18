@@ -1,9 +1,9 @@
 part of mirage;
 // ignore_for_file: unused_element
 
-class _MainMirageStrip extends StatelessWidget {
+class MainMirageStrip extends StatelessWidget {
   // --------------------------------------------------------------------------
-  const _MainMirageStrip({
+  const MainMirageStrip({
     required this.mirage0,
     required this.mounted,
     required this.allMirages,
@@ -17,8 +17,8 @@ class _MainMirageStrip extends StatelessWidget {
     super.key
   });
   // --------------------
-  final _MirageModel mirage0;
-  final List<_MirageModel> allMirages;
+  final MirageModel mirage0;
+  final List<MirageModel> allMirages;
   final bool mounted;
   final Function onMyBzzTap;
   final Function onSectionsTap;
@@ -61,9 +61,9 @@ class _MainMirageStrip extends StatelessWidget {
                             shrinkChild: true,
                             child: SectionsButton(
                               height: _MirageButton.getHeight,
-                              color: _isSelected ? _MirageModel.selectedButtonColor : _MirageModel.buttonColor,
-                              textColor: _isSelected ? _MirageModel.selectedTextColor : _MirageModel.textColor,
-                              titleColor: _isSelected ? _MirageModel.selectedTextColor : Colorz.grey255,
+                              color: _isSelected ? MirageModel.selectedButtonColor : MirageModel.buttonColor,
+                              textColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
+                              titleColor: _isSelected ? MirageModel.selectedTextColor : Colorz.grey255,
                               borderColor: _isSelected ? Colorz.black255 : null,
                               onTap: onSectionsTap,
                             ),

@@ -10,8 +10,8 @@ import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/b_my_saves_page
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/c_my_notifications_page/user_notes_page.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/d_user_follows_page/user_following_page.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/e_my_settings_page/user_settings_page.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_auth_page/auth_page.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/e_app_settings_page/app_settings_page.dart';
-import 'package:bldrs/b_views/b_auth/a_auth_screen.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/d_bz_notes_page/bz_notes_page.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/h_bz_settings_page/bz_settings_page.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
@@ -80,24 +80,70 @@ class BldrsTabber {
   /// MIRAGE BUTTONS
 
   // --------------------
-  static const String bidSections = 'bid_sections';
-  static const String bidZone = 'bid_zone';
-  static const String bidSign = 'bid_sign';
-  static const String bidProfile = 'bid_profile';
-  static const String bidBzz = 'bid_bzz';
-  static const String bidAppSettings = 'bid_appSettings';
+  static const String bidSections = 'bidSections';
+  static const String bidZone = 'bidZone';
+  static const String bidSign = 'bidSign';
+  static const String bidProfile = 'bidProfile';
+  static const String bidBzz = 'bidBzz';
+  static const String bidAppSettings = 'bidAppSettings';
   // --------------------
-  static const String bidProfileInfo = 'bid_ProfileInfo';
-  static const String bidProfileNotifications = 'bid_ProfileNotifications';
-  static const String bidProfileSaves = 'bid_ProfileSaves';
-  static const String bidProfileFollowing = 'bid_ProfileFollowing';
-  static const String bidProfileSettings = 'bid_ProfileSettings';
+  static const String bidProfileInfo = 'bidProfileInfo';
+  static const String bidProfileNotifications = 'bidProfileNotifications';
+  static const String bidProfileSaves = 'bidProfileSaves';
+  static const String bidProfileFollowing = 'bidProfileFollowing';
+  static const String bidProfileSettings = 'bidProfileSettings';
   // --------------------
-  static const String bidMyBzAbout = 'bid_MyBzAbout';
-  static const String bidMyBzFlyers = 'bid_MyBzFlyers';
-  static const String bidMyBzTeam = 'bid_MyBzTeam';
-  static const String bidMyBzNotes = 'bid_MyBzNotes';
-  static const String bidMyBzSettings = 'bid_MyBzSettings';
+  static const String bidMyBzAbout = 'bidMyBzAbout';
+  static const String bidMyBzFlyers = 'bidMyBzFlyers';
+  static const String bidMyBzTeam = 'bidMyBzTeam';
+  static const String bidMyBzNotes = 'bidMyBzNotes';
+  static const String bidMyBzSettings = 'bidMyBzSettings';
+  // -----------------------------------------------------------------------------
+
+  /// ALL VIEWS WIDGETS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Widget _getViewWidget(BldrsTab bldrsTab){
+
+    switch (bldrsTab){
+    // --------------------
+      case BldrsTab.home              : return const FlyersWallPage();
+      case BldrsTab.zone              : return const ZonePage();
+      case BldrsTab.signIn            : return const AuthPage();
+
+      case BldrsTab.myProfile         : return const UserProfilePage();
+      case BldrsTab.mySaves           : return const SavedFlyersScreen(appBarType: AppBarType.non);
+      case BldrsTab.myNotifications   : return const UserNotesPage();
+      case BldrsTab.myFollows         : return const UserFollowingPage();
+      case BldrsTab.mySettings        : return const UserSettingsPage();
+
+      case BldrsTab.myBzProfile       : return Container();
+      case BldrsTab.myBzFlyers        : return Container();
+      case BldrsTab.myBzTeam          : return Container();
+      case BldrsTab.myBzNotifications : return const BzNotesPage();
+      case BldrsTab.myBzSettings      : return const BzSettingsPage();
+
+      case BldrsTab.appSettings       : return const AppSettingsPage();
+
+      default: return const FlyersWallPage();
+    // --------------------
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Widget> getAllViewsWidgets() {
+    final List<Widget> _views = [];
+
+    for (int i = 0; i < allTabs.length; i++){
+      final BldrsTab _tab = allTabs[i];
+      final Widget _viewWidget = _getViewWidget(_tab);
+      _views.add(_viewWidget);
+    }
+
+    return _views;
+  }
   // -----------------------------------------------------------------------------
 
   /// GENERATORS
@@ -199,64 +245,16 @@ class BldrsTabber {
   }
   // -----------------------------------------------------------------------------
 
-  /// ALL VIEWS WIDGETS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Widget _getViewWidget(BldrsTab bldrsTab){
-
-    switch (bldrsTab){
-      // --------------------
-      case BldrsTab.home              : return const FlyersWallPage();
-      case BldrsTab.zone              : return const ZonePage();
-      case BldrsTab.signIn            : return const AuthScreen(appBarType: AppBarType.non);
-
-      case BldrsTab.myProfile         : return const UserProfilePage();
-      case BldrsTab.mySaves           : return const SavedFlyersScreen(appBarType: AppBarType.non);
-      case BldrsTab.myNotifications   : return const UserNotesPage();
-      case BldrsTab.myFollows         : return const UserFollowingPage();
-      case BldrsTab.mySettings        : return const UserSettingsPage();
-
-      case BldrsTab.myBzProfile       : return Container();
-      case BldrsTab.myBzFlyers        : return Container();
-      case BldrsTab.myBzTeam          : return Container();
-      case BldrsTab.myBzNotifications : return const BzNotesPage();
-      case BldrsTab.myBzSettings      : return const BzSettingsPage();
-
-      case BldrsTab.appSettings       : return const AppSettingsPage();
-
-      default: return const FlyersWallPage();
-      // --------------------
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<Widget> getAllViewsWidgets() {
-    final List<Widget> _views = [];
-
-    for (int i = 0; i < allTabs.length; i++){
-      final BldrsTab _tab = allTabs[i];
-      final Widget _viewWidget = _getViewWidget(_tab);
-      _views.add(_viewWidget);
-    }
-
-    return _views;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BZ BID
-
-  // --------------------
+  /// BidBz break-down
 
   // --------------------
   ///
-  static String? getBzIDFromBzBid({
-    required String bzBid,
+  static String? getBzIDFromBidBz({
+    required String? bzBid,
   }){
     String? _output;
 
-    if (TextCheck.stringStartsExactlyWith(text: bzBid, startsWith: 'bidBz') == true){
+    if (checkBidIsBidBz(bid: bzBid) == true){
 
       _output = TextMod.removeTextBeforeFirstSpecialCharacter(
         text: bzBid,
@@ -266,6 +264,36 @@ class BldrsTabber {
     }
 
     return _output;
+  }
+  // --------------------
+  ///
+  static String? getBidFromBidBz({
+    required String? bzBid,
+  }){
+    String? _output;
+
+    if (checkBidIsBidBz(bid: bzBid) == true){
+
+      _output = TextMod.removeTextBeforeFirstSpecialCharacter(
+          text: bzBid,
+          specialCharacter: '_',
+      );
+
+      _output = TextMod.removeTextAfterLastSpecialCharacter(
+          text: _output,
+          specialCharacter: '/',
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static bool checkBidIsBidBz({
+    required String? bid,
+  }){
+    return TextCheck.stringStartsExactlyWith(text: bid, startsWith: 'bidBz');
   }
   // -----------------------------------------------------------------------------
 
@@ -329,18 +357,39 @@ class BldrsTabber {
       case bidProfileFollowing        : return Iconz.follow       ;
       case bidProfileSettings         : return Iconz.gears        ;
 
+      case bidMyBzAbout             : return Iconz.info;
+      case bidMyBzFlyers            : return Iconz.flyerGrid;
+      case bidMyBzTeam              : return Iconz.bz;
+      case bidMyBzNotes             : return Iconz.notification;
+      case bidMyBzSettings          : return Iconz.gears;
+
       default : return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? _getBidPhid(String? bid){
-    switch(bid){
-      case bidProfileInfo        : return  'phid_profile'       ;
+
+    String? _bid = bid;
+    if (TextCheck.stringStartsExactlyWith(text: _bid, startsWith: 'bidBz') == true){
+      _bid = TextMod.removeTextBeforeFirstSpecialCharacter(text: _bid, specialCharacter: '_');
+      _bid = TextMod.removeTextAfterLastSpecialCharacter(text: _bid, specialCharacter: '/');
+    }
+
+    switch(_bid){
+
+      case bidProfileInfo           : return  'phid_profile'       ;
       case bidProfileNotifications  : return  'phid_notifications' ;
       case bidProfileSaves          : return  'phid_savedFlyers' ;
       case bidProfileFollowing      : return  'phid_followed_bz'   ;
       case bidProfileSettings       : return  'phid_settings'      ;
+
+      case bidMyBzAbout             : return 'phid_info';
+      case bidMyBzFlyers            : return 'phid_flyers';
+      case bidMyBzTeam              : return 'phid_team';
+      case bidMyBzNotes             : return 'phid_notifications';
+      case bidMyBzSettings          : return 'phid_settings';
+
       default: return null;
     }
   }

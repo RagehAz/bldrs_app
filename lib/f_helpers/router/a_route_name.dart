@@ -11,10 +11,10 @@ class RouteName {
   // --------------------
   /// LOADING
   static const String staticLogo = '/'; /// ---> [static route]
-  static const String animatedLogo = '/loading'; /// ---> [static route]
+  static const String animatedLogo = '/'; /// ---> [static route]
   // --------------------
   /// MAIN
-  static const String home = '/home'; /// ---> [static route]
+  static const String home = '/'; /// ---> [static route]
   static const String auth = '/auth'; /// ---> [static route]
   static const String search = '/search'; /// ---> [static route]
   static const String appSettings = '/appSettings'; /// ---> [static route]

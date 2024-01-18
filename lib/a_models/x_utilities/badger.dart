@@ -380,7 +380,7 @@ class Badger {
 
     for (final String key in _keys){
 
-      final String? _bzID = BldrsTabber.getBzIDFromBzBid(bzBid: key);
+      final String? _bzID = BldrsTabber.getBzIDFromBidBz(bzBid: key);
       if (_bzID == bzID){
         _output = _deleteBadge(
           badger: _output,

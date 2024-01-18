@@ -1,6 +1,6 @@
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
+import 'package:bldrs/zz_archives/bz_tabber.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/b_static_router.dart';
@@ -39,17 +39,17 @@ class DynamicRouter {
         /// LOADING
 
         // --------------------
-        /// staticLogoScreen
-        case RouteName.staticLogo:
-          _goTo = BldrsNav.pushLogoRouteAndRemoveAllBelow(
-            animatedLogoScreen: false,
-          ); break;
-        // --------------------
-        /// animatedLogoScreen
-        case RouteName.animatedLogo:
-          _goTo = BldrsNav.pushLogoRouteAndRemoveAllBelow(
-            animatedLogoScreen: true,
-          ); break;
+        // /// staticLogoScreen
+        // case RouteName.staticLogo:
+        //   _goTo = BldrsNav.pushLogoRouteAndRemoveAllBelow(
+        //     animatedLogoScreen: false,
+        //   ); break;
+        // // --------------------
+        // /// animatedLogoScreen
+        // case RouteName.animatedLogo:
+        //   _goTo = BldrsNav.pushLogoRouteAndRemoveAllBelow(
+        //     animatedLogoScreen: true,
+        //   ); break;
         // ------------------------------------------------------------
 
         /// MAIN

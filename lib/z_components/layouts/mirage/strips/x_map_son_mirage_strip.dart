@@ -12,8 +12,8 @@ class _MapSonMirageStrip extends StatelessWidget {
     super.key
   });
   // --------------------
-  final _MirageModel thisMirage;
-  final _MirageModel mirageBelow;
+  final MirageModel thisMirage;
+  final MirageModel mirageBelow;
   final Map<String, dynamic>? parentMap;
   final String previousPath;
   final Function(String path) onPhidTap;

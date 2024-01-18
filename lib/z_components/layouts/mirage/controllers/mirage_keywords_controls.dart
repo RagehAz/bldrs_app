@@ -13,16 +13,16 @@ class _MirageKeywordsControls {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onSectionsButtonTap({
-    required List<_MirageModel> allMirages,
+    required List<MirageModel> allMirages,
     required bool mounted,
   }) async {
 
     await BldrsTabber.goToTab(tab: BldrsTab.home);
 
-    final _MirageModel _mirage1 = allMirages[0];
-    final _MirageModel _mirage2 = allMirages[1];
+    final MirageModel _mirage1 = allMirages[0];
+    final MirageModel _mirage2 = allMirages[1];
 
-    await _MirageModel.hideMiragesAbove(
+    await MirageModel.hideMiragesAbove(
         allMirages: allMirages,
         aboveThisMirage: allMirages[0],
         mounted: mounted
@@ -53,13 +53,13 @@ class _MirageKeywordsControls {
   /// TESTED : WORKS PERFECT
   static Future<void> onSelectFlyerType({
     required String path,
-    required List<_MirageModel> allMirages,
+    required List<MirageModel> allMirages,
     required bool mounted,
     required Map<String, dynamic>? keywordsMap,
   }) async {
 
-    final _MirageModel _mirageX1 = allMirages[1];
-    final _MirageModel _mirageX2 = allMirages[2];
+    final MirageModel _mirageX1 = allMirages[1];
+    final MirageModel _mirageX2 = allMirages[2];
 
     final String? _phid = Pathing.getLastPathNode(path);
 
@@ -67,7 +67,7 @@ class _MirageKeywordsControls {
 
       if (Pathing.getLastPathNode(_mirageX1.selectedButton.value) == _phid){
 
-        await _MirageModel.hideMiragesAbove(
+        await MirageModel.hideMiragesAbove(
           mounted: mounted,
           allMirages: allMirages,
           aboveThisMirage: _mirageX1,
@@ -78,7 +78,7 @@ class _MirageKeywordsControls {
 
       else {
 
-        await _MirageModel.hideMiragesAbove(
+        await MirageModel.hideMiragesAbove(
           mounted: mounted,
           allMirages: allMirages,
           aboveThisMirage: _mirageX1,
@@ -105,10 +105,10 @@ class _MirageKeywordsControls {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onPhidTap({
-    required _MirageModel mirageBelow,
-    required _MirageModel thisMirage,
-    required _MirageModel? mirageAbove,
-    required List<_MirageModel> allMirages,
+    required MirageModel mirageBelow,
+    required MirageModel thisMirage,
+    required MirageModel? mirageAbove,
+    required List<MirageModel> allMirages,
     required String path,
     required Map<String, dynamic>? keywordsMap,
     required bool mounted,
@@ -119,7 +119,7 @@ class _MirageKeywordsControls {
     /// ALREADY SELECTED
     if (thisMirage.selectedButton.value == _phid){
 
-      await _MirageModel.hideMiragesAbove(
+      await MirageModel.hideMiragesAbove(
         mounted: mounted,
         allMirages: allMirages,
         aboveThisMirage: thisMirage,
@@ -132,7 +132,7 @@ class _MirageKeywordsControls {
     /// NOT SELECTED
     else {
 
-      await _MirageModel.hideMiragesAbove(
+      await MirageModel.hideMiragesAbove(
         mounted: mounted,
         allMirages: allMirages,
         aboveThisMirage: thisMirage,
@@ -188,12 +188,12 @@ class _MirageKeywordsControls {
   static Future<void> showPhidsDialog({
     required Map<String, dynamic>? keywordsMap,
     required String? path,
-    required List<_MirageModel> allMirages,
-    required _MirageModel thisMirage,
+    required List<MirageModel> allMirages,
+    required MirageModel thisMirage,
     required bool mounted,
   }) async {
 
-    await _MirageModel.hideMiragesAbove(
+    await MirageModel.hideMiragesAbove(
         allMirages: allMirages,
         aboveThisMirage: thisMirage,
         mounted: mounted
@@ -250,7 +250,7 @@ class _MirageKeywordsControls {
   static Future<void> setPhidAndCloseMirages({
     required String? path,
     required bool mounted,
-    required List<_MirageModel> allMirages,
+    required List<MirageModel> allMirages,
   }) async {
 
     if (TextCheck.isEmpty(path) == false){
@@ -259,7 +259,7 @@ class _MirageKeywordsControls {
           chainID: Pathing.getFirstPathNode(path: path)
       );
 
-      await _MirageModel.hideMiragesAbove(
+      await MirageModel.hideMiragesAbove(
           allMirages: allMirages,
           aboveThisMirage: allMirages[0],
           mounted: mounted
@@ -270,7 +270,7 @@ class _MirageKeywordsControls {
         flyerType: flyerType,
       );
 
-      _MirageModel.clearAllMirageButtons(
+      MirageModel.clearAllMirageButtons(
         mirages: allMirages,
         mounted: mounted,
       );
