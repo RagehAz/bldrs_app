@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_flyers_page/aaa1_bz_flyers_page.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_page/b_bz_flyer_page/bz_flyers_view.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -73,7 +73,7 @@ class _BzFlyersPreviewScreenState extends State<BzFlyersPreviewScreen> with Sing
         translate: false,
       ),
       listenToHideLayout: true,
-      child: BzFlyersPage(
+      child: BzFlyersView(
         bzModel: widget.bzModel,
         activePhid: _activePhid,
         mounted: mounted,
