@@ -214,6 +214,9 @@ class BldrsEngine {
       mounted: true,
     );
 
+    /// MIRAGES
+    HomeProvider.proInitializeMirages();
+
   }
   // --------------------
   ///
@@ -262,11 +265,11 @@ class BldrsEngine {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void homeDispose(){
-    blog('disposing home screen');
     HomeProvider.proDisposeTabBarController();
     UiProvider.disposeKeyword();
     HomeProvider.proDisposeHomeGrid();
     NotesProvider.disposeNoteStreams();
+    HomeProvider.proDisposeMirages();
   }
   // --------------------------------------------------------------------------
 }

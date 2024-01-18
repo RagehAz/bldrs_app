@@ -4,22 +4,12 @@ part of mirage;
 class Mirage2StripSwitcher extends StatelessWidget {
   // --------------------------------------------------------------------------
   const Mirage2StripSwitcher({
-    required this.mounted,
-    required this.allMirages,
-    required this.mirageX3,
-    required this.mirageX2,
-    required this.mirageX1,
     required this.keywordsMap,
     required this.onPhidTap,
     required this.onBzTabChanged,
     super.key
   });
   // -------------------
-  final List<MirageModel> allMirages;
-  final bool mounted;
-  final MirageModel mirageX3;
-  final MirageModel mirageX2;
-  final MirageModel mirageX1;
   final Map<String, dynamic>? keywordsMap;
   final Function (String path) onPhidTap;
   final Function(String tab) onBzTabChanged;
@@ -27,14 +17,22 @@ class Mirage2StripSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
+    final List<MirageModel> allMirages = HomeProvider.proGetMirages(
+      context: context,
+      listen: true,
+    );
+    final MirageModel mirage1 = allMirages[1];
+    final MirageModel mirage2 = allMirages[2];
+    // --------------------
+    // --------------------
     return ValueListenableBuilder(
-      valueListenable: mirageX1.selectedButton,
+      valueListenable: mirage1.selectedButton,
       builder: (_, String? selectedButton, Widget? child){
 
         /// BZ TABS
         if (BldrsTabber.checkBidIsBidBz(bid: selectedButton) == true){
           return _BzTabsMirageStrip(
-            thisMirage: mirageX2,
+            thisMirage: mirage2,
             allMirages: allMirages,
             onTabChanged: onBzTabChanged,
             bzID: BldrsTabber.getBzIDFromBidBz(bzBid: selectedButton)!,
@@ -45,8 +43,8 @@ class Mirage2StripSwitcher extends StatelessWidget {
         /// IS PHID_K
         else if (Pathing.checkIsPath(selectedButton) == true){
           return _MapSonMirageStrip(
-            thisMirage: mirageX2,
-            mirageBelow: mirageX1,
+            thisMirage: mirage2,
+            mirageBelow: mirage1,
             previousPath: '$selectedButton/',
             parentMap: keywordsMap,
             onPhidTap: onPhidTap,

@@ -4,18 +4,16 @@ part of mirage;
 class MirageStrip extends StatelessWidget {
   // --------------------------------------------------------------------------
   const MirageStrip({
-    required this.mirage,
+    required this.index,
     required this.mounted,
-    required this.miragesAbove,
     required this.child,
     this.onShow,
     this.onHide,
     super.key
   });
   // --------------------
-  final MirageModel mirage;
+  final int index;
   final bool mounted;
-  final List<MirageModel> miragesAbove;
   final Widget child;
   final Function? onHide;
   final Function? onShow;
@@ -33,27 +31,39 @@ class MirageStrip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _width = mirage.getWidth();
+    final List<MirageModel> _allMirages = HomeProvider.proGetMirages(
+      context: context,
+      listen: true,
+    );
+    // --------------------
+    final MirageModel _mirage = _allMirages[index];
+    // --------------------
+    final List<MirageModel> _miragesAbove = MirageModel.getMiragesAbove(
+        allMirages: _allMirages,
+        aboveIndex: index,
+    );
+    // --------------------
+    final double _width = _mirage.getWidth();
     // --------------------
     return ValueListenableBuilder(
-      valueListenable: mirage.position,
+      valueListenable: _mirage.position,
       builder: (_, double position, Widget? child) {
 
         return AnimatedPositioned(
-          duration: MirageModel.getMirageDuration(mirage: mirage),
+          duration: MirageModel.getMirageDuration(mirage: _mirage),
           bottom: -position,
           right: 0,
           child: child!,
         );
       },
       child: GestureDetector(
-        onVerticalDragUpdate: (DragUpdateDetails details) => mirage.onDragUpdate(
+        onVerticalDragUpdate: (DragUpdateDetails details) => _mirage.onDragUpdate(
           details: details,
           mounted: mounted,
-          miragesAbove: miragesAbove,
+          miragesAbove: _miragesAbove,
           onHide: onHide,
         ),
-        onVerticalDragEnd: (DragEndDetails details) => mirage.onDragEnd(
+        onVerticalDragEnd: (DragEndDetails details) => _mirage.onDragEnd(
           details: details,
           mounted: mounted,
           onHide: onHide,
@@ -64,7 +74,7 @@ class MirageStrip extends StatelessWidget {
           color: Colorz.nothing,
           child: BlurLayer(
             width: _width,
-            height: mirage.stripHeight,
+            height: _mirage.stripHeight,
             color: Colorz.white10,
             blurIsOn: true,
             blur: 3,
@@ -87,7 +97,7 @@ class MirageStrip extends StatelessWidget {
                 /// CHILD
                 Container(
                   width: _width,
-                  height: mirage.getClearHeight(),
+                  height: _mirage.getClearHeight(),
                   alignment: Alignment.topCenter,
                   child: child,
                 ),

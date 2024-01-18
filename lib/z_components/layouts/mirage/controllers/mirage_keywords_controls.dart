@@ -13,18 +13,21 @@ class _MirageKeywordsControls {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onSectionsButtonTap({
-    required List<MirageModel> allMirages,
     required bool mounted,
   }) async {
 
     await BldrsTabber.goToTab(tab: BldrsTab.home);
 
+    final List<MirageModel> allMirages = HomeProvider.proGetMirages(
+      context: getMainContext(),
+      listen: false,
+    );
+
     final MirageModel _mirage1 = allMirages[0];
     final MirageModel _mirage2 = allMirages[1];
 
     await MirageModel.hideMiragesAbove(
-        allMirages: allMirages,
-        aboveThisMirage: allMirages[0],
+        index: 0,
         mounted: mounted
     );
 
@@ -53,11 +56,14 @@ class _MirageKeywordsControls {
   /// TESTED : WORKS PERFECT
   static Future<void> onSelectFlyerType({
     required String path,
-    required List<MirageModel> allMirages,
     required bool mounted,
     required Map<String, dynamic>? keywordsMap,
   }) async {
 
+    final List<MirageModel> allMirages = HomeProvider.proGetMirages(
+        context: getMainContext(),
+        listen: false,
+    );
     final MirageModel _mirageX1 = allMirages[1];
     final MirageModel _mirageX2 = allMirages[2];
 
@@ -68,9 +74,8 @@ class _MirageKeywordsControls {
       if (Pathing.getLastPathNode(_mirageX1.selectedButton.value) == _phid){
 
         await MirageModel.hideMiragesAbove(
+          index: 1,
           mounted: mounted,
-          allMirages: allMirages,
-          aboveThisMirage: _mirageX1,
         );
 
         _mirageX1.clearButton(mounted: mounted,);
@@ -80,8 +85,7 @@ class _MirageKeywordsControls {
 
         await MirageModel.hideMiragesAbove(
           mounted: mounted,
-          allMirages: allMirages,
-          aboveThisMirage: _mirageX1,
+          index: 1,
         );
 
         await _mirageX2.reShow(
@@ -105,14 +109,19 @@ class _MirageKeywordsControls {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onPhidTap({
-    required MirageModel mirageBelow,
-    required MirageModel thisMirage,
-    required MirageModel? mirageAbove,
-    required List<MirageModel> allMirages,
+    required int index,
     required String path,
     required Map<String, dynamic>? keywordsMap,
     required bool mounted,
   }) async {
+
+    final List<MirageModel> allMirages = HomeProvider.proGetMirages(
+        context: getMainContext(),
+        listen: false,
+    );
+    final MirageModel thisMirage = allMirages[index];
+    final MirageModel? mirageAbove = index >= 4 ? null : allMirages[index+1];
+
 
     final String? _phid = Pathing.getLastPathNode(path);
 
@@ -121,8 +130,7 @@ class _MirageKeywordsControls {
 
       await MirageModel.hideMiragesAbove(
         mounted: mounted,
-        allMirages: allMirages,
-        aboveThisMirage: thisMirage,
+        index: thisMirage.index,
       );
 
       thisMirage.clearButton(mounted: mounted,);
@@ -134,8 +142,7 @@ class _MirageKeywordsControls {
 
       await MirageModel.hideMiragesAbove(
         mounted: mounted,
-        allMirages: allMirages,
-        aboveThisMirage: thisMirage,
+        index: thisMirage.index,
       );
 
       final dynamic _son = MapPathing.getNodeValue(
@@ -194,8 +201,7 @@ class _MirageKeywordsControls {
   }) async {
 
     await MirageModel.hideMiragesAbove(
-        allMirages: allMirages,
-        aboveThisMirage: thisMirage,
+        index: thisMirage.index,
         mounted: mounted
     );
 
@@ -260,8 +266,7 @@ class _MirageKeywordsControls {
       );
 
       await MirageModel.hideMiragesAbove(
-          allMirages: allMirages,
-          aboveThisMirage: allMirages[0],
+          index: 0,
           mounted: mounted
       );
 
