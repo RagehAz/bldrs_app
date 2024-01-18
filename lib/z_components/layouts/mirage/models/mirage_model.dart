@@ -117,14 +117,18 @@ class MirageModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> hideMiragesAbove({
-    required List<MirageModel> allMirages,
-    required MirageModel aboveThisMirage,
+    required int index,
     required bool mounted,
   }) async {
 
+    final List<MirageModel> allMirages = HomeProvider.proGetMirages(
+      context: getMainContext(),
+      listen: false,
+    );
+
     final List<MirageModel> _miragesAbove = MirageModel.getMiragesAbove(
       allMirages: allMirages,
-      aboveIndex: aboveThisMirage.index,
+      aboveIndex: index,
     );
 
     MirageModel.hideMirages(

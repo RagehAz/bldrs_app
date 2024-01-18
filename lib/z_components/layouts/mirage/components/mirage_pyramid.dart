@@ -4,19 +4,23 @@ part of mirage;
 class _MiragePyramid extends StatelessWidget {
   // --------------------------------------------------------------------------
   const _MiragePyramid({
-    required this.mirage1,
     required this.mounted,
     super.key
   });
   // --------------------
-  final MirageModel mirage1;
   final bool mounted;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
+    final MirageModel _mirage0 = HomeProvider.proGetMirageByIndex(
+        context: context,
+        listen: true,
+        index: 0,
+    );
+    // --------------------
     return ValueListenableBuilder(
-      valueListenable: mirage1.pyramidIsOn!,
+      valueListenable: _mirage0.pyramidIsOn!,
       builder: (_, bool isOn, Widget? child) {
 
         return AnimatedPositioned(
@@ -28,7 +32,7 @@ class _MiragePyramid extends StatelessWidget {
         );
       },
       child: Khufu(
-        onTap: () => mirage1.onPyramidTap(mounted: mounted),
+        onTap: () => _mirage0.onPyramidTap(mounted: mounted),
       ),
     );
     // --------------------

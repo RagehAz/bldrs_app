@@ -4,9 +4,6 @@ part of mirage;
 class MainMirageStrip extends StatelessWidget {
   // --------------------------------------------------------------------------
   const MainMirageStrip({
-    required this.mirage0,
-    required this.mounted,
-    required this.allMirages,
     required this.onMyBzzTap,
     required this.onSectionsTap,
     required this.onUserProfileButtonTap,
@@ -17,9 +14,6 @@ class MainMirageStrip extends StatelessWidget {
     super.key
   });
   // --------------------
-  final MirageModel mirage0;
-  final List<MirageModel> allMirages;
-  final bool mounted;
   final Function onMyBzzTap;
   final Function onSectionsTap;
   final Function onUserProfileButtonTap;
@@ -30,6 +24,12 @@ class MainMirageStrip extends StatelessWidget {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // --------------------
+    final MirageModel _mirage0 = HomeProvider.proGetMirageByIndex(
+      context: context,
+      listen: true,
+      index: 0,
+    );
     // --------------------
     final UserModel? _userModel = UsersProvider.proGetMyUserModel(
       context: context,
@@ -42,7 +42,7 @@ class MainMirageStrip extends StatelessWidget {
         builder: (_, Badger badger, Widget? child){
 
           return ValueListenableBuilder(
-              valueListenable: mirage0.selectedButton,
+              valueListenable: _mirage0.selectedButton,
               builder: (_, String? selectedButton, Widget? child) {
 
                 return _MirageStripFloatingList(
