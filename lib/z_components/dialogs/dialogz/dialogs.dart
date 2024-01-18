@@ -25,6 +25,7 @@ import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/e_my_settings_page/password_screen.dart';
+import 'package:bldrs/z_components/bubbles/b_variants/bz_bubbles/bz_authors_bubble/bz_contacts_bubble.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/user_bubbles/aa_user_banner.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
@@ -33,7 +34,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_sli
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/z_components/bubbles/b_variants/bz_authors_bubble/bz_contacts_bubble.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/bz_profile/authors_page/author_card.dart';

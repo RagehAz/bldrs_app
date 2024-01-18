@@ -1,16 +1,17 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/components/drawing/dot_separator.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page_controllers.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_page/c_bz_team_page/bz_team_page_controllers.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/z_components/bz_profile/authors_page/pending_authors_bubble.dart';
-import 'package:bldrs/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +21,12 @@ class BzTeamPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BzTeamPage({
     this.bubbleWidth,
+    this.appBarType = AppBarType.basic,
     super.key
   });
   /// --------------------------------------------------------------------------
   final double? bubbleWidth;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   State<BzTeamPage> createState() => _BzTeamPageState();
@@ -113,7 +116,10 @@ class _BzTeamPageState extends State<BzTeamPage> {
 
         return ListView(
           physics: const BouncingScrollPhysics(),
-          padding: Stratosphere.stratosphereSandwich,
+          padding: EdgeInsets.only(
+            top: widget.appBarType == AppBarType.non ? Ratioz.appBarMargin : Ratioz.stratosphere,
+            bottom: Ratioz.horizon,
+          ),
           children: <Widget>[
 
             /// AUTHORS
