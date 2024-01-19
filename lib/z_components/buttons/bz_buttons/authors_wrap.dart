@@ -3,9 +3,9 @@ import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/components/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/flyer/a_flyer_screen/xx_header_controllers.dart';
+import 'package:bldrs/flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
+import 'package:bldrs/flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
 
 class AuthorsWrap extends StatelessWidget {

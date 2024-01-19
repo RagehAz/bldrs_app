@@ -13,10 +13,10 @@ import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_s
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/footprints/top_button_footprint.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_editor_headline_text_field.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_tree.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
+import 'package:bldrs/flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
+import 'package:bldrs/flyer/z_components/d_variants/a_flyer_box.dart';
+import 'package:bldrs/flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/z_components/images/bldrs_image.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';

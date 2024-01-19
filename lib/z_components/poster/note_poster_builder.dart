@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/z_components/poster/variants/aa_bz_poster.dart';
 import 'package:bldrs/z_components/poster/variants/aa_flyer_poster.dart';
