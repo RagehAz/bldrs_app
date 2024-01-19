@@ -12,10 +12,10 @@ import 'package:bldrs/b_screens/x_situational_screens/delete_my_data_screen.dart
 import 'package:bldrs/b_screens/x_situational_screens/no_page_found_screen.dart';
 import 'package:bldrs/b_screens/x_situational_screens/under_construction_screen.dart';
 import 'package:bldrs/b_screens/x_situational_screens/banner_screen.dart';
-import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
 import 'package:bldrs/flyer/a_flyer_screen/a_flyer_preview_screen.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/zz_archives/old_screens/c_main_search/super_search_screen.dart';
 import 'package:flutter/material.dart';
 
 class StaticRouter {
