@@ -8,7 +8,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/e_app_settings_page/x_app_settings_controllers.dart';
-import 'package:bldrs/b_screens/c_user_editor_screen/user_editor_screen.dart';
+import 'package:bldrs/b_screens/b_user_screens/c_user_editor_screen/user_editor_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/fcm_topics_screen.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';

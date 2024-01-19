@@ -5,7 +5,7 @@ import 'package:basics/helpers/checks/errorize.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/mediator/sounder/sounder.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
-import 'package:bldrs/b_views/a_starters/b_home_screen/x_initialization_controllers.dart';
+import 'package:bldrs/b_screens/a_home_screen/x_initialization_controllers.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/sub/b_app_state_initializer.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/sub/c_user_initializer.dart';
