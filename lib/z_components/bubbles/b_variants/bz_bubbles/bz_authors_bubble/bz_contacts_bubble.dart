@@ -6,7 +6,7 @@ import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/components/drawing/expander.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
+import 'package:bldrs/flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/buttons/bz_buttons/contact_button.dart';
 import 'package:bldrs/z_components/bz_profile/authors_page/author_card.dart';
