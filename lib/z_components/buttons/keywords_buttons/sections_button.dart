@@ -4,7 +4,6 @@ import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/components/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
@@ -118,7 +117,7 @@ class SectionsButton extends StatelessWidget {
 
     return Material(
       child: InkWell(
-        onTap: onTap == null ? () => onSectionButtonTap() : () => onTap!(),
+        onTap: () => onTap?.call(),
         splashColor: Colorz.yellow125,
         borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
         child: AnimatedContainer(

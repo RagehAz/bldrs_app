@@ -2,36 +2,46 @@ import 'dart:async';
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/components/animators/widget_fader.dart';
+import 'package:basics/components/animators/widget_waiter.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/layouts/handlers/pull_to_refresh.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/c_my_notifications_page/user_notes_page_controllers.dart';
-import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/d_bz_notes_page/bz_notes_page.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/d_bz_notes_page/bz_notes_page_controllers.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
+import 'package:bldrs/z_components/buttons/general_buttons/main_button.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/notes/note_card.dart';
+import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
-class UserNotesPage extends StatefulWidget {
+class BzNotesPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const UserNotesPage({
+  const BzNotesPage({
+    this.appBarType = AppBarType.basic,
     super.key
   });
+
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
-  State<UserNotesPage> createState() => _UserNotesPageState();
+  State<BzNotesPage> createState() => _BzNotesPageState();
   /// --------------------------------------------------------------------------
 }
 
-class _UserNotesPageState extends State<UserNotesPage> {
+class _BzNotesPageState extends State<BzNotesPage>{
   // -----------------------------------------------------------------------------
   /*
-  // with AutomaticKeepAliveClientMixin<UserNotesPage>
+  // with AutomaticKeepAliveClientMixin<BzNotesPage>
   // @override
   // bool get wantKeepAlive => true;
    */
@@ -78,7 +88,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
         );
         // -------------------------------
         await _triggerLoading(setTo: false);
-
       });
 
     }
@@ -88,23 +97,23 @@ class _UserNotesPageState extends State<UserNotesPage> {
   // --------------------
   @override
   void deactivate() {
-    blog('UserNotesPage deactivate START');
-    _markAllUserUnseenNotesAsSeen();
+    blog('BzNotesPage deactivate START');
+    _markAllBzUnseenNotesAsSeen();
     super.deactivate();
-    blog('UserNotesPage deactivate END');
+    blog('BzNotesPage deactivate END');
   }
   // --------------------
   @override
   void dispose() {
-    blog('UserNotesPage dispose START');
+    blog('BzNotesPage dispose START');
     _loading.dispose();
     _paginationController?.dispose();
     super.dispose();
-    blog('UserNotesPage dispose END');
+    blog('BzNotesPage dispose END');
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  void _markAllUserUnseenNotesAsSeen(){
+  void _markAllBzUnseenNotesAsSeen(){
 
     /// COLLECT NOTES TO MARK FIRST
     final List<NoteModel> _notesToMark = NoteModel.getOnlyUnseenNotes(
@@ -131,12 +140,13 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
       /// ADD NEW NOTES TO LOCAL NOTES NEEDS TO MARK AS SEEN
       for (final NoteModel note in _newNotes){
-          NoteModel.insertNoteIntoNotes(
-            notesToGet: _localNotesToMarkUnseen,
-            note: note,
-            duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
-          );
+        NoteModel.insertNoteIntoNotes(
+          notesToGet: _localNotesToMarkUnseen,
+          note: note,
+          duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
+        );
       }
+
 
     }
 
@@ -145,7 +155,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
   /// TESTED : WORKS PERFECT
   Future<void> _onRefresh() async {
 
-    _markAllUserUnseenNotesAsSeen();
+    _markAllBzUnseenNotesAsSeen();
 
     NotesProvider.proSetIsFlashing(
         setTo: false,
@@ -153,10 +163,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
     );
 
     WaitDialog.showUnawaitedWaitDialog(
-      verse: const Verse(
-        id: 'phid_reloading',
-        translate: true,
-      ),
+      verse: const Verse(id: 'phid_reloading', translate: true,),
     );
 
     setState(() {
@@ -165,7 +172,16 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     await Future.delayed(const Duration(milliseconds: 200), (){
 
-      _paginationController?.clear();
+      setNotifier(
+          notifier: _paginationController?.paginatorMaps,
+          mounted: mounted,
+          value: <Map<String, dynamic>>[],
+      );
+      setNotifier(
+          notifier: _paginationController?.startAfter,
+          mounted: mounted,
+          value: null,
+      );
 
       setState(() {
         showNotes = true;
@@ -181,7 +197,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
   Function? _onNoteTap(NoteModel? _note) {
 
     if (canTapNoteBubble(_note) == true){
-      return () => onUserNoteTap(
+      return () => onBzNoteTap(
         mounted: mounted,
         noteModel: _note,
       );
@@ -197,15 +213,21 @@ class _UserNotesPageState extends State<UserNotesPage> {
   Widget build(BuildContext context) {
     // super.build(context);
 
+    final BzModel? _bzModel = HomeProvider.proGetActiveBzModel(
+      context: context,
+      listen: true,
+    );
+
     return PullToRefresh(
-      onRefresh: _onRefresh,
       circleColor: Colorz.yellow255,
+      onRefresh: _onRefresh,
       fadeOnBuild: true,
       child: showNotes == false ? const SizedBox() :
 
       FireCollPaginator(
-          paginationQuery: userNotesPaginationQueryModel(),
-          streamQuery: userNotesWithPendingRepliesQueryModel(),
+          paginationQuery: bzNotesPaginationQueryModel(
+            bzID: _bzModel?.id,
+          ),
           paginationController: _paginationController,
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget? child){
 
@@ -214,37 +236,69 @@ class _UserNotesPageState extends State<UserNotesPage> {
                 physics: const BouncingScrollPhysics(),
                 controller: _paginationController?.scrollController,
                 itemCount: maps.length,
-                padding: Ratioz.mirageInsets,
+                padding: EdgeInsets.only(
+                  top: widget.appBarType == AppBarType.non ? Ratioz.appBarMargin : Ratioz.stratosphere,
+                  bottom: Ratioz.horizon,
+                ),
                 itemBuilder: (BuildContext ctx, int index) {
-
                   final NoteModel? _note = NoteModel.decipherNote(
                     map: maps[index],
                     fromJSON: false,
                   );
-
                   return NoteCard(
-                    key: PageStorageKey<String>('user_note_card_${_note?.id}'),
+                    key: PageStorageKey<String>('bz_note_card_${_note?.id}'),
                     noteModel: _note,
-                    onNoteOptionsTap: () => onShowNoteOptions(
-                      context: context,
-                      noteModel: _note,
-                      paginationController: _paginationController,
-                    ),
                     onCardTap: _onNoteTap(_note),
                   );
-
                   },
               );
             }
 
             else {
+
               return const NoNotificationsYet();
+
             }
-
-
           }
       ),
 
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+}
+
+
+class NoNotificationsYet extends StatelessWidget {
+  // -----------------------------------------------------------------------------
+  const NoNotificationsYet({
+    super.key
+  });
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return WidgetWaiter(
+      waitDuration: const Duration(milliseconds: 1500),
+      child: WidgetFader(
+        fadeType: FadeType.fadeIn,
+        duration: Ratioz.duration1000ms,
+        child: Center(
+          child: BldrsText(
+            width: MainButton.getButtonWidth(context: context),
+            verse: const Verse(
+              id: 'phid_no_notes_yet',
+              translate: true,
+              casing: Casing.upperCase,
+            ),
+            size: 4,
+            color: Colorz.white80,
+            weight: VerseWeight.black,
+            italic: true,
+            maxLines: 3,
+          ),
+        ),
+      ),
     );
 
   }

@@ -11,12 +11,12 @@ import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/c_my_notificati
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/d_user_follows_page/user_following_page.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/e_my_settings_page/user_settings_page.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/d_auth_page/auth_page.dart';
-import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_page/a_bz_about_page/bz_about_page.dart';
-import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_page/b_bz_flyer_page/my_bz_flyers_page.dart';
-import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_page/c_bz_team_page/bz_team_page.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/a_bz_about_page/bz_about_page.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/b_bz_flyer_page/my_bz_flyers_page.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/c_bz_team_page/bz_team_page.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/e_app_settings_page/app_settings_page.dart';
-import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_page/d_bz_notes_page/bz_notes_page.dart';
-import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_page/e_bz_settings_page/bz_settings_page.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/d_bz_notes_page/bz_notes_page.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/e_bz_settings_page/bz_settings_page.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
