@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/b_screens/c_bz_screens/b_bz_editor_screen/bz_editor_screen.dart';
-import 'package:bldrs/b_views/h_app_settings/fcm_topics_screen.dart';
+import 'package:bldrs/b_screens/x_situational_screens/fcm_topics_screen.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
