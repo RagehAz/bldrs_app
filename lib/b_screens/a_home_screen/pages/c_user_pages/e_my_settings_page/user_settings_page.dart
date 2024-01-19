@@ -2,7 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/drawing/dot_separator.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/e_my_settings_page/user_settings_page_controllers.dart';
-import 'package:bldrs/b_screens/c_user_editor_screen/user_editor_screen.dart';
+import 'package:bldrs/b_screens/b_user_screens/c_user_editor_screen/user_editor_screen.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/e_app_settings_page/x_app_settings_controllers.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/settings_wide_button.dart';
 import 'package:bldrs/z_components/layouts/custom_layouts/bldrs_floating_list.dart';

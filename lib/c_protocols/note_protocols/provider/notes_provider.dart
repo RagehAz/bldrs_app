@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:basics/helpers/streamers/streamer.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_utilities/badger.dart';
-import 'package:bldrs/b_views/a_starters/b_home_screen/x_notes_controllers.dart';
+import 'package:bldrs/b_screens/a_home_screen/x_notes_controllers.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
