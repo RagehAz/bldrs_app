@@ -20,7 +20,7 @@ import 'package:bldrs/b_views/c_main_search/z_components/building_blocks/search_
 import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/bz_search_filters_list.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/flyer_search_filters_list.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/users_search_filters_list.dart';
-import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
+import 'package:bldrs/b_screens/d_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
