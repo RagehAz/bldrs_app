@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
+import 'package:bldrs/flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:fire/super_fire.dart';

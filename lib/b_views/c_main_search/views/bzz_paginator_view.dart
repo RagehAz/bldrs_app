@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/b_views/f_bz/z_components/bzz_list.dart';
+import 'package:bldrs/z_components/bubbles/b_variants/bz_bubbles/bzz_bubbles_list.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:fire/super_fire.dart';
@@ -29,7 +29,7 @@ class BzzPaginatorView extends StatelessWidget {
               fromJSON: false,
           );
 
-          return BzzList(
+          return BzzBubblesList(
             bzz: _bzz,
             scrollController: paginationController.scrollController,
             scrollPadding: Stratosphere.getStratosphereSandwich(

@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/components/super_box/super_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/d_footer_template.dart';
+import 'package:bldrs/flyer/z_components/b_parts/template_flyer/d_footer_template.dart';
 import 'package:flutter/material.dart';
 
 class FooterFootprint extends StatelessWidget {

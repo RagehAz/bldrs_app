@@ -7,7 +7,7 @@ import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/components/drawing/spacing.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart';
+import 'package:bldrs/flyer/a_flyer_screen/xx_header_controllers.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/contacts_bubble/contacts_wrap.dart';
 import 'package:bldrs/z_components/buttons/bz_buttons/authors_wrap.dart';
