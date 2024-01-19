@@ -28,7 +28,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const String _bid = BldrsTabber.bidProfileInfo;
+                    const String _bid = BldrsTabber.bidMyInfo;
                     final bool _isSelected = selectedButton == _bid;
 
                     return _MirageButton(
@@ -50,7 +50,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const String _bid = BldrsTabber.bidProfileSaves;
+                    const String _bid = BldrsTabber.bidMySaves;
                     final bool _isSelected = selectedButton == _bid;
 
                     return _MirageButton(
@@ -72,7 +72,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const String _bid = BldrsTabber.bidProfileNotifications;
+                    const String _bid = BldrsTabber.bidMyNotes;
                     final bool _isSelected = selectedButton == _bid;
 
                     return _MirageButton(
@@ -94,7 +94,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const String _bid = BldrsTabber.bidProfileFollowing;
+                    const String _bid = BldrsTabber.bidMyFollows;
                     final bool _isSelected = selectedButton == _bid;
 
                     return _MirageButton(
@@ -116,7 +116,7 @@ class _UserTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const String _bid = BldrsTabber.bidProfileSettings;
+                    const String _bid = BldrsTabber.bidMySettings;
                     final bool _isSelected = selectedButton == _bid;
 
                     return _MirageButton(

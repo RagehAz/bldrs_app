@@ -11,9 +11,7 @@ import 'package:bldrs/b_views/a_starters/c_error_screen/delete_my_data_screen.da
 import 'package:bldrs/b_views/a_starters/c_error_screen/no_page_found.dart';
 import 'package:bldrs/b_views/a_starters/c_error_screen/under_construction_screen.dart';
 import 'package:bldrs/b_views/a_starters/x_banner_screen/banner_screen.dart';
-import 'package:bldrs/b_screens/a_home_screen/pages/d_auth_page/a_auth_screen.dart';
 import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_preview_screen.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
@@ -68,12 +66,12 @@ class StaticRouter {
       //       settings: settings,
       //   );
       // --------------------
-      /// auth
-      case RouteName.auth:
-        return BldrsNav.transitSuperHorizontal(
-          screen: const AuthScreen(),
-          settings: settings,
-        );
+      // /// auth
+      // case RouteName.auth:
+      //   return BldrsNav.transitSuperHorizontal(
+      //     screen: const AuthScreen(),
+      //     settings: settings,
+      //   );
       // --------------------
       /// search
       case RouteName.search:
@@ -157,14 +155,14 @@ class StaticRouter {
       //     ),
       //   );
       // --------------------
-      /// myBzFlyersPage : HANDLED MANUALLY BY [goToMyBzScreen]
-      case RouteName.myBzFlyersPage:
-        return BldrsNav.transitSuperHorizontal(
-          settings: settings,
-          screen: const MyBzScreen(
-            // initialTab: BzTab.flyers, // DEFAULT
-          ),
-        );
+      // /// myBzFlyersPage : HANDLED MANUALLY BY [goToMyBzScreen]
+      // case RouteName.myBzFlyersPage:
+      //   return BldrsNav.transitSuperHorizontal(
+      //     settings: settings,
+      //     screen: const MyBzScreen(
+      //       // initialTab: BzTab.flyers, // DEFAULT
+      //     ),
+      //   );
       // --------------------
       // /// myBzTeamPage : HANDLED MANUALLY BY [goToMyBzScreen]
       // case RouteName.myBzTeamPage:

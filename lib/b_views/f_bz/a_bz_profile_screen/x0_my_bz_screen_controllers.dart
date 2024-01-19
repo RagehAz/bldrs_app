@@ -1,18 +1,14 @@
 import 'dart:async';
 
-import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/zz_archives/bz_tabber.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
 /// MY BZ SCREEN INITIALIZERS
@@ -123,41 +119,41 @@ Future<void> onCloseMyBzScreen() async {
 // }
  */
 // --------------------
-void onChangeMyBzScreenTabIndexWhileAnimation({
-  required TabController tabController,
-}){
-
-  if (tabController.indexIsChanging == false) {
-
-    final int? _indexFromAnimation = tabController.animation?.value.round();
-    onChangeMyBzScreenTabIndex(
-      index: _indexFromAnimation ?? 0,
-      tabController: tabController,
-    );
-
-  }
-
-}
+// void onChangeMyBzScreenTabIndexWhileAnimation({
+//   required TabController tabController,
+// }){
+//
+//   if (tabController.indexIsChanging == false) {
+//
+//     final int? _indexFromAnimation = tabController.animation?.value.round();
+//     onChangeMyBzScreenTabIndex(
+//       index: _indexFromAnimation ?? 0,
+//       tabController: tabController,
+//     );
+//
+//   }
+//
+// }
 // --------------------
-void onChangeMyBzScreenTabIndex({
-  required int index,
-  required TabController tabController,
-}) {
-
-  final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
-
-  final BzTab _newBzTab = BzTabber.bzTabsList[index];
-  final BzTab _previousBzTab = _uiProvider.currentBzTab;
-
-  /// ONLY WHEN THE TAB CHANGES FOR REAL IN THE EXACT MIDDLE BETWEEN BUTTONS
-  if (_newBzTab != _previousBzTab){
-    // blog('index is $index');
-    // _uiProvider.setCurrentBzTab(_newBzTab);
-    tabController.animateTo(index,
-        curve: Curves.easeIn,
-        duration: Ratioz.duration150ms
-    );
-  }
-
-}
+// void onChangeMyBzScreenTabIndex({
+//   required int index,
+//   required TabController tabController,
+// }) {
+//
+//   final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
+//
+//   final BzTab _newBzTab = BzTabber.bzTabsList[index];
+//   final BzTab _previousBzTab = _uiProvider.currentBzTab;
+//
+//   /// ONLY WHEN THE TAB CHANGES FOR REAL IN THE EXACT MIDDLE BETWEEN BUTTONS
+//   if (_newBzTab != _previousBzTab){
+//     // blog('index is $index');
+//     // _uiProvider.setCurrentBzTab(_newBzTab);
+//     tabController.animateTo(index,
+//         curve: Curves.easeIn,
+//         duration: Ratioz.duration150ms
+//     );
+//   }
+//
+// }
 // -----------------------------------------------------------------------------

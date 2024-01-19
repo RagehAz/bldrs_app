@@ -115,6 +115,18 @@ class UsersProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static bool proCheckIsSignedUp(){
+
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
+      listen: false,
+    );
+
+    return Authing.userIsSignedUp(_userModel?.signInMethod);
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<BzModel>> proFetchMyBzz() async {
 
     return BzProtocols.fetchBzz(

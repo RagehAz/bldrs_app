@@ -25,6 +25,7 @@ import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/e_my_settings_page/password_screen.dart';
+import 'package:bldrs/f_helpers/router/z_mirage_nav.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/bz_bubbles/bz_authors_bubble/bz_contacts_bubble.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/user_bubbles/aa_user_banner.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
@@ -178,7 +179,7 @@ class Dialogs {
           notify: true,
       );
 
-      await BldrsNav.pushAuthRoute();
+      await MirageNav.goAuth();
 
     }
 

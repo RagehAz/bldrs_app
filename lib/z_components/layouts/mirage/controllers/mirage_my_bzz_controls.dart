@@ -39,7 +39,7 @@ class _MirageMyBzzControls {
       await _mirageX1.reShow(
         mounted: mounted,
         onBetweenReShow: () => _mirageX0.selectButton(
-          button: BldrsTabber.bidBzz,
+          button: BldrsTabber.bidMyBzz,
           mounted: mounted,
         ),
       );
@@ -72,7 +72,7 @@ class _MirageMyBzzControls {
 
     final String _bidBz = BldrsTabber.generateBzBid(
       bzID: bzID,
-      bid: BldrsTabber.bidMyBzAbout,
+      bid: BldrsTabber.bidMyBzInfo,
     );
 
     await MirageModel.hideMiragesAbove(
@@ -97,7 +97,7 @@ class _MirageMyBzzControls {
     );
 
 
-    await BldrsTabber.goToTab(tab: BldrsTab.myBzProfile);
+    await BldrsTabber.goToTab(tab: BldrsTab.myBzInfo);
 
 
   }

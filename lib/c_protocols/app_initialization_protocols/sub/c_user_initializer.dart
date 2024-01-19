@@ -1,16 +1,15 @@
 import 'dart:async';
 
+import 'package:basics/components/sensors/app_version_builder.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
-import 'package:basics/components/sensors/app_version_builder.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/b_screens/a_home_screen/pages/d_auth_page/a_auth_screen.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
@@ -21,7 +20,7 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/f_helpers/router/z_mirage_nav.dart';
 import 'package:fire/super_fire.dart';
 
 class UserInitializer {
@@ -159,9 +158,8 @@ class UserInitializer {
             users: _signedUpUsers,
           );
 
-          _continue = await BldrsNav.goToNewScreen(
-              screen: const AuthScreen(),
-          );
+          await MirageNav.goAuth();
+          _continue = false;
 
         }
 
@@ -194,7 +192,7 @@ class UserInitializer {
 
     }
 
-    return _continue ?? false;
+    return _continue;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
