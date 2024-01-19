@@ -1,9 +1,9 @@
 import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
-import 'package:bldrs/b_views/c_main_search/views/bzz_paginator_view.dart';
-import 'package:bldrs/b_views/c_main_search/views/flyers_paginator_view.dart';
-import 'package:bldrs/b_views/c_main_search/views/history_view.dart';
-import 'package:bldrs/b_views/c_main_search/views/users_paginator_view.dart';
+import 'package:bldrs/zz_archives/old_screens/c_main_search/views/bzz_paginator_view.dart';
+import 'package:bldrs/zz_archives/old_screens/c_main_search/views/flyers_paginator_view.dart';
+import 'package:bldrs/zz_archives/old_screens/c_main_search/views/history_view.dart';
+import 'package:bldrs/zz_archives/old_screens/c_main_search/views/users_paginator_view.dart';
 import 'package:bldrs/flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
