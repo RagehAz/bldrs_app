@@ -150,11 +150,11 @@ class MirageNav {
       HomeProvider.proSelectMirageButton(
         mirageIndex: 1,
         mounted: mounted,
-        button: BldrsTabber.bidMyInfo,
+        button: bid,
       );
 
       /// GO TO TAB
-      await BldrsTabber.goToTab(tab: BldrsTab.myInfo);
+      await BldrsTabber.goToTab(tab: tab);
 
       /// SHOW MIRAGE 1
       allMirages[1].show(mounted: mounted);
@@ -187,14 +187,14 @@ class MirageNav {
   // --------------------
   static Future<void> goMyBzNotes({required String bzID}) => _goToABzTab(
     bzID: bzID,
-    bid: BldrsTabber.bidMyBzInfo,
-    tab: BldrsTab.myBzInfo,
+    bid: BldrsTabber.bidMyBzNotes,
+    tab: BldrsTab.myBzNotes,
   );
   // --------------------
   static Future<void> goMyBzSettings({required String bzID}) => _goToABzTab(
     bzID: bzID,
-    bid: BldrsTabber.bidMyBzInfo,
-    tab: BldrsTab.myBzInfo,
+    bid: BldrsTabber.bidMyBzSettings,
+    tab: BldrsTab.myBzSettings,
   );
   // --------------------
   static Future<void> _goToABzTab({
