@@ -185,7 +185,7 @@ class _MirageNavBarState extends State<MirageNavBar> {
               HomeProvider.proSelectMirageButton(
                   mirageIndex: 0,
                   mounted: mounted,
-                  button: BldrsTabber.bidSign,
+                  button: BldrsTabber.bidAuth,
               );
 
               await MirageModel.hideMiragesAbove(
@@ -193,7 +193,7 @@ class _MirageNavBarState extends State<MirageNavBar> {
                   mounted: mounted
               );
 
-              await BldrsTabber.goToTab(tab: BldrsTab.signIn);
+              await BldrsTabber.goToTab(tab: BldrsTab.auth);
               // await Nav.goToRoute(context, RouteName.auth);
 
             },
@@ -210,7 +210,7 @@ class _MirageNavBarState extends State<MirageNavBar> {
 
               final String _bidBz = BldrsTabber.generateBzBid(
                 bzID: bzModel.id!,
-                bid: BldrsTabber.bidMyBzAbout,
+                bid: BldrsTabber.bidMyBzInfo,
               );
 
               HomeProvider.proSelectMirageButton(

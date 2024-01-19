@@ -28,18 +28,18 @@ enum BldrsTab {
   // --------------------
   home,
   zone,
-  signIn,
+  auth,
 
-  myProfile,
+  myInfo,
   mySaves,
-  myNotifications,
+  myNotes,
   myFollows,
   mySettings,
-  myBzProfile,
+  myBzInfo,
 
   myBzFlyers,
   myBzTeam,
-  myBzNotifications,
+  myBzNotes,
   myBzSettings,
 
   appSettings,
@@ -60,18 +60,18 @@ class BldrsTabber {
     // --------------------
     BldrsTab.home,
     BldrsTab.zone,
-    BldrsTab.signIn,
+    BldrsTab.auth,
 
-    BldrsTab.myProfile,
+    BldrsTab.myInfo,
     BldrsTab.mySaves,
-    BldrsTab.myNotifications,
+    BldrsTab.myNotes,
     BldrsTab.myFollows,
     BldrsTab.mySettings,
 
-    BldrsTab.myBzProfile,
+    BldrsTab.myBzInfo,
     BldrsTab.myBzFlyers,
     BldrsTab.myBzTeam,
-    BldrsTab.myBzNotifications,
+    BldrsTab.myBzNotes,
     BldrsTab.myBzSettings,
 
     BldrsTab.appSettings,
@@ -82,20 +82,20 @@ class BldrsTabber {
   /// MIRAGE BUTTONS (BID is ButtonID)
 
   // --------------------
-  static const String bidSections = 'bidSections';
+  static const String bidHome = 'bidHome';
   static const String bidZone = 'bidZone';
-  static const String bidSign = 'bidSign';
-  static const String bidProfile = 'bidProfile';
-  static const String bidBzz = 'bidBzz';
+  static const String bidAuth = 'bidAuth';
+  static const String bidMyProfile = 'bidMyProfile';
+  static const String bidMyBzz = 'bidMyBzz';
   static const String bidAppSettings = 'bidAppSettings';
   // --------------------
-  static const String bidProfileInfo = 'bidProfileInfo';
-  static const String bidProfileNotifications = 'bidProfileNotifications';
-  static const String bidProfileSaves = 'bidProfileSaves';
-  static const String bidProfileFollowing = 'bidProfileFollowing';
-  static const String bidProfileSettings = 'bidProfileSettings';
+  static const String bidMyInfo = 'bidMyInfo';
+  static const String bidMySaves = 'bidMySaves';
+  static const String bidMyNotes = 'bidMyNotes';
+  static const String bidMyFollows = 'bidMyFollows';
+  static const String bidMySettings = 'bidMySettings';
   // --------------------
-  static const String bidMyBzAbout = 'bidMyBzAbout';
+  static const String bidMyBzInfo = 'bidMyBzInfo';
   static const String bidMyBzFlyers = 'bidMyBzFlyers';
   static const String bidMyBzTeam = 'bidMyBzTeam';
   static const String bidMyBzNotes = 'bidMyBzNotes';
@@ -112,18 +112,18 @@ class BldrsTabber {
     // --------------------
       case BldrsTab.home              : return const FlyersWallPage();
       case BldrsTab.zone              : return const ZonePage();
-      case BldrsTab.signIn            : return const AuthPage();
+      case BldrsTab.auth              : return const AuthPage();
 
-      case BldrsTab.myProfile         : return const UserProfilePage();
+      case BldrsTab.myInfo            : return const UserProfilePage();
       case BldrsTab.mySaves           : return const SavedFlyersScreen(appBarType: AppBarType.non);
-      case BldrsTab.myNotifications   : return const UserNotesPage();
+      case BldrsTab.myNotes           : return const UserNotesPage();
       case BldrsTab.myFollows         : return const UserFollowingPage();
       case BldrsTab.mySettings        : return const UserSettingsPage();
 
-      case BldrsTab.myBzProfile       : return const BzAboutPage(appBarType: AppBarType.non);
+      case BldrsTab.myBzInfo          : return const BzAboutPage(appBarType: AppBarType.non);
       case BldrsTab.myBzFlyers        : return const MyBzFlyersPage();
       case BldrsTab.myBzTeam          : return const BzTeamPage(appBarType: AppBarType.non);
-      case BldrsTab.myBzNotifications : return const BzNotesPage(appBarType: AppBarType.non);
+      case BldrsTab.myBzNotes         : return const BzNotesPage(appBarType: AppBarType.non);
       case BldrsTab.myBzSettings      : return const BzSettingsPage();
 
       case BldrsTab.appSettings       : return const AppSettingsPage();
@@ -158,18 +158,18 @@ class BldrsTabber {
   }){
 
     const List<String> _initialList = [
-      bidSections,
+      bidHome,
       bidZone,
-      bidSign,
-      bidProfile,
-      bidBzz,
+      bidAuth,
+      bidMyProfile,
+      bidMyBzz,
       bidAppSettings,
 
-      bidProfileInfo,
-      bidProfileNotifications,
-      bidProfileSaves,
-      bidProfileFollowing,
-      bidProfileSettings,
+      bidMyInfo,
+      bidMyNotes,
+      bidMySaves,
+      bidMyFollows,
+      bidMySettings,
     ];
 
     final List<String> _myBzzBids = generateMyBzzBids(
@@ -219,7 +219,7 @@ class BldrsTabber {
 
     _output.addAll([
 
-      generateBzBid(bzID: bzID, bid: bidMyBzAbout),
+      generateBzBid(bzID: bzID, bid: bidMyBzInfo),
       generateBzBid(bzID: bzID, bid: bidMyBzFlyers),
       generateBzBid(bzID: bzID, bid: bidMyBzTeam),
       generateBzBid(bzID: bzID, bid: bidMyBzNotes),
@@ -320,22 +320,22 @@ class BldrsTabber {
   static BldrsTab getTabByBid(String? bid){
 
     switch(bid){
-      case bidSections              : return BldrsTab.home;
+      case bidHome              : return BldrsTab.home;
       case bidZone                  : return BldrsTab.zone;
-      case bidSign                  : return BldrsTab.signIn;
-      case bidProfile               : return BldrsTab.myProfile;
-      case bidBzz                   : return BldrsTab.myBzProfile;
+      case bidAuth                  : return BldrsTab.auth;
+      case bidMyProfile               : return BldrsTab.myInfo;
+      case bidMyBzz                   : return BldrsTab.myBzInfo;
 
-      case bidProfileInfo           : return BldrsTab.myProfile;
-      case bidProfileNotifications  : return BldrsTab.myNotifications;
-      case bidProfileSaves          : return BldrsTab.mySaves;
-      case bidProfileFollowing      : return BldrsTab.myFollows;
-      case bidProfileSettings       : return BldrsTab.mySettings;
+      case bidMyInfo           : return BldrsTab.myInfo;
+      case bidMyNotes  : return BldrsTab.myNotes;
+      case bidMySaves          : return BldrsTab.mySaves;
+      case bidMyFollows      : return BldrsTab.myFollows;
+      case bidMySettings       : return BldrsTab.mySettings;
 
-      case bidMyBzAbout             : return BldrsTab.myBzProfile;
+      case bidMyBzInfo             : return BldrsTab.myBzInfo;
       case bidMyBzFlyers            : return BldrsTab.myBzFlyers;
       case bidMyBzTeam              : return BldrsTab.myBzTeam;
-      case bidMyBzNotes             : return BldrsTab.myBzNotifications;
+      case bidMyBzNotes             : return BldrsTab.myBzNotes;
       case bidMyBzSettings          : return BldrsTab.myBzSettings;
 
       case bidAppSettings           : return BldrsTab.appSettings;
@@ -348,18 +348,18 @@ class BldrsTabber {
   static String? getBidIcon(String? bid){
     switch(bid){
 
-      case bidProfile                 : return UsersProvider.proGetMyUserModel(
+      case bidMyProfile                 : return UsersProvider.proGetMyUserModel(
                                                     context: getMainContext(),
                                                     listen: false
                                                 )?.picPath;
 
-      case bidProfileInfo             : return Iconz.normalUser ;
-      case bidProfileNotifications    : return Iconz.notification ;
-      case bidProfileSaves            : return Iconz.love ;
-      case bidProfileFollowing        : return Iconz.follow       ;
-      case bidProfileSettings         : return Iconz.gears        ;
+      case bidMyInfo             : return Iconz.normalUser ;
+      case bidMyNotes    : return Iconz.notification ;
+      case bidMySaves            : return Iconz.love ;
+      case bidMyFollows        : return Iconz.follow       ;
+      case bidMySettings         : return Iconz.gears        ;
 
-      case bidMyBzAbout             : return Iconz.info;
+      case bidMyBzInfo             : return Iconz.info;
       case bidMyBzFlyers            : return Iconz.flyerGrid;
       case bidMyBzTeam              : return Iconz.bz;
       case bidMyBzNotes             : return Iconz.notification;
@@ -382,13 +382,13 @@ class BldrsTabber {
 
     switch(_bid){
 
-      case bidProfileInfo           : return  'phid_profile'       ;
-      case bidProfileNotifications  : return  'phid_notifications' ;
-      case bidProfileSaves          : return  'phid_savedFlyers' ;
-      case bidProfileFollowing      : return  'phid_followed_bz'   ;
-      case bidProfileSettings       : return  'phid_settings'      ;
+      case bidMyInfo           : return  'phid_profile'       ;
+      case bidMyNotes  : return  'phid_notifications' ;
+      case bidMySaves          : return  'phid_savedFlyers' ;
+      case bidMyFollows      : return  'phid_followed_bz'   ;
+      case bidMySettings       : return  'phid_settings'      ;
 
-      case bidMyBzAbout             : return 'phid_info';
+      case bidMyBzInfo             : return 'phid_info';
       case bidMyBzFlyers            : return 'phid_flyers';
       case bidMyBzTeam              : return 'phid_team';
       case bidMyBzNotes             : return 'phid_notifications';

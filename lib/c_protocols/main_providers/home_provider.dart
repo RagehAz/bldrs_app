@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/tabbing/bldrs_tabs.dart';
+import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
 import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:fire/super_fire.dart';

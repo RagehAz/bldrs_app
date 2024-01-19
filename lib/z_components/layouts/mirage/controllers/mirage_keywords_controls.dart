@@ -32,7 +32,7 @@ class _MirageKeywordsControls {
     );
 
     /// ALREADY SELECTED
-    if (_mirage1.selectedButton.value == BldrsTabber.bidSections){
+    if (_mirage1.selectedButton.value == BldrsTabber.bidHome){
       // _mirage1.clearButton(mounted: mounted,);
     }
 
@@ -41,7 +41,7 @@ class _MirageKeywordsControls {
       await _mirage2.reShow(
         mounted: mounted,
         onBetweenReShow: () => _mirage1.selectButton(
-          button: BldrsTabber.bidSections,
+          button: BldrsTabber.bidHome,
           mounted: mounted,
         ),
       );
