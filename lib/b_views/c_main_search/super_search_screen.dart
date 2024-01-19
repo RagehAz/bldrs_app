@@ -14,7 +14,7 @@ import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/a_models/m_search/user_search_model.dart';
 import 'package:bldrs/b_screens/x_keywords_picker_screen/keywords_picker_screen.dart';
-import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
+import 'package:bldrs/b_screens/a_home_screen/x_home_screen_controllers.dart';
 import 'package:bldrs/b_views/c_main_search/views/search_view_splitter.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/building_blocks/search_type_button.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/bz_search_filters_list.dart';

@@ -1,38 +1,39 @@
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:bldrs/b_screens/a_home_screen/pages/a_flyers_wall_page/components/home_screen_view.dart';
-import 'package:bldrs/z_components/layouts/custom_layouts/app_bar_holder.dart';
+import 'package:basics/z_grid/z_grid.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/b_bz_flyer_page/bz_flyers_view.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 
-class FlyersWallPage extends StatefulWidget {
+class MyBzFlyersPage extends StatefulWidget {
   // --------------------------------------------------------------------------
-  const FlyersWallPage({
+  const MyBzFlyersPage({
     super.key
   });
   // --------------------
   ///
   // --------------------
   @override
-  _FlyersWallPageState createState() => _FlyersWallPageState();
+  _MyBzFlyersPageState createState() => _MyBzFlyersPageState();
   // --------------------------------------------------------------------------
 }
 
-class _FlyersWallPageState extends State<FlyersWallPage> {
+class _MyBzFlyersPageState extends State<MyBzFlyersPage> with SingleTickerProviderStateMixin{
   // -----------------------------------------------------------------------------
-  /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false);
-  // --------------------
-  Future<void> _triggerLoading({required bool setTo}) async {
-    setNotifier(
-      notifier: _loading,
-      mounted: mounted,
-      value: setTo,
-    );
-  }
+  late ZGridController _zGridController;
+  final ScrollController _scrollController = ScrollController();
+  final ValueNotifier<String?> _activePhid = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
+
+    _zGridController = ZGridController.initialize(
+      vsync: this,
+      scrollController: _scrollController,
+    );
+
   }
   // --------------------
   bool _isInit = true;
@@ -43,10 +44,6 @@ class _FlyersWallPageState extends State<FlyersWallPage> {
       _isInit = false; // good
 
       asyncInSync(() async {
-
-        await _triggerLoading(setTo: true);
-        /// GO BABY GO
-        await _triggerLoading(setTo: false);
 
       });
 
@@ -66,16 +63,29 @@ class _FlyersWallPageState extends State<FlyersWallPage> {
   // --------------------
   @override
   void dispose() {
-    _loading.dispose();
+    /// SCROLL_CONTROLLER_IS_DISPOSED_IN_ZOOMABLE_GRID_CONTROLLER
+    // _scrollController.dispose(); // so do not dispose here, kept for reference
+    _zGridController.dispose();
+    _activePhid.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    return const AppBarHolder(
-      appBarType: AppBarType.main,
-      child: HomeFlyersGrid(),
+    final BzModel? _myActiveBz = HomeProvider.proGetActiveBzModel(
+        context: context,
+        listen: true,
+    );
+    // --------------------
+    return BzFlyersView(
+      bzModel: _myActiveBz,
+      activePhid: _activePhid,
+      mounted: mounted,
+      scrollController: _scrollController,
+      zGridController: _zGridController,
+      onlyShowPublished: true,
+      appBarType: AppBarType.non,
     );
     // --------------------
   }
