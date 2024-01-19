@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_br
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_search_view.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
@@ -97,7 +98,7 @@ class _ZonePageState extends State<ZonePage> {
     /// COUNTRIES STAGES
     final StagingModel? _countriesStages = await StagingProtocols.fetchCountriesStaging();
 
-    if (_countriesStages != null){
+    if (_countriesStages != null && mounted){
       // --------------------
 
       /// SHOWN COUNTRIES IDS
@@ -107,12 +108,12 @@ class _ZonePageState extends State<ZonePage> {
       List<String> _activeIDs = _countriesStages.getIDsByViewingEvent(
         event: ViewingEvent.homeView,
         countryID: null,
-        viewerCountryID: UsersProvider.proGetUserZone(context: context, listen: false)?.countryID,
+        viewerCountryID: UsersProvider.proGetUserZone(context: getMainContext(), listen: false)?.countryID,
       );
       /// ACTIVATE MY COUNTRY ID
       _activeIDs = StagingModel.addMyCountryIDToActiveCountries(
         shownCountriesIDs: _activeIDs,
-        myCountryID: UsersProvider.proGetUserZone(context: context, listen: false)?.countryID,
+        myCountryID: UsersProvider.proGetUserZone(context: getMainContext(), listen: false)?.countryID,
         event: ViewingEvent.homeView,
       );
       /// SHOW USA IF A STATE IS SHOWN

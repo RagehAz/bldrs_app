@@ -52,7 +52,7 @@ class MainMirageStrip extends StatelessWidget {
                     Builder(
                         builder: (_) {
 
-                          final bool _isSelected = selectedButton == BldrsTabber.bidSections;
+                          final bool _isSelected = selectedButton == BldrsTabber.bidHome;
 
                           return RedDotBadge(
                             height: _MirageButton.getHeight,
@@ -97,10 +97,10 @@ class MainMirageStrip extends StatelessWidget {
                     Builder(
                         builder: (context) {
 
-                          const String _bid = BldrsTabber.bidSign;
+                          const String _bid = BldrsTabber.bidAuth;
 
                           return _MirageButton(
-                            isSelected: selectedButton == BldrsTabber.bidSign,
+                            isSelected: selectedButton == BldrsTabber.bidAuth,
                             verse: const Verse(id: 'phid_sign', translate: true),
                             icon: Iconz.normalUser,
                             bigIcon: false,
@@ -118,11 +118,11 @@ class MainMirageStrip extends StatelessWidget {
                     Builder(
                         builder: (_) {
 
-                          const String _bid = BldrsTabber.bidSign;
+                          const String _bid = BldrsTabber.bidAuth;
                           final bool _forceRedDot = _userModel == null || Formers.checkUserHasMissingFields(userModel: _userModel);
 
                           return _MirageButton(
-                            isSelected: selectedButton == BldrsTabber.bidProfile,
+                            isSelected: selectedButton == BldrsTabber.bidMyProfile,
                             verse: _userModel?.name == null ?
                             const Verse(id: 'phid_complete_my_profile', translate: true)
                                 :
@@ -153,7 +153,7 @@ class MainMirageStrip extends StatelessWidget {
 
                             return _MirageButton(
                               loading: loading,
-                              isSelected: selectedButton == BldrsTabber.bidBzz,
+                              isSelected: selectedButton == BldrsTabber.bidMyBzz,
                               verse: Verse(
                                 id: bzModel?.name,
                                 translate: false,
@@ -190,7 +190,7 @@ class MainMirageStrip extends StatelessWidget {
                               redDotCount: _count,
                               redDotIsOn: _count > 0,
                               redDotVerse: null,
-                              isSelected: selectedButton == BldrsTabber.bidBzz,
+                              isSelected: selectedButton == BldrsTabber.bidMyBzz,
                               onTap: onMyBzzTap,
                               loading: loading,
                             );

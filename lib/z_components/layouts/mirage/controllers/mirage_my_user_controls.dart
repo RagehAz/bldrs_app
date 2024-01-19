@@ -38,15 +38,15 @@ class _MirageMyUserControls {
     HomeProvider.proSelectMirageButton(
       mirageIndex: 1,
       mounted: mounted,
-      button: BldrsTabber.bidProfileInfo,
+      button: BldrsTabber.bidMyInfo,
     );
 
-    await BldrsTabber.goToTab(tab: BldrsTab.myProfile);
+    await BldrsTabber.goToTab(tab: BldrsTab.myInfo);
 
     await _mirageX1.reShow(
       mounted: mounted,
       onBetweenReShow: () => _mirageX0.selectButton(
-        button: BldrsTabber.bidProfile,
+        button: BldrsTabber.bidMyProfile,
         mounted: mounted,
       ),
     );

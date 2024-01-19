@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/animators/app_scroll_behavior.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:bldrs/b_screens/new_static_router.dart';
+import 'package:bldrs/f_helpers/router/z_new_static_router.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/bldrs_engine.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_providers.dart';

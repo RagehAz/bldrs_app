@@ -68,8 +68,8 @@ class RoutingTestScreen extends StatelessWidget {
           /// home
           _goTo(RouteName.home, good: true),
           // --------------------------
-          /// auth
-          _goTo(RouteName.auth, good: true),
+          // /// auth
+          // _goTo(RouteName.auth, good: true),
           // --------------------------
           /// search
           _goTo(RouteName.search, good: true),

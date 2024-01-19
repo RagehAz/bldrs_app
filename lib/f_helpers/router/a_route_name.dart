@@ -15,7 +15,7 @@ class RouteName {
   // --------------------
   /// MAIN
   static const String home = '/'; /// ---> [static route]
-  static const String auth = '/auth'; /// ---> [static route]
+  // static const String auth = '/auth'; /// ---> [static route]
   static const String search = '/search'; /// ---> [static route]
   static const String appSettings = '/appSettings'; /// ---> [static route]
   // --------------------
