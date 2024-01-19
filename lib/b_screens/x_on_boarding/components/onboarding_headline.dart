@@ -1,4 +1,5 @@
-import 'package:bldrs/b_screens/d_on_boarding/a_on_boarding_screen.dart';
+
+import 'package:bldrs/b_screens/x_on_boarding/a_on_boarding_screen.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
