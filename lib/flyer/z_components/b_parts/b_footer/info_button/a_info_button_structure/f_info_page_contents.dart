@@ -19,7 +19,7 @@ import 'package:bldrs/flyer/z_components/b_parts/b_footer/info_button/expanded_i
 import 'package:bldrs/flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/report_button.dart';
 import 'package:bldrs/flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/specs_builder.dart';
 import 'package:bldrs/flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/l_pdf_screen/c_pdf_screen.dart';
+import 'package:bldrs/b_screens/x_situational_screens/c_pdf_screen.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';

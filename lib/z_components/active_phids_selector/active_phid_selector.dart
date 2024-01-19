@@ -9,7 +9,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/z_components/active_phids_selector/phid_button_clone.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
+import 'package:bldrs/z_components/buttons/keywords_buttons/f_phid_button.dart';
 import 'package:basics/components/layers/blur_layer.dart';
 import 'package:basics/components/animators/auto_scrolling_bar.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
