@@ -5,7 +5,7 @@ import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/components/super_box/super_box.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
+import 'package:bldrs/z_components/buttons/keywords_buttons/f_phid_button.dart';
 import 'package:bldrs/flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/phids_bubble/add_keywords_button.dart';
