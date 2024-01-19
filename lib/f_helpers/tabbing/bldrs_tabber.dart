@@ -382,13 +382,13 @@ class BldrsTabber {
 
     switch(_bid){
 
-      case bidMyInfo           : return  'phid_profile'       ;
-      case bidMyNotes  : return  'phid_notifications' ;
-      case bidMySaves          : return  'phid_savedFlyers' ;
-      case bidMyFollows      : return  'phid_followed_bz'   ;
-      case bidMySettings       : return  'phid_settings'      ;
+      case bidMyInfo                : return  'phid_profile'       ;
+      case bidMyNotes               : return  'phid_notifications' ;
+      case bidMySaves               : return  'phid_savedFlyers' ;
+      case bidMyFollows             : return  'phid_followed_bz'   ;
+      case bidMySettings            : return  'phid_settings'      ;
 
-      case bidMyBzInfo             : return 'phid_info';
+      case bidMyBzInfo              : return 'phid_info';
       case bidMyBzFlyers            : return 'phid_flyers';
       case bidMyBzTeam              : return 'phid_team';
       case bidMyBzNotes             : return 'phid_notifications';
