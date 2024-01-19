@@ -1,6 +1,5 @@
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs/zz_archives/bz_tabber.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/b_static_router.dart';
@@ -59,9 +58,9 @@ class DynamicRouter {
         case RouteName.home:
           _goTo = BldrsNav.pushHomeRouteAndRemoveAllBelow(); break;
         // --------------------
-        /// auth
-          case RouteName.auth:
-            _goTo = BldrsNav.pushAuthRoute(); break;
+        // /// auth
+        //   case RouteName.auth:
+        //     _goTo = BldrsNav.pushAuthRoute(); break;
         // --------------------
         /// search
           case RouteName.search:
@@ -115,45 +114,45 @@ class DynamicRouter {
         /// MY BZ
 
         // --------------------
-        /// myBzAboutPage
-        case RouteName.myBzAboutPage:
-          _goTo = BldrsNav.goToMyBzScreen(
-            bzID: _args,
-            replaceCurrentScreen: false,
-            initialTab: BzTab.about,
-          ); break;
+        // /// myBzAboutPage
+        // case RouteName.myBzAboutPage:
+        //   _goTo = BldrsNav.goToMyBzScreen(
+        //     bzID: _args,
+        //     replaceCurrentScreen: false,
+        //     initialTab: BzTab.about,
+        //   ); break;
         // --------------------
-        /// myBzFlyersPage
-        case RouteName.myBzFlyersPage:
-          _goTo = BldrsNav.goToMyBzScreen(
-            bzID: args,
-            replaceCurrentScreen: false,
-            // initialTab: BzTab.flyers, // default
-          ); break;
+        // /// myBzFlyersPage
+        // case RouteName.myBzFlyersPage:
+        //   _goTo = BldrsNav.goToMyBzScreen(
+        //     bzID: args,
+        //     replaceCurrentScreen: false,
+        //     // initialTab: BzTab.flyers, // default
+        //   ); break;
         // --------------------
-        /// myBzTeamPage
-        case RouteName.myBzTeamPage:
-          _goTo = BldrsNav.goToMyBzScreen(
-            bzID: args,
-            replaceCurrentScreen: false,
-            initialTab: BzTab.team,
-          ); break;
+        // /// myBzTeamPage
+        // case RouteName.myBzTeamPage:
+        //   _goTo = BldrsNav.goToMyBzScreen(
+        //     bzID: args,
+        //     replaceCurrentScreen: false,
+        //     initialTab: BzTab.team,
+        //   ); break;
         // --------------------
-        /// myBzNotesPage
-        case RouteName.myBzNotesPage:
-          _goTo = BldrsNav.goToMyBzScreen(
-            bzID: args,
-            replaceCurrentScreen: false,
-            initialTab: BzTab.notes,
-          ); break;
+        // /// myBzNotesPage
+        // case RouteName.myBzNotesPage:
+        //   _goTo = BldrsNav.goToMyBzScreen(
+        //     bzID: args,
+        //     replaceCurrentScreen: false,
+        //     initialTab: BzTab.notes,
+        //   ); break;
         // --------------------
-        /// myBzSettingsPage
-        case RouteName.myBzSettingsPage:
-          _goTo = BldrsNav.goToMyBzScreen(
-            bzID: _args,
-            replaceCurrentScreen: false,
-            initialTab: BzTab.settings,
-          ); break;
+        // /// myBzSettingsPage
+        // case RouteName.myBzSettingsPage:
+        //   _goTo = BldrsNav.goToMyBzScreen(
+        //     bzID: _args,
+        //     replaceCurrentScreen: false,
+        //     initialTab: BzTab.settings,
+        //   ); break;
         // --------------------
         /// bzEditor
         /*

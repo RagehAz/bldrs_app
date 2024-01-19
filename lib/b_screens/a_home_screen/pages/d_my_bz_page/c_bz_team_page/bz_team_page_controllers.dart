@@ -2,28 +2,28 @@ import 'dart:async';
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/components/drawing/dot_separator.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/components/drawing/dot_separator.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
-import 'package:bldrs/zz_archives/bz_tabber.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/b_author_role_editor_screen.dart';
 import 'package:bldrs/b_views/f_bz/d_author_search_screen/a_author_search_screen.dart';
+import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
+import 'package:bldrs/c_protocols/authorship_protocols/d_authorship_responding.dart';
+import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
-import 'package:bldrs/c_protocols/authorship_protocols/d_authorship_responding.dart';
-import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
-import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -135,11 +135,19 @@ Future<void> onAuthorOptionsTap({
         );
 
         if (_newBz != null){
-          await BldrsNav.goToMyBzScreen(
-            bzID: _newBz.id,
-            replaceCurrentScreen: true,
-            initialTab: BzTab.team,
+
+          HomeProvider.proSetActiveBzModel(
+              bzModel: _newBz,
+              context: context,
+              notify: true,
           );
+
+          // await BldrsNav.goToMyBzScreen(
+          //   bzID: _newBz.id,
+          //   replaceCurrentScreen: true,
+          //   initialTab: BzTab.team,
+          // );
+
         }
 
       },

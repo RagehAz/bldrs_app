@@ -7,13 +7,9 @@ import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/z_grid/z_grid.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/zz_archives/bz_tabber.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
@@ -200,12 +196,12 @@ class BldrsNav {
 
   }
   // --------------------
-  /// auth
-  static Future<void> pushAuthRoute() async {
-
-    await Nav.goToRoute(getMainContext(), RouteName.auth);
-
-  }
+  // /// auth
+  // static Future<void> pushAuthRoute() async {
+  //
+  //   await Nav.goToRoute(getMainContext(), RouteName.auth);
+  //
+  // }
   // --------------------
   /// search
   static Future<void> pushSearchRoute() async {
@@ -266,42 +262,42 @@ class BldrsNav {
   /// MY BZ
 
   // --------------------
-  /// myBzAboutPage - myBzFlyersPage - myBzTeamPage - myBzNotesPage
-  static Future<void> goToMyBzScreen({
-    required String? bzID,
-    required bool replaceCurrentScreen,
-    BzTab initialTab = BzTab.flyers,
-  }) async {
-
-    final BzModel? _bzModel = await BzProtocols.fetchBz(
-      bzID: bzID,
-    );
-
-    HomeProvider.proSetActiveBzModel(
-      context: getMainContext(),
-      bzModel: _bzModel,
-      notify: true,
-    );
-
-    if (replaceCurrentScreen == true){
-      await Nav.replaceScreen(
-          context: getMainContext(),
-          screen: MyBzScreen(
-            initialTab: initialTab,
-          )
-      );
-    }
-
-    else {
-      blog('GOING TO BZ SCREEN AHOO');
-      await BldrsNav.goToNewScreen(
-          screen: MyBzScreen(
-            initialTab: initialTab,
-          )
-      );
-    }
-
-  }
+  // /// myBzAboutPage - myBzFlyersPage - myBzTeamPage - myBzNotesPage
+  // static Future<void> goToMyBzScreen({
+  //   required String? bzID,
+  //   required bool replaceCurrentScreen,
+  //   BzTab initialTab = BzTab.flyers,
+  // }) async {
+  //
+  //   final BzModel? _bzModel = await BzProtocols.fetchBz(
+  //     bzID: bzID,
+  //   );
+  //
+  //   HomeProvider.proSetActiveBzModel(
+  //     context: getMainContext(),
+  //     bzModel: _bzModel,
+  //     notify: true,
+  //   );
+  //
+  //   if (replaceCurrentScreen == true){
+  //     await Nav.replaceScreen(
+  //         context: getMainContext(),
+  //         screen: MyBzScreen(
+  //           initialTab: initialTab,
+  //         )
+  //     );
+  //   }
+  //
+  //   else {
+  //     blog('GOING TO BZ SCREEN AHOO');
+  //     await BldrsNav.goToNewScreen(
+  //         screen: MyBzScreen(
+  //           initialTab: initialTab,
+  //         )
+  //     );
+  //   }
+  //
+  // }
   // --------------------
   ///DEPRECATED
   /*

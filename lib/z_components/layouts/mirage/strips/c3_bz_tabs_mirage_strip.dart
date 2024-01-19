@@ -34,7 +34,7 @@ class _BzTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const String? _bid = BldrsTabber.bidMyBzAbout;
+                    const String? _bid = BldrsTabber.bidMyBzInfo;
                     final bool _isSelected = _bid == BldrsTabber.getBidFromBidBz(bzBid: _bidBz);
 
                     return _MirageButton(
