@@ -4,7 +4,7 @@ import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:bldrs/b_screens/d_on_boarding/components/arc_text.dart';
+import 'package:bldrs/b_screens/x_on_boarding/components/arc_text.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/images/bldrs_image.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';

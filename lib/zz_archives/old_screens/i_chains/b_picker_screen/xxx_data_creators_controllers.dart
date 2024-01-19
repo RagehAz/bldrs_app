@@ -10,7 +10,7 @@ import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
-import 'package:bldrs/b_screens/c_currencies_screen/c_currencies_screen.dart';
+import 'package:bldrs/b_screens/e_currencies_screen/c_currencies_screen.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/json/currency_json_ops.dart';
