@@ -1,7 +1,7 @@
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
-import 'package:bldrs/b_screens/i_phid_picker/phids_builder_page.dart';
+import 'package:bldrs/b_screens/x_keywords_picker_screen/i_phid_picker/phids_builder_page.dart';
 import 'package:bldrs/z_components/texting/customs/no_result_found.dart';
 import 'package:flutter/material.dart';
 
