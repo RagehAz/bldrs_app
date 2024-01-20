@@ -3,7 +3,6 @@ import 'package:bldrs/b_screens/a_home_screen/pages/a_flyers_wall_page/component
 import 'package:bldrs/c_protocols/app_initialization_protocols/bldrs_engine.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/zz_archives/old_screens/a_logo_screen/aa_static_logo_screen_view.dart';
 import 'package:flutter/material.dart';
 
 class TheHomeScreen extends StatefulWidget {
@@ -61,6 +60,7 @@ class _TheHomeScreenState extends State<TheHomeScreen> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
     // --------------------
+    /// FIX_AFTER_HOME_ROUTE_LOGIC
     final RouteSettings? _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
       context: context,
       /// this needed true for BldrsNav.restartAndRoute()
@@ -75,7 +75,7 @@ class _TheHomeScreenState extends State<TheHomeScreen> with TickerProviderStateM
       return MainLayout(
         canSwipeBack: false,
         onBack: () => UiProvider.proClearAfterHomeRoute(notify: true),
-        child: const LogoScreenView(),
+        child: const SizedBox(),
       );
     }
     // --------------------
