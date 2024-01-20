@@ -4,8 +4,6 @@ import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/components/drawing/separator_line.dart';
-import 'package:bldrs/a_models/c_chain/a_chain.dart';
-import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:basics/components/layers/blur_layer.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
@@ -13,9 +11,9 @@ import 'package:bldrs/z_components/buttons/general_buttons/main_button.dart';
 import 'package:bldrs/z_components/layouts/navigation/layout_exit_swiper.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
+import 'package:bldrs/zz_archives/c_chain/chains.dart';
 import 'package:flutter/material.dart';
 
 class FloatingFlyerTypeSelector extends StatefulWidget {

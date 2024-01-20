@@ -6,7 +6,6 @@ import 'package:bldrs/b_screens/x_situational_screens/app_langs_screen.dart';
 import 'package:bldrs/b_screens/x_situational_screens/feedback_screen.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
@@ -173,9 +172,9 @@ Future<void> onSignOut() async {
   if (_go == true){
 
     /// CLEAR KEYWORDS
-    final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
-    // _keywordsProvider.clearKeywordsChain();
-    _keywordsProvider.clearWallFlyerTypeAndPhid(notify: false);
+    final HomeProvider _homeProvider = Provider.of<HomeProvider>(getMainContext(), listen: false);
+    // _homeProvider.clearKeywordsChain();
+    _homeProvider.clearWallFlyerTypeAndPhid(notify: false);
 
     /// CLEAR BZZ
     HomeProvider.proClearActiveBz(notify: false);

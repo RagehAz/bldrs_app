@@ -1,16 +1,12 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
-import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/z_components/buttons/expander_button/a_expanding_button_box.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class PhidButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -62,10 +58,12 @@ class PhidButton extends StatelessWidget {
       _icon = Iconz.xLarge;
     }
     else {
-      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
-      _icon = _chainsProvider.getPhidIcon(
-        son: phid,
-      );
+
+      /// do_this_proGetPhidIcon_fromKeywordsMap
+      // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
+      // _icon = _chainsProvider.getPhidIcon(
+      //   son: phid,
+      // );
 
     }
 
@@ -105,7 +103,7 @@ class PhidButton extends StatelessWidget {
   // --------------------
   Verse? _cleanVerse(){
 
-    String? _text = getWord(Phider.removeIndexFromPhid(phid: phid));
+    String? _text = getWord(phid);
 
     if (_text == ''){
       return null;

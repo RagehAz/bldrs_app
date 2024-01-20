@@ -7,18 +7,14 @@ import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/models/flag_model.dart';
 import 'package:basics/models/phrase_model.dart';
-import 'package:bldrs/a_models/c_chain/a_chain.dart';
-import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/ldb/phrase_ldb_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/real/phrase_real_ops.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 /// => TAMAM
 class PhraseProtocols {
   // -----------------------------------------------------------------------------
@@ -61,10 +57,10 @@ class PhraseProtocols {
           setLangCode: langCode,
         );
 
-        final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-        await _chainsProvider.fetchSortSetBldrsChains(
-          notify: true,
-        );
+        // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+        // await _chainsProvider.fetchSortSetBldrsChains(
+        //   notify: true,
+        // );
 
         await WaitDialog.closeWaitDialog();
 
@@ -390,59 +386,59 @@ class PhraseProtocols {
     return _allCountriesPhrases;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : DO ME
   static Future<List<Phrase>> generatePhrasesFromChain({
-    required Chain? chain,
+    required dynamic chain,
     required BuildContext context,
   }) async {
 
     /// should include en - ar phrases for all IDs
-    List<Phrase> _phrases = <Phrase>[];
+    final List<Phrase> _phrases = <Phrase>[];
 
     if (chain != null){
 
-      final List<String> _sonsPhids = Chain.getOnlyPhidsSonsFromChain(
-        chain: chain,
-      );
-
-      if (chain.id != null && chain.id != ''){
-        _sonsPhids.add(chain.id!);
-      }
-
-      _phrases = await generateMixedLangPhrasesFromPhids(
-        context: context,
-        phids: Phider.removePhidsIndexes(<String>[..._sonsPhids,]),
-      );
+      // final List<String> _sonsPhids = Chain.getOnlyPhidsSonsFromChain(
+      //   chain: chain,
+      // );
+      //
+      // if (chain.id != null && chain.id != ''){
+      //   _sonsPhids.add(chain.id!);
+      // }
+      //
+      // _phrases = await generateMixedLangPhrasesFromPhids(
+      //   context: context,
+      //   phids: Phider.removePhidsIndexes(<String>[..._sonsPhids,]),
+      // );
 
     }
 
     return _phrases;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : DO ME
   static Future<List<Phrase>> generatePhrasesFromChains({
-    required List<Chain>? chains,
+    required List<dynamic>? chains,
     required BuildContext context,
   }) async {
     final List<Phrase> _phrases = <Phrase>[];
 
-    if (Lister.checkCanLoop(chains) == true){
-
-      Future<void> _generate(Chain chain) async {
-        final List<Phrase> _chainPhrases = await generatePhrasesFromChain(
-          chain: chain,
-          context: context,
-        );
-        _phrases.addAll(_chainPhrases);
-      }
-
-      await Future.wait(<Future>[
-        ...List.generate(chains!.length, (index){
-          return _generate(chains[index]);
-        }),
-      ]);
-
-    }
+    // if (Lister.checkCanLoop(chains) == true){
+    //
+    //   Future<void> _generate(Chain chain) async {
+    //     final List<Phrase> _chainPhrases = await generatePhrasesFromChain(
+    //       chain: chain,
+    //       context: context,
+    //     );
+    //     _phrases.addAll(_chainPhrases);
+    //   }
+    //
+    //   await Future.wait(<Future>[
+    //     ...List.generate(chains!.length, (index){
+    //       return _generate(chains[index]);
+    //     }),
+    //   ]);
+    //
+    // }
 
     return _phrases;
   }

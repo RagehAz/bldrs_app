@@ -8,7 +8,6 @@ import 'package:basics/helpers/space/atlas.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
@@ -41,7 +40,7 @@ class FlyerModel {
     required this.bzID,
     required this.position,
     required this.slides,
-    required this.specs,
+    // required this.specs,
     required this.times,
     required this.hasPriceTag,
     required this.isAmazonFlyer,
@@ -72,7 +71,7 @@ class FlyerModel {
   final String? bzID;
   final GeoPoint? position;
   final List<SlideModel>? slides;
-  final List<SpecModel>? specs;
+  // final List<SpecModel>? specs;
   final List<PublishTime>? times;
   final bool? hasPriceTag;
   final bool? isAmazonFlyer;
@@ -108,7 +107,7 @@ class FlyerModel {
     GeoPoint? position,
     List<SlideModel>? slides,
     bool? isBanned,
-    List<SpecModel>? specs,
+    // List<SpecModel>? specs,
     List<PublishTime>? times,
     bool? hasPriceTag,
     bool? hasPDF,
@@ -139,7 +138,7 @@ class FlyerModel {
       bzID: bzID ?? this.bzID,
       position: position ?? this.position,
       slides: slides ?? this.slides,
-      specs: specs ?? this.specs,
+      // specs: specs ?? this.specs,
       times: times ?? this.times,
       hasPriceTag: hasPriceTag ?? this.hasPriceTag,
       hasPDF: hasPDF ?? this.hasPDF,
@@ -185,7 +184,7 @@ class FlyerModel {
       // -------------------------
       'slides' : SlideModel.cipherSlides(slides),
       // -------------------------
-      'specs' : SpecModel.cipherSpecs(specs),
+      // 'specs' : SpecModel.cipherSpecs(specs),
       'hasPriceTag' : hasPriceTag,
       'hasPDF' : hasPDF,
       'shareLink' : shareLink,
@@ -252,7 +251,7 @@ class FlyerModel {
           flyerID: map['id'],
         ),
         // -------------------------
-        specs: SpecModel.decipherSpecs(map['specs']),
+        // specs: SpecModel.decipherSpecs(map['specs']),
         hasPriceTag: map['hasPriceTag'],
         isAmazonFlyer: map['isAmazonFlyer'],
         hasPDF: map['hasPDF'],
@@ -410,7 +409,7 @@ class FlyerModel {
     blog('authorID : $authorID');
     blog('bzID : $bzID');
     blog('position : $position');
-    SpecModel.blogSpecs(specs);
+    // SpecModel.blogSpecs(specs);
     PublishTime.blogTimes(times);
     blog('hasPriceTag : $hasPriceTag');
     blog('isAmazonFlyer : $isAmazonFlyer');
@@ -498,9 +497,9 @@ class FlyerModel {
       if (SlideModel.checkSlidesListsAreIdentical(slides1: flyer1.slides, slides2: flyer2.slides) == false){
         blog('flyers slides are not identical');
       }
-      if (SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == false){
-        blog('flyers specs are not identical');
-      }
+      // if (SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == false){
+      //   blog('flyers specs are not identical');
+      // }
       if (PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == false){
         blog('flyers times are not identical');
       }
@@ -569,7 +568,7 @@ class FlyerModel {
       slides : <SlideModel>[
         SlideModel.dummySlide(),
       ],
-      specs : SpecModel.dummySpecs(),
+      // specs : SpecModel.dummySpecs(),
       times : <PublishTime>[
         PublishTime(state: PublishState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
       ],
@@ -1065,7 +1064,7 @@ class FlyerModel {
           flyer1.bzID == flyer2.bzID &&
           Atlas.checkPointsAreIdentical(point1: flyer1.position, point2: flyer2.position) == true &&
           SlideModel.checkSlidesListsAreIdentical(slides1: flyer1.slides, slides2: flyer2.slides) == true &&
-          SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == true &&
+          // SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == true &&
           PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == true &&
           flyer1.hasPriceTag == flyer2.hasPriceTag &&
           flyer1.hasPDF == flyer2.hasPDF &&
@@ -1139,7 +1138,7 @@ class FlyerModel {
       bzID.hashCode^
       position.hashCode^
       slides.hashCode^
-      specs.hashCode^
+      // specs.hashCode^
       times.hashCode^
       hasPriceTag.hashCode^
       isAmazonFlyer.hashCode^

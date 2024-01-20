@@ -1,5 +1,5 @@
 library mirage;
-
+// -----------------------------------------------------------------------------
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/layers/blur_layer.dart';
@@ -12,7 +12,7 @@ import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
+import 'package:bldrs/a_models/c_keywords/keyworder.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_utilities/badger.dart';
@@ -39,6 +39,7 @@ import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+// -----------------------------------------------------------------------------
 
 /// COMPONENTS
 
@@ -48,16 +49,22 @@ part 'components/mirage_button.dart';
 part 'components/mirage_pyramid.dart';
 part 'components/mirage_strip.dart';
 part 'components/mirage_strip_floating_list.dart';
+// -----------------------------------------------------------------------------
+
 /// CONTROLLERS
 
 // -----------------------
 part 'controllers/mirage_keywords_controls.dart';
 part 'controllers/mirage_my_bzz_controls.dart';
 part 'controllers/mirage_my_user_controls.dart';
+// -----------------------------------------------------------------------------
+
 /// MODELS
 
 // -----------------------
 part 'models/mirage_model.dart';
+// -----------------------------------------------------------------------------
+
 /// STRIPS
 
 // -----------------------
@@ -71,6 +78,8 @@ part 'strips/c3_bz_tabs_mirage_strip.dart';
 part 'strips/d_mirage_3_strip_switcher.dart';
 part 'strips/e_mirage_4_strip_switcher.dart';
 part 'strips/x_map_son_mirage_strip.dart';
+// -----------------------------------------------------------------------------
+
 /// STRUCTURE
 
 // -----------------------

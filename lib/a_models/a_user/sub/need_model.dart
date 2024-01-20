@@ -5,7 +5,6 @@ import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/time/timers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -349,7 +348,7 @@ class NeedModel {
     return NeedModel(
       needType: NeedType.finishConstruction,
       notes: 'This is a need description, and my need is to reach all countries',
-      scope: SpecModel.getSpecsIDs(SpecModel.dummySpecs()),
+      scope: const [],
       bzzIDs: _userModel?.followedBzz?.all,
       flyerIDs: _userModel?.savedFlyers?.all,
       location: Atlas.dummyLocation(),

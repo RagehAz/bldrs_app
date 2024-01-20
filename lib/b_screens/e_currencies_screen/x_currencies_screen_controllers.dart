@@ -3,7 +3,6 @@ import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/searching.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/models/phrase_model.dart';
-import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
@@ -51,7 +50,7 @@ void onSearchCurrencies({
       /// FILTER CURRENCIES FROM PHRASES
       final List<String> _filteredIDs = <String>[];
       for (final Phrase phrase in _phrases){
-        final bool _isCurrency = Phider.checkVerseIsCurrency(phrase.id);
+        final bool _isCurrency = CurrencyModel.checkVerseIsCurrency(phrase.id);
         if (_isCurrency == true){
           if (phrase.id != null){
             _filteredIDs.add(phrase.id!);

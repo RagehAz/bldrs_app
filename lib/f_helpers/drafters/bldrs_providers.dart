@@ -1,4 +1,3 @@
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
@@ -40,9 +39,6 @@ class BldrsProviders extends StatelessWidget {
           ),
           ChangeNotifierProvider<FlyersProvider>(
             create: (BuildContext ctx) => FlyersProvider(),
-          ),
-          ChangeNotifierProvider<ChainsProvider>(
-            create: (BuildContext ctx) => ChainsProvider(),
           ),
           ChangeNotifierProvider<HomeProvider>(
             create: (BuildContext ctx) => HomeProvider(),

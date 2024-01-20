@@ -2,6 +2,7 @@ import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -18,6 +19,79 @@ import 'package:provider/provider.dart';
 class HomeProvider extends ChangeNotifier {
   // -----------------------------------------------------------------------------
 
+  /// HOME WALL FLYER TYPE AND PHID
+
+  // --------------------
+  FlyerType? _wallFlyerType = FlyerType.design;
+  String? _wallPhid = 'phid_k_designType_interior';
+  // --------------------
+  FlyerType? get wallFlyerType => _wallFlyerType;
+  String? get wallPhid => _wallPhid;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static FlyerType? proGetHomeWallFlyerType({
+    required BuildContext context,
+    required bool listen,
+  }){
+    final HomeProvider _pro = Provider.of<HomeProvider>(context, listen: false);
+    return _pro.wallFlyerType;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? proGetHomeWallPhid({
+    required BuildContext context,
+    required bool listen,
+  }){
+    final HomeProvider _pro = Provider.of<HomeProvider>(context, listen: false);
+    return _pro.wallPhid;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> changeHomeWallFlyerType({
+    required FlyerType? flyerType,
+    required String? phid,
+    required bool notify,
+  }) async {
+
+    // blog('Changing section to $flyerType');
+
+    _setWallFlyerAndPhid(
+      flyerType: flyerType,
+      phid: phid,
+      notify: notify,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _setWallFlyerAndPhid({
+    required FlyerType? flyerType,
+    required String? phid,
+    required bool notify,
+  }){
+    _wallFlyerType = flyerType;
+    _wallPhid = phid;
+
+
+
+    if (notify == true){
+      notifyListeners();
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void clearWallFlyerTypeAndPhid({
+    required bool notify,
+  }){
+    _setWallFlyerAndPhid(
+      phid: null,
+      flyerType: null,
+      notify: notify,
+    );
+  }
+
+  // -----------------------------------------------------------------------------
+
   /// TAB BAR CONTROLLER
 
   // --------------------
@@ -29,8 +103,8 @@ class HomeProvider extends ChangeNotifier {
     required BuildContext context,
     required TickerProvider vsync,
   }){
-    final HomeProvider _uiProvider = Provider.of<HomeProvider>(context, listen: false);
-    _uiProvider._initializeTabBarController(
+    final HomeProvider _pro = Provider.of<HomeProvider>(context, listen: false);
+    _pro._initializeTabBarController(
       context: context,
       vsync: vsync,
     );

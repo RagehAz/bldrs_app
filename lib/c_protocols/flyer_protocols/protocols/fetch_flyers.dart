@@ -219,7 +219,7 @@ class FetchFlyerProtocols {
               bzID: bzModel.id,
               position: null,
               slides: _bzSlides,
-              specs: const [],
+              // specs: const [],
               times: const [],
               hasPriceTag: false,
               hasPDF: false,

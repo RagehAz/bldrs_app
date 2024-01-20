@@ -1,13 +1,8 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/maps/lister.dart';
-import 'package:basics/helpers/strings/stringer.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:bldrs/a_models/c_chain/a_chain.dart';
-import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
@@ -453,38 +448,7 @@ class FlyerTyper{
     }
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<FlyerType> concludePossibleFlyerTypesByChains(List<Chain>? chains){
-    final List<FlyerType> _types = <FlyerType>[];
 
-    if (Lister.checkCanLoop(chains) == true){
-
-      Chain.blogChains(chains);
-
-      for (final FlyerType flyerType in flyerTypesList){
-
-        final String? _chainID = concludeChainIDByFlyerType(
-            flyerType: flyerType
-        );
-
-        final bool _includePhid = Chain.checkChainsIncludeThisPhid(
-            chains: chains,
-            phid: _chainID,
-        );
-
-        if (_includePhid == true){
-          _types.add(flyerType);
-        }
-
-
-      }
-
-
-    }
-
-
-    return _types;
-  }
   // -----------------------------------------------------------------------------
 
   /// CHAINS IDS
@@ -536,23 +500,25 @@ class FlyerTyper{
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : SEE ME
   static List<String> _allChainsIDs({
     required FlyerType? flyerType,
   }){
 
-    final List<PickerModel> _pickers = ChainsProvider.proGetPickersByFlyerType(
-      context: getMainContext(),
-      listen: false,
-      flyerType: flyerType,
-      sort: true,
-    );
+    // final List<PickerModel> _pickers = ChainsProvider.proGetPickersByFlyerType(
+    //   context: getMainContext(),
+    //   listen: false,
+    //   flyerType: flyerType,
+    //   sort: true,
+    // );
+    //
+    // final List<String> _chainsIDs = PickerModel.getPickersChainsIDs(_pickers);
+    //
+    // Stringer.blogStrings(strings: _chainsIDs, invoker: 'chains IDs for : ($flyerType)');
+    //
+    // return _chainsIDs;
 
-    final List<String> _chainsIDs = PickerModel.getPickersChainsIDs(_pickers);
-
-    Stringer.blogStrings(strings: _chainsIDs, invoker: 'chains IDs for : ($flyerType)');
-
-    return _chainsIDs;
+    return _homeWallChainsIDs(flyerType);
 
   }
   // --------------------
