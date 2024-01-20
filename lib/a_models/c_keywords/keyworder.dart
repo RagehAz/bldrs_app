@@ -1,14 +1,23 @@
+import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/map_pathing.dart';
 import 'package:basics/helpers/strings/pathing.dart';
-import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
+import 'package:basics/helpers/strings/stringer.dart';
+import 'package:basics/helpers/strings/text_check.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/zz_archives/c_chain/chains.dart';
+// ignore_for_file: constant_identifier_names
 
 class Keyworder {
   // --------------------------------------------------------------------------
 
   const Keyworder();
 
+  // --------------------------------------------------------------------------
+  static const String phidCut = 'phid';
+  static const String phid_kCut = 'phid_k';
+  static const String phid_sCut = 'phid_s';
+  static const String currencyCut = 'currency';
   // --------------------------------------------------------------------------
 
   /// GETTERS
@@ -191,6 +200,106 @@ class Keyworder {
     }
 
     return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkIsPhids(dynamic sons){
+
+    bool _arePhids = false;
+
+    if (sons != null){
+
+      if (sons is List<String>){
+
+        final List<String> _sons = sons;
+
+        if (Lister.checkCanLoop(_sons) == true){
+          _arePhids = checkIsPhid(_sons.first);
+        }
+
+      }
+
+      else if (ObjectCheck.objectIsMinified(sons) == true){
+        if (sons is List && sons.isNotEmpty == true){
+          final List<dynamic> dynamics = sons;
+          final List<String> _strings = Stringer.getStringsFromDynamics(dynamics);
+          if (Lister.checkCanLoop(_strings) == true){
+            _arePhids = checkIsPhid(_strings.first);
+          }
+        }
+      }
+
+    }
+
+    return _arePhids;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkIsPhid(dynamic object){
+    bool _isPhid = false;
+
+    if (object != null){
+
+      if (object is String){
+
+        _isPhid = TextCheck.stringStartsExactlyWith(
+          text: object,
+          startsWith: phidCut,
+        );
+
+      }
+
+    }
+
+    return _isPhid;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkIsPhidK(String? text){
+    bool _isPhidK= false;
+
+    if (text != null){
+
+      _isPhidK = TextCheck.stringStartsExactlyWith(
+        text: text,
+        startsWith: phid_kCut,
+      );
+
+      /// SOLUTION 2 : TESTED : WORKS PERFECT
+      // final String _phidK = TextMod.removeAllCharactersAfterNumberOfCharacters(
+      //   input: Phider.removeIndexFromPhid(phid: text),
+      //   numberOfChars: 7, //'ph id _k_'
+      // );
+      // return _phidK == 'phid_k_';
+
+
+    }
+
+    return _isPhidK;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkIsPhidS(String? text){
+    bool _isPhidK= false;
+
+    if (text != null){
+
+      _isPhidK = TextCheck.stringStartsExactlyWith(
+        text: text,
+        startsWith: phid_sCut,
+      );
+
+      /// SOLUTION 2 : TESTED : WORKS PERFECT
+      // final String _phids = TextMod.removeAllCharactersAfterNumberOfCharacters(
+      //   input: Phider.removeIndexFromPhid(phid: text),
+      //   numberOfChars: 7, //'phid_s_'
+      // );
+      // return _phids == 'phid_s_';
+
+
+    }
+
+    return _isPhidK;
   }
   // --------------------------------------------------------------------------
 }

@@ -11,7 +11,6 @@ import 'package:bldrs/b_screens/x_on_boarding/components/phids_wheel.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/chain_protocols/protocols/a_chain_protocols.dart';
 import 'package:flutter/material.dart';
 
 class CWhatBldrsDo extends StatelessWidget {
@@ -145,10 +144,12 @@ class CWhatBldrsDo extends StatelessWidget {
 
                               final FlyerType _flyerType = _flyerTypes[index];
 
-                              final List<String> _phids = ChainProtocols.superGetAllPhidsByFlyerType(
-                                flyerType: _flyerType,
-                                onlyUseZoneChains: false,
-                              );
+                              /// do_this_superGetAllPhidsByFlyerType_fromKeywordsMap
+                              final List<String> _phids = [];
+                              // ChainProtocols.superGetAllPhidsByFlyerType(
+                              //   flyerType: _flyerType,
+                              //   onlyUseZoneChains: false,
+                              // );
 
                               return WidgetWaiter(
                                 key: ValueKey<String>(_flyerType.toString()),

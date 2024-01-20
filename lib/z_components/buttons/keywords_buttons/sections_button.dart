@@ -2,9 +2,8 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/components/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
-import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
@@ -64,7 +63,7 @@ class SectionsButton extends StatelessWidget {
     String? _body;
 
     if (currentKeywordID != null){
-      _body = Phider.removeIndexFromPhid(phid: currentKeywordID);
+      _body = currentKeywordID;
     }
     else {
       final String? _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
@@ -83,8 +82,8 @@ class SectionsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context);
-    final bool _loadingChains = _chainsProvider.loadingChains;
+    final HomeProvider _chainsProvider = Provider.of<HomeProvider>(context);
+    const bool _loadingChains = false; //_chainsProvider.loadingChains;
 
     final String? wallPhid = _chainsProvider.wallPhid;
     final FlyerType? _wallFlyerType = _chainsProvider.wallFlyerType;
@@ -141,7 +140,7 @@ class SectionsButton extends StatelessWidget {
                 width: _height,
                 icon: _icon ?? Iconz.keywords,
                 bubble: false,
-                loading: _loadingChains,
+                // loading: _loadingChains,
               ),
 
               /// TEXTS

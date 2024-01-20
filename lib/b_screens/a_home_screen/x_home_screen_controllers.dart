@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
@@ -433,8 +433,8 @@ Future<void> setActivePhidK({
   /// A - if section is active
   else {
 
-    final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
-    await _keywordsProvider.changeHomeWallFlyerType(
+    final HomeProvider _pro = Provider.of<HomeProvider>(getMainContext(), listen: false);
+    await _pro.changeHomeWallFlyerType(
       flyerType: flyerType,
       phid: phidK,
       notify: true,

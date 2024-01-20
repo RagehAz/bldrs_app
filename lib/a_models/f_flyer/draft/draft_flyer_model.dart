@@ -5,7 +5,6 @@ import 'package:basics/helpers/space/atlas.dart';
 import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/time/timers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/draft/gta_model.dart';
@@ -48,7 +47,7 @@ class DraftFlyer{
     required this.bzID,
     required this.position,
     required this.draftSlides,
-    required this.specs,
+    // required this.specs,
     required this.times,
     required this.hasPriceTag,
     required this.isAmazonFlyer,
@@ -80,7 +79,7 @@ class DraftFlyer{
   final String? bzID;
   final GeoPoint? position;
   final List<DraftSlide>? draftSlides;
-  final List<SpecModel>? specs;
+  // final List<SpecModel>? specs;
   final List<PublishTime>? times;
   final bool? hasPriceTag;
   final bool? isAmazonFlyer;
@@ -154,7 +153,7 @@ class DraftFlyer{
         bzID: bzModel.id,
         position: null,
         draftSlides: const <DraftSlide>[],
-        specs: const <SpecModel>[],
+        // specs: const <SpecModel>[],
         times: const <PublishTime>[],
         hasPriceTag: PriceModel.checkBzMayHavePriceInFlyerCreator(bzTypes: bzModel.bzTypes),
         isAmazonFlyer: false,
@@ -219,7 +218,7 @@ class DraftFlyer{
         bzID: flyer.bzID,
         position: flyer.position,
         draftSlides: await DraftSlide.draftsFromSlides(flyer.slides),
-        specs: flyer.specs,
+        // specs: flyer.specs,
         times: flyer.times,
         hasPriceTag: flyer.hasPriceTag,
         hasPDF: flyer.hasPDF,
@@ -285,7 +284,7 @@ class DraftFlyer{
             drafts: draft.draftSlides,
             slidePicType: slidePicType,
           ),
-          specs: draft.specs,
+          // specs: draft.specs,
           times: _publishTimes,
           hasPriceTag: draft.hasPriceTag,
           isAmazonFlyer: GtaModel.isAmazonAffiliateLink(draft.affiliateLink),
@@ -339,9 +338,9 @@ class DraftFlyer{
         'bzID' : draft.bzID,
         'position' : Atlas.cipherGeoPoint(point: draft.position, toJSON: true),
         'draftSlides': DraftSlide.draftsToLDB(draft.draftSlides),
-        'specs' : SpecModel.cipherSpecs(draft.specs),
+        // 'specs' : SpecModel.cipherSpecs(draft.specs),
         'times' : PublishTime.cipherTimes(times: draft.times, toJSON: true),
-        'hasPriceTag': Speccer.checkSpecsHavePrice(draft.specs),
+        'hasPriceTag': draft.price != null,
         'isAmazonFlyer': GtaModel.isAmazonAffiliateLink(draft.affiliateLink),
         'hasPDF': draft.pdfModel != null,
         'score' : draft.score,
@@ -381,7 +380,7 @@ class DraftFlyer{
         bzID: map['bzID'],
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: true),
         draftSlides: DraftSlide.draftsFromLDB(map['draftSlides']),
-        specs: SpecModel.decipherSpecs(map['specs']),
+        // specs: SpecModel.decipherSpecs(map['specs']),
         times: PublishTime.decipherTimes(map: map['times'], fromJSON: true),
         hasPDF: map['hasPDF'],
         isAmazonFlyer: map['isAmazonFlyer'],
@@ -425,7 +424,7 @@ class DraftFlyer{
     String? bzID,
     GeoPoint? position,
     List<DraftSlide>? draftSlides,
-    List<SpecModel>? specs,
+    // List<SpecModel>? specs,
     List<PublishTime>? times,
     bool? hasPriceTag,
     bool? hasPDF,
@@ -458,7 +457,7 @@ class DraftFlyer{
       bzID: bzID ?? this.bzID,
       position: position ?? this.position,
       draftSlides: draftSlides ?? this.draftSlides,
-      specs: specs ?? this.specs,
+      // specs: specs ?? this.specs,
       times: times ?? this.times,
       hasPriceTag: hasPriceTag ?? this.hasPriceTag,
       isAmazonFlyer: isAmazonFlyer ?? this.isAmazonFlyer,
@@ -524,7 +523,7 @@ class DraftFlyer{
       bzID: bzID == true ? null : this.bzID,
       position: position == true ? null : this.position,
       draftSlides: draftSlides == true ? [] : this.draftSlides,
-      specs: specs == true ? [] : this.specs,
+      // specs: specs == true ? [] : this.specs,
       times: times == true ? [] : this.times,
       hasPriceTag: hasPriceTag == true ? null : this.hasPriceTag,
       isAmazonFlyer: isAmazonFlyer == true ? null : this.isAmazonFlyer,
@@ -730,7 +729,7 @@ class DraftFlyer{
       blog('hasPDF : $hasPDF');
       blog('score : $score');
       PublishTime.blogTimes(times);
-      SpecModel.blogSpecs(specs);
+      // SpecModel.blogSpecs(specs);
       blog('draftSlides : ${draftSlides?.length} slides');
       blog('affiliateLink : $affiliateLink');
       blog('gtaLink : $gtaLink');
@@ -800,9 +799,9 @@ class DraftFlyer{
       if (DraftSlide.checkSlidesListsAreIdentical(slides1: draft1.draftSlides, slides2: draft2.draftSlides) == false){
         blog('draftSlides are not identical');
       }
-      if (SpecModel.checkSpecsListsAreIdentical(draft1.specs, draft2.specs) == false){
-        blog('specs are not identical');
-      }
+      // if (SpecModel.checkSpecsListsAreIdentical(draft1.specs, draft2.specs) == false){
+      //   blog('specs are not identical');
+      // }
       if (PublishTime.checkTimesListsAreIdentical(times1: draft1.times, times2: draft2.times) == false){
         blog('times are not identical');
       }
@@ -1000,7 +999,7 @@ class DraftFlyer{
           draft1.bzID == draft2.bzID &&
           Atlas.checkPointsAreIdentical(point1: draft1.position, point2: draft2.position) == true &&
           DraftSlide.checkSlidesListsAreIdentical(slides1: draft1.draftSlides, slides2: draft2.draftSlides) == true &&
-          SpecModel.checkSpecsListsAreIdentical(draft1.specs, draft2.specs) == true &&
+          // SpecModel.checkSpecsListsAreIdentical(draft1.specs, draft2.specs) == true &&
           PublishTime.checkTimesListsAreIdentical(times1: draft1.times, times2: draft2.times) == true &&
           draft1.hasPriceTag == draft2.hasPriceTag &&
           draft1.hasPDF == draft2.hasPDF &&
@@ -1072,7 +1071,7 @@ class DraftFlyer{
       bzID.hashCode^
       position.hashCode^
       draftSlides.hashCode^
-      specs.hashCode^
+      // specs.hashCode^
       times.hashCode^
       hasPriceTag.hashCode^
       hasPDF.hashCode^

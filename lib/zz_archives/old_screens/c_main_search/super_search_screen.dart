@@ -13,8 +13,8 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/a_models/m_search/user_search_model.dart';
-import 'package:bldrs/b_screens/x_keywords_picker_screen/keywords_picker_screen.dart';
 import 'package:bldrs/b_screens/a_home_screen/x_home_screen_controllers.dart';
+import 'package:bldrs/zz_archives/c_chain/chains.dart';
 import 'package:bldrs/zz_archives/old_screens/c_main_search/views/search_view_splitter.dart';
 import 'package:bldrs/zz_archives/old_screens/c_main_search/z_components/building_blocks/search_type_button.dart';
 import 'package:bldrs/zz_archives/old_screens/c_main_search/z_components/filters_tiles/bz_search_filters_list.dart';
@@ -426,7 +426,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
        onPickPhidTap: () async {
 
          /// KEYWORDS_PICKER_SCREEN
-         final String? _phid = await KeywordsPickerScreen.goPickPhid(
+         final String? _phid = await TheChainPickerScreen.goPickPhid(
            flyerType: _searchModel?.flyerSearchModel?.flyerType,
            event: ViewingEvent.homeView,
            onlyUseZoneChains: true,
@@ -624,7 +624,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         onScopeTap: (FlyerType flyerType) async {
 
           /// KEYWORDS_PICKER_SCREEN
-            final String? _phid = await KeywordsPickerScreen.goPickPhid(
+            final String? _phid = await TheChainPickerScreen.goPickPhid(
               flyerType: flyerType,
               event: ViewingEvent.homeView,
               onlyUseZoneChains: true,

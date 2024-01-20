@@ -11,7 +11,6 @@ import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
@@ -319,9 +318,9 @@ class GtaModel {
 
     if (gtaModel != null) {
 
-      final List<SpecModel> _specs = _createPriceSpecs(
-        gtaModel: gtaModel,
-      );
+      // final List<SpecModel> _specs = _createPriceSpecs(
+      //   gtaModel: gtaModel,
+      // );
 
       final List<DraftSlide> _draftSlides = await createDraftSlidesByGtaProduct(
           product: gtaModel,
@@ -349,14 +348,14 @@ class GtaModel {
         bzID: bzModel?.id,
         position: null,
         draftSlides: _draftSlides,
-        specs: _specs,
+        // specs: _specs,
         times: <PublishTime>[
           PublishTime(
             state: PublishState.draft,
             time: DateTime.now(),
           ),
         ],
-        hasPriceTag: Speccer.checkSpecsHavePrice(_specs),
+        hasPriceTag: gtaModel.price != null,
         hasPDF: false,
         isAmazonFlyer: isAmazonAffiliateLink(gtaModel.affiliateLink),
         score: 0,
@@ -425,6 +424,7 @@ class GtaModel {
     return _output;
   }
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
   static List<SpecModel> _createPriceSpecs({
     required GtaModel? gtaModel,
@@ -452,6 +452,7 @@ class GtaModel {
     }
 
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<DraftSlide>> createDraftSlidesByGtaProduct({
