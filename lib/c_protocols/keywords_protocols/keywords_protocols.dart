@@ -1,9 +1,7 @@
 import 'package:basics/helpers/maps/mapper.dart';
-import 'package:bldrs/a_models/c_chain/a_chain.dart';
-import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/c_protocols/keywords_protocols/keywords_ldb_ops.dart';
 import 'package:bldrs/c_protocols/keywords_protocols/keywords_real_ops.dart';
-import 'package:basics/helpers/maps/map_pathing.dart';
+
 /// TAMAM
 class KeywordsProtocols{
   // --------------------------------------------------------------------------
@@ -39,17 +37,19 @@ class KeywordsProtocols{
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<Chain>> fetchChainedKeywords() async {
+  /// TASK : FUCK ME
+  static Future<List<dynamic>> fetchChainedKeywords() async {
 
-    final Map<String, dynamic>? _keywordsMap = await KeywordsProtocols.fetch();
+    // final Map<String, dynamic>? _keywordsMap = await KeywordsProtocols.fetch();
+    //
+    // final List<String> _paths = MapPathing.generatePathsFromMap(map: _keywordsMap);
+    //
+    // // final List<Chain> _reChained = ChainPathConverter.createChainsKeywordsMap(keywordsMap: _keywordsMap);
+    // final List<Chain> _reChained = ChainPathConverter.createChainsFromPaths(paths: _paths);
+    //
+    // return _reChained;
 
-    final List<String> _paths = MapPathing.generatePathsFromMap(map: _keywordsMap);
-
-    // final List<Chain> _reChained = ChainPathConverter.createChainsKeywordsMap(keywordsMap: _keywordsMap);
-    final List<Chain> _reChained = ChainPathConverter.createChainsFromPaths(paths: _paths);
-
-    return _reChained;
+    return [];
   }
   // --------------------
   /// TESTED : WORKS PERFECT

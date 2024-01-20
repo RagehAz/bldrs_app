@@ -13,8 +13,6 @@ import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:basics/models/flag_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
-import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
@@ -1181,55 +1179,6 @@ class Formers {
 
   /// NUMBERS VALIDATION
 
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String? numberDataCreatorFieldValidator({
-    required String? text,
-    required PickerModel? picker,
-    required DataCreator? dataCreatorType,
-    required String? selectedUnitID,
-  }) {
-    String? _message;
-
-    /// ONLY NUMBERS VALIDATION
-    if (TextCheck.isEmpty(text) == false){
-      _message = numbersOnlyValidator(
-        text: text,
-      );
-    }
-
-    /// IF REQUIRED AND EMPTY
-    if (Mapper.boolIsTrue(picker?.isRequired) == true){
-      if (TextCheck.isEmpty(text) == true){
-        _message = getWord('phid_this_field_can_not_be_empty');
-      }
-    }
-
-    /// IF SHOULD HAVE UNIT BUT NOT YET SELECTED
-    if (picker?.unitChainID != null && selectedUnitID == null){
-      _message = getWord('phid_should_select_a_measurement_unit');
-    }
-
-    /// INT VALIDATION
-    final bool _isInt = DataCreation.checkIsIntDataCreator(dataCreatorType);
-    if (_isInt == true){
-
-      /// SHOULD NOT INCLUDE FRACTIONS
-      final bool _includeDot = TextCheck.stringContainsSubString(string: text, subString: '.');
-      if (_includeDot == true){
-        _message = getWord('phid_num_cant_include_fractions');
-      }
-
-    }
-
-    /// DOUBLE VALIDATION
-    final bool _isDouble = DataCreation.checkIsDoubleDataCreator(dataCreatorType);
-    if (_isDouble){
-      // nothing in my mind for you at this point
-    }
-
-    return _message;
-  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? currencyFieldValidator({

@@ -2,10 +2,8 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/z_components/buttons/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class PhidsButtonsList extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -23,8 +21,6 @@ class PhidsButtonsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-
     return Container(
       width: buttonWidth,
       height: BldrsExpandingButton.collapsedTileHeight * phids.length,
@@ -40,24 +36,28 @@ class PhidsButtonsList extends StatelessWidget {
 
           final String _phid = phids[index];
 
-          final String? _icon = _chainsProvider.getPhidIcon(
-              son: _phid,
-          );
+          /// do_this_proGetPhidIcon_fromKeywordsMap
+          // const String? _icon = null;
+          // _chainsProvider.getPhidIcon(
+          //     son: _phid,
+          // );
 
-          final String? _enName = _chainsProvider.translateChainPhid(
-            phid: _phid,
-            langCode: 'en',
-          );
+          const String? _enName = null;
+          // _chainsProvider.translateChainPhid(
+          //   phid: _phid,
+          //   langCode: 'en',
+          // );
 
-          final String? _arName = _chainsProvider.translateChainPhid(
-            phid: _phid,
-            langCode: 'ar',
-          );
+          const String? _arName = null;
+          // _chainsProvider.translateChainPhid(
+          //   phid: _phid,
+          //   langCode: 'ar',
+          // );
 
           return BldrsBox(
             height: BldrsExpandingButton.collapsedTileHeight,
             width: buttonWidth - (Ratioz.appBarMargin * 2),
-            icon: _icon,
+            // icon: _icon,
             verse: Verse.plain(_enName),
             secondLine: Verse.plain(_arName),
             verseScaleFactor: 0.7,

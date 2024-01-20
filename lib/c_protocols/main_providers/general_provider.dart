@@ -5,7 +5,6 @@ import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
@@ -262,8 +261,6 @@ class GeneralProvider extends ChangeNotifier {
     ZoneProvider.wipeOut(notify: true);
     /// FlyersProvider
     FlyersProvider.wipeOut(notify: true);
-    /// ChainsProvider
-    ChainsProvider.wipeOut(notify: true);
 
   }
   // -----------------------------------------------------------------------------

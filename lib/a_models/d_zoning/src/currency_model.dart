@@ -317,7 +317,7 @@ class CurrencyModel {
 
         for (final String phid in _phids){
 
-          final bool _isCurrency = Phider.checkVerseIsCurrency(phid);
+          final bool _isCurrency = checkVerseIsCurrency(phid);
 
           if (_langMap[phid] != null && _isCurrency == true){
 
@@ -339,6 +339,32 @@ class CurrencyModel {
     }
 
     return _output;
+  }
+  // --------------------
+  static const String currencyCut = 'currency';
+  // --------------------
+  /// TASK : TEST ME
+  static bool checkVerseIsCurrency(dynamic text){
+    bool _isCurrency = false;
+
+    if (text != null && text is String){
+
+      // final String? _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
+      //   text: removeIndexFromPhid(phid: text),
+      //   numberOfChars: currencyCut.length,
+      // )?.toLowerCase();
+
+      /// SOLUTION 2
+      /// CURRENCY PHID COME LIKES THIS : 'currency_xxx'
+      final String _phid = TextMod.removeTextAfterFirstSpecialCharacter(
+        text: text,
+        specialCharacter: '_',
+      )!;
+
+      _isCurrency = _phid == currencyCut;
+    }
+
+    return _isCurrency;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
