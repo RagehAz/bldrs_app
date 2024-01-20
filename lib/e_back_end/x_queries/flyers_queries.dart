@@ -3,8 +3,8 @@ import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/m_search/flyer_search_model.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_search.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:fire/super_fire.dart';
@@ -28,7 +28,7 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
           //   context: context,
           //   listen: true,
           // ),
-          phid: ChainsProvider.proGetHomeWallPhid(
+          phid: HomeProvider.proGetHomeWallPhid(
             context: context,
             listen: true,
           ),

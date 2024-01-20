@@ -6,7 +6,6 @@ import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -14,7 +13,6 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
-import 'package:bldrs/b_screens/x_keywords_picker_screen/keywords_picker_screen.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -29,7 +27,6 @@ import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs/zz_archives/old_screens/i_chains/a_pickers_screen/a_pickers_screen.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -254,7 +251,7 @@ void onFlyerPhidLongTap({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TASK : DO ME
 Future<void> onAddPhidsToFlyerTap({
   required ValueNotifier<DraftFlyer?> draftNotifier,
   required bool mounted,
@@ -262,26 +259,26 @@ Future<void> onAddPhidsToFlyerTap({
 
   await Keyboard.closeKeyboard();
 
-  /// KEYWORDS_PICKER_SCREEN
-  final List<String> _phids = await KeywordsPickerScreen.goPickPhids(
-    flyerType: draftNotifier.value?.flyerType,
-    event: ViewingEvent.flyerEditor,
-    onlyUseZoneChains: false,
-    selectedPhids: draftNotifier.value?.phids,
-    slideScreenFromEnLeftToRight: true,
-  );
-
-  if (Lister.checkCanLoop(_phids) == true){
-
-    setNotifier(
-      notifier: draftNotifier,
-      mounted: mounted,
-      value: draftNotifier.value?.copyWith(
-        phids: _phids,
-      ),
-    );
-
-  }
+  // /// KEYWORDS_PICKER_SCREEN
+  // final List<String> _phids = await KeywordsPickerScreen.goPickPhids(
+  //   flyerType: draftNotifier.value?.flyerType,
+  //   event: ViewingEvent.flyerEditor,
+  //   onlyUseZoneChains: false,
+  //   selectedPhids: draftNotifier.value?.phids,
+  //   slideScreenFromEnLeftToRight: true,
+  // );
+  //
+  // if (Lister.checkCanLoop(_phids) == true){
+  //
+  //   setNotifier(
+  //     notifier: draftNotifier,
+  //     mounted: mounted,
+  //     value: draftNotifier.value?.copyWith(
+  //       phids: _phids,
+  //     ),
+  //   );
+  //
+  // }
 
 }
 // -----------------------------------------------------------------------------
@@ -402,45 +399,45 @@ Future<void> onSwitchPrice({
 /// SPECS
 
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TASK : SEE ME
 Future<void> onAddSpecsToDraftTap({
   required ValueNotifier<DraftFlyer?> draft,
   required bool mounted,
 }) async {
 
-  final dynamic _result = await BldrsNav.goToNewScreen(
-      screen: PickersScreen(
-        pageTitleVerse: const Verse(
-          id: 'phid_flyer_specs',
-          translate: true,
-        ),
-        selectedSpecs: draft.value?.specs,
-        isMultipleSelectionMode: true,
-        onlyUseZoneChains: false,
-        flyerTypeFilter: draft.value?.flyerType,
-        zone: draft.value?.zone,
-      )
-  );
-
-  if (_result != null){
-
-    final List<SpecModel>? _receivedSpecs = _result;
-
-    if (Lister.checkCanLoop(_receivedSpecs) == true){
-
-      SpecModel.blogSpecs(_receivedSpecs);
-
-      setNotifier(
-        notifier: draft,
-        mounted: mounted,
-        value: draft.value?.copyWith(
-          specs: _receivedSpecs,
-        ),
-      );
-
-    }
-
-  }
+  // final dynamic _result = await BldrsNav.goToNewScreen(
+  //     screen: PickersScreen(
+  //       pageTitleVerse: const Verse(
+  //         id: 'phid_flyer_specs',
+  //         translate: true,
+  //       ),
+  //       selectedSpecs: draft.value?.specs,
+  //       isMultipleSelectionMode: true,
+  //       onlyUseZoneChains: false,
+  //       flyerTypeFilter: draft.value?.flyerType,
+  //       zone: draft.value?.zone,
+  //     )
+  // );
+  //
+  // if (_result != null){
+  //
+  //   final List<SpecModel>? _receivedSpecs = _result;
+  //
+  //   if (Lister.checkCanLoop(_receivedSpecs) == true){
+  //
+  //     SpecModel.blogSpecs(_receivedSpecs);
+  //
+  //     setNotifier(
+  //       notifier: draft,
+  //       mounted: mounted,
+  //       value: draft.value?.copyWith(
+  //         specs: _receivedSpecs,
+  //       ),
+  //     );
+  //
+  //   }
+  //
+  // }
 
 }
 // -----------------------------------------------------------------------------

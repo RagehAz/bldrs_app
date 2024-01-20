@@ -1,0 +1,102 @@
+part of chains;
+
+class SpecsBuilder extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const SpecsBuilder({
+    required this.pageWidth,
+    required this.specs,
+    required this.onSpecTap,
+    required this.onDeleteSpec,
+    super.key
+  });
+  /// --------------------------------------------------------------------------
+  final double pageWidth;
+  final List<SpecModel>? specs;
+  final Function({required SpecModel? value, required SpecModel? unit})? onSpecTap;
+  final Function({required SpecModel? value, required SpecModel? unit})? onDeleteSpec;
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    final List<PickerModel> _specsPickers = ChainsProvider.proGetPickersBySpecs(
+      context: context,
+      specs: specs ?? [],
+      listen: true,
+    );
+
+    if (Lister.checkCanLoop(_specsPickers) == true){
+
+      // PickerModel.blogPickers(_specsPickers, invoker: 'fuckii');
+
+      return SizedBox(
+        key: const ValueKey<String>('SpecsBuilder'),
+        width: pageWidth,
+        child: ListView.builder(
+            itemCount: _specsPickers.length,
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
+            itemBuilder: (_, int index){
+
+              final PickerModel? _picker = _specsPickers[index];
+
+              // _picker?.blogPicker(invoker: 'bobo');
+
+              final List<SpecModel> _specsOfThisPicker = SpecModel.getSpecsBelongingToThisPicker(
+                specs: specs,
+                picker: _picker,
+              );
+
+              return Container(
+                width: pageWidth,
+                decoration: BoxDecoration(
+                  borderRadius: Borderers.cornerAll(pageWidth * 0.04),
+                  color: Colorz.white50,
+                ),
+                margin: const EdgeInsets.only(bottom: 2.5),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+
+                    /// SPEC PICKER NAME
+                    BldrsText(
+                      width: pageWidth - 20,
+                      verse: Verse(
+                        id: _picker?.chainID,
+                        translate: true,
+                      ),
+                      weight: VerseWeight.thin,
+                      color: Colorz.white200,
+                      centered: false,
+                      size: 1,
+                      scaleFactor: 1.3,
+                      maxLines: 2,
+                    ),
+
+                    /// SPECS
+                    SpecsWrapper(
+                      width: pageWidth - 20,
+                      specs: _specsOfThisPicker,
+                      picker: _picker,
+                      onSpecTap: onSpecTap,
+                      onDeleteSpec: onDeleteSpec,
+                      xIsOn: false,
+                      padding: 5,
+                    ),
+
+                  ],
+                ),
+              );
+
+            }
+        ),
+      );
+    }
+    else {
+      return const SizedBox();
+    }
+
+  }
+// -----------------------------------------------------------------------------
+}

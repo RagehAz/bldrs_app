@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
+import 'package:bldrs/a_models/c_keywords/keyworder.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
@@ -83,7 +83,7 @@ class _PhidPicState extends State<PhidPic> {
       width: widget.size,
       corners: widget.corners,
       color: Colorz.white20,
-      iconSizeFactor: Phider.checkIsPhid(widget.phid) ? 1 : 0.7,
+      iconSizeFactor: Keyworder.checkIsPhid(widget.phid) ? 1 : 0.7,
       bubble: false,
       loading: _picModel == null && _loading == true,
       icon: _picModel?.bytes ?? Iconz.circleDot,

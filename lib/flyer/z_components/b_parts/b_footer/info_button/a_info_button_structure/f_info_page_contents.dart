@@ -5,7 +5,6 @@ import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_statistics/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
@@ -17,7 +16,6 @@ import 'package:bldrs/flyer/z_components/b_parts/b_footer/info_button/expanded_i
 import 'package:bldrs/flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_separator.dart';
 import 'package:bldrs/flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/phids_wrapper.dart';
 import 'package:bldrs/flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/report_button.dart';
-import 'package:bldrs/flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/specs_builder.dart';
 import 'package:bldrs/flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_screens/x_situational_screens/c_pdf_screen.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
@@ -210,38 +208,38 @@ class InfoPageContents extends StatelessWidget {
                     pageWidth: _pageWidth,
                   ),
 
-                /// SPECS HEADLINE
-                if (Lister.checkCanLoop(flyerModel?.specs) == true)
-                  InfoPageHeadline(
-                    pageWidth: _pageWidth,
-                    verse: const Verse(
-                      id: 'phid_specs',
-                      translate: true,
-                    ),
-                  ),
+                // /// SPECS HEADLINE
+                // if (Lister.checkCanLoop(flyerModel?.specs) == true)
+                //   InfoPageHeadline(
+                //     pageWidth: _pageWidth,
+                //     verse: const Verse(
+                //       id: 'phid_specs',
+                //       translate: true,
+                //     ),
+                //   ),
 
-                /// SPECS
-                if (Lister.checkCanLoop(flyerModel?.specs) == true)
-                  SpecsBuilder(
-                    pageWidth: _pageWidth,
-                    specs: flyerModel!.specs,
-                    onSpecTap: ({SpecModel? value, SpecModel? unit}){
-                      blog('Flyer : InfoPageContents : onSpecTap');
-                      value?.blogSpec();
-                      unit?.blogSpec();
-                    },
-                    onDeleteSpec: ({SpecModel? value, SpecModel? unit}){
-                      blog('Flyer : InfoPageContents : onDeleteSpec');
-                      value?.blogSpec();
-                      unit?.blogSpec();
-                    },
-                  ),
+                // /// SPECS
+                // if (Lister.checkCanLoop(flyerModel?.specs) == true)
+                //   SpecsBuilder(
+                //     pageWidth: _pageWidth,
+                //     specs: flyerModel!.specs,
+                //     onSpecTap: ({SpecModel? value, SpecModel? unit}){
+                //       blog('Flyer : InfoPageContents : onSpecTap');
+                //       value?.blogSpec();
+                //       unit?.blogSpec();
+                //     },
+                //     onDeleteSpec: ({SpecModel? value, SpecModel? unit}){
+                //       blog('Flyer : InfoPageContents : onDeleteSpec');
+                //       value?.blogSpec();
+                //       unit?.blogSpec();
+                //     },
+                //   ),
 
-                /// SPECS LINE
-                if (Lister.checkCanLoop(flyerModel?.specs) == true)
-                  InfoPageSeparator( /// ------------------------- SEPARATOR
-                    pageWidth: _pageWidth,
-                  ),
+                // /// SPECS LINE
+                // if (Lister.checkCanLoop(flyerModel?.specs) == true)
+                //   InfoPageSeparator( /// ------------------------- SEPARATOR
+                //     pageWidth: _pageWidth,
+                //   ),
 
                 /// COUNTERS
                 if (_userIsSignedIn == true)

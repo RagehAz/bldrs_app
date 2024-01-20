@@ -2,13 +2,11 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_screens/b_user_screens/c_user_editor_screen/user_editor_screen.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
-import 'package:provider/provider.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -21,7 +19,7 @@ Future<void> initializeHomeScreen() async {
   await checkIfUserIsMissingFields();
 
   /// I - KEYWORDS
-  unawaited(initializeAllChains());
+  // unawaited(initializeAllChains());
 
 }
 // -----------------------------------------------------------------------------
@@ -102,13 +100,13 @@ Future<void> _controlMissingFieldsCase({
 /// CHAIN INITIALIZATIONS
 
 // --------------------
-/// TESTED : WORKS PERFECT
-Future<void> initializeAllChains() async {
-  // blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ START');
-  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
-  await _chainsProvider.initializeAllChains(
-    notify: true,
-  );
-  // blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ END');
-}
+// /// TESTED : WORKS PERFECT
+// Future<void> initializeAllChains() async {
+//   // blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ START');
+//   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
+//   await _chainsProvider.initializeAllChains(
+//     notify: true,
+//   );
+//   // blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ END');
+// }
 // -----------------------------------------------------------------------------

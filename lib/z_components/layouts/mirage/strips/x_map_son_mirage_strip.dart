@@ -23,7 +23,7 @@ class _MapSonMirageStrip extends StatelessWidget {
     if (Pathing.checkIsPath(mirageBelow.selectedButton.value) == true){
       return Pathing.getLastPathNode(mirageBelow.selectedButton.value);
     }
-    else if (Phider.checkIsPhidK(mirageBelow.selectedButton.value) == true){
+    else if (Keyworder.checkIsPhidK(mirageBelow.selectedButton.value) == true){
       return mirageBelow.selectedButton.value;
     }
     else {

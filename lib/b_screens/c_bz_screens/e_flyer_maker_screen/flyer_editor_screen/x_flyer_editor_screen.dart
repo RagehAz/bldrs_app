@@ -7,7 +7,6 @@ import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
@@ -546,20 +545,20 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                     mounted: mounted,
                     draft: _draftNotifier,
                   ),
-                  onDeleteSpec: ({SpecModel? value, SpecModel? unit}){
-
-                          blog('on Delete spec');
-                          value?.blogSpec();
-                          unit?.blogSpec();
-
-                        },
-                  onSpecTap: ({SpecModel? value, SpecModel? unit}){
-
-                          blog('on spec Tap');
-                          value?.blogSpec();
-                          unit?.blogSpec();
-
-                        },
+                  // onDeleteSpec: ({SpecModel? value, SpecModel? unit}){
+                  //
+                  //         blog('on Delete spec');
+                  //         value?.blogSpec();
+                  //         unit?.blogSpec();
+                  //
+                  //       },
+                  // onSpecTap: ({SpecModel? value, SpecModel? unit}){
+                  //
+                  //         blog('on spec Tap');
+                  //         value?.blogSpec();
+                  //         unit?.blogSpec();
+                  //
+                  //       },
                   onCurrentPriceChanged: (double value) => onChangeCurrentPrice(
                     draftNotifier: _draftNotifier,
                     mounted: mounted,
