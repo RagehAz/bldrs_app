@@ -72,12 +72,12 @@ class Initializer {
 
               UiInitializer.setLoadingVerse(getWord('phid_loading'));
 
-              await Future.wait(<Future>[
-
-                /// UI - ICONS - PHRASES
-                UiInitializer.initializeIconsAndPhrases(),
-
-              ]);
+              // await Future.wait(<Future>[
+              //
+              //   /// UI - ICONS - PHRASES
+              //   UiInitializer.initializeIconsAndPhrases(),
+              //
+              // ]);
 
             }
 
