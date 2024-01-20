@@ -120,13 +120,6 @@ packages:
       relative: false
     source: path
     version: "6.0.0"
-  bldrs_keywords:
-    dependency: "direct main"
-    description:
-      path: "D:/projects/bldrs/bldrs_keywords"
-      relative: false
-    source: path
-    version: "1.0.1"
   boolean_selector:
     dependency: transitive
     description:

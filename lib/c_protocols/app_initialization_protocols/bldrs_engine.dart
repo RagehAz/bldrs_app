@@ -14,6 +14,7 @@ import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
@@ -217,6 +218,12 @@ class BldrsEngine {
     /// MIRAGES
     HomeProvider.proInitializeMirages();
 
+    /// LAYOUT IS VISIBLE
+    UiProvider.proSetLayoutIsVisible(
+      setTo: true,
+      notify: true,
+    );
+
   }
   // --------------------
   ///
@@ -225,6 +232,12 @@ class BldrsEngine {
     required bool mounted,
   }) async {
 
+    /// CLOSE KEYBOARD
+    unawaited(Keyboard.closeKeyboard());
+
+    /// COUNTRIES PHRASES
+    unawaited(PhraseProtocols.generateCountriesPhrases());
+
     await UiInitializer.initializeAppLanguage(
       context: context,
       mounted: mounted,
@@ -232,12 +245,6 @@ class BldrsEngine {
 
     /// APP STATE
     await AppStateInitializer.initialize();
-
-    /// CLOSE KEYBOARD
-    unawaited(Keyboard.closeKeyboard());
-
-    /// UI - ICONS - PHRASES
-    unawaited(UiInitializer.initializeIconsAndPhrases());
 
     unawaited(
         /// APP LANGUAGE
