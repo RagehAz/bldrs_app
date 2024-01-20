@@ -1,7 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/checks/device_checker.dart';
-import 'package:basics/helpers/files/filers.dart';
-import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
@@ -55,69 +53,69 @@ class GeneralProvider extends ChangeNotifier {
   /// LOCAL ASSETS /// ERADICATE_CHAINS
 
   // --------------------
-  List<String> _localAssetsPaths = <String>[]; /// ERADICATE_CHAINS
-  List<String> get localAssetsPaths => _localAssetsPaths; /// ERADICATE_CHAINS
-  // --------------------
-  static bool proCheckLocalAssetExists({
-    required String? assetName,
-  }){
-    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(getMainContext(), listen: false);
-
-    final String? _path = Filers.getLocalAssetPathFromLocalPaths(
-        allAssetsPaths: _generalProvider.localAssetsPaths,
-        assetName: assetName
-    );
-
-    if (_path == null){
-      return false;
-    }
-    else {
-      return true;
-    }
-
-  }
-  // --------------------
-  static String? proGetLocalAssetPath({
-    required String? assetName,
-  }){
-    final List<String> _localAssetsPaths = proGetLocalAssetsPaths();
-    final String? _path = Filers.getLocalAssetPathFromLocalPaths(
-        allAssetsPaths: _localAssetsPaths,
-        assetName: assetName
-    );
-    return _path;
-  }
-  // --------------------
-  static List<String> proGetLocalAssetsPaths(){
-    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(getMainContext(), listen: false);
-    return _generalProvider.localAssetsPaths;
-  }
-  // --------------------
-  static Future<void> proGetSetLocalAssetsPaths({
-    required bool notify,
-  }) async {
-    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(getMainContext(), listen: false);
-    if (Lister.checkCanLoop(_generalProvider.localAssetsPaths) == false){
-      await _generalProvider._getSetLocalAssetsPaths(
-        notify: notify,
-      );
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> _getSetLocalAssetsPaths({
-    required bool notify,
-  }) async {
-
-    final List<String> _paths = await Filers.getLocalAssetsPaths();
-
-    _localAssetsPaths = _paths;
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
+  // List<String> _localAssetsPaths = <String>[]; /// ERADICATE_CHAINS
+  // List<String> get localAssetsPaths => _localAssetsPaths; /// ERADICATE_CHAINS
+  // // --------------------
+  // static bool proCheckLocalAssetExists({
+  //   required String? assetName,
+  // }){
+  //   final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(getMainContext(), listen: false);
+  //
+  //   final String? _path = Filers.getLocalAssetPathFromLocalPaths(
+  //       allAssetsPaths: _generalProvider.localAssetsPaths,
+  //       assetName: assetName
+  //   );
+  //
+  //   if (_path == null){
+  //     return false;
+  //   }
+  //   else {
+  //     return true;
+  //   }
+  //
+  // }
+  // // --------------------
+  // static String? proGetLocalAssetPath({
+  //   required String? assetName,
+  // }){
+  //   final List<String> _localAssetsPaths = proGetLocalAssetsPaths();
+  //   final String? _path = Filers.getLocalAssetPathFromLocalPaths(
+  //       allAssetsPaths: _localAssetsPaths,
+  //       assetName: assetName
+  //   );
+  //   return _path;
+  // }
+  // // --------------------
+  // static List<String> proGetLocalAssetsPaths(){
+  //   final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(getMainContext(), listen: false);
+  //   return _generalProvider.localAssetsPaths;
+  // }
+  // // --------------------
+  // static Future<void> proGetSetLocalAssetsPaths({
+  //   required bool notify,
+  // }) async {
+  //   final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(getMainContext(), listen: false);
+  //   if (Lister.checkCanLoop(_generalProvider.localAssetsPaths) == false){
+  //     await _generalProvider._getSetLocalAssetsPaths(
+  //       notify: notify,
+  //     );
+  //   }
+  // }
+  // // --------------------
+  // /// TESTED : WORKS PERFECT
+  // Future<void> _getSetLocalAssetsPaths({
+  //   required bool notify,
+  // }) async {
+  //
+  //   final List<String> _paths = await Filers.getLocalAssetsPaths();
+  //
+  //   _localAssetsPaths = _paths;
+  //
+  //   if (notify == true){
+  //     notifyListeners();
+  //   }
+  //
+  // }
   // -----------------------------------------------------------------------------
 
   /// CONNECTIVITY

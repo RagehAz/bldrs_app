@@ -1,16 +1,14 @@
 import 'package:basics/helpers/checks/device_checker.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/b_screens/x_on_boarding/a_on_boarding_screen.dart';
-import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
-import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 /// => TAMAM
@@ -112,23 +110,23 @@ class UiInitializer {
   /// SCREEN DIM - ICONS - PHRASES
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> initializeIconsAndPhrases() async {
-
-    UiProvider.proSetLayoutIsVisible(
-      setTo: true,
-      notify: true,
-    );
-
-    await Future.wait([
-
-      GeneralProvider.proGetSetLocalAssetsPaths(notify: true),
-
-      PhraseProtocols.generateCountriesPhrases(),
-
-    ]);
-
-  }
+  // /// TESTED : WORKS PERFECT
+  // static Future<void> initializeIconsAndPhrases() async {
+  //
+  //
+  //
+  //
+  //
+  //
+  //   await Future.wait([
+  //
+  //     GeneralProvider.proGetSetLocalAssetsPaths(notify: true),
+  //
+  //     PhraseProtocols.generateCountriesPhrases(),
+  //
+  //   ]);
+  //
+  // }
   // -----------------------------------------------------------------------------
 
   /// LDB REFRESH
