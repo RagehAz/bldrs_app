@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/z_components/buttons/expander_button/a_expanding_button_box.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -31,7 +32,7 @@ class PhidButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double? width;
   final Color color;
-  final String? phid; // phrase id
+  final String? phid;
   final int? level;
   final bool isDisabled;
   final bool xIsOn;
@@ -58,16 +59,9 @@ class PhidButton extends StatelessWidget {
       _icon = Iconz.xLarge;
     }
     else {
-
-      /// do_this_proGetPhidIcon_fromKeywordsMap
-      // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
-      // _icon = _chainsProvider.getPhidIcon(
-      //   son: phid,
-      // );
-
+      _icon = StoragePath.phids_phid(phid);
     }
 
-    // blog('PhidButton : _getIcon : phid : $phid : icon : $_icon');
     return _icon;
   }
   // --------------------

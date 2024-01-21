@@ -85,6 +85,7 @@ class _MyBzFlyersPageState extends State<MyBzFlyersPage> with SingleTickerProvid
       scrollController: _scrollController,
       zGridController: _zGridController,
       onlyShowPublished: true,
+      showAddFlyerButton: true,
       appBarType: AppBarType.non,
     );
     // --------------------
