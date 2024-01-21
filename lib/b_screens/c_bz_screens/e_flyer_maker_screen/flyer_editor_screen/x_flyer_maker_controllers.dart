@@ -13,6 +13,7 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
+import 'package:bldrs/b_screens/c_keyword_picker/keyword_picker_screen.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -259,26 +260,26 @@ Future<void> onAddPhidsToFlyerTap({
 
   await Keyboard.closeKeyboard();
 
-  // /// KEYWORDS_PICKER_SCREEN
-  // final List<String> _phids = await KeywordsPickerScreen.goPickPhids(
-  //   flyerType: draftNotifier.value?.flyerType,
-  //   event: ViewingEvent.flyerEditor,
-  //   onlyUseZoneChains: false,
-  //   selectedPhids: draftNotifier.value?.phids,
-  //   slideScreenFromEnLeftToRight: true,
-  // );
-  //
-  // if (Lister.checkCanLoop(_phids) == true){
-  //
-  //   setNotifier(
-  //     notifier: draftNotifier,
-  //     mounted: mounted,
-  //     value: draftNotifier.value?.copyWith(
-  //       phids: _phids,
-  //     ),
-  //   );
-  //
-  // }
+  /// consider_flyer_type_city_in_keywordsPicker
+  final List<String> _phids = await KeywordsPickerScreen.pickPhids(
+    // flyerType: draftNotifier.value?.flyerType,
+    // event: ViewingEvent.flyerEditor,
+    // onlyUseZoneChains: false,
+    selectedPhids: draftNotifier.value?.phids,
+    // slideScreenFromEnLeftToRight: true,
+  );
+
+  if (Lister.checkCanLoop(_phids) == true){
+
+    setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value?.copyWith(
+        phids: _phids,
+      ),
+    );
+
+  }
 
 }
 // -----------------------------------------------------------------------------

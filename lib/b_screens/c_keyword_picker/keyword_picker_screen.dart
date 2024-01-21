@@ -34,6 +34,7 @@ class KeywordsPickerScreen extends StatefulWidget {
   @override
   _KeywordsPickerScreenState createState() => _KeywordsPickerScreenState();
   // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<String?> pickPath() async {
 
     final String? _path = await BldrsNav.goToNewScreen(
@@ -46,32 +47,39 @@ class KeywordsPickerScreen extends StatefulWidget {
     return _path;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<String>> pickPaths({
     required List<String> selectedPaths,
+
   }) async {
 
-    final List<String> _path = await BldrsNav.goToNewScreen(
+    final List<String> _paths = await BldrsNav.goToNewScreen(
       screen: KeywordsPickerScreen(
         multipleSelection: true,
-        selectedPhids: selectedPaths,
+        selectedPhids: Pathing.getPathsLastNodes(selectedPaths),
       ),
     );
 
-    return _path;
+    return _paths;
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<String?> pickPhid() async {
     final String? _path = await pickPath();
     return Pathing.getLastPathNode(_path);
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<String>> pickPhids({
-    required List<String> selectedPaths,
+    required List<String>? selectedPhids,
   }) async {
 
-    final List<String> _paths = await pickPaths(
-        selectedPaths: selectedPaths,
+    final List<String> _paths = await BldrsNav.goToNewScreen(
+      screen: KeywordsPickerScreen(
+        multipleSelection: true,
+        selectedPhids: selectedPhids ?? [],
+      ),
     );
 
     return Pathing.getPathsLastNodes(_paths);
@@ -174,6 +182,7 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
 
     for (final String phid in _allPhids){
 
+      /// DO_THE_TRANSLATE_PHID_to_second_lang
       final String _value = getWord(phid);
       final Phrase _phrase = Phrase(
         id: phid,
