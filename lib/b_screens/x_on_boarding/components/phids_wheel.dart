@@ -2,6 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/space/scale.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -108,19 +109,19 @@ class NonAnimatedPhidsWheel extends StatelessWidget {
         children: <Widget>[
 
           ...List.generate(phids.length, (index){
+
             final String _phid = phids[index];
             final Verse? _verse = getVerse(_phid);
-            /// do_this_proGetPhidIcon_fromKeywordsMap
-            // const  String? _icon = null; //ChainsProvider.proGetPhidIcon(son: _phid);
+            final String? _icon = StoragePath.phids_phid(_phid);
 
             return BldrsBox(
               height: height * 0.7,
               width: _phidWidth,
-              // icon: _icon,
+              icon: _icon,
               verse: _verse,
               verseMaxLines: 2,
               verseWeight: VerseWeight.thin,
-              // verseCentered: _icon == null,
+              verseCentered: _icon == null,
               verseScaleFactor: 0.6,
               color: Colorz.white20,
               bubble: false,
@@ -261,18 +262,19 @@ class _AutoAnimatedPhidsWheelState extends State<AutoAnimatedPhidsWheel> {
         children: <Widget>[
 
           ...List.generate(widget.phids.length, (index){
+
             final String _phid = widget.phids[index];
             final Verse? _verse = getVerse(_phid);
-            /// do_this_proGetPhidIcon_fromKeywordsMap
-            // const String? _icon = null; // ChainsProvider.proGetPhidIcon(son: _phid);
+            final String? _icon = StoragePath.phids_phid(_phid);
+
             return BldrsBox(
               height: widget.height * 0.7,
               width: _phidWidth,
-              // icon: _icon,
+              icon: _icon,
               verse: _verse,
               verseMaxLines: 2,
               verseWeight: VerseWeight.thin,
-              // verseCentered: _icon == null,
+              verseCentered: _icon == null,
               verseScaleFactor: 0.6,
               color: Colorz.white20,
               bubble: false,
@@ -324,17 +326,16 @@ class PhidsList extends StatelessWidget {
 
           final String _phid = phids[index];
           final Verse? _verse = getVerse(_phid);
-          /// do_this_proGetPhidIcon_fromKeywordsMap
-          // const String? _icon = null; // ChainsProvider.proGetPhidIcon(son: _phid);
+          final String? _icon = StoragePath.phids_phid(_phid);
 
           return BldrsBox(
             height: height * 0.7,
             // width: _phidWidth,
-            // icon: _icon,
+            icon: _icon,
             verse: _verse,
             verseMaxLines: 2,
             verseWeight: VerseWeight.thin,
-            // verseCentered: _icon == null,
+            verseCentered: _icon == null,
             verseScaleFactor: 0.6,
             color: Colorz.white20,
             bubble: false,
