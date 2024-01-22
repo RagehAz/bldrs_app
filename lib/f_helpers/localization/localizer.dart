@@ -166,7 +166,7 @@ class Localizer {
     'hi',
     'ru',
     'pt',
-    // 'fa',
+    'fa',
   ];
   // --------------------
   /// TESTED : WORKS PERFECT

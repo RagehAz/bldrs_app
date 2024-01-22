@@ -513,7 +513,7 @@ class BottomDialog extends StatelessWidget {
                   if (titleVerse != null)
                     BldrsText(
                         verse: titleVerse,
-                        width: _dialogWidth * 0.8,
+                        maxWidth: _dialogWidth * 0.8,
                         height: _titleZoneHeight,
                         maxLines: 2,
                       ),
