@@ -1,6 +1,7 @@
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/map_pathing.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/pathing.dart';
 import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
@@ -64,6 +65,62 @@ class Keyworder {
         if (Lister.checkCanLoop(_nodes) == true){
           _output = _nodes.first;
         }
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getAllPhids({
+    required Map<String, dynamic>? keywordsMap,
+  }){
+    List<String> _output = [];
+
+    if (keywordsMap != null){
+
+      final List<String> _paths = MapPathing.generatePathsFromMap(map: keywordsMap);
+
+      Stringer.blogStrings(strings: _paths, invoker: 'x');
+
+      for (final String path in _paths){
+
+        final List<String> _nodes = Pathing.splitPathNodes(path);
+
+        _output = Stringer.addStringsToStringsIfDoNotContainThem(
+            listToTake: _output,
+            listToAdd: _nodes,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static List<String> getLastNodesPhids({
+    required Map<String, dynamic>? keywordsMap,
+  }){
+    List<String> _output = [];
+
+    if (keywordsMap != null){
+
+      final List<String> _paths = MapPathing.generatePathsFromMap(
+        map: keywordsMap,
+      );
+
+      for (final String path in _paths){
+
+        final String _lastNode = Pathing.getLastPathNode(path)!;
+
+        _output = Stringer.addStringToListIfDoesNotContainIt(
+            strings: _output,
+            stringToAdd: _lastNode,
+        );
+
       }
 
     }
