@@ -15,6 +15,7 @@ class RealColl {
   // --------------------
   static const String bldrsChains = 'bldrsChains'; /// ERADICATE_CHAINS
   static const String keywords = 'keywords';
+  static const String keywordsPhrases = 'keywordsPhrases';
   // --------------------
   static const String records = 'records';
   // --------------------
@@ -325,5 +326,18 @@ class RealPath {
   static String gta_selected() => '${RealColl.gta}/${RealDoc.gta_selected}';
   // --------------------
   static String gta_scrapped() => '${RealColl.gta}/${RealDoc.gta_scrapped}';
+  // -----------------------------------------------------------------------------
+
+  /// KEYWORDS PHRASES
+
+  // --------------------
+  static String keywordsPhrases_lang({
+    required String langCode,
+  }) => '${RealColl.keywordsPhrases}/$langCode';
+  // --------------------
+  static String keywordsPhrases_lang_phid({
+    required String langCode,
+    required String phid,
+  }) => '${RealColl.keywordsPhrases}/$langCode/$phid';
   // -----------------------------------------------------------------------------
 }
