@@ -34,7 +34,7 @@ void onSearchCurrencies({
     final List<CurrencyModel> _foundCurrencies = <CurrencyModel>[];
 
     /// SEARCH MAIN PHRASES
-    final List<Phrase> _phrases = onSearchPhrases(
+    final List<Phrase> _phrases = PhraseProtocols.onSearchPhrases(
       searchController: searchController,
       phrasesToSearchIn: allCurrenciesPhrases,
       isSearching: isSearching,
