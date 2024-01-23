@@ -10,8 +10,8 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/main_phrases_protocols/main_phrases_json_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 /// => TAMAM
@@ -45,7 +45,7 @@ class NoteEventsOfBzFlyersManagement {
 
       if (_flyer != null) {
 
-        final String? _title = await Localizer.translateByLangCode(
+        final String? _title = await MainPhrasesJsonOps.translatePhid(
           phid: 'phid_flyer_has_been_updated',
           langCode: _userModel?.language,
         );
@@ -105,12 +105,12 @@ class NoteEventsOfBzFlyersManagement {
       userID: _bzModel?.authors?.first.userID,
     );
 
-    final String? _title = await Localizer.translateByLangCode(
+    final String? _title = await MainPhrasesJsonOps.translatePhid(
         phid: 'phid_flyer_has_been_verified',
         langCode: _userModel?.language,
     );
 
-    final String? _body = await Localizer.translateByLangCode(
+    final String? _body = await MainPhrasesJsonOps.translatePhid(
       phid: 'phid_flyer_is_public_now_and_can_be_seen',
       langCode: _userModel?.language,
     );

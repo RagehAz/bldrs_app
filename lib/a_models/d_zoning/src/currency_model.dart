@@ -1,5 +1,4 @@
 part of world_zoning;
-
 /// => TAMAM
 @immutable
 class CurrencyModel {
@@ -305,7 +304,7 @@ class CurrencyModel {
   }) async {
     final List<Phrase> _output = [];
 
-    final Map<String, dynamic>? _langMap = await Localizer.getLangMap(
+    final Map<String, dynamic>? _langMap = await MainPhrasesJsonOps.readAll(
       langCode: langCode,
     );
 
