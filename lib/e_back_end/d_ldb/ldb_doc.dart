@@ -51,8 +51,9 @@ class LDBDoc {
   static const String census = 'census';
   // --------------------
   /// PHRASES
-  // all docs include mixed lang phrases with extra primary key of "id_langCodo"
+  // all docs include mixed lang phrases with extra primary key of "id_langCode"
   static const String mainPhrases = 'mainPhrases';
+  static const String keywordsPhrases = 'keywordsPhrases';
   static const String countriesPhrases = 'countriesPhrases';
   // --------------------
   /// EDITORS
@@ -111,7 +112,8 @@ class LDBDoc {
       case LDBDoc.census: return 'id';
     // -------------
       /// PHRASES
-      case LDBDoc.mainPhrases: return 'id';
+      case LDBDoc.mainPhrases: return 'id'; /// has compound primaryKey phid_en
+      case LDBDoc.keywordsPhrases: return 'primaryKey'; /// has compound primaryKey phid_en
       case LDBDoc.countriesPhrases: return 'id';
       // -------------
       /// EDITORS
