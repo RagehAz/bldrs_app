@@ -1,15 +1,14 @@
-import 'package:basics/bldrs_theme/classes/langs.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/main_phrases_protocols/main_phrases_json_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/main.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -117,7 +116,9 @@ class Localizer {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _load() async {
-    _localizedValues = await getLangMap(langCode: locale?.languageCode);
+    _localizedValues = await MainPhrasesJsonOps.readAll(
+        langCode: locale?.languageCode,
+    );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -264,58 +265,10 @@ class Localizer {
     );
 
   }
-  // -----------------------------------------------------------------------------
-
-  /// READING  LOCAL JSON
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<Map<String, String>> getLangMap({
-    required String? langCode
-  }) async {
-
-    Map<String, String>? _output;
-
-    // final Map<String, String>
-    // _output = await LangMapProtocols.fetchLangMap(
-    //   langCode: langCode,
-    // );
-
-    final String? _langFilePath = BldrsThemeLangs.getLangFilePath(
-      langCode: langCode,
-    );
-
-    if (_langFilePath != null){
-
-      final Map<String, dynamic>? _mappedJson = await Filers.readLocalJSON(
-        path: _langFilePath,
-      );
-
-      if (_mappedJson != null){
-        _output = _mappedJson.map((String key, value) => MapEntry(key, value.toString()));
-      }
-
-    }
-
-    return _output ?? {};
-  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? translate(String phid) {
     return Localizer.of(getMainContext())?._getTranslatedValue(phid);
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<String?> translateByLangCode({
-    required String? phid,
-    required String? langCode,
-  }) async {
-
-    final Map<String, String> _langMap = await getLangMap(
-      langCode: langCode,
-    );
-
-    return _langMap[phid];
   }
   // -----------------------------------------------------------------------------
 

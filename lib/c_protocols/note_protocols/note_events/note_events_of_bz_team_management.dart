@@ -10,9 +10,9 @@ import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/main_phrases_protocols/main_phrases_json_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
@@ -46,7 +46,7 @@ class NoteEventsOfBzTeamManagement {
         userID: author.userID,
       );
 
-      final Map<String, dynamic>? _map = await Localizer.getLangMap(
+      final Map<String, String>? _map = await MainPhrasesJsonOps.readAll(
           langCode: _userModel?.language ?? 'en',
       );
 
@@ -128,7 +128,7 @@ class NoteEventsOfBzTeamManagement {
         userID: deletedAuthor.userID,
       );
 
-      final String? _title = await Localizer.translateByLangCode(
+      final String? _title = await MainPhrasesJsonOps.translatePhid(
         phid: 'phid_a_member_exited_the_team',
         langCode: _user?.language,
       );
@@ -181,7 +181,7 @@ class NoteEventsOfBzTeamManagement {
 
     if (bzModel != null && _userModel != null){
 
-      final String? _title = await Localizer.translateByLangCode(
+      final String? _title = await MainPhrasesJsonOps.translatePhid(
         phid: 'phid_you_have_exited_bz',
         langCode: _userModel.language,
       );
@@ -249,7 +249,7 @@ class NoteEventsOfBzTeamManagement {
               userID: author.userID,
             );
 
-            final String? _title = await Localizer.translateByLangCode(
+            final String? _title = await MainPhrasesJsonOps.translatePhid(
               phid: 'phid_bz_has_been_deleted',
               langCode: _userModel?.language,
             );
@@ -307,12 +307,12 @@ class NoteEventsOfBzTeamManagement {
 
     if (bzModel != null && userModel != null){
 
-          final String? _title = await Localizer.translateByLangCode(
+          final String? _title = await MainPhrasesJsonOps.translatePhid(
       phid: 'has_tried_to_contact_you',
       langCode: userModel.language,
     );
 
-    final String? _hasTriedToContactYou = await Localizer.translateByLangCode(
+    final String? _hasTriedToContactYou = await MainPhrasesJsonOps.translatePhid(
         phid: 'has_tried_to_contact_you',
         langCode: userModel.language,
     );
