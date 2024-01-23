@@ -1,7 +1,6 @@
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/map_pathing.dart';
-import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/pathing.dart';
 import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
