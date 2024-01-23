@@ -18,6 +18,7 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/main_phrases_protocols/main_phrases_json_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
@@ -389,7 +390,7 @@ class BldrsShareLink{
       pluralTranslation: false,
     );
 
-    final String? _flyerTypeTranslation = await Localizer.translateByLangCode(
+    final String? _flyerTypeTranslation = await MainPhrasesJsonOps.translatePhid(
       langCode: langCode ?? Localizer.getCurrentLangCode(),
       phid: _phid,
     );

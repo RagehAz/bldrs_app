@@ -1,7 +1,7 @@
 import 'package:basics/models/phrase_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/keywords_phrases_protocols/keywords_phrases_ldb_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/keywords_phrases_protocols/keywords_phrases_real_ops.dart';
-
+/// => TAMAM
 class KeywordsPhrasesProtocols {
   // --------------------------------------------------------------------------
 
@@ -12,7 +12,7 @@ class KeywordsPhrasesProtocols {
   /// COMPOSE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> composePhrase({
     required String phid,
     required String langCode,
@@ -36,10 +36,30 @@ class KeywordsPhrasesProtocols {
   }
   // --------------------------------------------------------------------------
 
+  /// DOWNLOAD
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> downloadAll({
+    required String langCode,
+  }) async {
+
+    final List<Phrase> _all = await KeywordsPhrasesRealOps.readAllPhrasesByLang(
+        langCode: langCode,
+        includeTrigram: true,
+    );
+
+    await KeywordsPhrasesLDBOps.insertPhrases(
+        phrases: _all,
+    );
+
+  }
+  // --------------------------------------------------------------------------
+
   /// FETCH
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<Phrase?> fetch({
     required String phid,
     required String langCode,
@@ -79,7 +99,7 @@ class KeywordsPhrasesProtocols {
   /// RENOVATE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> renovate({
     required String phid,
     required String langCode,
@@ -106,7 +126,7 @@ class KeywordsPhrasesProtocols {
   /// WIPE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> wipe({
     required String phid,
     required String langCode,
