@@ -14,13 +14,15 @@ import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/countries_phrases_protocols/countries_phrases_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/keywords_phrases_protocols/keywords_phrases_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/e_back_end/i_app_check/app_check.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:bldrs/firebase_options.dart';
 import 'package:bldrs/main.dart';
@@ -235,14 +237,18 @@ class BldrsEngine {
     /// CLOSE KEYBOARD
     unawaited(Keyboard.closeKeyboard());
 
-    /// COUNTRIES PHRASES
-    unawaited(PhraseProtocols.generateCountriesPhrases());
-
     /// APP LANGUAGE
     await UiInitializer.initializeAppLanguage(
       context: context,
       mounted: mounted,
     );
+
+    /// COUNTRIES PHRASES
+    unawaited(CountriesPhrasesProtocols.generateCountriesPhrases());
+    /// KEYWORDS PHRASES
+    unawaited(KeywordsPhrasesProtocols.downloadAll(
+        langCode: Localizer.getCurrentLangCode(),
+    ));
 
     /// APP STATE
     await AppStateInitializer.initialize();
