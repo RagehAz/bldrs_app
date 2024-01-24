@@ -154,7 +154,7 @@ class Localizer {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> supportedLangCodes = <String>[
+  static const List<String> supportedLangCodes = <String>[
     'en',
     'ar',
     'es',

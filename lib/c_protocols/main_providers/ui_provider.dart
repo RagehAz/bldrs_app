@@ -380,6 +380,16 @@ class UiProvider extends ChangeNotifier {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static void proSetLoadingString({
+    required String text,
+  }){
+    proSetLoadingVerse(
+      verse: Verse.plain(text),
+      notify: true,
+    );
+  }
+  // --------------------
   ///
   static void clearLoadingVerse() {
     final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
