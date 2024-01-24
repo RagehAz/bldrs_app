@@ -27,6 +27,15 @@ class KeywordsPhrasesRealOps {
     );
 
   }
+  // --------------------
+  ///
+  // static Future<void> createPhrases({
+  //   required List<Phrase> phrases,
+  // }) async {
+  //
+  //
+  //
+  // }
   // --------------------------------------------------------------------------
 
   /// READ

@@ -164,7 +164,7 @@ class UiInitializer {
         staging: true, // staging info changes frequently
         census: true, // might need faster refresh aslan
         /// PHRASES
-        mainPhrases: false,
+        keywordsPhrases: false,
         countriesPhrases: false,
         /// EDITORS
         userEditor: false, // keep this for user to find later anytime
