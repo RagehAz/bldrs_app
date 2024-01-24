@@ -15,8 +15,8 @@ class Keyworder {
 
   // --------------------------------------------------------------------------
   static const String phidCut = 'phid';
-  static const String phid_kCut = 'phid_k';
-  static const String phid_sCut = 'phid_s';
+  static const String phid_kCut = 'phid_k_';
+  static const String phid_sCut = 'phid_s_';
   static const String currencyCut = 'currency';
   // --------------------------------------------------------------------------
 
