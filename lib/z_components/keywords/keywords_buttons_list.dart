@@ -4,7 +4,6 @@ import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/z_components/buttons/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
 class PhidsButtonsList extends StatelessWidget {
@@ -40,19 +39,11 @@ class PhidsButtonsList extends StatelessWidget {
 
           final String? _icon = StoragePath.phids_phid(_phid);
 
-          /// DO_THE_TRANSLATE_PHID_to_second_lang
-          const String? _arName = null;
-          // _chainsProvider.translateChainPhid(
-          //   phid: _phid,
-          //   langCode: 'ar',
-          // );
-
           return BldrsBox(
             height: BldrsExpandingButton.collapsedTileHeight,
             width: buttonWidth - (Ratioz.appBarMargin * 2),
             icon: _icon,
             verse: getVerse(_phid),
-            secondLine: Verse.plain(_arName),
             verseScaleFactor: 0.7,
             verseCentered: false,
             bubble: false,
