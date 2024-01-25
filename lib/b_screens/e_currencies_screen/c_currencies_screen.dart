@@ -202,7 +202,6 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       searchController: _searchController,
       isSearching: _isSearching,
       foundCurrencies: _foundCurrencies,
-      pageController: null, //_pageController,
       mounted: mounted,
       allCurrenciesPhrases: _allCurrenciesPhrases,
       allCurrencies: _allCurrencies,
