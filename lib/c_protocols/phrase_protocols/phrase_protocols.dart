@@ -1,10 +1,7 @@
 import 'dart:async';
 
-import 'package:basics/helpers/animators/sliders.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/models/phrase_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/countries_phrases_protocols/countries_phrases_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/keywords_phrases_protocols/keywords_phrases_protocols.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -56,7 +53,7 @@ class PhraseProtocols {
             setLangCode: langCode,
           ),
 
-          KeywordsPhrasesProtocols.downloadAll(
+          KeywordsPhrasesProtocols.fetchAll(
             langCode: langCode,
           ),
 
@@ -89,7 +86,6 @@ class PhraseProtocols {
     required ValueNotifier<bool> isSearching,
     required TextEditingController searchController,
     required List<Phrase> phrasesToSearchIn,
-    required PageController? pageController,
     required bool mounted,
     /// mixes between en & ar values in one list
     ValueNotifier<List<Phrase>>? mixedSearchResult,
@@ -152,15 +148,6 @@ class PhraseProtocols {
       }
       else {
         setNotifier(notifier: mixedSearchResult, mounted: mounted, value: <Phrase>[]);
-      }
-    }
-
-    if (pageController != null){
-      if (pageController.position.pixels >= Scale.screenWidth(getMainContext()) == true){
-        Sliders.slideToBackFrom(
-          pageController: pageController,
-          currentSlide: 1,
-        );
       }
     }
 

@@ -246,7 +246,7 @@ class BldrsEngine {
     /// COUNTRIES PHRASES
     unawaited(CountriesPhrasesProtocols.generateCountriesPhrases());
     /// KEYWORDS PHRASES
-    unawaited(KeywordsPhrasesProtocols.downloadAll(
+    unawaited(KeywordsPhrasesProtocols.fetchAll(
         langCode: Localizer.getCurrentLangCode(),
     ));
 
