@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/langs.dart';
 import 'package:basics/helpers/files/filers.dart';
+import 'package:basics/models/phrase_model.dart';
 /// => TAMAM
 class MainPhrasesJsonOps {
   // --------------------------------------------------------------------------
@@ -67,6 +68,43 @@ class MainPhrasesJsonOps {
       return _langMap[phid];
     }
 
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> readAllPhrasesByLang({
+    required String langCode,
+    required bool includeTrigrams,
+  }) async {
+
+    final Map<String, String> _map = await readAll(langCode: langCode);
+
+    return Phrase.decipherPhrasesFromPhidsMap(
+      langCode: langCode,
+      map: _map,
+      includeTrigram: includeTrigrams,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> readAllPhrasesByLangs({
+    required List<String> langCodes,
+    required bool includeTrigrams,
+  }) async {
+    final List<Phrase> _output = [];
+
+    for (final String langCode in langCodes){
+
+      final List<Phrase> _phrases = await readAllPhrasesByLang(
+          langCode: langCode,
+          includeTrigrams: includeTrigrams
+      );
+
+      _output.addAll(_phrases);
+
+    }
+
+    return _output;
   }
   // --------------------------------------------------------------------------
 
