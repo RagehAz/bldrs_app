@@ -1,6 +1,9 @@
 import 'package:basics/models/phrase_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/keywords_phrases_protocols/keywords_phrases_ldb_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/keywords_phrases_protocols/keywords_phrases_real_ops.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
+import 'package:flutter/foundation.dart';
 /// => TAMAM
 class KeywordsPhrasesProtocols {
   // --------------------------------------------------------------------------
@@ -40,19 +43,29 @@ class KeywordsPhrasesProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> downloadAll({
+  static Future<List<Phrase>> downloadAll({
     required String langCode,
   }) async {
+
+    if (kDebugMode){
+      UiProvider.proSetLoadingVerse(verse: Verse.plain('downloading $langCode'));
+    }
 
     final List<Phrase> _all = await KeywordsPhrasesRealOps.readAllPhrasesByLang(
         langCode: langCode,
         includeTrigram: true,
     );
 
+    if (kDebugMode){
+      UiProvider.proSetLoadingVerse(verse: Verse.plain('saving $langCode'));
+    }
+
     await KeywordsPhrasesLDBOps.insertPhrases(
-        phrases: _all,
+      phrases: _all,
+      langCode: langCode,
     );
 
+    return _all;
   }
   // --------------------------------------------------------------------------
 
