@@ -176,7 +176,7 @@ class UiInitializer {
         theLastWipe: false, // no need to wipe
         appState: false, // no need to wipe
         langCode: false, // no need to wipe
-        langMaps: false, // no need to wipe
+        // langMaps: false, // no need to wipe
         onboarding: false,
         /// DASHBOARD
         gta: false, // this is for dashboard

@@ -9,6 +9,15 @@ class KeywordsPhrasesLDBOps {
 
   // --------------------------------------------------------------------------
 
+  /// DOC
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String _generateLDBDoc({required String langCode}){
+    return '${ LDBDoc.keywordsPhrases}_$langCode';
+  }
+  // --------------------------------------------------------------------------
+
   /// INSERT
 
   // --------------------
@@ -17,15 +26,22 @@ class KeywordsPhrasesLDBOps {
     required Phrase phrase,
   }) async {
 
-    await insertPhrases(
-      phrases: [phrase],
-    );
+    if (phrase.langCode != null){
+
+      await insertPhrases(
+        phrases: [phrase],
+        langCode: phrase.langCode!,
+      );
+
+    }
+
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertPhrases({
     required List<Phrase> phrases,
+    required String langCode,
   }) async {
 
     final List<Map<String, dynamic>> _allMaps = Phrase.cipherMixedLangPhrasesToMaps(
@@ -35,7 +51,7 @@ class KeywordsPhrasesLDBOps {
 
     await LDBOps.insertMaps(
       inputs: _allMaps,
-      docName: LDBDoc.keywordsPhrases,
+      docName: _generateLDBDoc(langCode: langCode),
       primaryKey: LDBDoc.getPrimaryKey(LDBDoc.keywordsPhrases),
       // allowDuplicateIDs: false,
     );
@@ -54,7 +70,7 @@ class KeywordsPhrasesLDBOps {
     Phrase? _output;
 
     final Map<String, dynamic>? _map = await LDBOps.readMap(
-        docName: LDBDoc.keywordsPhrases,
+        docName: _generateLDBDoc(langCode: langCode),
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.keywordsPhrases),
         id: Phrase.createPhraseLDBPrimaryKey(
           phid: phid,
@@ -76,10 +92,12 @@ class KeywordsPhrasesLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<Phrase>> readAll() async {
+  static Future<List<Phrase>> readAll({
+    required String langCode,
+  }) async {
 
     final List<Map<String, dynamic>> maps = await LDBOps.readAllMaps(
-      docName:  LDBDoc.keywordsPhrases,
+      docName:  _generateLDBDoc(langCode: langCode),
     );
 
     return Phrase.decipherMixedLangPhrasesFromMaps(
@@ -99,7 +117,7 @@ class KeywordsPhrasesLDBOps {
   }) async {
 
     await LDBOps.deleteMap(
-      docName: LDBDoc.keywordsPhrases,
+      docName: _generateLDBDoc(langCode: langCode),
       primaryKey: LDBDoc.getPrimaryKey(LDBDoc.keywordsPhrases),
       objectID: Phrase.createPhraseLDBPrimaryKey(
         phid: phid,
@@ -110,10 +128,12 @@ class KeywordsPhrasesLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> deleteAll() async {
+  static Future<void> deleteAll({
+    required String langCode,
+  }) async {
 
     await LDBOps.deleteAllMapsAtOnce(
-        docName: LDBDoc.keywordsPhrases,
+        docName: _generateLDBDoc(langCode: langCode),
     );
 
   }
