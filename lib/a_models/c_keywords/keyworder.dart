@@ -81,7 +81,7 @@ class Keyworder {
 
       final List<String> _paths = MapPathing.generatePathsFromMap(map: keywordsMap);
 
-      Stringer.blogStrings(strings: _paths, invoker: 'x');
+      // Stringer.blogStrings(strings: _paths, invoker: 'x');
 
       for (final String path in _paths){
 
@@ -99,7 +99,7 @@ class Keyworder {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<String> getLastNodesPhids({
     required Map<String, dynamic>? keywordsMap,
   }){
@@ -119,6 +119,34 @@ class Keyworder {
             strings: _output,
             stringToAdd: _lastNode,
         );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getAllPhidsByFlyerType({
+    required FlyerType flyerType,
+    required Map<String, dynamic>? keywordsMap,
+  }){
+    List<String> _output = [];
+
+    if (keywordsMap != null){
+
+      final String? _rootNode = FlyerTyper.concludeChainIDByFlyerType(
+          flyerType: flyerType,
+      );
+
+      if (_rootNode != null){
+
+        final Map<String, dynamic>? _subMap = keywordsMap[_rootNode];
+
+          _output = getAllPhids(
+            keywordsMap: _subMap,
+          );
 
       }
 
