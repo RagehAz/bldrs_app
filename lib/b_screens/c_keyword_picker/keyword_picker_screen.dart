@@ -182,7 +182,6 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
 
     for (final String phid in _allPhids){
 
-      /// DO_THE_TRANSLATE_PHID_to_second_lang
       final String _value = getWord(phid);
       final Phrase _phrase = Phrase(
         id: phid,
