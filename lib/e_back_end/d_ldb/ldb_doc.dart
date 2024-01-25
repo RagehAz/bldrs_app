@@ -1,5 +1,6 @@
 // ignore_for_file: always_put_control_body_on_new_line
 import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/keywords_phrases_protocols/keywords_phrases_ldb_ops.dart';
 
 /*
 
@@ -53,7 +54,7 @@ class LDBDoc {
   /// PHRASES
   // all docs include mixed lang phrases with extra primary key of "id_langCode"
   // static const String mainPhrases = 'mainPhrases';
-  static const String keywordsPhrases = 'keywordsPhrases';
+
   static const String countriesPhrases = 'countriesPhrases';
   // --------------------
   /// EDITORS
@@ -112,8 +113,6 @@ class LDBDoc {
       case LDBDoc.census: return 'id';
       // -------------
       /// PHRASES
-      // case LDBDoc.mainPhrases: return 'id'; /// has compound primaryKey phid_en
-      case LDBDoc.keywordsPhrases: return 'primaryKey'; /// has compound primaryKey phid_en
       case LDBDoc.countriesPhrases: return 'id';
       // -------------
       /// EDITORS
@@ -174,8 +173,6 @@ class LDBDoc {
     census,
 
     'headline: Phrases',
-    // mainPhrases,
-    keywordsPhrases,
     countriesPhrases,
 
     'headline: Editors',
@@ -230,7 +227,7 @@ class LDBDoc {
     required bool staging,
     required bool census,
     /// PHRASES
-    required bool keywordsPhrases,
+    required bool allKeywordsPhrasesInAllLangs,
     required bool countriesPhrases,
     /// EDITORS
     required bool userEditor,
@@ -276,8 +273,7 @@ class LDBDoc {
     if (cities == true) {_docs.add(LDBDoc.cities);}
     if (staging == true) {_docs.add(LDBDoc.staging);}
     /// PHRASES
-    // if (mainPhrases == true) {_docs.add(LDBDoc.mainPhrases);}
-    if (keywordsPhrases == true) {_docs.add(LDBDoc.keywordsPhrases);}
+    if (allKeywordsPhrasesInAllLangs == true) {_docs.addAll(KeywordsPhrasesLDBOps.generateAllLDBDocsForHardReboot());}
     if (countriesPhrases == true) {_docs.add(LDBDoc.countriesPhrases);}
     /// EDITORS
     if (userEditor == true) {_docs.add(LDBDoc.userEditor);}
@@ -338,7 +334,7 @@ class LDBDoc {
       authModel: false,
       accounts: false,
       langCode: false, // lets always keep user language for life
-      keywordsPhrases: false,
+      allKeywordsPhrasesInAllLangs: false,
       // langMaps: true, // yes, lets refresh the lang maps whenever user reboots
       userEditor: false,
       bzEditor: false,
@@ -365,7 +361,7 @@ class LDBDoc {
       countries: true,
       staging: true,
       census: true,
-      keywordsPhrases: true,
+      allKeywordsPhrasesInAllLangs: true,
       appState: true,
       gta: true,
       webpages: true,

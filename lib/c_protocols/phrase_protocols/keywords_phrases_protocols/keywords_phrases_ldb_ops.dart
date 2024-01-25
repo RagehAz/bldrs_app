@@ -1,6 +1,7 @@
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:basics/models/phrase_model.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 /// => TAMAM
 class KeywordsPhrasesLDBOps {
   // --------------------------------------------------------------------------
@@ -12,9 +13,28 @@ class KeywordsPhrasesLDBOps {
   /// DOC
 
   // --------------------
+  static const String keywordsPhrases = 'keywordsPhrases';
+  static const String primaryKey = 'primaryKey';
+  // --------------------
   /// TESTED : WORKS PERFECT
-  static String _generateLDBDoc({required String langCode}){
-    return '${ LDBDoc.keywordsPhrases}_$langCode';
+  static String generateLDBDoc({required String langCode}){
+    return '${keywordsPhrases}_$langCode';
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> generateAllLDBDocsForHardReboot(){
+
+    const List<String> _supportedLangs = Localizer.supportedLangCodes;
+
+    final List<String> _output = [
+      keywordsPhrasesAreDownloadedLDBDoc,
+    ];
+
+    for (final String langCode in _supportedLangs){
+      _output.add(generateLDBDoc(langCode: langCode));
+    }
+
+    return _output;
   }
   // --------------------------------------------------------------------------
 
@@ -51,8 +71,8 @@ class KeywordsPhrasesLDBOps {
 
     await LDBOps.insertMaps(
       inputs: _allMaps,
-      docName: _generateLDBDoc(langCode: langCode),
-      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.keywordsPhrases),
+      docName: generateLDBDoc(langCode: langCode),
+      primaryKey: primaryKey,
       // allowDuplicateIDs: false,
     );
 
@@ -70,8 +90,8 @@ class KeywordsPhrasesLDBOps {
     Phrase? _output;
 
     final Map<String, dynamic>? _map = await LDBOps.readMap(
-        docName: _generateLDBDoc(langCode: langCode),
-        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.keywordsPhrases),
+        docName: generateLDBDoc(langCode: langCode),
+        primaryKey: primaryKey,
         id: Phrase.createPhraseLDBPrimaryKey(
           phid: phid,
           langCode: langCode,
@@ -97,8 +117,10 @@ class KeywordsPhrasesLDBOps {
   }) async {
 
     final List<Map<String, dynamic>> maps = await LDBOps.readAllMaps(
-      docName:  _generateLDBDoc(langCode: langCode),
+      docName:  generateLDBDoc(langCode: langCode),
     );
+
+    blog('maps : ${maps.length}');
 
     return Phrase.decipherMixedLangPhrasesFromMaps(
       maps: maps,
@@ -117,8 +139,8 @@ class KeywordsPhrasesLDBOps {
   }) async {
 
     await LDBOps.deleteMap(
-      docName: _generateLDBDoc(langCode: langCode),
-      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.keywordsPhrases),
+      docName: generateLDBDoc(langCode: langCode),
+      primaryKey: primaryKey,
       objectID: Phrase.createPhraseLDBPrimaryKey(
         phid: phid,
         langCode: langCode,
@@ -132,10 +154,57 @@ class KeywordsPhrasesLDBOps {
     required String langCode,
   }) async {
 
-    await LDBOps.deleteAllMapsAtOnce(
-        docName: _generateLDBDoc(langCode: langCode),
+    await Future.wait([
+
+      /// keywordsPhrasesAreDownloadedLDBDoc
+      LDBOps.deleteMap(
+        objectID: langCode,
+        docName: keywordsPhrasesAreDownloadedLDBDoc,
+        primaryKey: 'id',
+      ),
+
+      LDBOps.deleteAllMapsAtOnce(
+        docName: generateLDBDoc(langCode: langCode),
+      ),
+
+    ]);
+
+  }
+  // --------------------------------------------------------------------------
+
+  /// DOWNLOAD TRACKING
+
+  // --------------------
+  static const String keywordsPhrasesAreDownloadedLDBDoc = 'keywordsPhrasesAreDownloaded';
+  // --------------------
+  ///
+  static Future<void> setAllKeywordsPhrasesAreDownloaded({
+    required String langCode,
+  }) async {
+
+    await LDBOps.insertMap(
+      docName: keywordsPhrasesAreDownloadedLDBDoc,
+      primaryKey: 'id',
+      input: {
+        'id': langCode,
+      },
     );
 
+  }
+  // --------------------
+  ///
+  static Future<bool> checkKeywordsPhrasesAreDownloaded({
+    required String langCode,
+  }) async {
+
+    final Map<String, dynamic>? _map = await LDBOps.searchFirstMap(
+      docName: keywordsPhrasesAreDownloadedLDBDoc,
+      sortFieldName: 'id',
+      searchFieldName: 'id',
+      searchValue: langCode,
+    );
+
+    return _map != null;
   }
   // --------------------------------------------------------------------------
 }

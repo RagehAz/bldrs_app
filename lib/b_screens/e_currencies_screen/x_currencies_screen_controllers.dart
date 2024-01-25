@@ -17,7 +17,6 @@ void onSearchCurrencies({
   required TextEditingController searchController,
   required ValueNotifier<bool> isSearching,
   required ValueNotifier<List<CurrencyModel>> foundCurrencies,
-  required PageController? pageController,
   required List<Phrase> allCurrenciesPhrases,
   required List<CurrencyModel> allCurrencies,
   required bool mounted,
@@ -38,7 +37,6 @@ void onSearchCurrencies({
       searchController: searchController,
       phrasesToSearchIn: allCurrenciesPhrases,
       isSearching: isSearching,
-      pageController: pageController,
       mounted: mounted,
     );
 

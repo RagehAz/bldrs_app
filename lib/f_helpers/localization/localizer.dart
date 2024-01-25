@@ -1,8 +1,10 @@
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/maps/mapper_ss.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/keywords_phrases_protocols/keywords_phrases_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/main_phrases_protocols/main_phrases_json_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -116,9 +118,37 @@ class Localizer {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _load() async {
-    _localizedValues = await MainPhrasesJsonOps.readAll(
-        langCode: locale?.languageCode,
+
+    Map<String, String> _mainPhrases = {};
+    Map<String, String> _keywordsPhrases = {};
+
+    await Future.wait([
+
+      MainPhrasesJsonOps.readAll(
+        langCode: locale?.languageCode ?? 'en',
+      ).then((Map<String, String> main){
+        blog('xxz=> adding ${main.keys.length} main keys');
+        _mainPhrases = main;
+      }),
+
+      KeywordsPhrasesProtocols.addMapToLocalizedValues(
+        langCode: locale?.languageCode ?? 'en',
+        localizedValues: {},
+      ).then((Map<String, String> keywords){
+        blog('xxz=> adding ${keywords.keys.length} keywords keys');
+        _keywordsPhrases = keywords;
+      }),
+
+    ]);
+
+    _localizedValues = MapperSS.combineStringStringMap(
+        baseMap: _mainPhrases,
+        insert: _keywordsPhrases,
+        replaceDuplicateKeys: true,
     );
+
+    blog('xxz=> resulting ${_localizedValues?.keys.length} main keys');
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -148,7 +178,7 @@ class Localizer {
       const Locale('hi', 'IN'),  // Hindi - India
       const Locale('ru', 'RU'),  // Russian - Russia
       const Locale('pt', 'PT'),  // Portuguese - Portugal
-      // const Locale('fa', 'IR'),  // Farsi/Persian - Iran
+      const Locale('fa', 'IR'),  // Farsi/Persian - Iran
 
     ];
   }
