@@ -21,8 +21,6 @@ class RealColl {
   // --------------------
   static const String feedbacks = 'feedbacks';
   // --------------------
-  static const String phrases = 'phrases';
-  // --------------------
   static const String pickers = 'pickers';
   // --------------------
   static const String searches = 'searches';

@@ -386,7 +386,7 @@ class UiProvider extends ChangeNotifier {
   }){
     proSetLoadingVerse(
       verse: Verse.plain(text),
-      notify: true,
+      // notify: true,
     );
   }
   // --------------------

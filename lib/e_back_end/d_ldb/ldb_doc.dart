@@ -67,7 +67,7 @@ class LDBDoc {
   static const String appState = 'appState';
   static const String theLastWipe = 'theLastWipe';
   static const String langCode = 'langCode';
-  static const String langMaps = 'langMaps';
+  // static const String langMaps = 'langMaps';
   static const String onboarding = 'onboarding';
   // --------------------
   /// DASHBOARD
@@ -127,7 +127,7 @@ class LDBDoc {
       case LDBDoc.theLastWipe: return 'id';
       case LDBDoc.appState: return 'id';
       case LDBDoc.langCode: return 'id';
-      case LDBDoc.langMaps: return 'id';
+      // case LDBDoc.langMaps: return 'id';
       case LDBDoc.onboarding: return 'id';
       case 'test': return 'id';
 
@@ -189,7 +189,7 @@ class LDBDoc {
     theLastWipe,
     appState,
     langCode,
-    langMaps,
+    // langMaps,
     onboarding,
 
     'headline: Dashboard',
@@ -242,7 +242,7 @@ class LDBDoc {
     required bool theLastWipe,
     required bool appState,
     required bool langCode,
-    required bool langMaps,
+    // required bool langMaps,
     required bool onboarding,
     /// DASHBOARD
     required bool gta,
@@ -289,7 +289,7 @@ class LDBDoc {
     if (theLastWipe == true) {_docs.add(LDBDoc.theLastWipe);}
     if (appState == true) {_docs.add(LDBDoc.appState);}
     if (langCode == true) {_docs.add(LDBDoc.langCode);}
-    if (langMaps == true) {_docs.add(LDBDoc.langMaps);}
+    // if (langMaps == true) {_docs.add(LDBDoc.langMaps);}
     if (onboarding == true) {_docs.add(LDBDoc.onboarding);}
     /// DASHBOARD
     if (gta == true){_docs.add(LDBDoc.gta);}
@@ -339,7 +339,7 @@ class LDBDoc {
       accounts: false,
       langCode: false, // lets always keep user language for life
       keywordsPhrases: false,
-      langMaps: true, // yes, lets refresh the lang maps whenever user reboots
+      // langMaps: true, // yes, lets refresh the lang maps whenever user reboots
       userEditor: false,
       bzEditor: false,
       authorEditor: false,
@@ -377,7 +377,7 @@ class LDBDoc {
       authModel: true,
       accounts: true,
       langCode: true,
-      langMaps: true,
+      // langMaps: true,
       userEditor: true,
       bzEditor: true,
       authorEditor: true,
