@@ -2,7 +2,6 @@ library bldrs_app_bar;
 // -----------------------------------------------------------------------------
 import 'package:basics/components/super_box/super_box.dart';
 import 'package:basics/helpers/animators/sliders.dart';
-import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
@@ -17,6 +16,7 @@ import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/back_anb_search_button.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
+import 'package:bldrs/z_components/layouts/layout_visibility_listener.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/structure/c_app_bar_blur_layer.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/variants/line_with_search_bar.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
@@ -32,7 +32,6 @@ import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
 /// COMPONENTS

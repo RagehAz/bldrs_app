@@ -15,14 +15,14 @@ import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/countries_phrases_protocols/countries_phrases_protocols.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/keywords_phrases_protocols/keywords_phrases_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/e_back_end/i_app_check/app_check.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
 import 'package:bldrs/firebase_options.dart';
 import 'package:bldrs/main.dart';
@@ -245,34 +245,37 @@ class BldrsEngine {
 
     /// COUNTRIES PHRASES
     unawaited(CountriesPhrasesProtocols.generateCountriesPhrases());
-    /// KEYWORDS PHRASES
-    unawaited(KeywordsPhrasesProtocols.fetchAll(
-        langCode: Localizer.getCurrentLangCode(),
-    ));
-
-    /// APP STATE
-    await AppStateInitializer.initialize();
+    // /// KEYWORDS PHRASES
+    // unawaited(KeywordsPhrasesProtocols.fetchAll(
+    //     langCode: Localizer.getCurrentLangCode(),
+    // ));
 
     unawaited(
-        /// APP LANGUAGE
-        UiInitializer.initializeClock(mounted: mounted)
-        .then(
-                /// AUTO NAV
-                (value) => BldrsNav.autoNavigateFromHomeScreen(mounted: mounted)
-        ).then(
-                /// DYNAMIC LINKS
-                (value) => DynamicLinks.initDynamicLinks(mounted: mounted)
-        ).then(
-                /// ON BOARDING
-                (value) => UiInitializer.initializeOnBoarding(mounted: mounted)
-        )
+                        /// APP STATE
+                        AppStateInitializer.initialize()
+                        /// ON BOARDING
+      .then((value) =>  UiInitializer.initializeOnBoarding(mounted: mounted))
+                        /// AUTO NAV
+      .then((value) =>  BldrsNav.autoNavigateFromHomeScreen(mounted: mounted))
+                        /// DYNAMIC LINKS
+      .then((value) =>  DynamicLinks.initDynamicLinks(mounted: mounted))
+                        /// APP LANGUAGE
+      .then((value) =>  UiInitializer.initializeClock(mounted: mounted))
     );
+
 
     /// USER
     await UserInitializer.initializeUser();
+
+    /// CURRENT ZONE
+    await ZoneProvider.proSetCurrentZone(
+        zone: UsersProvider.proGetUserZone(context: context, listen: false),
+    );
+
     /// NOTIFICATIONS
     await NotesProvider.proInitializeNoteStreams(mounted: mounted);
 
+    /// MISSING FIELDS
     await checkIfUserIsMissingFields();
 
   }

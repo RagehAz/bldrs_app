@@ -75,6 +75,7 @@ class _FlyersWallPageState extends State<FlyersWallPage> {
     // --------------------
     return const AppBarHolder(
       appBarType: AppBarType.main,
+      listenToHideLayout: true,
       child: HomeFlyersGrid(),
     );
     // --------------------

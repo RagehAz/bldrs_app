@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
@@ -11,6 +12,7 @@ import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/components/drawing/separator_line.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/dialog_button.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -33,6 +35,7 @@ class BldrsCenterDialog extends StatelessWidget {
     required this.copyOnTap,
     this.bodyCentered = true,
     this.noVerse,
+    this.canExit = true,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -48,6 +51,7 @@ class BldrsCenterDialog extends StatelessWidget {
   final bool invertButtons;
   final bool copyOnTap;
   final Verse? noVerse;
+  final bool canExit;
   // -----------------------------------------------------------------------------
 
   /// SIZES
@@ -107,6 +111,7 @@ class BldrsCenterDialog extends StatelessWidget {
     bool invertButtons = false,
     bool copyOnTap = false,
     bool bodyCentered = true,
+    bool canExit = true,
   }) async {
 
     final bool? _result = await showDialog(
@@ -123,6 +128,7 @@ class BldrsCenterDialog extends StatelessWidget {
         invertButtons: invertButtons,
         copyOnTap: copyOnTap,
         bodyCentered: bodyCentered,
+        canExit: canExit,
         child: child,
       ),
     );
@@ -167,6 +173,23 @@ class BldrsCenterDialog extends StatelessWidget {
   // --------------------
   static double getButtonZoneHeight = DialogButton.height + (2 * Ratioz.appBarPadding);
   // --------------------
+  Future<void> exit({
+    required bool isButton,
+    dynamic passedData,
+  }) async {
+
+    if (canExit == true && isButton == false){
+
+      await Nav.goBack(
+        context: getMainContext(),
+        invoker: 'CenterDialog exit',
+        passedData: passedData,
+      );
+
+    }
+
+  }
+  // --------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -210,301 +233,285 @@ class BldrsCenterDialog extends StatelessWidget {
 
     final double _noButtonWidth = invertButtons == true ? 120 : 80;
     // --------------------
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colorz.black80,
-        resizeToAvoidBottomInset: true,
-        body: AlertDialog(
-          backgroundColor: Colorz.nothing,
-          // shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderAll(context, 20)),
-          contentPadding: EdgeInsets.zero,
-          elevation: 10,
-          insetPadding: EdgeInsets.zero,
-          content: Builder(
-            builder: (BuildContext xxx) {
+    return MainLayout(
+      canSwipeBack: false,
+      canGoBack: canExit,
+      appBarType: AppBarType.non,
+      skyType: SkyType.non,
+      onBack: () => exit(
+        isButton: false,
+      ),
+      child: AlertDialog(
+        backgroundColor: Colorz.nothing,
+        // shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderAll(context, 20)),
+        contentPadding: EdgeInsets.zero,
+        elevation: 10,
+        insetPadding: EdgeInsets.zero,
+        content: Builder(
+          builder: (BuildContext xxx) {
 
-              return WidgetFader(
-                fadeType: FadeType.fadeIn,
-                min: 0.7,
-                duration: const Duration(milliseconds: 150),
-                curve: Curves.easeInOutCirc,
-                builder: (double value, Widget? child){
+            return WidgetFader(
+              fadeType: FadeType.fadeIn,
+              min: 0.7,
+              duration: const Duration(milliseconds: 150),
+              curve: Curves.easeInOutCirc,
+              builder: (double value, Widget? child){
 
-                  return Opacity(
-                    opacity: value,
-                    child: Transform.scale(
-                      scale: value,
-                      child: child,
-                    ),
-                  );
+                return Opacity(
+                  opacity: value,
+                  child: Transform.scale(
+                    scale: value,
+                    child: child,
+                  ),
+                );
 
-                },
+              },
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
                 child: GestureDetector(
-                  child: SingleChildScrollView(
-                    physics: const NeverScrollableScrollPhysics(),
+                  onTap: () => exit(
+                    isButton: false,
+                  ),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                    width: _screenWidth,
+                    // height: ,
+                    constraints: BoxConstraints(
+                      minHeight: _keyboardIsOn == true ? (_screenHeight - _keyboardHeight * 0.5) : _screenHeight,
+                    ),
+                    alignment: Alignment.center,
+                    color: Colorz.nothing, // to let parent gesture detector detect this container
                     child: GestureDetector(
                       onTap: () async {
-                        await Nav.goBack(
-                          context: context,
-                          invoker: 'CenterDialog tapping outside the dialog',
-                        );
+
+                        if (copyOnTap == true){
+                          unawaited(Keyboard.copyToClipboardAndNotify(copy: title?.id));
+                        }
+
+                        await Keyboard.closeKeyboard();
                       },
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut,
-                        width: _screenWidth,
-                        // height: ,
+                      child: Container(
+                        width: _dialogWidth,
+                        // height: _dialogHeight,
                         constraints: BoxConstraints(
-                          minHeight: _keyboardIsOn == true ? (_screenHeight - _keyboardHeight * 0.5) : _screenHeight,
+                          minHeight: _dialogHeight,
                         ),
-                        alignment: Alignment.center,
-                        color: Colorz.nothing, // to let parent gesture detector detect this container
-                        child: GestureDetector(
-                          onTap: () async {
+                        decoration: BoxDecoration(
+                          color: color,
+                          boxShadow: Shadower.appBarShadow,
+                          borderRadius: _dialogBorders,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
 
-                            if (copyOnTap == true){
-                              unawaited(Keyboard.copyToClipboardAndNotify(copy: title?.id));
-                            }
-
-                            await Keyboard.closeKeyboard();
-                          },
-                          child: Container(
-                            width: _dialogWidth,
-                            // height: _dialogHeight,
-                            constraints: BoxConstraints(
-                              minHeight: _dialogHeight,
+                            /// TITLE
+                            Container(
+                              width: _dialogWidth,
+                              alignment: Alignment.center,
+                              // color: Colorz.BloodTest,
+                              child: title == null ? Container()
+                                  :
+                              BldrsText(
+                                width: _dialogWidth * 0.9,
+                                verse: title,
+                                color: Colorz.yellow255,
+                                shadow: true,
+                                size: 3,
+                                italic: true,
+                                maxLines: 2,
+                                // labelColor: Colorz.Yellow,
+                                margin: const EdgeInsets.only(
+                                  top: 20,
+                                  bottom: 5,
+                                  left: Ratioz.appBarMargin,
+                                  right: Ratioz.appBarMargin,
+                                ),
+                              ),
                             ),
-                            decoration: BoxDecoration(
-                              color: color,
-                              boxShadow: Shadower.appBarShadow,
-                              borderRadius: _dialogBorders,
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              // crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
 
-                                /// TITLE
-                                Container(
-                                  width: _dialogWidth,
-                                  alignment: Alignment.center,
-                                  // color: Colorz.BloodTest,
-                                  child: title == null ? Container()
-                                      :
-                                  BldrsText(
-                                    width: _dialogWidth * 0.9,
-                                    verse: title,
-                                    color: Colorz.yellow255,
-                                    shadow: true,
-                                    size: 3,
-                                    italic: true,
-                                    maxLines: 2,
-                                    // labelColor: Colorz.Yellow,
-                                    margin: const EdgeInsets.only(
-                                      top: 20,
-                                      bottom: 5,
-                                      left: Ratioz.appBarMargin,
-                                      right: Ratioz.appBarMargin,
+                            /// BODY
+                            if (TextCheck.isEmpty(bodyVerse?.id) == false)
+                              SizedBox(
+                                width: _dialogWidth,
+                                // height: _bodyZoneHeight,
+                                child: BldrsText(
+                                  width: _dialogWidth * 0.9,
+                                  verse: bodyVerse,
+                                  maxLines: 20,
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 5,
+                                    horizontal: Ratioz.appBarMargin * 2,
+                                  ),
+                                  centered: bodyCentered,
+                                ),
+                              ),
+
+                            /// child
+                            if (child != null)
+                              Column(
+                                children: <Widget>[
+
+                                  SeparatorLine(
+                                    width: _dialogWidth,
+                                    color: Colorz.yellow200,
+                                  ),
+
+                                  Container(
+                                    width: _dialogWidth,
+                                    constraints: BoxConstraints(
+                                      maxHeight: _dialogHeight * 0.7,
+                                    ),
+                                    child: SingleChildScrollView(
+                                        physics: const BouncingScrollPhysics(),
+                                        child: child
                                     ),
                                   ),
+
+                                  SeparatorLine(
+                                    width: _dialogWidth,
+                                  ),
+
+                                ],
+                              ),
+
+                            /// BUTTONS
+                            if (boolDialog != null)
+                              SizedBox(
+                                width: _dialogWidth,
+                                height: getButtonZoneHeight,
+                                child: UiProvider.checkAppIsLeftToRight() == true ?
+
+                                /// ENGLISH ( LTR )
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+
+                                    /// NO BUTTON
+                                    if (_hasLeftNoButton == true)
+                                      DialogButton(
+                                        width: 80,
+                                        verse: noVerse ?? _noVerse,
+                                        color: defaultButtonColor,
+                                        onTap: () => exit(
+                                          passedData: false,
+                                          isButton: true,
+                                        ),
+                                      ),
+
+                                    /// YES BUTTON
+                                    DialogButton(
+                                      width: _yesButtonWidth,
+                                      verse: _getConfirmButtonVerse(),
+                                      verseColor: invertButtons == true ? Colorz.white255 : Colorz.black230,
+                                      color: invertButtons == true ? defaultButtonColor : activeButtonColor,
+                                      onTap: () async {
+
+                                        onOk?.call();
+
+                                        if (Mapper.boolIsTrue(boolDialog) == true){
+                                          await exit(
+                                            passedData: true,
+                                            isButton: true,
+                                          );
+                                        }
+
+                                        else {
+                                          await exit(
+                                            isButton: true,
+                                          );
+                                        }
+
+                                      },
+                                    ),
+
+                                    /// NO BUTTON
+                                    if (_hasRightNoButton == true)
+                                      DialogButton(
+                                        width: _noButtonWidth,
+                                        verse: noVerse ?? _noVerse,
+                                        verseColor: Colorz.black230,
+                                        color: activeButtonColor,
+                                        onTap: () => exit(
+                                          passedData: false,
+                                          isButton: true,
+                                        ),
+                                      ),
+
+                                  ],
+                                )
+
+                                    :
+                                /// ARABIC ( RTL )
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+
+                                    /// NO BUTTON
+                                    if (_hasRightNoButton == true)
+                                      DialogButton(
+                                        width: _noButtonWidth,
+                                        verse: noVerse ?? _noVerse,
+                                        verseColor: Colorz.black230,
+                                        color: activeButtonColor,
+                                        onTap: () => exit(
+                                          isButton: true,
+                                          passedData: false,
+                                        ),
+                                      ),
+
+                                    /// YES BUTTON
+                                    DialogButton(
+                                      width: _yesButtonWidth,
+                                      verse: _getConfirmButtonVerse(),
+                                      verseColor: invertButtons == true ? Colorz.white255 : Colorz.black230,
+                                      color: invertButtons == true ? defaultButtonColor : activeButtonColor,
+                                      onTap: () async {
+                                        onOk?.call();
+                                        if (Mapper.boolIsTrue(boolDialog) == true){
+                                          await exit(
+                                            isButton: true,
+                                            passedData: true,
+                                          );
+                                        }
+                                        else {
+                                          await exit(
+                                            isButton: true,
+                                          );
+                                        }
+                                      },
+                                    ),
+
+                                    /// NO BUTTON
+                                    if (_hasLeftNoButton == true)
+                                      DialogButton(
+                                        width: 80,
+                                        verse: noVerse ?? _noVerse,
+                                        color: defaultButtonColor,
+                                        onTap: () => exit(
+                                          isButton: true,
+                                          passedData: false,
+                                        ),
+                                      ),
+
+                                  ],
                                 ),
 
-                                /// BODY
-                                if (TextCheck.isEmpty(bodyVerse?.id) == false)
-                                  SizedBox(
-                                    width: _dialogWidth,
-                                    // height: _bodyZoneHeight,
-                                    child: BldrsText(
-                                      width: _dialogWidth * 0.9,
-                                      verse: bodyVerse,
-                                      maxLines: 20,
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 5,
-                                          horizontal: Ratioz.appBarMargin * 2,
-                                      ),
-                                      centered: bodyCentered,
-                                    ),
-                                  ),
+                              ),
 
-                                /// child
-                                if (child != null)
-                                  Column(
-                                    children: <Widget>[
-
-                                      SeparatorLine(
-                                        width: _dialogWidth,
-                                        color: Colorz.yellow200,
-                                      ),
-
-                                      Container(
-                                        width: _dialogWidth,
-                                        constraints: BoxConstraints(
-                                          maxHeight: _dialogHeight * 0.7,
-                                        ),
-                                        child: SingleChildScrollView(
-                                            physics: const BouncingScrollPhysics(),
-                                            child: child
-                                        ),
-                                      ),
-
-                                      SeparatorLine(
-                                        width: _dialogWidth,
-                                      ),
-
-                                    ],
-                                  ),
-
-                                /// BUTTONS
-                                if (boolDialog != null)
-                                  SizedBox(
-                                    width: _dialogWidth,
-                                    height: getButtonZoneHeight,
-                                    child: UiProvider.checkAppIsLeftToRight() == true ?
-
-                                    /// ENGLISH ( LTR )
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-
-                                        /// NO BUTTON
-                                        if (_hasLeftNoButton == true)
-                                          DialogButton(
-                                            width: 80,
-                                            verse: noVerse ?? _noVerse,
-                                            color: defaultButtonColor,
-                                            onTap: () => Nav.goBack(
-                                              context: xxx,
-                                              invoker: 'CenterDialog.No',
-                                              passedData: false,
-                                            ),
-                                          ),
-
-                                        /// YES BUTTON
-                                        DialogButton(
-                                          width: _yesButtonWidth,
-                                          verse: _getConfirmButtonVerse(),
-                                          verseColor: invertButtons == true ? Colorz.white255 : Colorz.black230,
-                                          color: invertButtons == true ? defaultButtonColor : activeButtonColor,
-                                          onTap: () async {
-
-                                            onOk?.call();
-
-                                            if (Mapper.boolIsTrue(boolDialog) == true){
-                                              await Nav.goBack(
-                                                context: xxx,
-                                                invoker: 'CenterDialog.yes',
-                                                passedData: true,
-                                                addPostFrameCallback: true,
-                                              );
-                                            }
-
-                                            else {
-                                              await Nav.goBack(
-                                                context: xxx,
-                                                invoker: 'CenterDialog.ok',
-                                                addPostFrameCallback: true,
-                                              );
-                                            }
-
-                                            },
-                                        ),
-
-                                        /// NO BUTTON
-                                        if (_hasRightNoButton == true)
-                                          DialogButton(
-                                            width: _noButtonWidth,
-                                            verse: noVerse ?? _noVerse,
-                                            verseColor: Colorz.black230,
-                                            color: activeButtonColor,
-                                            onTap: () => Nav.goBack(
-                                              context: xxx,
-                                              invoker: 'CenterDialog.No',
-                                              passedData: false,
-                                              addPostFrameCallback: true,
-                                            ),
-                                          ),
-
-                                      ],
-                                    )
-
-                                        :
-                                    /// ARABIC ( RTL )
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-
-                                        /// NO BUTTON
-                                        if (_hasRightNoButton == true)
-                                          DialogButton(
-                                            width: _noButtonWidth,
-                                            verse: noVerse ?? _noVerse,
-                                            verseColor: Colorz.black230,
-                                            color: activeButtonColor,
-                                            onTap: () => Nav.goBack(
-                                              context: xxx,
-                                              invoker: 'CenterDialog.No',
-                                              passedData: false,
-                                              addPostFrameCallback: true,
-                                            ),
-                                          ),
-
-                                        /// YES BUTTON
-                                        DialogButton(
-                                          width: _yesButtonWidth,
-                                          verse: _getConfirmButtonVerse(),
-                                          verseColor: invertButtons == true ? Colorz.white255 : Colorz.black230,
-                                          color: invertButtons == true ? defaultButtonColor : activeButtonColor,
-                                          onTap: () async {
-                                            onOk?.call();
-                                            if (Mapper.boolIsTrue(boolDialog) == true){
-                                              await Nav.goBack(
-                                                context: xxx,
-                                                invoker: 'CenterDialog.yes',
-                                                passedData: true,
-                                                addPostFrameCallback: true,
-                                              );
-                                            }
-                                            else {
-                                              await Nav.goBack(
-                                                context: xxx,
-                                                invoker: 'CenterDialog.ok',
-                                                addPostFrameCallback: true,
-                                              );
-                                            }
-                                            },
-                                        ),
-
-                                        /// NO BUTTON
-                                        if (_hasLeftNoButton == true)
-                                          DialogButton(
-                                            width: 80,
-                                            verse: noVerse ?? _noVerse,
-                                            color: defaultButtonColor,
-                                            onTap: () => Nav.goBack(
-                                              context: xxx,
-                                              invoker: 'CenterDialog.No',
-                                              passedData: false,
-                                            ),
-                                          ),
-
-                                      ],
-                                    ),
-
-                                  ),
-
-                              ],
-                            ),
-                          ),
+                          ],
                         ),
-
                       ),
                     ),
+
                   ),
                 ),
-              );
+              ),
+            );
 
-            },
-          ),
+          },
         ),
       ),
     );
