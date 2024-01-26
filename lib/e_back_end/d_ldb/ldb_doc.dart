@@ -65,8 +65,8 @@ class LDBDoc {
   static const String reviewEditor = 'reviewEditor';
   // --------------------
   /// SETTINGS
-  static const String appState = 'appState';
-  static const String theLastWipe = 'theLastWipe';
+  // static const String appState = 'appState';
+  // static const String theLastWipe = 'theLastWipe';
   static const String langCode = 'langCode';
   // static const String langMaps = 'langMaps';
   static const String onboarding = 'onboarding';
@@ -123,8 +123,8 @@ class LDBDoc {
       case LDBDoc.reviewEditor: return 'id';
       // -------------
       /// SETTINGS
-      case LDBDoc.theLastWipe: return 'id';
-      case LDBDoc.appState: return 'id';
+      // case LDBDoc.theLastWipe: return 'id';
+      // case LDBDoc.appState: return 'id';
       case LDBDoc.langCode: return 'id';
       // case LDBDoc.langMaps: return 'id';
       case LDBDoc.onboarding: return 'id';
@@ -183,8 +183,8 @@ class LDBDoc {
     reviewEditor,
 
     'headline: Settings',
-    theLastWipe,
-    appState,
+    // theLastWipe,
+    // appState,
     langCode,
     // langMaps,
     onboarding,
@@ -282,8 +282,8 @@ class LDBDoc {
     if (flyerMaker == true) {_docs.add(LDBDoc.flyerMaker);}
     if (reviewEditor == true) {_docs.add(LDBDoc.reviewEditor);}
     /// SETTINGS
-    if (theLastWipe == true) {_docs.add(LDBDoc.theLastWipe);}
-    if (appState == true) {_docs.add(LDBDoc.appState);}
+    // if (theLastWipe == true) {_docs.add(LDBDoc.theLastWipe);}
+    // if (appState == true) {_docs.add(LDBDoc.appState);}
     if (langCode == true) {_docs.add(LDBDoc.langCode);}
     // if (langMaps == true) {_docs.add(LDBDoc.langMaps);}
     if (onboarding == true) {_docs.add(LDBDoc.onboarding);}

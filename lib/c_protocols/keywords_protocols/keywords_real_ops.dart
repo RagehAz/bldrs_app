@@ -1,11 +1,13 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:basics/helpers/maps/mapper.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:fire/super_fire.dart';
 /// => TAMAM
-class KeywordsRealOps{
+class KeywordsFireOps{
   // --------------------------------------------------------------------------
 
-  const KeywordsRealOps();
+  const KeywordsFireOps();
 
   // --------------------------------------------------------------------------
 
@@ -21,8 +23,14 @@ class KeywordsRealOps{
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>?> readKeywordsMap() async {
 
-    final Map<String, dynamic>? _map = await Real.readPath(
-        path: RealColl.keywords,
+    Map<String, dynamic>? _map = await Fire.readDoc(
+      coll: FireColl.keywords,
+      doc: FireDoc.keywords_map,
+    );
+
+    _map = Mapper.removePair(
+        map: _map,
+        fieldKey: 'id',
     );
 
     return Mapper.sortKeysAlphabetically(map: _map);
@@ -37,9 +45,10 @@ class KeywordsRealOps{
     required Map<String, dynamic> newMap,
   }) async {
 
-    await Real.updateColl(
-        coll: RealColl.keywords,
-        map: newMap,
+    await Fire.updateDoc(
+      coll: FireColl.keywords,
+      doc: FireDoc.keywords_map,
+      input: newMap,
     );
 
   }

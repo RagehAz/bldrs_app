@@ -1,4 +1,3 @@
-import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
@@ -12,12 +11,12 @@ import 'package:bldrs/z_components/active_phids_selector/phid_button_clone.dart'
 import 'package:bldrs/z_components/buttons/keywords_buttons/f_phid_button.dart';
 import 'package:basics/components/layers/blur_layer.dart';
 import 'package:basics/components/animators/auto_scrolling_bar.dart';
+import 'package:bldrs/z_components/layouts/layout_visibility_listener.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ActivePhidSelector extends StatelessWidget {
   // --------------------------------------------------------------------------
@@ -210,28 +209,20 @@ class LiveActivePhidSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Selector<UiProvider, bool>(
-        selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
-        builder: (_, bool isVisible, Widget? child) {
-
-          return AutoScrollingBar(
-            key: const ValueKey<String>('the_auto_scroll_phid_selector'),
-            scrollController: scrollController,
-            height: appBarType == AppBarType.non ? Stratosphere.smallAppBarStratosphere : Stratosphere.bigAppBarStratosphere,
-            child: WidgetFader(
-              fadeType: isVisible == false ? FadeType.fadeOut : FadeType.fadeIn,
-              duration: const Duration(milliseconds: 300),
-              ignorePointer: isVisible == false,
-              child: ActivePhidSelector(
-                bzModel: bzModel,
-                mounted: mounted,
-                activePhid: activePhid,
-                onlyShowPublished: onlyShowPublished,
-                stratosphere: appBarType != AppBarType.non,
-              ),
-            ),
-          );
-        }
+    return LayoutVisibilityListener(
+      isOn: true,
+      child: AutoScrollingBar(
+        key: const ValueKey<String>('the_auto_scroll_phid_selector'),
+        scrollController: scrollController,
+        height: appBarType == AppBarType.non ? Stratosphere.smallAppBarStratosphere : Stratosphere.bigAppBarStratosphere,
+        child: ActivePhidSelector(
+          bzModel: bzModel,
+          mounted: mounted,
+          activePhid: activePhid,
+          onlyShowPublished: onlyShowPublished,
+          stratosphere: appBarType != AppBarType.non,
+        ),
+      ),
     );
 
   }

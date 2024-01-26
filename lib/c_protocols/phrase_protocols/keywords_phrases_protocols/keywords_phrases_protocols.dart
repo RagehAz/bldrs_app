@@ -23,7 +23,7 @@ class KeywordsPhrasesProtocols {
     required String value,
   }) async {
 
-    await KeywordsPhrasesRealOps.createPhrase(
+    await KeywordsPhrasesFireOps.createPhrase(
         phid: phid,
         langCode: langCode,
         value: value,
@@ -56,7 +56,7 @@ class KeywordsPhrasesProtocols {
 
     if (_output == null){
 
-      _output = await KeywordsPhrasesRealOps.readPhrase(
+      _output = await KeywordsPhrasesFireOps.readPhrase(
           phid: phid,
           langCode: langCode,
           includeTrigram: true,
@@ -98,7 +98,7 @@ class KeywordsPhrasesProtocols {
     else {
 
       blog('qq=> READING FROM REAL');
-      _output = await KeywordsPhrasesRealOps.readAllPhrasesByLang(
+      _output = await KeywordsPhrasesFireOps.readAllPhrasesByLang(
         langCode: langCode,
         includeTrigram: true,
       );
@@ -180,7 +180,7 @@ class KeywordsPhrasesProtocols {
     required String newValue,
   }) async {
 
-    await KeywordsPhrasesRealOps.updatePhrase(
+    await KeywordsPhrasesFireOps.updatePhrase(
       phid: phid,
       langCode: langCode,
       newValue: newValue,
@@ -208,7 +208,7 @@ class KeywordsPhrasesProtocols {
 
     await Future.wait([
 
-      KeywordsPhrasesRealOps.deletePhrase(phid: phid, langCode: langCode),
+      KeywordsPhrasesFireOps.deletePhrase(phid: phid, langCode: langCode),
 
       KeywordsPhrasesLDBOps.deletePhrase(phid: phid, langCode: langCode),
 

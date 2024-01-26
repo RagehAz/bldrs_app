@@ -29,14 +29,14 @@ class CountriesPhrasesProtocols{
     );
 
     /// THIS GENERATES COUNTRIES PHRASES AND INSERTS THEM IN LDB TO FACILITATE COUNTRY SEARCH BY NAME
-    await composeCountriesMixedLangPhrases(
+    await _composeCountriesMixedLangPhrases(
       context: getMainContext(),
       langCodes: _langCodes,
     );
 
   }
   // -----------------------------------------------------------------------------
-  static Future<List<Phrase>> composeCountriesMixedLangPhrases({
+  static Future<List<Phrase>> _composeCountriesMixedLangPhrases({
     required BuildContext context,
     required List<String> langCodes,
   }) async {
@@ -44,7 +44,7 @@ class CountriesPhrasesProtocols{
     /// NOTE : this generates all counties phrases
     // NOTE : gets phrases from LDB or creates countries phrases then stores in LDB
 
-    /// 1 - GET THEM FROM LDB ( OPTIMIZE_COUNTRIES_PHRASES_PROTOCOL )
+    /// 1 - GET THEM FROM LDB
     List<Phrase> _allCountriesPhrases = await CountriesPhraseLDBOps.readCountriesPhrases();
 
     /// 2 - WHEN LDB IS EMPTY
