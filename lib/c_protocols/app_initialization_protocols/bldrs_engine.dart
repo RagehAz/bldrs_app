@@ -15,8 +15,6 @@ import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/countries_phrases_protocols/countries_phrases_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
@@ -267,10 +265,10 @@ class BldrsEngine {
     /// USER
     await UserInitializer.initializeUser();
 
-    /// CURRENT ZONE
-    await ZoneProvider.proSetCurrentZone(
-        zone: UsersProvider.proGetUserZone(context: context, listen: false),
-    );
+    /// LET THE ZONE INITIALLY BE THE PLANET
+    // await ZoneProvider.proSetCurrentZone(
+    //     zone: UsersProvider.proGetUserZone(context: context, listen: false),
+    // );
 
     /// NOTIFICATIONS
     await NotesProvider.proInitializeNoteStreams(mounted: mounted);

@@ -18,6 +18,7 @@ import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class BldrsCenterDialog extends StatelessWidget {
@@ -178,7 +179,7 @@ class BldrsCenterDialog extends StatelessWidget {
     dynamic passedData,
   }) async {
 
-    if (canExit == true && isButton == false){
+    if ((canExit || Mapper.boolIsTrue(boolDialog)) && isButton){
 
       await Nav.goBack(
         context: getMainContext(),
@@ -272,6 +273,13 @@ class BldrsCenterDialog extends StatelessWidget {
                   onTap: () => exit(
                     isButton: false,
                   ),
+                  onLongPress: () async {
+
+                    if (kDebugMode){
+                      await Nav.goBack(context: context);
+                    }
+
+                  },
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
