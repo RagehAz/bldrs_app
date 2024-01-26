@@ -5,6 +5,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/z_components/images/bldrs_image.dart';
+import 'package:bldrs/z_components/layouts/layout_visibility_listener.dart';
 import 'package:bldrs/z_components/layouts/pyramids/khufu.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
@@ -177,52 +178,20 @@ class _PyramidsSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (listenToHideLayout == false){
-      return IgnorePointer(
-        ignoring: pyramidCanBeTapped(pyramidType) == false,
-        child: _PyramidsWidgetTree(
-          pyramidType: pyramidType,
-          loading: loading,
-          onPyramidTap: onPyramidTap,
-          color: color,
-          putInCorner: putInCorner,
-          onPyramidDoubleTap: onPyramidDoubleTap,
-          isSinglePyramid: isSinglePyramid,
-          canShowArrow: canShowArrow,
-        ),
-      );
-    }
-
-    else {
-
-      return Selector<UiProvider, bool>(
-        selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
-        builder: (_, bool isVisible, Widget? child) {
-
-          return IgnorePointer(
-            ignoring: (!isVisible) || pyramidCanBeTapped(pyramidType) == false,
-            child: WidgetFader(
-              fadeType: isVisible == false ? FadeType.fadeOut : FadeType.fadeIn,
-              duration: const Duration(milliseconds: 300),
-              child: child,
-            ),
-          );
-
-        },
-
-        child: _PyramidsWidgetTree(
-          pyramidType: pyramidType,
-          loading: loading,
-          onPyramidTap: onPyramidTap,
-          color: color,
-          putInCorner: putInCorner,
-          onPyramidDoubleTap: onPyramidDoubleTap,
-          isSinglePyramid: isSinglePyramid,
-          canShowArrow: canShowArrow,
-        ),
-      );
-
-    }
+    return LayoutVisibilityListener(
+      isOn: listenToHideLayout,
+      ignorePointer: pyramidCanBeTapped(pyramidType) == false,
+      child: _PyramidsWidgetTree(
+        pyramidType: pyramidType,
+        loading: loading,
+        onPyramidTap: onPyramidTap,
+        color: color,
+        putInCorner: putInCorner,
+        onPyramidDoubleTap: onPyramidDoubleTap,
+        isSinglePyramid: isSinglePyramid,
+        canShowArrow: canShowArrow,
+      ),
+    );
 
   }
   // -----------------------------------------------------------------------------

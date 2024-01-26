@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/c_protocols/keywords_protocols/keywords_ldb_ops.dart';
 import 'package:bldrs/c_protocols/keywords_protocols/keywords_real_ops.dart';
@@ -26,30 +28,15 @@ class KeywordsProtocols{
 
     if (_output == null){
 
-      _output = await KeywordsRealOps.readKeywordsMap();
+      _output = await KeywordsFireOps.readKeywordsMap();
 
       if (_output != null){
-        await KeywordsLDBOps.insert(map: _output);
+        unawaited(KeywordsLDBOps.insert(map: _output));
       }
 
     }
 
     return _output;
-  }
-  // --------------------
-  /// TASK : FUCK ME
-  static Future<List<dynamic>> fetchChainedKeywords() async {
-
-    // final Map<String, dynamic>? _keywordsMap = await KeywordsProtocols.fetch();
-    //
-    // final List<String> _paths = MapPathing.generatePathsFromMap(map: _keywordsMap);
-    //
-    // // final List<Chain> _reChained = ChainPathConverter.createChainsKeywordsMap(keywordsMap: _keywordsMap);
-    // final List<Chain> _reChained = ChainPathConverter.createChainsFromPaths(paths: _paths);
-    //
-    // return _reChained;
-
-    return [];
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -83,7 +70,7 @@ class KeywordsProtocols{
 
         KeywordsLDBOps.insert(map: newMap),
 
-        KeywordsRealOps.updateKeywordsMap(newMap: newMap),
+        KeywordsFireOps.updateKeywordsMap(newMap: newMap),
 
       ]);
 

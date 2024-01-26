@@ -26,19 +26,24 @@ class AppStateInitializer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> initialize() async {
-    bool _canLoadApp = kDebugMode;
+
+    const bool _isDebug = false; // kDebugMode
+
+    bool _canLoadApp = _isDebug;
 
     /// GET GLOBAL STATE
     final AppStateModel? _globalState = await AppStateProtocols.fetchGlobalAppState();
 
+    blog('the _globalState : $_globalState');
+
     /// ON LOADING FAILED OP
     bool _continue = await _globalStateExistsOps(globalState: _globalState);
 
-    if (_continue == true && kDebugMode == false){
+    if (_continue == true && _isDebug == false){
 
         /// APP IS ONLINE CHECKUP
         _continue = await _appIsOnlineCheckOps(globalState: _globalState!);
-        if (_continue == true && kDebugMode == false){
+        if (_continue == true && _isDebug == false){
 
           final String _detectedVersion = await AppVersionBuilder.detectAppVersion();
 
@@ -48,7 +53,7 @@ class AppStateInitializer {
             detectedVersion: _detectedVersion,
           );
 
-          if (_continue == true && kDebugMode == false){
+          if (_continue == true && _isDebug == false){
 
             /// ENDORSE UPDATE APP OP
             _continue = await _endorseUpdateCheckOps(
@@ -56,7 +61,7 @@ class AppStateInitializer {
               detectedVersion: _detectedVersion,
             );
 
-            if (_continue == true && kDebugMode == false){
+            if (_continue == true && _isDebug == false){
 
               unawaited(_superWipeLDBIfDecidedByRage7(
                 globalState: _globalState,
@@ -95,6 +100,7 @@ class AppStateInitializer {
 
       await Dialogs.somethingWentWrongAppWillRestart();
 
+      /// create_reboot_system_method
       await BldrsNav.pushLogoRouteAndRemoveAllBelow(
         animatedLogoScreen: false,
       );
@@ -157,10 +163,15 @@ ${getWord('phid_new_version')} : ${globalState.appVersion}
 '''
         ),
         confirmButtonVerse: getVerse('phid_updateApp'),
-        // boolDialog: false,
-      );
+        canExit: false,
+        onOk: () async {
 
-        await Launcher.launchBldrsAppLinkOnStore();
+          await Launcher.launchBldrsAppLinkOnStore();
+
+        }
+        // boolDialog: false,
+
+      );
 
       }
 
@@ -191,6 +202,8 @@ ${getWord('phid_new_version')} : ${globalState.appVersion}
         thisIsBigger: globalState.appVersion,
         thanThis: detectedVersion,
       );
+
+      blog('should show center dialog _mayUpdate : $_mayUpdate : ${globalState.appVersion} > $detectedVersion ?');
 
       /// MUST UPDATE
       if (_mayUpdate == true){
