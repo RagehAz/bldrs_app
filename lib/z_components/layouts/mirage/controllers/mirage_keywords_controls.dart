@@ -31,13 +31,13 @@ class _MirageKeywordsControls {
         mounted: mounted
     );
 
-    /// ALREADY SELECTED
-    if (_mirage1.selectedButton.value == BldrsTabber.bidHome){
-      // _mirage1.clearButton(mounted: mounted,);
-    }
-
-    /// SHOULD SELECT
-    else {
+    // /// ALREADY SELECTED
+    // if (_mirage1.selectedButton.value == BldrsTabber.bidHome){
+    //   // _mirage1.clearButton(mounted: mounted,);
+    // }
+    //
+    // /// SHOULD SELECT
+    // else {
       await _mirage2.reShow(
         mounted: mounted,
         onBetweenReShow: () => _mirage1.selectButton(
@@ -45,7 +45,7 @@ class _MirageKeywordsControls {
           mounted: mounted,
         ),
       );
-    }
+    // }
 
   }
   // -----------------------------------------------------------------------------

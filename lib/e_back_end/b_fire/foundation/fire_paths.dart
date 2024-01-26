@@ -42,17 +42,11 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
   |
   | --------------------------|
   |
-  | - [zones]
-  |     | - [phrases_cities]
-  |           | - {cityID+langCode}
-  |           |     | - countryID
-  |           |     | - id (is cityID & is phid)
-  |           |     | - value
-  |           |     | - langCode
-  |           |     | - trigram
-  |           |
-  |           | - {cityID_langCode} ...
-  |
+  | - [keywords]
+  |     | - [map]
+  |     |
+  |     | - [langCode]
+  |     |...  |
   |
   | -------------------------------------------|
 
@@ -64,24 +58,16 @@ abstract class FireColl{
 
   static const String users = 'users';
 
-  static const String questions = 'questions';
-
   static const String bzz = 'bzz';
 
   static const String flyers = 'flyers';
 
   static const String admin = 'admin';
 
-  static const String zones = 'zones';
   static const String phrases_cities = 'phrases_cities';
 
-  static const String keys = 'keys';
-  static const String records = 'records';
+  static const String keywords = 'keywords';
 
-  static const String phrases = 'phrases';
-  static const String chains = 'chains';
-
-  static const String authorships = 'authorships';
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getPartyCollName(PartyType? partyType){
@@ -98,14 +84,7 @@ abstract class FireDoc {
   static const String admin_backups = 'backups';
   static const String admin_appState = 'appState';
 
-  static const String zones_cities = 'cities';
-  static const String zones_usa = 'usa'; /// TASK : temp
-
-  static const String phrases_en = 'en';
-  static const String phrases_ar = 'ar';
-
-  static const String chains_specs = 'specs';
-  static const String chains_keywords = 'keywords';
+  static const String keywords_map = 'map';
 
 }
 /// -----------------------
@@ -117,15 +96,11 @@ abstract class FireSubColl {
 
   static const String noteReceiver_receiver_notes = 'notes';
 
-  static const String questions_question_chats = 'chats';
-  static const String questions_question_counters = 'counters';
 
   static const String bzz_bz_chats = 'chats';
   static const String bzz_bz_credits = 'credits';
 
   static const String flyers_flyer_reviews = 'reviews';
-
-  static const String zones_cities_cities = 'cities';
 
 }
 /// -----------------------

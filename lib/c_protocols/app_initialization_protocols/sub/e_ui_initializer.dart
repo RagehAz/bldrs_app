@@ -174,7 +174,7 @@ class UiInitializer {
         reviewEditor: false, // keep
         /// SETTINGS
         theLastWipe: false, // no need to wipe
-        appState: false, // no need to wipe
+        appState: true,
         langCode: false, // no need to wipe
         // langMaps: false, // no need to wipe
         onboarding: false,

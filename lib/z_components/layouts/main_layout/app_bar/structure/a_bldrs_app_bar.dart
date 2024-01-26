@@ -173,54 +173,30 @@ class BldrsAppBar extends StatelessWidget {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    final Widget _theAppBar = BldrsAppBarTree(
-      appBarType: appBarType,
-      onBack: onBack,
-      pageTitleVerse: pageTitleVerse,
-      appBarRowWidgets: appBarRowWidgets,
-      loading: loading,
-      progressBarModel: progressBarModel,
-      appBarScrollController: appBarScrollController,
-      sectionButtonIsOn: sectionButtonIsOn,
-      searchController: searchController,
-      onSearchSubmit: onSearchSubmit,
-      onPaste: onPaste,
-      onSearchChanged: onSearchChanged,
-      searchButtonIsOn: searchButtonIsOn,
-      searchHintVerse: searchHintVerse,
-      canGoBack: canGoBack,
-      onSearchCancelled: onSearchCancelled,
-      filtersAreOn: filtersAreOn,
-      filters: filters,
+    // --------------------
+    return LayoutVisibilityListener(
+      isOn: listenToHideLayout,
+      child: BldrsAppBarTree(
+        appBarType: appBarType,
+        onBack: onBack,
+        pageTitleVerse: pageTitleVerse,
+        appBarRowWidgets: appBarRowWidgets,
+        loading: loading,
+        progressBarModel: progressBarModel,
+        appBarScrollController: appBarScrollController,
+        sectionButtonIsOn: sectionButtonIsOn,
+        searchController: searchController,
+        onSearchSubmit: onSearchSubmit,
+        onPaste: onPaste,
+        onSearchChanged: onSearchChanged,
+        searchButtonIsOn: searchButtonIsOn,
+        searchHintVerse: searchHintVerse,
+        canGoBack: canGoBack,
+        onSearchCancelled: onSearchCancelled,
+        filtersAreOn: filtersAreOn,
+        filters: filters,
+      ),
     );
-
-    // --------------------
-    if (listenToHideLayout == false){
-      return _theAppBar;
-    }
-    // --------------------
-    else {
-      return Selector<UiProvider, bool>(
-        selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
-        builder: (_, bool isVisible, Widget? child) {
-
-          // blog('bldrs app bar isVisible: $isVisible');
-
-          return IgnorePointer(
-            ignoring: !isVisible,
-            child: WidgetFader(
-              fadeType: isVisible == false ? FadeType.fadeOut : FadeType.fadeIn,
-              duration: const Duration(milliseconds: 300),
-              child: child,
-            ),
-          );
-
-        },
-
-        child: _theAppBar,
-      );
-    }
     // --------------------
   }
   // -----------------------------------------------------------------------------

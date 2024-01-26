@@ -1,11 +1,12 @@
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/models/phrase_model.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:fire/super_fire.dart';
 /// => TAMAM
-class KeywordsPhrasesRealOps {
+class KeywordsPhrasesFireOps {
   // --------------------------------------------------------------------------
 
-  KeywordsPhrasesRealOps();
+  KeywordsPhrasesFireOps();
 
   // --------------------------------------------------------------------------
 
@@ -19,11 +20,11 @@ class KeywordsPhrasesRealOps {
     required String value,
   }) async {
 
-    await Real.updateDocField(
-      coll: RealColl.keywordsPhrases,
+    await Fire.updateDocField(
+      coll: FireColl.keywords,
       doc: langCode,
       field: phid,
-      value: value,
+      input: value,
     );
 
   }
@@ -48,9 +49,12 @@ class KeywordsPhrasesRealOps {
     required bool includeTrigram,
   }) async {
 
-    final dynamic _value = await Real.readPath(
-        path: RealPath.keywordsPhrases_lang_phid(langCode: langCode, phid: phid)
+    final Map<String, dynamic>? _x = await Fire.readDoc(
+      coll: FireColl.keywords,
+      doc: langCode,
     );
+
+    final dynamic _value = _x?[phid];
 
     if (_value != null && _value is String){
 
@@ -79,9 +83,12 @@ class KeywordsPhrasesRealOps {
     required bool includeTrigram,
   }) async {
 
-    final Map<String, dynamic>? _map = await Real.readPath(
-        path: RealPath.keywordsPhrases_lang(langCode: langCode),
+    final Map<String, dynamic>? _map = await Fire.readDoc(
+      coll: FireColl.keywords,
+      doc: langCode,
     );
+
+    blog('readAllPhrasesByLang => : ${_map?.keys.length} keywords phrases keys} ');
 
     final List<Phrase> _output = Phrase.decipherPhrasesFromPhidsMap(
       langCode: langCode,
@@ -128,10 +135,10 @@ class KeywordsPhrasesRealOps {
     required String langCode,
   }) async {
 
-    await Real.deleteField(
-      coll: RealColl.keywordsPhrases,
-      doc: langCode,
-      field: phid,
+    await Fire.deleteDocField(
+        coll: FireColl.keywords,
+        doc: langCode,
+        field: phid,
     );
 
   }
