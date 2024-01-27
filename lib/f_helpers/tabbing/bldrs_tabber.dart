@@ -4,7 +4,7 @@ import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/a_flyers_wall_page/flyers_wall_page.dart';
-import 'package:bldrs/b_screens/a_home_screen/pages/b_zones_page/zone_page.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/b_zones_page/a_zone_page.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/a_my_profile_page/aaa1_user_profile_page.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/b_my_saves_page/saved_flyers_screen.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/c_my_notifications_page/user_notes_page.dart';

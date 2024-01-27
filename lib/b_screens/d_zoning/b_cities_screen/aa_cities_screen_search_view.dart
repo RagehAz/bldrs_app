@@ -1,11 +1,12 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/stringer.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/z_components/buttons/zone_buttons/city_tile_button.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/loading/loading_full_screen_layer.dart';
+import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class CitiesScreenSearchView extends StatelessWidget {
     required this.shownCitiesIDs,
     required this.citiesCensuses,
     required this.selectedZone,
+    required this.appBarType,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -30,9 +32,15 @@ class CitiesScreenSearchView extends StatelessWidget {
   final List<String>? shownCitiesIDs;
   final List<CensusModel>? citiesCensuses;
   final ZoneModel? selectedZone;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final EdgeInsets _margins = Stratosphere.getStratosphereSandwich(
+      context: context,
+      appBarType: appBarType,
+    );
 
     return ValueListenableBuilder(
         valueListenable: loading,
@@ -50,18 +58,13 @@ class CitiesScreenSearchView extends StatelessWidget {
               valueListenable: foundCities,
               builder: (_, List<CityModel>? foundCities, Widget? child){
 
-                const EdgeInsets _topMargin = EdgeInsets.only(
-                  top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2,
-                  bottom: Ratioz.horizon,
-                );
-
                 /// WHEN SEARCH RESULTS
                 if (Lister.checkCanLoop(foundCities) == true){
 
                   return ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemCount: foundCities!.length,
-                      padding: _topMargin,
+                      padding: _margins,
                       shrinkWrap: true,
                       itemBuilder: (_, int index) {
 
@@ -95,7 +98,7 @@ class CitiesScreenSearchView extends StatelessWidget {
                 else {
 
                   return Container(
-                    margin: _topMargin,
+                    margin: _margins,
                     child: const BldrsText(
                       verse: Verse(
                         id: 'phid_no_result_found',
