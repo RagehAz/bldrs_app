@@ -15,42 +15,35 @@ class _MirageMyUserControls {
     required bool mounted,
   }) async {
 
-    final List<MirageModel> allMirages = HomeProvider.proGetMirages(
-        context: getMainContext(),
-        listen: false,
-    );
-    final MirageModel _mirageX0 = allMirages[0];
-    final MirageModel _mirageX1 = allMirages[1];
-
-    await MirageModel.hideMiragesAbove(
-        index: 0,
-        mounted: mounted
-    );
-
-    // /// ALREADY SELECTED
-    // if (_mirageX0.selectedButton.value == BldrsTabs.bidProfile){
-    //   // _mirageX0.clearButton(mounted: mounted);
-    // }
+    // final List<MirageModel> allMirages = HomeProvider.proGetMirages(
+    //     context: getMainContext(),
+    //     listen: false,
+    // );
+    // final MirageModel _mirageX0 = allMirages[0];
+    // final MirageModel _mirageX1 = allMirages[1];
     //
-    // /// SHOULD SELECT
-    // else {
+    // await MirageModel.hideMiragesAbove(
+    //     index: 0,
+    //     mounted: mounted
+    // );
+    //
+    // HomeProvider.proSelectMirageButton(
+    //   mirageIndex: 1,
+    //   mounted: mounted,
+    //   button: BldrsTabber.bidMyInfo,
+    // );
+    //
+    // await BldrsTabber.goToTab(tab: BldrsTab.myInfo);
+    //
+    // await _mirageX1.reShow(
+    //   mounted: mounted,
+    //   onBetweenReShow: () => _mirageX0.selectButton(
+    //     button: BldrsTabber.bidMyProfile,
+    //     mounted: mounted,
+    //   ),
+    // );
 
-    HomeProvider.proSelectMirageButton(
-      mirageIndex: 1,
-      mounted: mounted,
-      button: BldrsTabber.bidMyInfo,
-    );
-
-    await BldrsTabber.goToTab(tab: BldrsTab.myInfo);
-
-    await _mirageX1.reShow(
-      mounted: mounted,
-      onBetweenReShow: () => _mirageX0.selectButton(
-        button: BldrsTabber.bidMyProfile,
-        mounted: mounted,
-      ),
-    );
-    // }
+    await MirageNav.goTo(tab: BldrsTab.myInfo);
 
   }
   // -----------------------------------------------------------------------------
@@ -64,14 +57,18 @@ class _MirageMyUserControls {
     required String bid,
   }) async {
 
-    HomeProvider.proSelectMirageButton(
-        mirageIndex: 1,
-        mounted: mounted,
-        button: bid
-    );
+    // HomeProvider.proSelectMirageButton(
+    //     mirageIndex: 1,
+    //     mounted: mounted,
+    //     button: bid
+    // );
+    //
+    // await BldrsTabber.goToTab(
+    //     tab: BldrsTabber.getTabByBid(bid),
+    // );
 
-    await BldrsTabber.goToTab(
-        tab: BldrsTabber.getTabByBid(bid),
+    await MirageNav.goTo(
+      tab: BldrsTabber.getTabByBid(bid),
     );
 
   }
