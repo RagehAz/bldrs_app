@@ -21,6 +21,7 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/router/z_mirage_nav.dart';
+import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
 import 'package:fire/super_fire.dart';
 
 class UserInitializer {
@@ -158,7 +159,7 @@ class UserInitializer {
             users: _signedUpUsers,
           );
 
-          await MirageNav.goAuth();
+          await MirageNav.goTo(tab: BldrsTab.auth);
           _continue = false;
 
         }
