@@ -1,4 +1,3 @@
-import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/stringer.dart';
@@ -6,6 +5,8 @@ import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/z_components/buttons/zone_buttons/city_tile_button.dart';
 import 'package:bldrs/z_components/buttons/zone_buttons/country_tile_button.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
     required this.onTapAllCities,
     required this.showAllCitiesButton,
     required this.selectedZone,
+    required this.appBarType,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -33,10 +35,15 @@ class CitiesScreenBrowseView extends StatelessWidget {
   final Function onTapAllCities;
   final bool showAllCitiesButton;
   final ZoneModel? selectedZone;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
+    final EdgeInsets _margins = Stratosphere.getStratosphereSandwich(
+      context: context,
+      appBarType: appBarType,
+    );
 
     return ValueListenableBuilder(
       key: const ValueKey<String>('CitiesScreenBrowseView'),
@@ -53,7 +60,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             itemCount: cities.length + 1,
             shrinkWrap: true,
-            padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2, bottom: Ratioz.horizon),
+            padding: _margins,
             itemBuilder: (BuildContext context, int index) {
 
               /// ALL CITIES BUTTON

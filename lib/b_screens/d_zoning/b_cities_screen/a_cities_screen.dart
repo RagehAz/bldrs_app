@@ -46,13 +46,13 @@ class CitiesScreen extends StatefulWidget {
 
 class _NewSelectCityScreen extends State<CitiesScreen> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> _isSearchingCities = ValueNotifier<bool>(false);
   final ValueNotifier<List<CityModel>> _countryCities = ValueNotifier<List<CityModel>>(<CityModel>[]);
   final ValueNotifier<List<CityModel>?> _foundCities = ValueNotifier<List<CityModel>?>(null);
   ValueNotifier<ZoneModel>? _currentZone;
   List<String>? _shownCitiesIDs = <String>[];
   // --------------------
-  List<CensusModel>? _censuses;
+  List<CensusModel>? _citiesCensuses;
   CensusModel? _countryCensus;
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -100,7 +100,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   @override
   void dispose() {
     _loading.dispose();
-    _isSearching.dispose();
+    _isSearchingCities.dispose();
     _foundCities.dispose();
     _countryCities.dispose();
     _currentZone?.dispose();
@@ -177,7 +177,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
             ),
           );
 
-          final List<CensusModel> _citiesCensuses = await CensusProtocols.fetchCitiesCensuses(
+          final List<CensusModel> _censuses = await CensusProtocols.fetchCitiesCensuses(
               citiesIDs: <String>[..._shownIDs, ...?_notShownIDs]
           );
           final CensusModel? _censusOfCountry = await CensusProtocols.fetchCountryCensus(
@@ -189,7 +189,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
             setState(() {
               _shownCitiesIDs = _shownIDs;
               // _stages = _citiesStages;
-              _censuses = _citiesCensuses;
+              _citiesCensuses = _censuses;
               _countryCensus = _censusOfCountry;
             });
 
@@ -260,12 +260,12 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
     Searching.triggerIsSearchingNotifier(
       text: inputText,
-      isSearching: _isSearching,
+      isSearching: _isSearchingCities,
       mounted: mounted,
     );
 
     /// WHILE SEARCHING
-    if (_isSearching.value  == true){
+    if (_isSearchingCities.value  == true){
 
       /// START LOADING
       await _triggerLoading(setTo: true);
@@ -424,7 +424,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       // ],
       child: Scroller(
         child: ValueListenableBuilder(
-          valueListenable: _isSearching,
+          valueListenable: _isSearchingCities,
           builder: (BuildContext context, bool isSearching, Widget? child){
 
             /// WHILE SEARCHING
@@ -435,9 +435,10 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 foundCities: _foundCities,
                 onCityTap: _onCitySelected,
                 shownCitiesIDs: _shownCitiesIDs,
-                citiesCensuses: _censuses,
+                citiesCensuses: _citiesCensuses,
                 onDeactivatedCityTap: _onDeactivatedTap,
                 selectedZone: widget.selectedZone,
+                appBarType: AppBarType.search,
               );
 
             }
@@ -449,7 +450,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 onCityTap: _onCitySelected,
                 countryCities: _countryCities,
                 shownCitiesIDs: _shownCitiesIDs,
-                citiesCensuses: _censuses,
+                citiesCensuses: _citiesCensuses,
                 onDeactivatedCityTap: _onDeactivatedTap,
                 countryCensus: _countryCensus,
                 onTapAllCities: _onTapAllCities,
@@ -457,6 +458,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 showAllCitiesButton: StagingModel.checkMayShowViewAllZonesButton(
                   zoneViewingEvent: widget.zoneViewingEvent,
                 ),
+                appBarType: AppBarType.search,
               );
 
             }

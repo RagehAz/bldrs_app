@@ -1,10 +1,10 @@
-import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/components/animators/widget_fader.dart';
 import 'package:bldrs/flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/z_components/loading/linear_loading_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 
 class FlyerLoading extends StatelessWidget {
@@ -26,36 +26,6 @@ class FlyerLoading extends StatelessWidget {
   final Axis direction;
   final Verse? verse;
   /// --------------------------------------------------------------------------
-  int _getRotation(BuildContext context){
-
-    /// LEFT => RIGHT
-    if (UiProvider.checkAppIsLeftToRight() == true){
-
-      if (direction == Axis.horizontal){
-        /// THING GOES RIGHT TO LEFT
-        return 2;
-      }
-      else {
-        ///
-        return 3;
-      }
-
-    }
-
-    /// RIGHT => LEFT
-    else {
-
-      if (direction == Axis.horizontal){
-        /// THING GOES LEFT TO RIGHT
-        return 0;
-      }
-      else {
-        return 3;
-      }
-
-    }
-
-  }
   @override
   Widget build(BuildContext context) {
 
@@ -74,18 +44,14 @@ class FlyerLoading extends StatelessWidget {
             stackWidgets: <Widget>[
 
               if (animate == true)
-                ClipRRect(
+                LinearLoadingBox(
                   borderRadius: FlyerDim.flyerCorners(flyerBoxWidth),
-                  child: RotatedBox(
-                    quarterTurns: _getRotation(context),
-                    child: LinearProgressIndicator(
-                      color: loadingColor,
-                      backgroundColor: Colorz.nothing,
-                      minHeight: FlyerDim.flyerHeightByFlyerWidth(
-                        flyerBoxWidth: flyerBoxWidth,
-                      ),
-                    ),
+                  loadingColor: loadingColor,
+                  direction: direction,
+                  height: FlyerDim.flyerHeightByFlyerWidth(
+                    flyerBoxWidth: flyerBoxWidth,
                   ),
+                  width: flyerBoxWidth,
                 ),
 
               if (verse != null)
@@ -113,5 +79,5 @@ class FlyerLoading extends StatelessWidget {
     }
 
   }
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
