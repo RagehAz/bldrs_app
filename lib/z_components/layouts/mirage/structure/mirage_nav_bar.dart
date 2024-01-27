@@ -157,48 +157,42 @@ class _MirageNavBarState extends State<MirageNavBar> {
               ),
               onZoneButtonTap: () async {
 
-                HomeProvider.proSelectMirageButton(
-                  mirageIndex: 0,
-                  mounted: mounted,
-                  button: BldrsTabber.bidZone,
-                );
-
-                await MirageModel.hideMiragesAbove(
-                    index: 0,
-                    mounted: mounted
-                );
-
-                await BldrsTabber.goToTab(tab: BldrsTab.zone);
-
-                // final UserModel? _userModel = UsersProvider.proGetMyUserModel(
-                //   context: context,
-                //   listen: false,
+                // HomeProvider.proSelectMirageButton(
+                //   mirageIndex: 0,
+                //   mounted: mounted,
+                //   button: BldrsTabber.bidZone,
                 // );
                 //
-                // await ZoneSelection.goBringAZone(
-                //   depth: ZoneDepth.city,
-                //   zoneViewingEvent: ViewingEvent.homeView,
-                //   settingCurrentZone: true,
-                //   viewerZone: _userModel?.zone,
-                //   selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
+                // await MirageModel.hideMiragesAbove(
+                //     index: 0,
+                //     mounted: mounted
                 // );
+                //
+                // await BldrsTabber.goToTab(tab: BldrsTab.zone);
+
+                await MirageNav.goTo(
+                    tab: BldrsTab.zone,
+                );
 
               },
               onSignInButtonTap: () async {
 
-                HomeProvider.proSelectMirageButton(
-                  mirageIndex: 0,
-                  mounted: mounted,
-                  button: BldrsTabber.bidAuth,
-                );
+                // HomeProvider.proSelectMirageButton(
+                //   mirageIndex: 0,
+                //   mounted: mounted,
+                //   button: BldrsTabber.bidAuth,
+                // );
+                //
+                // await MirageModel.hideMiragesAbove(
+                //     index: 0,
+                //     mounted: mounted
+                // );
+                //
+                // await BldrsTabber.goToTab(tab: BldrsTab.auth);
 
-                await MirageModel.hideMiragesAbove(
-                    index: 0,
-                    mounted: mounted
+                await MirageNav.goTo(
+                  tab: BldrsTab.auth,
                 );
-
-                await BldrsTabber.goToTab(tab: BldrsTab.auth);
-                // await Nav.goToRoute(context, RouteName.auth);
 
               },
               onMyBzzTap: () => _MirageMyBzzControls.onMyBzzButtonTap(
@@ -206,29 +200,32 @@ class _MirageNavBarState extends State<MirageNavBar> {
               ),
               onMyBzTap: (BzModel bzModel) async {
 
-                HomeProvider.proSetActiveBzModel(
-                    bzModel: bzModel,
-                    context: context,
-                    notify: true
-                );
+                // HomeProvider.proSetActiveBzModel(
+                //     bzModel: bzModel,
+                //     context: context,
+                //     notify: true
+                // );
+                //
+                // final String _bidBz = BldrsTabber.generateBzBid(
+                //   bzID: bzModel.id!,
+                //   bid: BldrsTabber.bidMyBzInfo,
+                // );
+                //
+                // HomeProvider.proSelectMirageButton(
+                //   mirageIndex: 0,
+                //   mounted: mounted,
+                //   button: _bidBz,
+                // );
+                //
+                // await MirageModel.hideMiragesAbove(
+                //   index: 0,
+                //   mounted: mounted,
+                // );
 
-                final String _bidBz = BldrsTabber.generateBzBid(
-                  bzID: bzModel.id!,
-                  bid: BldrsTabber.bidMyBzInfo,
+                await MirageNav.goTo(
+                  tab: BldrsTab.myBzInfo,
+                  bzID: bzModel.id,
                 );
-
-                HomeProvider.proSelectMirageButton(
-                  mirageIndex: 0,
-                  mounted: mounted,
-                  button: _bidBz,
-                );
-
-                await MirageModel.hideMiragesAbove(
-                  index: 0,
-                  mounted: mounted,
-                );
-
-                // await Nav.goToRoute(context, RouteName.myBzFlyersPage);
 
               },
               onUserProfileButtonTap: () => _MirageMyUserControls.onUserProfileButtonTap(
@@ -236,17 +233,21 @@ class _MirageNavBarState extends State<MirageNavBar> {
               ),
               onSettingsButtonTap: () async {
 
-                HomeProvider.proSelectMirageButton(
-                    mirageIndex: 0,
-                    mounted: mounted,
-                    button: BldrsTabber.bidAppSettings
-                );
+                // HomeProvider.proSelectMirageButton(
+                //     mirageIndex: 0,
+                //     mounted: mounted,
+                //     button: BldrsTabber.bidAppSettings
+                // );
+                //
+                // await BldrsTabber.goToTab(tab: BldrsTab.appSettings);
+                //
+                // await MirageModel.hideMiragesAbove(
+                //   index: 0,
+                //   mounted: mounted,
+                // );
 
-                await BldrsTabber.goToTab(tab: BldrsTab.appSettings);
-
-                await MirageModel.hideMiragesAbove(
-                  index: 0,
-                  mounted: mounted,
+                await MirageNav.goTo(
+                  tab: BldrsTab.appSettings,
                 );
 
               },

@@ -19,6 +19,7 @@ import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/sta
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/z_mirage_nav.dart';
+import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -551,7 +552,7 @@ class _ZonePageState extends State<ZonePage> {
       zone: zone,
     );
 
-    await MirageNav.goHome();
+    await MirageNav.goTo(tab: BldrsTab.home);
 
   }
   // -----------------------------------------------------------------------------

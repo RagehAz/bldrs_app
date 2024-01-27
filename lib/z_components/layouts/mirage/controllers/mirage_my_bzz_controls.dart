@@ -59,46 +59,49 @@ class _MirageMyBzzControls {
     required int mirageIndex,
   }) async {
 
-    final List<MirageModel> allMirages = HomeProvider.proGetMirages(
-        context: getMainContext(),
-        listen: false,
-    );
+    // final List<MirageModel> allMirages = HomeProvider.proGetMirages(
+    //     context: getMainContext(),
+    //     listen: false,
+    // );
+    //
+    // await HomeProvider.proSetActiveBzByID(
+    //     bzID: bzID,
+    //     context: getMainContext(),
+    //     notify: true,
+    // );
+    //
+    // final String _bidBz = BldrsTabber.generateBzBid(
+    //   bzID: bzID,
+    //   bid: BldrsTabber.bidMyBzInfo,
+    // );
+    //
+    // await MirageModel.hideMiragesAbove(
+    //     index: mirageIndex,
+    //     mounted: mounted
+    // );
+    //
+    // final MirageModel _nextMirage = allMirages[mirageIndex+1];
+    //
+    // HomeProvider.proSelectMirageButton(
+    //     mirageIndex: mirageIndex,
+    //     mounted: mounted,
+    //     button: _bidBz
+    // );
+    //
+    // await _nextMirage.reShow(
+    //   mounted: mounted,
+    //   onBetweenReShow: () => _nextMirage.selectButton(
+    //     button: _bidBz,
+    //     mounted: mounted,
+    //   ),
+    // );
+    //
+    // await BldrsTabber.goToTab(tab: BldrsTab.myBzInfo);
 
-    await HomeProvider.proSetActiveBzByID(
-        bzID: bzID,
-        context: getMainContext(),
-        notify: true,
-    );
-
-    final String _bidBz = BldrsTabber.generateBzBid(
+    await MirageNav.goTo(
+      tab: BldrsTab.myBzInfo,
       bzID: bzID,
-      bid: BldrsTabber.bidMyBzInfo,
     );
-
-    await MirageModel.hideMiragesAbove(
-        index: mirageIndex,
-        mounted: mounted
-    );
-
-    final MirageModel _nextMirage = allMirages[mirageIndex+1];
-
-    HomeProvider.proSelectMirageButton(
-        mirageIndex: mirageIndex,
-        mounted: mounted,
-        button: _bidBz
-    );
-
-    await _nextMirage.reShow(
-      mounted: mounted,
-      onBetweenReShow: () => _nextMirage.selectButton(
-        button: _bidBz,
-        mounted: mounted,
-      ),
-    );
-
-
-    await BldrsTabber.goToTab(tab: BldrsTab.myBzInfo);
-
 
   }
   // -----------------------------------------------------------------------------
@@ -113,26 +116,30 @@ class _MirageMyBzzControls {
     required int mirageIndex,
   }) async {
 
+    // final String _bidBz = BldrsTabber.generateBzBid(
+    //   bzID: HomeProvider.proGetActiveBzModel(context: getMainContext(), listen: false)!.id!,
+    //   bid: bid,
+    // );
+    //
+    // HomeProvider.proSelectMirageButton(
+    //     mirageIndex: mirageIndex,
+    //     mounted: mounted,
+    //     button: _bidBz
+    // );
+    //
+    // await MirageModel.hideMiragesAbove(
+    //     index: mirageIndex,
+    //     mounted: mounted
+    // );
+    //
+    // final BldrsTab _tab = BldrsTabber.getTabByBid(bid);
+    //
+    // await BldrsTabber.goToTab(tab: _tab);
 
-    final String _bidBz = BldrsTabber.generateBzBid(
+    await MirageNav.goTo(
+      tab: BldrsTabber.getTabByBid(bid),
       bzID: HomeProvider.proGetActiveBzModel(context: getMainContext(), listen: false)!.id!,
-      bid: bid,
     );
-
-    HomeProvider.proSelectMirageButton(
-        mirageIndex: mirageIndex,
-        mounted: mounted,
-        button: _bidBz
-    );
-
-    await MirageModel.hideMiragesAbove(
-        index: mirageIndex,
-        mounted: mounted
-    );
-
-    final BldrsTab _tab = BldrsTabber.getTabByBid(bid);
-
-    await BldrsTabber.goToTab(tab: _tab);
 
   }
   // -----------------------------------------------------------------------------
