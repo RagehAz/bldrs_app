@@ -16,36 +16,32 @@ class _MirageKeywordsControls {
     required bool mounted,
   }) async {
 
-    await BldrsTabber.goToTab(tab: BldrsTab.home);
-
-    final List<MirageModel> allMirages = HomeProvider.proGetMirages(
-      context: getMainContext(),
-      listen: false,
-    );
-
-    final MirageModel _mirage1 = allMirages[0];
-    final MirageModel _mirage2 = allMirages[1];
-
-    await MirageModel.hideMiragesAbove(
-        index: 0,
-        mounted: mounted
-    );
-
-    // /// ALREADY SELECTED
-    // if (_mirage1.selectedButton.value == BldrsTabber.bidHome){
-    //   // _mirage1.clearButton(mounted: mounted,);
-    // }
+    // await BldrsTabber.goToTab(tab: BldrsTab.home);
     //
-    // /// SHOULD SELECT
-    // else {
-      await _mirage2.reShow(
-        mounted: mounted,
-        onBetweenReShow: () => _mirage1.selectButton(
-          button: BldrsTabber.bidHome,
-          mounted: mounted,
-        ),
-      );
-    // }
+    // final List<MirageModel> allMirages = HomeProvider.proGetMirages(
+    //   context: getMainContext(),
+    //   listen: false,
+    // );
+    //
+    // final MirageModel _mirage1 = allMirages[0];
+    // final MirageModel _mirage2 = allMirages[1];
+    //
+    // await MirageModel.hideMiragesAbove(
+    //     index: 0,
+    //     mounted: mounted
+    // );
+    //
+    //   await _mirage2.reShow(
+    //     mounted: mounted,
+    //     onBetweenReShow: () => _mirage1.selectButton(
+    //       button: BldrsTabber.bidHome,
+    //       mounted: mounted,
+    //     ),
+    //   );
+
+    await MirageNav.goTo(
+      tab: BldrsTab.home,
+    );
 
   }
   // -----------------------------------------------------------------------------

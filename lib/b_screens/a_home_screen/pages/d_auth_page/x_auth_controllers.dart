@@ -1,20 +1,19 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_screens/b_user_screens/c_user_editor_screen/user_editor_screen.dart';
-import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
-import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
-import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
-import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/f_helpers/router/z_mirage_nav.dart';
+import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
+import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -280,19 +279,7 @@ Future<void> _goToLogoScreen({
 
   await NotesProvider.proInitializeNoteStreams(mounted: mounted);
 
-  HomeProvider.proSelectMirageButton(
-    mirageIndex: 0,
-    mounted: mounted,
-    button: BldrsTabber.bidMyProfile,
-  );
-
-  HomeProvider.proSelectMirageButton(
-      mirageIndex: 1,
-      mounted: mounted,
-      button: BldrsTabber.bidMyInfo,
-  );
-
-  await BldrsTabber.goToTab(tab: BldrsTab.myInfo);
+  await MirageNav.goTo(tab: BldrsTab.myInfo);
 
 }
 // --------------------
