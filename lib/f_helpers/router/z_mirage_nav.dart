@@ -1,9 +1,7 @@
-import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/map_pathing.dart';
 import 'package:basics/helpers/strings/pathing.dart';
 import 'package:basics/helpers/strings/stringer.dart';
-import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/a_models/c_keywords/keyworder.dart';
 import 'package:bldrs/c_protocols/keywords_protocols/keywords_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
@@ -411,7 +409,6 @@ class MirageNav {
       if (Lister.checkCanLoop(_foundPaths) == true){
 
         final String _path = _foundPaths.first;
-        blog('_path : $_path');
         final List<String> _nodes = Pathing.splitPathNodes(_path);
 
         // thing/aaa/bbb/xxx
@@ -426,9 +423,9 @@ class MirageNav {
 
         String _nodePath = '';
         for (int i = 0; i < _nodes.length; i++){
+
           final String node = _nodes[i];
           _nodePath = '$_nodePath$node/';
-
           final int _mirageIndex = i + 1;
           // final int _buttonIndex = MapPathing.getNodeOrderIndexByPath(path: _nodePath, map: _keywordsMap);
           // final int _listLength = MapPathing.getBrothersLength(path: _nodePath, map: _keywordsMap);
@@ -461,14 +458,6 @@ class MirageNav {
           }
 
           // blog('_nodePath : $_nodePath : _mirageIndex : $_mirageIndex : _buttonIndex : $_buttonIndex : _listLength : $_listLength');
-
-
-          // _allMirages[_mirageIndex].selectedButton
-          //
-          // await _allMirages[_mirageIndex].scrollTo(
-          //   buttonIndex: _buttonIndex,
-          //   listLength: _listLength,
-          // );
 
         }
 

@@ -81,6 +81,10 @@ class _TheHomeScreenState extends State<TheHomeScreen> with TickerProviderStateM
     // --------------------
     else {
       return const HomeLayout();
+      // return const WidgetWaiter(
+      //   waitDuration: Duration(milliseconds: 2000),
+      //   child: HomeLayout(),
+      // );
     }
     // --------------------
   }
