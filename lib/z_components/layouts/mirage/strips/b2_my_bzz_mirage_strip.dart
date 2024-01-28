@@ -38,7 +38,8 @@ class _MyBzzMirageStrip extends StatelessWidget {
                       bzBid: selectedButton,
                   );
 
-                  return _MirageStripFloatingList(
+                  return _MirageStripScrollableList(
+                    mirageModel: mirageX1,
                     columnChildren: <Widget>[
 
                       if (Lister.checkCanLoop(_myBzzIDs) == true)

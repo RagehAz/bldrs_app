@@ -27,7 +27,8 @@ class _BzTabsMirageStrip extends StatelessWidget {
 
           final String? _bidBz = selectedButton;
 
-          return _MirageStripFloatingList(
+          return _MirageStripScrollableList(
+            mirageModel: thisMirage,
             columnChildren: <Widget>[
 
               /// ABOUT

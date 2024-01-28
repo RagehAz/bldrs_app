@@ -21,7 +21,8 @@ class _UserTabsMirageStrip extends StatelessWidget {
         valueListenable: mirage1.selectedButton,
         builder: (_, String? selectedButton, Widget? child) {
 
-          return _MirageStripFloatingList(
+          return _MirageStripScrollableList(
+            mirageModel: mirage1,
             columnChildren: <Widget>[
 
               /// PROFILE
