@@ -9,7 +9,6 @@ import 'package:basics/helpers/maps/map_pathing.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/helpers/strings/pathing.dart';
 import 'package:basics/helpers/strings/text_check.dart';
-import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_keywords/keyworder.dart';
@@ -41,6 +40,7 @@ import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 // -----------------------------------------------------------------------------
 
 /// COMPONENTS
