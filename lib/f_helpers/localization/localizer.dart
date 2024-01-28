@@ -127,7 +127,7 @@ class Localizer {
       MainPhrasesJsonOps.readAll(
         langCode: locale?.languageCode ?? 'en',
       ).then((Map<String, String> main){
-        blog('xxz=> adding ${main.keys.length} main keys');
+        // blog('xxz=> adding ${main.keys.length} main keys');
         _mainPhrases = main;
       }),
 
@@ -135,7 +135,7 @@ class Localizer {
         langCode: locale?.languageCode ?? 'en',
         localizedValues: {},
       ).then((Map<String, String> keywords){
-        blog('xxz=> adding ${keywords.keys.length} keywords keys');
+        // blog('xxz=> adding ${keywords.keys.length} keywords keys');
         _keywordsPhrases = keywords;
       }),
 
@@ -147,7 +147,7 @@ class Localizer {
         replaceDuplicateKeys: true,
     );
 
-    blog('xxz=> resulting ${_localizedValues?.keys.length} main keys');
+    // blog('xxz=> resulting ${_localizedValues?.keys.length} main keys');
 
   }
   // --------------------

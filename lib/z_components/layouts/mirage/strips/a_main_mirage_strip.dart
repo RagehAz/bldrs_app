@@ -45,7 +45,8 @@ class MainMirageStrip extends StatelessWidget {
               valueListenable: _mirage0.selectedButton,
               builder: (_, String? selectedButton, Widget? child) {
 
-                return _MirageStripFloatingList(
+                return _MirageStripScrollableList(
+                  mirageModel: _mirage0,
                   columnChildren: <Widget>[
 
                     /// SECTIONS

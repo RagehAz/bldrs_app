@@ -37,9 +37,8 @@ class _SectionsMirageStrip extends StatelessWidget {
         valueListenable: mirageX1.selectedButton,
         builder: (context, String? selectedButton, Widget? child) {
 
-          blog('selectedButton : warini keda : $selectedButton');
-
-          return _MirageStripFloatingList(
+          return _MirageStripScrollableList(
+            mirageModel: mirageX1,
             columnChildren: <Widget>[
 
               if (Lister.checkCanLoop(_phids) == true)

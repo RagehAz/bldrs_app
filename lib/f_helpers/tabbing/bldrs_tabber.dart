@@ -1,8 +1,10 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/a_flyers_wall_page/flyers_wall_page.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/b_zones_page/a_zone_page.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/a_my_profile_page/aaa1_user_profile_page.dart';
@@ -77,6 +79,10 @@ class BldrsTabber {
     BldrsTab.appSettings,
     // --------------------
   ];
+
+  static const int mainButtonsLength = 6;
+  static const int profileButtonsLength = 5;
+  static const int bzButtonsLength = 5;
   // -----------------------------------------------------------------------------
 
   /// MIRAGE BUTTONS (BID is ButtonID)
@@ -408,6 +414,87 @@ class BldrsTabber {
       id: _phid,
       translate: true,
     );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// button index
+
+  // --------------------
+  /// TASK : TEST ME
+  static int getButtonIndexInMainMirage({
+    required String bid,
+  }){
+    switch (bid){
+
+      case bidHome          : return 0;
+      case bidZone          : return 1;
+      case bidAuth          : return 2;
+      case bidMyProfile     : return 3;
+      case bidMyBzz         : return 4;
+      case bidAppSettings   : return 5;
+
+      default: return 0;
+    }
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static int getButtonIndexInProfileMirage({
+    required String bid,
+  }){
+
+    switch (bid){
+
+      case bidMyInfo        : return 0;
+      case bidMySaves       : return 1;
+      case bidMyNotes       : return 2;
+      case bidMyFollows     : return 3;
+      case bidMySettings    : return 4;
+
+      default: return 0;
+    }
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static int getButtonIndexInMyBzzMirage({
+    required String bzID,
+  }){
+
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
+      listen: false,
+    );
+
+    return _userModel?.myBzzIDs?.indexOf(bzID) ?? 0;
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static int getButtonIndexInBzProfileMirage({
+    required String bid,
+  }){
+
+    switch (bid){
+
+      case bidMyBzInfo      : return 0;
+      case bidMyBzFlyers    : return 1;
+      case bidMyBzTeam      : return 2;
+      case bidMyBzNotes     : return 3;
+      case bidMyBzSettings  : return 4;
+
+      default: return 0;
+    }
+
+  }
+  // --------------------
+  /// TASK : DO ME
+  static int getButtonIndexInKeywordsMirage({
+    required String path,
+  }){
+
+    blog('obbaaaa : $path');
+
+    return 0;
   }
   // -----------------------------------------------------------------------------
 

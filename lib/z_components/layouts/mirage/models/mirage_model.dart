@@ -9,6 +9,7 @@ class MirageModel {
     required this.stripHeight,
     required this.selectedButton,
     required this.index,
+    required this.controller,
     this.pyramidIsOn,
   });
   // --------------------
@@ -16,6 +17,7 @@ class MirageModel {
   final double stripHeight;
   final ValueNotifier<bool>? pyramidIsOn;
   final ValueNotifier<String?> selectedButton;
+  final ItemScrollController controller;
   final int index;
   // -----------------------------------------------------------------------------
 
@@ -56,6 +58,7 @@ class MirageModel {
       stripHeight: height,
       pyramidIsOn: controlPyramid == true ? ValueNotifier(true) : null,
       selectedButton: ValueNotifier(selectedButton),
+      controller: ItemScrollController(),
     );
   }
   // --------------------
@@ -384,6 +387,68 @@ class MirageModel {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// ANIMATE TO BUTTON
+
+  // --------------------
+  Future<void> scrollTo({
+    required int buttonIndex,
+    required int listLength,
+  }) async {
+
+    final double _ratio = _getLeftOffsetRatio(
+      listLength: listLength,
+      buttonIndex: buttonIndex,
+    );
+
+    await controller.scrollTo(
+      index: buttonIndex,
+      duration: waitDuration,
+      curve: Curves.easeOut,
+      alignment: _ratio,
+      // opacityAnimationWeights: ,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double _getLeftOffsetRatio({
+    required int buttonIndex,
+    required int listLength,
+  }){
+
+  final double _screenWidth = Scale.screenWidth(getMainContext());
+  final bool _isFirst = buttonIndex == 0;
+  final bool _isPreLast = buttonIndex + 2 == listLength;
+  final bool _isLast = buttonIndex + 1 == listLength;
+
+  /// OFFSET FROM LEFT
+  double _offset = 10;
+
+  /// FIRST
+  if (_isFirst == true){
+    _offset = 10;
+  }
+  /// LAST
+  else if (_isLast == true){
+    _offset = _screenWidth - 130;
+  }
+  /// PRE LAST
+  else if (_isPreLast == true){
+    _offset = _screenWidth * 0.5;
+  }
+  /// MIDDLE
+  else {
+    _offset = _screenWidth * 0.3;
+  }
+
+  // blog('_getLeftOffsetRatio : _leftOffset : $_offset : buttonIndex : $buttonIndex');
+
+  /// RATIO
+  return _offset / _screenWidth;
+}
+
   // -----------------------------------------------------------------------------
 
   /// GETTERS
