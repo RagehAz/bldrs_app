@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/models/phrase_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/countries_phrases_protocols/countries_phrases_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/keywords_phrases_protocols/keywords_phrases_protocols.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/f_helpers/router/z_mirage_nav.dart';
+import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
@@ -59,16 +61,12 @@ class PhraseProtocols {
 
         ]);
 
-        // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-        // await _chainsProvider.fetchSortSetBldrsChains(
-        //   notify: true,
-        // );
-
         await WaitDialog.closeWaitDialog();
-
-        await BldrsNav.pushLogoRouteAndRemoveAllBelow(
-          animatedLogoScreen: true,
-        );
+        // await BldrsNav.pushLogoRouteAndRemoveAllBelow(
+        //   animatedLogoScreen: true,
+        // );
+        await Nav.goBack(context: context);
+        await MirageNav.goTo(tab: BldrsTab.home);
 
       }
       else {

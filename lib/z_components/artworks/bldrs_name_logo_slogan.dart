@@ -31,8 +31,8 @@ class LogoSlogan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    /// DON'T DELETE THIS. TO LISTEN TO LANG CHANGES
-    UiProvider.proGetCurrentLangCode(context: context, listen: true);
+    // /// DON'T DELETE THIS. TO LISTEN TO LANG CHANGES
+    // UiProvider.proGetCurrentLangCode(context: context, listen: true);
     // --------------------
     final double _logoWidth = getLogoWidth();
     final double _logoHeight = getLogoHeight();
