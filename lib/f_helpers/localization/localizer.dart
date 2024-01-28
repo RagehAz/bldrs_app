@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper_ss.dart';
@@ -92,12 +94,6 @@ class Localizer {
       final Locale? _temp = _concludeLocaleByLangCode(_locale.languageCode);
 
       BldrsAppStarter.setLocale(context, _temp);
-
-      UiProvider.proSetCurrentLangCode(
-          context: getMainContext(),
-          langCode: _locale.languageCode,
-          notify: true,
-      );
 
     }
 
@@ -311,10 +307,14 @@ class Localizer {
     required String? code,
   }) async {
 
-    final String? _currentLang = getCurrentLangCode();
+    final String? _jsonLang = getCurrentLangCode();
     final String? _ldbLang = await Localizer.readLDBLangCode();
 
-    if (_currentLang != null && _currentLang == _ldbLang && _ldbLang == code){
+    if (
+        code == _jsonLang &&
+        code == _ldbLang &&
+        code != null
+    ){
       // blog('do nothing');
     }
     else {
@@ -327,27 +327,18 @@ class Localizer {
 
       BldrsAppStarter.setLocale(context, _temp);
 
-      UiProvider.proSetCurrentLangCode(
-        context: context,
-        langCode: code,
-        notify: true,
-      );
-
       final UserModel? _user = UsersProvider.proGetMyUserModel(
         context: context,
         listen: false,
       );
-
       if (Authing.userIsSignedUp(_user?.signInMethod) == true) {
-
-        await UserProtocols.renovate(
+        unawaited(UserProtocols.renovate(
           invoker: 'changeAppLanguage',
           oldUser: _user,
           newUser: _user!.copyWith(
             language: code,
           ),
-        );
-
+        ));
       }
 
     }
