@@ -30,6 +30,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:restart_app/restart_app.dart';
 
 class BldrsEngine {
   // --------------------------------------------------------------------------
@@ -285,6 +286,17 @@ class BldrsEngine {
     HomeProvider.proDisposeHomeGrid();
     NotesProvider.disposeNoteStreams();
     HomeProvider.proDisposeMirages();
+  }
+  // --------------------------------------------------------------------------
+
+  /// RESTART
+
+  // --------------------
+  /// TESTED : WORKS PERFECT : TASK : IMPLEMENT IOS
+  static Future<void> restartApp() async {
+    await Restart.restartApp(
+      // webOrigin: '[your main route]',
+    );
   }
   // --------------------------------------------------------------------------
 }
