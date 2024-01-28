@@ -1,4 +1,11 @@
+import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/maps/map_pathing.dart';
+import 'package:basics/helpers/strings/pathing.dart';
 import 'package:basics/helpers/strings/stringer.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
+import 'package:bldrs/a_models/c_keywords/keyworder.dart';
+import 'package:bldrs/c_protocols/keywords_protocols/keywords_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -378,6 +385,94 @@ class MirageNav {
       case BldrsTab.myBzSettings:   await _goMyBzSettings(bzID: bzID);
 
       default: await _goHome();
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GO TO KEYWORD
+
+  // --------------------
+  ///
+  static Future<void> goToKeyword({
+    required String phid,
+  }) async {
+
+    final Map<String, dynamic>? _keywordsMap = await KeywordsProtocols.fetch();
+
+    if (_keywordsMap != null){
+
+      final List<String> _foundPaths = Keyworder.findPathsContainingPhid(
+        phid: phid,
+        keywordsMap: _keywordsMap,
+      );
+
+      if (Lister.checkCanLoop(_foundPaths) == true){
+
+        final String _path = _foundPaths.first;
+        blog('_path : $_path');
+        final List<String> _nodes = Pathing.splitPathNodes(_path);
+
+        // thing/aaa/bbb/xxx
+        // 0 : thing/
+        // 1 : thing/aaa/
+        // 2 : thing/aaa/bbb
+        // 3 : thing/aaa/bbb/xxx
+
+        await _goHome();
+
+        final List<MirageModel> _allMirages = HomeProvider.proGetMirages(context: getMainContext(), listen: false);
+
+        String _nodePath = '';
+        for (int i = 0; i < _nodes.length; i++){
+          final String node = _nodes[i];
+          _nodePath = '$_nodePath$node/';
+
+          final int _mirageIndex = i + 1;
+          // final int _buttonIndex = MapPathing.getNodeOrderIndexByPath(path: _nodePath, map: _keywordsMap);
+          // final int _listLength = MapPathing.getBrothersLength(path: _nodePath, map: _keywordsMap);
+
+          final bool _hasSons = MapPathing.checkNodeHasSons(
+            nodeValue: MapPathing.getNodeValue(
+                path: _nodePath,
+                map: _keywordsMap,
+            ),
+          );
+
+          if (_hasSons == true){
+
+            await MirageKeywordsControls.onPhidTap(
+                mirageIndex: _mirageIndex,
+                path: _nodePath,
+                keywordsMap: _keywordsMap,
+                mounted: true,
+            );
+
+          }
+
+          else {
+
+            await _allMirages[_mirageIndex].scrollTo(
+              buttonIndex: MapPathing.getNodeOrderIndexByPath(path: _nodePath, map: _keywordsMap),
+              listLength: MapPathing.getBrothersLength(path: _nodePath, map: _keywordsMap),
+            );
+
+          }
+
+          // blog('_nodePath : $_nodePath : _mirageIndex : $_mirageIndex : _buttonIndex : $_buttonIndex : _listLength : $_listLength');
+
+
+          // _allMirages[_mirageIndex].selectedButton
+          //
+          // await _allMirages[_mirageIndex].scrollTo(
+          //   buttonIndex: _buttonIndex,
+          //   listLength: _listLength,
+          // );
+
+        }
+
+      }
 
     }
 
