@@ -594,10 +594,7 @@ class America {
 
       if (_hasAStateID == true){
 
-        final String _langCode = UiProvider.proGetCurrentLangCode(
-            context: getMainContext(),
-            listen: false,
-        );
+        final String _langCode = Localizer.getCurrentLangCode();
 
         final Phrase _usaPhrase = Phrase(
           id: 'usa',

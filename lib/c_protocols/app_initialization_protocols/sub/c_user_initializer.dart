@@ -57,6 +57,9 @@ class UserInitializer {
       _new = await _completeUserZone(
         userModel: _new,
       );
+      _downloadUserCountryCities(
+        userModel: _new,
+      );
 
       /// USER APP STATE
       _new = await _userAppStateOps(
@@ -498,6 +501,20 @@ class UserInitializer {
     }
 
     return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void _downloadUserCountryCities({
+    required UserModel? userModel,
+  }){
+
+    if (userModel?.zone?.countryID != null){
+      unawaited(ZoneProtocols.fetchCitiesOfCountry(
+        countryID: userModel!.zone!.countryID,
+        // cityStageType: StageType.
+      ));
+    }
+
   }
   // -----------------------------------------------------------------------------
 
