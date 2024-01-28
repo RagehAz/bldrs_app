@@ -48,7 +48,8 @@ class _MapSonMirageStrip extends StatelessWidget {
           final String? _lastNode = Pathing.getLastPathNode(selectedPath);
 
 
-          return _MirageStripFloatingList(
+          return _MirageStripScrollableList(
+            mirageModel: thisMirage,
             columnChildren: <Widget>[
 
               if (Lister.checkCanLoop(_sonMapKeys) == true)

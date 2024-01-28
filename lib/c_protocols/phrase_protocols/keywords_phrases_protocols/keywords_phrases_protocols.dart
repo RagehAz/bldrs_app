@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper_ss.dart';
 import 'package:basics/models/phrase_model.dart';
@@ -91,18 +90,18 @@ class KeywordsPhrasesProtocols {
 
     if (_isDownloaded == true){
 
-      blog('qq=> ALL FOUND ON LDB');
+      // blog('qq=> ALL FOUND ON LDB');
       _output = await KeywordsPhrasesLDBOps.readAll(langCode: langCode);
 
     }
     else {
 
-      blog('qq=> READING FROM REAL');
+      // blog('qq=> READING FROM REAL');
       _output = await KeywordsPhrasesFireOps.readAllPhrasesByLang(
         langCode: langCode,
         includeTrigram: true,
       );
-      blog('qq=> READING FROM REAL : ${_output.length} phrases');
+      // blog('qq=> READING FROM REAL : ${_output.length} phrases');
 
       unawaited(_insertAllPhrasesFetched(
         phrases: _output,
@@ -147,10 +146,10 @@ class KeywordsPhrasesProtocols {
     if (langCode != null){
 
       final List<Phrase> _phrases = await fetchAll(langCode: langCode);
-      blog('bo -> ${_phrases.length} phrases');
+      // blog('bo -> ${_phrases.length} phrases');
 
       final Map<String, dynamic>? _keywordsPhraseMap = Phrase.cipherPhrasesToPhidsMap(_phrases);
-      blog('bo -> ${_keywordsPhraseMap?.keys.length} map keys');
+      // blog('bo -> ${_keywordsPhraseMap?.keys.length} map keys');
 
 
       _output = MapperSS.combineStringStringMap(
@@ -162,7 +161,7 @@ class KeywordsPhrasesProtocols {
         ),
       );
 
-      blog('bo -> ${_output.keys.length} _output keys');
+      // blog('bo -> ${_output.keys.length} _output keys');
 
     }
 
