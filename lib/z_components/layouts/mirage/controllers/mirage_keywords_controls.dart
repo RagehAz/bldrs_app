@@ -1,10 +1,10 @@
 part of mirage;
 // ignore_for_file: unused_element
 
-class _MirageKeywordsControls {
+class MirageKeywordsControls {
   // -----------------------------------------------------------------------------
 
-  const _MirageKeywordsControls();
+  const MirageKeywordsControls();
 
   // -----------------------------------------------------------------------------
 
@@ -92,6 +92,14 @@ class _MirageKeywordsControls {
           ),
         );
 
+        await _mirageX1.scrollTo(
+            buttonIndex: MapPathing.getNodeOrderIndexByPath(
+              map: keywordsMap,
+              path: path,
+            ),
+            listLength: 6,
+        );
+
       }
 
     }
@@ -105,7 +113,7 @@ class _MirageKeywordsControls {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onPhidTap({
-    required int index,
+    required int mirageIndex,
     required String path,
     required Map<String, dynamic>? keywordsMap,
     required bool mounted,
@@ -115,8 +123,8 @@ class _MirageKeywordsControls {
         context: getMainContext(),
         listen: false,
     );
-    final MirageModel thisMirage = allMirages[index];
-    final MirageModel? mirageAbove = index >= 4 ? null : allMirages[index+1];
+    final MirageModel thisMirage = allMirages[mirageIndex];
+    final MirageModel? mirageAbove = mirageIndex >= 4 ? null : allMirages[mirageIndex+1];
 
 
     final String? _phid = Pathing.getLastPathNode(path);
@@ -168,6 +176,7 @@ class _MirageKeywordsControls {
 
         /// SELECT THE PHID AND SHOW NEXT MIRAGE
         else {
+
           await mirageAbove.reShow(
             mounted: mounted,
             onBetweenReShow: () => thisMirage.selectButton(
@@ -175,6 +184,12 @@ class _MirageKeywordsControls {
               mounted: mounted,
             ),
           );
+
+          await thisMirage.scrollTo(
+            buttonIndex: MapPathing.getNodeOrderIndexByPath(path: path, map: keywordsMap),
+            listLength: MapPathing.getBrothersLength(path: path, map: keywordsMap),
+          );
+
         }
 
       }
