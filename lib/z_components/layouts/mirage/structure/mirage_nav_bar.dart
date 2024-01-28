@@ -74,8 +74,8 @@ class _MirageNavBarState extends State<MirageNavBar> {
             mounted: mounted,
             child: Mirage4StripSwitcher(
               keywordsMap: _keywordsMap,
-              onPhidTap: (String path) => _MirageKeywordsControls.onPhidTap(
-                index: 4,
+              onPhidTap: (String path) => MirageKeywordsControls.onPhidTap(
+                mirageIndex: 4,
                 path: path,
                 keywordsMap: _keywordsMap,
                 mounted: mounted,
@@ -89,8 +89,8 @@ class _MirageNavBarState extends State<MirageNavBar> {
             mounted: mounted,
             child: Mirage3StripSwitcher(
               keywordsMap: _keywordsMap,
-              onPhidTap: (String path) => _MirageKeywordsControls.onPhidTap(
-                index: 3,
+              onPhidTap: (String path) => MirageKeywordsControls.onPhidTap(
+                mirageIndex: 3,
                 path: path,
                 keywordsMap: _keywordsMap,
                 mounted: mounted,
@@ -104,8 +104,8 @@ class _MirageNavBarState extends State<MirageNavBar> {
             mounted: mounted,
             child: Mirage2StripSwitcher(
               keywordsMap: _keywordsMap,
-              onPhidTap: (String path) => _MirageKeywordsControls.onPhidTap(
-                index: 2,
+              onPhidTap: (String path) => MirageKeywordsControls.onPhidTap(
+                mirageIndex: 2,
                 path: path,
                 keywordsMap: _keywordsMap,
                 mounted: mounted,
@@ -124,7 +124,7 @@ class _MirageNavBarState extends State<MirageNavBar> {
             mounted: mounted,
             child: Mirage1StripSwitcher(
               keywordsMap: _keywordsMap,
-              onSelectFlyerType: (String path) => _MirageKeywordsControls.onSelectFlyerType(
+              onSelectFlyerType: (String path) => MirageKeywordsControls.onSelectFlyerType(
                 path: path,
                 mounted: mounted,
                 keywordsMap: _keywordsMap,
@@ -152,7 +152,7 @@ class _MirageNavBarState extends State<MirageNavBar> {
             index: 0,
             mounted: mounted,
             child: MainMirageStrip(
-              onSectionsTap: () => _MirageKeywordsControls.onSectionsButtonTap(
+              onSectionsTap: () => MirageKeywordsControls.onSectionsButtonTap(
                 mounted: mounted,
               ),
               onZoneButtonTap: () async {

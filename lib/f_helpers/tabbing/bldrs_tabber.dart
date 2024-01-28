@@ -420,7 +420,7 @@ class BldrsTabber {
   /// button index
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static int getButtonIndexInMainMirage({
     required String bid,
   }){
@@ -437,7 +437,7 @@ class BldrsTabber {
     }
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static int getButtonIndexInProfileMirage({
     required String bid,
   }){
@@ -455,7 +455,7 @@ class BldrsTabber {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static int getButtonIndexInMyBzzMirage({
     required String bzID,
   }){
@@ -469,7 +469,7 @@ class BldrsTabber {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static int getButtonIndexInBzProfileMirage({
     required String bid,
   }){
