@@ -50,12 +50,10 @@ class Keyworder {
 
     if (keywordsMap != null && phid != null) {
 
-      final List<String> _mapPaths = MapPathing.generatePathsFromMap(map: keywordsMap);
-
       /// SEARCHING KEYS
-      final List<String> _foundPaths = Pathing.findPathsContainingSubstring(
-        paths: _mapPaths,
-        subString: phid,
+      final List<String> _foundPaths = findPathsContainingPhid(
+        phid: phid,
+        keywordsMap: keywordsMap,
       );
 
       if (Lister.checkCanLoop(_foundPaths) == true){
@@ -66,6 +64,29 @@ class Keyworder {
         }
       }
 
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> findPathsContainingPhid({
+    required Map<String, dynamic>? keywordsMap,
+    required String? phid,
+  }){
+    List<String> _output = [];
+
+    if (keywordsMap != null && phid != null) {
+
+      final List<String> _mapPaths = MapPathing.generatePathsFromMap(
+          map: keywordsMap
+      );
+
+      /// SEARCHING KEYS
+      _output = Pathing.findPathsContainingSubstring(
+        paths: _mapPaths,
+        subString: phid,
+      );
     }
 
     return _output;
