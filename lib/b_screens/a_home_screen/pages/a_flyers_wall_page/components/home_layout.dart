@@ -1,7 +1,11 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/components/animators/widget_fader.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
+import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
+import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/layouts/download_app_panel/download_app_panel.dart';
 import 'package:bldrs/z_components/layouts/main_layout/pre_layout.dart';
 import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
@@ -62,27 +66,33 @@ class HomeLayout extends StatelessWidget {
               if (kIsWeb == true)
                 const DownloadAppPanel(),
 
-              // BldrsBox(
-              //   height: 60,
-              //   width: 60,
-              //   icon: Iconz.star,
-              //   color: Colorz.bloodTest,
-              //   iconSizeFactor: 0.6,
-              //   onTap: () async {
-              //
-              //     // await MirageNav.goToKeyword(
-              //     //     phid: 'phid_k_prd_tool_garden_glove',
-              //     // );
-              //
-              //     // await Nav.pushAndRemoveAllBelow(
-              //     //     context: context,
-              //     //     screen: TheHomeScreen(
-              //     //       key: UniqueKey(),
-              //     //     ),
-              //     // );
-              //
-              //   },
-              // ),
+              BldrsBox(
+                height: 60,
+                width: 60,
+                icon: Iconz.star,
+                color: Colorz.bloodTest,
+                iconSizeFactor: 0.6,
+                onTap: () async {
+
+                  await NotesProvider.proSetBadge(
+                      bid: BldrsTabber.bidHome,
+                      value: 3,
+                      notify: true,
+                  );
+
+                  // await MirageNav.goToKeyword(
+                  //     phid: 'phid_k_prd_tool_garden_glove',
+                  // );
+
+                  // await Nav.pushAndRemoveAllBelow(
+                  //     context: context,
+                  //     screen: TheHomeScreen(
+                  //       key: UniqueKey(),
+                  //     ),
+                  // );
+
+                },
+              ),
 
             ],
           ),
