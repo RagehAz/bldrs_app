@@ -1,20 +1,20 @@
 part of mirage;
 // ignore_for_file: unused_element
 
-class _MirageButton extends StatelessWidget {
+class MirageButton extends StatelessWidget {
   // --------------------------------------------------------------------------
-  const _MirageButton({
+  const MirageButton({
     required this.icon,
     required this.bigIcon,
     required this.verse,
     required this.onTap,
     required this.iconColor,
-    required this.redDotVerse,
-    required this.redDotCount,
-    required this.redDotIsOn,
     required this.canShow,
     required this.isSelected,
+    required this.buttonID,
     this.loading = false,
+    this.forceRedDot = false,
+    this.countOverride,
     super.key
   });
   // --------------------
@@ -23,12 +23,13 @@ class _MirageButton extends StatelessWidget {
   final bool bigIcon;
   final Color? iconColor;
   final Function onTap;
-  final Verse? redDotVerse;
-  final int? redDotCount;
-  final bool redDotIsOn;
+
   final bool canShow;
   final bool isSelected;
   final bool loading;
+  final String buttonID;
+  final bool forceRedDot;
+  final int? countOverride;
   // --------------------------------------------------------------------------
   static double getWidth = 150;
   static double getMaxWidth = getWidth * 2;
@@ -40,15 +41,22 @@ class _MirageButton extends StatelessWidget {
     if (canShow == true){
       // --------------------
       final double _iconSizeFactor = bigIcon == true ? 1 : 0.5;
+
+      final Badger _badger = NotesProvider.proGetBadger(
+        context: context,
+        listen: true,
+      );
+      final Verse? _redDotVerse = Badger.getBadgeVerse(badger: _badger, bid: buttonID);
+
       // --------------------
       return RedDotBadge(
         height: getHeight,
-        redDotIsOn: redDotIsOn,
-        count: redDotCount,
-        verse: redDotVerse,
         approxChildWidth: getWidth,
         shrinkChild: true,
-        isNano: redDotVerse != null,
+        redDotIsOn: Badger.checkBadgeRedDotIsOn(badger: _badger, bid: buttonID, forceRedDot: forceRedDot),
+        count: countOverride ?? Badger.getBadgeCount(badger: _badger, bid: buttonID),
+        verse: _redDotVerse,
+        isNano: _redDotVerse != null,
         child: BldrsBox(
           maxWidth: getMaxWidth,
           height: getHeight,

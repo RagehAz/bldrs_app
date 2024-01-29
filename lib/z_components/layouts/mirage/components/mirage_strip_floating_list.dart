@@ -17,7 +17,7 @@ class _MirageStripScrollableList extends StatelessWidget {
 
     return SizedBox(
       width: Scale.screenWidth(context),
-      height: _MirageButton.getHeight,
+      height: MirageButton.getHeight,
       child: ScrollablePositionedList.builder(
           physics: const BouncingScrollPhysics(),
           itemCount: columnChildren.length,

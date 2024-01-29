@@ -56,7 +56,8 @@ class _MyBzzMirageStrip extends StatelessWidget {
                           return BzBuilder(
                               bzID: _bzID,
                               builder: (bool loading, BzModel? bzModel, Widget? child) {
-                                return _MirageButton(
+                                return MirageButton(
+                                  buttonID: BldrsTabber.generateBzBid(bzID: _bzID, bid: null),
                                   isSelected: _selectedBzID == _bzID,
                                   verse: Verse(
                                     id: bzModel?.name,
@@ -66,9 +67,7 @@ class _MyBzzMirageStrip extends StatelessWidget {
                                   bigIcon: true,
                                   iconColor: null,
                                   canShow: true,
-                                  redDotCount: _count,
-                                  redDotIsOn: _count > 0,
-                                  redDotVerse: null,
+                                  countOverride: _count,
                                   onTap: bzModel == null ? (){} : () => onBzTap(_bzID),
                                   loading: loading,
                                 );

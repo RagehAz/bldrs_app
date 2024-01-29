@@ -56,7 +56,7 @@ class _SectionsMirageStrip extends StatelessWidget {
                   //   flyerType: _flyerType,
                   // );
 
-                  return _MirageButton(
+                  return MirageButton(
                     isSelected: Pathing.getLastPathNode(selectedButton) == _phid,
                     verse: Verse(
                       id: _phid,
@@ -70,14 +70,11 @@ class _SectionsMirageStrip extends StatelessWidget {
                     bigIcon: true,
                     iconColor: null,
                     canShow: true,
-                    redDotCount: null,
-                    redDotIsOn: false,
-                    redDotVerse: null,
+                    buttonID: '$_phid/',
                     onTap: () => onSelectFlyerType('$_phid/'),
                   );
 
                 }),
-
 
             ],
           );

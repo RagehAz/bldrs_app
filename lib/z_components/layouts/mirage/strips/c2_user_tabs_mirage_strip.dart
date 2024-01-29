@@ -32,13 +32,11 @@ class _UserTabsMirageStrip extends StatelessWidget {
                     const String _bid = BldrsTabber.bidMyInfo;
                     final bool _isSelected = selectedButton == _bid;
 
-                    return _MirageButton(
+                    return MirageButton(
                       verse: BldrsTabber.translateBid(_bid),
                       icon: BldrsTabber.getBidIcon(_bid),
-                      redDotIsOn: false,
+                      buttonID: BldrsTabber.bidMyInfo,
                       isSelected: _isSelected,
-                      redDotVerse: null,
-                      redDotCount: null,
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
@@ -54,13 +52,11 @@ class _UserTabsMirageStrip extends StatelessWidget {
                     const String _bid = BldrsTabber.bidMySaves;
                     final bool _isSelected = selectedButton == _bid;
 
-                    return _MirageButton(
+                    return MirageButton(
+                      buttonID: _bid,
                       verse: BldrsTabber.translateBid(_bid),
                       icon: BldrsTabber.getBidIcon(_bid),
-                      redDotIsOn: false,
                       isSelected: _isSelected,
-                      redDotVerse: null,
-                      redDotCount: null,
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
@@ -76,13 +72,11 @@ class _UserTabsMirageStrip extends StatelessWidget {
                     const String _bid = BldrsTabber.bidMyNotes;
                     final bool _isSelected = selectedButton == _bid;
 
-                    return _MirageButton(
+                    return MirageButton(
+                      buttonID: _bid,
                       verse: BldrsTabber.translateBid(_bid),
                       icon: BldrsTabber.getBidIcon(_bid),
-                      redDotIsOn: false,
                       isSelected: _isSelected,
-                      redDotVerse: null,
-                      redDotCount: null,
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
@@ -98,13 +92,11 @@ class _UserTabsMirageStrip extends StatelessWidget {
                     const String _bid = BldrsTabber.bidMyFollows;
                     final bool _isSelected = selectedButton == _bid;
 
-                    return _MirageButton(
+                    return MirageButton(
+                      buttonID: _bid,
                       verse: BldrsTabber.translateBid(_bid),
                       icon: BldrsTabber.getBidIcon(_bid),
-                      redDotIsOn: false,
                       isSelected: _isSelected,
-                      redDotVerse: null,
-                      redDotCount: null,
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
@@ -120,13 +112,11 @@ class _UserTabsMirageStrip extends StatelessWidget {
                     const String _bid = BldrsTabber.bidMySettings;
                     final bool _isSelected = selectedButton == _bid;
 
-                    return _MirageButton(
+                    return MirageButton(
+                      buttonID: _bid,
                       verse: BldrsTabber.translateBid(_bid),
                       icon: BldrsTabber.getBidIcon(_bid),
-                      redDotIsOn: false,
                       isSelected: _isSelected,
-                      redDotVerse: null,
-                      redDotCount: null,
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
