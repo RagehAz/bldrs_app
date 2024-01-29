@@ -47,32 +47,12 @@ class _MyBzzMirageStrip extends StatelessWidget {
 
                           final String _bzID = _myBzzIDs[index];
 
-                          final int _count = Badger.calculateBzTotal(
+                          return BzMirageButton(
                             bzID: _bzID,
-                            badger: badger,
-                            onlyNumbers: true,
+                            buttonID: BldrsTabber.generateBzBid(bzID: _bzID, bid: null),
+                            onTap: (BzModel bz) => onBzTap(_bzID),
+                            isSelected: _selectedBzID == _bzID,
                           );
-
-                          return BzBuilder(
-                              bzID: _bzID,
-                              builder: (bool loading, BzModel? bzModel, Widget? child) {
-                                return MirageButton(
-                                  buttonID: BldrsTabber.generateBzBid(bzID: _bzID, bid: null),
-                                  isSelected: _selectedBzID == _bzID,
-                                  verse: Verse(
-                                    id: bzModel?.name,
-                                    translate: false,
-                                  ),
-                                  icon: StoragePath.bzz_bzID_logo(_bzID),
-                                  bigIcon: true,
-                                  iconColor: null,
-                                  canShow: true,
-                                  countOverride: _count,
-                                  onTap: bzModel == null ? (){} : () => onBzTap(_bzID),
-                                  loading: loading,
-                                );
-                              }
-                              );
 
                         }),
 

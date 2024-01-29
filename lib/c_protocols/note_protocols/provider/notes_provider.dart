@@ -171,6 +171,30 @@ class NotesProvider extends ChangeNotifier {
     required bool notify,
   }) async {
 
+    /*
+
+    YOU CAN DO THOSE
+
+        await NotesProvider.proSetBadge(
+                      bid: BldrsTabber.bidMySaves,
+                      value: 31,
+                      notify: true,
+                  );
+
+                  await NotesProvider.proSetBadge(
+                    bid: BldrsTabber.generateBzBid(bzID: 'Gjm747w1UpfsPUlWXtMc', bid: BldrsTabber.bidMyBzTeam),
+                    value: 2,
+                    notify: true,
+                  );
+
+                  await NotesProvider.proSetBadge(
+                    bid: 'phid_k_flyer_type_equipment/phid_k_group_equip_handling/',
+                    value: 15,
+                    notify: true,
+                  );
+
+     */
+
     final NotesProvider _pro = Provider.of<NotesProvider>(getMainContext(), listen: false);
 
     _pro._badger = Badger.insertBadge(
