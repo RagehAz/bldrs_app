@@ -29,7 +29,6 @@ import 'package:bldrs/f_helpers/future_model_builders/bzz_builder.dart';
 import 'package:bldrs/f_helpers/router/z_mirage_nav.dart';
 import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
-import 'package:bldrs/z_components/buttons/keywords_buttons/sections_button.dart';
 import 'package:bldrs/z_components/buttons/multi_button/a_multi_button.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/layouts/layout_visibility_listener.dart';
@@ -41,6 +40,7 @@ import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:bldrs/z_components/buttons/keywords_buttons/sections_button.dart';
 // -----------------------------------------------------------------------------
 
 /// COMPONENTS
@@ -51,6 +51,8 @@ part 'components/mirage_button.dart';
 part 'components/mirage_pyramid.dart';
 part 'components/mirage_strip.dart';
 part 'components/mirage_strip_floating_list.dart';
+part 'components/bz_mirage_button.dart';
+part 'components/section_mirage_button.dart';
 // -----------------------------------------------------------------------------
 
 /// CONTROLLERS

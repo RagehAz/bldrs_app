@@ -38,13 +38,11 @@ class _BzTabsMirageStrip extends StatelessWidget {
                     const String? _bid = BldrsTabber.bidMyBzInfo;
                     final bool _isSelected = _bid == BldrsTabber.getBidFromBidBz(bzBid: _bidBz);
 
-                    return _MirageButton(
+                    return MirageButton(
+                      buttonID: BldrsTabber.generateBzBid(bzID: bzID, bid: _bid),
                       verse: BldrsTabber.translateBid(_bid),
                       icon: BldrsTabber.getBidIcon(_bid),
-                      redDotIsOn: false,
                       isSelected: _isSelected,
-                      redDotVerse: null,
-                      redDotCount: null,
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
@@ -60,13 +58,11 @@ class _BzTabsMirageStrip extends StatelessWidget {
                     const String? _bid = BldrsTabber.bidMyBzFlyers;
                     final bool _isSelected = _bid == BldrsTabber.getBidFromBidBz(bzBid: _bidBz);
 
-                    return _MirageButton(
+                    return MirageButton(
+                      buttonID: BldrsTabber.generateBzBid(bzID: bzID, bid: _bid),
                       verse: BldrsTabber.translateBid(_bid),
                       icon: BldrsTabber.getBidIcon(_bid),
-                      redDotIsOn: false,
                       isSelected: _isSelected,
-                      redDotVerse: null,
-                      redDotCount: null,
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
@@ -82,13 +78,11 @@ class _BzTabsMirageStrip extends StatelessWidget {
                     const String? _bid = BldrsTabber.bidMyBzTeam;
                     final bool _isSelected = _bid == BldrsTabber.getBidFromBidBz(bzBid: _bidBz);
 
-                    return _MirageButton(
+                    return MirageButton(
+                      buttonID: BldrsTabber.generateBzBid(bzID: bzID, bid: _bid),
                       verse: BldrsTabber.translateBid(_bid),
                       icon: BldrsTabber.getBidIcon(_bid),
-                      redDotIsOn: false,
                       isSelected: _isSelected,
-                      redDotVerse: null,
-                      redDotCount: null,
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
@@ -104,13 +98,11 @@ class _BzTabsMirageStrip extends StatelessWidget {
                     const String? _bid = BldrsTabber.bidMyBzNotes;
                     final bool _isSelected = _bid == BldrsTabber.getBidFromBidBz(bzBid: _bidBz);
 
-                    return _MirageButton(
+                    return MirageButton(
+                      buttonID: BldrsTabber.generateBzBid(bzID: bzID, bid: _bid),
                       verse: BldrsTabber.translateBid(_bid),
                       icon: BldrsTabber.getBidIcon(_bid),
-                      redDotIsOn: false,
                       isSelected: _isSelected,
-                      redDotVerse: null,
-                      redDotCount: null,
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
@@ -126,13 +118,11 @@ class _BzTabsMirageStrip extends StatelessWidget {
                     const String? _bid = BldrsTabber.bidMyBzSettings;
                     final bool _isSelected = _bid == BldrsTabber.getBidFromBidBz(bzBid: _bidBz);
 
-                    return _MirageButton(
+                    return MirageButton(
+                      buttonID: BldrsTabber.generateBzBid(bzID: bzID, bid: _bid),
                       verse: BldrsTabber.translateBid(_bid),
                       icon: BldrsTabber.getBidIcon(_bid),
-                      redDotIsOn: false,
                       isSelected: _isSelected,
-                      redDotVerse: null,
-                      redDotCount: null,
                       canShow: true,
                       bigIcon: false,
                       iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
