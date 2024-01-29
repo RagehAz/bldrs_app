@@ -12,7 +12,7 @@ import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/main_phrases_protocols/main_phrases_json_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class NoteEventsOfAuthorship {

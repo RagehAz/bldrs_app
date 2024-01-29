@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_action_protocols.dart';
-import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 // -----------------------------------------------------------------------------
 
 /// NOTE TAP

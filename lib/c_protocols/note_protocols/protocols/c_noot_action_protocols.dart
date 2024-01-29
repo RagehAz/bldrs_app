@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
-import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
 /// TAMAM
 class NootActionProtocols {
   // -----------------------------------------------------------------------------
