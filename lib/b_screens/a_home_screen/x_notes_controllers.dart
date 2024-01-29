@@ -9,7 +9,7 @@ import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 

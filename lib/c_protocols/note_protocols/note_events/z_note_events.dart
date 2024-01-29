@@ -14,9 +14,8 @@ import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.
 import 'package:bldrs/c_protocols/phrase_protocols/main_phrases_protocols/main_phrases_json_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
-import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 

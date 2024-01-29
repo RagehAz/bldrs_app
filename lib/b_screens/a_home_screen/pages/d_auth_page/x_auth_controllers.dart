@@ -9,7 +9,6 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
