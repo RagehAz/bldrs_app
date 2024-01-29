@@ -119,6 +119,8 @@ class MirageKeywordsControls {
     required bool mounted,
   }) async {
 
+    blog('onPhidTap : path : $path');
+
     final List<MirageModel> allMirages = HomeProvider.proGetMirages(
         context: getMainContext(),
         listen: false,

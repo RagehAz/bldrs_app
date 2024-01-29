@@ -45,7 +45,7 @@ class Mirage2StripSwitcher extends StatelessWidget {
           return _MapSonMirageStrip(
             thisMirage: mirage2,
             mirageBelow: mirage1,
-            previousPath: '$selectedButton/',
+            previousPath: '$selectedButton',
             parentMap: keywordsMap,
             onPhidTap: onPhidTap,
           );
