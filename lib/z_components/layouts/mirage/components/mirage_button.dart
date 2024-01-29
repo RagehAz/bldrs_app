@@ -53,7 +53,7 @@ class MirageButton extends StatelessWidget {
         height: getHeight,
         approxChildWidth: getWidth,
         shrinkChild: true,
-        redDotIsOn: Badger.checkBadgeRedDotIsOn(badger: _badger, bid: buttonID, forceRedDot: forceRedDot),
+        redDotIsOn: (countOverride != null && countOverride != 0) || Badger.checkBadgeRedDotIsOn(badger: _badger, bid: buttonID, forceRedDot: forceRedDot),
         count: countOverride ?? Badger.getBadgeCount(badger: _badger, bid: buttonID),
         verse: _redDotVerse,
         isNano: _redDotVerse != null,

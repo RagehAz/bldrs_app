@@ -47,7 +47,6 @@ class _MapSonMirageStrip extends StatelessWidget {
 
           final String? _lastNode = Pathing.getLastPathNode(selectedPath);
 
-
           return _MirageStripScrollableList(
             mirageModel: thisMirage,
             columnChildren: <Widget>[
@@ -69,7 +68,7 @@ class _MapSonMirageStrip extends StatelessWidget {
                     bigIcon: true,
                     iconColor: null,
                     canShow: true,
-                    buttonID:'$previousPath$_sonPhid/',
+                    buttonID: '$previousPath$_sonPhid/',
                     onTap: () => onPhidTap('$previousPath$_sonPhid/'),
                   );
 
