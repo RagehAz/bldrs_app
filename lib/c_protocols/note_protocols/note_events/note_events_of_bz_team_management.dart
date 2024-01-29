@@ -13,7 +13,8 @@ import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.
 import 'package:bldrs/c_protocols/phrase_protocols/main_phrases_protocols/main_phrases_json_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/router/a_route_name.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
+import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +76,7 @@ class NoteEventsOfBzTeamManagement {
           receiverPartyType: PartyType.bz,
         ),
         navTo: TriggerModel(
-          name: RouteName.myBzTeamPage,
+          name: BldrsTabber.bidMyBzTeam, /// WHICH_BZ_EXACTLY
           argument: bzID,
           done: const [],
         ),
@@ -152,7 +153,7 @@ class NoteEventsOfBzTeamManagement {
           receiverPartyType: PartyType.bz,
         ),
         navTo: TriggerModel(
-          name: RouteName.myBzTeamPage,
+          name: BldrsTabber.bidMyBzTeam, /// WHICH_BZ_EXACTLY
           argument: bzModel.id,
           done: const [],
         ),
@@ -201,7 +202,7 @@ class NoteEventsOfBzTeamManagement {
         token: _userModel.device?.token,
         topic: TopicModel.userAuthorshipsInvitations,
         navTo: const TriggerModel(
-          name: RouteName.myUserNotes,
+          name: BldrsTabber.bidMyNotes,
           argument: null,
           done: [],
         ),
@@ -272,7 +273,7 @@ class NoteEventsOfBzTeamManagement {
               ),
               topic: TopicModel.userAuthorshipsInvitations,
               navTo: const TriggerModel(
-                name: RouteName.myUserNotes,
+                name: BldrsTabber.bidMyNotes,
                 argument: null,
                 done: [],
               ),
@@ -338,7 +339,7 @@ class NoteEventsOfBzTeamManagement {
         receiverPartyType: PartyType.bz,
       ),
       navTo: TriggerModel(
-        name: RouteName.userPreview,
+        name: ScreenName.userPreview,
         argument: userModel.id,
         done: const [],
       ),

@@ -15,7 +15,7 @@ import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/f_helpers/router/a_route_name.dart';
+import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
@@ -1171,7 +1171,7 @@ class NoteModel {
       poll: PollModel.dummyPoll(),
       topic: TopicModel.userGeneralNews,
       navTo: const TriggerModel(
-        name: RouteName.myUserNotes,
+        name: BldrsTabber.bidMyNotes,
         done: [],
         argument: null,
       ),
@@ -1221,7 +1221,7 @@ class NoteModel {
       // sendNote: true,
       // sendFCM: true,
       navTo: const TriggerModel(
-        name: RouteName.myUserNotes,
+        name: BldrsTabber.bidMyNotes,
         done: [],
         argument: null,
       ),    );

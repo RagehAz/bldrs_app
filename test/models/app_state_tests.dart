@@ -1,5 +1,5 @@
 import 'package:basics/components/sensors/app_version_builder.dart';
-import 'package:bldrs/f_helpers/router/b_static_router.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -169,37 +169,37 @@ void main() {
   group('xxxx', () {
 
     test('a', () {
-      final String? _is = StaticRouter.getRouteSettingsNameFromFullPath('http://localhost:63065/#/home');
+      final String? _is = RoutePather.getRouteSettingsNameFromFullPath('http://localhost:63065/#/home');
       expect(_is, '/home');
     });
 
     test('b', () {
-      final String? _is = StaticRouter.getRouteSettingsNameFromFullPath('http://localhost:63065');
+      final String? _is = RoutePather.getRouteSettingsNameFromFullPath('http://localhost:63065');
       expect(_is, '/');
     });
 
     test('c', () {
-      final String? _is = StaticRouter.getRouteSettingsNameFromFullPath('http://localhost:63065/#/privacy');
+      final String? _is = RoutePather.getRouteSettingsNameFromFullPath('http://localhost:63065/#/privacy');
       expect(_is, '/privacy');
     });
 
     test('d', () {
-      final String? _is = StaticRouter.getRouteSettingsNameFromFullPath('http://localhost:63385/#/flyerPreview:0Vyr4hWSwdbH1EsbOC4P');
+      final String? _is = RoutePather.getRouteSettingsNameFromFullPath('http://localhost:63385/#/flyerPreview:0Vyr4hWSwdbH1EsbOC4P');
       expect(_is, '/flyerPreview:0Vyr4hWSwdbH1EsbOC4P');
     });
 
     test('e', () {
-      final String? _is = StaticRouter.getRouteSettingsNameFromFullPath('https://www.bldrs.net/');
+      final String? _is = RoutePather.getRouteSettingsNameFromFullPath('https://www.bldrs.net/');
       expect(_is, '/');
     });
 
     test('f', () {
-      final String? _is = StaticRouter.getRouteSettingsNameFromFullPath('https://www.bldrs.net/#/home');
+      final String? _is = RoutePather.getRouteSettingsNameFromFullPath('https://www.bldrs.net/#/home');
       expect(_is, '/home');
     });
 
     test('g', () {
-      final String? _is = StaticRouter.getRouteSettingsNameFromFullPath('https://www.bldrs.net/#/flyerPreview:0Vyr4hWSwdbH1EsbOC4P');
+      final String? _is = RoutePather.getRouteSettingsNameFromFullPath('https://www.bldrs.net/#/flyerPreview:0Vyr4hWSwdbH1EsbOC4P');
       expect(_is, '/flyerPreview:0Vyr4hWSwdbH1EsbOC4P');
     });
 

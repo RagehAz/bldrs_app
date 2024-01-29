@@ -8,7 +8,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/c_bz_team_page/bz_team_page_controllers.dart';
-import 'package:bldrs/flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
+import 'package:bldrs/g_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/buttons/bz_buttons/contact_button.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';

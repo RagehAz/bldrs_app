@@ -10,6 +10,7 @@ import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/b_screens/b_user_screens/c_user_editor_screen/user_editor_screen.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
@@ -20,8 +21,9 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs/f_helpers/router/z_mirage_nav.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:fire/super_fire.dart';
 
 class UserInitializer {
@@ -552,6 +554,51 @@ class UserInitializer {
   // -----------------------------------------------------------------------------
   static void _report(String text){
     blog('  User--> $text');
+  }
+  // -----------------------------------------------------------------------------
+
+  /// USER MISSING FIELDS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> checkIfUserIsMissingFields() async {
+    // blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ START');
+
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
+      listen: false,
+    );
+
+    if (Authing.userIsSignedUp(_userModel?.signInMethod) == true){
+
+      if (_userModel != null){
+        final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
+          userModel: _userModel,
+        );
+        /// MISSING FIELDS FOUND
+        if (_thereAreMissingFields == true){
+          await Formers.showUserMissingFieldsDialog(
+            userModel: _userModel,
+          );
+          await BldrsNav.goToNewScreen(
+              screen: UserEditorScreen(
+                initialTab: UserEditorTab.pic,
+                firstTimer: false,
+                userModel: _userModel,
+                reAuthBeforeConfirm: false,
+                canGoBack: true,
+                validateOnStartup: true,
+                // checkLastSession: true,
+                onFinish: () async {
+                  await MirageNav.goTo(tab: BldrsTab.myInfo);
+                  },
+              )
+          );
+        }
+      }
+
+    }
+    // blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ END');
   }
   // -----------------------------------------------------------------------------
 }

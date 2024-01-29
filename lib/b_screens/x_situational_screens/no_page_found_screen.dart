@@ -2,13 +2,12 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/f_helpers/router/a_route_name.dart';
-import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
 import 'package:flutter/material.dart';
 
 class NoPageFoundScreen extends StatelessWidget {
@@ -61,8 +60,8 @@ class NoPageFoundScreen extends StatelessWidget {
             icon: Iconz.bldrsAppIcon,
             bubble: false,
             iconColor: Colorz.yellow50,
-            onTap: () => DynamicRouter.goTo(
-              routeSettingsName: RouteName.home,
+            onTap: () => ScreenRouter.goTo(
+              routeSettingsName: ScreenName.home,
               args: null,
             ),
           ),
