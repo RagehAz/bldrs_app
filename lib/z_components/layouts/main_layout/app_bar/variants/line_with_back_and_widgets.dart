@@ -32,8 +32,7 @@ class LineWithBackAndWidgets extends StatelessWidget {
         const SizedBox(width: Ratioz.appBarPadding),
 
         if (canGoBack == true)
-        BackAndSearchButton(
-          backAndSearchAction: BackAndSearchAction.goBack,
+        TheBackButton(
           onTap: onBack,
         ),
 

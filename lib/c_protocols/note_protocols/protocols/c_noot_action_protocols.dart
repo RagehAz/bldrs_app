@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
-import 'package:bldrs/f_helpers/router/a_route_name.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
+import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
 /// TAMAM
 class NootActionProtocols {
   // -----------------------------------------------------------------------------
@@ -26,9 +26,9 @@ class NootActionProtocols {
 
         final String _secondaryRouteName =
         noteModel.parties?.receiverType == PartyType.bz ?
-        RouteName.myBzNotesPage
+        BldrsTabber.bidMyBzNotes /// WHICH_BZ_EXACTLY
             :
-        RouteName.myUserNotes;
+        BldrsTabber.bidMyNotes;
 
         final String? _secondaryArgument =
         noteModel.parties?.receiverType == PartyType.bz ?

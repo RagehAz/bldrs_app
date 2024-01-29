@@ -14,7 +14,8 @@ import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.
 import 'package:bldrs/c_protocols/phrase_protocols/main_phrases_protocols/main_phrases_json_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/router/a_route_name.dart';
+import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -149,7 +150,7 @@ class NoteEvent {
       ),
       sendFCM: !_imAuthorOfThisBz, // do not send if im author in this bz
       navTo: TriggerModel(
-        name: RouteName.flyerReviews,
+        name: ScreenName.flyerReviews,
         argument: ReviewModel.createFlyerIDReviewIDLinkPart(
           flyerID: reviewModel.flyerID,
           reviewID: reviewModel.id,
@@ -207,7 +208,7 @@ class NoteEvent {
           receiverPartyType: PartyType.user,
         ),
         navTo: TriggerModel(
-          name: RouteName.flyerReviews,
+          name: ScreenName.flyerReviews,
           argument: ReviewModel.createFlyerIDReviewIDLinkPart(
             flyerID: reviewModel.flyerID,
             reviewID: reviewModel.id,
@@ -272,7 +273,7 @@ class NoteEvent {
           receiverPartyType: PartyType.bz,
         ),
         navTo: TriggerModel(
-          name: RouteName.myBzNotesPage,
+          name: BldrsTabber.bidMyBzNotes, /// WHICH_BZ_EXACTLY
           argument: bzModel.id,
           done: const [],
         ),

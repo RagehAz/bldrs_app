@@ -2,24 +2,29 @@
   | --------------------------|
   |
   | - [Start]
-  |     | - [staticLogoScreen] - [animatedLogoScreen]
+  |     | - [LogoScreen]
   |             | - [home]
-  |             | - [search]
-  |             | - [auth]
-  |             | - [appSettings]
-  |             | - [profile]
-  |             |       | - [profileEditor]
-  |             |       | - [myUserNotesPage]
-  |             |       
-  |             | - [savedFlyers]
-  |             | - [myBz]
-  |             |       | - [bzEditor]
-  |             |       | - [flyerEditor]
-  |             |       | - [myBzAboutPage]
-  |             |       | - [myBzFlyersPage]
-  |             |       | - [myBzTeamPage]
-  |             |       | - [myBzNotesPage]
-  |             |       
+  |             |       | - [sections]
+  |             |       | - [zone]
+  |             |       | - [auth]
+  |             |       | - [profile]
+  |             |       |       | - [info]
+  |             |       |       | - [savedFlyers]
+  |             |       |       | - [notifications]
+  |             |       |       | - [follows]
+  |             |       |       | - [settings]
+  |             |       |
+  |             |       | - [myBzz]
+  |             |       |       | - [info]
+  |             |       |       | - [flyers]
+  |             |       |       |       | - [flyerEditor]
+  |             |       |       | - [team]
+  |             |       |       | - [notifications]
+  |             |       |       | - [settings]
+  |             |       |               | - [bzEditor]
+  |             |       |
+  |             |       | - [appSettings]
+  |             |
   |             | - [userPreview]
   |             | - [bzPreview]
   |             | - [flyerPreview]
@@ -27,6 +32,8 @@
   |             |       
   |             | - [underConstruction]
   |             | - [banner]
-  |             | - [dashboard]
+  |             | - [privacy]
+  |             | - [terms]
+  |             | - [deleteMyData]
   |
   | --------------------------|

@@ -2,12 +2,12 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/e_app_settings_page/x_app_settings_controllers.dart';
+import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/space/scale.dart';
@@ -135,7 +135,8 @@ class CreateNewBzButton extends StatelessWidget {
             onTap: () => onCreateNewBzTap(),
             onDisabledTap: () async {
               await Dialogs.youNeedToBeSignedUpDialog(
-                afterHomeRouteName: RouteName.appSettings,
+                /// GO_TO_APP_SETTINGS
+                afterHomeRouteName: BldrsTabber.bidAppSettings,
                 afterHomeRouteArgument: null,
               );
             },
