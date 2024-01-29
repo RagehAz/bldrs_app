@@ -22,7 +22,7 @@ class MirageStrip extends StatelessWidget {
     return Scale.superInsets(
       context: getMainContext(),
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
-      enRight: 10 - RedDotBadge.getShrinkageDX(childWidth: _MirageButton.getWidth, isNano: false),
+      enRight: 10 - RedDotBadge.getShrinkageDX(childWidth: MirageButton.getWidth, isNano: false),
       enLeft: 10,
       top: 3,
     );

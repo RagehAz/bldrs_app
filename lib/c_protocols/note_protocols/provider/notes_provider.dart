@@ -185,6 +185,15 @@ class NotesProvider extends ChangeNotifier {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static Badger proGetBadger({
+    required BuildContext context,
+    required bool listen,
+  }){
+    final NotesProvider _pro = Provider.of<NotesProvider>(context, listen: listen);
+    return _pro.badger;
+  }
+  // --------------------
   /*
   /// TESTED : WORKS PERFECT
   static Future<void> proSetBzObeliskBadge({
