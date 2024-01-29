@@ -6,9 +6,7 @@ import 'package:bldrs/c_protocols/app_initialization_protocols/sub/c_user_initia
 import 'package:bldrs/c_protocols/app_initialization_protocols/sub/e_ui_initializer.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/a_route_name.dart';
-import 'package:bldrs/f_helpers/router/b_static_router.dart';
-import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -111,7 +109,7 @@ class Initializer {
       else {
         await Nav.pushNamedAndRemoveAllBelow(
           context: getMainContext(),
-          goToRoute: RouteName.home,
+          goToRoute: ScreenName.home,
         );
       }
 
@@ -126,21 +124,18 @@ class Initializer {
 
       final String _url = window.location.toString();
 
-      final String? _path = StaticRouter.getPathFromWindowURL(_url);
+      final String? _path = RoutePather.getPathFromWindowURL(_url);
 
       /// LANDED ON LOGO SCREENS
-      if (
-          _path == RouteName.animatedLogo ||
-          _path == RouteName.staticLogo
-      ){
+      if (_path == ScreenName.staticLogo){
         await Nav.pushNamedAndRemoveAllBelow(
           context: getMainContext(),
-          goToRoute: RouteName.home,
+          goToRoute: ScreenName.home,
         );
       }
 
       /// LANDED ON HOME SCREEN
-      else if (_path == RouteName.home){
+      else if (_path == ScreenName.home){
         // do nothing
       }
 
@@ -153,11 +148,11 @@ class Initializer {
         /// TO REPLACING THE ROUTE BELOW BECAUSE WE FAILED TO DO THAT
         unawaited(Nav.pushNamedAndRemoveAllBelow(
           context: context,
-          goToRoute: RouteName.home,
+          goToRoute: ScreenName.home,
         ));
 
-        await DynamicRouter.goTo(
-          routeSettingsName: StaticRouter.getRouteSettingsNameFromFullPath(_url),
+        await ScreenRouter.goTo(
+          routeSettingsName: RoutePather.getRouteSettingsNameFromFullPath(_url),
           args: null,
         );
 

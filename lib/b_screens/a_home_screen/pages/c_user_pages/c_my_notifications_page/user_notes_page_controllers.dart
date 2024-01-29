@@ -1,13 +1,14 @@
 import 'dart:async';
+
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_action_protocols.dart';
+import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
+import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs/f_helpers/router/a_route_name.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -23,8 +24,9 @@ Future<void> onUserNoteTap({
   // noteModel.blogNoteModel(invoker: 'onUserNoteTap');
 
   if (
-      noteModel?.navTo?.name != RouteName.myUserNotes ||
-      noteModel?.navTo?.name != RouteName.myBzNotesPage
+      noteModel?.navTo?.name != BldrsTabber.bidMyNotes ||
+      /// WHICH_BZ_EXACTLY : BldrsTabber.bidMyBzNotes ?
+      noteModel?.navTo?.name != BldrsTabber.bidMyBzNotes
   ){
 
     await NootActionProtocols.onNootTap(
@@ -194,9 +196,9 @@ bool canTapNoteBubble(NoteModel? noteModel){
     return false;
   }
   else if (
-      noteModel.navTo?.name == RouteName.myUserNotes
+      noteModel.navTo?.name == BldrsTabber.bidMyNotes
       ||
-      noteModel.navTo?.name == RouteName.myBzNotesPage
+      noteModel.navTo?.name == BldrsTabber.bidMyBzNotes /// WHICH_BZ_EXACTLY
       ||
       noteModel.navTo?.name == null
   ){

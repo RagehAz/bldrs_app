@@ -27,7 +27,6 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
-import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_dev_test.dart';
 import 'package:fire/super_fire.dart';
@@ -42,8 +41,6 @@ class AppSettingsPage extends StatelessWidget {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // --------------------
-    DynamicRouter.blogGo('AppSettingsScreen');
     // --------------------
     final UserModel? _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
     final bool _userIsSignedUp = Authing.userIsSignedUp(_userModel?.signInMethod);

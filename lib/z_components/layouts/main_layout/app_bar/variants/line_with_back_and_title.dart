@@ -31,8 +31,7 @@ class LineWithBackAndTitle extends StatelessWidget {
         ),
 
         if (canGoBack == true)
-        BackAndSearchButton(
-          backAndSearchAction: BackAndSearchAction.goBack,
+        TheBackButton(
           onTap: onBack,
         ),
 

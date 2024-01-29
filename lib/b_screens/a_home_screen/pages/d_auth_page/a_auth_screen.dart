@@ -9,7 +9,6 @@ import 'package:bldrs/b_screens/a_home_screen/pages/d_auth_page/x_auth_controlle
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
-import 'package:bldrs/f_helpers/router/c_dynamic_router.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -225,8 +224,6 @@ class _AuthScreenState extends State<AuthScreen> {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // --------------------
-    DynamicRouter.blogGo('AuthScreen');
     // --------------------
     return MainLayout(
       canSwipeBack: widget.appBarType != AppBarType.non,
