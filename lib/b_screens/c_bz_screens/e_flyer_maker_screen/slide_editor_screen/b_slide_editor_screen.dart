@@ -11,7 +11,7 @@ import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_s
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/x_controllers/navigation_controls.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/control_panels/slide_editor_main_control_panel.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_editor_slide_part.dart';
-import 'package:bldrs/flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';

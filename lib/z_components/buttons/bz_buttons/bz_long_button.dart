@@ -7,7 +7,7 @@ import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/components/drawing/spacing.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/flyer/a_flyer_screen/xx_header_controllers.dart';
+import 'package:bldrs/g_flyer/a_flyer_screen/xx_header_controllers.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/contacts_bubble/contacts_wrap.dart';
 import 'package:bldrs/z_components/buttons/bz_buttons/authors_wrap.dart';
@@ -19,7 +19,7 @@ import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
-import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:flutter/material.dart';
 
 class BzBubble extends StatelessWidget {

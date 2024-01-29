@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/flyer/z_components/c_groups/flyers_shelf/flyers_shelf_bubble.dart';
+import 'package:bldrs/g_flyer/z_components/c_groups/flyers_shelf/flyers_shelf_bubble.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/bz_bubbles/bz_flyers_bubble/more_flyers_slide.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';

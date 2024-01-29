@@ -11,7 +11,7 @@ import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 

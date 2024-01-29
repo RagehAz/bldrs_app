@@ -2,7 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/components/drawing/spacing.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/color_panel_buttons.dart';
-import 'package:bldrs/flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
 
 class SlideColorPanel extends StatelessWidget {

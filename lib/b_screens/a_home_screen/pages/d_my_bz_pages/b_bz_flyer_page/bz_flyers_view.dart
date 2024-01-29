@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/z_components/active_phids_selector/active_phid_selector.dart';
-import 'package:bldrs/flyer/z_components/c_groups/grid/flyers_grid.dart';
+import 'package:bldrs/g_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:basics/z_grid/z_grid.dart';

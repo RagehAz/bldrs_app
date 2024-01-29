@@ -5,7 +5,6 @@ import 'package:basics/helpers/checks/errorize.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/mediator/sounder/sounder.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
-import 'package:bldrs/b_screens/a_home_screen/x_initialization_controllers.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/sub/b_app_state_initializer.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/sub/c_user_initializer.dart';
@@ -21,7 +20,7 @@ import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/e_back_end/i_app_check/app_check.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
-import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/firebase_options.dart';
 import 'package:bldrs/main.dart';
 import 'package:fire/super_fire.dart';
@@ -275,7 +274,7 @@ class BldrsEngine {
     await NotesProvider.proInitializeNoteStreams(mounted: mounted);
 
     /// MISSING FIELDS
-    await checkIfUserIsMissingFields();
+    await UserInitializer.checkIfUserIsMissingFields();
 
   }
   // --------------------

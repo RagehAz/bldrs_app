@@ -2,7 +2,7 @@ import 'package:basics/components/animators/neo.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
-import 'package:bldrs/flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
 
 class SlideTransformer extends StatelessWidget {

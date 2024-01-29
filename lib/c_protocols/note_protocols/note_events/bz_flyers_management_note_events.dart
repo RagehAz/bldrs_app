@@ -12,7 +12,7 @@ import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/main_phrases_protocols/main_phrases_json_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/f_helpers/router/a_route_name.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 /// => TAMAM
 class NoteEventsOfBzFlyersManagement {
@@ -72,7 +72,7 @@ class NoteEventsOfBzFlyersManagement {
             flyerID: flyerID,
           ),
           navTo: TriggerModel(
-            name: RouteName.flyerPreview,
+            name: ScreenName.flyerPreview,
             argument: flyerID,
             done: const [],
           ),
@@ -136,7 +136,7 @@ class NoteEventsOfBzFlyersManagement {
         receiverPartyType: PartyType.bz,
       ),
       navTo: TriggerModel(
-        name: RouteName.flyerPreview,
+        name: ScreenName.flyerPreview,
         argument: flyerID,
         done: const [],
       ),

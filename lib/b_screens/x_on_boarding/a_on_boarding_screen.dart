@@ -10,7 +10,7 @@ import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/b_screens/x_on_boarding/p1_what_is_bldrs.dart';
 import 'package:bldrs/b_screens/x_on_boarding/p2_who_are_bldrs.dart';
 import 'package:bldrs/b_screens/x_on_boarding/p3_what_bldrs_do.dart';
-import 'package:bldrs/flyer/z_components/b_parts/d_progress_bar/c_strips.dart';
+import 'package:bldrs/g_flyer/z_components/b_parts/d_progress_bar/c_strips.dart';
 import 'package:basics/components/layers/blur_layer.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
@@ -21,7 +21,7 @@ import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:flutter/material.dart';
  // D:\projects\packages\helpers\basics\lib\bldrs_theme\assets\languages
 class OnBoardingScreen extends StatefulWidget {

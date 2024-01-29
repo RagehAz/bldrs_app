@@ -7,17 +7,17 @@ import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/b_screens/c_bz_screens/c_author_editor_screen/a_author_editor_screen.dart';
-import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:bldrs/f_helpers/router/a_route_name.dart';
-import 'package:bldrs/f_helpers/router/d_bldrs_nav.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
+import 'package:bldrs/f_helpers/tabbing/bldrs_tabber.dart';
+import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
 /// => TAMAM
 class AuthorshipRespondingProtocols{
@@ -163,7 +163,7 @@ class AuthorshipRespondingProtocols{
       /// to allow home screen re-init my bzz notes stream to include this bz
       /// and listen to its live notes
       await BldrsNav.restartAndRoute(
-        route: RouteName.myBzAboutPage,
+        route: BldrsTabber.bidMyBzInfo,
         arguments: bzModel?.id,
         goToAnimatedLogoScreen: true,
       );
