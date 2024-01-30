@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
@@ -64,6 +65,7 @@ Future<void> onEditProfileTap({
           //   route: RouteName.myUserProfile,
           // );
 
+          await Nav.goBack(context: getMainContext());
           await Routing.goTo(route: TabName.bid_My_Info);
 
         },
