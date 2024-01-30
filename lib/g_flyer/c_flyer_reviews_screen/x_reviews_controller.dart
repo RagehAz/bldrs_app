@@ -463,8 +463,9 @@ Future<void> onReviewUserBalloonTap({
 }) async {
 
   if (userModel != null){
-    await BldrsNav.jumpToUserPreviewScreen(
-      userID: userModel.id,
+    await ScreenRouter.goTo(
+      routeSettingsName: ScreenName.userPreview,
+      args: userModel.id,
     );
   }
 
@@ -476,8 +477,9 @@ Future<void> onReplyBzBalloonTap({
 }) async {
 
   if (bzModel != null){
-    await BldrsNav.jumpToBzPreviewScreen(
-      bzID: bzModel.id,
+    await ScreenRouter.goTo(
+        routeSettingsName: ScreenName.bzPreview,
+        args: bzModel.id,
     );
   }
 

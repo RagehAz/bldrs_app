@@ -23,7 +23,8 @@ class HomeLayout extends StatelessWidget {
     return PreLayout(
       key: const ValueKey<String>('home_screen_tree'),
       connectivitySensorIsOn: true,
-      canGoBack: false,
+      // canGoBack: false,
+      onBack: ScreenRouter.backFromHomeScreen,
       child: Scaffold(
         /// INSETS
         resizeToAvoidBottomInset: false, /// if false : prevents keyboard from pushing pyramids up / bottom sheet

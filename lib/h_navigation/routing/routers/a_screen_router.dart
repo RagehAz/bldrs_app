@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 part of bldrs_routing;
 
 class ScreenRouter {
@@ -24,7 +25,7 @@ class ScreenRouter {
 
     // --------------------
     /// staticLogoScreen
-      case ScreenName.staticLogo:
+      case ScreenName.logo:
         return Nav.transitFade(
           screen: const LogoScreen(),
           settings: settings,
@@ -37,13 +38,13 @@ class ScreenRouter {
       );
     // --------------------
     /// userPreview
-      case ScreenName.userPreview: return BldrsNav.transitSuperHorizontal(
+      case ScreenName.userPreview: return _transitSuperHorizontal(
         settings: settings,
         screen: UserPreviewScreen(userID: _arg,),
       );
     // --------------------
     /// bzPreview
-      case ScreenName.bzPreview: return BldrsNav.transitSuperHorizontal(
+      case ScreenName.bzPreview: return _transitSuperHorizontal(
         settings: settings,
         screen: BzPreviewScreen(bzID: _arg,),
       );
@@ -60,7 +61,7 @@ class ScreenRouter {
     // --------------------
     /// flyerReviews
       case ScreenName.flyerReviews:
-        return BldrsNav.transitSuperHorizontal(
+        return _transitSuperHorizontal(
           settings: settings,
           screen: FlyerPreviewScreen(
             flyerID: ReviewModel.getFlyerIDFromLinkPart(
@@ -106,7 +107,7 @@ class ScreenRouter {
     // --------------------
     /// deleteMyData
       case ScreenName.deleteMyData:
-        return BldrsNav.transitSuperHorizontal(
+        return _transitSuperHorizontal(
           screen: const DeleteMyDataScreen(),
           settings: settings,
         );
@@ -125,6 +126,24 @@ class ScreenRouter {
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static PageTransition<dynamic> _transitSuperHorizontal({
+    required Widget screen,
+    bool enAnimatesLTR = true,
+    RouteSettings? settings,
+  }) {
+    return Nav.transitSuperHorizontal(
+      screen: screen,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+      enAnimatesLTR:enAnimatesLTR ,
+      settings: settings,
+    );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GO TO
+
   // --------------------
   /// ROUTES_LIST
   static Future<void> goTo({
@@ -149,10 +168,8 @@ class ScreenRouter {
 
       // --------------------
       /// staticLogoScreen
-        case ScreenName.staticLogo:
-          _goTo = BldrsNav.pushLogoRouteAndRemoveAllBelow(
-            animatedLogoScreen: false,
-          ); break;
+        case ScreenName.logo:
+          _goTo = _pushLogoRouteAndRemoveAllBelow(); break;
       // // --------------------
       // /// animatedLogoScreen
       // case RouteName.animatedLogo:
@@ -166,7 +183,7 @@ class ScreenRouter {
       // --------------------
       /// home
         case ScreenName.home:
-          _goTo = BldrsNav.pushHomeRouteAndRemoveAllBelow(); break;
+          _goTo = _pushHomeRouteAndRemoveAllBelow(); break;
       // --------------------
       // /// auth
       //   case RouteName.auth:
@@ -285,36 +302,27 @@ class ScreenRouter {
       // --------------------
       /// userPreview
         case ScreenName.userPreview:
-          _goTo = BldrsNav.jumpToUserPreviewScreen(
+          _goTo = _jumpToUserPreviewScreen(
             userID: _args,
           ); break;
       // --------------------
       /// bzPreview
         case ScreenName.bzPreview:
-          _goTo = BldrsNav.jumpToBzPreviewScreen(
+          _goTo = _jumpToBzPreviewScreen(
             bzID: _args,
           ); break;
       // --------------------
       /// flyerPreview
         case ScreenName.flyerPreview:
-          _goTo = BldrsNav.jumpToFlyerPreviewScreen(
+          _goTo = _jumpToFlyerPreviewScreen(
             flyerID: _args,
           ); break;
       // --------------------
       /// flyerReviews
         case ScreenName.flyerReviews:
-          _goTo = BldrsNav.jumpToFlyerReviewScreen(
+          _goTo = _jumpToFlyerReviewScreen(
             flyerID_reviewID: _args,
           ); break;
-      // --------------------
-      /// countryPreview
-      /*
-         case Routing.countryPreview:
-           return jumpToCountryPreviewScreen(
-             context: context,
-             countryID: _afterHomeRoute.arguments,
-           ); break;
-          */
       // ------------------------------------------------------------
 
       /// WEB
@@ -322,23 +330,23 @@ class ScreenRouter {
       // --------------------
       /// underConstruction
         case ScreenName.underConstruction:
-          _goTo = BldrsNav.pushBldrsUnderConstructionRoute(); break;
+          _goTo = Nav.goToRoute(_context, ScreenName.underConstruction); break;
       // --------------------
       /// banner
         case ScreenName.banner:
-          _goTo = BldrsNav.pushBannerRoute(); break;
+          _goTo = Nav.goToRoute(_context, ScreenName.banner); break;
       // --------------------
       /// privacy
         case ScreenName.privacy:
-          _goTo = BldrsNav.pushPrivacyScreen(); break;
+          _goTo = _pushPrivacyScreen(); break;
       // --------------------
       /// terms
         case ScreenName.terms:
-          _goTo = BldrsNav.pushTermsScreen(); break;
+          _goTo = _pushTermsScreen(); break;
       // --------------------
       /// deleteMyData
         case ScreenName.deleteMyData:
-          _goTo = BldrsNav.pushDeleteMyDataScreen(); break;
+          _goTo = Nav.goToRoute(_context, ScreenName.deleteMyData); break;
       // ------------------------------------------------------------
 
       /// DASHBOARD
@@ -359,6 +367,370 @@ class ScreenRouter {
     }
 
     return _goTo;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// WEB SCREENS
+
+  // --------------------
+  /// privacy
+  static Future<void> _pushPrivacyScreen() async {
+
+    if (kIsWeb == true){
+      await Nav.goToRoute(getMainContext(), ScreenName.privacy);
+    }
+    else {
+      await Launcher.launchURL(Standards.privacyPolicyURL);
+    }
+
+  }
+  // --------------------
+  /// terms
+  static Future<void> _pushTermsScreen() async {
+
+    if (kIsWeb == true){
+      await Nav.goToRoute(getMainContext(), ScreenName.terms);
+    }
+    else {
+      await Launcher.launchURL(Standards.termsAndRegulationsURL);
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// BACK
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> backFromHomeScreen() async {
+
+    final BuildContext context = getMainContext();
+
+    final bool _flyerIsOpen = !UiProvider.proGetLayoutIsVisible(
+      context: context,
+      listen: false,
+    );
+
+    /// CLOSE FLYER
+    if (_flyerIsOpen == true){
+
+      final ZGridController? _controller = HomeProvider.proGetHomeZGridController(
+        context: context,
+        listen: false,
+      );
+
+      await zoomOutFlyer(
+        context: context,
+        mounted: true,
+        controller: _controller,
+      );
+
+    }
+
+    /// CLOSE APP
+    else {
+
+      // final String? _currentPhid = ChainsProvider.proGetHomeWallPhid(
+      //     context: context,
+      //     listen: false,
+      // );
+      //
+      // /// WHILE WALL HAS PHID
+      // if (_currentPhid != null){
+      //
+      //     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+      //     await _chainsProvider.changeHomeWallFlyerType(
+      //       notify: true,
+      //       flyerType: null,
+      //       phid: null,
+      //     );
+      //
+      // }
+      //
+      // else {
+
+      if (kIsWeb == false){
+
+        final bool _result = await Dialogs.goBackDialog(
+          titleVerse: const Verse(
+            id: 'phid_exit_app_?',
+            translate: true,
+          ),
+          bodyVerse: const Verse(
+            id: 'phid_exit_app_notice',
+            translate: true,
+          ),
+          confirmButtonVerse: const Verse(
+            id: 'phid_exit',
+            translate: true,
+          ),
+        );
+
+        if (_result == true) {
+
+          await BldrsCenterDialog.closeCenterDialog();
+
+          await Future.delayed(
+            const Duration(milliseconds: 500),
+                () async {
+              await Nav.closeApp();
+            },
+          );
+
+        }
+
+      }
+
+      // }
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> backFromPreviewScreen() async {
+
+    if (kIsWeb == true){
+      await _pushHomeRouteAndRemoveAllBelow();
+    }
+
+    else {
+      await Nav.goBack(
+        context: getMainContext(),
+      );
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// RESTARTING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _pushLogoRouteAndRemoveAllBelow() async {
+
+    await Nav.pushNamedAndRemoveAllBelow(
+      context: getMainContext(),
+      goToRoute: ScreenName.logo,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _pushHomeRouteAndRemoveAllBelow() async {
+
+    await Nav.pushNamedAndRemoveAllBelow(
+      goToRoute: ScreenName.home,
+      context: getMainContext(),
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> restartAndRoute({
+    String? route,
+    dynamic arguments,
+  }) async {
+
+    if (route != null) {
+      UiProvider.proSetAfterHomeRoute(
+        routeName: route,
+        arguments: arguments,
+        notify: true,
+      );
+    }
+
+    await _pushLogoRouteAndRemoveAllBelow();
+
+  }
+  // ------------------------------------------------------------
+
+  /// JUMPERS
+
+  // --------------------
+  /// userPreview
+  static Future<void> _jumpToUserPreviewScreen({
+    required String? userID,
+  }) async {
+
+    if (userID != null){
+
+      // await Nav.goToNewScreen(
+      //   context: getMainContext(),
+      //   screen: UserPreviewScreen(
+      //     userID: userID,
+      //   ),
+      // );
+
+      final String _route = '${ScreenName.userPreview}:$userID';
+      await Nav.goToRoute(getMainContext(), _route);
+
+    }
+
+  }
+  // --------------------
+  /// bzPreview
+  static Future<void> _jumpToBzPreviewScreen({
+    required String? bzID,
+  }) async {
+
+    if (bzID != null){
+
+      // await Nav.goToNewScreen(
+      //   context: getMainContext(),
+      //   screen: BzPreviewScreen(
+      //     bzID: bzID,
+      //   ),
+      // );
+
+      final String _route = '${ScreenName.bzPreview}:$bzID';
+      await Nav.goToRoute(getMainContext(), _route);
+
+    }
+
+  }
+  // --------------------
+  /// flyerPreview
+  static Future<void> _jumpToFlyerPreviewScreen({
+    required String? flyerID,
+  }) async {
+
+    if (flyerID != null){
+
+      // await Nav.goToNewScreen(
+      //   context: getMainContext(),
+      //   screen: FlyerPreviewScreen(
+      //     flyerID: flyerID,
+      //     // reviewID: ,
+      //     // bzModel: _bzModel,
+      //   ),
+      // );
+
+      final String _route = '${ScreenName.flyerPreview}:$flyerID';
+      await Nav.goToRoute(getMainContext(), _route);
+
+    }
+
+  }
+  // --------------------
+  /// flyerReviews
+  static Future<void> _jumpToFlyerReviewScreen({
+    required String? flyerID_reviewID,
+  }) async {
+
+    /// TASK : DO JUMP TO REVIEW THING
+    /*
+
+    In this method [NoteEvent.sendFlyerReceivedNewReviewByMe]
+
+    The trigger to come here was :-
+
+    TriggerModel(
+        name: Routing.flyerReviews,
+        argument: ChainPathConverter.combinePathNodes([
+          reviewModel.flyerID, // index 0
+          reviewModel.id, // index 1
+        ]),
+
+     */
+
+    if (flyerID_reviewID != null){
+
+      // final String? _flyerID = ReviewModel.getFlyerIDFromLinkPart(
+      //     linkPart: flyerID_reviewID,
+      // );
+      // final String? _reviewID = ReviewModel.getReviewIDFromLinkPart(
+      //     linkPart: flyerID_reviewID,
+      // );
+      //
+      // if (_flyerID != null && _reviewID != null){
+      //
+      //   await Nav.goToNewScreen(
+      //     context: getMainContext(),
+      //     screen: FlyerPreviewScreen(
+      //       flyerID: _flyerID,
+      //       reviewID: _reviewID,
+      //     ),
+      //   );
+      //
+      // }
+
+      final String _route = '${ScreenName.flyerReviews}:$flyerID_reviewID';
+      blog('jumpToFlyerReviewScreen : _route : $_route');
+      await Nav.goToRoute(getMainContext(), _route);
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// AUTO NAV
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> autoNav({
+    required String? routeName,
+    required bool startFromHome,
+    required bool mounted,
+    String? arguments,
+  }) async {
+
+    if (TextCheck.isEmpty(routeName) == false){
+
+      if (mainNavKey.currentContext == null){
+        await Future.delayed(const Duration(seconds: 3));
+      }
+
+      UiProvider.proSetAfterHomeRoute(
+          routeName: routeName,
+          arguments: arguments,
+          notify: true
+      );
+
+      if (startFromHome == true){
+        await ScreenRouter.goTo(routeSettingsName: ScreenName.home, args: null);
+      }
+
+      else {
+        await autoNavigateFromHomeScreen(mounted: mounted);
+      }
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> autoNavigateFromHomeScreen({
+    required bool mounted,
+  }) async {
+
+    if (mounted == true){
+
+      final RouteSettings? _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
+        context: getMainContext(),
+        listen: false,
+      );
+
+      blog('autoNavigateFromHomeScreen : _afterHomeRoute : ${_afterHomeRoute?.name} : arg : ${_afterHomeRoute?.arguments}');
+
+      if (_afterHomeRoute != null){
+
+        /// CLEAR AFTER HOME ROUTE
+        UiProvider.proClearAfterHomeRoute(
+          notify: true,
+        );
+
+        final String? _args = _afterHomeRoute.arguments as String?;
+
+        await ScreenRouter.goTo(
+          routeSettingsName: _afterHomeRoute.name,
+          args: _args,
+        );
+
+      }
+
+    }
+
   }
   // -----------------------------------------------------------------------------
 }

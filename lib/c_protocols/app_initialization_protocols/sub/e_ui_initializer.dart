@@ -93,9 +93,7 @@ class UiInitializer {
           }
 
           else {
-            await BldrsNav.pushLogoRouteAndRemoveAllBelow(
-              animatedLogoScreen: false,
-            );
+            await ScreenRouter.goTo(routeSettingsName: ScreenName.logo, args: null);
             _good = false;
           }
 

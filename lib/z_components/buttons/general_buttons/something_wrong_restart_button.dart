@@ -47,7 +47,7 @@ class SomethingWrongRestartButton extends StatelessWidget {
             //   id: 'phid_clean_and_restart',
             //   translate: true,
             // ),
-            onTap: () => BldrsNav.pushLogoRouteAndRemoveAllBelow(animatedLogoScreen: false),
+            onTap: () => ScreenRouter.goTo(routeSettingsName: ScreenName.logo, args: null),
           ),
         ),
       ),

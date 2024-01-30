@@ -594,7 +594,7 @@ Future<void> onPublishNewFlyerTap({
 
     await FlyerLDBOps.deleteFlyerMakerSession(flyerID: draft?.id);
 
-    await BldrsNav.restartAndRoute(
+    await ScreenRouter.restartAndRoute(
       route: BldrsTabber.bidMyBzFlyers,
       arguments: draft!.bzID,
     );
