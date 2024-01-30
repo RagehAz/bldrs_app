@@ -20,8 +20,8 @@ class RoutingTestScreen extends StatelessWidget {
       onTap: () async {
 
         await ScreenRouter.goTo(
-          routeSettingsName: routeSettingsName,
-          args: args
+          routeName: routeSettingsName,
+          arg: args
         );
 
         },
