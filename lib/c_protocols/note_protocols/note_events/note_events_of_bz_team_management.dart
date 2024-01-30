@@ -75,7 +75,7 @@ class NoteEventsOfBzTeamManagement {
           receiverPartyType: PartyType.bz,
         ),
         navTo: TriggerModel(
-          name: TabName.bid_MyBz_Team, /// WHICH_BZ_EXACTLY
+          name: TabName.bid_MyBz_Team,
           argument: bzID,
           done: const [],
         ),
@@ -152,7 +152,7 @@ class NoteEventsOfBzTeamManagement {
           receiverPartyType: PartyType.bz,
         ),
         navTo: TriggerModel(
-          name: TabName.bid_MyBz_Team, /// WHICH_BZ_EXACTLY
+          name: TabName.bid_MyBz_Team,
           argument: bzModel.id,
           done: const [],
         ),
