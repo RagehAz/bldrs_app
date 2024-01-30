@@ -13,7 +13,7 @@ class BldrsValidator extends StatelessWidget {
     this.focusNode,
     super.key
   });
-  // -----------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------
     final double width;
     final String? Function()? validator;
     final bool autoValidate ;
@@ -24,7 +24,7 @@ class BldrsValidator extends StatelessWidget {
 
     return SuperValidator(
       width: width,
-      validator: validator,
+      validator: () => validator?.call(),
       font: BldrsText.superVerseFont(VerseWeight.thin),
       autoValidate: autoValidate,
       focusNode: focusNode,

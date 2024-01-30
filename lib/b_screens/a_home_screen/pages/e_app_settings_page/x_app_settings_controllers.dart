@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:bldrs/b_screens/a_home_screen/pages/d_auth_page/a_auth_screen.dart';
 import 'package:bldrs/b_screens/c_bz_screens/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:bldrs/b_screens/x_situational_screens/app_langs_screen.dart';
 import 'package:bldrs/b_screens/x_situational_screens/feedback_screen.dart';
@@ -209,9 +207,7 @@ Future<void> onSignOut() async {
 /// TESTED : WORKS PERFECT
 Future<void> signInByAnotherAccount() async {
 
-  await BldrsNav.goToNewScreen(
-      screen: const AuthScreen(),
-  );
+  await Routing.goTo(route: TabName.bid_Auth);
 
 }
 // -----------------------------------------------------------------------------

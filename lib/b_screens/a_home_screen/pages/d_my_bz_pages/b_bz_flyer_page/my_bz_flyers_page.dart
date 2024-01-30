@@ -1,6 +1,8 @@
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/b_bz_flyer_page/bz_flyers_page_controllers.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/b_bz_flyer_page/bz_flyers_view.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
@@ -87,6 +89,9 @@ class _MyBzFlyersPageState extends State<MyBzFlyersPage> with SingleTickerProvid
       onlyShowPublished: true,
       showAddFlyerButton: true,
       appBarType: AppBarType.non,
+      onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerBzOptionsTap(
+        flyer: flyerModel,
+      ),
     );
     // --------------------
   }
