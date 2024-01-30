@@ -15,8 +15,6 @@ class NootActionProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> onNootTap({
     required NoteModel? noteModel,
-    required bool mounted,
-    bool? startFromHome,
   }) async {
 
     if (noteModel != null){
@@ -38,11 +36,9 @@ class NootActionProtocols {
         final String? _routeName = noteModel.navTo?.name ?? _secondaryRouteName;
         final String? _argument = noteModel.navTo?.argument ?? _secondaryArgument;
 
-        await ScreenRouter.autoNav(
+        await ScreenRouter.restartToAfterHomeRoute(
             routeName: _routeName,
             arguments: _argument,
-            startFromHome: startFromHome ?? BldrsNav.checkNootTapStartsFromHome(_routeName),
-            mounted: mounted
         );
 
       }

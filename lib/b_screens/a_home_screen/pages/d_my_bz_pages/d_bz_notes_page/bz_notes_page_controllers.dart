@@ -1,6 +1,4 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_action_protocols.dart';
-import 'package:bldrs/h_navigation/routing/routing.dart';
 // -----------------------------------------------------------------------------
 
 /// NOTE TAP
@@ -14,18 +12,18 @@ Future<void> onBzNoteTap({
 
   // blog('namexxx : ${noteModel.navTo.name}');
 
-  if (
-      noteModel?.navTo?.name != BldrsTabber.bidMyNotes &&
-      noteModel?.navTo?.name != BldrsTabber.bidMyBzNotes /// WHICH_BZ_EXACTLY
-  ){
-
-    await NootActionProtocols.onNootTap(
-      noteModel: noteModel,
-      startFromHome: false,
-      mounted: mounted,
-    );
-
-  }
+  // if (
+  //     noteModel?.navTo?.name != BldrsTabber.bidMyNotes &&
+  //     noteModel?.navTo?.name != BldrsTabber.bidMyBzNotes /// WHICH_BZ_EXACTLY
+  // ){
+  //
+  //   await NootActionProtocols.onNootTap(
+  //     noteModel: noteModel,
+  //     startFromHome: false,
+  //     mounted: mounted,
+  //   );
+  //
+  // }
 
 }
 // -----------------------------------------------------------------------------
