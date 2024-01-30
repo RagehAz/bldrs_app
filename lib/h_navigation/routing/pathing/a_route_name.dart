@@ -11,17 +11,16 @@ class ScreenName {
 
   // --------------------
   /// LOADING
-  static const String logo = '/'; /// ---> [static route]
+  static const String logo = '/';
   // --------------------
   /// MAIN
-  static const String home = '/home'; /// ---> [static route]
+  static const String home = '/home';
   // --------------------
   /// PREVIEWS
   static const String userPreview = '/userPreview';
   static const String bzPreview = '/bzPreview';
   static const String flyerPreview = '/flyerPreview';
   static const String flyerReviews = '/flyerPreview/flyerReviews';
-  // static const String countryPreview = '/countryPreview'; /// ---> [static route]
   // --------------------
   /// WEB
   static const String underConstruction = '/underConstruction';
