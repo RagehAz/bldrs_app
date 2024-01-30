@@ -4,7 +4,6 @@ import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_action_protocols.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -23,19 +22,18 @@ Future<void> onUserNoteTap({
 
   // noteModel.blogNoteModel(invoker: 'onUserNoteTap');
 
-  if (
-      noteModel?.navTo?.name != BldrsTabber.bidMyNotes ||
-      /// WHICH_BZ_EXACTLY : BldrsTabber.bidMyBzNotes ?
-      noteModel?.navTo?.name != BldrsTabber.bidMyBzNotes
-  ){
-
-    await NootActionProtocols.onNootTap(
-      noteModel: noteModel,
-      startFromHome: false,
-      mounted: mounted,
-    );
-
-  }
+  // if (
+  //     noteModel?.navTo?.name != BldrsTabber.bidMyNotes ||
+  //     /// WHICH_BZ_EXACTLY : BldrsTabber.bidMyBzNotes ?
+  //     noteModel?.navTo?.name != BldrsTabber.bidMyBzNotes
+  // ){
+  //
+  //   await NootActionProtocols.onNootTap(
+  //     noteModel: noteModel,
+  //     startFromHome: false,
+  //     mounted: mounted,
+  //   );
+  // }
 
 }
 // -----------------------------------------------------------------------------

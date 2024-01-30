@@ -161,8 +161,8 @@ class AuthorshipRespondingProtocols{
       /// NOTE : a system reboot is required at that point
       /// to allow home screen re-init my bzz notes stream to include this bz
       /// and listen to its live notes
-      await ScreenRouter.restartAndRoute(
-        route: BldrsTabber.bidMyBzInfo,
+      await ScreenRouter.restartToAfterHomeRoute(
+        routeName: BldrsTabber.bidMyBzInfo,
         arguments: bzModel?.id,
       );
 
