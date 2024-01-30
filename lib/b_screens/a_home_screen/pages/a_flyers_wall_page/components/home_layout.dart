@@ -1,7 +1,6 @@
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/components/animators/widget_fader.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
-import 'package:bldrs/h_navigation/guides/z_routing_test_bar.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/layouts/download_app_panel/download_app_panel.dart';
 import 'package:bldrs/z_components/layouts/main_layout/pre_layout.dart';
@@ -64,8 +63,10 @@ class HomeLayout extends StatelessWidget {
               if (kIsWeb == true)
                 const DownloadAppPanel(),
 
-              const RoutingTestBar(),
+              /// ROUTING_TESTER
+              // const RoutingTestBar(),
 
+              /// STAR_TEST_BUTTON
               // BldrsBox(
               //   height: 60,
               //   width: 60,
