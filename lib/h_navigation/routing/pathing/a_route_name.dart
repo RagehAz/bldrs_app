@@ -7,7 +7,7 @@ class ScreenName {
 
   // -----------------------------------------------------------------------------
 
-  /// ROUTE NAMES : ROUTES_LIST
+  /// ROUTE NAMES
 
   // --------------------
   /// LOADING
@@ -31,5 +31,36 @@ class ScreenName {
   // --------------------
   /// DASHBOARD
   static const String dashboard = '/dashboard';
+  // -----------------------------------------------------------------------------
+
+  /// CHECKER
+
+  // --------------------
+  static const List<String> allScreens = [
+    logo,
+    home,
+    userPreview,
+    bzPreview,
+    flyerPreview,
+    flyerReviews,
+    underConstruction,
+    banner,
+    privacy,
+    terms,
+    deleteMyData,
+    dashboard,
+  ];
+  // --------------------
+  ///
+  static bool checkIsScreen({
+    required String? routeName,
+  }){
+
+    return TextCheck.checkStringContainAnyOfSubStrings(
+        string: routeName,
+        subStrings: allScreens,
+    );
+
+  }
   // -----------------------------------------------------------------------------
 }
