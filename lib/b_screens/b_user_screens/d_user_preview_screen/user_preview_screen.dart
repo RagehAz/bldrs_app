@@ -72,7 +72,7 @@ class _UserPreviewScreenState extends State<UserPreviewScreen> {
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       skyType: SkyType.grey,
-      onBack: () => BldrsNav.backFromPreviewScreen(),
+      onBack: ScreenRouter.backFromPreviewScreen,
       child: _loading == true ?
       const LoadingFullScreenLayer()
           :

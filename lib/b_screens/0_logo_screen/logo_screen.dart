@@ -35,7 +35,7 @@ class _LogoScreenState extends State<LogoScreen> {
       asyncInSync(() async {
 
         await Future.delayed(const Duration(milliseconds: 50));
-        await BldrsNav.pushHomeRouteAndRemoveAllBelow();
+        await ScreenRouter.goTo(routeSettingsName: ScreenName.home, args: null);
 
       });
 

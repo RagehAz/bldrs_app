@@ -101,9 +101,7 @@ class AppStateInitializer {
       await Dialogs.somethingWentWrongAppWillRestart();
 
       /// create_reboot_system_method
-      await BldrsNav.pushLogoRouteAndRemoveAllBelow(
-        animatedLogoScreen: false,
-      );
+      await ScreenRouter.goTo(routeSettingsName: ScreenName.logo, args: null);
 
     }
 
@@ -123,7 +121,7 @@ class AppStateInitializer {
 
     /// BLDRS IS UNDER CONSTRUCTION
     else {
-      await BldrsNav.pushBldrsUnderConstructionRoute();
+      await ScreenRouter.goTo(routeSettingsName: ScreenName.underConstruction, args: null,);
     }
 
     return _output;
