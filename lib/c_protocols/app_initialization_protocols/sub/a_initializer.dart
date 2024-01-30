@@ -152,8 +152,8 @@ class Initializer {
         ));
 
         await ScreenRouter.goTo(
-          routeSettingsName: RoutePather.getRouteSettingsNameFromFullPath(_url),
-          args: null,
+          routeName: RoutePather.getRouteSettingsNameFromFullPath(_url),
+          arg: null,
         );
 
       }
