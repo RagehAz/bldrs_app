@@ -301,19 +301,19 @@ class BldrsTabber {
   static BldrsTab getTabByBid(String? bid){
 
     switch(bid){
-      case bidHome              : return BldrsTab.home;
+      case bidHome                  : return BldrsTab.home;
       case bidZone                  : return BldrsTab.zone;
       case bidAuth                  : return BldrsTab.auth;
-      case bidMyProfile               : return BldrsTab.myInfo;
-      case bidMyBzz                   : return BldrsTab.myBzInfo;
+      case bidMyProfile             : return BldrsTab.myInfo;
+      case bidMyBzz                 : return BldrsTab.myBzInfo;
 
-      case bidMyInfo           : return BldrsTab.myInfo;
-      case bidMyNotes  : return BldrsTab.myNotes;
-      case bidMySaves          : return BldrsTab.mySaves;
-      case bidMyFollows      : return BldrsTab.myFollows;
-      case bidMySettings       : return BldrsTab.mySettings;
+      case bidMyInfo                : return BldrsTab.myInfo;
+      case bidMyNotes               : return BldrsTab.myNotes;
+      case bidMySaves               : return BldrsTab.mySaves;
+      case bidMyFollows             : return BldrsTab.myFollows;
+      case bidMySettings            : return BldrsTab.mySettings;
 
-      case bidMyBzInfo             : return BldrsTab.myBzInfo;
+      case bidMyBzInfo              : return BldrsTab.myBzInfo;
       case bidMyBzFlyers            : return BldrsTab.myBzFlyers;
       case bidMyBzTeam              : return BldrsTab.myBzTeam;
       case bidMyBzNotes             : return BldrsTab.myBzNotes;
@@ -329,18 +329,18 @@ class BldrsTabber {
   static String? getBidIcon(String? bid){
     switch(bid){
 
-      case bidMyProfile                 : return UsersProvider.proGetMyUserModel(
-                                                    context: getMainContext(),
-                                                    listen: false
-                                                )?.picPath;
+      case bidMyProfile             : return UsersProvider.proGetMyUserModel(
+                                                context: getMainContext(),
+                                                listen: false
+                                            )?.picPath;
 
-      case bidMyInfo             : return Iconz.normalUser ;
-      case bidMyNotes    : return Iconz.notification ;
-      case bidMySaves            : return Iconz.love ;
-      case bidMyFollows        : return Iconz.follow       ;
-      case bidMySettings         : return Iconz.gears        ;
+      case bidMyInfo                : return Iconz.normalUser ;
+      case bidMyNotes               : return Iconz.notification ;
+      case bidMySaves               : return Iconz.love ;
+      case bidMyFollows             : return Iconz.follow       ;
+      case bidMySettings            : return Iconz.gears        ;
 
-      case bidMyBzInfo             : return Iconz.info;
+      case bidMyBzInfo              : return Iconz.info;
       case bidMyBzFlyers            : return Iconz.flyerGrid;
       case bidMyBzTeam              : return Iconz.bz;
       case bidMyBzNotes             : return Iconz.notification;
