@@ -23,7 +23,7 @@ class NootActionProtocols {
 
         final String _secondaryRouteName =
         noteModel.parties?.receiverType == PartyType.bz ?
-        TabName.bid_MyBz_Notes /// WHICH_BZ_EXACTLY
+        TabName.bid_MyBz_Notes
             :
         TabName.bid_My_Notes;
 

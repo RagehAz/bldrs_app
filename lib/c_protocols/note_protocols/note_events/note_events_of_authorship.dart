@@ -194,7 +194,7 @@ class NoteEventsOfAuthorship {
         receiverPartyType: PartyType.bz,
       ),
       navTo: TriggerModel(
-        name: TabName.bid_MyBz_Notes, /// WHICH_BZ_EXACTLY
+        name: TabName.bid_MyBz_Notes,
         argument: bzID,
         done: const [],
       ),
@@ -249,7 +249,7 @@ class NoteEventsOfAuthorship {
         bzID: bzID,
       ),
       navTo: TriggerModel(
-        name: TabName.bid_MyBz_Notes, /// WHICH_BZ_EXACTLY
+        name: TabName.bid_MyBz_Notes,
         argument: bzID,
         done: const [],
       ),
