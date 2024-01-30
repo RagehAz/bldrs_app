@@ -47,7 +47,7 @@ class SomethingWrongRestartButton extends StatelessWidget {
             //   id: 'phid_clean_and_restart',
             //   translate: true,
             // ),
-            onTap: () => ScreenRouter.goTo(routeSettingsName: ScreenName.logo, args: null),
+            onTap: () => ScreenRouter.goTo(routeName: ScreenName.logo, arg: null),
           ),
         ),
       ),
