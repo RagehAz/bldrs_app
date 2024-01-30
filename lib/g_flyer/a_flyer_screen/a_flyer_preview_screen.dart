@@ -69,7 +69,7 @@ class FlyerPreviewScreen extends StatelessWidget {
 
     return MainLayout(
       canSwipeBack: false,
-      onBack: () => BldrsNav.backFromPreviewScreen(),
+      onBack: ScreenRouter.backFromPreviewScreen,
       appBarType: AppBarType.non,
       child: FlyerBuilder(
           flyerBoxWidth: _flyerWidth,
@@ -119,7 +119,7 @@ class FlyerPreviewScreen extends StatelessWidget {
                   child: LightBigFlyer(
                     flyerBoxWidth: _flyerWidth,
                     renderedFlyer: flyerModel,
-                    onVerticalExit: () => BldrsNav.backFromPreviewScreen(),
+                    onVerticalExit: ScreenRouter.backFromPreviewScreen,
                     onHorizontalExit: (){},
                   ),
                 ),

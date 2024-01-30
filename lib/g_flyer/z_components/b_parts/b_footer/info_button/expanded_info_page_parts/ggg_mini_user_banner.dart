@@ -92,8 +92,9 @@ class MiniUserBanner extends StatelessWidget {
                 width: width,
                 icon: userModel?.picPath ?? Iconz.anonymousUser,
                 // margins: Scale.constantHorizontal5,
-                onTap: () => BldrsNav.jumpToUserPreviewScreen(
-                  userID: userModel?.id,
+                onTap: () => ScreenRouter.goTo(
+                  routeSettingsName: ScreenName.userPreview,
+                  args: userModel?.id,
                 ),
               ),
 

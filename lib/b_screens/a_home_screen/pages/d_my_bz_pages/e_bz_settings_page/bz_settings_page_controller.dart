@@ -88,9 +88,7 @@ Future<void> onDeleteBzButtonTap({
       ),
     );
 
-    await BldrsNav.pushLogoRouteAndRemoveAllBelow(
-      animatedLogoScreen: true,
-    );
+    await ScreenRouter.goTo(routeSettingsName: ScreenName.logo, args: null);
 
   }
 

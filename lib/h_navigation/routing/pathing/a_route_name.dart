@@ -11,7 +11,7 @@ class ScreenName {
 
   // --------------------
   /// LOADING
-  static const String staticLogo = '/'; /// ---> [static route]
+  static const String logo = '/'; /// ---> [static route]
   // --------------------
   /// MAIN
   static const String home = '/home'; /// ---> [static route]

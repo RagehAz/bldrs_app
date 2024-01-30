@@ -38,7 +38,7 @@ class NootActionProtocols {
         final String? _routeName = noteModel.navTo?.name ?? _secondaryRouteName;
         final String? _argument = noteModel.navTo?.argument ?? _secondaryArgument;
 
-        await BldrsNav.autoNav(
+        await ScreenRouter.autoNav(
             routeName: _routeName,
             arguments: _argument,
             startFromHome: startFromHome ?? BldrsNav.checkNootTapStartsFromHome(_routeName),

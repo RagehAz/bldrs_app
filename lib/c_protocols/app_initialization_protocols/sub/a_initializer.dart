@@ -127,7 +127,7 @@ class Initializer {
       final String? _path = RoutePather.getPathFromWindowURL(_url);
 
       /// LANDED ON LOGO SCREENS
-      if (_path == ScreenName.staticLogo){
+      if (_path == ScreenName.logo){
         await Nav.pushNamedAndRemoveAllBelow(
           context: getMainContext(),
           goToRoute: ScreenName.home,
