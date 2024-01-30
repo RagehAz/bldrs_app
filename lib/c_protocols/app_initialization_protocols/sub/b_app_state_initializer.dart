@@ -101,7 +101,7 @@ class AppStateInitializer {
       await Dialogs.somethingWentWrongAppWillRestart();
 
       /// create_reboot_system_method
-      await ScreenRouter.goTo(routeName: ScreenName.logo, arg: null);
+      await Routing.goTo(route: ScreenName.logo);
 
     }
 
@@ -121,7 +121,7 @@ class AppStateInitializer {
 
     /// BLDRS IS UNDER CONSTRUCTION
     else {
-      await ScreenRouter.goTo(routeName: ScreenName.underConstruction, arg: null,);
+      await Routing.goTo(route: ScreenName.underConstruction);
     }
 
     return _output;

@@ -74,7 +74,7 @@ class NoteEventsOfAuthorship {
           bzID: bzModel.id,
         ),
         navTo: const TriggerModel(
-          name: BldrsTabber.bidMyNotes,
+          name: TabName.bid_My_Notes,
           argument: null,
           done: [],
         ),
@@ -126,7 +126,7 @@ class NoteEventsOfAuthorship {
         token: userModelToSendTo.device?.token,
         topic: TopicModel.userAuthorshipsInvitations,
         navTo: const TriggerModel(
-          name: BldrsTabber.bidMyNotes,
+          name: TabName.bid_My_Notes,
           argument: null,
           done: [],
         ),
@@ -194,7 +194,7 @@ class NoteEventsOfAuthorship {
         receiverPartyType: PartyType.bz,
       ),
       navTo: TriggerModel(
-        name: BldrsTabber.bidMyBzNotes, /// WHICH_BZ_EXACTLY
+        name: TabName.bid_MyBz_Notes, /// WHICH_BZ_EXACTLY
         argument: bzID,
         done: const [],
       ),
@@ -249,7 +249,7 @@ class NoteEventsOfAuthorship {
         bzID: bzID,
       ),
       navTo: TriggerModel(
-        name: BldrsTabber.bidMyBzNotes, /// WHICH_BZ_EXACTLY
+        name: TabName.bid_MyBz_Notes, /// WHICH_BZ_EXACTLY
         argument: bzID,
         done: const [],
       ),

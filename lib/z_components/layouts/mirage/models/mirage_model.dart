@@ -6,7 +6,6 @@ class MirageModel {
   // -----------------------------------------------------------------------------
   const MirageModel({
     required this.position,
-    required this.stripHeight,
     required this.selectedButton,
     required this.index,
     required this.controller,
@@ -14,7 +13,6 @@ class MirageModel {
   });
   // --------------------
   final ValueNotifier<double> position;
-  final double stripHeight;
   final ValueNotifier<bool>? pyramidIsOn;
   final ValueNotifier<String?> selectedButton;
   final ItemScrollController controller;
@@ -47,15 +45,13 @@ class MirageModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static MirageModel initialize({
-    required double height,
     required int index,
     bool controlPyramid = false,
     String? selectedButton,
   }){
     return MirageModel(
-      position: ValueNotifier(height),
+      position: ValueNotifier(standardStripHeight * (index + 1)),
       index: index,
-      stripHeight: height,
       pyramidIsOn: controlPyramid == true ? ValueNotifier(true) : null,
       selectedButton: ValueNotifier(selectedButton),
       controller: ItemScrollController(),
@@ -109,7 +105,7 @@ class MirageModel {
     setNotifier(
       notifier: position,
       mounted: mounted,
-      value: stripHeight,
+      value: getHeight(),
     );
   }
   // --------------------
@@ -155,7 +151,7 @@ class MirageModel {
     Function? onHide,
   }) {
 
-    final double newPosition = (position.value + details.primaryDelta!).clamp(0.0, stripHeight);
+    final double newPosition = (position.value + details.primaryDelta!).clamp(0.0, getHeight());
 
     setNotifier(
       notifier: position,
@@ -258,6 +254,10 @@ class MirageModel {
   /// POSITION CHECKERS
 
   // --------------------
+  double getHeight(){
+    return standardStripHeight * (index + 1);
+  }
+
   bool checkIsOpened(){
 
     if (position.value == 0){
@@ -271,7 +271,7 @@ class MirageModel {
   // --------------------
   bool checkIsClosed(){
 
-    if (position.value == stripHeight){
+    if (position.value == getHeight()){
       return true;
     }
     else {
@@ -342,7 +342,7 @@ class MirageModel {
 
   // --------------------
   double getClearHeight(){
-    return stripHeight - draggerHeight;
+    return getHeight() - draggerHeight;
   }
   // --------------------
   double getWidth(){

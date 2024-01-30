@@ -155,7 +155,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> with WidgetsBindingOb
         // onUnknownRoute: ,
         // home: ,
         navigatorKey: mainNavKey,
-        onGenerateRoute: ScreenRouter.router,
+        onGenerateRoute: Routing.router,
         // initialRoute: RouteName.staticLogo,
         // routes: Routing.routesMap,
       ),

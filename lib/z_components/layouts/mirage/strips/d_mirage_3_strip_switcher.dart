@@ -27,7 +27,7 @@ class Mirage3StripSwitcher extends StatelessWidget {
       builder: (_, String? selectedButton, Widget? child){
 
         /// NOTHING SELECTED IN MIRAGE1
-        if (BldrsTabber.checkBidIsBidBz(bid: selectedButton) == true){
+        if (TabName.checkBidIsBidBz(bid: selectedButton) == true){
           return const SizedBox();
         }
 

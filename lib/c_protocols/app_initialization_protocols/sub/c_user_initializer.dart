@@ -163,7 +163,7 @@ class UserInitializer {
             users: _signedUpUsers,
           );
 
-          await MirageNav.goTo(tab: BldrsTab.auth);
+          await Routing.goTo(route: TabName.bid_Auth);
           _continue = false;
 
         }
@@ -589,7 +589,7 @@ class UserInitializer {
                 validateOnStartup: true,
                 // checkLastSession: true,
                 onFinish: () async {
-                  await MirageNav.goTo(tab: BldrsTab.myInfo);
+                  await Routing.goTo(route: TabName.bid_My_Info);
                   },
               )
           );

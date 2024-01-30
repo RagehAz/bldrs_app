@@ -551,7 +551,7 @@ class _ZonePageState extends State<ZonePage> {
       zone: zone,
     );
 
-    await MirageNav.goTo(tab: BldrsTab.home);
+    await Routing.goTo(route: TabName.bid_Home);
 
   }
   // -----------------------------------------------------------------------------

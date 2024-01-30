@@ -51,15 +51,25 @@ class ScreenName {
     dashboard,
   ];
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkIsScreen({
     required String? routeName,
   }){
 
-    return TextCheck.checkStringContainAnyOfSubStrings(
-        string: routeName,
-        subStrings: allScreens,
-    );
+    if (routeName == logo){
+      return true;
+    }
+
+    else {
+
+      final List<String> _all = [...allScreens];
+      _all.remove(logo);
+
+      return TextCheck.checkStringContainAnyOfSubStrings(
+          string: routeName,
+          subStrings: _all,
+      );
+    }
 
   }
   // -----------------------------------------------------------------------------

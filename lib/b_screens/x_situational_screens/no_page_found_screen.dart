@@ -60,9 +60,8 @@ class NoPageFoundScreen extends StatelessWidget {
             icon: Iconz.bldrsAppIcon,
             bubble: false,
             iconColor: Colorz.yellow50,
-            onTap: () => ScreenRouter.goTo(
-              routeName: ScreenName.home,
-              arg: null,
+            onTap: () => Routing.goTo(
+              route: ScreenName.home,
             ),
           ),
 

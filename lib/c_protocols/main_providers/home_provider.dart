@@ -8,7 +8,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
-import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -179,42 +178,6 @@ class HomeProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// CURRENT TAB
-
-  // --------------------
-  BldrsTab _currentTab = BldrsTab.home;
-  BldrsTab get currentTab => _currentTab;
-  // --------------------
-  /// TASK : TEST ME
-  static void proSetCurrentTab({
-    required BuildContext context,
-    required BldrsTab tab,
-    required bool notify,
-  }) {
-    final HomeProvider _pro = Provider.of<HomeProvider>(context, listen: false);
-    _pro._setCurrentTab(
-      tab: tab,
-      notify: notify,
-    );
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void _setCurrentTab({
-    required BldrsTab tab,
-    required bool notify,
-  }){
-
-    if (_currentTab != tab) {
-      _currentTab = tab;
-
-      if (notify == true) {
-        notifyListeners();
-      }
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-
   /// MIRAGES
 
   // --------------------
@@ -240,11 +203,11 @@ class HomeProvider extends ChangeNotifier {
   // --------------------
   static void proInitializeMirages(){
     final HomeProvider _pro = Provider.of<HomeProvider>(getMainContext(), listen: false);
-    final MirageModel _mirageX0 = MirageModel.initialize(index: 0,height: Pyramids.khafreHeight * 1.1, controlPyramid: true);
-    final MirageModel _mirageX1 = MirageModel.initialize(index: 1,height: Pyramids.khafreHeight * 2.2);
-    final MirageModel _mirageX2 = MirageModel.initialize(index: 2,height: Pyramids.khafreHeight * 3.3);
-    final MirageModel _mirageX3 = MirageModel.initialize(index: 3,height: Pyramids.khafreHeight * 4.4);
-    final MirageModel _mirageX4 = MirageModel.initialize(index: 4,height: Pyramids.khafreHeight * 5.5);
+    final MirageModel _mirageX0 = MirageModel.initialize(index: 0, controlPyramid: true);
+    final MirageModel _mirageX1 = MirageModel.initialize(index: 1);
+    final MirageModel _mirageX2 = MirageModel.initialize(index: 2);
+    final MirageModel _mirageX3 = MirageModel.initialize(index: 3);
+    final MirageModel _mirageX4 = MirageModel.initialize(index: 4);
     _pro._mirages = [_mirageX0, _mirageX1, _mirageX2, _mirageX3, _mirageX4];
   }
   // --------------------

@@ -34,8 +34,8 @@ class _LogoScreenState extends State<LogoScreen> {
 
       asyncInSync(() async {
 
-        await Future.delayed(const Duration(milliseconds: 50));
-        await ScreenRouter.goTo(routeName: ScreenName.home, arg: null);
+        await Future.delayed(const Duration(milliseconds: 500));
+        await Routing.goTo(route: ScreenName.home);
 
       });
 
