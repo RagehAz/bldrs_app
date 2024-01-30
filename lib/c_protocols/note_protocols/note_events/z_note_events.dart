@@ -272,7 +272,7 @@ class NoteEvent {
           receiverPartyType: PartyType.bz,
         ),
         navTo: TriggerModel(
-          name: BldrsTabber.bidMyBzNotes, /// WHICH_BZ_EXACTLY
+          name: TabName.bid_MyBz_Notes, /// WHICH_BZ_EXACTLY
           argument: bzModel.id,
           done: const [],
         ),

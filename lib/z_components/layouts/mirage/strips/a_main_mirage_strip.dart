@@ -47,7 +47,7 @@ class MainMirageStrip extends StatelessWidget {
 
               /// SECTIONS
               SectionMirageButton(
-                isSelected: selectedButton == BldrsTabber.bidHome,
+                isSelected: selectedButton == TabName.bid_Home,
                 onTap: onSectionsTap,
               ),
 
@@ -57,8 +57,8 @@ class MainMirageStrip extends StatelessWidget {
                   builder: (BuildContext context, ZoneModel? currentZone, Widget? child){
 
                     return MirageButton(
-                      buttonID: BldrsTabber.bidZone,
-                      isSelected: selectedButton == BldrsTabber.bidZone,
+                      buttonID: TabName.bid_Zone,
+                      isSelected: selectedButton == TabName.bid_Zone,
                       verse: ZoneModel.generateObeliskVerse(zone: currentZone),
                       icon: currentZone?.icon ?? Iconz.planet,
                       bigIcon: true,
@@ -71,8 +71,8 @@ class MainMirageStrip extends StatelessWidget {
 
               /// SIGN IN
               MirageButton(
-                buttonID: BldrsTabber.bidAuth,
-                isSelected: selectedButton == BldrsTabber.bidAuth,
+                buttonID: TabName.bid_Auth,
+                isSelected: selectedButton == TabName.bid_Auth,
                 verse: const Verse(id: 'phid_sign', translate: true),
                 icon: Iconz.normalUser,
                 bigIcon: false,
@@ -88,8 +88,8 @@ class MainMirageStrip extends StatelessWidget {
                     final bool _forceRedDot = _userModel == null || Formers.checkUserHasMissingFields(userModel: _userModel);
 
                     return MirageButton(
-                      buttonID: BldrsTabber.bidMyProfile,
-                      isSelected: selectedButton == BldrsTabber.bidMyProfile,
+                      buttonID: TabName.bid_MyProfile,
+                      isSelected: selectedButton == TabName.bid_MyProfile,
                       verse: _userModel?.name == null ?
                       const Verse(id: 'phid_complete_my_profile', translate: true)
                           :
@@ -107,8 +107,8 @@ class MainMirageStrip extends StatelessWidget {
               /// ONE BZ ONLY
               if (Lister.superLength(_userModel?.myBzzIDs) == 1)
                 BzMirageButton(
-                  isSelected: selectedButton == BldrsTabber.bidMyBzz,
-                  buttonID: BldrsTabber.bidMyBzz,
+                  isSelected: selectedButton == TabName.bid_MyBzz,
+                  buttonID: TabName.bid_MyBzz,
                   bzID: _userModel!.myBzzIDs!.first,
                   onTap: onMyBzTap,
                 ),
@@ -119,14 +119,14 @@ class MainMirageStrip extends StatelessWidget {
                   verse: const Verse(id: 'phid_my_bzz', translate: true,),
                   bzzIDs: _userModel?.myBzzIDs,
                   canShow: Lister.superLength(_userModel?.myBzzIDs) > 1,
-                  isSelected: selectedButton == BldrsTabber.bidMyBzz,
+                  isSelected: selectedButton == TabName.bid_MyBzz,
                   onTap: onMyBzzTap,
                 ),
 
               /// SETTINGS
               MirageButton(
-                buttonID: BldrsTabber.bidAppSettings,
-                isSelected: selectedButton == BldrsTabber.bidAppSettings,
+                buttonID: TabName.bid_AppSettings,
+                isSelected: selectedButton == TabName.bid_AppSettings,
                 verse: const Verse(id: 'phid_settings', translate: true),
                 icon: Iconz.more,
                 bigIcon: false,

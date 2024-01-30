@@ -34,7 +34,7 @@ class _MyBzzMirageStrip extends StatelessWidget {
                 valueListenable: mirageX1.selectedButton,
                 builder: (_, String? selectedButton, Widget? child) {
 
-                  final String? _selectedBzID = BldrsTabber.getBzIDFromBidBz(
+                  final String? _selectedBzID = TabName.getBzIDFromBidBz(
                       bzBid: selectedButton,
                   );
 
@@ -49,7 +49,7 @@ class _MyBzzMirageStrip extends StatelessWidget {
 
                           return BzMirageButton(
                             bzID: _bzID,
-                            buttonID: BldrsTabber.generateBzBid(bzID: _bzID, bid: null),
+                            buttonID: TabName.generateBzBid(bzID: _bzID, bid: null),
                             onTap: (BzModel bz) => onBzTap(_bzID),
                             isSelected: _selectedBzID == _bzID,
                           );

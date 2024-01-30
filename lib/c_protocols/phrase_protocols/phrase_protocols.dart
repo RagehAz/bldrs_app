@@ -65,7 +65,7 @@ class PhraseProtocols {
         //   animatedLogoScreen: true,
         // );
         await Nav.goBack(context: context);
-        await MirageNav.goTo(tab: BldrsTab.home);
+        await Routing.goTo(route: TabName.bid_Home);
 
       }
       else {

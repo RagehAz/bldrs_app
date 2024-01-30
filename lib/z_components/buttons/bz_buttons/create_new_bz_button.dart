@@ -136,7 +136,7 @@ class CreateNewBzButton extends StatelessWidget {
             onDisabledTap: () async {
               await Dialogs.youNeedToBeSignedUpDialog(
                 /// GO_TO_APP_SETTINGS
-                afterHomeRouteName: BldrsTabber.bidAppSettings,
+                afterHomeRouteName: TabName.bid_AppSettings,
                 afterHomeRouteArgument: null,
               );
             },

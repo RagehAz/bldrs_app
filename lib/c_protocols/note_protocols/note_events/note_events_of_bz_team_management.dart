@@ -75,7 +75,7 @@ class NoteEventsOfBzTeamManagement {
           receiverPartyType: PartyType.bz,
         ),
         navTo: TriggerModel(
-          name: BldrsTabber.bidMyBzTeam, /// WHICH_BZ_EXACTLY
+          name: TabName.bid_MyBz_Team, /// WHICH_BZ_EXACTLY
           argument: bzID,
           done: const [],
         ),
@@ -152,7 +152,7 @@ class NoteEventsOfBzTeamManagement {
           receiverPartyType: PartyType.bz,
         ),
         navTo: TriggerModel(
-          name: BldrsTabber.bidMyBzTeam, /// WHICH_BZ_EXACTLY
+          name: TabName.bid_MyBz_Team, /// WHICH_BZ_EXACTLY
           argument: bzModel.id,
           done: const [],
         ),
@@ -201,7 +201,7 @@ class NoteEventsOfBzTeamManagement {
         token: _userModel.device?.token,
         topic: TopicModel.userAuthorshipsInvitations,
         navTo: const TriggerModel(
-          name: BldrsTabber.bidMyNotes,
+          name: TabName.bid_My_Notes,
           argument: null,
           done: [],
         ),
@@ -272,7 +272,7 @@ class NoteEventsOfBzTeamManagement {
               ),
               topic: TopicModel.userAuthorshipsInvitations,
               navTo: const TriggerModel(
-                name: BldrsTabber.bidMyNotes,
+                name: TabName.bid_My_Notes,
                 argument: null,
                 done: [],
               ),

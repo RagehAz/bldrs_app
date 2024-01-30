@@ -30,12 +30,12 @@ class Mirage2StripSwitcher extends StatelessWidget {
       builder: (_, String? selectedButton, Widget? child){
 
         /// BZ TABS
-        if (BldrsTabber.checkBidIsBidBz(bid: selectedButton) == true){
+        if (TabName.checkBidIsBidBz(bid: selectedButton) == true){
           return _BzTabsMirageStrip(
             thisMirage: mirage2,
             allMirages: allMirages,
             onTabChanged: onBzTabChanged,
-            bzID: BldrsTabber.getBzIDFromBidBz(bzBid: selectedButton)!,
+            bzID: TabName.getBzIDFromBidBz(bzBid: selectedButton)!,
             // bid: BldrsTabber.getBidFromBidBz(bzBid: selectedButton)!,
           );
         }

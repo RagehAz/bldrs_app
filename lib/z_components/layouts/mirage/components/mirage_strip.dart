@@ -74,7 +74,7 @@ class MirageStrip extends StatelessWidget {
           color: Colorz.nothing,
           child: BlurLayer(
             width: _width,
-            height: _mirage.stripHeight,
+            height: _mirage.getHeight(),
             color: Colorz.white10,
             blurIsOn: true,
             blur: 3,

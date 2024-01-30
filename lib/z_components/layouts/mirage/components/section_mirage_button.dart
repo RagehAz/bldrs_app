@@ -23,9 +23,9 @@ class SectionMirageButton extends StatelessWidget {
       height: MirageButton.getHeight,
       approxChildWidth: MirageButton.getWidth,
       shrinkChild: true,
-      redDotIsOn: Badger.checkBadgeRedDotIsOn(badger: _badger, bid: BldrsTabber.bidHome),
-      count: Badger.getBadgeCount(badger: _badger, bid: BldrsTabber.bidHome),
-      verse: Badger.getBadgeVerse(badger: _badger, bid: BldrsTabber.bidHome),
+      redDotIsOn: Badger.checkBadgeRedDotIsOn(badger: _badger, bid: TabName.bid_Home),
+      count: Badger.getBadgeCount(badger: _badger, bid: TabName.bid_Home),
+      verse: Badger.getBadgeVerse(badger: _badger, bid: TabName.bid_Home),
       child: SectionsButton(
         height: MirageButton.getHeight,
         color: isSelected ? MirageModel.selectedButtonColor : MirageModel.buttonColor,
