@@ -47,12 +47,12 @@ Future<void> onFeedbackTap() async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onTermsAndTap() async {
-  await BldrsNav.pushTermsScreen();
+  await ScreenRouter.goTo(routeSettingsName: ScreenName.terms, args: null);
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onPrivacyTap() async {
-  await BldrsNav.pushPrivacyScreen();
+  await ScreenRouter.goTo(routeSettingsName: ScreenName.privacy, args: null);
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -95,9 +95,7 @@ Future<void> onRebootBldrsAppSystem() async {
 
   if (_result == true) {
 
-    await BldrsNav.pushLogoRouteAndRemoveAllBelow(
-      animatedLogoScreen: true,
-    );
+    await ScreenRouter.goTo(routeSettingsName: ScreenName.logo, args: null);
 
   }
 
@@ -198,9 +196,7 @@ Future<void> onSignOut() async {
 
     await AuthProtocols.signOutBldrs();
 
-    await BldrsNav.pushLogoRouteAndRemoveAllBelow(
-      animatedLogoScreen: true,
-    );
+    await ScreenRouter.goTo(routeSettingsName: ScreenName.logo, args: null);
 
   }
 

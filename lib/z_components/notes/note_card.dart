@@ -63,8 +63,9 @@ class NoteCard extends StatelessWidget {
 
       blog('BZ TAPPED');
 
-      await BldrsNav.jumpToBzPreviewScreen(
-        bzID: noteModel?.parties?.senderID,
+      await ScreenRouter.goTo(
+        routeSettingsName: ScreenName.bzPreview,
+        args: noteModel?.parties?.senderID,
       );
 
     }
@@ -72,8 +73,9 @@ class NoteCard extends StatelessWidget {
     /// USER
     else if (noteModel?.parties?.senderType == PartyType.user){
 
-      await BldrsNav.jumpToUserPreviewScreen(
-        userID: noteModel?.parties?.senderID,
+      await ScreenRouter.goTo(
+        routeSettingsName: ScreenName.userPreview,
+        args: noteModel?.parties?.senderID,
       );
 
     }

@@ -152,7 +152,7 @@ Future<void> onConfirmBzEdits({
         );
       }
 
-      await BldrsNav.restartAndRoute(
+      await ScreenRouter.restartAndRoute(
         route: BldrsTabber.bidMyBzInfo,
         arguments: _uploadedBz?.id,
       );

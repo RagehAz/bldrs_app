@@ -54,7 +54,7 @@ class RoutingTestScreen extends StatelessWidget {
 
           // --------------------
           /// staticLogoScreen
-          _goTo(ScreenName.staticLogo, good: true),
+          _goTo(ScreenName.logo, good: true),
           // -----------------------------------------------------------------------------
 
           /// MAIN

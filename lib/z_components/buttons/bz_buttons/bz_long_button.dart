@@ -55,16 +55,11 @@ class BzBubble extends StatelessWidget {
     }
 
     else {
-      await BldrsNav.jumpToBzPreviewScreen(
-        bzID: bzModel?.id,
-      );
 
-      // await Nav.goToNewScreen(
-      //   context: context,
-      //   screen: BzPreviewScreen(
-      //     bzModel: bzModel,
-      //   ),
-      // );
+      await ScreenRouter.goTo(
+          routeSettingsName: ScreenName.bzPreview,
+          args: bzModel?.id,
+      );
 
     }
   }

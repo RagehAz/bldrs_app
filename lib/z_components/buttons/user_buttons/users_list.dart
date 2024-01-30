@@ -53,7 +53,10 @@ class UsersList extends StatelessWidget {
             secondLineScaleFactor: 0.9,
             margins: Scale.superMargins(margin: margins),
             onTap: onTap == null ?
-                () => BldrsNav.jumpToUserPreviewScreen(userID: userModel.id)
+                () => ScreenRouter.goTo(
+                  routeSettingsName: ScreenName.userPreview,
+                  args: userModel.id,
+                )
                 :
                 () => onTap?.call(userModel),
           );
