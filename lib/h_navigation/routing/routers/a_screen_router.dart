@@ -1,10 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
 part of bldrs_routing;
 
-class ScreenRouter {
+class Routing {
   // -----------------------------------------------------------------------------
 
-  const ScreenRouter();
+  const Routing();
 
   // -----------------------------------------------------------------------------
 
@@ -147,22 +147,26 @@ class ScreenRouter {
   // --------------------
   ///
   static Future<void> goTo({
-    required String? routeName,
-    required String? arg,
+    required String? route,
+    String? arg,
   }) async  {
 
-    final bool _isBid = TextCheck.stringStartsExactlyWith(text: routeName, startsWith: 'bid');
-    final bool _isScreen = ScreenName.checkIsScreen(routeName: routeName);
-    final bool _isKeywordPath = TextCheck.stringStartsExactlyWith(text: routeName, startsWith: 'phid');
+    if (TextCheck.isEmpty(route) == false){
 
-    if (_isBid == true){
-      await MirageNav.goTo(tab: BldrsTabber.getTabByBid(routeName), bzID: arg);
-    }
-    else if (_isKeywordPath == true){
-      await MirageNav.goToKeyword(phid: Pathing.getLastPathNode(routeName)!);
-    }
-    else if (_isScreen == true){
-      await _goToScreen(routeName: routeName, arg: arg);
+      final bool _isBid = TextCheck.stringStartsExactlyWith(text: route, startsWith: 'bid');
+      final bool _isScreen = ScreenName.checkIsScreen(routeName: route);
+      final bool _isKeywordPath = TextCheck.stringStartsExactlyWith(text: route, startsWith: 'phid');
+
+      if (_isBid == true){
+        await _MirageNav.goTo(bid: route!, bzID: arg);
+      }
+      else if (_isKeywordPath == true){
+        await _MirageNav.goToKeyword(phid: Pathing.getLastPathNode(route)!);
+      }
+      else if (_isScreen == true){
+        await _goToScreen(routeName: route, arg: arg);
+      }
+
     }
 
   }
@@ -389,7 +393,7 @@ class ScreenRouter {
   static Future<void> backFromPreviewScreen() async {
 
     if (kIsWeb == true){
-      await goTo(routeName: ScreenName.home, arg: null);
+      await goTo(route: ScreenName.home);
     }
 
     else {
@@ -541,7 +545,7 @@ class ScreenRouter {
           notify: true
       );
 
-      await ScreenRouter.goTo(routeName: ScreenName.logo, arg: null);
+      await Routing.goTo(route: ScreenName.logo);
 
     }
 
@@ -570,8 +574,8 @@ class ScreenRouter {
 
         final String? _args = _afterHomeRoute.arguments as String?;
 
-        await ScreenRouter.goTo(
-          routeName: _afterHomeRoute.name,
+        await Routing.goTo(
+          route: _afterHomeRoute.name,
           arg: _args,
         );
 

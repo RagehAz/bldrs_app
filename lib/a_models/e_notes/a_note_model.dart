@@ -1171,7 +1171,7 @@ class NoteModel {
       poll: PollModel.dummyPoll(),
       topic: TopicModel.userGeneralNews,
       navTo: const TriggerModel(
-        name: BldrsTabber.bidMyNotes,
+        name: TabName.bid_My_Notes,
         done: [],
         argument: null,
       ),
@@ -1221,7 +1221,7 @@ class NoteModel {
       // sendNote: true,
       // sendFCM: true,
       navTo: const TriggerModel(
-        name: BldrsTabber.bidMyNotes,
+        name: TabName.bid_My_Notes,
         done: [],
         argument: null,
       ),    );

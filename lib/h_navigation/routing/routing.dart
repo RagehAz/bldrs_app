@@ -60,6 +60,7 @@ import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 part 'pathing/a_route_name.dart';
 part 'pathing/b_route_pather.dart';
 part 'pathing/bldrs_tabber.dart';
+part 'pathing/c_tab_name.dart';
 
 part 'routers/a_screen_router.dart';
 part 'routers/b_bldrs_nav.dart';

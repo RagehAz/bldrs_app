@@ -422,8 +422,8 @@ class BldrsShareLink{
 
     blog('jumpToFlyerScreenByLink : link : ($link) : flyerID : $_flyerID : index : $_index');
 
-    await ScreenRouter.goTo(
-      routeName: ScreenName.flyerPreview,
+    await Routing.goTo(
+      route: ScreenName.flyerPreview,
       arg: _flyerID,
     );
 
@@ -549,9 +549,9 @@ class BldrsShareLink{
 
     blog('jumpToBzScreenByLink : link : ($link) : _bzID : $_bzID');
 
-    await ScreenRouter.goTo(
+    await Routing.goTo(
       arg: _bzID,
-      routeName: ScreenName.bzPreview,
+      route: ScreenName.bzPreview,
     );
 
   }
@@ -621,8 +621,8 @@ class BldrsShareLink{
 
     blog('jumpToUserScreenByLink : link : ($link) : _userID : $_userID');
 
-    await ScreenRouter.goTo(
-      routeName: ScreenName.userPreview,
+    await Routing.goTo(
+      route: ScreenName.userPreview,
       arg: _userID,
     );
 

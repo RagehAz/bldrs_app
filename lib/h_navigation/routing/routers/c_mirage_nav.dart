@@ -1,9 +1,9 @@
 part of bldrs_routing;
 
-class MirageNav {
+class _MirageNav {
   // -----------------------------------------------------------------------------
 
-  const MirageNav();
+  const _MirageNav();
 
   // -----------------------------------------------------------------------------
 
@@ -13,8 +13,7 @@ class MirageNav {
   static Future<void> _goHome() async {
 
     await _goToMainPages(
-      bid: BldrsTabber.bidHome,
-      tab: BldrsTab.home,
+      bid: TabName.bid_Home,
     );
 
     final MirageModel mirage1 = HomeProvider.proGetMirageByIndex(
@@ -29,22 +28,18 @@ class MirageNav {
   }
   // --------------------
   static Future<void> _goZone() => _goToMainPages(
-    bid: BldrsTabber.bidZone,
-    tab: BldrsTab.zone,
+    bid: TabName.bid_Zone,
   );
   // --------------------
   static Future<void> _goAuth() => _goToMainPages(
-    bid: BldrsTabber.bidAuth,
-    tab: BldrsTab.auth,
+    bid: TabName.bid_Auth,
   );
   // --------------------
   static Future<void> _goAppSettings() => _goToMainPages(
-    bid: BldrsTabber.bidAppSettings,
-    tab: BldrsTab.appSettings,
+    bid: TabName.bid_AppSettings,
   );
   // --------------------
   static Future<void> _goToMainPages({
-    required BldrsTab tab,
     required String bid,
   }) async {
 
@@ -74,7 +69,7 @@ class MirageNav {
     );
 
     /// GO TO TAB
-    await BldrsTabber.goToTab(tab: tab);
+    await BldrsTabber.goToTab(bid: bid);
 
     /// SHOW MIRAGE 1
     allMirages[0].show(mounted: mounted);
@@ -93,33 +88,27 @@ class MirageNav {
 
   // --------------------
   static Future<void> _goMyInfo() => _goToAUserTab(
-    bid: BldrsTabber.bidMyInfo,
-    tab: BldrsTab.myInfo,
+    bid: TabName.bid_My_Info,
   );
   // --------------------
   static Future<void> _goMySaves() => _goToAUserTab(
-    bid: BldrsTabber.bidMySaves,
-    tab: BldrsTab.mySaves,
+    bid: TabName.bid_My_Saves,
   );
   // --------------------
   static Future<void> _goMyNotes() => _goToAUserTab(
-    bid: BldrsTabber.bidMyNotes,
-    tab: BldrsTab.myNotes,
+    bid: TabName.bid_My_Notes,
   );
   // --------------------
   static Future<void> _goMyFollows() => _goToAUserTab(
-    bid: BldrsTabber.bidMyFollows,
-    tab: BldrsTab.myFollows,
+    bid: TabName.bid_My_Follows,
   );
   // --------------------
   static Future<void> _goMySettings() => _goToAUserTab(
-    bid: BldrsTabber.bidMySettings,
-    tab: BldrsTab.mySettings,
+    bid: TabName.bid_My_Settings,
   );
   // --------------------
   static Future<void> _goToAUserTab({
     required String bid,
-    required BldrsTab tab,
   }) async {
 
     if (UsersProvider.proCheckIsSignedUp() == true){
@@ -146,7 +135,7 @@ class MirageNav {
       HomeProvider.proSelectMirageButton(
         mirageIndex: 0,
         mounted: mounted,
-        button: BldrsTabber.bidMyProfile,
+        button: TabName.bid_MyProfile,
       );
 
       /// SELECT THE BUTTON IN MIRAGE 1
@@ -157,7 +146,7 @@ class MirageNav {
       );
 
       /// GO TO TAB
-      await BldrsTabber.goToTab(tab: tab);
+      await BldrsTabber.goToTab(bid: bid);
 
       /// SHOW MIRAGE 1
       // allMirages[1].show(mounted: mounted);
@@ -166,7 +155,7 @@ class MirageNav {
       /// SCROLL TO
       await Future.wait([
         allMirages[0].scrollTo(
-            buttonIndex: BldrsTabber.getButtonIndexInMainMirage(bid: BldrsTabber.bidMyProfile,),
+            buttonIndex: BldrsTabber.getButtonIndexInMainMirage(bid: TabName.bid_MyProfile,),
             listLength: BldrsTabber.mainButtonsLength,
         ),
         allMirages[1].scrollTo(
@@ -185,38 +174,32 @@ class MirageNav {
   // --------------------
   static Future<void> _goMyBzInfo({required String? bzID}) => _goToABzTab(
     bzID: bzID,
-    bid: BldrsTabber.bidMyBzInfo,
-    tab: BldrsTab.myBzInfo,
+    bid: TabName.bid_MyBz_Info,
   );
   // --------------------
   static Future<void> _goMyBzFlyers({required String? bzID}) => _goToABzTab(
     bzID: bzID,
-    bid: BldrsTabber.bidMyBzFlyers,
-    tab: BldrsTab.myBzFlyers,
+    bid: TabName.bid_MyBz_Flyers,
   );
   // --------------------
   static Future<void> _goMyBzTeam({required String? bzID}) => _goToABzTab(
     bzID: bzID,
-    bid: BldrsTabber.bidMyBzTeam,
-    tab: BldrsTab.myBzTeam,
+    bid: TabName.bid_MyBz_Team,
   );
   // --------------------
   static Future<void> _goMyBzNotes({required String? bzID}) => _goToABzTab(
     bzID: bzID,
-    bid: BldrsTabber.bidMyBzNotes,
-    tab: BldrsTab.myBzNotes,
+    bid: TabName.bid_MyBz_Notes,
   );
   // --------------------
   static Future<void> _goMyBzSettings({required String? bzID}) => _goToABzTab(
     bzID: bzID,
-    bid: BldrsTabber.bidMyBzSettings,
-    tab: BldrsTab.myBzSettings,
+    bid: TabName.bid_MyBz_Settings,
   );
   // --------------------
   static Future<void> _goToABzTab({
     required String? bzID,
     required String bid,
-    required BldrsTab tab,
   }) async {
 
     if (bzID != null){
@@ -261,7 +244,7 @@ class MirageNav {
           mounted: mounted,
         );
 
-        final String _bidBz = BldrsTabber.generateBzBid(
+        final String _bidBz = TabName.generateBzBid(
             bzID: bzID,
             bid: bid
         );
@@ -270,7 +253,7 @@ class MirageNav {
         HomeProvider.proSelectMirageButton(
           mirageIndex: 0,
           mounted: mounted,
-          button: _isSingleBz == true ? _bidBz : BldrsTabber.bidMyBzz,
+          button: _isSingleBz == true ? _bidBz : TabName.bid_MyBzz,
         );
 
         /// SELECT THE BUTTON IN MIRAGE 1
@@ -290,7 +273,7 @@ class MirageNav {
         }
 
         /// GO TO TAB
-        await BldrsTabber.goToTab(tab: tab);
+        await BldrsTabber.goToTab(bid: bid);
 
         /// SHOW MIRAGE 1
         allMirages[1].show(mounted: mounted);
@@ -307,7 +290,7 @@ class MirageNav {
 
           /// MIRAGE 0
           allMirages[0].scrollTo(
-            buttonIndex: BldrsTabber.getButtonIndexInMainMirage(bid: BldrsTabber.bidMyBzz),
+            buttonIndex: BldrsTabber.getButtonIndexInMainMirage(bid: TabName.bid_MyBzz),
             listLength: BldrsTabber.mainButtonsLength,
           ),
 
@@ -346,32 +329,34 @@ class MirageNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> goTo({
-    required BldrsTab tab,
+    required String bid,
     String? bzID,
   }) async {
 
-    switch (tab){
+    switch (bid){
 
       /// MAIN
-      case BldrsTab.home:           await _goHome();
-      case BldrsTab.zone:           await _goZone();
-      case BldrsTab.auth:           await _goAuth();
-      case BldrsTab.appSettings:    await _goAppSettings();
+      case TabName.bid_Home:           await _goHome();
+      case TabName.bid_Zone:           await _goZone();
+      case TabName.bid_Auth:           await _goAuth();
+      case TabName.bid_AppSettings:    await _goAppSettings();
 
+      case TabName.bid_MyProfile:      await _goMyInfo();
+      case TabName.bid_MyBzz:          await _goMyBzInfo(bzID: bzID);
 
       /// USER
-      case BldrsTab.myInfo:         await _goMyInfo();
-      case BldrsTab.mySaves:        await _goMySaves();
-      case BldrsTab.myNotes:        await _goMyNotes();
-      case BldrsTab.myFollows:      await _goMyFollows();
-      case BldrsTab.mySettings:     await _goMySettings();
+      case TabName.bid_My_Info:         await _goMyInfo();
+      case TabName.bid_My_Saves:        await _goMySaves();
+      case TabName.bid_My_Notes:        await _goMyNotes();
+      case TabName.bid_My_Follows:      await _goMyFollows();
+      case TabName.bid_My_Settings:     await _goMySettings();
 
       /// BZ
-      case BldrsTab.myBzInfo:       await _goMyBzInfo(bzID: bzID);
-      case BldrsTab.myBzFlyers:     await _goMyBzFlyers(bzID: bzID);
-      case BldrsTab.myBzTeam:       await _goMyBzTeam(bzID: bzID);
-      case BldrsTab.myBzNotes:      await _goMyBzNotes(bzID: bzID);
-      case BldrsTab.myBzSettings:   await _goMyBzSettings(bzID: bzID);
+      case TabName.bid_MyBz_Info:       await _goMyBzInfo(bzID: bzID);
+      case TabName.bid_MyBz_Flyers:     await _goMyBzFlyers(bzID: bzID);
+      case TabName.bid_MyBz_Team:       await _goMyBzTeam(bzID: bzID);
+      case TabName.bid_MyBz_Notes:      await _goMyBzNotes(bzID: bzID);
+      case TabName.bid_MyBz_Settings:   await _goMyBzSettings(bzID: bzID);
 
       default: await _goHome();
 

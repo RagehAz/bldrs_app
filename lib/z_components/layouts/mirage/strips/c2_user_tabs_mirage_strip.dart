@@ -29,13 +29,13 @@ class _UserTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const String _bid = BldrsTabber.bidMyInfo;
+                    const String _bid = TabName.bid_My_Info;
                     final bool _isSelected = selectedButton == _bid;
 
                     return MirageButton(
-                      verse: BldrsTabber.translateBid(_bid),
-                      icon: BldrsTabber.getBidIcon(_bid),
-                      buttonID: BldrsTabber.bidMyInfo,
+                      verse: TabName.translateBid(_bid),
+                      icon: TabName.getBidIcon(_bid),
+                      buttonID: TabName.bid_My_Info,
                       isSelected: _isSelected,
                       canShow: true,
                       bigIcon: false,
@@ -49,13 +49,13 @@ class _UserTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const String _bid = BldrsTabber.bidMySaves;
+                    const String _bid = TabName.bid_My_Saves;
                     final bool _isSelected = selectedButton == _bid;
 
                     return MirageButton(
                       buttonID: _bid,
-                      verse: BldrsTabber.translateBid(_bid),
-                      icon: BldrsTabber.getBidIcon(_bid),
+                      verse: TabName.translateBid(_bid),
+                      icon: TabName.getBidIcon(_bid),
                       isSelected: _isSelected,
                       canShow: true,
                       bigIcon: false,
@@ -69,13 +69,13 @@ class _UserTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const String _bid = BldrsTabber.bidMyNotes;
+                    const String _bid = TabName.bid_My_Notes;
                     final bool _isSelected = selectedButton == _bid;
 
                     return MirageButton(
                       buttonID: _bid,
-                      verse: BldrsTabber.translateBid(_bid),
-                      icon: BldrsTabber.getBidIcon(_bid),
+                      verse: TabName.translateBid(_bid),
+                      icon: TabName.getBidIcon(_bid),
                       isSelected: _isSelected,
                       canShow: true,
                       bigIcon: false,
@@ -89,13 +89,13 @@ class _UserTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const String _bid = BldrsTabber.bidMyFollows;
+                    const String _bid = TabName.bid_My_Follows;
                     final bool _isSelected = selectedButton == _bid;
 
                     return MirageButton(
                       buttonID: _bid,
-                      verse: BldrsTabber.translateBid(_bid),
-                      icon: BldrsTabber.getBidIcon(_bid),
+                      verse: TabName.translateBid(_bid),
+                      icon: TabName.getBidIcon(_bid),
                       isSelected: _isSelected,
                       canShow: true,
                       bigIcon: false,
@@ -109,13 +109,13 @@ class _UserTabsMirageStrip extends StatelessWidget {
               Builder(
                   builder: (context) {
 
-                    const String _bid = BldrsTabber.bidMySettings;
+                    const String _bid = TabName.bid_My_Settings;
                     final bool _isSelected = selectedButton == _bid;
 
                     return MirageButton(
                       buttonID: _bid,
-                      verse: BldrsTabber.translateBid(_bid),
-                      icon: BldrsTabber.getBidIcon(_bid),
+                      verse: TabName.translateBid(_bid),
+                      icon: TabName.getBidIcon(_bid),
                       isSelected: _isSelected,
                       canShow: true,
                       bigIcon: false,

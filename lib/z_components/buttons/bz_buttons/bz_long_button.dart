@@ -56,8 +56,8 @@ class BzBubble extends StatelessWidget {
 
     else {
 
-      await ScreenRouter.goTo(
-          routeName: ScreenName.bzPreview,
+      await Routing.goTo(
+          route: ScreenName.bzPreview,
           arg: bzModel?.id,
       );
 

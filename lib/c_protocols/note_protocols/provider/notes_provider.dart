@@ -152,7 +152,7 @@ class NotesProvider extends ChangeNotifier {
 
       _notesProvider._badger = Badger.insertBadge(
         badger: _notesProvider._badger,
-        key: BldrsTabber.bidAppSettings,
+        key: TabName.bid_AppSettings,
         value: getWord('phid_update'),
       );
 

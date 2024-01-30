@@ -34,7 +34,7 @@ class Mirage1StripSwitcher extends StatelessWidget {
       builder: (_, String? selectedButton, Widget? child){
 
         /// USER TABS
-        if (selectedButton == BldrsTabber.bidMyProfile){
+        if (selectedButton == TabName.bid_MyProfile){
           return _UserTabsMirageStrip(
             mirage1: mirage1,
             allMirages: allMirages,
@@ -43,7 +43,7 @@ class Mirage1StripSwitcher extends StatelessWidget {
         }
 
         /// MY BZZ STRIP
-        else if (selectedButton == BldrsTabber.bidMyBzz){
+        else if (selectedButton == TabName.bid_MyBzz){
           return _MyBzzMirageStrip(
             mirageX1: mirage1,
             allMirages: allMirages,
@@ -52,17 +52,17 @@ class Mirage1StripSwitcher extends StatelessWidget {
         }
 
         /// BZ TABS
-        else if (BldrsTabber.checkBidIsBidBz(bid: selectedButton) == true){
+        else if (TabName.checkBidIsBidBz(bid: selectedButton) == true){
           return _BzTabsMirageStrip(
             thisMirage: mirage1,
             allMirages: allMirages,
             onTabChanged: onBzTabChanged,
-            bzID: BldrsTabber.getBzIDFromBidBz(bzBid: selectedButton)!,
+            bzID: TabName.getBzIDFromBidBz(bzBid: selectedButton)!,
           );
         }
 
         /// SECTIONS STRIP
-        else if (selectedButton == BldrsTabber.bidHome){
+        else if (selectedButton == TabName.bid_Home){
           return _SectionsMirageStrip(
             mirageX1: mirage1,
             mirageX2: mirage2,

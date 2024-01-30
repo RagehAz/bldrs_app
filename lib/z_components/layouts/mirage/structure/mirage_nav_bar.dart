@@ -170,8 +170,8 @@ class _MirageNavBarState extends State<MirageNavBar> {
                 //
                 // await BldrsTabber.goToTab(tab: BldrsTab.zone);
 
-                await MirageNav.goTo(
-                    tab: BldrsTab.zone,
+                await Routing.goTo(
+                    route: TabName.bid_Zone,
                 );
 
               },
@@ -190,8 +190,8 @@ class _MirageNavBarState extends State<MirageNavBar> {
                 //
                 // await BldrsTabber.goToTab(tab: BldrsTab.auth);
 
-                await MirageNav.goTo(
-                  tab: BldrsTab.auth,
+                await Routing.goTo(
+                  route: TabName.bid_Auth,
                 );
 
               },
@@ -222,9 +222,9 @@ class _MirageNavBarState extends State<MirageNavBar> {
                 //   mounted: mounted,
                 // );
 
-                await MirageNav.goTo(
-                  tab: BldrsTab.myBzInfo,
-                  bzID: bzModel.id,
+                await Routing.goTo(
+                  route: TabName.bid_MyBz_Info,
+                  arg: bzModel.id,
                 );
 
               },
@@ -246,8 +246,8 @@ class _MirageNavBarState extends State<MirageNavBar> {
                 //   mounted: mounted,
                 // );
 
-                await MirageNav.goTo(
-                  tab: BldrsTab.appSettings,
+                await Routing.goTo(
+                  route: TabName.bid_AppSettings,
                 );
 
               },

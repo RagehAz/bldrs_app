@@ -36,9 +36,9 @@ class _MirageMyBzzControls {
     //     ),
     //   );
 
-    await MirageNav.goTo(
-      tab: BldrsTab.myBzInfo,
-      bzID: UsersProvider.proGetMyBzzIDs(context: getMainContext(), listen: false).first,
+    await Routing.goTo(
+      route: TabName.bid_MyBz_Info,
+      arg: UsersProvider.proGetMyBzzIDs(context: getMainContext(), listen: false).first,
     );
 
   }
@@ -93,9 +93,9 @@ class _MirageMyBzzControls {
     //
     // await BldrsTabber.goToTab(tab: BldrsTab.myBzInfo);
 
-    await MirageNav.goTo(
-      tab: BldrsTab.myBzInfo,
-      bzID: bzID,
+    await Routing.goTo(
+      route: TabName.bid_MyBz_Info,
+      arg: bzID,
     );
 
   }
@@ -131,9 +131,9 @@ class _MirageMyBzzControls {
     //
     // await BldrsTabber.goToTab(tab: _tab);
 
-    await MirageNav.goTo(
-      tab: BldrsTabber.getTabByBid(bid),
-      bzID: HomeProvider.proGetActiveBzModel(context: getMainContext(), listen: false)!.id!,
+    await Routing.goTo(
+      route: bid,
+      arg: HomeProvider.proGetActiveBzModel(context: getMainContext(), listen: false)!.id!,
     );
 
   }
