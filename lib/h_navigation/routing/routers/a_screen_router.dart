@@ -11,7 +11,7 @@ class ScreenRouter {
   /// ROUTER
 
   // --------------------
-  /// TESTED : WORKS PERFECT : ROUTES_LIST
+  /// TESTED : WORKS PERFECT
   static Route<dynamic> router(RouteSettings settings) {
 
     final String? _path = RoutePather.getPathFromRouteSettingsName(settings.name);
@@ -145,11 +145,32 @@ class ScreenRouter {
   /// GO TO
 
   // --------------------
-  /// ROUTES_LIST
+  ///
   static Future<void> goTo({
     required String? routeName,
     required String? arg,
   }) async  {
+
+    final bool _isBid = TextCheck.stringStartsExactlyWith(text: routeName, startsWith: 'bid');
+    final bool _isScreen = ScreenName.checkIsScreen(routeName: routeName);
+    final bool _isKeywordPath = TextCheck.stringStartsExactlyWith(text: routeName, startsWith: 'phid');
+
+    if (_isBid == true){
+      await MirageNav.goTo(tab: BldrsTabber.getTabByBid(routeName), bzID: arg);
+    }
+    else if (_isKeywordPath == true){
+      await MirageNav.goToKeyword(phid: Pathing.getLastPathNode(routeName)!);
+    }
+    else if (_isScreen == true){
+      await _goToScreen(routeName: routeName, arg: arg);
+    }
+
+  }
+  // --------------------
+  static Future<void> _goToScreen({
+    required String? routeName,
+    required String? arg,
+  }) async {
     Future<void>? _goTo;
 
     final String? _path = RoutePather.getPathFromRouteSettingsName(routeName);
