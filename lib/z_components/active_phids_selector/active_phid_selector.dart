@@ -209,12 +209,12 @@ class LiveActivePhidSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return LayoutVisibilityListener(
-      isOn: true,
-      child: AutoScrollingBar(
-        key: const ValueKey<String>('the_auto_scroll_phid_selector'),
-        scrollController: scrollController,
-        height: appBarType == AppBarType.non ? Stratosphere.smallAppBarStratosphere : Stratosphere.bigAppBarStratosphere,
+    return AutoScrollingBar(
+      key: const ValueKey<String>('the_auto_scroll_phid_selector'),
+      scrollController: scrollController,
+      height: appBarType == AppBarType.non ? Stratosphere.smallAppBarStratosphere : Stratosphere.bigAppBarStratosphere,
+      child: LayoutVisibilityListener(
+        isOn: true,
         child: ActivePhidSelector(
           bzModel: bzModel,
           mounted: mounted,

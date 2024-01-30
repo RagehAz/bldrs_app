@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_screens/b_user_screens/c_user_editor_screen/user_editor_screen.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
@@ -298,6 +299,7 @@ Future<void> _goToUserEditorForFirstTime({
         validateOnStartup: false,
         checkLastSession: false,
         onFinish: () async {
+          await Nav.goBack(context: getMainContext());
           await _goToLogoScreen(mounted: mounted);
         },
       )

@@ -4,6 +4,7 @@ import 'package:basics/components/sensors/app_version_builder.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
@@ -589,6 +590,7 @@ class UserInitializer {
                 validateOnStartup: true,
                 // checkLastSession: true,
                 onFinish: () async {
+                  await Nav.goBack(context: getMainContext());
                   await Routing.goTo(route: TabName.bid_My_Info);
                   },
               )
