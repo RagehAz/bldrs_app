@@ -162,144 +162,21 @@ class ScreenRouter {
     if (_context != null && _path != null){
 
       switch (_path){
-      // ------------------------------------------------------------
-
-      /// LOADING
-
       // --------------------
       /// staticLogoScreen
         case ScreenName.logo:
-          _goTo = _pushLogoRouteAndRemoveAllBelow(); break;
-      // // --------------------
-      // /// animatedLogoScreen
-      // case RouteName.animatedLogo:
-      //   _goTo = BldrsNav.pushLogoRouteAndRemoveAllBelow(
-      //     animatedLogoScreen: true,
-      //   ); break;
-      // ------------------------------------------------------------
-
-      /// MAIN
-
+          _goTo = Nav.pushNamedAndRemoveAllBelow(
+            context: _context,
+            goToRoute: ScreenName.logo,
+          ); break;
       // --------------------
       /// home
         case ScreenName.home:
-          _goTo = _pushHomeRouteAndRemoveAllBelow(); break;
-      // --------------------
-      // /// auth
-      //   case RouteName.auth:
-      //     _goTo = BldrsNav.pushAuthRoute(); break;
-      // --------------------
-      // /// search
-      //   case RouteName.search:
-      //     _goTo = BldrsNav.pushSearchRoute(); break;
-      // // --------------------
-      /// GO_TO_APP_SETTINGS
-      // /// appSettings
-      //   case RouteName.appSettings:
-      //     _goTo = BldrsNav.pushAppSettingsRoute(); break;
+          _goTo = Nav.pushNamedAndRemoveAllBelow(
+            context: _context,
+            goToRoute: ScreenName.home,
+          ); break;
       // ------------------------------------------------------------
-
-      /// PROFILE
-
-      // --------------------
-      /// myUserProfile
-      // case RouteName.myUserProfile:
-      //   _goTo = BldrsNav.pushMyUserScreen(
-      //       // userTab: UserTab.profile // default
-      //   ); break;
-      // --------------------
-      // /// myUserNotes
-      // case RouteName.myUserNotes:
-      //   _goTo = BldrsNav.pushMyUserScreen(
-      //       userTab: UserTab.notifications,
-      //   ); break;
-      // // --------------------
-      // /// myUserFollowing
-      // case RouteName.myUserFollowing:
-      //   _goTo = BldrsNav.pushMyUserScreen(
-      //       userTab: UserTab.following,
-      //   ); break;
-      // // --------------------
-      // /// myUserSettings
-      // case RouteName.myUserSettings:
-      //   _goTo = BldrsNav.pushMyUserScreen(
-      //       userTab: UserTab.settings,
-      //   ); break;
-      // --------------------
-      // /// savedFlyers
-      // case RouteName.savedFlyers:
-      //   _goTo = BldrsNav.pushSavedFlyersRoute(); break;
-      // --------------------
-      /// profileEditor
-      /*
-          HANDLED MANUALLY BY
-          [onEditProfileTap]
-          [_goToUserEditorForFirstTime]
-          [_controlMissingFieldsCase]
-        */
-      // ------------------------------------------------------------
-
-      /// MY BZ
-
-      // --------------------
-      // /// myBzAboutPage
-      // case RouteName.myBzAboutPage:
-      //   _goTo = BldrsNav.goToMyBzScreen(
-      //     bzID: _args,
-      //     replaceCurrentScreen: false,
-      //     initialTab: BzTab.about,
-      //   ); break;
-      // --------------------
-      // /// myBzFlyersPage
-      // case RouteName.myBzFlyersPage:
-      //   _goTo = BldrsNav.goToMyBzScreen(
-      //     bzID: args,
-      //     replaceCurrentScreen: false,
-      //     // initialTab: BzTab.flyers, // default
-      //   ); break;
-      // --------------------
-      // /// myBzTeamPage
-      // case RouteName.myBzTeamPage:
-      //   _goTo = BldrsNav.goToMyBzScreen(
-      //     bzID: args,
-      //     replaceCurrentScreen: false,
-      //     initialTab: BzTab.team,
-      //   ); break;
-      // --------------------
-      // /// myBzNotesPage
-      // case RouteName.myBzNotesPage:
-      //   _goTo = BldrsNav.goToMyBzScreen(
-      //     bzID: args,
-      //     replaceCurrentScreen: false,
-      //     initialTab: BzTab.notes,
-      //   ); break;
-      // --------------------
-      // /// myBzSettingsPage
-      // case RouteName.myBzSettingsPage:
-      //   _goTo = BldrsNav.goToMyBzScreen(
-      //     bzID: _args,
-      //     replaceCurrentScreen: false,
-      //     initialTab: BzTab.settings,
-      //   ); break;
-      // --------------------
-      /// bzEditor
-      /*
-          HANDLED MANUALLY BY
-          [onEditBzButtonTap]
-          [onCreateNewBzTap]
-        */
-      // --------------------
-      /// flyerEditor
-      /*
-          HANDLED MANUALLY BY
-          [_onEditFlyerButtonTap]
-          [goToFlyerMaker]
-        */
-      // ------------------------------------------------------------
-
-      /// PREVIEWS
-
-      // --------------------
       /// userPreview
         case ScreenName.userPreview:
           _goTo = _jumpToUserPreviewScreen(
@@ -361,7 +238,7 @@ class ScreenRouter {
 
       // --------------------
         default:
-          _goTo = Nav.goToRoute(_context, 'nothing'); break;
+          _goTo = Nav.goToRoute(_context, ScreenName.logo); break;
       // ------------------------------------------------------------
       }
     }
@@ -491,7 +368,7 @@ class ScreenRouter {
   static Future<void> backFromPreviewScreen() async {
 
     if (kIsWeb == true){
-      await _pushHomeRouteAndRemoveAllBelow();
+      await goTo(routeName: ScreenName.home, arg: null);
     }
 
     else {
@@ -499,48 +376,6 @@ class ScreenRouter {
         context: getMainContext(),
       );
     }
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// RESTARTING
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> _pushLogoRouteAndRemoveAllBelow() async {
-
-    await Nav.pushNamedAndRemoveAllBelow(
-      context: getMainContext(),
-      goToRoute: ScreenName.logo,
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> _pushHomeRouteAndRemoveAllBelow() async {
-
-    await Nav.pushNamedAndRemoveAllBelow(
-      goToRoute: ScreenName.home,
-      context: getMainContext(),
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> restartAndRoute({
-    String? route,
-    dynamic arguments,
-  }) async {
-
-    if (route != null) {
-      UiProvider.proSetAfterHomeRoute(
-        routeName: route,
-        arguments: arguments,
-        notify: true,
-      );
-    }
-
-    await _pushLogoRouteAndRemoveAllBelow();
 
   }
   // ------------------------------------------------------------
@@ -668,10 +503,8 @@ class ScreenRouter {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> autoNav({
+  static Future<void> restartToAfterHomeRoute({
     required String? routeName,
-    required bool startFromHome,
-    required bool mounted,
     String? arguments,
   }) async {
 
@@ -687,20 +520,14 @@ class ScreenRouter {
           notify: true
       );
 
-      if (startFromHome == true){
-        await ScreenRouter.goTo(routeName: ScreenName.home, arg: null);
-      }
-
-      else {
-        await autoNavigateFromHomeScreen(mounted: mounted);
-      }
+      await ScreenRouter.goTo(routeName: ScreenName.logo, arg: null);
 
     }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> autoNavigateFromHomeScreen({
+  static Future<void> autoNavigateToAfterHomeRoute({
     required bool mounted,
   }) async {
 
