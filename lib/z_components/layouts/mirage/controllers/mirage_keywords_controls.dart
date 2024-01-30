@@ -39,8 +39,8 @@ class MirageKeywordsControls {
     //     ),
     //   );
 
-    await MirageNav.goTo(
-      tab: BldrsTab.home,
+    await Routing.goTo(
+      route: TabName.bid_Home,
     );
 
   }

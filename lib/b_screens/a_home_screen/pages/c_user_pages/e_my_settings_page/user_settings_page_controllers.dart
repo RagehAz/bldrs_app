@@ -64,7 +64,7 @@ Future<void> onEditProfileTap({
           //   route: RouteName.myUserProfile,
           // );
 
-          await MirageNav.goTo(tab: BldrsTab.myInfo);
+          await Routing.goTo(route: TabName.bid_My_Info);
 
         },
       )

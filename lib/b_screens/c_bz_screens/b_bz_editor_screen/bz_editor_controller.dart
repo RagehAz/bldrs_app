@@ -152,8 +152,8 @@ Future<void> onConfirmBzEdits({
         );
       }
 
-      await ScreenRouter.restartToAfterHomeRoute(
-        routeName: BldrsTabber.bidMyBzInfo,
+      await Routing.restartToAfterHomeRoute(
+        routeName: TabName.bid_MyBz_Info,
         arguments: _uploadedBz?.id,
       );
 

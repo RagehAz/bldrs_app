@@ -254,7 +254,7 @@ class BldrsEngine {
                         /// ON BOARDING
       .then((value) =>  UiInitializer.initializeOnBoarding(mounted: mounted))
                         /// AUTO NAV
-      .then((value) =>  ScreenRouter.autoNavigateToAfterHomeRoute(mounted: mounted))
+      .then((value) =>  Routing.autoNavigateToAfterHomeRoute(mounted: mounted))
                         /// DYNAMIC LINKS
       .then((value) =>  DynamicLinks.initDynamicLinks(mounted: mounted))
                         /// APP LANGUAGE

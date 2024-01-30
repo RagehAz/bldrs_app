@@ -308,7 +308,7 @@ class Badger {
     required bool onlyNumbers,
   }){
 
-    final List<String> bzzBids = BldrsTabber.generateMyBzzBids(
+    final List<String> bzzBids = TabName.generateMyBzzBids(
       context: context,
       listen: listen,
     );
@@ -328,7 +328,7 @@ class Badger {
     required bool onlyNumbers,
   }){
 
-    final List<String> _bzBids = BldrsTabber.generateBzBids(
+    final List<String> _bzBids = TabName.generateBzBids(
       bzID: bzID,
     );
 
@@ -380,7 +380,7 @@ class Badger {
 
     for (final String key in _keys){
 
-      final String? _bzID = BldrsTabber.getBzIDFromBidBz(bzBid: key);
+      final String? _bzID = TabName.getBzIDFromBidBz(bzBid: key);
       if (_bzID == bzID){
         _output = _deleteBadge(
           badger: _output,

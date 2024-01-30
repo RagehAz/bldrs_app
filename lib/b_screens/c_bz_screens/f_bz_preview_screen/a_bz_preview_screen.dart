@@ -74,7 +74,7 @@ class _BzPreviewScreenState extends State<BzPreviewScreen> {
         id: bzModel?.name,
         translate: false,
       ),
-      onBack: ScreenRouter.backFromPreviewScreen,
+      onBack: Routing.backFromPreviewScreen,
       appBarType: AppBarType.basic,
       // appBarRowWidgets: <Widget>[
       //

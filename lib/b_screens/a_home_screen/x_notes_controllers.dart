@@ -50,7 +50,7 @@ StreamSubscription? listenToUserUnseenNotes({
         );
 
         await NotesProvider.proSetBadge(
-            bid: BldrsTabber.bidMyNotes,
+            bid: TabName.bid_My_Notes,
             value: _unseenNotes.length,
             notify: true
         );
@@ -142,7 +142,7 @@ StreamSubscription? _listenToMyBzUnseenNotes({
           );
 
           await NotesProvider.proSetBadge(
-              bid: BldrsTabber.generateBzBid(bzID: bzID, bid: BldrsTabber.bidMyBzNotes),
+              bid: TabName.generateBzBid(bzID: bzID, bid: TabName.bid_MyBz_Notes),
               value: _unseenNotes.length,
               notify: true
           );

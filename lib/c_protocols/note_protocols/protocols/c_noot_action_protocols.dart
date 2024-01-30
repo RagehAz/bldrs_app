@@ -23,9 +23,9 @@ class NootActionProtocols {
 
         final String _secondaryRouteName =
         noteModel.parties?.receiverType == PartyType.bz ?
-        BldrsTabber.bidMyBzNotes /// WHICH_BZ_EXACTLY
+        TabName.bid_MyBz_Notes /// WHICH_BZ_EXACTLY
             :
-        BldrsTabber.bidMyNotes;
+        TabName.bid_My_Notes;
 
         final String? _secondaryArgument =
         noteModel.parties?.receiverType == PartyType.bz ?
@@ -36,7 +36,7 @@ class NootActionProtocols {
         final String? _routeName = noteModel.navTo?.name ?? _secondaryRouteName;
         final String? _argument = noteModel.navTo?.argument ?? _secondaryArgument;
 
-        await ScreenRouter.restartToAfterHomeRoute(
+        await Routing.restartToAfterHomeRoute(
             routeName: _routeName,
             arguments: _argument,
         );

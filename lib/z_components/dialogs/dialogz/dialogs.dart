@@ -178,7 +178,7 @@ class Dialogs {
           notify: true,
       );
 
-      await MirageNav.goTo(tab: BldrsTab.auth);
+      await Routing.goTo(route: TabName.bid_Auth);
 
     }
 

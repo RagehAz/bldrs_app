@@ -93,7 +93,7 @@ class UiInitializer {
           }
 
           else {
-            await ScreenRouter.goTo(routeName: ScreenName.logo, arg: null);
+            await Routing.goTo(route: ScreenName.logo);
             _good = false;
           }
 

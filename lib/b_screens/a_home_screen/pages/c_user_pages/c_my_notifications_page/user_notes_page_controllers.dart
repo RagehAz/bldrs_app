@@ -194,9 +194,9 @@ bool canTapNoteBubble(NoteModel? noteModel){
     return false;
   }
   else if (
-      noteModel.navTo?.name == BldrsTabber.bidMyNotes
+      noteModel.navTo?.name == TabName.bid_My_Notes
       ||
-      noteModel.navTo?.name == BldrsTabber.bidMyBzNotes /// WHICH_BZ_EXACTLY
+      noteModel.navTo?.name == TabName.bid_MyBz_Notes /// WHICH_BZ_EXACTLY
       ||
       noteModel.navTo?.name == null
   ){

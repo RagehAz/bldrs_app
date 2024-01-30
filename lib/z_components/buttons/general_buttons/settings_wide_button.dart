@@ -117,7 +117,7 @@ class SettingsToSettingsButtons extends StatelessWidget {
                 verseCentered: false,
                 onTap: () async {
 
-                  await MirageNav.goTo(tab: BldrsTab.mySettings);
+                  await Routing.goTo(route: TabName.bid_My_Settings);
 
                 }
             ),
@@ -166,9 +166,9 @@ class SettingsToSettingsButtons extends StatelessWidget {
 
                     if (_bzModel != null) {
 
-                      await MirageNav.goTo(
-                        tab: BldrsTab.myBzSettings,
-                        bzID: _bzModel.id!,
+                      await Routing.goTo(
+                        route: TabName.bid_MyBz_Settings,
+                        arg: _bzModel.id!,
                       );
 
                     }

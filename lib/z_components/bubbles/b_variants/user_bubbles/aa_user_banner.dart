@@ -244,9 +244,9 @@ class UserBanner extends StatelessWidget {
                     _clearWidth - 20
                         :
                     null,
-                    onTap: () => ScreenRouter.goTo(
+                    onTap: () => Routing.goTo(
                       arg: _bzModel.id,
-                      routeName: ScreenName.bzPreview,
+                      route: ScreenName.bzPreview,
                     ),
                   );
 

@@ -57,33 +57,9 @@ class _TheHomeScreenState extends State<TheHomeScreen> with TickerProviderStateM
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // // --------------------
-    // /// FIX_AFTER_HOME_ROUTE_LOGIC
-    // final RouteSettings? _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
-    //   context: context,
-    //   /// this needed true for BldrsNav.restartAndRoute()
-    //   /// it does result in rebuilding entire tree when triggering pyramid
-    //   /// but turning this false is not the solution for that
-    //   /// you just can't turn this false
-    //   listen: true,
-    // );
-    // // --------------------
-    // /// WHEN AFTER HOME ROUTE IS DEFINED => works as loading screen until didChangedDependencies methods finish
-    // if (_afterHomeRoute != null){
-    //   return MainLayout(
-    //     canSwipeBack: false,
-    //     onBack: () => UiProvider.proClearAfterHomeRoute(notify: true),
-    //     child: const SizedBox(),
-    //   );
-    // }
-    // // --------------------
-    // else {
+
       return const HomeLayout();
-      // return const WidgetWaiter(
-      //   waitDuration: Duration(milliseconds: 2000),
-      //   child: HomeLayout(),
-      // );
-    // }
+
     // --------------------
   }
   // -----------------------------------------------------------------------------

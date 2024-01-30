@@ -43,7 +43,7 @@ class _MirageMyUserControls {
     //   ),
     // );
 
-    await MirageNav.goTo(tab: BldrsTab.myInfo);
+    await Routing.goTo(route: TabName.bid_My_Info);
 
   }
   // -----------------------------------------------------------------------------
@@ -67,8 +67,8 @@ class _MirageMyUserControls {
     //     tab: BldrsTabber.getTabByBid(bid),
     // );
 
-    await MirageNav.goTo(
-      tab: BldrsTabber.getTabByBid(bid),
+    await Routing.goTo(
+      route: bid,
     );
 
   }
