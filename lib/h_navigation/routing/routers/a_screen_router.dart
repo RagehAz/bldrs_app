@@ -147,15 +147,15 @@ class ScreenRouter {
   // --------------------
   /// ROUTES_LIST
   static Future<void> goTo({
-    required String? routeSettingsName,
-    required String? args,
+    required String? routeName,
+    required String? arg,
   }) async  {
     Future<void>? _goTo;
 
-    final String? _path = RoutePather.getPathFromRouteSettingsName(routeSettingsName);
+    final String? _path = RoutePather.getPathFromRouteSettingsName(routeName);
 
-    final String? _pathArguments = RoutePather.getArgFromRouteSettingsName(routeSettingsName);
-    final String? _args = args ?? _pathArguments;
+    final String? _pathArguments = RoutePather.getArgFromRouteSettingsName(routeName);
+    final String? _args = arg ?? _pathArguments;
 
     final BuildContext? _context = getMainContext();
 
@@ -688,7 +688,7 @@ class ScreenRouter {
       );
 
       if (startFromHome == true){
-        await ScreenRouter.goTo(routeSettingsName: ScreenName.home, args: null);
+        await ScreenRouter.goTo(routeName: ScreenName.home, arg: null);
       }
 
       else {
@@ -723,8 +723,8 @@ class ScreenRouter {
         final String? _args = _afterHomeRoute.arguments as String?;
 
         await ScreenRouter.goTo(
-          routeSettingsName: _afterHomeRoute.name,
-          args: _args,
+          routeName: _afterHomeRoute.name,
+          arg: _args,
         );
 
       }

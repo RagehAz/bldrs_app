@@ -54,8 +54,8 @@ class UsersList extends StatelessWidget {
             margins: Scale.superMargins(margin: margins),
             onTap: onTap == null ?
                 () => ScreenRouter.goTo(
-                  routeSettingsName: ScreenName.userPreview,
-                  args: userModel.id,
+                  routeName: ScreenName.userPreview,
+                  arg: userModel.id,
                 )
                 :
                 () => onTap?.call(userModel),
