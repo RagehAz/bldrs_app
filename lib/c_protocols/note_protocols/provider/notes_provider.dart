@@ -197,7 +197,7 @@ class NotesProvider extends ChangeNotifier {
 
     final NotesProvider _pro = Provider.of<NotesProvider>(getMainContext(), listen: false);
 
-    _pro._badger = Badger.insertBadge(
+    _pro._badger = Badger.setBadge(
         badger: _pro._badger,
         key: bid,
         value: value,

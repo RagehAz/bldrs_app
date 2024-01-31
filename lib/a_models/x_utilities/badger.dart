@@ -1,3 +1,4 @@
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
@@ -49,6 +50,39 @@ class Badger {
   }
   // -----------------------------------------------------------------------------
 
+  /// SET
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Badger setBadge({
+    required Badger badger,
+    required String? key,
+    required dynamic value,
+  }){
+    Badger _output = badger;
+
+    if (key != null){
+
+      Map<String, dynamic> _newMap = Mapper.insertPairInMap(
+          map: _output.map,
+          key: key,
+          value: value,
+          overrideExisting: true,
+      );
+
+      _newMap = Mapper.cleanNullPairs(map: _newMap) ?? {};
+      _newMap = Mapper.cleanZeroValuesPairs(map: _newMap) ?? {};
+
+      _output = _output.copyWith(
+        map: _newMap,
+      );
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
   /// INSERT
 
   // --------------------
@@ -59,6 +93,8 @@ class Badger {
     required dynamic value,
   }){
     Badger _output = badger;
+
+    blog('insertBadge : $key : value : $value : badger : $badger');
 
     if (key != null && value != null){
 
@@ -363,6 +399,15 @@ class Badger {
     }
 
     return _output;
+  }
+  // --------------------
+  /// AI TESTED
+  static int calculateUserTotal({
+    required Badger badger,
+    required bool onlyNumbers,
+  }){
+
+    return _calculateThose(bids: TabName.userBids, badger: badger, onlyNumbers: onlyNumbers);
   }
   // -----------------------------------------------------------------------------
 

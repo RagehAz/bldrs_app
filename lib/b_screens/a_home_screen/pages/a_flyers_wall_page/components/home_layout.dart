@@ -76,22 +76,30 @@ class HomeLayout extends StatelessWidget {
               //   onTap: () async {
               //
               //     await NotesProvider.proSetBadge(
-              //         bid: BldrsTabber.bidMySaves,
+              //         bid: TabName.bid_My_Saves,
               //         value: 31,
               //         notify: true,
               //     );
               //
+              //
               //     await NotesProvider.proSetBadge(
-              //       bid: BldrsTabber.generateBzBid(bzID: 'Gjm747w1UpfsPUlWXtMc', bid: BldrsTabber.bidMyBzTeam),
-              //       value: 2,
+              //       bid: TabName.bid_My_Follows,
+              //       value: 4,
               //       notify: true,
               //     );
               //
-              //     await NotesProvider.proSetBadge(
-              //       bid: 'phid_k_flyer_type_equipment/phid_k_group_equip_handling/',
-              //       value: 15,
-              //       notify: true,
-              //     );
+              //
+              //     // await NotesProvider.proSetBadge(
+              //     //   bid: BldrsTabber.generateBzBid(bzID: 'Gjm747w1UpfsPUlWXtMc', bid: BldrsTabber.bidMyBzTeam),
+              //     //   value: 2,
+              //     //   notify: true,
+              //     // );
+              //     //
+              //     // await NotesProvider.proSetBadge(
+              //     //   bid: 'phid_k_flyer_type_equipment/phid_k_group_equip_handling/',
+              //     //   value: 15,
+              //     //   notify: true,
+              //     // );
               //
               //     // await MirageNav.goToKeyword(
               //     //     phid: 'phid_k_prd_tool_garden_glove',
