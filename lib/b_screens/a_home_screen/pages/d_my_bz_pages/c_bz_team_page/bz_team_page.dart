@@ -3,7 +3,6 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/components/drawing/dot_separator.dart';
-import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/c_bz_team_page/bz_team_page_controllers.dart';
@@ -89,16 +88,15 @@ class _BzTeamPageState extends State<BzTeamPage> {
   @override
   Widget build(BuildContext context) {
 
-    blog('wtf');
     // --------------------
     return Selector<HomeProvider, BzModel?>(
       selector: (_, HomeProvider pro) => pro.myActiveBz,
       shouldRebuild: (oldModel, newModel){
 
-        BzModel.blogBzzDifferences(
-          bz1: oldModel,
-          bz2: newModel,
-        );
+        // BzModel.blogBzzDifferences(
+        //   bz1: oldModel,
+        //   bz2: newModel,
+        // );
         return true;
         },
 

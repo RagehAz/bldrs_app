@@ -6,13 +6,9 @@ import 'package:basics/models/flag_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/b_screens/d_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_screens/d_zoning/b_cities_screen/a_cities_screen.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
-import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
 /*
@@ -50,7 +46,7 @@ class ZoneSelection {
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel?> goBringAZone({
     required ZoneDepth depth,
-    required bool settingCurrentZone,
+    // required bool settingCurrentZone,
     required ViewingEvent zoneViewingEvent,
     required ZoneModel? viewerZone,
     required ZoneModel? selectedZone,
@@ -65,13 +61,13 @@ class ZoneSelection {
       selectedZone: selectedZone,
     );
 
-    blog('aa7aaa 2 : $_output');
+    // blog('aa7aaa 2 : $_output');
 
-    if (settingCurrentZone == true && _output != null){
-      await setCurrentZoneAndNavHome(
-        zone: _output,
-      );
-    }
+    // if (settingCurrentZone == true && _output != null){
+    //   await setCurrentZoneAndNavHome(
+    //     zone: _output,
+    //   );
+    // }
 
     blog('aa7aaa 3');
 
@@ -211,32 +207,32 @@ class ZoneSelection {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> setCurrentZoneAndNavHome({
-    required ZoneModel zone,
-  }) async {
-
-      WaitDialog.showUnawaitedWaitDialog(
-        verse: const Verse(
-          id: 'phid_loading',
-          translate: true,
-        ),
-      );
-
-      await ZoneProvider.proSetCurrentZone(
-        zone: zone,
-      );
-
-      await WaitDialog.closeWaitDialog();
-
-      UiProvider.proSetPyramidsAreExpanded(setTo: false, notify: true);
-
-      await Nav.pushHomeAndRemoveAllBelow(
-        context: getMainContext(),
-        invoker: 'SelectCountryScreen._onCountryTap',
-        homeRoute: ScreenName.home,
-      );
-
-  }
+  // /// TESTED : WORKS PERFECT
+  // static Future<void> setCurrentZoneAndNavHome({
+  //   required ZoneModel zone,
+  // }) async {
+  //
+  //     WaitDialog.showUnawaitedWaitDialog(
+  //       verse: const Verse(
+  //         id: 'phid_loading',
+  //         translate: true,
+  //       ),
+  //     );
+  //
+  //     await ZoneProvider.proSetCurrentZone(
+  //       zone: zone,
+  //     );
+  //
+  //     await WaitDialog.closeWaitDialog();
+  //
+  //     UiProvider.proSetPyramidsAreExpanded(setTo: false, notify: true);
+  //
+  //     await Nav.pushHomeAndRemoveAllBelow(
+  //       context: getMainContext(),
+  //       invoker: 'SelectCountryScreen._onCountryTap',
+  //       homeRoute: ScreenName.home,
+  //     );
+  //
+  // }
   // -----------------------------------------------------------------------------
 }

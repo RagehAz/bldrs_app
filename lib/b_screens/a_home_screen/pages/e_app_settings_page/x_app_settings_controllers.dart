@@ -152,18 +152,24 @@ Future<bool> rebootLogic() async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onSignOut() async {
+Future<void> onSignOutUser({
+  required bool showConfirmDialog,
+}) async {
 
-  final bool _go = await Dialogs.confirmProceed(
-    titleVerse: const Verse(
-      id: 'phid_confirm_signout',
-      translate: true,
-    ),
-    yesVerse: const Verse(
-      id: 'phid_signOut',
-      translate: true,
-    ),
-  );
+  bool _go = true;
+
+  if (showConfirmDialog){
+    _go = await Dialogs.confirmProceed(
+      titleVerse: const Verse(
+        id: 'phid_confirm_signout',
+        translate: true,
+      ),
+      yesVerse: const Verse(
+        id: 'phid_signOut',
+        translate: true,
+      ),
+    );
+  }
 
   if (_go == true){
 

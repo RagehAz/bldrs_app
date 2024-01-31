@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:basics/helpers/streamers/streamer.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_utilities/badger.dart';
@@ -77,12 +78,17 @@ class NotesProvider extends ChangeNotifier {
   Future<void> _initializeNoteStreams({
     required bool mounted,
   }) async{
+
+    // blog('_initializeNoteStreams START');
+
     if (mounted){
 
       final UserModel? _userModel = UsersProvider.proGetMyUserModel(
         context: getMainContext(),
         listen: false,
       );
+
+      // blog('_initializeNoteStreams signed up : ${Authing.userIsSignedUp(_userModel?.signInMethod)}');
 
       if (Authing.userIsSignedUp(_userModel?.signInMethod) == true){
 
@@ -93,6 +99,7 @@ class NotesProvider extends ChangeNotifier {
           notify: false,
         );
 
+        // blog('ta3ala _userNotesStreamSub : $_userNotesStreamSub');
         _userNotesStreamSub ??= listenToUserUnseenNotes(
           mounted: mounted,
           oldMaps: _userOldNotesNotifier!,
@@ -116,6 +123,9 @@ class NotesProvider extends ChangeNotifier {
     Streamer.disposeStreamSubscriptions(_bzzNotesStreamsSubs);
     _myBzzOldNotesNotifiers = null;
     _userOldNotesNotifier = null;
+    _userNotesStreamSub = null;
+    _bzzNotesStreamsSubs = null;
+
   }
   // --------------------
   static Future<void> proInitializeNoteStreams({

@@ -20,8 +20,8 @@ import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/e_back_end/i_app_check/app_check.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
-import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/firebase_options.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/main.dart';
 import 'package:fire/super_fire.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -270,6 +270,9 @@ class BldrsEngine {
     //     zone: UsersProvider.proGetUserZone(context: context, listen: false),
     // );
 
+    /// BZ STREAMS
+    HomeProvider.proInitializeMyBzzStreams();
+
     /// NOTIFICATIONS
     await NotesProvider.proInitializeNoteStreams(mounted: mounted);
 
@@ -285,6 +288,7 @@ class BldrsEngine {
     HomeProvider.proDisposeHomeGrid();
     NotesProvider.disposeNoteStreams();
     HomeProvider.proDisposeMirages();
+    HomeProvider.proDisposeMyBzzStreams();
   }
   // --------------------------------------------------------------------------
 

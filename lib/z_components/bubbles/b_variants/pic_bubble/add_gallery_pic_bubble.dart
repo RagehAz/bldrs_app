@@ -324,7 +324,7 @@ class _PlusIconLayer extends StatelessWidget {
       picWidth: picWidth,
     );
 
-    picModel?.blogPic(invoker: 'what the pic');
+    // picModel?.blogPic(invoker: 'what the pic');
 
     /// PLUS ICON
     if (picModel == null || picModel?.path == Iconz.anonymousUser){
