@@ -13,6 +13,7 @@ import 'package:bldrs/z_components/bubbles/b_variants/paragraph_bubble/paragraph
 import 'package:bldrs/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/z_components/bz_profile/info_page/bz_stats_bubble.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
 import 'package:bldrs/z_components/layouts/page_fader.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class AboutBzBubbles extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.only(
           top: appBarType == AppBarType.non ? Ratioz.appBarMargin : Ratioz.stratosphere,
-          bottom: Ratioz.horizon,
+          bottom: MirageModel.getBzMirageBottomInsetsValue(context),
         ),
         children: <Widget>[
 
