@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_redundant_argument_values
-
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
