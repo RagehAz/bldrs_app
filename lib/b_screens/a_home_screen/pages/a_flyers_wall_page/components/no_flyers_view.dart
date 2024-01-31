@@ -1,7 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/components/drawing/separator_line.dart';
-import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
@@ -48,8 +47,6 @@ class NoFlyersView extends StatelessWidget {
   // --------------------
   @override
   Widget build(BuildContext context) {
-
-    blog('s');
 
     // final UserModel? _userModel = UsersProvider.proGetMyUserModel(
     //     context: context,

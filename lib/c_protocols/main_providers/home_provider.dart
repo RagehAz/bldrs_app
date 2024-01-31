@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/c_protocols/app_initialization_protocols/sub/d_bzz_initializations.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -381,6 +384,23 @@ class HomeProvider extends ChangeNotifier {
       bzModel: null,
       notify: notify,
     );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// MY BZZ STREAMS
+
+  // --------------------
+  List<StreamSubscription> _myBzzStreams = [];
+  List<StreamSubscription> get myBzzStreams => _myBzzStreams;
+  // --------------------
+  static void proInitializeMyBzzStreams(){
+    final HomeProvider _pro = Provider.of<HomeProvider>(getMainContext(), listen: false);
+    _pro._myBzzStreams = BzzInitialization.initializeMyBzzStreams();
+  }
+  // --------------------
+  static void proDisposeMyBzzStreams(){
+    final HomeProvider _pro = Provider.of<HomeProvider>(getMainContext(), listen: false);
+    BzzInitialization.disposeBzzStreams(subs: _pro.myBzzStreams);
   }
   // -----------------------------------------------------------------------------
 }

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/sub/b_app_state_initializer.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/sub/c_user_initializer.dart';
 import 'package:bldrs/c_protocols/app_initialization_protocols/sub/e_ui_initializer.dart';
@@ -92,7 +91,7 @@ class Initializer {
     return _canLoadApp;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// routeAfterLoaded_on_web_fix
   static Future<void> routeAfterLoaded({
     // required BuildContext context,
     required bool mounted,
@@ -107,10 +106,7 @@ class Initializer {
 
       /// MOBILE - WINDOWS
       else {
-        await Nav.pushNamedAndRemoveAllBelow(
-          context: getMainContext(),
-          goToRoute: ScreenName.home,
-        );
+        await Routing.goTo(route: ScreenName.home);
       }
 
     }
@@ -128,10 +124,7 @@ class Initializer {
 
       /// LANDED ON LOGO SCREENS
       if (_path == ScreenName.logo){
-        await Nav.pushNamedAndRemoveAllBelow(
-          context: getMainContext(),
-          goToRoute: ScreenName.home,
-        );
+        await Routing.goTo(route: ScreenName.logo);
       }
 
       /// LANDED ON HOME SCREEN
@@ -142,14 +135,9 @@ class Initializer {
       /// LANDED ON ANY OTHER SCREEN
       else {
 
-        final BuildContext context = getMainContext();
-
         /// SO WHEN USER GEOS TO A URL, WE PUSH HOME AND THEN PUSH THE URL AS A WORK AROUND
         /// TO REPLACING THE ROUTE BELOW BECAUSE WE FAILED TO DO THAT
-        unawaited(Nav.pushNamedAndRemoveAllBelow(
-          context: context,
-          goToRoute: ScreenName.home,
-        ));
+        unawaited(Routing.goTo(route: ScreenName.home));
 
         await Routing.goTo(
           route: RoutePather.getRouteSettingsNameFromFullPath(_url),

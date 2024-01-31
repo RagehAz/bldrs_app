@@ -15,6 +15,7 @@ import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/main_button.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
@@ -124,6 +125,20 @@ class _BzNotesPageState extends State<BzNotesPage>{
     unawaited(NoteFireOps.markNotesAsSeen(
         notes: _notesToMark
     ));
+
+    if (Lister.checkCanLoop(_notesToMark) == false){
+      final BzModel? _bzModel = HomeProvider.proGetActiveBzModel(
+        context: context,
+        listen: false,
+      );
+      if (_bzModel?.id != null){
+        NotesProvider.proSetBadge(
+          bid: TabName.generateBzBid(bzID: _bzModel!.id!, bid: TabName.bid_MyBz_Notes),
+          value: 0,
+          notify: true,
+        );
+      }
+    }
 
   }
   // --------------------

@@ -81,7 +81,9 @@ class UserSettingsPage extends StatelessWidget {
             translate: true,
           ),
           icon: Iconz.exit,
-          onTap: () => onSignOut(),
+          onTap: () => onSignOutUser(
+            showConfirmDialog: true,
+          ),
         ),
 
         const DotSeparator(color: Colorz.yellow80,),

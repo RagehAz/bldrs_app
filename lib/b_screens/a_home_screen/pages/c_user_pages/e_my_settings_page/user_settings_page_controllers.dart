@@ -143,7 +143,9 @@ Future<void> onDeleteMyAccount() async {
     blog('finished center dialog');
 
     /// SIGN OUT OPS
-    await onSignOut();
+    await onSignOutUser(
+      showConfirmDialog: false,
+    );
 
   }
 
