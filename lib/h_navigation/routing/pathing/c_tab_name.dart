@@ -128,6 +128,14 @@ class TabName {
     }
 
   }
+  // --------------------
+  static const List<String> userBids = [
+    bid_My_Info,
+    bid_My_Saves,
+    bid_My_Notes,
+    bid_My_Follows,
+    bid_My_Settings,
+  ];
   // -----------------------------------------------------------------------------
 
   /// BidBz break-down

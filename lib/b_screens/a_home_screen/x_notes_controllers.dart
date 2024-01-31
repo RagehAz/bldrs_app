@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -41,7 +42,7 @@ StreamSubscription? listenToUserUnseenNotes({
       mounted: mounted,
       onChanged: (List<Map<String, dynamic>> oldMaps, List<Map<String, dynamic>> newMaps) async {
 
-        // blog('listenToUserUnseenNotes.onStreamDataChanged : unseenNotesMaps are ${unseenNotesMaps.length} maps');
+        blog('listenToUserUnseenNotes.onStreamDataChanged : unseenNotesMaps are ${newMaps.length} maps');
         // Mapper.blogMaps(allUpdatedMaps, invoker: 'initializeUserNotes');
 
         final List<NoteModel> _unseenNotes = NoteModel.decipherNotes(

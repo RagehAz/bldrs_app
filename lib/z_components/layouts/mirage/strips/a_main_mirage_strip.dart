@@ -87,6 +87,16 @@ class MainMirageStrip extends StatelessWidget {
 
                     final bool _forceRedDot = _userModel == null || Formers.checkUserHasMissingFields(userModel: _userModel);
 
+                    final Badger _badger = NotesProvider.proGetBadger(
+                      context: context,
+                      listen: true,
+                    );
+
+                    final int _count = Badger.calculateUserTotal(
+                      onlyNumbers: true,
+                      badger: _badger,
+                    );
+
                     return MirageButton(
                       buttonID: TabName.bid_MyProfile,
                       isSelected: selectedButton == TabName.bid_MyProfile,
@@ -99,6 +109,7 @@ class MainMirageStrip extends StatelessWidget {
                       iconColor: Colorz.nothing,
                       canShow: _userIsSignedUp,
                       forceRedDot: _forceRedDot,
+                      countOverride: _count,
                       onTap: onUserProfileButtonTap,
                     );
                   }
