@@ -110,7 +110,7 @@ class FCM {
   /// CONSTANTS
 
   // --------------------
-  static const String redBldrsBanner = 'resource://drawable/res_red_bldrs';
+  // static const String redBldrsBanner = 'resource://drawable/res_red_bldrs';
 
   // --------------------
   static const String fcmWhiteLogoFilePath = 'resource://drawable/res_flat_logo';
@@ -556,7 +556,7 @@ class FCM {
       // isDangerousOption: false,
 
       /// NOT WORKING - NOT IMPACTFUL
-      icon: redBldrsBanner,
+      // icon: redBldrsBanner,
       //NoteParties.bldrsLogoStaticURL,
       showInCompactView: true,
       // buttonType: ActionButtonType.Default, // ActionButtonType.Default is default
