@@ -31,9 +31,9 @@ class _MirageNavBarState extends State<MirageNavBar> {
 
       asyncInSync(() async {
 
-        blog('xxx -> started fetching keywords map');
+        // blog('xxx -> started fetching keywords map');
         final Map<String, dynamic>? _theKeywordsMap = await KeywordsProtocols.fetch();
-        blog('xxx -> finished fetching keywords map _theKeywordsMap : ${_theKeywordsMap?.keys.length}');
+        // blog('xxx -> finished fetching keywords map _theKeywordsMap : ${_theKeywordsMap?.keys.length}');
 
         setState(() {
           _keywordsMap = _theKeywordsMap;
@@ -157,38 +157,12 @@ class _MirageNavBarState extends State<MirageNavBar> {
               ),
               onZoneButtonTap: () async {
 
-                // HomeProvider.proSelectMirageButton(
-                //   mirageIndex: 0,
-                //   mounted: mounted,
-                //   button: BldrsTabber.bidZone,
-                // );
-                //
-                // await MirageModel.hideMiragesAbove(
-                //     index: 0,
-                //     mounted: mounted
-                // );
-                //
-                // await BldrsTabber.goToTab(tab: BldrsTab.zone);
-
                 await Routing.goTo(
                     route: TabName.bid_Zone,
                 );
 
               },
               onSignInButtonTap: () async {
-
-                // HomeProvider.proSelectMirageButton(
-                //   mirageIndex: 0,
-                //   mounted: mounted,
-                //   button: BldrsTabber.bidAuth,
-                // );
-                //
-                // await MirageModel.hideMiragesAbove(
-                //     index: 0,
-                //     mounted: mounted
-                // );
-                //
-                // await BldrsTabber.goToTab(tab: BldrsTab.auth);
 
                 await Routing.goTo(
                   route: TabName.bid_Auth,
@@ -200,28 +174,6 @@ class _MirageNavBarState extends State<MirageNavBar> {
               ),
               onMyBzTap: (BzModel bzModel) async {
 
-                // HomeProvider.proSetActiveBzModel(
-                //     bzModel: bzModel,
-                //     context: context,
-                //     notify: true
-                // );
-                //
-                // final String _bidBz = BldrsTabber.generateBzBid(
-                //   bzID: bzModel.id!,
-                //   bid: BldrsTabber.bidMyBzInfo,
-                // );
-                //
-                // HomeProvider.proSelectMirageButton(
-                //   mirageIndex: 0,
-                //   mounted: mounted,
-                //   button: _bidBz,
-                // );
-                //
-                // await MirageModel.hideMiragesAbove(
-                //   index: 0,
-                //   mounted: mounted,
-                // );
-
                 await Routing.goTo(
                   route: TabName.bid_MyBz_Info,
                   arg: bzModel.id,
@@ -232,19 +184,6 @@ class _MirageNavBarState extends State<MirageNavBar> {
                 mounted: mounted,
               ),
               onSettingsButtonTap: () async {
-
-                // HomeProvider.proSelectMirageButton(
-                //     mirageIndex: 0,
-                //     mounted: mounted,
-                //     button: BldrsTabber.bidAppSettings
-                // );
-                //
-                // await BldrsTabber.goToTab(tab: BldrsTab.appSettings);
-                //
-                // await MirageModel.hideMiragesAbove(
-                //   index: 0,
-                //   mounted: mounted,
-                // );
 
                 await Routing.goTo(
                   route: TabName.bid_AppSettings,

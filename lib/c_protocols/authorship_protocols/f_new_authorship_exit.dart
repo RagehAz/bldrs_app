@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_redundant_argument_values, unused_element
 import 'package:basics/helpers/maps/lister.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -126,11 +125,7 @@ class NewAuthorshipExit {
       );
 
       /// GO HOME
-      await Nav.pushHomeAndRemoveAllBelow(
-        context: getMainContext(),
-        invoker: 'NewAuthorshipExit.onRemoveMySelf',
-        homeRoute: ScreenName.home,
-      );
+      await Routing.goTo(route: ScreenName.logo);
 
     }
 
@@ -164,8 +159,8 @@ class NewAuthorshipExit {
         authorModel: authorModel,
       );
 
-      /// REF : BZ_STREAM_OPENS_ON_ACTIVE_BZ_AND_UPDATES_LOCALLY
-      // NO NEED TO UPDATE BZ LOCALLY (IT IS STREAMED AND SYNCED IN onMyActiveBzStreamChanged())
+      /// REF : BZZ_STREAMS_UPDATES_LOCALLY
+      // NO NEED TO UPDATE BZ LOCALLY (IT IS STREAMED AND SYNCED IN BzzInitialization.initializeMyBzzStreams())
       // BUT FOR CLEANER CODE, WE WILL UPDATE LOCALLY AND IT AUTO CHECKS IF IT IS THE SAME AS STREAMED
 
       /// SEND authorKick NOTES
@@ -191,13 +186,13 @@ class NewAuthorshipExit {
   /// I GOT REMOVED
 
   // --------------------
-  /// TASK : TEST ME : WORKS GOOD FOR WIPING BZ CYCLE
+  /// TESTED : WORKS PERFECT
   static Future<void> onIGotRemoved({
     required String? bzID, // this should not include my id
     required bool isBzDeleted,
   }) async {
 
-    // blog('bzModel == null : ${bzModel == null}');
+    // blog('onIGotRemoved bzIDl : $bzID : isBzDeleted : $isBzDeleted');
 
     if (bzID != null){
 
@@ -243,11 +238,7 @@ class NewAuthorshipExit {
           /// GO HOME
           if (isBzDeleted == false){
 
-            await Nav.pushHomeAndRemoveAllBelow(
-              context: getMainContext(),
-              invoker: 'NewAuthorshipExit.onRemoveMySelf',
-              homeRoute: ScreenName.home,
-            );
+            await Routing.goTo(route: ScreenName.logo);
 
             /// SHOW SUCCESS CENTER DIALOG
             await _showRemovedAuthorSuccessDialog(
@@ -267,7 +258,7 @@ class NewAuthorshipExit {
   /// FLYER MIGRATION
 
   // --------------------
-    /// TESTED : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static Future<void> _migrateFlyersAndRemoveAuthorAndRenovateBz({
     required BzModel? bzModel,
     required AuthorModel? authorModel,

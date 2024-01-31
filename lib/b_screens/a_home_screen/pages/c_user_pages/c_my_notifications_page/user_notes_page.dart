@@ -11,6 +11,7 @@ import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/d_bz_notes_pag
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/z_components/notes/note_card.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -115,6 +116,14 @@ class _UserNotesPageState extends State<UserNotesPage> {
     unawaited(NoteFireOps.markNotesAsSeen(
         notes: _notesToMark
     ));
+
+    if (Lister.checkCanLoop(_notesToMark) == false){
+      NotesProvider.proSetBadge(
+        bid: TabName.bid_My_Notes,
+        value: 0,
+        notify: true,
+      );
+    }
 
   }
   // --------------------

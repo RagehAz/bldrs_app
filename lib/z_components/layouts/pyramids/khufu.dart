@@ -12,6 +12,7 @@ class Khufu extends StatelessWidget {
     this.splashColor,
     this.onTap,
     this.onDoubleTap,
+    this.onLongTap,
     super.key
   });
   // --------------------
@@ -21,6 +22,7 @@ class Khufu extends StatelessWidget {
   final Color? splashColor;
   final Function? onTap;
   final Function? onDoubleTap;
+  final Function? onLongTap;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -56,6 +58,7 @@ class Khufu extends StatelessWidget {
             height: _height,
             onTap: onTap,
             onDoubleTap: onDoubleTap,
+            onLongTap: onLongTap,
             splashColor: _splashColor,
             customBorder: const KhufuBorder(),
           ),

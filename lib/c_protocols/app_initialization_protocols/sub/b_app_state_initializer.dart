@@ -34,7 +34,7 @@ class AppStateInitializer {
     /// GET GLOBAL STATE
     final AppStateModel? _globalState = await AppStateProtocols.fetchGlobalAppState();
 
-    blog('the _globalState : $_globalState');
+    // blog('the _globalState : $_globalState');
 
     /// ON LOADING FAILED OP
     bool _continue = await _globalStateExistsOps(globalState: _globalState);
@@ -201,7 +201,7 @@ ${getWord('phid_new_version')} : ${globalState.appVersion}
         thanThis: detectedVersion,
       );
 
-      blog('should show center dialog _mayUpdate : $_mayUpdate : ${globalState.appVersion} > $detectedVersion ?');
+      // blog('should show center dialog _mayUpdate : $_mayUpdate : ${globalState.appVersion} > $detectedVersion ?');
 
       /// MUST UPDATE
       if (_mayUpdate == true){

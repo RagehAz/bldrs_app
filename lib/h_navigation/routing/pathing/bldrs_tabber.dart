@@ -32,7 +32,7 @@ class BldrsTabber {
     TabName.bid_AppSettings,
     // --------------------
   ];
-
+  // -----------------------------------------------------------------------------
   static const int mainButtonsLength = 6;
   static const int profileButtonsLength = 5;
   static const int bzButtonsLength = 5;
@@ -168,16 +168,6 @@ class BldrsTabber {
       default: return 0;
     }
 
-  }
-  // --------------------
-  /// TASK : DO ME
-  static int getButtonIndexInKeywordsMirage({
-    required String path,
-  }){
-
-    blog('obbaaaa : $path');
-
-    return 0;
   }
   // -----------------------------------------------------------------------------
 
