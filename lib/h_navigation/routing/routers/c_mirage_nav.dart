@@ -451,6 +451,7 @@ class _MirageNav {
               buttonIndex: MapPathing.getNodeOrderIndexByPath(path: _nodePath, map: _keywordsMap),
               listLength: MapPathing.getBrothersLength(path: _nodePath, map: _keywordsMap),
             );
+            await Future.delayed(const Duration(milliseconds: 300));
 
           }
 
