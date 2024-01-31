@@ -13,6 +13,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -161,7 +162,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
         gridHeight: Scale.screenHeight(context),
         gridWidth: Scale.screenWidth(context),
         zGridController: _zGridController,
-        bottomPadding: Ratioz.horizon,
+        bottomPadding: MirageModel.mirageInsets2.bottom,
         topPadding: widget.appBarType == AppBarType.non ? Ratioz.appBarMargin : Ratioz.stratosphere,
         hasResponsiveSideMargin: true,
         // showAddFlyerButton: false,

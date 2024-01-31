@@ -11,6 +11,7 @@ import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/z_components/bz_profile/authors_page/pending_authors_bubble.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -116,7 +117,7 @@ class _BzTeamPageState extends State<BzTeamPage> {
           physics: const BouncingScrollPhysics(),
           padding: EdgeInsets.only(
             top: widget.appBarType == AppBarType.non ? Ratioz.appBarMargin : Ratioz.stratosphere,
-            bottom: Ratioz.horizon,
+            bottom: MirageModel.getBzMirageBottomInsetsValue(context),
           ),
           children: <Widget>[
 

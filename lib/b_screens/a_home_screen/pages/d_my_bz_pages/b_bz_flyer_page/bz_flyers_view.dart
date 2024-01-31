@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/z_components/active_phids_selector/active_phid_selector.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:basics/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +75,7 @@ class BzFlyersView extends StatelessWidget {
               gridWidth: Scale.screenWidth(context),
               gridHeight: Scale.screenHeight(context),
               numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 4 : 2,
-              bottomPadding: Ratioz.horizon,
+              bottomPadding: MirageModel.getBzMirageBottomInsetsValue(context),
               topPadding: _getTopPadding(bzModel),
               showAddFlyerButton: showAddFlyerButton,
               onFlyerOptionsTap: onFlyerOptionsTap,
