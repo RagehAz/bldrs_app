@@ -122,7 +122,7 @@ class _MirageNav {
 
       final List<MirageModel> _miragesAbove = MirageModel.getMiragesAbove(
         allMirages: allMirages,
-        aboveIndex: 0,
+        aboveIndex: 1,
       );
 
       /// CLOSE ALL MIRAGES ABOVE 0
@@ -148,21 +148,32 @@ class _MirageNav {
       /// GO TO TAB
       await BldrsTabber.goToTab(bid: bid);
 
-      /// SHOW MIRAGE 1
-      // allMirages[1].show(mounted: mounted);
-      await allMirages[1].reShow(mounted: mounted);
+      /// SHOW MIRAGES
+      if (Mapper.boolIsTrue(allMirages[0].pyramidIsOn?.value) == true){
+        allMirages[0].hidePyramid(mounted: mounted);
+        await Future.delayed(const Duration(milliseconds: 300));
+      }
+      if (allMirages[0].checkIsClosed()){
+        allMirages[0].show(mounted: mounted);
+        await Future.delayed(const Duration(milliseconds: 300));
+      }
+      if (allMirages[1].checkIsClosed()){
+        allMirages[1].show(mounted: mounted);
+        await Future.delayed(const Duration(milliseconds: 300));
+      }
 
       /// SCROLL TO
-      await Future.wait([
-        allMirages[0].scrollTo(
-            buttonIndex: BldrsTabber.getButtonIndexInMainMirage(bid: TabName.bid_MyProfile,),
-            listLength: BldrsTabber.mainButtonsLength,
-        ),
-        allMirages[1].scrollTo(
-          buttonIndex: BldrsTabber.getButtonIndexInProfileMirage(bid: bid),
-          listLength: BldrsTabber.profileButtonsLength,
-        ),
-      ]);
+
+      await allMirages[0].scrollTo(
+        buttonIndex: BldrsTabber.getButtonIndexInMainMirage(bid: TabName.bid_MyProfile,),
+        listLength: BldrsTabber.mainButtonsLength,
+      );
+
+      await allMirages[1].scrollTo(
+        buttonIndex: BldrsTabber.getButtonIndexInProfileMirage(bid: bid),
+        listLength: BldrsTabber.profileButtonsLength,
+      );
+
 
     }
 
@@ -275,47 +286,57 @@ class _MirageNav {
         /// GO TO TAB
         await BldrsTabber.goToTab(bid: bid);
 
-        /// SHOW MIRAGE 1
-        allMirages[1].show(mounted: mounted);
-
-        /// SHOW MIRAGE 2
+        /// SHOW MIRAGES
         if (_isSingleBz == false){
           allMirages[2].show(mounted: mounted);
+          await Future.delayed(const Duration(milliseconds: 300));
         }
 
-        await Future.delayed(const Duration(milliseconds: 300));
+        if (Mapper.boolIsTrue(allMirages[0].pyramidIsOn?.value) == true){
+          allMirages[0].hidePyramid(mounted: mounted);
+          await Future.delayed(const Duration(milliseconds: 300));
+        }
+        if (allMirages[0].checkIsClosed()){
+          allMirages[0].show(mounted: mounted);
+          await Future.delayed(const Duration(milliseconds: 300));
+        }
+        if (allMirages[1].checkIsClosed()){
+          allMirages[1].show(mounted: mounted);
+          await Future.delayed(const Duration(milliseconds: 300));
+        }
 
-        /// SCROLL TO
-        await Future.wait([
 
-          /// MIRAGE 0
-          allMirages[0].scrollTo(
-            buttonIndex: BldrsTabber.getButtonIndexInMainMirage(bid: TabName.bid_MyBzz),
-            listLength: BldrsTabber.mainButtonsLength,
-          ),
+        /// MIRAGE 0
+        await allMirages[0].scrollTo(
+          buttonIndex: BldrsTabber.getButtonIndexInMainMirage(bid: TabName.bid_MyBzz),
+          listLength: BldrsTabber.mainButtonsLength,
+        );
 
-          /// MIRAGE 1 [ WHEN HAS 1 BZ => BZ TABS ]
-          if (_isSingleBz == true)
-          allMirages[1].scrollTo(
+
+        /// MIRAGE 1 [ WHEN HAS 1 BZ => BZ TABS ]
+        if (_isSingleBz == true){
+          await allMirages[1].scrollTo(
             buttonIndex: BldrsTabber.getButtonIndexInBzProfileMirage(bid: bid),
             listLength: BldrsTabber.bzButtonsLength,
-          ),
+          );
+        }
 
-          /// MIRAGE 1 [ WHEN HAS MANY BZZ => BZ BUTTON ]
-          if (_isSingleBz == false)
-          allMirages[1].scrollTo(
+        /// MIRAGE 1 [ WHEN HAS MANY BZZ => BZ BUTTON ]
+        if (_isSingleBz == false){
+          await allMirages[1].scrollTo(
             buttonIndex: BldrsTabber.getButtonIndexInMyBzzMirage(bzID: bzID),
             listLength: _myBzzIDs.length,
-          ),
+          );
+        }
 
-          /// MIRAGE 2 [ WHEN HAS MANY BZZ => BZ TABS ]
-          if (_isSingleBz == false)
-          allMirages[2].scrollTo(
+        /// MIRAGE 2 [ WHEN HAS MANY BZZ => BZ TABS ]
+        if (_isSingleBz == false){
+          await allMirages[2].scrollTo(
             buttonIndex: BldrsTabber.getButtonIndexInBzProfileMirage(bid: bid),
             listLength: BldrsTabber.bzButtonsLength,
-          ),
+          );
+        }
 
-        ]);
 
       }
 

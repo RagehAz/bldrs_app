@@ -63,6 +63,28 @@ class RoutingTestBar extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       boxColor: Colorz.darkBlue,
       columnChildren: <Widget>[
+
+        // -----------------------------------------------------------------------------
+
+        /// CUSTOM ROUTING
+
+        // --------------------
+        theButton(
+          text: 'Back from home',
+          onTap: Routing.backFromHomeScreen,
+        ),
+        // --------------------
+        theButton(
+          text: 'Restart to after home route',
+          onTap: () async {
+
+            await Routing.restartToAfterHomeRoute(
+              routeName: TabName.bid_My_Notes,
+              arguments: bzID,
+            );
+
+          },
+        ),
         // -----------------------------------------------------------------------------
 
         /// SCREENS
@@ -81,27 +103,6 @@ class RoutingTestBar extends StatelessWidget {
         _goTo(ScreenName.terms, good: false),
         _goTo(ScreenName.deleteMyData, good: false),
         _goTo(ScreenName.dashboard, good: false),
-        // -----------------------------------------------------------------------------
-
-        /// CUSTOM ROUTING
-
-        // --------------------
-        theButton(
-          text: 'Back from home',
-          onTap: Routing.backFromHomeScreen,
-        ),
-        // --------------------
-        theButton(
-          text: 'Restart to after home route',
-          onTap: () async {
-
-            // await ScreenRouter.restartToAfterHomeRoute(
-            //   routeName: _routeName,
-            //   arguments:
-            // );
-
-          },
-        ),
         // -----------------------------------------------------------------------------
 
         /// TABS
