@@ -111,26 +111,6 @@ class _MirageMyBzzControls {
     required int mirageIndex,
   }) async {
 
-    // final String _bidBz = BldrsTabber.generateBzBid(
-    //   bzID: HomeProvider.proGetActiveBzModel(context: getMainContext(), listen: false)!.id!,
-    //   bid: bid,
-    // );
-    //
-    // HomeProvider.proSelectMirageButton(
-    //     mirageIndex: mirageIndex,
-    //     mounted: mounted,
-    //     button: _bidBz
-    // );
-    //
-    // await MirageModel.hideMiragesAbove(
-    //     index: mirageIndex,
-    //     mounted: mounted
-    // );
-    //
-    // final BldrsTab _tab = BldrsTabber.getTabByBid(bid);
-    //
-    // await BldrsTabber.goToTab(tab: _tab);
-
     await Routing.goTo(
       route: bid,
       arg: HomeProvider.proGetActiveBzModel(context: getMainContext(), listen: false)!.id!,

@@ -28,6 +28,7 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/future_model_builders/bz_builder.dart';
 import 'package:bldrs/f_helpers/future_model_builders/bzz_builder.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
+import 'package:bldrs/z_components/active_phids_selector/active_phid_selector.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/buttons/multi_button/a_multi_button.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
@@ -82,6 +83,7 @@ part 'strips/c3_bz_tabs_mirage_strip.dart';
 part 'strips/d_mirage_3_strip_switcher.dart';
 part 'strips/e_mirage_4_strip_switcher.dart';
 part 'strips/x_map_son_mirage_strip.dart';
+part 'strips/x_bz_flyers_phids_mirage_strip.dart';
 // -----------------------------------------------------------------------------
 
 /// STRUCTURE

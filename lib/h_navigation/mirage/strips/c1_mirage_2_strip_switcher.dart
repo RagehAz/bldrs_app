@@ -24,13 +24,24 @@ class Mirage2StripSwitcher extends StatelessWidget {
     final MirageModel mirage1 = allMirages[1];
     final MirageModel mirage2 = allMirages[2];
     // --------------------
+    final List<String> _myBzzIDs = UsersProvider.proGetMyBzzIDs(context: context, listen: true);
+    final bool _hasSingleBz = _myBzzIDs.length == 1;
     // --------------------
     return ValueListenableBuilder(
       valueListenable: mirage1.selectedButton,
       builder: (_, String? selectedButton, Widget? child){
 
+        /// BZ FLYERS PAGE
+        if (_hasSingleBz == true && TabName.getBidFromBidBz(bzBid: selectedButton) == TabName.bid_MyBz_Flyers){
+
+          return _BzFlyersPhidsMirageStrip(
+            thisMirage: mirage2,
+          );
+
+        }
+
         /// BZ TABS
-        if (TabName.checkBidIsBidBz(bid: selectedButton) == true){
+        else if (_hasSingleBz == false && TabName.checkBidIsBidBz(bid: selectedButton) == true){
           return _BzTabsMirageStrip(
             thisMirage: mirage2,
             allMirages: allMirages,
