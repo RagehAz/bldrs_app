@@ -19,6 +19,7 @@ import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/main_button.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
 import 'package:bldrs/z_components/notes/note_card.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -253,7 +254,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
                 itemCount: maps.length,
                 padding: EdgeInsets.only(
                   top: widget.appBarType == AppBarType.non ? Ratioz.appBarMargin : Ratioz.stratosphere,
-                  bottom: Ratioz.horizon,
+                  bottom: MirageModel.getBzMirageBottomInsetsValue(context),
                 ),
                 itemBuilder: (BuildContext ctx, int index) {
                   final NoteModel? _note = NoteModel.decipherNote(

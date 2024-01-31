@@ -34,7 +34,36 @@ class MirageModel {
   static const Color selectedButtonColor = Colorz.yellow125;
   static const Color textColor = Colorz.white255;
   static const Color selectedTextColor = Colorz.black255;
-// --------------------
+  // --------------------
+  static const EdgeInsets mirageInsets1 = EdgeInsets.only(
+    top: Ratioz.appBarMargin,
+    bottom: standardStripHeight + Ratioz.appBarMargin,
+  );
+  // --------------------
+  static const EdgeInsets mirageInsets2 = EdgeInsets.only(
+    top: Ratioz.appBarMargin,
+    bottom: (standardStripHeight * 2)  + Ratioz.appBarMargin,
+  );
+  // --------------------
+  static const EdgeInsets mirageInsets3 = EdgeInsets.only(
+    top: Ratioz.appBarMargin,
+    bottom: (standardStripHeight * 3)  + Ratioz.appBarMargin,
+  );
+  // --------------------
+  static const double mirageInsets5 = (standardStripHeight * 5)  + Ratioz.appBarMargin;
+  // --------------------
+  static double getBzMirageBottomInsetsValue(BuildContext context){
+
+    final List<String> _myBzzIDs = UsersProvider.proGetMyBzzIDs(
+      context: getMainContext(),
+      listen: true,
+    );
+
+    final bool _isSingleBz = _myBzzIDs.length == 1;
+
+    return _isSingleBz == true ? mirageInsets2.bottom : mirageInsets3.bottom;
+  }
+  // --------------------
   static const int slidingDurationValue = 150;
   static const Duration slidingDuration = Duration(milliseconds: slidingDurationValue);
   static const Duration waitDuration = Duration(milliseconds: 250);
