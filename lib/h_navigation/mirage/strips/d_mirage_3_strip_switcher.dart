@@ -26,6 +26,15 @@ class Mirage3StripSwitcher extends StatelessWidget {
       valueListenable: mirage2.selectedButton,
       builder: (_, String? selectedButton, Widget? child){
 
+        /// BZ FLYERS PAGE
+        if (TabName.getBidFromBidBz(bzBid: selectedButton) == TabName.bid_MyBz_Flyers){
+
+          return _BzFlyersPhidsMirageStrip(
+            thisMirage: mirage3,
+          );
+
+        }
+
         /// NOTHING SELECTED IN MIRAGE1
         if (TabName.checkBidIsBidBz(bid: selectedButton) == true){
           return const SizedBox();
@@ -37,8 +46,8 @@ class Mirage3StripSwitcher extends StatelessWidget {
           final String previousPath = selectedButton!;
           final String _parentPath = Pathing.removeLastPathNode(path: previousPath) ?? '';
           final Map<String, dynamic> _parentMap = MapPathing.getNodeValue(
-              path: _parentPath,
-              map: keywordsMap,
+            path: _parentPath,
+            map: keywordsMap,
           );
 
           return _MapSonMirageStrip(

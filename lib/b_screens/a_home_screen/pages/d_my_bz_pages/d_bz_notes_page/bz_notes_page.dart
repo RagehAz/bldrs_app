@@ -19,7 +19,7 @@ import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/main_button.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
+import 'package:bldrs/h_navigation/mirage/mirage.dart';
 import 'package:bldrs/z_components/notes/note_card.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';

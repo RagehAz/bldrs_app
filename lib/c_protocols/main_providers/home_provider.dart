@@ -10,7 +10,7 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
-import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
+import 'package:bldrs/h_navigation/mirage/mirage.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -368,6 +368,7 @@ class HomeProvider extends ChangeNotifier {
 
     if (_myActiveBz != bzModel){
       _myActiveBz = bzModel;
+      _myBzFlyersActivePhid = null;
       if (notify == true){
         notifyListeners();
       }
@@ -401,6 +402,33 @@ class HomeProvider extends ChangeNotifier {
   static void proDisposeMyBzzStreams(){
     final HomeProvider _pro = Provider.of<HomeProvider>(getMainContext(), listen: false);
     BzzInitialization.disposeBzzStreams(subs: _pro.myBzzStreams);
+    _pro._myBzzStreams = [];
+  }
+  // -----------------------------------------------------------------------------
+
+  /// MY BZ FLYERS ACTIVE PHID
+
+  // --------------------
+  String? _myBzFlyersActivePhid;
+  String? get myBzFlyersActivePhid => _myBzFlyersActivePhid;
+  // --------------------
+  static String? proGetMyBzFlyersActivePhid({
+    required BuildContext context,
+    required bool listen,
+  }){
+    final HomeProvider _pro = Provider.of<HomeProvider>(context, listen: listen);
+    return _pro.myBzFlyersActivePhid;
+  }
+  // --------------------
+  static void proSetMyBzFlyersActivePhid({
+    required bool notify,
+    required String? phid,
+  }){
+    final HomeProvider _pro = Provider.of<HomeProvider>(getMainContext(), listen: false);
+    _pro._myBzFlyersActivePhid = phid;
+    if (notify == true){
+      _pro.notifyListeners();
+    }
   }
   // -----------------------------------------------------------------------------
 }

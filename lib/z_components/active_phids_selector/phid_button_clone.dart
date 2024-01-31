@@ -14,6 +14,8 @@ class PhidButtonClone extends StatelessWidget {
     this.verse,
     this.icon,
     this.height,
+    this.buttonColor,
+    this.selectedButtonColor,
     super.key
   });
   // --------------------
@@ -22,16 +24,21 @@ class PhidButtonClone extends StatelessWidget {
   final bool isSelected;
   final Function onTap;
   final double? height;
+  final Color? buttonColor;
+  final Color? selectedButtonColor;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final Color _buttonColor = buttonColor ?? Colorz.white20;
+    final Color _selectedButtonColor = selectedButtonColor ?? Colorz.yellow125;
     // --------------------
     return BldrsBox(
       height: height ?? PhidButton.getHeight(),
       verse: verse,
       icon: icon,
       iconSizeFactor: PhidButton.getVerseScaleFactor(xIsOn: false),
-      color: isSelected == true ? Colorz.yellow125 : Colorz.white20,
+      color: isSelected == true ? _selectedButtonColor : _buttonColor,
       margins: Scale.superInsets(
         context: context,
         appIsLTR: UiProvider.checkAppIsLeftToRight(),

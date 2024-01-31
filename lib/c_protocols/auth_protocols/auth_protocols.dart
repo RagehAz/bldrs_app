@@ -188,7 +188,7 @@ class AuthProtocols {
 
             if (_success == true){
 
-              /// CHANGE SIGNIN METHOD & EMAIL IN FIRE DOC
+              /// CHANGE SIGN IN METHOD & EMAIL IN FIRE DOC
               final UserModel? _oldUser = await UserProtocols.fetch(
                 userID: oldAccount.id,
               );
@@ -339,6 +339,22 @@ class AuthProtocols {
           signInMethod: authModel?.signInMethod,
         ),
       );
+
+     if (_userModel != null && authModel?.email != UserModel.getUserEmail(_userModel)){
+       await UserProtocols.renovate(
+         invoker: 'update user email',
+         oldUser: _userModel,
+         newUser: _userModel.copyWith(
+           contacts: ContactModel.insertOrReplaceContact(
+             contacts: _userModel.contacts,
+             contactToReplace: ContactModel(
+               type: ContactType.email,
+               value: authModel?.email,
+             ),
+           ),
+         ),
+       );
+     }
 
       UsersProvider.proSetMyUserModel(
         userModel: _userModel,

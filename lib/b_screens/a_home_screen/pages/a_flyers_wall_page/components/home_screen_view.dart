@@ -8,7 +8,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/flyers_grid.dart';
-import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
+import 'package:bldrs/h_navigation/mirage/mirage.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 

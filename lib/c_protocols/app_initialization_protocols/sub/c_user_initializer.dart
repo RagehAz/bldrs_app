@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:basics/components/sensors/app_version_builder.dart';
-import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
@@ -106,8 +104,6 @@ class UserInitializer {
   static Future<bool> _initializeUserModel() async {
     bool? _continue = false;
 
-    _report('start : Authing.getUserID() : ${Authing.getUserID()}');
-
     /// USER HAS ID
     if (Authing.getUserID() != null){
 
@@ -128,22 +124,15 @@ class UserInitializer {
           accounts: _accounts,
       );
 
-      _report('noID : _accounts : ${_accounts.length}');
-      _report('noID : _withoutAnonymous : ${_withoutAnonymous.length}');
-
       /// HAS NORMAL ACCOUNT IN LDB ALREADY
       if (Lister.checkCanLoop(_withoutAnonymous) == true){
         _continue = await _signInAccount(account: _withoutAnonymous.first);
       }
 
-      _report('noID : _withoutAnonymous _continue : $_continue');
-
       /// HAS ANONYMOUS ACCOUNT IN LDB
       if (_continue == false && _anonymousAccount != null){
         _continue = await _signInAccount(account: _anonymousAccount);
       }
-
-      _report('noID : _anonymousAccount _continue : $_continue');
 
       /// NO ACCOUNTS IN LDB FOUND
       if (_continue == false){
@@ -153,9 +142,6 @@ class UserInitializer {
           users: _deviceUsers,
         );
         // final UserModel? _anonymousUserOfThisDevice = await UserFireOps.readAnonymousUserByDeviceID();
-
-        _report('noLDB : _deviceUsers _continue : ${_deviceUsers.length}');
-        _report('noLDB : _signedUpUsers _continue : ${_signedUpUsers.length}');
 
         /// HAS A FIRE USER MODELS LOST FROM LDB
         if (Lister.checkCanLoop(_signedUpUsers) == true){
@@ -168,8 +154,6 @@ class UserInitializer {
           _continue = false;
 
         }
-
-        _report('noID : bardo _continue : $_continue');
 
         /// DID NOT SIGN IN BY SIGNUP ACCOUNTS
         if (_continue == false){
@@ -191,8 +175,6 @@ class UserInitializer {
           }
 
         }
-
-        _report('noID : fi eh _continue : $_continue');
 
       }
 
@@ -550,10 +532,6 @@ class UserInitializer {
     }
 
     return _output;
-  }
-  // -----------------------------------------------------------------------------
-  static void _report(String text){
-    blog('  User--> $text');
   }
   // -----------------------------------------------------------------------------
 

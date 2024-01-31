@@ -18,175 +18,6 @@ import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 
-class ActivePhidSelector extends StatelessWidget {
-  // --------------------------------------------------------------------------
-  const ActivePhidSelector({
-    required this.activePhid,
-    required this.bzModel,
-    required this.mounted,
-    required this.onlyShowPublished,
-    this.stratosphere = true,
-    this.buttonHeight,
-    super.key
-  });
-  // --------------------
-  final ValueNotifier<String?> activePhid;
-  final BzModel? bzModel;
-  final bool mounted;
-  final bool stratosphere;
-  final bool onlyShowPublished;
-  final double? buttonHeight;
-  // --------------------------------------------------------------------------
-  static void onSelectActivePhid({
-    required String? phid,
-    required ValueNotifier<String?> activePhid,
-    required bool mounted,
-  }){
-
-    setNotifier(
-      notifier: activePhid,
-      mounted: mounted,
-      value: phid,
-    );
-
-  }
-  // --------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-    // --------------------
-    final double _screenWidth = Scale.screenWidth(context);
-    final double _buttonHeight = buttonHeight ?? PhidButton.getHeight();
-    final double barHeight = stratosphere == true ?
-    Stratosphere.bigAppBarStratosphere
-        :
-    _buttonHeight + 5;
-    // --------------------
-    final List<String> _phids = ScopeModel.getBzFlyersPhids(
-      bzModel: bzModel,
-      onlyShowPublished: onlyShowPublished,
-    );
-    // --------------------
-    return BlurLayer(
-      width: _screenWidth,
-      height: barHeight,
-      color: Colorz.black125,
-      blurIsOn: true,
-      child: ValueListenableBuilder(
-          valueListenable: activePhid,
-          builder: (_, String? thePhid, Widget? child) {
-
-            return FloatingList(
-              width: _screenWidth,
-              scrollDirection: Axis.horizontal,
-              boxAlignment: Alignment.bottomCenter,
-              padding: const EdgeInsets.only(
-                bottom: 5,
-                left: 10,
-                right: 10,
-              ),
-              columnChildren: <Widget>[
-
-                /// ALL
-                PhidButtonClone(
-                  height: _buttonHeight,
-                  verse: const Verse(id: 'phid_all', translate: true,),
-                  icon: Iconz.flyerCollection,
-                  isSelected: thePhid == null,
-                  onTap: () => onSelectActivePhid(
-                    mounted: mounted,
-                    activePhid: activePhid,
-                    phid: null,
-                  ),
-                ),
-
-                /// PENDING
-                if (
-                    onlyShowPublished == false
-                    &&
-                    Lister.checkCanLoop(bzModel?.publication.pendings) == true
-                )
-                Builder(
-                  builder: (context) {
-
-                    final String _phid = PublicationModel.getPublishStatePhid(PublishState.pending)!;
-
-                    return PhidButtonClone(
-                      verse: Verse(
-                        id: _phid,
-                        translate: true,
-                      ),
-                      isSelected: thePhid == _phid,
-                      onTap: () => onSelectActivePhid(
-                        mounted: mounted,
-                        activePhid: activePhid,
-                        phid: _phid,
-                      ),
-                    );
-                  }
-                ),
-
-                /// SCOPES
-                if (Lister.checkCanLoop(_phids) == true)...List.generate(_phids.length, (index){
-
-                  final String? _phid = bzModel?.scopes?.map.keys.toList()[index];
-
-                  final bool _isSelected = _phid == thePhid;
-
-                  return PhidButton(
-                    phid: _phid,
-                    height: _buttonHeight,
-                    color: _isSelected == true ? Colorz.yellow125 : Colorz.white20,
-                    margins: Scale.superInsets(
-                      context: context,
-                      appIsLTR: UiProvider.checkAppIsLeftToRight(),
-                      enRight: 5,
-                    ),
-                    onPhidTap: () => onSelectActivePhid(
-                      mounted: mounted,
-                      activePhid: activePhid,
-                      phid: _phid,
-                    ),
-                  );
-
-                }),
-
-                /// SUSPENDED
-                if (
-                    onlyShowPublished == false
-                    &&
-                    Lister.checkCanLoop(bzModel?.publication.suspended) == true
-                )
-                Builder(
-                  builder: (context) {
-
-                    final String _phid = PublicationModel.getPublishStatePhid(PublishState.suspended)!;
-
-                    return PhidButtonClone(
-                      height: _buttonHeight,
-                      verse: Verse(
-                        id: _phid,
-                        translate: true,
-                      ),
-                      isSelected: thePhid == _phid,
-                      onTap: () => onSelectActivePhid(
-                        mounted: mounted,
-                        activePhid: activePhid,
-                        phid: _phid,
-                      ),
-                    );
-                  }
-                ),
-
-              ],
-            );
-          }
-          ),
-    );
-    // --------------------
-  }
-  // --------------------------------------------------------------------------
-}
-
 class LiveActivePhidSelector extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const LiveActivePhidSelector({
@@ -226,5 +57,197 @@ class LiveActivePhidSelector extends StatelessWidget {
     );
 
   }
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+}
+
+class ActivePhidSelector extends StatelessWidget {
+  // --------------------------------------------------------------------------
+  const ActivePhidSelector({
+    required this.activePhid,
+    required this.bzModel,
+    required this.mounted,
+    required this.onlyShowPublished,
+    this.stratosphere = true,
+    this.buttonHeight,
+    super.key
+  });
+  // --------------------
+  final ValueNotifier<String?> activePhid;
+  final BzModel? bzModel;
+  final bool mounted;
+  final bool stratosphere;
+  final bool onlyShowPublished;
+  final double? buttonHeight;
+  // --------------------------------------------------------------------------
+  static void onSelectActivePhid({
+    required String? phid,
+    required ValueNotifier<String?> activePhid,
+    required bool mounted,
+  }){
+
+    setNotifier(
+      notifier: activePhid,
+      mounted: mounted,
+      value: phid,
+    );
+
+  }
+  // --------------------
+  static List<Widget> getButtons({
+    required bool onlyShowPublished,
+    required BzModel? bzModel,
+    required String? activePhid,
+    required Function(String? phid) onPhidTap,
+    double? buttonHeight,
+    Color? selectedButtonColor,
+    Color? buttonColor,
+  }){
+
+    final double _buttonHeight = buttonHeight ?? PhidButton.getHeight();
+
+    final List<String> _phids = ScopeModel.getBzFlyersPhids(
+      bzModel: bzModel,
+      onlyShowPublished: onlyShowPublished,
+    );
+
+    final Color _buttonColor = buttonColor ?? Colorz.white20;
+    final Color _selectedButtonColor = selectedButtonColor ?? Colorz.yellow125;
+
+    return <Widget>[
+
+      /// ALL
+      PhidButtonClone(
+        height: _buttonHeight,
+        verse: const Verse(id: 'phid_all', translate: true,),
+        icon: Iconz.flyerCollection,
+        isSelected: activePhid == null,
+        buttonColor: _buttonColor,
+        selectedButtonColor: _selectedButtonColor,
+        onTap: () => onPhidTap(null),
+      ),
+
+      /// PENDING
+      if (
+          onlyShowPublished == false
+          &&
+          Lister.checkCanLoop(bzModel?.publication.pendings) == true
+      )
+        Builder(
+            builder: (context) {
+
+              final String _phid = PublicationModel.getPublishStatePhid(PublishState.pending)!;
+
+              return PhidButtonClone(
+                verse: Verse(
+                  id: _phid,
+                  translate: true,
+                ),
+                isSelected: activePhid == _phid,
+                buttonColor: _buttonColor,
+                selectedButtonColor: _selectedButtonColor,
+                onTap: () => onPhidTap(_phid),
+              );
+            }
+        ),
+
+      /// SCOPES
+      if (Lister.checkCanLoop(_phids) == true)...List.generate(_phids.length, (index){
+
+        final String? _phid = bzModel?.scopes?.map.keys.toList()[index];
+
+        final bool _isSelected = _phid == activePhid;
+
+        return PhidButton(
+          phid: _phid,
+          height: _buttonHeight,
+          color: _isSelected == true ? _selectedButtonColor : _buttonColor,
+          margins: Scale.superInsets(
+            context: getMainContext(),
+            appIsLTR: UiProvider.checkAppIsLeftToRight(),
+            enRight: 5,
+          ),
+          onPhidTap: () => onPhidTap(_phid),
+        );
+
+      }),
+
+      /// SUSPENDED
+      if (
+          onlyShowPublished == false
+          &&
+          Lister.checkCanLoop(bzModel?.publication.suspended) == true
+      )
+        Builder(
+            builder: (context) {
+
+              final String _phid = PublicationModel.getPublishStatePhid(PublishState.suspended)!;
+
+              return PhidButtonClone(
+                height: _buttonHeight,
+                verse: Verse(
+                  id: _phid,
+                  translate: true,
+                ),
+                isSelected: activePhid == _phid,
+                buttonColor: _buttonColor,
+                selectedButtonColor: _selectedButtonColor,
+                onTap: () => onPhidTap(_phid),
+              );
+            }
+        ),
+
+    ];
+
+  }
+  // --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+    // --------------------
+    final double _screenWidth = Scale.screenWidth(context);
+    final double _buttonHeight = buttonHeight ?? PhidButton.getHeight();
+    final double barHeight = stratosphere == true ?
+    Stratosphere.bigAppBarStratosphere
+        :
+    _buttonHeight + 5;
+    // --------------------
+    return BlurLayer(
+      width: _screenWidth,
+      height: barHeight,
+      color: Colorz.black125,
+      blurIsOn: true,
+      child: ValueListenableBuilder(
+          valueListenable: activePhid,
+          builder: (_, String? thePhid, Widget? child) {
+
+            return FloatingList(
+              width: _screenWidth,
+              scrollDirection: Axis.horizontal,
+              boxAlignment: Alignment.bottomCenter,
+              padding: const EdgeInsets.only(
+                bottom: 5,
+                left: 10,
+                right: 10,
+              ),
+              columnChildren: <Widget>[
+
+                ...getButtons(
+                  bzModel: bzModel,
+                  activePhid: thePhid,
+                  onlyShowPublished: onlyShowPublished,
+                  onPhidTap: (String? phid) => onSelectActivePhid(
+                    mounted: mounted,
+                    activePhid: activePhid,
+                    phid: phid,
+                  ),
+                  buttonHeight: _buttonHeight,
+                ),
+
+              ],
+            );
+          }
+          ),
+    );
+    // --------------------
+  }
+  // --------------------------------------------------------------------------
 }
