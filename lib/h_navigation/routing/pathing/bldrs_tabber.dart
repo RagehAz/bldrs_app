@@ -146,6 +146,8 @@ class BldrsTabber {
       listen: false,
     );
 
+    // blog('_userModel?.myBzzIDs?.indexOf(bzID) : ${_userModel?.myBzzIDs?.indexOf(bzID)}');
+
     return _userModel?.myBzzIDs?.indexOf(bzID) ?? 0;
 
   }

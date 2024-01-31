@@ -3,6 +3,7 @@ library bldrs_routing;
 import 'dart:async';
 import 'package:basics/components/super_image/super_image.dart';
 import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/layouts/nav/nav.dart';
