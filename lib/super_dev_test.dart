@@ -1,10 +1,39 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:flutter/material.dart';
+
+import 'z_components/buttons/general_buttons/bldrs_box.dart';
+
 /// SUPER_DEV_TEST
 Future<void> superDevTestGoX() async {
 
   // await Nav.goToNewScreen(context: getMainContext(), screen: const RoutingTestScreen());
 
+}
+
+class TheFastTestButton extends StatelessWidget {
+
+  const TheFastTestButton({
+    required this.onTap,
+    super.key,
+  });
+
+  final Function onTap;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return BldrsBox(
+      height: 60,
+      width: 60,
+      icon: Iconz.star,
+      color: Colorz.bloodTest,
+      iconSizeFactor: 0.6,
+      onTap: onTap,
+    );
+  }
 }
 
 
