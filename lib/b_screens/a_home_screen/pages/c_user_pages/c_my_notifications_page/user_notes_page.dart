@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/layouts/handlers/pull_to_refresh.dart';
@@ -13,6 +12,7 @@ import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
 import 'package:bldrs/z_components/notes/note_card.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
@@ -223,7 +223,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
                 physics: const BouncingScrollPhysics(),
                 controller: _paginationController?.scrollController,
                 itemCount: maps.length,
-                padding: Ratioz.mirageInsets,
+                padding: MirageModel.mirageInsets2,
                 itemBuilder: (BuildContext ctx, int index) {
 
                   final NoteModel? _note = NoteModel.decipherNote(

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/streamers/streamer.dart';
@@ -10,6 +9,7 @@ import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/d_user_follows_
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/z_components/buttons/bz_buttons/bz_long_button.dart';
+import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +46,7 @@ class UserFollowingPage extends StatelessWidget {
       return ListView.builder(
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
-        padding: Ratioz.mirageInsets,
+        padding: MirageModel.mirageInsets2,
         itemCount: _followedBzzIds.length,
         itemBuilder: (_, int index){
 
