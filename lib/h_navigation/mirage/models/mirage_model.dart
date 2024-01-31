@@ -50,6 +50,11 @@ class MirageModel {
     bottom: (standardStripHeight * 3)  + Ratioz.appBarMargin,
   );
   // --------------------
+  static const EdgeInsets mirageInsets4 = EdgeInsets.only(
+    top: Ratioz.appBarMargin,
+    bottom: (standardStripHeight * 4)  + Ratioz.appBarMargin,
+  );
+  // --------------------
   static const double mirageInsets5 = (standardStripHeight * 5)  + Ratioz.appBarMargin;
   // --------------------
   static double getBzMirageBottomInsetsValue(BuildContext context){
@@ -62,6 +67,18 @@ class MirageModel {
     final bool _isSingleBz = _myBzzIDs.length == 1;
 
     return _isSingleBz == true ? mirageInsets2.bottom : mirageInsets3.bottom;
+  }
+  // --------------------
+  static double getBzMirageBottomInsetsValueForBzFlyers(BuildContext context){
+
+    final List<String> _myBzzIDs = UsersProvider.proGetMyBzzIDs(
+      context: getMainContext(),
+      listen: true,
+    );
+
+    final bool _isSingleBz = _myBzzIDs.length == 1;
+
+    return _isSingleBz == true ? mirageInsets3.bottom : mirageInsets4.bottom;
   }
   // --------------------
   static const int slidingDurationValue = 150;

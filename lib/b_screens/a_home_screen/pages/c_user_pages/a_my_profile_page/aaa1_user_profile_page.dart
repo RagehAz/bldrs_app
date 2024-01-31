@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/user_bubbles/a_user_profile_banners.dart';
-import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
+import 'package:bldrs/h_navigation/mirage/mirage.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 

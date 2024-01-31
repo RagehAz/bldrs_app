@@ -285,12 +285,7 @@ class _MirageNav {
 
         /// GO TO TAB
         await BldrsTabber.goToTab(bid: bid);
-
-        /// SHOW MIRAGES
-        if (_isSingleBz == false){
-          allMirages[2].show(mounted: mounted);
-          await Future.delayed(const Duration(milliseconds: 300));
-        }
+        blog('the bid is : $bid');
 
         if (Mapper.boolIsTrue(allMirages[0].pyramidIsOn?.value) == true){
           allMirages[0].hidePyramid(mounted: mounted);
@@ -304,7 +299,18 @@ class _MirageNav {
           allMirages[1].show(mounted: mounted);
           await Future.delayed(const Duration(milliseconds: 300));
         }
-
+        if (_isSingleBz == false){
+          allMirages[2].show(mounted: mounted);
+          await Future.delayed(const Duration(milliseconds: 300));
+        }
+        if (_isSingleBz == true && bid == TabName.bid_MyBz_Flyers){
+          allMirages[2].show(mounted: mounted);
+          await Future.delayed(const Duration(milliseconds: 300));
+        }
+        if (_isSingleBz == false && bid == TabName.bid_MyBz_Flyers){
+          allMirages[3].show(mounted: mounted);
+          await Future.delayed(const Duration(milliseconds: 300));
+        }
 
         /// MIRAGE 0
         await allMirages[0].scrollTo(
