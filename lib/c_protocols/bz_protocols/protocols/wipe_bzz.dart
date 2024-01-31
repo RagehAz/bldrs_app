@@ -10,6 +10,7 @@ import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
@@ -157,29 +158,37 @@ class WipeBzProtocols {
 
     blog('WipeBzProtocol.deleteLocally : $invoker : START');
 
-    final BzModel? _bzModel = await BzProtocols.fetchBz(
-        bzID: bzID
-    );
+    if (bzID != null){
 
-    await Future.wait(<Future>[
+      final BzModel? _bzModel = await BzProtocols.fetchBz(
+          bzID: bzID
+      );
 
-      /// DELETE ALL BZ FLYERS LOCALLY
-      FlyerProtocols.deleteFlyersLocally(
-        flyersIDs: _bzModel?.publication.getAllFlyersIDs(),
-      ),
+      await Future.wait(<Future>[
 
-      /// DELETE BZ ON LDB
-      BzLDBOps.deleteBzOps(
-        bzID: bzID,
-      ),
+        /// DELETE ALL BZ FLYERS LOCALLY
+        FlyerProtocols.deleteFlyersLocally(
+          flyersIDs: _bzModel?.publication.getAllFlyersIDs(),
+        ),
 
-      /// DELETE BZ EDITOR SESSION
-      BzLDBOps.deleteBzEditorSession(bzID),
+        /// DELETE BZ ON LDB
+        BzLDBOps.deleteBzOps(
+          bzID: bzID,
+        ),
 
-      /// DELETE AUTHOR EDITOR SESSION
-      BzLDBOps.deleteAuthorEditorSession(Authing.getUserID()),
+        /// DELETE BZ EDITOR SESSION
+        BzLDBOps.deleteBzEditorSession(bzID),
 
-    ]);
+        /// DELETE AUTHOR EDITOR SESSION
+        BzLDBOps.deleteAuthorEditorSession(Authing.getUserID()),
+
+      ]);
+
+      if (HomeProvider.proGetActiveBzModel(context: getMainContext(), listen: false)?.id == bzID){
+        HomeProvider.proSetActiveBzModel(bzModel: null, context: getMainContext(), notify: true);
+      }
+
+    }
 
     blog('WipeBzProtocol.deleteLocally : $invoker : END');
   }

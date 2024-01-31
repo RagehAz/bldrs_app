@@ -1,4 +1,3 @@
-import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:basics/models/phrase_model.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -119,8 +118,6 @@ class KeywordsPhrasesLDBOps {
     final List<Map<String, dynamic>> maps = await LDBOps.readAllMaps(
       docName:  generateLDBDoc(langCode: langCode),
     );
-
-    blog('maps : ${maps.length}');
 
     return Phrase.decipherMixedLangPhrasesFromMaps(
       maps: maps,

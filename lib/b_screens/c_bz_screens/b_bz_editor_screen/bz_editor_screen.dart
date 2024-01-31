@@ -358,8 +358,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
            &&
            _isInit == false;
 
-    blog('can : $_can');
-
     return _can;
   }
   // --------------------
@@ -622,7 +620,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         canValidate: true, //draft?.canValidate,
                       ),
                       onTextChanged: (String? text) async {
-                        blog('the text is $text');
+                        // blog('the text is $text');
                         await _onDraftChanged();
                       },
                     ),

@@ -118,9 +118,9 @@ class MainMirageStrip extends StatelessWidget {
               /// ONE BZ ONLY
               if (Lister.superLength(_userModel?.myBzzIDs) == 1)
                 BzMirageButton(
-                  isSelected: selectedButton == TabName.bid_MyBzz,
+                  isSelected: TabName.getBzIDFromBidBz(bzBid: selectedButton) == _userModel!.myBzzIDs!.first,
                   buttonID: TabName.bid_MyBzz,
-                  bzID: _userModel!.myBzzIDs!.first,
+                  bzID: _userModel.myBzzIDs!.first,
                   onTap: onMyBzTap,
                 ),
 
