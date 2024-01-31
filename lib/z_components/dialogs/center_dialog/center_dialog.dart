@@ -236,12 +236,10 @@ class BldrsCenterDialog extends StatelessWidget {
     // --------------------
     return MainLayout(
       canSwipeBack: false,
-      canGoBack: canExit,
       appBarType: AppBarType.non,
       skyType: SkyType.non,
-      onBack: () => exit(
-        isButton: false,
-      ),
+      // canGoBack: true,
+      onBack: () => exit(isButton: true,),
       child: AlertDialog(
         backgroundColor: Colorz.nothing,
         // shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderAll(context, 20)),
