@@ -9,7 +9,7 @@ import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/d_user_follows_
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/z_components/buttons/bz_buttons/bz_long_button.dart';
-import 'package:bldrs/z_components/layouts/mirage/mirage.dart';
+import 'package:bldrs/h_navigation/mirage/mirage.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
