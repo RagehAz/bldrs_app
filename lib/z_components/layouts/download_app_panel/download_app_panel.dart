@@ -65,7 +65,7 @@ class _PanelSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    const double _buttonHeight = 40;
+    const double _buttonHeight = 50;
     const double _spacing = 10;
     final double _buttonWidth = StoreButton.getWidth(context: context, heightOverride: _buttonHeight);
     final double _boxWidth = _buttonWidth + (_spacing * 2);
@@ -118,7 +118,7 @@ class _DownloadPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    const double _buttonHeight = 40;
+    const double _buttonHeight = 50;
     const double _spacing = 10;
     final double _buttonWidth = StoreButton.getWidth(context: context, heightOverride: _buttonHeight);
     final double _boxWidth = _buttonWidth + (_spacing * 2);
