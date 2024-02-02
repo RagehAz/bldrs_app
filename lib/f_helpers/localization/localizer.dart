@@ -371,8 +371,8 @@ class Localizer {
   }
   // --------------------
   static String activeLanguage () => Localizer.translate('phid_activeLanguage') ?? 'English';
-  static String headlineFont () => Localizer.translate('phid_headlineFont') ?? 'BldrsHeadlineFont';
-  static String bodyFont () => Localizer.translate('phid_bodyFont') ?? 'BldrsBodyFont';
+  static String headlineFont () => Localizer.translate('phid_headlineFont') ?? 'head';
+  static String bodyFont () => Localizer.translate('phid_bodyFont') ?? 'body';
   static String languageName () => Localizer.translate('phid_languageName') ?? 'English';
   static String textDirection () => Localizer.translate('textDirection') ?? 'ltr';
   // --------------------
