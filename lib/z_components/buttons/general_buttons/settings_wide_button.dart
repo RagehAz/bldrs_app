@@ -24,6 +24,7 @@ class SettingsWideButton extends StatelessWidget {
     this.color = Colorz.white20,
     this.verseColor = Colorz.white255,
     this.iconColor,
+    this.onLongTap,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -34,6 +35,7 @@ class SettingsWideButton extends StatelessWidget {
   final Color color;
   final Color verseColor;
   final Color? iconColor;
+  final Function? onLongTap;
   /// --------------------------------------------------------------------------
   static double getWidth(){
     // return Bubble.bubbleWidth(context: getMainContext());
@@ -60,6 +62,7 @@ class SettingsWideButton extends StatelessWidget {
       verseCentered: icon == null,
       verseItalic: true,
       verseScaleFactor: 0.55,
+      onLongTap: onLongTap,
       // verseWeight: VerseWeight.bold,
       // splashColor: Colorz.yellow255,
     );
