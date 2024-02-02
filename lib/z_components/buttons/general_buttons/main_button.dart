@@ -22,6 +22,7 @@ class MainButton extends StatelessWidget {
     this.verseCentered = false,
     this.verseItalic = false,
     this.verseScaleFactor,
+    this.onLongTap,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -39,6 +40,7 @@ class MainButton extends StatelessWidget {
   final bool verseCentered;
   final bool verseItalic;
   final double? verseScaleFactor;
+  final Function? onLongTap;
   /// --------------------------------------------------------------------------
   static double getButtonWidth({
     required BuildContext context,
@@ -73,6 +75,7 @@ class MainButton extends StatelessWidget {
       verseShadow: verseShadow,
       margins: const EdgeInsets.only(bottom: 5),
       verseItalic: verseItalic,
+      onLongTap: onLongTap,
     );
     // --------------------
   }
