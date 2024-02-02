@@ -157,7 +157,6 @@ class Localizer {
   static Future<void> reload({
     required BuildContext context,
   }) async {
-
     final String? _jsonLang = getCurrentLangCode();
     final Locale? _temp = _concludeLocaleByLangCode(_jsonLang);
     BldrsAppStarter.setLocale(context, _temp);

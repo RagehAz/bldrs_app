@@ -216,7 +216,8 @@ class AppSettingsPage extends StatelessWidget {
         SettingsWideButton(
           verse: const Verse(id: 'phid_clean_and_restart', translate: true),
           icon: Iconz.reload,
-          onTap: () => onRebootBldrsAppSystem(),
+          onTap: () => onRebootBldrsAppSystem(hardReboot: false),
+          onLongTap: () => onRebootBldrsAppSystem(hardReboot: true),
         ),
 
         /// ------> SEPARATOR
