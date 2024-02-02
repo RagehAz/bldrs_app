@@ -30,11 +30,14 @@ class _LogoScreenState extends State<LogoScreen> {
   void didChangeDependencies() {
 
     if (_isInit && mounted) {
-      _isInit = false; // good
 
       asyncInSync(() async {
 
-        await Future.delayed(const Duration(milliseconds: 500));
+        await Future.delayed(const Duration(milliseconds: 400));
+        setState(() {
+          _isInit = false; // good
+        });
+        await Future.delayed(const Duration(milliseconds: 700));
         await Routing.goTo(route: ScreenName.home);
 
       });
@@ -61,13 +64,19 @@ class _LogoScreenState extends State<LogoScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    return const MainLayout(
-      appBarType: AppBarType.non,
-      skyType: SkyType.blackStars,
-      pyramidType: PyramidType.crystalYellow,
-      canSwipeBack: false,
-      canGoBack: false,
-    );
+    if (_isInit == true){
+      return const SizedBox();
+    }
+    // --------------------
+    else {
+      return const MainLayout(
+        appBarType: AppBarType.non,
+        skyType: SkyType.blackStars,
+        pyramidType: PyramidType.crystalYellow,
+        canSwipeBack: false,
+        canGoBack: false,
+      );
+    }
     // --------------------
   }
   // -----------------------------------------------------------------------------
