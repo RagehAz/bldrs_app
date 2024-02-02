@@ -17,6 +17,8 @@ Future<void> main() => BldrsEngine.mainIgnition();
 
 // ---------------------------------------------------------------------------
 
+final ValueNotifier<Locale?> superLocale = ValueNotifier(null);
+
 class BldrsAppStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BldrsAppStarter({
@@ -24,12 +26,8 @@ class BldrsAppStarter extends StatefulWidget {
   });
   /// --------------------------------------------------------------------------
   static void setLocale(BuildContext? context, Locale? locale) {
-
-    if (locale != null){
-      /// let's see if this works
-      context?.findAncestorStateOfType<_BldrsAppStarterState>()?._setLocale(locale);
-    }
-
+    superLocale.value = null;
+    superLocale.value = locale;
   }
   /// --------------------------------------------------------------------------
   @override
@@ -69,6 +67,8 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> with WidgetsBindingOb
   @override
   void dispose() {
 
+    superLocale.dispose();
+
     BldrsEngine.appStartDispose(
       observer: this,
     );
@@ -82,82 +82,72 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> with WidgetsBindingOb
     super.didChangeAppLifecycleState(state);
   }
   // -----------------------------------------------------------------------------
-
-  /// LOCALE
-
-  // --------------------
-  Locale? _locale;
-  // --------------------
-  void _setLocale(Locale? locale) {
-
-    if (mounted == true && locale != null){
-      setState(() {
-        _locale = locale;
-      });
-    }
-
-  }
-  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return BldrsProviders(
-      child: MaterialApp(
-        /// KEYS
-        // key: ,
-        // scaffoldMessengerKey: ,
-        // restorationScopeId: ,
-        // useInheritedMediaQuery: true,
+      child: ValueListenableBuilder(
+        valueListenable: superLocale,
+        builder: (_, Locale? locale, Widget? child) {
 
-        /// DUNNO
-        // actions: ,
+          return MaterialApp(
+            /// KEYS
+            // key: ,
+            // scaffoldMessengerKey: ,
+            // restorationScopeId: ,
+            // useInheritedMediaQuery: true,
 
-        builder: DevicePreview.appBuilder,
+            /// DUNNO
+            // actions: ,
 
-        // home: ,
-        // useInheritedMediaQuery: ,
-        // shortcuts: ,
-        scrollBehavior: const AppScrollBehavior(),
+            builder: DevicePreview.appBuilder,
 
-        /// DEBUG
-        debugShowCheckedModeBanner: false,
-        // debugShowMaterialGrid: false,
-        // showPerformanceOverlay: false,
-        // checkerboardRasterCacheImages: false,
-        // showSemanticsDebugger: ,
-        // checkerboardOffscreenLayers: ,
+            // home: ,
+            // useInheritedMediaQuery: ,
+            // shortcuts: ,
+            scrollBehavior: const AppScrollBehavior(),
 
-        /// THEME
-        title: 'Bldrs.net',
-        // onGenerateTitle: ,
-        // color: ,
-        // darkTheme: ,
-        // highContrastDarkTheme: ,
-        // highContrastTheme: ,
-        // themeMode: ,
-        theme: ThemeData(
-          canvasColor: Colorz.nothing,
-          textSelectionTheme: const TextSelectionThemeData(
-            selectionHandleColor: Colorz.yellow255,
-            selectionColor: Colorz.white50,
-          ),
-        ),
+            /// DEBUG
+            debugShowCheckedModeBanner: false,
+            // debugShowMaterialGrid: false,
+            // showPerformanceOverlay: false,
+            // checkerboardRasterCacheImages: false,
+            // showSemanticsDebugger: ,
+            // checkerboardOffscreenLayers: ,
 
-        /// LOCALE
-        locale: _locale,
-        supportedLocales: Localizer.getSupportedLocales(),
-        localizationsDelegates: Localizer.getLocalizationDelegates(),
-        localeResolutionCallback: Localizer.localeResolutionCallback,
-        // localeListResolutionCallback: ,
-        /// ROUTES
-        // navigatorObservers: [],
-        // onGenerateInitialRoutes: ,
-        // onUnknownRoute: ,
-        // home: ,
-        navigatorKey: mainNavKey,
-        onGenerateRoute: Routing.router,
-        // initialRoute: RouteName.staticLogo,
-        // routes: Routing.routesMap,
+            /// THEME
+            title: 'Bldrs.net',
+            // onGenerateTitle: ,
+            // color: ,
+            // darkTheme: ,
+            // highContrastDarkTheme: ,
+            // highContrastTheme: ,
+            // themeMode: ,
+            theme: ThemeData(
+              canvasColor: Colorz.nothing,
+              textSelectionTheme: const TextSelectionThemeData(
+                selectionHandleColor: Colorz.yellow255,
+                selectionColor: Colorz.white50,
+              ),
+            ),
+
+            /// LOCALE
+            locale: locale,
+            supportedLocales: Localizer.getSupportedLocales(),
+            localizationsDelegates: Localizer.getLocalizationDelegates(),
+            localeResolutionCallback: Localizer.localeResolutionCallback,
+            // localeListResolutionCallback: ,
+            /// ROUTES
+            // navigatorObservers: [],
+            // onGenerateInitialRoutes: ,
+            // onUnknownRoute: ,
+            // home: ,
+            navigatorKey: mainNavKey,
+            onGenerateRoute: Routing.router,
+            // initialRoute: RouteName.staticLogo,
+            // routes: Routing.routesMap,
+          );
+        }
       ),
     );
 
