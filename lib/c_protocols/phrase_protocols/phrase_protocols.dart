@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/models/phrase_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/countries_phrases_protocols/countries_phrases_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/keywords_phrases_protocols/keywords_phrases_protocols.dart';
@@ -60,17 +58,11 @@ class PhraseProtocols {
 
         ]);
 
-        await WaitDialog.closeWaitDialog();
-        // await BldrsNav.pushLogoRouteAndRemoveAllBelow(
-        //   animatedLogoScreen: true,
-        // );
-        await Nav.goBack(context: context);
-        await Routing.goTo(route: TabName.bid_Home);
+      }
 
-      }
-      else {
-        await WaitDialog.closeWaitDialog();
-      }
+      await Routing.restartToAfterHomeRoute(
+        routeName: TabName.bid_Home,
+      );
 
   }
   // -----------------------------------------------------------------------------
