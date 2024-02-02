@@ -118,12 +118,13 @@ class Localizer {
     Map<String, String> _mainPhrases = {};
     Map<String, String> _keywordsPhrases = {};
 
+    blog('xxz=> Starting loading phrases');
     await Future.wait([
 
       MainPhrasesJsonOps.readAll(
         langCode: locale?.languageCode ?? 'en',
       ).then((Map<String, String> main){
-        // blog('xxz=> adding ${main.keys.length} main keys');
+        blog('xxz=> adding ${main.keys.length} main keys');
         _mainPhrases = main;
       }),
 
@@ -131,7 +132,7 @@ class Localizer {
         langCode: locale?.languageCode ?? 'en',
         localizedValues: {},
       ).then((Map<String, String> keywords){
-        // blog('xxz=> adding ${keywords.keys.length} keywords keys');
+        blog('xxz=> adding ${keywords.keys.length} keywords keys');
         _keywordsPhrases = keywords;
       }),
 
@@ -150,6 +151,18 @@ class Localizer {
   /// TESTED : WORKS PERFECT
   String? _getTranslatedValue(String key) {
     return _localizedValues?[key];
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> reload({
+    required BuildContext context,
+  }) async {
+
+    final String? _jsonLang = getCurrentLangCode();
+    final Locale? _temp = _concludeLocaleByLangCode(_jsonLang);
+    BldrsAppStarter.setLocale(context, _temp);
+    await Future.delayed(const Duration(milliseconds: 500));
+
   }
   // -----------------------------------------------------------------------------
 

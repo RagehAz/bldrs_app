@@ -230,8 +230,8 @@ class MirageKeywordsControls {
 
       if (Lister.checkCanLoop(_phids) == true){
 
-        final FlyerType? flyerType = FlyerTyper.concludeFlyerTypeByChainID(
-            chainID: Pathing.getFirstPathNode(path: path)
+        final FlyerType? flyerType = FlyerTyper.concludeFlyerTypeByRootID(
+            rootID: Pathing.getFirstPathNode(path: path)
         );
 
         final String? _selectedPhid = await Dialogs.phidsDialogs(
@@ -274,8 +274,8 @@ class MirageKeywordsControls {
 
     if (TextCheck.isEmpty(path) == false){
 
-      final FlyerType? flyerType = FlyerTyper.concludeFlyerTypeByChainID(
-          chainID: Pathing.getFirstPathNode(path: path)
+      final FlyerType? flyerType = FlyerTyper.concludeFlyerTypeByRootID(
+          rootID: Pathing.getFirstPathNode(path: path)
       );
 
       await MirageModel.hideMiragesAbove(

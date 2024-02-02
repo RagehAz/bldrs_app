@@ -157,7 +157,7 @@ class Keyworder {
 
     if (keywordsMap != null){
 
-      final String? _rootNode = FlyerTyper.concludeChainIDByFlyerType(
+      final String? _rootNode = FlyerTyper.concludeRootIDByFlyerType(
           flyerType: flyerType,
       );
 
@@ -230,8 +230,8 @@ class Keyworder {
           phid: phid
       );
 
-      _output = FlyerTyper.concludeFlyerTypeByChainID(
-        chainID: _rootChainID,
+      _output = FlyerTyper.concludeFlyerTypeByRootID(
+        rootID: _rootChainID,
       );
 
     }

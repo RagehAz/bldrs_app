@@ -50,7 +50,7 @@ class _SectionsMirageStrip extends StatelessWidget {
 
                   // final String? _flyerTypePhid = FlyerTyper.getFlyerTypePhid(flyerType: _flyerType);
 
-                  final FlyerType? _flyerType = FlyerTyper.concludeFlyerTypeByChainID(chainID: _phid);
+                  final FlyerType? _flyerType = FlyerTyper.concludeFlyerTypeByRootID(rootID: _phid);
 
                   // final String? _rootPhid = FlyerTyper.concludeChainIDByFlyerType(
                   //   flyerType: _flyerType,
