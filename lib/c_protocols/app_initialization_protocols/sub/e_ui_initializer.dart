@@ -163,6 +163,7 @@ class UiInitializer {
         census: true, // might need faster refresh aslan
         /// PHRASES
         allKeywordsPhrasesInAllLangs: false,
+        keywords: false,
         countriesPhrases: false,
         /// EDITORS
         userEditor: false, // keep this for user to find later anytime

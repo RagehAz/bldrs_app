@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_screens/c_bz_screens/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:bldrs/b_screens/x_situational_screens/app_langs_screen.dart';
 import 'package:bldrs/b_screens/x_situational_screens/feedback_screen.dart';
@@ -87,9 +88,13 @@ Future<void> onCreateNewBzTap() async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onRebootBldrsAppSystem() async {
+Future<void> onRebootBldrsAppSystem({
+  required bool hardReboot,
+}) async {
 
-  final bool _result = await rebootLogic();
+  final bool _result = await rebootLogic(
+      hardReboot: hardReboot,
+  );
 
   if (_result == true) {
 
@@ -100,7 +105,9 @@ Future<void> onRebootBldrsAppSystem() async {
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<bool> rebootLogic() async {
+Future<bool> rebootLogic({
+  required bool hardReboot,
+}) async {
 
   final bool _result = await BldrsCenterDialog.showCenterDialog(
     titleVerse: const Verse(
@@ -114,6 +121,7 @@ Future<bool> rebootLogic() async {
     ),
     boolDialog: true,
     invertButtons: true,
+    color: hardReboot == true ? Colorz.bloodTest : Colorz.blackSemi230,
     confirmButtonVerse: const Verse(
       id: 'phid_confirm',
       translate: true,
@@ -130,11 +138,17 @@ Future<bool> rebootLogic() async {
     );
 
     await Future.wait(<Future>[
+
       /// WIPE OUT LDB
-      LDBDoc.onLightRebootSystem(),
+      if (hardReboot == false)
+        LDBDoc.onLightRebootSystem(),
+
+      if (hardReboot == true)
+        LDBDoc.onHardRebootSystem(),
 
       /// WIPE OUT PRO
       GeneralProvider.wipeOutAllProviders(),
+
     ]);
 
     await WaitDialog.closeWaitDialog();

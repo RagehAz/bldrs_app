@@ -41,8 +41,6 @@ class LDBDoc {
   static const String searches = 'searches';
   // --------------------
   /// CHAINS
-  static const String bldrsChains = 'chains'; /// ERADICATE_CHAINS
-  static const String pickers = 'pickers'; /// ERADICATE_CHAINS
   static const String keywords = 'keywords';
   // --------------------
   /// ZONES
@@ -102,10 +100,6 @@ class LDBDoc {
       case LDBDoc.accounts: return 'id';
       case LDBDoc.searches: return 'id';
       // -------------
-      /// CHAINS
-      case LDBDoc.bldrsChains: return 'id';
-      case LDBDoc.pickers: return 'id';
-      // -------------
       /// ZONES
       case LDBDoc.countries: return 'id';
       case LDBDoc.cities: return 'cityID';
@@ -155,16 +149,13 @@ class LDBDoc {
     notes,
     pics,
     pdfs,
+    keywords,
 
     'headline :User',
     users,
     authModel,
     accounts,
     searches,
-
-    'headline: Chains',
-    bldrsChains,
-    pickers,
 
     'headline: Zones',
     countries,
@@ -213,6 +204,7 @@ class LDBDoc {
     required bool notes,
     required bool pics,
     required bool pdfs,
+    required bool keywords,
     /// USER
     required bool users,
     required bool authModel,
@@ -259,14 +251,13 @@ class LDBDoc {
     if (notes == true) {_docs.add(LDBDoc.notes);}
     if (pics == true) {_docs.add(LDBDoc.pics);}
     if (pdfs == true) {_docs.add(LDBDoc.pdfs);}
+    if (keywords == true) {_docs.add(LDBDoc.keywords);}
     /// USER
     if (users == true) {_docs.add(LDBDoc.users);}
     if (authModel == true) {_docs.add(LDBDoc.authModel);}
     if (accounts == true) {_docs.add(LDBDoc.accounts);}
     if (searches == true) {_docs.add(LDBDoc.searches);}
     /// CHAINS
-    if (bldrsChains == true) {_docs.add(LDBDoc.bldrsChains);}
-    if (pickers == true) {_docs.add(LDBDoc.pickers);}
     if (census == true) {_docs.add(LDBDoc.census);}
     /// ZONES
     if (countries == true) {_docs.add(LDBDoc.countries);}
@@ -335,6 +326,7 @@ class LDBDoc {
       accounts: false,
       langCode: false, // lets always keep user language for life
       allKeywordsPhrasesInAllLangs: false,
+      keywords: false,
       // langMaps: true, // yes, lets refresh the lang maps whenever user reboots
       userEditor: false,
       bzEditor: false,
@@ -362,6 +354,7 @@ class LDBDoc {
       staging: true,
       census: true,
       allKeywordsPhrasesInAllLangs: true,
+      keywords: true,
       appState: true,
       gta: true,
       webpages: true,
