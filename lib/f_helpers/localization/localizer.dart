@@ -238,7 +238,7 @@ class Localizer {
       case 'hi':    return const Locale('hi', 'IN');
       case 'ru':    return const Locale('ru', 'RU');
       case 'pt':    return const Locale('pt', 'PT');
-      // case 'fa':    return const Locale('fa', 'IR');
+      case 'fa':    return const Locale('fa', 'IR');
 
       default:      return const Locale('en', 'US');
     }
@@ -422,8 +422,6 @@ List<String> getWords(List<String> phids){
 
   }
   return _output;
-
-
 
 }
 //---------------------
