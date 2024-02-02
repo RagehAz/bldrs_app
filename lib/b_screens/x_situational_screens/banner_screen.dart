@@ -124,7 +124,7 @@ class _BannerScreenState extends State<BannerScreen> {
             /// SLOGAN
             SuperText(
               text: "The Builder's Network",
-              font: BldrsThemeFonts.fontEnglishBody,
+              font: BldrsThemeFonts.fontBody,
               weight: FontWeight.w400,
               italic: true,
               boxWidth: _shortestSide * 0.7,
@@ -144,7 +144,7 @@ class _BannerScreenState extends State<BannerScreen> {
               duration: const Duration(seconds: 5),
               child: SuperText(
                 text: 'Available on ..',
-                font: BldrsThemeFonts.fontBldrsHeadlineFont,
+                font: BldrsThemeFonts.fontHead,
                 italic: true,
                 weight: FontWeight.w600,
                 boxWidth: _shortestSide * 0.7,
@@ -241,7 +241,7 @@ class _BannerScreenState extends State<BannerScreen> {
                   return SuperText(
                     text: 'Copyright © 2023 Rageh Azzazy. All rights reserved.'
                         '\nv : $version',
-                    font: BldrsThemeFonts.fontEnglishBody,
+                    font: BldrsThemeFonts.fontBody,
                     italic: true,
                     boxWidth: _shortestSide * 0.7,
                     textHeight: _shortestSide * 0.025,
