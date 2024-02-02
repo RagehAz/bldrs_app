@@ -388,26 +388,25 @@ class FlyerTyper{
 
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static FlyerType? concludeFlyerTypeByChainID({
-    required String? chainID,
+  static FlyerType? concludeFlyerTypeByRootID({
+    required String? rootID,
   }){
-    switch (chainID) {
+    switch (rootID) {
     /// REAL ESTATE
-      case propertyChainID:     return FlyerType.property;
+      case rootIdProperties:      return FlyerType.property;
     /// CONSTRUCTION
-      case designChainID:       return FlyerType.design;
-      case designChainID2:      return FlyerType.design;
-      case undertakingChainID:  return FlyerType.undertaking;
-      case tradesChainID:       return FlyerType.trade;
+      case rootIdDesigns:         return FlyerType.design;
+      case rootIDUndertakings:    return FlyerType.undertaking;
+      case rootIdTrades:          return FlyerType.trade;
     /// SUPPLIES
-      case productChainID:      return FlyerType.product;
-      case equipmentChainID:    return FlyerType.equipment;
+      case rootIdProducts:        return FlyerType.product;
+      case rootIdEquipment:       return FlyerType.equipment;
       default: return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String? concludeChainIDByFlyerType({
+  static String? concludeRootIDByFlyerType({
     required FlyerType? flyerType,
   }){
     String? _chainID;
@@ -418,13 +417,13 @@ class FlyerTyper{
     else {
 
       switch(flyerType){
-        case FlyerType.general      : _chainID = null;             break;
-        case FlyerType.property     : _chainID = propertyChainID;  break;
-        case FlyerType.design       : _chainID = designChainID;    break;
-        case FlyerType.undertaking  : _chainID = designChainID;    break;
-        case FlyerType.trade        : _chainID = tradesChainID;    break;
-        case FlyerType.product      : _chainID = productChainID;   break;
-        case FlyerType.equipment    : _chainID = equipmentChainID; break;
+        case FlyerType.general      : _chainID = null;                break;
+        case FlyerType.property     : _chainID = rootIdProperties;    break;
+        case FlyerType.design       : _chainID = rootIdDesigns;       break;
+        case FlyerType.undertaking  : _chainID = rootIDUndertakings;  break;
+        case FlyerType.trade        : _chainID = rootIdTrades;        break;
+        case FlyerType.product      : _chainID = rootIdProducts;      break;
+        case FlyerType.equipment    : _chainID = rootIdEquipment;     break;
       }
     }
 
@@ -432,18 +431,19 @@ class FlyerTyper{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String? concludeSectionPhidByFlyerTypeChainID({
-    required String? flyerTypeChainID,
+  static String? concludeSectionPhidByFlyerTypeRootID({
+    required String? rootID,
   }){
-    switch (flyerTypeChainID) {
-    /// REAL ESTATE
-      case propertyChainID:  return 'phid_realEstate';
-    /// CONSTRUCTION
-      case designChainID:    return 'phid_construction';
-      case tradesChainID:    return 'phid_construction';
-    /// SUPPLIES
-      case productChainID:   return 'phid_supplies';
-      case equipmentChainID: return 'phid_supplies';
+    switch (rootID) {
+      /// REAL ESTATE
+      case rootIdProperties:    return 'phid_realEstate';
+      /// CONSTRUCTION
+      case rootIdDesigns:       return 'phid_construction';
+      case rootIDUndertakings:  return 'phid_construction';
+      case rootIdTrades:        return 'phid_construction';
+      /// SUPPLIES
+      case rootIdProducts:      return 'phid_supplies';
+      case rootIdEquipment:     return 'phid_supplies';
       default: return null;
     }
   }
@@ -454,21 +454,20 @@ class FlyerTyper{
   /// CHAINS IDS
 
   // --------------------
-  static const String propertyChainID =     'phid_k_flyer_type_property';
-  static const String designChainID =       'phid_s_group_dz_type';
-  static const String designChainID2 =      'phid_k_flyer_type_design';
-  static const String undertakingChainID =  'phid_s_propertyLicense';
-  static const String tradesChainID =       'phid_k_flyer_type_trades';
-  static const String productChainID =      'phid_k_flyer_type_product';
-  static const String equipmentChainID =    'phid_k_flyer_type_equipment';
+  static const String rootIdProperties =    'phid_k_flyer_type_property';
+  static const String rootIdDesigns =       'phid_k_flyer_type_design';
+  static const String rootIDUndertakings =  'phid_k_flyer_type_undertaking';
+  static const String rootIdTrades =        'phid_k_flyer_type_trades';
+  static const String rootIdProducts =      'phid_k_flyer_type_product';
+  static const String rootIdEquipment =     'phid_k_flyer_type_equipment';
   // --------------------
-  static List<String> chainKSonsIDs = <String>[
-    propertyChainID,
-    designChainID,
-    undertakingChainID,
-    tradesChainID,
-    productChainID,
-    equipmentChainID,
+  static List<String> keywordsRootsIDs = <String>[
+    rootIdProperties,
+    rootIdDesigns,
+    rootIDUndertakings,
+    rootIdTrades,
+    rootIdProducts,
+    rootIdEquipment,
   ];
   // -----------------------------------------------------------------------------
 
@@ -487,7 +486,7 @@ class FlyerTyper{
         return _allChainsIDs(flyerType: flyerType);
 
       case ViewingEvent.homeView :
-        return _homeWallChainsIDs(flyerType);
+        return _homeWallRootsIDs(flyerType);
 
       case ViewingEvent.flyerEditor :
         return _flyerCreatorChainsIDs(flyerType);
@@ -518,34 +517,34 @@ class FlyerTyper{
     //
     // return _chainsIDs;
 
-    return _homeWallChainsIDs(flyerType);
+    return _homeWallRootsIDs(flyerType);
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> _homeWallChainsIDs(FlyerType? flyerType){
+  static List<String> _homeWallRootsIDs(FlyerType? flyerType){
 
-    String? _parentChainID;
+    String? _keywordsRootID;
 
     switch (flyerType){
       // case FlyerType.general      : return <String>[]; break;
     // --------------------
-      case FlyerType.property     : _parentChainID = propertyChainID; break;
+      case FlyerType.property     : _keywordsRootID = rootIdProperties; break;
     // --------------------
-      case FlyerType.design       : _parentChainID = designChainID; break;
+      case FlyerType.design       : _keywordsRootID = rootIdDesigns; break;
     // --------------------
-      case FlyerType.undertaking  : _parentChainID = undertakingChainID; break;
+      case FlyerType.undertaking  : _keywordsRootID = rootIDUndertakings; break;
     // --------------------
-      case FlyerType.trade        : _parentChainID = tradesChainID; break;
+      case FlyerType.trade        : _keywordsRootID = rootIdTrades; break;
     // --------------------
-      case FlyerType.product      : _parentChainID = productChainID; break;
+      case FlyerType.product      : _keywordsRootID = rootIdProducts; break;
     // --------------------
-      case FlyerType.equipment    : _parentChainID = equipmentChainID; break;
+      case FlyerType.equipment    : _keywordsRootID = rootIdEquipment; break;
     // --------------------
       default: return [];
     }
 
-    return [_parentChainID];
+    return [_keywordsRootID];
   }
   // --------------------
   /// TESTED : WORKS PERFECT
