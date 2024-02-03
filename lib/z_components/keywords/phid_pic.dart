@@ -2,6 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/c_keywords/keyworder.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
@@ -30,10 +31,14 @@ class _PhidPicState extends State<PhidPic> {
   // -----------------------------------------------------------------------------
   bool _loading = true;
   PicModel? _picModel;
+  String? _rootIcon;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
+
+    _rootIcon = FlyerTyper.getRootIcon(widget.phid);
+
   }
   // --------------------
   bool _isInit = true;
@@ -45,7 +50,13 @@ class _PhidPicState extends State<PhidPic> {
 
       asyncInSync(() async {
 
-        final PicModel? _pic = await PicProtocols.fetchPic(StoragePath.phids_phid(widget.phid));
+        PicModel? _pic;
+
+
+        if (_rootIcon == null){
+          _pic = await PicProtocols.fetchPic(StoragePath.phids_phid(widget.phid));
+        }
+
 
         if (mounted == true){
           setState(() {
@@ -86,7 +97,7 @@ class _PhidPicState extends State<PhidPic> {
       iconSizeFactor: Keyworder.checkIsPhid(widget.phid) ? 1 : 0.7,
       bubble: false,
       loading: _picModel == null && _loading == true,
-      icon: _picModel?.bytes ?? Iconz.circleDot,
+      icon: _rootIcon ?? _picModel?.bytes ?? Iconz.circleDot,
     );
     // --------------------
   }
