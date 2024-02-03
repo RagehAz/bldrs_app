@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/components/super_box/super_box.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/z_components/images/bldrs_image_path_to_ui_image.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -188,6 +189,7 @@ class BldrsBox extends StatelessWidget {
     else {
 
       final bool isPicPath = ObjectCheck.objectIsPicPath(icon);
+      final String? _rootIcon = FlyerTyper.getRootIcon(icon);
       // final bool isURL = ObjectCheck.isAbsoluteURL(icon);
       // final bool isRaster = ObjectCheck.objectIsJPGorPNG(icon);
       // final bool isSVG = ObjectCheck.objectIsSVG(icon);
@@ -197,6 +199,14 @@ class BldrsBox extends StatelessWidget {
       // final bool _isBase64 = ObjectCheck.isBase64(icon);
       // final bool _isUiImage = ObjectCheck.objectIsUiImage(icon);
       // final bool _isImgImage = ObjectCheck.objectIsImgImage(icon);
+
+      if (_rootIcon != null){
+        return getChild(
+          context: context,
+          theIcon: _rootIcon,
+          isLoading: loading,
+        );
+      }
 
       /// PIC PATH
       if (isPicPath == true) {
