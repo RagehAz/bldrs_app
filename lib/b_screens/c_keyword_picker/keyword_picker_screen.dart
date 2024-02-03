@@ -75,7 +75,7 @@ class KeywordsPickerScreen extends StatefulWidget {
     required List<String>? selectedPhids,
   }) async {
 
-    final List<String> _paths = await BldrsNav.goToNewScreen(
+    final List<String>? _paths = await BldrsNav.goToNewScreen(
       screen: KeywordsPickerScreen(
         multipleSelection: true,
         selectedPhids: selectedPhids ?? [],
