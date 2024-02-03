@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/strings/text_check.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
@@ -447,11 +448,9 @@ class FlyerTyper{
       default: return null;
     }
   }
-  // --------------------
-
   // -----------------------------------------------------------------------------
 
-  /// CHAINS IDS
+  /// ROOTS IDS
 
   // --------------------
   static const String rootIdProperties =    'phid_k_flyer_type_property';
@@ -469,13 +468,40 @@ class FlyerTyper{
     rootIdProducts,
     rootIdEquipment,
   ];
+
+  // --------------------
+  ///
+  static String? getRootIcon(dynamic icon){
+    String? _output;
+
+    if (icon != null && icon is String){
+      for (final String rootID in keywordsRootsIDs){
+
+        final bool _has = TextCheck.stringContainsSubString(
+            string: icon,
+            subString: rootID
+        );
+
+        if (_has){
+          final FlyerType _flyerType = concludeFlyerTypeByRootID(rootID: rootID)!;
+          _output = flyerTypeIcon(flyerType: _flyerType, isOn: false);
+          break;
+        }
+
+      }
+    }
+
+
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
-  /// CHAINS IDS COMPOSITIONS
+  /// ROOTS IDS COMPOSITIONS
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getChainsIDsPerViewingEvent({
+  static List<String> getRootsIDsPerViewingEvent({
     required FlyerType? flyerType,
     required ViewingEvent? event,
   }){
@@ -483,16 +509,16 @@ class FlyerTyper{
     switch(event){
 
       case ViewingEvent.admin :
-        return _allChainsIDs(flyerType: flyerType);
+        return _allRootsIDs(flyerType: flyerType);
 
       case ViewingEvent.homeView :
         return _homeWallRootsIDs(flyerType);
 
       case ViewingEvent.flyerEditor :
-        return _flyerCreatorChainsIDs(flyerType);
+        return _flyerCreatorRootsIDs(flyerType);
 
       case ViewingEvent.bzEditor :
-        return bzCreatorChainsIDs(flyerType);
+        return bzCreatorRootsIDs(flyerType);
 
       default: return  [];
     }
@@ -500,7 +526,7 @@ class FlyerTyper{
   }
   // --------------------
   /// TASK : SEE ME
-  static List<String> _allChainsIDs({
+  static List<String> _allRootsIDs({
     required FlyerType? flyerType,
   }){
 
@@ -548,7 +574,7 @@ class FlyerTyper{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> _flyerCreatorChainsIDs(FlyerType? flyerType){
+  static List<String> _flyerCreatorRootsIDs(FlyerType? flyerType){
 
     switch (flyerType){
       case FlyerType.general      :
@@ -616,7 +642,7 @@ class FlyerTyper{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> bzCreatorChainsIDs(FlyerType? flyerType){
+  static List<String> bzCreatorRootsIDs(FlyerType? flyerType){
 
     switch (flyerType){
       case FlyerType.general      :
