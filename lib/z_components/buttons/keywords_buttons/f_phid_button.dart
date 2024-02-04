@@ -27,7 +27,7 @@ class PhidButton extends StatelessWidget {
     this.onPhidLongTap,
     this.maxWidth,
     this.height,
-    this.verseColor,
+    this.verseColor = Colorz.white255,
     super.key
   });
   /// --------------------------------------------------------------------------

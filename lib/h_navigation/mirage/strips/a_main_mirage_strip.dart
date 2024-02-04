@@ -46,9 +46,16 @@ class MainMirageStrip extends StatelessWidget {
             columnChildren: <Widget>[
 
               /// SECTIONS
-              SectionMirageButton(
-                isSelected: selectedButton == TabName.bid_Home,
-                onTap: onSectionsTap,
+              Padding(
+                padding: Scale.superInsets(
+                  context: context,
+                  appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                  enLeft: 10,
+                ),
+                child: SectionMirageButton(
+                  isSelected: selectedButton == TabName.bid_Home,
+                  onTap: onSectionsTap,
+                ),
               ),
 
               /// ZONE
@@ -135,15 +142,22 @@ class MainMirageStrip extends StatelessWidget {
                 ),
 
               /// SETTINGS
-              MirageButton(
-                buttonID: TabName.bid_AppSettings,
-                isSelected: selectedButton == TabName.bid_AppSettings,
-                verse: const Verse(id: 'phid_settings', translate: true),
-                icon: Iconz.more,
-                bigIcon: false,
-                iconColor: Colorz.white255,
-                canShow: true,
-                onTap: onSettingsButtonTap,
+              Padding(
+                padding: Scale.superInsets(
+                  context: context,
+                  appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                  enRight: 5,
+                ),
+                child: MirageButton(
+                  buttonID: TabName.bid_AppSettings,
+                  isSelected: selectedButton == TabName.bid_AppSettings,
+                  verse: const Verse(id: 'phid_settings', translate: true),
+                  icon: Iconz.more,
+                  bigIcon: false,
+                  iconColor: Colorz.white255,
+                  canShow: true,
+                  onTap: onSettingsButtonTap,
+                ),
               ),
 
             ],

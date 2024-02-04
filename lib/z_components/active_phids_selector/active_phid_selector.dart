@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/components/drawing/spacing.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/scale.dart';
@@ -116,6 +117,8 @@ class ActivePhidSelector extends StatelessWidget {
 
     return <Widget>[
 
+      const Spacing(),
+
       /// ALL
       PhidButtonClone(
         height: _buttonHeight,
@@ -197,6 +200,8 @@ class ActivePhidSelector extends StatelessWidget {
               );
             }
         ),
+
+      const Spacing(),
 
     ];
 

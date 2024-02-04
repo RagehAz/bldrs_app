@@ -24,6 +24,8 @@ class AppBarHolder extends StatelessWidget {
     this.filters,
     this.canGoBack = true,
     this.listenToHideLayout = false,
+    this.onTextFieldTap,
+    this.onSearchButtonTap,
     super.key,
   });
   // --------------------
@@ -43,6 +45,8 @@ class AppBarHolder extends StatelessWidget {
   final Widget? filters;
   final bool canGoBack;
   final bool listenToHideLayout;
+  final Function? onTextFieldTap;
+  final Function? onSearchButtonTap;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -76,6 +80,8 @@ class AppBarHolder extends StatelessWidget {
           onSearchCancelled: onSearchCancelled,
           listenToHideLayout: listenToHideLayout,
           filtersAreOn: filtersAreOn,
+          onSearchButtonTap: onSearchButtonTap,
+          onTextFieldTap: onTextFieldTap,
           filters: filters,
         ),
 
