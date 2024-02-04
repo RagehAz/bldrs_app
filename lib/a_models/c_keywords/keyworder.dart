@@ -238,6 +238,49 @@ class Keyworder {
 
     return _output;
   }
+  // --------------------
+  ///
+  static bool checkNodeIsActiveInZone({
+    required Map<String, dynamic>? keywordsMap,
+    required ZonePhidsModel? zonePhidsModel,
+    required String? path,
+  }){
+    bool _active = false;
+
+    if (keywordsMap != null && zonePhidsModel != null && path != null){
+
+      final List<String> _phids = ZonePhidsModel.getPhidsFromZonePhidsModel(
+        zonePhidsModel: zonePhidsModel,
+      );
+
+      final bool _nodeIsLast = !MapPathing.checkPathNodeHasSons(
+        map: keywordsMap,
+        path: path,
+      );
+
+      /// IF LAST NODE
+      if (_nodeIsLast == true){
+        final String _phid = Pathing.getLastPathNode(path)!;
+        _active = Stringer.checkStringsContainString(strings: _phids, string: _phid);
+      }
+
+      /// IF MIDDLE NODE
+      else {
+        /// IS ACTIVE IF ANY OF MY CHILDREN IS ACTIVE
+        final List<String> _allPhidsBelow = MapPathing.getAllKeysBelow(
+          path: path,
+          map: keywordsMap,
+        );
+        _active = Stringer.checkStringsContainAnyOfThose(
+          strings: _phids,
+          those: _allPhidsBelow,
+        );
+      }
+
+    }
+
+    return _active;
+  }
   // --------------------------------------------------------------------------
 
   /// CHECKERS

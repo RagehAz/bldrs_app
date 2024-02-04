@@ -7,6 +7,7 @@ class _MapSonMirageStrip extends StatelessWidget {
     required this.thisMirage,
     required this.mirageBelow,
     required this.parentMap,
+    required this.keywordsMap,
     required this.onPhidTap,
     required this.previousPath,
     super.key
@@ -15,6 +16,7 @@ class _MapSonMirageStrip extends StatelessWidget {
   final MirageModel thisMirage;
   final MirageModel mirageBelow;
   final Map<String, dynamic>? parentMap;
+  final Map<String, dynamic>? keywordsMap;
   final String previousPath;
   final Function(String path) onPhidTap;
   // --------------------------------------------------------------------------
@@ -34,6 +36,11 @@ class _MapSonMirageStrip extends StatelessWidget {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // --------------------
+    final ZonePhidsModel? _zonePhidsModel = ZoneProvider.proGetZonePhids(
+      context: context,
+      listen: true,
+    );
     // --------------------
     final String? _phid = getPhid();
     // --------------------
@@ -58,6 +65,12 @@ class _MapSonMirageStrip extends StatelessWidget {
                   final String _sonPhid = _sonMapKeys[index];
                   final String _path = '$previousPath$_sonPhid/';
 
+                  final bool _isActive = Keyworder.checkNodeIsActiveInZone(
+                    keywordsMap: keywordsMap,
+                    path: _path,
+                    zonePhidsModel: _zonePhidsModel,
+                  );
+
                   return MirageButton(
                     isSelected: _lastNode == _sonPhid,
                     verse: Verse(
@@ -70,7 +83,7 @@ class _MapSonMirageStrip extends StatelessWidget {
                     iconColor: null,
                     canShow: true,
                     buttonID: _path,
-                    isDisabled: true,
+                    isDisabled: !_isActive,
                     onTap: () => onPhidTap(_path),
                   );
 

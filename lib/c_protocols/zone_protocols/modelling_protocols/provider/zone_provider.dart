@@ -89,16 +89,22 @@ class ZoneProvider extends ChangeNotifier {
     required String invoker,
   }) async {
 
-    final ZoneModel? _completeZone = await ZoneProtocols.completeZoneModel(
-      invoker: 'setCurrentZone : $invoker',
-      incompleteZoneModel: zone,
-    );
+    if (ZoneModel.checkZonesAreIdentical(zone1: zone, zone2: _currentZone) == false){
 
-    _currentZone = _completeZone ?? ZoneModel.planetZone;
+      ZoneModel? _newZone = await ZoneProtocols.completeZoneModel(
+        invoker: 'setCurrentZone : $invoker',
+        incompleteZoneModel: zone,
+      );
 
-    /// NOTIFY
-    if (notify == true){
-      notifyListeners();
+      _newZone = _newZone ?? ZoneModel.planetZone;
+
+      _currentZone = _newZone;
+
+      /// NOTIFY
+      if (notify == true){
+        notifyListeners();
+      }
+
     }
 
   }
