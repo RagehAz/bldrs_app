@@ -42,6 +42,7 @@ class LDBDoc {
   // --------------------
   /// CHAINS
   static const String keywords = 'keywords';
+  static const String zonePhids = 'zonePhids';
   // --------------------
   /// ZONES
   static const String countries = 'countries';
@@ -149,7 +150,6 @@ class LDBDoc {
     notes,
     pics,
     pdfs,
-    keywords,
 
     'headline :User',
     users,
@@ -162,6 +162,10 @@ class LDBDoc {
     cities,
     staging,
     census,
+
+    'headline: keywords',
+    keywords,
+    zonePhids,
 
     'headline: Phrases',
     countriesPhrases,
@@ -205,6 +209,7 @@ class LDBDoc {
     required bool pics,
     required bool pdfs,
     required bool keywords,
+    required bool zonePhids,
     /// USER
     required bool users,
     required bool authModel,
@@ -251,7 +256,9 @@ class LDBDoc {
     if (notes == true) {_docs.add(LDBDoc.notes);}
     if (pics == true) {_docs.add(LDBDoc.pics);}
     if (pdfs == true) {_docs.add(LDBDoc.pdfs);}
+    /// KEYWORDS
     if (keywords == true) {_docs.add(LDBDoc.keywords);}
+    if (zonePhids == true) {_docs.add(LDBDoc.zonePhids);}
     /// USER
     if (users == true) {_docs.add(LDBDoc.users);}
     if (authModel == true) {_docs.add(LDBDoc.authModel);}
@@ -327,6 +334,7 @@ class LDBDoc {
       langCode: false, // lets always keep user language for life
       allKeywordsPhrasesInAllLangs: false,
       keywords: false,
+      zonePhids: true, // keda keda should be refreshed more often
       // langMaps: true, // yes, lets refresh the lang maps whenever user reboots
       userEditor: false,
       bzEditor: false,
@@ -355,6 +363,7 @@ class LDBDoc {
       census: true,
       allKeywordsPhrasesInAllLangs: true,
       keywords: true,
+      zonePhids: true,
       appState: true,
       gta: true,
       webpages: true,

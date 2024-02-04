@@ -56,6 +56,7 @@ class _MapSonMirageStrip extends StatelessWidget {
                 ...List.generate(_sonMapKeys.length, (index){
 
                   final String _sonPhid = _sonMapKeys[index];
+                  final String _path = '$previousPath$_sonPhid/';
 
                   return MirageButton(
                     isSelected: _lastNode == _sonPhid,
@@ -68,8 +69,9 @@ class _MapSonMirageStrip extends StatelessWidget {
                     bigIcon: true,
                     iconColor: null,
                     canShow: true,
-                    buttonID: '$previousPath$_sonPhid/',
-                    onTap: () => onPhidTap('$previousPath$_sonPhid/'),
+                    buttonID: _path,
+                    isDisabled: true,
+                    onTap: () => onPhidTap(_path),
                   );
 
                 }),

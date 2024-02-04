@@ -14,7 +14,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/records_protocols/recorder_protocols.dart';
-import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 /// => TAMAM
@@ -115,9 +115,8 @@ class ComposeFlyerProtocols {
             ),
 
             /// INCREMENT CITY FLYER CHAIN USAGE
-            ZonePhidsRealOps.incrementFlyerCityPhids(
-                flyerModel: _flyerToPublish,
-                isIncrementing: true
+            ZonePhidsProtocols.onComposeFlyer(
+              flyerModel: _flyerToPublish,
             ),
 
             /// CENSUS

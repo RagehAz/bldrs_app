@@ -71,7 +71,7 @@ class MirageStrip extends StatelessWidget {
         ),
         child: Container(
           /// this makes the drag listens : don't remove this
-          color: Colorz.nothing,
+          color: Colorz.black125,
           child: BlurLayer(
             width: _width,
             height: _mirage.getHeight(),
