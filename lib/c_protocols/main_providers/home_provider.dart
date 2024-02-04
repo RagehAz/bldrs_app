@@ -223,6 +223,7 @@ class HomeProvider extends ChangeNotifier {
     required int mirageIndex,
     required bool mounted,
     required String button,
+    required bool deselectAllAbove,
   }){
 
     final MirageModel _mirage = proGetMirageByIndex(
@@ -234,6 +235,7 @@ class HomeProvider extends ChangeNotifier {
     _mirage.selectButton(
       button: button,
       mounted: mounted,
+      deselectAllAbove: deselectAllAbove,
     );
 
   }

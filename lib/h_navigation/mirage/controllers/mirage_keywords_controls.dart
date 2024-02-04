@@ -89,6 +89,7 @@ class MirageKeywordsControls {
           onBetweenReShow: () => _mirageX1.selectButton(
             button: path,
             mounted: mounted,
+            deselectAllAbove: true,
           ),
         );
 
@@ -174,6 +175,7 @@ class MirageKeywordsControls {
           thisMirage.selectButton(
             button: path,
             mounted: mounted,
+            deselectAllAbove: true,
           );
         }
 
@@ -185,6 +187,7 @@ class MirageKeywordsControls {
             onBetweenReShow: () => thisMirage.selectButton(
               button: path,
               mounted: mounted,
+              deselectAllAbove: true,
             ),
           );
 
@@ -284,7 +287,11 @@ class MirageKeywordsControls {
       //     mounted: mounted
       // );
 
-      thisMirage.selectButton(button: path, mounted: mounted);
+      thisMirage.selectButton(
+        button: path,
+        mounted: mounted,
+        deselectAllAbove: true,
+      );
 
       await _setActivePhidK(
         path: path,
