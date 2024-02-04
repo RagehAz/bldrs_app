@@ -304,10 +304,6 @@ class MirageKeywordsControls {
     required String? path,
   }) async {
 
-    final FlyerType? flyerType = FlyerTyper.concludeFlyerTypeByRootID(
-        rootID: Pathing.getFirstPathNode(path: path)
-    );
-
     final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(
       context: getMainContext(),
       listen: false,
@@ -323,7 +319,7 @@ class MirageKeywordsControls {
     if (isActive == false) {
 
       await _showPhidNotActiveDialog(
-        flyerType: flyerType,
+        phid: Pathing.getLastPathNode(path)!,
       );
 
     }
@@ -333,7 +329,7 @@ class MirageKeywordsControls {
 
       final HomeProvider _pro = Provider.of<HomeProvider>(getMainContext(), listen: false);
       await _pro.changeHomeWallFlyerType(
-        flyerType: flyerType,
+        flyerType: FlyerTyper.concludeFlyerTypeByRootID(rootID: Pathing.getFirstPathNode(path: path)),
         phid: Pathing.getLastPathNode(path)!,
         notify: true,
       );
@@ -345,66 +341,66 @@ class MirageKeywordsControls {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _showPhidNotActiveDialog({
-    required FlyerType? flyerType,
+    required String phid,
   }) async {
 
     /// not_active_keyword_dialog
 
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
-    final String? _cityName = _zoneProvider.currentZone?.cityName;
-
-    final String? _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
-        flyerType: flyerType
-    );
+    final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(context: getMainContext(), listen: false);
+    final String? _cityName = _currentZone?.cityName;
 
     final String _title = '${getWord('phid_flyers_of')} '
-        '${getWord(_flyerTypePhid)} '
+        '${getWord(phid)} '
         '${getWord('phid_are_not_available')} '
         '${getWord('phid_inn')} '
         '$_cityName';
 
-    await BldrsCenterDialog.showCenterDialog(
-      titleVerse: Verse(
-        id: _title,
-        translate: false,
-      ),
-      bodyVerse: const Verse(
-        pseudo: 'The Bldrs in this city are adding flyers everyday to'
-            ' properly present their markets.'
-            '\nplease hold for couple of days and come back again.',
-        id: 'phid_businesses_are_still_adding_flyers',
-        translate: true,
-      ),
-      height: 400,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-
-          DialogButton(
-            verse: const Verse(
-              id: 'phid_inform_a_friend',
-              translate: true,
-            ),
-            width: 133,
-            onTap: () => Launcher.shareBldrsWebsiteURL(),
-          ),
-
-          DialogButton(
-            verse: const Verse(
-              id: 'phid_go_back',
-              translate: true,
-            ),
-            color: Colorz.yellow255,
-            verseColor: Colorz.black230,
-            onTap: () => Nav.goBack(
-              context: getMainContext(),
-              invoker: '_setActivePhidK.centerDialog',
-            ),
-          ),
-
-        ],
-      ),
+    await Dialogs.centerNotice(
+        verse: Verse.plain(_title),
     );
+
+    // await BldrsCenterDialog.showCenterDialog(
+    //   titleVerse: Verse(
+    //     id: _title,
+    //     translate: false,
+    //   ),
+    //   bodyVerse: const Verse(
+    //     pseudo: 'The Bldrs in this city are adding flyers everyday to'
+    //         ' properly present their markets.'
+    //         '\nplease hold for couple of days and come back again.',
+    //     id: 'phid_businesses_are_still_adding_flyers',
+    //     translate: true,
+    //   ),
+    //   height: 400,
+    //   child: Row(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     children: <Widget>[
+    //
+    //       DialogButton(
+    //         verse: const Verse(
+    //           id: 'phid_inform_a_friend',
+    //           translate: true,
+    //         ),
+    //         width: 133,
+    //         onTap: () => Launcher.shareBldrsWebsiteURL(),
+    //       ),
+    //
+    //       DialogButton(
+    //         verse: const Verse(
+    //           id: 'phid_go_back',
+    //           translate: true,
+    //         ),
+    //         color: Colorz.yellow255,
+    //         verseColor: Colorz.black230,
+    //         onTap: () => Nav.goBack(
+    //           context: getMainContext(),
+    //           invoker: '_setActivePhidK.centerDialog',
+    //         ),
+    //       ),
+    //
+    //     ],
+    //   ),
+    // );
 
   }
   // -----------------------------------------------------------------------------

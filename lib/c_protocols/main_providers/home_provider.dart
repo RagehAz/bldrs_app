@@ -9,8 +9,8 @@ import 'package:bldrs/c_protocols/app_initialization_protocols/sub/d_bzz_initial
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/h_navigation/mirage/mirage.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -54,8 +54,6 @@ class HomeProvider extends ChangeNotifier {
     required String? phid,
     required bool notify,
   }) async {
-
-    // blog('Changing section to $flyerType');
 
     _setWallFlyerAndPhid(
       flyerType: flyerType,
