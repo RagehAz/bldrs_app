@@ -20,6 +20,11 @@ class ZonePhidsProtocols {
         isIncrementing: true
     );
 
+
+    await _refetchAndResetProviderIfCurrentZoneIsThis(
+      zoneModel: flyerModel.zone,
+    );
+
   }
   // -----------------------------------------------------------------------------
 
@@ -34,6 +39,10 @@ class ZonePhidsProtocols {
     await _ZonePhidsRealOps.incrementFlyerCityPhids(
       flyerModel: flyerModel,
       isIncrementing: false,
+    );
+
+    await _refetchAndResetProviderIfCurrentZoneIsThis(
+      zoneModel: flyerModel.zone,
     );
 
   }
@@ -104,6 +113,23 @@ class ZonePhidsProtocols {
         return zoneModel.cityID;
       }
 
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// REFETCH + PROVIDER
+
+  // --------------------
+  static Future<void> _refetchAndResetProviderIfCurrentZoneIsThis({
+    required ZoneModel? zoneModel,
+  }) async {
+
+    await refetch(zoneModel: zoneModel);
+
+    final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(context: getMainContext(), listen: false);
+    if (ZoneModel.checkZonesIDsAreIdentical(zone1: _currentZone, zone2: zoneModel) == true){
+      await ZoneProvider.proSetCurrentZone(zone: zoneModel);
     }
 
   }

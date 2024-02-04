@@ -21,16 +21,16 @@ class _SectionsMirageStrip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    // final ZonePhidsModel? _zonePhidsModel = ChainsProvider.proGetZonePhids(
-    //   context: context,
-    //   listen: false,
-    // );
+    final ZonePhidsModel? _zonePhidsModel = ZoneProvider.proGetZonePhids(
+      context: context,
+      listen: true,
+    );
     // --------------------
-    // final List<FlyerType> _flyerTypes = Keyworder.getFlyerTypesByZonePhids(
-    //   zonePhidsModel: _zonePhidsModel,
-    //   keywordsMap: keywordsMap,
-    // );
-
+    final List<FlyerType> _flyerTypes = Keyworder.getFlyerTypesByZonePhids(
+      zonePhidsModel: _zonePhidsModel,
+      keywordsMap: keywordsMap,
+    );
+    // --------------------
     final List<String> _phids = keywordsMap?.keys.toList() ?? [];
     // --------------------
     return ValueListenableBuilder(
@@ -46,9 +46,10 @@ class _SectionsMirageStrip extends StatelessWidget {
 
                   final String _phid = _phids[index];
                   final FlyerType? _flyerType = FlyerTyper.concludeFlyerTypeByRootID(rootID: _phid);
+                  final bool _isActive = _flyerTypes.contains(_flyerType);
 
                   return MirageButton(
-                    isDisabled: true,
+                    isDisabled: !_isActive,
                     isSelected: Pathing.getLastPathNode(selectedButton) == _phid,
                     verse: Verse(
                       id: _phid,
