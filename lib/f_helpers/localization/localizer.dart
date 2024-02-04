@@ -122,7 +122,7 @@ class Localizer {
       Map<String, String> _mainPhrases = {};
       Map<String, String> _keywordsPhrases = {};
 
-      blog('xxz=> Starting loading phrases');
+      // blog('xxz=> Starting loading phrases');
       await Future.wait([
 
         MainPhrasesJsonOps.readAll(
@@ -136,7 +136,7 @@ class Localizer {
           langCode: locale?.languageCode ?? 'en',
           localizedValues: {},
         ).then((Map<String, String> keywords){
-          blog('xxz=> adding ${keywords.keys.length} keywords keys');
+          // blog('xxz=> adding ${keywords.keys.length} keywords keys');
           _keywordsPhrases = keywords;
         }),
 
