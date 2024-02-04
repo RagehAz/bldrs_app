@@ -44,7 +44,7 @@ class _MapSonMirageStrip extends StatelessWidget {
     // --------------------
     final String? _phid = getPhid();
     // --------------------
-    final Map<String, dynamic>? _sonMap = parentMap?[_phid];
+    final Map<String, dynamic>? _sonMap = parentMap?[_phid] is Map ? parentMap![_phid] : null;
     // --------------------
     final List<String> _sonMapKeys = _sonMap?.keys.toList() ?? [];
     // --------------------

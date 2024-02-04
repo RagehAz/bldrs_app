@@ -162,6 +162,7 @@ class MirageKeywordsControls {
           path: path,
           mounted: mounted,
           allMirages: allMirages,
+          thisMirage: thisMirage,
         );
 
       }
@@ -250,6 +251,7 @@ class MirageKeywordsControls {
             allMirages: allMirages,
             mounted: mounted,
             path: '$path$_selectedPhid/',
+            thisMirage: thisMirage,
           );
 
         }
@@ -270,6 +272,7 @@ class MirageKeywordsControls {
     required String? path,
     required bool mounted,
     required List<MirageModel> allMirages,
+    required MirageModel thisMirage,
   }) async {
 
     if (TextCheck.isEmpty(path) == false){
@@ -278,20 +281,22 @@ class MirageKeywordsControls {
           rootID: Pathing.getFirstPathNode(path: path)
       );
 
-      await MirageModel.hideMiragesAbove(
-          index: 0,
-          mounted: mounted
-      );
+      // await MirageModel.hideMiragesAbove(
+      //     index: 0,
+      //     mounted: mounted
+      // );
+
+      thisMirage.selectButton(button: path, mounted: mounted);
 
       await setActivePhidK(
         phidK: Pathing.getLastPathNode(path),
         flyerType: flyerType,
       );
 
-      MirageModel.clearAllMirageButtons(
-        mirages: allMirages,
-        mounted: mounted,
-      );
+      // MirageModel.clearAllMirageButtons(
+      //   mirages: allMirages,
+      //   mounted: mounted,
+      // );
 
     }
 
