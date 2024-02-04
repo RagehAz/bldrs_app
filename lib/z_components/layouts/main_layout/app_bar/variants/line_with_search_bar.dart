@@ -15,6 +15,8 @@ class LineWithSearchbar extends StatelessWidget {
     required this.onSearchChanged,
     required this.hintVerse,
     required this.onSearchCancelled,
+    this.onTextFieldTap,
+    this.onSearchButtonTap,
     super.key
   });
   // --------------------
@@ -23,6 +25,8 @@ class LineWithSearchbar extends StatelessWidget {
   final ValueChanged<String?>? onSearchChanged;
   final Verse? hintVerse;
   final Function? onSearchCancelled;
+  final Function? onTextFieldTap;
+  final Function? onSearchButtonTap;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -42,7 +46,7 @@ class LineWithSearchbar extends StatelessWidget {
         children: <Widget>[
 
           /// SEARCH ICON
-          const BldrsBox(
+          BldrsBox(
             height: Ratioz.appBarButtonSize,
             width: Ratioz.appBarButtonSize,
             corners: Ratioz.appBarButtonCorner,
@@ -52,7 +56,7 @@ class LineWithSearchbar extends StatelessWidget {
             iconSizeFactor: 0.5,
             bubble: false,
             // textDirection: superInverseTextDirection(context),
-            // onTap: () => BldrsNav.pushSearchRoute(),
+            onTap: onSearchButtonTap,
           ),
 
           /// STARTING SPACER
@@ -72,6 +76,7 @@ class LineWithSearchbar extends StatelessWidget {
             width: _searchBarWidth,
             height: Ratioz.appBarButtonSize,
             appBarType: AppBarType.non,
+            onTextFieldTap: onTextFieldTap,
             // onPaste: null,
             // filtersAreOn: null,
             onFilterTap: (){

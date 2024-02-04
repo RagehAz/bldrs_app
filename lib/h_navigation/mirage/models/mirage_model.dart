@@ -489,23 +489,34 @@ class MirageModel {
     required int listLength,
   }) async {
 
-    final double _ratio = _getLeftOffsetRatio(
-      listLength: listLength,
-      buttonIndex: buttonIndex,
-    );
+    if (UiProvider.checkAppIsLeftToRight() == true){
 
-    await controller.scrollTo(
-      index: buttonIndex,
-      duration: waitDuration,
-      curve: Curves.easeOut,
-      alignment: _ratio,
-      // opacityAnimationWeights: ,
-    );
+      await controller.scrollTo(
+        index: buttonIndex,
+        duration: waitDuration,
+        curve: Curves.easeOut,
+        alignment: _getLTROffsetRatio(
+          listLength: listLength,
+          buttonIndex: buttonIndex,
+        ),
+        // opacityAnimationWeights: ,
+      );
+
+    }
+
+    else {
+
+      controller.jumpTo(
+        index: buttonIndex,
+        // alignment: _ratio,
+      );
+
+    }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double _getLeftOffsetRatio({
+  static double _getLTROffsetRatio({
     required int buttonIndex,
     required int listLength,
   }){
@@ -540,7 +551,6 @@ class MirageModel {
   /// RATIO
   return _offset / _screenWidth;
 }
-
   // -----------------------------------------------------------------------------
 
   /// GETTERS

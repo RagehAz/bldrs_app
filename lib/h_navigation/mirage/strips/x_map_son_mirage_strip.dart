@@ -71,20 +71,31 @@ class _MapSonMirageStrip extends StatelessWidget {
                     zonePhidsModel: _zonePhidsModel,
                   );
 
-                  return MirageButton(
-                    isSelected: _lastNode == _sonPhid,
-                    verse: Verse(
-                      id: _sonPhid,
-                      translate: true,
-                      // casing: Casing.upperCase,
+                  final bool _isFirst = index == 0;
+                  final bool _isLast = index + 1 == _sonMapKeys.length;
+
+                  return Padding(
+                    padding: Scale.superInsets(
+                      context: context,
+                      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                      enLeft: _isFirst ? 10 : 0,
+                      enRight: _isLast ? 5 : 0,
                     ),
-                    icon: StoragePath.phids_phid(_sonPhid),
-                    bigIcon: true,
-                    iconColor: null,
-                    canShow: true,
-                    buttonID: _path,
-                    isDisabled: !_isActive,
-                    onTap: () => onPhidTap(_path),
+                    child: MirageButton(
+                      isSelected: _lastNode == _sonPhid,
+                      verse: Verse(
+                        id: _sonPhid,
+                        translate: true,
+                        // casing: Casing.upperCase,
+                      ),
+                      icon: StoragePath.phids_phid(_sonPhid),
+                      bigIcon: true,
+                      iconColor: null,
+                      canShow: true,
+                      buttonID: _path,
+                      isDisabled: !_isActive,
+                      onTap: () => onPhidTap(_path),
+                    ),
                   );
 
                 }),

@@ -94,6 +94,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   SearchModel? _searchModel;
   UserSearchModel? _userSearchModel;
   List<SearchModel> _searchHistoryModels = [];
+
+  // final FocusNode _focus = FocusNode();
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -109,6 +111,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   @override
   void initState() {
     super.initState();
+
+    // FocusScope.of(context).requestFocus(_focus);
 
     _searchModel = SearchModel.createInitialModel(
         searchType: ModelType.flyer,

@@ -16,6 +16,8 @@ class FirstAppBarLine extends StatelessWidget {
     required this.onSearchChanged,
     required this.hintVerse,
     required this.onSearchCancelled,
+    this.onTextFieldTap,
+    this.onSearchButtonTap,
     super.key
   });
   // -----------------------------------------------------------------------------
@@ -32,6 +34,8 @@ class FirstAppBarLine extends StatelessWidget {
   final ValueChanged<String?>? onSearchChanged;
   final Verse? hintVerse;
   final Function? onSearchCancelled;
+  final Function? onTextFieldTap;
+  final Function? onSearchButtonTap;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -43,6 +47,8 @@ class FirstAppBarLine extends StatelessWidget {
         onSearchCancelled: onSearchCancelled,
         onSearchSubmit: onSearchSubmit,
         hintVerse: hintVerse,
+        onSearchButtonTap: onSearchButtonTap,
+        onTextFieldTap: onTextFieldTap,
       );
     }
 

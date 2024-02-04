@@ -38,15 +38,22 @@ class _BzTabsMirageStrip extends StatelessWidget {
                     const String? _bid = TabName.bid_MyBz_Info;
                     final bool _isSelected = _bid == TabName.getBidFromBidBz(bzBid: _bidBz);
 
-                    return MirageButton(
-                      buttonID: TabName.generateBzBid(bzID: bzID, bid: _bid),
-                      verse: TabName.translateBid(_bid),
-                      icon: TabName.getBidIcon(_bid),
-                      isSelected: _isSelected,
-                      canShow: true,
-                      bigIcon: false,
-                      iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
-                      onTap: () => onTabChanged(_bid),
+                    return Padding(
+                      padding: Scale.superInsets(
+                        context: context,
+                        appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                        enLeft: 10,
+                      ),
+                      child: MirageButton(
+                        buttonID: TabName.generateBzBid(bzID: bzID, bid: _bid),
+                        verse: TabName.translateBid(_bid),
+                        icon: TabName.getBidIcon(_bid),
+                        isSelected: _isSelected,
+                        canShow: true,
+                        bigIcon: false,
+                        iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
+                        onTap: () => onTabChanged(_bid),
+                      ),
                     );
                   }
               ),
@@ -118,15 +125,22 @@ class _BzTabsMirageStrip extends StatelessWidget {
                     const String? _bid = TabName.bid_MyBz_Settings;
                     final bool _isSelected = _bid == TabName.getBidFromBidBz(bzBid: _bidBz);
 
-                    return MirageButton(
-                      buttonID: TabName.generateBzBid(bzID: bzID, bid: _bid),
-                      verse: TabName.translateBid(_bid),
-                      icon: TabName.getBidIcon(_bid),
-                      isSelected: _isSelected,
-                      canShow: true,
-                      bigIcon: false,
-                      iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
-                      onTap: () => onTabChanged(_bid),
+                    return Padding(
+                      padding: Scale.superInsets(
+                        context: context,
+                        appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                        enRight: 5,
+                      ),
+                      child: MirageButton(
+                        buttonID: TabName.generateBzBid(bzID: bzID, bid: _bid),
+                        verse: TabName.translateBid(_bid),
+                        icon: TabName.getBidIcon(_bid),
+                        isSelected: _isSelected,
+                        canShow: true,
+                        bigIcon: false,
+                        iconColor: _isSelected ? MirageModel.selectedTextColor : MirageModel.textColor,
+                        onTap: () => onTabChanged(_bid),
+                      ),
                     );
                   }
               ),

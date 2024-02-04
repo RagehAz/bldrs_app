@@ -70,7 +70,7 @@ class MultipleChoiceBubble extends StatelessWidget {
 
           /// BUTTONS
           _ButtonsBuilder(
-            width: _clearWidth,
+            width: _clearWidth - 10,
             buttonsVerses: buttonsVerses,
             onButtonTap: onButtonTap,
             selectedButtonsPhids: selectedButtonsPhids,
@@ -144,6 +144,7 @@ class _ButtonsBuilder extends StatelessWidget {
               );
 
               return _TheButton(
+                maxWidth: width,
                 icon: null,
                 verse: _buttonVerse,
                 isDeactivated: _isDeactivated,
@@ -185,6 +186,7 @@ class _ButtonsBuilder extends StatelessWidget {
                   alignment: BldrsAligners.superCenterAlignment(context),
                   child: _TheButton(
                     icon: null,
+                    maxWidth: width,
                     verse: buttonsVerses[index],
                     isDeactivated: _isDeactivated,
                     isSelected: _isSelected,
@@ -212,6 +214,7 @@ class _TheButton extends StatelessWidget {
     required this.isSelected,
     required this.onTap,
     required this.icon,
+    required this.maxWidth,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -220,6 +223,7 @@ class _TheButton extends StatelessWidget {
   final bool isSelected;
   final Function onTap;
   final String? icon;
+  final double? maxWidth;
   /// --------------------------------------------------------------------------
   static const double buttonHeight = 40;
   static const double margins = 5;
@@ -229,6 +233,7 @@ class _TheButton extends StatelessWidget {
 
     return BldrsBox(
       height: buttonHeight,
+      maxWidth: maxWidth,
       icon: icon,
       isDisabled: isDeactivated,
       verse: verse,
