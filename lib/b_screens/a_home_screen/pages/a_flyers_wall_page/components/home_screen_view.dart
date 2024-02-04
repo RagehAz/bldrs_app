@@ -76,7 +76,6 @@ class HomeFlyersGrid extends StatelessWidget {
 
         else {
 
-
           return Center(
             child: FlyersGrid(
               scrollController: _paginationController?.scrollController,

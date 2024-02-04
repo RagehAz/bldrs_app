@@ -1,5 +1,5 @@
 part of zone_phids_protocols;
-
+/// => TAMAM
 class ZonePhidsProtocols {
   // -----------------------------------------------------------------------------
 
@@ -10,7 +10,7 @@ class ZonePhidsProtocols {
   /// ON FLYER COMPOSE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> onComposeFlyer({
     required FlyerModel flyerModel,
   }) async {
@@ -31,7 +31,7 @@ class ZonePhidsProtocols {
   /// ON FLYER WIPE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> onWipeFlyer({
     required FlyerModel flyerModel,
   }) async {
@@ -51,7 +51,7 @@ class ZonePhidsProtocols {
   /// FETCH
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<ZonePhidsModel?> fetch({
     required ZoneModel? zoneModel,
   }) async {
@@ -76,7 +76,7 @@ class ZonePhidsProtocols {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<ZonePhidsModel?> refetch({
     required ZoneModel? zoneModel,
   }) async {
@@ -94,6 +94,7 @@ class ZonePhidsProtocols {
   /// ZONE ID BY ZONE MODEL
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String? _getZoneIDByZoneModel({
     required ZoneModel? zoneModel,
   }) {
@@ -121,6 +122,7 @@ class ZonePhidsProtocols {
   /// REFETCH + PROVIDER
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> _refetchAndResetProviderIfCurrentZoneIsThis({
     required ZoneModel? zoneModel,
   }) async {
