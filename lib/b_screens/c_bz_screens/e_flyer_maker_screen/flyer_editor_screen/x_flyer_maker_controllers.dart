@@ -251,7 +251,7 @@ void onFlyerPhidLongTap({
 
 }
 // --------------------
-/// TASK : DO ME
+/// TESTED : WORKS PERFECT
 Future<void> onAddPhidsToFlyerTap({
   required ValueNotifier<DraftFlyer?> draftNotifier,
   required bool mounted,
@@ -259,24 +259,25 @@ Future<void> onAddPhidsToFlyerTap({
 
   await Keyboard.closeKeyboard();
 
-  /// consider_flyer_type_city_in_keywordsPicker
-  final List<String> _phids = await KeywordsPickerScreen.pickPhids(
-    // flyerType: draftNotifier.value?.flyerType,
-    // event: ViewingEvent.flyerEditor,
-    // onlyUseZoneChains: false,
-    selectedPhids: draftNotifier.value?.phids,
-    // slideScreenFromEnLeftToRight: true,
-  );
+  if (draftNotifier.value?.flyerType != null){
 
-  if (Lister.checkCanLoop(_phids) == true){
-
-    setNotifier(
-      notifier: draftNotifier,
-      mounted: mounted,
-      value: draftNotifier.value?.copyWith(
-        phids: _phids,
-      ),
+    final List<String> _phids = await KeywordsPickerScreen.pickPhids(
+      onlyFlyerTypes: [draftNotifier.value!.flyerType!],
+      // onlyZone: draftNotifier.value?.zone, // no zonePhids limitation,, should show all available keywords
+      selectedPhids: draftNotifier.value?.phids,
     );
+
+    if (Lister.checkCanLoop(_phids) == true){
+
+      setNotifier(
+        notifier: draftNotifier,
+        mounted: mounted,
+        value: draftNotifier.value?.copyWith(
+          phids: _phids,
+        ),
+      );
+
+    }
 
   }
 

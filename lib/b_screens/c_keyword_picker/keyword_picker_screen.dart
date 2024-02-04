@@ -9,6 +9,9 @@ import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/models/phrase_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/views/floating_list.dart';
+import 'package:bldrs/a_models/c_keywords/keyworder.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_screens/c_keyword_picker/z_keywords_tree/keywords_tree.dart';
 import 'package:bldrs/z_components/buttons/editors_buttons/editor_confirm_button.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
@@ -25,22 +28,31 @@ class KeywordsPickerScreen extends StatefulWidget {
   const KeywordsPickerScreen({
     this.multipleSelection = false,
     this.selectedPhids = const [],
+    this.onlyFlyerTypes,
+    this.onlyZone,
     super.key
   });
   // --------------------
   final bool multipleSelection;
   final List<String> selectedPhids;
+  final List<FlyerType>? onlyFlyerTypes;
+  final ZoneModel? onlyZone;
   // --------------------
   @override
   _KeywordsPickerScreenState createState() => _KeywordsPickerScreenState();
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<String?> pickPath() async {
+  static Future<String?> pickPath({
+    List<FlyerType>? onlyFlyerTypes,
+    ZoneModel? onlyZone,
+  }) async {
 
     final String? _path = await BldrsNav.goToNewScreen(
-        screen: const KeywordsPickerScreen(
+        screen: KeywordsPickerScreen(
           // multipleSelection: false,
           // selectedPhids: [],
+          onlyFlyerTypes: onlyFlyerTypes,
+          onlyZone: onlyZone,
         ),
     );
 
@@ -50,13 +62,16 @@ class KeywordsPickerScreen extends StatefulWidget {
   /// TESTED : WORKS PERFECT
   static Future<List<String>> pickPaths({
     required List<String> selectedPaths,
-
+    List<FlyerType>? onlyFlyerTypes,
+    ZoneModel? onlyZone,
   }) async {
 
     final List<String> _paths = await BldrsNav.goToNewScreen(
       screen: KeywordsPickerScreen(
         multipleSelection: true,
         selectedPhids: Pathing.getPathsLastNodes(selectedPaths),
+        onlyFlyerTypes: onlyFlyerTypes,
+        onlyZone: onlyZone,
       ),
     );
 
@@ -73,12 +88,16 @@ class KeywordsPickerScreen extends StatefulWidget {
   /// TESTED : WORKS PERFECT
   static Future<List<String>> pickPhids({
     required List<String>? selectedPhids,
+    List<FlyerType>? onlyFlyerTypes,
+    ZoneModel? onlyZone,
   }) async {
 
     final List<String>? _paths = await BldrsNav.goToNewScreen(
       screen: KeywordsPickerScreen(
         multipleSelection: true,
         selectedPhids: selectedPhids ?? [],
+        onlyFlyerTypes: onlyFlyerTypes,
+        onlyZone: onlyZone,
       ),
     );
 
@@ -127,8 +146,10 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
 
         await _triggerLoading(setTo: true);
 
-        final Map<String, dynamic>? _map = await KeywordsProtocols.fetch();
+        Map<String, dynamic>? _map = await KeywordsProtocols.fetch();
 
+        _map = Keyworder.onlyShowFlyerTypesTrees(keywordsMap: _map, flyerTypes: widget.onlyFlyerTypes);
+        _map = await Keyworder.onlyShowZonePhidsTrees(keywordsMap: _map, zone: widget.onlyZone);
 
         setState(() {
           _mapPaths = MapPathing.generatePathsFromMap(map: _map);
