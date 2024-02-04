@@ -277,9 +277,7 @@ class MirageKeywordsControls {
 
     if (TextCheck.isEmpty(path) == false){
 
-      final FlyerType? flyerType = FlyerTyper.concludeFlyerTypeByRootID(
-          rootID: Pathing.getFirstPathNode(path: path)
-      );
+
 
       // await MirageModel.hideMiragesAbove(
       //     index: 0,
@@ -289,8 +287,7 @@ class MirageKeywordsControls {
       thisMirage.selectButton(button: path, mounted: mounted);
 
       await _setActivePhidK(
-        phidK: Pathing.getLastPathNode(path),
-        flyerType: flyerType,
+        path: path,
       );
 
       // MirageModel.clearAllMirageButtons(
@@ -304,86 +301,31 @@ class MirageKeywordsControls {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _setActivePhidK({
-    required String? phidK,
-    required FlyerType? flyerType,
+    required String? path,
   }) async {
 
-    // blog('setActivePhidK : phidK : $phidK : for flyerType : $flyerType');
+    final FlyerType? flyerType = FlyerTyper.concludeFlyerTypeByRootID(
+        rootID: Pathing.getFirstPathNode(path: path)
+    );
 
-    const bool deactivated = false;
+    final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(
+      context: getMainContext(),
+      listen: false,
+    );
 
-    /// WORKS GOOD : BUT DEPRECATED
-    // final List<Chain> allChains = ChainsProvider.proGetBldrsChains(
-    //     context: context,
-    //     onlyUseZoneChains: false,
-    //     listen: false
-    // );
-    // final String _chainID = Chain.getRootChainIDOfPhid(
-    //   allChains: allChains,
-    //   phid: phidK,
-    // );
-    // final FlyerType flyerType = FlyerTyper.concludeFlyerTypeByChainID(
-    //   chainID: _chainID,
-    // );
+    final bool isActive = Keyworder.checkNodeIsActiveInZone(
+      path: path,
+      keywordsMap: await KeywordsProtocols.fetch(),
+      zonePhidsModel: await ZonePhidsProtocols.fetch(zoneModel: _currentZone),
+    );
 
     /// A - if section is not active * if user is author or not
-    if (deactivated == true) {
+    if (isActive == false) {
 
-      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
-      final String? _cityName = _zoneProvider.currentZone?.cityName;
-
-      final String? _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
-          flyerType: flyerType
+      await _showPhidNotActiveDialog(
+        flyerType: flyerType,
       );
 
-      final String _title = '${getWord('phid_flyers_of')} '
-          '${getWord(_flyerTypePhid)} '
-          '${getWord('phid_are_not_available')} '
-          '${getWord('phid_inn')} '
-          '$_cityName';
-
-      await BldrsCenterDialog.showCenterDialog(
-        titleVerse: Verse(
-          id: _title,
-          translate: false,
-        ),
-        bodyVerse: const Verse(
-          pseudo: 'The Bldrs in this city are adding flyers everyday to'
-              ' properly present their markets.'
-              '\nplease hold for couple of days and come back again.',
-          id: 'phid_businesses_are_still_adding_flyers',
-          translate: true,
-        ),
-        height: 400,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-            DialogButton(
-              verse: const Verse(
-                id: 'phid_inform_a_friend',
-                translate: true,
-              ),
-              width: 133,
-              onTap: () => Launcher.shareBldrsWebsiteURL(),
-            ),
-
-            DialogButton(
-              verse: const Verse(
-                id: 'phid_go_back',
-                translate: true,
-              ),
-              color: Colorz.yellow255,
-              verseColor: Colorz.black230,
-              onTap: () => Nav.goBack(
-                context: getMainContext(),
-                invoker: '_setActivePhidK.centerDialog',
-              ),
-            ),
-
-          ],
-        ),
-      );
     }
 
     /// A - if section is active
@@ -392,12 +334,77 @@ class MirageKeywordsControls {
       final HomeProvider _pro = Provider.of<HomeProvider>(getMainContext(), listen: false);
       await _pro.changeHomeWallFlyerType(
         flyerType: flyerType,
-        phid: phidK,
+        phid: Pathing.getLastPathNode(path)!,
         notify: true,
       );
 
     }
 
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _showPhidNotActiveDialog({
+    required FlyerType? flyerType,
+  }) async {
+
+    /// not_active_keyword_dialog
+
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
+    final String? _cityName = _zoneProvider.currentZone?.cityName;
+
+    final String? _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
+        flyerType: flyerType
+    );
+
+    final String _title = '${getWord('phid_flyers_of')} '
+        '${getWord(_flyerTypePhid)} '
+        '${getWord('phid_are_not_available')} '
+        '${getWord('phid_inn')} '
+        '$_cityName';
+
+    await BldrsCenterDialog.showCenterDialog(
+      titleVerse: Verse(
+        id: _title,
+        translate: false,
+      ),
+      bodyVerse: const Verse(
+        pseudo: 'The Bldrs in this city are adding flyers everyday to'
+            ' properly present their markets.'
+            '\nplease hold for couple of days and come back again.',
+        id: 'phid_businesses_are_still_adding_flyers',
+        translate: true,
+      ),
+      height: 400,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+
+          DialogButton(
+            verse: const Verse(
+              id: 'phid_inform_a_friend',
+              translate: true,
+            ),
+            width: 133,
+            onTap: () => Launcher.shareBldrsWebsiteURL(),
+          ),
+
+          DialogButton(
+            verse: const Verse(
+              id: 'phid_go_back',
+              translate: true,
+            ),
+            color: Colorz.yellow255,
+            verseColor: Colorz.black230,
+            onTap: () => Nav.goBack(
+              context: getMainContext(),
+              invoker: '_setActivePhidK.centerDialog',
+            ),
+          ),
+
+        ],
+      ),
+    );
 
   }
   // -----------------------------------------------------------------------------

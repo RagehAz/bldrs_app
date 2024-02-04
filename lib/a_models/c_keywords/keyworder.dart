@@ -2,11 +2,14 @@
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/map_pathing.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/pathing.dart';
 import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:bldrs/a_models/c_keywords/zone_phids_model.dart';
+import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_protocols.dart';
 /// => TAMAM
 class Keyworder {
   // --------------------------------------------------------------------------
@@ -280,6 +283,97 @@ class Keyworder {
     }
 
     return _active;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic>? onlyShowFlyerTypesTrees({
+    required List<FlyerType>? flyerTypes,
+    required Map<String, dynamic>? keywordsMap,
+  }){
+    Map<String, dynamic>? _output = Mapper.cloneMap(keywordsMap);
+
+    if (_output != null && flyerTypes != null){
+
+      final List<String> _rootsIDs = FlyerTyper.getFlyerTypesRootsIDs(
+        flyerTypes: flyerTypes,
+      );
+
+      if (Lister.checkCanLoop(_rootsIDs) == true){
+
+        _output = Mapper.cloneMap({});
+
+        for (final String rootID in _rootsIDs){
+
+          _output = Mapper.insertPairInMap(
+            map: _output,
+            key: rootID,
+            value: keywordsMap![rootID],
+            overrideExisting: true,
+          );
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>?> onlyShowZonePhidsTrees({
+    required Map<String, dynamic>? keywordsMap,
+    required ZoneModel? zone,
+  }) async {
+    Map<String, dynamic>? _output = keywordsMap;
+
+    if (zone != null && _output != null){
+
+      final ZonePhidsModel? _zonePhidsModel = await ZonePhidsProtocols.fetch(
+          zoneModel: zone,
+      );
+
+      if (_zonePhidsModel != null){
+
+        final List<String> _allPaths = MapPathing.generatePathsFromMap(map: _output);
+        List<String> _pathsToShow = [];
+
+        for (final String path in _allPaths){
+
+          final bool _isActive = checkNodeIsActiveInZone(
+            keywordsMap: _output,
+            path: path,
+            zonePhidsModel: _zonePhidsModel,
+          );
+
+          final bool _isLastNode = !MapPathing.checkPathNodeHasSons(
+            map: _output,
+            path: path,
+          );
+
+          if (_isActive == true && _isLastNode){
+            _pathsToShow = Stringer.addStringsToStringsIfDoNotContainThem(
+                listToTake: _pathsToShow,
+                listToAdd: [path],
+            );
+          }
+
+        }
+
+        if (Lister.checkCanLoop(_pathsToShow) == true){
+
+          _output = MapPathing.generateMapFromSomePaths(
+              somePaths: _pathsToShow,
+              sourceMap: _output,
+          );
+
+        }
+
+      }
+
+    }
+
+    return _output;
   }
   // --------------------------------------------------------------------------
 

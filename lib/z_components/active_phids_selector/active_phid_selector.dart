@@ -7,6 +7,7 @@ import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
+import 'package:bldrs/h_navigation/mirage/mirage.dart';
 import 'package:bldrs/z_components/active_phids_selector/phid_button_clone.dart';
 import 'package:bldrs/z_components/buttons/keywords_buttons/f_phid_button.dart';
 import 'package:basics/components/layers/blur_layer.dart';
@@ -161,6 +162,7 @@ class ActivePhidSelector extends StatelessWidget {
           phid: _phid,
           height: _buttonHeight,
           color: _isSelected == true ? _selectedButtonColor : _buttonColor,
+          verseColor: MirageButton.getVerseColor(isDisabled: false, isSelected: _isSelected),
           margins: Scale.superInsets(
             context: getMainContext(),
             appIsLTR: UiProvider.checkAppIsLeftToRight(),
