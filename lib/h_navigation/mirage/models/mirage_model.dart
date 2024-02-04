@@ -428,6 +428,7 @@ class MirageModel {
   void selectButton({
     required String? button,
     required bool mounted,
+    required bool deselectAllAbove,
   }){
 
     setNotifier(
@@ -436,7 +437,9 @@ class MirageModel {
         value: button
     );
 
-    _deselectAllButtonsInAboveMirages();
+    if (deselectAllAbove){
+      _deselectAllButtonsInAboveMirages();
+    }
 
   }
   // --------------------
@@ -458,9 +461,9 @@ class MirageModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void clearButton({
-    required bool mounted
+    required bool mounted,
   }){
-    selectButton(button: null,mounted: mounted);
+    selectButton(button: null,mounted: mounted, deselectAllAbove: false);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
