@@ -1,3 +1,9 @@
+### 3.0.0
+1. New layout
+2. New Fonts
+3. New Colors
+4. proper navigation & search adjustments
+
 ### 2.18.0
 1. Fixed Color picker bug
 2. Updated Business accounts list ordering algorithm in search screen
