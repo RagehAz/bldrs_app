@@ -1,18 +1,12 @@
-import 'package:basics/helpers/maps/lister.dart';
-import 'package:basics/models/flag_model.dart';
-import 'package:bldrs/a_models/c_keywords/zone_phids_model.dart';
-import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:fire/super_fire.dart';
+// ignore_for_file: unused_element
+
+part of zone_phids_protocols;
 
 /// => TAMAM
-class ZonePhidsRealOps {
+class _ZonePhidsRealOps {
   // -----------------------------------------------------------------------------
 
-  const ZonePhidsRealOps();
+  const _ZonePhidsRealOps();
 
   // -----------------------------------------------------------------------------
 
@@ -20,36 +14,33 @@ class ZonePhidsRealOps {
 
   // --------------------
   /// TESTED: WORKS PERFECT
-  static Future<ZonePhidsModel?> readZonePhidsOfCurrentZone() async {
+  static Future<ZonePhidsModel?> readZonePhidsByZoneModel({
+    required ZoneModel? zoneModel,
+}) async {
     ZonePhidsModel? _output;
 
-    final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(
-      context: getMainContext(),
-      listen: false,
-    );
-
-    if (_currentZone == null || _currentZone == ZoneModel.planetZone){
+    if (zoneModel == null || zoneModel == ZoneModel.planetZone){
       _output = await _readPlanetPhids();
     }
     else {
 
       /// COUNTRY PHIDS
-      if (_currentZone.cityID == null || _currentZone.cityID == Flag.allCitiesID){
+      if (zoneModel.cityID == null || zoneModel.cityID == Flag.allCitiesID){
         _output = await _readCountryPhids(
-          countryID: _currentZone.countryID,
+          countryID: zoneModel.countryID,
         );
       }
 
       /// CITY PHIDS
       else {
         _output = await _readCityPhids(
-          cityID: _currentZone.cityID,
+          cityID: zoneModel.cityID,
         );
       }
 
     }
 
-    // _currentZone?.blogZone(
+    // zoneModel?.blogZone(
     //   invoker: 'readZonePhidsOfCurrentZone',
     // );
     //

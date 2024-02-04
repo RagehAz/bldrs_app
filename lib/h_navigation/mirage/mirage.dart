@@ -3,6 +3,7 @@ library mirage;
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/components/layers/blur_layer.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
