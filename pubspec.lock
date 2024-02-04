@@ -116,10 +116,12 @@ packages:
   basics:
     dependency: "direct main"
     description:
-      path: "D:/projects/packages/basics"
-      relative: false
-    source: path
-    version: "6.0.0"
+      path: "."
+      ref: HEAD
+      resolved-ref: "67cdaded9d55835ba9e6de9ff56652894fd4c323"
+      url: "https://github.com/RagehAz/basics.git"
+    source: git
+    version: "7.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -507,10 +509,12 @@ packages:
   fire:
     dependency: "direct main"
     description:
-      path: "D:/projects/packages/fire"
-      relative: false
-    source: path
-    version: "2.5.1"
+      path: "."
+      ref: HEAD
+      resolved-ref: "3377f8f216158079d342f96304475a65e0e8882d"
+      url: "https://github.com/RagehAz/fire.git"
+    source: git
+    version: "3.0.0"
   firebase_app_check:
     dependency: "direct main"
     description:
