@@ -229,12 +229,12 @@ class MirageModel {
     if (checkIsInShowingRange() == true) {
       show(mounted: mounted);
       onShow?.call();
-      hidePyramid(mounted: mounted);
+      hidePyramid(mounted: mounted, isDragging: true,);
     }
     else {
       hide(mounted: mounted);
       onHide?.call();
-      showPyramid(mounted: mounted);
+      showPyramid(mounted: mounted,);
 
     }
   }
@@ -255,10 +255,35 @@ class MirageModel {
   /// TESTED : WORKS PERFECT
   void hidePyramid({
     required bool mounted,
+    required bool isDragging,
   }){
     if (pyramidIsOn != null){
       setNotifier(notifier: pyramidIsOn, mounted: mounted, value: false);
+
+      if (isDragging){
+        _showAllMiragesWithSelectedButtons();
+      }
+
     }
+  }
+  // --------------------
+  ///
+  void _showAllMiragesWithSelectedButtons(){
+
+    final List<MirageModel> _allMirages = HomeProvider.proGetMirages(
+      context: getMainContext(),
+      listen: false,
+    );
+
+    for (final MirageModel mirage in _allMirages){
+
+      if (mirage.index > 0 && mirage.selectedButton.value != null){
+        blog('mirage.selectedButton.value : ${mirage.selectedButton.value}');
+        mirage.show(mounted: true);
+      }
+
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -271,7 +296,7 @@ class MirageModel {
       if (pyramidIsOn!.value == true){
 
         /// HIDE PYRAMID
-        hidePyramid(mounted: mounted);
+        hidePyramid(mounted: mounted, isDragging: true,);
 
         /// SHOW STRIP
         show(mounted: mounted);
@@ -410,6 +435,24 @@ class MirageModel {
         mounted: mounted,
         value: button
     );
+
+    _deselectAllButtonsInAboveMirages();
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _deselectAllButtonsInAboveMirages(){
+
+    final List<MirageModel> _allMirages = HomeProvider.proGetMirages(
+      context: getMainContext(),
+      listen: false,
+    );
+
+    for (final MirageModel mirage in _allMirages) {
+      if (mirage.index > index && mirage.selectedButton.value != null) {
+        mirage.clearButton(mounted: true);
+      }
+    }
 
   }
   // --------------------
