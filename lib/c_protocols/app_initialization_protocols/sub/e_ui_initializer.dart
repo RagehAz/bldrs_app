@@ -164,6 +164,7 @@ class UiInitializer {
         /// PHRASES
         allKeywordsPhrasesInAllLangs: false,
         keywords: false,
+        zonePhids: true,// yes should be refreshed frequently to listen to new flyers
         countriesPhrases: false,
         /// EDITORS
         userEditor: false, // keep this for user to find later anytime

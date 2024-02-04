@@ -45,18 +45,10 @@ class _SectionsMirageStrip extends StatelessWidget {
                 ...List.generate(_phids.length, (index){
 
                   final String _phid = _phids[index];
-
-                  // final FlyerType _flyerType = _flyerTypes[index];
-
-                  // final String? _flyerTypePhid = FlyerTyper.getFlyerTypePhid(flyerType: _flyerType);
-
                   final FlyerType? _flyerType = FlyerTyper.concludeFlyerTypeByRootID(rootID: _phid);
 
-                  // final String? _rootPhid = FlyerTyper.concludeChainIDByFlyerType(
-                  //   flyerType: _flyerType,
-                  // );
-
                   return MirageButton(
+                    isDisabled: true,
                     isSelected: Pathing.getLastPathNode(selectedButton) == _phid,
                     verse: Verse(
                       id: _phid,
