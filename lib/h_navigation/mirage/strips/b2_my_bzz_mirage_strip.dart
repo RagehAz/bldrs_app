@@ -46,12 +46,22 @@ class _MyBzzMirageStrip extends StatelessWidget {
                         ...List.generate(_myBzzIDs.length, (index){
 
                           final String _bzID = _myBzzIDs[index];
+                          final bool _isFirst = index == 0;
+                          final bool _isLast = index + 1 == _myBzzIDs.length;
 
-                          return BzMirageButton(
-                            bzID: _bzID,
-                            buttonID: TabName.generateBzBid(bzID: _bzID, bid: null),
-                            onTap: (BzModel bz) => onBzTap(_bzID),
-                            isSelected: _selectedBzID == _bzID,
+                          return Padding(
+                            padding: Scale.superInsets(
+                              context: context,
+                              appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                              enLeft: _isFirst ? 10 : 0,
+                              enRight: _isLast ? 5 : 0,
+                            ),
+                            child: BzMirageButton(
+                              bzID: _bzID,
+                              buttonID: TabName.generateBzBid(bzID: _bzID, bid: null),
+                              onTap: (BzModel bz) => onBzTap(_bzID),
+                              isSelected: _selectedBzID == _bzID,
+                            ),
                           );
 
                         }),

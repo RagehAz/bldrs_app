@@ -22,6 +22,8 @@ class BldrsAppBar extends StatelessWidget {
     required this.listenToHideLayout,
     required this.filtersAreOn,
     required this.filters,
+    this.onTextFieldTap,
+    this.onSearchButtonTap,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -44,6 +46,8 @@ class BldrsAppBar extends StatelessWidget {
   final bool listenToHideLayout;
   final ValueNotifier<bool?>? filtersAreOn;
   final Widget? filters;
+  final Function? onTextFieldTap;
+  final Function? onSearchButtonTap;
   /// --------------------------------------------------------------------------
   static const Widget appBarDot = SuperBox(
     height: Ratioz.appBarButtonSize,
@@ -194,6 +198,8 @@ class BldrsAppBar extends StatelessWidget {
         canGoBack: canGoBack,
         onSearchCancelled: onSearchCancelled,
         filtersAreOn: filtersAreOn,
+        onSearchButtonTap: onSearchButtonTap,
+        onTextFieldTap: onTextFieldTap,
         filters: filters,
       ),
     );

@@ -48,23 +48,34 @@ class _SectionsMirageStrip extends StatelessWidget {
                   final FlyerType? _flyerType = FlyerTyper.concludeFlyerTypeByRootID(rootID: _phid);
                   final bool _isActive = _flyerTypes.contains(_flyerType);
 
-                  return MirageButton(
-                    isDisabled: !_isActive,
-                    isSelected: Pathing.getLastPathNode(selectedButton) == _phid,
-                    verse: Verse(
-                      id: _phid,
-                      translate: true,
-                      // casing: Casing.upperCase,
+                  final bool _isFirst = index == 0;
+                  final bool _isLast = index + 1 == _phids.length;
+
+                  return Padding(
+                    padding: Scale.superInsets(
+                      context: context,
+                      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                      enLeft: _isFirst ? 10 : 0,
+                      enRight: _isLast ? 5 : 0,
                     ),
-                    icon: FlyerTyper.flyerTypeIcon(
-                      flyerType: _flyerType,
-                      isOn: false,
+                    child: MirageButton(
+                      isDisabled: !_isActive,
+                      isSelected: Pathing.getLastPathNode(selectedButton) == _phid,
+                      verse: Verse(
+                        id: _phid,
+                        translate: true,
+                        // casing: Casing.upperCase,
+                      ),
+                      icon: FlyerTyper.flyerTypeIcon(
+                        flyerType: _flyerType,
+                        isOn: false,
+                      ),
+                      bigIcon: true,
+                      iconColor: null,
+                      canShow: true,
+                      buttonID: '$_phid/',
+                      onTap: () => onSelectFlyerType('$_phid/'),
                     ),
-                    bigIcon: true,
-                    iconColor: null,
-                    canShow: true,
-                    buttonID: '$_phid/',
-                    onTap: () => onSelectFlyerType('$_phid/'),
                   );
 
                 }),

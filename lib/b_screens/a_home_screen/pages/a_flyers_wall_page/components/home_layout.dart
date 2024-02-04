@@ -1,10 +1,10 @@
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/components/animators/widget_fader.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
+import 'package:bldrs/h_navigation/mirage/mirage.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/layouts/download_app_panel/download_app_panel.dart';
 import 'package:bldrs/z_components/layouts/main_layout/pre_layout.dart';
-import 'package:bldrs/h_navigation/mirage/mirage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
