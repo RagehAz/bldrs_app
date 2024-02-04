@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/space/scale.dart';
+import 'package:bldrs/h_navigation/mirage/mirage.dart';
 import 'package:bldrs/z_components/buttons/keywords_buttons/f_phid_button.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -36,6 +37,7 @@ class PhidButtonClone extends StatelessWidget {
     return BldrsBox(
       height: height ?? PhidButton.getHeight(),
       verse: verse,
+      verseColor: MirageButton.getVerseColor(isDisabled: false, isSelected: isSelected),
       icon: icon,
       iconSizeFactor: PhidButton.getVerseScaleFactor(xIsOn: false),
       color: isSelected == true ? _selectedButtonColor : _buttonColor,

@@ -3,7 +3,6 @@ import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
@@ -432,6 +431,31 @@ class FlyerTyper{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static List<String> getFlyerTypesRootsIDs({
+    required List<FlyerType> flyerTypes,
+  }){
+    final List<String> _rootsIDs = [];
+
+    if (Lister.checkCanLoop(flyerTypes) == true){
+
+      for (final FlyerType flyerType in flyerTypes){
+
+        final String? _rootID = concludeRootIDByFlyerType(
+          flyerType: flyerType,
+        );
+
+        if (_rootID != null){
+          _rootsIDs.add(_rootID);
+        }
+
+      }
+
+    }
+
+    return _rootsIDs;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static String? concludeSectionPhidByFlyerTypeRootID({
     required String? rootID,
   }){
@@ -496,6 +520,8 @@ class FlyerTyper{
     return _output;
   }
   // -----------------------------------------------------------------------------
+/// DEPRECATED
+/*
 
   /// ROOTS IDS COMPOSITIONS
 
@@ -687,7 +713,7 @@ class FlyerTyper{
   }
   // --------------------
   /// NOT USED
-  /*
+
   /// TESTED : WORKS PERFECT
   static List<String> getChainsIDsPerBzType({
     required BzType bzType,

@@ -27,6 +27,7 @@ class PhidButton extends StatelessWidget {
     this.onPhidLongTap,
     this.maxWidth,
     this.height,
+    this.verseColor,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -45,6 +46,7 @@ class PhidButton extends StatelessWidget {
   final Function? onPhidLongTap;
   final double? maxWidth;
   final double? height;
+  final Color? verseColor;
   /// --------------------------------------------------------------------------
   static double getHeight(){
     return ExpandingButtonBox.sonHeight();
@@ -155,6 +157,7 @@ class PhidButton extends StatelessWidget {
         ),
         verseCentered: false,
         verseMaxLines: secondLine == null ? 2 : 1,
+        verseColor: verseColor,
         bubble: false,
         // verseShadow: false,
         verseItalic: true,
