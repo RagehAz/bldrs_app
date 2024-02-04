@@ -1,6 +1,6 @@
 part of zone_phids_protocols;
 
-
+/// => TAMAM
 class _ZonePhidsLDBOps {
   // -----------------------------------------------------------------------------
 
@@ -11,7 +11,7 @@ class _ZonePhidsLDBOps {
   /// INSERT
 
   // --------------------
-  ///
+  /// TESTED : WORK PERFECT
   static Future<void> insert({
     required ZonePhidsModel? zonePhidsModel,
   }) async {
@@ -35,7 +35,7 @@ class _ZonePhidsLDBOps {
   /// READ
 
   // --------------------
-  ///
+  /// TESTED : WORK PERFECT
   static Future<ZonePhidsModel?> read({
     required String? zoneID,
   }) async {
@@ -53,7 +53,7 @@ class _ZonePhidsLDBOps {
 
         _output = ZonePhidsModel(
             zoneID: zoneID,
-            phidsMap: _ldbMap['map'],
+            phidsMap: MapperSI.convertDynamicMap(originalMap: _ldbMap['map'], transformDoubles: true),
         );
       }
 
@@ -66,7 +66,7 @@ class _ZonePhidsLDBOps {
   /// DELETE
 
   // --------------------
-  ///
+  /// TESTED : WORK PERFECT
   static Future<void> delete({
     required String? zoneID,
   }) async {
@@ -79,5 +79,4 @@ class _ZonePhidsLDBOps {
 
   }
   // -----------------------------------------------------------------------------
-
 }

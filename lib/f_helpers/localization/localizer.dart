@@ -115,36 +115,42 @@ class Localizer {
   /// TESTED : WORKS PERFECT
   Future<void> _load() async {
 
-    Map<String, String> _mainPhrases = {};
-    Map<String, String> _keywordsPhrases = {};
+    final String? _ldbLang = await readLDBLangCode();
 
-    blog('xxz=> Starting loading phrases');
-    await Future.wait([
+    if (_localizedValues == null || _ldbLang != locale?.languageCode){
 
-      MainPhrasesJsonOps.readAll(
-        langCode: locale?.languageCode ?? 'en',
-      ).then((Map<String, String> main){
-        blog('xxz=> adding ${main.keys.length} main keys');
-        _mainPhrases = main;
-      }),
+      Map<String, String> _mainPhrases = {};
+      Map<String, String> _keywordsPhrases = {};
 
-      KeywordsPhrasesProtocols.addMapToLocalizedValues(
-        langCode: locale?.languageCode ?? 'en',
-        localizedValues: {},
-      ).then((Map<String, String> keywords){
-        blog('xxz=> adding ${keywords.keys.length} keywords keys');
-        _keywordsPhrases = keywords;
-      }),
+      blog('xxz=> Starting loading phrases');
+      await Future.wait([
 
-    ]);
+        MainPhrasesJsonOps.readAll(
+          langCode: locale?.languageCode ?? 'en',
+        ).then((Map<String, String> main){
+          // blog('xxz=> adding ${main.keys.length} main keys');
+          _mainPhrases = main;
+        }),
 
-    _localizedValues = MapperSS.combineStringStringMap(
-        baseMap: _mainPhrases,
-        insert: _keywordsPhrases,
-        replaceDuplicateKeys: true,
-    );
+        KeywordsPhrasesProtocols.addMapToLocalizedValues(
+          langCode: locale?.languageCode ?? 'en',
+          localizedValues: {},
+        ).then((Map<String, String> keywords){
+          blog('xxz=> adding ${keywords.keys.length} keywords keys');
+          _keywordsPhrases = keywords;
+        }),
 
-    // blog('xxz=> resulting ${_localizedValues?.keys.length} main keys');
+      ]);
+
+      _localizedValues = MapperSS.combineStringStringMap(
+          baseMap: _mainPhrases,
+          insert: _keywordsPhrases,
+          replaceDuplicateKeys: true,
+      );
+
+      // blog('xxz=> resulting ${_localizedValues?.keys.length} main keys');
+
+    }
 
   }
   // --------------------
