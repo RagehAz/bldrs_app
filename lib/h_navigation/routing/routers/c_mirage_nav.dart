@@ -66,6 +66,7 @@ class _MirageNav {
       mirageIndex: 0,
       mounted: mounted,
       button: bid,
+      deselectAllAbove: true,
     );
 
     /// GO TO TAB
@@ -136,6 +137,7 @@ class _MirageNav {
         mirageIndex: 0,
         mounted: mounted,
         button: TabName.bid_MyProfile,
+        deselectAllAbove: false,
       );
 
       /// SELECT THE BUTTON IN MIRAGE 1
@@ -143,6 +145,7 @@ class _MirageNav {
         mirageIndex: 1,
         mounted: mounted,
         button: bid,
+        deselectAllAbove: true,
       );
 
       /// GO TO TAB
@@ -265,6 +268,7 @@ class _MirageNav {
           mirageIndex: 0,
           mounted: mounted,
           button: _isSingleBz == true ? _bidBz : TabName.bid_MyBzz,
+          deselectAllAbove: false,
         );
 
         /// SELECT THE BUTTON IN MIRAGE 1
@@ -272,6 +276,7 @@ class _MirageNav {
           mirageIndex: 1,
           mounted: mounted,
           button: _bidBz,
+          deselectAllAbove: true,
         );
 
         /// SELECT THE BUTTON IN MIRAGE 2
@@ -280,6 +285,7 @@ class _MirageNav {
             mirageIndex: 2,
             mounted: mounted,
             button: _bidBz,
+            deselectAllAbove: true,
           );
         }
 
@@ -460,6 +466,7 @@ class _MirageNav {
             _allMirages[_mirageIndex].selectButton(
               button: _nodePath,
               mounted: true,
+              deselectAllAbove: true,
             );
             await Future.delayed(const Duration(milliseconds: 300));
 
