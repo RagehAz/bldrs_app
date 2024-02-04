@@ -73,7 +73,7 @@ class _MirageNav {
 
     /// SHOW MIRAGE 1
     allMirages[0].show(mounted: mounted);
-    allMirages[0].hidePyramid(mounted: mounted);
+    allMirages[0].hidePyramid(mounted: mounted, isDragging: false);
 
     /// SCROLL TO
     await allMirages[0].scrollTo(
@@ -150,7 +150,7 @@ class _MirageNav {
 
       /// SHOW MIRAGES
       if (Mapper.boolIsTrue(allMirages[0].pyramidIsOn?.value) == true){
-        allMirages[0].hidePyramid(mounted: mounted);
+        allMirages[0].hidePyramid(mounted: mounted, isDragging: false);
         await Future.delayed(const Duration(milliseconds: 300));
       }
       if (allMirages[0].checkIsClosed()){
@@ -288,7 +288,7 @@ class _MirageNav {
         blog('the bid is : $bid');
 
         if (Mapper.boolIsTrue(allMirages[0].pyramidIsOn?.value) == true){
-          allMirages[0].hidePyramid(mounted: mounted);
+          allMirages[0].hidePyramid(mounted: mounted, isDragging: false);
           await Future.delayed(const Duration(milliseconds: 300));
         }
         if (allMirages[0].checkIsClosed()){
@@ -456,6 +456,10 @@ class _MirageNav {
             await _allMirages[_mirageIndex].scrollTo(
               buttonIndex: MapPathing.getNodeOrderIndexByPath(path: _nodePath, map: _keywordsMap),
               listLength: MapPathing.getBrothersLength(path: _nodePath, map: _keywordsMap),
+            );
+            _allMirages[_mirageIndex].selectButton(
+              button: _nodePath,
+              mounted: true,
             );
             await Future.delayed(const Duration(milliseconds: 300));
 

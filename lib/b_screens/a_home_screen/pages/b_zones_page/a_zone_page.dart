@@ -10,6 +10,7 @@ import 'package:bldrs/b_screens/a_home_screen/pages/b_zones_page/b_country_view.
 import 'package:bldrs/b_screens/a_home_screen/pages/b_zones_page/c_city_view.dart';
 import 'package:bldrs/b_screens/d_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
@@ -551,7 +552,8 @@ class _ZonePageState extends State<ZonePage> {
       zone: zone,
     );
 
-    await Routing.goTo(route: TabName.bid_Home);
+    final String? _phid = HomeProvider.proGetHomeWallPhid(context: context, listen: false);
+    await Routing.goTo(route: _phid);
 
   }
   // -----------------------------------------------------------------------------
