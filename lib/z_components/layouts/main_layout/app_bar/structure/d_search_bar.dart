@@ -16,6 +16,7 @@ class BldrsSearchBar extends StatefulWidget {
     this.filtersAreOn,
     this.onFilterTap,
     this.width,
+    this.onTextFieldTap,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -32,6 +33,7 @@ class BldrsSearchBar extends StatefulWidget {
   final ValueNotifier<bool?>? filtersAreOn;
   final Function? onFilterTap;
   final double? width;
+  final Function? onTextFieldTap;
   /// --------------------------------------------------------------------------
   @override
   _BldrsSearchBarState createState() => _BldrsSearchBarState();
@@ -173,9 +175,10 @@ class _BldrsSearchBarState extends State<BldrsSearchBar> {
             // isFloatingField: false,
             textController: _searchTextController,
             textItalic: true,
+
             textInputAction: TextInputAction.search,
             corners: Ratioz.appBarButtonCorner,
-            // onTap: () {},
+            onTap: widget.onTextFieldTap,
             onChanged: (String? val) {
               if (widget.onSearchChanged != null) {
                 if (val != null) {

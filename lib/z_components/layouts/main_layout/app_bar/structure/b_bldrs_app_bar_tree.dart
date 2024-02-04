@@ -21,6 +21,8 @@ class BldrsAppBarTree extends StatelessWidget {
     required this.onSearchCancelled,
     required this.filtersAreOn,
     required this.filters,
+    this.onTextFieldTap,
+    this.onSearchButtonTap,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -42,6 +44,8 @@ class BldrsAppBarTree extends StatelessWidget {
   final Function? onSearchCancelled;
   final ValueNotifier<bool?>? filtersAreOn;
   final Widget? filters;
+  final Function? onTextFieldTap;
+  final Function? onSearchButtonTap;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -67,6 +71,8 @@ class BldrsAppBarTree extends StatelessWidget {
       searchButtonIsOn: searchButtonIsOn,
       searchHintVerse: searchHintVerse,
       sectionButtonIsOn: sectionButtonIsOn,
+      onSearchButtonTap: onSearchButtonTap,
+      onTextFieldTap: onTextFieldTap,
       filters: filters,
     );
     // --------------------
@@ -131,6 +137,8 @@ class _AppBarContents extends StatelessWidget {
     required this.onSearchCancelled,
     required this.filtersAreOn,
     required this.filters,
+    this.onTextFieldTap,
+    this.onSearchButtonTap,
   });
   // --------------------------------------------------------------------------
   final AppBarType? appBarType;
@@ -151,6 +159,8 @@ class _AppBarContents extends StatelessWidget {
   final Function? onSearchCancelled;
   final ValueNotifier<bool?>? filtersAreOn;
   final Widget? filters;
+  final Function? onTextFieldTap;
+  final Function? onSearchButtonTap;
   // -----------------------------------------------------------------------------
   bool _sectionButtonIsOnCheck() {
 
@@ -220,6 +230,8 @@ class _AppBarContents extends StatelessWidget {
                 onSearchCancelled: onSearchCancelled,
                 searchController: searchController,
                 onSearchChanged: onSearchChanged,
+                onSearchButtonTap: onSearchButtonTap,
+                onTextFieldTap: onTextFieldTap,
               ),
 
               /// SEARCH BAR,

@@ -1,5 +1,7 @@
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/a_flyers_wall_page/components/home_screen_view.dart';
+import 'package:bldrs/b_screens/g_search_screen/super_search_screen.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/layouts/custom_layouts/app_bar_holder.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -70,13 +72,28 @@ class _FlyersWallPageState extends State<FlyersWallPage> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  Future<void> _onGoToSearchScreen() async {
+
+    await Future.delayed(const Duration(milliseconds: 10));
+
+    // FocusScope.of(context).requestFocus(FocusNode());
+    // final FocusScopeNode currentFocus = FocusScope.of(context);
+    // if (!currentFocus.hasPrimaryFocus) {
+    //   currentFocus.unfocus();
+    // }
+
+    await BldrsNav.goToNewScreen(screen: const SuperSearchScreen());
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    return const AppBarHolder(
+    return AppBarHolder(
       appBarType: AppBarType.main,
       listenToHideLayout: true,
-      child: HomeFlyersGrid(),
+      onTextFieldTap: _onGoToSearchScreen,
+      onSearchButtonTap: _onGoToSearchScreen,
+      child: const HomeFlyersGrid(),
     );
     // --------------------
   }
