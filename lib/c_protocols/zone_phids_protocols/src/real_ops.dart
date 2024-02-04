@@ -1,5 +1,4 @@
 // ignore_for_file: unused_element
-
 part of zone_phids_protocols;
 
 /// => TAMAM
