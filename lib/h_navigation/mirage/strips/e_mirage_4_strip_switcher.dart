@@ -44,6 +44,7 @@ class Mirage4StripSwitcher extends StatelessWidget {
             previousPath: previousPath,
             parentMap: _parentMap,
             onPhidTap: onPhidTap,
+            keywordsMap: keywordsMap,
           );
         }
 
