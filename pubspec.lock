@@ -1472,7 +1472,7 @@ packages:
     source: hosted
     version: "5.4.0"
   photo_manager:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: photo_manager
       sha256: b2d81bd197323697d1b335e2e04cea2f67e11624ced77cfd02917a10afaeba73
