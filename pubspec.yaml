@@ -84,7 +84,7 @@ dependencies:
   extended_image: ^8.1.1
 
   # ------------------------------------
-  photo_manager: 2.7.1
+#  photo_manager: 2.7.1
   pdfx: ^2.4.0
   restart_app: ^1.2.1
   # ------------------------------------

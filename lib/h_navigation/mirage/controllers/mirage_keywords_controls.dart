@@ -16,32 +16,13 @@ class MirageKeywordsControls {
     required bool mounted,
   }) async {
 
-    // await BldrsTabber.goToTab(tab: BldrsTab.home);
-    //
-    // final List<MirageModel> allMirages = HomeProvider.proGetMirages(
-    //   context: getMainContext(),
-    //   listen: false,
-    // );
-    //
-    // final MirageModel _mirage1 = allMirages[0];
-    // final MirageModel _mirage2 = allMirages[1];
-    //
-    // await MirageModel.hideMiragesAbove(
-    //     index: 0,
-    //     mounted: mounted
-    // );
-    //
-    //   await _mirage2.reShow(
-    //     mounted: mounted,
-    //     onBetweenReShow: () => _mirage1.selectButton(
-    //       button: BldrsTabber.bidHome,
-    //       mounted: mounted,
-    //     ),
-    //   );
-
-    await Routing.goTo(
-      route: TabName.bid_Home,
-    );
+    final String? _phid = HomeProvider.proGetHomeWallPhid(context: getMainContext(), listen: false);
+    if (_phid != null){
+      await Routing.goTo(route: _phid);
+    }
+    else {
+      await Routing.goTo(route: TabName.bid_Home,);
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -351,10 +332,8 @@ class MirageKeywordsControls {
     required String phid,
   }) async {
 
-    /// not_active_keyword_dialog
-
     final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(context: getMainContext(), listen: false);
-    final String? _cityName = _currentZone?.cityName;
+    final String? _cityName = _currentZone?.cityName ?? _currentZone?.countryName;
 
     final String _title = '${getWord('phid_flyers_of')} '
         '${getWord(phid)} '
@@ -363,51 +342,11 @@ class MirageKeywordsControls {
         '$_cityName';
 
     await Dialogs.centerNotice(
-        verse: Verse.plain(_title),
+      verse: getVerse('phid_no_flyers_yet')!,
+      body: Verse.plain(_title),
     );
 
-    // await BldrsCenterDialog.showCenterDialog(
-    //   titleVerse: Verse(
-    //     id: _title,
-    //     translate: false,
-    //   ),
-    //   bodyVerse: const Verse(
-    //     pseudo: 'The Bldrs in this city are adding flyers everyday to'
-    //         ' properly present their markets.'
-    //         '\nplease hold for couple of days and come back again.',
-    //     id: 'phid_businesses_are_still_adding_flyers',
-    //     translate: true,
-    //   ),
-    //   height: 400,
-    //   child: Row(
-    //     mainAxisAlignment: MainAxisAlignment.center,
-    //     children: <Widget>[
-    //
-    //       DialogButton(
-    //         verse: const Verse(
-    //           id: 'phid_inform_a_friend',
-    //           translate: true,
-    //         ),
-    //         width: 133,
-    //         onTap: () => Launcher.shareBldrsWebsiteURL(),
-    //       ),
-    //
-    //       DialogButton(
-    //         verse: const Verse(
-    //           id: 'phid_go_back',
-    //           translate: true,
-    //         ),
-    //         color: Colorz.yellow255,
-    //         verseColor: Colorz.black230,
-    //         onTap: () => Nav.goBack(
-    //           context: getMainContext(),
-    //           invoker: '_setActivePhidK.centerDialog',
-    //         ),
-    //       ),
-    //
-    //     ],
-    //   ),
-    // );
+    // phid_inform_a_friend
 
   }
   // -----------------------------------------------------------------------------
