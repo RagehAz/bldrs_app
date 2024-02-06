@@ -1,7 +1,7 @@
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/c_keywords/zone_phids_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:flutter/material.dart';
@@ -57,14 +57,14 @@ class ZoneProvider extends ChangeNotifier {
   }){
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
 
-    return  _zoneProvider.currentZone
-            ??
-            UsersProvider.proGetMyUserModel(
-              context: getMainContext(),
-              listen: false,
-            )?.zone
-            ??
-            ZoneModel.planetZone;
+    return  _zoneProvider.currentZone ?? ZoneModel.planetZone;
+            // ??
+            // UsersProvider.proGetMyUserModel(
+            //   context: getMainContext(),
+            //   listen: false,
+            // )?.zone
+            // ??
+            // ZoneModel.planetZone;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -91,14 +91,13 @@ class ZoneProvider extends ChangeNotifier {
 
     if (ZoneModel.checkZonesAreIdentical(zone1: zone, zone2: _currentZone) == false){
 
-      ZoneModel? _newZone = await ZoneProtocols.completeZoneModel(
+      final ZoneModel? _newZone = await ZoneProtocols.completeZoneModel(
         invoker: 'setCurrentZone : $invoker',
         incompleteZoneModel: zone,
       );
 
-      _newZone = _newZone ?? ZoneModel.planetZone;
-
-      _currentZone = _newZone;
+      _currentZone = _newZone ?? ZoneModel.planetZone;
+      blog('setting zone to : $_currentZone');
 
       /// NOTIFY
       if (notify == true){
