@@ -118,10 +118,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "67cdaded9d55835ba9e6de9ff56652894fd4c323"
+      resolved-ref: "85b3f50e73ac362da5f415f4e4de9ba707403b40"
       url: "https://github.com/RagehAz/basics.git"
     source: git
-    version: "7.0.0"
+    version: "7.0.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -503,7 +503,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "3377f8f216158079d342f96304475a65e0e8882d"
+      resolved-ref: "1041c21836a3daf933943c14d661b4c6123f9101"
       url: "https://github.com/RagehAz/fire.git"
     source: git
     version: "3.0.0"
