@@ -50,7 +50,7 @@ class BldrsAppBarTree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _boxWidth = BldrsAppBar.width();
+    final double _boxWidth = Scale.screenWidth(context) - (2 * Ratioz.appBarMargin); //BldrsAppBar.width();
     final double _collapsedHeight = BldrsAppBar.collapsedHeight(context, appBarType);
     // --------------------
     final Widget _appBarContents = _AppBarContents(
