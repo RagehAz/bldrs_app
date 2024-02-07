@@ -415,10 +415,6 @@ class MirageModel {
   double getClearHeight(){
     return getHeight() - draggerHeight;
   }
-  // --------------------
-  double getWidth(){
-    return Scale.screenWidth(getMainContext());
-  }
   // -----------------------------------------------------------------------------
 
   /// SELECTED BUTTON

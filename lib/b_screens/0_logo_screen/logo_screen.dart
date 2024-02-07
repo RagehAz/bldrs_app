@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:bldrs/h_navigation/routing/routing.dart';
+import 'package:bldrs/c_protocols/app_initialization_protocols/sub/a_initializer.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,10 @@ class _LogoScreenState extends State<LogoScreen> {
           _isInit = false; // good
         });
         await Future.delayed(const Duration(milliseconds: 700));
-        await Routing.goTo(route: ScreenName.home);
+
+        await Initializer.routeAfterLoaded(mounted: mounted);
+
+        // await Routing.goTo(route: ScreenName.home);
 
       });
 
