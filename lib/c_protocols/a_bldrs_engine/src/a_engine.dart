@@ -1,36 +1,4 @@
-import 'dart:async';
-
-import 'package:basics/helpers/checks/device_checker.dart';
-import 'package:basics/helpers/checks/errorize.dart';
-import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/mediator/sounder/sounder.dart';
-import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
-import 'package:bldrs/bldrs_keys.dart';
-import 'package:bldrs/c_protocols/app_initialization_protocols/sub/b_app_state_initializer.dart';
-import 'package:bldrs/c_protocols/app_initialization_protocols/sub/c_user_initializer.dart';
-import 'package:bldrs/c_protocols/app_initialization_protocols/sub/e_ui_initializer.dart';
-import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
-import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/countries_phrases_protocols/countries_phrases_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
-import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
-import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
-import 'package:bldrs/e_back_end/i_app_check/app_check.dart';
-import 'package:bldrs/f_helpers/drafters/keyboard.dart';
-import 'package:bldrs/firebase_options.dart';
-import 'package:bldrs/h_navigation/routing/routing.dart';
-import 'package:bldrs/main.dart';
-import 'package:fire/super_fire.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:universal_html/html.dart';
+part of bldrs_engine;
 
 class BldrsEngine {
   // --------------------------------------------------------------------------
@@ -279,7 +247,7 @@ class BldrsEngine {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> homeInit({
     required BuildContext context,
     required bool mounted,
@@ -303,7 +271,7 @@ class BldrsEngine {
 
     unawaited(
                         /// APP STATE
-                        AppStateInitializer.initialize()
+                        _AppStateInitializer.initialize()
                         /// ON BOARDING
       .then((value) =>  UiInitializer.initializeOnBoarding(mounted: mounted))
                         /// AUTO NAV
@@ -316,7 +284,7 @@ class BldrsEngine {
 
 
     /// USER
-    await UserInitializer.initializeUser();
+    await OldUserInitializer.initializeUser();
 
     /// LET THE ZONE INITIALLY BE THE PLANET
     await ZoneProvider.proSetCurrentZone(
@@ -330,7 +298,7 @@ class BldrsEngine {
     await NotesProvider.proInitializeNoteStreams(mounted: mounted);
 
     /// MISSING FIELDS
-    await UserInitializer.checkIfUserIsMissingFields();
+    await OldUserInitializer.checkIfUserIsMissingFields();
 
   }
   // --------------------
