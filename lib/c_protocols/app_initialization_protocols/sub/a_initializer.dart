@@ -91,7 +91,7 @@ class Initializer {
     return _canLoadApp;
   }
   // --------------------
-  /// routeAfterLoaded_on_web_fix
+  /// TESTED : WORKS PERFECT
   static Future<void> routeAfterLoaded({
     // required BuildContext context,
     required bool mounted,

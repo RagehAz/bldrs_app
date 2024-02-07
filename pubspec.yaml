@@ -3,7 +3,7 @@ description: The Builder's Network
 publish_to: "none"
 # --------------------------------------------------------------------------------
 # BLDRS_APP_VERSION
-version: 3.0.0
+version: 3.1.0
 # ----------------------
 # app version should be updated in those locations
 # ----------------------
@@ -86,7 +86,7 @@ dependencies:
   # ------------------------------------
 #  photo_manager: 2.7.1
   pdfx: ^2.4.0
-  restart_app: ^1.2.1
+#  restart_app: ^1.2.1
   # ------------------------------------
 #dependency_overrides:
 #  intl: ^0.18.1
