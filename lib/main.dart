@@ -67,8 +67,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> with WidgetsBindingOb
   @override
   void dispose() {
 
-    superLocale.dispose();
-
     BldrsEngine.appStartDispose(
       observer: this,
     );
