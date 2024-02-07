@@ -30,6 +30,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:universal_html/html.dart';
 
 class BldrsEngine {
   // --------------------------------------------------------------------------
@@ -171,6 +172,7 @@ class BldrsEngine {
     Sounder.dispose();
     FCM.disposeAwesomeNoots();
     WidgetsBinding.instance.removeObserver(observer);
+    superLocale.dispose();
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -187,6 +189,57 @@ class BldrsEngine {
     }
     else if (state == AppLifecycleState.detached) {
       blog('XXX === >>> DETACHED');
+    }
+
+  }
+  // --------------------------------------------------------------------------
+
+  /// LOGO
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> logoScreenRouting({
+    required bool mounted,
+  }) async {
+
+    if (mounted == true){
+
+      /// MOBILE - WINDOWS
+      if (kIsWeb == false){
+        await Routing.goTo(route: ScreenName.home);
+      }
+
+      /// WEB : WHERE THERE IS A URL
+      else {
+
+        final String _url = window.location.toString();
+
+        final String? _path = RoutePather.getPathFromWindowURL(_url);
+
+        /// LANDED ON LOGO SCREENS
+        if (_path == ScreenName.logo){
+          await Routing.goTo(route: ScreenName.logo);
+        }
+
+        /// LANDED ON HOME SCREEN
+        else if (_path == ScreenName.home){
+          // do nothing
+        }
+
+        /// LANDED ON ANY OTHER SCREEN
+        else {
+
+          final String? _routeSettingsName = RoutePather.getRouteSettingsNameFromFullPath(_url);
+
+          await Routing.restartToAfterHomeRoute(
+            routeName: RoutePather.getPathFromRouteSettingsName(_routeSettingsName),
+            arguments: RoutePather.getArgFromRouteSettingsName(_routeSettingsName),
+          );
+
+        }
+
+      }
+
     }
 
   }
