@@ -450,7 +450,7 @@ class BldrsText extends StatelessWidget {
         :
     weight == VerseWeight.bold ? verseSizeValue * 0.025
         :
-    weight == VerseWeight.black ? verseSizeValue * 0.07
+    weight == VerseWeight.black ? verseSizeValue * 0.03
         :
     verseSizeValue * 0;
     return _verseLetterSpacing;
