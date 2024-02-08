@@ -1,5 +1,7 @@
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -57,6 +59,35 @@ class AccountModel {
           signInMethod: userModel.signInMethod,
         );
       }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static AccountModel? createAccountFromAnonymousUser({
+    required UserModel? userModel,
+  }) {
+    AccountModel? _output;
+
+    if (userModel != null){
+
+      final String? _email = ContactModel.getValueFromContacts(
+        contacts: userModel.contacts,
+        contactType: ContactType.email,
+      );
+
+      final String? _password = UserModel.createAnonymousPassword(
+        anonymousEmail: _email,
+      );
+
+      _output = AccountModel(
+        id: userModel.id,
+        email: _email,
+        password: _password,
+        signInMethod: SignInMethod.anonymous,
+      );
 
     }
 
@@ -244,15 +275,21 @@ class AccountModel {
 
     return _identical;
   }
+
+  static void blogAccounts(List<AccountModel> accounts){
+
+    for (final AccountModel account in accounts){
+      blog(account);
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() => 'AccountModel(id: $id, email: $email, password: $password : signInMethod : $signInMethod)';
   // --------------------
   @override
   bool operator == (Object other){

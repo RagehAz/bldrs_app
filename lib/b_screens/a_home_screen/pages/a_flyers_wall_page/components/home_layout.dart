@@ -3,6 +3,7 @@ import 'package:basics/components/animators/widget_fader.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/h_navigation/mirage/mirage.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
+import 'package:bldrs/super_dev_test.dart';
 import 'package:bldrs/z_components/layouts/download_app_panel/download_app_panel.dart';
 import 'package:bldrs/z_components/layouts/main_layout/pre_layout.dart';
 import 'package:flutter/foundation.dart';
@@ -67,57 +68,10 @@ class HomeLayout extends StatelessWidget {
               // const RoutingTestBar(),
 
               /// STAR_TEST_BUTTON
-              // TheFastTestButton(
-              //   onTap: () async {
-              //
-              //     await Dialogs.confirmProceed();
-              //
-              //     // final UserModel? _user = UsersProvider.proGetMyUserModel(context: context, listen: false);
-              //     //
-              //     // _user?.blogUserModel();
-              //     //
-              //     // await pushFastNote(userID: _user!.id!, title: 'Hellow', body: Numeric.createRandomIndex().toString());
-              //
-              // //
-              // //     await NotesProvider.proSetBadge(
-              // //         bid: TabName.bid_My_Saves,
-              // //         value: 31,
-              // //         notify: true,
-              // //     );
-              // //
-              // //
-              // //     await NotesProvider.proSetBadge(
-              // //       bid: TabName.bid_My_Follows,
-              // //       value: 4,
-              // //       notify: true,
-              // //     );
-              // //
-              // //
-              // //     // await NotesProvider.proSetBadge(
-              // //     //   bid: BldrsTabber.generateBzBid(bzID: 'Gjm747w1UpfsPUlWXtMc', bid: BldrsTabber.bidMyBzTeam),
-              // //     //   value: 2,
-              // //     //   notify: true,
-              // //     // );
-              // //     //
-              // //     // await NotesProvider.proSetBadge(
-              // //     //   bid: 'phid_k_flyer_type_equipment/phid_k_group_equip_handling/',
-              // //     //   value: 15,
-              // //     //   notify: true,
-              // //     // );
-              // //
-              // //     // await MirageNav.goToKeyword(
-              // //     //     phid: 'phid_k_prd_tool_garden_glove',
-              // //     // );
-              // //
-              // //     // await Nav.pushAndRemoveAllBelow(
-              // //     //     context: context,
-              // //     //     screen: TheHomeScreen(
-              // //     //       key: UniqueKey(),
-              // //     //     ),
-              // //     // );
-              // //
-              //   },
-              // ),
+              if (showTestButton)
+              const TheFastTestButton(
+                onTap: superDevTestGoX,
+              ),
 
             ],
           ),

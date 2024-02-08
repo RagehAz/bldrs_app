@@ -1,5 +1,5 @@
 part of bldrs_engine;
-
+/// => TAMAM
 class _UserSessionStarter {
   // -----------------------------------------------------------------------------
 
@@ -10,6 +10,7 @@ class _UserSessionStarter {
   /// RENOVATION CHECK UPS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> renovationCheckups() async {
 
     /// GET USER MODEL
@@ -49,19 +50,16 @@ class _UserSessionStarter {
         user2: _new,
       );
 
-      await Future.wait(<Future>[
+      /// RENOVATE USER
+      if (_identical == false){
+        await UserProtocols.renovate(
+          invoker: 'UserInitializer.initializeUser',
+          oldUser: _old,
+          newUser: _new,
+        );
+      }
 
-        /// RENOVATE USER
-        if (_identical == false)
-          UserProtocols.renovate(
-            invoker: 'UserInitializer.initializeUser',
-            oldUser: _old,
-            newUser: _new,
-          ),
-
-        RecorderProtocols.onStartSession(),
-
-      ]);
+      unawaited(_checkIfUserIsMissingFields());
 
     }
 
@@ -281,11 +279,70 @@ class _UserSessionStarter {
   }
   // -----------------------------------------------------------------------------
 
+  /// USER MISSING FIELDS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _checkIfUserIsMissingFields() async {
+    // blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ START');
+
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
+      listen: false,
+    );
+
+    if (Authing.userIsSignedUp(_userModel?.signInMethod) == true){
+
+      if (_userModel != null){
+        final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
+          userModel: _userModel,
+        );
+        /// MISSING FIELDS FOUND
+        if (_thereAreMissingFields == true){
+          await Formers.showUserMissingFieldsDialog(
+            userModel: _userModel,
+          );
+          await BldrsNav.goToNewScreen(
+              screen: UserEditorScreen(
+                initialTab: UserEditorTab.pic,
+                firstTimer: false,
+                userModel: _userModel,
+                reAuthBeforeConfirm: false,
+                canGoBack: true,
+                validateOnStartup: true,
+                // checkLastSession: true,
+                onFinish: () async {
+                  await Nav.goBack(context: getMainContext());
+                  await Routing.goTo(route: TabName.bid_My_Info);
+                },
+              )
+          );
+        }
+      }
+
+    }
+    // blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ END');
+  }
+  // -----------------------------------------------------------------------------
+
   /// RESTART
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> signOutAndRestart() async {
+
+    /// PROVIDER
+    UsersProvider.proSetMyUserModel(userModel: null, notify: false);
+
+    await Future.wait(<Future>[
+
+      UserLDBOps.deleteUserOps(Authing.getUserID()),
+      AccountLDBOps.deleteAllAccounts(),
+      AuthProtocols.signOutBldrs(),
+
+    ]);
+
+    await Routing.goTo(route: ScreenName.logo);
 
   }
   // -----------------------------------------------------------------------------

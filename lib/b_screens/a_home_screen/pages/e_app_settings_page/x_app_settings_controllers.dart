@@ -196,10 +196,7 @@ Future<void> onSignOutUser({
     HomeProvider.proClearActiveBz(notify: false);
 
     /// CLEAR USER
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
-    _usersProvider.clearMyUserModel(
-      notify: false,
-    );
+    UsersProvider.proSetMyUserModel(userModel: null, notify: false);
 
     // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
     // _zoneProvider.clearAllSearchesAndSelections();
