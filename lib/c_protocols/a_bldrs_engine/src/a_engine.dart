@@ -1,5 +1,5 @@
 part of bldrs_engine;
-
+/// => TAMAM
 class BldrsEngine {
   // --------------------------------------------------------------------------
 
@@ -284,7 +284,7 @@ class BldrsEngine {
 
 
     /// USER
-    await OldUserInitializer.initializeUser();
+    await UserInitializer.initialize();
 
     /// LET THE ZONE INITIALLY BE THE PLANET
     await ZoneProvider.proSetCurrentZone(
@@ -296,9 +296,6 @@ class BldrsEngine {
 
     /// NOTIFICATIONS
     await NotesProvider.proInitializeNoteStreams(mounted: mounted);
-
-    /// MISSING FIELDS
-    await OldUserInitializer.checkIfUserIsMissingFields();
 
   }
   // --------------------

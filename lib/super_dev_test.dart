@@ -1,15 +1,26 @@
 import 'dart:async';
-
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:bldrs/a_models/a_user/account_model.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:flutter/material.dart';
-
 import 'z_components/buttons/general_buttons/bldrs_box.dart';
 
 /// SUPER_DEV_TEST
+
+const bool showTestButton = false;
+
 Future<void> superDevTestGoX() async {
 
-  // await Nav.goToNewScreen(context: getMainContext(), screen: const RoutingTestScreen());
+  final UserModel? _user = UsersProvider.proGetMyUserModel(context: getMainContext(), listen: false);
+
+  _user?.blogUserModel(invoker: 'this bitch');
+
+  final List<AccountModel> _accounts = await AccountLDBOps.readAllAccounts();
+  AccountModel.blogAccounts(_accounts);
 
 }
 
