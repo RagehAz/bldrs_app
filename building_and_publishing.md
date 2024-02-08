@@ -17,14 +17,6 @@ D:\projects\bldrs\bldrs_app\build\app\outputs\bundle\release
 
 ---
 
-### to build clean ON IOS
-    flutter clean
-    rm ios/Podfile.lock pubspec.lock
-    rm -rf ios/Pods ios/Runner.xcworkspace
-    flutter build ios --build-name=1.0.0 --build-number=1 --release --dart-define=MY_APP_ENV=prod
-
----
-
 ### OLD TALISMAN
     pod deintegrate
     pod repo remove trunk
