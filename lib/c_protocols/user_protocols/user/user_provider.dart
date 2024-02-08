@@ -6,9 +6,9 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-// import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 /// => TAMAM
 // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 class UsersProvider extends ChangeNotifier {
@@ -20,35 +20,6 @@ class UsersProvider extends ChangeNotifier {
   UserModel? _myUserModel;
   // --------------------
   UserModel? get myUserModel => _myUserModel;
-  // --------------------
-  /*
-  static bool userIsSignedUp({bool listen = false}) {
-
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: listen);
-    final UserModel _user = _usersProvider.myUserModel;
-    // final AuthModel _auth = _usersProvider.myAuthModel;
-
-    bool _isSignedUp = false;
-
-    if (_user == null) {
-      _isSignedUp = false;
-    }
-    else if (_user.signInMethod == null) {
-      _isSignedUp = false;
-    }
-    else if (_user.signInMethod == SignInMethod.anonymous) {
-      _isSignedUp = false;
-    }
-    else {
-      _isSignedUp = true;
-    }
-
-    blog('userIsSignedUp() : $_isSignedUp');
-    _user?.blogUserModel();
-
-    return _isSignedUp;
-  }
-   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel? proGetMyUserModel({
@@ -65,29 +36,9 @@ class UsersProvider extends ChangeNotifier {
     required bool notify,
   }) {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
-    _usersProvider._setMyUserModel(userModel: userModel, notify: notify);
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void _setMyUserModel({
-    required UserModel? userModel,
-    required bool notify,
-  }) {
-      _myUserModel = userModel;
-
-      if (notify == true) {
-        notifyListeners();
-      }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void clearMyUserModel({
-    required bool notify,
-  }) {
-    _myUserModel = null;
-
+    _usersProvider._myUserModel = userModel;
     if (notify == true) {
-      notifyListeners();
+      _usersProvider.notifyListeners();
     }
   }
   // --------------------
@@ -355,12 +306,7 @@ class UsersProvider extends ChangeNotifier {
     required bool notify,
   }){
 
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
-
-    /// _myUserModel
-    _usersProvider.clearMyUserModel(
-      notify: notify,
-    );
+    proSetMyUserModel(userModel: null, notify: notify);
 
     // /// _myDeviceContacts
     // _usersProvider.setMyDeviceContacts(

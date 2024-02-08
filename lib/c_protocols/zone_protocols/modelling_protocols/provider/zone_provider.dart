@@ -1,4 +1,3 @@
-import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/c_keywords/zone_phids_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -97,7 +96,7 @@ class ZoneProvider extends ChangeNotifier {
       );
 
       _currentZone = _newZone ?? ZoneModel.planetZone;
-      blog('setting zone to : $_currentZone');
+      // blog('setting zone to : $_currentZone');
 
       /// NOTIFY
       if (notify == true){
