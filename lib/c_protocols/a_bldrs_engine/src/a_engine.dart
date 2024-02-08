@@ -184,14 +184,9 @@ class BldrsEngine {
 
         final String? _path = RoutePather.getPathFromWindowURL(_url);
 
-        /// LANDED ON LOGO SCREENS
-        if (_path == ScreenName.logo){
-          await Routing.goTo(route: ScreenName.logo);
-        }
-
-        /// LANDED ON HOME SCREEN
-        else if (_path == ScreenName.home){
-          // do nothing
+        /// LANDED ON LOGO SCREENS OR ON HOME SCREEN
+        if (_path == ScreenName.logo || _path == ScreenName.home){
+          await Routing.goTo(route: ScreenName.home);
         }
 
         /// LANDED ON ANY OTHER SCREEN
