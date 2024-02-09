@@ -151,7 +151,7 @@ class AuthScreenView extends StatelessWidget {
       if (DeviceChecker.deviceIsIOS() == true)
         SignInMethod.apple,
       SignInMethod.google,
-      // SignInMethod.facebook
+      SignInMethod.facebook
     ];
     // --------------------
     return Form(
