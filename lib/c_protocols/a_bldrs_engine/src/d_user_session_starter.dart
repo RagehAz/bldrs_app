@@ -1,52 +1,25 @@
-import 'dart:async';
-import 'package:basics/components/sensors/app_version_builder.dart';
-import 'package:basics/helpers/maps/lister.dart';
-import 'package:basics/helpers/strings/text_check.dart';
-import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs/a_models/a_user/account_model.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
-import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
-import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
-import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/b_screens/b_user_screens/c_user_editor_screen/user_editor_screen.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
-import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
-import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/records_protocols/recorder_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
-import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/h_navigation/routing/routing.dart';
-import 'package:fire/super_fire.dart';
-
-class UserInitializer {
+part of bldrs_engine;
+/// => TAMAM
+class _UserSessionStarter {
   // -----------------------------------------------------------------------------
 
-  const UserInitializer();
+  const _UserSessionStarter();
 
   // -----------------------------------------------------------------------------
 
-  /// USER MODEL
+  /// RENOVATION CHECK UPS
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<bool> initializeUser() async {
+  static Future<void> renovationCheckups() async {
 
-    /// CREATE - FETCH USER MODEL
-    final bool _continue = await _initializeUserModel();
+    /// GET USER MODEL
+    final UserModel? _old = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
+      listen: false,
+    );
 
-    if (_continue == true){
-
-      /// GET USER MODEL
-      final UserModel? _old = UsersProvider.proGetMyUserModel(
-        context: getMainContext(),
-        listen: false,
-      );
+    if (_old != null){
 
       /// USER DEVICE MODEL
       UserModel? _new = await _userDeviceModelOps(
@@ -73,252 +46,23 @@ class UserInitializer {
 
       /// IDENTICAL ?
       final bool _identical = UserModel.usersAreIdentical(
-          user1: _old,
-          user2: _new,
+        user1: _old,
+        user2: _new,
       );
 
-      await Future.wait(<Future>[
-
-        /// RENOVATE USER
-        if (_identical == false)
-          UserProtocols.renovate(
-            invoker: 'UserInitializer.initializeUser',
-            oldUser: _old,
-            newUser: _new,
-          ),
-
-        RecorderProtocols.onStartSession(),
-
-      ]);
-
-    }
-
-    return _continue;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// USER MODEL
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> _initializeUserModel() async {
-    bool? _continue = false;
-
-    /// USER HAS ID
-    if (Authing.getUserID() != null){
-
-      _continue = await _fetchSetUser(
-        userID: Authing.getUserID(),
-      );
-
-    }
-
-    /// USER HAS NO ID
-    else {
-
-      final List<AccountModel> _accounts = await AccountLDBOps.readAllAccounts();
-      final List<AccountModel> _withoutAnonymous = AccountModel.removeAnonymousAccounts(
-          accounts: _accounts,
-      );
-      final AccountModel? _anonymousAccount = AccountModel.getAnonymousAccountFromAccounts(
-          accounts: _accounts,
-      );
-
-      /// HAS NORMAL ACCOUNT IN LDB ALREADY
-      if (Lister.checkCanLoop(_withoutAnonymous) == true){
-        _continue = await _signInAccount(account: _withoutAnonymous.first);
+      /// RENOVATE USER
+      if (_identical == false){
+        await UserProtocols.renovate(
+          invoker: 'UserInitializer.initializeUser',
+          oldUser: _old,
+          newUser: _new,
+        );
       }
 
-      /// HAS ANONYMOUS ACCOUNT IN LDB
-      if (_continue == false && _anonymousAccount != null){
-        _continue = await _signInAccount(account: _anonymousAccount);
-      }
-
-      /// NO ACCOUNTS IN LDB FOUND
-      if (_continue == false){
-
-        final List<UserModel> _deviceUsers = await UserFireOps.readDeviceUsers();
-        final List<UserModel> _signedUpUsers = UserModel.getSignedUpUsersOnly(
-          users: _deviceUsers,
-        );
-        // final UserModel? _anonymousUserOfThisDevice = await UserFireOps.readAnonymousUserByDeviceID();
-
-        /// HAS A FIRE USER MODELS LOST FROM LDB
-        if (Lister.checkCanLoop(_signedUpUsers) == true){
-
-          await AccountLDBOps.insertUserModels(
-            users: _signedUpUsers,
-          );
-
-          await Routing.goTo(route: TabName.bid_Auth);
-          _continue = false;
-
-        }
-
-        /// DID NOT SIGN IN BY SIGNUP ACCOUNTS
-        if (_continue == false){
-
-          final UserModel? _anonymousUser = UserModel.getFirstAnonymousUserFromUsers(
-            users: _deviceUsers,
-          );
-
-          /// NO ANON. ACCOUNT FOUND IN FIREBASE
-          if (_anonymousUser == null){
-            _continue = await _composeNewAnonymousUser();
-          }
-
-          /// FOUND ANON. ACCOUNT IN FIREBASE
-          else {
-            _continue = await _reSignInAnonymousUser(
-              userModel: _anonymousUser,
-            );
-          }
-
-        }
-
-      }
+      unawaited(_checkIfUserIsMissingFields());
 
     }
 
-    return _continue;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> _composeNewAnonymousUser() async {
-    bool _continue = false;
-
-    /// DEPRECATED
-    // final AuthModel? _anonymousAuth = await Authing.anonymousSignin();
-    //
-    // final UserModel? _anonymousUser = await UserModel.anonymousUser(
-    //   authModel: _anonymousAuth,
-    // );
-
-    final String _email = UserModel.createAnonymousEmail();
-    final String? _password = UserModel.createAnonymousPassword(
-      anonymousEmail: _email,
-    );
-
-    final AuthModel? _authModel = await EmailAuthing.register(
-      email: _email,
-      password: _password,
-      autoSendVerificationEmail: false,
-    );
-
-    if (_authModel != null){
-
-      final UserModel? userModel = await UserProtocols.composeAnonymous(
-        authModel: _authModel,
-      );
-
-      if (userModel != null){
-
-        final AccountModel _newAccount = AccountModel(
-          id: userModel.id,
-          email: _email,
-          password: _password,
-          signInMethod: SignInMethod.anonymous,
-        );
-
-        _continue = await _signInAccount(
-          account: _newAccount,
-        );
-
-      }
-
-    }
-
-    return _continue;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> _reSignInAnonymousUser({
-    required UserModel? userModel,
-  }) async {
-    bool _continue = false;
-
-    if (userModel != null){
-
-      final String? _email = ContactModel.getValueFromContacts(
-        contacts: userModel.contacts,
-        contactType: ContactType.email,
-      );
-
-      final String? _password = UserModel.createAnonymousPassword(
-        anonymousEmail: _email,
-      );
-
-      final AccountModel _account = AccountModel(
-        id: userModel.id,
-        email: _email,
-        password: _password,
-        signInMethod: SignInMethod.anonymous,
-      );
-
-      _continue = await _signInAccount(account: _account);
-
-    }
-
-    return _continue;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> _signInAccount({
-    required AccountModel? account,
-  }) async {
-    bool _continue = false;
-
-    if (AccountModel.checkCanTrySign(account) == true){
-
-      final bool _success = await AuthProtocols.signInBldrsByEmail(
-        email: account!.email,
-        password: account.password,
-
-      );
-
-      if (_success == true){
-
-         await AccountLDBOps.insertAccount(
-            account: account,
-        );
-
-        _continue = await _fetchSetUser(
-          userID: account.id,
-        );
-
-      }
-
-    }
-
-    return _continue;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> _fetchSetUser({
-    required String? userID,
-  }) async {
-    bool _continue = false;
-
-    if (userID != null){
-
-      final UserModel? _userModel = await UserProtocols.fetch(
-        userID: userID,
-        );
-
-      if (_userModel != null){
-
-        UsersProvider.proSetMyUserModel(
-          userModel: _userModel,
-          notify: true,
-        );
-
-        _continue = true;
-
-      }
-
-    }
-
-    return _continue;
   }
   // -----------------------------------------------------------------------------
 
@@ -377,7 +121,7 @@ class UserInitializer {
         /// so we refetch model
         /// cheers
         _output = await UserProtocols.refetch(
-            userID: _output.id,
+          userID: _output.id,
         );
 
         if (_output != null){
@@ -539,7 +283,7 @@ class UserInitializer {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> checkIfUserIsMissingFields() async {
+  static Future<void> _checkIfUserIsMissingFields() async {
     // blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ START');
 
     final UserModel? _userModel = UsersProvider.proGetMyUserModel(
@@ -570,7 +314,7 @@ class UserInitializer {
                 onFinish: () async {
                   await Nav.goBack(context: getMainContext());
                   await Routing.goTo(route: TabName.bid_My_Info);
-                  },
+                },
               )
           );
         }
@@ -578,6 +322,28 @@ class UserInitializer {
 
     }
     // blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ END');
+  }
+  // -----------------------------------------------------------------------------
+
+  /// RESTART
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> signOutAndRestart() async {
+
+    /// PROVIDER
+    UsersProvider.proSetMyUserModel(userModel: null, notify: false);
+
+    await Future.wait(<Future>[
+
+      UserLDBOps.deleteUserOps(Authing.getUserID()),
+      AccountLDBOps.deleteAllAccounts(),
+      AuthProtocols.signOutBldrs(),
+
+    ]);
+
+    await Routing.goTo(route: ScreenName.logo);
+
   }
   // -----------------------------------------------------------------------------
 }

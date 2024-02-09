@@ -1,23 +1,10 @@
-import 'dart:async';
-import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/components/sensors/app_version_builder.dart';
-import 'package:basics/ldb/methods/ldb_ops.dart';
-import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
-import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/app_state_protocols.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/f_helpers/drafters/launchers.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/h_navigation/routing/routing.dart';
-import 'package:flutter/foundation.dart';
+part of bldrs_engine;
 
 /// => TAMAM
-class AppStateInitializer {
+class _AppStateInitializer {
   // -----------------------------------------------------------------------------
 
-  const AppStateInitializer();
+  const _AppStateInitializer();
 
   // -----------------------------------------------------------------------------
 

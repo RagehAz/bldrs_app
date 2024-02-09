@@ -1,6 +1,6 @@
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/a_flyers_wall_page/components/home_layout.dart';
-import 'package:bldrs/c_protocols/app_initialization_protocols/bldrs_engine.dart';
+import 'package:bldrs/c_protocols/a_bldrs_engine/bldrs_engine.dart';
 import 'package:flutter/material.dart';
 
 class TheHomeScreen extends StatefulWidget {
