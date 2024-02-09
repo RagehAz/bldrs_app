@@ -1,3 +1,7 @@
+### 3.1.0
+1. Screen navigation bug fixes
+2. minor UI bug fixes
+
 ### 3.0.0
 1. New layout
 2. New Fonts

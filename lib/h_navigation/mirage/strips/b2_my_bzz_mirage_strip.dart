@@ -23,7 +23,7 @@ class _MyBzzMirageStrip extends StatelessWidget {
     );
     // --------------------
     return Container(
-      width: mirageX1.getWidth(),
+      width: Scale.screenWidth(context),
       height: mirageX1.getClearHeight(),
       alignment: Alignment.topCenter,
       child: Selector<NotesProvider, Badger>(
