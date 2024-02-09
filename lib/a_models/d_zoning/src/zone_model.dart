@@ -312,7 +312,7 @@ class ZoneModel {
     required ZoneModel? zone,
   }){
 
-    String? _line = getWord('phid_select_a_country');
+    String? _line = getWord('phid_the_entire_world'); // phid_select_a_country
 
     if (zone != null){
 
