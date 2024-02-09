@@ -43,7 +43,7 @@ class MirageStrip extends StatelessWidget {
         aboveIndex: index,
     );
     // --------------------
-    final double _width = _mirage.getWidth();
+    final double _width = Scale.screenWidth(context); //_mirage.getWidth();
     // --------------------
     return ValueListenableBuilder(
       valueListenable: _mirage.position,

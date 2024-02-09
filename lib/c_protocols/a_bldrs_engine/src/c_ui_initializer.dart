@@ -1,16 +1,5 @@
-import 'package:basics/helpers/checks/device_checker.dart';
-import 'package:basics/ldb/methods/ldb_ops.dart';
-import 'package:bldrs/b_screens/x_on_boarding/a_on_boarding_screen.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/h_navigation/routing/routing.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+part of bldrs_engine;
+
 /// => TAMAM
 class UiInitializer {
   // -----------------------------------------------------------------------------
@@ -61,7 +50,9 @@ class UiInitializer {
 }) async {
     bool _good = true;
 
-    if (mounted == true){
+    const bool doTheClockCheck = false;
+
+    if (mounted == true && doTheClockCheck == true){
 
         /// CHECK DEVICE CLOCK
         bool _deviceTimeIsCorrect = await BldrsTimers.checkDeviceTimeIsCorrect(
@@ -133,7 +124,7 @@ class UiInitializer {
   /// TESTED : WORKS PERFECT
   static Future<void> refreshLDB() async {
 
-    // await _monitorRefreshLDBThing();
+    await _monitorRefreshLDBThing();
 
     final bool _shouldRefresh = await LDBOps.checkShouldRefreshLDB(
       refreshDurationInMinutes: Standards.ldbWipeIntervalInMinutes,
@@ -192,7 +183,6 @@ class UiInitializer {
 
   }
   // --------------------
-  /*
   /// TESTED : WORKS PERFECT
   static Future<void> _monitorRefreshLDBThing() async {
 
@@ -232,23 +222,19 @@ class UiInitializer {
 
       }
 
-      await Dialogs.centerNotice(
-        verse: Verse.plain('checkShouldRefreshLDB : $_shouldRefresh'),
-        color: _shouldRefresh == true ? Colorz.green255 : Colorz.red255,
-        body: Verse.plain(
-            '''
+      blog('checkShouldRefreshLDB : $_shouldRefresh');
+
+      blog('''
 _diff Minutes
 
 Last Wipe : $_lastWipe
 
 ($_diff) < (${Standards.ldbWipeIntervalInMinutes}) >  = (${Numeric.isLesserThan(number: Standards.ldbWipeIntervalInMinutes, isLesserThan: _diff)}))
-            '''),
-      );
+            ''');
 
     }
 
   }
-   */
   // -----------------------------------------------------------------------------
 
   /// ONBOARDING

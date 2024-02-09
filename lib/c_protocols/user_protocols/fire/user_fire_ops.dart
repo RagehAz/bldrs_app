@@ -109,10 +109,10 @@ class UserFireOps {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
-  static Future<List<UserModel>> readDeviceUsers({
+  /// TESTED : WORKS PERFECT
+  static Future<List<UserModel>> readDeviceSignedUpUsers({
     int limit = 5,
-}) async {
+  }) async {
     List<UserModel> _output = [];
 
     final DeviceModel _device = await DeviceModel.generateDeviceModel();
@@ -126,9 +126,15 @@ class UserFireOps {
           finders: <FireFinder>[
 
             FireFinder(
-                field: 'device.id',
-                comparison: FireComparison.equalTo,
-                value: _device.id,
+              field: 'device.id',
+              comparison: FireComparison.equalTo,
+              value: _device.id,
+            ),
+
+            const FireFinder(
+              field: 'signInMethod',
+              comparison: FireComparison.notEqualTo,
+              value: 'anonymous',
             ),
 
           ],
@@ -142,6 +148,50 @@ class UserFireOps {
             fromJSON: false,
         );
 
+      }
+
+    }
+
+    return _output;
+  }
+// --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<UserModel>> readDeviceAnonymousUsers({
+    int limit = 5,
+  }) async {
+    List<UserModel> _output = [];
+
+    final DeviceModel _device = await DeviceModel.generateDeviceModel();
+
+    if (_device.id != null){
+
+      final List<Map<String, dynamic>> _maps = await Fire.readColl(
+        queryModel: FireQueryModel(
+          coll: FireColl.users,
+          limit: limit,
+          finders: <FireFinder>[
+
+            FireFinder(
+              field: 'device.id',
+              comparison: FireComparison.equalTo,
+              value: _device.id,
+            ),
+
+            const FireFinder(
+              field: 'signInMethod',
+              comparison: FireComparison.equalTo,
+              value: 'anonymous',
+            ),
+
+          ],
+        ),
+      );
+
+      if (Lister.checkCanLoop(_maps) == true){
+        _output = UserModel.decipherUsers(
+          maps: _maps,
+          fromJSON: false,
+        );
       }
 
     }
