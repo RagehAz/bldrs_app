@@ -32,14 +32,14 @@ dependencies:
   # ------------------------------------
   basics:
     #    path: /Users/rageh/Developer/apps/basics
-    #    path: D:/projects/packages/basics
-    git:
-      url: https://github.com/RagehAz/basics.git
+        path: D:/projects/packages/basics
+#    git:
+#      url: https://github.com/RagehAz/basics.git
   # ------------------------------------
   fire:
-    #    path: D:/projects/packages/fire
-    git:
-      url: https://github.com/RagehAz/fire.git
+        path: D:/projects/packages/fire
+#    git:
+#      url: https://github.com/RagehAz/fire.git
   # ------------------------------------
   #  bldrs_dashboard:
   #    path: D:/projects/bldrs/bldrs_dashboard
