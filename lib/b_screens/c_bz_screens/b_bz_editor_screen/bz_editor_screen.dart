@@ -679,8 +679,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         id: 'phid_bz_entity_type',
                         translate: true,
                       ),
-                      buttonsVerses:
-                          Verse.createVerses(strings: _allBzTypesButtons, translate: true),
+                      buttonsVerses: Verse.createVerses(strings: _allBzTypesButtons, translate: true),
                       selectedButtonsPhids: _selectedBzTypesPhids,
                       inactiveButtons:
                           Verse.createVerses(strings: _inactiveBzTypesPhids, translate: true),
