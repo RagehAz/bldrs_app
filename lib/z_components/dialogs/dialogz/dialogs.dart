@@ -1584,4 +1584,52 @@ class Dialogs {
     return _output;
   }
   // -----------------------------------------------------------------------------
+
+  /// STRINGS DIALOG
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String?> stringsDialogs({
+    required Verse? headline,
+    required List<String> strings,
+  }) async {
+    String? _output;
+
+    final BuildContext context = getMainContext();
+
+    await BottomDialog.showButtonsBottomDialog(
+      // buttonHeight: 40,
+      numberOfWidgets: strings.length + 1,
+      titleVerse: headline,
+      builder: (_, __){
+
+        return [
+
+          ...List.generate(strings.length, (index){
+
+            final String _phid = strings[index];
+
+            return BottomDialog.wideButton(
+              verse: Verse.plain(_phid),
+              height: 50,
+              onTap: () async {
+
+                _output = _phid;
+
+                await Nav.goBack(context: context);
+
+                },
+            );
+
+          }),
+
+        ];
+
+        },
+
+    );
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
 }

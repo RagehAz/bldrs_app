@@ -194,6 +194,7 @@ class UiInitializer {
         primaryKey: 'id',
       );
 
+      // ignore: unused_local_variable
       bool _shouldRefresh = false;
       double? _diff;
       DateTime? _lastWipe;
@@ -222,15 +223,15 @@ class UiInitializer {
 
       }
 
-      blog('checkShouldRefreshLDB : $_shouldRefresh');
+      // blog('checkShouldRefreshLDB : $_shouldRefresh');
 
-      blog('''
-_diff Minutes
-
-Last Wipe : $_lastWipe
-
-($_diff) < (${Standards.ldbWipeIntervalInMinutes}) >  = (${Numeric.isLesserThan(number: Standards.ldbWipeIntervalInMinutes, isLesserThan: _diff)}))
-            ''');
+//       blog('''
+// _diff Minutes
+//
+// Last Wipe : $_lastWipe
+//
+// ($_diff) < (${Standards.ldbWipeIntervalInMinutes}) >  = (${Numeric.isLesserThan(number: Standards.ldbWipeIntervalInMinutes, isLesserThan: _diff)}))
+//             ''');
 
     }
 
