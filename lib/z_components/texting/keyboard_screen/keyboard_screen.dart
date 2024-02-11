@@ -1,6 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
@@ -174,9 +173,11 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
   }
   // --------------------
-  Future<void> _onPaste() async {
-    await TextMod.controllerPaste(_controller);
-    _onTextChanged(_controller.text);
+  Future<void> _onPaste(String? text) async {
+    if (text != null){
+      _controller.text = text;
+      _onTextChanged(_controller.text);
+    }
   }
   // -----------------------------------------------------------------------------
   @override
@@ -227,7 +228,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                   }
                 },
                 onTextChanged: _onTextChanged,
-                pasteFunction: () => _onPaste(),
+                pasteFunction: (String? text) => _onPaste(text),
                 enableSuggestions: _keyboardModel.enableSuggestions,
                 autoCorrect: _keyboardModel.autoCorrect,
               ),
