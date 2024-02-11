@@ -2,6 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/bubbles/model/bubble_header_vm.dart';
 import 'package:basics/components/bubbles/text_field_bubble/text_field_bubble.dart';
+import 'package:basics/helpers/strings/text_clip_board.dart';
 import 'package:bldrs/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
@@ -73,7 +74,7 @@ class BldrsTextFieldBubble extends StatelessWidget {
   final String? Function(String?)? validator;
   final List<Verse>? bulletPoints;
   final dynamic leadingIcon;
-  final Function? pasteFunction;
+  final Function(String? text)? pasteFunction;
   final TextDirection? textDirection;
   final TextDirection? hintTextDirection;
   final Color bubbleColor;
@@ -179,7 +180,10 @@ class BldrsTextFieldBubble extends StatelessWidget {
       keyboardTextInputAction: keyboardTextInputAction,
       onSubmitted: onSubmitted,
       keyboardTextInputType: keyboardTextInputType,
-      pasteFunction: pasteFunction,
+      pasteFunction: pasteFunction == null ? null : () async {
+        final String? _text = await TextClipBoard.paste();
+        pasteFunction!.call(_text);
+      },
       textController: textController,
       autoFocus: autoFocus,
       bulletPoints: Verse.bakeVerses(verses: bulletPoints),
