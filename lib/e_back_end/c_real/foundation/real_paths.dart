@@ -12,6 +12,7 @@ class RealColl {
   static const String agrees = 'agrees';
   // --------------------
   static const String app = 'app';
+  static const String camps = 'camps';
   // --------------------
   static const String bldrsChains = 'bldrsChains'; /// ERADICATE_CHAINS
   static const String keywords = 'keywords';
