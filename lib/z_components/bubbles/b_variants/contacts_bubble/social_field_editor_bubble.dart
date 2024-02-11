@@ -2,16 +2,15 @@ import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/helpers/strings/text_check.dart';
-import 'package:basics/helpers/strings/text_clip_board.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
 
 class SocialFieldEditorBubble extends StatefulWidget {
@@ -96,18 +95,19 @@ class _SocialFieldEditorBubbleState extends State<SocialFieldEditorBubble> {
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onPasteURL(ContactModel contact) async {
+  Future<void> _onPasteURL({
+    required ContactModel contact,
+    required String? text,
+  }) async {
 
-    final String? _value = await TextClipBoard.paste();
-
-    if (TextCheck.isEmpty(_value) == false){
+    if (TextCheck.isEmpty(text) == false){
 
       final ContactModel _newContact = contact.copyWith(
-        value: _value,
+        value: text,
       );
 
       final int _index = _socialContacts.indexOf(contact);
-      _controllers[_index].text = _value!;
+      _controllers[_index].text = text!;
 
       widget.onContactChanged(_newContact);
 
@@ -158,14 +158,17 @@ class _SocialFieldEditorBubbleState extends State<SocialFieldEditorBubble> {
 
           return BldrsTextFieldBubble(
             appBarType: AppBarType.non,
-            hasBottomPadding: false,
+            // hasBottomPadding: true,
             bubbleWidth: _clearWidth,
             textController: _controllers[index],
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               context: context,
             ),
             textSize: 1,
-            pasteFunction: () => _onPasteURL(_contact),
+            pasteFunction: (String? text) => _onPasteURL(
+              contact: _contact,
+              text: text,
+            ),
             onTextChanged: (String? text) => _onContactChanged(_contact, text),
             leadingIcon: ContactModel.concludeContactIcon(
               contactType: _contact.type,

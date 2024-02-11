@@ -1,6 +1,7 @@
-import 'package:basics/helpers/strings/text_clip_board.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/phids_bubble/multiple_choice_bubble.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
@@ -9,8 +10,6 @@ import 'package:bldrs/z_components/layouts/custom_layouts/bldrs_floating_list.da
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/sizing/horizon.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
 
 class FlyerEditorPage1TypeDescription extends StatelessWidget {
@@ -119,10 +118,9 @@ class FlyerEditorPage1TypeDescription extends StatelessWidget {
           ),
           autoCorrect: Keyboard.autoCorrectIsOn(),
           enableSuggestions: Keyboard.suggestionsEnabled(),
-          pasteFunction: () async {
-            final String? _text = await TextClipBoard.paste();
-            if (_text != null){
-              draft?.description?.text = _text;
+          pasteFunction: (String? text) async {
+            if (text != null){
+              draft?.description?.text = text;
             }
           },
         ),
