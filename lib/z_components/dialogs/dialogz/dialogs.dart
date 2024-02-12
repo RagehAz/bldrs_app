@@ -909,8 +909,11 @@ class Dialogs {
     await BottomDialog.showBottomDialog(
       titleVerse: title,
       height: _clearHeight,
-      child: Column(
-        children: <Widget>[
+      child: FloatingList(
+        mainAxisAlignment: MainAxisAlignment.start,
+        // padding: EdgeInsets.zero,
+        height: _clearHeight,
+        columnChildren: <Widget>[
 
           /// POSTER
           Stack(
