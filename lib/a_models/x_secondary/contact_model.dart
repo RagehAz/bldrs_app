@@ -416,6 +416,28 @@ class ContactModel {
 
     return _contactValue;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getValuesByType({
+    required List<ContactModel>? contacts,
+    required ContactType? contactType,
+  }){
+    final List<String> _output = [];
+
+    if (Lister.checkCanLoop(contacts) == true){
+
+      for (final ContactModel contact in contacts!){
+
+        if (contact.type == contactType && contact.value != null){
+          _output.add(contact.value!);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// FILTERS
