@@ -5,6 +5,7 @@ import 'package:basics/components/bubbles/model/bubble_header_vm.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_clip_board.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
@@ -175,9 +176,10 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
   // --------------------
   Future<void> _pasteFunction() async {
 
-    final String? value = await TextClipBoard.paste();
+    String? value = await TextClipBoard.paste();
 
     if (TextCheck.isEmpty(value) == false){
+      value = TextMod.removeSpacesFromAString(value);
       _textController.text = value ?? '';
     }
 
