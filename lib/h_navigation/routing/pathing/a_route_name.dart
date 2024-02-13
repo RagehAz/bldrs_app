@@ -74,3 +74,9 @@ class ScreenName {
   }
   // -----------------------------------------------------------------------------
 }
+
+/*
+THE REDIRECTOR
+adb shell 'am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "bldrs://deep/redirect"' net.bldrs.app
+
+ */
