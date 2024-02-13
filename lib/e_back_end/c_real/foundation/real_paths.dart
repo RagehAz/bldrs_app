@@ -12,6 +12,8 @@ class RealColl {
   static const String agrees = 'agrees';
   // --------------------
   static const String app = 'app';
+  static const String camps = 'camps';
+  static const String fishes = 'fishes';
   // --------------------
   static const String bldrsChains = 'bldrsChains'; /// ERADICATE_CHAINS
   static const String keywords = 'keywords';
@@ -49,6 +51,7 @@ class RealDoc {
   static const String app_tests = 'tests';
   static const String app_history = 'history';
   static const String app_noteCampaigns = 'noteCampaigns';
+  static const String app_emailingLists = 'emailingLists';
   // -----------------------------------------------------------------------------
   /// PICKERS
   // --------------------
@@ -137,6 +140,12 @@ class RealPath {
   static String app_noteCampaigns_campaignID({
     required String campaignID,
   }) => '${RealColl.app}/${RealDoc.app_noteCampaigns}/$campaignID';
+  // --------------------
+  static String app_emailingLists() => '${RealColl.app}/${RealDoc.app_emailingLists}';
+  // --------------------
+  static String app_emailingLists_listID({
+    required String listID,
+  }) => '${RealColl.app}/${RealDoc.app_emailingLists}/$listID';
   // -----------------------------------------------------------------------------
 
   /// bldrsChains
