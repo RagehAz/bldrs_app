@@ -3,6 +3,7 @@ import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/models/flag_model.dart';
@@ -387,6 +388,26 @@ class ContactModel {
 
   /// GETTERS
 
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getAllValues(List<ContactModel> contacts){
+    List<String> _output = [];
+
+    if (Lister.checkCanLoop(contacts) == true){
+
+      for (final ContactModel contact in contacts){
+
+        _output = Stringer.addStringToListIfDoesNotContainIt(
+            strings: _output,
+            stringToAdd: contact.value,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static ContactModel? getContactFromContacts({
@@ -985,6 +1006,7 @@ class ContactModel {
         case ContactType.linkedIn:   _domain = 'linkedin.com'; break;
         case ContactType.youtube:    _domain = 'youtube.com'; break; // youtu.be
         case ContactType.instagram:  _domain = 'instagram.com'; break;
+        /// pinterest_it_dot_is_valid_link_as_well
         case ContactType.pinterest:  _domain = 'pinterest.com'; break;
         case ContactType.tiktok:     _domain = 'tiktok.com'; break;
         case ContactType.twitter:    _domain = 'twitter.com'; break;
@@ -1029,6 +1051,9 @@ class ContactModel {
         _output = ContactType.instagram;
       }
       else if (TextCheck.stringContainsSubString(string: url, subString: 'pinterest.com') == true){
+        _output = ContactType.pinterest;
+      }
+      else if (TextCheck.stringContainsSubString(string: url, subString: 'pinterest.it') == true){
         _output = ContactType.pinterest;
       }
       else if (TextCheck.stringContainsSubString(string: url, subString: 'tiktok.com') == true){

@@ -192,7 +192,7 @@ class _BldrsSearchBarState extends State<BldrsSearchBar> {
             ),
             textColor: Colorz.yellow255,
             textWeight: VerseWeight.thin,
-            textScaleFactor: _boxHeight * 0.0365,
+            textScaleFactor: _boxHeight * 0.027,
             autoCorrect: Keyboard.autoCorrectIsOn(),
             enableSuggestions: Keyboard.suggestionsEnabled(),
             onSubmitted: (String? val) {
