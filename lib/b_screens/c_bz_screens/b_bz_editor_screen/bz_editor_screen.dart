@@ -979,6 +979,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                           'youtube.com',
                           'instagram.com',
                           'pinterest.com',
+                          'pinterest.it',
                           'tiktok.com',
                           'twitter.com',
                         ],

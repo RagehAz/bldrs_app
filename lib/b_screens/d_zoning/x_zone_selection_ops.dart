@@ -80,6 +80,7 @@ class ZoneSelection {
     required ZoneDepth depth,
     required ZoneModel? viewerZone,
     required ZoneModel? selectedZone,
+    bool ignoreCensusAndStaging = false,
   }) async {
 
     final ZoneModel? _zone = await BldrsNav.goToNewScreen(
@@ -90,6 +91,7 @@ class ZoneSelection {
         depth: depth,
         viewerZone: viewerZone,
         selectedZone: selectedZone,
+        ignoreCensusAndStaging: ignoreCensusAndStaging,
       ),
     );
 
