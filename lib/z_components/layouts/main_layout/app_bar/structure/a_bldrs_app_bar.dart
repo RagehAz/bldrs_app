@@ -10,7 +10,6 @@ class BldrsAppBar extends StatelessWidget {
     required this.loading,
     required this.progressBarModel,
     required this.appBarScrollController,
-    required this.sectionButtonIsOn,
     required this.searchController,
     required this.onSearchSubmit,
     required this.onPaste,
@@ -34,7 +33,6 @@ class BldrsAppBar extends StatelessWidget {
   final ValueNotifier<bool>? loading;
   final ValueNotifier<ProgressBarModel?>? progressBarModel;
   final ScrollController? appBarScrollController;
-  final bool sectionButtonIsOn;
   final TextEditingController? searchController;
   final ValueChanged<String?>? onSearchSubmit;
   final ValueChanged<String?>? onPaste;
@@ -188,7 +186,6 @@ class BldrsAppBar extends StatelessWidget {
         loading: loading,
         progressBarModel: progressBarModel,
         appBarScrollController: appBarScrollController,
-        sectionButtonIsOn: sectionButtonIsOn,
         searchController: searchController,
         onSearchSubmit: onSearchSubmit,
         onPaste: onPaste,

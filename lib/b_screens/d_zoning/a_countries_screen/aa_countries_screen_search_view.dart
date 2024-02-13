@@ -22,7 +22,7 @@ class CountriesScreenSearchView extends StatelessWidget {
     required this.activeCountriesIDs,
     required this.disabledCountriesIDs,
     required this.countriesCensus,
-    required this.selectedZone,
+    required this.selectedCountries,
     this.appBarType = AppBarType.search,
     super.key
   });
@@ -33,7 +33,7 @@ class CountriesScreenSearchView extends StatelessWidget {
   final List<String> activeCountriesIDs;
   final List<String> disabledCountriesIDs;
   final List<CensusModel>? countriesCensus;
-  final ZoneModel? selectedZone;
+  final List<String> selectedCountries;
   final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
@@ -94,7 +94,7 @@ class CountriesScreenSearchView extends StatelessWidget {
                         strings2: _foundCountriesIDs,
                     ),
                     censusModels: countriesCensus,
-                    selectedZone: selectedZone,
+                    selectedCountries: selectedCountries,
                     onStateTap: (String stateID) => onCountryTap(stateID),
                     onDisabledStateTap: (String stateID) => onDisabledCountryTap(_countryID),
                   );
@@ -107,6 +107,11 @@ class CountriesScreenSearchView extends StatelessWidget {
                     censusID: _countryID,
                   );
 
+                  final bool _isSelected = Stringer.checkStringsContainString(
+                      strings: selectedCountries,
+                      string: _countryPhrase.id,
+                  );
+
                   return CountryTileButton(
                     countryID: _countryID,
                     isActive: Stringer.checkStringsContainString(
@@ -114,7 +119,7 @@ class CountriesScreenSearchView extends StatelessWidget {
                       string: _countryID,
                     ),
                     censusModel: _census,
-                    isSelected: selectedZone?.countryID == _countryPhrase.id,
+                    isSelected: _isSelected,
                     onTap: () => onCountryTap(_countryPhrase.id!),
                     onDeactivatedTap: () => onDisabledCountryTap(_countryPhrase.id!),
                   );

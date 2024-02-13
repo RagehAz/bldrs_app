@@ -10,7 +10,6 @@ class BldrsAppBarTree extends StatelessWidget {
     required this.loading,
     required this.progressBarModel,
     required this.appBarScrollController,
-    required this.sectionButtonIsOn,
     required this.searchController,
     required this.onSearchSubmit,
     required this.onPaste,
@@ -33,7 +32,6 @@ class BldrsAppBarTree extends StatelessWidget {
   final ValueNotifier<bool>? loading;
   final ValueNotifier<ProgressBarModel?>? progressBarModel;
   final ScrollController? appBarScrollController;
-  final bool? sectionButtonIsOn;
   final TextEditingController? searchController;
   final ValueChanged<String?>? onSearchSubmit;
   final ValueChanged<String?>? onPaste;
@@ -70,7 +68,6 @@ class BldrsAppBarTree extends StatelessWidget {
       pageTitleVerse: pageTitleVerse,
       searchButtonIsOn: searchButtonIsOn,
       searchHintVerse: searchHintVerse,
-      sectionButtonIsOn: sectionButtonIsOn,
       onSearchButtonTap: onSearchButtonTap,
       onTextFieldTap: onTextFieldTap,
       filters: filters,
@@ -126,7 +123,6 @@ class _AppBarContents extends StatelessWidget {
     required this.loading,
     required this.progressBarModel,
     required this.appBarScrollController,
-    required this.sectionButtonIsOn,
     required this.searchController,
     required this.onSearchSubmit,
     required this.onPaste,
@@ -148,7 +144,6 @@ class _AppBarContents extends StatelessWidget {
   final ValueNotifier<bool>? loading;
   final ValueNotifier<ProgressBarModel?>? progressBarModel;
   final ScrollController? appBarScrollController;
-  final bool? sectionButtonIsOn;
   final TextEditingController? searchController;
   final ValueChanged<String?>? onSearchSubmit;
   final ValueChanged<String?>? onPaste;
@@ -162,39 +157,11 @@ class _AppBarContents extends StatelessWidget {
   final Function? onTextFieldTap;
   final Function? onSearchButtonTap;
   // -----------------------------------------------------------------------------
-  bool _sectionButtonIsOnCheck() {
-
-    if (sectionButtonIsOn != null) {
-      return sectionButtonIsOn!;
-    }
-    else if (sectionButtonIsOn == false) {
-      return false;
-    }
-    else if (appBarType == AppBarType.basic) {
-      return false;
-    }
-    else if (appBarType == AppBarType.scrollable) {
-      return false;
-    }
-    else if (appBarType == AppBarType.main) {
-      return true;
-    }
-    else if (appBarType == AppBarType.search) {
-      return false;
-    }
-    else {
-      return false;
-    }
-
-  }
-  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     final double _boxWidth = BldrsAppBar.width();
     final double _collapsedHeight = BldrsAppBar.collapsedHeight(context, appBarType);
-    // --------------------
-    final bool _sectionButtonIsOn = _sectionButtonIsOnCheck();
     // --------------------
     return Stack(
       alignment: BldrsAligners.superTopAlignment(context),
@@ -223,7 +190,6 @@ class _AppBarContents extends StatelessWidget {
                 onBack: onBack,
                 appBarScrollController: appBarScrollController,
                 minBoxHeight: _collapsedHeight,
-                sectionButtonIsOn: _sectionButtonIsOn,
                 appBarRowWidgets: appBarRowWidgets,
                 hintVerse: searchHintVerse,
                 onSearchSubmit: onSearchSubmit,

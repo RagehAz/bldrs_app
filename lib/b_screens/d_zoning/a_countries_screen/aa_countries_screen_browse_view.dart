@@ -20,7 +20,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
     required this.showPlanetButton,
     required this.planetCensus,
     required this.onPlanetTap,
-    required this.selectedZone,
+    required this.selectedCountries,
     this.padding,
     this.appBarType = AppBarType.search,
     super.key
@@ -35,7 +35,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
   final bool showPlanetButton;
   final CensusModel? planetCensus;
   final Function onPlanetTap;
-  final ZoneModel? selectedZone;
+  final List<String> selectedCountries;
   final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
@@ -70,7 +70,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
             isActive: true,
             censusModel: planetCensus,
             onTap: onPlanetTap,
-            isSelected: selectedZone == null,
+            isSelected: selectedCountries.isEmpty,
             verse: const Verse(
               id: 'phid_the_entire_world',
               translate: true,
@@ -96,7 +96,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
               activeCountriesIDs: shownCountriesIDs,
               censusModels: countriesCensus,
               onStateTap: (String stateID) => onCountryTap(stateID),
-              selectedZone: selectedZone,
+              selectedCountries: selectedCountries,
               onDisabledStateTap: onDisabledCountryTap == null ? null
                   :
                   (String stateID) => onDisabledCountryTap?.call(_countryID),
@@ -112,6 +112,11 @@ class CountriesScreenBrowseView extends StatelessWidget {
               censusID: _countryID,
             );
 
+            final bool _isSelected = Stringer.checkStringsContainString(
+                strings: selectedCountries,
+                string: _countryID,
+            );
+
             return CountryTileButton(
               countryID: _countryID,
               isActive: Stringer.checkStringsContainString(
@@ -119,7 +124,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
                   string: _countryID,
               ),
               censusModel: _census,
-              isSelected: selectedZone?.countryID == _countryID,
+              isSelected: _isSelected,
               onTap: () => onCountryTap(_countryID),
               onDeactivatedTap: onDisabledCountryTap == null ? null
                   :
