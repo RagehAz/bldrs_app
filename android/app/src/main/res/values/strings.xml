@@ -8,6 +8,8 @@
     <string name="fb_login_protocol_scheme">fb427786221866015</string>
     <string name="facebook_client_token">6fae6f471957687d7f4a6cf7721001f4</string>
     <string name="default_notification_channel_id">net.bldrs.app</string>
+    <string name="geo_api_key">AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI</string>
+    <string name="ad_id">ca-app-pub-1416346029613600~1351124048</string>
+
 <!--    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>-->
 </resources>
-
