@@ -460,4 +460,18 @@ class ZoneModel {
       cityModel.hashCode ^
       icon.hashCode;
   // -----------------------------------------------------------------------------
+
+  /// PACKING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> packZoneInCountriesIDs(ZoneModel? zone){
+    if (zone == null){
+      return [];
+    }
+    else {
+      return [zone.countryID];
+    }
+  }
+  // -----------------------------------------------------------------------------
 }

@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/models/flag_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
@@ -49,27 +47,23 @@ class ZoneSelection {
     // required bool settingCurrentZone,
     required ViewingEvent zoneViewingEvent,
     required ZoneModel? viewerZone,
-    required ZoneModel? selectedZone,
+    required List<String> selectedCountries,
+    bool ignoreCensusAndStaging = false,
   }) async {
-
-    blog('aa7aaa 1');
 
     final ZoneModel? _output = await goToCountriesScreen(
       zoneViewingEvent: zoneViewingEvent,
       depth: depth,
       viewerZone: viewerZone,
-      selectedZone: selectedZone,
+      selectedCountries: selectedCountries,
+      ignoreCensusAndStaging: ignoreCensusAndStaging,
     );
-
-    // blog('aa7aaa 2 : $_output');
 
     // if (settingCurrentZone == true && _output != null){
     //   await setCurrentZoneAndNavHome(
     //     zone: _output,
     //   );
     // }
-
-    blog('aa7aaa 3');
 
     return _output;
   }
@@ -79,7 +73,7 @@ class ZoneSelection {
     required ViewingEvent zoneViewingEvent,
     required ZoneDepth depth,
     required ZoneModel? viewerZone,
-    required ZoneModel? selectedZone,
+    required List<String> selectedCountries,
     bool ignoreCensusAndStaging = false,
   }) async {
 
@@ -90,7 +84,7 @@ class ZoneSelection {
         zoneViewingEvent: zoneViewingEvent,
         depth: depth,
         viewerZone: viewerZone,
-        selectedZone: selectedZone,
+        selectedCountries: selectedCountries,
         ignoreCensusAndStaging: ignoreCensusAndStaging,
       ),
     );

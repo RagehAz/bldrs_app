@@ -5,7 +5,6 @@ class FirstAppBarLine extends StatelessWidget {
   const FirstAppBarLine({
     required this.canGoBack,
     required this.appBarType,
-    required this.sectionButtonIsOn,
     required this.onBack,
     required this.pageTitleVerse,
     required this.appBarRowWidgets,
@@ -23,7 +22,6 @@ class FirstAppBarLine extends StatelessWidget {
   // -----------------------------------------------------------------------------
   final bool canGoBack;
   final AppBarType? appBarType;
-  final bool sectionButtonIsOn;
   final Function onBack;
   final Verse? pageTitleVerse;
   final List<Widget>? appBarRowWidgets;
