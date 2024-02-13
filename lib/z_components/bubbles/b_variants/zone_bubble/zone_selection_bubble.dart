@@ -35,6 +35,7 @@ class ZoneSelectionBubble extends StatefulWidget {
     this.validator,
     this.autoValidate = true,
     this.isRequired = true,
+    this.ignoreCensusAndStaging = false,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -49,6 +50,7 @@ class ZoneSelectionBubble extends StatefulWidget {
   final bool isRequired;
   final ViewingEvent zoneViewingEvent;
   final ZoneModel? viewerZone;
+  final bool ignoreCensusAndStaging;
   /// --------------------------------------------------------------------------
   @override
   _ZoneSelectionBubbleState createState() => _ZoneSelectionBubbleState();
@@ -158,6 +160,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       depth: widget.depth,
       viewerZone: widget.viewerZone,
       selectedZone: widget.currentZone,
+      ignoreCensusAndStaging: widget.ignoreCensusAndStaging,
     );
 
     if (_zone == null){

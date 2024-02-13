@@ -1,6 +1,8 @@
 import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -18,11 +20,13 @@ class SocialFieldEditorBubble extends StatefulWidget {
   const SocialFieldEditorBubble({
     required this.contacts,
     required this.onContactChanged,
+    this.forbiddenLinks = const [],
     super.key
   });
   // --------------------
   final List<ContactModel>? contacts;
   final Function(ContactModel contact) onContactChanged;
+  final List<String> forbiddenLinks;
   // --------------------
   @override
   _SocialFieldEditorBubbleState createState() => _SocialFieldEditorBubbleState();
@@ -177,11 +181,41 @@ class _SocialFieldEditorBubbleState extends State<SocialFieldEditorBubble> {
             textDirection: TextDirection.ltr,
             hintTextDirection: TextDirection.ltr,
             keyboardTextInputType: TextInputType.url,
-            validator: (String? text) => Formers.socialLinkValidator(
-              url: text,
-              contactType: _contact.type,
-              isMandatory: false,
-            ),
+            validator: (String? text){
+
+              final String? _error = Formers.socialLinkValidator(
+                url: text,
+                contactType: _contact.type,
+                isMandatory: false,
+              );
+
+              if (_error != null){
+                return _error;
+              }
+              else {
+
+                if (Lister.checkCanLoop(widget.forbiddenLinks) == false){
+                  return null;
+                }
+                else {
+
+                  final bool _isUsed = Stringer.checkStringsContainString(
+                      strings: widget.forbiddenLinks,
+                      string: text,
+                  );
+
+                  if (_isUsed == true){
+                    return 'This link can not be used';
+                  }
+                  else {
+                    return null;
+                  }
+
+                }
+
+              }
+
+            },
           );
 
         }),

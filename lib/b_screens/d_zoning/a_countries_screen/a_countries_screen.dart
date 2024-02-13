@@ -31,6 +31,7 @@ class CountriesScreen extends StatefulWidget {
     required this.depth,
     required this.viewerZone,
     required this.selectedZone,
+    this.ignoreCensusAndStaging = false,
     super.key
   });
   // --------------------
@@ -38,6 +39,7 @@ class CountriesScreen extends StatefulWidget {
   final ZoneDepth depth;
   final ZoneModel? viewerZone;
   final ZoneModel? selectedZone;
+  final bool ignoreCensusAndStaging;
   // --------------------
   @override
   _CountriesScreenState createState() => _CountriesScreenState();
@@ -167,9 +169,14 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        await Future.delayed(const Duration(milliseconds: 400));
+        // await Future.delayed(const Duration(milliseconds: 400));
 
-        await _loadCountries();
+        if (widget.ignoreCensusAndStaging == true){
+          await _loadCountriesIgnoreCensusAndStaging();
+        }
+        else {
+          await _loadCountries();
+        }
 
         await _triggerLoading(setTo: false);
       });
@@ -275,6 +282,78 @@ class _CountriesScreenState extends State<CountriesScreen> {
       }
       // --------------------
     }
+
+  }
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _loadCountriesIgnoreCensusAndStaging() async {
+
+    // --------------------
+
+    /// SHOWN COUNTRIES IDS
+
+    // --------------------
+    /// ACTIVE IDS
+    List<String> _activeIDs = Flag.getAllCountriesIDs();
+    /// ACTIVATE MY COUNTRY ID
+    _activeIDs = StagingModel.addMyCountryIDToActiveCountries(
+      shownCountriesIDs: _activeIDs,
+      myCountryID: widget.viewerZone?.countryID,
+      event: widget.zoneViewingEvent,
+    );
+    /// SHOW USA IF A STATE IS SHOWN
+    _activeIDs = America.addUSAIDToCountriesIDsIfContainsAStateID(
+      countriesIDs: _activeIDs,
+    );
+    // --------------------
+
+    /// DISABLED COUNTRIES IDS
+
+    // --------------------
+    /// DISABLED IDS
+    List<String> _disabledIDs = [];
+    /// ADD USA IF NOT ADDED
+    if (_activeIDs.contains('usa') == false){
+      _disabledIDs = America.addUSAIDToCountriesIDsIfContainsAStateID(
+        countriesIDs: _disabledIDs,
+      );
+    }
+    // --------------------
+
+    /// SORT COUNTRIES
+
+    // --------------------
+    /// SORT SHOWN
+    _activeIDs = CountryModel.sortCountriesNamesAlphabetically(
+      countriesIDs: _activeIDs,
+      langCode: Localizer.getCurrentLangCode(),
+    );
+    /// SORT NOT SHOWN
+    _disabledIDs = [];
+    // --------------------
+
+    /// CENSUS
+
+    // --------------------
+    /// CENSUS
+    final List<CensusModel> _countriesCensuses = [];
+    const CensusModel? _fetchedPlanetCensus = null;
+    // --------------------
+
+    /// SET DATA
+
+    // --------------------
+    if (mounted == true) {
+      setState(() {
+        _activeCountriesIDs = _activeIDs;
+        _disabledCountriesIDs = _disabledIDs;
+        _censuses = _countriesCensuses;
+        _planetCensus = _fetchedPlanetCensus;
+        // Stringer.blogStrings(strings: _shownCountriesIDs, invoker: 'loadCountries');
+      });
+    }
+    // --------------------
 
   }
   // -----------------------------------------------------------------------------
