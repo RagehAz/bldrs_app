@@ -15,8 +15,12 @@ class Routing {
   static Route<dynamic> router(RouteSettings settings) {
 
     final String? _path = RoutePather.getPathFromRouteSettingsName(settings.name);
-
     final String? _arg = RoutePather.getArgFromRouteSettingsName(settings.name);
+
+    final Route<dynamic>? _deep = _goDeep(settings);
+    if (_deep != null){
+      return _deep;
+    }
 
     switch (_path) {
     // ------------------------------------------------------------
@@ -123,6 +127,43 @@ class Routing {
           settings: settings,
         );
     // ------------------------------------------------------------
+    }
+
+  }
+  // --------------------
+  /// TASk : VALIDATE ME
+  static Route<dynamic>? _goDeep(RouteSettings settings){
+
+    final String? _path = RoutePather.getPathFromRouteSettingsName(settings.name);
+    final String? _arg = RoutePather.getArgFromRouteSettingsName(settings.name);
+
+    blog('router : _path : $_path');
+    blog('router : _arg : $_arg');
+    blog('router : settings : $settings');
+
+    if (
+    TextCheck.stringStartsExactlyWith(
+        text: _path,
+        startsWith: '/redirect',
+    ) == true
+    ){
+
+      /// key=value&key2=value2&;
+      final Uri _uri = Uri.parse('bldrs://deep${settings.name}');
+      final String? _args = _uri.queryParameters.toString();
+
+
+      return Nav.transitFade(
+        screen: RedirectScreen(
+          path: _path,
+          arg: _args,
+        ),
+        settings: settings,
+      );
+    }
+
+    else {
+      return null;
     }
 
   }
