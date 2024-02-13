@@ -627,3 +627,57 @@ class Routing {
   }
   // -----------------------------------------------------------------------------
 }
+
+/*
+THE REDIRECTOR
+adb shell 'am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "bldrs://deep/redirect"' net.bldrs.app
+
+---
+
+adb shell 'am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "bldrs://deep/redirect
+?key=e&key2=value2"' net.bldrs.app
+
+Nour Magdi
+7:35 AM
+https://developers.facebook.com/tools/explorer/427786221866015/?method=GET&path=me%2Faccounts&version=v19.0
+You
+7:37 AM
+17841447816479749
+Hover over a message to pin it
+keep
+You
+9:08 AM
+https://www.instagram.com/lumiereegypt
+You
+9:34 AM
+17841447816479749?fields=business_discovery.username(modulorstudio_eg)
+You
+9:36 AM
+17841447816479749?fields=profile_picture_url,ig_id,followers_count,name,website,media
+Nour Magdi
+9:40 AM
+business_discovery.username(modulorstudio_eg) {
+profile_picture_url,
+ig_id,
+followers_count,
+name,
+website,
+media
+}
+Nour Magdi
+10:19 AM
+adb shell 'am start -a android.intent.action.VIEW \
+-c android.intent.category.BROWSABLE \
+-d "bldrs://deep/redirect"' \
+net.bldrs.app
+Nour Magdi
+10:20 AM
+adb shell 'am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "bldrs://deep/redirect"' net.bldrs.app
+You
+11:17 AM
+"bldrs://deep/redirect
+?key=e&key2=value2"
+
+-------
+
+ */

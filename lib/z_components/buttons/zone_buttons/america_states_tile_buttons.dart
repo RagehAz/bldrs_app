@@ -23,7 +23,7 @@ class AmericaStatesTileButtons extends StatelessWidget {
     required this.disabledCountriesIDs,
     required this.onDisabledStateTap,
     required this.censusModels,
-    required this.selectedZone,
+    required this.selectedCountries,
     this.width,
     this.height,
     this.verse,
@@ -40,7 +40,7 @@ class AmericaStatesTileButtons extends StatelessWidget {
   final bool verseCentered;
   final Function onStateTap;
   final Function? onDisabledStateTap;
-  final ZoneModel? selectedZone;
+  final List<String> selectedCountries;
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUSABoxIsActive({
@@ -125,7 +125,9 @@ class AmericaStatesTileButtons extends StatelessWidget {
     /// IS SELECTED
 
     // --------------------
-    final bool _usaIsSelected = America.checkCountryIDIsStateID(selectedZone?.countryID);
+    final bool _usaIsSelected = America.checkCountriesIDsIncludeAStateID(
+      countriesIDs: selectedCountries,
+    );
     // --------------------
     return ZoneButtonBox(
       onTap: null,
@@ -211,7 +213,10 @@ class AmericaStatesTileButtons extends StatelessWidget {
                       activeStatesIDs: _activeStatesIDs,
                     );
 
-                    final bool _isSelected = selectedZone?.countryID == _stateID;
+                    final bool _isSelected = Stringer.checkStringsContainString(
+                        strings: selectedCountries,
+                        string: _stateID,
+                    );
 
                     final double _heightMultiplier = isActive == true && _canShowCensus == true ? 1.8 : 1;
 

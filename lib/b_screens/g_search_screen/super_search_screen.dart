@@ -364,7 +364,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
            depth: ZoneDepth.city,
            zoneViewingEvent: ViewingEvent.homeView,
            viewerZone: UsersProvider.proGetUserZone(context: context, listen: false),
-           selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
+           selectedCountries: ZoneModel.packZoneInCountriesIDs(ZoneProvider.proGetCurrentZone(context: context, listen: false)),
          );
 
          await ZoneProvider.proSetCurrentZone(
@@ -693,9 +693,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             depth: ZoneDepth.city,
             zoneViewingEvent: ViewingEvent.homeView,
             viewerZone: UsersProvider.proGetUserZone(context: context, listen: false),
-            selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
+            selectedCountries: ZoneModel.packZoneInCountriesIDs(ZoneProvider.proGetCurrentZone(context: context, listen: false)),
           );
-
 
           await ZoneProvider.proSetCurrentZone(
             zone: _newZone,
@@ -863,7 +862,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       depth: ZoneDepth.city,
       zoneViewingEvent: ViewingEvent.homeView,
       viewerZone: UsersProvider.proGetUserZone(context: context, listen: false),
-      selectedZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
+      selectedCountries: ZoneModel.packZoneInCountriesIDs(ZoneProvider.proGetCurrentZone(context: context, listen: false)),
     );
 
     await ZoneProvider.proSetCurrentZone(

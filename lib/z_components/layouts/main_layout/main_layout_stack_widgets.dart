@@ -25,7 +25,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
     required this.onSearchSubmit,
     required this.onPaste,
     required this.onSearchChanged,
-    required this.sectionButtonIsOn,
     required this.searchButtonIsOn,
     required this.pyramidsAreOn,
     required this.searchHintVerse,
@@ -56,7 +55,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final ValueChanged<String?>? onSearchChanged;
   final bool pyramidsAreOn;
   final bool searchButtonIsOn;
-  final bool sectionButtonIsOn;
   final Verse? searchHintVerse;
   final ValueNotifier<bool>? loading;
   final ValueNotifier<ProgressBarModel?>? progressBarModel;
@@ -147,7 +145,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
               loading: loading,
               progressBarModel: progressBarModel,
               appBarScrollController: appBarScrollController,
-              sectionButtonIsOn: sectionButtonIsOn,
               searchController: searchController,
               onSearchSubmit: onSearchSubmit,
               onPaste: onPaste,

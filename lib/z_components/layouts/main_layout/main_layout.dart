@@ -40,7 +40,6 @@ class MainLayout extends StatelessWidget {
     this.onPaste,
     this.onSearchChanged,
     this.searchButtonIsOn = true,
-    this.sectionButtonIsOn = false,
     this.searchHintVerse,
     this.loading,
     this.progressBarModel,
@@ -72,7 +71,6 @@ class MainLayout extends StatelessWidget {
   final ValueChanged<String?>? onPaste;
   final ValueChanged<String?>? onSearchChanged;
   final bool searchButtonIsOn;
-  final bool sectionButtonIsOn;
   final Verse? searchHintVerse;
   final ValueNotifier<bool>? loading;
   final ValueNotifier<ProgressBarModel?>? progressBarModel;
@@ -150,7 +148,6 @@ class MainLayout extends StatelessWidget {
               loading: loading,
               progressBarModel: progressBarModel,
               appBarScrollController: appBarScrollController,
-              sectionButtonIsOn: sectionButtonIsOn,
               searchController: searchController,
               onSearchSubmit: onSearchSubmit,
               onPaste: onPaste,
