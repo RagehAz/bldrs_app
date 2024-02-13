@@ -23,6 +23,7 @@ class BldrsTileBubble extends StatelessWidget {
     this.bubbleColor = Colorz.white10,
     this.validator,
     this.autoValidate = true,
+    this.hasBottomPadding = true,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -40,6 +41,7 @@ class BldrsTileBubble extends StatelessWidget {
   final Color bubbleColor;
   final String? Function()? validator;
   final bool autoValidate;
+  final bool hasBottomPadding;
   /// --------------------------------------------------------------------------
   // static const double iconBoxWidth = 30; /// delete me 5alas (im in BubbleHeader class)
   // /// --------------------------------------------------------------------------
@@ -87,6 +89,7 @@ class BldrsTileBubble extends StatelessWidget {
       secondLine: Verse.bakeVerseToString(verse: secondLineVerse),
       secondLineColor: verseColor,
       secondLineTextHeight: BldrsText.superVerseRealHeight(context: context, size: 2, sizeFactor: 1, hasLabelBox: false),
+      hasBottomPadding: hasBottomPadding,
       // focusNode: ,
       child: child,
     );
