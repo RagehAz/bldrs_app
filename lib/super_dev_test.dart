@@ -113,6 +113,6 @@ business_discovery.username(modulorstudio_eg) {
     }
 }
 
-
+adb shell 'am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "bldrs://deep/redirect"' net.bldrs.app
 
  */
