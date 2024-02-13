@@ -69,7 +69,6 @@ class AppBarHolder extends StatelessWidget {
           loading: loading,
           progressBarModel: progressBarModel,
           appBarScrollController: null,
-          sectionButtonIsOn: false,
           searchController: searchController,
           onSearchSubmit: onSearchSubmit,
           onPaste: onPaste,

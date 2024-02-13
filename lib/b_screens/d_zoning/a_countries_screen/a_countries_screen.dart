@@ -14,6 +14,7 @@ import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/b_screens/d_zoning/a_countries_screen/aa_countries_screen_browse_view.dart';
 import 'package:bldrs/b_screens/d_zoning/a_countries_screen/aa_countries_screen_search_view.dart';
 import 'package:bldrs/b_screens/d_zoning/x_zone_selection_ops.dart';
+import 'package:bldrs/z_components/buttons/editors_buttons/editor_confirm_button.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/loading/loading_full_screen_layer.dart';
@@ -30,16 +31,18 @@ class CountriesScreen extends StatefulWidget {
     required this.zoneViewingEvent,
     required this.depth,
     required this.viewerZone,
-    required this.selectedZone,
+    required this.selectedCountries,
     this.ignoreCensusAndStaging = false,
+    this.multipleSelection = false,
     super.key
   });
   // --------------------
   final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
   final ZoneModel? viewerZone;
-  final ZoneModel? selectedZone;
+  final List<String>? selectedCountries;
   final bool ignoreCensusAndStaging;
+  final bool multipleSelection;
   // --------------------
   @override
   _CountriesScreenState createState() => _CountriesScreenState();
@@ -138,6 +141,8 @@ class _CountriesScreenState extends State<CountriesScreen> {
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<Phrase>?> _foundCountries = ValueNotifier<List<Phrase>?>(null);
   // --------------------
+  final ValueNotifier<List<String>> selectedCountries = ValueNotifier([]);
+  // --------------------
   List<String> _activeCountriesIDs = <String>[];
   List<String> _disabledCountriesIDs = <String>[];
   // --------------------
@@ -158,6 +163,9 @@ class _CountriesScreenState extends State<CountriesScreen> {
   @override
   void initState() {
     super.initState();
+
+    selectedCountries.value = widget.selectedCountries ?? const [];
+
   }
   // --------------------
   bool _isInit = true;
@@ -190,6 +198,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
     _isSearching.dispose();
     _foundCountries.dispose();
     _loading.dispose();
+    selectedCountries.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -284,7 +293,6 @@ class _CountriesScreenState extends State<CountriesScreen> {
     }
 
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _loadCountriesIgnoreCensusAndStaging() async {
@@ -381,19 +389,31 @@ class _CountriesScreenState extends State<CountriesScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _onCountryTap(String countryID) async {
 
-    await ZoneSelection.onSelectCountry(
-      context: context,
-      countryID: countryID,
-      depth: widget.depth,
-      zoneViewingEvent: widget.zoneViewingEvent,
-      viewerZone: widget.viewerZone,
-      selectedZone: countryID == widget.selectedZone?.countryID ?
-      widget.selectedZone
-          :
-      ZoneModel(
+    if (widget.multipleSelection == true){
+
+      final List<String> _newIDs = Stringer.addOrRemoveStringToStrings(
+          strings: selectedCountries.value,
+          string: countryID,
+      );
+
+      setNotifier(notifier: selectedCountries, mounted: mounted, value: _newIDs);
+
+    }
+
+    else {
+
+      final String? _selectedCountryID = selectedCountries.value.firstOrNull;
+      final ZoneModel? _selectedZone = _selectedCountryID == null ? null : ZoneModel(countryID: _selectedCountryID);
+
+      await ZoneSelection.onSelectCountry(
+        context: context,
         countryID: countryID,
-      ),
-    );
+        depth: widget.depth,
+        zoneViewingEvent: widget.zoneViewingEvent,
+        viewerZone: widget.viewerZone,
+        selectedZone: _selectedZone,
+      );
+    }
 
   }
   // --------------------
@@ -417,6 +437,32 @@ class _CountriesScreenState extends State<CountriesScreen> {
     blog('onDeactivatedCountryTap : browse view : $countryID');
 
     await Dialogs.zoneIsNotAvailable();
+
+  }
+  // -----------------------------------------------------------------------------
+  Widget? _getConfirmButton(){
+
+    if (widget.multipleSelection == false){
+      return null;
+    }
+    else {
+
+      final String? _confirmText = getWord('phid_confirm');
+      final String? _count = selectedCountries.value.length.toString();
+
+      return ConfirmButton(
+        confirmButtonModel: ConfirmButtonModel(
+          firstLine: Verse.plain('$_confirmText $_count'),
+          onSkipTap: () => Nav.goBack(context: context),
+          isWide: true,
+          onTap: () => Nav.goBack(
+            context: context,
+            passedData: selectedCountries.value,
+          ),
+        ),
+      );
+
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -444,6 +490,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
         translate: true,
       ),
       loading: _loading,
+      confirmButton: _getConfirmButton(),
       child: ValueListenableBuilder(
           valueListenable: _loading,
           builder: (BuildContext context, bool loading, Widget? child){
@@ -457,44 +504,48 @@ class _CountriesScreenState extends State<CountriesScreen> {
               return WidgetFader(
                 fadeType: FadeType.fadeIn,
                 child: ValueListenableBuilder(
-                  valueListenable: _isSearching,
-                  builder: (BuildContext context, bool isSearching, Widget? child){
+                    valueListenable: selectedCountries,
+                    builder: (BuildContext context, List<String> theSelectedCountries, Widget? child){
 
-                    /// WHILE SEARCHING
-                    if (isSearching == true){
 
-                      return CountriesScreenSearchView(
-                        foundCountries: _foundCountries,
-                        activeCountriesIDs: _activeCountriesIDs,
-                        disabledCountriesIDs: _disabledCountriesIDs,
-                        countriesCensus: _censuses,
-                        selectedZone: widget.selectedZone,
-                        onCountryTap: _onCountryTap,
-                        onDisabledCountryTap: _onDeactivatedCountryTap,
+                      return ValueListenableBuilder(
+                        valueListenable: _isSearching,
+                        builder: (BuildContext context, bool isSearching, Widget? child){
+
+                          /// WHILE SEARCHING
+                          if (isSearching == true){
+                            return CountriesScreenSearchView(
+                              foundCountries: _foundCountries,
+                              activeCountriesIDs: _activeCountriesIDs,
+                              disabledCountriesIDs: _disabledCountriesIDs,
+                              countriesCensus: _censuses,
+                              selectedCountries: theSelectedCountries,
+                              onCountryTap: _onCountryTap,
+                              onDisabledCountryTap: _onDeactivatedCountryTap,
+                            );
+                          }
+
+                          /// WHILE BROWSING
+                          else {
+                            return CountriesScreenBrowseView(
+                              shownCountriesIDs: _activeCountriesIDs,
+                              disabledCountriesIDs: _disabledCountriesIDs,
+                              countriesCensus: _censuses,
+                              planetCensus: _planetCensus,
+                              selectedCountries: theSelectedCountries,
+                              onCountryTap: _onCountryTap,
+                              onDisabledCountryTap: _onDeactivatedCountryTap,
+                              onPlanetTap: _onPlanetTap,
+                              showPlanetButton: StagingModel.checkMayShowViewAllZonesButton(
+                                zoneViewingEvent: widget.zoneViewingEvent,
+                              ),
+                            );
+                          }
+
+                          },
                       );
-
                     }
-
-                    /// WHILE BROWSING
-                    else {
-                      return CountriesScreenBrowseView(
-                        shownCountriesIDs: _activeCountriesIDs,
-                        disabledCountriesIDs: _disabledCountriesIDs,
-                        countriesCensus: _censuses,
-                        planetCensus: _planetCensus,
-                        selectedZone: widget.selectedZone,
-                        onCountryTap: _onCountryTap,
-                        onDisabledCountryTap: _onDeactivatedCountryTap,
-                        onPlanetTap: _onPlanetTap,
-                        showPlanetButton: StagingModel.checkMayShowViewAllZonesButton(
-                          zoneViewingEvent: widget.zoneViewingEvent,
-                        ),
-                      );
-
-                    }
-
-                    },
-                ),
+                    ),
               );
 
             }
