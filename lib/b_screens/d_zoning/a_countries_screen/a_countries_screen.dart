@@ -277,7 +277,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
           _disabledCountriesIDs = _disabledIDs;
           _censuses = _countriesCensuses;
           _planetCensus = _fetchedPlanetCensus;
-          // Stringer.blogStrings(strings: _shownCountriesIDs, invoker: 'loadCountries');
+          Stringer.blogStrings(strings: _activeCountriesIDs, invoker: 'loadCountries');
         });
       }
       // --------------------
@@ -295,7 +295,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
     // --------------------
     /// ACTIVE IDS
-    List<String> _activeIDs = Flag.getAllCountriesIDs();
+    List<String> _activeIDs = [...Flag.getAllCountriesIDs(), ...America.getStatesIDs()];
     /// ACTIVATE MY COUNTRY ID
     _activeIDs = StagingModel.addMyCountryIDToActiveCountries(
       shownCountriesIDs: _activeIDs,
@@ -314,11 +314,11 @@ class _CountriesScreenState extends State<CountriesScreen> {
     /// DISABLED IDS
     List<String> _disabledIDs = [];
     /// ADD USA IF NOT ADDED
-    if (_activeIDs.contains('usa') == false){
-      _disabledIDs = America.addUSAIDToCountriesIDsIfContainsAStateID(
-        countriesIDs: _disabledIDs,
-      );
-    }
+    // if (_activeIDs.contains('usa') == false){
+    //   _disabledIDs = America.addUSAIDToCountriesIDsIfContainsAStateID(
+    //     countriesIDs: _disabledIDs,
+    //   );
+    // }
     // --------------------
 
     /// SORT COUNTRIES
@@ -350,7 +350,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
         _disabledCountriesIDs = _disabledIDs;
         _censuses = _countriesCensuses;
         _planetCensus = _fetchedPlanetCensus;
-        // Stringer.blogStrings(strings: _shownCountriesIDs, invoker: 'loadCountries');
+        Stringer.blogStrings(strings: _activeCountriesIDs, invoker: 'loadCountries');
       });
     }
     // --------------------

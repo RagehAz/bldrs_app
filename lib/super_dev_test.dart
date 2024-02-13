@@ -90,3 +90,29 @@ dont use this ' ' or this " " or this ''' ''' or this """ """
 just write the values
 
 * */
+
+
+/*
+
+17841447816479749?fields=business_discovery.username(modulorstudio_eg)
+
+17841447816479749?fields=profile_picture_url,ig_id,followers_count,name,website,media
+
+business_discovery.username(modulorstudio_eg) {
+    profile_picture_url,
+    ig_id,
+    followers_count,
+    name,
+    biography,
+    website,
+    media {
+      media_url,
+      children {
+        media_url
+      }
+    }
+}
+
+
+
+ */
