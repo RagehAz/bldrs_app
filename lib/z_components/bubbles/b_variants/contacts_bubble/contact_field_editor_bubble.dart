@@ -6,6 +6,7 @@ import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_clip_board.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
@@ -22,6 +23,7 @@ class ContactFieldEditorBubble extends StatefulWidget {
     required this.headerViewModel,
     required this.formKey,
     required this.contactsArePublic,
+    this.contactType,
     this.hintVerse,
     // this.textController,
     this.textOnChanged,
@@ -69,6 +71,7 @@ class ContactFieldEditorBubble extends StatefulWidget {
   final bool autoValidate;
   final TextEditingController? textController;
   final bool contactsArePublic;
+  final ContactType? contactType;
   /// --------------------------------------------------------------------------
   @override
   _ContactFieldEditorBubbleState createState() => _ContactFieldEditorBubbleState();
@@ -179,7 +182,20 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
     String? value = await TextClipBoard.paste();
 
     if (TextCheck.isEmpty(value) == false){
-      value = TextMod.removeSpacesFromAString(value);
+      value = TextMod.removeSpacesFromAString(value!.toLowerCase());
+
+      if (widget.contactType == ContactType.phone){
+        value = TextMod.modifyAllCharactersWith(characterToReplace: '(', replacement: '', input: value);
+        value = TextMod.modifyAllCharactersWith(characterToReplace: ')', replacement: '', input: value);
+        value = TextMod.modifyAllCharactersWith(characterToReplace: ' ', replacement: '', input: value);
+        value = TextMod.modifyAllCharactersWith(characterToReplace: '-', replacement: '', input: value);
+        value = TextMod.modifyAllCharactersWith(characterToReplace: '_', replacement: '', input: value);
+        if (TextCheck.stringStartsExactlyWith(text: value, startsWith: '00') == true){
+          final String _n = TextMod.removeNumberOfCharactersFromBeginningOfAString(string: value, numberOfCharacters: 2)!;
+          value = '+$_n';
+        }
+      }
+
       _textController.text = value ?? '';
     }
 
