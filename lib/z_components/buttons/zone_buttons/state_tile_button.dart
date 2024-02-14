@@ -1,5 +1,5 @@
 import 'package:basics/components/bubbles/bubble/bubble.dart';
-import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
+import 'package:basics/models/america.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/buttons/zone_buttons/census_line.dart';

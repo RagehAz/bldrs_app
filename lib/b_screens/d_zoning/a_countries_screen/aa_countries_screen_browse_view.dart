@@ -1,6 +1,6 @@
 import 'package:basics/helpers/strings/stringer.dart';
+import 'package:basics/models/america.dart';
 import 'package:basics/models/flag_model.dart';
-import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
 import 'package:bldrs/z_components/buttons/zone_buttons/america_states_tile_buttons.dart';
 import 'package:bldrs/z_components/buttons/zone_buttons/country_tile_button.dart';
