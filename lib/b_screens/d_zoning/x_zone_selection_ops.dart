@@ -69,6 +69,30 @@ class ZoneSelection {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static Future<List<String>> goBringCountries({
+    required ZoneDepth depth,
+    required ViewingEvent zoneViewingEvent,
+    required ZoneModel? viewerZone,
+    required List<String> selectedCountries,
+    bool ignoreCensusAndStaging = false,
+  }) async {
+
+    final List<String>? _countriesIDs = await BldrsNav.goToNewScreen(
+      duration: const Duration(milliseconds: 350),
+      screen: CountriesScreen(
+        zoneViewingEvent: zoneViewingEvent,
+        depth: depth,
+        viewerZone: viewerZone,
+        selectedCountries: selectedCountries,
+        ignoreCensusAndStaging: ignoreCensusAndStaging,
+        multipleSelection: true,
+      ),
+    );
+
+    return _countriesIDs ?? [];
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<ZoneModel?> goToCountriesScreen({
     required ViewingEvent zoneViewingEvent,
     required ZoneDepth depth,
@@ -86,6 +110,7 @@ class ZoneSelection {
         viewerZone: viewerZone,
         selectedCountries: selectedCountries,
         ignoreCensusAndStaging: ignoreCensusAndStaging,
+        // multipleSelection: false,
       ),
     );
 

@@ -3,6 +3,7 @@ import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/helpers/strings/stringer.dart';
+import 'package:basics/models/america.dart';
 import 'package:basics/models/flag_model.dart';
 import 'package:basics/components/drawing/dot_separator.dart';
 import 'package:basics/components/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';

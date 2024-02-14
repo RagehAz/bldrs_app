@@ -5,7 +5,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
-import 'package:basics/helpers/maps/mapper_ss.dart';
+import 'package:basics/models/america.dart';
 import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
