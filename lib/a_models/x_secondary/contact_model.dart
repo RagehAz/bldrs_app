@@ -623,7 +623,7 @@ class ContactModel {
         _output.insert(_index, contactToReplace);
       }
       else{
-        _output.insert(_index, contactToReplace);
+        _output.add(contactToReplace);
       }
 
     }
@@ -1098,10 +1098,17 @@ class ContactModel {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString(){
+
+    final String _type = TextMod.removeNumberOfCharactersFromBeginningOfAString(
+        string: type.toString(),
+        numberOfCharacters: 'ContactType.'.length,
+    )!;
+
+    return 'ContactModel(type: $_type, value: $value)';
+
+   }
   // --------------------
   @override
   bool operator == (Object other){
