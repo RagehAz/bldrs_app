@@ -6,6 +6,7 @@ import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/searching.dart';
+import 'package:basics/models/america.dart';
 import 'package:basics/models/flag_model.dart';
 import 'package:basics/models/phrase_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
@@ -420,14 +421,24 @@ class _CountriesScreenState extends State<CountriesScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _onPlanetTap() async {
 
-    await ZoneSelection.onSelectCountry(
-      context: context,
-      countryID: Flag.planetID,
-      depth: widget.depth,
-      zoneViewingEvent: widget.zoneViewingEvent,
-      viewerZone: widget.viewerZone,
-      selectedZone: ZoneModel.planetZone,
-    );
+    if (widget.multipleSelection == true){
+
+      setNotifier(notifier: selectedCountries, mounted: mounted, value: <String>[]);
+
+    }
+
+    else {
+
+      await ZoneSelection.onSelectCountry(
+        context: context,
+        countryID: Flag.planetID,
+        depth: widget.depth,
+        zoneViewingEvent: widget.zoneViewingEvent,
+        viewerZone: widget.viewerZone,
+        selectedZone: ZoneModel.planetZone,
+      );
+
+    }
 
   }
   // --------------------
@@ -447,19 +458,29 @@ class _CountriesScreenState extends State<CountriesScreen> {
     }
     else {
 
-      final String? _confirmText = getWord('phid_confirm');
-      final String? _count = selectedCountries.value.length.toString();
 
-      return ConfirmButton(
-        confirmButtonModel: ConfirmButtonModel(
-          firstLine: Verse.plain('$_confirmText $_count'),
-          onSkipTap: () => Nav.goBack(context: context),
-          isWide: true,
-          onTap: () => Nav.goBack(
-            context: context,
-            passedData: selectedCountries.value,
-          ),
-        ),
+      return ValueListenableBuilder(
+          valueListenable: selectedCountries,
+          builder: (BuildContext context, List<String> theSelectedCountries, Widget? child){
+
+            final String? _confirmText = getWord('phid_confirm');
+            final int _length = theSelectedCountries.length;
+            final String? _count = _length == 0 ? '' : ' $_length';
+
+            return ConfirmButton(
+              enAlignment: Alignment.bottomCenter,
+              confirmButtonModel: ConfirmButtonModel(
+                firstLine: Verse.plain('$_confirmText$_count'),
+                secondLine: _length == 0 ? getVerse('phid_the_entire_world') : null,
+                onSkipTap: () => Nav.goBack(context: context),
+                isWide: true,
+                onTap: () => Nav.goBack(
+                  context: context,
+                  passedData: theSelectedCountries,
+                ),
+              ),
+            );
+          }
       );
 
     }

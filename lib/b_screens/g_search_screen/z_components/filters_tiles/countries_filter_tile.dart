@@ -67,7 +67,7 @@ class CountriesFilterTile extends StatelessWidget {
                 height: 30,
                 maxWidth: TileBubble.childWidth(context: context),
                 color: Colorz.black125,
-                icon: Flag.getCountryIcon(_countryID),
+                icon: Flag.getCountryIcon(_countryID, showUSStateFlag: true),
                 verse: Verse.plain(_countryName),
                 verseScaleFactor: 0.7,
                 onTap: () => onSelectedCountryTap(_countryID),
