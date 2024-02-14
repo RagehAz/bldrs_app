@@ -93,7 +93,7 @@ class CountryTileButton extends StatelessWidget {
         ),
 
         /// CENSUS LINE
-        //   if (isActive == true)
+          if (censusModel != null)
           CensusLine(
             width: width ?? _buttonWidth,
             censusModel: censusModel,

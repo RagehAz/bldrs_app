@@ -2,6 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/stringer.dart';
+import 'package:basics/models/america.dart';
 import 'package:basics/models/phrase_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/g_statistics/census/census_model.dart';
@@ -62,7 +63,7 @@ class CountriesScreenSearchView extends StatelessWidget {
 
           if (_containsStates == true){
 
-            _countriesButtons = America.addUSAIDToPhrasesIfContainsStates(
+            _countriesButtons = addUSAIDToPhrasesIfContainsStates(
               phrases: _countriesButtons,
             );
             _countriesButtons = America.removeStatesPhrases(
