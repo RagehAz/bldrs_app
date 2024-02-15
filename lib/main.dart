@@ -187,4 +187,5 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> with WidgetsBindingOb
 //       child: widget.child,
 //     );
 //   }
+//
 // }
