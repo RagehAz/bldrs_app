@@ -34,9 +34,11 @@ class _LogoScreenState extends State<LogoScreen> {
       asyncInSync(() async {
 
         await Future.delayed(const Duration(milliseconds: 400));
-        setState(() {
-          _isInit = false; // good
-        });
+        if (mounted == true){
+          setState(() {
+            _isInit = false; // good
+          });
+        }
         await Future.delayed(const Duration(milliseconds: 700));
 
         await BldrsEngine.logoScreenRouting(mounted: mounted);
