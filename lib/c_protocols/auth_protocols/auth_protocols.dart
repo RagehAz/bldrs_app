@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -486,5 +489,91 @@ class AuthProtocols {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// READ ALL AUTH USERS
+
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<AuthModel>> readAllAuthUsers() async {
+
+    final dynamic _response = await CloudFunction.call(
+      functionName: CloudFunction.callGetAuthUsers,
+    );
+
+    final List<Map<String, dynamic>> _maps = Mapper.getMapsFromDynamics(dynamics: _response);
+
+    if (Lister.checkCanLoop(_maps) == false){
+      return [];
+    }
+
+    else {
+
+      // final Map<String, dynamic> sampleMap = {
+      //   'displayName': null,
+      //   'passwordHash': 'k77qJuAsw6hlSKwljUgww4K8LvWVDyXyIxCMZSD3cPt36bNrTKsiHHswd9RpjzJ-vJlH20uk5O9VMqJPsLdv0Q==',
+      //   'uid': '0BeoULf9ivRVUsZoWG9Jr0j1YC42',
+      //   'emailVerified': false,
+      //   'photoURL': null,
+      //   'phoneNumber': null,
+      //   'tenantId': null,
+      //   'disabled': false,
+      //   'passwordSalt': 'golLWjtzfdyyPw==',
+      //   'tokensValidAfterTime': 'Sat, 30 Sep 2023 16:29:23 GMT',
+      //   'email': 'bldr_1303306000@bldrs.net',
+      //   'customClaims': null,
+      //   'metadata': {
+      //     'lastSignInTime': 'Sat, 30 Sep 2023 16:29:23 GMT',
+      //     'creationTime': 'Sat, 30 Sep 2023 16:29:23 GMT',
+      //     'lastRefreshTime': 'Sat, 30 Sep 2023 16:29:23 GMT'
+      //   },
+      //   'providerData': [
+      //     {
+      //       'uid': 'bldr_1303306000@bldrs.net',
+      //       'photoURL': null,
+      //       'phoneNumber': null,
+      //       'displayName': null,
+      //       'providerId': 'password',
+      //       'email': 'bldr_1303306000@bldrs.net'
+      //     }
+      //     ],
+      // };
+
+      final List<AuthModel> _authModels = [];
+
+      for (final Map<String, dynamic> map in _maps){
+
+        final List<dynamic>? _providerData = map['providerData'];
+        final Map? _firstProviderDataMap = Lister.checkCanLoop(_providerData) == true ? _providerData!.first : null;
+
+        final AuthModel _authModel = AuthModel(
+          id: map['uid'],
+          name: map['displayName'],
+          email: map['email'],
+          phone: map['phoneNumber'],
+          imageURL: map['photoURL'],
+          signInMethod: AuthModel.decipherSignInMethod(_firstProviderDataMap?['providerId']),
+          data: {
+            'passwordHash': map['passwordHash'],
+            'passwordSalt': map['passwordSalt'],
+            'emailVerified': map['emailVerified'],
+            'tenantId': map['tenantId'],
+            'disabled': map['disabled'],
+            'tokensValidAfterTime': map['tokensValidAfterTime'],
+            'customClaims': map['customClaims'],
+            'lastSignInTime': map['metadata']?['lastSignInTime'],
+            'creationTime': map['metadata']?['creationTime'],
+            'lastRefreshTime': map['metadata']?['lastRefreshTime'],
+          },
+        );
+
+        _authModels.add(_authModel);
+
+      }
+
+      return  _authModels;
+    }
+
+  }
+  // -----------------------------------------------------------------------------
 }

@@ -48,6 +48,8 @@ class CloudFunction {
   static const String callSendFCMsToDevices = 'callSendFCMsToDevices'; // v2 : multiple notes => multiple devices ( due to different topics )
   // --------------------
   static const String callDeleteStorageDirectory = 'callDeleteStorageDirectory';
+
+  static const String callGetAuthUsers = 'callGetAuthUsers';
   // -----------------------------------------------------------------------------
 
   /// INSTANCE

@@ -13,6 +13,7 @@ class UserTileButton extends StatelessWidget {
     this.onTap,
     this.secondLine,
     this.margins,
+    this.loading = false,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -23,6 +24,7 @@ class UserTileButton extends StatelessWidget {
   final UserModel? userModel;
   final Verse? secondLine;
   final dynamic margins;
+  final bool loading;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class UserTileButton extends StatelessWidget {
       height: height,
       color: color,
       onTap: onTap,
+      loading: loading,
       icon: userModel?.picPath,
       verse: Verse.plain(userModel?.name),
       secondLine: secondLine,
