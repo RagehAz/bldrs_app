@@ -19,6 +19,7 @@ class TileButton extends StatelessWidget {
     this.isActive = true,
     this.corners,
     this.verseCentered = false,
+    this.loading = false,
     super.key
   });
   // -----------------------------------------------------------------------------
@@ -34,6 +35,7 @@ class TileButton extends StatelessWidget {
   final bool isActive;
   final dynamic corners;
   final bool verseCentered;
+  final bool loading;
   // -----------------------------------------------------------------------------
   static const double defaultHeight = 40;
   // -----------------------------------------------------------------------------
@@ -42,6 +44,7 @@ class TileButton extends StatelessWidget {
 
     return BldrsBox(
       width: width,
+      loading: loading,
       isDisabled: !isActive,
       // greyscale: !isActive,
       height: height ?? defaultHeight,
