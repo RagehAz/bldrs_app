@@ -8,34 +8,6 @@ const admin = require('firebase-admin');
 const userMethods = require('./user_methods');
 // --------------------------------------------------------------------------
 
-//  CALLABLES
-
-// --------------------
-// TESTED : WORKS PERFECT
-const callSendFCMToDevice = functions.https.onCall((noteModel, context) => {
-  const result = sendFCMToDevice(noteModel);
-  return result;
-});
-// --------------------
-// 
-const callSendFCMToDevices = functions.https.onCall((noteModel, context) => {
-  const result = sendFCMToDevices(noteModel);
-  return result;
-});
-// --------------------
-// 
-const callSendFCMsToDevices = functions.https.onCall((noteModel, context) => {
-  const result = sendFCMsToDevices(noteModel);
-  return result;
-});
-// --------------------
-// TESTED : WORKS PERFECT
-const callSendFCMToTopic = functions.https.onCall((noteModel, context) => {
-  const result = sendFCMToTopic(noteModel);
-  return result;
-});
-// --------------------------------------------------------------------------
-
 //  PAYLOAD
 
 // --------------------
@@ -254,6 +226,34 @@ const onFCMError = (error, noteModel) => {
     return false;
   }
 }
+// --------------------------------------------------------------------------
+
+//  CALLABLES
+
+// --------------------
+// TESTED : WORKS PERFECT
+const callSendFCMToDevice = functions.https.onCall((noteModel, context) => {
+  const result = sendFCMToDevice(noteModel);
+  return result;
+});
+// --------------------
+// 
+const callSendFCMToDevices = functions.https.onCall((noteModel, context) => {
+  const result = sendFCMToDevices(noteModel);
+  return result;
+});
+// --------------------
+// 
+const callSendFCMsToDevices = functions.https.onCall((noteModel, context) => {
+  const result = sendFCMsToDevices(noteModel);
+  return result;
+});
+// --------------------
+// TESTED : WORKS PERFECT
+const callSendFCMToTopic = functions.https.onCall((noteModel, context) => {
+  const result = sendFCMToTopic(noteModel);
+  return result;
+});
 // --------------------------------------------------------------------------
 
 //  MODULE EXPORTS
