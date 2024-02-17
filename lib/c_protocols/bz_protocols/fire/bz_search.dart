@@ -20,12 +20,13 @@ class BzSearch {
   static FireQueryModel createQuery({
     SearchModel? searchModel,
     String? bzName,
+    String? bzID,
     String? orderBy = 'createdAt',
     bool descending = true,
     int limit = 4,
   }){
 
-    final QueryOrderBy? _orderBy = orderBy == null ? null : QueryOrderBy(
+    final QueryOrderBy? _orderBy = orderBy == null || bzID != null ? null : QueryOrderBy(
       fieldName: orderBy,
       descending: descending,
     );
@@ -36,6 +37,13 @@ class BzSearch {
         limit: limit,
         // idFieldName: 'id',
         finders: <FireFinder>[
+
+          if (bzID != null)
+            FireFinder(
+              field: 'id',
+              comparison: FireComparison.equalTo,
+              value: bzID,
+            ),
 
           if (SearchModel.checkCanSearchByCountry(countryID: searchModel?.zone?.countryID) == true)
             FireFinder(

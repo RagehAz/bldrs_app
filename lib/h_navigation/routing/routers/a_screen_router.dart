@@ -152,7 +152,6 @@ class Routing {
       final Uri _uri = Uri.parse('bldrs://deep${settings.name}');
       final String? _args = _uri.queryParameters.toString();
 
-
       return Nav.transitFade(
         screen: RedirectScreen(
           path: _path,
