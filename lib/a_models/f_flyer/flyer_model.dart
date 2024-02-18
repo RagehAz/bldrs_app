@@ -4,8 +4,11 @@ import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/files/floaters.dart';
 import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/space/atlas.dart';
+import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
+import 'package:basics/helpers/time/timers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
@@ -14,14 +17,11 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/maps/mapper.dart';
-import 'package:basics/helpers/time/timers.dart';
-import 'package:basics/helpers/strings/stringer.dart';
 
 /// TAMAM
 @immutable
@@ -299,7 +299,7 @@ class FlyerModel {
         description: map['description'],
         // -------------------------
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
-        publishState: PublicationModel.decipherPublishState(map['publishState']),
+        publishState: PublicationModel.decipherPublishState(map['publishState']) ?? PublishState.draft,
         phids: Stringer.getStringsFromDynamics(map['phids']),
         showsAuthor: map['showsAuthor'],
         zone: ZoneModel.decipherZone(map['zone']),
