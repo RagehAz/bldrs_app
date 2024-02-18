@@ -124,14 +124,14 @@ class PublicationModel {
   }
   // --------------------
   ///  TESTED : WORKS PERFECT
-  static PublishState decipherPublishState (String? x){
+  static PublishState? decipherPublishState (String? x){
     switch (x){
       case 'draft'        :   return  PublishState.draft;
       case 'pending'      :   return  PublishState.pending;
       case 'published'    :   return  PublishState.published;
       case 'unpublished'  :   return  PublishState.unpublished;
       case 'suspended'    :   return  PublishState.suspended;
-      default : return   PublishState.draft;
+      default : return   null;
     }
   }
   // --------------------
