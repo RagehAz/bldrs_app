@@ -51,7 +51,10 @@ node_modules/
 # BUILD RELATED
 /ios/build/
 /Flutter
+<<<<<<< HEAD
 .git-rewrite
+=======
+>>>>>>> origin/main
 
 # SECRET KEYS TO BE MANUALLY MOVED
 #lib/bldrs_keys.dart
@@ -73,3 +76,4 @@ node_modules/
 
 # to removae a path from the entire repo history
 # git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch -r .vscode' --prune-empty --tag-name-filter cat -- --all
+
