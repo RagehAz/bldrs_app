@@ -51,6 +51,7 @@ node_modules/
 # BUILD RELATED
 /ios/build/
 /Flutter
+.git-rewrite
 
 # SECRET KEYS TO BE MANUALLY MOVED
 #lib/bldrs_keys.dart
@@ -69,3 +70,6 @@ node_modules/
 # git rm --cached ios/Runner/GoogleService-Info.plist
 # git rm --cached android/app/src/main/res/values/strings.xml
 # git rm --cached firestore.rules
+
+# to removae a path from the entire repo history
+# git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch -r .vscode' --prune-empty --tag-name-filter cat -- --all
