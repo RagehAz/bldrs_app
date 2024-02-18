@@ -156,6 +156,69 @@ class FlyerModel {
     );
 
   }
+
+  FlyerModel nullifyField({
+    bool lyerModel = false,
+    bool id = false,
+    bool headline = false,
+    bool trigram = false,
+    bool description = false,
+    bool flyerType = false,
+    bool publishState = false,
+    bool phids = false,
+    bool zone = false,
+    bool authorID = false,
+    bool bzID = false,
+    bool position = false,
+    bool slides = false,
+    bool specs = false,
+    bool times = false,
+    bool hasPriceTag = false,
+    bool isAmazonFlyer = false,
+    bool hasPDF = false,
+    bool showsAuthor = false,
+    bool score = false,
+    bool pdfPath = false,
+    bool shareLink = false,
+    bool price = false,
+    bool affiliateLink = false,
+    bool gtaLink = false,
+    bool bzLogoImage = false,
+    bool authorImage = false,
+    bool bzModel = false,
+    bool docSnapshot = false,
+  }){
+    return FlyerModel(
+      id: id == true ? null : this.id,
+      headline: headline == true ? null : this.headline,
+      trigram: trigram == true ? null : this.trigram,
+      description: description == true ? null : this.description,
+      flyerType: flyerType == true ? null : this.flyerType,
+      publishState: publishState == true ? PublishState.unpublished : this.publishState,
+      phids: phids == true ? null : this.phids,
+      zone: zone == true ? null : this.zone,
+      authorID: authorID == true ? null : this.authorID,
+      bzID: bzID == true ? null : this.bzID,
+      position: position == true ? null : this.position,
+      slides: slides == true ? null : this.slides,
+      // specs: specs == true ? null : this.specs,
+      times: times == true ? null : this.times,
+      hasPriceTag: hasPriceTag == true ? null : this.hasPriceTag,
+      isAmazonFlyer: isAmazonFlyer == true ? null : this.isAmazonFlyer,
+      hasPDF: hasPDF == true ? null : this.hasPDF,
+      showsAuthor: showsAuthor == true ? null : this.showsAuthor,
+      score: score == true ? null : this.score,
+      pdfPath: pdfPath == true ? null : this.pdfPath,
+      shareLink: shareLink == true ? null : this.shareLink,
+      price: price == true ? null : this.price,
+      affiliateLink: affiliateLink == true ? null : this.affiliateLink,
+      gtaLink: gtaLink == true ? null : this.gtaLink,
+      bzLogoImage: bzLogoImage == true ? null : this.bzLogoImage,
+      authorImage: authorImage == true ? null : this.authorImage,
+      bzModel: bzModel == true ? null : this.bzModel,
+      docSnapshot: docSnapshot == true ? null : this.docSnapshot,
+    );
+  }
   // -----------------------------------------------------------------------------
 
   /// FLYER CYPHERS
@@ -991,6 +1054,25 @@ class FlyerModel {
     }
 
     return _links;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<FlyerModel> getOnlyAmazonFlyers({
+    required List<FlyerModel> flyers,
+  }){
+    final List<FlyerModel> _output = [];
+
+    if (Lister.checkCanLoop(flyers) == true){
+      for (final FlyerModel flyer in flyers){
+
+        if (Mapper.boolIsTrue(flyer.isAmazonFlyer) == true){
+          _output.add(flyer);
+        }
+
+      }
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

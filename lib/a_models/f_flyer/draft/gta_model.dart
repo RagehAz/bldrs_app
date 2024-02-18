@@ -570,7 +570,7 @@ class GtaModel {
 
     if (map != null){
 
-      Mapper.blogMap(map, invoker: 'createGtaModelScrappedMap');
+      // Mapper.blogMap(map, invoker: 'createGtaModelScrappedMap');
 
       _output = GtaModel(
         id: Numeric.createUniqueID().toString(),
