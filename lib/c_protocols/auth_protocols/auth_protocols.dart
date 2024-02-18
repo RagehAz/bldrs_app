@@ -18,7 +18,6 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/drafters/debuggers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
 /// => TAMAM
 class AuthProtocols {
   // -----------------------------------------------------------------------------
@@ -454,9 +453,7 @@ class AuthProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> signInAsRage7({
-    required BuildContext context,
-  }) async {
+  static Future<void> signInAsRage7() async {
 
     final AuthModel? _authModel = await EmailAuthing.signIn(
       email: 'rageh@bldrs.net',

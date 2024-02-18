@@ -47,6 +47,19 @@ class PriceModel {
       currencyID: currencyID ?? this.currencyID,
     );
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  PriceModel nullifyField({
+    bool current = false,
+    bool old = false,
+    bool currencyID = false,
+  }){
+    return PriceModel(
+        current: current == true ? 0 : this.current,
+        old: old == true ? null : this.old,
+        currencyID: currencyID == true ? CurrencyModel.usaCurrencyID : this.currencyID,
+    );
+  }
   // -----------------------------------------------------------------------------
 
   /// CIPHER
