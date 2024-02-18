@@ -1,3 +1,4 @@
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
@@ -28,6 +29,8 @@ class FlyerSearch {
             descending: descending,
           );
 
+    blog('bijoooo : ${searchModel?.flyerSearchModel?.publishState}');
+
     return FireQueryModel(
       coll: FireColl.flyers,
       orderBy: _orderBy,
@@ -50,6 +53,14 @@ class FlyerSearch {
             comparison: FireComparison.equalTo,
             value: searchModel?.zone?.cityID,
           ),
+
+        // /// BY CITY
+        // if (SearchModel.checkCanSearchByCity(cityID: searchModel?.zone?.cityID) == true)
+        //   const FireFinder(
+        //     field: 'zone.cityID',
+        //     comparison: FireComparison.nullValue,
+        //     value: true,
+        //   ),
 
         /// BY FLYER TYPE
         if (searchModel?.flyerSearchModel?.flyerType != null)

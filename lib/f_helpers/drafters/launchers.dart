@@ -6,6 +6,7 @@ import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/components/drawing/spacing.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/a_models/f_flyer/draft/gta_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -128,28 +129,36 @@ class Launcher {
 
     if (link != null){
 
-      final String _notice = getWord('phid_will_open_this_link');
-      final String _body = '$_notice\n$link';
+      bool _go = true;
 
-      final bool _go = await Dialogs.confirmProceed(
-        titleVerse: const Verse(
-          id: 'phid_open_this_link_?',
-          translate: true,
-        ),
-        bodyVerse: Verse(
-          id: _body,
-          translate: false,
-          pseudo: 'This will open this link in your browser\nlink...',
-        ),
-        yesVerse: const Verse(
-          id: 'phid_open',
-          translate: true,
-        ),
-        noVerse: const Verse(
-          id: 'phid_cancel',
-          translate: true,
-        ),
-      );
+      final bool _isAmazonLink = GtaModel.isAmazonAffiliateLink(link);
+
+      if (_isAmazonLink == false){
+
+        final String _notice = getWord('phid_will_open_this_link');
+        final String _body = '$_notice\n$link';
+
+        _go = await Dialogs.confirmProceed(
+          titleVerse: const Verse(
+            id: 'phid_open_this_link_?',
+            translate: true,
+          ),
+          bodyVerse: Verse(
+            id: _body,
+            translate: false,
+            pseudo: 'This will open this link in your browser\nlink...',
+          ),
+          yesVerse: const Verse(
+            id: 'phid_open',
+            translate: true,
+          ),
+          noVerse: const Verse(
+            id: 'phid_cancel',
+            translate: true,
+          ),
+        );
+
+      }
 
       if (_go == true){
 
