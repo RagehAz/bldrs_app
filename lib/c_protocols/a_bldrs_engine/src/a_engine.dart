@@ -116,11 +116,6 @@ class BldrsEngine {
   /// TESTED : WORKS PERFECT
   static Future<void> appStartInit() async {
 
-    /// WINDOWS ADMIN AUTH
-    if (DeviceChecker.deviceIsWindows() == true){
-      await AuthProtocols.signInAsRage7(context: getMainContext());
-    }
-
     /// REFRESH LDB
     unawaited(UiInitializer.refreshLDB());
 
