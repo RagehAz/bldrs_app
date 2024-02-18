@@ -71,5 +71,4 @@ node_modules/
 # git rm --cached firestore.rules
 
 # to removae a path from the entire repo history
-# git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch -r .vscode' --prune-empty --tag-name-filter cat -- --all
-
+# git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch -r /Flutter' --prune-empty --tag-name-filter cat -- --all
