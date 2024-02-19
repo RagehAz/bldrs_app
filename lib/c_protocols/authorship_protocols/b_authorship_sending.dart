@@ -4,8 +4,8 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 /// => TAMAM
 class AuthorshipSendingProtocols {

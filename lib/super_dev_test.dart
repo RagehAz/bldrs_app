@@ -1,12 +1,16 @@
 import 'dart:async';
+
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
+import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
+import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:flutter/material.dart';
+
 import 'z_components/buttons/general_buttons/bldrs_box.dart';
 
 /// SUPER_DEV_TEST
@@ -15,12 +19,19 @@ const bool showTestButton = false;
 
 Future<void> superDevTestGoX() async {
 
+  WaitDialog.showUnawaitedWaitDialog();
+
+  await FCM.subscribeToTopic(
+    topicID: TopicModel.newUserSignUp,
+  );
+
   final UserModel? _user = UsersProvider.proGetMyUserModel(context: getMainContext(), listen: false);
 
-  _user?.blogUserModel(invoker: 'this bitch');
+  await NoteEvent.onUserSignUp(
+    userModel: _user,
+  );
 
-  final List<AccountModel> _accounts = await AccountLDBOps.readAllAccounts();
-  AccountModel.blogAccounts(_accounts);
+  await WaitDialog.closeWaitDialog();
 
 }
 

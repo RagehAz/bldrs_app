@@ -12,7 +12,7 @@ import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';

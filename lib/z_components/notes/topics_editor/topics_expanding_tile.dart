@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 class TopicsExpandingTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const TopicsExpandingTile({
-    required this.groupName,
+    required this.groupVerse,
     required this.topics,
     required this.builder,
     required this.width,
@@ -23,7 +23,7 @@ class TopicsExpandingTile extends StatelessWidget {
   
   /// --------------------------------------------------------------------------
   final List<TopicModel> topics;
-  final String groupName;
+  final Verse groupVerse;
   final Widget Function(TopicModel topic) builder;
   final double? width;
   // -----------------------------------------------------------------------------
@@ -43,7 +43,7 @@ class TopicsExpandingTile extends StatelessWidget {
         final List<TopicModel> _topics = map[group];
         final Widget _widget = TopicsExpandingTile(
           topics: _topics,
-          groupName: group,
+          groupVerse: Verse(id: group, translate: true),
           builder: builder,
           width: width,
         );
@@ -91,11 +91,7 @@ class TopicsExpandingTile extends StatelessWidget {
 
     return BldrsExpandingButton(
       width: width ?? PageBubble.width(context),
-      firstHeadline: Verse(
-        id: groupName,
-        translate: true,
-        // casing: Casing.upperCase,
-      ),
+      firstHeadline: groupVerse,
       // secondHeadline: const Verse(
       //   text: 'phid_notifications',
       //   translate: true,

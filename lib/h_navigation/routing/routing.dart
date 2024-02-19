@@ -27,7 +27,7 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/g_flyer/a_flyer_screen/a_flyer_preview_screen.dart';
 import 'package:bldrs/g_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
-import 'package:bldrs/redirect_scree.dart';
+import 'package:bldrs/redirect_screen.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';

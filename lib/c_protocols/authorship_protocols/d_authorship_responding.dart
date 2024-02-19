@@ -11,7 +11,7 @@ import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.da
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';

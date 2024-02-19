@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/c_protocols/records_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/review_protocols/fire/review_fire_ops.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/renovate_reviews.dart';

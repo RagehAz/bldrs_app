@@ -45,6 +45,10 @@ class TopicModel {
   static const String bzFlyersNewReviews = 'bzFlyersNewReviews';
   static const String bzFlyersNewSaves = 'bzFlyersNewSaves';
   static const String bzFlyersNewShares = 'bzFlyersNewShares';
+  // --------------------
+  /// PUBLIC TOPICS
+  static const String newAnonymousUser = 'new_anonymous_users';
+  static const String newUserSignUp = 'new_user_signup';
   // -----------------------------------------------------------------------------
 
     /// ALL EVENTS

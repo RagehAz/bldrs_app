@@ -10,7 +10,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';

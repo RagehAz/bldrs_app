@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -12,7 +13,6 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:fire/super_fire.dart';
 /// => TAMAM

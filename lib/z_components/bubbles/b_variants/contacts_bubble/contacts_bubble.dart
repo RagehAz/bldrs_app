@@ -54,6 +54,7 @@ class ContactsBubble extends StatelessWidget {
             headlineVerse: const Verse(id: 'phid_contacts', translate: true),
             headerWidth: Bubble.clearWidth(context: context) - 20,
             hasMoreButton: showMoreButton,
+            moreButtonIcon: Iconz.gears,
             onMoreButtonTap: onMoreTap,
           ),
           columnChildren: <Widget>[

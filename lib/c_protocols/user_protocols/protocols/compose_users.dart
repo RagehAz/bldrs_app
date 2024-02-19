@@ -9,6 +9,7 @@ import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
@@ -59,6 +60,9 @@ class ComposeUserProtocols {
 
         /// INSERT IN LDB
         UserLDBOps.insertUserModel(_output),
+
+        /// SEND NOTE TO TOPIC
+        NoteEvent.onUserSignUp(userModel: _output),
 
       ]);
 
@@ -151,6 +155,9 @@ class ComposeUserProtocols {
 
         /// INSERT IN LDB
         UserLDBOps.insertUserModel(_output),
+
+        /// SEND NOTE TO TOPIC
+        NoteEvent.onCreateAnonymousUser(userModel: _output),
 
       ]);
 

@@ -89,7 +89,7 @@ class BldrsTileBubble extends StatelessWidget {
       secondLine: Verse.bakeVerseToString(verse: secondLineVerse),
       secondLineColor: verseColor,
       secondLineTextHeight: BldrsText.superVerseRealHeight(context: context, size: 2, sizeFactor: 1, hasLabelBox: false),
-      hasBottomPadding: hasBottomPadding,
+      // hasBottomPadding: hasBottomPadding,
       // focusNode: ,
       child: child,
     );

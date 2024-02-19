@@ -1,8 +1,13 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/strings/stringer.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
@@ -10,10 +15,6 @@ import 'package:bldrs/z_components/notes/topics_editor/topics_expanding_tile.dar
 import 'package:bldrs/z_components/sizing/horizon.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:basics/helpers/strings/stringer.dart';
 import 'package:flutter/material.dart';
 
 class UserFCMTopicsScreenView extends StatelessWidget {
@@ -98,6 +99,9 @@ class UserFCMTopicsScreenView extends StatelessWidget {
 
     final bool _allIsOn = _thisBzUserSubscribedTopics.isNotEmpty;
 
+    final double _bubbleWidth = PageBubble.width(context);
+    final double _bubbleClearWidth = PageBubble.clearWidth(context);
+
     return ListView(
       key: const ValueKey<String>('FCMTopicsScreenView'),
       physics: const BouncingScrollPhysics(),
@@ -109,7 +113,7 @@ class UserFCMTopicsScreenView extends StatelessWidget {
 
         /// ALL SWITCHER
         BldrsTileBubble(
-          bubbleWidth: PageBubble.width(context),
+          bubbleWidth: _bubbleWidth,
           bubbleColor: Colorz.yellow20,
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             context: context,
@@ -143,7 +147,7 @@ class UserFCMTopicsScreenView extends StatelessWidget {
             );
 
             return BldrsTileBubble(
-              bubbleWidth: PageBubble.clearWidth(context),
+              bubbleWidth: _bubbleClearWidth,
               bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                 context: context,
                 headlineVerse: Verse(
@@ -168,6 +172,51 @@ class UserFCMTopicsScreenView extends StatelessWidget {
 
           },
         ),
+
+        /// ADMIN
+        if (Mapper.boolIsTrue(_userModel?.isAdmin) == true)
+          TopicsExpandingTile(
+            width: _bubbleWidth,
+            groupVerse: Verse.plain('Admins Only'),
+            topics: const [
+              TopicModel(id: TopicModel.newAnonymousUser, description: 'New Anonymous Users', icon: Iconz.anonymousUser),
+              TopicModel(id: TopicModel.newUserSignUp, description: 'New User Signups', icon: Iconz.normalUser),
+            ],
+            builder: (TopicModel topic){
+
+              final bool _isSelected = TopicsExpandingTile.checkIsTopicSelected(
+                context: context,
+                partyType: PartyType.user,
+                topicModel: topic,
+              );
+
+              return BldrsTileBubble(
+                bubbleWidth: _bubbleClearWidth,
+                bubbleColor: Colorz.black80,
+                bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                  context: context,
+                  headlineVerse: Verse(
+                    id: topic.description,
+                    translate: false,
+                  ),
+                  leadingIcon: topic.icon,
+                  leadingIconSizeFactor: 0.6,
+                  leadingIconBoxColor: _isSelected == true ? Colorz.green255 : Colorz.white10,
+                  hasSwitch: true,
+                  switchValue: _isSelected,
+                  onSwitchTap: (bool value) => _onSwitch(
+                    value: value,
+                    topicID: topic.id,
+                  ),
+                ),
+                onTileTap: () => _onSwitch(
+                  value: !_isSelected,
+                  topicID: topic.id,
+                ),
+              );
+
+            },
+          ),
 
         const Horizon(),
 
