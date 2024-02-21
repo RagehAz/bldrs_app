@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -49,6 +50,15 @@ class TopicModel {
   /// PUBLIC TOPICS
   static const String newAnonymousUser = 'new_anonymous_users';
   static const String newUserSignUp = 'new_user_signup';
+  static const String newBzCreated = 'new_bz_created';
+  static const String newFlyerCreated = 'new_flyer_created';
+  // --------------------
+  static const List<String> adminTopics = [
+    newAnonymousUser,
+    newUserSignUp,
+    newBzCreated,
+    newFlyerCreated,
+  ];
   // -----------------------------------------------------------------------------
 
     /// ALL EVENTS
@@ -223,6 +233,27 @@ class TopicModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
+  static List<String> getAllPossibleUserBzAdminTopicsForAUser({
+    required UserModel? userModel,
+  }){
+    List<String> _output = [];
+
+    if (userModel != null){
+
+      final List<String> _allUserTopics = TopicModel.getAllPossibleUserTopicsIDs();
+      final List<String> _allUserBzzTopics = TopicModel.getAllPossibleBzzTopicsIDs(
+        bzzIDs: userModel.myBzzIDs ?? [],
+      );
+      final List<String> _adminTopics =  Mapper.boolIsTrue(userModel.isAdmin) == true ? adminTopics : [];
+
+      _output = [..._allUserTopics, ..._allUserBzzTopics, ..._adminTopics];
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> getTopicsMapByPartyType(PartyType? type){
 
     if (type == PartyType.user){
@@ -279,7 +310,7 @@ class TopicModel {
 
       for (final String rawTopic in _allBzTopics){
 
-        final String _topicID = _generateBzTopicID(
+        final String _topicID = generateBzTopicID(
           topicID: rawTopic,
           bzID: bzID,
         );
@@ -443,7 +474,7 @@ class TopicModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _generateBzTopicID({
+  static String generateBzTopicID({
     required String? topicID,
     required String? bzID,
   }){
@@ -465,7 +496,7 @@ class TopicModel {
     String? _topicID = topicID;
 
     if (receiverPartyType == PartyType.bz){
-      _topicID = _generateBzTopicID(
+      _topicID = generateBzTopicID(
         topicID: topicID,
         bzID: bzID,
       );

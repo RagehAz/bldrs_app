@@ -14,6 +14,8 @@ class FlyersPaginatorView extends StatelessWidget {
     required this.fireQueryModel,
     required this.gridType,
     required this.hasResponsiveSideMargin,
+    this.topPadding,
+    this.onFlyerOptionsTap,
     super.key
   });
   // --------------------
@@ -21,6 +23,8 @@ class FlyersPaginatorView extends StatelessWidget {
   final PaginationController paginationController;
   final FlyerGridType gridType;
   final bool hasResponsiveSideMargin;
+  final double? topPadding;
+  final Function(FlyerModel? flyerModel)? onFlyerOptionsTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -35,6 +39,9 @@ class FlyersPaginatorView extends StatelessWidget {
               fromJSON: false,
           );
 
+          // final bool _nothingFound = isLoading == false && _flyers.isEmpty;
+          final bool _isLoading = isLoading == true && _flyers.isEmpty;
+
           return FlyersGrid(
             gridWidth: Scale.screenWidth(context),
             gridHeight: Scale.screenHeight(context),
@@ -42,14 +49,15 @@ class FlyersPaginatorView extends StatelessWidget {
             scrollController: paginationController.scrollController,
             screenName: 'allFlyersScreenGrid',
             // onFlyerOptionsTap: _onFlyerOptionsTap,
-            gridType: gridType,
-            topPadding: Stratosphere.getStratosphereValue(
+            gridType: _isLoading == true ? FlyerGridType.loading : gridType,
+            topPadding: topPadding ?? Stratosphere.getStratosphereValue(
                 context: context,
                 appBarType: AppBarType.search,
             ),
             bottomPadding: Ratioz.horizon,
             hasResponsiveSideMargin: hasResponsiveSideMargin,
             numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 3 : 2,
+            onFlyerOptionsTap: onFlyerOptionsTap,
             // numberOfColumns: 2,
           );
 

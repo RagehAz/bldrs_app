@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/components/animators/widget_fader.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
@@ -30,6 +31,7 @@ class HomeLayout extends StatelessWidget {
         /// INSETS
         resizeToAvoidBottomInset: false, /// if false : prevents keyboard from pushing pyramids up / bottom sheet
         // resizeToAvoidBottomPadding: false,
+        backgroundColor: Colorz.black255,
         body: WidgetFader(
           fadeType: FadeType.fadeIn,
           curve: Curves.easeOutSine,

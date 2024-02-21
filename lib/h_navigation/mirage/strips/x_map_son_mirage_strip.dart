@@ -34,6 +34,46 @@ class _MapSonMirageStrip extends StatelessWidget {
 
   }
   // --------------------------------------------------------------------------
+  int getCount({
+    required String phid,
+    required String path,
+    required ZonePhidsModel? zonePhidsModel,
+    required bool isActive,
+  }){
+    int _output = 0;
+
+    if (keywordsMap != null && zonePhidsModel != null && isActive == true){
+
+      final bool _nodeIsLast = !MapPathing.checkPathNodeHasSons(
+        map: keywordsMap!,
+        path: path,
+      );
+
+      if (_nodeIsLast == true){
+        _output = ZonePhidsModel.getPhidCount(
+          zonePhidsModel: zonePhidsModel,
+          phid: phid,
+        );
+      }
+      else {
+
+        final List<String> _keysBelow = MapPathing.getAllKeysBelow(
+            map: keywordsMap,
+            path: path,
+        );
+
+        _output = ZonePhidsModel.getPhidsCount(
+          zonePhidsModel: zonePhidsModel,
+          phids: _keysBelow,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -74,6 +114,13 @@ class _MapSonMirageStrip extends StatelessWidget {
                   final bool _isFirst = index == 0;
                   final bool _isLast = index + 1 == _sonMapKeys.length;
 
+                  final int _count = getCount(
+                    phid: _sonPhid,
+                    path: _path,
+                    zonePhidsModel: _zonePhidsModel,
+                    isActive: _isActive,
+                  );
+
                   return Padding(
                     padding: Scale.superInsets(
                       context: context,
@@ -88,6 +135,7 @@ class _MapSonMirageStrip extends StatelessWidget {
                         translate: true,
                         // casing: Casing.upperCase,
                       ),
+                      secondLine: _count == 0 ? null : Verse.plain('$_count ${getWord('phid_flyers')}'),
                       icon: StoragePath.phids_phid(_sonPhid),
                       bigIcon: true,
                       iconColor: null,

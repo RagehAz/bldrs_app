@@ -1,4 +1,3 @@
-import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
@@ -28,8 +27,6 @@ class FlyerSearch {
             fieldName: orderBy,
             descending: descending,
           );
-
-    blog('bijoooo : ${searchModel?.flyerSearchModel?.publishState}');
 
     return FireQueryModel(
       coll: FireColl.flyers,

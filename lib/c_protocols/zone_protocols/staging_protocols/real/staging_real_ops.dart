@@ -135,7 +135,7 @@ class StagingRealOps {
   }) async {
     StagingModel? _output;
 
-    if (Authing.userHasID() == true && TextCheck.isEmpty(countryID) == false){
+    if (Authing.getUserID() != null && TextCheck.isEmpty(countryID) == false){
 
       final Map<String, dynamic>? _map = await Real.readPathMap(
         path: '${RealColl.zones}/${RealDoc.zones_stages_cities}/$countryID',

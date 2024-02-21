@@ -1004,10 +1004,9 @@ class ContactModel {
         case ContactType.website:    _domain = null; break;
         case ContactType.facebook:   _domain = 'facebook.com'; break;
         case ContactType.linkedIn:   _domain = 'linkedin.com'; break;
-        case ContactType.youtube:    _domain = 'youtube.com'; break; // youtu.be
+        case ContactType.youtube:    _domain = 'youtu'; break;
         case ContactType.instagram:  _domain = 'instagram.com'; break;
-        /// pinterest_it_dot_is_valid_link_as_well
-        case ContactType.pinterest:  _domain = 'pinterest.com'; break;
+        case ContactType.pinterest:  _domain = 'pinterest'; break;
         case ContactType.tiktok:     _domain = 'tiktok.com'; break;
         case ContactType.twitter:    _domain = 'twitter.com'; break;
         default:                     _domain = null;

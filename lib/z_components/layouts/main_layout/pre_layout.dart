@@ -47,15 +47,15 @@ class PreLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return WillPopScope(
+    return PopScope(
       key: const ValueKey<String>('PreLayout'),
-      onWillPop: () async {
-        await onGoBack(
-          canGoBack: canGoBack,
-          onBack: onBack,
-        );
-        return false;
+      onPopInvoked: (bool value) async {
+        // await onGoBack(
+        //   canGoBack: canGoBack,
+        //   onBack: onBack,
+        // );
       },
+      canPop: false,
       child: GestureDetector(
         onTap: () async  {
 

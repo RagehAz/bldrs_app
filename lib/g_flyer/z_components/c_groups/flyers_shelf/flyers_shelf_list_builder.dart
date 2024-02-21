@@ -66,7 +66,6 @@ class FlyersShelfListBuilder extends StatelessWidget {
 
               return FlyerBuilder(
                   flyerID: flyersIDs[_x],
-                  flyerBoxWidth: flyerBoxWidth,
                   onlyFirstSlide: true,
                   slidePicType: SlidePicType.small,
                   renderFlyer: RenderFlyer.firstSlide,

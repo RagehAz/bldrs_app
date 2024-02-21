@@ -81,6 +81,8 @@ class ZoneProtocols {
   /// TESTED : WORKS PERFECT
   static const searchCountriesByIDFromAllFlags = ZoneSearchOps.searchCountriesByIDFromAllFlags;
   /// TESTED : WORKS PERFECT
+  static const searchCountriesByISO2FromAllFlags = ZoneSearchOps.searchCountriesByISO2FromAllFlags;
+  /// TESTED : WORKS PERFECT
   static const searchCountriesByNameFromLDBFlags = ZoneSearchOps.searchCountriesByNameFromLDBFlags;
   // -----------------------------------------------------------------------------
 

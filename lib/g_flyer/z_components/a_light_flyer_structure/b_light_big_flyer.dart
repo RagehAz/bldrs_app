@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/animators/sliders.dart';
 import 'package:basics/helpers/checks/tracers.dart';
@@ -581,7 +582,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
         return FlyerBox(
           key: const ValueKey<String>('FullScreenFlyer'),
           flyerBoxWidth: widget.flyerBoxWidth,
-          // boxColor: Colorz.bloodTest,
+          boxColor: Colorz.blue255, /// TEMP_SHIT
           stackWidgets: <Widget>[
 
             /// SLIDES
@@ -680,5 +681,5 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

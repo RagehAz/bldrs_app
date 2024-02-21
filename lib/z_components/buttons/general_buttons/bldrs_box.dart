@@ -94,7 +94,7 @@ class BldrsBox extends StatelessWidget {
   final double? blur;
   final Color? secondLineColor;
   final bool redDot;
-  final double? secondLineScaleFactor;
+  final double secondLineScaleFactor;
   final bool loading;
   final Color? iconBackgroundColor;
   final Function? onDisabledTap;

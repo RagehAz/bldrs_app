@@ -1,9 +1,9 @@
 part of bldrs_engine;
 /// => TAMAM
-class _UserSessionStarter {
+class UserSessionStarter {
   // -----------------------------------------------------------------------------
 
-  const _UserSessionStarter();
+  const UserSessionStarter();
 
   // -----------------------------------------------------------------------------
 
@@ -75,13 +75,8 @@ class _UserSessionStarter {
   }) async {
     UserModel? _output = userModel;
 
-    if (_output != null){
-
-      /// THIS DEVICE MODEL
-      final DeviceModel _thisDevice = await DeviceModel.generateDeviceModel();
-
-      /// UNSUBSCRIBING FROM TOKEN INSTRUCTIONS
-      /*
+    /// UNSUBSCRIBING FROM TOKEN INSTRUCTIONS
+    /*
           - Unsubscribe stale tokens from topics
           Managing topics subscriptions to remove stale registration
           tokens is another consideration. It involves two steps:
@@ -101,7 +96,14 @@ class _UserSessionStarter {
 
       */
 
+    if (_output != null){
+
+      /// THIS DEVICE MODEL
+      final DeviceModel _thisDevice = await DeviceModel.generateDeviceModel();
+
       bool _shouldRefreshDevice = _output.device == null;
+
+      /// MAYBE DEVICE CHANGED
       if (_shouldRefreshDevice == false){
         _shouldRefreshDevice = !DeviceModel.checkDevicesAreIdentical(
           device1: _thisDevice,
@@ -109,17 +111,14 @@ class _UserSessionStarter {
         );
       }
 
+      /// MAYBE IT HAS BEEN SO LONG
+      if (_shouldRefreshDevice == false){
+        _shouldRefreshDevice = await _itHasBeenSoLongSinceLastDeviceRefresh();
+      }
+
       /// REFRESH DEVICE MODEL
       if (_shouldRefreshDevice == true){
 
-        /// SHOULD REFETCH, and I will explain why
-        /// user using device A renovated his user model and updated firebase
-        /// closed device A and opens device B
-        /// which did not listen to firebase but has an old model in LDB
-        /// while checking this device has been changed
-        /// we should get the most updated version of his model
-        /// so we refetch model
-        /// cheers
         _output = await UserProtocols.refetch(
           userID: _output.id,
         );
@@ -131,9 +130,9 @@ class _UserSessionStarter {
           );
 
           /// TAKES TOO LONG AND NOTHING DEPENDS ON IT
-          unawaited(_resubscribeToAllMyTopics(
-            myUserModel: _output,
-          ));
+          unawaited(resubscribeToAllMyTopics(myUserModel: _output));
+
+          await _setDeviceHasBeenRefreshed();
 
         }
 
@@ -145,59 +144,152 @@ class _UserSessionStarter {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> _resubscribeToAllMyTopics({
+  static Future<void> resubscribeToAllMyTopics({
     required UserModel? myUserModel,
   }) async {
 
+    // blog('resubscribeToAllMyTopics : START : ${myUserModel?.fcmTopics}');
+
     if (myUserModel != null){
 
-      final List<String>? _userTopics = myUserModel.fcmTopics;
+      final List<String> _subscribeTo = _getTopicsIShouldSubscribeTo(
+        myUserModel: myUserModel,
+      );
 
-      final List<String> _topicsIShouldSubscribeTo = <String>[];
-      for (final String topicID in [...?_userTopics]){
+      final List<String> _unSubscribeFrom = _getAllTopicsToUnsubscribeFrom(
+        myUserModel: myUserModel,
+      );
 
-        final bool _containUnderscore = TextCheck.stringContainsSubString(
-          string: topicID,
-          subString: '_',
-        );
+      for (final String topic in _unSubscribeFrom){
+        await FCM.unsubscribeFromTopic(topicID: topic);
+      }
+      blog('FINISHED THE UNSUBSCRIBE');
+      for (final String topic in _subscribeTo){
+        await FCM.subscribeToTopic(topicID: topic);
+      }
+      blog('FINISHED THE SUBSCRIBE');
 
-        if (_containUnderscore == true){
-          _topicsIShouldSubscribeTo.add(topicID);
-        }
+      // /// UNSUBSCRIBE FROM ALL
+      // await Future.wait(<Future>[
+      //   ...List.generate(_unSubscribeFrom.length, (index){
+      //     return FCM.unsubscribeFromTopic(topicID: _unSubscribeFrom[index]);
+      //   }),
+      // ]);
+      // /// SUBSCRIBE AGAIN
+      // if (Lister.checkCanLoop(_subscribeTo) == true){
+      //   await Future.wait(<Future>[
+      //     ...List.generate(_subscribeTo.length, (index){
+      //       return FCM.subscribeToTopic(topicID: _subscribeTo[index],);
+      //     }),
+      //   ]);
+      // }
 
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> _getTopicsIShouldSubscribeTo({
+    required UserModel? myUserModel,
+  }){
+    final List<String> _output = <String>[];
+
+    final List<String> _userTopics = myUserModel?.fcmTopics ?? [];
+
+    for (final String topicID in _userTopics){
+
+      final bool _containUnderscore = TextCheck.stringContainsSubString(
+        string: topicID,
+        subString: '_',
+      );
+
+      if (_containUnderscore == true){
+        _output.add(topicID);
       }
 
-      if (Lister.checkCanLoop(_topicsIShouldSubscribeTo) == true){
+    }
 
-        /// UNSUBSCRIBE
-        await Future.wait(<Future>[
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> _getAllTopicsToUnsubscribeFrom({
+    required UserModel? myUserModel,
+  }){
+    final List<String> _output = <String>[];
 
-          ...List.generate(_topicsIShouldSubscribeTo.length, (index){
+    final List<String> _userTopics = TopicModel.getAllPossibleUserBzAdminTopicsForAUser(
+      userModel: myUserModel,
+    );
 
-            return FCM.unsubscribeFromTopic(
-              topicID: _topicsIShouldSubscribeTo[index],
-            );
+    for (final String topicID in _userTopics){
 
-          }),
+      final bool _containUnderscore = TextCheck.stringContainsSubString(
+        string: topicID,
+        subString: '_',
+      );
 
-        ]);
+      if (_containUnderscore == true){
+        _output.add(topicID);
+      }
 
-        /// SUBSCRIBE AGAIN
-        await Future.wait(<Future>[
+    }
 
-          ...List.generate(_topicsIShouldSubscribeTo.length, (index){
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
 
-            return FCM.subscribeToTopic(
-              topicID: _topicsIShouldSubscribeTo[index],
-            );
+  /// DEVICE HAS BEEN REFRESHED
 
-          }),
+  // --------------------
+  static const String _deviceIsRefreshedDoc = 'deviceRefreshed';
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> _itHasBeenSoLongSinceLastDeviceRefresh() async {
+    bool _output = true;
 
-        ]);
+    final Map<String, dynamic>? _map = await LDBOps.readMap(
+        docName: _deviceIsRefreshedDoc,
+        id: 'id',
+        primaryKey: 'id',
+    );
+
+    if (_map != null){
+
+      final DateTime? _time = Timers.decipherTime(
+          time: _map['time'],
+          fromJSON: true,
+      );
+
+      if (_time != null){
+
+        const int _numberOfDays = 20;
+
+        _output = Timers.checkTimeDifferenceIsBiggerThan(
+            time1: _time,
+            time2: DateTime.now(),
+            maxDifferenceInMinutes: 60 * 24 * _numberOfDays,
+        );
 
       }
 
     }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _setDeviceHasBeenRefreshed() async {
+
+    await LDBOps.insertMap(
+        docName: _deviceIsRefreshedDoc,
+        primaryKey: 'id',
+        // allowDuplicateIDs: false,
+        input: {
+          'id': 'id',
+          'time': Timers.cipherTime(time: DateTime.now(), toJSON: true),
+        },
+    );
 
   }
   // -----------------------------------------------------------------------------

@@ -205,6 +205,37 @@ class CountryModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static List<Phrase> getCountriesPhrases({
+    required List<String> countriesIDs,
+    required String langCode,
+  }){
+    List<Phrase> _output = [];
+
+    if (Lister.checkCanLoop(countriesIDs) == true){
+
+      for (final String countryID in countriesIDs){
+
+        final Phrase? _phrase = getCountryPhrase(
+          countryID: countryID,
+          langCode: langCode,
+        );
+
+        if (_phrase != null){
+          _output = Phrase.insertPhrase(
+            phrases: _output,
+            phrase: _phrase,
+            overrideDuplicateID: true,
+          );
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static String? translateCountry({
     required String? countryID,
     required String langCode,

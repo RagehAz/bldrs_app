@@ -370,7 +370,7 @@ class _PriceSelectorBubbleState extends State<PriceSelectorBubble> {
             /// FIELDS
             SizedBox(
               width: _clearWidth,
-              height: _fieldHeight,
+              // height: _fieldHeight,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[

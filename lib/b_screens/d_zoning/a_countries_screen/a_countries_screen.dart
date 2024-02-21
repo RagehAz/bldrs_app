@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/checks/tracers.dart';
@@ -84,32 +83,19 @@ class CountriesScreen extends StatefulWidget {
       final String? _searchText = val?.toLowerCase();
       List<Phrase> _phrasesToInsert = [];
 
-
-      if (America.searchTextIsExactlyUSA(_searchText) == true){
-        _phrasesToInsert = America.createAllStatesPhrases();
+      /// SEARCH IS PHONE CODE STARTS WITH +
+      if (TextCheck.stringStartsExactlyWith(text: _searchText, startsWith: '+') == true){
+        _phrasesToInsert = _searchCountriesByPhoneCode(
+          phoneCode: _searchText,
+        );
       }
 
+      /// NORMAL TEXT SEARCH
       else if (TextCheck.isEmpty(_searchText) == false){
 
-        /// SEARCH COUNTRIES FROM LOCAL PHRASES
-        final List<Phrase> _byName = await ZoneProtocols.searchCountriesByNameFromLDBFlags(
-          text: _searchText,
+        _phrasesToInsert = await _searchCountriesByText(
+          searchText: _searchText,
         );
-
-        final List<Phrase> _byID = ZoneProtocols.searchCountriesByIDFromAllFlags(
-          text: _searchText,
-        );
-
-        final List<Phrase> _usStatesByName = America.searchStatesByName(
-            text: _searchText,
-            withISO2: false,
-        );
-        final List<Phrase> _usStateByISO2 = America.searchStatesByISO2(
-            text: _searchText,
-        );
-
-        _phrasesToInsert = [..._byName, ..._byID, ..._usStatesByName, ..._usStateByISO2];
-        _phrasesToInsert = Phrase.sortNamesAlphabetically(_phrasesToInsert);
 
       }
 
@@ -132,6 +118,147 @@ class CountriesScreen extends StatefulWidget {
       );
 
     }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> _searchCountriesByText({
+    required String? searchText,
+  }) async {
+
+    List<Phrase> _phrasesToInsert = [];
+
+    if (TextCheck.isEmpty(searchText) == false){
+
+      /// BY NAME
+      final List<Phrase> _byName = await ZoneProtocols.searchCountriesByNameFromLDBFlags(
+        text: searchText,
+      );
+
+      /// BY ID (ISO3)
+      final List<Phrase> _byID = ZoneProtocols.searchCountriesByIDFromAllFlags(
+        text: searchText,
+      );
+
+      /// BY ISO 2
+      final List<Phrase> _byISO2 = ZoneProtocols.searchCountriesByISO2FromAllFlags(
+        text: searchText,
+      );
+
+      /// US STATES
+      final List<Phrase> _states = _getUSAStates(searchText: searchText);
+
+      /// IF EMIRATES (UAE)
+      final List<Phrase> _uae  = _getUAE(searchText: searchText);
+
+      /// IF SAUDI (KSA)
+      final List<Phrase> _sau  = _getSAU(searchText: searchText);
+
+      /// STATES BY NAME
+      final List<Phrase> _usStatesByName = America.searchStatesByName(
+        text: searchText,
+        withISO2: false,
+      );
+
+      /// STATES BY ISO2
+      final List<Phrase> _usStateByISO2 = America.searchStatesByISO2(
+        text: searchText,
+      );
+
+      _phrasesToInsert = [
+        ..._byName,
+        ..._byID,
+        ..._byISO2,
+        ..._states,
+        ..._uae,
+        ..._sau,
+        ..._usStatesByName,
+        ..._usStateByISO2
+      ];
+      _phrasesToInsert = Phrase.sortNamesAlphabetically(_phrasesToInsert);
+
+    }
+
+    return _phrasesToInsert;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> _getUSAStates({
+    required String? searchText,
+  }){
+    return America.searchTextIsExactlyUSA(searchText) ?
+    America.createAllStatesPhrases()
+        :
+    [];
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> _getUAE({
+    required String? searchText,
+  }){
+
+    List<Phrase> _output = [];
+
+    if (TextCheck.stringContainsSubString(string: 'uae', subString: searchText) == true){
+
+      Phrase? _phrase = CountryModel.getCountryPhrase(
+        countryID: 'are',
+        langCode: Localizer.getCurrentLangCode(),
+      );
+      _phrase ??= CountryModel.getCountryPhrase(
+        countryID: 'are',
+        langCode: 'en',
+      );
+
+      if (_phrase != null){
+        _output = [_phrase];
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> _getSAU({
+    required String? searchText,
+  }){
+
+    List<Phrase> _output = [];
+
+    if (TextCheck.stringContainsSubString(string: 'ksa', subString: searchText) == true){
+
+      Phrase? _phrase = CountryModel.getCountryPhrase(
+        countryID: 'sau',
+        langCode: Localizer.getCurrentLangCode(),
+      );
+      _phrase ??= CountryModel.getCountryPhrase(
+        countryID: 'sau',
+        langCode: 'en',
+      );
+
+      if (_phrase != null){
+        _output = [_phrase];
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> _searchCountriesByPhoneCode({
+    required String? phoneCode,
+  }){
+
+    final List<String> _countriesIDs = Flag.searchCountriesByPhoneCode(
+      phoneCode: phoneCode,
+    );
+
+    return CountryModel.getCountriesPhrases(
+        countriesIDs: _countriesIDs,
+        langCode: Localizer.getCurrentLangCode(),
+    );
 
   }
   // --------------------------------------------------------------------------

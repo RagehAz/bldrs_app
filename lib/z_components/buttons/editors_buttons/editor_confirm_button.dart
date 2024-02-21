@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_returning_null, avoid_redundant_argument_values
+// ignore_for_file: # avoid_returning_null, avoid_redundant_argument_values
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/maps/mapper.dart';

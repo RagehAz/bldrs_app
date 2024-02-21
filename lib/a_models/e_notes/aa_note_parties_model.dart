@@ -26,6 +26,7 @@ class NoteParties {
   });
   /// --------------------------------------------------------------------------
   final String? senderID;
+    /// senderImageURL_CAN_BE_STORAGE_PATH_OR_URL
   final String? senderImageURL;
   final PartyType? senderType;
   final String? receiverID;

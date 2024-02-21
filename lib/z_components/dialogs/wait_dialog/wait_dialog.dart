@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_redundant_argument_values
+
 import 'dart:async';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/maps/mapper.dart';
@@ -69,10 +71,8 @@ class WaitDialog extends StatelessWidget {
     final double _screenHeight = Scale.screenHeight(context);
     final double _screenWidth = Scale.screenWidth(context);
     // --------------------
-    return WillPopScope(
-      onWillPop: () async {
-          return canManuallyGoBack;
-      },
+    return PopScope(
+      canPop: canManuallyGoBack,
       child: Scaffold(
         backgroundColor: Colorz.black125,
         body: Stack(

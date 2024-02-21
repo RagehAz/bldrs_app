@@ -2,16 +2,11 @@ import 'dart:async';
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
+import 'package:bldrs/bldrs_keys.dart';
+import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:flutter/material.dart';
-
-import 'z_components/buttons/general_buttons/bldrs_box.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// SUPER_DEV_TEST
 
@@ -21,15 +16,9 @@ Future<void> superDevTestGoX() async {
 
   WaitDialog.showUnawaitedWaitDialog();
 
-  await FCM.subscribeToTopic(
-    topicID: TopicModel.newUserSignUp,
-  );
 
-  final UserModel? _user = UsersProvider.proGetMyUserModel(context: getMainContext(), listen: false);
 
-  await NoteEvent.onUserSignUp(
-    userModel: _user,
-  );
+
 
   await WaitDialog.closeWaitDialog();
 
@@ -58,6 +47,32 @@ class TheFastTestButton extends StatelessWidget {
   }
 }
 
+Widget _nourFacebookMethod(){
+
+  return FloatingActionButton(
+    onPressed: () {
+      //                   https://www.facebook.com/v19.0/dialog/oauth?
+      // client_id={app-id}
+      // &redirect_uri={redirect-uri}
+      // &state={state-param}
+      final uri = Uri(
+        scheme: 'https',
+        host: 'www.facebook.com',
+        path: 'v19.0/dialog/oauth',
+        queryParameters: <String, String>{
+          'client_id': BldrsKeys.socialKeys.facebookAppID!,
+          'redirect_uri': 'https://bldrs.net/redirect',
+          'config_id': '925142852526513',
+          'response_type': 'token',
+        },
+      );
+
+      launchUrl(uri);
+    },
+    child: const Icon(Icons.facebook),
+  );
+
+}
 
 /// CHAT GBT PROMPTS
 /*

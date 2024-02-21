@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/circle_list/circle_list.dart';
 import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -11,7 +12,6 @@ import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:circle_list/circle_list.dart';
 import 'package:flutter/material.dart';
 
 class BzTypesWheel extends StatelessWidget {

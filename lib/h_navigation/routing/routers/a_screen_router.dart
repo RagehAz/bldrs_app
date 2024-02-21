@@ -13,7 +13,7 @@ class Routing {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Route<dynamic> router(RouteSettings settings) {
-
+    
     final String? _path = RoutePather.getPathFromRouteSettingsName(settings.name);
     final String? _arg = RoutePather.getArgFromRouteSettingsName(settings.name);
 
@@ -145,12 +145,13 @@ class Routing {
     TextCheck.stringStartsExactlyWith(
         text: _path,
         startsWith: '/redirect',
-    ) == true
+    )
     ){
 
       /// key=value&key2=value2&;
-      final Uri _uri = Uri.parse('bldrs://deep${settings.name}');
-      final String? _args = _uri.queryParameters.toString();
+      /// 
+      final Uri _uri = Uri.parse('bldrs://deep${settings.name?.replaceAll('#', '?')}');
+      final  _args = _uri.queryParameters;
 
       return Nav.transitFade(
         screen: RedirectScreen(

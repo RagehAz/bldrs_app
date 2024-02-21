@@ -1228,56 +1228,73 @@ class Dialogs {
       children: <Widget>[
 
         /// POSTER
-        Stack(
-          children: <Widget>[
+        SizedBox(
+          width: _posterWidth,
+          height: _posterHeight,
+          child: Stack(
+            children: <Widget>[
 
-            /// POSTER IMAGE
-            BldrsImage(
-              pic: StoragePath.flyers_flyerID_poster(flyer.id),
-              height: _posterHeight,
-              width: _posterWidth,
-              corners: BldrsAppBar.corners,
-            ),
+              /// POSTER IMAGE
+              BldrsImage(
+                pic: StoragePath.flyers_flyerID_poster(flyer.id),
+                height: _posterHeight,
+                width: _posterWidth,
+                corners: BldrsAppBar.corners,
+              ),
 
-            /// I ICON
-            SuperPositioned(
-              enAlignment: Alignment.topRight,
-              appIsLTR: UiProvider.checkAppIsLeftToRight(),
-              verticalOffset: _iOffset,
-              horizontalOffset: _iOffset,
-              child: SuperToolTip(
-                verse: const Verse(
-                  id: 'phid_poster_for_url',
-                  translate: true,
-                ),
-                triggerMode: TooltipTriggerMode.tap,
-                child: BldrsBox(
-                  width: _iSize,
-                  height: _iSize,
-                  icon: Iconz.info,
-                  corners: _iSize * 0.5,
-                  color: Colorz.black255,
-                  iconSizeFactor: 0.6,
+              /// I ICON
+              SuperPositioned(
+                enAlignment: Alignment.topRight,
+                appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                verticalOffset: _iOffset,
+                horizontalOffset: _iOffset,
+                child: SuperToolTip(
+                  verse: const Verse(
+                    id: 'phid_poster_for_url',
+                    translate: true,
+                  ),
+                  triggerMode: TooltipTriggerMode.tap,
+                  child: BldrsBox(
+                    width: _iSize,
+                    height: _iSize,
+                    icon: Iconz.info,
+                    corners: _iSize * 0.5,
+                    color: Colorz.black255,
+                    iconSizeFactor: 0.6,
+                  ),
                 ),
               ),
-            ),
 
-          ],
+            ],
+          ),
         ),
 
-        /// SEPARATOR
-        const Spacing(size: 5),
+        /// BUTTONS
+        SizedBox(
+          width: _posterWidth,
+          height: _clearHeight - _posterHeight - 80,
+          child: FloatingList(
+            width: _posterWidth,
+            height: _clearHeight - _posterHeight - 80,
+            boxAlignment: Alignment.topCenter,
+            columnChildren: [
 
-        ... List.generate(_buttonsCounts, (index){
+              ... List.generate(_buttonsCounts, (index){
 
-          return Padding(
-            padding: const EdgeInsets.only(bottom: _spacing),
-            child: buttons[index],
-          );
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: _spacing),
+                  child: buttons[index],
+                );
 
-        }),
+              }),
 
-        const DotSeparator(),
+              const DotSeparator(),
+
+            ],
+          ),
+        ),
+
+
 
       ],
     ),

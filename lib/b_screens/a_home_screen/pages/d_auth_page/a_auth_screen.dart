@@ -148,7 +148,7 @@ class _AuthScreenState extends State<AuthScreen> {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onSignin() async {
+  Future<void> _onSignIn() async {
 
     if (mounted == true){
 
@@ -266,7 +266,7 @@ class _AuthScreenState extends State<AuthScreen> {
           canValidate: _canValidate,
         ),
         switchSignIn: _switchSignIn,
-        onSignin: _onSignin,
+        onSignin: _onSignIn,
         onSignup: _onSignup,
         isSigningIn: _isSigningIn,
         onSelectAccount: _onSelectAccount,

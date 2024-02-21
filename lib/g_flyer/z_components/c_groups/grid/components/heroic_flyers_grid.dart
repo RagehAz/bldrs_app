@@ -5,6 +5,7 @@ import 'package:bldrs/g_flyer/z_components/c_groups/grid/components/flyers_grid_
 import 'package:bldrs/g_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/g_flyer/z_components/d_variants/c_add_flyer_button.dart';
 import 'package:bldrs/g_flyer/z_components/d_variants/flyer_selection_stack.dart';
+import 'package:bldrs/g_flyer/z_components/d_variants/missing_flyer.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/f_helpers/future_model_builders/flyer_builder.dart';
@@ -26,7 +27,7 @@ class HeroicFlyersGrid extends StatelessWidget {
     required this.onFlyerOptionsTap,
     required this.onSelectFlyer,
     required this.scrollDirection,
-    required this.onFlyerNotFound,
+    required this.onMissingFlyerTap,
     required this.scrollable,
     required this.selectionMode,
     required this.bottomPadding,
@@ -48,7 +49,7 @@ class HeroicFlyersGrid extends StatelessWidget {
   final bool selectionMode;
   final Function(FlyerModel flyerModel)? onFlyerOptionsTap;
   final Function(FlyerModel flyerModel)? onSelectFlyer;
-  final Function(String flyerID)? onFlyerNotFound;
+  final Function(String? flyerID)? onMissingFlyerTap;
   final double? bottomPadding;
   final bool hasResponsiveSideMargin;
   // --------------------------------------------------------------------------
@@ -114,9 +115,6 @@ class HeroicFlyersGrid extends StatelessWidget {
               key: const ValueKey<String>('FlyerBuilder_inGrid'),
               flyerID: _flyerID,
               flyerModel: _flyer,
-              flyerBoxWidth: _gridScale.smallItemWidth,
-              onFlyerNotFound: onFlyerNotFound == null || _flyerID == null ?
-              null : (String? flyerID) => onFlyerNotFound?.call(_flyerID),
               renderFlyer: RenderFlyer.firstSlide,
               onlyFirstSlide: true,
               slidePicType: SlidePicType.small,
@@ -127,6 +125,15 @@ class HeroicFlyersGrid extends StatelessWidget {
                     flyerBoxWidth: _gridScale.smallItemWidth,
                     animate: true,
                     direction: Axis.vertical,
+                  );
+                }
+
+                /// NOT FOUND FLYER
+                else if (loading == false && smallFlyer == null){
+                  return MissingFlyer(
+                    flyerBoxWidth: _gridScale.smallItemWidth,
+                    flyerID: _flyerID ?? _flyer?.id,
+                    onTap: onMissingFlyerTap,
                   );
                 }
 
@@ -156,37 +163,6 @@ class HeroicFlyersGrid extends StatelessWidget {
               }
 
             );
-
-            /// OLD
-            // return FlyerBuilder(
-            //   key: const ValueKey<String>('FlyerBuilder_inGrid'),
-            //   flyerID: _flyerID,
-            //   flyerModel: _flyer,
-            //   flyerBoxWidth: _gridScale.smallItemWidth,
-            //   onFlyerNotFound: onFlyerNotFound == null || _flyerID == null ?
-            //   null : (String? flyerID) => onFlyerNotFound?.call(_flyerID),
-            //   renderFlyer: RenderFlyer.firstSlide,
-            //   onlyFirstSlide: true,
-            //   slidePicType: SlidePicType.small,
-            //   builder: (FlyerModel? smallFlyer) {
-            //
-            //       return FlyerSelectionStack(
-            //         flyerModel: smallFlyer,
-            //         flyerBoxWidth: _gridScale.smallItemWidth,
-            //         onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer!(smallFlyer!),
-            //         onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap!(smallFlyer!),
-            //         selectionMode: selectionMode,
-            //         flyerWidget: HeroicFlyer(
-            //           flyerModel: smallFlyer,
-            //           flyerBoxWidth: _gridScale.smallItemWidth,
-            //           screenName: screenName,
-            //           gridHeight: gridHeight,
-            //           gridWidth: gridWidth,
-            //         ),
-            //       );
-            //
-            //   },
-            // );
 
           }
           // ---------------------------------------------

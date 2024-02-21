@@ -5,6 +5,7 @@ import 'package:basics/helpers/strings/stringer.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
+import 'package:bldrs/c_protocols/a_bldrs_engine/bldrs_engine.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -53,12 +54,16 @@ class UserFCMTopicsScreenView extends StatelessWidget {
           listToAdd: TopicModel.getAllPossibleUserTopicsIDs(),
       );
 
-      await UserProtocols.renovate(
+      final UserModel? _updated = await UserProtocols.renovate(
           oldUser: _userModel,
           newUser: _userModel?.copyWith(
             fcmTopics: _updatedTopics,
           ),
         invoker: 'UserFCMTopicsScreenView._onSwitchAll',
+      );
+
+      await UserSessionStarter.resubscribeToAllMyTopics(
+        myUserModel: _updated,
       );
 
     }
@@ -78,6 +83,8 @@ class UserFCMTopicsScreenView extends StatelessWidget {
         oldUser: _userModel,
         invoker: 'UserFCMTopicsScreenView._onSwitchAll',
       );
+
+      // await NoteProtocols.unsubscribeFromAllBzTopics(bzID: bzID, renovateUser: renovateUser)
 
     }
 
@@ -181,6 +188,8 @@ class UserFCMTopicsScreenView extends StatelessWidget {
             topics: const [
               TopicModel(id: TopicModel.newAnonymousUser, description: 'New Anonymous Users', icon: Iconz.anonymousUser),
               TopicModel(id: TopicModel.newUserSignUp, description: 'New User Signups', icon: Iconz.normalUser),
+              TopicModel(id: TopicModel.newBzCreated, description: 'New Business accounts', icon: Iconz.bz),
+              TopicModel(id: TopicModel.newFlyerCreated, description: 'New Flyer published', icon: Iconz.flyer),
             ],
             builder: (TopicModel topic){
 

@@ -17,6 +17,7 @@ class MirageButton extends StatelessWidget {
     this.countOverride,
     this.isDisabled = false,
     this.onDisabledTap,
+    this.secondLine,
     super.key
   });
   // --------------------
@@ -34,6 +35,7 @@ class MirageButton extends StatelessWidget {
   final int? countOverride;
   final bool isDisabled;
   final Function? onDisabledTap;
+  final Verse? secondLine;
   // --------------------------------------------------------------------------
   static double getWidth = 150;
   static double getMaxWidth = getWidth * 2;
@@ -159,6 +161,12 @@ class MirageButton extends StatelessWidget {
             iconSizeFactor: getIconScaleFactor(bigIcon: bigIcon),
             verseScaleFactor: getVerseScaleFactor(bigIcon: bigIcon),
             verse: verse,
+            secondLine: secondLine,
+            secondLineColor: getVerseColor(
+              isSelected: isSelected,
+              isDisabled: isDisabled,
+            ),
+            secondLineScaleFactor: 0.9,
             color: getButtonColor(
               isSelected: isSelected,
               isDisabled: isDisabled,

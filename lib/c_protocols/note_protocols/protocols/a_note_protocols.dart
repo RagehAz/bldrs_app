@@ -318,7 +318,7 @@ class NoteProtocols {
         /// BZ RECEIVER : SEND TO TOPIC
         if (noteModel.parties?.receiverType == PartyType.bz){
 
-          blog('should send TO DEVICE aho note to ${_note?.parties?.receiverID}');
+          blog('should send TO BZ aho note to ${_note?.parties?.receiverID}');
 
           await CloudFunction.call(
               functionName: CloudFunction.callSendFCMToTopic,
@@ -328,9 +328,7 @@ class NoteProtocols {
               }
           );
 
-
         }
-
 
       }
 

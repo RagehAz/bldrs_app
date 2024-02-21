@@ -18,6 +18,30 @@ class _SectionsMirageStrip extends StatelessWidget {
   final Function(String path) onSelectFlyerType;
   final Map<String, dynamic>? keywordsMap;
   // --------------------------------------------------------------------------
+  int getCount({
+    required String phid,
+    required ZonePhidsModel? zonePhidsModel,
+    required bool isActive,
+  }){
+    int _output = 0;
+
+    if (keywordsMap != null && zonePhidsModel != null && isActive == true){
+
+      final List<String> _keysBelow = MapPathing.getAllKeysBelow(
+        map: keywordsMap,
+        path: '$phid/',
+      );
+
+      _output = ZonePhidsModel.getPhidsCount(
+        zonePhidsModel: zonePhidsModel,
+        phids: _keysBelow,
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -51,6 +75,12 @@ class _SectionsMirageStrip extends StatelessWidget {
                   final bool _isFirst = index == 0;
                   final bool _isLast = index + 1 == _phids.length;
 
+                  final int _count = getCount(
+                    phid: _phid,
+                    zonePhidsModel: _zonePhidsModel,
+                    isActive: _isActive,
+                  );
+
                   return Padding(
                     padding: Scale.superInsets(
                       context: context,
@@ -66,6 +96,7 @@ class _SectionsMirageStrip extends StatelessWidget {
                         translate: true,
                         // casing: Casing.upperCase,
                       ),
+                      secondLine: _count == 0 ? null : Verse.plain('$_count ${getWord('phid_flyers')}'),
                       icon: FlyerTyper.flyerTypeIcon(
                         flyerType: _flyerType,
                         isOn: false,

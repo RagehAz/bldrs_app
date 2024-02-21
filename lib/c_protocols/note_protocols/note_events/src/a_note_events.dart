@@ -56,16 +56,6 @@ class NoteEvent {
   static const sendBzIsVerifiedNote = _NoteEventsOfBzFlyersManagement.sendBzIsVerifiedNote;
   // -----------------------------------------------------------------------------
 
-  /// NEW USERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const onCreateAnonymousUser = _NoteEventsOfUserOps.onCreateAnonymousUser;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const onUserSignUp = _NoteEventsOfUserOps.onUserSignUp;
-  // -----------------------------------------------------------------------------
-
   /// FLYER INTERACTIONS
 
   // --------------------
@@ -73,6 +63,35 @@ class NoteEvent {
   static const sendFlyerReceivedNewReviewByMe = _NoteEventsOfFlyerInteractions.sendFlyerReceivedNewReviewByMe;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const sendFlyerReviewReceivedBzReply= _NoteEventsOfFlyerInteractions.sendFlyerReviewReceivedBzReply;
+  static const sendFlyerReviewReceivedBzReply = _NoteEventsOfFlyerInteractions.sendFlyerReviewReceivedBzReply;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const onUserFollowedBz = _NoteEventsOfFlyerInteractions.onUserFollowedBz;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const onUserSavedFlyer = _NoteEventsOfFlyerInteractions.onUserSavedFlyer;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const onUserSharedFlyer = _NoteEventsOfFlyerInteractions.onUserSharedFlyer;
+  // -----------------------------------------------------------------------------
+
+  /// ( ADMIN ) NEW USERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const onCreateAnonymousUser = _AdminListeners.onCreateAnonymousUser;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const onUserSignUp = _AdminListeners.onUserSignUp;
+  // -----------------------------------------------------------------------------
+
+  /// ( ADMIN ) NEW BZ
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const onNewBz = _AdminListeners.onBzCreated;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const onNewFlyer = _AdminListeners.onFlyerCreated;
   // -----------------------------------------------------------------------------
 }

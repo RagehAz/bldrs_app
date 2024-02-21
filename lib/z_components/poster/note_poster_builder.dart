@@ -1,18 +1,15 @@
-import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
-import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/z_components/poster/structure/x_note_poster_box.dart';
-import 'package:bldrs/z_components/poster/variants/aa_bz_poster.dart';
-import 'package:bldrs/z_components/poster/variants/aa_flyer_poster.dart';
-import 'package:bldrs/z_components/poster/variants/aa_image_poster.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/f_helpers/future_model_builders/bz_builder.dart';
 import 'package:bldrs/f_helpers/future_model_builders/bz_poster_flyer_builder.dart';
 import 'package:bldrs/f_helpers/future_model_builders/flyer_builder.dart';
-import 'package:basics/z_grid/z_grid.dart';
+import 'package:bldrs/z_components/poster/structure/x_note_poster_box.dart';
+import 'package:bldrs/z_components/poster/variants/aa_bz_poster.dart';
+import 'package:bldrs/z_components/poster/variants/aa_flyer_poster.dart';
+import 'package:bldrs/z_components/poster/variants/aa_image_poster.dart';
 import 'package:flutter/material.dart';
 
 class NotePosterBuilder extends StatelessWidget {
@@ -47,12 +44,12 @@ class NotePosterBuilder extends StatelessWidget {
         return FlyerBuilder(
           flyerID: noteModel?.poster?.modelID,
           renderFlyer: RenderFlyer.allSlides,
-          flyerBoxWidth: ZGridScale.getBigItemWidth(
-              context: context,
-              gridWidth: Scale.screenWidth(context),
-              gridHeight: Scale.screenHeight(context),
-              itemAspectRatio: FlyerDim.flyerAspectRatio()
-          ),
+          // flyerBoxWidth: ZGridScale.getBigItemWidth(
+          //     context: context,
+          //     gridWidth: Scale.screenWidth(context),
+          //     gridHeight: Scale.screenHeight(context),
+          //     itemAspectRatio: FlyerDim.flyerAspectRatio()
+          // ),
           slidePicType: SlidePicType.small,
           onlyFirstSlide: false,
           builder: (bool loading, FlyerModel? flyerModel){

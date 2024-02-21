@@ -20,7 +20,6 @@ class FlyerBuilder extends StatelessWidget {
   const FlyerBuilder({
     required this.flyerID,
     required this.builder,
-    required this.flyerBoxWidth,
     required this.renderFlyer,
     required this.slidePicType,
     required this.onlyFirstSlide,
@@ -31,7 +30,6 @@ class FlyerBuilder extends StatelessWidget {
   });
   // -----------------------------------------------------------------------------
   final String? flyerID;
-  final double flyerBoxWidth;
   final Function(String? flyerID)? onFlyerNotFound;
   final FlyerModel? flyerModel;
   final RenderFlyer renderFlyer;
@@ -88,7 +86,6 @@ class FlyerBuilder extends StatelessWidget {
       return _FutureFlyerBuilder(
         flyerID: flyerID,
         flyerModel: flyerModel,
-        flyerBoxWidth: flyerBoxWidth,
         onFlyerNotFound: onFlyerNotFound,
         renderFlyer: renderFlyer,
         slidePicType: slidePicType,
@@ -108,7 +105,6 @@ class _FutureFlyerBuilder extends StatefulWidget {
   const _FutureFlyerBuilder({
     required this.flyerID,
     required this.builder,
-    required this.flyerBoxWidth,
     required this.renderFlyer,
     required this.slidePicType,
     required this.onlyFirstSlide,
@@ -119,7 +115,6 @@ class _FutureFlyerBuilder extends StatefulWidget {
   });
   // -----------------------------------------------------------------------------
   final String? flyerID;
-  final double flyerBoxWidth;
   final Function(String? flyerID)? onFlyerNotFound;
   final RenderFlyer renderFlyer;
   final SlidePicType slidePicType;

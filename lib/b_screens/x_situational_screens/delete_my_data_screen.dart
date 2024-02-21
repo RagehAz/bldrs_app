@@ -68,7 +68,7 @@ class _DeleteMyDataScreenState extends State<DeleteMyDataScreen> {
         // -------------------------------
 
         if (Authing.getUserID() == null){
-          await Authing.anonymousSignin(
+          await Authing.anonymousSignIn(
             onError: (String? error) async {
               await AuthProtocols.onAuthError(
                 error: error,

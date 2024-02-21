@@ -14,6 +14,7 @@ import 'package:bldrs/z_components/buttons/keywords_buttons/f_phid_button.dart';
 import 'package:basics/components/layers/blur_layer.dart';
 import 'package:basics/components/animators/auto_scrolling_bar.dart';
 import 'package:bldrs/z_components/layouts/layout_visibility_listener.dart';
+import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -28,6 +29,7 @@ class LiveActivePhidSelector extends StatelessWidget {
     required this.activePhid,
     required this.onlyShowPublished,
     required this.bzModel,
+    this.onPhidTap,
     this.appBarType = AppBarType.basic,
     super.key
   });
@@ -38,14 +40,25 @@ class LiveActivePhidSelector extends StatelessWidget {
   final ValueNotifier<String?> activePhid;
   final bool onlyShowPublished;
   final AppBarType appBarType;
+  final Function(String? phid)? onPhidTap;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
+    final double barHeight = Stratosphere.getStratosphereValue(
+      context: context,
+      appBarType: appBarType,
+    ) + BldrsAppBar.clearLineHeight(context) + 5;
+
     return AutoScrollingBar(
       key: const ValueKey<String>('the_auto_scroll_phid_selector'),
       scrollController: scrollController,
-      height: appBarType == AppBarType.non ? Stratosphere.smallAppBarStratosphere : Stratosphere.bigAppBarStratosphere,
+      // height: appBarType == AppBarType.non ? Stratosphere.smallAppBarStratosphere
+      //     :
+      // appBarType == AppBarType.search ? Stratosphere.bigAppBarStratosphere + Stratosphere.smallAppBarStratosphere
+      //     :
+      // Stratosphere.bigAppBarStratosphere,
+      height: barHeight,
       child: LayoutVisibilityListener(
         isOn: true,
         child: ActivePhidSelector(
@@ -53,7 +66,8 @@ class LiveActivePhidSelector extends StatelessWidget {
           mounted: mounted,
           activePhid: activePhid,
           onlyShowPublished: onlyShowPublished,
-          stratosphere: appBarType != AppBarType.non,
+          onPhidTap: onPhidTap,
+          appBarType: appBarType,
         ),
       ),
     );
@@ -69,17 +83,19 @@ class ActivePhidSelector extends StatelessWidget {
     required this.bzModel,
     required this.mounted,
     required this.onlyShowPublished,
-    this.stratosphere = true,
+    this.appBarType = AppBarType.non,
     this.buttonHeight,
+    this.onPhidTap,
     super.key
   });
   // --------------------
   final ValueNotifier<String?> activePhid;
   final BzModel? bzModel;
   final bool mounted;
-  final bool stratosphere;
+  final AppBarType appBarType;
   final bool onlyShowPublished;
   final double? buttonHeight;
+  final Function(String? phid)? onPhidTap;
   // --------------------------------------------------------------------------
   static void onSelectActivePhid({
     required String? phid,
@@ -92,6 +108,8 @@ class ActivePhidSelector extends StatelessWidget {
       mounted: mounted,
       value: phid,
     );
+
+
 
   }
   // --------------------
@@ -212,10 +230,14 @@ class ActivePhidSelector extends StatelessWidget {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
     final double _buttonHeight = buttonHeight ?? PhidButton.getHeight();
-    final double barHeight = stratosphere == true ?
-    Stratosphere.bigAppBarStratosphere
-        :
-    _buttonHeight + 5;
+    // final double barHeight = stratosphere == true ?
+    // Stratosphere.bigAppBarStratosphere
+    //     :
+    // _buttonHeight + 5;
+    final double barHeight = Stratosphere.getStratosphereValue(
+        context: context,
+        appBarType: appBarType,
+    ) + BldrsAppBar.clearLineHeight(context) + 5;
     // --------------------
     return BlurLayer(
       width: _screenWidth,
@@ -241,11 +263,17 @@ class ActivePhidSelector extends StatelessWidget {
                   bzModel: bzModel,
                   activePhid: thePhid,
                   onlyShowPublished: onlyShowPublished,
-                  onPhidTap: (String? phid) => onSelectActivePhid(
-                    mounted: mounted,
-                    activePhid: activePhid,
-                    phid: phid,
-                  ),
+                  onPhidTap: (String? phid) {
+
+                    onSelectActivePhid(
+                      mounted: mounted,
+                      activePhid: activePhid,
+                      phid: phid,
+                    );
+
+                    onPhidTap?.call(phid);
+
+                  },
                   buttonHeight: _buttonHeight,
                 ),
 

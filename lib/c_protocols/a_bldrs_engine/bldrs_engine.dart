@@ -5,6 +5,7 @@ import 'package:basics/helpers/checks/device_checker.dart';
 import 'package:basics/helpers/checks/errorize.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/mediator/sounder/sounder.dart';
+import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';

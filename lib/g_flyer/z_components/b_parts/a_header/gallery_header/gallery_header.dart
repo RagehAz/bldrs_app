@@ -140,7 +140,7 @@ class GalleryHeader extends StatelessWidget {
                       bzModel: bzModel,
                       mounted: mounted,
                       activePhid: activePhid,
-                      stratosphere: false,
+                      // appBarType: AppBarType.non,
                       onlyShowPublished: true,
                     ),
 

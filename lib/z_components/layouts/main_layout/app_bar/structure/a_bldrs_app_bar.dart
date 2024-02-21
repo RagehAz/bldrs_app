@@ -86,6 +86,9 @@ class BldrsAppBar extends StatelessWidget {
     if (appBarType == AppBarType.search){
       return Ratioz.appBarBigHeight;
     }
+    else if (appBarType == AppBarType.non){
+      return 0;
+    }
     else {
       return Ratioz.appBarSmallHeight;
     }

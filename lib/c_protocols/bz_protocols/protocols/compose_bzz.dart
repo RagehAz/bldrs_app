@@ -10,6 +10,7 @@ import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
@@ -92,9 +93,10 @@ class ComposeBzProtocols {
         CensusListener.onComposeBz(_bzModel),
 
         /// ADD NEW BZ LOCALLY
-        _addMyNewCreatedBzLocally(
-          bzModel: _bzModel,
-        ),
+        _addMyNewCreatedBzLocally(bzModel: _bzModel),
+
+        /// ADMIN NOTE
+        NoteEvent.onNewBz(bzModel: _bzModel),
 
       ]);
 

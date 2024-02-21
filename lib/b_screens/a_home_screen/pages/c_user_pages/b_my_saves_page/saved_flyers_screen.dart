@@ -2,16 +2,19 @@ import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/nav/nav.dart';
+// import 'package:basics/ldb/ldb_viewer/ldb_viewer_screen.dart';
 import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/b_my_saves_page/saves_screen_controllers.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
+import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/h_navigation/mirage/mirage.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -125,6 +128,28 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
     }
 
   }
+  // --------------------
+  Future<void> _onMissingFlyerTap(String? flyerID) async {
+
+    if (flyerID != null){
+
+      final bool _go = await Dialogs.confirmProceed(
+        titleVerse: getVerse('phid_delete_flyer'),
+        yesVerse: getVerse('phid_delete'),
+        noVerse: getVerse('phid_cancel'),
+      );
+
+      if (_go == true){
+
+        await removeMissingSavedFlyer(
+          flyerID: flyerID,
+        );
+
+      }
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -154,9 +179,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
           flyer: flyer,
         ),
         flyersIDs: _userModel?.savedFlyers?.all,
-        onFlyerNotFound: (String flyerID) => autoRemoveSavedFlyerThatIsNotFound(
-          flyerID: flyerID,
-        ),
+        onMissingFlyerTap: _onMissingFlyerTap,
         numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 4 : 3,
         gridType: FlyerGridType.zoomable,
         gridHeight: Scale.screenHeight(context),

@@ -367,7 +367,7 @@ class FCM {
   }
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT : senderImageURL_CAN_BE_STORAGE_PATH_OR_URL
   static Future<String?> getNootPicURLIfNotURL(String? urlOrPath) async {
     String? _url;
 
@@ -395,7 +395,6 @@ class FCM {
 
     return _url;
   }
-
   // ----------------------------------------------------------------------------
 
   /// NOTIFICATION CONTENTS
@@ -417,7 +416,7 @@ class FCM {
 
     int? _progress;
     if (
-    progress != null
+        progress != null
         &&
         progressBarIsLoading == false
         &&
@@ -689,13 +688,14 @@ class FCM {
       listen: false,
     );
 
-    if (Authing.userIsSignedUp(_user?.signInMethod) == true &&
-        _user?.device?.token != null) {
-      // blog('User : ${Authing.getUserID()} subscribed to topic : $topicID');
+    // blog('subscribeToTopic : Authing.userIsSignedUp(_user?.signInMethod) : ${Authing.userIsSignedUp(_user?.signInMethod)}');
+
+    if (Authing.userIsSignedUp(_user?.signInMethod) == true) {
       if (FCMStarter.canInitializeFCM() == true && topicID != null) {
         await tryAndCatch(
           invoker: 'FCM.subscribeToTopic',
           functions: () async {
+            blog('subscribeToTopic : ${Authing.getUserID()} subscribed from topic : $topicID');
             await FirebaseMessaging.instance.subscribeToTopic(topicID);
           },
         );
@@ -708,18 +708,20 @@ class FCM {
   static Future<void> unsubscribeFromTopic({
     required String? topicID,
   }) async {
+
     final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );
 
-    if (Authing.userIsSignedUp(_user?.signInMethod) == true &&
-        _user?.device?.token != null) {
-      // blog('User : ${Authing.getUserID()} unSubscribed from topic : $topicID');
+    // blog('unsubscribeFromTopic : Authing.userIsSignedUp(_user?.signInMethod) : ${Authing.userIsSignedUp(_user?.signInMethod)}');
+
+    if (Authing.userIsSignedUp(_user?.signInMethod) == true) {
       if (FCMStarter.canInitializeFCM() == true && topicID != null) {
         await tryAndCatch(
           invoker: 'FCM.unsubscribeFromTopic',
           functions: () async {
+            blog('unsubscribeFromTopic : ${Authing.getUserID()} unSubscribed from topic : $topicID');
             await FirebaseMessaging.instance.unsubscribeFromTopic(topicID);
           },
         );

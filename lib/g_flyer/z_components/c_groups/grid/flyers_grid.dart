@@ -34,7 +34,7 @@ class FlyersGrid extends StatelessWidget {
     this.onFlyerOptionsTap,
     this.onSelectFlyer,
     this.scrollDirection = Axis.vertical,
-    this.onFlyerNotFound,
+    this.onMissingFlyerTap,
     this.scrollable = true,
     this.selectionMode = false,
     this.bottomPadding,
@@ -57,7 +57,7 @@ class FlyersGrid extends StatelessWidget {
   final bool selectionMode;
   final Function(FlyerModel flyerModel)? onFlyerOptionsTap;
   final Function(FlyerModel flyerModel)? onSelectFlyer;
-  final Function(String flyerID)? onFlyerNotFound;
+  final Function(String? flyerID)? onMissingFlyerTap;
   final double? bottomPadding;
   final ZGridController? zGridController;
   final bool hasResponsiveSideMargin;
@@ -163,7 +163,7 @@ class FlyersGrid extends StatelessWidget {
           flyers: flyers,
           flyersIDs: flyersIDs,
           selectionMode: selectionMode,
-          onFlyerNotFound: onFlyerNotFound,
+          onMissingFlyerTap: onMissingFlyerTap,
           onFlyerOptionsTap: onFlyerOptionsTap,
           onSelectFlyer: onSelectFlyer,
           showAddFlyerButton: showAddFlyerButton,
@@ -188,7 +188,7 @@ class FlyersGrid extends StatelessWidget {
           flyers: flyers,
           flyersIDs: flyersIDs,
           selectionMode: selectionMode,
-          onFlyerNotFound: onFlyerNotFound,
+          onMissingFlyerTap: onMissingFlyerTap,
           onFlyerOptionsTap: onFlyerOptionsTap,
           onSelectFlyer: onSelectFlyer,
           showAddFlyerButton: showAddFlyerButton,
@@ -205,7 +205,7 @@ class FlyersGrid extends StatelessWidget {
           flyersIDs: Lister.checkCanLoop(flyers) == false ? flyersIDs : null,
           flyers: flyers,
           columnCount: numberOfColumnsOrRows,
-          onFlyerNotFound: onFlyerNotFound,
+          onMissingFlyerTap: onMissingFlyerTap,
           showAddFlyerButton: showAddFlyerButton,
           onSelectFlyer: onSelectFlyer,
           selectionMode: selectionMode,

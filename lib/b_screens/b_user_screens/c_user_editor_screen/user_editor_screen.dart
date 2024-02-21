@@ -849,7 +849,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                     /// EMAIL
                     if (draft != null)
                     Disabler(
-                      isDisabled: Authing.checkIsSocialSignInMethod(draft.signInMethod),
+                      isDisabled: true, // Authing.checkIsSocialSignInMethod(draft.signInMethod),
                       child: ContactFieldEditorBubble(
                         key: const ValueKey<String>('email'),
                         formKey: draft.formKey,

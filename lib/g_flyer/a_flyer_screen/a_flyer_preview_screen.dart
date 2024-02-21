@@ -72,7 +72,6 @@ class FlyerPreviewScreen extends StatelessWidget {
       onBack: Routing.backFromPreviewScreen,
       appBarType: AppBarType.non,
       child: FlyerBuilder(
-          flyerBoxWidth: _flyerWidth,
           slidePicType: SlidePicType.med,
           onlyFirstSlide: false,
           flyerID: flyerID,

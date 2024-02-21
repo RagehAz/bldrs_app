@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/x_ui/ui_image_cache_model.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -80,12 +78,12 @@ class UiProvider extends ChangeNotifier {
     required bool notify,
   }){
     final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
-    blog('proClearAfterHomeRoute : was : ${_uiProvider._afterHomeRoute}');
+    // blog('proClearAfterHomeRoute : was : ${_uiProvider._afterHomeRoute}');
     _uiProvider.setAfterHomeRoute(
       settings: null,
       notify: notify,
     );
-    blog('proClearAfterHomeRoute : now : ${_uiProvider._afterHomeRoute}');
+    // blog('proClearAfterHomeRoute : now : ${_uiProvider._afterHomeRoute}');
   }
   // --------------------
   /// TESTED : WORKS PERFECT

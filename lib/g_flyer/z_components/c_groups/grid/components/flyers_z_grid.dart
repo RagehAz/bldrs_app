@@ -2,20 +2,21 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/g_flyer/z_components/a_light_flyer_structure/b_light_big_flyer.dart';
-import 'package:bldrs/g_flyer/z_components/d_variants/a_flyer_box.dart';
-import 'package:bldrs/g_flyer/z_components/d_variants/b_flyer_loading.dart';
-import 'package:bldrs/g_flyer/z_components/d_variants/c_add_flyer_button.dart';
-import 'package:bldrs/g_flyer/z_components/d_variants/flyer_selection_stack.dart';
-import 'package:bldrs/g_flyer/z_components/d_variants/small_flyer.dart';
-import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/future_model_builders/flyer_builder.dart';
-import 'package:basics/z_grid/z_grid.dart';
+import 'package:bldrs/g_flyer/z_components/a_light_flyer_structure/b_light_big_flyer.dart';
+import 'package:bldrs/g_flyer/z_components/d_variants/a_flyer_box.dart';
+import 'package:bldrs/g_flyer/z_components/d_variants/b_flyer_loading.dart';
+import 'package:bldrs/g_flyer/z_components/d_variants/c_add_flyer_button.dart';
+import 'package:bldrs/g_flyer/z_components/d_variants/flyer_selection_stack.dart';
+import 'package:bldrs/g_flyer/z_components/d_variants/missing_flyer.dart';
+import 'package:bldrs/g_flyer/z_components/d_variants/small_flyer.dart';
+import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,7 +32,7 @@ class FlyersZGrid extends StatefulWidget {
     this.bottomPaddingOnZoomedOut,
     this.showAddFlyerButton = false,
     this.onSelectFlyer,
-    this.onFlyerNotFound,
+    this.onMissingFlyerTap,
     this.selectionMode = false,
     this.onFlyerOptionsTap,
     this.topPadding,
@@ -49,7 +50,7 @@ class FlyersZGrid extends StatefulWidget {
   final List<FlyerModel>? flyers;
   final bool showAddFlyerButton;
   final Function(FlyerModel flyerModel)? onSelectFlyer;
-  final Function(String flyerID)? onFlyerNotFound;
+  final Function(String? flyerID)? onMissingFlyerTap;
   final bool selectionMode;
   final Function(FlyerModel flyerModel)? onFlyerOptionsTap;
   final double? topPadding;
@@ -309,9 +310,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
             return FlyerBuilder(
               flyerID: _flyerID,
               flyerModel: _flyerModel,
-              flyerBoxWidth: _flyerBoxWidth,
               renderFlyer: RenderFlyer.firstSlide,
-              onFlyerNotFound: (String? id) => widget.onFlyerNotFound?.call(id!),
               onlyFirstSlide: true,
               slidePicType: SlidePicType.small,
               builder: (bool loading, FlyerModel? flyerModel){
@@ -322,6 +321,15 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
                     flyerBoxWidth: _flyerBoxWidth,
                     animate: true,
                     direction: Axis.vertical,
+                  );
+                }
+
+                /// NOT FOUND FLYER
+                else if (loading == false && flyerModel == null){
+                  return MissingFlyer(
+                    flyerBoxWidth: _flyerBoxWidth,
+                    flyerID: _flyerID ?? _flyerModel?.id,
+                    onTap: widget.onMissingFlyerTap,
                   );
                 }
 
@@ -359,7 +367,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
         /// BIG FLYER FOOTPRINT
         bigItemFootprint: FlyerBox(
           flyerBoxWidth: _gridScale!.bigItemWidth,
-          boxColor: Colorz.black255,
+          boxColor: Colorz.bloodTest, // Colorz.black255, /// TEMP_SHIT
         ),
 
         /// BIG FLYER

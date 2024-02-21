@@ -47,10 +47,6 @@ node_modules/
 # BUILD RELATED
 /ios/build/
 /Flutter
-<<<<<<< HEAD
-.git-rewrite
-=======
->>>>>>> origin/main
 
 # SECRET KEYS TO BE MANUALLY MOVED
 #lib/bldrs_keys.dart

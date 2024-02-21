@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -201,6 +202,11 @@ class RenovateUserProtocols {
               isFollowing: true
           ),
 
+          NoteEvent.onUserFollowedBz(
+            bzModel: bzToFollow,
+            userModel: _newUser,
+          ),
+
         ]);
 
 
@@ -293,6 +299,12 @@ class RenovateUserProtocols {
             CensusListener.onSaveFlyer(
               flyerModel: flyerModel,
               isSaving: true,
+            ),
+
+            /// SEND NOTE
+            NoteEvent.onUserSavedFlyer(
+              userModel: _newUser,
+              flyerModel: flyerModel,
             ),
 
           ]);

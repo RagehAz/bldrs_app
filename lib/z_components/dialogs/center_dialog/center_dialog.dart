@@ -241,10 +241,10 @@ class BldrsCenterDialog extends StatelessWidget {
       // canGoBack: true,
       onBack: () => exit(isButton: true,),
       child: AlertDialog(
-        backgroundColor: Colorz.nothing,
-        // shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderAll(context, 20)),
+        backgroundColor: Colorz.black80,
+        shape: const RoundedRectangleBorder(),
         contentPadding: EdgeInsets.zero,
-        elevation: 10,
+        elevation: 0,
         insetPadding: EdgeInsets.zero,
         content: Builder(
           builder: (BuildContext xxx) {
@@ -287,7 +287,7 @@ class BldrsCenterDialog extends StatelessWidget {
                       minHeight: _keyboardIsOn == true ? (_screenHeight - _keyboardHeight * 0.5) : _screenHeight,
                     ),
                     alignment: Alignment.center,
-                    color: Colorz.nothing, // to let parent gesture detector detect this container
+                    color: Colorz.black0, // to let parent gesture detector detect this container
                     child: GestureDetector(
                       onTap: () async {
 

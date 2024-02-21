@@ -80,7 +80,7 @@ class FilterMultiButtonTile extends StatelessWidget {
               verse: itemVerse(item),
               verseScaleFactor: 0.7 / 0.6,
               iconSizeFactor: 0.7,
-              icon: itemIcon == null ? null : itemIcon!.call(item),
+              icon: itemIcon?.call(item),
               color: _isSelected == true ? Colorz.yellow255 : Colorz.white20,
               iconColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
               verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,

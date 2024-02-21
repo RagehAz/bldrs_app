@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
@@ -51,11 +52,11 @@ void onSelectFlyerFromSavedFlyers({
 
 // ---------------------------------
 /// TESTED : WORKS PERFECT
-Future<void> autoRemoveSavedFlyerThatIsNotFound({
+Future<void> removeMissingSavedFlyer({
   required String flyerID,
 }) async {
 
-  blog('autoRemoveSavedFlyerThatIsNotFound : START');
+  blog('removeMissingSavedFlyer : START');
 
   final UserModel? _userModel = UsersProvider.proGetMyUserModel(
     context: getMainContext(),
@@ -67,21 +68,17 @@ Future<void> autoRemoveSavedFlyerThatIsNotFound({
     flyerIDToRemove: flyerID,
   );
 
-  /// NOT TESTED : BUT IT WAS REPEATING AFTER DELETING SOME BZ FOR EACH FLYER AND TOOK TOO LONG
-  /// FOR EACH FLYER TO DELETE AND RENOVATE
-  unawaited(UserProtocols.renovate(
+  await UserProtocols.renovate(
     newUser: _myUpdatedModel,
     oldUser: _userModel,
-    invoker: 'autoRemoveSavedFlyerThatIsNotFound',
-  ));
-
-  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(getMainContext(), listen: false);
-  _flyersProvider.removeFlyerFromProFlyers(
-      flyerID: flyerID,
-      notify: true,
+    invoker: 'removeMissingSavedFlyer',
   );
 
-  blog('autoRemoveSavedFlyerThatIsNotFound : END');
+  await FlyerProtocols.deleteFlyersLocally(
+    flyersIDs: [flyerID],
+  );
+
+  blog('removeMissingSavedFlyer : END');
 
 }
 // -----------------------------------------------------------------------------

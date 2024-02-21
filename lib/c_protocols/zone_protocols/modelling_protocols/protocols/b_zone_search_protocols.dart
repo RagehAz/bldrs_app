@@ -80,7 +80,34 @@ class ZoneSearchOps {
 
     if (_textIsEng == true) {
       for (final Flag flag in allFlags) {
-        if (text == flag.id) {
+        if (text?.trim().toLowerCase() == flag.id.toLowerCase()) {
+          final Phrase? _phrase = Phrase.searchFirstPhraseByLang(
+            phrases: flag.phrases,
+            langCode: 'en',
+          );
+
+          if (_phrase != null){
+            _output.add(_phrase);
+          }
+
+        }
+      }
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> searchCountriesByISO2FromAllFlags({
+    required String? text,
+  }) {
+    final List<Phrase> _output = <Phrase>[];
+
+    final bool _textIsEng = TextCheck.textIsEnglish(text?.trim());
+
+    if (_textIsEng == true) {
+      for (final Flag flag in allFlags) {
+        if (text?.trim().toLowerCase() == flag.iso2.toLowerCase()) {
           final Phrase? _phrase = Phrase.searchFirstPhraseByLang(
             phrases: flag.phrases,
             langCode: 'en',

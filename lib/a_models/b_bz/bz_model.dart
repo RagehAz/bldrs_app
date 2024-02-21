@@ -12,6 +12,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
@@ -838,6 +839,22 @@ class BzModel{
     }
 
     return _paths;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String> getBzLangCode(BzModel? bzModel) async {
+    String _langCode = 'en';
+
+    if (bzModel != null){
+
+      final AuthorModel? _author = AuthorModel.getCreatorAuthorFromAuthors(bzModel.authors);
+      final UserModel? _user = await UserProtocols.fetch(userID: _author?.userID);
+      if (_user != null){
+        _langCode = _user.language ?? 'en';
+      }
+    }
+
+    return _langCode;
   }
   // -----------------------------------------------------------------------------
 

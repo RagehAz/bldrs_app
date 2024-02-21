@@ -11,6 +11,7 @@ import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/records_protocols/recorder_protocols.dart';
@@ -104,9 +105,7 @@ class ComposeFlyerProtocols {
             FlyerLDBOps.insertFlyer(_flyerToPublish),
 
             /// ADD FLYER ID TO BZ MODEL + AUTHOR MODEL + UPDATE SCOPE
-            _renovateBzOnFlyerCompose(
-              newFlyerToAdd: _flyerToPublish,
-            ),
+            _renovateBzOnFlyerCompose(newFlyerToAdd: _flyerToPublish),
 
             /// INCREMENT BZ COUNTER (allSlides) COUNT
             RecorderProtocols.onComposeFlyer(
@@ -115,12 +114,13 @@ class ComposeFlyerProtocols {
             ),
 
             /// INCREMENT CITY FLYER CHAIN USAGE
-            ZonePhidsProtocols.onComposeFlyer(
-              flyerModel: _flyerToPublish,
-            ),
+            ZonePhidsProtocols.onComposeFlyer(flyerModel: _flyerToPublish),
 
             /// CENSUS
             CensusListener.onComposeFlyer(_flyerToPublish),
+
+            /// SEND ADMIN NOTE
+            NoteEvent.onNewFlyer(flyerModel: _flyerToPublish),
 
           ]);
 

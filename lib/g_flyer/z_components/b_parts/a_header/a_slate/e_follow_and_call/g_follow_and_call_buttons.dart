@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/g_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/gg_call_button.dart';
 import 'package:bldrs/g_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/gg_follow_button.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
@@ -14,6 +15,7 @@ class FollowAndCallButtons extends StatelessWidget {
     required this.followCallButtonsScaleTween,
     required this.logoSizeRatioTween,
     required this.tinyMode,
+    required this.contacts,
     this.showButtons = true,
     super.key
   });
@@ -27,6 +29,7 @@ class FollowAndCallButtons extends StatelessWidget {
   final Animation<double>? logoSizeRatioTween;
   final bool showButtons;
   final bool tinyMode;
+  final List<ContactModel> contacts;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -71,6 +74,7 @@ class FollowAndCallButtons extends StatelessWidget {
             CallButton(
               flyerBoxWidth: flyerBoxWidth,
               onCallTap: onCallTap,
+              contacts: contacts,
             ),
 
           ],

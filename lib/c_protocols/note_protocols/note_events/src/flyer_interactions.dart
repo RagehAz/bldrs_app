@@ -132,4 +132,196 @@ class _NoteEventsOfFlyerInteractions {
 
   }
   // -----------------------------------------------------------------------------
+
+  /// BZ FOLLOW
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> onUserFollowedBz({
+    required BzModel? bzModel,
+    required UserModel? userModel,
+  }) async {
+
+    if (bzModel != null && userModel != null){
+
+      final String? _bzName = _createBzNameString(bzModel: bzModel);
+      final String _bzLangCode = await BzModel.getBzLangCode(bzModel);
+      final String? _newFollowerLine = await MainPhrasesJsonOps.translatePhid(
+        phid: 'phid_new_follower',
+        langCode: _bzLangCode,
+      ) ?? 'New follower';
+      final String _title = '$_bzName $_newFollowerLine';
+
+      final NoteModel _note = NoteModel(
+        id: Numeric.createUniqueID().toString(),
+        parties: NoteParties(
+          senderID: userModel.id,
+          senderImageURL: userModel.picPath,
+          senderType: PartyType.user,
+          receiverID: bzModel.id,
+          receiverType: PartyType.bz,
+        ),
+        title: _title,
+        body: userModel.name,
+        sentTime: DateTime.now(),
+        // sendFCM: true,
+        topic: TopicModel.generateBzTopicID(
+          topicID: TopicModel.bzNewFollowers,
+          bzID: bzModel.id,
+        ),
+        // function: null,
+        navTo: TriggerModel(
+          argument: userModel.id,
+          name: ScreenName.userPreview,
+          done: const [],
+        ),
+      );
+
+      await NoteProtocols.composeToOneReceiver(
+          note: _note
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// FLYER SAVE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> onUserSavedFlyer({
+    required FlyerModel? flyerModel,
+    required UserModel? userModel,
+  }) async {
+
+    if (flyerModel != null && userModel != null){
+
+      final BzModel? _bzModel = await BzProtocols.fetchBz(
+        bzID: flyerModel.bzID,
+      );
+
+      final String? _bzName = _createBzNameString(bzModel: _bzModel);
+      final String _bzLangCode = await BzModel.getBzLangCode(_bzModel);
+      final String? _newFollowerLine = await MainPhrasesJsonOps.translatePhid(
+        phid: 'phid_flyer_got_saved',
+        langCode: _bzLangCode,
+      ) ?? 'Flyer got saved';
+      final String _title = '$_bzName $_newFollowerLine';
+
+      final NoteModel _note = NoteModel(
+        id: Numeric.createUniqueID().toString(),
+        parties: NoteParties(
+          senderID: userModel.id,
+          senderImageURL: userModel.picPath,
+          senderType: PartyType.user,
+          receiverID: flyerModel.bzID,
+          receiverType: PartyType.bz,
+        ),
+        title: _title,
+        body: userModel.name,
+        sentTime: DateTime.now(),
+        // sendFCM: true,
+        topic: TopicModel.generateBzTopicID(
+          topicID: TopicModel.bzFlyersNewSaves,
+          bzID: flyerModel.bzID,
+        ),
+        poster: PosterModel(
+          type: PosterType.flyer,
+          modelID: flyerModel.id,
+          path: StoragePath.flyers_flyerID_poster(flyerModel.id),
+        ),
+        // function: null,
+        navTo: TriggerModel(
+          argument: userModel.id,
+          name: ScreenName.userPreview,
+          done: const [],
+        ),
+      );
+
+      await NoteProtocols.composeToOneReceiver(
+          note: _note
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// FLYER SHARE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> onUserSharedFlyer({
+    required FlyerModel? flyerModel,
+    required UserModel? userModel,
+  }) async {
+
+    if (flyerModel != null && userModel != null){
+
+      final BzModel? _bzModel = await BzProtocols.fetchBz(
+        bzID: flyerModel.bzID,
+      );
+
+      final String? _bzName = _createBzNameString(bzModel: _bzModel);
+      final String _bzLangCode = await BzModel.getBzLangCode(_bzModel);
+      final String? _newFollowerLine = await MainPhrasesJsonOps.translatePhid(
+        phid: 'phid_flyer_got_shared',
+        langCode: _bzLangCode,
+      ) ?? 'Flyer got shared';
+      final String _title = '$_bzName $_newFollowerLine';
+
+      final NoteModel _note = NoteModel(
+        id: Numeric.createUniqueID().toString(),
+        parties: NoteParties(
+          senderID: userModel.id,
+          senderImageURL: userModel.picPath,
+          senderType: PartyType.user,
+          receiverID: flyerModel.bzID,
+          receiverType: PartyType.bz,
+        ),
+        title: _title,
+        body: userModel.name,
+        sentTime: DateTime.now(),
+        // sendFCM: true,
+        topic: TopicModel.generateBzTopicID(
+          topicID: TopicModel.bzFlyersNewShares,
+          bzID: flyerModel.bzID,
+        ),
+        poster: PosterModel(
+          type: PosterType.flyer,
+          modelID: flyerModel.id,
+          path: StoragePath.flyers_flyerID_poster(flyerModel.id),
+        ),
+        // function: null,
+        navTo: TriggerModel(
+          argument: userModel.id,
+          name: ScreenName.userPreview,
+          done: const [],
+        ),
+      );
+
+      await NoteProtocols.composeToOneReceiver(
+          note: _note
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// HELPERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String _createBzNameString({
+    required BzModel? bzModel,
+  }){
+    final String? _bzName = TextMod.removeAllCharactersAfterNumberOfCharacters(
+        text: bzModel?.name,
+        numberOfChars: 10,
+    );
+    return _bzName == null ? '' : '[$_bzName]';
+  }
+  // -----------------------------------------------------------------------------
 }

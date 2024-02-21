@@ -36,7 +36,7 @@ class PriceField extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return SizedBox(
-      height: height,
+      // height: height,
       child: Column(
         // mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[

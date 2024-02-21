@@ -135,18 +135,20 @@ class CountriesScreenSearchView extends StatelessWidget {
         /// WHEN RESULT IS EMPTY
         else {
 
-          return Container(
-            margin: _topMargin,
-            child: const BldrsText(
-              verse: Verse(
-                id: 'phid_no_result_found',
-                translate: true,
+          return Center(
+            child: Container(
+              margin: _topMargin,
+              child: const BldrsText(
+                verse: Verse(
+                  id: 'phid_no_result_found',
+                  translate: true,
+                ),
+                labelColor: Colorz.white10,
+                size: 3,
+                weight: VerseWeight.thin,
+                italic: true,
+                color: Colorz.white200,
               ),
-              labelColor: Colorz.white10,
-              size: 3,
-              weight: VerseWeight.thin,
-              italic: true,
-              color: Colorz.white200,
             ),
           );
 

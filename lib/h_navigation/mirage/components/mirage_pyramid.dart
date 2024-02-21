@@ -33,6 +33,7 @@ class _MiragePyramid extends StatelessWidget {
       },
       child: Khufu(
         onTap: () => _mirage0.onPyramidTap(mounted: mounted),
+        frontColor: Colorz.white255,
         onLongTap: () => Routing.goTo(route: ScreenName.logo),
       ),
     );

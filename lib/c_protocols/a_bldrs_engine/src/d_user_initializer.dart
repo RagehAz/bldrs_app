@@ -58,7 +58,7 @@ class UserInitializer {
 
     /// SOMETHING IS TERRIBLY WRONG
     if (_success == false){
-      await _UserSessionStarter.signOutAndRestart();
+      await UserSessionStarter.signOutAndRestart();
       // blog('SSS : SOMETHING IS VERY WRONG : USERID : ${Authing.getUserID()}');
     }
 
@@ -72,14 +72,14 @@ class UserInitializer {
 
     /// INITIALIZE USER SESSION
     if (_success == true){
-      await _UserSessionStarter.renovationCheckups();
+      await UserSessionStarter.renovationCheckups();
       // blog('SSS : RENOVATION DONE');
     }
 
     /// NOT FOUND => SIGN OUT & RESTART
     else {
       // blog('SSS : THERE YOU ARE BITCH : USERID : ${Authing.getUserID()}');
-      await _UserSessionStarter.signOutAndRestart();
+      await UserSessionStarter.signOutAndRestart();
     }
 
   }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/g_flyer/c_flyer_reviews_screen/a_flyer_reviews_screen.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/records_protocols/recorder_protocols.dart';
@@ -98,11 +99,22 @@ Future<void> onShareFlyer({
     );
 
     if (_success == true && Authing.userIsSignedUp(_user?.signInMethod) == true) {
-      unawaited(RecorderProtocols.onShareFlyer(
-        flyerID: flyerModel.id,
-        bzID: flyerModel.bzID,
-        slideIndex: slideIndex,
-      ));
+
+      unawaited(Future.wait(<Future>[
+
+        RecorderProtocols.onShareFlyer(
+          flyerID: flyerModel.id,
+          bzID: flyerModel.bzID,
+          slideIndex: slideIndex,
+        ),
+
+        NoteEvent.onUserSharedFlyer(
+          flyerModel: flyerModel,
+          userModel: _user,
+        ),
+
+      ]));
+
     }
 
     setNotifier(

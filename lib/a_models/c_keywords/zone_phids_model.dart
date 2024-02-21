@@ -296,6 +296,40 @@ class ZonePhidsModel {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static int getPhidCount({
+    required ZonePhidsModel? zonePhidsModel,
+    required String? phid,
+  }){
+    int _output = 0;
+
+    if (zonePhidsModel != null && phid != null){
+
+      _output = zonePhidsModel.phidsMap?[phid] ?? 0;
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static int getPhidsCount({
+    required ZonePhidsModel? zonePhidsModel,
+    required List<String> phids,
+  }){
+    int _output = 0;
+
+    if (zonePhidsModel != null && Lister.checkCanLoop(phids) == true){
+
+      for (final String phid in phids){
+        _output = _output + getPhidCount(phid: phid, zonePhidsModel: zonePhidsModel);
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS

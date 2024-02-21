@@ -41,29 +41,29 @@ import 'package:flutter/material.dart';
 
 class AuthScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const AuthScreenView({
-    required this.formKey,
-    required this.emailController,
-    required this.passwordController,
-    required this.passwordConfirmationController,
-    required this.emailValidator,
-    required this.passwordValidator,
-    required this.passwordConfirmationValidator,
-    required this.switchSignIn,
-    required this.onSignin,
-    required this.onSignup,
-    required this.isSigningIn,
-    required this.appBarType,
-    required this.passwordNode,
-    required this.confirmPasswordNode,
-    required this.onSelectAccount,
-    required this.myAccounts,
-    required this.isObscured,
-    required this.onForgotPassword,
-    required this.currentAccount,
-    this.hasMargins = true,
-    super.key
-  });
+  const AuthScreenView(
+      {required this.formKey,
+      required this.emailController,
+      required this.passwordController,
+      required this.passwordConfirmationController,
+      required this.emailValidator,
+      required this.passwordValidator,
+      required this.passwordConfirmationValidator,
+      required this.switchSignIn,
+      required this.onSignin,
+      required this.onSignup,
+      required this.isSigningIn,
+      required this.appBarType,
+      required this.passwordNode,
+      required this.confirmPasswordNode,
+      required this.onSelectAccount,
+      required this.myAccounts,
+      required this.isObscured,
+      required this.onForgotPassword,
+      required this.currentAccount,
+      this.hasMargins = true,
+      super.key});
+
   /// --------------------------------------------------------------------------
   final GlobalKey<FormState> formKey;
   final TextEditingController emailController;
@@ -89,55 +89,60 @@ class AuthScreenView extends StatelessWidget {
   void _onSubmitted({
     required bool signingIn,
     required bool isOnConfirmPassword,
-  }){
-
+  }) {
     /// WHILE SIGN IN
-    if (signingIn == true){
-
+    if (signingIn == true) {
       /// WHILE ON PASSWORD
-      if (isOnConfirmPassword == false){
+      if (isOnConfirmPassword == false) {
         onSignin();
       }
     }
 
     /// WHILE SIGN UP
     else {
-      if (isOnConfirmPassword == true){
+      if (isOnConfirmPassword == true) {
         onSignup();
       }
-
     }
-
   }
+
   // --------------------
-  bool accountIsSocial({
-    required String? currentEmail
-  }){
-      bool _isSocial = false;
+  bool accountIsSocial({required String? currentEmail}) {
+    bool _isSocial = false;
 
-      if (currentAccount != null && currentAccount?.email == currentEmail){
-        _isSocial =
-            currentAccount!.signInMethod == SignInMethod.google ||
-            currentAccount!.signInMethod == SignInMethod.facebook ||
-            currentAccount!.signInMethod == SignInMethod.apple
-        ;
-      }
-
-      blog('account is social : $_isSocial');
-      return _isSocial;
+    if (currentAccount != null && currentAccount?.email == currentEmail) {
+      _isSocial = currentAccount!.signInMethod == SignInMethod.google ||
+          currentAccount!.signInMethod == SignInMethod.facebook ||
+          currentAccount!.signInMethod == SignInMethod.apple;
     }
+
+    blog('account is social : $_isSocial');
+    return _isSocial;
+  }
+
   // --------------------
-  String? getBySocialPhid(SignInMethod method){
+  String? getBySocialPhid(SignInMethod method) {
     String? _phid;
-    switch (method){
-      case SignInMethod.google:     _phid = 'phid_by_google';   break;
-      case SignInMethod.facebook:   _phid = 'phid_by_facebook'; break;
-      case SignInMethod.apple:      _phid = 'phid_by_apple';    break;
-      case SignInMethod.anonymous:  _phid = null; break;
-      case SignInMethod.password:   _phid = null; break;
+    switch (method) {
+      case SignInMethod.google:
+        _phid = 'phid_by_google';
+        break;
+      case SignInMethod.facebook:
+        _phid = 'phid_by_facebook';
+        break;
+      case SignInMethod.apple:
+        _phid = 'phid_by_apple';
+        break;
+      case SignInMethod.anonymous:
+        _phid = null;
+        break;
+      case SignInMethod.password:
+        _phid = null;
+        break;
     }
     return _phid;
   }
+
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -148,10 +153,9 @@ class AuthScreenView extends StatelessWidget {
     final double _bubbleWidth = BldrsAppBar.responsiveWidth();
     // --------------------
     final List<SignInMethod> methods = [
-      if (DeviceChecker.deviceIsIOS() == true)
-        SignInMethod.apple,
+      if (DeviceChecker.deviceIsIOS() == true) SignInMethod.apple,
       SignInMethod.google,
-      SignInMethod.facebook
+      // SignInMethod.facebook,
     ];
     // --------------------
     return Form(
@@ -159,318 +163,322 @@ class AuthScreenView extends StatelessWidget {
       child: ValueListenableBuilder(
           valueListenable: emailController,
           builder: (_, TextEditingValue currentEmail, Widget? child) {
-
             final bool _currentAccountIsSocial = accountIsSocial(
               currentEmail: currentEmail.text,
             );
 
-          return BldrsFloatingList(
-            // physics: const BouncingScrollPhysics(),
-            // padding: Stratosphere.stratosphereSandwich,
-            hasMargins: hasMargins,
-            columnChildren: <Widget>[
+            return BldrsFloatingList(
+              // physics: const BouncingScrollPhysics(),
+              // padding: Stratosphere.stratosphereSandwich,
+              hasMargins: hasMargins,
+              columnChildren: <Widget>[
 
-              /// ENTER E-MAIL
-              BldrsTextFieldBubble(
-                bubbleWidth: _bubbleWidth,
-                bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-                  context: context,
-                  redDot: true,
-                  headlineVerse: const Verse(
-                    id: 'phid_emailAddress',
-                    translate: true,
+                /// ENTER E-MAIL
+                BldrsTextFieldBubble(
+                  bubbleWidth: _bubbleWidth,
+                  bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                    context: context,
+                    redDot: true,
+                    headlineVerse: const Verse(
+                      id: 'phid_emailAddress',
+                      translate: true,
+                    ),
                   ),
-                ),
-                appBarType: appBarType,
-                isFormField: true,
-                key: const ValueKey<String>('email'),
-                textController: emailController,
-                textDirection: TextDirection.ltr,
-                hintTextDirection: TextDirection.ltr,
-                keyboardTextInputType: TextInputType.emailAddress,
-                keyboardTextInputAction: TextInputAction.next,
-                hintVerse: const Verse(
-                  id: 'rageh@bldrs.net',
-                  translate: false,
-                ),
-                validator: emailValidator,
-                autoCorrect: Keyboard.autoCorrectIsOn(),
-                enableSuggestions: Keyboard.suggestionsEnabled(),
-                columnChildren: <Widget>[
+                  appBarType: appBarType,
+                  isFormField: true,
+                  key: const ValueKey<String>('email'),
+                  textController: emailController,
+                  textDirection: TextDirection.ltr,
+                  hintTextDirection: TextDirection.ltr,
+                  keyboardTextInputType: TextInputType.emailAddress,
+                  keyboardTextInputAction: TextInputAction.next,
+                  hintVerse: const Verse(
+                    id: 'rageh@bldrs.net',
+                    translate: false,
+                  ),
+                  validator: emailValidator,
+                  autoCorrect: Keyboard.autoCorrectIsOn(),
+                  enableSuggestions: Keyboard.suggestionsEnabled(),
+                  columnChildren: <Widget>[
+                    const Spacing(),
+                    if (Lister.checkCanLoop(myAccounts) == true)
+                      FloatingList(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        boxAlignment:
+                            BldrsAligners.superInverseCenterAlignment(context),
+                        width: Bubble.clearWidth(context: context),
+                        height: 35,
+                        scrollDirection: Axis.horizontal,
+                        columnChildren: <Widget>[
 
-                  const Spacing(),
+                          ...List.generate(myAccounts.length, (index) {
 
-                  if (Lister.checkCanLoop(myAccounts) == true)
-                    FloatingList(
-                      mainAxisAlignment:  MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      boxAlignment: BldrsAligners.superInverseCenterAlignment(context),
-                      width: Bubble.clearWidth(context: context),
-                      height: 35,
-                      scrollDirection: Axis.horizontal,
-                      columnChildren: <Widget>[
+                            final AccountModel _account = myAccounts[index];
 
-                        ...List.generate(myAccounts.length, (index) {
+                            return FutureBuilder<UserModel?>(
+                              future: UserProtocols.fetch(userID: _account.id),
+                              builder: (_, AsyncSnapshot<UserModel?> snap) {
+                                final UserModel? _userModel = snap.data;
+                                final String? _userEmail =
+                                    ContactModel.getValueFromContacts(
+                                  contacts: _userModel?.contacts,
+                                  contactType: ContactType.email,
+                                );
 
-                          final AccountModel _account = myAccounts[index];
+                                final bool _isSelected =
+                                    _userEmail == currentEmail.text;
 
-                          return FutureBuilder<UserModel?>(
-                            future: UserProtocols.fetch(userID: _account.id),
-                            builder: (_, AsyncSnapshot<UserModel?> snap) {
-
-                              final UserModel? _userModel = snap.data;
-                              final String? _userEmail = ContactModel.getValueFromContacts(
-                                contacts: _userModel?.contacts,
-                                contactType: ContactType.email,
-                              );
-
-                              final bool _isSelected = _userEmail == currentEmail.text;
-
-                              return Container(
-                                width: 40,
-                                height: 35,
-                                margin: Scale.superInsets(
-                                  context: context,
-                                  appIsLTR: UiProvider.checkAppIsLeftToRight(),
-                                  enLeft: 10,
-                                ),
-                                child: Stack(
-                                  children: <Widget>[
-
-                                    SuperPositioned(
-                                      appIsLTR: UiProvider.checkAppIsLeftToRight(),
-                                      enAlignment: Alignment.bottomRight,
-                                      child: BldrsBox(
-                                        height: 35,
-                                        width: 35,
-                                        icon: _userModel?.picPath,
-                                        greyscale: !_isSelected,
-                                        borderColor: _isSelected == true ? Colorz.white200 : null,
-                                        solidGreyScale: _userModel?.picPath == Iconz.anonymousUser,
-                                        onTap: () => onSelectAccount(index),
-                                      ),
-                                    ),
-
-                                    SuperPositioned(
-                                      appIsLTR: UiProvider.checkAppIsLeftToRight(),
-                                      enAlignment: Alignment.topLeft,
-                                      child: BldrsBox(
-                                        width: 12,
-                                        height: 12,
-                                        icon: AuthModel.getSignInMethodIcon(
-                                          signInMethod: _account.signInMethod,
+                                return Container(
+                                  width: 40,
+                                  height: 35,
+                                  margin: Scale.superInsets(
+                                    context: context,
+                                    appIsLTR:
+                                        UiProvider.checkAppIsLeftToRight(),
+                                    enLeft: 10,
+                                  ),
+                                  child: Stack(
+                                    children: <Widget>[
+                                      SuperPositioned(
+                                        appIsLTR:
+                                            UiProvider.checkAppIsLeftToRight(),
+                                        enAlignment: Alignment.bottomRight,
+                                        child: BldrsBox(
+                                          height: 35,
+                                          width: 35,
+                                          icon: _userModel?.picPath,
+                                          greyscale: !_isSelected,
+                                          borderColor: _isSelected == true
+                                              ? Colorz.white200
+                                              : null,
+                                          solidGreyScale: _userModel?.picPath ==
+                                              Iconz.anonymousUser,
+                                          onTap: () => onSelectAccount(index),
                                         ),
                                       ),
-                                    ),
-
-                                  ],
-                                ),
-                              );
-
+                                      SuperPositioned(
+                                        appIsLTR:
+                                            UiProvider.checkAppIsLeftToRight(),
+                                        enAlignment: Alignment.topLeft,
+                                        child: BldrsBox(
+                                          width: 12,
+                                          height: 12,
+                                          icon: AuthModel.getSignInMethodIcon(
+                                            signInMethod: _account.signInMethod,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
                               },
-                          );
+                            );
 
-                        }),
-
-                      ],
-                    ),
-
-                ],
-              ),
-
-              /// PASSWORD - CONFIRMATION
-              Disabler(
-                isDisabled: _currentAccountIsSocial,
-                disabledOpacity: 0.2,
-                child: PasswordBubbles(
-                  bubbleWidth: _bubbleWidth,
-                  confirmPasswordNode: confirmPasswordNode,
-                  passwordNode: passwordNode,
-                  appBarType: appBarType,
-                  passwordController: passwordController,
-                  showPasswordOnly: isSigningIn,
-                  passwordValidator: passwordValidator,
-                  passwordConfirmationController: passwordConfirmationController,
-                  passwordConfirmationValidator: passwordConfirmationValidator,
-                  onSubmitted: (String? text) => _onSubmitted(
-                    signingIn: isSigningIn,
-                    isOnConfirmPassword: false,
-                  ),
-                  onForgotPassword: onForgotPassword,
-                  isObscured: isObscured,
-                ),
-              ),
-
-              /// SIGN IN - REGISTER BUTTONS
-              SizedBox(
-                width: _bubbleWidth,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-
-                    /// REGISTER BUTTON
-                    BldrsBox(
-                      height: _buttonHeight,
-                      width: _bubbleWidth * 0.35,
-                      verseScaleFactor: _verseScaleFactor,
-                      verseMaxLines: 2,
-                      verse: Verse(
-                        id: isSigningIn ? 'phid_create' : 'phid_register',
-                        translate: true,
+                          }),
+                        ],
                       ),
-                      secondLine: const Verse(
-                        id: 'phid_new_account',
-                        translate: true,
-                      ),
-                      verseColor: isSigningIn ? Colorz.white255 : Colorz.black255,
-                      secondLineColor: isSigningIn ? Colorz.white255 : Colorz.black255,
-                      color: isSigningIn ? Colorz.white20 : Colorz.yellow255,
-                      onTap: isSigningIn ? switchSignIn : onSignup,
-                    ),
-
-                    /// SIGN IN BUTTON
-                    Disabler(
-                      isDisabled: _currentAccountIsSocial,
-                      disabledOpacity: 0.1,
-                      child: BldrsBox(
-                        isDisabled: isSigningIn == false,
-                        width: _bubbleWidth * 0.65 - 10,
-                        height: _buttonHeight,
-                        verseScaleFactor: _verseScaleFactor,
-                        color: isSigningIn || _currentAccountIsSocial ? Colorz.yellow255 : Colorz.white20,
-                        verse: const Verse(
-                          id: 'phid_sing_in_by_email',
-                          translate: true,
-                          casing: Casing.upperCase,
-                        ),
-                        verseColor: isSigningIn || _currentAccountIsSocial ? Colorz.black255 : Colorz.white255,
-                        verseItalic: true,
-                        verseWeight: VerseWeight.black,
-                        // margins: const EdgeInsets.only(bottom: 5),
-                        onTap: isSigningIn ? onSignin : switchSignIn,
-                        verseMaxLines: 2,
-                        onDisabledTap: () => switchSignIn(),
-                      ),
-                    ),
-
                   ],
                 ),
-              ),
 
-              /// SOCIAL AUTH BUTTONS
-              if (AuthProtocols.showSocialAuthButtons == true)
+                /// PASSWORD - CONFIRMATION
                 Disabler(
-                  isDisabled: !isSigningIn,
-                  disabledOpacity: 0.1,
-                  child: SizedBox(
-                    width: _bubbleWidth,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-
-                        ...List.generate(methods.length, (index) {
-
-                          final SignInMethod method = methods[index];
-
-                          return Column(
-                            children: <Widget>[
-
-                              /// SOCIAL BUTTON
-                              SocialAuthButton(
-                                signInMethod: method,
-                                socialKeys: BldrsKeys.socialKeys,
-                                onSuccess: (AuthModel? authModel) => authBySocialMedia(
-                                  authModel: authModel,
-                                  mounted: true,
-                                ),
-                                onError: (String? error) => AuthProtocols.onAuthError(
-                                  error: error,
-                                  invoker: 'SocialSignIn.$method',
-                                ),
-                                onAuthLoadingChanged: (bool loading){
-                                  blog('is loading : $loading');
-                                  },
-                                manualAuthing: DeviceChecker.deviceIsAndroid(),
-                              ),
-
-                              /// BY VERSE
-                              BldrsText(
-                                width: SocialAuthButton.standardSize * 1.2,
-                                verse: Verse(
-                                  id: getBySocialPhid(method),
-                                  translate: true,
-                                ),
-                                size: 1,
-                                maxLines: 2,
-                                weight: VerseWeight.thin,
-                                scaleFactor: 0.8,
-                              ),
-
-                            ],
-                          );
-
-                        }),
-
-                      ],
+                  isDisabled: _currentAccountIsSocial,
+                  disabledOpacity: 0.2,
+                  child: PasswordBubbles(
+                    bubbleWidth: _bubbleWidth,
+                    confirmPasswordNode: confirmPasswordNode,
+                    passwordNode: passwordNode,
+                    appBarType: appBarType,
+                    passwordController: passwordController,
+                    showPasswordOnly: isSigningIn,
+                    passwordValidator: passwordValidator,
+                    passwordConfirmationController:
+                        passwordConfirmationController,
+                    passwordConfirmationValidator:
+                        passwordConfirmationValidator,
+                    onSubmitted: (String? text) => _onSubmitted(
+                      signingIn: isSigningIn,
+                      isOnConfirmPassword: false,
                     ),
+                    onForgotPassword: onForgotPassword,
+                    isObscured: isObscured,
                   ),
                 ),
 
-              /// SEPARATOR
-              SeparatorLine(
-                width: MainButton.getButtonWidth(context: context),
-                withMargins: true,
-              ),
+                /// SIGN IN - REGISTER BUTTONS
+                SizedBox(
+                  width: _bubbleWidth,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      /// REGISTER BUTTON
+                      BldrsBox(
+                        height: _buttonHeight,
+                        width: _bubbleWidth * 0.35,
+                        verseScaleFactor: _verseScaleFactor,
+                        verseMaxLines: 2,
+                        verse: Verse(
+                          id: isSigningIn ? 'phid_create' : 'phid_register',
+                          translate: true,
+                        ),
+                        secondLine: const Verse(
+                          id: 'phid_new_account',
+                          translate: true,
+                        ),
+                        verseColor:
+                            isSigningIn ? Colorz.white255 : Colorz.black255,
+                        secondLineColor:
+                            isSigningIn ? Colorz.white255 : Colorz.black255,
+                        color: isSigningIn ? Colorz.white20 : Colorz.yellow255,
+                        onTap: isSigningIn ? switchSignIn : onSignup,
+                      ),
 
-              /// DISCLAIMER LINE
-              LegalDisclaimerLine(
-                onPolicyTap: () => onPrivacyTap(),
-                onTermsTap: () => onTermsAndTap(),
-                disclaimerLine: getWord('phid_by_using_bldrs_you_agree_to_our'),
-                andLine: getWord('phid_and'),
-                policyLine: getWord('phid_privacy_policy'),
-                termsLine: getWord('phid_terms_of_service'),
-                textDirection: UiProvider.getAppTextDir(),
-              ),
-
-              /// SEPARATOR
-              const DotSeparator(
-                bottomMarginIsOn: false,
-              ),
-
-              /// COPYRIGHTS
-              CopyrightsLine(
-                isArabic: !UiProvider.checkAppIsLeftToRight(),
-                textHeight: 15,
-                companyName: BldrsKeys.bldrsHoldingCompanyName,
-              ),
-
-              /// RAGE7 LOGO
-              const Padding(
-                padding: EdgeInsets.all(10),
-                child: BldrsImage(
-                  height: 15,
-                  width: 15,
-                  pic: Iconz.dvRagehIcon,
-                  iconColor: Colorz.yellow200,
+                      /// SIGN IN BUTTON
+                      Disabler(
+                        isDisabled: _currentAccountIsSocial,
+                        disabledOpacity: 0.1,
+                        child: BldrsBox(
+                          isDisabled: isSigningIn == false,
+                          width: _bubbleWidth * 0.65 - 10,
+                          height: _buttonHeight,
+                          verseScaleFactor: _verseScaleFactor,
+                          color: isSigningIn || _currentAccountIsSocial
+                              ? Colorz.yellow255
+                              : Colorz.white20,
+                          verse: const Verse(
+                            id: 'phid_sing_in_by_email',
+                            translate: true,
+                            casing: Casing.upperCase,
+                          ),
+                          verseColor: isSigningIn || _currentAccountIsSocial
+                              ? Colorz.black255
+                              : Colorz.white255,
+                          verseItalic: true,
+                          verseWeight: VerseWeight.black,
+                          // margins: const EdgeInsets.only(bottom: 5),
+                          onTap: isSigningIn ? onSignin : switchSignIn,
+                          verseMaxLines: 2,
+                          onDisabledTap: () => switchSignIn(),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
 
-              /// SEPARATOR
-              SeparatorLine(
-                width: MainButton.getButtonWidth(context: context),
-                withMargins: true,
-              ),
+                /// SOCIAL AUTH BUTTONS
+                if (AuthProtocols.showSocialAuthButtons == true)
+                  Disabler(
+                    isDisabled: !isSigningIn,
+                    disabledOpacity: 0.1,
+                    child: SizedBox(
+                      width: _bubbleWidth,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
 
-              /// HORIZON
-              const Horizon(heightFactor: 0.1),
+                          ...List.generate(methods.length, (index) {
+                            final SignInMethod method = methods[index];
 
-            ],
-          );
-          }
-          ),
+                            return Column(
+                              children: <Widget>[
 
+                                /// SOCIAL BUTTON
+                                SocialAuthButton(
+                                  signInMethod: method,
+                                  socialKeys: BldrsKeys.socialKeys,
+                                  onSuccess: (AuthModel? authModel) =>
+                                      authBySocialMedia(
+                                    authModel: authModel,
+                                    mounted: true,
+                                  ),
+                                  onError: (String? error) =>
+                                      AuthProtocols.onAuthError(
+                                    error: error,
+                                    invoker: 'SocialSignIn.$method',
+                                  ),
+                                  onAuthLoadingChanged: (bool loading) {
+                                    blog('is loading : $loading');
+                                  },
+                                  manualAuthing:
+                                      DeviceChecker.deviceIsAndroid(),
+                                ),
+
+                                /// BY VERSE
+                                BldrsText(
+                                  width: SocialAuthButton.standardSize * 1.2,
+                                  verse: Verse(
+                                    id: getBySocialPhid(method),
+                                    translate: true,
+                                  ),
+                                  size: 1,
+                                  maxLines: 2,
+                                  weight: VerseWeight.thin,
+                                  scaleFactor: 0.8,
+                                ),
+
+                              ],
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                /// SEPARATOR
+                SeparatorLine(
+                  width: MainButton.getButtonWidth(context: context),
+                  withMargins: true,
+                ),
+
+                /// DISCLAIMER LINE
+                LegalDisclaimerLine(
+                  onPolicyTap: () => onPrivacyTap(),
+                  onTermsTap: () => onTermsAndTap(),
+                  disclaimerLine:
+                      getWord('phid_by_using_bldrs_you_agree_to_our'),
+                  andLine: getWord('phid_and'),
+                  policyLine: getWord('phid_privacy_policy'),
+                  termsLine: getWord('phid_terms_of_service'),
+                  textDirection: UiProvider.getAppTextDir(),
+                ),
+
+                /// SEPARATOR
+                const DotSeparator(
+                  bottomMarginIsOn: false,
+                ),
+
+                /// COPYRIGHTS
+                CopyrightsLine(
+                  isArabic: !UiProvider.checkAppIsLeftToRight(),
+                  textHeight: 15,
+                  companyName: BldrsKeys.bldrsHoldingCompanyName,
+                ),
+
+                /// RAGE7 LOGO
+                const Padding(
+                  padding: EdgeInsets.all(10),
+                  child: BldrsImage(
+                    height: 15,
+                    width: 15,
+                    pic: Iconz.dvRagehIcon,
+                    iconColor: Colorz.yellow200,
+                  ),
+                ),
+
+                /// SEPARATOR
+                SeparatorLine(
+                  width: MainButton.getButtonWidth(context: context),
+                  withMargins: true,
+                ),
+
+                /// HORIZON
+                const Horizon(heightFactor: 0.1),
+
+              ],
+            );
+          }),
     );
     // --------------------
   }

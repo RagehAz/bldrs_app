@@ -48,7 +48,7 @@ class MyBzFlyersPage extends StatelessWidget {
       onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerBzOptionsTap(
         flyer: flyerModel,
       ),
-      onFlyerNotFound: (String flyerID){
+      onMissingFlyerTap: (String? flyerID){
         blog('BzFlyersPage : flyer is not found ($flyerID)');
       },
       gridType: FlyerGridType.zoomable,

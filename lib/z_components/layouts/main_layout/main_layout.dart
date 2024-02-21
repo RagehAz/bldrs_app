@@ -1,8 +1,8 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/scale.dart';
-import 'package:bldrs/z_components/layouts/download_app_panel/download_app_panel.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/z_components/layouts/main_layout/pre_layout.dart';
@@ -10,7 +10,6 @@ import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids_panel.dart';
 import 'package:bldrs/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 enum AppBarType {
@@ -131,7 +130,7 @@ class MainLayout extends StatelessWidget {
             // resizeToAvoidBottomPadding: false,
 
             /// BACK GROUND COLOR
-            // backgroundColor: null,
+            backgroundColor: Colorz.black0,
 
             /// BOTTOM SHEET
             // bottomSheet: const KeyboardFloatingField(), /// removed it
@@ -178,10 +177,6 @@ class MainLayout extends StatelessWidget {
               pyramidButtons: pyramidButtons,
             ),
           ),
-
-          /// WEB DOWNLOAD APP PANEL
-          if (kIsWeb == true)
-            const DownloadAppPanel(),
 
         ],
       ),

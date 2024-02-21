@@ -133,6 +133,7 @@ class StaticHeader extends StatelessWidget {
                       child: CallButton(
                         flyerBoxWidth: flyerBoxWidth,
                         onCallTap: onCallTap,
+                        contacts: bzModel?.contacts ?? [],
                       ),
                     ),
 

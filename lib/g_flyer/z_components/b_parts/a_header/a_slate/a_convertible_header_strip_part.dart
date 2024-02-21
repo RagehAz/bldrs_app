@@ -112,6 +112,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
           onCallTap: onCallTap,
           onFollowTap: onFollowTap,
           logoMinWidth: logoMinWidth,
+          contacts: flyerModel?.bzModel?.contacts ?? [],
         ),
 
         /// HEADER RIGHT SPACER
