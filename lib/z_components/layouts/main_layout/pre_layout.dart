@@ -1,4 +1,5 @@
 import 'package:basics/components/sensors/connectivity_sensor.dart';
+import 'package:basics/components/sensors/popper.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -47,15 +48,13 @@ class PreLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return PopScope(
+    return Popper(
       key: const ValueKey<String>('PreLayout'),
-      onPopInvoked: (bool value) async {
-        // await onGoBack(
-        //   canGoBack: canGoBack,
-        //   onBack: onBack,
-        // );
-      },
-      canPop: false,
+      canGoBack: canGoBack,
+      onBack: () => onGoBack(
+        canGoBack: canGoBack,
+        onBack: onBack,
+      ),
       child: GestureDetector(
         onTap: () async  {
 

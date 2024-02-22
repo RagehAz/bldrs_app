@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/components/sensors/popper.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/debug_widgets/cache_preview_bubble.dart';
 import 'package:bldrs/z_components/loading/loading.dart';
@@ -71,8 +72,9 @@ class WaitDialog extends StatelessWidget {
     final double _screenHeight = Scale.screenHeight(context);
     final double _screenWidth = Scale.screenWidth(context);
     // --------------------
-    return PopScope(
-      canPop: canManuallyGoBack,
+    return Popper(
+      canGoBack: canManuallyGoBack,
+
       child: Scaffold(
         backgroundColor: Colorz.black125,
         body: Stack(

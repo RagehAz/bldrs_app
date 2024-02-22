@@ -160,29 +160,29 @@ class UserSessionStarter {
         myUserModel: myUserModel,
       );
 
-      for (final String topic in _unSubscribeFrom){
-        await FCM.unsubscribeFromTopic(topicID: topic);
-      }
-      blog('FINISHED THE UNSUBSCRIBE');
-      for (final String topic in _subscribeTo){
-        await FCM.subscribeToTopic(topicID: topic);
-      }
-      blog('FINISHED THE SUBSCRIBE');
-
-      // /// UNSUBSCRIBE FROM ALL
-      // await Future.wait(<Future>[
-      //   ...List.generate(_unSubscribeFrom.length, (index){
-      //     return FCM.unsubscribeFromTopic(topicID: _unSubscribeFrom[index]);
-      //   }),
-      // ]);
-      // /// SUBSCRIBE AGAIN
-      // if (Lister.checkCanLoop(_subscribeTo) == true){
-      //   await Future.wait(<Future>[
-      //     ...List.generate(_subscribeTo.length, (index){
-      //       return FCM.subscribeToTopic(topicID: _subscribeTo[index],);
-      //     }),
-      //   ]);
+      // for (final String topic in _unSubscribeFrom){
+      //   await FCM.unsubscribeFromTopic(topicID: topic);
       // }
+      // for (final String topic in _subscribeTo){
+      //   await FCM.subscribeToTopic(topicID: topic);
+      // }
+
+      /// UNSUBSCRIBE FROM ALL
+      await Future.wait(<Future>[
+        ...List.generate(_unSubscribeFrom.length, (index){
+          return FCM.unsubscribeFromTopic(topicID: _unSubscribeFrom[index]);
+        }),
+      ]);
+      blog('FINISHED THE UNSUBSCRIBE');
+      /// SUBSCRIBE AGAIN
+      if (Lister.checkCanLoop(_subscribeTo) == true){
+        await Future.wait(<Future>[
+          ...List.generate(_subscribeTo.length, (index){
+            return FCM.subscribeToTopic(topicID: _subscribeTo[index],);
+          }),
+        ]);
+      blog('FINISHED THE SUBSCRIBE');
+      }
 
     }
 
