@@ -8,6 +8,7 @@ import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_statistics/counters/bz_counter_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/g_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/g_flyer/a_flyer_screen/xx_footer_controller.dart';
 import 'package:bldrs/g_flyer/a_flyer_screen/xx_header_controllers.dart';
@@ -368,7 +369,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
     final bool _tinyMode = FlyerDim.isTinyMode(
       flyerBoxWidth: widget.flyerBoxWidth,
       gridWidth: Scale.screenWidth(context),
-      gridHeight: Scale.screenHeight(context),
+      gridHeight: Scale.screenHeight(getMainContext()),
     );
 
     if (_headerIsExpanded.value  == true && _tinyMode == false){
@@ -605,7 +606,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
       final bool _tinyMode = FlyerDim.isTinyMode(
         flyerBoxWidth: widget.flyerBoxWidth,
         gridWidth: Scale.screenWidth(context),
-        gridHeight: Scale.screenHeight(context),
+        gridHeight: Scale.screenHeight(getMainContext()),
       );
 
       return ValueListenableBuilder(

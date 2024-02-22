@@ -1,7 +1,9 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/components/heroic_flyers_grid.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/components/jumper_flyers_grid.dart';
@@ -105,6 +107,10 @@ class FlyersGrid extends StatelessWidget {
   // --------------------
   @override
   Widget build(BuildContext context) {
+
+    // -----------------------------------------------------------------------------
+    final double _gridWidth = gridWidth ?? Scale.screenWidth(getMainContext()); // getMainContext() considers paddings
+    final double _gridHeight = gridHeight ?? Scale.screenHeight(getMainContext());
     // -----------------------------------------------------------------------------
     final bool _isLoadingGrid = gridType == FlyerGridType.loading;
     final bool _isHeroicGrid = gridType == FlyerGridType.heroic;
@@ -137,8 +143,8 @@ class FlyersGrid extends StatelessWidget {
       if (_showLoadingGrid == true) {
         return LoadingFlyersGrid(
           hasResponsiveSideMargin: hasResponsiveSideMargin,
-          gridWidth: gridWidth ?? MediaQuery.of(context).size.width,
-          gridHeight: gridHeight ?? MediaQuery.of(context).size.height,
+          gridWidth: _gridWidth,
+          gridHeight: _gridHeight,
           scrollController: scrollController,
           topPadding: topPadding,
           numberOfColumnsOrRows: numberOfColumnsOrRows,
@@ -152,8 +158,8 @@ class FlyersGrid extends StatelessWidget {
         // --------------------
         return HeroicFlyersGrid(
           hasResponsiveSideMargin: hasResponsiveSideMargin,
-          gridWidth: gridWidth ?? MediaQuery.of(context).size.width,
-          gridHeight: gridHeight ?? MediaQuery.of(context).size.height,
+          gridWidth: _gridWidth,
+          gridHeight: _gridHeight,
           scrollController: scrollController,
           scrollable: scrollable,
           topPadding: topPadding,
@@ -177,8 +183,8 @@ class FlyersGrid extends StatelessWidget {
       else if (_isJumpingGrid == true){
         return JumpingFlyersGrid(
           hasResponsiveSideMargin: hasResponsiveSideMargin,
-          gridWidth: gridWidth ?? MediaQuery.of(context).size.width,
-          gridHeight: gridHeight ?? MediaQuery.of(context).size.height,
+          gridWidth: _gridWidth,
+          gridHeight: _gridHeight,
           scrollController: scrollController,
           scrollable: scrollable,
           topPadding: topPadding,
@@ -199,12 +205,12 @@ class FlyersGrid extends StatelessWidget {
       /// ZOOMABLE FLYERS GRID
       else {
         return FlyersZGrid(
-          hasResponsiveSideMargin: hasResponsiveSideMargin,
-          gridWidth: gridWidth ?? MediaQuery.of(context).size.width,
-          gridHeight: gridHeight ?? MediaQuery.of(context).size.height,
           flyersIDs: Lister.checkCanLoop(flyers) == false ? flyersIDs : null,
           flyers: flyers,
+          gridHeight: _gridHeight,
+          gridWidth: _gridWidth,
           columnCount: numberOfColumnsOrRows,
+          hasResponsiveSideMargin: hasResponsiveSideMargin,
           onMissingFlyerTap: onMissingFlyerTap,
           showAddFlyerButton: showAddFlyerButton,
           onSelectFlyer: onSelectFlyer,

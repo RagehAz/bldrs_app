@@ -367,7 +367,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
         /// BIG FLYER FOOTPRINT
         bigItemFootprint: FlyerBox(
           flyerBoxWidth: _gridScale!.bigItemWidth,
-          boxColor: Colorz.bloodTest, // Colorz.black255, /// TEMP_SHIT
+          boxColor: Colorz.black255,
         ),
 
         /// BIG FLYER

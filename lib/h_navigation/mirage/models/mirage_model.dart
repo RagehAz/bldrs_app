@@ -69,7 +69,7 @@ class MirageModel {
     return _isSingleBz == true ? mirageInsets2.bottom : mirageInsets3.bottom;
   }
   // --------------------
-  static double getBzMirageBottomInsetsValueForBzFlyers(BuildContext context){
+  static double getBzMirageBottomInsetsValueForBzFlyers(){
 
     final List<String> _myBzzIDs = UsersProvider.proGetMyBzzIDs(
       context: getMainContext(),

@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/a_flyers_wall_page/components/no_flyers_view.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/h_navigation/mirage/mirage.dart';
@@ -76,19 +77,17 @@ class HomeFlyersGrid extends StatelessWidget {
 
         else {
 
-          return Center(
-            child: FlyersGrid(
-              scrollController: _paginationController?.scrollController,
-              zGridController: _zGridController,
-              gridWidth: Scale.screenWidth(context),
-              gridHeight: Scale.screenHeight(context),
-              flyers: _wallFlyers,
-              screenName: 'userHomeScreen',
-              gridType: FlyerGridType.zoomable,
-              bottomPadding: MirageModel.mirageInsets5,
-              numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 3 : 2,
-              hasResponsiveSideMargin: true,
-            ),
+          return FlyersGrid(
+            scrollController: _paginationController?.scrollController,
+            zGridController: _zGridController,
+            gridWidth: Scale.screenWidth(getMainContext()),
+            gridHeight: Scale.screenHeight(getMainContext()),
+            flyers: _wallFlyers,
+            screenName: 'userHomeScreen',
+            gridType: FlyerGridType.zoomable,
+            bottomPadding: MirageModel.mirageInsets5,
+            numberOfColumnsOrRows: Scale.isLandScape(getMainContext()) == true ? 3 : 2,
+            hasResponsiveSideMargin: true,
           );
         }
 

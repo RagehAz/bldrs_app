@@ -29,6 +29,7 @@ class LiveActivePhidSelector extends StatelessWidget {
     required this.activePhid,
     required this.onlyShowPublished,
     required this.bzModel,
+    required this.hasExtraHeight,
     this.onPhidTap,
     this.appBarType = AppBarType.basic,
     super.key
@@ -41,6 +42,7 @@ class LiveActivePhidSelector extends StatelessWidget {
   final bool onlyShowPublished;
   final AppBarType appBarType;
   final Function(String? phid)? onPhidTap;
+  final bool hasExtraHeight;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -62,6 +64,7 @@ class LiveActivePhidSelector extends StatelessWidget {
       child: LayoutVisibilityListener(
         isOn: true,
         child: ActivePhidSelector(
+          hasExtraHeight: hasExtraHeight,
           bzModel: bzModel,
           mounted: mounted,
           activePhid: activePhid,
@@ -82,6 +85,7 @@ class ActivePhidSelector extends StatelessWidget {
     required this.activePhid,
     required this.bzModel,
     required this.mounted,
+    required this.hasExtraHeight,
     required this.onlyShowPublished,
     this.appBarType = AppBarType.non,
     this.buttonHeight,
@@ -96,6 +100,7 @@ class ActivePhidSelector extends StatelessWidget {
   final bool onlyShowPublished;
   final double? buttonHeight;
   final Function(String? phid)? onPhidTap;
+  final bool hasExtraHeight;
   // --------------------------------------------------------------------------
   static void onSelectActivePhid({
     required String? phid,
@@ -234,10 +239,12 @@ class ActivePhidSelector extends StatelessWidget {
     // Stratosphere.bigAppBarStratosphere
     //     :
     // _buttonHeight + 5;
+
+    final double _extraHeight = hasExtraHeight ? BldrsAppBar.clearLineHeight(context) + 5 : 20;
     final double barHeight = Stratosphere.getStratosphereValue(
         context: context,
         appBarType: appBarType,
-    ) + BldrsAppBar.clearLineHeight(context) + 5;
+    ) + _extraHeight;
     // --------------------
     return BlurLayer(
       width: _screenWidth,

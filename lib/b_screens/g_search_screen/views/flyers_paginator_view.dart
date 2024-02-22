@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
@@ -44,7 +45,7 @@ class FlyersPaginatorView extends StatelessWidget {
 
           return FlyersGrid(
             gridWidth: Scale.screenWidth(context),
-            gridHeight: Scale.screenHeight(context),
+            gridHeight: Scale.screenHeight(getMainContext()),
             flyers: _flyers,
             scrollController: paginationController.scrollController,
             screenName: 'allFlyersScreenGrid',

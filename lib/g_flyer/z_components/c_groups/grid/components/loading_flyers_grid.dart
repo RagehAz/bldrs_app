@@ -1,4 +1,6 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/components/flyers_grid_builder.dart';
 import 'package:bldrs/g_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
@@ -29,8 +31,8 @@ class LoadingFlyersGrid extends StatelessWidget {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _gridWidth = gridWidth ?? MediaQuery.of(context).size.width;
-    final double _gridHeight = gridHeight ?? MediaQuery.of(context).size.height;
+    final double _gridWidth = gridWidth ?? Scale.screenWidth(context);
+    final double _gridHeight = gridHeight ?? Scale.screenHeight(getMainContext());
     // --------------------
     final double _gridSlotWidth = FlyerDim.flyerGridFlyerBoxWidth(
       context: context,

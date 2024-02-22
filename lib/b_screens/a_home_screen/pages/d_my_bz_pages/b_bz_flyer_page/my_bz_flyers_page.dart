@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/b_bz_flyer_page/bz_flyers_page_controllers.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/h_navigation/mirage/mirage.dart';
 import 'package:flutter/material.dart';
@@ -39,10 +40,10 @@ class MyBzFlyersPage extends StatelessWidget {
         activePhid: _activePhid,
         onlyShowPublished: false,
       ),
-      gridWidth: Scale.screenWidth(context),
-      gridHeight: Scale.screenHeight(context),
-      numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 4 : 2,
-      bottomPadding: MirageModel.getBzMirageBottomInsetsValueForBzFlyers(context),
+      gridWidth: Scale.screenWidth(getMainContext()),
+      gridHeight: Scale.screenHeight(getMainContext()),
+      numberOfColumnsOrRows: Scale.isLandScape(getMainContext()) == true ? 4 : 2,
+      bottomPadding: MirageModel.getBzMirageBottomInsetsValueForBzFlyers(),
       topPadding: Ratioz.appBarMargin,
       showAddFlyerButton: true,
       onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerBzOptionsTap(

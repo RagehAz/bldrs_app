@@ -1,16 +1,16 @@
-import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/components/animators/widget_fader.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
-import 'package:bldrs/z_components/active_phids_selector/active_phid_selector.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/g_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/z_components/active_phids_selector/active_phid_selector.dart';
 import 'package:bldrs/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 class GalleryHeader extends StatelessWidget {
@@ -140,8 +140,8 @@ class GalleryHeader extends StatelessWidget {
                       bzModel: bzModel,
                       mounted: mounted,
                       activePhid: activePhid,
-                      // appBarType: AppBarType.non,
                       onlyShowPublished: true,
+                      hasExtraHeight: false,
                     ),
 
                 ],

@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/g_flyer/z_components/b_parts/a_header/a_slate/a_left_spacer/static_slate_spacer.dart';
 import 'package:bldrs/g_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/g_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
@@ -54,7 +55,7 @@ class HeaderTemplate extends StatelessWidget {
     final bool _tinyMode = FlyerDim.isTinyMode(
       flyerBoxWidth: flyerBoxWidth,
       gridWidth: _screenWidth,
-      gridHeight: Scale.screenHeight(context),
+      gridHeight: Scale.screenHeight(getMainContext()),
     );
 
     // --------------------

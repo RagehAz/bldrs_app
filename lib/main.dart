@@ -4,11 +4,10 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/animators/app_scroll_behavior.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/c_protocols/a_bldrs_engine/bldrs_engine.dart';
-import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_providers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:device_preview/device_preview.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:flutter/material.dart';
 
 // ---------------------------------------------------------------------------
@@ -98,7 +97,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> with WidgetsBindingOb
             /// DUNNO
             // actions: ,
 
-            builder: DevicePreview.appBuilder,
+            // builder: DevicePreview.appBuilder,
 
             // home: ,
             // useInheritedMediaQuery: ,

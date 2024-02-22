@@ -78,7 +78,7 @@ class FlyerSelectionStack extends StatelessWidget {
       final bool _tinyMode = FlyerDim.isTinyMode(
         flyerBoxWidth: flyerBoxWidth,
         gridWidth: Scale.screenWidth(context),
-        gridHeight: Scale.screenHeight(context),
+        gridHeight: Scale.screenHeight(getMainContext()),
       );
       // --------------------
       return Stack(

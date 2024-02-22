@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/animators/sliders.dart';
 import 'package:basics/helpers/checks/tracers.dart';
@@ -9,6 +8,10 @@ import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_statistics/counters/bz_counter_model.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/g_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/g_flyer/a_flyer_screen/xx_footer_controller.dart';
 import 'package:bldrs/g_flyer/a_flyer_screen/xx_header_controllers.dart';
@@ -21,9 +24,6 @@ import 'package:bldrs/g_flyer/z_components/b_parts/d_progress_bar/a_progress_bar
 import 'package:bldrs/g_flyer/z_components/b_parts/e_extra_layers/saving_notice_layer/a_saving_notice.dart';
 import 'package:bldrs/g_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/static_progress_bar/progress_bar_model.dart';
@@ -382,7 +382,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
       final bool _tinyMode = FlyerDim.isTinyMode(
         flyerBoxWidth: widget.flyerBoxWidth,
         gridWidth: Scale.screenWidth(context),
-        gridHeight: Scale.screenHeight(context),
+        gridHeight: Scale.screenHeight(getMainContext()),
       );
 
       if (_headerIsExpanded.value == true && _tinyMode == false) {
@@ -582,7 +582,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
         return FlyerBox(
           key: const ValueKey<String>('FullScreenFlyer'),
           flyerBoxWidth: widget.flyerBoxWidth,
-          boxColor: Colorz.blue255, /// TEMP_SHIT
+          // boxColor: Colorz.bloodTest,
           stackWidgets: <Widget>[
 
             /// SLIDES

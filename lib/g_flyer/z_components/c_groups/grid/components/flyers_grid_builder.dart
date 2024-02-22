@@ -1,5 +1,6 @@
 import 'package:basics/helpers/animators/app_scroll_behavior.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
 
@@ -50,7 +51,7 @@ class FlyersGridBuilder extends StatelessWidget {
     );
 
     final double _gridHeight = FlyerDim.flyerGridHeight(
-      context: context,
+      context: getMainContext(),
       givenGridHeight: gridHeight,
     );
     // --------------------

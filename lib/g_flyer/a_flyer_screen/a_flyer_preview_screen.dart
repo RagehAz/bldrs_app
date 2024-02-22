@@ -7,6 +7,7 @@ import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/g_flyer/c_flyer_reviews_screen/a_flyer_reviews_screen.dart';
 import 'package:bldrs/g_flyer/z_components/a_light_flyer_structure/b_light_big_flyer.dart';
 import 'package:bldrs/g_flyer/z_components/d_variants/b_flyer_loading.dart';
@@ -58,7 +59,7 @@ class FlyerPreviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.screenWidth(context);
-    final double _screenHeight = Scale.screenHeight(context);
+    final double _screenHeight = Scale.screenHeight(getMainContext());
 
     final double _flyerWidth = ZGridScale.getBigItemWidth(
       context: context,

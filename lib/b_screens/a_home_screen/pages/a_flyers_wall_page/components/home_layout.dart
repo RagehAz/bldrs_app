@@ -21,6 +21,7 @@ class HomeLayout extends StatelessWidget {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     // --------------------
     return PreLayout(
       key: const ValueKey<String>('home_screen_tree'),
@@ -29,7 +30,7 @@ class HomeLayout extends StatelessWidget {
       onBack: Routing.backFromHomeScreen,
       child: Scaffold(
         /// INSETS
-        resizeToAvoidBottomInset: false, /// if false : prevents keyboard from pushing pyramids up / bottom sheet
+        resizeToAvoidBottomInset: true, /// if false : prevents keyboard from pushing pyramids up / bottom sheet
         // resizeToAvoidBottomPadding: false,
         backgroundColor: Colorz.black255,
         body: WidgetFader(
@@ -49,6 +50,7 @@ class HomeLayout extends StatelessWidget {
 
               /// HOME VIEWS
               Selector<HomeProvider, TabController?>(
+                  key: const ValueKey<String>('k'),
                   selector: (_, HomeProvider homePro) => homePro.tabBarController,
                   builder: (_, TabController? tabController, Widget? child) {
                     return TabBarView(
@@ -57,7 +59,7 @@ class HomeLayout extends StatelessWidget {
                       children: BldrsTabber.getAllViewsWidgets(),
                     );
                   }
-              ),
+                  ),
 
               /// LAYOUT WIDGET
               const MirageNavBar(),

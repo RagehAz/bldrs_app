@@ -53,6 +53,7 @@ class AppBarHolder extends StatelessWidget {
     // --------------------
     return Stack(
       key: const ValueKey<String>('HomeViewer'),
+      alignment: Alignment.topCenter,
       children: <Widget>[
 
         child,

@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -34,7 +35,7 @@ class FlyersZoomedLayout extends StatelessWidget {
       child: FlyersZGrid(
         flyersIDs: _flyersIDs,
         gridWidth: Scale.screenWidth(context),
-        gridHeight: Scale.screenHeight(context),
+        gridHeight: Scale.screenHeight(getMainContext()),
         columnCount: columnsCount,
         hasResponsiveSideMargin: true,
       ),

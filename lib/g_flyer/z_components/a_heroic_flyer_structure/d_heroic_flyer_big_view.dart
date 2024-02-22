@@ -5,6 +5,7 @@ import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/g_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:basics/z_grid/z_grid.dart';
@@ -41,7 +42,7 @@ class HeroicFlyerBigView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.screenWidth(context);
-    final double _screenHeight = Scale.screenHeight(context);
+    final double _screenHeight = Scale.screenHeight(getMainContext());
 
     return DismissiblePage(
       key: const ValueKey<String>('FullScreenFlyer_DismissiblePage'),

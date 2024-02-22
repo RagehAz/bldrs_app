@@ -4,6 +4,7 @@ import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/z_components/active_phids_selector/active_phid_selector.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
@@ -72,9 +73,9 @@ class BzFlyersView extends StatelessWidget {
                 activePhid: _activePhid,
                 onlyShowPublished: false,
               ),
-              gridWidth: Scale.screenWidth(context),
-              gridHeight: Scale.screenHeight(context),
-              numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 4 : 2,
+              gridWidth: Scale.screenWidth(getMainContext()),
+              gridHeight: Scale.screenHeight(getMainContext()),
+              numberOfColumnsOrRows: Scale.isLandScape(getMainContext()) == true ? 4 : 2,
               bottomPadding: MirageModel.getBzMirageBottomInsetsValue(context),
               topPadding: _getTopPadding(bzModel),
               showAddFlyerButton: showAddFlyerButton,
@@ -96,6 +97,7 @@ class BzFlyersView extends StatelessWidget {
             activePhid: activePhid,
             onlyShowPublished: onlyShowPublished,
             scrollController: scrollController,
+            hasExtraHeight: true,
             appBarType: appBarType,
           ),
 
