@@ -1,3 +1,11 @@
+### 3.2.0 - 3.3.0
+1. Ui updates
+2. Country search by country code of phone code added
+3. missing flyers auto deletion disabled
+4. business accounts receive following notifications now
+5. added number of flyers in the navigation menu keyword buttons
+6. flyer search by text fixed
+
 ### 3.1.0
 1. Screen navigation bug fixes
 2. minor UI bug fixes
