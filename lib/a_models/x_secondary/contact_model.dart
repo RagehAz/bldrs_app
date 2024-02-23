@@ -3,6 +3,7 @@ import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/strings/linker.dart';
 import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
@@ -291,7 +292,7 @@ class ContactModel {
     }
     /// IF WEB LINK
     else if (checkIsWebLink(type) == true){
-      _output = TextMod.initializeWebLink(
+      _output = Linker.initializeWebLink(
         url: existingContact?.value,
       );
     }
@@ -334,7 +335,7 @@ class ContactModel {
         }
         /// IF WEB LINK
         else if (checkIsWebLink(_contactType) == true){
-          _endValue = TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _value);
+          _endValue = Linker.nullifyUrlLinkIfOnlyHTTPS(url: _value);
         }
         /// OTHERWISE
         else {
@@ -629,6 +630,34 @@ class ContactModel {
     }
 
     return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String? cleanPhoneNumber({
+    required String phone,
+  }){
+    String? value;
+
+    if (phone != null){
+
+      value = TextMod.removeTextBeforeFirstSpecialCharacter(
+        text: TextMod.removeSpacesFromAString(phone),
+        specialCharacter: ':',
+      )?.toLowerCase();
+
+      value = TextMod.modifyAllCharactersWith(characterToReplace: '(', replacement: '', input: value);
+      value = TextMod.modifyAllCharactersWith(characterToReplace: ')', replacement: '', input: value);
+      value = TextMod.modifyAllCharactersWith(characterToReplace: ' ', replacement: '', input: value);
+      value = TextMod.modifyAllCharactersWith(characterToReplace: '-', replacement: '', input: value);
+      value = TextMod.modifyAllCharactersWith(characterToReplace: '_', replacement: '', input: value);
+      if (TextCheck.stringStartsExactlyWith(text: value, startsWith: '00') == true){
+        final String _n = TextMod.removeNumberOfCharactersFromBeginningOfAString(string: value, numberOfCharacters: 2)!;
+        value = '+$_n';
+      }
+
+    }
+
+    return value;
   }
   // -----------------------------------------------------------------------------
 
@@ -1049,7 +1078,7 @@ class ContactModel {
       else if (TextCheck.stringContainsSubString(string: url, subString: 'instagram.com') == true){
         _output = ContactType.instagram;
       }
-      else if (TextCheck.stringContainsSubString(string: url, subString: 'pinterest.com') == true){
+      else if (TextCheck.stringContainsSubString(string: url, subString: 'pinterest.') == true){
         _output = ContactType.pinterest;
       }
       else if (TextCheck.stringContainsSubString(string: url, subString: 'pinterest.it') == true){
