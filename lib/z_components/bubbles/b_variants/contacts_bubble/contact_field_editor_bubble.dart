@@ -5,7 +5,6 @@ import 'package:basics/components/bubbles/model/bubble_header_vm.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_clip_board.dart';
-import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
@@ -182,10 +181,9 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
     String? value = await TextClipBoard.paste();
 
     if (TextCheck.isEmpty(value) == false){
-      value = TextMod.removeSpacesFromAString(value!.toLowerCase());
 
       if (widget.contactType == ContactType.phone){
-        value = ContactModel.cleanPhoneNumber(phone: value);
+        value = ContactModel.cleanPhoneNumber(phone: value!);
       }
 
       _textController.text = value ?? '';

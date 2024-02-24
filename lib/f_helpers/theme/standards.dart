@@ -207,6 +207,8 @@ class Standards {
   /// EMAIL SIGNATURES
   static const String ragehBzCardPicPath = 'storage/bldrs/rageh_bz_card.png';
   static const String ragehBzCardPicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Frageh_bz_card.png?alt=media&token=6a4d0520-cf4c-48eb-8361-c05da7d4f96e';
+  static const String nourBzCardPicPath = 'storage/bldrs/nour_bz_card.png';
+  static const String nourBzCardPicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fnour_bz_card.png?alt=media&token=fa98a298-c163-4c02-8bb4-48972b3fddd9';
   // --------------------
   /// ON GOOGLE PLAY STORE
   static const String onGooglePlayStoreLabelPicPath = 'storage/bldrs/on_google_play_store_badge.png';

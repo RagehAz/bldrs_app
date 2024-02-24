@@ -25,6 +25,7 @@ enum ContactType {
   pinterest,
   tiktok,
   twitter,
+  snapchat,
 }
 
 enum ContactsOwnerType {
@@ -60,6 +61,7 @@ class ContactModel {
     ContactType.pinterest,
     ContactType.tiktok,
     ContactType.twitter,
+    ContactType.snapchat,
   ];
   // --------------------
   static const List<ContactType> socialTypes = <ContactType>[
@@ -70,6 +72,7 @@ class ContactModel {
     ContactType.pinterest,
     ContactType.tiktok,
     ContactType.twitter,
+    ContactType.snapchat,
   ];
   // -----------------------------------------------------------------------------
 
@@ -192,6 +195,7 @@ class ContactModel {
       case 'pinterest': return ContactType.pinterest;
       case 'tiktok':    return ContactType.tiktok;
       case 'twitter':   return ContactType.twitter;
+      case 'snapchat':  return ContactType.snapchat;
       default:          return null;
     }
   }
@@ -209,6 +213,7 @@ class ContactModel {
       case ContactType.pinterest: return 'pinterest';
       case ContactType.tiktok:    return 'tiktok';
       case ContactType.twitter:   return 'twitter';
+      case ContactType.snapchat:  return 'snapchat';
       default:  return null;
     }
   }
@@ -380,6 +385,7 @@ class ContactModel {
       case ContactType.pinterest:  return 'phid_pinterest';
       case ContactType.tiktok:     return 'phid_tiktok';
       case ContactType.twitter:    return 'phid_twitter';
+      case ContactType.snapchat:   return 'phid_snapchat';
       default: return null;
 
     }
@@ -545,6 +551,7 @@ class ContactModel {
         case ContactType.pinterest: return Iconz.comPinterest;
         case ContactType.tiktok: return Iconz.comTikTok;
         case ContactType.twitter: return Iconz.comTwitter;
+        case ContactType.snapchat: return Iconz.comSnapchat;
         default: return null;
       }
     }
@@ -575,6 +582,7 @@ class ContactModel {
         case ContactType.pinterest: return 1; // Iconz.comPinterest;
         case ContactType.tiktok:    return 1; // Iconz.comTikTok;
         case ContactType.twitter:   return 1; // Iconz.comTwitter;
+        case ContactType.snapchat:  return 1; // Iconz.comTwitter;
         default: return 1;
       }
     }
@@ -597,6 +605,7 @@ class ContactModel {
       case ContactType.pinterest:  return TextInputType.url  ;
       case ContactType.tiktok:     return TextInputType.url  ;
       case ContactType.twitter:    return TextInputType.url  ;
+      case ContactType.snapchat:   return TextInputType.url  ;
       default: return TextInputType.text;
     }
 
@@ -634,11 +643,11 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? cleanPhoneNumber({
-    required String phone,
+    required String? phone,
   }){
     String? value;
 
-    if (phone != null){
+    if (TextCheck.isEmpty(phone) == false){
 
       value = TextMod.removeTextBeforeFirstSpecialCharacter(
         text: TextMod.removeSpacesFromAString(phone),
@@ -735,6 +744,7 @@ class ContactModel {
         case ContactType.pinterest:  return false   ;
         case ContactType.tiktok:     return false   ;
         case ContactType.twitter:    return false   ;
+        case ContactType.snapchat:   return false   ;
         default: return false;
       }
     }
@@ -752,6 +762,7 @@ class ContactModel {
         case ContactType.pinterest:  return false   ;
         case ContactType.tiktok:     return false   ;
         case ContactType.twitter:    return false   ;
+        case ContactType.snapchat:   return false   ;
         default: return false;
       }
     }
@@ -769,6 +780,7 @@ class ContactModel {
         case ContactType.pinterest:  return false   ;
         case ContactType.tiktok:     return false   ;
         case ContactType.twitter:    return false   ;
+        case ContactType.snapchat:   return false   ;
         default: return false;
       }
     }
@@ -793,6 +805,7 @@ class ContactModel {
         case ContactType.pinterest:  return true   ;
         case ContactType.tiktok:     return true   ;
         case ContactType.twitter:    return false   ;
+        case ContactType.snapchat:   return true   ;
         default: return true;
       }
     }
@@ -807,9 +820,10 @@ class ContactModel {
         case ContactType.linkedIn:   return false   ;
         case ContactType.youtube:    return false   ;
         case ContactType.instagram:  return false   ;
-        case ContactType.pinterest:  return true   ;
+        case ContactType.pinterest:  return false   ;
         case ContactType.tiktok:     return false   ;
         case ContactType.twitter:    return false   ;
+        case ContactType.snapchat:   return false   ;
         default: return true;
       }
     }
@@ -824,9 +838,10 @@ class ContactModel {
         case ContactType.linkedIn:   return false   ;
         case ContactType.youtube:    return false   ;
         case ContactType.instagram:  return false   ;
-        case ContactType.pinterest:  return true   ;
+        case ContactType.pinterest:  return false   ;
         case ContactType.tiktok:     return false   ;
         case ContactType.twitter:    return false   ;
+        case ContactType.snapchat:   return false   ;
         default: return true;
       }
     }
@@ -966,6 +981,7 @@ class ContactModel {
       case ContactType.pinterest: return true;
       case ContactType.tiktok:    return true;
       case ContactType.twitter:   return true;
+      case ContactType.snapchat:  return true;
 
       default: return false;
 
@@ -986,6 +1002,7 @@ class ContactModel {
       case ContactType.pinterest: return true;
       case ContactType.tiktok:    return true;
       case ContactType.twitter:   return true;
+      case ContactType.snapchat:  return true;
 
       default: return false;
     }
@@ -1005,6 +1022,7 @@ class ContactModel {
       case ContactType.pinterest: return false;
       case ContactType.tiktok:    return false;
       case ContactType.twitter:   return false;
+      case ContactType.snapchat:  return false;
 
       default: return false;
     }
@@ -1038,6 +1056,7 @@ class ContactModel {
         case ContactType.pinterest:  _domain = 'pinterest'; break;
         case ContactType.tiktok:     _domain = 'tiktok.com'; break;
         case ContactType.twitter:    _domain = 'twitter.com'; break;
+        case ContactType.snapchat:    _domain = 'snapchat'; break;
         default:                     _domain = null;
       }
 
@@ -1090,6 +1109,9 @@ class ContactModel {
       else if (TextCheck.stringContainsSubString(string: url, subString: 'twitter.com') == true){
         _output = ContactType.twitter;
       }
+      else if (TextCheck.stringContainsSubString(string: url, subString: 'snapchat.com') == true){
+        _output = ContactType.snapchat;
+      }
       else {
         _output = ContactType.website;
       }
@@ -1116,6 +1138,7 @@ class ContactModel {
       case ContactType.pinterest:  _phid = 'phid_pinterest_link_is_invalid'; break;
       case ContactType.tiktok:     _phid = 'phid_tiktok_link_is_invalid'; break;
       case ContactType.twitter:    _phid = 'phid_twitter_link_is_invalid'; break;
+      case ContactType.snapchat:   _phid = 'phid_snapchat_link_is_invalid'; break;
       default:                     _phid = null;
     }
 

@@ -312,7 +312,7 @@ class PicModel {
   static PicModel dummyPic(){
 
     return PicModel(
-      path: 'storage:bldrs/bldrs_app_icon.png',
+      path: 'storage/bldrs/bldrs_app_icon.png',
       bytes: Uint8List.fromList([1,2,3]),
       meta: StorageMetaModel(
         ownersIDs: const ['OwnerID'],

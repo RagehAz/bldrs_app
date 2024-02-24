@@ -1,9 +1,12 @@
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/files/floaters.dart';
 import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/maps/mapper_ss.dart';
 import 'package:basics/helpers/strings/text_check.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
@@ -13,6 +16,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/storage/pic_storage_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
+import 'package:fire/super_fire.dart';
 
 /// => TAMAM
 class PicProtocols {
@@ -400,5 +404,57 @@ class PicProtocols {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// STEALING
+
   // --------------------
+  ///
+  static Future<PicModel?> stealInternetPic({
+    required String? url,
+    required List<String> ownersIDs,
+    required String picName,
+    required String assignPath,
+  }) async {
+    PicModel? _output;
+
+    final Uint8List? _bytes = await Storage.readBytesByURL(
+      url: url,
+    );
+
+    if (_bytes != null){
+
+      PicModel? _pic = await PicModel.combinePicModel(
+        bytes: _bytes,
+        ownersIDs: ownersIDs,
+        name: picName,
+        assignPath: assignPath,
+        picMakerType: PicMakerType.downloaded,
+        compressWithQuality: 100,
+      );
+
+      if (_pic != null){
+
+        _pic = _pic.copyWith(
+          meta: _pic.meta?.copyWith(
+            data: MapperSS.insertPairInMapWithStringValue(
+                map: _pic.meta?.data,
+                key: 'original_url',
+                value: url!,
+                overrideExisting: true,
+            ),
+          ),
+        );
+
+        await composePic(_pic);
+
+        _output = _pic;
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
 }

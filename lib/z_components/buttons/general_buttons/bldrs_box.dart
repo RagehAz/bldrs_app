@@ -1,13 +1,13 @@
 import 'dart:ui' as ui;
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/components/super_box/super_box.dart';
+import 'package:basics/helpers/checks/object_check.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/z_components/images/bldrs_image_path_to_ui_image.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 
 class BldrsBox extends StatelessWidget {
