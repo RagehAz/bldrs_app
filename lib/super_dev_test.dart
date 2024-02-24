@@ -1,8 +1,9 @@
 import 'dart:async';
-
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/bldrs_keys.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
+import 'package:bldrs/redirect_screen.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +17,16 @@ Future<void> superDevTestGoX() async {
 
   WaitDialog.showUnawaitedWaitDialog();
 
-
-
-
+  await BldrsNav.goToNewScreen(
+      screen: const RedirectScreen(
+        path: '',
+        arg: {},
+      )
+  );
 
   await WaitDialog.closeWaitDialog();
+
+  // await doTheNourThing();
 
 }
 
@@ -47,30 +53,25 @@ class TheFastTestButton extends StatelessWidget {
   }
 }
 
-Widget _nourFacebookMethod(){
+Future<void> doTheNourThing() async {
 
-  return FloatingActionButton(
-    onPressed: () {
-      //                   https://www.facebook.com/v19.0/dialog/oauth?
-      // client_id={app-id}
-      // &redirect_uri={redirect-uri}
-      // &state={state-param}
-      final uri = Uri(
-        scheme: 'https',
-        host: 'www.facebook.com',
-        path: 'v19.0/dialog/oauth',
-        queryParameters: <String, String>{
-          'client_id': BldrsKeys.socialKeys.facebookAppID!,
-          'redirect_uri': 'https://bldrs.net/redirect',
-          'config_id': '925142852526513',
-          'response_type': 'token',
-        },
-      );
-
-      launchUrl(uri);
+  //                   https://www.facebook.com/v19.0/dialog/oauth?
+  // client_id={app-id}
+  // &redirect_uri={redirect-uri}
+  // &state={state-param}
+  final uri = Uri(
+    scheme: 'https',
+    host: 'www.facebook.com',
+    path: 'v19.0/dialog/oauth',
+    queryParameters: <String, String>{
+      'client_id': BldrsKeys.socialKeys.facebookAppID!,
+      'redirect_uri': 'https://bldrs.net/redirect',
+      'config_id': '925142852526513',
+      'response_type': 'token',
     },
-    child: const Icon(Icons.facebook),
   );
+
+  await launchUrl(uri);
 
 }
 
@@ -141,4 +142,6 @@ business_discovery.username(modulorstudio_eg) {
 
 adb shell 'am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "bldrs://deep/redirect"' net.bldrs.app
 
+
+https://bldrs.net/redirect#access_token=EAAGFEb3LTB8BO4CGZC86tpkJxJ0yx9rkloalDJ3fSlbxpX96IhsypQFffZAhvkBCUQ1OjciEVbkZA9mpsUrTk21VVYD08xgSkcZBZAEiZCzUZCH8zYkK79rZCBQ6VksNRi1iZAjqyqoz2cAN5NNnyyNfjLsFFW18RFH0VajdUAZAW9YirO5MpsmJbfXD469wZDZD&data_access_expiration_time=1716520538&expires_in=0
  */

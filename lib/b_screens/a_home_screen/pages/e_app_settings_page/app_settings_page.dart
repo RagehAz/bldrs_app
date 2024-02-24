@@ -53,7 +53,7 @@ class AppSettingsPage extends StatelessWidget {
         /// SUPER DEV TEST
         PyramidFloatingButton(
           icon: Iconz.star,
-          color: Colorz.yellow200,
+          color: Colorz.bloodTest,
           toolTip: Verse.plain('Super Dev Test'),
           onTap: () async {
 

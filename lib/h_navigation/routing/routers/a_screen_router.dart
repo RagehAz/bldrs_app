@@ -144,7 +144,7 @@ class Routing {
     if (
     TextCheck.stringStartsExactlyWith(
         text: _path,
-        startsWith: '/redirect',
+        startsWith: ScreenName.redirect,
     )
     ){
 

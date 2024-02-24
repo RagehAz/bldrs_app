@@ -9,7 +9,11 @@ import 'package:flutter/material.dart';
 
 class RedirectScreen extends StatelessWidget {
   // --------------------------------------------------------------------------
-  const RedirectScreen({required this.path, required this.arg, super.key});
+  const RedirectScreen({
+    required this.path,
+    required this.arg,
+    super.key,
+  });
   // --------------------
   final Map<String, String> arg;
   final String? path;
@@ -26,15 +30,19 @@ class RedirectScreen extends StatelessWidget {
         translate: false,
       ),
       appBarRowWidgets: <Widget>[
+
         const Expander(),
+
         AppBarButton(
           verse: Verse.plain(''),
         ),
+
       ],
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+
             BldrsBox(
               height: 40,
               verseScaleFactor: 0.7,
@@ -44,6 +52,7 @@ class RedirectScreen extends StatelessWidget {
               verseMaxLines: 999,
               maxWidth: MediaQuery.of(context).size.width,
             ),
+
             BldrsBox(
               height: 40,
               verseScaleFactor: 0.7,
@@ -75,6 +84,7 @@ media {
                 Rest.blogResponse(response: response);
               },
             ),
+
           ],
         ),
       ),

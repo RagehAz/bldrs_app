@@ -31,6 +31,9 @@ class ScreenName {
   // --------------------
   /// DASHBOARD
   static const String dashboard = '/dashboard';
+  // --------------------
+  /// REDIRECT
+  static const String redirect = '/redirect';
   // -----------------------------------------------------------------------------
 
   /// CHECKER
@@ -49,6 +52,7 @@ class ScreenName {
     terms,
     deleteMyData,
     dashboard,
+    redirect,
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
