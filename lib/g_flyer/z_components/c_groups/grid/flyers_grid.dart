@@ -117,7 +117,15 @@ class FlyersGrid extends StatelessWidget {
     final bool _isJumpingGrid = gridType == FlyerGridType.jumper;
     // -----------------------------------------------------------------------------
     /// NOTHING TO SHOW
-    if (Lister.checkCanLoop(flyers) == false && Lister.checkCanLoop(flyersIDs) == false && _isLoadingGrid == false){
+    if (
+        Lister.checkCanLoop(flyers) == false
+        &&
+        Lister.checkCanLoop(flyersIDs) == false
+        &&
+        _isLoadingGrid == false
+        &&
+        showAddFlyerButton == false
+    ){
       return const Center(
         child: NoResultFound(
           verse: Verse(

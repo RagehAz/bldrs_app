@@ -118,7 +118,6 @@ just write the values
 
 * */
 
-
 /*
 
 17841447816479749?fields=business_discovery.username(modulorstudio_eg)

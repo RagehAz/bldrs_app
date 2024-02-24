@@ -93,6 +93,15 @@ class KhufuPainter extends CustomPainter {
     final Path path2 = _getKhufuFrontFacePath(size);
     canvas.drawPath(path2, paint2);
 
+    /// RIGHT HIGHLIGHT
+    final Paint paint3 = Paint()..color = backColor.withOpacity(0.5);
+    final Path path3 = _getKhufuRightHighlight(size);
+    canvas.drawPath(path3, paint3);
+
+    /// LEFT HIGHLIGHT
+    final Paint paint4 = Paint()..color = frontColor.withOpacity(0.5);
+    final Path path4 = _getKhufuLeftHighlight(size);
+    canvas.drawPath(path4, paint4);
   }
 
   @override
@@ -186,6 +195,42 @@ Path _getKhufuFrontFacePath(Size size) {
   path2.lineTo(size.width * khafreBaseLeftRatio, size.height);
   /// Bottom right point
   path2.lineTo(size.width, size.height);
+  /// CLOSE
+  path2.close();
+
+  return path2;
+}
+
+Path _getKhufuRightHighlight(Size size) {
+
+  const double khafreTipLeftRatio = Pyramids.leftSpaceToKhafreTip / Pyramids.khafreWidth;
+  const double khafreBaseLeftRatio = 0.97;
+
+  final Path path2 = Path();
+  /// Top point
+  path2.moveTo(size.width * khafreTipLeftRatio, 0);
+  /// Bottom left point
+  path2.lineTo(size.width * khafreBaseLeftRatio, size.height);
+  /// Bottom right point
+  path2.lineTo(size.width, size.height);
+  /// CLOSE
+  path2.close();
+
+  return path2;
+}
+
+Path _getKhufuLeftHighlight(Size size) {
+
+  const double khafreTipLeftRatio = Pyramids.leftSpaceToKhafreTip / Pyramids.khafreWidth;
+  const double khafreBaseLeftRatio = 0.005;
+
+  final Path path2 = Path();
+  /// Top point
+  path2.moveTo(size.width * khafreTipLeftRatio, 0);
+  /// Bottom left point
+  path2.lineTo(0, size.height);
+  /// Bottom right point
+  path2.lineTo(size.width * khafreBaseLeftRatio, size.height);
   /// CLOSE
   path2.close();
 
