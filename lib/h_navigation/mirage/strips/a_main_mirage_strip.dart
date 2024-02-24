@@ -68,7 +68,7 @@ class MainMirageStrip extends StatelessWidget {
                       isSelected: selectedButton == TabName.bid_Zone,
                       verse: ZoneModel.generateObeliskVerse(zone: currentZone),
                       icon: currentZone?.icon ?? Iconz.planet,
-                      bigIcon: true,
+                      bigIcon: currentZone != null,
                       iconColor: Colorz.nothing,
                       canShow: true,
                       onTap: onZoneButtonTap,

@@ -60,6 +60,7 @@ class _BzzMirageButton extends StatelessWidget {
                 bubble: true,
                 margins: EdgeInsets.zero,
                 loading: loading,
+                corners: MirageButton.getCorners,
                 // verseScaleFactor: 0.7 / 1,
                 // verseCentered: false,
                 // verseItalic: false,

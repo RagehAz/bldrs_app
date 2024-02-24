@@ -22,7 +22,7 @@ class MirageModel {
   /// CONSTANTS
 
   // --------------------
-  static const double standardStripHeight = Pyramids.khafreHeight;
+  static const double standardStripHeight = Pyramids.khafreHeight*1.4;
   static const double stripExitLimit = standardStripHeight * 0.3;
   static const double draggerHeight = 2;
   // --------------------

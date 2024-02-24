@@ -73,21 +73,19 @@ class _RedDot extends StatelessWidget {
       ),
       // padding: EdgeInsets.symmetric(horizontal: 2 * factor),
       // alignment: Alignment.topCenter,
-      child: Column(
-        children: <Widget>[
-
-          BldrsText(
-            verse: verse ?? Verse(
-              id: _count,
-              translate: false,
-            ),
-            size: 0,
-            scaleFactor: 1.4 * factor,
-            margin: const EdgeInsets.symmetric(horizontal: 4),
-            // labelColor: Colorz.white50,
-          ),
-
-        ],
+      child: BldrsText(
+        verse: verse ?? Verse(
+          id: _count,
+          translate: false,
+        ),
+        size: 0,
+        scaleFactor: 1.4 * factor,
+        margin: EdgeInsets.only(
+          left: _size * 0.3,
+          right: _size * 0.3,
+          top: _size * 0.13,
+        ),
+        // labelColor: Colorz.white50,
       ),
     );
     // --------------------

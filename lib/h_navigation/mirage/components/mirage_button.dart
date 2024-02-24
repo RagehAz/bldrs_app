@@ -40,6 +40,7 @@ class MirageButton extends StatelessWidget {
   static double getWidth = 150;
   static double getMaxWidth = getWidth * 2;
   static double getHeight = MirageModel.standardStripHeight * 0.95;
+  static BorderRadius getCorners = BorderRadius.all(Radius.circular(getHeight * 0.3));
   // --------------------------------------------------------------------------
   static Color getButtonColor({
     required bool isDisabled,
@@ -106,9 +107,19 @@ class MirageButton extends StatelessWidget {
   // --------------------
   static double getVerseScaleFactor({
     required bool bigIcon,
+    required Verse verse,
   }){
-    final double _iconSizeFactor = getIconScaleFactor(bigIcon: bigIcon);
-    return 0.6 / _iconSizeFactor;
+
+    final String _text = Verse.bakeVerseToString(verse: verse) ?? '';
+    if (_text.length > 25){
+      final double _iconSizeFactor = getIconScaleFactor(bigIcon: bigIcon);
+      return 0.45 / _iconSizeFactor;
+    }
+    else {
+      final double _iconSizeFactor = getIconScaleFactor(bigIcon: bigIcon);
+      return 0.6 / _iconSizeFactor;
+    }
+
   }
   // --------------------
   static bool checkRedDotIsOn({
@@ -159,7 +170,7 @@ class MirageButton extends StatelessWidget {
             height: getHeight,
             icon: icon,
             iconSizeFactor: getIconScaleFactor(bigIcon: bigIcon),
-            verseScaleFactor: getVerseScaleFactor(bigIcon: bigIcon),
+            verseScaleFactor: getVerseScaleFactor(bigIcon: bigIcon, verse: verse),
             verse: verse,
             secondLine: secondLine,
             secondLineColor: getVerseColor(
@@ -184,6 +195,7 @@ class MirageButton extends StatelessWidget {
               isDisabled: isDisabled,
               isSelected: isSelected,
             ),
+            corners: getCorners,
             verseMaxLines: 2,
             verseCentered: false,
             onTap: onTap,

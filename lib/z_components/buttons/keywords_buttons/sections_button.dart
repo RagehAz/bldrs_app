@@ -5,6 +5,7 @@ import 'package:basics/components/super_box/src/f_super_box_tap_layer/x_tap_laye
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
+import 'package:bldrs/h_navigation/mirage/mirage.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
@@ -118,13 +119,13 @@ class SectionsButton extends StatelessWidget {
       child: InkWell(
         onTap: () => onTap?.call(),
         splashColor: Colorz.yellow125,
-        borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
+        borderRadius: MirageButton.getCorners,
         child: AnimatedContainer(
           height: _height - _borderFix,
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: color,
-              borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
+              borderRadius: MirageButton.getCorners,
               border: TapLayer.getBorder(
                 color: borderColor,
               )
@@ -140,6 +141,7 @@ class SectionsButton extends StatelessWidget {
                 width: _height,
                 icon: _icon ?? Iconz.keywords,
                 bubble: false,
+                corners: MirageButton.getCorners,
                 // loading: _loadingChains,
               ),
 

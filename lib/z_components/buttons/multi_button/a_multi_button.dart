@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/buttons/multi_button/b_double_pics_box.dart';
@@ -28,6 +29,7 @@ class MultiButton extends StatelessWidget {
     this.loading = false,
     this.textColor = Colorz.white255,
     this.borderColor,
+    this.corners,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -48,6 +50,7 @@ class MultiButton extends StatelessWidget {
   final bool loading;
   final Color textColor;
   final Color? borderColor;
+  final dynamic corners;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -91,6 +94,7 @@ class MultiButton extends StatelessWidget {
                 verseMaxLines: verseMaxLines ?? 2,
                 verseItalic: verseItalic,
                 verseColor: textColor,
+                corners: Borderers.superCorners(corners: corners),
               ),
 
               if (pics?.length == 2)
