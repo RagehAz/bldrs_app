@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/components/drawing/dot_separator.dart';
+import 'package:basics/components/sensors/app_version_builder.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/linker.dart';
@@ -15,6 +15,7 @@ import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/foundation.dart';
@@ -68,9 +69,7 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
 
         await _triggerLoading(setTo: true);
 
-        if (kIsWeb == true && widget.queryParametersString != null){
-          await launchUrl(Uri.parse('bldrs://deep/redirect#${widget.queryParametersString}'));
-        }
+        await _openApp();
 
         await _triggerLoading(setTo: false);
 
@@ -121,6 +120,20 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
     }
 
   }
+  // --------------------
+  Future<void> _openApp() async {
+    if (kIsWeb == true && widget.queryParametersString != null){
+
+      final bool _go = await Dialogs.confirmProceed(
+        titleVerse: Verse.plain('Open the App ?'),
+      );
+
+      if (_go == true){
+        await launchUrl(Uri.parse('bldrs://deep/redirect#${widget.queryParametersString}'));
+      }
+
+    }
+  }
   // -----------------------------------------------------------------------------
 
   /// SCRAP
@@ -152,7 +165,7 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
 
           return <Widget>[
 
-            /// DO
+            /// GO GET TOKEN
             BottomDialog.wideButton(
               icon: Iconz.comFacebookWhite,
               verse: Verse.plain(_facebookAccessToken == null ? 'Get Token.' : 'Good'),
@@ -160,6 +173,31 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
               verseCentered: false,
               onTap: _onFacebookTokenButtonTap,
             ),
+
+            /// OPEN APP
+            BottomDialog.wideButton(
+              icon: Iconz.bldrsAppIcon,
+              verse: Verse.plain('Open App'),
+              verseCentered: false,
+              isDisabled: !kIsWeb,
+              onTap: _openApp,
+            ),
+
+            const DotSeparator(),
+
+            AppVersionBuilder(
+                versionShouldBe: null,
+                builder: (_, bool shouldUpdate, String version) {
+
+                  return BldrsText(
+                    verse: Verse.plain(version),
+                    size: 1,
+                    italic: true,
+                    color: Colorz.white125,
+                    weight: VerseWeight.thin,
+                  );
+
+                }),
 
             const DotSeparator(),
 
@@ -192,13 +230,11 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
         columnChildren: <Widget>[
 
           /// THE TOKEN
-          BldrsText(
-            width: Bubble.bubbleWidth(context: context),
-            verse: Verse.plain(_facebookAccessToken ?? 'No Token yet'),
-            maxLines: 5,
-            labelColor: Colorz.bloodTest,
-            size: 0,
-            onTap: () => Keyboard.copyToClipboardAndNotify(copy: _facebookAccessToken),
+          DataStrip(
+            height: 30,
+            dataKey: 'Token',
+            dataValue: _facebookAccessToken,
+            onValueTap: () => Keyboard.copyToClipboardAndNotify(copy: _facebookAccessToken),
           ),
 
           /// PASTE & SCRAP
