@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/components/drawing/dot_separator.dart';
 import 'package:basics/components/sensors/app_version_builder.dart';
 import 'package:basics/helpers/checks/tracers.dart';
@@ -9,11 +10,13 @@ import 'package:basics/helpers/strings/text_clip_board.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/b_screens/h_gt_insta_screen/src/protocols/gt_insta_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
+import 'package:bldrs/i_fish_tank/fish_tank.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/wide_button.dart';
 import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/map_tree/map_tree.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
@@ -129,6 +132,7 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
       );
 
       if (_go == true){
+        /// "bldrs://deep/redirect#key1=value1&key2=value2"
         await launchUrl(Uri.parse('bldrs://deep/redirect#${widget.queryParametersString}'));
       }
 
@@ -139,17 +143,50 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
   /// SCRAP
 
   // --------------------
-  Future<void> _scrapInstaProfile() async {
+  Future<void> _pasteAndScrap() async {
 
     final String? _text = await TextClipBoard.paste();
 
     final Map<String, dynamic>? _map = await GtInstaOps.scrapProfile(
-        instagramProfileName: _text,
+        instagramProfileNameOrURL: _text,
         facebookAccessToken: _facebookAccessToken,
     );
 
-    Mapper.blogMap(_map, invoker: 'PROFILE: $_text');
 
+
+    _setInstaProfile(
+      map: _map,
+    );
+
+
+  }
+  // --------------------
+  Future<void> _pickFishAndScrap() async {
+
+    final String? _instagramURL = await BzzFishTankManager.pickInstagramLink();
+
+    final Map<String, dynamic>? _map = await GtInstaOps.scrapProfile(
+      instagramProfileNameOrURL: _instagramURL,
+      facebookAccessToken: _facebookAccessToken,
+    );
+
+    _setInstaProfile(
+      map: _map,
+    );
+
+
+  }
+  // --------------------
+  Map<String, dynamic>? _instaMap;
+  void _setInstaProfile({
+    required Map<String, dynamic>? map,
+  }){
+
+    Mapper.blogMap(map, invoker: 'InstaMap');
+
+    setState(() {
+      _instaMap = map;
+    });
 
   }
   // -----------------------------------------------------------------------------
@@ -212,7 +249,7 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
   Widget build(BuildContext context) {
     // --------------------
     return MainLayout(
-      canSwipeBack: true,
+      canSwipeBack: false,
       loading: _loading,
       title: Verse.plain('Gt-Insta'),
       appBarRowWidgets: <Widget>[
@@ -237,16 +274,50 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
             onValueTap: () => Keyboard.copyToClipboardAndNotify(copy: _facebookAccessToken),
           ),
 
-          /// PASTE & SCRAP
-          WideButton(
-            icon: Iconz.gtInsta,
-            verse: Verse.plain('Paste & scrap'),
-            isActive: _facebookAccessToken != null,
-            onTap: _scrapInstaProfile,
-            onDisabledTap: () async {
-              await Dialogs.topNotice(verse: Verse.plain('Get facebook token first'),color: Colorz.red255);
-            },
+          /// SCRAP FISH BUTTONS
+          SizedBox(
+            width: Bubble.bubbleWidth(context: context),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+
+                /// PASTE & SCRAP
+                WideButton(
+                  width: Bubble.bubbleWidth(context: context) - 120,
+                  icon: Iconz.gtInsta,
+                  verse: Verse.plain('Paste & scrap'),
+                  isActive: _facebookAccessToken != null,
+                  onTap: _pasteAndScrap,
+                  onDisabledTap: () async {
+                    await Dialogs.topNotice(verse: Verse.plain('Get facebook token first'),color: Colorz.red255);
+                  },
+                ),
+
+                /// GET FISH
+                WideButton(
+                  width: 115,
+                  icon: Icons.fingerprint_sharp,
+                  verse: Verse.plain('Get Fish'),
+                  verseScaleFactor: 0.7,
+                  isActive: _facebookAccessToken != null,
+                  onTap: _pickFishAndScrap,
+                ),
+
+              ],
+            ),
           ),
+
+          if (_instaMap != null)
+          MapTree(
+            map: _instaMap,
+            width: Bubble.bubbleWidth(context: context),
+            keyWidth: 100,
+            // searchValue: null,
+            // initiallyExpanded: false,
+            onLastNodeTap: (String? path){},
+            onExpandableNodeTap: (String? path){},
+            selectedPaths: const [],
+          )
 
         ],
       ),

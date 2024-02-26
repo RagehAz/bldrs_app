@@ -1,6 +1,4 @@
-
 import 'dart:convert';
-
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
@@ -11,7 +9,7 @@ import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:http/http.dart';
-
+/// => TAMAM
 class GtInstaOps {
   // --------------------------------------------------------------------------
 
@@ -51,13 +49,14 @@ class GtInstaOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>?> scrapProfile({
-    required String? instagramProfileName,
+    required String? instagramProfileNameOrURL,
     required String? facebookAccessToken,
   }) async {
     Map<String, dynamic>? _output;
 
-    final String? _name = extractProfileName(
-      urlOrName: instagramProfileName,
+
+    final String? _name = _extractProfileName(
+      urlOrName: instagramProfileNameOrURL,
     );
 
     blog('scrapProfile : name : $_name');
@@ -67,6 +66,9 @@ class GtInstaOps {
     &&
     TextCheck.isEmpty(facebookAccessToken) == false
     ){
+
+      // TO EXPLORE FIELDS
+      /// https://developers.facebook.com/tools/explorer/427786221866015/?method=GET&path=me%2Faccounts&version=v19.0
 
       final String _script =
 '''
@@ -112,7 +114,7 @@ media {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String? extractProfileName({
+  static String? _extractProfileName({
     required String? urlOrName,
   }){
     String? _name;
