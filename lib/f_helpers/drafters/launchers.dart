@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:basics/components/dialogs/center_dialog.dart';
 import 'package:basics/helpers/checks/device_checker.dart';
 import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/strings/linker.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/components/drawing/spacing.dart';
 import 'package:basics/layouts/nav/nav.dart';
@@ -28,53 +29,8 @@ class Launcher {
   // -----------------------------------------------------------------------------
 
   const Launcher();
+
   // -----------------------------------------------------------------------------
-
-  /// CLEANUPS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String? cleanURL(String? link){
-    String? _output;
-
-    if (TextCheck.isEmpty(link) == false) {
-
-      /// LINK SHOULD CONTAIN 'http://' to work
-      final bool _containsHttp = TextCheck.stringContainsSubString(
-        string: link,
-        subString: 'http://',
-      );
-
-      final bool _containsHttps = TextCheck.stringContainsSubString(
-        string: link,
-        subString: 'https://',
-      );
-
-      if (_containsHttp == true || _containsHttps == true) {
-        _output = link!;
-      }
-      else {
-        _output = 'http://$link';
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Uri? getURIFromLink(String? link){
-    Uri? _output;
-
-    final String? _link = cleanURL(link);
-
-    if (_link != null) {
-      _output = Uri.parse(_link);
-    }
-
-    return _output;
-  }
-  // --------------------
   /// TESTED : WORKS PERFECT
   static Rect _getShareRect(){
     final RenderBox? _box = getMainContext().findRenderObject() as RenderBox;
@@ -162,22 +118,9 @@ class Launcher {
 
       if (_go == true){
 
-        final Uri _uri = Uri.parse(cleanURL(link) ?? '');
+        final Uri _uri = Uri.parse(Linker.cleanURL(link) ?? '');
 
-        if (await Launch.canLaunchUrl(_uri) == true) {
-
-          unawaited(Launch.launchUrl(
-            _uri,
-            // mode: LaunchMode.inAppWebView,
-            // webOnlyWindowName: ,
-            // webViewConfiguration: ,
-          ));
-          _success = true;
-        }
-
-        else {
-          blog('Can Not launch link');
-        }
+        _success = await launchURI(_uri);
 
       }
 
@@ -187,36 +130,24 @@ class Launcher {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<bool> shareURL({
-    required String? url,
-    required String? subject,
-  }) async {
+  static Future<bool> launchURI(Uri? uri) async {
     bool _success = false;
 
-    final String? _url = cleanURL(url);
+    if (uri != null){
 
-    if (_url != null){
+      if (await Launch.canLaunchUrl(uri) == true) {
 
-      if (DeviceChecker.deviceIsWindows() == false){
-
-        final ShareResult _result = await Share.shareWithResult(
-          _url,
-          subject: subject,
-          sharePositionOrigin: _getShareRect(),
-        );
-
-        if (_result.status == ShareResultStatus.success){
-          _success = true;
-        }
-
-        // blogShareResult(_result);
-        // ShareResultStatus.dismissed;
-        // ShareResultStatus.success;
-        // ShareResultStatus.unavailable;
-
+        unawaited(Launch.launchUrl(
+          uri,
+          // mode: LaunchMode.inAppWebView,
+          // webOnlyWindowName: ,
+          // webViewConfiguration: ,
+        ));
+        _success = true;
       }
+
       else {
-        blog('cant share on windows');
+        blog('Can Not launch link');
       }
 
     }
@@ -487,6 +418,48 @@ class Launcher {
     }
 
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// SHARE URL
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> shareURL({
+    required String? url,
+    required String? subject,
+  }) async {
+    bool _success = false;
+
+    final String? _url = Linker.cleanURL(url);
+
+    if (_url != null){
+
+      if (DeviceChecker.deviceIsWindows() == false){
+
+        final ShareResult _result = await Share.shareWithResult(
+          _url,
+          subject: subject,
+          sharePositionOrigin: _getShareRect(),
+        );
+
+        if (_result.status == ShareResultStatus.success){
+          _success = true;
+        }
+
+        // blogShareResult(_result);
+        // ShareResultStatus.dismissed;
+        // ShareResultStatus.success;
+        // ShareResultStatus.unavailable;
+
+      }
+      else {
+        blog('cant share on windows');
+      }
+
+    }
+
+    return _success;
   }
   // -----------------------------------------------------------------------------
 

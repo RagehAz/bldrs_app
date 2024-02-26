@@ -15,6 +15,7 @@ class ContactsWrap extends StatelessWidget {
     required this.boxWidth,
     required this.contacts,
     this.buttonSize,
+    this.buttonColor,
     super.key
   });
   // -------------------------------
@@ -23,6 +24,7 @@ class ContactsWrap extends StatelessWidget {
   final double boxWidth;
   final List<ContactModel> contacts;
   final double? buttonSize;
+  final Color? Function(ContactModel contact)? buttonColor;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -59,7 +61,7 @@ class ContactsWrap extends StatelessWidget {
                 contactType: _contact.type,
                 isPublic: true,
               ),
-              color: Colorz.white10,
+              color: buttonColor == null ? Colorz.white10 : buttonColor!(_contact),
               corners: _size * 0.2,
               onTap: () => Launcher.launchContactModel(contact: _contact),
               onLongTap: () => Keyboard.copyToClipboardAndNotify(copy: _contact.value),

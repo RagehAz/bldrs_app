@@ -166,7 +166,7 @@ void main() {
 
   });
 
-  group('xxxx', () {
+  group('getRouteSettingsNameFromFullPath', () {
 
     test('a', () {
       final String? _is = RoutePather.getRouteSettingsNameFromFullPath('http://localhost:63065/#/home');
@@ -201,6 +201,11 @@ void main() {
     test('g', () {
       final String? _is = RoutePather.getRouteSettingsNameFromFullPath('https://www.bldrs.net/#/flyerPreview:0Vyr4hWSwdbH1EsbOC4P');
       expect(_is, '/flyerPreview:0Vyr4hWSwdbH1EsbOC4P');
+    });
+
+    test('h', () {
+      final String? _is = RoutePather.getRouteSettingsNameFromFullPath('https://bldrs.net/redirect#access_token=EAAGFEb3LTB8BOZBWIefBYOCXlNYjVK4TDeJZCLQb7Rieme7EpOcoQ67B5wVSYZBhO4WIP6d1cGfuh3eEndsgE32pK5c4WGhCOHIICVLBmXsXExvV865YEXguZA4pKEOxEnIfChGwumm681uLARP87RxjmHj7LaaeoYe1LWXg5XPyEz2WnNMDBXGVoQZDZD&data_access_expiration_time=1716677812&expires_in=0');
+      expect(_is, '/redirect#access_token=EAAGFEb3LTB8BOZBWIefBYOCXlNYjVK4TDeJZCLQb7Rieme7EpOcoQ67B5wVSYZBhO4WIP6d1cGfuh3eEndsgE32pK5c4WGhCOHIICVLBmXsXExvV865YEXguZA4pKEOxEnIfChGwumm681uLARP87RxjmHj7LaaeoYe1LWXg5XPyEz2WnNMDBXGVoQZDZD&data_access_expiration_time=1716677812&expires_in=0');
     });
 
   });

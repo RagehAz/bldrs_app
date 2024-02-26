@@ -13,14 +13,27 @@ class Routing {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Route<dynamic> router(RouteSettings settings) {
-    
-    final String? _path = RoutePather.getPathFromRouteSettingsName(settings.name);
-    final String? _arg = RoutePather.getArgFromRouteSettingsName(settings.name);
+    String? _path;
+    String? _arg;
 
-    final Route<dynamic>? _deep = _goDeep(settings);
-    if (_deep != null){
-      return _deep;
+    if (kIsWeb){
+      final String _url = window.location.toString();
+      _path = RoutePather.getPathFromWindowURL(_url);
+      _arg = RoutePather.getArgFromWindowURL(_url);
     }
+    else {
+      _path = RoutePather.getPathFromRouteSettingsName(settings.name);
+      _arg = RoutePather.getArgFromRouteSettingsName(settings.name);
+    }
+
+    // final Route<dynamic>? _deep = _goDeep(settings);
+    // if (_deep != null){
+    //   return _deep;
+    // }
+    // blog('router : settings : $settings');
+    // blog('router : path : $_path');
+    // blog('router : arg : $_arg');
+    // blog('router : url : ${window.location}');
 
     switch (_path) {
     // ------------------------------------------------------------
@@ -40,6 +53,15 @@ class Routing {
         screen: const TheHomeScreen(),
         settings: settings,
       );
+    // --------------------
+    /// staticLogoScreen
+      case ScreenName.redirect:
+        return Nav.transitFade(
+          screen: GtInstaScreen(
+            queryParametersString: _arg,
+          ),
+          settings: settings,
+        );
     // --------------------
     /// userPreview
       case ScreenName.userPreview: return _transitSuperHorizontal(
@@ -131,43 +153,6 @@ class Routing {
 
   }
   // --------------------
-  /// TASk : VALIDATE ME
-  static Route<dynamic>? _goDeep(RouteSettings settings){
-
-    final String? _path = RoutePather.getPathFromRouteSettingsName(settings.name);
-    final String? _arg = RoutePather.getArgFromRouteSettingsName(settings.name);
-
-    blog('router : _path : $_path');
-    blog('router : _arg : $_arg');
-    blog('router : settings : $settings');
-
-    if (
-    TextCheck.stringStartsExactlyWith(
-        text: _path,
-        startsWith: ScreenName.redirect,
-    )
-    ){
-
-      /// key=value&key2=value2&;
-      /// 
-      final Uri _uri = Uri.parse('bldrs://deep${settings.name?.replaceAll('#', '?')}');
-      final  _args = _uri.queryParameters;
-
-      return Nav.transitFade(
-        screen: RedirectScreen(
-          path: _path,
-          arg: _args,
-        ),
-        settings: settings,
-      );
-    }
-
-    else {
-      return null;
-    }
-
-  }
-  // --------------------
   /// TESTED : WORKS PERFECT
   static PageTransition<dynamic> _transitSuperHorizontal({
     required Widget screen,
@@ -242,6 +227,10 @@ class Routing {
             context: _context,
             goToRoute: ScreenName.home,
           ); break;
+      // ------------------------------------------------------------
+      /// REDIRECT
+        case ScreenName.redirect:
+          _goTo = Nav.goToRoute(_context, ScreenName.redirect, arguments: _args); break;
       // ------------------------------------------------------------
       /// userPreview
         case ScreenName.userPreview:

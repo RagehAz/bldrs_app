@@ -1,4 +1,7 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/maps/lister.dart';
+import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
+import 'package:bldrs/z_components/layouts/pyramids/pyramid_floating_button.dart';
 import 'package:flutter/material.dart';
 
 class PyramidsPanel extends StatelessWidget {
@@ -15,24 +18,43 @@ class PyramidsPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-      return Material(
-        child: Padding(
-          padding: const EdgeInsets.only(right: 10, bottom: bottomMargin),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
+      return Align(
+        alignment: Alignment.centerRight,
+        child: Container(
+          color: Colorz.nothing,
+          width: 55,
+          child: Material(
+            child: Stack(
+              children: <Widget>[
 
-              /// EXTRA BUTTONS
-              if (Lister.checkCanLoop(pyramidButtons) == true)
-                ...List.generate(pyramidButtons!.length, (index){
+                /// EXTRA BUTTONS
+                if (Lister.checkCanLoop(pyramidButtons) == true)
+                  ...List.generate(pyramidButtons!.length, (index){
 
-                  return pyramidButtons![index];
+                    final double _bottomOffset = bottomMargin + (PyramidFloatingButton.size * index);
 
-                }),
+                    return ValueListenableBuilder(
+                        valueListenable: HomeProvider.proGetPyramidIsOn(
+                          context: context,
+                          listen: true,
+                        ),
+                        builder: (_, bool pyramidIsOpen, Widget? child) {
 
+                          return AnimatedPositioned(
+                            duration: Duration(milliseconds: 500 + (50 * index)),
+                            bottom: pyramidIsOpen == true ? _bottomOffset : _bottomOffset - 400,
+                            right: 10,
+                            curve: Curves.easeInOutBack,
+                            child: pyramidButtons!.reversed.toList()[index],
+                          );
 
-            ],
+                        }
+                    );
+
+                  }),
+
+              ],
+            ),
           ),
         ),
       );

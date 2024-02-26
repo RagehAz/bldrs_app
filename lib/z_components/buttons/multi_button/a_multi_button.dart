@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/helpers/space/scale.dart';
@@ -29,7 +30,7 @@ class MultiButton extends StatelessWidget {
     this.loading = false,
     this.textColor = Colorz.white255,
     this.borderColor,
-    this.corners,
+    this.corners = Ratioz.boxCorner12,
     super.key
   });
   /// --------------------------------------------------------------------------

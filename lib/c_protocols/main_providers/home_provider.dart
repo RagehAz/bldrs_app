@@ -202,6 +202,18 @@ class HomeProvider extends ChangeNotifier {
     return _mirages[index];
   }
   // --------------------
+  static ValueNotifier<bool> proGetPyramidIsOn({
+    required BuildContext context,
+    required bool listen,
+  }){
+    final MirageModel _mirage0 = HomeProvider.proGetMirageByIndex(
+      context: context,
+      listen: true,
+      index: 0,
+    );
+    return _mirage0.pyramidIsOn!;
+  }
+  // --------------------
   static void proInitializeMirages(){
     final HomeProvider _pro = Provider.of<HomeProvider>(getMainContext(), listen: false);
     final MirageModel _mirageX0 = MirageModel.initialize(index: 0, controlPyramid: true);

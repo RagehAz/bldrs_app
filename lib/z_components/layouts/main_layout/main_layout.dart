@@ -82,8 +82,6 @@ class MainLayout extends StatelessWidget {
   final ValueNotifier<bool?>? filtersAreOn;
   final Widget? filters;
   // --------------------------------------------------------------------------
-
-  // --------------------------------------------------------------------------
   static const Widget spacer5 = SizedBox(
     width: 5,
     height: 5,
@@ -170,13 +168,9 @@ class MainLayout extends StatelessWidget {
 
           /// PYRAMIDS PANEL
           if (Lister.checkCanLoop(pyramidButtons) == true)
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: PyramidsPanel(
+            PyramidsPanel(
               pyramidButtons: pyramidButtons,
             ),
-          ),
 
         ],
       ),

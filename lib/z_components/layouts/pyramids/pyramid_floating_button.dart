@@ -15,6 +15,8 @@ class PyramidFloatingButton extends StatelessWidget {
     this.isDeactivated,
     this.iconColor,
     this.toolTip,
+    this.iconSizeFactor,
+    this.corners,
     super.key
   });
   /// ---------------------------------------------------------------------------
@@ -26,6 +28,8 @@ class PyramidFloatingButton extends StatelessWidget {
   final bool? isDeactivated;
   final Color? iconColor;
   final Verse? toolTip;
+  final double? iconSizeFactor;
+  final double? corners;
   /// ---------------------------------------------------------------------------
   static double size = 45;
   /// ---------------------------------------------------------------------------
@@ -43,11 +47,11 @@ class PyramidFloatingButton extends StatelessWidget {
         child: BldrsBox(
           height: size,
           width: size,
-          corners: size/2,
+          corners: corners ?? size/2,
           color: color,
           icon: icon,
           iconColor: iconColor,
-          iconSizeFactor: 0.6,
+          iconSizeFactor: iconSizeFactor ?? 0.6,
           onTap: onTap,
           onLongTap: onLongTap,
           isDisabled: isDeactivated,

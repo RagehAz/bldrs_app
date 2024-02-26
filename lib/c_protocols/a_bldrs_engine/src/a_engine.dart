@@ -165,6 +165,15 @@ class BldrsEngine {
     required bool mounted,
   }) async {
 
+    // final String url = window.location.toString();
+    // final String? _routeSettingsName = RoutePather.getRouteSettingsNameFromFullPath(url);
+    // blog('logoScreenRouting : url : $url');
+    // blog('logoScreenRouting : kIsWeb : $kIsWeb');
+    // blog('logoScreenRouting : path : ${RoutePather.getPathFromWindowURL(url)}');
+    // blog('logoScreenRouting : routeSettingsName : $_routeSettingsName');
+    // blog('logoScreenRouting : path2 : ${RoutePather.getPathFromRouteSettingsName(_routeSettingsName)}');
+    // blog('logoScreenRouting : args : ${RoutePather.getArgFromRouteSettingsName(_routeSettingsName)}');
+
     if (mounted == true){
 
       /// MOBILE - WINDOWS
@@ -184,7 +193,6 @@ class BldrsEngine {
           await Routing.goTo(route: ScreenName.home);
         }
 
-        /// LANDED ON ANY OTHER SCREEN
         else {
 
           final String? _routeSettingsName = RoutePather.getRouteSettingsNameFromFullPath(_url);

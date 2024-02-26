@@ -16,6 +16,7 @@ import 'package:bldrs/b_screens/0_logo_screen/logo_screen.dart';
 import 'package:bldrs/b_screens/a_home_screen/the_home_screen.dart';
 import 'package:bldrs/b_screens/b_user_screens/d_user_preview_screen/user_preview_screen.dart';
 import 'package:bldrs/b_screens/c_bz_screens/f_bz_preview_screen/a_bz_preview_screen.dart';
+import 'package:bldrs/b_screens/h_gt_insta_screen/gt_insta_screen.dart';
 import 'package:bldrs/b_screens/x_situational_screens/banner_screen.dart';
 import 'package:bldrs/b_screens/x_situational_screens/delete_my_data_screen.dart';
 import 'package:bldrs/b_screens/x_situational_screens/under_construction_screen.dart';
@@ -27,7 +28,6 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/g_flyer/a_flyer_screen/a_flyer_preview_screen.dart';
 import 'package:bldrs/g_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
-import 'package:bldrs/redirect_screen.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -58,6 +58,7 @@ import 'package:bldrs/b_screens/a_home_screen/pages/e_app_settings_page/app_sett
 import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/d_bz_notes_page/bz_notes_page.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/d_my_bz_pages/e_bz_settings_page/bz_settings_page.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:universal_html/html.dart';
 
 part 'pathing/a_route_name.dart';
 part 'pathing/b_route_pather.dart';

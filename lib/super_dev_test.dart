@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:bldrs/bldrs_keys.dart';
-import 'package:bldrs/h_navigation/routing/routing.dart';
-import 'package:bldrs/redirect_screen.dart';
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
-import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -15,18 +12,8 @@ const bool showTestButton = false;
 
 Future<void> superDevTestGoX() async {
 
-  WaitDialog.showUnawaitedWaitDialog();
-
-  await BldrsNav.goToNewScreen(
-      screen: const RedirectScreen(
-        path: '',
-        arg: {},
-      )
-  );
-
-  await WaitDialog.closeWaitDialog();
-
-  // await doTheNourThing();
+  blog('will go deep now ->');
+  await launchUrl(Uri.parse('bldrs://deep/redirect'));
 
 }
 
@@ -53,27 +40,6 @@ class TheFastTestButton extends StatelessWidget {
   }
 }
 
-Future<void> doTheNourThing() async {
-
-  //                   https://www.facebook.com/v19.0/dialog/oauth?
-  // client_id={app-id}
-  // &redirect_uri={redirect-uri}
-  // &state={state-param}
-  final uri = Uri(
-    scheme: 'https',
-    host: 'www.facebook.com',
-    path: 'v19.0/dialog/oauth',
-    queryParameters: <String, String>{
-      'client_id': BldrsKeys.socialKeys.facebookAppID!,
-      'redirect_uri': 'https://bldrs.net/redirect',
-      'config_id': '925142852526513',
-      'response_type': 'token',
-    },
-  );
-
-  await launchUrl(uri);
-
-}
 
 /// CHAT GBT PROMPTS
 /*

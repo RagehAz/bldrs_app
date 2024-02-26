@@ -50,19 +50,36 @@ class RoutePather {
   /// TESTED : WORKS PERFECT
   static String? getPathFromRouteSettingsName(String? settingsName){
 
+    // blog('getPathFromRouteSettingsName : settingsName : $settingsName');
+    final bool _isRedirect = TextCheck.stringContainsSubString(string: settingsName, subString: 'redirect');
+
+    final String _separator = _isRedirect ? '#' : ':';
+
     return TextMod.removeTextAfterLastSpecialCharacter(
       text: settingsName,
-      specialCharacter: ':',
+      specialCharacter: _separator,
     );
+
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? getArgFromRouteSettingsName(String? settingsName){
-    return TextMod.removeTextBeforeFirstSpecialCharacter(
-      text: settingsName,
-      specialCharacter: ':',
-    );
+
+    final bool _isRedirect = TextCheck.stringContainsSubString(string: settingsName, subString: 'redirect');
+    final String _separator = _isRedirect ? '#' : ':';
+
+    if (TextCheck.stringContainsSubString(string: settingsName, subString: _separator)){
+      return TextMod.removeTextBeforeFirstSpecialCharacter(
+        text: settingsName,
+        specialCharacter: _separator,
+      );
+    }
+
+    else {
+      return null;
+    }
+
   }
   // -----------------------------------------------------------------------------
 
@@ -100,7 +117,10 @@ class RoutePather {
 
       _routeSettingsName = _removeExtraSlashAtTheEndIfExisted(fullPath);
 
-      for (int i = 0; i < 4; i ++){
+      final bool _hasSharp = TextCheck.stringContainsSubString(string: _routeSettingsName, subString: '/#/');
+      final int _numberOfSlashes = _hasSharp == true ? 4 : 3;
+
+      for (int i = 0; i < _numberOfSlashes; i ++){
 
         final String _was = _routeSettingsName!;
 
@@ -109,7 +129,7 @@ class RoutePather {
           specialCharacter: '/',
         );
 
-        blog('$i was : $_was : is : $_is : equals : ${_was == _is}');
+        // blog('$i was : $_was : is : $_is : equals : ${_was == _is}');
 
         /// NOT CHANGED ( had no more slashes )
         if (_is == _was){
