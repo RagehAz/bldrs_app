@@ -16,7 +16,7 @@ import 'package:bldrs/b_screens/0_logo_screen/logo_screen.dart';
 import 'package:bldrs/b_screens/a_home_screen/the_home_screen.dart';
 import 'package:bldrs/b_screens/b_user_screens/d_user_preview_screen/user_preview_screen.dart';
 import 'package:bldrs/b_screens/c_bz_screens/f_bz_preview_screen/a_bz_preview_screen.dart';
-import 'package:bldrs/b_screens/h_gt_insta_screen/gt_insta_screen.dart';
+import 'package:bldrs/i_gt_insta_screen/gt_insta_screen.dart';
 import 'package:bldrs/b_screens/x_situational_screens/banner_screen.dart';
 import 'package:bldrs/b_screens/x_situational_screens/delete_my_data_screen.dart';
 import 'package:bldrs/b_screens/x_situational_screens/under_construction_screen.dart';

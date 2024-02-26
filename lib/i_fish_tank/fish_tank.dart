@@ -72,5 +72,6 @@ part 'src/fish_protocols/fish_ldb_ops.dart';
 part 'src/fish_protocols/fish_protocols.dart';
 part 'src/fish_protocols/fish_real_ops.dart';
 part 'src/components/fish_tile.dart';
+part '../i_gt_insta_screen/src/models/insta_profile.dart';
 /// SCRAP_EYE_OF_RIYADH
 // part 'src/fish_protocols/eye_of_riyadh_scrapper.dart';

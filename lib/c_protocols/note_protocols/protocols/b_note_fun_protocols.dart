@@ -7,6 +7,7 @@ import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dar
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:fire/super_fire.dart';
 /// => TAMAM
 class NoteFunProtocols {
@@ -23,6 +24,8 @@ class NoteFunProtocols {
   // --------------------
   /// -> fires refetchBZ
   static const String funRefetchBz = 'funRefetchBz';
+
+  static const String funRefetchUser = 'funRefetchUser';
   // --------------------
   // /// -> shows note buttons + allows [ add Me To Bz Protocol ] + allows [ decline authorship protocol ]
   // static const String tridAuthorshipInvitation = 'tridAuthorshipInvitation';
@@ -36,12 +39,13 @@ class NoteFunProtocols {
   /// -> fires BzProtocols.wipePendingAuthor
   static const String funWipePendingAuthor = 'funWipePendingAuthor';
   // --------------------
-  /// -> fires FlyerProtocols.deleteAllBzFlyersLocally
+  /// -> fires FlyerProtocols.deleteAllBzFlyersLocally0
   static const String funDeleteAllBzFlyersLocally = 'funDeleteAllBzFlyersLocally';
   // --------------------
   static const List<String> triggersList = [
     funRefetchFlyer,
     funRefetchBz,
+    funRefetchUser,
     funAddMeAsAuthorToBz,
     funRemoveBzTracesAfterDeletion,
     funWipePendingAuthor,
@@ -230,6 +234,15 @@ class NoteFunProtocols {
           // blog('2--> Switcher : FIRING : REFETCH BZ (${trigger.argument}) : START');
           await BzProtocols.refetch(
             bzID: trigger.argument,
+          );
+          // blog('3--> Switcher : FIRING : END');
+          break;
+      // ----------
+      /// REFETCH BZ
+        case funRefetchUser:
+        // blog('2--> Switcher : FIRING : REFETCH BZ (${trigger.argument}) : START');
+          await UserProtocols.refetch(
+            userID: trigger.argument,
           );
           // blog('3--> Switcher : FIRING : END');
           break;

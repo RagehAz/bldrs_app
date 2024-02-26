@@ -8,7 +8,10 @@ import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/linker.dart';
 import 'package:basics/helpers/strings/text_clip_board.dart';
 import 'package:basics/layouts/views/floating_list.dart';
-import 'package:bldrs/b_screens/h_gt_insta_screen/src/protocols/gt_insta_ops.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/i_gt_insta_screen/src/components/insta_profile_bubble.dart';
+import 'package:bldrs/i_gt_insta_screen/src/protocols/gt_insta_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/i_fish_tank/fish_tank.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/wide_button.dart';
@@ -147,17 +150,28 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
 
     final String? _text = await TextClipBoard.paste();
 
-    final Map<String, dynamic>? _map = await GtInstaOps.scrapProfile(
+    final bool _urlIsValid = Formers.socialLinkValidator(
+        url: _text,
+        contactType: ContactType.instagram,
+        isMandatory: true,
+    ) == null;
+
+    if (_urlIsValid == false){
+      await Dialogs.topNotice(verse: Verse.plain('Not an Instagram Link'), color: Colorz.red255);
+    }
+    else {
+
+      final Map<String, dynamic>? _map = await GtInstaOps.scrapProfile(
         instagramProfileNameOrURL: _text,
         facebookAccessToken: _facebookAccessToken,
-    );
+      );
 
+      _setInstaProfile(
+        map: _map,
+        url: _text,
+      );
 
-
-    _setInstaProfile(
-      map: _map,
-    );
-
+    }
 
   }
   // --------------------
@@ -172,13 +186,17 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
 
     _setInstaProfile(
       map: _map,
+      url: _instagramURL,
     );
 
 
   }
   // --------------------
   Map<String, dynamic>? _instaMap;
+  InstaProfile? _profile;
+  // --------------------
   void _setInstaProfile({
+    required String? url,
     required Map<String, dynamic>? map,
   }){
 
@@ -186,6 +204,7 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
 
     setState(() {
       _instaMap = map;
+      _profile = InstaProfile.decipherInstaMap(map: map, url: url);
     });
 
   }
@@ -247,6 +266,8 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    blog('aaaxx');
     // --------------------
     return MainLayout(
       canSwipeBack: false,
@@ -307,6 +328,12 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
             ),
           ),
 
+          /// PROFILE BUBBLE
+          InstaProfileBubble(
+            profile: _profile,
+          ),
+
+          /// MAP TREE
           if (_instaMap != null)
           MapTree(
             map: _instaMap,
