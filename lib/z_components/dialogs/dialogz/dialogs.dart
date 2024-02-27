@@ -295,7 +295,6 @@ class Dialogs {
             BldrsBox(
               height: 50,
               width: Scale.getUniformRowItemWidth(
-                context: context,
                 numberOfItems: 2,
                 boxWidth: BottomDialog.clearWidth(),
               ),
@@ -315,7 +314,6 @@ class Dialogs {
             BldrsBox(
               height: 50,
               width: Scale.getUniformRowItemWidth(
-                context: context,
                 numberOfItems: 2,
                 boxWidth: BottomDialog.clearWidth(),
               ),

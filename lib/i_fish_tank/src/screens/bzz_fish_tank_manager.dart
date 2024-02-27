@@ -89,10 +89,12 @@ class _BzzFishTankManagerState extends State<BzzFishTankManager> {
           limit: 10000,
         );
 
-        setState(() {
-          _fishes = _all;
-          _originalFishes = _all;
-        });
+        if (mounted == true){
+          setState(() {
+            _fishes = _all;
+            _originalFishes = _all;
+          });
+        }
 
         await _triggerLoading(setTo: false);
 

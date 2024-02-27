@@ -48,31 +48,40 @@ class GtInstaOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Map<String, dynamic>?> scrapProfile({
-    required String? instagramProfileNameOrURL,
+  static Future<Map<String, dynamic>?> scrapProfileByURL({
+    required String? url,
+    required String? facebookAccessToken,
+  }) async {
+
+    final String? _name = extractProfileName(
+      urlOrName: Linker.cleanURL(url),
+    );
+
+    return scrapProfileByProfileName(
+      facebookAccessToken: facebookAccessToken,
+      profileName: _name,
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>?> scrapProfileByProfileName({
+    required String? profileName,
     required String? facebookAccessToken,
   }) async {
     Map<String, dynamic>? _output;
 
-
-    final String? _name = _extractProfileName(
-      urlOrName: instagramProfileNameOrURL,
-    );
-
-    blog('scrapProfile : name : $_name');
-
     if (
-    TextCheck.isEmpty(_name) == false
-    &&
-    TextCheck.isEmpty(facebookAccessToken) == false
+        TextCheck.isEmpty(profileName) == false
+        &&
+        TextCheck.isEmpty(facebookAccessToken) == false
     ){
 
       // TO EXPLORE FIELDS
       /// https://developers.facebook.com/tools/explorer/427786221866015/?method=GET&path=me%2Faccounts&version=v19.0
 
       final String _script =
-'''
-business_discovery.username($_name) {
+      '''
+business_discovery.username($profileName) {
 profile_picture_url,
 ig_id,
 followers_count,
@@ -95,8 +104,8 @@ media {
       );
 
       final Response? response = await Rest.get(
-          rawLink: uri.toString(),
-          invoker: 'GtInstaOps.scrapProfile',
+        rawLink: uri.toString(),
+        invoker: 'GtInstaOps.scrapProfile',
       );
 
       if (response != null){
@@ -114,7 +123,7 @@ media {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String? _extractProfileName({
+  static String? extractProfileName({
     required String? urlOrName,
   }){
     String? _name;
@@ -138,7 +147,7 @@ media {
 
     }
 
-    return _name;
+    return Linker.removeExtraSlashAtTheEndIfExisted(_name);
   }
   // --------------------------------------------------------------------------
 }

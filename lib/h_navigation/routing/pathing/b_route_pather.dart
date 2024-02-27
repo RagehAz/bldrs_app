@@ -115,7 +115,7 @@ class RoutePather {
 
     if (fullPath != null){
 
-      _routeSettingsName = _removeExtraSlashAtTheEndIfExisted(fullPath);
+      _routeSettingsName = Linker.removeExtraSlashAtTheEndIfExisted(fullPath);
 
       final bool _hasSharp = TextCheck.stringContainsSubString(string: _routeSettingsName, subString: '/#/');
       final int _numberOfSlashes = _hasSharp == true ? 4 : 3;
@@ -149,26 +149,6 @@ class RoutePather {
     }
 
     return _routeSettingsName;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String _removeExtraSlashAtTheEndIfExisted(String fullPath){
-    String _output = fullPath;
-
-    if (TextCheck.isEmpty(fullPath) == false){
-
-      final String _lastChar = fullPath[fullPath.length-1];
-
-      if (_lastChar == '/'){
-        _output = TextMod.removeNumberOfCharactersFromEndOfAString(
-          string: fullPath,
-          numberOfCharacters: 1,
-        )!;
-      }
-
-    }
-
-    return _output;
   }
   // -----------------------------------------------------------------------------
 

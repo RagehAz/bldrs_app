@@ -1,3 +1,9 @@
+import 'dart:typed_data';
+
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/bldrs_keys.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/images/bldrs_image.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
@@ -7,21 +13,115 @@ import 'package:flutter/material.dart';
 import 'package:basics/components/super_image/super_image.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 
-class SlideFullScreen extends StatelessWidget {
-  /// --------------------------------------------------------------------------
-  const SlideFullScreen({
+class PicFullScreen extends StatelessWidget {
+  // --------------------------------------------------------------------------
+  const PicFullScreen({
     required this.image,
     required this.imageSize,
     required this.filter,
     this.title,
     super.key
   });
-  /// --------------------------------------------------------------------------
+  // --------------------
   final dynamic image;
   final Dimensions imageSize;
   final Verse? title;
   final ImageFilterModel? filter;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> openURL({
+    required String? url,
+    required String? title,
+  }) async {
+
+    await BldrsNav.goToNewScreen(
+      screen: PicFullScreen(
+        image: url,
+        imageSize:
+        const Dimensions(
+          width: 0, //_pic?.meta?.width,
+          height: 0, //_pic?.meta?.height,
+        ),
+        filter: ImageFilterModel.noFilter(),
+        title: Verse.plain(title),
+      ),
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> openStealUrlTheOpen({
+    required String? url,
+    required String? title,
+  }) async {
+
+    final PicModel? _pic = await PicProtocols.stealInternetPic(
+      url: url,
+      ownersIDs: [BldrsKeys.ragehID],
+      picName: '$url',
+      assignPath: 'x',
+    );
+
+    await openPicModel(
+      pic: _pic,
+      title: title,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> openPicModel({
+    required PicModel? pic,
+    required String? title,
+  }) async {
+
+    await BldrsNav.goToNewScreen(
+      screen: PicFullScreen(
+        image: pic?.bytes,
+        imageSize: Dimensions(
+          width: pic?.meta?.width,
+          height: pic?.meta?.height,
+        ),
+        filter: ImageFilterModel.noFilter(),
+        title: Verse.plain(title),
+      ),
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> goToImageFullScreenByBytes({
+    required Uint8List bytes,
+    required Dimensions dims,
+    required String? title,
+  }) async {
+
+    await BldrsNav.goToNewScreen(
+      screen: PicFullScreen(
+        image: bytes,
+        imageSize: dims,
+        filter: ImageFilterModel.noFilter(),
+        title: Verse.plain(title),
+      ),
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> goToImageFullScreenByPath({
+    required String? path,
+    required String? title,
+  }) async {
+
+    final PicModel? _pic = await PicProtocols.fetchPic(path);
+
+    await openPicModel(
+      pic: _pic,
+      title: title,
+    );
+
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------

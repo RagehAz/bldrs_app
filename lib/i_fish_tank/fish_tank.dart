@@ -43,6 +43,7 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
+import 'package:bldrs/i_gt_insta_screen/src/models/insta_post.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/z_components/bubbles/b_variants/contacts_bubble/contacts_wrap.dart';

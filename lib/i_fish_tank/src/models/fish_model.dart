@@ -127,7 +127,10 @@ class FishModel {
 
       for (final Map<String, dynamic> map in maps){
 
-        final FishModel? _fish = decipher(map: map);
+        final Map<String, dynamic>? _cleaned = Mapper.cleanNullPairs(
+          map: map,
+        );
+        final FishModel? _fish = decipher(map: _cleaned);
 
         if (_fish != null){
           _output.add(_fish);

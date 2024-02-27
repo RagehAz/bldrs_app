@@ -10,6 +10,7 @@ class InstaProfile {
     required this.contacts,
     required this.biography,
     required this.followers,
+    required this.posts,
   });
   // --------------------
   final String id;
@@ -18,6 +19,7 @@ class InstaProfile {
   final String? biography;
   final int? followers;
   final List<ContactModel> contacts;
+  final List<InstaPost> posts;
   // -----------------------------------------------------------------------------
 
   ///  CLONING
@@ -31,6 +33,7 @@ class InstaProfile {
     String? biography,
     int? followers,
     List<ContactModel>? contacts,
+    List<InstaPost>? posts,
   }){
     return InstaProfile(
       id: id ?? this.id,
@@ -39,6 +42,7 @@ class InstaProfile {
       contacts: contacts ?? this.contacts,
       biography: biography ?? this.biography,
       followers: followers ?? this.followers,
+      posts: posts ?? this.posts,
     );
   }
   // -----------------------------------------------------------------------------
@@ -46,7 +50,7 @@ class InstaProfile {
   ///  CYPHERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static InstaProfile? decipherInstaMap({
     required Map<String, dynamic>? map,
     required String? url,
@@ -55,30 +59,68 @@ class InstaProfile {
 
     if (map != null && TextCheck.isEmpty(url) == false){
 
-      final String? _website = map['business_discovery']?['website'];
-      final ContactType? _linkType = ContactModel.concludeContactTypeByURLDomain(url: _website);
+      final String? _name = map['business_discovery']?['name'];
 
-      _output = InstaProfile(
-        id: map['business_discovery']?['ig_id']?.toString() ?? 'x',
-        name: map['business_discovery']?['name'],
-        biography: map['business_discovery']?['biography'],
-        followers: map['business_discovery']?['followers_count'],
-        logo: map['business_discovery']?['profile_picture_url'],
-        contacts: <ContactModel>[
+      if (_name != null){
 
-          ContactModel(
-            type: ContactType.instagram,
-            value: url,
+        final String? _website = map['business_discovery']?['website'];
+        final ContactType? _linkType = ContactModel.concludeContactTypeByURLDomain(url: _website);
+
+        _output = InstaProfile(
+          id: map['business_discovery']?['ig_id']?.toString() ?? 'x',
+          name: map['business_discovery']?['name'],
+          biography: map['business_discovery']?['biography'],
+          followers: map['business_discovery']?['followers_count'],
+          logo: map['business_discovery']?['profile_picture_url'],
+          posts: InstaPost.decipherPosts(
+            mediaMap: map['business_discovery']?['media'],
           ),
+          contacts: <ContactModel>[
 
-          if (_website != null && _linkType != null && _linkType != ContactType.instagram)
             ContactModel(
-              type: _linkType,
-              value: _website,
+              type: ContactType.instagram,
+              value: url,
             ),
 
-        ],
+            if (_website != null && _linkType != null && _linkType != ContactType.instagram)
+              ContactModel(
+                type: _linkType,
+                value: _website,
+              ),
+
+          ],
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> _getPostsUrlsFromInstaMap(Map<String, dynamic>? map){
+    final List<String> _output = [];
+
+    if (map != null){
+
+      final List<Map<String, dynamic>> _postsMaps = Mapper.getMapsFromDynamics(
+          dynamics: map['business_discovery']?['media']?['data'],
       );
+
+      if (Lister.checkCanLoop(_postsMaps) == true){
+
+        for (final Map<String, dynamic> map in _postsMaps){
+
+          final String? mediaURL = map['media_url'];
+
+          if (mediaURL != null){
+            _output.add(mediaURL);
+          }
+
+        }
+
+      }
 
     }
 
@@ -108,6 +150,7 @@ class InstaProfile {
         pro1.logo == pro2.logo &&
         ContactModel.checkContactsListsAreIdentical(contacts1: pro1.contacts, contacts2: pro2.contacts) == true &&
         pro1.biography == pro2.biography &&
+        Lister.checkListsAreIdentical(list1: pro1.posts, list2: pro2.posts) == true &&
         pro1.followers == pro2.followers
       ){
         _identical = true;
@@ -132,6 +175,7 @@ class InstaProfile {
           contacts: $contacts,
           biography: $biography,
           followers: $followers,
+          postsURLs: $posts,
        )  
        ''';
   // --------------------
@@ -160,6 +204,7 @@ class InstaProfile {
       logo.hashCode^
       contacts.hashCode^
       biography.hashCode^
+      posts.hashCode^
       followers.hashCode;
   // -----------------------------------------------------------------------------
 }

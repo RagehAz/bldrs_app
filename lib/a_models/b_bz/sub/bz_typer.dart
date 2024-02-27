@@ -39,7 +39,6 @@ enum BzState {
   online,
   offline,
   deactivated,
-  deleted,
   banned,
 }
 
@@ -889,7 +888,6 @@ class BzTyper {
       case BzState.online       : return 'online'     ;
       case BzState.offline      : return 'offline'    ;
       case BzState.deactivated  : return 'deactivated';
-      case BzState.deleted      : return 'deleted'    ;
       case BzState.banned       : return 'banned'     ;
       default:  return null;
     }
@@ -901,7 +899,6 @@ class BzTyper {
       case 'online'       : return BzState.online       ;
       case 'offline'      : return BzState.offline      ;
       case 'deactivated'  : return BzState.deactivated  ;
-      case 'deleted'      : return BzState.deleted      ;
       case 'banned'       : return BzState.banned       ;
       default:  return null;
     }
@@ -911,7 +908,6 @@ class BzTyper {
     BzState.online,
     BzState.offline,
     BzState.deactivated,
-    BzState.deleted,
     BzState.banned,
   ];
   // -----------------------------------------------------------------------------

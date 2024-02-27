@@ -114,7 +114,6 @@ class NoteCardButtons extends StatelessWidget {
                         (int index) {
                       final String _phid = noteModel!.poll!.buttons![index];
                       final double _width = Scale.getUniformRowItemWidth(
-                        context: context,
                         numberOfItems: noteModel!.poll!.buttons!.length,
                         boxWidth: boxWidth,
                       );

@@ -1,17 +1,15 @@
 library bldrs_routing;
 
 import 'dart:async';
-import 'package:basics/components/super_image/super_image.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/strings/linker.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/legalizer/legalizer.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/z_grid/z_grid.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_screens/0_logo_screen/logo_screen.dart';
 import 'package:bldrs/b_screens/a_home_screen/the_home_screen.dart';
 import 'package:bldrs/b_screens/b_user_screens/d_user_preview_screen/user_preview_screen.dart';
@@ -22,11 +20,9 @@ import 'package:bldrs/b_screens/x_situational_screens/delete_my_data_screen.dart
 import 'package:bldrs/b_screens/x_situational_screens/under_construction_screen.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/g_flyer/a_flyer_screen/a_flyer_preview_screen.dart';
-import 'package:bldrs/g_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/g_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';

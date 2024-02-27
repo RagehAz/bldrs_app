@@ -69,7 +69,6 @@ class CensusLine extends StatelessWidget {
       final double _censusUnitsTotalWidth = _buttonWidth - _flagBoxSize;
 
       final double _censusUnitBoxWidth = Scale.getUniformRowItemWidth(
-        context: context,
         numberOfItems: 3,
         boxWidth: _censusUnitsTotalWidth,
         spacing: 0,

@@ -162,18 +162,27 @@ class ContactModel {
     final List<ContactModel> _contacts = <ContactModel>[];
 
     if (map != null) {
-      final List<String> _keys = map.keys.toList();
+
+      List<String?> _keys = map.keys.toList();
+
+      /// BECAUSE IT WAS FIRING A SENTRY ERROR
+      _keys = Stringer.cleanListNullItems(_keys);
 
       if (Lister.checkCanLoop(_keys) == true) {
 
-        for (final String key in _keys) {
+        for (final String? key in _keys) {
 
-          final ContactModel _contact = ContactModel(
-              value: map[key],
-              type: _decipherContactType(key)!,
-          );
+          if (key != null){
 
-          _contacts.add(_contact);
+            final ContactModel _contact = ContactModel(
+                value: map[key],
+                type: _decipherContactType(key)!,
+            );
+
+            _contacts.add(_contact);
+
+          }
+
 
         }
       }

@@ -30,7 +30,6 @@ class ContactsWrap extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _size = buttonSize ?? Scale.getUniformRowItemWidth(
-      context: context,
       numberOfItems: rowCount,
       boxWidth: boxWidth,
       spacing: spacing,

@@ -553,8 +553,10 @@ class _ZonePageState extends State<ZonePage> {
       zone: zone,
     );
 
-    final String? _phid = HomeProvider.proGetHomeWallPhid(context: context, listen: false);
-    await Routing.goTo(route: _phid);
+    if (mounted == true){
+      final String? _phid = HomeProvider.proGetHomeWallPhid(context: context, listen: false);
+      await Routing.goTo(route: _phid);
+    }
 
   }
   // -----------------------------------------------------------------------------
