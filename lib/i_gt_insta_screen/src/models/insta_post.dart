@@ -10,7 +10,7 @@ class InstaPost{
   });
   // --------------------
   final String id;
-  final String url;
+  final String? url;
   final List<InstaPost> children;
   // -----------------------------------------------------------------------------
 
@@ -56,19 +56,27 @@ class InstaPost{
   }){
     InstaPost? _output;
 
-    if (map != null){
+    if (map?['id'] != null){
 
       _output = InstaPost(
-        id: map['id'],
+        id: map!['id'],
         url: map['media_url'],
-        children: decipherPosts(
-          mediaMap: map['children'],
-        ),
+        children: decipherPosts(mediaMap: map['children']),
       );
 
     }
 
     return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  ///  CURSOR
+
+  // --------------------
+  static String? getNextCursor({
+    required Map<String, dynamic>? instaMap,
+  }){
+    return instaMap?['media']?['paging']?['cursors']?['after'];
   }
   // --------------------------------------------------------------------------
 }

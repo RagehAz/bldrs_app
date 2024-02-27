@@ -6,19 +6,15 @@ import 'package:basics/components/sensors/app_version_builder.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/map_pathing.dart';
 import 'package:basics/helpers/maps/mapper.dart';
-import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/helpers/strings/linker.dart';
 import 'package:basics/helpers/strings/pathing.dart';
-import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_clip_board.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
-import 'package:bldrs/g_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/i_fish_tank/fish_tank.dart';
 import 'package:bldrs/i_gt_insta_screen/src/components/insta_profile_bubble.dart';
-import 'package:bldrs/i_gt_insta_screen/src/models/insta_post.dart';
 import 'package:bldrs/i_gt_insta_screen/src/protocols/gt_insta_ops.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/wide_button.dart';
@@ -175,6 +171,7 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
   // --------------------
   Future<void> _scrap({
     required String? url,
+    String? startAfterCursor,
 }) async {
 
     final bool _urlIsValid = Formers.socialLinkValidator(
@@ -192,6 +189,8 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
       final Map<String, dynamic>? _map = await GtInstaOps.scrapProfileByURL(
         url: url,
         facebookAccessToken: _facebookAccessToken,
+        limit: 9,
+        startAfterCursor: startAfterCursor,
       );
 
       if (_map?['error'] != null){
@@ -353,86 +352,6 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
             profile: _profile,
           ),
 
-          if (_profile != null)
-          Builder(
-            builder: (context) {
-
-              final int _length = _profile?.posts.length ?? 0;
-
-              final double _width = Bubble.bubbleWidth(context: context);
-              const double _spacing = 2;
-
-              final double _boxSize = Scale.getUniformRowItemWidth(
-                numberOfItems: 3,
-                boxWidth: _width,
-                spacing: _spacing,
-                considerMargins: false,
-              );
-              final double _rowHeight = _boxSize + _spacing;
-
-              final int _numberOfRows = (_length / 3).ceil();
-
-              return SizedBox(
-                width: _width,
-                height: _rowHeight * _numberOfRows,
-                child: GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                    itemCount: _length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisSpacing: _spacing,
-                      mainAxisSpacing: _spacing,
-                      crossAxisCount: 3,
-                      // childAspectRatio: 1,
-                      // mainAxisExtent: _rowHeight,
-                    ),
-                    itemBuilder: (_, int index){
-
-                    final InstaPost? _post = _profile!.posts[index];
-
-                    final bool _isVideo = TextCheck.stringContainsSubString(
-                        string: _post?.url,
-                        subString: 'video'
-                    );
-
-                    /// VIDEO
-                    if (_isVideo == true){
-                      return BldrsBox(
-                        width: _boxSize,
-                        height: _boxSize,
-                        margins: 0,
-                        color: Colorz.white10,
-                        icon: Iconz.play,
-                        iconColor: Colorz.white20,
-                        iconSizeFactor: 0.5,
-                        corners: 0,
-                        bubble: false,
-                      );
-                    }
-
-                    /// PICTURE
-                    else {
-                      return BldrsBox(
-                        width: _boxSize,
-                        height: _boxSize,
-                        margins: 0,
-                        icon: _post?.url,
-                        corners: 0,
-                        bubble: false,
-                        onTap: () async {
-
-                          blog('a7');
-                          await PicFullScreen.openStealUrlTheOpen(url: _post?.url, title: 'post');
-
-                        },
-                      );
-                    }
-
-                    },
-                ),
-              );
-            }
-          ),
-
           /// GET POSTS
           if (_instaMap != null)
             BldrsBox(
@@ -443,10 +362,10 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
               margins: 10,
               onTap: () async {
 
-                final String? _thing = _instaMap!['business_discovery']['media']['data'][1]['media_url'];
-                blog(_thing);
-
-
+                await _scrap(
+                  url: _profile?.getInstagramURL(),
+                  startAfterCursor: _profile?.afterCursor,
+                );
 
               },
             ),

@@ -51,6 +51,8 @@ class GtInstaOps {
   static Future<Map<String, dynamic>?> scrapProfileByURL({
     required String? url,
     required String? facebookAccessToken,
+    String? startAfterCursor,
+    int? limit,
   }) async {
 
     final String? _name = extractProfileName(
@@ -60,6 +62,8 @@ class GtInstaOps {
     return scrapProfileByProfileName(
       facebookAccessToken: facebookAccessToken,
       profileName: _name,
+      startAfterCursor: startAfterCursor,
+      limit: limit,
     );
   }
   // --------------------
@@ -67,6 +71,8 @@ class GtInstaOps {
   static Future<Map<String, dynamic>?> scrapProfileByProfileName({
     required String? profileName,
     required String? facebookAccessToken,
+    String? startAfterCursor,
+    int? limit,
   }) async {
     Map<String, dynamic>? _output;
 
@@ -79,6 +85,11 @@ class GtInstaOps {
       // TO EXPLORE FIELDS
       /// https://developers.facebook.com/tools/explorer/427786221866015/?method=GET&path=me%2Faccounts&version=v19.0
 
+      final String theLimit = limit == null ? '' : '.limit($limit)';
+      final String startAfter = startAfterCursor == null ? '' : '.after($startAfterCursor)';
+
+      blog('haa $startAfter');
+
       final String _script =
       '''
 business_discovery.username($profileName) {
@@ -88,8 +99,8 @@ followers_count,
 name,
 biography,
 website,
-media {
-  media_url,children{media_url}
+media$startAfter$theLimit {
+  media_url,caption,media_type,children{media_url}
  }
 }''';
 
