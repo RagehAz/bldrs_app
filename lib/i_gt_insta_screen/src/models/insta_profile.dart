@@ -9,7 +9,6 @@ class InstaProfile {
     required this.logo,
     required this.contacts,
     required this.biography,
-    required this.category,
     required this.followers,
     required this.posts,
     this.afterCursor,
@@ -20,7 +19,6 @@ class InstaProfile {
   final String? name;
   final String? logo;
   final String? biography;
-  final String? category;
   final int? followers;
   final List<ContactModel> contacts;
   final List<InstaPost> posts;
@@ -37,7 +35,6 @@ class InstaProfile {
     String? name,
     String? logo,
     String? biography,
-    String? category,
     int? followers,
     List<ContactModel>? contacts,
     List<InstaPost>? posts,
@@ -48,7 +45,6 @@ class InstaProfile {
       logo: logo ?? this.logo,
       contacts: contacts ?? this.contacts,
       biography: biography ?? this.biography,
-      category: category ?? this.category,
       followers: followers ?? this.followers,
       posts: posts ?? this.posts,
     );
@@ -79,7 +75,6 @@ class InstaProfile {
           name: map['business_discovery']?['name'],
           biography: map['business_discovery']?['biography'],
           followers: map['business_discovery']?['followers_count'],
-          category: map['business_discovery']?['category_name'],
           logo: map['business_discovery']?['profile_picture_url'],
           posts: InstaPost.decipherPosts(
             mediaMap: map['business_discovery']?['media'],
@@ -108,41 +103,12 @@ class InstaProfile {
 
     return _output;
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> _getPostsUrlsFromInstaMap(Map<String, dynamic>? map){
-    final List<String> _output = [];
-
-    if (map != null){
-
-      final List<Map<String, dynamic>> _postsMaps = Mapper.getMapsFromDynamics(
-          dynamics: map['business_discovery']?['media']?['data'],
-      );
-
-      if (Lister.checkCanLoop(_postsMaps) == true){
-
-        for (final Map<String, dynamic> map in _postsMaps){
-
-          final String? mediaURL = map['media_url'];
-
-          if (mediaURL != null){
-            _output.add(mediaURL);
-          }
-
-        }
-
-      }
-
-    }
-
-    return _output;
-  }
   // -----------------------------------------------------------------------------
 
   /// GETTERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   String? getInstagramURL(){
     return ContactModel.getValueFromContacts(
       contacts: contacts,
@@ -175,7 +141,6 @@ class InstaProfile {
         pro1.biography == pro2.biography &&
         Lister.checkListsAreIdentical(list1: pro1.posts, list2: pro2.posts) == true &&
         pro1.followers == pro2.followers &&
-        pro1.category == pro2.category &&
         pro1.afterCursor == pro2.afterCursor &&
         pro1.beforeCursor == pro2.beforeCursor
       ){
@@ -202,7 +167,6 @@ class InstaProfile {
           biography: $biography,
           followers: $followers,
           postsURLs: $posts,
-          category: $category,
           afterCursor: $afterCursor,
           beforeCursor: $beforeCursor,
        )  
@@ -234,7 +198,6 @@ class InstaProfile {
       contacts.hashCode^
       biography.hashCode^
       posts.hashCode^
-      category.hashCode^
       afterCursor.hashCode^
       beforeCursor.hashCode^
       followers.hashCode;

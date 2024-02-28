@@ -4,25 +4,18 @@ import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/components/drawing/dot_separator.dart';
 import 'package:basics/components/sensors/app_version_builder.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/maps/map_pathing.dart';
-import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/linker.dart';
-import 'package:basics/helpers/strings/pathing.dart';
 import 'package:basics/helpers/strings/text_clip_board.dart';
 import 'package:basics/layouts/views/floating_list.dart';
-import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/i_fish_tank/fish_tank.dart';
-import 'package:bldrs/i_gt_insta_screen/src/components/insta_profile_bubble.dart';
+import 'package:bldrs/i_gt_insta_screen/src/components/insta_profile_bubble_builder.dart';
 import 'package:bldrs/i_gt_insta_screen/src/protocols/gt_insta_ops.dart';
-import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/wide_button.dart';
 import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/z_components/map_tree/map_tree.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
@@ -149,79 +142,23 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
   /// SCRAP
 
   // --------------------
+  String? _instagramURL;
   Future<void> _pasteAndScrap() async {
 
     final String? _text = await TextClipBoard.paste();
 
-    await _scrap(
-      url: _text,
-    );
+    setState(() {
+      _instagramURL = _text;
+    });
 
   }
   // --------------------
   Future<void> _pickFishAndScrap() async {
 
-    final String? _instagramURL = await BzzFishTankManager.pickInstagramLink();
-
-    await _scrap(
-      url: _instagramURL,
-    );
-
-  }
-  // --------------------
-  Future<void> _scrap({
-    required String? url,
-    String? startAfterCursor,
-}) async {
-
-    final bool _urlIsValid = Formers.socialLinkValidator(
-      url: url,
-      contactType: ContactType.instagram,
-      isMandatory: true,
-    ) == null;
-
-    if (_urlIsValid == false){
-      await Dialogs.topNotice(verse: Verse.plain('Not an Instagram Link'), color: Colorz.red255);
-    }
-
-    else {
-
-      final Map<String, dynamic>? _map = await GtInstaOps.scrapProfileByURL(
-        url: url,
-        facebookAccessToken: _facebookAccessToken,
-        limit: 9,
-        startAfterCursor: startAfterCursor,
-      );
-
-      if (_map?['error'] != null){
-        await Dialogs.topNotice(
-            verse: Verse.plain('Failed to get profile\n${GtInstaOps.extractProfileName(urlOrName: url)}'),
-            color: Colorz.red255);
-      }
-
-      _setInstaProfile(
-        map: _map,
-        url: url,
-      );
-
-    }
-
-
-  }
-  // --------------------
-  Map<String, dynamic>? _instaMap;
-  InstaProfile? _profile;
-  // --------------------
-  void _setInstaProfile({
-    required String? url,
-    required Map<String, dynamic>? map,
-  }){
-
-    Mapper.blogMap(map, invoker: 'InstaMap');
+    final String? _url = await BzzFishTankManager.pickInstagramLink();
 
     setState(() {
-      _instaMap = map;
-      _profile = InstaProfile.decipherInstaMap(map: map, url: url);
+      _instagramURL = _url;
     });
 
   }
@@ -286,7 +223,7 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    blog('a7axxx');
+    blog('building : _instagramURL : $_instagramURL');
     // --------------------
     return MainLayout(
       canSwipeBack: false,
@@ -348,67 +285,15 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
           ),
 
           /// PROFILE BUBBLE
-          InstaProfileBubble(
-            profile: _profile,
+          InstaProfileBubbleBuilder(
+            url: _instagramURL,
+            facebookAccessToken: _facebookAccessToken,
           ),
-
-          /// GET POSTS
-          if (_instaMap != null)
-            BldrsBox(
-              height: 40,
-              icon: Iconz.gallery,
-              verse: Verse.plain('Get post'),
-              color: Colorz.bloodTest,
-              margins: 10,
-              onTap: () async {
-
-                await _scrap(
-                  url: _profile?.getInstagramURL(),
-                  startAfterCursor: _profile?.afterCursor,
-                );
-
-              },
-            ),
-
-          /// MAP TREE
-          if (_instaMap != null)
-          MapTree(
-            map: _instaMap,
-            width: Bubble.bubbleWidth(context: context),
-            keyWidth: 100,
-            // searchValue: null,
-            // initiallyExpanded: false,
-            onLastNodeTap: (String? path) async {
-
-              if (path != null){
-
-                final String? _lastNode = Pathing.getLastPathNode(path);
-                final dynamic _value = MapPathing.getNodeValue(
-                    path: path,
-                    map: _instaMap,
-                );
-
-                blog('the value : $_value');
-                await Keyboard.copyToClipboardAndNotify(copy: _lastNode);
-
-              }
-
-            },
-            onExpandableNodeTap: (String? path) async {
-
-              if (path != null){
-                final String? _lastNode = Pathing.getLastPathNode(path);
-                await Keyboard.copyToClipboardAndNotify(copy: _lastNode);
-              }
-
-            },
-            selectedPaths: const [],
-          )
 
         ],
       ),
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

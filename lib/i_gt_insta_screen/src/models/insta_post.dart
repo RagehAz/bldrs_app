@@ -5,12 +5,22 @@ class InstaPost{
   // --------------------------------------------------------------------------
   const InstaPost({
     required this.id,
-    required this.url,
+    required this.mediaURL,
+    required this.caption,
+    required this.mediaType,
+    required this.mediaProductType,
+    required this.permalink,
+    required this.thumbnailURL,
     required this.children,
   });
   // --------------------
   final String id;
-  final String? url;
+  final String? mediaURL;
+  final String? caption;
+  final String? mediaType;
+  final String? mediaProductType;
+  final String? permalink;
+  final String? thumbnailURL;
   final List<InstaPost> children;
   // -----------------------------------------------------------------------------
 
@@ -60,23 +70,18 @@ class InstaPost{
 
       _output = InstaPost(
         id: map!['id'],
-        url: map['media_url'],
+        mediaURL: map['media_url'],
+        caption: map['caption'],
+        mediaProductType: map['media_product_type'],
+        mediaType: map['media_type'],
+        permalink: map['permalink'],
+        thumbnailURL: map['thumbnail_url'],
         children: decipherPosts(mediaMap: map['children']),
       );
 
     }
 
     return _output;
-  }
-  // -----------------------------------------------------------------------------
-
-  ///  CURSOR
-
-  // --------------------
-  static String? getNextCursor({
-    required Map<String, dynamic>? instaMap,
-  }){
-    return instaMap?['media']?['paging']?['cursors']?['after'];
   }
   // --------------------------------------------------------------------------
 }

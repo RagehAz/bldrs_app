@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'package:basics/helpers/checks/error_helpers.dart';
 import 'package:basics/helpers/checks/object_check.dart';
-import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/rest/rest.dart';
 import 'package:basics/helpers/strings/linker.dart';
@@ -52,6 +52,7 @@ class GtInstaOps {
     required String? url,
     required String? facebookAccessToken,
     String? startAfterCursor,
+    String? startBeforeCursor,
     int? limit,
   }) async {
 
@@ -63,6 +64,7 @@ class GtInstaOps {
       facebookAccessToken: facebookAccessToken,
       profileName: _name,
       startAfterCursor: startAfterCursor,
+      startBeforeCursor: startBeforeCursor,
       limit: limit,
     );
   }
@@ -72,6 +74,7 @@ class GtInstaOps {
     required String? profileName,
     required String? facebookAccessToken,
     String? startAfterCursor,
+    String? startBeforeCursor,
     int? limit,
   }) async {
     Map<String, dynamic>? _output;
@@ -87,20 +90,25 @@ class GtInstaOps {
 
       final String theLimit = limit == null ? '' : '.limit($limit)';
       final String startAfter = startAfterCursor == null ? '' : '.after($startAfterCursor)';
-
-      blog('haa $startAfter');
+      final String startBefore= startBeforeCursor == null ? '' : '.before($startBeforeCursor)';
 
       final String _script =
       '''
 business_discovery.username($profileName) {
 profile_picture_url,
-ig_id,
+id,
 followers_count,
 name,
 biography,
 website,
-media$startAfter$theLimit {
-  media_url,caption,media_type,children{media_url}
+media$startBefore$startAfter$theLimit {
+  media_url,
+  caption,
+  media_type,
+  media_product_type,
+  permalink,
+  thumbnail_url,
+  children{media_url}
  }
 }''';
 
@@ -120,8 +128,13 @@ media$startAfter$theLimit {
       );
 
       if (response != null){
-        final Map<String, dynamic>? _map = jsonDecode(response.body);
-        _output = Mapper.cloneMap(_map);
+        await tryAndCatch(
+            invoker: 'scrapProfileByProfileName',
+            functions: () async {
+              final Map<String, dynamic>? _map = jsonDecode(response.body);
+              _output = Mapper.cloneMap(_map);
+            }
+            );
       }
 
     }
