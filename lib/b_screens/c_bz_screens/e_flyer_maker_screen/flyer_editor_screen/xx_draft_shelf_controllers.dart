@@ -42,48 +42,53 @@ Future<void> onAddNewSlides({
   required double flyerBoxWidth,
 }) async {
 
-  setNotifier(notifier: isLoading, mounted: mounted, value: true);
-
-  final int _maxLength = Standards.getMaxSlidesCount(
-    bzAccountType: draftFlyer.value?.bzModel?.accountType,
+  setNotifier(
+    notifier: isLoading,
+    mounted: mounted,
+    value: true,
   );
 
-  /// A - if max images reached
-  if(_maxLength <= (draftFlyer.value?.draftSlides?.length ?? 0)){
-    await _showMaxSlidesReachedDialog(context, _maxLength);
+  final bool _maxSlidesCountReached = DraftFlyer.checkMaxSlidesCountReached(
+      draftFlyer: draftFlyer.value,
+  );
+
+  /// MAX SLIDES REACHED
+  if(_maxSlidesCountReached == true){
+    await _showMaxSlidesReachedDialog(draftFlyer.value);
   }
 
-  /// A - if can pick more images
-  else {
+  /// GALLERY PHOTO
+  else if (imagePickerType == PicMakerType.galleryImage){
+    await _addGalleryImagesToNewFlyer(
+      mounted: mounted,
+      scrollController: scrollController,
+      draftFlyer: draftFlyer,
+      flyerBoxWidth: flyerBoxWidth,
+    );
+  }
 
-    if (imagePickerType == PicMakerType.galleryImage){
-      await _addGalleryImagesToNewFlyer(
-        mounted: mounted,
-        scrollController: scrollController,
-        draftFlyer: draftFlyer,
-        flyerBoxWidth: flyerBoxWidth,
-      );
-    }
+  /// CAMERA PHOTO
+  else if (imagePickerType == PicMakerType.cameraImage){
+    await _addCameraImageToNewFlyer(
+      mounted: mounted,
+      scrollController: scrollController,
+      draftFlyer: draftFlyer,
+      flyerBoxWidth: flyerBoxWidth,
+    );
+  }
 
-    else if (imagePickerType == PicMakerType.cameraImage){
-      await _addCameraImageToNewFlyer(
-        mounted: mounted,
-        scrollController: scrollController,
-        draftFlyer: draftFlyer,
-        flyerBoxWidth: flyerBoxWidth,
-      );
-    }
+  /// GALLERY VIDEO
+  else if (imagePickerType == PicMakerType.galleryVideo){
+    await _addGalleryVideoToNewFlyer(
+      mounted: mounted,
+      scrollController: scrollController,
+      draftFlyer: draftFlyer,
+      flyerBoxWidth: flyerBoxWidth,
+    );
+  }
 
-    else if (imagePickerType == PicMakerType.galleryVideo){
-      await _addGalleryVideoToNewFlyer(
-        mounted: mounted,
-        scrollController: scrollController,
-        draftFlyer: draftFlyer,
-        flyerBoxWidth: flyerBoxWidth,
-      );
-    }
-
-    else if (imagePickerType == PicMakerType.cameraVideo){
+  /// CAMERA VIDEO
+  else if (imagePickerType == PicMakerType.cameraVideo){
       await _addCameraVideoToNewFlyer(
         mounted: mounted,
         scrollController: scrollController,
@@ -92,14 +97,11 @@ Future<void> onAddNewSlides({
       );
     }
 
-  }
-
   setNotifier(
       notifier: isLoading,
       mounted: mounted,
       value: false,
   );
-
 
 }
 // --------------------
@@ -113,14 +115,6 @@ Future<void> _addGalleryImagesToNewFlyer({
 
   if(mounted == true && draftFlyer.value?.id != null && draftFlyer.value?.bzID != null){
 
-    final List<String> _ownersIDs = await FlyerModel.generateFlyerOwners(
-      bzID: draftFlyer.value?.bzID,
-    );
-
-    final int _maxLength = Standards.getMaxSlidesCount(
-      bzAccountType: draftFlyer.value?.bzModel?.accountType,
-    );
-
     final List<PicModel> _bigPics = await BldrsPicMaker.makePics(
       cropAfterPick: false,
       aspectRatio: FlyerDim.flyerAspectRatio(),
@@ -130,7 +124,9 @@ Future<void> _addGalleryImagesToNewFlyer({
         flyerID: draftFlyer.value!.id,
         slideIndex: index,
       )!,
-      ownersIDs: _ownersIDs,
+      ownersIDs: await FlyerModel.generateFlyerOwners(
+        bzID: draftFlyer.value?.bzID,
+      ),
       picNameGenerator: (int index){
         return SlideModel.generateSlideID(
             flyerID: draftFlyer.value!.id,
@@ -138,7 +134,9 @@ Future<void> _addGalleryImagesToNewFlyer({
             type: SlidePicType.big,
         )!;
       },
-      maxAssets: _maxLength - (draftFlyer.value?.draftSlides?.length ?? 0),
+      maxAssets: DraftFlyer.concludeMaxAssetsPossibleWhilePickingPhotos(
+        draft: draftFlyer.value,
+      ),
     );
 
     /// B - if didn't pick more images
@@ -149,29 +147,12 @@ Future<void> _addGalleryImagesToNewFlyer({
     /// B - if made new picks
     else {
 
-      final List<DraftSlide> _newDraftSlides = await DraftSlide.createDrafts(
-        bigPics: _bigPics,
-        existingDrafts: draftFlyer.value?.draftSlides ?? [],
-        headline: draftFlyer.value?.headline?.text,
-        bzID: draftFlyer.value?.bzID,
-        flyerID: draftFlyer.value?.id,
+      blog('_addGalleryImagesToNewFlyer ${draftFlyer.value?.draftSlides?.length} draftSlides');
+
+      final DraftFlyer? _newDraft = await DraftFlyer.addBigPicsToDraft(
+        draft: draftFlyer.value,
         flyerBoxWidth: flyerBoxWidth,
-      );
-
-      final List<DraftSlide> _combinedSlides = <DraftSlide>[
-        ...?draftFlyer.value?.draftSlides,
-        ..._newDraftSlides
-      ];
-
-      DraftFlyer? _newDraft = draftFlyer.value?.copyWith(
-        draftSlides: _combinedSlides,
-      );
-
-      _newDraft = DraftFlyer.updateHeadline(
-        draft: _newDraft,
-        updateController: false,
-        slideIndex: 0,
-        newHeadline: draftFlyer.value?.headline?.text,
+        bigPics: _bigPics,
       );
 
       setNotifier(
@@ -180,26 +161,13 @@ Future<void> _addGalleryImagesToNewFlyer({
           value: _newDraft,
       );
 
-      /// AUTO OPEN FIRST SLIDE
-      if (_newDraft?.draftSlides?.length == 1){
-        await  onSlideTap(
-          slide: _newDraft!.draftSlides!.first,
-          draftFlyer: draftFlyer,
-          mounted: mounted,
-        );
-      }
-
-      /// AUTO SCROLL TO END OF SLIDES SHELF
-      if (mounted == true){
-        await Future.delayed(Ratioz.duration150ms,() async {
-          if (mounted == true){
-            await Sliders.scrollTo(
-              controller: scrollController,
-              offset: (scrollController.position.maxScrollExtent) - flyerBoxWidth,
-            );
-          }
-        });
-      }
+      await _openFirstSlideOrScrollToEndOfShelf(
+        mounted: mounted,
+        draftFlyer: draftFlyer,
+        flyerBoxWidth: flyerBoxWidth,
+        scrollController: scrollController,
+        openEditorToLastSlide: _bigPics.length == 1,
+      );
 
     }
 
@@ -215,7 +183,59 @@ Future<void> _addCameraImageToNewFlyer({
   required double flyerBoxWidth,
 }) async {
 
-  blog('should implement : _addCameraImageToNewFlyer');
+  if(mounted == true && draftFlyer.value?.id != null && draftFlyer.value?.bzID != null){
+
+    final PicModel? _bigPic = await BldrsPicMaker.makePic(
+      cropAfterPick: false,
+      aspectRatio: FlyerDim.flyerAspectRatio(),
+      compressWithQuality: Standards.slideBigQuality,
+      resizeToWidth: Standards.slideBigWidth,
+      assignPath: StoragePath.flyers_flyerID_index_big(
+        flyerID: draftFlyer.value!.id,
+        slideIndex: 0,
+      )!,
+      name: SlideModel.generateSlideID(
+        flyerID: draftFlyer.value!.id,
+        slideIndex: 0,
+        type: SlidePicType.big,
+      )!,
+      picMakerType: PicMakerType.cameraImage,
+      ownersIDs: await FlyerModel.generateFlyerOwners(
+        bzID: draftFlyer.value?.bzID,
+      ),
+    );
+
+    /// B - if didn't pick more images
+    if(_bigPic == null){
+      // will do nothing
+    }
+
+    /// B - if made new picks
+    else {
+
+      final DraftFlyer? _newDraft = await DraftFlyer.addBigPicsToDraft(
+        draft: draftFlyer.value,
+        flyerBoxWidth: flyerBoxWidth,
+        bigPics: [_bigPic],
+      );
+
+      setNotifier(
+        notifier: draftFlyer,
+        mounted: mounted,
+        value: _newDraft,
+      );
+
+      await _openFirstSlideOrScrollToEndOfShelf(
+        mounted: mounted,
+        draftFlyer: draftFlyer,
+        flyerBoxWidth: flyerBoxWidth,
+        scrollController: scrollController,
+        openEditorToLastSlide: true,
+      );
+
+    }
+
+  }
 
 }
 // --------------------
@@ -269,13 +289,19 @@ Future<void> addImagesForExistingFlyer({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) async {
+Future<void> _showMaxSlidesReachedDialog(DraftFlyer? draftFlyer) async {
+
+  final int _maxLength = Standards.getMaxSlidesCount(
+    bzAccountType: draftFlyer?.bzModel?.accountType,
+  );
+
   await BldrsCenterDialog.showCenterDialog(
     titleVerse: Verse(
-      id: '${getWord('phid_max_slides_is')} $maxLength',
+      id: '${getWord('phid_max_slides_is')} $_maxLength',
       translate: false,
     ),
   );
+
 }
 // -----------------------------------------------------------------------------
 
@@ -298,6 +324,46 @@ Future<void> onSlideTap({
         draftFlyerNotifier: draftFlyer,
       ),
   );
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> _openFirstSlideOrScrollToEndOfShelf({
+  required ScrollController scrollController,
+  required ValueNotifier<DraftFlyer?> draftFlyer,
+  required bool mounted,
+  required double flyerBoxWidth,
+  required bool openEditorToLastSlide,
+}) async {
+
+  /// AUTO OPEN FIRST SLIDE
+  if (draftFlyer.value?.draftSlides?.length == 1){
+    await  onSlideTap(
+      slide: draftFlyer.value!.draftSlides!.first,
+      draftFlyer: draftFlyer,
+      mounted: mounted,
+    );
+  }
+
+  /// AUTO OPEN LAST SLIDE
+  else if (openEditorToLastSlide == true){
+    await  onSlideTap(
+      slide: draftFlyer.value!.draftSlides!.last,
+      draftFlyer: draftFlyer,
+      mounted: mounted,
+    );
+  }
+  /// AUTO SCROLL TO END OF SLIDES SHELF
+  if (mounted == true){
+    await Future.delayed(Ratioz.duration150ms,() async {
+      if (mounted == true){
+        await Sliders.scrollTo(
+          controller: scrollController,
+          offset: (scrollController.position.maxScrollExtent) - flyerBoxWidth,
+        );
+      }
+    });
+  }
 
 }
 // -----------------------------------------------------------------------------

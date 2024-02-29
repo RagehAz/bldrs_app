@@ -672,6 +672,40 @@ class DraftFlyer{
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<DraftFlyer?> addBigPicsToDraft({
+    required DraftFlyer? draft,
+    required  List<PicModel> bigPics,
+    required double flyerBoxWidth,
+  }) async {
+
+    blog('addBigPicsToDraft ${bigPics?.length} pics aho');
+
+
+    final List<DraftSlide> _newDraftSlides = await DraftSlide.createTheDrafts(
+      bigPics: bigPics,
+      existingDrafts: draft?.draftSlides ?? [],
+      headline: draft?.headline?.text,
+      bzID: draft?.bzID,
+      flyerID: draft?.id,
+      flyerBoxWidth: flyerBoxWidth,
+    );
+
+    blog('addBigPicsToDraft ${_newDraftSlides?.length} draftSlides');
+
+    final DraftFlyer? _newDraft = draft?.copyWith(
+      draftSlides: _newDraftSlides,
+    );
+
+    return DraftFlyer.updateHeadline(
+      draft: _newDraft,
+      updateController: false,
+      slideIndex: 0,
+      newHeadline: draft?.headline?.text,
+    );
+
+  }
   // -----------------------------------------------------------------------------
 
   /// GETTERS
@@ -700,6 +734,22 @@ class DraftFlyer{
     }
 
     return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CONCLUDERS
+
+  // --------------------
+  ///
+  static int concludeMaxAssetsPossibleWhilePickingPhotos({
+    required DraftFlyer? draft,
+  }){
+
+    final int _maxLength = Standards.getMaxSlidesCount(
+      bzAccountType: draft?.bzModel?.accountType,
+    );
+
+    return _maxLength - (draft?.draftSlides?.length ?? 0);
   }
   // -----------------------------------------------------------------------------
 
@@ -912,6 +962,17 @@ class DraftFlyer{
     }
 
     return _canAddMoreSlides;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkMaxSlidesCountReached({
+    required DraftFlyer? draftFlyer,
+  }){
+    final int _maxLength = Standards.getMaxSlidesCount(
+      bzAccountType: draftFlyer?.bzModel?.accountType,
+    );
+
+    return _maxLength <= (draftFlyer?.draftSlides?.length ?? 0);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
