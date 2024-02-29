@@ -693,7 +693,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
             draftSlide: slide,
             draftFlyer: _draftNotifier,
             mounted: mounted,
-            scrollController: _slidesShelfScrollController,
           ),
           canGoFrom0to1: canGoFrom0to1,
         ),
