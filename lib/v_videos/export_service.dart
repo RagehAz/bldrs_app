@@ -14,7 +14,9 @@ class ExportService {
 
   static Future<void> dispose() async {
     final executions = await FFmpegKit.listSessions();
-    if (executions.isNotEmpty) await FFmpegKit.cancel();
+    if (executions.isNotEmpty) {
+      await FFmpegKit.cancel();
+    }
   }
 
   static Future<FFmpegSession> runFFmpegCommand(

@@ -6,15 +6,13 @@ import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/b_slide_editor_screen.dart';
+import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/pic_slide_editor_screen.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -30,7 +28,7 @@ import 'package:flutter/material.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
-/// EDITING
+/// ADDING SLIDES
 
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -58,26 +56,41 @@ Future<void> onAddNewSlides({
   /// A - if can pick more images
   else {
 
-    // if (draftFlyer.value.firstTimer == true){
-      await _addImagesForNewFlyer(
+    if (imagePickerType == PicMakerType.galleryImage){
+      await _addGalleryImagesToNewFlyer(
         mounted: mounted,
         scrollController: scrollController,
         draftFlyer: draftFlyer,
         flyerBoxWidth: flyerBoxWidth,
-        imagePickerType: imagePickerType,
       );
-    // }
+    }
 
-    // else {
-    //   await addImagesForExistingFlyer(
-    //     context: context,
-    //     mounted: mounted,
-    //     bzModel: bzModel,
-    //     scrollController: scrollController,
-    //     draftFlyer: draftFlyer,
-    //     flyerWidth: flyerWidth,
-    //   );
-    // }
+    else if (imagePickerType == PicMakerType.cameraImage){
+      await _addCameraImageToNewFlyer(
+        mounted: mounted,
+        scrollController: scrollController,
+        draftFlyer: draftFlyer,
+        flyerBoxWidth: flyerBoxWidth,
+      );
+    }
+
+    else if (imagePickerType == PicMakerType.galleryVideo){
+      await _addGalleryVideoToNewFlyer(
+        mounted: mounted,
+        scrollController: scrollController,
+        draftFlyer: draftFlyer,
+        flyerBoxWidth: flyerBoxWidth,
+      );
+    }
+
+    else if (imagePickerType == PicMakerType.cameraVideo){
+      await _addCameraVideoToNewFlyer(
+        mounted: mounted,
+        scrollController: scrollController,
+        draftFlyer: draftFlyer,
+        flyerBoxWidth: flyerBoxWidth,
+      );
+    }
 
   }
 
@@ -91,12 +104,11 @@ Future<void> onAddNewSlides({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _addImagesForNewFlyer({
+Future<void> _addGalleryImagesToNewFlyer({
   required bool mounted,
   required ValueNotifier<DraftFlyer?> draftFlyer,
   required ScrollController scrollController,
   required double flyerBoxWidth,
-  required PicMakerType imagePickerType,
 }) async {
 
   if(mounted == true && draftFlyer.value?.id != null && draftFlyer.value?.bzID != null){
@@ -196,6 +208,43 @@ Future<void> _addImagesForNewFlyer({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
+Future<void> _addCameraImageToNewFlyer({
+  required bool mounted,
+  required ValueNotifier<DraftFlyer?> draftFlyer,
+  required ScrollController scrollController,
+  required double flyerBoxWidth,
+}) async {
+
+  blog('should implement : _addCameraImageToNewFlyer');
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> _addGalleryVideoToNewFlyer({
+  required bool mounted,
+  required ValueNotifier<DraftFlyer?> draftFlyer,
+  required ScrollController scrollController,
+  required double flyerBoxWidth,
+}) async {
+
+  blog('should implement : _addGalleryVideoToNewFlyer');
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> _addCameraVideoToNewFlyer({
+  required bool mounted,
+  required ValueNotifier<DraftFlyer?> draftFlyer,
+  required ScrollController scrollController,
+  required double flyerBoxWidth,
+}) async {
+
+  blog('should implement : _addCameraVideoToNewFlyer');
+
+}
+// --------------------
+/*
+/// TESTED : WORKS PERFECT
 Future<void> addImagesForExistingFlyer({
   required BuildContext context,
   required BzModel bzModel,
@@ -213,6 +262,11 @@ Future<void> addImagesForExistingFlyer({
   }
 
 }
+ */
+// -----------------------------------------------------------------------------
+
+/// DIALOGS
+
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) async {
@@ -223,6 +277,10 @@ Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) as
     ),
   );
 }
+// -----------------------------------------------------------------------------
+
+/// NAVIGATION
+
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSlideTap({
@@ -235,13 +293,17 @@ Future<void> onSlideTap({
 
   await BldrsNav.goToNewScreen(
       pageTransitionType: Nav.superHorizontalTransition(),
-      screen: SlideEditorScreen(
+      screen: PicSlideEditorScreen(
         slide: slide,
         draftFlyerNotifier: draftFlyer,
       ),
   );
 
 }
+// -----------------------------------------------------------------------------
+
+/// DELETE SLIDE
+
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onDeleteSlide({
@@ -288,7 +350,96 @@ Future<void> onDeleteSlide({
   }
 
 }
+// -----------------------------------------------------------------------------
+
+/// HEADLINE
+
 // --------------------
+/// TESTED : WORKS PERFECT
+void onFlyerHeadlineChanged({
+  required String text,
+  required GlobalKey<FormState> formKey,
+  required ValueNotifier<DraftFlyer> draftFlyer,
+  required bool mounted,
+  required bool updateController,
+}){
+
+  /// DO YOU NEED THIS ?
+  Formers.validateForm(formKey);
+
+  setNotifier(
+      notifier: draftFlyer,
+      mounted: mounted,
+      value: DraftFlyer.updateHeadline(
+        draft: draftFlyer.value,
+        newHeadline: text,
+        slideIndex: 0,
+        updateController: updateController,
+      ),
+  );
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+String? flyerHeadlineValidator({
+  required String? val,
+}){
+
+  /// WHEN HEADLINE EXCEEDS MAX CHAR LENGTH
+  if(val != null && val.length >= Standards.flyerHeadlineMaxLength){
+    final String _error = '${getWord('phid_headline_cant_be_more_than')}\n'
+                          '${Standards.flyerHeadlineMaxLength}';
+
+    return _error;
+  }
+
+  /// WHEN HEADLINE LENGTH IS OK
+  else {
+    return null;
+  }
+
+}
+// -----------------------------------------------------------------------------
+
+/// REORDER
+
+// --------------------
+/// TESTED : WORKS PERFECT
+void onReorderSlide({
+  required int oldIndex,
+  required int newIndex,
+  required ValueNotifier<DraftFlyer?> draftFlyer,
+  required bool mounted,
+}){
+  List<DraftSlide>? _oldSlides = draftFlyer.value?.draftSlides;
+
+  if (Lister.checkCanLoop(_oldSlides) == true) {
+
+    final DraftSlide _slide = _oldSlides![oldIndex];
+    _oldSlides.removeAt(oldIndex);
+    _oldSlides.insert(newIndex, _slide.copyWith(slideIndex: newIndex,));
+    _oldSlides = DraftSlide.overrideDraftsSlideIndexes(
+      drafts: _oldSlides,
+    );
+
+    draftFlyer.value!.headline!.text = _oldSlides[0].headline ?? '';
+
+  }
+  setNotifier(
+    notifier: draftFlyer,
+    mounted: mounted,
+    value: draftFlyer.value?.copyWith(
+      draftSlides: _oldSlides,
+    ),
+  );
+
+}
+// -----------------------------------------------------------------------------
+
+/// DEPRECATED DIALOG
+
+// --------------------
+/*
 /// TESTED : WORKS PERFECT
 Future<void> onMoreTap({
   required BuildContext context,
@@ -352,80 +503,5 @@ Future<void> onMoreTap({
   );
 
 }
-// --------------------
-/// TESTED : WORKS PERFECT
-void onFlyerHeadlineChanged({
-  required String text,
-  required GlobalKey<FormState> formKey,
-  required ValueNotifier<DraftFlyer> draftFlyer,
-  required bool mounted,
-  required bool updateController,
-}){
-
-  /// DO YOU NEED THIS ?
-  Formers.validateForm(formKey);
-
-  setNotifier(
-      notifier: draftFlyer,
-      mounted: mounted,
-      value: DraftFlyer.updateHeadline(
-        draft: draftFlyer.value,
-        newHeadline: text,
-        slideIndex: 0,
-        updateController: updateController,
-      ),
-  );
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-String? flyerHeadlineValidator({
-  required String? val,
-}){
-
-  /// WHEN HEADLINE EXCEEDS MAX CHAR LENGTH
-  if(val != null && val.length >= Standards.flyerHeadlineMaxLength){
-    final String _error = '${getWord('phid_headline_cant_be_more_than')}\n'
-                          '${Standards.flyerHeadlineMaxLength}';
-
-    return _error;
-  }
-
-  /// WHEN HEADLINE LENGTH IS OK
-  else {
-    return null;
-  }
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-void onReorderSlide({
-  required int oldIndex,
-  required int newIndex,
-  required ValueNotifier<DraftFlyer?> draftFlyer,
-  required bool mounted,
-}){
-  List<DraftSlide>? _oldSlides = draftFlyer.value?.draftSlides;
-
-  if (Lister.checkCanLoop(_oldSlides) == true) {
-
-    final DraftSlide _slide = _oldSlides![oldIndex];
-    _oldSlides.removeAt(oldIndex);
-    _oldSlides.insert(newIndex, _slide.copyWith(slideIndex: newIndex,));
-    _oldSlides = DraftSlide.overrideDraftsSlideIndexes(
-      drafts: _oldSlides,
-    );
-
-    draftFlyer.value!.headline!.text = _oldSlides[0].headline ?? '';
-
-  }
-  setNotifier(
-    notifier: draftFlyer,
-    mounted: mounted,
-    value: draftFlyer.value?.copyWith(
-      draftSlides: _oldSlides,
-    ),
-  );
-
-}
+ */
 // -----------------------------------------------------------------------------

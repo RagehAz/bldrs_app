@@ -8,15 +8,18 @@ import 'package:video_player/video_player.dart';
 
 Future<void> _getImageDimension(File file,
     {required Function(Size) onResult}) async {
-  var decodedImage = await decodeImageFromList(file.readAsBytesSync());
+  final decodedImage = await decodeImageFromList(file.readAsBytesSync());
   onResult(Size(decodedImage.width.toDouble(), decodedImage.height.toDouble()));
 }
 
-String _fileMBSize(File file) =>
-    ' ${(file.lengthSync() / (1024 * 1024)).toStringAsFixed(1)} MB';
+String _fileMBSize(File file) => ' ${(file.lengthSync() / (1024 * 1024)).toStringAsFixed(1)} MB';
 
 class VideoResultPopup extends StatefulWidget {
-  const VideoResultPopup({super.key, required this.video});
+
+  const VideoResultPopup({
+    required this.video,
+    super.key,
+  });
 
   final File video;
 
@@ -29,7 +32,7 @@ class _VideoResultPopupState extends State<VideoResultPopup> {
   FileImage? _fileImage;
   Size _fileDimension = Size.zero;
   late final bool _isGif =
-      path.extension(widget.video.path).toLowerCase() == ".gif";
+      path.extension(widget.video.path).toLowerCase() == '.gif';
   late String _fileMbSize;
 
   @override
@@ -102,7 +105,11 @@ class _VideoResultPopupState extends State<VideoResultPopup> {
 }
 
 class CoverResultPopup extends StatefulWidget {
-  const CoverResultPopup({super.key, required this.cover});
+
+  const CoverResultPopup({
+    required this.cover,
+    super.key,
+  });
 
   final File cover;
 

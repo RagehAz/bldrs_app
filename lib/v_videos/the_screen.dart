@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_redundant_argument_values
+
 import 'dart:io';
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
@@ -49,7 +51,7 @@ class _TheVideoEditorScreenState extends State<TheVideoEditorScreen> {
   // --------------------
   @override
   void dispose() {
-    _videoEditorController?.dispose();
+    _videoEditorController.dispose();
     _exportingProgress.dispose();
     _isExporting.dispose();
     ExportService.dispose();
@@ -57,8 +59,8 @@ class _TheVideoEditorScreenState extends State<TheVideoEditorScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  final _exportingProgress = ValueNotifier<double>(0.0);
-  final _isExporting = ValueNotifier<bool>(false);
+  final ValueNotifier<double> _exportingProgress = ValueNotifier<double>(0);
+  final ValueNotifier<bool> _isExporting = ValueNotifier<bool>(false);
   // --------------------------------------------------------------------------
   final double height = 60;
   // --------------------
@@ -141,7 +143,7 @@ class _TheVideoEditorScreenState extends State<TheVideoEditorScreen> {
   String formatter(Duration duration) => [
     duration.inMinutes.remainder(60).toString().padLeft(2, '0'),
     duration.inSeconds.remainder(60).toString().padLeft(2, '0')
-  ].join(":");
+  ].join(':');
   // --------------------
   List<Widget> _trimSlider() {
     return [
@@ -281,7 +283,7 @@ class _TheVideoEditorScreenState extends State<TheVideoEditorScreen> {
         ),
       );
   // --------------------
-  void _exportVideo() async {
+  Future<void> _exportVideo() async {
     _exportingProgress.value = 0;
     _isExporting.value = true;
 
@@ -301,10 +303,12 @@ class _TheVideoEditorScreenState extends State<TheVideoEditorScreen> {
       onProgress: (stats) {
         _exportingProgress.value = config.getFFmpegProgress(stats.getTime());
       },
-      onError: (e, s) => _showErrorSnackBar("Error on export video :("),
+      onError: (e, s) => _showErrorSnackBar('Error on export video :('),
       onCompleted: (file) {
         _isExporting.value = false;
-        if (!mounted) return;
+        if (!mounted) {
+          return;
+        }
 
         showDialog(
           context: context,
@@ -314,19 +318,21 @@ class _TheVideoEditorScreenState extends State<TheVideoEditorScreen> {
     );
   }
   // --------------------
-  void _exportCover() async {
+  Future<void> _exportCover() async {
     final config = CoverFFmpegVideoEditorConfig(_videoEditorController);
     final execute = await config.getExecuteConfig();
     if (execute == null) {
-      _showErrorSnackBar("Error on cover exportation initialization.");
+      _showErrorSnackBar('Error on cover exportation initialization.');
       return;
     }
 
     await ExportService.runFFmpegCommand(
       execute,
-      onError: (e, s) => _showErrorSnackBar("Error on cover exportation :("),
+      onError: (e, s) => _showErrorSnackBar('Error on cover exportation :('),
       onCompleted: (cover) {
-        if (!mounted) return;
+        if (!mounted) {
+          return;
+        }
 
         showDialog(
           context: context,
@@ -408,22 +414,25 @@ class _TheVideoEditorScreenState extends State<TheVideoEditorScreen> {
                           margin: const EdgeInsets.only(top: 10),
                           child: Column(
                             children: [
-                              TabBar(
+
+                              const TabBar(
                                 tabs: [
+
                                   Row(
                                       mainAxisAlignment:
                                       MainAxisAlignment.center,
-                                      children: const [
+                                      children: [
                                         Padding(
                                             padding: EdgeInsets.all(5),
                                             child: Icon(
                                                 Icons.content_cut)),
                                         Text('Trim')
                                       ]),
+
                                   Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Padding(
                                           padding: EdgeInsets.all(5),
                                           child:
@@ -431,19 +440,24 @@ class _TheVideoEditorScreenState extends State<TheVideoEditorScreen> {
                                       Text('Cover')
                                     ],
                                   ),
+
                                 ],
                               ),
+
                               Expanded(
                                 child: TabBarView(
                                   physics:
                                   const NeverScrollableScrollPhysics(),
                                   children: [
+
                                     Column(
                                       mainAxisAlignment:
                                       MainAxisAlignment.center,
                                       children: _trimSlider(),
                                     ),
+
                                     _coverSelection(),
+
                                   ],
                                 ),
                               ),
@@ -453,16 +467,15 @@ class _TheVideoEditorScreenState extends State<TheVideoEditorScreen> {
 
                         ValueListenableBuilder(
                           valueListenable: _isExporting,
-                          builder: (_, bool export, Widget? child) =>
-                              AnimatedSize(
-                                duration: kThemeAnimationDuration,
-                                child: export ? child : null,
-                              ),
+                          builder: (_, bool export, Widget? child) => AnimatedSize(
+                            duration: kThemeAnimationDuration,
+                            child: export ? child : null,
+                          ),
                           child: AlertDialog(
                             title: ValueListenableBuilder(
                               valueListenable: _exportingProgress,
                               builder: (_, double value, __) => Text(
-                                "Exporting video ${(value * 100).ceil()}%",
+                                'Exporting video ${(value * 100).ceil()}%',
                                 style: const TextStyle(fontSize: 12),
                               ),
                             ),

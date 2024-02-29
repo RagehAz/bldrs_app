@@ -1,7 +1,7 @@
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
-import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/b_slide_editor_screen.dart';
+import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/pic_slide_editor_screen.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/x_controllers/color_controls.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/x_controllers/main_controls.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -49,7 +49,7 @@ Future<void> onGoNextSlide({
       // enAnimatesLTR: false,
     ),
     // duration: const Duration(milliseconds: 350),
-    screen: SlideEditorScreen(
+    screen: PicSlideEditorScreen(
       slide: nextSlide,
       draftFlyerNotifier: draftFlyerNotifier,
     ),
@@ -94,7 +94,7 @@ Future<void> onGoPreviousSlide({
       enAnimatesLTR: true,
     ),
     // duration: const Duration(milliseconds: 300),
-    screen: SlideEditorScreen(
+    screen: PicSlideEditorScreen(
       slide: previousSlide,
       draftFlyerNotifier: draftFlyerNotifier,
     ),

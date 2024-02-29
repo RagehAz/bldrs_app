@@ -75,23 +75,29 @@ class ShelfSlidesPart extends StatelessWidget {
             if (Lister.checkCanLoop(draft?.draftSlides) == true)
             slides!,
 
-            /// ADD NEW SLIDE
-            if (isLoading == false && DraftFlyer.checkCanAddMoreSlides(draft) == true)
-              AddSlidesButton(
-                key: const ValueKey<String>('AddSlidesButton'),
-                onTap: onAddSlides,
-              ),
-
-
             /// LOADING WIDGET
             if (isLoading == true)
-            const LoadingShelfSlide(
-              animate: true,
-              verse: Verse(
-                id: 'phid_loading',
-                translate: true,
+              const LoadingShelfSlide(
+                animate: true,
+                verse: Verse(
+                  id: 'phid_loading',
+                  translate: true,
+                ),
               ),
-            ),
+
+            /// ADD NEW SLIDE
+            if (DraftFlyer.checkCanAddMoreSlides(draft) == true)
+              AddPhotosButton(
+                onTap: onAddSlides,
+                isDisabled: isLoading,
+              ),
+
+            /// ADD NEW SLIDE
+            if (DraftFlyer.checkCanAddMoreSlides(draft) == true)
+              AddVideosButton(
+                onTap: onAddSlides,
+                isDisabled: isLoading,
+              ),
 
           ],
         );
