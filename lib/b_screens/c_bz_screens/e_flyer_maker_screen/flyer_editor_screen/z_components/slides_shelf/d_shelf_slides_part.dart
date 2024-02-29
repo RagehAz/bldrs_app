@@ -70,6 +70,7 @@ class ShelfSlidesPart extends StatelessWidget {
           boxCorners: 5,
           mainAxisAlignment: MainAxisAlignment.start,
           boxAlignment: BldrsAligners.superCenterAlignment(context),
+          scrollController: scrollController,
           columnChildren: <Widget>[
 
             if (Lister.checkCanLoop(draft?.draftSlides) == true)
@@ -111,7 +112,7 @@ class ShelfSlidesPart extends StatelessWidget {
           color: Colorz.white10
         ),
         child: ReorderableListView.builder(
-          scrollController: scrollController,
+          // scrollController: scrollController,
           scrollDirection: Axis.horizontal,
           /// this adds this width when dragging and messes everything
           // itemExtent: DraftShelfSlide.flyerBoxWidth,

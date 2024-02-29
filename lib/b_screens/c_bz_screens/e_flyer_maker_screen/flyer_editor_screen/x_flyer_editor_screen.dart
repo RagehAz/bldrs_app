@@ -2,7 +2,6 @@
 import 'dart:async';
 
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/animators/sliders.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
@@ -476,14 +475,16 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
               bubble: false,
               onTap: () async {
 
-                await Sliders.slideToIndex(
-                  pageController: _pageController,
-                  toIndex: 0,
-                  duration: const Duration(milliseconds: 700),
-                  curve: Curves.easeInOutExpo,
-                );
+                // await Sliders.slideToIndex(
+                //   pageController: _pageController,
+                //   toIndex: 0,
+                //   duration: const Duration(milliseconds: 700),
+                //   curve: Curves.easeInOutExpo,
+                // );
+                //
+                // _draftNotifier.value?.blogDraft(invoker: 'current');
 
-                _draftNotifier.value?.blogDraft(invoker: 'current');
+
 
                 },
             );
@@ -692,6 +693,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
             draftSlide: slide,
             draftFlyer: _draftNotifier,
             mounted: mounted,
+            scrollController: _slidesShelfScrollController,
           ),
           canGoFrom0to1: canGoFrom0to1,
         ),

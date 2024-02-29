@@ -727,7 +727,6 @@ class DraftSlide {
 
     if (Lister.checkCanLoop(drafts) == true){
 
-      blog('replaceSlide : ${drafts!.length} drafts : draft!.slideIndex : ${draft!.slideIndex}');
       _output = [...drafts!];
       _output.removeAt(draft!.slideIndex);
       _output.insert(draft.slideIndex, draft);

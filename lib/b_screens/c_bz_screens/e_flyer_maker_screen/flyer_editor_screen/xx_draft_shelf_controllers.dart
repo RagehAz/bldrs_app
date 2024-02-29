@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:basics/helpers/animators/sliders.dart';
-import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/layouts/nav/nav.dart';
@@ -11,6 +9,7 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/pic_slide_editor_screen.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -161,11 +160,14 @@ Future<void> _addGalleryImagesToNewFlyer({
           value: _newDraft,
       );
 
-      await _openFirstSlideOrScrollToEndOfShelf(
+      await _scrollToLastSlide(
+        scrollController: scrollController,
+        draftFlyer: draftFlyer,
+      );
+
+      await _openSlideIfSingle(
         mounted: mounted,
         draftFlyer: draftFlyer,
-        flyerBoxWidth: flyerBoxWidth,
-        scrollController: scrollController,
         openEditorToLastSlide: _bigPics.length == 1,
       );
 
@@ -225,11 +227,14 @@ Future<void> _addCameraImageToNewFlyer({
         value: _newDraft,
       );
 
-      await _openFirstSlideOrScrollToEndOfShelf(
+      await _scrollToLastSlide(
+        scrollController: scrollController,
+        draftFlyer: draftFlyer,
+      );
+
+      await _openSlideIfSingle(
         mounted: mounted,
         draftFlyer: draftFlyer,
-        flyerBoxWidth: flyerBoxWidth,
-        scrollController: scrollController,
         openEditorToLastSlide: true,
       );
 
@@ -328,11 +333,9 @@ Future<void> onSlideTap({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _openFirstSlideOrScrollToEndOfShelf({
-  required ScrollController scrollController,
+Future<void> _openSlideIfSingle({
   required ValueNotifier<DraftFlyer?> draftFlyer,
   required bool mounted,
-  required double flyerBoxWidth,
   required bool openEditorToLastSlide,
 }) async {
 
@@ -353,17 +356,25 @@ Future<void> _openFirstSlideOrScrollToEndOfShelf({
       mounted: mounted,
     );
   }
-  /// AUTO SCROLL TO END OF SLIDES SHELF
-  if (mounted == true){
-    await Future.delayed(Ratioz.duration150ms,() async {
-      if (mounted == true){
-        await Sliders.scrollTo(
-          controller: scrollController,
-          offset: (scrollController.position.maxScrollExtent) - flyerBoxWidth,
-        );
-      }
-    });
-  }
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> _scrollToLastSlide({
+  required ValueNotifier<DraftFlyer?>? draftFlyer,
+  required ScrollController scrollController,
+}) async {
+
+  const double flyerExtent = DraftShelfSlide.flyerBoxWidth + 5;
+  const double _halfWidth = DraftShelfSlide.flyerBoxWidth * 0.5;
+  final int numberOfSlides = draftFlyer?.value?.draftSlides?.length ?? 0;
+  final double _max = (flyerExtent * (numberOfSlides-1)) - _halfWidth;
+  final double _offset = numberOfSlides < 3 ? 0 : _max;
+
+  await Sliders.scrollTo(
+    controller: scrollController,
+    offset: _offset,
+  );
 
 }
 // -----------------------------------------------------------------------------
@@ -375,6 +386,7 @@ Future<void> _openFirstSlideOrScrollToEndOfShelf({
 Future<void> onDeleteSlide({
   required DraftSlide draftSlide,
   required ValueNotifier<DraftFlyer?>? draftFlyer,
+  required ScrollController scrollController,
   required bool mounted,
 }) async {
 
@@ -395,8 +407,6 @@ Future<void> onDeleteSlide({
 
   if (_continue == true){
 
-    blog('should delete not');
-
     final List<DraftSlide> _slides = DraftSlide.removeDraftFromDrafts(
       drafts: draftFlyer?.value!.draftSlides,
       draft: draftSlide,
@@ -412,6 +422,12 @@ Future<void> onDeleteSlide({
 
     _slide?.frontImage?.dispose();
     _slide?.backImage?.dispose();
+
+
+    await _scrollToLastSlide(
+      scrollController: scrollController,
+      draftFlyer: draftFlyer,
+    );
 
   }
 

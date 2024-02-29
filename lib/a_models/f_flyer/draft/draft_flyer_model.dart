@@ -680,9 +680,6 @@ class DraftFlyer{
     required double flyerBoxWidth,
   }) async {
 
-    blog('addBigPicsToDraft ${bigPics?.length} pics aho');
-
-
     final List<DraftSlide> _newDraftSlides = await DraftSlide.createTheDrafts(
       bigPics: bigPics,
       existingDrafts: draft?.draftSlides ?? [],
@@ -691,8 +688,6 @@ class DraftFlyer{
       flyerID: draft?.id,
       flyerBoxWidth: flyerBoxWidth,
     );
-
-    blog('addBigPicsToDraft ${_newDraftSlides?.length} draftSlides');
 
     final DraftFlyer? _newDraft = draft?.copyWith(
       draftSlides: _newDraftSlides,
