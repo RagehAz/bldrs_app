@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:basics/helpers/checks/device_checker.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/files/file_size_unit.dart';
@@ -12,11 +11,12 @@ import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/foundation.dart';
+
 /// => TAMAM
 @immutable
-class PicModel {
+class VideoModel {
   // -----------------------------------------------------------------------------
-  const PicModel({
+  const VideoModel({
     required this.bytes,
     required this.path,
     required this.meta,
@@ -31,27 +31,26 @@ class PicModel {
   /// CLONING
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  PicModel copyWith({
+  ///
+  VideoModel copyWith({
     Uint8List? bytes,
     String? path,
     StorageMetaModel? meta,
   }){
-    return PicModel(
+    return VideoModel(
       bytes: bytes ?? this.bytes,
       path: path ?? this.path,
       meta: meta ?? this.meta,
     );
   }
-
   // --------------------
-  /// TESTED : WORKS PERFECT
-  PicModel nullifyField({
+  ///
+  VideoModel nullifyField({
     bool bytes = false,
     bool path = false,
     bool meta = false,
   }){
-    return PicModel(
+    return VideoModel(
       bytes: bytes   == true ? null : this.bytes,
       path: path     == true ? null : this.path,
       meta: meta     == true ? null : this.meta,
@@ -62,8 +61,8 @@ class PicModel {
   /// LDB CYPHERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Map<String, dynamic>? cipherToLDB(PicModel? picModel){
+  ///
+  static Map<String, dynamic>? cipherToLDB(VideoModel? picModel){
     Map<String, dynamic>? _map;
 
     if (picModel != null){
@@ -77,20 +76,19 @@ class PicModel {
     return _map;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static PicModel? decipherFromLDB(Map<String, dynamic>? map){
-    PicModel? _picModel;
+  ///
+  static VideoModel? decipherFromLDB(Map<String, dynamic>? map){
+    VideoModel? _picModel;
 
     if (map != null){
 
-      _picModel = PicModel(
+      _picModel = VideoModel(
         bytes: Floaters.getBytesFromInts(map['bytes']),
         path: map['path'],
         meta: StorageMetaModel.decipherFromLDB(map['meta']),
       );
 
     }
-
 
     return _picModel;
   }
@@ -99,8 +97,8 @@ class PicModel {
   /// ASSERTIONS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static void assertIsUploadable(PicModel? picModel){
+  ///
+  static void assertIsUploadable(VideoModel? picModel){
     assert(picModel != null, 'picModel is null');
     assert(picModel?.bytes != null, 'bytes is null');
     assert(picModel?.path != null, 'path is null');
@@ -111,36 +109,36 @@ class PicModel {
   /// GETTERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<Dimensions?> getDimensions(Uint8List? bytes) async {
     final Dimensions? _dim = await Dimensions.superDimensions(bytes);
     return _dim;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   double? getSize({
     FileSizeUnit fileSizeUnit = FileSizeUnit.megaByte,
   }){
     return Filers.calculateSize(bytes?.length, fileSizeUnit);
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<PicModel>> createPicsFromLocalAssets({
+  ///
+  static Future<List<VideoModel>> createPicsFromLocalAssets({
     required List<String> assets,
     // required int width,
   }) async {
-    final List<PicModel> _output = [];
+    final List<VideoModel> _output = [];
 
     if (Lister.checkCanLoop(assets) == true){
 
       for (final String asset in assets){
-        
+
         final Uint8List? _bytes = await Floaters.getBytesFromLocalAsset(
-            localAsset: asset,
-            // width: width,
+          localAsset: asset,
+          // width: width,
         );
 
-        final PicModel? _pic = await combinePicModel(
+        final VideoModel? _pic = await combineVideoModel(
             bytes: _bytes,
             picMakerType: PicMakerType.generated,
             compressWithQuality: 80,
@@ -160,14 +158,14 @@ class PicModel {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static List<Uint8List> getBytezzFromPicModels({
-    required List<PicModel> pics,
+    required List<VideoModel> pics,
   }){
     final List<Uint8List> _output = [];
 
     if (Lister.checkCanLoop(pics) == true){
-      for (final PicModel pic in pics){
+      for (final VideoModel pic in pics){
         if (pic.bytes != null){
           _output.add(pic.bytes!);
         }
@@ -181,8 +179,8 @@ class PicModel {
   /// COMBINER
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<PicModel?> combinePicModel({
+  ///
+  static Future<VideoModel?> combineVideoModel({
     required Uint8List? bytes,
     required PicMakerType picMakerType,
     required int? compressWithQuality,
@@ -190,7 +188,7 @@ class PicModel {
     required List<String> ownersIDs,
     required String name,
   }) async {
-    PicModel? _output;
+    VideoModel? _output;
 
     // blog('  1.combinePicModel start : ${bytes?.length} bytes : picMakerType $picMakerType : '
     //     'assignPath : $assignPath : name : $name');
@@ -209,7 +207,7 @@ class PicModel {
 
       /// SOMETHING IS MISSING
       if (
-          _dims == null ||
+      _dims == null ||
           _aspectRatio == null ||
           _mega == null ||
           _kilo == null ||
@@ -228,7 +226,7 @@ class PicModel {
 
       /// ALL IS GOOD
       else {
-        _output = PicModel(
+        _output = VideoModel(
           bytes: bytes,
           path: assignPath,
           meta: StorageMetaModel(
@@ -264,8 +262,8 @@ class PicModel {
   /// BLOG
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  void blogPic({
+  ///
+  void blogVideo({
     String invoker = '',
   }){
 
@@ -278,9 +276,9 @@ class PicModel {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static void blogPics({
-    required List<PicModel>? pics,
+  ///
+  static void blogVideos({
+    required List<VideoModel>? pics,
     String invoker = '',
   }){
 
@@ -292,9 +290,9 @@ class PicModel {
     }
     else {
 
-      for (final PicModel pic in pics){
+      for (final VideoModel pic in pics){
 
-        pic.blogPic(
+        pic.blogVideo(
           invoker: invoker,
         );
 
@@ -308,10 +306,10 @@ class PicModel {
   /// DUMMY PIC
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static PicModel dummyPic(){
+  ///
+  static VideoModel dummyVideo(){
 
-    return PicModel(
+    return VideoModel(
       path: 'storage/bldrs/bldrs_app_icon.png',
       bytes: Uint8List.fromList([1,2,3]),
       meta: StorageMetaModel(
@@ -339,23 +337,23 @@ class PicModel {
   /// EQUALITY
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkPicsAreIdentical({
-    required PicModel? pic1,
-    required PicModel? pic2,
+  ///
+  static bool checkVideosAreIdentical({
+    required VideoModel? model1,
+    required VideoModel? model2,
   }){
     bool _identical = false;
 
-    if (pic1 == null && pic2 == null){
+    if (model1 == null && model2 == null){
       _identical = true;
     }
-    else if (pic1 != null && pic2 != null){
+    else if (model1 != null && model2 != null){
 
       if (
-          pic1.path == pic2.path &&
-          pic1.bytes?.length == pic2.bytes?.length &&
-          Lister.checkListsAreIdentical(list1: pic1.bytes, list2: pic2.bytes) == true &&
-          StorageMetaModel.checkMetaDatasAreIdentical(meta1: pic1.meta, meta2: pic2.meta) == true
+      model1.path == model2.path &&
+          model1.bytes?.length == model2.bytes?.length &&
+          Lister.checkListsAreIdentical(list1: model1.bytes, list2: model2.bytes) == true &&
+          StorageMetaModel.checkMetaDatasAreIdentical(meta1: model1.meta, meta2: model2.meta) == true
       ){
         _identical = true;
       }
@@ -365,10 +363,10 @@ class PicModel {
     return _identical;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkPicsListsAreIdentical({
-    required List<PicModel>? list1,
-    required List<PicModel>? list2,
+  ///
+  static bool checkVideosListsAreIdentical({
+    required List<VideoModel>? list1,
+    required List<VideoModel>? list2,
   }){
 
     bool _listsAreIdentical = false;
@@ -389,9 +387,9 @@ class PicModel {
       else {
         for (int i = 0; i < list1.length; i++) {
 
-          final bool _pairAreIdentical = checkPicsAreIdentical(
-              pic1: list1[i],
-              pic2: list2[i]
+          final bool _pairAreIdentical = checkVideosAreIdentical(
+              model1: list1[i],
+              model2: list2[i]
           );
 
           if (_pairAreIdentical == false) {
@@ -418,12 +416,12 @@ class PicModel {
   /// OVERRIDES
 
   // --------------------
-   @override
-   String toString(){
+  @override
+  String toString(){
 
     final String _text =
     '''
-    PicModel(
+    VideoModel(
       bytes: ${bytes?.length},
       path: $path,
       meta: $meta
@@ -431,7 +429,7 @@ class PicModel {
     ''';
 
     return _text;
-   }
+  }
   // --------------------
   @override
   bool operator == (Object other){
@@ -441,10 +439,10 @@ class PicModel {
     }
 
     bool _areIdentical = false;
-    if (other is PicModel){
-      _areIdentical = checkPicsAreIdentical(
-        pic1: this,
-        pic2: other,
+    if (other is VideoModel){
+      _areIdentical = checkVideosAreIdentical(
+        model1: this,
+        model2: other,
       );
     }
 
@@ -456,5 +454,5 @@ class PicModel {
       meta.hashCode^
       bytes.hashCode^
       path.hashCode;
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 }

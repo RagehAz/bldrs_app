@@ -17,6 +17,7 @@ import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/super_dev_test.dart';
+import 'package:bldrs/v_videos/video_editor_screen.dart';
 import 'package:bldrs/z_components/buttons/bz_buttons/create_new_bz_button.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/settings_wide_button.dart';
 import 'package:bldrs/z_components/layouts/custom_layouts/floating_layout.dart';
@@ -42,11 +43,19 @@ class AppSettingsPage extends StatelessWidget {
     final UserModel? _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
     final bool _userIsSignedUp = Authing.userIsSignedUp(_userModel?.signInMethod);
     // --------------------
-
     return FloatingLayout(
       canSwipeBack: false,
       appBarType: AppBarType.non,
       pyramidButtons: UsersProvider.userIsRage7() == false ? null : <Widget>[
+
+        /// VIDEOS
+        PyramidFloatingButton(
+          icon: Icons.video_library_outlined,
+          toolTip: Verse.plain('Video Editor'),
+          color: Colorz.white20,
+          onTap: () => BldrsNav.goToNewScreen(screen: const VideoEditorScreen(),),
+
+        ),
 
         /// GT-INSTA
         PyramidFloatingButton(

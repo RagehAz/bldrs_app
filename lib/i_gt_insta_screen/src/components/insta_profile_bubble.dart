@@ -222,8 +222,6 @@ class InstaProfileBubble extends StatelessWidget {
                               onLongTap: () => Keyboard.copyToClipboardAndNotify(copy: _post?.mediaURL),
                               onTap: () async {
 
-                                x
-
                                 blog('downloading video');
 
                                 WaitDialog.showUnawaitedWaitDialog(
