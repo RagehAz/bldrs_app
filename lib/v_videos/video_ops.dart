@@ -1,4 +1,7 @@
 import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/files/file_size_unit.dart';
+import 'package:basics/helpers/files/filers.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:ffmpeg_kit_flutter_min/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_min/ffmpeg_session.dart';
 import 'package:video_editor/video_editor.dart';
@@ -62,6 +65,59 @@ class VideoOps {
       null,
       onProgress,
     );
+
+  }
+  // --------------------------------------------------------------------------
+
+  /// GETTERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Dimensions? getVideoDimensions({
+    required VideoEditorController? controller,
+  }){
+   if (controller == null){
+     return null;
+   }
+   else {
+     return Dimensions(
+         width: controller.videoWidth,
+         height: controller.videoHeight,
+     );
+   }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double? getFileSize({
+    required VideoEditorController? controller,
+    required FileSizeUnit unit,
+  }){
+
+    if (controller == null){
+      return null;
+    }
+
+    else {
+      final File? _file = controller.file;
+      return Filers.getFileSizeWithUnit(
+          file: _file,
+          unit: unit,
+      );
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getSizeMbString({
+    required File? file,
+  }){
+
+    final double _size = Filers.getFileSizeWithUnit(
+        file: file,
+        unit: FileSizeUnit.megaByte
+      ) ?? 0;
+
+    return '$_size MB';
   }
   // --------------------------------------------------------------------------
 

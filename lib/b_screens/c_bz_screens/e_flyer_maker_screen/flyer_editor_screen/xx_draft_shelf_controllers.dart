@@ -160,7 +160,6 @@ Future<void> _addGalleryImagesToNewFlyer({
           value: _newDraft,
       );
 
-      blog('a7ag');
       await _scrollToLastSlide(
         scrollController: scrollController,
         standOnIndex: (draftFlyer.value?.draftSlides?.length ?? 0) - _bigPics.length - 1,

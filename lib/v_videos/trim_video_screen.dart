@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/v_videos/crop_page.dart';
+import 'package:bldrs/v_videos/video_dialog.dart';
 import 'package:bldrs/v_videos/video_ops.dart';
 import 'package:bldrs/v_videos/video_result.dart';
 import 'package:flutter/material.dart';
@@ -150,10 +151,8 @@ class _TrimScreenState extends State<TrimScreen> {
           return;
         }
 
-        await showDialog(
-          context: context,
-          builder: (_) => VideoResultPopup(video: file),
-        );
+        await VideoDialog.push(file: file);
+
 
         // final File _file = File(execute.outputPath);
 

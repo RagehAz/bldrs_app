@@ -5,11 +5,13 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/drawing/expander.dart';
 import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/files/file_size_unit.dart';
 import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/panel_circle_button.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
@@ -18,6 +20,7 @@ import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/i_gt_insta_screen/src/screens/video_player_screen.dart';
 import 'package:bldrs/v_videos/trim_video_screen.dart';
+import 'package:bldrs/v_videos/video_dialog.dart';
 import 'package:bldrs/v_videos/video_ops.dart';
 import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
@@ -255,6 +258,52 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                     },
                   ),
 
+                  /// GET DIMENSIONS
+                  BottomDialog.wideButton(
+                    verse: Verse.plain('Get Dimensions'),
+                    onTap: () async {
+
+                      final Dimensions? _dims = VideoOps.getVideoDimensions(
+                          controller: _videoEditorController
+                      );
+
+                      _dims?.blogDimensions(invoker: 'video dims');
+
+
+                    },
+                  ),
+
+                  /// FILE SIZE IN KB
+                  BottomDialog.wideButton(
+                    verse: Verse.plain('Get file size in KB'),
+                    onTap: () async {
+
+                      final double?  _kb = VideoOps.getFileSize(
+                        controller: _videoEditorController,
+                        unit: FileSizeUnit.kiloByte,
+                      );
+
+                      final double? _mb = VideoOps.getFileSize(
+                        controller: _videoEditorController,
+                        unit: FileSizeUnit.megaByte,
+                      );
+
+                      blog('size : $_kb Kb : $_mb mb');
+
+                    },
+                  ),
+
+                  // await VideoDialog.push(file: file);
+
+                  /// PUSH DIALOG
+                  BottomDialog.wideButton(
+                    verse: Verse.plain('Push Video dialog'),
+                    onTap: () async {
+
+                      await VideoDialog.push(file: _videoEditorController?.file);
+
+                    },
+                  ),
 
                 ];
 
