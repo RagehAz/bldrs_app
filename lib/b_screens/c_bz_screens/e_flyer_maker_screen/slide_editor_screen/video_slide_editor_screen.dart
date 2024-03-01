@@ -17,9 +17,9 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
 
-class VideoSlideEditorScreen extends StatefulWidget {
+class SlideEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const VideoSlideEditorScreen({
+  const SlideEditorScreen({
     required this.slide,
     required this.draftFlyerNotifier,
     super.key
@@ -29,7 +29,7 @@ class VideoSlideEditorScreen extends StatefulWidget {
   final ValueNotifier<DraftFlyer?> draftFlyerNotifier;
   /// --------------------------------------------------------------------------
   @override
-  State<VideoSlideEditorScreen> createState() => _VideoSlideEditorScreenState();
+  State<SlideEditorScreen> createState() => _SlideEditorScreenState();
   // --------------------------------------------------------------------------
 
   /// SCALES
@@ -68,7 +68,7 @@ class VideoSlideEditorScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
 }
 
-class _VideoSlideEditorScreenState extends State<VideoSlideEditorScreen> {
+class _SlideEditorScreenState extends State<SlideEditorScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey globalKey = GlobalKey();
   // --------------------
@@ -154,7 +154,7 @@ class _VideoSlideEditorScreenState extends State<VideoSlideEditorScreen> {
       matrixNotifier: _matrixNotifier,
       matrixFromNotifier: _matrixFromNotifier,
       isTransforming: _isTransforming,
-      flyerBoxWidth: VideoSlideEditorScreen.getFlyerBoxWidth(),
+      flyerBoxWidth: SlideEditorScreen.getFlyerBoxWidth(),
     );
 
     _startTransformationListener();
@@ -194,10 +194,10 @@ class _VideoSlideEditorScreenState extends State<VideoSlideEditorScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _slideZoneHeight = VideoSlideEditorScreen.getSlideZoneHeight();
-    final double _controlPanelHeight = VideoSlideEditorScreen.getColorPanelHeight();
-    final double _flyerBoxWidth = VideoSlideEditorScreen.getFlyerBoxWidth();
-    final double _flyerBoxHeight = VideoSlideEditorScreen.getFlyerBoxHeight();
+    final double _slideZoneHeight = SlideEditorScreen.getSlideZoneHeight();
+    final double _controlPanelHeight = SlideEditorScreen.getColorPanelHeight();
+    final double _flyerBoxWidth = SlideEditorScreen.getFlyerBoxWidth();
+    final double _flyerBoxHeight = SlideEditorScreen.getFlyerBoxHeight();
     // --------------------
     return PixelColorPicker(
       initialColor: _draftSlideNotifier.value?.midColor ?? Colorz.nothing,

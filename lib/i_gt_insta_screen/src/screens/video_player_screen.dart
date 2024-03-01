@@ -1,14 +1,13 @@
 import 'dart:io';
-
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
-import 'package:basics/mediator/super_video_player/a_super_video_player.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
+import 'package:basics/mediator/super_video_player/super_video_player.dart';
 
 class VideoPlayerScreen extends StatelessWidget {
   // --------------------------------------------------------------------------

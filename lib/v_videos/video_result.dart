@@ -1,13 +1,11 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:fraction/fraction.dart';
 import 'package:path/path.dart' as path;
-import 'package:video_player/video_player.dart';
+import 'package:basics/mediator/super_video_player/super_video_player.dart';
 
-Future<void> _getImageDimension(File file,
-    {required Function(Size) onResult}) async {
+Future<void> _getImageDimension(File file, {required Function(Size) onResult}) async {
   final decodedImage = await decodeImageFromList(file.readAsBytesSync());
   onResult(Size(decodedImage.width.toDouble(), decodedImage.height.toDouble()));
 }
@@ -25,25 +23,29 @@ class VideoResultPopup extends StatefulWidget {
 
   @override
   State<VideoResultPopup> createState() => _VideoResultPopupState();
+
 }
 
 class _VideoResultPopupState extends State<VideoResultPopup> {
+
   VideoPlayerController? _controller;
   FileImage? _fileImage;
   Size _fileDimension = Size.zero;
-  late final bool _isGif =
-      path.extension(widget.video.path).toLowerCase() == '.gif';
+  late final bool _isGif = path.extension(widget.video.path).toLowerCase() == '.gif';
   late String _fileMbSize;
 
   @override
   void initState() {
     super.initState();
+
     if (_isGif) {
       _getImageDimension(
         widget.video,
         onResult: (d) => setState(() => _fileDimension = d),
       );
-    } else {
+    }
+
+    else {
       _controller = VideoPlayerController.file(widget.video);
       _controller?.initialize().then((_) {
         _fileDimension = _controller?.value.size ?? Size.zero;
@@ -52,17 +54,23 @@ class _VideoResultPopupState extends State<VideoResultPopup> {
         _controller?.setLooping(true);
       });
     }
+
     _fileMbSize = _fileMBSize(widget.video);
+
   }
 
   @override
   void dispose() {
+
     if (_isGif) {
       _fileImage?.evict();
-    } else {
+    }
+
+    else {
       _controller?.pause();
       _controller?.dispose();
     }
+
     super.dispose();
   }
 
@@ -102,6 +110,7 @@ class _VideoResultPopupState extends State<VideoResultPopup> {
       ),
     );
   }
+
 }
 
 class CoverResultPopup extends StatefulWidget {
@@ -118,7 +127,9 @@ class CoverResultPopup extends StatefulWidget {
 }
 
 class _CoverResultPopupState extends State<CoverResultPopup> {
+
   late final Uint8List _imagebytes = widget.cover.readAsBytesSync();
+
   Size? _fileDimension;
   late String _fileMbSize;
 
@@ -134,6 +145,7 @@ class _CoverResultPopupState extends State<CoverResultPopup> {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.all(30),
       child: Center(
@@ -158,7 +170,9 @@ class _CoverResultPopupState extends State<CoverResultPopup> {
         ),
       ),
     );
+
   }
+
 }
 
 class FileDescription extends StatelessWidget {
