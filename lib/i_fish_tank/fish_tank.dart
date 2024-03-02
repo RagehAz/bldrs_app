@@ -36,8 +36,9 @@ import 'package:bldrs/b_screens/g_search_screen/z_components/building_blocks/fil
 import 'package:bldrs/b_screens/g_search_screen/z_components/building_blocks/filters_box.dart';
 import 'package:bldrs/b_screens/g_search_screen/z_components/filters_tiles/countries_filter_tile.dart';
 import 'package:bldrs/bldrs_keys.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -71,7 +72,7 @@ part 'src/screens/fish_maker_screen.dart';
 part 'src/models/fish_model.dart';
 part 'src/fish_protocols/fish_ldb_ops.dart';
 part 'src/fish_protocols/fish_protocols.dart';
-part 'src/fish_protocols/fish_real_ops.dart';
+part 'src/fish_protocols/fish_fire_ops.dart';
 part 'src/components/fish_tile.dart';
 part '../i_gt_insta_screen/src/models/insta_profile.dart';
 /// SCRAP_EYE_OF_RIYADH

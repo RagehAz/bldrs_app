@@ -1,10 +1,10 @@
 part of fish_tank;
 
 /// =>TAMAM
-class FishRealOps {
+class FishFireOps {
   // -----------------------------------------------------------------------------
 
-  const FishRealOps();
+  const FishFireOps();
 
   // -----------------------------------------------------------------------------
 
@@ -16,13 +16,30 @@ class FishRealOps {
     required FishModel fish,
   }) async {
 
-    final Map<String, dynamic>? _map = await Real.createDoc(
-      coll: RealColl.fishes,
+    Map<String, dynamic>? _map = fish.toMap();
+
+    final String? _id = await Fire.createDoc(
+      coll: FireColl.fishes,
       doc: TextMod.idifyString(fish.id),
-      map: fish.toMap(),
+      input: _map,
     );
 
-    return FishModel.decipher(map: _map);
+    if (_id == null){
+      return null;
+    }
+
+    else {
+
+      _map = Mapper.insertPairInMap(
+          map: _map,
+          key: 'id',
+          value: _id,
+          overrideExisting: true,
+      );
+
+      return FishModel.decipher(map: _map);
+    }
+
   }
   // -----------------------------------------------------------------------------
 
@@ -38,8 +55,8 @@ class FishRealOps {
       return null;
     }
     else {
-      final Map<String, dynamic>? _map = await Real.readDoc(
-          coll: RealColl.fishes,
+      final Map<String, dynamic>? _map = await Fire.readDoc(
+          coll: FireColl.fishes,
           doc: id,
       );
 
@@ -50,19 +67,13 @@ class FishRealOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<FishModel>> readAll({
-    int? limit = 1000,
-  }) async {
+  static Future<List<FishModel>> readAll() async {
 
-    final List<Map<String, dynamic>> _map = await Real.readPathMaps(
-        realQueryModel: RealQueryModel(
-          path: RealColl.fishes,
-          idFieldName: 'id',
-          limit: limit,
-        ),
+    final List<Map<String, dynamic>> _maps = await Fire.readAllColl(
+      coll: FireColl.fishes,
     );
 
-    return FishModel.decipherFishes(maps: _map);
+    return FishModel.decipherFishes(maps: _maps);
 
   }
   // -----------------------------------------------------------------------------
@@ -77,10 +88,10 @@ class FishRealOps {
 
     if (fish?.id != null){
 
-      await Real.updateDoc(
-          coll: RealColl.fishes,
+      await Fire.updateDoc(
+          coll: FireColl.fishes,
           doc: fish!.id!,
-          map: fish.toMap(),
+          input: fish.toMap(),
       );
 
     }
@@ -98,8 +109,8 @@ class FishRealOps {
 
     if (id != null){
 
-      await Real.deleteDoc(
-          coll: RealColl.fishes,
+      await Fire.deleteDoc(
+          coll: FireColl.fishes,
           doc: id,
       );
 

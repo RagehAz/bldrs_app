@@ -116,8 +116,8 @@ class BldrsEngine {
   /// TESTED : WORKS PERFECT
   static Future<void> appStartInit() async {
 
-    /// REFRESH LDB
-    unawaited(UiInitializer.refreshLDB());
+    // /// REFRESH LDB
+    // unawaited(UiInitializer.refreshLDB());
 
     /// INITIALIZE NOOTS
     await FCMStarter.initializeNootsInBldrsAppStarter(

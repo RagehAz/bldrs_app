@@ -68,6 +68,7 @@ abstract class FireColl{
 
   static const String keywords = 'keywords';
 
+  static const String fishes = 'fishes';
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getPartyCollName(PartyType? partyType){

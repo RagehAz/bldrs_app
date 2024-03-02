@@ -1,10 +1,15 @@
 import 'dart:async';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/maps/mapper.dart';
+import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/i_fish_tank/fish_tank.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
+import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 /// SUPER_DEV_TEST
 
@@ -12,8 +17,39 @@ const bool showTestButton = false;
 
 Future<void> superDevTestGoX() async {
 
-  blog('will go deep now ->');
-  await launchUrl(Uri.parse('bldrs://deep/redirect'));
+  WaitDialog.showUnawaitedWaitDialog();
+
+  final List<FishModel> _fishes = await FishProtocols.fetchAll();
+
+  for (final BzType bzType in BzTyper.bzTypesList){
+
+    UiProvider.proSetLoadingVerse(verse: Verse.plain('doing $bzType'));
+
+    final List<FishModel> _de = FishModel.filterByBzType(
+        fishes: _fishes,
+        bzType: bzType
+    );
+
+    Map<String, dynamic> _map = {};
+
+    for (final FishModel fish in _de){
+      _map = Mapper.insertPairInMap(
+        map: _map,
+        key: fish.id,
+        value: fish.toMap(),
+        overrideExisting: true,
+      );
+    }
+
+    await Fire.createDoc(
+      coll: 'fish_tank',
+      doc: BzTyper.cipherBzType(bzType)!,
+      input: _map,
+    );
+
+  }
+
+  await WaitDialog.closeWaitDialog();
 
 }
 

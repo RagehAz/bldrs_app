@@ -17,7 +17,7 @@ class FishProtocols {
     required FishModel fish,
   }) async {
 
-    final FishModel? _fish = await FishRealOps.create(fish: fish);
+    final FishModel? _fish = await FishFireOps.create(fish: fish);
 
     await FishLDBOps.insert(fish: _fish);
 
@@ -40,7 +40,7 @@ class FishProtocols {
 
       if (_output == null){
 
-        _output = await FishRealOps.read(id: id);
+        _output = await FishFireOps.read(id: id);
 
         if (_output != null){
           unawaited(FishLDBOps.insert(fish: _output));
@@ -54,20 +54,14 @@ class FishProtocols {
   }
   // -------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<FishModel>> fetchAll({
-    int? limit = 1000,
-  }) async {
+  static Future<List<FishModel>> fetchAll() async {
     List<FishModel> _all = [];
 
-    if (fetchedAllFishes == false){
-      _all = await FishRealOps.readAll(
-        limit: limit,
-      );
+    _all = await FishLDBOps.readAll();
+
+    if (Lister.checkCanLoop(_all) == false){
+      _all = await FishFireOps.readAll();
       unawaited(FishLDBOps.insertFishes(fishes: _all));
-      fetchedAllFishes = true;
-    }
-    else {
-      _all = await FishLDBOps.readAll();
     }
 
     return _all;
@@ -98,7 +92,7 @@ class FishProtocols {
 
         await Future.wait(<Future>[
 
-          FishRealOps.update(fish: newFish),
+          FishFireOps.update(fish: newFish),
 
           FishLDBOps.insert(fish: newFish),
 
@@ -121,7 +115,7 @@ class FishProtocols {
 
     await Future.wait(<Future>[
 
-      FishRealOps.delete(id: id),
+      FishFireOps.delete(id: id),
 
       FishLDBOps.delete(id: id),
 

@@ -90,9 +90,7 @@ class _BzzFishTankManagerState extends State<BzzFishTankManager> {
 
         await _triggerLoading(setTo: true);
 
-        final List<FishModel> _all = await FishProtocols.fetchAll(
-          limit: 10000,
-        );
+        final List<FishModel> _all = await FishProtocols.fetchAll();
 
         if (mounted == true){
           setState(() {
@@ -1003,10 +1001,18 @@ class _BzzFishTankManagerState extends State<BzzFishTankManager> {
 
                 WaitDialog.showUnawaitedWaitDialog(verse: Verse.plain('Backing up fishes'));
 
-                await Real.clonePath(
-                    oldPath: RealColl.fishes,
-                    newPath: 'app/fishes_backup',
-                );
+                final List<FishModel> _fishes = await FishFireOps.readAll();
+
+                int i = 0;
+                for (final FishModel fish in _fishes){
+                  UiProvider.proSetLoadingVerse(verse: Verse.plain('$i :storing :${fish.name}'));
+                  await Real.createDocInPath(
+                      pathWithoutDocName: 'app/fishes_backup',
+                      doc: fish.id,
+                      map: fish.toMap()
+                  );
+                  i++;
+                }
 
                 await WaitDialog.closeWaitDialog();
 
