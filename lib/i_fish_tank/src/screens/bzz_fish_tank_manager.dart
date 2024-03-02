@@ -6,11 +6,13 @@ class BzzFishTankManager extends StatefulWidget {
   const BzzFishTankManager({
     this.selectedEmails = const [],
     this.multipleSelection = true,
+    this.facebookAccessToken,
     super.key
   });
   // --------------------
   final List<String> selectedEmails;
   final bool multipleSelection;
+  final String? facebookAccessToken;
   // --------------------
   @override
   _BzzFishTankManagerState createState() => _BzzFishTankManagerState();
@@ -30,10 +32,13 @@ class BzzFishTankManager extends StatefulWidget {
     );
   }
   // --------------------------------------------------------------------------
-  static Future<String?> pickInstagramLink() async {
+  static Future<String?> pickInstagramLink({
+    String? facebookAccessToken,
+  }) async {
     final FishModel? _fish = await BldrsNav.goToNewScreen(
-      screen: const BzzFishTankManager(
+      screen: BzzFishTankManager(
         multipleSelection: false,
+        facebookAccessToken: facebookAccessToken,
       ),
     );
     return ContactModel.getValueFromContacts(
@@ -159,8 +164,8 @@ class _BzzFishTankManagerState extends State<BzzFishTankManager> {
         setNotifier(notifier: _isSearching, mounted: mounted, value: false);
         _searchController.text = '';
 
-        await Future.delayed(const Duration(milliseconds: 500));
-        await Sliders.scrollToEnd(controller: _scrollController, duration: const Duration(milliseconds: 800));
+        // await Future.delayed(const Duration(milliseconds: 500));
+        // await Sliders.scrollToEnd(controller: _scrollController, duration: const Duration(milliseconds: 800));
 
       }
 
@@ -214,6 +219,7 @@ class _BzzFishTankManagerState extends State<BzzFishTankManager> {
     final FishModel? _updated = await FishMakerScreen.editFish(
       fishModel: fish,
       allFishes: _fishes,
+      facebookAccessToken: widget.facebookAccessToken,
     );
 
     if (_updated != null){
@@ -265,8 +271,8 @@ class _BzzFishTankManagerState extends State<BzzFishTankManager> {
       _foundFishes = const [];
       _searchController.text = '';
       setNotifier(notifier: _isSearching, mounted: mounted, value: false);
-      await Future.delayed(const Duration(milliseconds: 200));
-      await Sliders.scrollToEnd(controller: _scrollController,duration: Duration.zero);
+      // await Future.delayed(const Duration(milliseconds: 200));
+      // await Sliders.scrollToEnd(controller: _scrollController,duration: Duration.zero);
     }
 
     else {
@@ -291,11 +297,12 @@ class _BzzFishTankManagerState extends State<BzzFishTankManager> {
 
         final FishModel? _fish = FishModel.getFishByContactType(
           fishes: _fishes,
-          value: url,
+          value: Linker.cleanURL(url),
           contactType: ContactType.instagram,
         );
 
         if (_fish == null){
+
           await Dialogs.topNotice(
             verse: Verse.plain('Not Used'),
             color: Colorz.green255,
@@ -304,7 +311,8 @@ class _BzzFishTankManagerState extends State<BzzFishTankManager> {
           await _editFish(
               FishModel(
                 id: '',
-                countryID: '',
+                countryID: _fishes.last.countryID,
+                bio: '',
                 contacts: ContactModel.prepareContactsForEditing(
                   countryID: null,
                   contacts: [
@@ -519,8 +527,8 @@ class _BzzFishTankManagerState extends State<BzzFishTankManager> {
       _foundFishes = [];
     });
 
-    await Future.delayed(const Duration(milliseconds: 500));
-    await Sliders.scrollToEnd(controller: _scrollController, duration: const Duration(milliseconds: 800));
+    // await Future.delayed(const Duration(milliseconds: 500));
+    // await Sliders.scrollToEnd(controller: _scrollController, duration: const Duration(milliseconds: 800));
 
   }
   // -----------------------------------------------------------------------------
@@ -1452,9 +1460,10 @@ class _BzzFishTankManagerState extends State<BzzFishTankManager> {
                 itemCount: _theFishes.length,
                 padding: Stratosphere.getStratosphereSandwich(context: context, appBarType: AppBarType.search),
                 physics: const BouncingScrollPhysics(),
+                reverse: false,
                 itemBuilder: (_, int index){
 
-                  final FishModel _fish = _theFishes[index];
+                  final FishModel _fish = _theFishes.reversed.toList()[index];
                   final String? _index = Numeric.formatIndexDigits(
                     index: index+1,
                     listLength: _theFishes.length,

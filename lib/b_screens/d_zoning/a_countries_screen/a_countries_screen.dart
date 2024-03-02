@@ -414,7 +414,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
           _disabledCountriesIDs = _disabledIDs;
           _censuses = _countriesCensuses;
           _planetCensus = _fetchedPlanetCensus;
-          Stringer.blogStrings(strings: _activeCountriesIDs, invoker: 'loadCountries');
+          // Stringer.blogStrings(strings: _activeCountriesIDs, invoker: 'loadCountries');
         });
       }
       // --------------------
@@ -486,7 +486,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
         _disabledCountriesIDs = _disabledIDs;
         _censuses = _countriesCensuses;
         _planetCensus = _fetchedPlanetCensus;
-        Stringer.blogStrings(strings: _activeCountriesIDs, invoker: 'loadCountries');
+        // Stringer.blogStrings(strings: _activeCountriesIDs, invoker: 'loadCountries');
       });
     }
     // --------------------

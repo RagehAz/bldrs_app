@@ -75,19 +75,24 @@ class _SocialFieldEditorBubbleState extends State<SocialFieldEditorBubble> {
     super.didUpdateWidget(oldWidget);
 
     /// NO NEED
-    // if (
-    // ContactModel.checkContactsListsAreIdentical(
-    //     contacts1: widget.contacts,
-    //     contacts2: oldWidget.contacts,
-    // ) == false
-    // ) {
+    if (
+    ContactModel.checkContactsListsAreIdentical(
+      contacts1: widget.contacts,
+      contacts2: oldWidget.contacts,
+    ) == false
+    ) {
 
-      // setState(() {
-      //   _socialContacts = ContactModel.filterSocialMediaContacts(widget.contacts);
-      // });
+      setState(() {
+        _socialContacts = ContactModel.filterSocialMediaContacts(widget.contacts);
 
-    // }
+      });
 
+      for (final ContactModel social in _socialContacts) {
+        final int _index = _socialContacts.indexOf(social);
+        _controllers[_index].text = social.value ?? '';
+      }
+
+    }
   }
   // --------------------
   @override

@@ -66,6 +66,19 @@ class FishTile extends StatelessWidget {
               },
             ),
 
+          /// BIO
+          if (TextCheck.isEmpty(fishModel.bio) == false)
+            BldrsText(
+              verse: Verse.plain(fishModel.bio),
+              size: 1,
+              italic: true,
+              centered: false,
+              labelColor: Colorz.blue50,
+              margin: const EdgeInsets.only(top: 5),
+              weight: VerseWeight.thin,
+              maxLines: 4,
+            ),
+
           if (fishModel.emailIsFailing)
             BldrsText(
               verse: Verse.plain('Email is Failing to receive mails'),

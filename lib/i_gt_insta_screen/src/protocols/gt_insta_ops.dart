@@ -133,6 +133,12 @@ media$startBefore$startAfter$theLimit {
             functions: () async {
               final Map<String, dynamic>? _map = jsonDecode(response.body);
               _output = Mapper.cloneMap(_map);
+              _output = Mapper.insertPairInMap(
+                  map: _output,
+                  key: 'profileName',
+                  value: profileName,
+                  overrideExisting: true,
+              );
             }
             );
       }

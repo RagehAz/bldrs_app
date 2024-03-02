@@ -155,7 +155,9 @@ class _GtInstaScreenState extends State<GtInstaScreen> {
   // --------------------
   Future<void> _pickFishAndScrap() async {
 
-    final String? _url = await BzzFishTankManager.pickInstagramLink();
+    final String? _url = await BzzFishTankManager.pickInstagramLink(
+      facebookAccessToken: _facebookAccessToken,
+    );
 
     setState(() {
       _instagramURL = _url;

@@ -39,13 +39,13 @@ class _TrimScreenState extends State<TrimScreen> {
 
     // await _videoEditorController?.initialize();
 
-    _videoEditorController
-        .initialize(aspectRatio: 9 / 16)
+    _videoEditorController.initialize(aspectRatio: 9 / 16)
         .then((_) => setState(() {}))
         .catchError((error) {
-      // handle minumum duration bigger than video duration error
+          // handle minimum duration bigger than video duration error
       Navigator.pop(context);
-    }, test: (e) => e is VideoMinDurationError);
+    },
+        test: (e) => e is VideoMinDurationError);
 
 
   }

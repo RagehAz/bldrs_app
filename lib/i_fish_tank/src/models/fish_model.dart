@@ -7,6 +7,7 @@ class FishModel {
   const FishModel({
     required this.id,
     required this.name,
+    required this.bio,
     required this.contacts,
     required this.type,
     required this.countryID,
@@ -16,6 +17,7 @@ class FishModel {
   // --------------------
   final String? id;
   final String? name;
+  final String? bio;
   final List<ContactModel> contacts;
   final BzType? type;
   final String? countryID;
@@ -30,6 +32,7 @@ class FishModel {
   FishModel copyWith({
     String? id,
     String? name,
+    String? bio,
     List<ContactModel>? contacts,
     BzType? type,
     String? countryID,
@@ -39,6 +42,7 @@ class FishModel {
     return FishModel(
       id: id ?? this.id,
       name: name ?? this.name,
+      bio: bio ?? this.bio,
       contacts: contacts ?? this.contacts,
       type: type ?? this.type,
       countryID: countryID ?? this.countryID,
@@ -62,6 +66,7 @@ class FishModel {
     return {
       'id': id,
       'name': name,
+      'bio': bio,
       'contacts': ContactModel.cipherContacts(_contacts),
       'type': BzTyper.cipherBzType(type),
       'countryID': countryID,
@@ -106,6 +111,7 @@ class FishModel {
       return FishModel(
         id: map['id'],
         name: map['name'],
+        bio: map['bio'],
         contacts: ContactModel.decipherContacts(map['contacts']),
         type: BzTyper.decipherBzType(map['type']),
         countryID: map['countryID'],
@@ -146,6 +152,14 @@ class FishModel {
 
   /// GETTERS
 
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  String? getInstagramLink(){
+    return ContactModel.getValueFromContacts(
+      contacts: contacts,
+      contactType: ContactType.instagram,
+    );
+  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static FishModel? getFishFromFishes({
@@ -274,10 +288,15 @@ class FishModel {
 
       for (final FishModel fish in fishes){
 
-        final String? _value = ContactModel.getValueFromContacts(
+        String? _value = ContactModel.getValueFromContacts(
           contacts: fish.contacts,
           contactType: contactType,
         );
+
+        final bool _isSocial = ContactModel.checkContactIsSocialMedia(contactType);
+        if (_isSocial == true){
+          _value = Linker.cleanURL(_value);
+        }
 
         if (_value == value){
           _output = fish;
@@ -671,6 +690,7 @@ class FishModel {
     FishModel(
       id: $id,
       name: $name,
+      bio: $bio,
       contacts: $contacts,
       type: $type,
       countryID: $countryID,
@@ -704,6 +724,7 @@ class FishModel {
   int get hashCode =>
       id.hashCode^
       name.hashCode^
+      bio.hashCode^
       contacts.hashCode^
       type.hashCode^
       imageURL.hashCode^

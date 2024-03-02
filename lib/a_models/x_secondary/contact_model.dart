@@ -26,6 +26,11 @@ enum ContactType {
   tiktok,
   twitter,
   snapchat,
+
+  map,
+  appStore,
+  googlePlay,
+  appGallery,
 }
 
 enum ContactsOwnerType {
@@ -62,6 +67,12 @@ class ContactModel {
     ContactType.tiktok,
     ContactType.twitter,
     ContactType.snapchat,
+    ContactType.map,
+
+    ContactType.appStore,
+    ContactType.googlePlay,
+    ContactType.appGallery,
+
   ];
   // --------------------
   static const List<ContactType> socialTypes = <ContactType>[
@@ -73,6 +84,11 @@ class ContactModel {
     ContactType.tiktok,
     ContactType.twitter,
     ContactType.snapchat,
+    ContactType.map,
+
+    ContactType.appStore,
+    ContactType.googlePlay,
+    ContactType.appGallery,
   ];
   // -----------------------------------------------------------------------------
 
@@ -205,6 +221,12 @@ class ContactModel {
       case 'tiktok':    return ContactType.tiktok;
       case 'twitter':   return ContactType.twitter;
       case 'snapchat':  return ContactType.snapchat;
+      case 'map':  return ContactType.map;
+
+    case 'appStore':  return ContactType.appStore;
+    case 'googlePlay':  return ContactType.googlePlay;
+    case 'appGallery':  return ContactType.appGallery;
+
       default:          return null;
     }
   }
@@ -223,6 +245,10 @@ class ContactModel {
       case ContactType.tiktok:    return 'tiktok';
       case ContactType.twitter:   return 'twitter';
       case ContactType.snapchat:  return 'snapchat';
+      case ContactType.map:       return 'map';
+      case ContactType.appStore:  return 'appStore';
+      case ContactType.googlePlay:return 'googlePlay';
+      case ContactType.appGallery:return 'appGallery';
       default:  return null;
     }
   }
@@ -395,6 +421,12 @@ class ContactModel {
       case ContactType.tiktok:     return 'phid_tiktok';
       case ContactType.twitter:    return 'phid_twitter';
       case ContactType.snapchat:   return 'phid_snapchat';
+      case ContactType.map:        return 'phid_map';
+
+      case ContactType.appStore:  return 'phid_app_store';
+      case ContactType.googlePlay:return 'phid_google_play';
+      case ContactType.appGallery:return 'phid_app_gallery';
+
       default: return null;
 
     }
@@ -561,6 +593,13 @@ class ContactModel {
         case ContactType.tiktok: return Iconz.comTikTok;
         case ContactType.twitter: return Iconz.comTwitter;
         case ContactType.snapchat: return Iconz.comSnapchat;
+        case ContactType.map: return Iconz.comMap;
+
+        case ContactType.appStore:  return Iconz.comAppStore;
+        case ContactType.googlePlay:return Iconz.comGooglePlay;
+        case ContactType.appGallery:return Iconz.comAppGallery;
+
+
         default: return null;
       }
     }
@@ -581,17 +620,21 @@ class ContactModel {
 
     else {
       switch (contactType) {
-        case ContactType.phone:     return _small; // Iconz.comPhone;
-        case ContactType.email:     return _small; // Iconz.comEmail;
-        case ContactType.website:   return _small; // Iconz.comWebsite;
-        case ContactType.facebook:  return 1; // Iconz.comFacebook;
-        case ContactType.linkedIn:  return 1; // Iconz.comLinkedin;
-        case ContactType.youtube:   return 1; // Iconz.comYoutube;
-        case ContactType.instagram: return 1; // Iconz.comInstagram;
-        case ContactType.pinterest: return 1; // Iconz.comPinterest;
-        case ContactType.tiktok:    return 1; // Iconz.comTikTok;
-        case ContactType.twitter:   return 1; // Iconz.comTwitter;
-        case ContactType.snapchat:  return 1; // Iconz.comTwitter;
+        case ContactType.phone:       return _small; // Iconz.comPhone;
+        case ContactType.email:       return _small; // Iconz.comEmail;
+        case ContactType.website:     return _small; // Iconz.comWebsite;
+        case ContactType.facebook:    return 1; // Iconz.comFacebook;
+        case ContactType.linkedIn:    return 1; // Iconz.comLinkedin;
+        case ContactType.youtube:     return 1; // Iconz.comYoutube;
+        case ContactType.instagram:   return 1; // Iconz.comInstagram;
+        case ContactType.pinterest:   return 1; // Iconz.comPinterest;
+        case ContactType.tiktok:      return 1; // Iconz.comTikTok;
+        case ContactType.twitter:     return 1; // Iconz.comTwitter;
+        case ContactType.snapchat:    return 1; // Iconz.comTwitter;
+        case ContactType.map:         return 1; // Iconz.comTwitter;
+        case ContactType.appStore:    return 1;
+        case ContactType.googlePlay:  return _small;
+        case ContactType.appGallery:  return 1;
         default: return 1;
       }
     }
@@ -604,17 +647,21 @@ class ContactModel {
   }){
 
     switch (contactType){
-      case ContactType.phone:      return TextInputType.phone  ;
-      case ContactType.email:      return TextInputType.emailAddress  ;
-      case ContactType.website:    return TextInputType.url  ;
-      case ContactType.facebook:   return TextInputType.url  ;
-      case ContactType.linkedIn:   return TextInputType.url  ;
-      case ContactType.youtube:    return TextInputType.url  ;
-      case ContactType.instagram:  return TextInputType.url  ;
-      case ContactType.pinterest:  return TextInputType.url  ;
-      case ContactType.tiktok:     return TextInputType.url  ;
-      case ContactType.twitter:    return TextInputType.url  ;
-      case ContactType.snapchat:   return TextInputType.url  ;
+      case ContactType.phone:       return TextInputType.phone  ;
+      case ContactType.email:       return TextInputType.emailAddress  ;
+      case ContactType.website:     return TextInputType.url  ;
+      case ContactType.facebook:    return TextInputType.url  ;
+      case ContactType.linkedIn:    return TextInputType.url  ;
+      case ContactType.youtube:     return TextInputType.url  ;
+      case ContactType.instagram:   return TextInputType.url  ;
+      case ContactType.pinterest:   return TextInputType.url  ;
+      case ContactType.tiktok:      return TextInputType.url  ;
+      case ContactType.twitter:     return TextInputType.url  ;
+      case ContactType.snapchat:    return TextInputType.url  ;
+      case ContactType.map:         return TextInputType.url  ;
+      case ContactType.appStore:    return TextInputType.url  ;
+      case ContactType.googlePlay:  return TextInputType.url  ;
+      case ContactType.appGallery:  return TextInputType.url  ;
       default: return TextInputType.text;
     }
 
@@ -643,6 +690,27 @@ class ContactModel {
       }
       else{
         _output.add(contactToReplace);
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<ContactModel> insertOrReplaceContacts({
+    required List<ContactModel>? contacts,
+    required List<ContactModel>? contactsToReplace,
+  }){
+    List<ContactModel> _output = <ContactModel>[...?contacts];
+
+    if (Lister.checkCanLoop(contactsToReplace) == true){
+
+      for (final ContactModel contact in contactsToReplace!){
+        _output = insertOrReplaceContact(
+          contacts: _output,
+          contactToReplace: contact,
+        );
       }
 
     }
@@ -743,17 +811,21 @@ class ContactModel {
     /// USER CONTACTS
     if (ownerType == ContactsOwnerType.user){
       switch (contactType){
-        case ContactType.phone:      return false   ;
-        case ContactType.email:      return true   ;
-        case ContactType.website:    return false   ;
-        case ContactType.facebook:   return false   ;
-        case ContactType.linkedIn:   return false   ;
-        case ContactType.youtube:    return false   ;
-        case ContactType.instagram:  return false   ;
-        case ContactType.pinterest:  return false   ;
-        case ContactType.tiktok:     return false   ;
-        case ContactType.twitter:    return false   ;
-        case ContactType.snapchat:   return false   ;
+        case ContactType.phone:       return false   ;
+        case ContactType.email:       return true   ;
+        case ContactType.website:     return false   ;
+        case ContactType.facebook:    return false   ;
+        case ContactType.linkedIn:    return false   ;
+        case ContactType.youtube:     return false   ;
+        case ContactType.instagram:   return false   ;
+        case ContactType.pinterest:   return false   ;
+        case ContactType.tiktok:      return false   ;
+        case ContactType.twitter:     return false   ;
+        case ContactType.snapchat:    return false   ;
+        case ContactType.map:         return false   ;
+        case ContactType.appStore:    return false   ;
+        case ContactType.googlePlay:  return false   ;
+        case ContactType.appGallery:  return false   ;
         default: return false;
       }
     }
@@ -761,17 +833,21 @@ class ContactModel {
     /// BZ CONTACTS
     else if (ownerType == ContactsOwnerType.bz){
       switch (contactType){
-        case ContactType.phone:      return true   ;
-        case ContactType.email:      return true   ;
-        case ContactType.website:    return false   ;
-        case ContactType.facebook:   return false   ;
-        case ContactType.linkedIn:   return false   ;
-        case ContactType.youtube:    return false   ;
-        case ContactType.instagram:  return false   ;
-        case ContactType.pinterest:  return false   ;
-        case ContactType.tiktok:     return false   ;
-        case ContactType.twitter:    return false   ;
-        case ContactType.snapchat:   return false   ;
+        case ContactType.phone:       return true   ;
+        case ContactType.email:       return true   ;
+        case ContactType.website:     return false   ;
+        case ContactType.facebook:    return false   ;
+        case ContactType.linkedIn:    return false   ;
+        case ContactType.youtube:     return false   ;
+        case ContactType.instagram:   return false   ;
+        case ContactType.pinterest:   return false   ;
+        case ContactType.tiktok:      return false   ;
+        case ContactType.twitter:     return false   ;
+        case ContactType.snapchat:    return false   ;
+        case ContactType.map:         return false   ;
+        case ContactType.appStore:    return false   ;
+        case ContactType.googlePlay:  return false   ;
+        case ContactType.appGallery:  return false   ;
         default: return false;
       }
     }
@@ -779,17 +855,21 @@ class ContactModel {
     /// AUTHOR CONTACTS
     else {
       switch (contactType){
-        case ContactType.phone:      return true   ;
-        case ContactType.email:      return true   ;
-        case ContactType.website:    return false   ;
-        case ContactType.facebook:   return false   ;
-        case ContactType.linkedIn:   return false   ;
-        case ContactType.youtube:    return false   ;
-        case ContactType.instagram:  return false   ;
-        case ContactType.pinterest:  return false   ;
-        case ContactType.tiktok:     return false   ;
-        case ContactType.twitter:    return false   ;
-        case ContactType.snapchat:   return false   ;
+        case ContactType.phone:       return true   ;
+        case ContactType.email:       return true   ;
+        case ContactType.website:     return false   ;
+        case ContactType.facebook:    return false   ;
+        case ContactType.linkedIn:    return false   ;
+        case ContactType.youtube:     return false   ;
+        case ContactType.instagram:   return false   ;
+        case ContactType.pinterest:   return false   ;
+        case ContactType.tiktok:      return false   ;
+        case ContactType.twitter:     return false   ;
+        case ContactType.snapchat:    return false   ;
+        case ContactType.map:         return false   ;
+        case ContactType.appStore:    return false   ;
+        case ContactType.googlePlay:  return false   ;
+        case ContactType.appGallery:  return false   ;
         default: return false;
       }
     }
@@ -804,17 +884,21 @@ class ContactModel {
     /// USER CONTACTS
     if (ownerType == ContactsOwnerType.user){
       switch (contactType){
-        case ContactType.phone:      return false   ;
-        case ContactType.email:      return false   ;
-        case ContactType.website:    return true   ;
-        case ContactType.facebook:   return false   ;
-        case ContactType.linkedIn:   return false   ;
-        case ContactType.youtube:    return true   ;
-        case ContactType.instagram:  return false   ;
-        case ContactType.pinterest:  return true   ;
-        case ContactType.tiktok:     return true   ;
-        case ContactType.twitter:    return false   ;
-        case ContactType.snapchat:   return true   ;
+        case ContactType.phone:       return false   ;
+        case ContactType.email:       return false   ;
+        case ContactType.website:     return true   ;
+        case ContactType.facebook:    return false   ;
+        case ContactType.linkedIn:    return false   ;
+        case ContactType.youtube:     return true   ;
+        case ContactType.instagram:   return false   ;
+        case ContactType.pinterest:   return true   ;
+        case ContactType.tiktok:      return true   ;
+        case ContactType.twitter:     return false   ;
+        case ContactType.snapchat:    return true   ;
+        case ContactType.map:         return true   ;
+        case ContactType.appStore:    return true   ;
+        case ContactType.googlePlay:  return true   ;
+        case ContactType.appGallery:  return true   ;
         default: return true;
       }
     }
@@ -822,17 +906,21 @@ class ContactModel {
     /// BZ CONTACTS
     else if (ownerType == ContactsOwnerType.bz){
       switch (contactType){
-        case ContactType.phone:      return false   ;
-        case ContactType.email:      return false   ;
-        case ContactType.website:    return false   ;
-        case ContactType.facebook:   return false   ;
-        case ContactType.linkedIn:   return false   ;
-        case ContactType.youtube:    return false   ;
-        case ContactType.instagram:  return false   ;
-        case ContactType.pinterest:  return false   ;
-        case ContactType.tiktok:     return false   ;
-        case ContactType.twitter:    return false   ;
-        case ContactType.snapchat:   return false   ;
+        case ContactType.phone:       return false   ;
+        case ContactType.email:       return false   ;
+        case ContactType.website:     return false   ;
+        case ContactType.facebook:    return false   ;
+        case ContactType.linkedIn:    return false   ;
+        case ContactType.youtube:     return false   ;
+        case ContactType.instagram:   return false   ;
+        case ContactType.pinterest:   return false   ;
+        case ContactType.tiktok:      return false   ;
+        case ContactType.twitter:     return false   ;
+        case ContactType.snapchat:    return false   ;
+        case ContactType.map:         return false   ;
+        case ContactType.appStore:    return false   ;
+        case ContactType.googlePlay:  return false   ;
+        case ContactType.appGallery:  return false   ;
         default: return true;
       }
     }
@@ -840,17 +928,21 @@ class ContactModel {
     /// AUTHOR CONTACTS
     else {
       switch (contactType){
-        case ContactType.phone:      return false   ;
-        case ContactType.email:      return false   ;
-        case ContactType.website:    return false   ;
-        case ContactType.facebook:   return false   ;
-        case ContactType.linkedIn:   return false   ;
-        case ContactType.youtube:    return false   ;
-        case ContactType.instagram:  return false   ;
-        case ContactType.pinterest:  return false   ;
-        case ContactType.tiktok:     return false   ;
-        case ContactType.twitter:    return false   ;
-        case ContactType.snapchat:   return false   ;
+        case ContactType.phone:       return false   ;
+        case ContactType.email:       return false   ;
+        case ContactType.website:     return false   ;
+        case ContactType.facebook:    return false   ;
+        case ContactType.linkedIn:    return false   ;
+        case ContactType.youtube:     return false   ;
+        case ContactType.instagram:   return false   ;
+        case ContactType.pinterest:   return false   ;
+        case ContactType.tiktok:      return false   ;
+        case ContactType.twitter:     return false   ;
+        case ContactType.snapchat:    return false   ;
+        case ContactType.map:         return false   ;
+        case ContactType.appStore:    return true   ;
+        case ContactType.googlePlay:  return true   ;
+        case ContactType.appGallery:  return true   ;
         default: return true;
       }
     }
@@ -982,16 +1074,19 @@ class ContactModel {
 
       case ContactType.phone:     return false;
       case ContactType.email:     return false;
-      case ContactType.website:   return false;
-      case ContactType.facebook:  return true;
-      case ContactType.linkedIn:  return true;
-      case ContactType.youtube:   return true;
-      case ContactType.instagram: return true;
-      case ContactType.pinterest: return true;
-      case ContactType.tiktok:    return true;
-      case ContactType.twitter:   return true;
-      case ContactType.snapchat:  return true;
-
+      case ContactType.website:     return false;
+      case ContactType.facebook:    return true;
+      case ContactType.linkedIn:    return true;
+      case ContactType.youtube:     return true;
+      case ContactType.instagram:   return true;
+      case ContactType.pinterest:   return true;
+      case ContactType.tiktok:      return true;
+      case ContactType.twitter:     return true;
+      case ContactType.snapchat:    return true;
+      case ContactType.map:         return true;
+      case ContactType.appStore:    return true   ;
+      case ContactType.googlePlay:  return true   ;
+      case ContactType.appGallery:  return true   ;
       default: return false;
 
     }
@@ -1001,17 +1096,21 @@ class ContactModel {
   static bool checkIsWebLink(ContactType? type){
     switch (type) {
 
-      case ContactType.phone:     return false;
-      case ContactType.email:     return false;
-      case ContactType.website:   return true;
-      case ContactType.facebook:  return true;
-      case ContactType.linkedIn:  return true;
-      case ContactType.youtube:   return true;
-      case ContactType.instagram: return true;
-      case ContactType.pinterest: return true;
-      case ContactType.tiktok:    return true;
-      case ContactType.twitter:   return true;
-      case ContactType.snapchat:  return true;
+      case ContactType.phone:       return false;
+      case ContactType.email:       return false;
+      case ContactType.website:     return true;
+      case ContactType.facebook:    return true;
+      case ContactType.linkedIn:    return true;
+      case ContactType.youtube:     return true;
+      case ContactType.instagram:   return true;
+      case ContactType.pinterest:   return true;
+      case ContactType.tiktok:      return true;
+      case ContactType.twitter:     return true;
+      case ContactType.snapchat:    return true;
+      case ContactType.map:         return true;
+      case ContactType.appStore:    return true;
+      case ContactType.googlePlay:  return true;
+      case ContactType.appGallery:  return true;
 
       default: return false;
     }
@@ -1021,17 +1120,21 @@ class ContactModel {
   static bool checkShouldViewValue(ContactType? type){
     switch (type) {
 
-      case ContactType.phone:     return true;
-      case ContactType.email:     return true;
-      case ContactType.website:   return true;
-      case ContactType.facebook:  return false;
-      case ContactType.linkedIn:  return false;
-      case ContactType.youtube:   return false;
-      case ContactType.instagram: return false;
-      case ContactType.pinterest: return false;
-      case ContactType.tiktok:    return false;
-      case ContactType.twitter:   return false;
-      case ContactType.snapchat:  return false;
+      case ContactType.phone:       return true;
+      case ContactType.email:       return true;
+      case ContactType.website:     return true;
+      case ContactType.facebook:    return false;
+      case ContactType.linkedIn:    return false;
+      case ContactType.youtube:     return false;
+      case ContactType.instagram:   return false;
+      case ContactType.pinterest:   return false;
+      case ContactType.tiktok:      return false;
+      case ContactType.twitter:     return false;
+      case ContactType.snapchat:    return false;
+      case ContactType.map:         return false;
+      case ContactType.appStore:    return false;
+      case ContactType.googlePlay:  return false;
+      case ContactType.appGallery:  return false;
 
       default: return false;
     }
@@ -1065,7 +1168,11 @@ class ContactModel {
         case ContactType.pinterest:  _domain = 'pinterest'; break;
         case ContactType.tiktok:     _domain = 'tiktok.com'; break;
         case ContactType.twitter:    _domain = 'twitter.com'; break;
-        case ContactType.snapchat:    _domain = 'snapchat'; break;
+        case ContactType.snapchat:   _domain = 'snapchat'; break;
+        case ContactType.map:        _domain = '/maps'; break;
+        case ContactType.appStore:   _domain = 'apps.apple.com'; break;
+        case ContactType.googlePlay: _domain = 'play.google.com'; break;
+        case ContactType.appGallery: _domain = 'appgallery.huawei.com'; break;
         default:                     _domain = null;
       }
 
@@ -1121,6 +1228,23 @@ class ContactModel {
       else if (TextCheck.stringContainsSubString(string: url, subString: 'snapchat.com') == true){
         _output = ContactType.snapchat;
       }
+      else if (TextCheck.stringContainsSubString(string: url, subString: 'wa.me') == true){
+        _output = ContactType.phone;
+      }
+      else if (TextCheck.stringContainsSubString(string: url, subString: '/maps') == true){
+        _output = ContactType.map;
+      }
+
+      else if (TextCheck.stringContainsSubString(string: url, subString: 'apps.apple.com') == true){
+        _output = ContactType.appStore;
+      }
+      else if (TextCheck.stringContainsSubString(string: url, subString: 'play.google.com') == true){
+        _output = ContactType.googlePlay;
+      }
+      else if (TextCheck.stringContainsSubString(string: url, subString: 'appgallery.huawei.com') == true){
+        _output = ContactType.appGallery;
+      }
+
       else {
         _output = ContactType.website;
       }
@@ -1148,6 +1272,11 @@ class ContactModel {
       case ContactType.tiktok:     _phid = 'phid_tiktok_link_is_invalid'; break;
       case ContactType.twitter:    _phid = 'phid_twitter_link_is_invalid'; break;
       case ContactType.snapchat:   _phid = 'phid_snapchat_link_is_invalid'; break;
+      case ContactType.map:        _phid = 'phid_map_link_is_invalid'; break;
+
+      case ContactType.appStore:   _phid = 'phid_app_store_link_is_invalid'; break;
+      case ContactType.googlePlay: _phid = 'phid_google_play_link_is_invalid'; break;
+      case ContactType.appGallery: _phid = 'phid_app_gallery_is_invalid'; break;
       default:                     _phid = null;
     }
 

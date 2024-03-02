@@ -6,6 +6,7 @@ class InstaProfile {
   const InstaProfile({
     required this.id,
     required this.name,
+    required this.profileName,
     required this.logo,
     required this.contacts,
     required this.biography,
@@ -17,6 +18,7 @@ class InstaProfile {
   // --------------------
   final String id;
   final String? name;
+  final String? profileName;
   final String? logo;
   final String? biography;
   final int? followers;
@@ -33,6 +35,7 @@ class InstaProfile {
   InstaProfile copyWith({
     String? id,
     String? name,
+    String? profileName,
     String? logo,
     String? biography,
     int? followers,
@@ -42,6 +45,7 @@ class InstaProfile {
     return InstaProfile(
       id: id ?? this.id,
       name: name ?? this.name,
+      profileName: profileName ?? this.profileName,
       logo: logo ?? this.logo,
       contacts: contacts ?? this.contacts,
       biography: biography ?? this.biography,
@@ -67,12 +71,13 @@ class InstaProfile {
 
       if (_name != null){
 
-        final String? _website = map['business_discovery']?['website'];
-        final ContactType? _linkType = ContactModel.concludeContactTypeByURLDomain(url: _website);
+        final String? contact = map['business_discovery']?['website'];
+        final ContactType? _linkType = ContactModel.concludeContactTypeByURLDomain(url: contact);
 
         _output = InstaProfile(
           id: map['business_discovery']?['ig_id']?.toString() ?? 'x',
           name: map['business_discovery']?['name'],
+          profileName: map['profileName'],
           biography: map['business_discovery']?['biography'],
           followers: map['business_discovery']?['followers_count'],
           logo: map['business_discovery']?['profile_picture_url'],
@@ -88,11 +93,34 @@ class InstaProfile {
               value: url,
             ),
 
-            if (_website != null && _linkType != null && _linkType != ContactType.instagram)
+            if (
+                contact != null &&
+                _linkType != null &&
+                _linkType != ContactType.instagram &&
+                _linkType != ContactType.phone
+            )
               ContactModel(
                 type: _linkType,
-                value: _website,
+                value: contact,
               ),
+
+            if (
+                contact != null &&
+                _linkType != null &&
+                _linkType == ContactType.phone &&
+                TextCheck.stringContainsSubString(string: contact, subString: 'wa.me')
+            )
+              ContactModel(
+                type: _linkType,
+                value: TextMod.removeTextBeforeFirstSpecialCharacter(
+                    specialCharacter: '/',
+                    text: TextMod.removeTextBeforeFirstSpecialCharacter(
+                      specialCharacter: 'wa.me',
+                      text: contact,
+                    ),
+                ),
+              ),
+
 
           ],
         );
@@ -136,6 +164,7 @@ class InstaProfile {
       if (
         pro1.id == pro2.id &&
         pro1.name == pro2.name &&
+        pro1.profileName == pro2.profileName &&
         pro1.logo == pro2.logo &&
         ContactModel.checkContactsListsAreIdentical(contacts1: pro1.contacts, contacts2: pro2.contacts) == true &&
         pro1.biography == pro2.biography &&
@@ -162,6 +191,7 @@ class InstaProfile {
        InstaProfile(
           id: $id,
           name: $name,
+          profileName: $profileName,
           logo: $logo,
           contacts: $contacts,
           biography: $biography,
@@ -194,6 +224,7 @@ class InstaProfile {
   int get hashCode =>
       id.hashCode^
       name.hashCode^
+      profileName.hashCode^
       logo.hashCode^
       contacts.hashCode^
       biography.hashCode^
