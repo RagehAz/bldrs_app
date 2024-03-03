@@ -1466,7 +1466,6 @@ class _BzzFishTankManagerState extends State<BzzFishTankManager> {
                 itemCount: _theFishes.length,
                 padding: Stratosphere.getStratosphereSandwich(context: context, appBarType: AppBarType.search),
                 physics: const BouncingScrollPhysics(),
-                reverse: false,
                 itemBuilder: (_, int index){
 
                   final FishModel _fish = _theFishes.reversed.toList()[index];

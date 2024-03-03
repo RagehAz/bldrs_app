@@ -108,7 +108,7 @@ class PicFullScreen extends StatelessWidget {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> goToImageFullScreenByPath({
+  static Future<void> goToImageFullScreenByStoragePath({
     required String? path,
     required String? title,
   }) async {

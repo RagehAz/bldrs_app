@@ -1,9 +1,11 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/files/file_size_unit.dart';
 import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:ffmpeg_kit_flutter_min/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_min/ffmpeg_session.dart';
+import 'package:flutter/material.dart';
 import 'package:video_editor/video_editor.dart';
 import 'dart:io';
 import 'package:ffmpeg_kit_flutter_min/ffmpeg_kit_config.dart';
@@ -118,6 +120,63 @@ class VideoOps {
       ) ?? 0;
 
     return '$_size MB';
+  }
+  // --------------------------------------------------------------------------
+
+  /// STYLING
+
+  // --------------------
+  static CoverSelectionStyle getCoverStyle = const CoverSelectionStyle(
+      borderRadius: 0,
+      borderWidth: 1,
+      selectedBorderColor: Colorz.yellow255,
+    );
+  // --------------------
+  static CropGridStyle getCropStyle = const CropGridStyle(
+    // background: Colorz.black255,
+    croppingBackground: Colorz.black150,
+    /// CORNERS
+    boundariesColor: Colorz.white200,
+    selectedBoundariesColor: Colorz.yellow255,
+    boundariesLength: 10, /// CORNER LINE LENGTH
+    boundariesWidth: 2, /// CORNER LINE THICKNESS
+    ///GRID
+    // gridSize: 3, /// NUMBER OF GRID SECTIONS
+    // gridLineWidth: 1, /// GRID LINE THICKNESS
+    gridLineColor: Colorz.white125,
+  );
+  // --------------------
+  static TrimSliderStyle getTrimStyle = const TrimSliderStyle(
+    background: Colorz.black125,
+    borderRadius: 20,
+    /// SIDE EDGE
+    edgesSize: 25,
+    // edgesType: TrimSliderEdgesType.bar, /// THE SIDE EDGE STYLE : A DOT OR VERTICAL BAR
+    /// LINE
+    lineWidth: 1, /// TOP AND BOTTOM LINE THICKNESS
+    lineColor: Colorz.white255,
+    onTrimmedColor: Colorz.white255, /// WHEN TRIMMED
+    onTrimmingColor: Colorz.white255, /// WHILE TRIMMING
+    /// POSITION LINE
+    positionLineColor: Colorz.yellow255,
+    positionLineWidth: 15,
+    /// ICON
+    // iconColor: Colorz.black255,
+    iconSize: 25,
+    leftIcon: Icons.arrow_left,
+    rightIcon: Icons.arrow_right,
+  );
+  // --------------------------------------------------------------------------
+
+  /// FORMATTING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String formatDuration(Duration duration){
+    return [
+      duration.inMinutes.remainder(60).toString().padLeft(2, '0'),
+      duration.inSeconds.remainder(60).toString().padLeft(2, '0')
+    ].join(':');
   }
   // --------------------------------------------------------------------------
 

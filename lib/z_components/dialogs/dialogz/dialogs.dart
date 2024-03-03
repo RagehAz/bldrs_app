@@ -1393,7 +1393,7 @@ class Dialogs {
 
             final PicModel _pic = pics[index];
             final Dimensions _dims = Dimensions(width: _pic.meta?.width, height: _pic.meta?.height);
-            final double aspectRatio = _dims.getAspectRatio() ?? 1;
+            final double aspectRatio = _dims.getAspectRatio();
             final double _height = _flyerBoxHeight;
             final double _width = aspectRatio * _height;
 

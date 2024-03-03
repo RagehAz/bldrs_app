@@ -5,7 +5,6 @@ import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/components/drawing/super_positioned.dart';
 import 'package:basics/components/super_box/super_box.dart';
 import 'package:basics/helpers/checks/object_check.dart';
-import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/mediator/models/dimension_model.dart';

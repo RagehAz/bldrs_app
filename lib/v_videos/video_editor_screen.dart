@@ -3,20 +3,25 @@ import 'dart:typed_data';
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/components/drawing/expander.dart';
+import 'package:basics/components/super_box/super_box.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/files/file_size_unit.dart';
 import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/panel_circle_button.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/g_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/i_gt_insta_screen/src/screens/video_player_screen.dart';
 import 'package:bldrs/v_videos/trim_video_screen.dart';
@@ -26,7 +31,9 @@ import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/notes/x_components/red_dot_badge.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 import 'package:video_editor/video_editor.dart';
@@ -101,6 +108,30 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     _videoEditorController?.dispose();
     super.dispose();
   }
+  // --------------------
+  String? _activeButton;
+  // --------------------
+  static const String _trimButton = 'trim';
+  static const String _cropButton = 'crop';
+  static const String _coverButton = 'cover';
+  // --------------------
+  void _setActiveButton(String? button){
+
+    if (_activeButton == button){
+      if (_activeButton != null){
+        setState(() {
+          _activeButton = null;
+        });
+      }
+    }
+
+    else {
+      setState(() {
+        _activeButton = button;
+      });
+    }
+
+  }
   // -----------------------------------------------------------------------------
   File? _videoFile;
   // --------------------
@@ -110,6 +141,11 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
       file,
       minDuration: const Duration(seconds: 1),
       maxDuration: const Duration(seconds: 10),
+      coverStyle: VideoOps.getCoverStyle,
+      coverThumbnailsQuality: 100,
+      cropStyle: VideoOps.getCropStyle,
+      trimStyle: VideoOps.getTrimStyle,
+      trimThumbnailsQuality: 100,
     );
 
     // await _videoEditorController?.initialize();
@@ -174,22 +210,11 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
   }
   // --------------------
-  bool _isTrimming = false;
-  Future<void> _triggerIsTrimming() async {
+  Future<void> _onRotateVideo() async {
 
-    setState(() {
-      _isCropping = false;
-      _isTrimming = !_isTrimming;
-    });
+    _setActiveButton(null);
+    _videoEditorController?.rotate90Degrees(RotateDirection.left);
 
-  }
-  // --------------------
-  bool _isCropping = false;
-  Future<void> _triggerIsCropping() async {
-    setState(() {
-      _isTrimming = false;
-      _isCropping = !_isCropping;
-    });
   }
   // --------------------
   Future<void> _resizeVideo() async {}
@@ -228,31 +253,28 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     // --------------------
     const double _panelHeight = 70;
     const double _buttonSize = _panelHeight - 5;
-    const double _editorBarHeight = 70;
+    const double _editorBarHeight = 80;
     final double _bodyHeight = Scale.screenHeight(context) - _panelHeight - _editorBarHeight;
     final double _screenWidth = Scale.screenWidth(context);
     final double _videoHeight = _bodyHeight - Stratosphere.smallAppBarStratosphere - 10;
     // --------------------
     final bool _isInitialized = Mapper.boolIsTrue(_videoEditorController?.initialized);
+    // final double _videoWidth = _videoEditorController?.
     // --------------------
     return MainLayout(
       canSwipeBack: false,
+      canGoBack: false,
       loading: _loading,
       title: Verse.plain('Video Editor'),
       appBarRowWidgets: <Widget>[
 
+        /// MORE
         AppBarButton(
           icon: Iconz.more,
           onTap: () async {
 
-            blog('w ba3den ?');
-
-            // VideoOps.blogVideoEditorController(
-            //   controller: _videoEditorController,
-            // );
-
             await BottomDialog.showButtonsBottomDialog(
-              numberOfWidgets: 4,
+              numberOfWidgets: 7,
                 buttonHeight: 30,
                 // titleVerse: Verse.plain('Stuff'),
                 builder: (_, __){
@@ -262,6 +284,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                   /// BLOG CONTROLLER
                   BottomDialog.wideButton(
                     verse: Verse.plain('Blog controller'),
+                    icon: Icons.print,
                     onTap: () async {
 
                       VideoOps.blogVideoEditorController(
@@ -273,17 +296,19 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
                   /// UPDATE TRIM
                   BottomDialog.wideButton(
-                    verse: Verse.plain('update trim'),
+                    verse: Verse.plain('trim to first half duration'),
+                    icon: Icons.cut,
                     onTap: () async {
 
-                      _videoEditorController?.updateTrim(0.5, 1);
+                      _videoEditorController?.updateTrim(0, 0.5);
 
                     },
                   ),
 
                   /// CROP ASPECT RATIO
                   BottomDialog.wideButton(
-                    verse: Verse.plain('crop Aspect Ratio'),
+                    verse: Verse.plain('crop Aspect Ratio to 1'),
+                    icon: Icons.aspect_ratio,
                     onTap: () async {
                       _videoEditorController?.cropAspectRatio(1);
                     },
@@ -292,6 +317,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                   /// PLAY FILE IN PLAYER
                   BottomDialog.wideButton(
                     verse: Verse.plain('Play file in player'),
+                    icon: Iconz.play,
                     onTap: () async {
                       final File? _file = _videoEditorController?.file;
                       await Keyboard.copyToClipboardAndNotify(copy: _file?.path);
@@ -302,6 +328,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                   /// GET DIMENSIONS
                   BottomDialog.wideButton(
                     verse: Verse.plain('Get Dimensions'),
+                    icon: Icons.photo_size_select_large_sharp,
                     onTap: () async {
 
                       final Dimensions? _dims = VideoOps.getVideoDimensions(
@@ -317,6 +344,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                   /// FILE SIZE IN KB
                   BottomDialog.wideButton(
                     verse: Verse.plain('Get file size in KB'),
+                    icon: 'Mb',
                     onTap: () async {
 
                       final double?  _kb = VideoOps.getFileSize(
@@ -336,9 +364,10 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
                   // await VideoDialog.push(file: file);
 
-                  /// PUSH DIALOG
+                  /// PUSH VIDEO DIALOG
                   BottomDialog.wideButton(
-                    verse: Verse.plain('Push Video dialog'),
+                    verse: Verse.plain('Push original Video dialog'),
+                    icon: Icons.play_circle_outlined,
                     onTap: () async {
 
                       await VideoDialog.push(file: _videoEditorController?.file);
@@ -346,12 +375,75 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                     },
                   ),
 
-                  /// DO THING
+                  /// EXPORT COVER
                   BottomDialog.wideButton(
-                    verse: Verse.plain('Do a thingx'),
+                    verse: Verse.plain('Export cover'),
+                    icon: Icons.import_export,
                     onTap: () async {
 
-                      _videoEditorController?.setPreferredRatioFromCrop();
+                      void _showErrorSnackBar(String message) =>
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(message),
+                              duration: const Duration(seconds: 1),
+                            ),
+                          );
+
+                      _showErrorSnackBar('wtf');
+
+                      final CoverFFmpegVideoEditorConfig config = CoverFFmpegVideoEditorConfig(_videoEditorController!);
+                      final FFmpegVideoEditorExecute? execute = await config.getExecuteConfig();
+                      if (execute == null) {
+                        _showErrorSnackBar('Error on cover exportation initialization.');
+                        return;
+                      }
+
+                      await VideoOps.runFFmpegCommand(
+                        execute: execute,
+                        onError: (e, s) => _showErrorSnackBar('Error on cover exportation :('),
+                        onCompleted: (File cover) async {
+
+                          Filers.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
+                          Filers.blogFile(file: cover, invoker: 'the Cover');
+
+                          if (mounted == true){
+
+                            // await showDialog(
+                            //   context: context,
+                            //   builder: (_) => CoverResultPopup(cover: cover),
+                            // );
+
+                            final Dimensions? _dims = await Dimensions.superDimensions(cover);
+
+                            await PicFullScreen.goToImageFullScreenByBytes(
+                              bytes: cover.readAsBytesSync(),
+                              title: cover.path,
+                              dims: _dims!,
+                            );
+
+                          }
+
+                        },
+                      );
+
+                    },
+                  ),
+
+                  /// SHOW SNACK BAR
+                  BottomDialog.wideButton(
+                    verse: Verse.plain('Show Snack bar'),
+                    icon: Icons.check_box_outline_blank_sharp,
+                    onTap: () async {
+
+                      void _showErrorSnackBar(String message) =>
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(message),
+                              duration: const Duration(seconds: 1),
+                            ),
+                          );
+
+                      _showErrorSnackBar('wtf');
 
                     },
                   ),
@@ -368,7 +460,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
       child: Column(
         children: <Widget>[
 
-          /// VIDEO
+          /// VIDEO AREA
           SizedBox(
             width: _screenWidth,
             height: _bodyHeight,
@@ -379,48 +471,119 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
                 const Stratosphere(),
 
-
-                // if (_videoFile != null)
-                // SuperVideoPlayer(
-                //   file: _videoFile,
-                //   width: _screenWidth,
-                // ),
-
-                /// VIEWING
-                if (_isInitialized == true && _isCropping == false)
+                /// VIDEO AREA
+                if (_isInitialized == true)
                   SizedBox(
                     height: _videoHeight,
-                    child: CropGridViewer.preview(
-                        controller: _videoEditorController!
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+
+                        // if (_videoFile != null)
+                        // SuperVideoPlayer(
+                        //   file: _videoFile,
+                        //   width: _screenWidth,
+                        // ),
+
+                        /// VIEWING
+                        if (_activeButton != _cropButton && _activeButton != _coverButton)
+                          SizedBox(
+                            height: _videoHeight,
+                            child: CropGridViewer.preview(
+                                controller: _videoEditorController!
+                            ),
+                          ),
+
+                        /// CROPPING
+                        if (_activeButton == _cropButton)
+                          SizedBox(
+                            height: _videoHeight,
+                            child: CropGridViewer.edit(
+                              controller: _videoEditorController!,
+                              // rotateCropArea: true,
+                            ),
+                          ),
+
+                        /// COVER
+                        if (_activeButton == _coverButton)
+                          SizedBox(
+                            height: _videoHeight,
+                            child: CoverViewer(controller: _videoEditorController!),
+                          ),
+
+                        /// PLAY ICON
+                        if (_activeButton != _cropButton && _activeButton != _coverButton)
+                        Center(
+                          child: AnimatedBuilder(
+                            animation: _videoEditorController!.video,
+                            builder: (_, __) => WidgetFader(
+                              fadeType: _videoEditorController!.isPlaying ? FadeType.fadeOut : FadeType.fadeIn,
+                              duration: const Duration(milliseconds: 100),
+                              ignorePointer: _videoEditorController!.isPlaying,
+                              child: SuperBox(
+                                height: _screenWidth * 0.3,
+                                width: _screenWidth * 0.3,
+                                icon: Iconz.play,
+                                bubble: false,
+                                opacity: 0.5,
+                                onTap: _videoEditorController!.video.play,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        /// START - FINISH - TEXT
+                        AnimatedBuilder(
+                            animation: Listenable.merge([
+                              _videoEditorController,
+                              _videoEditorController!.video,
+                            ]),
+                            builder: (_, __) {
+
+                            final String _start = VideoOps.formatDuration(_videoEditorController!.startTrim);
+                            final String _end = VideoOps.formatDuration(_videoEditorController!.endTrim);
+                            final int duration = _videoEditorController!.videoDuration.inSeconds;
+                            final double pos = _videoEditorController!.trimPosition * duration;
+                            final String _current = VideoOps.formatDuration(Duration(seconds: pos.toInt()));
+                            final double? _size = Filers.getFileSizeWithUnit(
+                                file: _videoEditorController!.file,
+                                unit: FileSizeUnit.megaByte,
+                            );
+
+                            return Align(
+                              alignment: Alignment.topCenter,
+                              child: BldrsText(
+                                verse: Verse.plain('$_start | $_end \n$_current\n$_size Mb'),
+                                maxLines: 3,
+                                labelColor: Colorz.black125,
+                                weight: VerseWeight.thin,
+                                margin: 10,
+                              ),
+                            );
+                          }
+                        ),
+
+                      ],
                     ),
                   ),
 
-                /// CROPPING
-                if (_isInitialized == true && _isCropping == true)
-                  SizedBox(
-                    height: _videoHeight,
-                    child: CropGridViewer.edit(
-                      controller: _videoEditorController!,
-                      // rotateCropArea: true,
-                    ),
-                  ),
 
               ],
             ),
           ),
 
-          if (_isTrimming == false)
+          // if (_isTrimming == false)
             const Expander(),
 
           /// TRIM BAR
-          if (_isTrimming == true && Mapper.boolIsTrue(_videoEditorController?.initialized) == true)
+          if (_isInitialized == true && _activeButton == _trimButton)
           Container(
             width: _screenWidth - 40,
             height: _editorBarHeight,
-            color: Colorz.bloodTest,
+            color: Colorz.black255,
             child: TrimSlider(
               controller: _videoEditorController!,
-              height: _editorBarHeight-20,
+              // height: _editorBarHeight-20,
               horizontalMargin: 30,
               child: TrimTimeline(
                 controller: _videoEditorController!,
@@ -430,7 +593,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
           ),
 
           /// CROP BAR
-          if (_isCropping == true && Mapper.boolIsTrue(_videoEditorController?.initialized) == true)
+          if (_isInitialized == true && _activeButton == _cropButton)
             FloatingList(
               width: _screenWidth,
               height: _editorBarHeight,
@@ -478,10 +641,44 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                   onTap: (){
 
                     _videoEditorController?.applyCacheCrop();
-                    setState(() {
-                      _isCropping = false;
-                    });
                     // _videoEditorController?.updateCrop(const Offset(0.2, 0.2), const Offset(0.8, 0.8));
+                    _setActiveButton(null);
+
+                  },
+                ),
+
+              ],
+            ),
+
+          /// COVERS SELECTION BAR
+          if (_isInitialized == true && _activeButton == _coverButton)
+            FloatingList(
+              width: _screenWidth,
+              height: _editorBarHeight,
+              boxColor: Colorz.black255,
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              columnChildren: [
+
+                CoverSelection(
+                  controller: _videoEditorController!,
+                  // size: _editorBarHeight - 20,
+                  quantity: 12,
+                  wrap: Wrap(
+                    spacing: 5,
+                    runSpacing: 5,
+                    textDirection: UiProvider.getAppTextDir(),
+                  ),
+                  selectedCoverBuilder: (cover, size) {
+
+                    return RedDotBadge(
+                      redDotIsOn: true,
+                      shrinkChild: true,
+                      approxChildWidth: size.width,
+                      isNano: true,
+                      color: Colorz.yellow255,
+                      child: cover,
+                    );
 
                   },
                 ),
@@ -496,6 +693,15 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
             boxColor: Colorz.blue20,
             scrollDirection: Axis.horizontal,
             columnChildren: <Widget>[
+
+              /// GO BACK
+              PanelCircleButton(
+                size: _buttonSize,
+                icon: Iconz.arrowWhiteLeft,
+                verse: Verse.plain('Back'),
+                isSelected: false,
+                onTap: () => Nav.goBack(context: context),
+              ),
 
               /// PICK
               PanelCircleButton(
@@ -520,18 +726,35 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                 size: _buttonSize,
                 icon: Icons.cut,
                 verse: Verse.plain('Trim'),
-                isSelected: _isTrimming,
-                onTap: _triggerIsTrimming,
+                isSelected: _activeButton == _trimButton,
+                onTap: () => _setActiveButton(_trimButton),
               ),
-
 
               /// CROP
               PanelCircleButton(
                 size: _buttonSize,
                 icon: Iconz.crop,
                 verse: Verse.plain('Crop'),
-                isSelected: _isCropping,
-                onTap: _triggerIsCropping,
+                isSelected: _activeButton == _cropButton,
+                onTap: () => _setActiveButton(_cropButton),
+              ),
+
+              /// ROTATE
+              PanelCircleButton(
+                size: _buttonSize,
+                icon: Icons.rotate_left,
+                verse: Verse.plain('Rotate'),
+                isSelected: false,
+                onTap: _onRotateVideo,
+              ),
+
+              /// COVER
+              PanelCircleButton(
+                size: _buttonSize,
+                icon: Icons.image_rounded,
+                verse: Verse.plain('Cover'),
+                isSelected: _activeButton == _coverButton,
+                onTap: () => _setActiveButton(_coverButton),
               ),
 
               /// RESIZE

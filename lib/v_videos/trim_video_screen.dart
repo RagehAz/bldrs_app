@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs/v_videos/crop_page.dart';
 import 'package:bldrs/v_videos/video_dialog.dart';
 import 'package:bldrs/v_videos/video_ops.dart';
 import 'package:bldrs/v_videos/video_result.dart';
@@ -64,11 +63,6 @@ class _TrimScreenState extends State<TrimScreen> {
   final ValueNotifier<bool> _isExporting = ValueNotifier<bool>(false);
   // --------------------------------------------------------------------------
   final double height = 60;
-  // --------------------
-  String formatter(Duration duration) => [
-    duration.inMinutes.remainder(60).toString().padLeft(2, '0'),
-    duration.inSeconds.remainder(60).toString().padLeft(2, '0')
-  ].join(':');
   // --------------------
   /// Basic export video function
   Future<void> exportVideo() async {
@@ -213,6 +207,7 @@ class _TrimScreenState extends State<TrimScreen> {
                     child: Row(
                       children: [
 
+                        /// EXIT
                         Expanded(
                           child: IconButton(
                             onPressed: () => Navigator.of(context).pop(),
@@ -220,39 +215,6 @@ class _TrimScreenState extends State<TrimScreen> {
                             tooltip: 'Leave editor',
                           ),
                         ),
-
-                        const VerticalDivider(endIndent: 22, indent: 22),
-
-                        Expanded(
-                          child: IconButton(
-                            onPressed: () => _videoEditorController.rotate90Degrees(RotateDirection.left),
-                            icon: const Icon(Icons.rotate_left),
-                            tooltip: 'Rotate unclockwise',
-                          ),
-                        ),
-
-                        Expanded(
-                          child: IconButton(
-                            onPressed: () => _videoEditorController.rotate90Degrees(RotateDirection.right),
-                            icon: const Icon(Icons.rotate_right),
-                            tooltip: 'Rotate clockwise',
-                          ),
-                        ),
-
-                        Expanded(
-                          child: IconButton(
-                            onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute<void>(
-                                builder: (context) => CropPage(controller: _videoEditorController),
-                              ),
-                            ),
-                            icon: const Icon(Icons.crop),
-                            tooltip: 'Open crop screen',
-                          ),
-                        ),
-
-                        const VerticalDivider(endIndent: 22, indent: 22),
 
                         Expanded(
                           child: PopupMenuButton(
@@ -407,7 +369,7 @@ class _TrimScreenState extends State<TrimScreen> {
                                               padding: EdgeInsets.symmetric(horizontal: height / 4),
                                               child: Row(children: [
 
-                                                Text(formatter(Duration(seconds: pos.toInt()))),
+                                                Text(VideoOps.formatDuration(Duration(seconds: pos.toInt()))),
 
                                                 const Expanded(child: SizedBox()),
 
@@ -416,11 +378,11 @@ class _TrimScreenState extends State<TrimScreen> {
                                                   duration: kThemeAnimationDuration,
                                                   child: Row(mainAxisSize: MainAxisSize.min, children: [
 
-                                                    Text(formatter(_videoEditorController.startTrim)),
+                                                    Text(VideoOps.formatDuration(_videoEditorController.startTrim)),
 
                                                     const SizedBox(width: 10),
 
-                                                    Text(formatter(_videoEditorController.endTrim)),
+                                                    Text(VideoOps.formatDuration(_videoEditorController.endTrim)),
 
                                                   ]),
                                                 ),
@@ -473,6 +435,7 @@ class _TrimScreenState extends State<TrimScreen> {
 
                                                 ],
                                               );
+
                                             },
                                           ),
                                         ),
@@ -482,6 +445,7 @@ class _TrimScreenState extends State<TrimScreen> {
                                   ],
                                 ),
                               ),
+
                             ],
                           ),
                         ),
