@@ -35,7 +35,7 @@ class NotePosterBox extends StatelessWidget {
   // --------
   /// TESTED : WORKS PERFECT
   static double getAspectRatio(){
-    return Standards.posterDimensions.getAspectRatio()!;
+    return Standards.posterDimensions.getAspectRatio();
   }
   // --------------------
 

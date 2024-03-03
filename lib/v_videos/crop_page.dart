@@ -130,31 +130,15 @@ class CropPage extends StatelessWidget {
                                     /// portrait
                                     IconButton(
                                       onPressed: () =>
-                                      controller.preferredCropAspectRatio = controller
-                                          .preferredCropAspectRatio
-                                          ?.toFraction()
-                                          .inverse()
-                                          .toDouble(),
-                                      icon: controller.preferredCropAspectRatio != null &&
-                                          controller.preferredCropAspectRatio! < 1
-                                          ? const Icon(
-                                          Icons.panorama_vertical_select_rounded)
-                                          : const Icon(Icons.panorama_vertical_rounded),
+                                      controller.preferredCropAspectRatio = controller.preferredCropAspectRatio?.toFraction().inverse().toDouble(),
+                                      icon: controller.preferredCropAspectRatio != null && controller.preferredCropAspectRatio! < 1 ? const Icon(Icons.panorama_vertical_select_rounded) : const Icon(Icons.panorama_vertical_rounded),
                                     ),
 
                                     /// landscape
                                     IconButton(
                                       onPressed: () =>
-                                      controller.preferredCropAspectRatio = controller
-                                          .preferredCropAspectRatio
-                                          ?.toFraction()
-                                          .inverse()
-                                          .toDouble(),
-                                      icon: controller.preferredCropAspectRatio != null &&
-                                          controller.preferredCropAspectRatio! > 1
-                                          ? const Icon(
-                                          Icons.panorama_horizontal_select_rounded)
-                                          : const Icon(Icons.panorama_horizontal_rounded),
+                                      controller.preferredCropAspectRatio = controller.preferredCropAspectRatio?.toFraction().inverse().toDouble(),
+                                      icon: controller.preferredCropAspectRatio != null && controller.preferredCropAspectRatio! > 1 ? const Icon(Icons.panorama_horizontal_select_rounded) : const Icon(Icons.panorama_horizontal_rounded),
                                     ),
 
                                   ],

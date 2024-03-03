@@ -22,6 +22,7 @@ import 'package:bldrs/i_gt_insta_screen/src/screens/video_player_screen.dart';
 import 'package:bldrs/v_videos/trim_video_screen.dart';
 import 'package:bldrs/v_videos/video_dialog.dart';
 import 'package:bldrs/v_videos/video_ops.dart';
+import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
@@ -101,7 +102,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-
+  File? _videoFile;
+  // --------------------
   void _setVideo(File file){
 
     _videoEditorController = VideoEditorController.file(
@@ -122,8 +124,6 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
 
   }
-
-  File? _videoFile;
   // --------------------
   Future<void> _picVideoFromGallery() async {
 
@@ -152,17 +152,45 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
   }
   // --------------------
-  Future<void> _picVideoFromCamera() async {}
+  Future<void> _picVideoFromCamera() async {
+
+    final File? _file = await PicMaker.shootCameraVideo(
+      context: context,
+      langCode: Localizer.getCurrentLangCode(),
+      onPermissionPermanentlyDenied: BldrsPicMaker.onPermissionPermanentlyDenied,
+      onError: BldrsPicMaker.onPickingError,
+    );
+
+    if (_file != null){
+
+      blog('setting the video bitch');
+      setState(() {
+        _videoFile = _file;
+      });
+
+      _setVideo(_videoFile!);
+
+    }
+
+  }
   // --------------------
-  Future<void> _trimVideo() async {
+  bool _isTrimming = false;
+  Future<void> _triggerIsTrimming() async {
 
     setState(() {
+      _isCropping = false;
       _isTrimming = !_isTrimming;
     });
 
   }
   // --------------------
-  Future<void> _cropVideo() async {}
+  bool _isCropping = false;
+  Future<void> _triggerIsCropping() async {
+    setState(() {
+      _isTrimming = false;
+      _isCropping = !_isCropping;
+    });
+  }
   // --------------------
   Future<void> _resizeVideo() async {}
   // --------------------
@@ -195,8 +223,6 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     }
   }
   // -----------------------------------------------------------------------------
-  bool _isTrimming = false;
-  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -205,6 +231,9 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     const double _editorBarHeight = 70;
     final double _bodyHeight = Scale.screenHeight(context) - _panelHeight - _editorBarHeight;
     final double _screenWidth = Scale.screenWidth(context);
+    final double _videoHeight = _bodyHeight - Stratosphere.smallAppBarStratosphere - 10;
+    // --------------------
+    final bool _isInitialized = Mapper.boolIsTrue(_videoEditorController?.initialized);
     // --------------------
     return MainLayout(
       canSwipeBack: false,
@@ -223,12 +252,24 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
             // );
 
             await BottomDialog.showButtonsBottomDialog(
-              numberOfWidgets: 2,
+              numberOfWidgets: 4,
                 buttonHeight: 30,
                 // titleVerse: Verse.plain('Stuff'),
                 builder: (_, __){
 
-                return [
+                return <Widget>[
+
+                  /// BLOG CONTROLLER
+                  BottomDialog.wideButton(
+                    verse: Verse.plain('Blog controller'),
+                    onTap: () async {
+
+                      VideoOps.blogVideoEditorController(
+                          controller: _videoEditorController,
+                      );
+
+                    },
+                  ),
 
                   /// UPDATE TRIM
                   BottomDialog.wideButton(
@@ -305,6 +346,16 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                     },
                   ),
 
+                  /// DO THING
+                  BottomDialog.wideButton(
+                    verse: Verse.plain('Do a thingx'),
+                    onTap: () async {
+
+                      _videoEditorController?.setPreferredRatioFromCrop();
+
+                    },
+                  ),
+
                 ];
 
                 },
@@ -335,11 +386,22 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                 //   width: _screenWidth,
                 // ),
 
-                if (Mapper.boolIsTrue(_videoEditorController?.initialized) == true)
+                /// VIEWING
+                if (_isInitialized == true && _isCropping == false)
                   SizedBox(
-                    height: _bodyHeight - Stratosphere.smallAppBarStratosphere - 10,
+                    height: _videoHeight,
                     child: CropGridViewer.preview(
                         controller: _videoEditorController!
+                    ),
+                  ),
+
+                /// CROPPING
+                if (_isInitialized == true && _isCropping == true)
+                  SizedBox(
+                    height: _videoHeight,
+                    child: CropGridViewer.edit(
+                      controller: _videoEditorController!,
+                      // rotateCropArea: true,
                     ),
                   ),
 
@@ -353,19 +415,79 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
           /// TRIM BAR
           if (_isTrimming == true && Mapper.boolIsTrue(_videoEditorController?.initialized) == true)
           Container(
-            width: _screenWidth,
+            width: _screenWidth - 40,
             height: _editorBarHeight,
             color: Colorz.bloodTest,
             child: TrimSlider(
               controller: _videoEditorController!,
               height: _editorBarHeight-20,
-              horizontalMargin: 10,
+              horizontalMargin: 30,
               child: TrimTimeline(
                 controller: _videoEditorController!,
                 // padding: const EdgeInsets.only(top: 10),
               ),
             ),
           ),
+
+          /// CROP BAR
+          if (_isCropping == true && Mapper.boolIsTrue(_videoEditorController?.initialized) == true)
+            FloatingList(
+              width: _screenWidth,
+              height: _editorBarHeight,
+              boxColor: Colorz.bloodTest,
+              scrollDirection: Axis.horizontal,
+              columnChildren: [
+
+                /// FREE
+                BldrsBox(
+                  height: _editorBarHeight - 10,
+                  width: 100,
+                  verse: Verse.plain('Free'),
+                  onTap: (){
+                    _videoEditorController?.cropAspectRatio(null);
+                  },
+                ),
+
+                /// 1 / 1
+                BldrsBox(
+                  height: _editorBarHeight - 10,
+                  width: 100,
+                  verse: Verse.plain('1/1'),
+                  onTap: (){
+                    _videoEditorController?.cropAspectRatio(1);
+                  },
+                ),
+
+                /// 16 / 9
+                BldrsBox(
+                  height: _editorBarHeight - 10,
+                  width: 100,
+                  verse: Verse.plain('16/9'),
+                  // bubble: true,
+                  onTap: (){
+                    _videoEditorController?.cropAspectRatio(16/9);
+                  },
+                ),
+
+                /// CONFIRM CROP
+                BldrsBox(
+                  height: _editorBarHeight - 10,
+                  width: 100,
+                  verse: Verse.plain('Crop'),
+                  // bubble: true,
+                  onTap: (){
+
+                    _videoEditorController?.applyCacheCrop();
+                    setState(() {
+                      _isCropping = false;
+                    });
+                    // _videoEditorController?.updateCrop(const Offset(0.2, 0.2), const Offset(0.8, 0.8));
+
+                  },
+                ),
+
+              ],
+            ),
 
           /// BOTTOM BAR
           FloatingList(
@@ -399,7 +521,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                 icon: Icons.cut,
                 verse: Verse.plain('Trim'),
                 isSelected: _isTrimming,
-                onTap: _trimVideo,
+                onTap: _triggerIsTrimming,
               ),
 
 
@@ -408,8 +530,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                 size: _buttonSize,
                 icon: Iconz.crop,
                 verse: Verse.plain('Crop'),
-                isSelected: false,
-                onTap: () async {},
+                isSelected: _isCropping,
+                onTap: _triggerIsCropping,
               ),
 
               /// RESIZE

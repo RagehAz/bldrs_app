@@ -5,6 +5,7 @@ import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/components/drawing/super_positioned.dart';
 import 'package:basics/components/super_box/super_box.dart';
 import 'package:basics/helpers/checks/object_check.dart';
+import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
@@ -109,9 +110,9 @@ class _VideoDialogState extends State<VideoDialog> {
   @override
   Widget build(BuildContext context) {
 
-    final double _aspectRatio = _dimensions.getAspectRatio() ?? 0;
+    final double _aspectRatio = _dimensions.getAspectRatio();
 
-    if (_aspectRatio == 0){
+    if (_aspectRatio <= 0){
       return const SizedBox();
     }
 
@@ -129,6 +130,7 @@ class _VideoDialogState extends State<VideoDialog> {
                 children: <Widget>[
 
                   /// GRAPHIC
+                  if (_aspectRatio > 0)
                   AspectRatio(
                     aspectRatio: _aspectRatio,
                     child: _isGif ? Image.file(widget.video) : VideoPlayer(_controller!),
