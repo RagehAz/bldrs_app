@@ -3,8 +3,11 @@ import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/files/file_size_unit.dart';
 import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:ffmpeg_kit_flutter_min/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_min/ffmpeg_session.dart';
+import 'package:ffmpeg_kit_flutter_min/session_state.dart';
 import 'package:flutter/material.dart';
 import 'package:video_editor/video_editor.dart';
 import 'dart:io';
@@ -17,6 +20,44 @@ class VideoOps {
 
   const VideoOps();
 
+  // --------------------------------------------------------------------------
+
+  /// INITIALIZATION
+
+  // --------------------
+  ///
+  static Future<VideoEditorController?> initializeVideoEditorController({
+    required File? file,
+    double aspectRatio = 9 / 16,
+    Function(String error)? onError,
+  }) async {
+    VideoEditorController? _controller;
+
+    if (file != null){
+
+      _controller = VideoEditorController.file(
+        file,
+        minDuration: const Duration(seconds: 1),
+        maxDuration: const Duration(seconds: 10),
+        coverStyle: VideoOps.getCoverStyle,
+        coverThumbnailsQuality: 100,
+        cropStyle: VideoOps.getCropStyle,
+        trimStyle: VideoOps.getTrimStyle,
+        trimThumbnailsQuality: 100,
+      );
+
+      await _controller.initialize(aspectRatio: aspectRatio).catchError(
+            (error) {
+              onError?.call(error);
+              // handle minimum duration bigger than video duration error
+            },
+        test: (e) => e is VideoMinDurationError,
+      );
+
+    }
+
+    return _controller;
+  }
   // --------------------------------------------------------------------------
 
   /// DISPOSE
@@ -35,39 +76,194 @@ class VideoOps {
 
   // --------------------
   /// TAKEN METHOD
-  static Future<FFmpegSession> runFFmpegCommand({
+  static Future<FFmpegSession> executeFFmpeg({
     required FFmpegVideoEditorExecute execute,
     required void Function(File file) onCompleted,
-    void Function(Object, StackTrace)? onError,
+    void Function(String, StackTrace)? onError,
     void Function(Statistics)? onProgress,
-  }) {
+  }) async {
 
-    blog('FFmpeg start process with command = ${execute.command}');
-
-    return FFmpegKit.executeAsync(
+    final FFmpegSession _session = await FFmpegKit.executeAsync(
       execute.command,
-          (session) async {
-
-        final String state = FFmpegKitConfig.sessionStateToString(await session.getState());
-        final ReturnCode? code = await session.getReturnCode();
-
-        if (ReturnCode.isSuccess(code)) {
-          onCompleted(File(execute.outputPath));
-        }
-
-        else {
-          if (onError != null) {
-            onError(Exception('FFmpeg process exited with state $state and return code $code.\n${await session.getOutput()}'),
-              StackTrace.current,
-            );
-          }
-          return;
-        }
-      },
-      null,
+      (session) => _executionCompletionCallBack(
+        execute: execute,
+        onCompleted: onCompleted,
+        onError: onError,
+        session: session,
+      ),
+      null, // logCallBack
       onProgress,
     );
 
+    return _session;
+  }
+  // --------------------
+  /// TAKEN METHOD
+  static Future<void> _executionCompletionCallBack({
+    required FFmpegVideoEditorExecute execute,
+    required FFmpegSession session,
+    required Function(File file) onCompleted,
+    required void Function(String error, StackTrace trace)? onError,
+  })async {
+
+    final SessionState _theState = await session.getState();
+    final String _state = FFmpegKitConfig.sessionStateToString(_theState);
+    final ReturnCode? _code = await session.getReturnCode();
+
+    if (ReturnCode.isSuccess(_code) == true) {
+      onCompleted(File(execute.outputPath));
+    }
+
+    else if (onError != null) {
+      final String? x = await session.getOutput();
+      final String _error = 'FFmpeg process exited with _state $_state and return _code $_code.\n$x';
+      onError(_error, StackTrace.current);
+    }
+
+  }
+  // --------------------------------------------------------------------------
+
+  /// EXPORTING
+
+  // --------------------
+  /// TAKEN METHOD
+  static Future<File?> exportVideo({
+    required VideoEditorController? videoEditorController,
+    void Function(Statistics progress, VideoFFmpegVideoEditorConfig config)? onProgress,
+    VideoExportFormat format = VideoExportFormat.mp4,
+    String? fileName,
+    String? outputDirectory,
+    double scale = 1,
+  }) async {
+    File? _output;
+
+    if (videoEditorController != null){
+
+      final VideoFFmpegVideoEditorConfig config = VideoFFmpegVideoEditorConfig(
+        videoEditorController,
+        format: format, // DEFAULT
+        name: fileName,
+        outputDirectory: outputDirectory,
+        scale: scale,
+        isFiltersEnabled: false,
+        // commandBuilder: (FFmpegVideoEditorConfig config, String videoPath, String outputPath) {
+        //   return '';
+        // },
+      );
+      final FFmpegVideoEditorExecute execute = await config.getExecuteConfig();
+
+      await executeFFmpeg(
+        execute: execute,
+        onProgress: (Statistics progress) => onProgress?.call(progress, config),
+        onError: _onExecutionError,
+        onCompleted: (File file){
+          _output = file;
+        },
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TAKEN METHOD
+  static Future<File?> exportMirroredVideo({
+    required VideoEditorController? videoEditorController,
+    void Function(Statistics progress, VideoFFmpegVideoEditorConfig config)? onProgress,
+    VideoExportFormat format = VideoExportFormat.mp4,
+    String? fileName,
+    String? outputDirectory,
+    double scale = 1,
+  }) async {
+    File? _output;
+
+    if (videoEditorController != null){
+
+      final VideoFFmpegVideoEditorConfig config = VideoFFmpegVideoEditorConfig(
+        videoEditorController,
+        format: format, // DEFAULT
+        name: fileName,
+        outputDirectory: outputDirectory,
+        scale: scale,
+        isFiltersEnabled: false,
+        commandBuilder: (FFmpegVideoEditorConfig config, String videoPath, String outputPath){
+          final List<String> filters = config.getExportFilters();
+          filters.add('hflip'); // add horizontal flip
+          return '-i $videoPath ${config.filtersCmd(filters)} -preset ultrafast $outputPath';
+        },
+      );
+      final FFmpegVideoEditorExecute execute = await config.getExecuteConfig();
+
+      await executeFFmpeg(
+        execute: execute,
+        onProgress: (Statistics progress) => onProgress?.call(progress, config),
+        onError: _onExecutionError,
+        onCompleted: (File file){
+          _output = file;
+        },
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TAKEN METHOD
+  static Future<File?> exportCover({
+    required VideoEditorController? videoEditorController,
+    void Function(Statistics progress, CoverFFmpegVideoEditorConfig config)? onProgress,
+    String? fileName,
+    String? outputDirectory,
+    double scale = 1,
+    int quality = 100,
+  }) async {
+    File? _output;
+
+    if (videoEditorController != null){
+
+      final CoverFFmpegVideoEditorConfig config = CoverFFmpegVideoEditorConfig(
+        videoEditorController,
+        name: fileName,
+        outputDirectory: outputDirectory,
+        scale: scale,
+        isFiltersEnabled: false,
+        quality: quality,
+        format: CoverExportFormat.jpg,
+        // commandBuilder: (CoverFFmpegVideoEditorConfig config, String videoPath, String outputPath) {
+        //   final List<String> filters = config.getExportFilters();
+        //   filters.add('hflip'); // add horizontal flip
+        //   return '-i $videoPath ${config.filtersCmd(filters)} -preset ultrafast $outputPath';
+        // },
+      );
+      final FFmpegVideoEditorExecute? execute = await config.getExecuteConfig();
+
+      if (execute == null){
+        await _onExecutionError('Error on cover exportation initialization.', StackTrace.current);
+      }
+      else {
+
+        await executeFFmpeg(
+          execute: execute,
+          onProgress: (Statistics progress) => onProgress?.call(progress, config),
+          onError: _onExecutionError,
+          onCompleted: (File file){
+            _output = file;
+          },
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void>_onExecutionError(String text, StackTrace trace) async {
+    blog('_onExecutionError : $text');
+    await Dialogs.errorDialog(
+      titleVerse: Verse.plain('Something went wrong'),
+    );
   }
   // --------------------------------------------------------------------------
 

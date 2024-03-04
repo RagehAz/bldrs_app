@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
@@ -10,7 +9,6 @@ import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/files/file_size_unit.dart';
 import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
-import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/views/floating_list.dart';
@@ -22,19 +20,20 @@ import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/g_flyer/b_slide_full_screen/a_slide_full_screen.dart';
-import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/i_gt_insta_screen/src/screens/video_player_screen.dart';
-import 'package:bldrs/v_videos/trim_video_screen.dart';
 import 'package:bldrs/v_videos/video_dialog.dart';
 import 'package:bldrs/v_videos/video_ops.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/notes/x_components/red_dot_badge.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
+import 'package:ffmpeg_kit_flutter_min/statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:video_editor/video_editor.dart';
 
@@ -135,29 +134,22 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   // -----------------------------------------------------------------------------
   File? _videoFile;
   // --------------------
-  void _setVideo(File file){
+  Future<void> _setVideo(File? file) async {
 
-    _videoEditorController = VideoEditorController.file(
-      file,
-      minDuration: const Duration(seconds: 1),
-      maxDuration: const Duration(seconds: 10),
-      coverStyle: VideoOps.getCoverStyle,
-      coverThumbnailsQuality: 100,
-      cropStyle: VideoOps.getCropStyle,
-      trimStyle: VideoOps.getTrimStyle,
-      trimThumbnailsQuality: 100,
+    _videoEditorController = await VideoOps.initializeVideoEditorController(
+      file: file,
+      onError: (String error) async {
+        await Dialogs.errorDialog(
+          titleVerse: Verse.plain(error),
+        );
+        // await Nav.goBack(context: context);
+      },
+
     );
 
-    // await _videoEditorController?.initialize();
-
-    _videoEditorController!
-        .initialize(aspectRatio: 9 / 16)
-        .then((_) => setState(() {}))
-        .catchError((error) {
-      // handle minumum duration bigger than video duration error
-      Navigator.pop(context);
-    }, test: (e) => e is VideoMinDurationError);
-
+    setState(() {
+      _videoFile = file;
+    });
 
   }
   // --------------------
@@ -170,21 +162,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
         onError: BldrsPicMaker.onPickingError,
     );
 
-    // final File? _file = await Filers.getFileFromUint8List(
-    //     uInt8List: _output,
-    //     fileName: 'test_file',
-    // );
-
-    if (_file != null){
-
-      blog('setting the bitch');
-      setState(() {
-        _videoFile = _file;
-      });
-
-      _setVideo(_videoFile!);
-
-    }
+    await _setVideo(_file);
 
   }
   // --------------------
@@ -197,16 +175,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
       onError: BldrsPicMaker.onPickingError,
     );
 
-    if (_file != null){
-
-      blog('setting the video bitch');
-      setState(() {
-        _videoFile = _file;
-      });
-
-      _setVideo(_videoFile!);
-
-    }
+    await _setVideo(_file);
 
   }
   // --------------------
@@ -222,31 +191,6 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   Future<void> _compressVideo() async {}
   // --------------------
   Future<void> _muteVideo() async {}
-  // --------------------
-  Future<void> _goToEditor() async {
-
-    if (_videoFile != null){
-      final Uint8List? _bytes = await BldrsNav.goToNewScreen(
-          screen: TrimScreen(
-            file: _videoFile!,
-          )
-      );
-
-      if (_bytes != null){
-
-        // final Uint8List _bytes = await _file.readAsBytes();
-
-        _videoFile = await Filers.getFileFromUint8List(
-            uInt8List: _bytes,
-            fileName: Numeric.createUniqueID().toString(),
-        );
-
-        _setVideo(_videoFile!);
-
-      }
-
-    }
-  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -362,8 +306,6 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                     },
                   ),
 
-                  // await VideoDialog.push(file: file);
-
                   /// PUSH VIDEO DIALOG
                   BottomDialog.wideButton(
                     verse: Verse.plain('Push original Video dialog'),
@@ -381,50 +323,114 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                     icon: Icons.import_export,
                     onTap: () async {
 
-                      void _showErrorSnackBar(String message) =>
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(message),
-                              duration: const Duration(seconds: 1),
-                            ),
+                      final bool _go = await Dialogs.confirmProceed();
+
+                      if (_go == true){
+
+                        WaitDialog.showUnawaitedWaitDialog();
+
+                        final File? _file = await VideoOps.exportCover(
+                            videoEditorController: _videoEditorController,
+                            onProgress: (Statistics progress, CoverFFmpegVideoEditorConfig config){
+                              final double _progress = config.getFFmpegProgress(progress.getTime());
+                              final String _percent = '${(_progress * 100).ceil()}%';
+                              UiProvider.proSetLoadingVerse(verse: Verse.plain(_percent));
+                            }
+                        );
+
+
+                        Filers.blogFile(file: _file, invoker: 'the Cover');
+
+                        await WaitDialog.closeWaitDialog();
+
+                        if (_file != null){
+
+                          final Dimensions? _dims = await Dimensions.superDimensions(_file);
+
+                          await PicFullScreen.goToImageFullScreenByBytes(
+                            bytes: _file.readAsBytesSync(),
+                            title: _file.path,
+                            dims: _dims!,
                           );
 
-                      _showErrorSnackBar('wtf');
+                        }
 
-                      final CoverFFmpegVideoEditorConfig config = CoverFFmpegVideoEditorConfig(_videoEditorController!);
-                      final FFmpegVideoEditorExecute? execute = await config.getExecuteConfig();
-                      if (execute == null) {
-                        _showErrorSnackBar('Error on cover exportation initialization.');
-                        return;
                       }
 
-                      await VideoOps.runFFmpegCommand(
-                        execute: execute,
-                        onError: (e, s) => _showErrorSnackBar('Error on cover exportation :('),
-                        onCompleted: (File cover) async {
+                    },
+                  ),
 
-                          Filers.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
-                          Filers.blogFile(file: cover, invoker: 'the Cover');
+                  /// EXPORT VIDEO
+                  BottomDialog.wideButton(
+                    verse: Verse.plain('Export Video'),
+                    icon: Icons.import_export,
+                    onTap: () async {
 
-                          if (mounted == true){
+                      final bool _go = await Dialogs.confirmProceed();
 
-                            // await showDialog(
-                            //   context: context,
-                            //   builder: (_) => CoverResultPopup(cover: cover),
-                            // );
+                      if (_go == true){
 
-                            final Dimensions? _dims = await Dimensions.superDimensions(cover);
+                        WaitDialog.showUnawaitedWaitDialog();
 
-                            await PicFullScreen.goToImageFullScreenByBytes(
-                              bytes: cover.readAsBytesSync(),
-                              title: cover.path,
-                              dims: _dims!,
-                            );
+                        final File? _file = await VideoOps.exportVideo(
+                            videoEditorController: _videoEditorController,
+                            onProgress: (Statistics progress, VideoFFmpegVideoEditorConfig config){
 
-                          }
+                              final double _progress = config.getFFmpegProgress(progress.getTime());
+                              final String _percent = '${(_progress * 100).ceil()}%';
+                              UiProvider.proSetLoadingVerse(verse: Verse.plain(_percent));
 
-                        },
-                      );
+                            }
+                        );
+
+                        Filers.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
+                        Filers.blogFile(file: _file, invoker: 'the new');
+
+                        await WaitDialog.closeWaitDialog();
+
+                        if (_file != null){
+                          await VideoDialog.push(file: _file);
+                        }
+
+                      }
+
+                    },
+                  ),
+
+                  /// EXPORT GIF
+                  BottomDialog.wideButton(
+                    verse: Verse.plain('Export GIF'),
+                    icon: Icons.import_export,
+                    onTap: () async {
+
+                      final bool _go = await Dialogs.confirmProceed();
+
+                      if (_go == true){
+
+                        WaitDialog.showUnawaitedWaitDialog();
+
+                        final File? _file = await VideoOps.exportVideo(
+                            videoEditorController: _videoEditorController,
+                            format: VideoExportFormat.gif,
+                            onProgress: (Statistics progress, VideoFFmpegVideoEditorConfig config){
+
+                              final double _progress = config.getFFmpegProgress(progress.getTime());
+                              final String _percent = '${(_progress * 100).ceil()}%';
+                              UiProvider.proSetLoadingVerse(verse: Verse.plain(_percent));
+
+                            }
+                        );
+
+                        Filers.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
+                        Filers.blogFile(file: _file, invoker: 'the new');
+
+                        await WaitDialog.closeWaitDialog();
+
+                        if (_file != null){
+                          await VideoDialog.push(file: _file);
+                        }
+
+                      }
 
                     },
                   ),
@@ -444,6 +450,32 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                           );
 
                       _showErrorSnackBar('wtf');
+
+                    },
+                  ),
+
+                  /// SET RATIO FROM CROP
+                  BottomDialog.wideButton(
+                    verse: Verse.plain('Set Ratio from crop'),
+                    icon: Icons.eighteen_up_rating,
+                    onTap: () async {
+
+                      _videoEditorController?.setPreferredRatioFromCrop();
+                      setState(() {});
+                      // _videoEditorController?.preferredCropAspectRatio = 1;
+
+                    },
+                  ),
+
+                  /// SET RATIO FROM CROP
+                  BottomDialog.wideButton(
+                    verse: Verse.plain('Define crop ratio'),
+                    icon: Icons.aspect_ratio_outlined,
+                    onTap: () async {
+
+                      setState(() {
+                        _videoEditorController?.preferredCropAspectRatio = 1;
+                      });
 
                     },
                   ),
@@ -475,6 +507,12 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                 if (_isInitialized == true)
                   SizedBox(
                     height: _videoHeight,
+                    // decoration: BoxDecoration(
+                    //   border: Border.all(
+                    //     color: Colorz.white255,
+                    //     width: 1,
+                    //   ),
+                    // ),
                     child: Stack(
                       alignment: Alignment.center,
                       children: <Widget>[
@@ -567,7 +605,6 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                     ),
                   ),
 
-
               ],
             ),
           ),
@@ -641,6 +678,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                   onTap: (){
 
                     _videoEditorController?.applyCacheCrop();
+                    // _videoEditorController?.setPreferredRatioFromCrop();
+                    // _videoEditorController?.preferredCropAspectRatio = 1;
                     // _videoEditorController?.updateCrop(const Offset(0.2, 0.2), const Offset(0.8, 0.8));
                     _setActiveButton(null);
 
@@ -658,7 +697,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
               boxColor: Colorz.black255,
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 30),
-              columnChildren: [
+              columnChildren: <Widget>[
 
                 CoverSelection(
                   controller: _videoEditorController!,
@@ -784,15 +823,6 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                 onTap: () async {},
               ),
 
-              /// PLAY
-              PanelCircleButton(
-                size: _buttonSize,
-                icon: Icons.play_arrow,
-                verse: Verse.plain('play.'),
-                isSelected: false,
-                onTap: _goToEditor,
-
-              ),
             ],
           ),
 

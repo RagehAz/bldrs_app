@@ -16,6 +16,7 @@ class CoverResultPopup extends StatefulWidget {
 
   @override
   State<CoverResultPopup> createState() => _CoverResultPopupState();
+
 }
 
 class _CoverResultPopupState extends State<CoverResultPopup> {
@@ -59,21 +60,21 @@ class _CoverResultPopupState extends State<CoverResultPopup> {
       child: Center(
         child: Stack(
           children: [
+
             Image.memory(_imagebytes),
+
             Positioned(
               bottom: 0,
               child: FileDescription(
                 description: {
                   'Cover path': widget.cover.path,
-                  'Cover ratio':
-                  Fraction.fromDouble(_fileDimension?.aspectRatio ?? 0)
-                      .reduce()
-                      .toString(),
+                  'Cover ratio': Fraction.fromDouble(_fileDimension?.aspectRatio ?? 0).reduce().toString(),
                   'Cover dimension': _fileDimension.toString(),
                   'Cover size': _fileMbSize,
                 },
               ),
             ),
+
           ],
         ),
       ),
@@ -84,6 +85,7 @@ class _CoverResultPopupState extends State<CoverResultPopup> {
 }
 
 class FileDescription extends StatelessWidget {
+
   const FileDescription({
     required this.description,
     super.key,
@@ -93,6 +95,7 @@ class FileDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return DefaultTextStyle(
       style: const TextStyle(fontSize: 11),
       child: Container(
@@ -101,29 +104,31 @@ class FileDescription extends StatelessWidget {
         color: Colors.black.withOpacity(0.5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: description.entries
-              .map(
-                (entry) => Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: '${entry.key}: ',
-                    style: const TextStyle(fontSize: 11),
+          children: description.entries.map((entry) => Text.rich(
+            TextSpan(
+              children: [
+
+                TextSpan(
+                  text: '${entry.key}: ',
+                  style: const TextStyle(fontSize: 11),
+                ),
+
+                TextSpan(
+                  text: entry.value,
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.white.withOpacity(0.8),
                   ),
-                  TextSpan(
-                    text: entry.value,
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.white.withOpacity(0.8),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+
+              ],
             ),
-          )
-              .toList(),
+          ),
+          ).toList(),
         ),
       ),
     );
+
   }
+
 }
