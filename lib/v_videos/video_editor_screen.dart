@@ -10,6 +10,7 @@ import 'package:basics/helpers/files/file_size_unit.dart';
 import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
@@ -331,6 +332,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
                         final File? _file = await VideoOps.exportCover(
                             videoEditorController: _videoEditorController,
+                            fileName: TextMod.idifyString(Filers.getFileNameFromFile(file: _videoEditorController!.file, withExtension: false)),
                             onProgress: (Statistics progress, CoverFFmpegVideoEditorConfig config){
                               final double _progress = config.getFFmpegProgress(progress.getTime());
                               final String _percent = '${(_progress * 100).ceil()}%';
@@ -338,6 +340,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                             }
                         );
 
+                        blog('got back the file aho $_file');
 
                         Filers.blogFile(file: _file, invoker: 'the Cover');
 

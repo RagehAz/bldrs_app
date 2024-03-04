@@ -141,15 +141,11 @@ class _VideoDialogState extends State<VideoDialog> {
                       child: FileDescription(
                         description: {
                           'Video path': widget.video.path,
-
                           if (!_isGif)
                             'Video duration': '${((_controller?.value.duration.inMilliseconds ?? 0) / 1000).toStringAsFixed(2)}s',
-
                           'Video ratio': Fraction.fromDouble(_aspectRatio).reduce().toString(),
-
                           'Video dimension': _dimensions.toString(),
                           'Video size': _fileMbSize,
-
                         },
                       ),
                     ),

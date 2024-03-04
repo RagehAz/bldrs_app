@@ -25,7 +25,7 @@ class VideoOps {
   /// INITIALIZATION
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<VideoEditorController?> initializeVideoEditorController({
     required File? file,
     double aspectRatio = 9 / 16,
@@ -63,7 +63,7 @@ class VideoOps {
   /// DISPOSE
 
   // --------------------
-  /// TAKEN METHOD
+  /// TESTED : WORKS PERFECT
   static Future<void> disposeFFmpegKit() async {
     final List<FFmpegSession> executions = await FFmpegKit.listSessions();
     if (executions.isNotEmpty) {
@@ -75,36 +75,51 @@ class VideoOps {
   /// EXECUTION
 
   // --------------------
-  /// TAKEN METHOD
-  static Future<FFmpegSession> executeFFmpeg({
+  /// TESTED : WORKS PERFECT
+  static Future<File?> executeFFmpeg({
     required FFmpegVideoEditorExecute execute,
-    required void Function(File file) onCompleted,
-    void Function(String, StackTrace)? onError,
+    void Function(String error)? onError,
     void Function(Statistics)? onProgress,
   }) async {
+    File? _output;
+    bool _done = false;
 
-    final FFmpegSession _session = await FFmpegKit.executeAsync(
+    final Future<void> _theExecution = FFmpegKit.executeAsync(
       execute.command,
       (session) => _executionCompletionCallBack(
         execute: execute,
-        onCompleted: onCompleted,
-        onError: onError,
+        onCompleted: (File file){
+          _output = file;
+          _done = true;
+        },
+        onError: (String error, StackTrace trace){
+          onError?.call(error);
+          _done = true;
+        },
         session: session,
       ),
       null, // logCallBack
       onProgress,
     );
 
-    return _session;
+    while(_done == false){
+      await _theExecution;
+      if (_done == true){
+        break;
+      }
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
+
+    return _output;
   }
   // --------------------
-  /// TAKEN METHOD
+  /// TESTED : WORKS PERFECT
   static Future<void> _executionCompletionCallBack({
     required FFmpegVideoEditorExecute execute,
     required FFmpegSession session,
     required Function(File file) onCompleted,
     required void Function(String error, StackTrace trace)? onError,
-  })async {
+  }) async {
 
     final SessionState _theState = await session.getState();
     final String _state = FFmpegKitConfig.sessionStateToString(_theState);
@@ -126,7 +141,7 @@ class VideoOps {
   /// EXPORTING
 
   // --------------------
-  /// TAKEN METHOD
+  /// TESTED : WORKS PERFECT
   static Future<File?> exportVideo({
     required VideoEditorController? videoEditorController,
     void Function(Statistics progress, VideoFFmpegVideoEditorConfig config)? onProgress,
@@ -152,13 +167,10 @@ class VideoOps {
       );
       final FFmpegVideoEditorExecute execute = await config.getExecuteConfig();
 
-      await executeFFmpeg(
+      _output = await executeFFmpeg(
         execute: execute,
         onProgress: (Statistics progress) => onProgress?.call(progress, config),
         onError: _onExecutionError,
-        onCompleted: (File file){
-          _output = file;
-        },
       );
 
     }
@@ -166,7 +178,7 @@ class VideoOps {
     return _output;
   }
   // --------------------
-  /// TAKEN METHOD
+  /// TESTED : WORKS PERFECT
   static Future<File?> exportMirroredVideo({
     required VideoEditorController? videoEditorController,
     void Function(Statistics progress, VideoFFmpegVideoEditorConfig config)? onProgress,
@@ -194,13 +206,10 @@ class VideoOps {
       );
       final FFmpegVideoEditorExecute execute = await config.getExecuteConfig();
 
-      await executeFFmpeg(
+      _output = await executeFFmpeg(
         execute: execute,
         onProgress: (Statistics progress) => onProgress?.call(progress, config),
         onError: _onExecutionError,
-        onCompleted: (File file){
-          _output = file;
-        },
       );
 
     }
@@ -208,7 +217,7 @@ class VideoOps {
     return _output;
   }
   // --------------------
-  /// TAKEN METHOD
+  /// TESTED : WORKS PERFECT
   static Future<File?> exportCover({
     required VideoEditorController? videoEditorController,
     void Function(Statistics progress, CoverFFmpegVideoEditorConfig config)? onProgress,
@@ -216,6 +225,7 @@ class VideoOps {
     String? outputDirectory,
     double scale = 1,
     int quality = 100,
+    CoverExportFormat format = CoverExportFormat.jpg,
   }) async {
     File? _output;
 
@@ -228,27 +238,22 @@ class VideoOps {
         scale: scale,
         isFiltersEnabled: false,
         quality: quality,
-        format: CoverExportFormat.jpg,
+        format: format,
         // commandBuilder: (CoverFFmpegVideoEditorConfig config, String videoPath, String outputPath) {
-        //   final List<String> filters = config.getExportFilters();
-        //   filters.add('hflip'); // add horizontal flip
-        //   return '-i $videoPath ${config.filtersCmd(filters)} -preset ultrafast $outputPath';
+        //   return '';
         // },
       );
       final FFmpegVideoEditorExecute? execute = await config.getExecuteConfig();
 
       if (execute == null){
-        await _onExecutionError('Error on cover exportation initialization.', StackTrace.current);
+        await _onExecutionError('Error on cover exportation initialization.');
       }
       else {
 
-        await executeFFmpeg(
+        _output = await executeFFmpeg(
           execute: execute,
           onProgress: (Statistics progress) => onProgress?.call(progress, config),
           onError: _onExecutionError,
-          onCompleted: (File file){
-            _output = file;
-          },
         );
 
       }
@@ -259,7 +264,7 @@ class VideoOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void>_onExecutionError(String text, StackTrace trace) async {
+  static Future<void>_onExecutionError(String text) async {
     blog('_onExecutionError : $text');
     await Dialogs.errorDialog(
       titleVerse: Verse.plain('Something went wrong'),

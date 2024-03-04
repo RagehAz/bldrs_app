@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/components/sensors/popper.dart';
 import 'package:basics/helpers/maps/mapper.dart';
-import 'package:bldrs/z_components/bubbles/b_variants/debug_widgets/cache_preview_bubble.dart';
 import 'package:bldrs/z_components/loading/loading.dart';
 import 'package:bldrs/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
@@ -137,10 +136,10 @@ class WaitDialog extends StatelessWidget {
                               maxLines: 3,
                             ),
 
-                            if (kDebugMode)
-                              CachePreviewBubble(
-                                verse: verse,
-                              ),
+                            // if (kDebugMode)
+                            //   CachePreviewBubble(
+                            //     verse: verse,
+                            //   ),
 
                           ],
                         );
