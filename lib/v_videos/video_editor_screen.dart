@@ -365,7 +365,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
                   /// EXPORT VIDEO
                   BottomDialog.wideButton(
-                    verse: Verse.plain('Export Video'),
+                    verse: Verse.plain('Export Video.'),
                     icon: Icons.import_export,
                     onTap: () async {
 
@@ -377,6 +377,45 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
                         final File? _file = await VideoOps.exportVideo(
                             videoEditorController: _videoEditorController,
+                            scale: 0.5,
+                            onProgress: (Statistics progress, VideoFFmpegVideoEditorConfig config){
+
+                              final double _progress = config.getFFmpegProgress(progress.getTime());
+                              final String _percent = '${(_progress * 100).ceil()}%';
+                              UiProvider.proSetLoadingVerse(verse: Verse.plain(_percent));
+
+                            }
+                        );
+
+                        Filers.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
+                        Filers.blogFile(file: _file, invoker: 'the new');
+
+                        await WaitDialog.closeWaitDialog();
+
+                        if (_file != null){
+                          await VideoDialog.push(file: _file);
+                        }
+
+                      }
+
+                    },
+                  ),
+
+                  /// EXPORT VIDEO MUTED
+                  BottomDialog.wideButton(
+                    verse: Verse.plain('Export Video muted'),
+                    icon: Icons.import_export,
+                    onTap: () async {
+
+                      final bool _go = await Dialogs.confirmProceed();
+
+                      if (_go == true){
+
+                        WaitDialog.showUnawaitedWaitDialog();
+
+                        final File? _file = await VideoOps.exportVideo(
+                            videoEditorController: _videoEditorController,
+                            mute: true,
                             onProgress: (Statistics progress, VideoFFmpegVideoEditorConfig config){
 
                               final double _progress = config.getFFmpegProgress(progress.getTime());

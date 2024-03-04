@@ -149,6 +149,7 @@ class VideoOps {
     String? fileName,
     String? outputDirectory,
     double scale = 1,
+    bool mute = false,
   }) async {
     File? _output;
 
@@ -160,11 +161,21 @@ class VideoOps {
         name: fileName,
         outputDirectory: outputDirectory,
         scale: scale,
-        isFiltersEnabled: false,
-        // commandBuilder: (FFmpegVideoEditorConfig config, String videoPath, String outputPath) {
-        //   return '';
-        // },
+        isFiltersEnabled: true,
+        commandBuilder: (FFmpegVideoEditorConfig config, String videoPath, String outputPath) {
+
+          const String _bitRate = '-b:v 1M ';
+          final String _mute = mute ? '-an ' : '';
+
+          // 1.2 ~ 2M = 2.5
+          // 1.2 ~ xM = 1.2
+
+          return '-i $videoPath $_mute$_bitRate$outputPath';
+
+        },
       );
+      blog('config : ${config.scaleCmd}');
+
       final FFmpegVideoEditorExecute execute = await config.getExecuteConfig();
 
       _output = await executeFFmpeg(
