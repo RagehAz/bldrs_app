@@ -6,8 +6,9 @@ import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/models/media_meta_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
@@ -103,10 +104,10 @@ class ComposeUserProtocols {
         final double? _mega = Filers.calculateSize(_bytes!.length, FileSizeUnit.megaByte);
 
         await PicProtocols.composePic(
-            PicModel(
+            MediaModel(
               bytes: _bytes,
               path: _picPath,
-              meta: StorageMetaModel(
+              meta: MediaMetaModel(
                 sizeMB: _mega,
                 ownersIDs: userID == null ? [] : [userID],
                 width: _dims?.width,

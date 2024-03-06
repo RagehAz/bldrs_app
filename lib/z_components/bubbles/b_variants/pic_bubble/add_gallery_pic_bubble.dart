@@ -7,7 +7,7 @@ import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/g_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/z_components/balloons/balloons.dart';
@@ -47,7 +47,7 @@ class AddImagePicBubble extends StatelessWidget {
   });
   // --------------------
   final ValueChanged<PicMakerType>? onAddPicture;
-  final PicModel? picModel;
+  final MediaModel? picModel;
   final Verse titleVerse;
   final BubbleType bubbleType;
   final bool redDot;
@@ -206,7 +206,7 @@ class _FilePicSplitter extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final PicModel? picModel;
+  final MediaModel? picModel;
   final BubbleType bubbleType;
   final double picWidth;
   /// --------------------------------------------------------------------------
@@ -239,7 +239,7 @@ class _FilePicSplitter extends StatelessWidget {
       Borderers.cornerAll(corner);
   }
   // -----------------------------------------------------------------------------
-  static dynamic getPic(PicModel? pic){
+  static dynamic getPic(MediaModel? pic){
     dynamic _output;
 
     if (pic != null && pic.path != Iconz.anonymousUser){
@@ -309,7 +309,7 @@ class _PlusIconLayer extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final PicModel? picModel;
+  final MediaModel? picModel;
   final ValueChanged<PicMakerType>? onAddPic;
   final BubbleType bubbleType;
   final double picWidth;

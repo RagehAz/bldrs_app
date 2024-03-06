@@ -11,7 +11,7 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_screens/f_keyword_picker/keyword_picker_screen.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
@@ -529,11 +529,11 @@ void onSwitchFlyerShowsAuthor({
 /// TESTED : WORKS PERFECT
 Future<void> onPosterChanged({
   required ValueNotifier<DraftFlyer?> draftNotifier,
-  required PicModel? poster,
+  required MediaModel? poster,
   required bool mounted,
 }) async {
 
-  final bool _identical = PicModel.checkPicsAreIdentical(
+  final bool _identical = MediaModel.checkPicsAreIdentical(
       pic1: poster,
       pic2: draftNotifier.value?.poster,
   );

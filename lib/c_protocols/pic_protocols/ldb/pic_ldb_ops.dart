@@ -1,7 +1,7 @@
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 /// => TAMAM
 class PicLDBOps {
@@ -15,7 +15,7 @@ class PicLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> insertPic(PicModel? picModel) async {
+  static Future<void> insertPic(MediaModel? picModel) async {
 
     if (picModel != null){
 
@@ -23,7 +23,7 @@ class PicLDBOps {
         // allowDuplicateIDs: false,
         docName: LDBDoc.pics,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pics),
-        input: PicModel.cipherToLDB(picModel),
+        input: MediaModel.cipherToLDB(picModel),
       );
 
     }
@@ -35,8 +35,8 @@ class PicLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel?> readPic(String? path) async {
-    PicModel? _picModel;
+  static Future<MediaModel?> readPic(String? path) async {
+    MediaModel? _picModel;
 
     if (TextCheck.isEmpty(path) == false){
 
@@ -47,7 +47,7 @@ class PicLDBOps {
       );
 
       if (Lister.checkCanLoop(maps) == true){
-        _picModel = PicModel.decipherFromLDB(maps.first);
+        _picModel = MediaModel.decipherFromLDB(maps.first);
       }
 
     }

@@ -7,7 +7,7 @@ import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
@@ -38,7 +38,7 @@ class AuthorModel {
   final AuthorRole? role;
   final List<ContactModel>? contacts;
   final List<String>? flyersIDs;
-  final PicModel? picModel;
+  final MediaModel? picModel;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -90,7 +90,7 @@ class AuthorModel {
     AuthorRole? role,
     List<ContactModel>? contacts,
     List<String>? flyersIDs,
-    PicModel? picModel,
+    MediaModel? picModel,
   }){
     return AuthorModel(
       userID: userID ?? this.userID,
@@ -114,7 +114,7 @@ class AuthorModel {
 
     if (userModel != null) {
 
-      final PicModel? _userPic = await PicProtocols.fetchPic(
+      final MediaModel? _userPic = await PicProtocols.fetchPic(
           StoragePath.users_userID_pic(userModel.id)
       );
 
@@ -178,7 +178,7 @@ class AuthorModel {
       _map = Mapper.insertPairInMap(
         map: _map,
         key: 'picModel',
-        value: PicModel.cipherToLDB(picModel),
+        value: MediaModel.cipherToLDB(picModel),
         overrideExisting: true,
       );
 
@@ -197,7 +197,7 @@ class AuthorModel {
       role: decipherAuthorRole(map['role']),
       contacts: ContactModel.decipherContacts(map['contacts']),
       flyersIDs: Stringer.getStringsFromDynamics(map['flyersIDs']),
-      picModel: PicModel.decipherFromLDB(map['picModel']),
+      picModel: MediaModel.decipherFromLDB(map['picModel']),
     );
   }
   // --------------------
@@ -1355,7 +1355,7 @@ class AuthorModel {
             contacts1: author1.contacts,
             contacts2: author2.contacts,
           ) == true &&
-          PicModel.checkPicsAreIdentical(
+          MediaModel.checkPicsAreIdentical(
               pic1: author1.picModel,
               pic2: author2.picModel
           ) == true

@@ -9,7 +9,7 @@ import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/a_models/x_ui/ui_image_cache_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -30,7 +30,7 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> composePic(PicModel? picModel) async {
+  static Future<void> composePic(MediaModel? picModel) async {
 
     if (picModel != null){
 
@@ -47,7 +47,7 @@ class PicProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> composePics(List<PicModel> pics) async {
+  static Future<void> composePics(List<MediaModel> pics) async {
 
     if (Lister.checkCanLoop(pics) == true){
 
@@ -70,9 +70,9 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel?> fetchPic(String? path) async {
+  static Future<MediaModel?> fetchPic(String? path) async {
 
-    PicModel? _picModel = await PicLDBOps.readPic(path);
+    MediaModel? _picModel = await PicLDBOps.readPic(path);
 
     if (_picModel == null){
 
@@ -89,8 +89,8 @@ class PicProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<PicModel>> fetchPics(List<String>? paths) async {
-    final List<PicModel> _output = <PicModel>[];
+  static Future<List<MediaModel>> fetchPics(List<String>? paths) async {
+    final List<MediaModel> _output = <MediaModel>[];
 
     if (Lister.checkCanLoop(paths) == true){
 
@@ -98,7 +98,7 @@ class PicProtocols {
 
         ...List.generate(paths!.length, (index){
 
-          return fetchPic(paths[index]).then((PicModel? pic){
+          return fetchPic(paths[index]).then((MediaModel? pic){
 
             if (pic != null){
               _output.add(pic);
@@ -136,7 +136,7 @@ class PicProtocols {
       /// PIC IS NOT PRO-CACHED
       else {
 
-        final PicModel? _picModel = await PicProtocols.fetchPic(path);
+        final MediaModel? _picModel = await PicProtocols.fetchPic(path);
         _theImage = await Floaters.getUiImageFromUint8List(_picModel?.bytes);
 
         /// PRO-CACHE IF POSSIBLE
@@ -158,9 +158,9 @@ class PicProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<PicModel>> refetchPics(List<String> paths) async {
+  static Future<List<MediaModel>> refetchPics(List<String> paths) async {
 
-    List<PicModel> _output = <PicModel>[];
+    List<MediaModel> _output = <MediaModel>[];
 
     if (Lister.checkCanLoop(paths) == true){
 
@@ -178,7 +178,7 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel?> fetchSlidePic({
+  static Future<MediaModel?> fetchSlidePic({
     required SlideModel slide,
     required SlidePicType type,
   }) async {
@@ -194,10 +194,10 @@ class PicProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel?> fetchFlyerPoster({
+  static Future<MediaModel?> fetchFlyerPoster({
     required String? flyerID,
   }) async {
-    PicModel? _output;
+    MediaModel? _output;
 
     final String? _path = StoragePath.flyers_flyerID_poster(flyerID);
 
@@ -209,10 +209,10 @@ class PicProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<PicModel>> fetchFlyersPosters({
+  static Future<List<MediaModel>> fetchFlyersPosters({
     required List<String> flyersIDs,
   }) async {
-    final List<PicModel> _posters = [];
+    final List<MediaModel> _posters = [];
 
     if (Lister.checkCanLoop(flyersIDs) == true){
 
@@ -222,7 +222,7 @@ class PicProtocols {
 
           return fetchFlyerPoster(
             flyerID: flyersIDs[index],
-          ).then((PicModel? pic){
+          ).then((MediaModel? pic){
 
             if (pic != null){
               _posters.add(pic);
@@ -240,11 +240,11 @@ class PicProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<PicModel>> fetchFlyerPics({
+  static Future<List<MediaModel>> fetchFlyerPics({
     required FlyerModel? flyerModel,
     required SlidePicType type,
   }) async {
-    List<PicModel> _output = <PicModel>[];
+    List<MediaModel> _output = <MediaModel>[];
 
     if (flyerModel != null){
 
@@ -274,7 +274,7 @@ class PicProtocols {
 
         blog('downloadPic : Downloading pic : $path');
 
-        final PicModel? _picModel = await PicStorageOps.readPic(path: path);
+        final MediaModel? _picModel = await PicStorageOps.readPic(path: path);
 
         blog('downloadPic : Downloaded pic : $path');
 
@@ -318,16 +318,16 @@ class PicProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovatePic({
-    required PicModel? newPic,
+    required MediaModel? newPic,
     /// USE THIS IN CASE YOU WANT TO WIPE THE OLD PATH BEFORE INSERTING A NEW WITH DIFFERENT PATH
-    required PicModel? oldPic,
+    required MediaModel? oldPic,
   }) async {
 
     // blog('1 - reno.vatePic : picModel : $picModel');
 
     if (newPic != null){
 
-      final bool _areIdentical = PicModel.checkPicsAreIdentical(
+      final bool _areIdentical = MediaModel.checkPicsAreIdentical(
           pic1: oldPic,
           pic2: newPic,
       );
@@ -348,7 +348,7 @@ class PicProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> renovatePics(List<PicModel> picModels) async {
+  static Future<void> renovatePics(List<MediaModel> picModels) async {
 
     if (Lister.checkCanLoop(picModels) == true){
 
@@ -410,13 +410,13 @@ class PicProtocols {
 
   // --------------------
   ///
-  static Future<PicModel?> stealInternetPic({
+  static Future<MediaModel?> stealInternetPic({
     required String? url,
     required List<String> ownersIDs,
     required String picName,
     required String assignPath,
   }) async {
-    PicModel? _output;
+    MediaModel? _output;
 
     final Uint8List? _bytes = await Storage.readBytesByURL(
       url: url,
@@ -424,7 +424,7 @@ class PicProtocols {
 
     if (_bytes != null){
 
-      PicModel? _pic = await PicModel.combinePicModel(
+      MediaModel? _pic = await MediaModel.combinePicModel(
         bytes: _bytes,
         ownersIDs: ownersIDs,
         name: picName,

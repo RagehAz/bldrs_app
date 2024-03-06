@@ -6,7 +6,7 @@ import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/e_my_settings_page/user_settings_page_controllers.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -112,7 +112,7 @@ Future<void> takeUserPicture({
       setTo: false,
     );
 
-    final PicModel? _picModel = await BldrsPicMaker.makePic(
+    final MediaModel? _picModel = await BldrsPicMaker.makePic(
         picMakerType: picMakerType,
         cropAfterPick: true,
         aspectRatio: 1,

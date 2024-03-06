@@ -3,9 +3,10 @@ import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/files/floaters.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper_ss.dart';
+import 'package:basics/mediator/models/file_typer.dart';
+import 'package:basics/mediator/models/media_meta_model.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/stringer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -115,14 +116,15 @@ class PDFModel {
 
   // --------------------
   /// TASK : TEST ME
-  StorageMetaModel? createStorageMetaModel({
+  MediaMetaModel? createStorageMetaModel({
     Map<String, String>? extraData,
   }){
 
-    return StorageMetaModel(
+    return MediaMetaModel(
       ownersIDs: ownersIDs ?? [],
       name: name,
       sizeMB: sizeMB,
+      fileType: FileType.pdf,
       data: MapperSS.combineStringStringMap(
         baseMap: {},
         insert: extraData,

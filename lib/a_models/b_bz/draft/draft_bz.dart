@@ -10,7 +10,7 @@ import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -79,7 +79,7 @@ class DraftBz {
   final BzForm? bzForm;
   final List<BzForm>? inactiveBzForms;
   final ScopeModel? scopes;
-  final PicModel? logoPicModel;
+  final MediaModel? logoPicModel;
   final bool? hasNewLogo;
   final bool? canPickImage;
   final FocusNode? nameNode;
@@ -339,7 +339,7 @@ class DraftBz {
       'bzForm': BzTyper.cipherBzForm(bzForm),
       'inactiveBzForms': BzTyper.cipherBzForms(inactiveBzForms),
       'scopes': scopes?.toMap(),
-      'logoPicModel': PicModel.cipherToLDB(logoPicModel),
+      'logoPicModel': MediaModel.cipherToLDB(logoPicModel),
       'hasNewLogo': hasNewLogo,
       'canPickImage': canPickImage,
       'canValidate': canValidate,
@@ -388,7 +388,7 @@ class DraftBz {
       bzForm: BzTyper.decipherBzForm(map['bzForm']),
       inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes(_bzTypes),
       scopes: ScopeModel.decipher(map['scopes']),
-      logoPicModel: PicModel.decipherFromLDB(map['logoPicModel']),
+      logoPicModel: MediaModel.decipherFromLDB(map['logoPicModel']),
       hasNewLogo: map['hasNewLogo'],
       canPickImage: true,
       canValidate: false,
@@ -430,7 +430,7 @@ class DraftBz {
     BzForm? bzForm,
     List<BzForm>? inactiveBzForms,
     ScopeModel? scopes,
-    PicModel? logoPicModel,
+    MediaModel? logoPicModel,
     bool? hasNewLogo,
     bool? canPickImage,
     bool? canValidate,
@@ -580,7 +580,7 @@ class DraftBz {
         bzID: bzID,
       );
 
-      final PicModel? _picModel = draft.logoPicModel?.copyWith(
+      final MediaModel? _picModel = draft.logoPicModel?.copyWith(
         path: StoragePath.bzz_bzID_logo(bzID),
       );
 
@@ -704,7 +704,7 @@ class DraftBz {
           draft1.bzForm == draft2.bzForm &&
           Lister.checkListsAreIdentical(list1: draft1.inactiveBzForms, list2: draft2.inactiveBzForms) == true &&
           ScopeModel.checkScopesAreIdentical(scope1: draft1.scopes, scope2: draft2.scopes) == true &&
-          PicModel.checkPicsAreIdentical(pic1: draft1.logoPicModel, pic2: draft2.logoPicModel) == true &&
+          MediaModel.checkPicsAreIdentical(pic1: draft1.logoPicModel, pic2: draft2.logoPicModel) == true &&
           draft1.hasNewLogo == draft2.hasNewLogo &&
           draft1.canPickImage == draft2.canPickImage &&
           draft1.firstTimer == draft2.firstTimer

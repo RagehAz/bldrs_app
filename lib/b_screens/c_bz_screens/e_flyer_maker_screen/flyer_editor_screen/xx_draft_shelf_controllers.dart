@@ -8,7 +8,7 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/pic_slide_editor_screen.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
@@ -114,7 +114,7 @@ Future<void> _addGalleryImagesToNewFlyer({
 
   if(mounted == true && draftFlyer.value?.id != null && draftFlyer.value?.bzID != null){
 
-    final List<PicModel> _bigPics = await BldrsPicMaker.makePics(
+    final List<MediaModel> _bigPics = await BldrsPicMaker.makePics(
       cropAfterPick: false,
       aspectRatio: FlyerDim.flyerAspectRatio(),
       compressWithQuality: Standards.slideBigQuality,
@@ -187,7 +187,7 @@ Future<void> _addCameraImageToNewFlyer({
 
   if(mounted == true && draftFlyer.value?.id != null && draftFlyer.value?.bzID != null){
 
-    final PicModel? _bigPic = await BldrsPicMaker.makePic(
+    final MediaModel? _bigPic = await BldrsPicMaker.makePic(
       cropAfterPick: false,
       aspectRatio: FlyerDim.flyerAspectRatio(),
       compressWithQuality: Standards.slideBigQuality,
@@ -253,6 +253,60 @@ Future<void> _addGalleryVideoToNewFlyer({
 }) async {
 
   blog('should implement : _addGalleryVideoToNewFlyer');
+
+  if(mounted == true && draftFlyer.value?.id != null && draftFlyer.value?.bzID != null){
+
+    // final PicModel? _video = await BldrsPicMaker.makeVideo(
+    //   cropAfterPick: true,
+    //   aspectRatio: FlyerDim.flyerAspectRatio(),
+    //   compressWithQuality: Standards.slideBigQuality,
+    //   resizeToWidth: Standards.slideBigWidth,
+    //   assignPath: StoragePath.flyers_flyerID_index_big(
+    //     flyerID: draftFlyer.value!.id,
+    //     slideIndex: 0,
+    //   )!,
+    //   name: SlideModel.generateSlideID(
+    //     flyerID: draftFlyer.value!.id,
+    //     slideIndex: 0,
+    //     type: SlidePicType.big,
+    //   )!,
+    //   picMakerType: PicMakerType.cameraVideo,
+    //   ownersIDs: await FlyerModel.generateFlyerOwners(
+    //     bzID: draftFlyer.value?.bzID,
+    //   ),
+    // );
+    //
+    // if(_video != null){
+    //
+    //   blog('_addGalleryVideoToNewFlyer ${draftFlyer.value?.draftSlides?.length} draftSlides');
+    //
+    //   // addBigPicsToDraft
+    //   final DraftFlyer? _newDraft = await DraftFlyer.addVideoToDraft(
+    //     draft: draftFlyer.value,
+    //     flyerBoxWidth: flyerBoxWidth,
+    //     video: _video,
+    //   );
+    //
+    //   setNotifier(
+    //     notifier: draftFlyer,
+    //     mounted: mounted,
+    //     value: _newDraft,
+    //   );
+    //
+    //   await _scrollToLastSlide(
+    //     scrollController: scrollController,
+    //     standOnIndex: (draftFlyer.value?.draftSlides?.length ?? 0) - 2,
+    //   );
+    //
+    //   await _openSlideIfSingle(
+    //     mounted: mounted,
+    //     draftFlyer: draftFlyer,
+    //     openEditorToLastSlide: true,
+    //   );
+    //
+    // }
+
+  }
 
 }
 // --------------------

@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
@@ -38,7 +38,7 @@ class RenovateUserProtocols {
     required UserModel? newUser,
     required String? invoker,
     bool updateEmailInAuth = true,
-    PicModel? newPic,
+    MediaModel? newPic,
   }) async {
     UserModel? _output;
 

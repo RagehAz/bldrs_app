@@ -1,5 +1,5 @@
 import 'package:basics/components/super_image/super_image.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:basics/components/layers/blur_layer.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ class SlideBlurredBackgroundWidget extends StatelessWidget {
     super.key
   });
   // -----------------------------
-  final PicModel bigPic;
+  final MediaModel bigPic;
   final double width;
   // --------------------------------------------------------------------------
   @override

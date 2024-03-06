@@ -4,6 +4,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/components/drawing/expander.dart';
+import 'package:basics/components/drawing/super_positioned.dart';
 import 'package:basics/components/super_box/super_box.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/files/file_size_unit.dart';
@@ -15,15 +16,19 @@ import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
+import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/video_maker/video_maker.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/panel_circle_button.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/g_flyer/b_slide_full_screen/a_slide_full_screen.dart';
+import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/i_gt_insta_screen/src/screens/video_player_screen.dart';
 import 'package:bldrs/v_videos/video_dialog.dart';
-import 'package:bldrs/v_videos/video_ops.dart';
+import 'package:basics/mediator/video_maker/video_ops.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
@@ -34,7 +39,7 @@ import 'package:bldrs/z_components/notes/x_components/red_dot_badge.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:ffmpeg_kit_flutter_min/statistics.dart';
+import 'package:ffmpeg_kit_flutter/statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:video_editor/video_editor.dart';
 
@@ -156,7 +161,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   // --------------------
   Future<void> _picVideoFromGallery() async {
 
-    final File? _file = await PicMaker.pickVideo(
+    final File? _file = await VideoMaker.pickVideo(
         context: context,
         langCode: Localizer.getCurrentLangCode(),
         onPermissionPermanentlyDenied: BldrsPicMaker.onPermissionPermanentlyDenied,
@@ -169,7 +174,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   // --------------------
   Future<void> _picVideoFromCamera() async {
 
-    final File? _file = await PicMaker.shootCameraVideo(
+    final File? _file = await VideoMaker.shootCameraVideo(
       context: context,
       langCode: Localizer.getCurrentLangCode(),
       onPermissionPermanentlyDenied: BldrsPicMaker.onPermissionPermanentlyDenied,
@@ -187,11 +192,24 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
   }
   // --------------------
-  Future<void> _resizeVideo() async {}
+  Future<void> resizeVideo() async {}
   // --------------------
-  Future<void> _compressVideo() async {}
+  Future<void> compressVideo() async {}
   // --------------------
-  Future<void> _muteVideo() async {}
+  bool _isMuted = false;
+  Future<void> muteVideo() async {
+
+    if (_isMuted == true){
+      await _videoEditorController?.video.setVolume(100);
+    }
+    else {
+      await _videoEditorController?.video.setVolume(0);
+    }
+    setState(() {
+      _isMuted = !_isMuted;
+    });
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -276,7 +294,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                     icon: Icons.photo_size_select_large_sharp,
                     onTap: () async {
 
-                      final Dimensions? _dims = VideoOps.getVideoDimensions(
+                      final Dimensions? _dims = VideoOps.getVideoEditorControllerDimensions(
                           controller: _videoEditorController
                       );
 
@@ -334,7 +352,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                             videoEditorController: _videoEditorController,
                             fileName: TextMod.idifyString(Filers.getFileNameFromFile(file: _videoEditorController!.file, withExtension: false)),
                             onProgress: (Statistics progress, CoverFFmpegVideoEditorConfig config){
-                              final double _progress = config.getFFmpegProgress(progress.getTime());
+                              final double _progress = config.getFFmpegProgress(progress.getTime().toInt());
                               final String _percent = '${(_progress * 100).ceil()}%';
                               UiProvider.proSetLoadingVerse(verse: Verse.plain(_percent));
                             }
@@ -380,7 +398,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                             scale: 0.5,
                             onProgress: (Statistics progress, VideoFFmpegVideoEditorConfig config){
 
-                              final double _progress = config.getFFmpegProgress(progress.getTime());
+                              final double _progress = config.getFFmpegProgress(progress.getTime().toInt());
                               final String _percent = '${(_progress * 100).ceil()}%';
                               UiProvider.proSetLoadingVerse(verse: Verse.plain(_percent));
 
@@ -418,7 +436,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                             mute: true,
                             onProgress: (Statistics progress, VideoFFmpegVideoEditorConfig config){
 
-                              final double _progress = config.getFFmpegProgress(progress.getTime());
+                              final double _progress = config.getFFmpegProgress(progress.getTime().toInt());
                               final String _percent = '${(_progress * 100).ceil()}%';
                               UiProvider.proSetLoadingVerse(verse: Verse.plain(_percent));
 
@@ -456,7 +474,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                             format: VideoExportFormat.gif,
                             onProgress: (Statistics progress, VideoFFmpegVideoEditorConfig config){
 
-                              final double _progress = config.getFFmpegProgress(progress.getTime());
+                              final double _progress = config.getFFmpegProgress(progress.getTime().toInt());
                               final String _percent = '${(_progress * 100).ceil()}%';
                               UiProvider.proSetLoadingVerse(verse: Verse.plain(_percent));
 
@@ -518,6 +536,59 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                       setState(() {
                         _videoEditorController?.preferredCropAspectRatio = 1;
                       });
+
+                    },
+                  ),
+
+                  /// PICK FILE AND GET ITS SIZE
+                  BottomDialog.wideButton(
+                    verse: Verse.plain('PIC FILE AND GET ITS SIZE.'),
+                    icon: Icons.aspect_ratio_outlined,
+                    onTap: () async {
+
+                      final File? _file = await VideoMaker.pickVideo(
+                        context: context,
+                        langCode: Localizer.getCurrentLangCode(),
+                        onPermissionPermanentlyDenied: BldrsPicMaker.onPermissionPermanentlyDenied,
+                        onError: BldrsPicMaker.onPickingError,
+                      );
+
+                      final Dimensions? _dims = await VideoOps.getVideoFileDimensions(
+                        file: _file,
+                      );
+
+                      _dims?.blogDimensions(invoker: 'zz');
+
+                    },
+                  ),
+
+                  /// PIC INSIDE getVideoFileDimensions
+                  BottomDialog.wideButton(
+                    verse: Verse.plain('PIC Dims in getVideoFileDimensions'),
+                    icon: Icons.aspect_ratio_outlined,
+                    onTap: () async {
+
+                      final MediaModel? _bigPic = await BldrsPicMaker.makePic(
+                        cropAfterPick: false,
+                        aspectRatio: FlyerDim.flyerAspectRatio(),
+                        compressWithQuality: Standards.slideBigQuality,
+                        resizeToWidth: Standards.slideBigWidth,
+                        assignPath: 'storage:bldrs/bjo',
+                        name: 'bjo',
+                        picMakerType: PicMakerType.galleryImage,
+                        ownersIDs: ['x'],
+                      );
+
+                      if (_bigPic != null){
+
+                        final Dimensions? _dims = await VideoOps.getVideoBytesDimensions(
+                          bytes: _bigPic.bytes,
+                        );
+
+                        _dims?.blogDimensions(invoker: 'zz');
+
+                      }
+
 
                     },
                   ),
@@ -641,6 +712,21 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                               ),
                             );
                           }
+                        ),
+
+                        /// MUTE BUTTON
+                        SuperPositioned(
+                          appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                          enAlignment: Alignment.topLeft,
+                          verticalOffset: 5,
+                          horizontalOffset: 5,
+                          child: BldrsBox(
+                            height: 30,
+                            width: 30,
+                            icon: _isMuted ? Icons.volume_off : Icons.volume_up,
+                            iconSizeFactor: 0.7,
+                            onTap: muteVideo,
+                          ),
                         ),
 
                       ],

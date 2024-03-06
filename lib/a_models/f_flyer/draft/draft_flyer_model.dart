@@ -13,7 +13,7 @@ import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
@@ -90,7 +90,7 @@ class DraftFlyer{
   final GlobalKey<FormState>? formKey;
   final bool? canPickImage;
   final bool? firstTimer;
-  final PicModel? poster;
+  final MediaModel? poster;
   final String? affiliateLink;
   final String? gtaLink;
   final PriceModel? price;
@@ -351,7 +351,7 @@ class DraftFlyer{
         'headlineNode': null,
         'descriptionNode': null,
         'formKey': null,
-        'poster': PicModel.cipherToLDB(draft.poster),
+        'poster': MediaModel.cipherToLDB(draft.poster),
         'affiliateLink': draft.affiliateLink,
         'gtaLink': draft.gtaLink,
         'price': draft.price?.toMap(),
@@ -393,7 +393,7 @@ class DraftFlyer{
         headlineNode: null,
         descriptionNode: null,
         formKey: null,
-        poster: PicModel.decipherFromLDB(map['poster']),
+        poster: MediaModel.decipherFromLDB(map['poster']),
         affiliateLink: map['affiliateLink'],
         gtaLink: map['gtaLink'],
         price: PriceModel.decipher(map: map['price']),
@@ -435,7 +435,7 @@ class DraftFlyer{
     bool? canPickImage,
     GlobalKey<FormState>? formKey,
     bool? firstTimer,
-    PicModel? poster,
+    MediaModel? poster,
     String? affiliateLink,
     String? gtaLink,
     PriceModel? price,
@@ -676,7 +676,7 @@ class DraftFlyer{
   /// TESTED : WORKS PERFECT
   static Future<DraftFlyer?> addBigPicsToDraft({
     required DraftFlyer? draft,
-    required  List<PicModel> bigPics,
+    required  List<MediaModel> bigPics,
     required double flyerBoxWidth,
   }) async {
 
@@ -715,8 +715,8 @@ class DraftFlyer{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<PicModel> getPics(DraftFlyer? draft){
-    final List<PicModel> _output = [];
+  static List<MediaModel> getPics(DraftFlyer? draft){
+    final List<MediaModel> _output = [];
 
     if (Lister.checkCanLoop(draft?.draftSlides) == true){
 
@@ -865,7 +865,7 @@ class DraftFlyer{
       if (PDFModel.checkPDFModelsAreIdentical(pdf1: draft1.pdfModel, pdf2: draft2.pdfModel) == false){
         blog('pdfs are not identical');
       }
-      if (PicModel.checkPicsAreIdentical(pic1: draft1.poster, pic2: draft2.poster) == false){
+      if (MediaModel.checkPicsAreIdentical(pic1: draft1.poster, pic2: draft2.poster) == false){
         blog('posters are not identical');
       }
       if (BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == false){
@@ -989,25 +989,25 @@ class DraftFlyer{
     }
     else {
 
-      final PicModel? _poster = await PicProtocols.fetchFlyerPoster(flyerID: oldFlyer?.id);
+      final MediaModel? _poster = await PicProtocols.fetchFlyerPoster(flyerID: oldFlyer?.id);
 
       if (_poster == null){
         _hasChanged = true;
       }
       else {
 
-        _hasChanged = !PicModel.checkPicsAreIdentical(pic1: draft?.poster, pic2: _poster);
+        _hasChanged = !MediaModel.checkPicsAreIdentical(pic1: draft?.poster, pic2: _poster);
 
         if (_hasChanged == false){
 
-          final List<PicModel> _draftPics = getPics(draft);
-          final List<PicModel> _oldPics = await PicProtocols.fetchFlyerPics(
+          final List<MediaModel> _draftPics = getPics(draft);
+          final List<MediaModel> _oldPics = await PicProtocols.fetchFlyerPics(
             flyerModel: oldFlyer,
             type: SlidePicType.small,
           );
 
           /// [identical = true] => [hasChanged = false] ya zaki
-          _hasChanged = !PicModel.checkPicsListsAreIdentical(
+          _hasChanged = !MediaModel.checkPicsListsAreIdentical(
             list1: _draftPics,
             list2: _oldPics,
           );
@@ -1062,7 +1062,7 @@ class DraftFlyer{
           draft1.isAmazonFlyer == draft2.isAmazonFlyer &&
           draft1.score == draft2.score &&
           PDFModel.checkPDFModelsAreIdentical(pdf1: draft1.pdfModel, pdf2: draft2.pdfModel) == true &&
-          PicModel.checkPicsAreIdentical(pic1: draft1.poster, pic2: draft2.poster) == true &&
+          MediaModel.checkPicsAreIdentical(pic1: draft1.poster, pic2: draft2.poster) == true &&
           BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == true &&
           draft1.affiliateLink == draft2.affiliateLink &&
           draft1.gtaLink == draft2.gtaLink &&

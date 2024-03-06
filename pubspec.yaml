@@ -3,7 +3,7 @@ description: The Builder's Network
 publish_to: "none"
 # --------------------------------------------------------------------------------
 # BLDRS_APP_VERSION
-version: 3.3.10
+version: 3.4.0
 # ----------------------
 # app version should be updated in those locations
 # ----------------------
@@ -85,9 +85,11 @@ dependencies:
       url: git@github.com:ScerIO/packages.flutter.git
       path: packages/pdfx
 #  restart_app: ^1.2.1
+
   video_editor: ^3.0.0
-  ffmpeg_kit_flutter_min: ^5.1.0
+#  ffmpeg_kit_flutter_min: ^5.1.0
   fraction: ^4.1.4
+  ffmpeg_kit_flutter: ^6.0.3
   # ------------------------------------
 #dependency_overrides:
 #  intl: ^0.18.1

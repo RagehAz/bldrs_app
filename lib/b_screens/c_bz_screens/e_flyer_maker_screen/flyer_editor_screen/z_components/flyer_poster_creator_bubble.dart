@@ -9,7 +9,7 @@ import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
@@ -37,7 +37,7 @@ class FlyerPosterCreatorBubble extends StatefulWidget {
   final DraftFlyer? draft;
   final ValueChanged<bool> onSwitch;
   final BzModel? bzModel;
-  final Function(PicModel? pic) onPosterCreated;
+  final Function(MediaModel? pic) onPosterCreated;
 
   @override
   State<FlyerPosterCreatorBubble> createState() => _FlyerPosterCreatorBubbleState();
@@ -47,7 +47,7 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
   // -----------------------------------------------------------------------------
   final ScreenshotController _cont = ScreenshotController();
   bool _loading = true;
-  PicModel? _poster;
+  MediaModel? _poster;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -86,7 +86,7 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
 
       if (_path != null){
 
-        PicModel? _pic;
+        MediaModel? _pic;
 
         if (_loading == false){
           setState(() {
@@ -121,7 +121,7 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
             quality: Standards.slideMediumQuality,
           );
 
-          _pic = await PicModel.combinePicModel(
+          _pic = await MediaModel.combinePicModel(
             bytes: _bytes,
             picMakerType: PicMakerType.generated,
             compressWithQuality: Standards.slideMediumQuality,

@@ -2,7 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:basics/components/super_image/super_image.dart';
 import 'package:basics/helpers/checks/object_check.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/z_components/images/bldrs_image_path_to_ui_image.dart';
 import 'package:flutter/material.dart';
 
@@ -125,8 +125,8 @@ class BldrsImage extends StatelessWidget {
       }
 
       /// IS PIC MODEL
-      else if (pic is PicModel){
-        final PicModel _picModel = pic;
+      else if (pic is MediaModel){
+        final MediaModel _picModel = pic;
         return getChild(
             context: context,
             theIcon: _picModel.bytes,

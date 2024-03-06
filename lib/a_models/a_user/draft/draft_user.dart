@@ -9,7 +9,7 @@ import 'package:bldrs/a_models/a_user/sub/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
@@ -67,7 +67,7 @@ class DraftUser {
   final NeedModel? need;
   final String? name;
   final List<String>? trigram;
-  final PicModel? picModel;
+  final MediaModel? picModel;
   final String? title;
   final String? company;
   final Gender? gender;
@@ -125,7 +125,7 @@ class DraftUser {
         type: ContactType.phone,
       )?.value;
       
-      final PicModel? _picModel = await _createPicFromUserModelForDraft(
+      final MediaModel? _picModel = await _createPicFromUserModelForDraft(
         firstTimer: firstTimer,
         userModel: userModel,
       );
@@ -178,11 +178,11 @@ class DraftUser {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel?> _createPicFromUserModelForDraft({
+  static Future<MediaModel?> _createPicFromUserModelForDraft({
     required UserModel? userModel,
     required bool firstTimer,
   }) async {
-    PicModel? _output;
+    MediaModel? _output;
 
     if (userModel != null){
 
@@ -235,7 +235,7 @@ class DraftUser {
     NeedModel? need,
     String? name,
     List<String>? trigram,
-    PicModel? picModel,
+    MediaModel? picModel,
     String? title,
     String? company,
     Gender? gender,
@@ -403,7 +403,7 @@ class DraftUser {
       // -------------------------
       'name': nameController?.text ?? name,
       'trigram': trigram,
-      'picModel': PicModel.cipherToLDB(picModel),
+      'picModel': MediaModel.cipherToLDB(picModel),
       'title': titleController?.text ?? title,
       'company': companyController?.text ?? company,
       'gender': UserModel.cipherGender(gender),
@@ -451,7 +451,7 @@ class DraftUser {
       // -------------------------
       name: map['name'],
       trigram: Stringer.getStringsFromDynamics(map['trigram']),
-      picModel: PicModel.decipherFromLDB(map['picModel']),
+      picModel: MediaModel.decipherFromLDB(map['picModel']),
       title: map['title'],
       company: map['company'],
       gender: UserModel.decipherGender(map['gender']),
@@ -577,7 +577,7 @@ class DraftUser {
           NeedModel.checkNeedsAreIdentical(draft1.need, draft2.need) == true &&
           draft1.name == draft2.name &&
           Lister.checkListsAreIdentical(list1: draft1.trigram, list2: draft2.trigram) == true &&
-          PicModel.checkPicsAreIdentical(pic1: draft1.picModel, pic2: draft2.picModel) == true &&
+          MediaModel.checkPicsAreIdentical(pic1: draft1.picModel, pic2: draft2.picModel) == true &&
           draft1.title == draft2.title &&
           draft1.company == draft2.company &&
           draft1.gender == draft2.gender &&

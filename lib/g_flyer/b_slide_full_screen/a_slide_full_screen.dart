@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
@@ -55,7 +55,7 @@ class PicFullScreen extends StatelessWidget {
     required String? title,
   }) async {
 
-    final PicModel? _pic = await PicProtocols.stealInternetPic(
+    final MediaModel? _pic = await PicProtocols.stealInternetPic(
       url: url,
       ownersIDs: [BldrsKeys.ragehID],
       picName: '$url',
@@ -71,7 +71,7 @@ class PicFullScreen extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> openPicModel({
-    required PicModel? pic,
+    required MediaModel? pic,
     required String? title,
   }) async {
 
@@ -113,7 +113,7 @@ class PicFullScreen extends StatelessWidget {
     required String? title,
   }) async {
 
-    final PicModel? _pic = await PicProtocols.fetchPic(path);
+    final MediaModel? _pic = await PicProtocols.fetchPic(path);
 
     await openPicModel(
       pic: _pic,

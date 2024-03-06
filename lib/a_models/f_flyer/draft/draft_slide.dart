@@ -6,7 +6,7 @@ import 'package:basics/helpers/files/floaters.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
@@ -35,10 +35,10 @@ class DraftSlide {
   // --------------------------------------------------------------------------
   final String? flyerID;
   final int slideIndex;
-  final PicModel? bigPic;
-  final PicModel? medPic;
-  final PicModel? smallPic;
-  final PicModel? backPic;
+  final MediaModel? bigPic;
+  final MediaModel? medPic;
+  final MediaModel? smallPic;
+  final MediaModel? backPic;
   final String? headline;
   final String? description;
   final Color? midColor;
@@ -54,7 +54,7 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<DraftSlide>> createTheDrafts({
-    required List<PicModel>? bigPics,
+    required List<MediaModel>? bigPics,
     required List<DraftSlide> existingDrafts,
     required String? headline,
     required String? flyerID,
@@ -67,7 +67,7 @@ class DraftSlide {
 
       for (int i = 0; i < bigPics!.length; i++){
 
-        final PicModel _bigPic = bigPics[i];
+        final MediaModel _bigPic = bigPics[i];
 
         final int _newSlideIndex = i + existingDrafts.length;
 
@@ -101,7 +101,7 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftSlide?> createDraft({
-    required PicModel? bigPic,
+    required MediaModel? bigPic,
     required int index,
     required String? headline,
     required String? flyerID,
@@ -114,19 +114,19 @@ class DraftSlide {
     if (bigPic != null){
 
       final Color? _midColor = await Colorizer.getAverageColor(bigPic.bytes);
-      final PicModel? _medPic = await SlidePicMaker.compressSlideBigPicTo(
+      final MediaModel? _medPic = await SlidePicMaker.compressSlideBigPicTo(
         slidePic: bigPic,
         flyerID: flyerID,
         slideIndex: index,
         type: SlidePicType.med,
       );
-      final PicModel? _smallPic = await SlidePicMaker.compressSlideBigPicTo(
+      final MediaModel? _smallPic = await SlidePicMaker.compressSlideBigPicTo(
         slidePic: bigPic,
         flyerID: flyerID,
         slideIndex: index,
         type: SlidePicType.small,
       );
-      final PicModel? _backPic = await SlidePicMaker.createSlideBackground(
+      final MediaModel? _backPic = await SlidePicMaker.createSlideBackground(
         bigPic: bigPic,
         flyerID: flyerID,
         slideIndex: index,
@@ -174,11 +174,11 @@ class DraftSlide {
 
     if (draft != null){
 
-      final PicModel? _picModel = getPicModel(
+      final MediaModel? _picModel = getPicModel(
           draft: draft,
           slidePicType: slidePicType
       );
-      final PicModel? _backPic = getPicModel(
+      final MediaModel? _backPic = getPicModel(
           draft: draft,
           slidePicType: SlidePicType.back,
       );
@@ -310,10 +310,10 @@ class DraftSlide {
       _map = {
         'flyerID': draft.flyerID,
         'slideIndex': draft.slideIndex,
-        'bigPic': PicModel.cipherToLDB(draft.bigPic),
-        'medPic': PicModel.cipherToLDB(draft.medPic),
-        'smallPic': PicModel.cipherToLDB(draft.smallPic),
-        'backPic': PicModel.cipherToLDB(draft.backPic),
+        'bigPic': MediaModel.cipherToLDB(draft.bigPic),
+        'medPic': MediaModel.cipherToLDB(draft.medPic),
+        'smallPic': MediaModel.cipherToLDB(draft.smallPic),
+        'backPic': MediaModel.cipherToLDB(draft.backPic),
         'headline': draft.headline,
         'description': draft.description,
         'midColor': Colorizer.cipherColor(draft.midColor),
@@ -356,10 +356,10 @@ class DraftSlide {
       _draft = DraftSlide(
         flyerID: map['flyerID'],
         slideIndex: map['slideIndex'],
-        bigPic: PicModel.decipherFromLDB(map['bigPic']),
-        medPic: PicModel.decipherFromLDB(map['medPic']),
-        smallPic: PicModel.decipherFromLDB(map['smallPic']),
-        backPic: PicModel.decipherFromLDB(map['backPic']),
+        bigPic: MediaModel.decipherFromLDB(map['bigPic']),
+        medPic: MediaModel.decipherFromLDB(map['medPic']),
+        smallPic: MediaModel.decipherFromLDB(map['smallPic']),
+        backPic: MediaModel.decipherFromLDB(map['backPic']),
         headline: map['headline'],
         description: map['description'],
         midColor: Colorizer.decipherColor(map['midColor']),
@@ -401,10 +401,10 @@ class DraftSlide {
   DraftSlide copyWith({
     String? flyerID,
     int? slideIndex,
-    PicModel? bigPic,
-    PicModel? medPic,
-    PicModel? smallPic,
-    PicModel? backPic,
+    MediaModel? bigPic,
+    MediaModel? medPic,
+    MediaModel? smallPic,
+    MediaModel? backPic,
     BoxFit? picFit,
     String? headline,
     String? description,
@@ -474,11 +474,11 @@ class DraftSlide {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PicModel? getPicModel({
+  static MediaModel? getPicModel({
     required DraftSlide? draft,
     required SlidePicType slidePicType,
   }){
-    PicModel? _output;
+    MediaModel? _output;
 
     if (draft != null){
       switch (slidePicType){
@@ -534,17 +534,17 @@ class DraftSlide {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<PicModel> getPicModels({
+  static List<MediaModel> getPicModels({
     required List<DraftSlide>? drafts,
     required SlidePicType slidePicType,
   }){
-    final List<PicModel> _output = <PicModel>[];
+    final List<MediaModel> _output = <MediaModel>[];
 
     if (Lister.checkCanLoop(drafts) == true){
 
       for (final DraftSlide draft in drafts!){
 
-        final PicModel? _picModel = getPicModel(
+        final MediaModel? _picModel = getPicModel(
             draft: draft,
             slidePicType: slidePicType,
         );
@@ -883,16 +883,16 @@ class DraftSlide {
     if (slide1?.slideIndex != slide2?.slideIndex){
       blog('MutableSlidesDifferences : slideIndexes are not Identical');
     }
-    if (PicModel.checkPicsAreIdentical(pic1: slide1?.bigPic, pic2: slide2?.bigPic) == false){
+    if (MediaModel.checkPicsAreIdentical(pic1: slide1?.bigPic, pic2: slide2?.bigPic) == false){
       blog('MutableSlidesDifferences : bigPics are not Identical');
     }
-    if (PicModel.checkPicsAreIdentical(pic1: slide1?.medPic, pic2: slide2?.medPic) == false){
+    if (MediaModel.checkPicsAreIdentical(pic1: slide1?.medPic, pic2: slide2?.medPic) == false){
       blog('MutableSlidesDifferences : medPics are not Identical');
     }
-    if (PicModel.checkPicsAreIdentical(pic1: slide1?.smallPic, pic2: slide2?.smallPic) == false){
+    if (MediaModel.checkPicsAreIdentical(pic1: slide1?.smallPic, pic2: slide2?.smallPic) == false){
       blog('MutableSlidesDifferences : smallPics are not Identical');
     }
-    if (PicModel.checkPicsAreIdentical(pic1: slide1?.backPic, pic2: slide2?.backPic) == false){
+    if (MediaModel.checkPicsAreIdentical(pic1: slide1?.backPic, pic2: slide2?.backPic) == false){
       blog('MutableSlidesDifferences : backPics are not Identical');
     }
     if (slide1?.headline != slide2?.headline){
@@ -944,10 +944,10 @@ class DraftSlide {
       if (
           slide1.flyerID == slide2.flyerID &&
           slide1.slideIndex == slide2.slideIndex &&
-          PicModel.checkPicsAreIdentical(pic1: slide1.bigPic, pic2: slide2.bigPic) == true &&
-          PicModel.checkPicsAreIdentical(pic1: slide1.medPic, pic2: slide2.medPic) == true &&
-          PicModel.checkPicsAreIdentical(pic1: slide1.smallPic, pic2: slide2.smallPic) == true &&
-          PicModel.checkPicsAreIdentical(pic1: slide1.backPic, pic2: slide2.backPic) == true &&
+          MediaModel.checkPicsAreIdentical(pic1: slide1.bigPic, pic2: slide2.bigPic) == true &&
+          MediaModel.checkPicsAreIdentical(pic1: slide1.medPic, pic2: slide2.medPic) == true &&
+          MediaModel.checkPicsAreIdentical(pic1: slide1.smallPic, pic2: slide2.smallPic) == true &&
+          MediaModel.checkPicsAreIdentical(pic1: slide1.backPic, pic2: slide2.backPic) == true &&
           slide1.headline == slide2.headline &&
           slide1.description == slide2.description &&
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&

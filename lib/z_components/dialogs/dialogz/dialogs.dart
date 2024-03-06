@@ -21,7 +21,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/e_my_settings_page/password_screen.dart';
@@ -1360,7 +1360,7 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> picsDialog({
-    required List<PicModel> pics,
+    required List<MediaModel> pics,
     required Verse titleVerse,
     Verse? bodyVerse,
     Verse? confirmButtonVerse,
@@ -1391,7 +1391,7 @@ class Dialogs {
 
           ...List.generate(pics.length, (index){
 
-            final PicModel _pic = pics[index];
+            final MediaModel _pic = pics[index];
             final Dimensions _dims = Dimensions(width: _pic.meta?.width, height: _pic.meta?.height);
             final double aspectRatio = _dims.getAspectRatio();
             final double _height = _flyerBoxHeight;
@@ -1430,7 +1430,7 @@ class Dialogs {
   }) async {
     bool _continue = false;
 
-    final List<PicModel> _posters = await PicProtocols.fetchFlyersPosters(
+    final List<MediaModel> _posters = await PicProtocols.fetchFlyersPosters(
       flyersIDs: flyersIDs,
     );
 
@@ -1478,7 +1478,7 @@ class Dialogs {
       ),
       boolDialog: false,
       picsHeights: 120,
-      pics: await PicModel.createPicsFromLocalAssets(
+      pics: await MediaModel.createPicsFromLocalAssets(
         // width: 300,
         assets: [
           Iconz.mailJunkScreenshot,

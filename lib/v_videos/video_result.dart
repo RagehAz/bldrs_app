@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:basics/mediator/models/dimension_model.dart';
-import 'package:bldrs/v_videos/video_ops.dart';
+import 'package:basics/mediator/video_maker/video_ops.dart';
 import 'package:flutter/material.dart';
 import 'package:fraction/fraction.dart';
 

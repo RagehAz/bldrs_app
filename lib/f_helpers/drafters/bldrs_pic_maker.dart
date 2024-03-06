@@ -4,7 +4,7 @@ import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/permissions/permits.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -40,7 +40,7 @@ class BldrsPicMaker {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel?> makePic({
+  static Future<MediaModel?> makePic({
     required PicMakerType picMakerType,
     required bool cropAfterPick,
     required double aspectRatio,
@@ -50,7 +50,7 @@ class BldrsPicMaker {
     required List<String> ownersIDs,
     required String name,
   }) async {
-    PicModel? _output;
+    MediaModel? _output;
     Uint8List? _bytes;
 
     if(picMakerType == PicMakerType.galleryImage){
@@ -86,7 +86,7 @@ class BldrsPicMaker {
 
     if (_bytes != null){
 
-      _output = await PicModel.combinePicModel(
+      _output = await MediaModel.combinePicModel(
         ownersIDs: ownersIDs,
         name: name,
         bytes: _bytes,
@@ -101,7 +101,7 @@ class BldrsPicMaker {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<PicModel>> makePics({
+  static Future<List<MediaModel>> makePics({
     required bool cropAfterPick,
     required double aspectRatio,
     required int compressWithQuality,
@@ -112,7 +112,7 @@ class BldrsPicMaker {
     required int maxAssets,
   }) async {
 
-    final List<PicModel> _output = [];
+    final List<MediaModel> _output = [];
 
     final List<Uint8List> _bytezz = await PicMaker.pickAndCropMultiplePics(
       context: getMainContext(),
@@ -135,7 +135,7 @@ class BldrsPicMaker {
 
         final Uint8List bytes = _bytezz[i];
 
-        final PicModel? _picModel = await PicModel.combinePicModel(
+        final MediaModel? _picModel = await MediaModel.combinePicModel(
           ownersIDs: ownersIDs,
           name: picNameGenerator(i),
           bytes: bytes,
@@ -160,12 +160,12 @@ class BldrsPicMaker {
 
   // --------------------
   /// NOT USED : NOT TESTED
-  static Future<PicModel?> cropPic({
-    required PicModel? pic,
+  static Future<MediaModel?> cropPic({
+    required MediaModel? pic,
     required double aspectRatio,
     required int? compressionQuality,
   }) async {
-    PicModel? _output;
+    MediaModel? _output;
 
     if (pic != null && pic.path != null && pic.meta != null && pic.meta?.name != null){
 
@@ -179,7 +179,7 @@ class BldrsPicMaker {
 
       if (_bytes != null){
 
-        _output = await PicModel.combinePicModel(
+        _output = await MediaModel.combinePicModel(
           bytes: _bytes,
           picMakerType: PicMaker.decipherPicMakerType(pic.meta!.data!['source'])!,
           compressWithQuality: compressionQuality,
@@ -191,6 +191,71 @@ class BldrsPicMaker {
       }
 
     }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// VIDEO
+
+  // --------------------
+  static Future<MediaModel?> makeVideo({
+    required PicMakerType picMakerType,
+    required bool cropAfterPick,
+    required double aspectRatio,
+    required int? compressWithQuality,
+    required double? resizeToWidth,
+    required String assignPath,
+    required List<String> ownersIDs,
+    required String name,
+  }) async {
+    MediaModel? _output;
+    Uint8List? _bytes;
+
+    // if(picMakerType == PicMakerType.galleryVideo){
+    //   _bytes = await PicMaker.pickAndCropVideo(
+    //     context: getMainContext(),
+    //     cropAfterPick: cropAfterPick,
+    //     aspectRatio: aspectRatio,
+    //     resizeToWidth: resizeToWidth,
+    //     appIsLTR: UiProvider.checkAppIsLeftToRight(),
+    //     langCode: Localizer.getCurrentLangCode(),
+    //     confirmText: getWord('phid_continue'),
+    //     compressWithQuality: compressWithQuality,
+    //     onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
+    //     onError: onPickingError,
+    //     // selectedAsset: selectedAsset,
+    //   );
+    // }
+    //
+    // else if (picMakerType == PicMakerType.cameraVideo){
+    //   _bytes = await PicMaker.shootAndCropVideo(
+    //     context: getMainContext(),
+    //     cropAfterPick: cropAfterPick,
+    //     aspectRatio: aspectRatio,
+    //     resizeToWidth: resizeToWidth,
+    //     appIsLTR: UiProvider.checkAppIsLeftToRight(),
+    //     langCode: Localizer.getCurrentLangCode(),
+    //     compressWithQuality: compressWithQuality,
+    //     confirmText: getWord('phid_continue'),
+    //     onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
+    //     onError: onPickingError,
+    //   );
+    // }
+    //
+    // if (_bytes != null){
+    //
+    //   _output = await PicModel.combinePicModel(
+    //     ownersIDs: ownersIDs,
+    //     name: name,
+    //     bytes: _bytes,
+    //     compressWithQuality: compressWithQuality,
+    //     picMakerType: picMakerType,
+    //     assignPath: assignPath,
+    //   );
+    //
+    // }
+
 
     return _output;
   }

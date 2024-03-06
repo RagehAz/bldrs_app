@@ -4,7 +4,7 @@ import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
@@ -31,7 +31,7 @@ class RenovateBzProtocols {
     required BzModel? oldBz,
     required bool showWaitDialog,
     // required bool navigateToBzInfoPageOnEnd,
-    required PicModel? newLogo,
+    required MediaModel? newLogo,
   }) async {
     BzModel? _bzModel;
     blog('RenovateBzProtocol.renovateBz : START');

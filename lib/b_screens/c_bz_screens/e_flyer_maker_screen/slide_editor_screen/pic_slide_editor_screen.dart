@@ -4,7 +4,7 @@ import 'package:basics/helpers/pixels/pixel_color_picker.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/x_controllers/animation_controls.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/x_controllers/color_controls.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/x_controllers/main_controls.dart';
@@ -87,7 +87,7 @@ class _PicSlideEditorScreenState extends State<PicSlideEditorScreen> {
   final ValueNotifier<bool> _showColorPanel = ValueNotifier(false);
   final ValueNotifier<Color?> _slideBackColor = ValueNotifier(null);
   final ValueNotifier<bool> _loadingColorPicker = ValueNotifier(false);
-  PicModel? _blurBackPic;
+  MediaModel? _blurBackPic;
   // -----------------------------------------------------------------------------
   @override
   void initState() {

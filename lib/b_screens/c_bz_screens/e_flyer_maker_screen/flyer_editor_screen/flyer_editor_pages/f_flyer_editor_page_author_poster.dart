@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/flyer_editor_screen/z_components/flyer_poster_creator_bubble.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/flyer_editor_screen/z_components/show_author_switch_bubble.dart';
 import 'package:bldrs/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
@@ -25,7 +25,7 @@ class FlyerEditorPage5AuthorPoster extends StatelessWidget {
   final Function onNextTap;
   final Function onPreviousTap;
   final Function(bool show) onSwitchFlyerShowsAuthor;
-  final Function(PicModel? poster) onPosterCreated;
+  final Function(MediaModel? poster) onPosterCreated;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

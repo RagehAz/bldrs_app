@@ -2,7 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/x_controllers/main_controls.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +12,10 @@ import 'package:flutter/material.dart';
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<PicModel?> initializeSlideBlur({
+Future<MediaModel?> initializeSlideBlur({
   required DraftSlide? slide,
 }) async {
-  PicModel? _backPic = slide?.backPic;
+  MediaModel? _backPic = slide?.backPic;
 
   return _backPic ??= await SlidePicMaker.createSlideBackground(
     bigPic: slide?.medPic ?? slide?.bigPic,
@@ -129,7 +129,7 @@ void onBlurBackTap({
   required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
   required ValueNotifier<Color?> slideBackColor,
   required ValueNotifier<bool> isPickingBackColor,
-  required PicModel? blurPic,
+  required MediaModel? blurPic,
 }){
 
     /// CLEAR COLOR
@@ -282,7 +282,7 @@ void _updateSlideColor({
 Future<void> _updateSlideBlur({
   required ValueNotifier<DraftSlide?> draftSlideNotifier,
   required ValueNotifier<DraftFlyer?> draftFlyerNotifier,
-  required PicModel? blurPic,
+  required MediaModel? blurPic,
   required bool mounted,
 }) async {
 

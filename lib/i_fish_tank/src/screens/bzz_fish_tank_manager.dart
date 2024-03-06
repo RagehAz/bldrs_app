@@ -1044,7 +1044,7 @@ class _BzzFishTankManagerState extends State<BzzFishTankManager> {
 
                     if (_isStoragePath == false && _isURL == true){
 
-                      final PicModel? _picModel = await PicProtocols.stealInternetPic(
+                      final MediaModel? _picModel = await PicProtocols.stealInternetPic(
                           url: _image,
                           ownersIDs: [BldrsKeys.ragehID],
                           picName: fish.id!,

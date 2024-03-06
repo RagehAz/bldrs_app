@@ -8,7 +8,8 @@ import 'package:basics/helpers/files/floaters.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_meta_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:fire/super_fire.dart';
 /// => TAMAM
 class PicStorageOps {
@@ -22,9 +23,9 @@ class PicStorageOps {
 
   // --------------------
   /// TESTED: WORKS PERFECT
-  static Future<PicModel?> createPic(PicModel? picModel) async {
+  static Future<MediaModel?> createPic(MediaModel? picModel) async {
 
-    PicModel.assertIsUploadable(picModel);
+    MediaModel.assertIsUploadable(picModel);
 
     final String? _url = await Storage.uploadBytesAndGetURL(
       bytes: picModel?.bytes,
@@ -47,16 +48,16 @@ class PicStorageOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel?> readPic({
+  static Future<MediaModel?> readPic({
     required String? path,
   }) async {
-    PicModel? _picModel;
+    MediaModel? _picModel;
 
     if (TextCheck.isEmpty(path) == false){
 
       final bool _pathIsURL = ObjectCheck.isAbsoluteURL(path);
       Uint8List? _bytes;
-      StorageMetaModel? _meta;
+      MediaMetaModel? _meta;
 
       /// GET BYTES
       if (_pathIsURL == true){
@@ -80,7 +81,7 @@ class PicStorageOps {
         else if (_pathIsURL == true){
           final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
           final double? _mega = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
-          _meta = StorageMetaModel(
+          _meta = MediaMetaModel(
             ownersIDs: const ['non'],
             name: path,
             height: _dims?.height,
@@ -89,7 +90,7 @@ class PicStorageOps {
           );
         }
 
-        _picModel = PicModel(
+        _picModel = MediaModel(
             path: path,
             bytes: _bytes,
             meta: _meta,
@@ -107,11 +108,11 @@ class PicStorageOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel?> updatePic({
-    required PicModel? picModel,
+  static Future<MediaModel?> updatePic({
+    required MediaModel? picModel,
   }) async {
 
-    final PicModel? _uploaded = await createPic(picModel);
+    final MediaModel? _uploaded = await createPic(picModel);
 
     return _uploaded;
   }

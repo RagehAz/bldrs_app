@@ -18,7 +18,7 @@ import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -468,24 +468,24 @@ class GtaModel {
 
         if (ObjectCheck.isAbsoluteURL(_url) == true) {
 
-          final PicModel? _bigPic = await createPicModelByGtaUrl(
+          final MediaModel? _bigPic = await createPicModelByGtaUrl(
             url: _url,
             picName: '${i}_${product.affiliateLink}',
             type: SlidePicType.big,
           );
-          final PicModel? _medPic = await SlidePicMaker.compressSlideBigPicTo(
+          final MediaModel? _medPic = await SlidePicMaker.compressSlideBigPicTo(
               slidePic: _bigPic,
               flyerID: DraftFlyer.newDraftID,
               slideIndex: i,
               type: SlidePicType.med,
           );
-          final PicModel? _smallPic = await SlidePicMaker.compressSlideBigPicTo(
+          final MediaModel? _smallPic = await SlidePicMaker.compressSlideBigPicTo(
               slidePic: _bigPic,
               flyerID: DraftFlyer.newDraftID,
               slideIndex: i,
               type: SlidePicType.small,
           );
-          final PicModel? _backPic = await SlidePicMaker.createSlideBackground(
+          final MediaModel? _backPic = await SlidePicMaker.createSlideBackground(
             bigPic: _bigPic,
             flyerID: DraftFlyer.newDraftID,
             slideIndex: i,
@@ -524,12 +524,12 @@ class GtaModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel?> createPicModelByGtaUrl({
+  static Future<MediaModel?> createPicModelByGtaUrl({
     required String? picName,
     required String? url,
     required SlidePicType type,
   }) async {
-    PicModel? _output;
+    MediaModel? _output;
 
     final String? _userID = Authing.getUserID();
 
@@ -540,7 +540,7 @@ class GtaModel {
       );
 
       if (_bytes != null && _bytes.isNotEmpty){
-        _output = await PicModel.combinePicModel(
+        _output = await MediaModel.combinePicModel(
           bytes: _bytes,
           picMakerType: PicMakerType.generated,
           compressWithQuality: SlidePicMaker.getSlidePicCompressionQuality(type),

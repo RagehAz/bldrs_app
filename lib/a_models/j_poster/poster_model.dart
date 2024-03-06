@@ -1,5 +1,5 @@
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -16,7 +16,7 @@ class PosterModel {
   final String? modelID;
   final PosterType? type;
   final String? path;
-  final PicModel? picModel;
+  final MediaModel? picModel;
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static const List<PosterType> posterTypes = <PosterType>[

@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
+import 'package:basics/mediator/models/media_meta_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:fire/super_fire.dart';
 
@@ -65,7 +66,7 @@ class PDFStorageOps {
       if (Lister.checkCanLoop(_bytes) == true){
 
         /// GET META
-        final StorageMetaModel? _meta = await Storage.readMetaByPath(
+        final MediaMetaModel? _meta = await Storage.readMetaByPath(
           path: path,
         );
 

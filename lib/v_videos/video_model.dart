@@ -8,8 +8,8 @@ import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper_ss.dart';
 import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/models/media_meta_model.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
-import 'package:fire/super_fire.dart';
 import 'package:flutter/foundation.dart';
 
 /// => TAMAM
@@ -25,7 +25,7 @@ class VideoModel {
   final Uint8List? bytes;
   /// storage/collectionName/subCollectionName/fileName.ext
   final String? path;
-  final StorageMetaModel? meta;
+  final MediaMetaModel? meta;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -35,7 +35,7 @@ class VideoModel {
   VideoModel copyWith({
     Uint8List? bytes,
     String? path,
-    StorageMetaModel? meta,
+    MediaMetaModel? meta,
   }){
     return VideoModel(
       bytes: bytes ?? this.bytes,
@@ -85,7 +85,7 @@ class VideoModel {
       _picModel = VideoModel(
         bytes: Floaters.getBytesFromInts(map['bytes']),
         path: map['path'],
-        meta: StorageMetaModel.decipherFromLDB(map['meta']),
+        meta: MediaMetaModel.decipherFromLDB(map['meta']),
       );
 
     }
@@ -229,7 +229,7 @@ class VideoModel {
         _output = VideoModel(
           bytes: bytes,
           path: assignPath,
-          meta: StorageMetaModel(
+          meta: MediaMetaModel(
             sizeMB: _mega,
             width: _dims.width,
             height: _dims.height,
@@ -312,7 +312,7 @@ class VideoModel {
     return VideoModel(
       path: 'storage/bldrs/bldrs_app_icon.png',
       bytes: Uint8List.fromList([1,2,3]),
-      meta: StorageMetaModel(
+      meta: MediaMetaModel(
         ownersIDs: const ['OwnerID'],
         name: 'Dummy Pic',
         width: 100,
@@ -350,10 +350,10 @@ class VideoModel {
     else if (model1 != null && model2 != null){
 
       if (
-      model1.path == model2.path &&
+          model1.path == model2.path &&
           model1.bytes?.length == model2.bytes?.length &&
           Lister.checkListsAreIdentical(list1: model1.bytes, list2: model2.bytes) == true &&
-          StorageMetaModel.checkMetaDatasAreIdentical(meta1: model1.meta, meta2: model2.meta) == true
+          MediaMetaModel.checkMetaDatasAreIdentical(meta1: model1.meta, meta2: model2.meta) == true
       ){
         _identical = true;
       }
