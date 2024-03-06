@@ -8,6 +8,7 @@ import 'package:basics/helpers/files/floaters.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/models/media_meta_model.dart';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:fire/super_fire.dart';
@@ -82,6 +83,7 @@ class PicStorageOps {
           final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
           final double? _mega = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
           _meta = MediaMetaModel(
+            fileType: FileType.jpeg,
             ownersIDs: const ['non'],
             name: path,
             height: _dims?.height,

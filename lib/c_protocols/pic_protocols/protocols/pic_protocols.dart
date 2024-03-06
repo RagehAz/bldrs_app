@@ -6,6 +6,7 @@ import 'package:basics/helpers/files/floaters.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper_ss.dart';
 import 'package:basics/helpers/strings/text_check.dart';
+import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
@@ -426,6 +427,7 @@ class PicProtocols {
 
       MediaModel? _pic = await MediaModel.combinePicModel(
         bytes: _bytes,
+        fileType: FileType.jpeg,
         ownersIDs: ownersIDs,
         name: picName,
         assignPath: assignPath,

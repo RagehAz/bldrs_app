@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:basics/mediator/models/media_model.dart';
@@ -81,6 +82,7 @@ class SlidePicMaker {
           PicMaker.decipherPicMakerType(_source) ?? PicMakerType.generated;
 
           _output = await MediaModel.combinePicModel(
+            fileType: FileType.jpeg,
             bytes: _bytes,
             picMakerType: _type,
             compressWithQuality: getSlidePicCompressionQuality(type),
@@ -202,6 +204,7 @@ class SlidePicMaker {
 
     if (_bytes != null && _path != null && _slideID != null){
       _output = await MediaModel.combinePicModel(
+        fileType: FileType.jpeg,
         bytes: _bytes,
         picMakerType: PicMakerType.generated,
         compressWithQuality: Standards.slideSmallQuality,

@@ -6,6 +6,7 @@ import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/models/media_meta_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:basics/mediator/models/media_model.dart';
@@ -108,6 +109,7 @@ class ComposeUserProtocols {
               bytes: _bytes,
               path: _picPath,
               meta: MediaMetaModel(
+                fileType: FileType.jpeg,
                 sizeMB: _mega,
                 ownersIDs: userID == null ? [] : [userID],
                 width: _dims?.width,

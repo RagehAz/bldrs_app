@@ -5,6 +5,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/checks/error_helpers.dart';
 import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
@@ -123,6 +124,7 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
 
           _pic = await MediaModel.combinePicModel(
             bytes: _bytes,
+            fileType: FileType.jpeg,
             picMakerType: PicMakerType.generated,
             compressWithQuality: Standards.slideMediumQuality,
             assignPath: _path,

@@ -8,6 +8,7 @@ import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper_ss.dart';
 import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/models/media_meta_model.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:flutter/foundation.dart';
@@ -231,6 +232,7 @@ class VideoModel {
           path: assignPath,
           meta: MediaMetaModel(
             sizeMB: _mega,
+            fileType: FileType.mp4,
             width: _dims.width,
             height: _dims.height,
             name: name,
@@ -315,6 +317,7 @@ class VideoModel {
       meta: MediaMetaModel(
         ownersIDs: const ['OwnerID'],
         name: 'Dummy Pic',
+        fileType: FileType.jpeg,
         width: 100,
         height: 100,
         sizeMB: 0.1,

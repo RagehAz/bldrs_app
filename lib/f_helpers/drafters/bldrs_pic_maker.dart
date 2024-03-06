@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/permissions/permits.dart';
+import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -87,6 +88,7 @@ class BldrsPicMaker {
     if (_bytes != null){
 
       _output = await MediaModel.combinePicModel(
+        fileType: FileType.jpeg,
         ownersIDs: ownersIDs,
         name: name,
         bytes: _bytes,
@@ -136,6 +138,7 @@ class BldrsPicMaker {
         final Uint8List bytes = _bytezz[i];
 
         final MediaModel? _picModel = await MediaModel.combinePicModel(
+          fileType: FileType.jpeg,
           ownersIDs: ownersIDs,
           name: picNameGenerator(i),
           bytes: bytes,
@@ -180,6 +183,7 @@ class BldrsPicMaker {
       if (_bytes != null){
 
         _output = await MediaModel.combinePicModel(
+          fileType: pic.meta!.fileType!,
           bytes: _bytes,
           picMakerType: PicMaker.decipherPicMakerType(pic.meta!.data!['source'])!,
           compressWithQuality: compressionQuality,
