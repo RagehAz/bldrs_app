@@ -4,8 +4,8 @@ import 'dart:async';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:basics/models/flag_model.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
@@ -584,9 +584,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         pic: draft?.logoPicModel,
                         canValidate: draft?.canValidate,
                       ),
-                      onAddPicture: (PicMakerType imagePickerType) => onChangeBzLogo(
+                      onAddPicture: (MediaOrigin mediaOrigin) => onChangeBzLogo(
                         draftNotifier: draftNotifier,
-                        imagePickerType: imagePickerType,
+                        mediaSource: mediaOrigin,
                         mounted: mounted,
                       ),
                     ),

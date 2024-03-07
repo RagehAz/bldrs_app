@@ -1,11 +1,11 @@
 import 'dart:typed_data';
-
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/permissions/permits.dart';
 import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/video_maker/video_maker.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -30,10 +30,10 @@ import 'package:flutter/foundation.dart';
 //  */
 
 /// => TAMAM
-class BldrsPicMaker {
+class BldrsMediaMaker {
   // --------------------------------------------------------------------------
 
-  const BldrsPicMaker();
+  const BldrsMediaMaker();
 
   // -----------------------------------------------------------------------------
 
@@ -42,7 +42,7 @@ class BldrsPicMaker {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<MediaModel?> makePic({
-    required PicMakerType picMakerType,
+    required MediaOrigin mediaOrigin,
     required bool cropAfterPick,
     required double aspectRatio,
     required int? compressWithQuality,
@@ -54,7 +54,7 @@ class BldrsPicMaker {
     MediaModel? _output;
     Uint8List? _bytes;
 
-    if(picMakerType == PicMakerType.galleryImage){
+    if(mediaOrigin == MediaOrigin.galleryImage){
       _bytes = await PicMaker.pickAndCropSinglePic(
         context: getMainContext(),
         cropAfterPick: cropAfterPick,
@@ -70,7 +70,7 @@ class BldrsPicMaker {
       );
     }
 
-    else if (picMakerType == PicMakerType.cameraImage){
+    else if (mediaOrigin == MediaOrigin.cameraImage){
       _bytes = await PicMaker.shootAndCropCameraPic(
         context: getMainContext(),
         cropAfterPick: cropAfterPick,
@@ -93,7 +93,7 @@ class BldrsPicMaker {
         name: name,
         bytes: _bytes,
         compressWithQuality: compressWithQuality,
-        picMakerType: picMakerType,
+        mediaOrigin: mediaOrigin,
         assignPath: assignPath,
       );
 
@@ -143,7 +143,7 @@ class BldrsPicMaker {
           name: picNameGenerator(i),
           bytes: bytes,
           compressWithQuality: compressWithQuality,
-          picMakerType: PicMakerType.galleryImage,
+          mediaOrigin: MediaOrigin.galleryImage,
           assignPath: assignPath(i),
         );
 
@@ -185,7 +185,7 @@ class BldrsPicMaker {
         _output = await MediaModel.combinePicModel(
           fileType: pic.meta!.fileType!,
           bytes: _bytes,
-          picMakerType: PicMaker.decipherPicMakerType(pic.meta!.data!['source'])!,
+          mediaOrigin: MediaModel.decipherMediaOrigin(pic.meta!.data!['source'])!,
           compressWithQuality: compressionQuality,
           assignPath: pic.path!,
           ownersIDs: pic.meta!.ownersIDs,
@@ -203,63 +203,57 @@ class BldrsPicMaker {
   /// VIDEO
 
   // --------------------
-  static Future<MediaModel?> makeVideo({
-    required PicMakerType picMakerType,
+  static Future<Map<String, MediaModel>?> makeVideo({
+    required MediaOrigin mediaOrigin,
     required bool cropAfterPick,
     required double aspectRatio,
-    required int? compressWithQuality,
     required double? resizeToWidth,
+    required int? compressWithQuality,
     required String assignPath,
     required List<String> ownersIDs,
     required String name,
+    required bool createCover,
   }) async {
-    MediaModel? _output;
-    Uint8List? _bytes;
+    Map<String, MediaModel>? _output;
 
-    // if(picMakerType == PicMakerType.galleryVideo){
-    //   _bytes = await PicMaker.pickAndCropVideo(
-    //     context: getMainContext(),
-    //     cropAfterPick: cropAfterPick,
-    //     aspectRatio: aspectRatio,
-    //     resizeToWidth: resizeToWidth,
-    //     appIsLTR: UiProvider.checkAppIsLeftToRight(),
-    //     langCode: Localizer.getCurrentLangCode(),
-    //     confirmText: getWord('phid_continue'),
-    //     compressWithQuality: compressWithQuality,
-    //     onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
-    //     onError: onPickingError,
-    //     // selectedAsset: selectedAsset,
-    //   );
-    // }
-    //
-    // else if (picMakerType == PicMakerType.cameraVideo){
-    //   _bytes = await PicMaker.shootAndCropVideo(
-    //     context: getMainContext(),
-    //     cropAfterPick: cropAfterPick,
-    //     aspectRatio: aspectRatio,
-    //     resizeToWidth: resizeToWidth,
-    //     appIsLTR: UiProvider.checkAppIsLeftToRight(),
-    //     langCode: Localizer.getCurrentLangCode(),
-    //     compressWithQuality: compressWithQuality,
-    //     confirmText: getWord('phid_continue'),
-    //     onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
-    //     onError: onPickingError,
-    //   );
-    // }
-    //
-    // if (_bytes != null){
-    //
-    //   _output = await PicModel.combinePicModel(
-    //     ownersIDs: ownersIDs,
-    //     name: name,
-    //     bytes: _bytes,
-    //     compressWithQuality: compressWithQuality,
-    //     picMakerType: picMakerType,
-    //     assignPath: assignPath,
-    //   );
-    //
-    // }
+    if(mediaOrigin == MediaOrigin.galleryVideo){
+      _output = await VideoMaker.pickAndCropVideo(
+        context: getMainContext(),
+        cropAfterPick: cropAfterPick,
+        aspectRatio: aspectRatio,
+        resizeToWidth: resizeToWidth,
+        appIsLTR: UiProvider.checkAppIsLeftToRight(),
+        langCode: Localizer.getCurrentLangCode(),
+        confirmText: getWord('phid_continue'),
+        compressWithQuality: compressWithQuality,
+        onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
+        onError: onPickingError,
+        name: name,
+        assignPath: assignPath,
+        ownersIDs: ownersIDs,
+        createCover: createCover,
+      );
+    }
 
+    else if (mediaOrigin == MediaOrigin.cameraVideo){
+      _output = await VideoMaker.shootAndCropVideo(
+        context: getMainContext(),
+        cropAfterPick: cropAfterPick,
+        aspectRatio: aspectRatio,
+        resizeToWidth: resizeToWidth,
+        appIsLTR: UiProvider.checkAppIsLeftToRight(),
+        langCode: Localizer.getCurrentLangCode(),
+        compressWithQuality: compressWithQuality,
+        confirmText: getWord('phid_continue'),
+        onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
+        onError: onPickingError,
+        locale: Localizer.getCurrentLocale(),
+        name: name,
+        assignPath: assignPath,
+        ownersIDs: ownersIDs,
+        createCover: createCover,
+      );
+    }
 
     return _output;
   }

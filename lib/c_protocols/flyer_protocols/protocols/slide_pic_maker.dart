@@ -77,14 +77,14 @@ class SlidePicMaker {
         if (_slideID != null && _slidePath != null){
 
           final String? _source = slidePic.meta?.data?['source'];
-          final PicMakerType _type = _source == null ? PicMakerType.generated
+          final MediaOrigin _type = _source == null ? MediaOrigin.generated
               :
-          PicMaker.decipherPicMakerType(_source) ?? PicMakerType.generated;
+          MediaModel.decipherMediaOrigin(_source) ?? MediaOrigin.generated;
 
           _output = await MediaModel.combinePicModel(
             fileType: FileType.jpeg,
             bytes: _bytes,
-            picMakerType: _type,
+            mediaOrigin: _type,
             compressWithQuality: getSlidePicCompressionQuality(type),
             assignPath: _slidePath,
             ownersIDs: slidePic.meta!.ownersIDs,
@@ -206,7 +206,7 @@ class SlidePicMaker {
       _output = await MediaModel.combinePicModel(
         fileType: FileType.jpeg,
         bytes: _bytes,
-        picMakerType: PicMakerType.generated,
+        mediaOrigin: MediaOrigin.generated,
         compressWithQuality: Standards.slideSmallQuality,
         assignPath: _path,
         ownersIDs: ownersIDs,

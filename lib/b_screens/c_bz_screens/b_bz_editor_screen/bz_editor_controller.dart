@@ -4,7 +4,6 @@ import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/stringer.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -17,7 +16,7 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_media_maker.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -358,7 +357,7 @@ void onChangeBzForm({
 /// TESTED : WORKS PERFECT
 Future<void> onChangeBzLogo({
   required ValueNotifier<DraftBz?> draftNotifier,
-  required PicMakerType imagePickerType,
+  required MediaOrigin mediaSource,
   required bool mounted,
 }) async {
 
@@ -385,8 +384,8 @@ Future<void> onChangeBzLogo({
           ),
         );
 
-        final MediaModel? _pic = await BldrsPicMaker.makePic(
-          picMakerType: imagePickerType,
+        final MediaModel? _pic = await BldrsMediaMaker.makePic(
+          mediaOrigin: mediaSource,
           cropAfterPick: true,
           aspectRatio: 1,
           compressWithQuality: Standards.bzLogoPicQuality,

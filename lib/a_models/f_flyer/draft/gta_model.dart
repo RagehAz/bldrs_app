@@ -10,7 +10,6 @@ import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/mediator/models/file_typer.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
@@ -544,7 +543,7 @@ class GtaModel {
         _output = await MediaModel.combinePicModel(
           bytes: _bytes,
           fileType: FileType.jpeg,
-          picMakerType: PicMakerType.generated,
+          mediaOrigin: MediaOrigin.generated,
           compressWithQuality: SlidePicMaker.getSlidePicCompressionQuality(type),
           assignPath: null,
           ownersIDs: [_userID],

@@ -10,17 +10,17 @@ import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/files/file_size_unit.dart';
 import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:basics/mediator/video_maker/video_maker.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/panel_circle_button.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_media_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -161,11 +161,24 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   // --------------------
   Future<void> _picVideoFromGallery() async {
 
-    final File? _file = await VideoMaker.pickVideo(
-        context: context,
-        langCode: Localizer.getCurrentLangCode(),
-        onPermissionPermanentlyDenied: BldrsPicMaker.onPermissionPermanentlyDenied,
-        onError: BldrsPicMaker.onPickingError,
+    final Map<String, MediaModel>? _videoMap = await VideoMaker.pickAndCropVideo(
+      context: context,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+      cropAfterPick: true,
+      aspectRatio: 1,
+      langCode: Localizer.getCurrentLangCode(),
+      onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
+      onError: BldrsMediaMaker.onPickingError,
+      createCover: true,
+      ownersIDs: [],
+      assignPath: '',
+      name: Numeric.createUniqueID().toString(),
+      compressWithQuality: 100,
+    );
+
+    final File? _file = await Filers.getFileFromUint8List(
+        uInt8List: _videoMap?['video']?.bytes,
+        fileName: _videoMap?['video']?.meta?.name,
     );
 
     await _setVideo(_file);
@@ -174,11 +187,29 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   // --------------------
   Future<void> _picVideoFromCamera() async {
 
-    final File? _file = await VideoMaker.shootCameraVideo(
+    final Map<String, MediaModel>? _videoMap = await VideoMaker.shootAndCropVideo(
       context: context,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+      aspectRatio: 1,
+      cropAfterPick: true,
+      locale: Localizer.getCurrentLocale(),
+      // compressWithQuality: ,
+      // confirmText: ,
+      // resizeToWidth: ,
+      // selectedAsset: ,
       langCode: Localizer.getCurrentLangCode(),
-      onPermissionPermanentlyDenied: BldrsPicMaker.onPermissionPermanentlyDenied,
-      onError: BldrsPicMaker.onPickingError,
+      onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
+      onError: BldrsMediaMaker.onPickingError,
+      compressWithQuality: 100,
+      ownersIDs: [],
+      assignPath: '',
+      name: Numeric.createUniqueID().toString(),
+      createCover: true,
+    );
+
+    final File? _file = await Filers.getFileFromUint8List(
+      uInt8List: _videoMap?['video']?.bytes,
+      fileName: _videoMap?['video']?.meta?.name,
     );
 
     await _setVideo(_file);
@@ -546,16 +577,22 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                     icon: Icons.aspect_ratio_outlined,
                     onTap: () async {
 
-                      final File? _file = await VideoMaker.pickVideo(
+                      final Map<String, MediaModel>? _videoMap = await VideoMaker.pickAndCropVideo(
                         context: context,
+                        cropAfterPick: true,
+                        aspectRatio: 1,
+                        appIsLTR: UiProvider.checkAppIsLeftToRight(),
                         langCode: Localizer.getCurrentLangCode(),
-                        onPermissionPermanentlyDenied: BldrsPicMaker.onPermissionPermanentlyDenied,
-                        onError: BldrsPicMaker.onPickingError,
+                        onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
+                        onError: BldrsMediaMaker.onPickingError,
+                        createCover: false,
+                        name: 'x',
+                        compressWithQuality: 100,
+                        assignPath: '',
+                        ownersIDs: [],
                       );
 
-                      final Dimensions? _dims = await VideoOps.getVideoFileDimensions(
-                        file: _file,
-                      );
+                      final Dimensions? _dims = await Dimensions.superDimensions(_videoMap?['video']?.bytes);
 
                       _dims?.blogDimensions(invoker: 'zz');
 
@@ -568,14 +605,14 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                     icon: Icons.aspect_ratio_outlined,
                     onTap: () async {
 
-                      final MediaModel? _bigPic = await BldrsPicMaker.makePic(
+                      final MediaModel? _bigPic = await BldrsMediaMaker.makePic(
                         cropAfterPick: false,
                         aspectRatio: FlyerDim.flyerAspectRatio(),
                         compressWithQuality: Standards.slideBigQuality,
                         resizeToWidth: Standards.slideBigWidth,
                         assignPath: 'storage:bldrs/bjo',
                         name: 'bjo',
-                        picMakerType: PicMakerType.galleryImage,
+                        mediaOrigin: MediaOrigin.galleryImage,
                         ownersIDs: ['x'],
                       );
 

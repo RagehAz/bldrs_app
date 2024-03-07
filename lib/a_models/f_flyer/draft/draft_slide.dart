@@ -100,6 +100,74 @@ class DraftSlide {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static Future<List<DraftSlide>> addVideo({
+    required MediaModel? video,
+    required MediaModel? cover,
+    required List<DraftSlide> existingDrafts,
+    required String? flyerID,
+    required double flyerBoxWidth,
+  }) async {
+    DraftSlide? _slide;
+
+    if (video != null && cover != null){
+
+      final int _newIndex = existingDrafts.length;
+
+      final Color? _midColor = await Colorizer.getAverageColor(cover.bytes);
+      // final MediaModel? _medPic = await SlidePicMaker.compressSlideBigPicTo(
+      //   slidePic: bigPic,
+      //   flyerID: flyerID,
+      //   slideIndex: index,
+      //   type: SlidePicType.med,
+      // );
+      // final MediaModel? _smallPic = await SlidePicMaker.compressSlideBigPicTo(
+      //   slidePic: bigPic,
+      //   flyerID: flyerID,
+      //   slideIndex: index,
+      //   type: SlidePicType.small,
+      // );
+      final MediaModel? _backPic = await SlidePicMaker.createSlideBackground(
+        bigPic: cover,
+        flyerID: flyerID,
+        slideIndex: _newIndex,
+        overrideSolidColor: null,
+      );
+
+      _slide = DraftSlide(
+        flyerID: flyerID,
+        bigPic: video,
+        medPic: null,
+        smallPic: cover,
+        backPic: _backPic,
+        headline: '',
+        description: '',
+        midColor: _midColor,
+        backColor: null,
+        opacity: 1,
+        slideIndex: _newIndex,
+        matrix: createInitialMatrix(
+          isMatrixFrom: false,
+          flyerBoxWidth: flyerBoxWidth,
+        ),
+        matrixFrom: createInitialMatrix(
+          isMatrixFrom: true,
+          flyerBoxWidth: flyerBoxWidth,
+        ),
+        animationCurve: null,
+      );
+
+    }
+
+    final List<DraftSlide> _combinedSlides = <DraftSlide>[
+      ...existingDrafts,
+      if (_slide != null)
+        _slide,
+    ];
+
+    return _combinedSlides;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<DraftSlide?> createDraft({
     required MediaModel? bigPic,
     required int index,

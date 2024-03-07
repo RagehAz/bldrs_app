@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:basics/mediator/models/media_model.dart';
@@ -14,7 +13,7 @@ import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_media_maker.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -150,7 +149,7 @@ Future<void> saveAuthorEditorSession({
 Future<void> takeAuthorImage({
   required ValueNotifier<AuthorModel?> author,
   required BzModel? bzModel,
-  required PicMakerType picMakerType,
+  required MediaOrigin mediaOrigin,
   required ValueNotifier<bool> canPickImage,
   required bool mounted,
 }) async {
@@ -171,8 +170,8 @@ Future<void> takeAuthorImage({
           value: false,
       );
 
-      final MediaModel? _pic = await BldrsPicMaker.makePic(
-          picMakerType: picMakerType,
+      final MediaModel? _pic = await BldrsMediaMaker.makePic(
+          mediaOrigin: mediaOrigin,
           cropAfterPick: true,
           aspectRatio: 1,
           compressWithQuality: Standards.authorPicQuality,

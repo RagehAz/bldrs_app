@@ -56,6 +56,7 @@ class ProgressBarModel {
   static ProgressBarModel initialModel({
     required int numberOfStrips,
     int index = 0,
+    Color? colorAllStrips,
   }){
 
     return ProgressBarModel(
@@ -64,6 +65,7 @@ class ProgressBarModel {
       numberOfStrips: numberOfStrips,
       stripsColors: ProgressBarModel.generateColors(
         colors: null,
+        colorAllStrips: colorAllStrips,
         length: numberOfStrips,
       ),
     );
@@ -187,6 +189,7 @@ class ProgressBarModel {
   static List<Color> generateColors({
     required int length,
     required List<Color>? colors,
+    Color? colorAllStrips,
   }){
 
     if (Lister.checkCanLoop(colors) == true){
@@ -196,7 +199,7 @@ class ProgressBarModel {
 
     else {
       return List.generate(length, (index){
-        return defaultStripColor;
+        return colorAllStrips ?? defaultStripColor;
       });
     }
 

@@ -3,7 +3,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/components/super_box/super_box.dart';
 import 'package:basics/helpers/space/scale.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/z_new_slide_image_picker_button.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -21,7 +21,7 @@ class AddPhotosButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ValueChanged<PicMakerType> onTap;
+  final ValueChanged<MediaOrigin> onTap;
   final bool isDisabled;
   /// --------------------------------------------------------------------------
   @override
@@ -84,7 +84,7 @@ class AddPhotosButton extends StatelessWidget {
                         ),
                         icon: Iconz.camera,
                         isTopBox: true,
-                        onTap: () => onTap(PicMakerType.cameraImage),
+                        onTap: () => onTap(MediaOrigin.cameraImage),
                       ),
 
                       /// GALLERY
@@ -95,7 +95,7 @@ class AddPhotosButton extends StatelessWidget {
                         ),
                         icon: Iconz.phoneGallery,
                         isTopBox: false,
-                        onTap: () => onTap(PicMakerType.galleryImage),
+                        onTap: () => onTap(MediaOrigin.galleryImage),
                       ),
 
                     ],
@@ -126,7 +126,7 @@ class AddVideosButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ValueChanged<PicMakerType> onTap;
+  final ValueChanged<MediaOrigin> onTap;
   final bool isDisabled;
   /// --------------------------------------------------------------------------
   @override
@@ -189,7 +189,7 @@ class AddVideosButton extends StatelessWidget {
                         ),
                         icon: Iconz.recorder,
                         isTopBox: true,
-                        onTap: () => onTap(PicMakerType.cameraVideo),
+                        onTap: () => onTap(MediaOrigin.cameraVideo),
                       ),
 
                       /// GALLERY
@@ -200,7 +200,7 @@ class AddVideosButton extends StatelessWidget {
                         ),
                         icon: Iconz.video,
                         isTopBox: false,
-                        onTap: () => onTap(PicMakerType.galleryVideo),
+                        onTap: () => onTap(MediaOrigin.galleryVideo),
                       ),
 
                     ],

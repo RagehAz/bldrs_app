@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
@@ -15,7 +14,7 @@ import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_media_maker.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -100,7 +99,7 @@ Future<void> loadUserEditorLastSession({
 /// TESTED : WORKS PERFECT
 Future<void> takeUserPicture({
   required ValueNotifier<DraftUser?> draft,
-  required PicMakerType picMakerType,
+  required MediaOrigin mediaOrigin,
   required bool mounted,
 }) async {
 
@@ -112,8 +111,8 @@ Future<void> takeUserPicture({
       setTo: false,
     );
 
-    final MediaModel? _picModel = await BldrsPicMaker.makePic(
-        picMakerType: picMakerType,
+    final MediaModel? _picModel = await BldrsMediaMaker.makePic(
+        mediaOrigin: mediaOrigin,
         cropAfterPick: true,
         aspectRatio: 1,
         compressWithQuality: Standards.userPicQuality,

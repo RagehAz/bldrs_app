@@ -701,6 +701,35 @@ class DraftFlyer{
     );
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<DraftFlyer?> addVideoToDraft({
+    required DraftFlyer? draft,
+    required  MediaModel video,
+    required MediaModel cover,
+    required double flyerBoxWidth,
+  }) async {
+
+    final List<DraftSlide> _newDraftSlides = await DraftSlide.addVideo(
+      video: video,
+      existingDrafts: draft?.draftSlides ?? [],
+      flyerID: draft?.id,
+      flyerBoxWidth: flyerBoxWidth,
+      cover: cover,
+    );
+
+    final DraftFlyer? _newDraft = draft?.copyWith(
+      draftSlides: _newDraftSlides,
+    );
+
+    return DraftFlyer.updateHeadline(
+      draft: _newDraft,
+      updateController: false,
+      slideIndex: 0,
+      newHeadline: draft?.headline?.text,
+    );
+
+  }
   // -----------------------------------------------------------------------------
 
   /// GETTERS

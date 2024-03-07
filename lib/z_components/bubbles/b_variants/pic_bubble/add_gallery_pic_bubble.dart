@@ -6,7 +6,6 @@ import 'package:basics/helpers/files/file_size_unit.dart';
 import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/borderers.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/g_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
@@ -46,7 +45,7 @@ class AddImagePicBubble extends StatelessWidget {
     super.key
   });
   // --------------------
-  final ValueChanged<PicMakerType>? onAddPicture;
+  final ValueChanged<MediaOrigin>? onAddPicture;
   final MediaModel? picModel;
   final Verse titleVerse;
   final BubbleType bubbleType;
@@ -164,7 +163,7 @@ class AddImagePicBubble extends StatelessWidget {
                       height: btWidth,
                       icon: Iconz.phoneGallery,
                       iconSizeFactor: 0.6,
-                      onTap: () => onAddPicture?.call(PicMakerType.galleryImage),
+                      onTap: () => onAddPicture?.call(MediaOrigin.galleryImage),
                       onLongTap: onPicLongTap,
                     ),
 
@@ -174,7 +173,7 @@ class AddImagePicBubble extends StatelessWidget {
                       height: btWidth,
                       icon: Iconz.camera,
                       iconSizeFactor: 0.5,
-                      onTap: () => onAddPicture?.call(PicMakerType.cameraImage),
+                      onTap: () => onAddPicture?.call(MediaOrigin.cameraImage),
                     ),
 
                   ],
@@ -310,7 +309,7 @@ class _PlusIconLayer extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final MediaModel? picModel;
-  final ValueChanged<PicMakerType>? onAddPic;
+  final ValueChanged<MediaOrigin>? onAddPic;
   final BubbleType bubbleType;
   final double picWidth;
   final Function? onLongTap;
@@ -338,7 +337,7 @@ class _PlusIconLayer extends StatelessWidget {
         opacity: 0.9,
         iconColor: Colorz.white255,
         color: Colorz.white20,
-        onTap: () => onAddPic?.call(PicMakerType.galleryImage),
+        onTap: () => onAddPic?.call(MediaOrigin.galleryImage),
         onLongTap: onLongTap,
       );
     }

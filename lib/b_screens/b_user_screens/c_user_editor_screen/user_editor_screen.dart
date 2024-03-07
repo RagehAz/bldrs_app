@@ -5,8 +5,8 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:basics/models/flag_model.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:basics/components/super_box/super_box.dart';
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -555,9 +555,9 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       redDot: true,
                       picModel: draft?.picModel,
                       bubbleType: BubbleType.userPic,
-                      onAddPicture: (PicMakerType imagePickerType) => takeUserPicture(
+                      onAddPicture: (MediaOrigin imagePickerType) => takeUserPicture(
                         draft: _draftUser,
-                        picMakerType: imagePickerType,
+                        mediaOrigin: imagePickerType,
                         mounted: mounted,
                       ),
                       validator: () => Formers.picValidator(

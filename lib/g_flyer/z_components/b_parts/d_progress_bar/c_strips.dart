@@ -165,7 +165,20 @@ class Strips extends StatelessWidget {
             );
 
             if (_progModel?.numberOfStrips == 1){
-              return singleSlideProgBar!;
+              return ProgressBox(
+                  flyerBoxWidth: flyerBoxWidth,
+                  margins: margins,
+                  stripsStack: <Widget>[
+                    StaticStrip(
+                      flyerBoxWidth: flyerBoxWidth,
+                      stripWidth: FlyerDim.progressStripsTotalLength(flyerBoxWidth),
+                      numberOfSlides: 1,
+                      isWhite: true,
+                      stripColor: _progModel?.stripsColors?[0],
+                    ),
+                  ]
+              );
+              // return singleSlideProgBar!;
             }
 
             else {
@@ -188,6 +201,7 @@ class Strips extends StatelessWidget {
                             numberOfSlides: _progModel.numberOfStrips,
                             margins: margins,
                             isWhite: false,
+                            // stripColor: _progModel.stripsColors?[index],
                           );
 
                         }
@@ -208,6 +222,7 @@ class Strips extends StatelessWidget {
                         stripWidth: _aStripLength,
                         numberOfSlides: _progModel.numberOfStrips,
                         isWhite: true,
+                        stripColor: _progModel.stripsColors?[_progModel.numberOfStrips-1],
                       ),
                       builder: (BuildContext context, double tweenVal, Widget? childC) {
 
@@ -228,12 +243,20 @@ class Strips extends StatelessWidget {
                                     stripWidth: _tweenVal,
                                     numberOfSlides: _progModel.numberOfStrips,
                                     isWhite: true,
+                                    stripColor: _progModel.stripsColors?[index],
                                   );
                                 }
 
                                 /// IF STATIC STRIPS
                                 else {
-                                  return childC!;
+                                  return StaticStrip(
+                                    flyerBoxWidth: flyerBoxWidth,
+                                    stripWidth: _aStripLength,
+                                    numberOfSlides: _progModel.numberOfStrips,
+                                    isWhite: true,
+                                    stripColor: _progModel.stripsColors?[index],
+                                  );
+                                  // return childC!;
                                 }
 
                               }
@@ -258,6 +281,7 @@ class Strips extends StatelessWidget {
                 stripWidth: FlyerDim.progressStripsTotalLength(flyerBoxWidth),
                 numberOfSlides: 1,
                 isWhite: true,
+                // stripColor: ,
               ),
             ]
         ),

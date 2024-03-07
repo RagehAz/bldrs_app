@@ -388,6 +388,11 @@ class Localizer {
     return Localizer.translate('phid_languageCode') ?? 'en';
   }
   // --------------------
+  static Locale getCurrentLocale(){
+    final String? _jsonLang = getCurrentLangCode();
+    return _concludeLocaleByLangCode(_jsonLang)!;
+  }
+  // --------------------
   static String activeLanguage () => Localizer.translate('phid_activeLanguage') ?? 'English';
   static String headlineFont () => Localizer.translate('phid_headlineFont') ?? 'head';
   static String bodyFont () => Localizer.translate('phid_bodyFont') ?? 'body';

@@ -3,7 +3,6 @@ import 'package:basics/helpers/animators/sliders.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -17,7 +16,7 @@ import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_media_maker.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -33,7 +32,7 @@ import 'package:flutter/material.dart';
 /// TESTED : WORKS PERFECT
 Future<void> onAddNewSlides({
   required BuildContext context,
-  required PicMakerType imagePickerType,
+  required MediaOrigin mediaOrigin,
   required ValueNotifier<bool> isLoading,
   required ValueNotifier<DraftFlyer?> draftFlyer,
   required bool mounted,
@@ -57,7 +56,7 @@ Future<void> onAddNewSlides({
   }
 
   /// GALLERY PHOTO
-  else if (imagePickerType == PicMakerType.galleryImage){
+  else if (mediaOrigin == MediaOrigin.galleryImage){
     await _addGalleryImagesToNewFlyer(
       mounted: mounted,
       scrollController: scrollController,
@@ -67,7 +66,7 @@ Future<void> onAddNewSlides({
   }
 
   /// CAMERA PHOTO
-  else if (imagePickerType == PicMakerType.cameraImage){
+  else if (mediaOrigin == MediaOrigin.cameraImage){
     await _addCameraImageToNewFlyer(
       mounted: mounted,
       scrollController: scrollController,
@@ -77,7 +76,7 @@ Future<void> onAddNewSlides({
   }
 
   /// GALLERY VIDEO
-  else if (imagePickerType == PicMakerType.galleryVideo){
+  else if (mediaOrigin == MediaOrigin.galleryVideo){
     await _addGalleryVideoToNewFlyer(
       mounted: mounted,
       scrollController: scrollController,
@@ -87,7 +86,7 @@ Future<void> onAddNewSlides({
   }
 
   /// CAMERA VIDEO
-  else if (imagePickerType == PicMakerType.cameraVideo){
+  else if (mediaOrigin == MediaOrigin.cameraVideo){
       await _addCameraVideoToNewFlyer(
         mounted: mounted,
         scrollController: scrollController,
@@ -114,7 +113,7 @@ Future<void> _addGalleryImagesToNewFlyer({
 
   if(mounted == true && draftFlyer.value?.id != null && draftFlyer.value?.bzID != null){
 
-    final List<MediaModel> _bigPics = await BldrsPicMaker.makePics(
+    final List<MediaModel> _bigPics = await BldrsMediaMaker.makePics(
       cropAfterPick: false,
       aspectRatio: FlyerDim.flyerAspectRatio(),
       compressWithQuality: Standards.slideBigQuality,
@@ -187,7 +186,7 @@ Future<void> _addCameraImageToNewFlyer({
 
   if(mounted == true && draftFlyer.value?.id != null && draftFlyer.value?.bzID != null){
 
-    final MediaModel? _bigPic = await BldrsPicMaker.makePic(
+    final MediaModel? _bigPic = await BldrsMediaMaker.makePic(
       cropAfterPick: false,
       aspectRatio: FlyerDim.flyerAspectRatio(),
       compressWithQuality: Standards.slideBigQuality,
@@ -201,7 +200,7 @@ Future<void> _addCameraImageToNewFlyer({
         slideIndex: 0,
         type: SlidePicType.big,
       )!,
-      picMakerType: PicMakerType.cameraImage,
+      mediaOrigin: MediaOrigin.cameraImage,
       ownersIDs: await FlyerModel.generateFlyerOwners(
         bzID: draftFlyer.value?.bzID,
       ),
@@ -256,55 +255,57 @@ Future<void> _addGalleryVideoToNewFlyer({
 
   if(mounted == true && draftFlyer.value?.id != null && draftFlyer.value?.bzID != null){
 
-    // final PicModel? _video = await BldrsPicMaker.makeVideo(
-    //   cropAfterPick: true,
-    //   aspectRatio: FlyerDim.flyerAspectRatio(),
-    //   compressWithQuality: Standards.slideBigQuality,
-    //   resizeToWidth: Standards.slideBigWidth,
-    //   assignPath: StoragePath.flyers_flyerID_index_big(
-    //     flyerID: draftFlyer.value!.id,
-    //     slideIndex: 0,
-    //   )!,
-    //   name: SlideModel.generateSlideID(
-    //     flyerID: draftFlyer.value!.id,
-    //     slideIndex: 0,
-    //     type: SlidePicType.big,
-    //   )!,
-    //   picMakerType: PicMakerType.cameraVideo,
-    //   ownersIDs: await FlyerModel.generateFlyerOwners(
-    //     bzID: draftFlyer.value?.bzID,
-    //   ),
-    // );
-    //
-    // if(_video != null){
-    //
-    //   blog('_addGalleryVideoToNewFlyer ${draftFlyer.value?.draftSlides?.length} draftSlides');
-    //
-    //   // addBigPicsToDraft
-    //   final DraftFlyer? _newDraft = await DraftFlyer.addVideoToDraft(
-    //     draft: draftFlyer.value,
-    //     flyerBoxWidth: flyerBoxWidth,
-    //     video: _video,
-    //   );
-    //
-    //   setNotifier(
-    //     notifier: draftFlyer,
-    //     mounted: mounted,
-    //     value: _newDraft,
-    //   );
-    //
-    //   await _scrollToLastSlide(
-    //     scrollController: scrollController,
-    //     standOnIndex: (draftFlyer.value?.draftSlides?.length ?? 0) - 2,
-    //   );
-    //
-    //   await _openSlideIfSingle(
-    //     mounted: mounted,
-    //     draftFlyer: draftFlyer,
-    //     openEditorToLastSlide: true,
-    //   );
-    //
-    // }
+    final Map<String, MediaModel>? _videoMap = await BldrsMediaMaker.makeVideo(
+      cropAfterPick: true,
+      aspectRatio: FlyerDim.flyerAspectRatio(),
+      compressWithQuality: Standards.slideBigQuality,
+      resizeToWidth: Standards.slideBigWidth,
+      assignPath: StoragePath.flyers_flyerID_index_big(
+        flyerID: draftFlyer.value!.id,
+        slideIndex: 0,
+      )!,
+      name: SlideModel.generateSlideID(
+        flyerID: draftFlyer.value!.id,
+        slideIndex: 0,
+        type: SlidePicType.big,
+      )!,
+      mediaOrigin: MediaOrigin.cameraVideo,
+      ownersIDs: await FlyerModel.generateFlyerOwners(
+        bzID: draftFlyer.value?.bzID,
+      ),
+      createCover: true,
+    );
+
+    if(_videoMap?['video'] != null && _videoMap?['cover'] != null){
+
+      blog('_addGalleryVideoToNewFlyer ${draftFlyer.value?.draftSlides?.length} draftSlides');
+
+      // addBigPicsToDraft
+      final DraftFlyer? _newDraft = await DraftFlyer.addVideoToDraft(
+        draft: draftFlyer.value,
+        flyerBoxWidth: flyerBoxWidth,
+        video: _videoMap!['video']!,
+        cover: _videoMap['cover']!,
+      );
+
+      setNotifier(
+        notifier: draftFlyer,
+        mounted: mounted,
+        value: _newDraft,
+      );
+
+      await _scrollToLastSlide(
+        scrollController: scrollController,
+        standOnIndex: (draftFlyer.value?.draftSlides?.length ?? 0) - 2,
+      );
+
+      await _openSlideIfSingle(
+        mounted: mounted,
+        draftFlyer: draftFlyer,
+        openEditorToLastSlide: true,
+      );
+
+    }
 
   }
 

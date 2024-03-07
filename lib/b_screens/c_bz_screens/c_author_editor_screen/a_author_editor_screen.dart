@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:basics/models/flag_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -29,7 +30,6 @@ import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 
 class AuthorEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -426,10 +426,10 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       ),
                       redDot: true,
                       bubbleType: BubbleType.authorPic,
-                      onAddPicture: (PicMakerType imagePickerType) => takeAuthorImage(
+                      onAddPicture: (MediaOrigin mediaOrigin) => takeAuthorImage(
                         author: _draftAuthor,
                         bzModel: widget.bzModel,
-                        picMakerType: imagePickerType,
+                        mediaOrigin: mediaOrigin,
                         canPickImage: _canPickImage,
                         mounted: mounted,
                       ),

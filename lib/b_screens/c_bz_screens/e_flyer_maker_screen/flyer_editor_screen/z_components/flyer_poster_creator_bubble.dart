@@ -125,7 +125,7 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
           _pic = await MediaModel.combinePicModel(
             bytes: _bytes,
             fileType: FileType.jpeg,
-            picMakerType: PicMakerType.generated,
+            mediaOrigin: MediaOrigin.generated,
             compressWithQuality: Standards.slideMediumQuality,
             assignPath: _path,
             name: '${widget.draft!.id}_poster',
@@ -322,7 +322,7 @@ Future<void> testPoster({
 
   final PicModel? _posterPicModel = await PicModel.combinePicModel(
       bytes: bytes,
-      picMakerType: PicMakerType.generated,
+      picMakerType: MediaSource.generated,
       compressionQuality: 80,
       assignPath: StoragePath.flyers_flyerID_poster(draft?.id)!,
       ownersIDs: await FlyerModel.generateFlyerOwners(

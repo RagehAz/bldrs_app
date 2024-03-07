@@ -1,5 +1,5 @@
 import 'package:basics/components/bubbles/bubble/bubble.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
+import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/b_draft_shelf.dart';
@@ -29,7 +29,7 @@ class SlidesShelfBubble extends StatelessWidget {
   final ScrollController scrollController;
   final Function(DraftSlide draft) onSlideTap;
   final Function(DraftSlide draft) onDeleteSlide;
-  final Function(PicMakerType picMakerType) onAddSlides;
+  final Function(MediaOrigin mediaOrigin) onAddSlides;
   final Function(int oldIndex, int newIndex) onReorderSlide;
   final ValueNotifier<bool> loadingSlides;
   /// --------------------------------------------------------------------------

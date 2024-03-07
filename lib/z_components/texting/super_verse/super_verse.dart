@@ -612,6 +612,9 @@ class BldrsText extends StatelessWidget {
       ),
       appIsLTR: appIsLTR ?? UiProvider.checkAppIsLeftToRight(),
       onTap: onTap,
+      highlightColor: highlightColor,
+      // onDoubleTap: onDoubleTap,x
+
       // onDoubleTap: onDoubleTap,
       // package: package,
     );

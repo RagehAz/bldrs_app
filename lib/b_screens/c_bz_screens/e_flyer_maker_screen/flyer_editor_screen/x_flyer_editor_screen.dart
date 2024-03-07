@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
@@ -675,14 +674,14 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
             oldIndex: oldIndex,
             newIndex: newIndex,
           ),
-          onAddSlides: (PicMakerType imagePickerType) => onAddNewSlides(
+          onAddSlides: (MediaOrigin mediaOrigin) => onAddNewSlides(
             context: context,
             isLoading: _loadingSlides,
             draftFlyer: _draftNotifier,
             mounted: mounted,
             scrollController: _slidesShelfScrollController,
             flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
-            imagePickerType: imagePickerType,
+            mediaOrigin: mediaOrigin,
           ),
           onSlideTap: (DraftSlide slide) => onSlideTap(
             slide: slide,

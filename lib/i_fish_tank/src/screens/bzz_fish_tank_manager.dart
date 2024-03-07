@@ -846,6 +846,13 @@ class _BzzFishTankManagerState extends State<BzzFishTankManager> {
 
           return [
 
+            /// ADD NEW FISH
+            BottomDialog.wideButton(
+              context: context,
+              text: 'Add new Fish',
+              onTap: onAddNewFishTap,
+            ),
+
             /// SELECT ALL
             BottomDialog.wideButton(
               context: context,
