@@ -1,11 +1,10 @@
 library slide_video_editor;
 
 import 'dart:io';
+import 'dart:math';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/components/drawing/spacing.dart';
-import 'package:basics/components/super_box/super_box.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/files/file_size_unit.dart';
 import 'package:basics/helpers/files/filers.dart';
@@ -38,17 +37,30 @@ import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:ffmpeg_kit_flutter/statistics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
+import 'package:flutter/services.dart';
 import 'package:video_editor/video_editor.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/wide_button.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
-
+import 'package:video_editor/src/models/transform_data.dart';
+import 'package:video_editor/src/models/cover_data.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:video_editor/src/controller.dart';
+import 'package:video_editor/src/widgets/crop/crop_grid_painter.dart';
+import 'package:video_editor/src/widgets/image_viewer.dart';
+import 'package:video_editor/src/widgets/transform.dart';
 
 /// COMPONENTS
-part 'src/components/video_editor_nav_bar.dart';
-part 'src/components/video_editor_panel_switcher.dart';
-part 'src/components/video_editor_video_zone.dart';
-part 'src/components/video_editor_play_bar.dart';
+part 'src/components/panels/video_editor_panel_switcher.dart';
+part 'src/components/video_zone/video_editor_video_zone.dart';
+part 'src/components/play_bar/video_editor_play_bar.dart';
+
+part 'src/components/nav_bar/video_editor_nav_bar.dart';
+
+part 'src/components/panels/trim_panel/video_editor_trim_panel.dart';
+part 'src/components/panels/trim_panel/trim_slider_painter.dart';
+part 'src/components/panels/trim_panel/thumbnail_slider.dart';
 
 /// CONTROLLERS
 part 'src/controllers/video_editor_scales.dart';

@@ -69,26 +69,26 @@ class VideoEditorVideoZone extends StatelessWidget {
                       child: CoverViewer(controller: videoEditorController!),
                     ),
 
-                  /// PLAY ICON
-                  if (selectedButton != VideoEditorScales.cropButtonID && selectedButton != VideoEditorScales.coverButtonID)
-                    Center(
-                      child: AnimatedBuilder(
-                        animation: videoEditorController!.video,
-                        builder: (_, __) => WidgetFader(
-                          fadeType: videoEditorController!.isPlaying ? FadeType.fadeOut : FadeType.fadeIn,
-                          duration: const Duration(milliseconds: 100),
-                          ignorePointer: videoEditorController!.isPlaying,
-                          child: SuperBox(
-                            height: _screenWidth * 0.3,
-                            width: _screenWidth * 0.3,
-                            icon: Iconz.play,
-                            bubble: false,
-                            opacity: 0.5,
-                            onTap: videoEditorController!.video.play,
-                          ),
-                        ),
-                      ),
-                    ),
+                  // /// PLAY ICON
+                  // if (selectedButton != VideoEditorScales.cropButtonID && selectedButton != VideoEditorScales.coverButtonID)
+                  //   Center(
+                  //     child: AnimatedBuilder(
+                  //       animation: videoEditorController!.video,
+                  //       builder: (_, __) => WidgetFader(
+                  //         fadeType: videoEditorController!.isPlaying ? FadeType.fadeOut : FadeType.fadeIn,
+                  //         duration: const Duration(milliseconds: 100),
+                  //         ignorePointer: videoEditorController!.isPlaying,
+                  //         child: SuperBox(
+                  //           height: _screenWidth * 0.3,
+                  //           width: _screenWidth * 0.3,
+                  //           icon: Iconz.play,
+                  //           bubble: false,
+                  //           opacity: 0.5,
+                  //           onTap: videoEditorController!.video.play,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
 
                 ],
               ),

@@ -16,7 +16,7 @@ class VideoEditorPlayBar extends StatelessWidget {
       width: Scale.screenWidth(context),
       height: VideoEditorScales.editorPlayBarHeight,
       color: Colorz.bloodTest,
-      child: Row(
+      child: videoEditorController == null ? const SizedBox() : Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
 

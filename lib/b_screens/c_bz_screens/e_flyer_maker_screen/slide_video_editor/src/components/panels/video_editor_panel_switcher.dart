@@ -29,19 +29,8 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
 
           /// TRIM BAR
           if (_isInitialized == true && selectedButton == VideoEditorScales.trimButtonID){
-            return Container(
-              width: _screenWidth - 40,
-              height: _panelHeight,
-              color: Colorz.black255,
-              child: TrimSlider(
+            return VideoEditorTrimPanel(
                 controller: videoEditorController!,
-                // height: _editorBarHeight-20,
-                horizontalMargin: 30,
-                child: TrimTimeline(
-                  controller: videoEditorController!,
-                  // padding: const EdgeInsets.only(top: 10),
-                ),
-              ),
             );
           }
 
@@ -98,7 +87,6 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
             );
           }
 
-
           /// COVERS SELECTION BAR
           else if (_isInitialized == true && selectedButton == VideoEditorScales.coverButtonID){
             return FloatingList(
@@ -136,6 +124,7 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
             );
           }
 
+          /// NOTHING
           else {
             return const SizedBox();
           }
