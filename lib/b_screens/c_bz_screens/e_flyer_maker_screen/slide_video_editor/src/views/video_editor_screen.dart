@@ -536,6 +536,12 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
             selectedButton: _selectedButton,
           ),
 
+          /// PLAY BAR
+          VideoEditorPlayBar(
+            videoEditorController: _videoEditorController,
+
+          ),
+
           /// PANEL
           VideoEditorPanelSwitcher(
             selectedButton: _selectedButton,
@@ -552,7 +558,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
           ),
 
           /// NAV BAR
-          VideoEditorButtonsBar(
+          VideoEditorNavBar(
             onBack: () => Nav.goBack(context: context),
             isMuted: _isMuted,
             onCrop: () => _setActiveButton(VideoEditorScales.cropButtonID),

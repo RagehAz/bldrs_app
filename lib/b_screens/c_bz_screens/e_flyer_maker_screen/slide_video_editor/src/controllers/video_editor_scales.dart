@@ -19,18 +19,35 @@ class VideoEditorScales {
 
   // --------------------
   static double getVideoZoneHeight(){
-    final double _screenHeight = Scale.screenHeight(getMainContext());
-    const double _buttonsBarHeight = VideoEditorScales.navBarHeight;
-    const double _panelHeight = VideoEditorScales.editorPanelHeight;
-    final double _bodyHeight =  _screenHeight - _buttonsBarHeight - _panelHeight;
+
+    final double _bodyHeight =
+              Scale.screenHeight(getMainContext())
+            - editorPlayBarHeight
+            - editorPanelHeight
+            - navBarHeight;
+
     return _bodyHeight;
   }
   // --------------------
+  static double videoZoneMargin = 10;
+  // --------------------
   static double getVideoBoxHeight(){
     final double _videoZoneHeight =  VideoEditorScales.getVideoZoneHeight();
-    final double _videoHeight = _videoZoneHeight - 10;
+    final double _videoHeight = _videoZoneHeight - (videoZoneMargin * 2);
     return _videoHeight;
   }
+  // --------------------------------------------------------------------------
+
+  /// PLAY BAR
+
+  // --------------------
+  static const double editorPlayBarHeight = 30;
+  // --------------------------------------------------------------------------
+
+  /// EDITOR PANEL
+
+  // --------------------
+  static const double editorPanelHeight = 120;
   // --------------------------------------------------------------------------
 
   /// NAV BAR
@@ -38,12 +55,6 @@ class VideoEditorScales {
   // --------------------
   static const double navBarHeight = 50;
   static const double navBarButtonSize = navBarHeight - 5;
-  // --------------------------------------------------------------------------
-
-  /// EDITOR PANEL
-
-  // --------------------
-  static const double editorPanelHeight = 100;
   // --------------------------------------------------------------------------
   void x(){}
 }

@@ -16,7 +16,7 @@ class VideoEditorVideoZone extends StatelessWidget {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
     final double _videoZoneHeight =  VideoEditorScales.getVideoZoneHeight();
-    final double _videoHeight = _videoZoneHeight - 10;
+    final double _videoHeight = VideoEditorScales.getVideoBoxHeight();
     // --------------------
     final bool _isInitialized = Mapper.boolIsTrue(videoEditorController?.initialized);
     // --------------------
@@ -89,37 +89,6 @@ class VideoEditorVideoZone extends StatelessWidget {
                         ),
                       ),
                     ),
-
-                  /// START - FINISH - TEXT
-                  AnimatedBuilder(
-                      animation: Listenable.merge([
-                        videoEditorController,
-                        videoEditorController!.video,
-                      ]),
-                      builder: (_, __) {
-
-                        final String _start = VideoOps.formatDuration(videoEditorController!.startTrim);
-                        final String _end = VideoOps.formatDuration(videoEditorController!.endTrim);
-                        final int duration = videoEditorController!.videoDuration.inSeconds;
-                        final double pos = videoEditorController!.trimPosition * duration;
-                        final String _current = VideoOps.formatDuration(Duration(seconds: pos.toInt()));
-                        final double? _size = Filers.getFileSizeWithUnit(
-                          file: videoEditorController!.file,
-                          unit: FileSizeUnit.megaByte,
-                        );
-
-                        return Align(
-                          alignment: Alignment.topCenter,
-                          child: BldrsText(
-                            verse: Verse.plain('$_start | $_end \n$_current\n$_size Mb'),
-                            maxLines: 3,
-                            labelColor: Colorz.black125,
-                            weight: VerseWeight.thin,
-                            margin: 10,
-                          ),
-                        );
-                      }
-                  ),
 
                 ],
               ),

@@ -48,6 +48,7 @@ import 'package:bldrs/z_components/sizing/stratosphere.dart';
 part 'src/components/video_editor_nav_bar.dart';
 part 'src/components/video_editor_panel_switcher.dart';
 part 'src/components/video_editor_video_zone.dart';
+part 'src/components/video_editor_play_bar.dart';
 
 /// CONTROLLERS
 part 'src/controllers/video_editor_scales.dart';

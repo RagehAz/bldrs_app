@@ -1,8 +1,8 @@
 part of slide_video_editor;
 
-class VideoEditorButtonsBar extends StatelessWidget {
+class VideoEditorNavBar extends StatelessWidget {
   // --------------------------------------------------------------------------
-  const VideoEditorButtonsBar({
+  const VideoEditorNavBar({
     required this.onBack,
     required this.selectedButton,
     required this.isMuted,
@@ -52,6 +52,7 @@ class VideoEditorButtonsBar extends StatelessWidget {
         PanelCircleButton(
           size: VideoEditorScales.navBarButtonSize,
           icon: Icons.cut,
+          iconSizeFactor: 0.65,
           verse: Verse.plain('Trim'),
           isSelected: selectedButton == VideoEditorScales.trimButtonID,
           onTap: onTrim,
@@ -63,6 +64,7 @@ class VideoEditorButtonsBar extends StatelessWidget {
         PanelCircleButton(
           size: VideoEditorScales.navBarButtonSize,
           icon: Iconz.crop,
+          iconSizeFactor: 0.65,
           verse: Verse.plain('Crop'),
           isSelected: selectedButton == VideoEditorScales.cropButtonID,
           onTap: onCrop,
@@ -74,6 +76,7 @@ class VideoEditorButtonsBar extends StatelessWidget {
         PanelCircleButton(
           size: VideoEditorScales.navBarButtonSize,
           icon: Icons.rotate_left,
+          iconSizeFactor: 0.7,
           verse: Verse.plain('Rotate'),
           isSelected: false,
           onTap: onRotate,
@@ -85,6 +88,7 @@ class VideoEditorButtonsBar extends StatelessWidget {
         PanelCircleButton(
           size: VideoEditorScales.navBarButtonSize,
           icon: isMuted ? Icons.volume_off : Icons.volume_up,
+          iconSizeFactor: 0.7,
           verse: Verse.plain('Mute'),
           isSelected: false,
           onTap: onMute,

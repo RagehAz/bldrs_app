@@ -14,6 +14,7 @@ class PanelCircleButton extends StatelessWidget {
     required this.icon,
     required this.isSelected,
     this.isDisabled = false,
+    this.iconSizeFactor = 0.5,
     super.key
   });
   // ------------------------
@@ -23,6 +24,7 @@ class PanelCircleButton extends StatelessWidget {
   final dynamic icon;
   final bool isSelected;
   final bool isDisabled;
+  final double iconSizeFactor;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Color getBackColor({
@@ -86,7 +88,7 @@ class PanelCircleButton extends StatelessWidget {
               iconColor: isSelected == true ? Colorz.yellow255 : Colorz.white255,
               borderColor: isDisabled == true ? null : getBorderColor(isSelected: isSelected),
               icon: icon,
-              iconSizeFactor: 0.5,
+              iconSizeFactor: iconSizeFactor,
               splashColor: Colorz.yellow255,
               isDisabled: isDisabled,
               onTap: onTap,

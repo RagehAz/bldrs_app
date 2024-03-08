@@ -400,7 +400,7 @@ class BldrsMediaMaker {
   static Future<void> onPickingError(String? error) async {
 
     await throwStandardError(
-      invoker: 'BldrsPicMaker.onPickingError',
+      invoker: 'BldrsMediaMaker.onPickingError',
       error: error,
     );
 
