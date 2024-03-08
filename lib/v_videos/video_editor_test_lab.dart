@@ -43,20 +43,21 @@ import 'package:ffmpeg_kit_flutter/statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:video_editor/video_editor.dart';
 
-class VideoEditorScreen extends StatefulWidget {
+class VideoEditorTestLab extends StatefulWidget {
   // --------------------------------------------------------------------------
-  const VideoEditorScreen({
+  const VideoEditorTestLab({
+    this.video,
     super.key
   });
   // --------------------
-  ///
+  final MediaModel? video;
   // --------------------
   @override
-  _VideoEditorScreenState createState() => _VideoEditorScreenState();
+  _VideoEditorTestLabState createState() => _VideoEditorTestLabState();
 // --------------------------------------------------------------------------
 }
 
-class _VideoEditorScreenState extends State<VideoEditorScreen> {
+class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -88,7 +89,18 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
       asyncInSync(() async {
 
         await _triggerLoading(setTo: true);
-        /// GO BABY GO
+
+        if (widget.video != null){
+
+          final File? _file = await Filers.getFileFromUint8List(
+              uInt8List: widget.video!.bytes,
+              fileName: widget.video?.meta?.name,
+          );
+
+          await _setVideo(_file);
+
+        }
+
         await _triggerLoading(setTo: false);
 
       });
@@ -138,7 +150,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
   }
   // -----------------------------------------------------------------------------
-  File? _videoFile;
+  // File? _videoFile;
   // --------------------
   Future<void> _setVideo(File? file) async {
 
@@ -154,22 +166,18 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     );
 
     setState(() {
-      _videoFile = file;
+    //   _videoFile = file;
     });
 
   }
   // --------------------
   Future<void> _picVideoFromGallery() async {
 
-    final Map<String, MediaModel>? _videoMap = await VideoMaker.pickAndCropVideo(
+    final MediaModel? _videoMap = await VideoMaker.pickVideo(
       context: context,
-      appIsLTR: UiProvider.checkAppIsLeftToRight(),
-      cropAfterPick: true,
-      aspectRatio: 1,
       langCode: Localizer.getCurrentLangCode(),
       onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
       onError: BldrsMediaMaker.onPickingError,
-      createCover: true,
       ownersIDs: [],
       assignPath: '',
       name: Numeric.createUniqueID().toString(),
@@ -177,8 +185,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     );
 
     final File? _file = await Filers.getFileFromUint8List(
-        uInt8List: _videoMap?['video']?.bytes,
-        fileName: _videoMap?['video']?.meta?.name,
+        uInt8List: _videoMap?.bytes,
+        fileName: _videoMap?.meta?.name,
     );
 
     await _setVideo(_file);
@@ -187,11 +195,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   // --------------------
   Future<void> _picVideoFromCamera() async {
 
-    final Map<String, MediaModel>? _videoMap = await VideoMaker.shootAndCropVideo(
+    final MediaModel? _videoMap = await VideoMaker.shootVideo(
       context: context,
-      appIsLTR: UiProvider.checkAppIsLeftToRight(),
-      aspectRatio: 1,
-      cropAfterPick: true,
       locale: Localizer.getCurrentLocale(),
       // compressWithQuality: ,
       // confirmText: ,
@@ -204,12 +209,11 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
       ownersIDs: [],
       assignPath: '',
       name: Numeric.createUniqueID().toString(),
-      createCover: true,
     );
 
     final File? _file = await Filers.getFileFromUint8List(
-      uInt8List: _videoMap?['video']?.bytes,
-      fileName: _videoMap?['video']?.meta?.name,
+      uInt8List: _videoMap?.bytes,
+      fileName: _videoMap?.meta?.name,
     );
 
     await _setVideo(_file);
@@ -577,22 +581,18 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                     icon: Icons.aspect_ratio_outlined,
                     onTap: () async {
 
-                      final Map<String, MediaModel>? _videoMap = await VideoMaker.pickAndCropVideo(
+                      final MediaModel? _videoMap = await VideoMaker.pickVideo(
                         context: context,
-                        cropAfterPick: true,
-                        aspectRatio: 1,
-                        appIsLTR: UiProvider.checkAppIsLeftToRight(),
                         langCode: Localizer.getCurrentLangCode(),
                         onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
                         onError: BldrsMediaMaker.onPickingError,
-                        createCover: false,
                         name: 'x',
                         compressWithQuality: 100,
                         assignPath: '',
                         ownersIDs: [],
                       );
 
-                      final Dimensions? _dims = await Dimensions.superDimensions(_videoMap?['video']?.bytes);
+                      final Dimensions? _dims = await Dimensions.superDimensions(_videoMap?.bytes);
 
                       _dims?.blogDimensions(invoker: 'zz');
 
@@ -996,6 +996,5 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     );
     // --------------------
   }
-
   // -----------------------------------------------------------------------------
 }

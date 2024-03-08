@@ -269,7 +269,7 @@ Future<void> _addGalleryVideoToNewFlyer({
         slideIndex: 0,
         type: SlidePicType.big,
       )!,
-      mediaOrigin: MediaOrigin.cameraVideo,
+      mediaOrigin: MediaOrigin.galleryVideo,
       ownersIDs: await FlyerModel.generateFlyerOwners(
         bzID: draftFlyer.value?.bzID,
       ),

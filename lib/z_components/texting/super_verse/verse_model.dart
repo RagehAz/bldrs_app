@@ -354,10 +354,8 @@ class Verse {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() => 'Verse(id: $id, translate: $translate)';
   // --------------------
   @override
   bool operator == (Object other){

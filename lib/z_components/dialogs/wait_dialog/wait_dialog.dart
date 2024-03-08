@@ -31,6 +31,15 @@ class WaitDialog extends StatelessWidget {
     Verse? verse,
   }) {
 
+    if (verse == null){
+      UiProvider.proSetLoadingVerse(
+          verse: const Verse(
+              id: 'phid_loading',
+              translate: true
+          ),
+      );
+    }
+
     unawaited(_showWaitDialog(
       loadingVerse: verse,
     ));

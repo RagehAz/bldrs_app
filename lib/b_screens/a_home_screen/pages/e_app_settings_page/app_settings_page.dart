@@ -8,16 +8,16 @@ import 'package:basics/helpers/checks/device_checker.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/e_app_settings_page/x_app_settings_controllers.dart';
-import 'package:bldrs/i_gt_insta_screen/gt_insta_screen.dart';
-import 'package:bldrs/i_gt_insta_screen/src/protocols/gt_insta_ops.dart';
 import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
+import 'package:bldrs/i_gt_insta_screen/gt_insta_screen.dart';
+import 'package:bldrs/i_gt_insta_screen/src/protocols/gt_insta_ops.dart';
 import 'package:bldrs/super_dev_test.dart';
-import 'package:bldrs/v_videos/video_editor_screen.dart';
+import 'package:bldrs/v_videos/video_editor_test_lab.dart';
 import 'package:bldrs/z_components/buttons/bz_buttons/create_new_bz_button.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/settings_wide_button.dart';
 import 'package:bldrs/z_components/layouts/custom_layouts/floating_layout.dart';
@@ -51,9 +51,9 @@ class AppSettingsPage extends StatelessWidget {
         /// VIDEOS
         PyramidFloatingButton(
           icon: Icons.video_library_outlined,
-          toolTip: Verse.plain('Video Editor'),
+          toolTip: Verse.plain('Video Editor Test Lab'),
           color: Colorz.white20,
-          onTap: () => BldrsNav.goToNewScreen(screen: const VideoEditorScreen(),),
+          onTap: () => BldrsNav.goToNewScreen(screen: const VideoEditorTestLab(),),
 
         ),
 

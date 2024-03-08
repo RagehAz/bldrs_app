@@ -6,6 +6,7 @@ import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:basics/mediator/video_maker/video_maker.dart';
+import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -13,6 +14,8 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/debuggers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/foundation.dart';
+
+import '../../b_screens/c_bz_screens/e_flyer_maker_screen/slide_video_editor/slide_video_editor.dart';
 
 // // -----------------------------------------------------------------------------
 // /*
@@ -35,7 +38,7 @@ class BldrsMediaMaker {
 
   const BldrsMediaMaker();
 
-  // -----------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
   /// MAKERS
 
@@ -214,48 +217,95 @@ class BldrsMediaMaker {
     required String name,
     required bool createCover,
   }) async {
-    Map<String, MediaModel>? _output;
+    MediaModel? _video;
+    MediaModel? _cover;
 
     if(mediaOrigin == MediaOrigin.galleryVideo){
-      _output = await VideoMaker.pickAndCropVideo(
+      _video = await VideoMaker.pickVideo(
         context: getMainContext(),
-        cropAfterPick: cropAfterPick,
-        aspectRatio: aspectRatio,
-        resizeToWidth: resizeToWidth,
-        appIsLTR: UiProvider.checkAppIsLeftToRight(),
         langCode: Localizer.getCurrentLangCode(),
-        confirmText: getWord('phid_continue'),
         compressWithQuality: compressWithQuality,
         onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
         onError: onPickingError,
         name: name,
         assignPath: assignPath,
         ownersIDs: ownersIDs,
-        createCover: createCover,
       );
     }
 
     else if (mediaOrigin == MediaOrigin.cameraVideo){
-      _output = await VideoMaker.shootAndCropVideo(
+      _video = await VideoMaker.shootVideo(
         context: getMainContext(),
-        cropAfterPick: cropAfterPick,
-        aspectRatio: aspectRatio,
-        resizeToWidth: resizeToWidth,
-        appIsLTR: UiProvider.checkAppIsLeftToRight(),
         langCode: Localizer.getCurrentLangCode(),
         compressWithQuality: compressWithQuality,
-        confirmText: getWord('phid_continue'),
         onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
         onError: onPickingError,
         locale: Localizer.getCurrentLocale(),
         name: name,
         assignPath: assignPath,
         ownersIDs: ownersIDs,
-        createCover: createCover,
       );
     }
 
-    return _output;
+    if (cropAfterPick == true){
+      _video = await _editVideo(
+        video: _video,
+      );
+    }
+
+    if (createCover == true){
+      _cover = await _createVideoCover(
+        video: _video,
+      );
+    }
+
+    if (_video == null){
+      return null;
+    }
+    else {
+
+      final Map<String, MediaModel> _map = {
+        'video': _video,
+      };
+
+      if (_cover != null){
+        _map['cover'] = _cover;
+      }
+
+      return _map;
+    }
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EDIT
+
+  // --------------------
+  ///
+  static Future<MediaModel?> _editVideo({
+    required MediaModel? video,
+  }) async {
+
+    final MediaModel? _output = await BldrsNav.goToNewScreen(
+        screen: VideoEditorScreen(
+          video: video,
+        ),
+    );
+
+    return _output ?? video;
+  }
+  // --------------------
+  ///
+  static Future<MediaModel?> _createVideoCover({
+    required MediaModel? video,
+  }) async {
+
+    final MediaModel? _cover = await BldrsNav.goToNewScreen(
+      screen: VideoCoverCreatorScreen(
+        video: video,
+      ),
+    );
+
+    return _cover;
   }
   // -----------------------------------------------------------------------------
 
