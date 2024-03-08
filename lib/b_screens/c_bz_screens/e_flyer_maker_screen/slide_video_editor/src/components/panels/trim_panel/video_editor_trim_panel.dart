@@ -116,22 +116,22 @@ class _VideoEditorTrimPanelState extends State<VideoEditorTrimPanel> with Automa
   // --------------------
   /// Update [_rect] and the view when controller is updated
   void _updateTrim() {
-    if (widget.controller.minTrim != _getRectToTrim(_rect.left) ||
-        widget.controller.maxTrim != _getRectToTrim(_rect.right)) {
+    if (widget.controller.minTrim != _getRectToTrim(_rect.left) || widget.controller.maxTrim != _getRectToTrim(_rect.right)) {
       // if trim slider is extended, set rect based on viewport with left at minimum position
       if (_isExtendTrim) {
         setState(() {
           _rect = Rect.fromLTWH(
               _horizontalMargin,
               _rect.top,
-              _geTrimToRect(widget.controller.maxTrim) -
-                  _geTrimToRect(widget.controller.minTrim),
-              _rect.height);
+              _geTrimToRect(widget.controller.maxTrim) - _geTrimToRect(widget.controller.minTrim),
+              _rect.height
+          );
         });
         // then update scroll controller to align the thumbnails with the new trim
-        _scrollController.jumpTo(
-            _geTrimToRect(widget.controller.minTrim) - _horizontalMargin);
-      } else {
+        _scrollController.jumpTo(_geTrimToRect(widget.controller.minTrim) - _horizontalMargin);
+      }
+
+      else {
         // if the trim slider is not extended, set rect based on layout width
         setState(() {
           _rect = Rect.fromLTRB(
@@ -141,6 +141,7 @@ class _VideoEditorTrimPanelState extends State<VideoEditorTrimPanel> with Automa
               _rect.height);
         });
       }
+
       _resetControllerPosition();
     }
   }
@@ -153,16 +154,17 @@ class _VideoEditorTrimPanelState extends State<VideoEditorTrimPanel> with Automa
       // because of that the last rect position after bouncing is inaccurate
       // it causes that minTrim 0.0 and maxTrim 1.0 are never reach
       // adding to the rect the difference between current scroll position and the last one fixes it
+
       if (_scrollController.offset == 0.0) {
         _changeTrimRect(
           left: _rect.left - _lastScrollPixels.abs(),
           updateTrim: false,
         );
-      } else if (_scrollController.offset ==
-          _scrollController.position.maxScrollExtent) {
+      }
+
+      else if (_scrollController.offset == _scrollController.position.maxScrollExtent) {
         _changeTrimRect(
-          left:
-          _rect.left + (_lastScrollPixels.abs() - _scrollController.offset),
+          left: _rect.left + (_lastScrollPixels.abs() - _scrollController.offset),
           updateTrim: false,
         );
       }
@@ -203,8 +205,7 @@ class _VideoEditorTrimPanelState extends State<VideoEditorTrimPanel> with Automa
     }
 
     // distance of rect to right side
-    final rectRightOffset =
-        _trimLayout.width - (_rect.right - _horizontalMargin);
+    final rectRightOffset = _trimLayout.width - (_rect.right - _horizontalMargin);
 
     // if view is bouncing on the right side
     if (_scrollController.position.extentAfter == 0.0 &&

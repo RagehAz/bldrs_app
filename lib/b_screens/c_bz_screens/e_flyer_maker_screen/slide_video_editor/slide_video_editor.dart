@@ -44,7 +44,6 @@ import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dar
 import 'package:bldrs/z_components/buttons/general_buttons/wide_button.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:video_editor/src/models/transform_data.dart';
-import 'package:video_editor/src/models/cover_data.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:video_editor/src/controller.dart';
 import 'package:video_editor/src/widgets/crop/crop_grid_painter.dart';
