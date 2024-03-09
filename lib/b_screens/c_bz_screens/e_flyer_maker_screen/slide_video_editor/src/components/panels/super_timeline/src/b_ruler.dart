@@ -1,9 +1,4 @@
-import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/helpers/space/scale.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:flutter/material.dart';
+part of super_time_line;
 
 class Ruler extends StatelessWidget {
   // --------------------------------------------------------------------------
@@ -12,7 +7,6 @@ class Ruler extends StatelessWidget {
     required this.millimeters,
     required this.millimeterWidth,
     required this.availableWidth,
-    this.lineThickness = 1,
     this.lineColor = Colorz.white80,
     super.key
   });
@@ -20,18 +14,16 @@ class Ruler extends StatelessWidget {
   final double height;
   final int millimeters;
   final double millimeterWidth;
-  final double lineThickness;
   final double availableWidth;
   final Color lineColor;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final double _timelineBoxWidth = Scale.screenWidth(context);
-    final double _blankWidth = _timelineBoxWidth * 0.5;
+    final double _blankWidth = TimelineScale.blankZoneWidth();
 
     // --------------------
-    final double _voidThickness = millimeterWidth - lineThickness;
+    final double _voidThickness = millimeterWidth - TimelineScale.rulerLineThickness;
     final bool _appIsLTR = UiProvider.checkAppIsLeftToRight();
     // --------------------
     return Column(
@@ -59,7 +51,7 @@ class Ruler extends StatelessWidget {
                 final double _heightFactor = _isDivisibleByTen ? 0.4 : _isDivisibleByFive ? 0.2 : 0.1;
 
                 return Container(
-                  width: lineThickness,
+                  width: TimelineScale.rulerLineThickness,
                   height: height * _heightFactor,
                   color: lineColor,
                   margin: Scale.superInsets(
@@ -116,7 +108,7 @@ class Ruler extends StatelessWidget {
 
                         /// LINE
                         Container(
-                          width: lineThickness,
+                          width: TimelineScale.rulerLineThickness,
                           height: 10,
                           color: lineColor,
                         ),
