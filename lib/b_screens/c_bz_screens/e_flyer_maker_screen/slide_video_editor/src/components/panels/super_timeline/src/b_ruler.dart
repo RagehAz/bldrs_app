@@ -4,26 +4,37 @@ class Ruler extends StatelessWidget {
   // --------------------------------------------------------------------------
   const Ruler({
     required this.height,
-    required this.millimeters,
-    required this.millimeterWidth,
-    required this.availableWidth,
+    required this.totalSeconds,
+    required this.secondPixelLength,
     this.lineColor = Colorz.white80,
     super.key
   });
   // --------------------
   final double height;
-  final int millimeters;
-  final double millimeterWidth;
-  final double availableWidth;
+  final double totalSeconds;
   final Color lineColor;
+  final double secondPixelLength;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
+    final double _totalAvailableWidth = TimelineScale.totalAvailableWidth(
+      totalSeconds: totalSeconds,
+      secondPixelLength: secondPixelLength,
+    );
+
+    final double _tenthWidth = TimelineScale.tenthPixelLength(
+      secondPixelLength: secondPixelLength,
+    );
+
+    final int _totalTenths = TimelineScale.getTotalTenths(
+      totalSeconds: totalSeconds,
+    );
+
     final double _blankWidth = TimelineScale.blankZoneWidth();
 
     // --------------------
-    final double _voidThickness = millimeterWidth - TimelineScale.rulerLineThickness;
+    final double _voidThickness = _tenthWidth - TimelineScale.rulerLineThickness;
     final bool _appIsLTR = UiProvider.checkAppIsLeftToRight();
     // --------------------
     return Column(
@@ -44,7 +55,7 @@ class Ruler extends StatelessWidget {
               ),
 
               /// LINES
-              ...List.generate(millimeters, (index){
+              ...List.generate(_totalTenths, (index){
 
                 final bool _isDivisibleByTen = index % 10 == 0;
                 final bool _isDivisibleByFive = index % 5 == 0;
@@ -75,7 +86,7 @@ class Ruler extends StatelessWidget {
 
         /// TEXTS
         Container(
-          width: availableWidth,
+          width: _totalAvailableWidth,
           height: 10,
           color: Colorz.yellow50,
           margin: Scale.superInsets(
@@ -86,7 +97,7 @@ class Ruler extends StatelessWidget {
           child: Stack(
             children: <Widget>[
 
-              ...List.generate(millimeters, (index){
+              ...List.generate(_totalTenths, (index){
 
                 final bool _isDivisibleByTen = index % 10 == 0;
                 // final bool _isDivisibleByFive = index % 5 == 0;
@@ -100,7 +111,7 @@ class Ruler extends StatelessWidget {
                     padding: Scale.superInsets(
                       context: context,
                       appIsLTR: _appIsLTR,
-                      enLeft: index * millimeterWidth,
+                      enLeft: index * _tenthWidth,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,

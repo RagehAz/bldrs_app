@@ -11,6 +11,10 @@ class TimelineScale {
 
   // --------------------
   static const double rulerLineThickness = 1;
+  // --------------------
+  static const double pinchingScaleFactor = 0.1;
+  static const double minTimelineScale = 0.7;
+  static const double maxTimelineScale = 3;
   // --------------------------------------------------------------------------
 
   /// PIXEL TO SECONDS
@@ -73,6 +77,70 @@ class TimelineScale {
   }
   // --------------------------------------------------------------------------
 
+  /// SCROLLING - SCALING
+
+  // --------------------
+  static void scrollManually({
+    required ScrollController scrollController,
+    required ScaleUpdateDetails details,
+  }){
+    final double _goTo = scrollController.offset - details.focalPointDelta.dx;
+    scrollController.jumpTo(_goTo);
+  }
+  // --------------------
+  static void scrollToSecond({
+    required double second,
+    required double secondPixelLength,
+    required ScrollController scrollController,
+  }){
+
+    final double _goTo = TimelineScale.getPixelsBySeconds(
+      seconds: second,
+      secondPixelLength: secondPixelLength,
+    );
+    scrollController.jumpTo(_goTo);
+
+  }
+  // --------------------
+  static void scaleTimeline({
+    required ScaleUpdateDetails details,
+    required bool mounted,
+    required ValueNotifier<double> accumulatedScale,
+    required ValueNotifier<double> previousScale,
+    required ValueNotifier<double> secondPixelLength,
+    required ValueNotifier<double> scale,
+    required ScrollController scrollController,
+    required double totalSeconds,
+  }){
+
+    if (mounted == true){
+
+      final double _oldSecond = TimelineScale.getSecondsByPixel(
+        secondPixelLength: secondPixelLength.value,
+        pixels: scrollController.position.pixels,
+        totalSeconds: totalSeconds,
+      );
+
+      final double scaleDelta = (details.horizontalScale - previousScale.value) * pinchingScaleFactor;
+      accumulatedScale.value += scaleDelta;
+      double _newScale = scale.value + accumulatedScale.value;
+      _newScale = _newScale.clamp(minTimelineScale, maxTimelineScale);
+
+      scale.value  = _newScale;
+      secondPixelLength.value = 80 * scale.value;
+      previousScale.value = details.horizontalScale;
+
+      TimelineScale.scrollToSecond(
+        second: _oldSecond,
+        secondPixelLength: secondPixelLength.value,
+        scrollController: scrollController,
+      );
+
+    }
+
+  }
+  // --------------------------------------------------------------------------
+
   /// WIDTHS
 
   // --------------------
@@ -91,6 +159,12 @@ class TimelineScale {
   static double blankZoneWidth(){
     final double _timelineBoxWidth = Scale.screenWidth(getMainContext());
     return _timelineBoxWidth * 0.5;
+  }
+  // --------------------
+  static int getTotalTenths({
+    required double totalSeconds,
+  }){
+    return (totalSeconds * 10).toInt();
   }
   // --------------------------------------------------------------------------
 
