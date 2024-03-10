@@ -42,6 +42,23 @@ class TimelineScale {
     return Numeric.roundFractions(_seconds, 1)!;
   }
   // --------------------
+  static double getPixelsBySeconds({
+    required double seconds,
+    required double secondPixelLength,
+  }){
+
+    // s = t / 10
+    // t = p / w
+    // s = (p / w) / 10
+    // 10.s.w = p
+
+    final double _tenthWidth = TimelineScale.tenthPixelLength(
+      secondPixelLength: secondPixelLength,
+    );
+
+    return _tenthWidth * seconds * 10;
+  }
+  // --------------------
   static double totalSecondsPixelLength({
     required double totalSeconds,
     required double secondPixelLength,
@@ -56,8 +73,20 @@ class TimelineScale {
   }
   // --------------------------------------------------------------------------
 
-  /// BLANK AREA
+  /// WIDTHS
 
+  // --------------------
+  static double totalAvailableWidth({
+    required double totalSeconds,
+    required double secondPixelLength,
+  }){
+    final double _totalSecondsLength = TimelineScale.totalSecondsPixelLength(
+      totalSeconds: totalSeconds,
+      secondPixelLength: secondPixelLength,
+    );
+    final double _blankWidth = TimelineScale.blankZoneWidth();
+    return _blankWidth + _totalSecondsLength + _blankWidth;
+  }
   // --------------------
   static double blankZoneWidth(){
     final double _timelineBoxWidth = Scale.screenWidth(getMainContext());

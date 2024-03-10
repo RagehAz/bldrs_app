@@ -1,6 +1,7 @@
 library super_time_line;
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/components/super_image/super_image.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/colors/colorizer.dart';
 import 'package:basics/helpers/nums/numeric.dart';

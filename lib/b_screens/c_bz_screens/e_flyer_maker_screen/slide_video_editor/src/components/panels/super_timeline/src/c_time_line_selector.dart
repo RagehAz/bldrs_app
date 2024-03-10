@@ -3,8 +3,6 @@ part of super_time_line;
 class TimelineSelector extends StatefulWidget {
   // --------------------------------------------------------------------------
   const TimelineSelector({
-    required this.availableWidth,
-    required this.totalSecondsWidth,
     required this.height,
     required this.totalSeconds,
     required this.secondPixelLength,
@@ -12,8 +10,6 @@ class TimelineSelector extends StatefulWidget {
     super.key
   });
   // --------------------
-  final double availableWidth;
-  final double totalSecondsWidth;
   final double height;
   final double handleWidth;
   final double secondPixelLength;
@@ -60,15 +56,44 @@ class _TimelineSelectorState extends State<TimelineSelector> {
     super.didChangeDependencies();
   }
   // --------------------
-  /*
   @override
-  void didUpdateWidget(TheStatefulScreen oldWidget) {
+  void didUpdateWidget(TimelineSelector oldWidget) {
+
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.thing != widget.thing) {
-      unawaited(_doStuff());
+
+    if (oldWidget.secondPixelLength != widget.secondPixelLength) {
+
+      final double _oldLeftSeconds = TimelineScale.getSecondsByPixel(
+        secondPixelLength: oldWidget.secondPixelLength,
+        pixels: _left,
+        totalSeconds: oldWidget.totalSeconds,
+      );
+
+      final double _oldRightSeconds = TimelineScale.getSecondsByPixel(
+        secondPixelLength: oldWidget.secondPixelLength,
+        pixels: _right,
+        totalSeconds: oldWidget.totalSeconds,
+      );
+
+      setState(() {
+
+        _left = TimelineScale.getPixelsBySeconds(
+          seconds: _oldLeftSeconds,
+          secondPixelLength: widget.secondPixelLength,
+        );
+
+        _right = TimelineScale.getPixelsBySeconds(
+          seconds: _oldRightSeconds,
+          secondPixelLength: widget.secondPixelLength,
+        );
+
+        _max = _getTheMostMaxPixels();
+
+      });
+
     }
+
   }
-   */
   // --------------------
   @override
   void dispose() {
@@ -95,24 +120,30 @@ class _TimelineSelectorState extends State<TimelineSelector> {
     // --------------------
     const double _handleWidth = 10;
     final double _blankWidth = TimelineScale.blankZoneWidth() - _handleWidth;
-    final double _timeZoneWidth = widget.availableWidth - (_blankWidth*2);
     // --------------------
-
+    final double _totalAvailableWidth = TimelineScale.totalAvailableWidth(
+      totalSeconds: widget.totalSeconds,
+      secondPixelLength: widget.secondPixelLength,
+    );
+    // --------------------
+    final double _timeZoneWidth = _totalAvailableWidth - (_blankWidth*2);
+    // --------------------
     final double _leftSeconds = TimelineScale.getSecondsByPixel(
       secondPixelLength: widget.secondPixelLength,
       pixels: _left,
       totalSeconds: widget.totalSeconds,
     );
+    // --------------------
     final double _rightSeconds = TimelineScale.getSecondsByPixel(
       secondPixelLength: widget.secondPixelLength,
       pixels: _right - widget.handleWidth,
       totalSeconds: widget.totalSeconds,
     );
-
+    // --------------------
     return Container(
-      width: widget.availableWidth,
+      width: _totalAvailableWidth,
       height: widget.height,
-      color: Colorz.green125,
+      // color: Colorz.green125,
       alignment: Alignment.center,
       child: Row(
         children: <Widget>[
@@ -160,7 +191,6 @@ class _TimelineSelectorState extends State<TimelineSelector> {
                   onHorizontalDragUpdate: (details) {
 
                     double newPosition = _left + details.primaryDelta!;
-                    blog('a7a');
 
                     if (newPosition <= _min){
                       newPosition = _min;
@@ -192,7 +222,6 @@ class _TimelineSelectorState extends State<TimelineSelector> {
                   onHorizontalDragUpdate: (details) {
 
                     double newPosition = _right + details.primaryDelta!;
-                    blog('a7a');
 
                     if (newPosition <= _min){
                       newPosition = _min;
@@ -223,7 +252,6 @@ class _TimelineSelectorState extends State<TimelineSelector> {
             ),
           ),
 
-
           /// RIGHT BLANK
           SizedBox(
             height: widget.height,
@@ -232,6 +260,7 @@ class _TimelineSelectorState extends State<TimelineSelector> {
               verse: Verse.plain(_rightSeconds.toString()),
             ),
           ),
+
         ],
       ),
     );
