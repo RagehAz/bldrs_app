@@ -15,6 +15,8 @@ part 'src/a_time_line.dart';
 part 'src/b_ruler.dart';
 part 'src/c_time_line_selector.dart';
 part 'src/d_current_second_text.dart';
+part 'src/e_seconds_boxes.dart';
+part 'src/f_timeline_bar.dart';
 
 part 'src/z_timeline_scales.dart';
 part 'src/time_line_screen.dart';

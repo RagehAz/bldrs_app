@@ -116,13 +116,6 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _timelineStripHeight = widget.height * 0.5;
-    final double _blankWidth = TimelineScale.blankZoneWidth();
-    // --------------------
-    final List<double> _parts = TimelineScale.createTimeBoxes(
-      seconds: _totalSeconds,
-    );
-    // --------------------
     return GestureDetector(
       onScaleUpdate: _onScaleUpdate,
       child: SizedBox(
@@ -133,83 +126,12 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
           children: <Widget>[
 
             /// TIMELINE
-            FloatingList(
-              width: Scale.screenWidth(context),
+            TimelineBar(
               height: widget.height,
-              scrollDirection: Axis.horizontal,
+              width: widget.width,
+              secondPixelLength: _secondPixelLength,
+              totalSeconds: _totalSeconds,
               scrollController: _scrollController,
-              physics: const NeverScrollableScrollPhysics(),
-              mainAxisAlignment: MainAxisAlignment.center,
-              columnChildren: <Widget>[
-
-                ValueListenableBuilder(
-                    valueListenable: _secondPixelLength,
-                    child: SizedBox(
-                      width: _blankWidth,
-                      height: _timelineStripHeight,
-                    ),
-                    builder: (context, double secondPixelLength, Widget? blankSpace) {
-
-                      final double _totalAvailableWidth = TimelineScale.totalAvailableWidth(
-                        totalSeconds: _totalSeconds,
-                        secondPixelLength: secondPixelLength,
-                      );
-
-                      return SizedBox(
-                        width: _totalAvailableWidth,
-                        height: widget.height,
-                        child: Stack(
-                          // alignment: Alignment.topCenter,
-                          children: <Widget>[
-
-                            /// SECONDS BOXES
-                            Row(
-                              children: <Widget>[
-
-                                /// LEFT BLANK
-                                blankSpace!,
-
-                                /// BOXES
-                                ...List.generate(_parts.length, (index){
-
-                                  final double _part = _parts[index];
-
-                                  return Container(
-                                    width: _part * secondPixelLength,
-                                    height: _timelineStripHeight,
-                                    color: colors[index],
-                                  );
-
-                                }),
-
-                                /// RIGHT BLANK
-                                blankSpace,
-
-                              ],
-                            ),
-
-                            /// RULER
-                            Ruler(
-                              height: _timelineStripHeight,
-                              totalSeconds: _totalSeconds,
-                              secondPixelLength: secondPixelLength,
-                            ),
-
-                            /// SELECTOR
-                            TimelineSelector(
-                              height: widget.height,
-                              secondPixelLength: secondPixelLength,
-                              totalSeconds: _totalSeconds,
-                            ),
-
-                          ],
-                        ),
-                      );
-                    }
-                ),
-
-              ],
-
             ),
 
             /// VERTICAL LINE
