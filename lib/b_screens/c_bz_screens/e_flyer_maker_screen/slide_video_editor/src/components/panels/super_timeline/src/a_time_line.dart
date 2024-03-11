@@ -6,16 +6,18 @@ class SuperTimeLine extends StatefulWidget {
     required this.totalSeconds,
     required this.width,
     required this.height,
-    required this.onTimeChange,
+    required this.onTimeChanged,
     required this.onHandleChanged,
+    this.handleCanPushCurrentTime = false,
     super.key,
   });
   // --------------------
   final double totalSeconds;
   final double width;
   final double height;
-  final Function(double current) onTimeChange;
+  final Function(double current) onTimeChanged;
   final Function(double start, double end) onHandleChanged;
+  final bool handleCanPushCurrentTime;
   // --------------------
   @override
   _SuperTimeLineState createState() => _SuperTimeLineState();
@@ -35,6 +37,8 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
   void initState() {
     super.initState();
     _totalSeconds = widget.totalSeconds;
+
+    _scrollController.addListener(_listenToScroll);
   }
   // --------------------
   /*
@@ -67,12 +71,24 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
   // --------------------
   @override
   void dispose() {
+    _scrollController.removeListener(_listenToScroll);
     _scrollController.dispose();
     _secondPixelLength.dispose();
     _scale.dispose();
     _previousScale.dispose();
     _accumulatedScale.dispose();
     super.dispose();
+  }
+
+  void _listenToScroll(){
+
+    final double _currentSecond = TimelineScale.getSecondsByPixel(
+      secondPixelLength: _secondPixelLength.value,
+      pixels: _scrollController.position.pixels,
+    );
+
+    widget.onTimeChanged(_currentSecond.clamp(0, widget.totalSeconds));
+
   }
   // -----------------------------------------------------------------------------
   List<Color> colors = [
@@ -100,7 +116,6 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
         details: details,
         scrollController: _scrollController,
         secondPixelLength: _secondPixelLength,
-        totalSeconds: _totalSeconds,
         mounted: mounted,
         accumulatedScale: _accumulatedScale,
         previousScale: _previousScale,
@@ -113,15 +128,6 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
         scrollController: _scrollController,
         details: details,
       );
-
-      final double _currentSecond = TimelineScale.getSecondsByPixel(
-        secondPixelLength: _secondPixelLength.value,
-        pixels: _scrollController.position.pixels,
-        totalSeconds: widget.totalSeconds,
-      );
-
-      widget.onTimeChange(_currentSecond);
-
     }
 
   }
@@ -145,7 +151,19 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
               secondPixelLength: _secondPixelLength,
               totalSeconds: _totalSeconds,
               scrollController: _scrollController,
-              onHandleChanged: widget.onHandleChanged,
+              onHandleChanged: (double startS, double endS){
+
+                if (widget.handleCanPushCurrentTime == true){
+                  TimelineScale.handlePushCurrentTime(
+                    secondPixelLength: _secondPixelLength.value,
+                    scrollController: _scrollController,
+                    endS: endS,
+                    startS: startS,
+                  );
+                }
+
+                widget.onHandleChanged(startS, endS);
+              },
             ),
 
             /// VERTICAL LINE
@@ -161,18 +179,18 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
 
                 blog('a7aa awy');
 
-                // await TimelineScale.scrollFromTo(
-                //   controller: _scrollController,
-                //   secondPixelLength: _secondPixelLength.value,
-                //   fromSecond: 1.23,
-                //   toSecond: 2.34,
-                // );
-
-                TimelineScale.jumpToSecond(
+                await TimelineScale.scrollFromTo(
+                  controller: _scrollController,
                   secondPixelLength: _secondPixelLength.value,
-                  scrollController: _scrollController,
-                  second: 2.0,
+                  fromSecond: 1.62,
+                  toSecond: 3.96,
                 );
+
+                // TimelineScale.jumpToSecond(
+                //   secondPixelLength: _secondPixelLength.value,
+                //   scrollController: _scrollController,
+                //   second: 2.0,
+                // );
 
               },
               child: CurrentSecondText(

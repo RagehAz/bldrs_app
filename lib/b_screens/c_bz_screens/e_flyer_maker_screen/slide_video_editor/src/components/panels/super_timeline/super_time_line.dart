@@ -22,6 +22,7 @@ part 'src/c_time_line_selector.dart';
 part 'src/d_current_second_text.dart';
 part 'src/e_seconds_boxes.dart';
 part 'src/f_timeline_bar.dart';
+part 'src/g_selector_parts.dart';
 
 part 'src/z_timeline_scales.dart';
 part 'src/time_line_screen.dart';

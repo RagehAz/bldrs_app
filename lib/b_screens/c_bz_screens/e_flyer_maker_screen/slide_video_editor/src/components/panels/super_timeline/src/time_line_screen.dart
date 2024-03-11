@@ -31,7 +31,7 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
             totalSeconds: 5.4,
             height: 80,
             width: Scale.screenWidth(context),
-            onTimeChange: (double current){
+            onTimeChanged: (double current){
               setState(() {
                 _currentSecond = current;
               });

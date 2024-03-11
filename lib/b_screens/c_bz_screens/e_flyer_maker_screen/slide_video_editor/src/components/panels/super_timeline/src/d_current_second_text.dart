@@ -22,11 +22,11 @@ class CurrentSecondText extends StatelessWidget {
           animation: scrollController,
           builder: (_, __) {
 
-            final double _s = TimelineScale.getSecondsByPixel(
+            double _s = TimelineScale.getSecondsByPixel(
               secondPixelLength: secondPixelLength.value,
               pixels: scrollController.position.pixels,
-              totalSeconds: totalSeconds,
             );
+            _s = _s.clamp(0, totalSeconds);
 
             final String _second = Numeric.formatDoubleWithinDigits(
               value: _s,

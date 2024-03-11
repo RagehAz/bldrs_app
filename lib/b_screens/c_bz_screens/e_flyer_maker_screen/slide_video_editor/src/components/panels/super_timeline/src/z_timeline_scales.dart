@@ -16,6 +16,12 @@ class TimelineScale {
   static const double minTimelineScale = 0.5;
   static const double maxTimelineScale = 3;
   static const double initialSecondPixelLength = 80;
+  // --------------------
+  static const double handleWidth = 15;
+  static const double handleCorner = handleWidth * 0.5;
+  static const double selectorHorizontalLineThickness = 2;
+  static const Color selectorColor = Colorz.yellow255;
+
   // --------------------------------------------------------------------------
 
   /// PIXEL TO SECONDS
@@ -24,32 +30,11 @@ class TimelineScale {
   static double getSecondsByPixel({
     required double pixels,
     required double secondPixelLength,
-    required double totalSeconds,
   }){
 
     final double _seconds = pixels / secondPixelLength;
     return _seconds; // Numeric.roundFractions(_seconds, 2)!;
 
-    // final double _tenthWidth = TimelineScale.tenthPixelLength(
-    //   secondPixelLength: secondPixelLength,
-    // );
-
-    // final double _tenths =  pixels / _tenthWidth;
-    // double _seconds = _tenths / 10;
-    //
-    // final double _maxSecond = totalSeconds;
-    // const double _minSecond = 0;
-    //
-    // _seconds.clamp(_minSecond, _maxSecond);
-    //
-    // /// if (_seconds >= _maxSecond){
-    // ///   _seconds = _maxSecond;
-    // /// }
-    // /// if (_seconds <= _minSecond){
-    // ///   _seconds = 0;
-    // /// }
-    //
-    // return _seconds; // Numeric.roundFractions(_seconds, 2)!;
   }
   // --------------------
   static double getPixelsBySeconds({
@@ -123,7 +108,6 @@ class TimelineScale {
     required ValueNotifier<double> secondPixelLength,
     required ValueNotifier<double> scale,
     required ScrollController scrollController,
-    required double totalSeconds,
   }){
 
     if (mounted == true){
@@ -131,7 +115,6 @@ class TimelineScale {
       final double _oldSecond = TimelineScale.getSecondsByPixel(
         secondPixelLength: secondPixelLength.value,
         pixels: scrollController.position.pixels,
-        totalSeconds: totalSeconds,
       );
 
       final double scaleDelta = (details.horizontalScale - previousScale.value) * pinchingScaleFactor;
@@ -189,6 +172,106 @@ class TimelineScale {
     blog('haaa');
 
   }
+  // --------------------
+  static void handlePushCurrentTime({
+    required double secondPixelLength,
+    required ScrollController scrollController,
+    required double startS,
+    required double endS,
+  }){
+
+    final double _currentSecond = TimelineScale.getSecondsByPixel(
+      secondPixelLength: secondPixelLength,
+      pixels: scrollController.position.pixels,
+    );
+
+    if (startS >= _currentSecond){
+      TimelineScale.jumpToSecond(
+        scrollController: scrollController,
+        second: startS,
+        secondPixelLength: secondPixelLength,
+      );
+    }
+
+    if (endS <= _currentSecond){
+      TimelineScale.jumpToSecond(
+        scrollController: scrollController,
+        second: endS,
+        secondPixelLength: secondPixelLength,
+      );
+    }
+
+  }
+  // --------------------------------------------------------------------------
+
+  /// HANDLE DRAGGING
+
+  // --------------------
+  static double getLeftHandleDragPixels({
+    required DragUpdateDetails details,
+    required double leftPx,
+    required double rightPx,
+    required double min,
+    required double max,
+    required double minimumDurationInPixels,
+  }){
+
+    double newPosition = leftPx + details.primaryDelta!;
+
+    newPosition = newPosition.clamp(min, max);
+
+    if (newPosition >= rightPx - minimumDurationInPixels){
+      newPosition = rightPx - minimumDurationInPixels;
+    }
+
+    return newPosition;
+  }
+  // --------------------
+  static double getRightHandleDragPixels({
+    required DragUpdateDetails details,
+    required double leftPx,
+    required double rightPx,
+    required double min,
+    required double max,
+    required double minimumDurationInPixels,
+  }){
+
+    double newPosition = rightPx + details.primaryDelta!;
+
+    newPosition = newPosition.clamp(min, max);
+
+    if (newPosition <= leftPx + minimumDurationInPixels){
+      newPosition = leftPx + minimumDurationInPixels;
+    }
+
+    return newPosition;
+  }
+  // --------------------
+  static Future<double?> correctHandlePixels({
+    required double pixels,
+    required double secondPixelLength,
+  }) async {
+    double? _output;
+
+    final double _seconds = TimelineScale.getSecondsByPixel(
+      pixels: pixels,
+      secondPixelLength: secondPixelLength,
+    );
+    final double _roundedSeconds = Numeric.roundFractions(_seconds, 2)!;
+
+    if (_seconds != _roundedSeconds){
+
+      await Future.delayed(const Duration(milliseconds: 400));
+
+      _output = TimelineScale.getPixelsBySeconds(
+        seconds: _roundedSeconds,
+        secondPixelLength: secondPixelLength,
+      );
+
+    }
+
+    return _output;
+  }
   // --------------------------------------------------------------------------
 
   /// WIDTHS
@@ -220,10 +303,9 @@ class TimelineScale {
   static double getSelectorInnerWidth({
     required double totalSeconds,
     required double secondPixelLength,
-    required double handleWidth,
   }){
 
-    final double _selectorBlankWidth = TimelineScale.blankZoneWidth() - handleWidth;
+    final double _selectorBlankWidth = TimelineScale.blankZoneWidth() - TimelineScale.handleWidth;
 
     final double _totalAvailableWidth = TimelineScale.totalAvailableWidth(
       totalSeconds: totalSeconds,
