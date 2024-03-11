@@ -81,8 +81,27 @@ class TimelineScale {
   static void scrollManually({
     required ScrollController scrollController,
     required ScaleUpdateDetails details,
+    required double startTime,
+    required double endTime,
+    required bool scrollingIsLimitedBetweenHandles,
+    required double secondPixelLength,
   }){
-    final double _goTo = scrollController.offset - details.focalPointDelta.dx;
+
+    double _goTo = scrollController.offset - details.focalPointDelta.dx;
+
+    if (scrollingIsLimitedBetweenHandles == true){
+      _goTo = _goTo.clamp(
+          getPixelsBySeconds(
+              seconds: startTime,
+              secondPixelLength: secondPixelLength
+          ),
+          getPixelsBySeconds(
+              seconds: endTime,
+              secondPixelLength: secondPixelLength
+          )
+      );
+    }
+
     scrollController.jumpTo(_goTo);
   }
   // --------------------

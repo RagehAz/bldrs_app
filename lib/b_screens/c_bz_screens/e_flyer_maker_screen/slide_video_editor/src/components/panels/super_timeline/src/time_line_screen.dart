@@ -31,6 +31,7 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
             totalSeconds: 5.4,
             height: 80,
             width: Scale.screenWidth(context),
+            limitScrollingBetweenHandles: true,
             onTimeChanged: (double current){
               setState(() {
                 _currentSecond = current;

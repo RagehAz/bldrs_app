@@ -8,7 +8,7 @@ class SuperTimeLine extends StatefulWidget {
     required this.height,
     required this.onTimeChanged,
     required this.onHandleChanged,
-    this.handleCanPushCurrentTime = false,
+    this.limitScrollingBetweenHandles = false,
     super.key,
   });
   // --------------------
@@ -17,7 +17,7 @@ class SuperTimeLine extends StatefulWidget {
   final double height;
   final Function(double current) onTimeChanged;
   final Function(double start, double end) onHandleChanged;
-  final bool handleCanPushCurrentTime;
+  final bool limitScrollingBetweenHandles;
   // --------------------
   @override
   _SuperTimeLineState createState() => _SuperTimeLineState();
@@ -32,6 +32,9 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
   final ValueNotifier<double> _previousScale = ValueNotifier(1);
   final ValueNotifier<double> _accumulatedScale = ValueNotifier(0);
   double _totalSeconds = 0;
+  // --------------------
+  double _startTime = 0;
+  double _endTime = 0;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -79,7 +82,7 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
     _accumulatedScale.dispose();
     super.dispose();
   }
-
+  // -----------------------------------------------------------------------------
   void _listenToScroll(){
 
     final double _currentSecond = TimelineScale.getSecondsByPixel(
@@ -90,7 +93,7 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
     widget.onTimeChanged(_currentSecond.clamp(0, widget.totalSeconds));
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   List<Color> colors = [
     Colorz.green125,
     Colorz.blue125,
@@ -108,7 +111,7 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
     Colorz.facebook,
     Colorz.darkBlue,
   ];
-  // -----------------------------------------------------------------------------
+  // --------------------
   void _onScaleUpdate(ScaleUpdateDetails details){
 
     if (details.pointerCount == 2){
@@ -127,6 +130,10 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
       TimelineScale.scrollManually(
         scrollController: _scrollController,
         details: details,
+        startTime: _startTime,
+        endTime: _endTime,
+        secondPixelLength: _secondPixelLength.value,
+        scrollingIsLimitedBetweenHandles: widget.limitScrollingBetweenHandles,
       );
     }
 
@@ -153,7 +160,7 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
               scrollController: _scrollController,
               onHandleChanged: (double startS, double endS){
 
-                if (widget.handleCanPushCurrentTime == true){
+                if (widget.limitScrollingBetweenHandles == true){
                   TimelineScale.handlePushCurrentTime(
                     secondPixelLength: _secondPixelLength.value,
                     scrollController: _scrollController,
@@ -161,6 +168,9 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
                     startS: startS,
                   );
                 }
+
+                _startTime = startS;
+                _endTime = endS;
 
                 widget.onHandleChanged(startS, endS);
               },
