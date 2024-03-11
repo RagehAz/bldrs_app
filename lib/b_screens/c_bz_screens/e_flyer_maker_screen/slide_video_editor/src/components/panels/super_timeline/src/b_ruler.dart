@@ -88,7 +88,6 @@ class Ruler extends StatelessWidget {
         Container(
           width: _totalAvailableWidth,
           height: 10,
-          color: Colorz.yellow50,
           margin: Scale.superInsets(
             context: context,
             appIsLTR: _appIsLTR,
@@ -96,6 +95,12 @@ class Ruler extends StatelessWidget {
           ),
           child: Stack(
             children: <Widget>[
+
+              Container(
+                width: _totalTenths * _tenthWidth,
+                height: 10,
+                color: Colorz.white20,
+              ),
 
               ...List.generate(_totalTenths, (index){
 

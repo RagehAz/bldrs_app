@@ -6,21 +6,25 @@ class SuperTimeLine extends StatefulWidget {
     required this.totalSeconds,
     required this.width,
     required this.height,
+    required this.onTimeChange,
+    required this.onHandleChanged,
     super.key,
   });
   // --------------------
   final double totalSeconds;
   final double width;
   final double height;
+  final Function(double current) onTimeChange;
+  final Function(double start, double end) onHandleChanged;
   // --------------------
   @override
   _SuperTimeLineState createState() => _SuperTimeLineState();
-// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 }
 
 class _SuperTimeLineState extends State<SuperTimeLine> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<double> _secondPixelLength = ValueNotifier(80);
+  final ValueNotifier<double> _secondPixelLength = ValueNotifier(TimelineScale.initialSecondPixelLength);
   final ScrollController _scrollController = ScrollController();
   final ValueNotifier<double> _scale = ValueNotifier(1);
   final ValueNotifier<double> _previousScale = ValueNotifier(1);
@@ -109,6 +113,15 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
         scrollController: _scrollController,
         details: details,
       );
+
+      final double _currentSecond = TimelineScale.getSecondsByPixel(
+        secondPixelLength: _secondPixelLength.value,
+        pixels: _scrollController.position.pixels,
+        totalSeconds: widget.totalSeconds,
+      );
+
+      widget.onTimeChange(_currentSecond);
+
     }
 
   }
@@ -132,6 +145,7 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
               secondPixelLength: _secondPixelLength,
               totalSeconds: _totalSeconds,
               scrollController: _scrollController,
+              onHandleChanged: widget.onHandleChanged,
             ),
 
             /// VERTICAL LINE
@@ -142,10 +156,30 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
             ),
 
             /// CURRENT SECOND
-            CurrentSecondText(
-              totalSeconds: _totalSeconds,
-              secondPixelLength: _secondPixelLength,
-              scrollController: _scrollController,
+            GestureDetector(
+              onTap: () async {
+
+                blog('a7aa awy');
+
+                // await TimelineScale.scrollFromTo(
+                //   controller: _scrollController,
+                //   secondPixelLength: _secondPixelLength.value,
+                //   fromSecond: 1.23,
+                //   toSecond: 2.34,
+                // );
+
+                TimelineScale.jumpToSecond(
+                  secondPixelLength: _secondPixelLength.value,
+                  scrollController: _scrollController,
+                  second: 2.0,
+                );
+
+              },
+              child: CurrentSecondText(
+                totalSeconds: _totalSeconds,
+                secondPixelLength: _secondPixelLength,
+                scrollController: _scrollController,
+              ),
             ),
 
           ],
@@ -154,5 +188,5 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

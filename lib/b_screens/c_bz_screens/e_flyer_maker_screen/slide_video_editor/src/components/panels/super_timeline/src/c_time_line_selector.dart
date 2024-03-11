@@ -6,7 +6,9 @@ class TimelineSelector extends StatefulWidget {
     required this.height,
     required this.totalSeconds,
     required this.secondPixelLength,
+    required this.onHandleChanged,
     this.handleWidth = 10,
+    this.minimumDurationInSeconds = 0.1,
     super.key
   });
   // --------------------
@@ -14,6 +16,8 @@ class TimelineSelector extends StatefulWidget {
   final double handleWidth;
   final double secondPixelLength;
   final double totalSeconds;
+  final Function(double start, double end) onHandleChanged;
+  final double minimumDurationInSeconds;
   // --------------------
   @override
   _TimelineSelectorState createState() => _TimelineSelectorState();
@@ -25,21 +29,26 @@ class _TimelineSelectorState extends State<TimelineSelector> {
   double _min = 0;
   double _max = 0;
   // --------------------
-  double _left = 0;
-  double _right = 0;
+  double _leftPx = 0;
+  double _rightPx = 0;
+  // --------------------
+  double _secondPixelLength = TimelineScale.initialSecondPixelLength;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
 
+    _secondPixelLength = widget.secondPixelLength;
+
     _min = _getTheMostMinPixels();
     _max = _getTheMostMaxPixels();
 
-    _left = _min;
-    _right = _max;
+    _leftPx = _min;
+    _rightPx = _max;
 
   }
   // --------------------
+  /*
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -55,6 +64,7 @@ class _TimelineSelectorState extends State<TimelineSelector> {
     }
     super.didChangeDependencies();
   }
+   */
   // --------------------
   @override
   void didUpdateWidget(TimelineSelector oldWidget) {
@@ -64,31 +74,28 @@ class _TimelineSelectorState extends State<TimelineSelector> {
     if (oldWidget.secondPixelLength != widget.secondPixelLength) {
 
       final double _oldLeftSeconds = TimelineScale.getSecondsByPixel(
-        secondPixelLength: oldWidget.secondPixelLength,
-        pixels: _left,
+        secondPixelLength: _secondPixelLength,
+        pixels: _leftPx,
         totalSeconds: oldWidget.totalSeconds,
       );
 
       final double _oldRightSeconds = TimelineScale.getSecondsByPixel(
-        secondPixelLength: oldWidget.secondPixelLength,
-        pixels: _right,
+        secondPixelLength: _secondPixelLength,
+        pixels: _rightPx,
         totalSeconds: oldWidget.totalSeconds,
       );
 
       setState(() {
-
-        _left = TimelineScale.getPixelsBySeconds(
+        _secondPixelLength = widget.secondPixelLength;
+        _leftPx = TimelineScale.getPixelsBySeconds(
           seconds: _oldLeftSeconds,
-          secondPixelLength: widget.secondPixelLength,
+          secondPixelLength: _secondPixelLength,
         );
-
-        _right = TimelineScale.getPixelsBySeconds(
+        _rightPx = TimelineScale.getPixelsBySeconds(
           seconds: _oldRightSeconds,
-          secondPixelLength: widget.secondPixelLength,
+          secondPixelLength: _secondPixelLength,
         );
-
         _max = _getTheMostMaxPixels();
-
       });
 
     }
@@ -108,35 +115,47 @@ class _TimelineSelectorState extends State<TimelineSelector> {
 
     final double _totalSecondsLength = TimelineScale.totalSecondsPixelLength(
       totalSeconds: widget.totalSeconds,
-      secondPixelLength: widget.secondPixelLength,
+      secondPixelLength: _secondPixelLength,
     );
 
     return _totalSecondsLength + widget.handleWidth;
   }
-  // --------------------
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final double _minimumDurationInPixels = TimelineScale.getPixelsBySeconds(
+        seconds: widget.minimumDurationInSeconds,
+        secondPixelLength: _secondPixelLength,
+      );
+    // --------------------
+    const Color _color = Colorz.yellow255;
     // --------------------
     const double _handleWidth = 10;
+    const double _horizontalLineThickness = 2;
     final double _blankWidth = TimelineScale.blankZoneWidth() - _handleWidth;
     // --------------------
     final double _totalAvailableWidth = TimelineScale.totalAvailableWidth(
       totalSeconds: widget.totalSeconds,
-      secondPixelLength: widget.secondPixelLength,
+      secondPixelLength: _secondPixelLength,
     );
     // --------------------
-    final double _timeZoneWidth = _totalAvailableWidth - (_blankWidth*2);
+    final double _selectorInnerWidth = TimelineScale.getSelectorInnerWidth(
+      totalSeconds: widget.totalSeconds,
+      secondPixelLength: _secondPixelLength,
+      handleWidth: _handleWidth,
+    );
+    const double _corner = _handleWidth * 0.5;
     // --------------------
-    final double _leftSeconds = TimelineScale.getSecondsByPixel(
-      secondPixelLength: widget.secondPixelLength,
-      pixels: _left,
+    final double _rightS = TimelineScale.getSecondsByPixel(
+      secondPixelLength: _secondPixelLength,
+      pixels: _rightPx,
       totalSeconds: widget.totalSeconds,
     );
     // --------------------
-    final double _rightSeconds = TimelineScale.getSecondsByPixel(
-      secondPixelLength: widget.secondPixelLength,
-      pixels: _right - widget.handleWidth,
+    final double _leftS = TimelineScale.getSecondsByPixel(
+      secondPixelLength: _secondPixelLength,
+      pixels: _leftPx,
       totalSeconds: widget.totalSeconds,
     );
     // --------------------
@@ -152,14 +171,11 @@ class _TimelineSelectorState extends State<TimelineSelector> {
           SizedBox(
             height: widget.height,
             width: _blankWidth,
-            child: BldrsText(
-              verse: Verse.plain(_leftSeconds.toString()),
-            ),
           ),
 
           /// TRIM ZONE
           SizedBox(
-            width: _timeZoneWidth,
+            width: _selectorInnerWidth,
             height: widget.height,
             child: Stack(
               children: <Widget>[
@@ -168,10 +184,12 @@ class _TimelineSelectorState extends State<TimelineSelector> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Container(
-                    width: _right - _left,
-                    height: 5,
-                    color: Colorz.bloodTest,
-                    margin: EdgeInsets.only(left: _left),
+                    width: _rightPx - _leftPx,
+                    height: _horizontalLineThickness,
+                    color: _color,
+                    margin: EdgeInsets.only(
+                        left: _leftPx + _handleWidth,
+                    ),
                   ),
                 ),
 
@@ -179,10 +197,12 @@ class _TimelineSelectorState extends State<TimelineSelector> {
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: Container(
-                    width: _right - _left,
-                    height: 5,
-                    color: Colorz.bloodTest,
-                    margin: EdgeInsets.only(left: _left),
+                    width: _rightPx - _leftPx,
+                    height: _horizontalLineThickness,
+                    color: _color,
+                    margin: EdgeInsets.only(
+                        left: _leftPx + _handleWidth,
+                    ),
                   ),
                 ),
 
@@ -190,60 +210,89 @@ class _TimelineSelectorState extends State<TimelineSelector> {
                 GestureDetector(
                   onHorizontalDragUpdate: (details) {
 
-                    double newPosition = _left + details.primaryDelta!;
+                    double newPosition = _leftPx + details.primaryDelta!;
 
-                    if (newPosition <= _min){
-                      newPosition = _min;
-                    }
-                    if (newPosition >= _max){
-                      newPosition = _max;
-                    }
-                    if (newPosition >= _right - widget.handleWidth){
-                      newPosition = _right - widget.handleWidth;
+                    newPosition.clamp(_min, _max);
+
+                    if (newPosition >= _rightPx - _minimumDurationInPixels){
+                      newPosition = _rightPx - _minimumDurationInPixels;
                     }
 
                     setState(() {
-                      _left = newPosition;
+                      _leftPx = newPosition;
                     });
+
+                    widget.onHandleChanged(_leftS, _rightS);
 
                   },
                   child: Container(
                     width: _handleWidth,
                     height: widget.height,
-                    color: Colorz.red255,
                     margin: EdgeInsets.only(
-                      left: _left,
+                      left: _leftPx,
+                    ),
+                    decoration: BoxDecoration(
+                      color: _color,
+                      borderRadius: Borderers.cornerOnly(
+                        appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                        enBottomLeft: _corner,
+                        enTopLeft: _corner,
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: const SuperImage(
+                      loading: false,
+                      width: _handleWidth,
+                      height: _handleWidth,
+                      pic: Iconz.arrowLeft,
+                      iconColor: Colorz.black255,
+                      scale: 0.6,
                     ),
                   ),
                 ),
 
                 /// RIGHT HANDLE
                 GestureDetector(
+                  // onDoubleTap: _reset,
                   onHorizontalDragUpdate: (details) {
 
-                    double newPosition = _right + details.primaryDelta!;
+                    double newPosition = _rightPx + details.primaryDelta!;
 
-                    if (newPosition <= _min){
-                      newPosition = _min;
-                    }
-                    if (newPosition >= _max){
-                      newPosition = _max;
-                    }
-                    if (newPosition <= _left + widget.handleWidth){
-                      newPosition = _left + widget.handleWidth;
+                    newPosition.clamp(_min, _max);
+
+                    if (newPosition <= _leftPx + _minimumDurationInPixels){
+                      newPosition = _leftPx + _minimumDurationInPixels;
                     }
 
                     setState(() {
-                      _right = newPosition;
+                      _rightPx = newPosition;
                     });
+
+                    widget.onHandleChanged(_leftS, _rightS);
 
                   },
                   child: Container(
                     width: _handleWidth,
                     height: widget.height,
-                    color: Colorz.red255,
                     margin: EdgeInsets.only(
-                      left: _right,
+                      left: _rightPx + widget.handleWidth,
+                    ),
+                    decoration: BoxDecoration(
+                      color: _color,
+                      borderRadius: Borderers.cornerOnly(
+                        appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                        enBottomRight: _corner,
+                        enTopRight: _corner,
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: const SuperImage(
+                      loading: false,
+                      width: _handleWidth,
+                      height: _handleWidth,
+                      pic: Iconz.arrowRight,
+                      iconColor: Colorz.black255,
+                      scale: 0.6,
                     ),
                   ),
                 ),
@@ -256,9 +305,6 @@ class _TimelineSelectorState extends State<TimelineSelector> {
           SizedBox(
             height: widget.height,
             width: _blankWidth,
-            child: BldrsText(
-              verse: Verse.plain(_rightSeconds.toString()),
-            ),
           ),
 
         ],

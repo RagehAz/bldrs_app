@@ -8,6 +8,7 @@ class TimelineBar extends StatelessWidget {
     required this.scrollController,
     required this.secondPixelLength,
     required this.totalSeconds,
+    required this.onHandleChanged,
     super.key
   });
   // --------------------
@@ -16,6 +17,7 @@ class TimelineBar extends StatelessWidget {
   final ScrollController scrollController;
   final ValueNotifier<double> secondPixelLength;
   final double totalSeconds;
+  final Function(double start, double end) onHandleChanged;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -63,9 +65,10 @@ class TimelineBar extends StatelessWidget {
 
                     /// SELECTOR
                     TimelineSelector(
-                      height: height,
+                      height: _timelineStripHeight,
                       secondPixelLength: _secondPixelLength,
                       totalSeconds: totalSeconds,
+                      onHandleChanged: onHandleChanged,
                     ),
 
                   ],

@@ -17,23 +17,31 @@ class CurrentSecondText extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     return IgnorePointer(
+      ignoring: false,
       child: AnimatedBuilder(
           animation: scrollController,
           builder: (_, __) {
 
-            final double _second = TimelineScale.getSecondsByPixel(
+            final double _s = TimelineScale.getSecondsByPixel(
               secondPixelLength: secondPixelLength.value,
               pixels: scrollController.position.pixels,
               totalSeconds: totalSeconds,
             );
 
+            final String _second = Numeric.formatDoubleWithinDigits(
+              value: _s,
+              digits: 2,
+              addPlus: false,
+            )!;
+
             return Align(
               alignment: Alignment.bottomCenter,
-              child: BldrsText(
+              child: BldrsBox(
+                height: 15,
                 verse: Verse.plain('${_second}s'),
-                labelColor: Colorz.black125,
-                size: 1,
-                margin: 3,
+                color: Colorz.black255,
+                verseScaleFactor: 1.2,
+                borderColor: Colorz.white255,
               ),
             );
           }
