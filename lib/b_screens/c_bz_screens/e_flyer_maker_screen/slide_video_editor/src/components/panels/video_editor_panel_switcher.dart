@@ -4,12 +4,14 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
   // --------------------------------------------------------------------------
   const VideoEditorPanelSwitcher({
     required this.videoEditorController,
+    required this.scrollController,
     required this.selectedButton,
     required this.onConfirmCrop,
     super.key
   });
   // --------------------
   final VideoEditorController? videoEditorController;
+  final ScrollController scrollController;
   final String? selectedButton;
   final Function onConfirmCrop;
   // --------------------------------------------------------------------------
@@ -30,7 +32,8 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
           /// TRIM BAR
           if (_isInitialized == true && selectedButton == VideoEditorScales.trimButtonID){
             return VideoEditorTrimPanel(
-                controller: videoEditorController!,
+              controller: videoEditorController!,
+              scrollController: scrollController,
             );
           }
 

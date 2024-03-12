@@ -6,12 +6,14 @@ class SecondsBoxes extends StatelessWidget {
     required this.height,
     required this.totalSeconds,
     required this.secondPixelLength,
+    required this.videoEditorController,
     super.key
   });
   // --------------------
   final double height;
   final double totalSeconds;
   final double secondPixelLength;
+  final VideoEditorController? videoEditorController;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,15 @@ class SecondsBoxes extends StatelessWidget {
           return Container(
             width: _part * secondPixelLength,
             height: _timelineStripHeight,
-            color: colors[index],
+            // color: colors[index],
+            child: videoEditorController == null ?
+            const SizedBox()
+                :
+            const SizedBox()
+            // ThumbnailSlider(
+            //   controller: videoEditorController!,
+            //   height: _timelineStripHeight,
+            // ),
           );
 
         }),

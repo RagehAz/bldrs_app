@@ -90,6 +90,7 @@ dependencies:
 #  ffmpeg_kit_flutter_min: ^5.1.0
   fraction: ^4.1.4
   ffmpeg_kit_flutter: ^6.0.3
+  video_thumbnail: ^0.5.3
   # ------------------------------------
 #dependency_overrides:
 #  intl: ^0.18.1

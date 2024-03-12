@@ -8,6 +8,9 @@ class SuperTimeLine extends StatefulWidget {
     required this.height,
     required this.onTimeChanged,
     required this.onHandleChanged,
+    required this.videoEditorController,
+    required this.scrollController,
+    required this.secondPixelLength,
     this.limitScrollingBetweenHandles = false,
     super.key,
   });
@@ -18,6 +21,9 @@ class SuperTimeLine extends StatefulWidget {
   final Function(double current) onTimeChanged;
   final Function(double start, double end) onHandleChanged;
   final bool limitScrollingBetweenHandles;
+  final VideoEditorController? videoEditorController;
+  final ScrollController scrollController;
+  final ValueNotifier<double> secondPixelLength;
   // --------------------
   @override
   _SuperTimeLineState createState() => _SuperTimeLineState();
@@ -26,8 +32,6 @@ class SuperTimeLine extends StatefulWidget {
 
 class _SuperTimeLineState extends State<SuperTimeLine> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<double> _secondPixelLength = ValueNotifier(TimelineScale.initialSecondPixelLength);
-  final ScrollController _scrollController = ScrollController();
   final ValueNotifier<double> _scale = ValueNotifier(1);
   final ValueNotifier<double> _previousScale = ValueNotifier(1);
   final ValueNotifier<double> _accumulatedScale = ValueNotifier(0);
@@ -40,8 +44,9 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
   void initState() {
     super.initState();
     _totalSeconds = widget.totalSeconds;
+    _endTime = _totalSeconds;
 
-    _scrollController.addListener(_listenToScroll);
+    widget.scrollController.addListener(_listenToScroll);
   }
   // --------------------
   /*
@@ -74,9 +79,7 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
   // --------------------
   @override
   void dispose() {
-    _scrollController.removeListener(_listenToScroll);
-    _scrollController.dispose();
-    _secondPixelLength.dispose();
+    widget.scrollController.removeListener(_listenToScroll);
     _scale.dispose();
     _previousScale.dispose();
     _accumulatedScale.dispose();
@@ -86,39 +89,21 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
   void _listenToScroll(){
 
     final double _currentSecond = TimelineScale.getSecondsByPixel(
-      secondPixelLength: _secondPixelLength.value,
-      pixels: _scrollController.position.pixels,
+      secondPixelLength: widget.secondPixelLength.value,
+      pixels: widget.scrollController.position.pixels,
     );
 
     widget.onTimeChanged(_currentSecond.clamp(0, widget.totalSeconds));
 
   }
   // --------------------
-  List<Color> colors = [
-    Colorz.green125,
-    Colorz.blue125,
-    Colorz.white125,
-    Colorz.facebook,
-    Colorz.darkBlue,
-    Colorz.green125,
-    Colorz.blue125,
-    Colorz.white125,
-    Colorz.facebook,
-    Colorz.darkBlue,
-    Colorz.green125,
-    Colorz.blue125,
-    Colorz.white125,
-    Colorz.facebook,
-    Colorz.darkBlue,
-  ];
-  // --------------------
   void _onScaleUpdate(ScaleUpdateDetails details){
 
     if (details.pointerCount == 2){
       TimelineScale.scaleTimeline(
         details: details,
-        scrollController: _scrollController,
-        secondPixelLength: _secondPixelLength,
+        scrollController: widget.scrollController,
+        secondPixelLength: widget.secondPixelLength,
         mounted: mounted,
         accumulatedScale: _accumulatedScale,
         previousScale: _previousScale,
@@ -128,11 +113,11 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
 
     else if (details.pointerCount == 1) {
       TimelineScale.scrollManually(
-        scrollController: _scrollController,
+        scrollController: widget.scrollController,
         details: details,
         startTime: _startTime,
         endTime: _endTime,
-        secondPixelLength: _secondPixelLength.value,
+        secondPixelLength: widget.secondPixelLength.value,
         scrollingIsLimitedBetweenHandles: widget.limitScrollingBetweenHandles,
       );
     }
@@ -155,15 +140,16 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
             TimelineBar(
               height: widget.height,
               width: widget.width,
-              secondPixelLength: _secondPixelLength,
+              secondPixelLength: widget.secondPixelLength,
               totalSeconds: _totalSeconds,
-              scrollController: _scrollController,
+              scrollController: widget.scrollController,
+              videoEditorController: widget.videoEditorController,
               onHandleChanged: (double startS, double endS){
 
                 if (widget.limitScrollingBetweenHandles == true){
                   TimelineScale.handlePushCurrentTime(
-                    secondPixelLength: _secondPixelLength.value,
-                    scrollController: _scrollController,
+                    secondPixelLength: widget.secondPixelLength.value,
+                    scrollController: widget.scrollController,
                     endS: endS,
                     startS: startS,
                   );
@@ -184,30 +170,10 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
             ),
 
             /// CURRENT SECOND
-            GestureDetector(
-              onTap: () async {
-
-                blog('a7aa awy');
-
-                await TimelineScale.scrollFromTo(
-                  controller: _scrollController,
-                  secondPixelLength: _secondPixelLength.value,
-                  fromSecond: 1.62,
-                  toSecond: 3.96,
-                );
-
-                // TimelineScale.jumpToSecond(
-                //   secondPixelLength: _secondPixelLength.value,
-                //   scrollController: _scrollController,
-                //   second: 2.0,
-                // );
-
-              },
-              child: CurrentSecondText(
-                totalSeconds: _totalSeconds,
-                secondPixelLength: _secondPixelLength,
-                scrollController: _scrollController,
-              ),
+            CurrentSecondText(
+              totalSeconds: _totalSeconds,
+              secondPixelLength: widget.secondPixelLength,
+              scrollController: widget.scrollController,
             ),
 
           ],

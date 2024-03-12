@@ -9,6 +9,7 @@ class TimelineBar extends StatelessWidget {
     required this.secondPixelLength,
     required this.totalSeconds,
     required this.onHandleChanged,
+    required this.videoEditorController,
     super.key
   });
   // --------------------
@@ -18,6 +19,7 @@ class TimelineBar extends StatelessWidget {
   final ValueNotifier<double> secondPixelLength;
   final double totalSeconds;
   final Function(double start, double end) onHandleChanged;
+  final VideoEditorController? videoEditorController;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,7 @@ class TimelineBar extends StatelessWidget {
                       height: height,
                       secondPixelLength: _secondPixelLength,
                       totalSeconds: totalSeconds,
+                      videoEditorController: videoEditorController,
                     ),
 
                     /// RULER

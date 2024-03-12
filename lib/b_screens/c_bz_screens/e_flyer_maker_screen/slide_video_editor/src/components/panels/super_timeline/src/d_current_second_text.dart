@@ -17,7 +17,6 @@ class CurrentSecondText extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     return IgnorePointer(
-      ignoring: false,
       child: AnimatedBuilder(
           animation: scrollController,
           builder: (_, __) {

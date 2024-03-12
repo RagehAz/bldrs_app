@@ -150,15 +150,18 @@ class _ThumbnailSliderState extends State<ThumbnailSlider> {
 
   @override
   Widget build(BuildContext context) {
+
     return LayoutBuilder(builder: (_, box) {
+
       _sliderWidth = box.maxWidth;
 
       return StreamBuilder<List<Uint8List>>(
         stream: _stream,
         builder: (_, snapshot) {
           final data = snapshot.data;
-          return snapshot.hasData
-              ? ListView.builder(
+
+          return snapshot.hasData ?
+          ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.zero,
             physics: const NeverScrollableScrollPhysics(),
@@ -166,28 +169,32 @@ class _ThumbnailSliderState extends State<ThumbnailSlider> {
             itemBuilder: (_, i) => ValueListenableBuilder<TransformData>(
               valueListenable: _transform,
               builder: (_, transform, __) {
-                final index =
-                _getBestIndex(_neededThumbnails, data!.length, i);
+
+                final index = _getBestIndex(_neededThumbnails, data!.length, i);
 
                 return Stack(
                   children: [
+
                     _buildSingleThumbnail(
                       data[0],
                       transform,
                       isPlaceholder: true,
                     ),
+
                     if (index < data.length)
                       _buildSingleThumbnail(
                         data[index],
                         transform,
                         isPlaceholder: false,
                       ),
+
                   ],
                 );
               },
             ),
           )
-              : const SizedBox();
+              :
+          const SizedBox();
         },
       );
     });

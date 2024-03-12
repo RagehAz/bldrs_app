@@ -28,6 +28,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   }
   // -----------------------------------------------------------------------------
   VideoEditorController? _videoEditorController;
+  final ScrollController _scrollController = ScrollController();
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -546,6 +547,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
           VideoEditorPanelSwitcher(
             selectedButton: _selectedButton,
             videoEditorController: _videoEditorController,
+            scrollController: _scrollController,
             onConfirmCrop: (){
 
               _videoEditorController?.applyCacheCrop();

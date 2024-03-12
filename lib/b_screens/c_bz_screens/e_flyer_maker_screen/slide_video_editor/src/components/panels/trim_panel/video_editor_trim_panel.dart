@@ -6,10 +6,12 @@ class VideoEditorTrimPanel extends StatefulWidget {
   // --------------------------------------------------------------------------
   const VideoEditorTrimPanel({
     required this.controller,
+    required this.scrollController,
     super.key
   });
   // --------------------
   final VideoEditorController controller;
+  final ScrollController scrollController;
   // --------------------
   @override
   State<VideoEditorTrimPanel> createState() => _VideoEditorTrimPanelState();
@@ -73,7 +75,7 @@ class _VideoEditorTrimPanelState extends State<VideoEditorTrimPanel> with Automa
   void initState() {
     super.initState();
 
-    _scrollController = ScrollController();
+    _scrollController = widget.scrollController;
 
     widget.controller.addListener(_updateTrim);
 
@@ -92,7 +94,7 @@ class _VideoEditorTrimPanelState extends State<VideoEditorTrimPanel> with Automa
       _scrollController.removeListener(attachTrimToScroll);
     }
 
-    _scrollController.dispose();
+    // _scrollController.dispose();
 
     super.dispose();
   }
@@ -477,11 +479,7 @@ class _VideoEditorTrimPanelState extends State<VideoEditorTrimPanel> with Automa
   // --------------------
   /// Returns the video position in the layout
   /// NOTE : Using function instead of getter seems faster when grabbing the cursor
-  double _getVideoPosition() =>
-      _preComputedVideoPosition ??
-          (_fullLayout.width * widget.controller.trimPosition -
-              _scrollController.offset +
-              _horizontalMargin);
+  double _getVideoPosition() => _preComputedVideoPosition ?? (_fullLayout.width * widget.controller.trimPosition - _scrollController.offset + _horizontalMargin);
   // --------------------
   Duration _getDurationDiff(double left, double width) {
     final double min = (left - _horizontalMargin) / _fullLayout.width;

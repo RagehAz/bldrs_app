@@ -21,7 +21,8 @@ class TimelineScale {
   static const double handleCorner = handleWidth * 0.5;
   static const double selectorHorizontalLineThickness = 2;
   static const Color selectorColor = Colorz.yellow255;
-
+  static const int maxFramesPerSecond = 8;
+  static const double frameSizeFactor = 0.3;
   // --------------------------------------------------------------------------
 
   /// PIXEL TO SECONDS
