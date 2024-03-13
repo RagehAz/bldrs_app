@@ -21,8 +21,13 @@ class Standards {
   // --------------------
   /// APP LINKS
   // -------
-  static const String iosAppStoreURL = 'https://apps.apple.com/eg/app/bldrs-net/id${BldrsKeys.appStoreID}?l=en';
+  static const String iosAppStoreURL = 'https://apps.apple.com/eg/app/bldrs-net/id${BldrsKeys.appStoreID}';
   static const String androidAppStoreURL = 'https://play.google.com/store/apps/details?id=net.bldrs.app';
+  // -----------------------------------------------------------------------------
+  /// SOCIAL MEDIA
+  // -------
+  static const String bldrsFacebookPageURL = 'https://www.facebook.com/Bldrs.net';
+  static const String bldrsInstagramPageURL = 'https://www.instagram.com/bldrs.network';
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? getBldrsStoreLink(){

@@ -21,8 +21,9 @@ class TimelineScale {
   static const double handleCorner = handleWidth * 0.5;
   static const double selectorHorizontalLineThickness = 2;
   static const Color selectorColor = Colorz.yellow255;
-  static const int maxFramesPerSecond = 8;
   static const double frameSizeFactor = 0.3;
+  static const int maxFramesPerSecond = 8;
+  static const List<int> framesLoadingSequence = [4,3,2,1];
   // --------------------------------------------------------------------------
 
   /// PIXEL TO SECONDS
@@ -333,33 +334,6 @@ class TimelineScale {
     );
 
     return _totalAvailableWidth - (_selectorBlankWidth*2);
-  }
-  // --------------------------------------------------------------------------
-
-  /// TIME BOXES
-
-  // --------------------
-  static List<double> createTimeBoxes({
-    required double seconds,
-  }){
-    final List<double> _output = [];
-
-    double _seconds = seconds;
-    final int _rounds = _seconds.ceil();
-
-    for (int i = 0; i < _rounds; i++){
-
-      if (_seconds >= 1){
-        _output.add(1);
-      }
-      else {
-        _output.add(_seconds);
-      }
-      _seconds--;
-
-    }
-
-    return _output;
   }
   // --------------------------------------------------------------------------
 }

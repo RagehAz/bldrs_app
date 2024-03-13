@@ -1,5 +1,5 @@
 part of super_time_line;
-
+/// =>TAMAM
 @immutable
 class FrameModel {
   // --------------------------------------------------------------------------
@@ -75,19 +75,28 @@ class FrameModel {
 
     const double _sizeFactor = TimelineScale.frameSizeFactor;
 
-    final Uint8List? bytes = await VideoThumbnail.thumbnailData(
-      imageFormat: ImageFormat.JPEG,
-      video: controller.file.path,
-      timeMs: (second * 1000).toInt(),
-      quality: 99,
-      maxHeight: (controller.videoHeight * _sizeFactor).toInt(),
-      maxWidth:(controller.videoWidth * _sizeFactor).toInt(),
+    Uint8List? bytes;
+
+    await tryAndCatch(
+      invoker: 'createFramePic',
+      functions: () async {
+
+        bytes = await VideoThumbnail.thumbnailData(
+          imageFormat: ImageFormat.JPEG,
+          video: controller.file.path,
+          timeMs: (second * 1000).toInt(),
+          quality: 99,
+          maxHeight: (controller.videoHeight * _sizeFactor).toInt(),
+          maxWidth:(controller.videoWidth * _sizeFactor).toInt(),
+        );
+
+        },
     );
 
     return bytes;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<List<FrameModel>> createFramesPicsInTheSmartSequence({
     required List<FrameModel> frames,
     required Function(List<FrameModel> frames) onNewFrameAdded,
@@ -96,13 +105,13 @@ class FrameModel {
   }) async {
     List<FrameModel> _output = [...frames];
 
-    for (int x = framesPerSecond; x >= 0; x--){
+    for (int x = 0; x < TimelineScale.framesLoadingSequence.length; x++){
 
-      blog('createFramesPicsInTheSmartSequence : loop $x');
+      final int _divisibleBy = TimelineScale.framesLoadingSequence[x];
 
       await loopDivisibles(
           frames: frames,
-          divisibleBy: x,
+          divisibleBy: _divisibleBy,
           onDivisible: (int index) async {
 
             final FrameModel? _frame = getFrameByIndex(
@@ -111,8 +120,6 @@ class FrameModel {
             );
 
             if (_frame != null && _frame.pic == null){
-
-              blog('doing $index');
 
               final Uint8List? _pic = await createFramePic(
                   controller: controller,
@@ -221,6 +228,7 @@ class FrameModel {
   static FrameModel? getNearestFrame({
     required List<FrameModel> frames,
     required double second,
+    required bool ignoreEmptyPics,
   }){
     FrameModel? _output;
 
@@ -230,16 +238,22 @@ class FrameModel {
 
       for (final FrameModel frame in frames){
 
-        final double _difference = Numeric.modulus(frame.second - second)!;
-
-        if (_difference <= _smallestDifference){
-          _smallestDifference = _difference;
-          _output = frame;
+        if (ignoreEmptyPics == true && frame.pic == null){
+          /// do nothing
         }
-        if (_difference > _smallestDifference){
-          break;
-        }
+        else {
 
+          final double _difference = Numeric.modulus(frame.second - second)!;
+
+          if (_difference <= _smallestDifference){
+            _smallestDifference = _difference;
+            _output = frame;
+          }
+          if (_difference > _smallestDifference){
+            break;
+          }
+
+        }
 
       }
 

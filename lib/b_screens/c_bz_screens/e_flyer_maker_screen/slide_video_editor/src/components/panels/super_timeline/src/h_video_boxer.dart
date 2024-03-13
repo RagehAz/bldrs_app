@@ -20,6 +20,8 @@ class VideoBoxer extends StatefulWidget {
 
 class _VideoBoxerState extends State<VideoBoxer> {
   // ---------------------------------------------------------------------------
+  List<FrameModel> _frames = [];
+  // ---------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
@@ -34,6 +36,11 @@ class _VideoBoxerState extends State<VideoBoxer> {
   @override
   void initState() {
     super.initState();
+
+    _frames = FrameModel.createEmptyFrames(
+      videoDurationInSeconds: widget.controller.videoDuration.inMilliseconds / 1000,
+    );
+
   }
   // --------------------
   bool _isInit = true;
@@ -45,9 +52,7 @@ class _VideoBoxerState extends State<VideoBoxer> {
 
       asyncInSync(() async {
 
-        await _triggerLoading(setTo: true);
-        /// GO BABY GO
-        await _triggerLoading(setTo: false);
+        await _loadFrames();
 
       });
 
@@ -55,90 +60,48 @@ class _VideoBoxerState extends State<VideoBoxer> {
     super.didChangeDependencies();
   }
   // --------------------
-  /*
   @override
-  void didUpdateWidget(TheStatefulScreen oldWidget) {
+  void didUpdateWidget(VideoBoxer oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.thing != widget.thing) {
-      unawaited(_doStuff());
+
+    if (oldWidget.width != widget.width) {
+      setState(() {});
     }
+
+    final bool _filesAreIdentical = Filers.checkFilesAreIdentical(
+        file1: oldWidget.controller.file,
+        file2: widget.controller.file,
+    );
+
+    if (_filesAreIdentical == false){
+
+      setState(() {
+        _frames = [];
+        _frames = FrameModel.createEmptyFrames(
+          videoDurationInSeconds: widget.controller.videoDuration.inMilliseconds / 1000,
+        );
+      });
+
+      _loadFrames();
+
+    }
+
   }
-   */
   // --------------------
   @override
   void dispose() {
     _loading.dispose();
     super.dispose();
   }
-  // ---------------------------------------------------------------------------
-  // List<Uint8List> _boxes = [];
-  // // --------------------
-  // Future<void> _generateAllPossibleBoxes() async {
-  //
-  //   setState(() {
-  //     _boxes = [];
-  //   });
-  //
-  //   final double _videoSeconds = widget.controller.videoDuration.inMilliseconds / 1000;
-  //
-  //   final double _maxPossibleWidth = TimelineScale.initialSecondPixelLength * TimelineScale.maxTimelineScale * _videoSeconds;
-  //
-  //   final double _allowableWidth = _maxPossibleWidth;
-  //
-  //   final double _boxHeight = widget.height;
-  //   final double _boxWidth = _boxHeight;
-  //   final int _numberOfBoxes = (_allowableWidth / _boxWidth).ceil();
-  //   final double _boxSecondsDuration = _videoSeconds / _numberOfBoxes;
-  //   final double _boxMilliSecondsDuration = _boxSecondsDuration * 1000;
-  //
-  //   const double _sizeFactor = 0.4;
-  //
-  //   for (int i = 0; i < _numberOfBoxes; i++){
-  //
-  //     await tryAndCatch(
-  //         functions: () async {
-  //
-  //           final Uint8List? bytes = await VideoThumbnail.thumbnailData(
-  //             imageFormat: ImageFormat.JPEG,
-  //             video: widget.controller.file.path,
-  //             timeMs: (_boxMilliSecondsDuration * i).toInt(),
-  //             quality: 100,
-  //             maxHeight: (widget.controller.videoHeight * _sizeFactor).toInt(),
-  //             maxWidth:(widget.controller.videoWidth * _sizeFactor).toInt(),
-  //           );
-  //
-  //           if (bytes != null && mounted == true){
-  //             setState(() {
-  //               _boxes = [..._boxes, bytes];
-  //             });
-  //           }
-  //
-  //         },
-  //     );
-  //
-  //
-  //   }
-  //
-  //
-  // }
+  // --------------------
+  Future<void> _loadFrames() async {
 
-  List<FrameModel> _frames = [];
+    await _triggerLoading(setTo: true);
 
-  Future<void> _doFrames() async {
-
-    _frames = FrameModel.createEmptyFrames(
-      videoDurationInSeconds: widget.controller.videoDuration.inMilliseconds / 1000,
-    );
-
-    setState(() {});
-
-    int x = 0;
-     _frames = await FrameModel.createFramesPicsInTheSmartSequence(
+    _frames = await FrameModel.createFramesPicsInTheSmartSequence(
         frames: _frames,
         controller: widget.controller,
         onNewFrameAdded: (List<FrameModel> list){
-
-          x++;
 
           setState(() {
             _frames = list;
@@ -149,73 +112,64 @@ class _VideoBoxerState extends State<VideoBoxer> {
 
     setState(() {});
 
-  }
+    await _triggerLoading(setTo: false);
 
+  }
   // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    return FloatingList(
+    final double _boxHeight = widget.height;
+    final double _boxWidth = _boxHeight;
+    final int _numberOfBoxes = (widget.width / _boxWidth).ceil();
+    final double _videoSeconds = widget.controller.videoDuration.inMilliseconds / 1000;
+    final double _boxDuration = _videoSeconds / _numberOfBoxes;
+    // --------------------
+    final FrameModel? _firstFrame = _frames.firstOrNull;
+    // --------------------
+    return Container(
       width: widget.width,
-      height: widget.height*2,
-      boxColor: Colorz.bloodTest,
-      scrollDirection: Axis.horizontal,
-      columnChildren: [
+      height: widget.height,
+      color: Colorz.black255,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        physics: const NeverScrollableScrollPhysics(),
+        child: Row(
+          children: <Widget>[
 
-        BldrsBox(
-          width: widget.height,
-          height:  widget.height,
-          verse: Verse.plain('${_frames.length}\npix'),
-          verseMaxLines: 3,
-          verseScaleFactor: 0.5,
-          onTap: _doFrames,
+            if (Lister.checkCanLoop(_frames) == true)
+            ...List.generate(_numberOfBoxes, (index){
+
+              final double _boxSecond = _boxDuration * index;
+
+              final FrameModel? _frame = FrameModel.getNearestFrame(
+                frames: _frames,
+                second: _boxSecond,
+                ignoreEmptyPics: true,
+              );
+
+              final Uint8List? _pic =  _frame?.pic ?? _firstFrame?.pic;
+
+              if (_pic == null){
+                return SizedBox(
+                  width: widget.height,
+                  height: widget.height,
+                );
+              }
+              else {
+                return Image.memory(
+                  _pic,
+                  width: widget.height,
+                  height: widget.height,
+                  fit: BoxFit.cover,
+                );
+              }
+
+            }),
+
+          ],
         ),
-
-        ...List.generate(_frames.length, (index){
-
-          final FrameModel _frame = _frames[index];
-
-          double? _kb = Filers.calculateSize(_frame.pic?.length, FileSizeUnit.kiloByte);
-          _kb = Numeric.removeFractions(number: _kb);
-          final String _x = Numeric.stringifyDouble(_kb);
-
-          return Column(
-            children: <Widget>[
-
-              SuperImage(
-                width: widget.height,
-                height: widget.height,
-                pic: _frame.pic ?? Colorz.black150,
-                backgroundColor: _frame.pic == null ? Colorz.black150 : null,
-                loading: false,
-              ),
-
-              // FutureBuilder(
-              //   future: Dimensions.superDimensions(_frame.pic),
-              //   builder: (context, AsyncSnapshot<Dimensions?> snap,) {
-              //
-              //     final Dimensions? _dims = snap.data;
-              //     final _d = _dims == null ? '..' : '${_dims.width}\n${_dims.height}';
-              //
-              //     return
-              //     BldrsText(
-              //       verse: Verse.plain('$index\n$_x Kb\n$_d'),
-              //       size: 0,
-              //       scaleFactor: 0.7,
-              //       maxLines: 4,
-              //       centered: false,
-              //       width: widget.height,
-              //       height: widget.height,
-              //     );
-              //   }
-              // ),
-
-            ],
-          );
-
-        }),
-
-      ],
+      ),
     );
     // --------------------
   }

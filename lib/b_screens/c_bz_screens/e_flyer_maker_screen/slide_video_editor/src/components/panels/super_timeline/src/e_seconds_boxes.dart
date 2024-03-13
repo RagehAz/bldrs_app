@@ -18,30 +18,14 @@ class SecondsBoxes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final List<double> _parts = TimelineScale.createTimeBoxes(
-      seconds: totalSeconds,
-    );
-    // --------------------
-    const List<Color> colors = [
-      Colorz.green125,
-      Colorz.blue125,
-      Colorz.white125,
-      Colorz.facebook,
-      Colorz.darkBlue,
-      Colorz.green125,
-      Colorz.blue125,
-      Colorz.white125,
-      Colorz.facebook,
-      Colorz.darkBlue,
-      Colorz.green125,
-      Colorz.blue125,
-      Colorz.white125,
-      Colorz.facebook,
-      Colorz.darkBlue,
-    ];
-    // --------------------
     final double _timelineStripHeight = height * 0.5;
     final double _blankWidth = TimelineScale.blankZoneWidth();
+
+    final double _totalAvailableWidth = TimelineScale.totalAvailableWidth(
+      totalSeconds: totalSeconds,
+      secondPixelLength: secondPixelLength,
+    );
+    final double _boxesWidth = _totalAvailableWidth - (2*_blankWidth);
     // --------------------
     return Row(
       children: <Widget>[
@@ -53,25 +37,32 @@ class SecondsBoxes extends StatelessWidget {
         ),
 
         /// BOXES
-        ...List.generate(_parts.length, (index){
+        // ...List.generate(_parts.length, (index){
+        //
+        //   final double _part = _parts[index];
+        //
+        //   return Container(
+        //     width: _part * secondPixelLength,
+        //     height: _timelineStripHeight,
+        //     // color: colors[index],
+        //     child: videoEditorController == null ?
+        //     const SizedBox()
+        //         :
+        //     const SizedBox()
+        //     // ThumbnailSlider(
+        //     //   controller: videoEditorController!,
+        //     //   height: _timelineStripHeight,
+        //     // ),
+        //   );
+        //
+        // }),
 
-          final double _part = _parts[index];
-
-          return Container(
-            width: _part * secondPixelLength,
+        if (videoEditorController != null)
+        VideoBoxer(
+            width: _boxesWidth,
             height: _timelineStripHeight,
-            // color: colors[index],
-            child: videoEditorController == null ?
-            const SizedBox()
-                :
-            const SizedBox()
-            // ThumbnailSlider(
-            //   controller: videoEditorController!,
-            //   height: _timelineStripHeight,
-            // ),
-          );
-
-        }),
+            controller: videoEditorController!,
+        ),
 
         /// RIGHT BLANK
         SizedBox(

@@ -30,6 +30,8 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
   // --------------------------------------------------------------------------
   Future<void> _pickVideo() async {
 
+    final String _fileName = Numeric.createUniqueID().toString();
+
     final MediaModel? _video = await VideoMaker.pickVideo(
       context: context,
       langCode: 'en',
@@ -38,14 +40,14 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
       compressWithQuality: 100,
       assignPath: 'a/s',
       ownersIDs: ['x'],
-      name: 'test',
+      name: _fileName,
     );
 
     if (_video != null){
 
       final File? file = await Filers.getFileFromUint8List(
           uInt8List: _video.bytes,
-          fileName: 'test'
+          fileName: _fileName,
       );
 
       _videoEditorController = await VideoOps.initializeVideoEditorController(
@@ -159,13 +161,14 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
             }
           ),
 
-          /// TEMP VIDEO BOXER
-          if (_videoEditorController != null)
-          VideoBoxer(
-            width: _videoBoxerWidth,
-            height: 40,
-            controller: _videoEditorController!,
-          ),
+          /// REMOVE_ME
+          // /// TEMP VIDEO BOXER
+          // if (_videoEditorController != null)
+          // VideoBoxer(
+          //   width: _videoBoxerWidth,
+          //   height: 40,
+          //   controller: _videoEditorController!,
+          // ),
 
           /// temp video view
           if (_videoEditorController != null)
