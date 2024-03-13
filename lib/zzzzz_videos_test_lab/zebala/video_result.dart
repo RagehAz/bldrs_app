@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/mediator/video_maker/video_ops.dart';
 import 'package:flutter/material.dart';
-import 'package:fraction/fraction.dart';
 
 class CoverResultPopup extends StatefulWidget {
 
@@ -68,7 +67,7 @@ class _CoverResultPopupState extends State<CoverResultPopup> {
               child: FileDescription(
                 description: {
                   'Cover path': widget.cover.path,
-                  'Cover ratio': Fraction.fromDouble(_fileDimension?.aspectRatio ?? 0).reduce().toString(),
+                  // 'Cover ratio': Fraction.fromDouble(_fileDimension?.aspectRatio ?? 0).reduce().toString(),
                   'Cover dimension': _fileDimension.toString(),
                   'Cover size': _fileMbSize,
                 },

@@ -12,7 +12,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:basics/mediator/video_maker/video_ops.dart';
 import 'package:bldrs/zzzzz_videos_test_lab/zebala/video_result.dart';
 import 'package:flutter/material.dart';
-import 'package:fraction/fraction.dart';
 import 'package:basics/mediator/super_video_player/super_video_player.dart';
 
 class VideoDialog extends StatefulWidget {
@@ -143,7 +142,7 @@ class _VideoDialogState extends State<VideoDialog> {
                           'Video path': widget.video.path,
                           if (!_isGif)
                             'Video duration': '${((_controller?.value.duration.inMilliseconds ?? 0) / 1000).toStringAsFixed(2)}s',
-                          'Video ratio': Fraction.fromDouble(_aspectRatio).reduce().toString(),
+                          // 'Video ratio': Fraction.fromDouble(_aspectRatio).reduce().toString(),
                           'Video dimension': _dimensions.toString(),
                           'Video size': _fileMbSize,
                         },
