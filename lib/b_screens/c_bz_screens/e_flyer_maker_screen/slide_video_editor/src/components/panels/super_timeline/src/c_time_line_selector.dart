@@ -96,6 +96,16 @@ class _TimelineSelectorState extends State<TimelineSelector> {
 
     }
 
+    if (oldWidget.totalSeconds != widget.totalSeconds){
+      setState(() {
+        _min = _getTheMostMinPixels();
+        _max = _getTheMostMaxPixels();
+        _leftPixels = _min;
+        _rightPixels = _max;
+      });
+
+    }
+
   }
   // --------------------
   @override

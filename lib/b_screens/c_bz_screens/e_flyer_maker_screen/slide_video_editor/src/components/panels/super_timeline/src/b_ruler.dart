@@ -17,23 +17,18 @@ class Ruler extends StatelessWidget {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _totalAvailableWidth = TimelineScale.totalAvailableWidth(
       totalSeconds: totalSeconds,
       secondPixelLength: secondPixelLength,
     );
-
     final double _tenthWidth = TimelineScale.tenthPixelLength(
       secondPixelLength: secondPixelLength,
     );
-
     final int _totalTenths = TimelineScale.getTotalTenths(
       totalSeconds: totalSeconds,
     );
-
     final double _blankWidth = TimelineScale.blankZoneWidth();
-
-    // --------------------
     final double _voidThickness = _tenthWidth - TimelineScale.rulerLineThickness;
     final bool _appIsLTR = UiProvider.checkAppIsLeftToRight();
     // --------------------
@@ -44,43 +39,47 @@ class Ruler extends StatelessWidget {
         SizedBox(
           height: height,
           // width: millimeters * millimeterWidth,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            physics: const NeverScrollableScrollPhysics(),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
 
-              /// LEFT BLANK
-              SizedBox(
-                width: _blankWidth,
-                height: height,
-              ),
+                /// LEFT BLANK
+                SizedBox(
+                  width: _blankWidth,
+                  height: height,
+                ),
 
-              /// LINES
-              ...List.generate(_totalTenths, (index){
+                /// LINES
+                ...List.generate(_totalTenths, (index){
 
-                final bool _isDivisibleByTen = index % 10 == 0;
-                final bool _isDivisibleByFive = index % 5 == 0;
-                final double _heightFactor = _isDivisibleByTen ? 0.4 : _isDivisibleByFive ? 0.2 : 0.1;
+                  final bool _isDivisibleByTen = index % 10 == 0;
+                  final bool _isDivisibleByFive = index % 5 == 0;
+                  final double _heightFactor = _isDivisibleByTen ? 0.4 : _isDivisibleByFive ? 0.2 : 0.1;
 
-                return Container(
-                  width: TimelineScale.rulerLineThickness,
-                  height: height * _heightFactor,
-                  color: lineColor,
-                  margin: Scale.superInsets(
-                    context: context,
-                    appIsLTR: _appIsLTR,
-                    enRight: _voidThickness,
-                  ),
-                );
+                  return Container(
+                    width: TimelineScale.rulerLineThickness,
+                    height: height * _heightFactor,
+                    color: lineColor,
+                    margin: Scale.superInsets(
+                      context: context,
+                      appIsLTR: _appIsLTR,
+                      enRight: _voidThickness,
+                    ),
+                  );
 
-              }),
+                }),
 
-              /// RIGHT BLANK
-              SizedBox(
-                width: _blankWidth,
-                height: height,
-              ),
+                /// RIGHT BLANK
+                SizedBox(
+                  width: _blankWidth,
+                  height: height,
+                ),
 
-            ],
+              ],
+            ),
           ),
         ),
 

@@ -64,26 +64,17 @@ class _VideoBoxerState extends State<VideoBoxer> {
   void didUpdateWidget(VideoBoxer oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.width != widget.width) {
+    if (mounted == true && oldWidget.width != widget.width) {
       setState(() {});
     }
 
-    final bool _filesAreIdentical = Filers.checkFilesAreIdentical(
-        file1: oldWidget.controller.file,
-        file2: widget.controller.file,
+    final bool _filesAreIdentical = VideoOps.checkVideoEditorVideosAreIdentical(
+        oldController: oldWidget.controller,
+        newController: widget.controller,
     );
 
-    if (_filesAreIdentical == false){
-
-      setState(() {
-        _frames = [];
-        _frames = FrameModel.createEmptyFrames(
-          videoDurationInSeconds: widget.controller.videoDuration.inMilliseconds / 1000,
-        );
-      });
-
-      _loadFrames();
-
+    if (mounted == true && _filesAreIdentical == false){
+      _reset();
     }
 
   }
@@ -91,8 +82,11 @@ class _VideoBoxerState extends State<VideoBoxer> {
   @override
   void dispose() {
     _loading.dispose();
+    _stop.dispose();
     super.dispose();
   }
+  // --------------------
+  final ValueNotifier<bool> _stop = ValueNotifier(false);
   // --------------------
   Future<void> _loadFrames() async {
 
@@ -101,18 +95,44 @@ class _VideoBoxerState extends State<VideoBoxer> {
     _frames = await FrameModel.createFramesPicsInTheSmartSequence(
         frames: _frames,
         controller: widget.controller,
+        stop: _stop,
         onNewFrameAdded: (List<FrameModel> list){
 
-          setState(() {
-            _frames = list;
-          });
+          if (mounted == true){
+            setState(() {
+              _frames = list;
+            });
+          }
 
         }
     );
 
-    setState(() {});
+    if (mounted == true){
+      setState(() {});
+    }
 
     await _triggerLoading(setTo: false);
+
+  }
+  // --------------------
+  Future<void> _reset() async {
+
+    setNotifier(notifier: _stop, mounted: mounted, value: true);
+
+    await Future.delayed(const Duration(milliseconds: 200));
+
+    setState(() {
+      _frames = [];
+      _frames = FrameModel.createEmptyFrames(
+        videoDurationInSeconds: widget.controller.videoDuration.inMilliseconds / 1000,
+      );
+    });
+
+    await Future.delayed(const Duration(milliseconds: 200));
+
+    setNotifier(notifier: _stop, mounted: mounted, value: false);
+
+    await _loadFrames();
 
   }
   // ---------------------------------------------------------------------------
@@ -127,49 +147,61 @@ class _VideoBoxerState extends State<VideoBoxer> {
     // --------------------
     final FrameModel? _firstFrame = _frames.firstOrNull;
     // --------------------
-    return Container(
-      width: widget.width,
-      height: widget.height,
-      color: Colorz.black255,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        physics: const NeverScrollableScrollPhysics(),
-        child: Row(
-          children: <Widget>[
+    return Stack(
+      children: <Widget>[
 
-            if (Lister.checkCanLoop(_frames) == true)
-            ...List.generate(_numberOfBoxes, (index){
+        /// FRAMES
+        SizedBox(
+          width: widget.width,
+          height: widget.height,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            physics: const NeverScrollableScrollPhysics(),
+            child: Row(
+              children: <Widget>[
 
-              final double _boxSecond = _boxDuration * index;
+                if (Lister.checkCanLoop(_frames) == true)
+                ...List.generate(_numberOfBoxes, (index){
 
-              final FrameModel? _frame = FrameModel.getNearestFrame(
-                frames: _frames,
-                second: _boxSecond,
-                ignoreEmptyPics: true,
-              );
+                  final double _boxSecond = _boxDuration * index;
 
-              final Uint8List? _pic =  _frame?.pic ?? _firstFrame?.pic;
+                  final FrameModel? _frame = FrameModel.getNearestFrame(
+                    frames: _frames,
+                    second: _boxSecond,
+                    ignoreEmptyPics: true,
+                  );
 
-              if (_pic == null){
-                return SizedBox(
-                  width: widget.height,
-                  height: widget.height,
-                );
-              }
-              else {
-                return Image.memory(
-                  _pic,
-                  width: widget.height,
-                  height: widget.height,
-                  fit: BoxFit.cover,
-                );
-              }
+                  final Uint8List? _pic =  _frame?.pic ?? _firstFrame?.pic;
 
-            }),
+                  if (_pic == null){
+                    return SizedBox(
+                      width: widget.height,
+                      height: widget.height,
+                    );
+                  }
 
-          ],
+                  else {
+                    return Image.memory(
+                      _pic,
+                      width: widget.height,
+                      height: widget.height,
+                      fit: BoxFit.cover,
+                    );
+                  }
+
+                }),
+
+              ],
+            ),
+          ),
         ),
-      ),
+
+        /// LOADING INDICATOR
+        FrameLoadingIndicator(
+          loading: _loading,
+        ),
+
+      ],
     );
     // --------------------
   }

@@ -89,23 +89,26 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
 
           /// SUPER TIMELINE
           SuperTimeLine(
-            totalSeconds: 5.4,
             height: 80,
-            width: Scale.screenWidth(context),
-            limitScrollingBetweenHandles: true,
+            totalWidth: Scale.screenWidth(context),
+            limitScrollingBetweenHandles: false,
             videoEditorController: _videoEditorController,
             scrollController: _scrollController,
             secondPixelLength: _secondPixelLength,
             onTimeChanged: (double current){
-              setState(() {
-                _currentSecond = current;
-              });
+              if (mounted){
+                setState(() {
+                  _currentSecond = current;
+                });
+              }
             },
             onHandleChanged: (double start, double end){
-              setState(() {
-                _startSecond = start;
-                _endSecond = end;
-              });
+              if (mounted){
+                setState(() {
+                  _startSecond = start;
+                  _endSecond = end;
+                });
+              }
             },
           ),
 
@@ -150,11 +153,7 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
                     toSecond: _endSecond,
                   );
 
-                  // TimelineScale.jumpToSecond(
-                  //   secondPixelLength: _secondPixelLength.value,
-                  //   scrollController: _scrollController,
-                  //   second: 2.0,
-                  // );
+
 
                 },
               );

@@ -100,6 +100,7 @@ class FrameModel {
   static Future<List<FrameModel>> createFramesPicsInTheSmartSequence({
     required List<FrameModel> frames,
     required Function(List<FrameModel> frames) onNewFrameAdded,
+    required ValueNotifier<bool> stop,
     required VideoEditorController controller,
     int framesPerSecond = TimelineScale.maxFramesPerSecond,
   }) async {
@@ -107,11 +108,16 @@ class FrameModel {
 
     for (int x = 0; x < TimelineScale.framesLoadingSequence.length; x++){
 
+      if (stop.value == true){
+        break;
+      }
+
       final int _divisibleBy = TimelineScale.framesLoadingSequence[x];
 
       await loopDivisibles(
           frames: frames,
           divisibleBy: _divisibleBy,
+          stop: stop,
           onDivisible: (int index) async {
 
             final FrameModel? _frame = getFrameByIndex(
@@ -149,10 +155,15 @@ class FrameModel {
   static Future<void> loopDivisibles({
     required List<FrameModel> frames,
     required int divisibleBy,
+    required ValueNotifier<bool> stop,
     required Function(int index) onDivisible,
   }) async {
 
     for (int i = 0; i < frames.length; i++){
+
+      if (stop.value == true){
+        break;
+      }
 
       final bool _isDivisible = divisibleBy == 0 ? true : (i % divisibleBy) == 0;
 

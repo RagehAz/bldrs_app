@@ -13,7 +13,7 @@ class TimelineScale {
   static const double rulerLineThickness = 1;
   // --------------------
   static const double pinchingScaleFactor = 0.1;
-  static const double minTimelineScale = 0.5;
+  static const double minTimelineScale = 0.3;
   static const double maxTimelineScale = 3;
   static const double initialSecondPixelLength = 80;
   // --------------------

@@ -19,6 +19,7 @@ import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:basics/mediator/video_maker/video_maker.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/panel_circle_button.dart';
+import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_video_editor/src/components/panels/super_timeline/super_time_line.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_media_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
@@ -71,10 +72,13 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
   }
   // -----------------------------------------------------------------------------
   VideoEditorController? _videoEditorController;
+  final ScrollController _timeLineScrollController = ScrollController();
+  final ValueNotifier<double> _timelineSecondPixelLength = ValueNotifier(TimelineScale.initialSecondPixelLength);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
+
 
 
   }
@@ -123,6 +127,8 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
   void dispose() {
     _loading.dispose();
     _videoEditorController?.dispose();
+    _timeLineScrollController.dispose();
+    _timelineSecondPixelLength.dispose();
     super.dispose();
   }
   // --------------------
@@ -227,9 +233,27 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
 
   }
   // --------------------
-  Future<void> resizeVideo() async {}
+  Future<void> resizeVideo() async {
+
+    blog('scrolling aho : ${_timeLineScrollController.position.isScrollingNotifier.value}');
+
+  }
   // --------------------
-  Future<void> compressVideo() async {}
+  Future<void> compressVideo() async {
+
+    blog('adding listeners');
+
+    _timeLineScrollController.position.isScrollingNotifier.addListener(() {
+
+      blog('is scrolling ????? : ${_timeLineScrollController.position.isScrollingNotifier.value}');
+
+    });
+
+    // _timeLineScrollController.addListener(() {
+    //   blog('scrolling aho : ${Numeric.roundFractions(_timeLineScrollController.offset, 2)}');
+    // });
+
+  }
   // --------------------
   bool _isMuted = false;
   Future<void> muteVideo() async {
@@ -779,20 +803,34 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
 
           /// TRIM BAR
           if (_isInitialized == true && _activeButton == _trimButton)
-          Container(
-            width: _screenWidth - 40,
-            height: _editorBarHeight,
-            color: Colorz.black255,
-            child: TrimSlider(
-              controller: _videoEditorController!,
-              // height: _editorBarHeight-20,
-              horizontalMargin: 30,
-              child: TrimTimeline(
-                controller: _videoEditorController!,
-                // padding: const EdgeInsets.only(top: 10),
-              ),
+            SuperTimeLine(
+              totalWidth: _screenWidth,
+              height: _editorBarHeight,
+              videoEditorController: _videoEditorController,
+              scrollController: _timeLineScrollController,
+              secondPixelLength: _timelineSecondPixelLength,
+              limitScrollingBetweenHandles: false,
+              onHandleChanged: (double leftSecond, double rightSecond){
+
+              },
+              onTimeChanged: (double currentSecond) async {
+
+                if (_videoEditorController != null){
+
+                  if (_videoEditorController!.isPlaying == true){
+                    await _videoEditorController?.video.pause();
+                  }
+
+                  await _videoEditorController?.video.seekTo(
+                      Duration(
+                        milliseconds: (currentSecond * 1000).ceil(),
+                      )
+                  );
+
+                }
+
+              },
             ),
-          ),
 
           /// CROP BAR
           if (_isInitialized == true && _activeButton == _cropButton)
@@ -801,7 +839,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
               height: _editorBarHeight,
               boxColor: Colorz.bloodTest,
               scrollDirection: Axis.horizontal,
-              columnChildren: [
+              columnChildren: <Widget>[
 
                 /// FREE
                 BldrsBox(
@@ -967,7 +1005,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                 icon: Iconz.resize,
                 verse: Verse.plain('Resize'),
                 isSelected: false,
-                onTap: () async {},
+                onTap: resizeVideo,
               ),
 
               /// COMPRESS
@@ -976,7 +1014,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                 icon: Icons.compress,
                 verse: Verse.plain('Compress'),
                 isSelected: false,
-                onTap: () async {},
+                onTap: compressVideo,
               ),
 
               /// MUTE

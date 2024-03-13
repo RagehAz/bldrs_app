@@ -3,8 +3,7 @@ part of super_time_line;
 class SuperTimeLine extends StatefulWidget {
   // --------------------------------------------------------------------------
   const SuperTimeLine({
-    required this.totalSeconds,
-    required this.width,
+    required this.totalWidth,
     required this.height,
     required this.onTimeChanged,
     required this.onHandleChanged,
@@ -15,8 +14,7 @@ class SuperTimeLine extends StatefulWidget {
     super.key,
   });
   // --------------------
-  final double totalSeconds;
-  final double width;
+  final double totalWidth;
   final double height;
   final Function(double current) onTimeChanged;
   final Function(double start, double end) onHandleChanged;
@@ -43,8 +41,8 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
   @override
   void initState() {
     super.initState();
-    _totalSeconds = widget.totalSeconds;
-    _endTime = _totalSeconds;
+
+    _defineTotalSeconds();
 
     widget.scrollController.addListener(_listenToScroll);
   }
@@ -67,15 +65,34 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
 
    */
   // --------------------
-  /*
   @override
-  void didUpdateWidget(TheStatefulScreen oldWidget) {
+  void didUpdateWidget(SuperTimeLine oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.thing != widget.thing) {
-      unawaited(_doStuff());
+
+    final bool _filesAreIdentical = VideoOps.checkVideoEditorVideosAreIdentical(
+      oldController: oldWidget.videoEditorController,
+      newController: widget.videoEditorController,
+    );
+
+    if (_filesAreIdentical == false) {
+
+      widget.scrollController.removeListener(_listenToScroll);
+
+      setState(() {
+        _defineTotalSeconds();
+      });
+
+      TimelineScale.jumpToSecond(
+        secondPixelLength: widget.secondPixelLength.value,
+        scrollController: widget.scrollController,
+        second: 0,
+      );
+
+      widget.scrollController.addListener(_listenToScroll);
+
     }
+
   }
-   */
   // --------------------
   @override
   void dispose() {
@@ -86,6 +103,13 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  void _defineTotalSeconds(){
+    final int _ms = widget.videoEditorController?.videoDuration.inMilliseconds ?? 0;
+    _totalSeconds = _ms / 1000;
+    _startTime = 0;
+    _endTime = _totalSeconds;
+  }
+  // --------------------
   void _listenToScroll(){
 
     final double _currentSecond = TimelineScale.getSecondsByPixel(
@@ -93,7 +117,7 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
       pixels: widget.scrollController.position.pixels,
     );
 
-    widget.onTimeChanged(_currentSecond.clamp(0, widget.totalSeconds));
+    widget.onTimeChanged(_currentSecond.clamp(0, _totalSeconds));
 
   }
   // --------------------
@@ -130,7 +154,7 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
     return GestureDetector(
       onScaleUpdate: _onScaleUpdate,
       child: SizedBox(
-        width: widget.width,
+        width: widget.totalWidth,
         height: widget.height,
         child: Stack(
           alignment: Alignment.center,
@@ -139,7 +163,7 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
             /// TIMELINE
             TimelineBar(
               height: widget.height,
-              width: widget.width,
+              width: widget.totalWidth,
               secondPixelLength: widget.secondPixelLength,
               totalSeconds: _totalSeconds,
               scrollController: widget.scrollController,

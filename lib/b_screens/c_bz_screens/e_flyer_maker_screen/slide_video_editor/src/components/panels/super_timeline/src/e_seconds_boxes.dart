@@ -20,7 +20,6 @@ class SecondsBoxes extends StatelessWidget {
     // --------------------
     final double _timelineStripHeight = height * 0.5;
     final double _blankWidth = TimelineScale.blankZoneWidth();
-
     final double _totalAvailableWidth = TimelineScale.totalAvailableWidth(
       totalSeconds: totalSeconds,
       secondPixelLength: secondPixelLength,
@@ -36,32 +35,12 @@ class SecondsBoxes extends StatelessWidget {
           height: _timelineStripHeight,
         ),
 
-        /// BOXES
-        // ...List.generate(_parts.length, (index){
-        //
-        //   final double _part = _parts[index];
-        //
-        //   return Container(
-        //     width: _part * secondPixelLength,
-        //     height: _timelineStripHeight,
-        //     // color: colors[index],
-        //     child: videoEditorController == null ?
-        //     const SizedBox()
-        //         :
-        //     const SizedBox()
-        //     // ThumbnailSlider(
-        //     //   controller: videoEditorController!,
-        //     //   height: _timelineStripHeight,
-        //     // ),
-        //   );
-        //
-        // }),
-
+        /// FRAMES BOXES
         if (videoEditorController != null)
         VideoBoxer(
-            width: _boxesWidth,
-            height: _timelineStripHeight,
-            controller: videoEditorController!,
+          width: _boxesWidth,
+          height: _timelineStripHeight,
+          controller: videoEditorController!,
         ),
 
         /// RIGHT BLANK
