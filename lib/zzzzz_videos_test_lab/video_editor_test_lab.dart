@@ -4,7 +4,6 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/components/drawing/expander.dart';
-import 'package:basics/components/drawing/super_positioned.dart';
 import 'package:basics/components/super_box/super_box.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/files/file_size_unit.dart';
@@ -16,6 +15,7 @@ import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:basics/mediator/video_maker/video_maker.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/panel_circle_button.dart';
@@ -28,7 +28,6 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/g_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/i_gt_insta_screen/src/screens/video_player_screen.dart';
-import 'package:bldrs/v_videos/video_dialog.dart';
 import 'package:basics/mediator/video_maker/video_ops.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -40,6 +39,7 @@ import 'package:bldrs/z_components/notes/x_components/red_dot_badge.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/zzzzz_videos_test_lab/video_dialog.dart';
 import 'package:ffmpeg_kit_flutter/statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:video_editor/video_editor.dart';
@@ -137,6 +137,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
   static const String _trimButton = 'trim';
   static const String _cropButton = 'crop';
   static const String _coverButton = 'cover';
+  static const String _view = 'view';
   // --------------------
   void _setActiveButton(String? button){
 
@@ -156,9 +157,13 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
 
   }
   // -----------------------------------------------------------------------------
-  // File? _videoFile;
-  // --------------------
   Future<void> _setVideo(File? file) async {
+
+    final String? _oldButton = _activeButton;
+
+    setState(() {
+      _activeButton = null;
+    });
 
     _videoEditorController = await VideoOps.initializeVideoEditorController(
       file: file,
@@ -172,7 +177,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
     );
 
     setState(() {
-    //   _videoFile = file;
+      _activeButton = _oldButton;
     });
 
   }
@@ -186,7 +191,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
       onError: BldrsMediaMaker.onPickingError,
       ownersIDs: [],
       assignPath: '',
-      name: Numeric.createUniqueID().toString(),
+      name: Numeric.createUniqueID().toString(), /// dont_keep_naming_files_when_picking_a_video
       compressWithQuality: 100,
     );
 
@@ -241,17 +246,35 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
   // --------------------
   Future<void> compressVideo() async {
 
-    blog('adding listeners');
+    final _xFile = await VideoMaker.getXFile(
+      context: context,
+    );
 
-    _timeLineScrollController.position.isScrollingNotifier.addListener(() {
+    blog('name : ${_xFile?.name}');
+    blog('path : ${_xFile?.path}');
+    blog('mimeType : ${_xFile?.mimeType}');
+    blog('length : ${await _xFile?.length()}');
 
-      blog('is scrolling ????? : ${_timeLineScrollController.position.isScrollingNotifier.value}');
+    if (_xFile != null){
 
-    });
+      final MediaModel? _pic = await MediaModel.combinePicModel(
+          bytes: await _xFile.readAsBytes(),
+          mediaOrigin: MediaOrigin.galleryVideo,
+          fileType: FileType.jpeg,
+          compressWithQuality: 100,
+          assignPath: 'x',
+          ownersIDs: ['x'],
+          name: _xFile.name,
+      );
 
-    // _timeLineScrollController.addListener(() {
-    //   blog('scrolling aho : ${Numeric.roundFractions(_timeLineScrollController.offset, 2)}');
-    // });
+      _pic?.blogPic(invoker: 'xFiles');
+
+      if (_pic != null){
+        final File _file = File(_xFile.path);
+        await VideoDialog.push(file: _file);
+      }
+
+    }
 
   }
   // --------------------
@@ -698,11 +721,32 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                         // ),
 
                         /// VIEWING
-                        if (_activeButton != _cropButton && _activeButton != _coverButton)
+                        if (_activeButton == _view || _activeButton == _trimButton)
                           SizedBox(
                             height: _videoHeight,
                             child: CropGridViewer.preview(
                                 controller: _videoEditorController!
+                            ),
+                          ),
+
+                        /// PLAY ICON
+                        if (_activeButton  == _view)
+                          Center(
+                            child: AnimatedBuilder(
+                              animation: _videoEditorController!.video,
+                              builder: (_, __) => WidgetFader(
+                                fadeType: _videoEditorController!.isPlaying ? FadeType.fadeOut : FadeType.fadeIn,
+                                duration: const Duration(milliseconds: 100),
+                                ignorePointer: _videoEditorController!.isPlaying,
+                                child: SuperBox(
+                                  height: _screenWidth * 0.3,
+                                  width: _screenWidth * 0.3,
+                                  icon: Iconz.play,
+                                  bubble: false,
+                                  opacity: 0.5,
+                                  onTap: _videoEditorController!.video.play,
+                                ),
+                              ),
                             ),
                           ),
 
@@ -722,27 +766,6 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                             height: _videoHeight,
                             child: CoverViewer(controller: _videoEditorController!),
                           ),
-
-                        /// PLAY ICON
-                        if (_activeButton != _cropButton && _activeButton != _coverButton)
-                        Center(
-                          child: AnimatedBuilder(
-                            animation: _videoEditorController!.video,
-                            builder: (_, __) => WidgetFader(
-                              fadeType: _videoEditorController!.isPlaying ? FadeType.fadeOut : FadeType.fadeIn,
-                              duration: const Duration(milliseconds: 100),
-                              ignorePointer: _videoEditorController!.isPlaying,
-                              child: SuperBox(
-                                height: _screenWidth * 0.3,
-                                width: _screenWidth * 0.3,
-                                icon: Iconz.play,
-                                bubble: false,
-                                opacity: 0.5,
-                                onTap: _videoEditorController!.video.play,
-                              ),
-                            ),
-                          ),
-                        ),
 
                         /// START - FINISH - TEXT
                         AnimatedBuilder(
@@ -775,21 +798,6 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                           }
                         ),
 
-                        /// MUTE BUTTON
-                        SuperPositioned(
-                          appIsLTR: UiProvider.checkAppIsLeftToRight(),
-                          enAlignment: Alignment.topLeft,
-                          verticalOffset: 5,
-                          horizontalOffset: 5,
-                          child: BldrsBox(
-                            height: 30,
-                            width: 30,
-                            icon: _isMuted ? Icons.volume_off : Icons.volume_up,
-                            iconSizeFactor: 0.7,
-                            onTap: muteVideo,
-                          ),
-                        ),
-
                       ],
                     ),
                   ),
@@ -809,7 +817,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
               videoEditorController: _videoEditorController,
               scrollController: _timeLineScrollController,
               secondPixelLength: _timelineSecondPixelLength,
-              limitScrollingBetweenHandles: false,
+              // limitScrollingBetweenHandles: false,
               onHandleChanged: (double leftSecond, double rightSecond){
 
               },

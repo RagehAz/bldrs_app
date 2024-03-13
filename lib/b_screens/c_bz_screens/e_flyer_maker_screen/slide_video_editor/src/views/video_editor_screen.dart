@@ -28,7 +28,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   }
   // -----------------------------------------------------------------------------
   VideoEditorController? _videoEditorController;
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController _timelineScrollController = ScrollController();
+  final ValueNotifier<double> _secondPixelLength = ValueNotifier(TimelineScale.initialSecondPixelLength);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -81,6 +82,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   void dispose() {
     _loading.dispose();
     _videoEditorController?.dispose();
+    _timelineScrollController.dispose();
+    _secondPixelLength.dispose();
     super.dispose();
   }
   // --------------------
@@ -149,7 +152,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
   }
   // --------------------
-  Future<void> _more() async {
+  /// REMOVE_ME_WHEN_DONE
+  Future<void> more() async {
 
     await BottomDialog.showButtonsBottomDialog(
       numberOfWidgets: 7,
@@ -547,7 +551,14 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
           VideoEditorPanelSwitcher(
             selectedButton: _selectedButton,
             videoEditorController: _videoEditorController,
-            scrollController: _scrollController,
+            scrollController: _timelineScrollController,
+            secondPixelLength: _secondPixelLength,
+            onHandleChanged: (double startSecond, double endSecond){
+              blog('start-end are : s $startSecond : e $endSecond');
+            },
+            onTimeChanged: (double currentSecond){
+              blog('current second is : $currentSecond');
+            },
             onConfirmCrop: (){
 
               _videoEditorController?.applyCacheCrop();

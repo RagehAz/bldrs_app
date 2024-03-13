@@ -1,4 +1,23 @@
-part of super_time_line;
+
+import 'dart:io';
+
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/files/filers.dart';
+import 'package:basics/helpers/nums/numeric.dart';
+import 'package:basics/helpers/space/scale.dart';
+import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/video_maker/video_maker.dart';
+import 'package:basics/mediator/video_maker/video_ops.dart';
+import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
+import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
+import 'package:flutter/material.dart';
+import 'package:video_editor/video_editor.dart';
+
+import '../b_screens/c_bz_screens/e_flyer_maker_screen/slide_video_editor/src/components/panels/super_timeline/super_time_line.dart';
 
 class SuperTimeLineScreen extends StatefulWidget {
   // --------------------------------------------------------------------------
@@ -68,9 +87,6 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    final double _videoBoxerWidth = Scale.screenWidth(context);
-
     // --------------------
     return MainLayout(
       canSwipeBack: false,
@@ -91,7 +107,7 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
           SuperTimeLine(
             height: 80,
             totalWidth: Scale.screenWidth(context),
-            limitScrollingBetweenHandles: false,
+            // limitScrollingBetweenHandles: false,
             videoEditorController: _videoEditorController,
             scrollController: _scrollController,
             secondPixelLength: _secondPixelLength,

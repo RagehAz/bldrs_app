@@ -5,15 +5,21 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
   const VideoEditorPanelSwitcher({
     required this.videoEditorController,
     required this.scrollController,
+    required this.secondPixelLength,
     required this.selectedButton,
     required this.onConfirmCrop,
+    required this.onTimeChanged,
+    required this.onHandleChanged,
     super.key
   });
   // --------------------
   final VideoEditorController? videoEditorController;
   final ScrollController scrollController;
+  final ValueNotifier<double> secondPixelLength;
   final String? selectedButton;
   final Function onConfirmCrop;
+  final Function(double currentSecond) onTimeChanged;
+  final Function(double start, double edn) onHandleChanged;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -31,9 +37,15 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
 
           /// TRIM BAR
           if (_isInitialized == true && selectedButton == VideoEditorScales.trimButtonID){
-            return VideoEditorTrimPanel(
-              controller: videoEditorController!,
+            return SuperTimeLine(
+              videoEditorController: videoEditorController!,
               scrollController: scrollController,
+              totalWidth: _screenWidth,
+              height: _panelHeight,
+              // limitScrollingBetweenHandles: false,
+              secondPixelLength: secondPixelLength,
+              onTimeChanged: onTimeChanged,
+              onHandleChanged: onHandleChanged,
             );
           }
 

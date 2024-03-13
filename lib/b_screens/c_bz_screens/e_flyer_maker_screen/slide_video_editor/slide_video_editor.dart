@@ -1,7 +1,6 @@
 library slide_video_editor;
 
 import 'dart:io';
-import 'dart:math';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/drawing/spacing.dart';
@@ -18,6 +17,7 @@ import 'package:basics/mediator/models/media_model.dart';
 import 'package:basics/mediator/video_maker/video_maker.dart';
 import 'package:basics/mediator/video_maker/video_ops.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/panel_circle_button.dart';
+import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_video_editor/src/components/panels/super_timeline/super_time_line.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_media_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
@@ -26,7 +26,6 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/g_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/i_gt_insta_screen/src/screens/video_player_screen.dart';
-import 'package:bldrs/v_videos/video_dialog.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
@@ -35,20 +34,13 @@ import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/notes/x_components/red_dot_badge.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/zzzzz_videos_test_lab/video_dialog.dart';
 import 'package:ffmpeg_kit_flutter/statistics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/physics.dart';
-import 'package:flutter/services.dart';
 import 'package:video_editor/video_editor.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/wide_button.dart';
 import 'package:bldrs/z_components/sizing/stratosphere.dart';
-import 'package:video_editor/src/models/transform_data.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
-import 'package:video_editor/src/controller.dart';
-import 'package:video_editor/src/widgets/crop/crop_grid_painter.dart';
-import 'package:video_editor/src/widgets/image_viewer.dart';
-import 'package:video_editor/src/widgets/transform.dart';
 
 /// COMPONENTS
 part 'src/components/panels/video_editor_panel_switcher.dart';
@@ -56,10 +48,6 @@ part 'src/components/video_zone/video_editor_video_zone.dart';
 part 'src/components/play_bar/video_editor_play_bar.dart';
 
 part 'src/components/nav_bar/video_editor_nav_bar.dart';
-
-part 'src/components/panels/trim_panel/video_editor_trim_panel.dart';
-part 'src/components/panels/trim_panel/trim_slider_painter.dart';
-part 'src/components/panels/trim_panel/thumbnail_slider.dart';
 
 /// CONTROLLERS
 part 'src/controllers/video_editor_scales.dart';
