@@ -580,7 +580,7 @@ class DraftBz {
         bzID: bzID,
       );
 
-      final MediaModel? _picModel = draft.logoPicModel?.overrideUploadePath(
+      final MediaModel? _picModel = draft.logoPicModel?.overrideUploadPath(
         uploadPath: StoragePath.bzz_bzID_logo(bzID),
       );
 

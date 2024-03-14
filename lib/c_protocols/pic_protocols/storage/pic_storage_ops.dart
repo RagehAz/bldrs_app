@@ -97,7 +97,9 @@ class PicStorageOps {
 
         _picModel = MediaModel(
             bytes: _bytes,
-            meta: _meta,
+            meta: _meta?.copyWith(
+              uploadPath: path,
+            ),
           );
 
       }

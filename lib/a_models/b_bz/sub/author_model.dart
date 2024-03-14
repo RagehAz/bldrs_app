@@ -126,7 +126,7 @@ class AuthorModel {
         role: isCreator ? AuthorRole.creator : AuthorRole.teamMember,
         contacts: userModel.contacts,
         flyersIDs: const <String>[],
-        picModel: _userPic?.overrideUploadePath(
+        picModel: _userPic?.overrideUploadPath(
           uploadPath: StoragePath.bzz_bzID_authorID(
             bzID: bzID,
             authorID: userModel.id,
@@ -820,7 +820,7 @@ class AuthorModel {
 
         final AuthorModel _overridden = author.copyWith(
           picPath: _picPath,
-          picModel: author.picModel?.overrideUploadePath(
+          picModel: author.picModel?.overrideUploadPath(
             uploadPath: _picPath,
           ),
         );
