@@ -243,7 +243,6 @@ class InstaProfileBubble extends StatelessWidget {
 
                                 final String? _url = await Storage.uploadBytesAndGetURL(
                                     bytes: _bytes,
-                                    path: 'storage/bldrs/tests/test_video.mp4',
                                     storageMetaModel: MediaMetaModel(
                                       uploadPath: 'storage/bldrs/tests/test_video.mp4',
                                       ownersIDs: const [BldrsKeys.ragehID],

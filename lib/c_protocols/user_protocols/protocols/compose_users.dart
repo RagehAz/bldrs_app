@@ -107,7 +107,6 @@ class ComposeUserProtocols {
         await PicProtocols.composePic(
             MediaModel(
               bytes: _bytes,
-              path: _picPath,
               meta: MediaMetaModel(
                 fileType: FileType.jpeg,
                 sizeMB: _mega,

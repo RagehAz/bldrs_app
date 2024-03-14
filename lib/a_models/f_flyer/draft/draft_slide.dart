@@ -263,7 +263,7 @@ class DraftSlide {
         animationCurve: draft.animationCurve,
         frontImage: await Floaters.getUiImageFromUint8List(_picModel?.bytes),
         backImage: await Floaters.getUiImageFromUint8List(_backPic?.bytes),
-        frontPicPath: _picModel?.path,
+        frontPicPath: _picModel?.meta?.uploadPath,
       );
 
     }
@@ -841,23 +841,31 @@ class DraftSlide {
           flyerID: flyerID,
 
           bigPic: draft.bigPic?.copyWith(
-            meta: draft.bigPic?.meta?.copyWith(name: SlideModel.generateSlideID(flyerID: flyerID, slideIndex: draft.slideIndex, type: SlidePicType.big)),
-            path: SlideModel.generateSlidePicPath(type: SlidePicType.big, flyerID: flyerID, slideIndex: draft.slideIndex,),
+            meta: draft.bigPic?.meta?.copyWith(
+              name: SlideModel.generateSlideID(flyerID: flyerID, slideIndex: draft.slideIndex, type: SlidePicType.big),
+              uploadPath: SlideModel.generateSlidePicPath(type: SlidePicType.big, flyerID: flyerID, slideIndex: draft.slideIndex,),
+            ),
           ),
 
           medPic: draft.medPic?.copyWith(
-            meta: draft.medPic?.meta?.copyWith(name: SlideModel.generateSlideID(flyerID: flyerID, slideIndex: draft.slideIndex, type: SlidePicType.med)),
-            path: SlideModel.generateSlidePicPath(type: SlidePicType.med, flyerID: flyerID, slideIndex: draft.slideIndex,),
+            meta: draft.medPic?.meta?.copyWith(
+              name: SlideModel.generateSlideID(flyerID: flyerID, slideIndex: draft.slideIndex, type: SlidePicType.med),
+              uploadPath: SlideModel.generateSlidePicPath(type: SlidePicType.med, flyerID: flyerID, slideIndex: draft.slideIndex,),
+            ),
           ),
 
           smallPic: draft.smallPic?.copyWith(
-            meta: draft.smallPic?.meta?.copyWith(name: SlideModel.generateSlideID(flyerID: flyerID, slideIndex: draft.slideIndex, type: SlidePicType.small)),
-            path: SlideModel.generateSlidePicPath(type: SlidePicType.small, flyerID: flyerID, slideIndex: draft.slideIndex,),
+            meta: draft.smallPic?.meta?.copyWith(
+              name: SlideModel.generateSlideID(flyerID: flyerID, slideIndex: draft.slideIndex, type: SlidePicType.small),
+              uploadPath: SlideModel.generateSlidePicPath(type: SlidePicType.small, flyerID: flyerID, slideIndex: draft.slideIndex,),
+            ),
           ),
 
           backPic: draft.backPic?.copyWith(
-            meta: draft.backPic?.meta?.copyWith(name: SlideModel.generateSlideID(flyerID: flyerID, slideIndex: draft.slideIndex, type: SlidePicType.back)),
-            path: SlideModel.generateSlidePicPath(type: SlidePicType.back, flyerID: flyerID, slideIndex: draft.slideIndex,),
+            meta: draft.backPic?.meta?.copyWith(
+              name: SlideModel.generateSlideID(flyerID: flyerID, slideIndex: draft.slideIndex, type: SlidePicType.back),
+              uploadPath: SlideModel.generateSlidePicPath(type: SlidePicType.back, flyerID: flyerID, slideIndex: draft.slideIndex,),
+            ),
           ),
 
         );

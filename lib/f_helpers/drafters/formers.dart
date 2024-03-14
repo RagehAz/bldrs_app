@@ -156,7 +156,7 @@ class Formers {
       if (pic != null && pic is MediaModel){
 
         final MediaModel _picModel = pic;
-        if (Mapper.boolIsTrue(_picModel.bytes?.isEmpty) == true && _picModel.path == null){
+        if (Mapper.boolIsTrue(_picModel.bytes?.isEmpty) == true && _picModel.meta?.uploadPath == null){
           _message = getWord('phid_add_an_image');
         }
 

@@ -30,7 +30,6 @@ class PicStorageOps {
 
     final String? _url = await Storage.uploadBytesAndGetURL(
       bytes: picModel?.bytes,
-      path: picModel?.path,
       storageMetaModel: picModel?.meta,
     );
 
@@ -97,7 +96,6 @@ class PicStorageOps {
         }
 
         _picModel = MediaModel(
-            path: path,
             bytes: _bytes,
             meta: _meta,
           );

@@ -173,7 +173,7 @@ class BldrsMediaMaker {
   }) async {
     MediaModel? _output;
 
-    if (pic != null && pic.path != null && pic.meta != null && pic.meta?.name != null){
+    if (pic != null && pic.meta?.uploadPath != null && pic.meta != null && pic.meta?.name != null){
 
       final Uint8List? _bytes = await PicMaker.cropPic(
         context: getMainContext(),
@@ -190,7 +190,7 @@ class BldrsMediaMaker {
           bytes: _bytes,
           mediaOrigin: MediaModel.decipherMediaOrigin(pic.meta!.data!['source'])!,
           compressWithQuality: compressionQuality,
-          uploadPath: pic.path!,
+          uploadPath: pic.meta?.uploadPath,
           ownersIDs: pic.meta!.ownersIDs,
           name: pic.meta!.name!,
         );

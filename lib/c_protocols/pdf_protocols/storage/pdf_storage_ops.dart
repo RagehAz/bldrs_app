@@ -28,7 +28,6 @@ class PDFStorageOps {
 
       final String? _url = await Storage.uploadBytesAndGetURL(
         bytes: pdfModel.bytes,
-        path: pdfModel.path!,
         storageMetaModel: pdfModel.createStorageMetaModel()!,
       );
 

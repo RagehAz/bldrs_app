@@ -291,7 +291,7 @@ class DraftBz {
       bzForm: draft.bzForm,
       name: draft.nameController?.text,
       trigram: Stringer.createTrigram(input: draft.nameController?.text),
-      logoPath: draft.logoPicModel?.path,
+      logoPath: draft.logoPicModel?.meta?.uploadPath,
       scopes: draft.scopes,
       zone: draft.zone,
       about: draft.aboutController?.text,
@@ -580,8 +580,8 @@ class DraftBz {
         bzID: bzID,
       );
 
-      final MediaModel? _picModel = draft.logoPicModel?.copyWith(
-        path: StoragePath.bzz_bzID_logo(bzID),
+      final MediaModel? _picModel = draft.logoPicModel?.overrideUploadePath(
+        uploadPath: StoragePath.bzz_bzID_logo(bzID),
       );
 
       _output = draft.copyWith(

@@ -505,7 +505,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
             builder: (_, DraftUser? draft, Widget? child){
 
               return AppBarButton(
-                icon: draft?.picModel?.bytes ?? draft?.picModel?.path ?? Iconz.anonymousUser,
+                icon: draft?.picModel?.bytes ?? draft?.picModel?.meta?.uploadPath ?? Iconz.anonymousUser,
                 bigIcon: true,
                 bubble: false,
                 onTap: () async {

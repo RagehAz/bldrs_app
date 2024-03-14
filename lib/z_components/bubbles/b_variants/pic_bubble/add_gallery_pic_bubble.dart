@@ -241,8 +241,8 @@ class _FilePicSplitter extends StatelessWidget {
   static dynamic getPic(MediaModel? pic){
     dynamic _output;
 
-    if (pic != null && pic.path != Iconz.anonymousUser){
-      _output = pic.bytes ?? pic.path;
+    if (pic != null && pic.meta?.uploadPath != Iconz.anonymousUser){
+      _output = pic.bytes ?? pic.meta?.uploadPath;
     }
 
     return _output;
@@ -326,7 +326,7 @@ class _PlusIconLayer extends StatelessWidget {
     // picModel?.blogPic(invoker: 'what the pic');
 
     /// PLUS ICON
-    if (picModel == null || picModel?.path == Iconz.anonymousUser){
+    if (picModel == null || picModel?.meta?.uploadPath == Iconz.anonymousUser){
       return BldrsBox(
         height: AddImagePicBubble.picWidth,
         width: AddImagePicBubble.picWidth,

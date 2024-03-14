@@ -336,7 +336,7 @@ class PicProtocols {
 
       if (_areIdentical == false){
 
-        await wipePic(oldPic?.path);
+        await wipePic(oldPic?.meta?.uploadPath);
 
         await composePic(newPic);
 

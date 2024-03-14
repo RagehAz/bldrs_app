@@ -498,7 +498,7 @@ class DraftUser {
     return UserModel(
 
       /// NEEDS BAKING
-      picPath: draft?.picModel?.path,
+      picPath: draft?.picModel?.meta?.uploadPath,
       contacts: ContactModel.bakeContactsAfterEditing(
         contacts: draft?.contacts,
         countryID: draft?.zone?.countryID,
@@ -620,7 +620,7 @@ class DraftUser {
     blog('  need: $need,');
     blog('  name: $name,');
     blog('  trigram: $trigram,');
-    blog('  picModel: ${picModel?.path} | ${picModel?.bytes?.length} bytes | ${picModel?.meta?.width} | ${picModel?.meta?.height} | ${picModel?.meta?.ownersIDs},');
+    blog('  picModel: ${picModel?.meta?.uploadPath} | ${picModel?.bytes?.length} bytes | ${picModel?.meta?.width} | ${picModel?.meta?.height} | ${picModel?.meta?.ownersIDs},');
     blog('  title: $title,');
     blog('  company: $company,');
     blog('  gender: $gender,');
@@ -672,7 +672,7 @@ class DraftUser {
       need: $need,
       name: $name,
       trigram: $trigram,
-      picModel: ${picModel?.path} | ${picModel?.bytes?.length} bytes | ${picModel?.meta?.width} x
+      picModel: ${picModel?.meta?.uploadPath} | ${picModel?.bytes?.length} bytes | ${picModel?.meta?.width} x
        ${picModel?.meta?.height} | ${picModel?.meta?.ownersIDs},
       title: $title,
       company: $company,

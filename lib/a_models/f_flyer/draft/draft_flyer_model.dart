@@ -661,9 +661,9 @@ class DraftFlyer{
           path: StoragePath.flyers_flyerID_pdf(flyerID),
         ),
         poster: draft.poster?.copyWith(
-          path: StoragePath.flyers_flyerID_poster(flyerID),
           meta: draft.poster?.meta?.copyWith(
             name: '${flyerID}_poster',
+            uploadPath: StoragePath.flyers_flyerID_poster(flyerID),
           ),
         ),
       );

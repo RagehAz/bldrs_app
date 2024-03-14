@@ -192,8 +192,8 @@ class ComposeBzProtocols {
 
       final MediaModel? _picModel = await PicProtocols.fetchPic(userModel.picPath);
 
-      final MediaModel? _authorModel = _picModel?.copyWith(
-        path: StoragePath.bzz_bzID_authorID(
+      final MediaModel? _authorModel = _picModel?.overrideUploadePath(
+        uploadPath: StoragePath.bzz_bzID_authorID(
           bzID: bzID,
           authorID: userModel.id,
         ),
