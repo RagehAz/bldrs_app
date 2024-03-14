@@ -83,9 +83,9 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
 
     if (widget.draft?.id != null){
 
-      final String? _path = StoragePath.flyers_flyerID_poster(widget.draft!.id);
+      final String? _uploadPath = StoragePath.flyers_flyerID_poster(widget.draft!.id);
 
-      if (_path != null){
+      if (_uploadPath != null){
 
         MediaModel? _pic;
 
@@ -127,7 +127,7 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
             fileType: FileType.jpeg,
             mediaOrigin: MediaOrigin.generated,
             compressWithQuality: Standards.slideMediumQuality,
-            assignPath: _path,
+            uploadPath: _uploadPath,
             name: '${widget.draft!.id}_poster',
             ownersIDs: await FlyerModel.generateFlyerOwners(
               bzID: widget.draft!.bzID,

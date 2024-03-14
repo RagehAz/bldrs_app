@@ -114,6 +114,7 @@ class ComposeUserProtocols {
                 ownersIDs: userID == null ? [] : [userID],
                 width: _dims?.width,
                 height: _dims?.height,
+                uploadPath: _picPath,
               ),
             )
         );

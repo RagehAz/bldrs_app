@@ -245,6 +245,7 @@ class InstaProfileBubble extends StatelessWidget {
                                     bytes: _bytes,
                                     path: 'storage/bldrs/tests/test_video.mp4',
                                     storageMetaModel: MediaMetaModel(
+                                      uploadPath: 'storage/bldrs/tests/test_video.mp4',
                                       ownersIDs: const [BldrsKeys.ragehID],
                                       name: 'test_video',
                                       sizeMB: _size,

@@ -125,6 +125,7 @@ class PDFModel {
       name: name,
       sizeMB: sizeMB,
       fileType: FileType.pdf,
+      uploadPath: path,
       data: MapperSS.combineStringStringMap(
         baseMap: {},
         insert: extraData,

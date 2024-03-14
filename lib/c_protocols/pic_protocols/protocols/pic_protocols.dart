@@ -414,7 +414,7 @@ class PicProtocols {
     required String? url,
     required List<String> ownersIDs,
     required String picName,
-    required String assignPath,
+    required String uploadPath,
   }) async {
     MediaModel? _output;
 
@@ -429,7 +429,7 @@ class PicProtocols {
         fileType: FileType.jpeg,
         ownersIDs: ownersIDs,
         name: picName,
-        assignPath: assignPath,
+        uploadPath: uploadPath,
         mediaOrigin: MediaOrigin.downloaded,
         compressWithQuality: 100,
       );

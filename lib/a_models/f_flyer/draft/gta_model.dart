@@ -545,7 +545,7 @@ class GtaModel {
           fileType: FileType.jpeg,
           mediaOrigin: MediaOrigin.generated,
           compressWithQuality: SlidePicMaker.getSlidePicCompressionQuality(type),
-          assignPath: null,
+          uploadPath: null,
           ownersIDs: [_userID],
           name: picName ?? '',
         );

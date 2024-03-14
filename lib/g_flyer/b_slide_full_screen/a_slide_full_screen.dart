@@ -59,7 +59,7 @@ class PicFullScreen extends StatelessWidget {
       url: url,
       ownersIDs: [BldrsKeys.ragehID],
       picName: '$url',
-      assignPath: 'x',
+      uploadPath: 'x',
     );
 
     await openPicModel(

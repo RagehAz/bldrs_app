@@ -85,7 +85,11 @@ class PicStorageOps {
           _meta = MediaMetaModel(
             fileType: FileType.jpeg,
             ownersIDs: const ['non'],
-            name: path,
+            name: Filers.getFileNameFromFilePath(
+              filePath: path,
+              withExtension: true,
+            ),
+            uploadPath: path,
             height: _dims?.height,
             width: _dims?.width,
             sizeMB: _mega,

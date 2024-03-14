@@ -15,7 +15,6 @@ import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
-import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:basics/mediator/video_maker/video_maker.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/panel_circle_button.dart';
@@ -190,7 +189,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
       onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
       onError: BldrsMediaMaker.onPickingError,
       ownersIDs: [],
-      assignPath: '',
+      uploadPath: '',
       name: Numeric.createUniqueID().toString(), /// dont_keep_naming_files_when_picking_a_video
       compressWithQuality: 100,
     );
@@ -218,7 +217,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
       onError: BldrsMediaMaker.onPickingError,
       compressWithQuality: 100,
       ownersIDs: [],
-      assignPath: '',
+      uploadPath: '',
       name: Numeric.createUniqueID().toString(),
     );
 
@@ -245,36 +244,6 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
   }
   // --------------------
   Future<void> compressVideo() async {
-
-    final _xFile = await VideoMaker.getXFile(
-      context: context,
-    );
-
-    blog('name : ${_xFile?.name}');
-    blog('path : ${_xFile?.path}');
-    blog('mimeType : ${_xFile?.mimeType}');
-    blog('length : ${await _xFile?.length()}');
-
-    if (_xFile != null){
-
-      final MediaModel? _pic = await MediaModel.combinePicModel(
-          bytes: await _xFile.readAsBytes(),
-          mediaOrigin: MediaOrigin.galleryVideo,
-          fileType: FileType.jpeg,
-          compressWithQuality: 100,
-          assignPath: 'x',
-          ownersIDs: ['x'],
-          name: _xFile.name,
-      );
-
-      _pic?.blogPic(invoker: 'xFiles');
-
-      if (_pic != null){
-        final File _file = File(_xFile.path);
-        await VideoDialog.push(file: _file);
-      }
-
-    }
 
   }
   // --------------------
@@ -635,7 +604,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                         onError: BldrsMediaMaker.onPickingError,
                         name: 'x',
                         compressWithQuality: 100,
-                        assignPath: '',
+                        uploadPath: '',
                         ownersIDs: [],
                       );
 
@@ -657,7 +626,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                         aspectRatio: FlyerDim.flyerAspectRatio(),
                         compressWithQuality: Standards.slideBigQuality,
                         resizeToWidth: Standards.slideBigWidth,
-                        assignPath: 'storage:bldrs/bjo',
+                        uploadPath: 'storage:bldrs/bjo',
                         name: 'bjo',
                         mediaOrigin: MediaOrigin.galleryImage,
                         ownersIDs: ['x'],

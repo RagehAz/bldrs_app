@@ -50,7 +50,7 @@ class BldrsMediaMaker {
     required double aspectRatio,
     required int? compressWithQuality,
     required double? resizeToWidth,
-    required String assignPath,
+    required String uploadPath,
     required List<String> ownersIDs,
     required String name,
   }) async {
@@ -97,7 +97,7 @@ class BldrsMediaMaker {
         bytes: _bytes,
         compressWithQuality: compressWithQuality,
         mediaOrigin: mediaOrigin,
-        assignPath: assignPath,
+        uploadPath: uploadPath,
       );
 
     }
@@ -111,7 +111,7 @@ class BldrsMediaMaker {
     required double aspectRatio,
     required int compressWithQuality,
     required double resizeToWidth,
-    required String Function(int index) assignPath,
+    required String Function(int index) uploadPath,
     required List<String> ownersIDs,
     required String Function(int index) picNameGenerator,
     required int maxAssets,
@@ -147,7 +147,7 @@ class BldrsMediaMaker {
           bytes: bytes,
           compressWithQuality: compressWithQuality,
           mediaOrigin: MediaOrigin.galleryImage,
-          assignPath: assignPath(i),
+          uploadPath: uploadPath(i),
         );
 
         if (_picModel != null){
@@ -190,7 +190,7 @@ class BldrsMediaMaker {
           bytes: _bytes,
           mediaOrigin: MediaModel.decipherMediaOrigin(pic.meta!.data!['source'])!,
           compressWithQuality: compressionQuality,
-          assignPath: pic.path!,
+          uploadPath: pic.path!,
           ownersIDs: pic.meta!.ownersIDs,
           name: pic.meta!.name!,
         );
@@ -212,7 +212,7 @@ class BldrsMediaMaker {
     required double aspectRatio,
     required double? resizeToWidth,
     required int? compressWithQuality,
-    required String assignPath,
+    required String uploadPath,
     required List<String> ownersIDs,
     required String name,
     required bool createCover,
@@ -228,7 +228,7 @@ class BldrsMediaMaker {
         onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
         onError: onPickingError,
         name: name,
-        assignPath: assignPath,
+        uploadPath: uploadPath,
         ownersIDs: ownersIDs,
       );
     }
@@ -242,7 +242,7 @@ class BldrsMediaMaker {
         onError: onPickingError,
         locale: Localizer.getCurrentLocale(),
         name: name,
-        assignPath: assignPath,
+        uploadPath: uploadPath,
         ownersIDs: ownersIDs,
       );
     }

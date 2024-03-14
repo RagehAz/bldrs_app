@@ -390,7 +390,7 @@ Future<void> onChangeBzLogo({
           aspectRatio: 1,
           compressWithQuality: Standards.bzLogoPicQuality,
           resizeToWidth: Standards.bzLogoPicWidth,
-          assignPath: _path,
+          uploadPath: _path,
           ownersIDs: _ownersIDs,
           name: 'bz_logo',
         );

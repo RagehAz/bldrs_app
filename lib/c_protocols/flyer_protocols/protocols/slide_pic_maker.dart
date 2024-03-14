@@ -86,7 +86,7 @@ class SlidePicMaker {
             bytes: _bytes,
             mediaOrigin: _type,
             compressWithQuality: getSlidePicCompressionQuality(type),
-            assignPath: _slidePath,
+            uploadPath: _slidePath,
             ownersIDs: slidePic.meta!.ownersIDs,
             name: _slideID,
           );
@@ -190,7 +190,7 @@ class SlidePicMaker {
       quality: Standards.slideSmallQuality,
     );
 
-    final String? _path = SlideModel.generateSlidePicPath(
+    final String? _uploadPath = SlideModel.generateSlidePicPath(
       flyerID: flyerID,
       slideIndex: slideIndex,
       type: SlidePicType.back,
@@ -202,13 +202,13 @@ class SlidePicMaker {
       type: SlidePicType.back,
     );
 
-    if (_bytes != null && _path != null && _slideID != null){
+    if (_bytes != null && _uploadPath != null && _slideID != null){
       _output = await MediaModel.combinePicModel(
         fileType: FileType.jpeg,
         bytes: _bytes,
         mediaOrigin: MediaOrigin.generated,
         compressWithQuality: Standards.slideSmallQuality,
-        assignPath: _path,
+        uploadPath: _uploadPath,
         ownersIDs: ownersIDs,
         name: _slideID,
       );

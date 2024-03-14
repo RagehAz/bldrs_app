@@ -57,7 +57,7 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
       onError: (t){},
       onPermissionPermanentlyDenied: (t){},
       compressWithQuality: 100,
-      assignPath: 'a/s',
+      uploadPath: 'a/s',
       ownersIDs: ['x'],
       name: _fileName,
     );

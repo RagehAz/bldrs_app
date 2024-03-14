@@ -171,14 +171,14 @@ Future<void> takeAuthorImage({
       );
 
       final MediaModel? _pic = await BldrsMediaMaker.makePic(
-          mediaOrigin: mediaOrigin,
-          cropAfterPick: true,
-          aspectRatio: 1,
-          compressWithQuality: Standards.authorPicQuality,
-          resizeToWidth: Standards.authorPicWidth,
-          assignPath: _path,
-          ownersIDs: _ownersIDs,
-          name: 'author_pic',
+        mediaOrigin: mediaOrigin,
+        cropAfterPick: true,
+        aspectRatio: 1,
+        compressWithQuality: Standards.authorPicQuality,
+        resizeToWidth: Standards.authorPicWidth,
+        uploadPath: _path,
+        ownersIDs: _ownersIDs,
+        name: 'author_pic',
       );
 
       /// IF DID NOT PIC ANY IMAGE

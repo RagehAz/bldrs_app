@@ -472,7 +472,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                 onError: BldrsMediaMaker.onPickingError,
                 name: 'x',
                 compressWithQuality: 100,
-                assignPath: '',
+                uploadPath: '',
                 ownersIDs: [],
               );
 
@@ -494,7 +494,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                 aspectRatio: FlyerDim.flyerAspectRatio(),
                 compressWithQuality: Standards.slideBigQuality,
                 resizeToWidth: Standards.slideBigWidth,
-                assignPath: 'storage:bldrs/bjo',
+                uploadPath: 'storage:bldrs/bjo',
                 name: 'bjo',
                 mediaOrigin: MediaOrigin.galleryImage,
                 ownersIDs: ['x'],

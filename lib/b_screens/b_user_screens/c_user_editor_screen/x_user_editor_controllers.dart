@@ -112,14 +112,14 @@ Future<void> takeUserPicture({
     );
 
     final MediaModel? _picModel = await BldrsMediaMaker.makePic(
-        mediaOrigin: mediaOrigin,
-        cropAfterPick: true,
-        aspectRatio: 1,
-        compressWithQuality: Standards.userPicQuality,
-        resizeToWidth: Standards.userPicWidth,
-        assignPath: StoragePath.users_userID_pic(draft.value?.id)!,
-        ownersIDs: [draft.value!.id!],
-        name: 'user_pic',
+      mediaOrigin: mediaOrigin,
+      cropAfterPick: true,
+      aspectRatio: 1,
+      compressWithQuality: Standards.userPicQuality,
+      resizeToWidth: Standards.userPicWidth,
+      uploadPath: StoragePath.users_userID_pic(draft.value?.id)!,
+      ownersIDs: [draft.value!.id!],
+      name: 'user_pic',
     );
 
     /// IF DID NOT PIC ANY IMAGE

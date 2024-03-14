@@ -118,7 +118,7 @@ Future<void> _addGalleryImagesToNewFlyer({
       aspectRatio: FlyerDim.flyerAspectRatio(),
       compressWithQuality: Standards.slideBigQuality,
       resizeToWidth: Standards.slideBigWidth,
-      assignPath: (int index) => StoragePath.flyers_flyerID_index_big(
+      uploadPath: (int index) => StoragePath.flyers_flyerID_index_big(
         flyerID: draftFlyer.value!.id,
         slideIndex: index,
       )!,
@@ -191,7 +191,7 @@ Future<void> _addCameraImageToNewFlyer({
       aspectRatio: FlyerDim.flyerAspectRatio(),
       compressWithQuality: Standards.slideBigQuality,
       resizeToWidth: Standards.slideBigWidth,
-      assignPath: StoragePath.flyers_flyerID_index_big(
+      uploadPath: StoragePath.flyers_flyerID_index_big(
         flyerID: draftFlyer.value!.id,
         slideIndex: 0,
       )!,
@@ -260,7 +260,7 @@ Future<void> _addGalleryVideoToNewFlyer({
       aspectRatio: FlyerDim.flyerAspectRatio(),
       compressWithQuality: Standards.slideBigQuality,
       resizeToWidth: Standards.slideBigWidth,
-      assignPath: StoragePath.flyers_flyerID_index_big(
+      uploadPath: StoragePath.flyers_flyerID_index_big(
         flyerID: draftFlyer.value!.id,
         slideIndex: 0,
       )!,
