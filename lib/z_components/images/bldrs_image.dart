@@ -129,7 +129,7 @@ class BldrsImage extends StatelessWidget {
         final MediaModel _picModel = pic;
         return getChild(
             context: context,
-            theIcon: _picModel.bytes,
+            theIcon: _picModel.file,
             isLoading: loading
         );
       }

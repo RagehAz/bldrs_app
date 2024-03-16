@@ -10,6 +10,7 @@ import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter/material.dart';
 
 /// => TAMAM
@@ -113,7 +114,8 @@ class DraftSlide {
 
       final int _newIndex = existingDrafts.length;
 
-      final Color? _midColor = await Colorizer.getAverageColor(cover.bytes);
+      final Uint8List? _coverBytes = await cover.file?.readAsBytes();
+      final Color? _midColor = await Colorizer.getAverageColor(_coverBytes);
       // final MediaModel? _medPic = await SlidePicMaker.compressSlideBigPicTo(
       //   slidePic: bigPic,
       //   flyerID: flyerID,
@@ -181,7 +183,8 @@ class DraftSlide {
 
     if (bigPic != null){
 
-      final Color? _midColor = await Colorizer.getAverageColor(bigPic.bytes);
+      final Uint8List? _bigPicBytes = await bigPic.file?.readAsBytes();
+      final Color? _midColor = await Colorizer.getAverageColor(_bigPicBytes);
       final MediaModel? _medPic = await SlidePicMaker.compressSlideBigPicTo(
         slidePic: bigPic,
         flyerID: flyerID,
@@ -261,8 +264,8 @@ class DraftSlide {
         matrix: draft.matrix,
         matrixFrom: draft.matrixFrom,
         animationCurve: draft.animationCurve,
-        frontImage: await Floaters.getUiImageFromUint8List(_picModel?.bytes),
-        backImage: await Floaters.getUiImageFromUint8List(_backPic?.bytes),
+        frontImage: await Floaters.getUiImageFromXFile(_picModel?.file),
+        backImage: await Floaters.getUiImageFromXFile(_backPic?.file),
         frontPicPath: _picModel?.meta?.uploadPath,
       );
 
@@ -561,36 +564,36 @@ class DraftSlide {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<Uint8List> getBytezzFromDraftSlides({
+  /// TASK : TEST_ME_NOW
+  static List<XFile> getFilesFromDraftSlides({
     required List<DraftSlide> drafts,
     required SlidePicType slidePicType,
   }) {
 
-    final List<Uint8List> _output = <Uint8List>[];
+    final List<XFile> _output = <XFile>[];
 
     for (final DraftSlide draft in drafts) {
 
       switch (slidePicType){
 
         case SlidePicType.big:
-          if (draft.bigPic?.bytes != null) {
-            _output.add(draft.bigPic!.bytes!);
+          if (draft.bigPic?.file != null) {
+            _output.add(draft.bigPic!.file!);
           } break;
 
         case SlidePicType.med:
-          if (draft.medPic?.bytes != null) {
-            _output.add(draft.medPic!.bytes!);
+          if (draft.medPic?.file != null) {
+            _output.add(draft.medPic!.file!);
           } break;
 
         case SlidePicType.small:
-          if (draft.smallPic?.bytes != null) {
-            _output.add(draft.smallPic!.bytes!);
+          if (draft.smallPic?.file != null) {
+            _output.add(draft.smallPic!.file!);
           } break;
 
         case SlidePicType.back:
-          if (draft.backPic?.bytes != null) {
-            _output.add(draft.backPic!.bytes!);
+          if (draft.backPic?.file != null) {
+            _output.add(draft.backPic!.file!);
           } break;
 
       }
@@ -959,16 +962,16 @@ class DraftSlide {
     if (slide1?.slideIndex != slide2?.slideIndex){
       blog('MutableSlidesDifferences : slideIndexes are not Identical');
     }
-    if (MediaModel.checkPicsAreIdentical(pic1: slide1?.bigPic, pic2: slide2?.bigPic) == false){
+    if (MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1?.bigPic, model2: slide2?.bigPic) == false){
       blog('MutableSlidesDifferences : bigPics are not Identical');
     }
-    if (MediaModel.checkPicsAreIdentical(pic1: slide1?.medPic, pic2: slide2?.medPic) == false){
+    if (MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1?.medPic, model2: slide2?.medPic) == false){
       blog('MutableSlidesDifferences : medPics are not Identical');
     }
-    if (MediaModel.checkPicsAreIdentical(pic1: slide1?.smallPic, pic2: slide2?.smallPic) == false){
+    if (MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1?.smallPic, model2: slide2?.smallPic) == false){
       blog('MutableSlidesDifferences : smallPics are not Identical');
     }
-    if (MediaModel.checkPicsAreIdentical(pic1: slide1?.backPic, pic2: slide2?.backPic) == false){
+    if (MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1?.backPic, model2: slide2?.backPic) == false){
       blog('MutableSlidesDifferences : backPics are not Identical');
     }
     if (slide1?.headline != slide2?.headline){
@@ -1001,7 +1004,7 @@ class DraftSlide {
   /// EQUALITY
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST_ME_NOW
   static bool checkSlidesAreIdentical({
     required DraftSlide? slide1,
     required DraftSlide? slide2,
@@ -1020,10 +1023,10 @@ class DraftSlide {
       if (
           slide1.flyerID == slide2.flyerID &&
           slide1.slideIndex == slide2.slideIndex &&
-          MediaModel.checkPicsAreIdentical(pic1: slide1.bigPic, pic2: slide2.bigPic) == true &&
-          MediaModel.checkPicsAreIdentical(pic1: slide1.medPic, pic2: slide2.medPic) == true &&
-          MediaModel.checkPicsAreIdentical(pic1: slide1.smallPic, pic2: slide2.smallPic) == true &&
-          MediaModel.checkPicsAreIdentical(pic1: slide1.backPic, pic2: slide2.backPic) == true &&
+          MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1.bigPic, model2: slide2.bigPic) == true &&
+          MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1.medPic, model2: slide2.medPic) == true &&
+          MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1.smallPic, model2: slide2.smallPic) == true &&
+          MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1.backPic, model2: slide2.backPic) == true &&
           slide1.headline == slide2.headline &&
           slide1.description == slide2.description &&
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&

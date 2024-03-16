@@ -1325,7 +1325,7 @@ class AuthorModel {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST_ME_NOW
   static bool checkAuthorsAreIdentical({
     required AuthorModel? author1,
     required AuthorModel? author2,
@@ -1355,9 +1355,9 @@ class AuthorModel {
             contacts1: author1.contacts,
             contacts2: author2.contacts,
           ) == true &&
-          MediaModel.checkPicsAreIdentical(
-              pic1: author1.picModel,
-              pic2: author2.picModel
+          MediaModel.checkMediaModelsAreIdenticalSync(
+              model1: author1.picModel,
+              model2: author2.picModel
           ) == true
       ){
         _identical = true;

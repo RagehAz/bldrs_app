@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:basics/helpers/files/file_size_unit.dart';
 import 'package:basics/helpers/files/filers.dart';
+import 'package:basics/helpers/files/x_filers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
@@ -18,6 +19,7 @@ import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
+import 'package:share_plus/share_plus.dart';
 
 /// => TAMAM
 class ComposeUserProtocols {
@@ -83,7 +85,7 @@ class ComposeUserProtocols {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST_ME_NOW
   static Future<UserModel?> _composeUserImageFromUserPicURL({
     required String? picURL,
     required String? userID,
@@ -92,7 +94,7 @@ class ComposeUserProtocols {
 
     UserModel? _output = userModel;
 
-    if (TextCheck.isEmpty(picURL) == false){
+    if (TextCheck.isEmpty(picURL) == false && TextCheck.isEmpty(userID) == false){
 
       final Uint8List? _bytes = await Storage.readBytesByURL(
         url: picURL,
@@ -103,17 +105,27 @@ class ComposeUserProtocols {
         final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
         final String? _picPath = StoragePath.users_userID_pic(userID);
         final double? _mega = Filers.calculateSize(_bytes!.length, FileSizeUnit.megaByte);
+        final String _fileName = '${userID}_pic';
+        final FileType _fileType = FileTyper.getFileTypeByBytes(
+            bytes: _bytes,
+        ) ?? FileType.jpeg;
+
+        final XFile? _file = await XFiler.createXFileFromBytes(
+            bytes: _bytes,
+            fileName: _fileName,
+        );
 
         await PicProtocols.composePic(
             MediaModel(
-              bytes: _bytes,
+              file: _file,
               meta: MediaMetaModel(
-                fileType: FileType.jpeg,
+                fileType: _fileType,
                 sizeMB: _mega,
                 ownersIDs: userID == null ? [] : [userID],
                 width: _dims?.width,
                 height: _dims?.height,
                 uploadPath: _picPath,
+                name: _fileName,
               ),
             )
         );

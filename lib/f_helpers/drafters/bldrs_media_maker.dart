@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/permissions/permits.dart';
@@ -6,6 +5,7 @@ import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:basics/mediator/video_maker/video_maker.dart';
+import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_video_editor/slide_video_editor.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
@@ -13,24 +13,21 @@ import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/debuggers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:flutter/foundation.dart';
 
-import '../../b_screens/c_bz_screens/e_flyer_maker_screen/slide_video_editor/slide_video_editor.dart';
-
-// // -----------------------------------------------------------------------------
-// /*
-// /// GIF THING
-// // check this
-// // https://stackoverflow.com/questions/67173576/how-to-get-or-pick-local-gif-file-from-device
-// // https://pub.dev/packages/file_picker
-// // Container(
-// //   width: 200,
-// //   height: 200,
-// //   margin: EdgeInsets.all(30),
-// //   color: Colorz.BloodTest,
-// //   child: Image.network('https://media.giphy.com/media/hYUeC8Z6exWEg/giphy.gif'),
-// // ),
-//  */
+// -----------------------------------------------------------------------------
+/*
+/// GIF THING
+// check this
+// https://stackoverflow.com/questions/67173576/how-to-get-or-pick-local-gif-file-from-device
+// https://pub.dev/packages/file_picker
+// Container(
+//   width: 200,
+//   height: 200,
+//   margin: EdgeInsets.all(30),
+//   color: Colorz.BloodTest,
+//   child: Image.network('https://media.giphy.com/media/hYUeC8Z6exWEg/giphy.gif'),
+// ),
+ */
 
 /// => TAMAM
 class BldrsMediaMaker {
@@ -43,7 +40,7 @@ class BldrsMediaMaker {
   /// MAKERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST_ME_NOW
   static Future<MediaModel?> makePic({
     required MediaOrigin mediaOrigin,
     required bool cropAfterPick,
@@ -55,10 +52,9 @@ class BldrsMediaMaker {
     required String name,
   }) async {
     MediaModel? _output;
-    Uint8List? _bytes;
 
     if(mediaOrigin == MediaOrigin.galleryImage){
-      _bytes = await PicMaker.pickAndCropSinglePic(
+      _output = await PicMaker.pickAndCropSinglePic(
         context: getMainContext(),
         cropAfterPick: cropAfterPick,
         aspectRatio: aspectRatio,
@@ -74,7 +70,7 @@ class BldrsMediaMaker {
     }
 
     else if (mediaOrigin == MediaOrigin.cameraImage){
-      _bytes = await PicMaker.shootAndCropCameraPic(
+      _output = await PicMaker.shootAndCropCameraPic(
         context: getMainContext(),
         cropAfterPick: cropAfterPick,
         aspectRatio: aspectRatio,
@@ -88,14 +84,13 @@ class BldrsMediaMaker {
       );
     }
 
-    if (_bytes != null){
+    if (_output != null){
 
-      _output = await MediaModel.combinePicModel(
+      _output = await MediaModel.combineMediaModel(
         fileType: FileType.jpeg,
         ownersIDs: ownersIDs,
         name: name,
-        bytes: _bytes,
-        compressWithQuality: compressWithQuality,
+        file: _output.file,
         mediaOrigin: mediaOrigin,
         uploadPath: uploadPath,
       );
@@ -105,7 +100,7 @@ class BldrsMediaMaker {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST_ME_NOW
   static Future<List<MediaModel>> makePics({
     required bool cropAfterPick,
     required double aspectRatio,
@@ -119,7 +114,7 @@ class BldrsMediaMaker {
 
     final List<MediaModel> _output = [];
 
-    final List<Uint8List> _bytezz = await PicMaker.pickAndCropMultiplePics(
+    final List<MediaModel> _models = await PicMaker.pickAndCropMultiplePics(
       context: getMainContext(),
       cropAfterPick: cropAfterPick,
       aspectRatio: aspectRatio,
@@ -134,18 +129,17 @@ class BldrsMediaMaker {
       // selectedAssets: selectedAssets,
     );
 
-    if (Lister.checkCanLoop(_bytezz) == true){
+    if (Lister.checkCanLoop(_models) == true){
 
-      for (int i = 0; i < _bytezz.length; i++){
+      for (int i = 0; i < _models.length; i++){
 
-        final Uint8List bytes = _bytezz[i];
+        final MediaModel _model = _models[i];
 
-        final MediaModel? _picModel = await MediaModel.combinePicModel(
+        final MediaModel? _picModel = await MediaModel.combineMediaModel(
           fileType: FileType.jpeg,
           ownersIDs: ownersIDs,
           name: picNameGenerator(i),
-          bytes: bytes,
-          compressWithQuality: compressWithQuality,
+          file: _model.file,
           mediaOrigin: MediaOrigin.galleryImage,
           uploadPath: uploadPath(i),
         );
@@ -165,31 +159,29 @@ class BldrsMediaMaker {
   /// CROPPERS
 
   // --------------------
-  /// NOT USED : NOT TESTED
+  /// TASK : TEST_ME_NOW
   static Future<MediaModel?> cropPic({
     required MediaModel? pic,
     required double aspectRatio,
-    required int? compressionQuality,
   }) async {
     MediaModel? _output;
 
     if (pic != null && pic.meta?.uploadPath != null && pic.meta != null && pic.meta?.name != null){
 
-      final Uint8List? _bytes = await PicMaker.cropPic(
+      final MediaModel? _model = await PicMaker.cropPic(
         context: getMainContext(),
-        bytes: pic.bytes,
+        mediaModel: pic,
         confirmText: getWord('phid_continue'),
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
         aspectRatio: aspectRatio,
       );
 
-      if (_bytes != null){
+      if (_model != null){
 
-        _output = await MediaModel.combinePicModel(
+        _output = await MediaModel.combineMediaModel(
           fileType: pic.meta!.fileType!,
-          bytes: _bytes,
+          file: _model.file,
           mediaOrigin: MediaModel.decipherMediaOrigin(pic.meta!.data!['source'])!,
-          compressWithQuality: compressionQuality,
           uploadPath: pic.meta?.uploadPath,
           ownersIDs: pic.meta!.ownersIDs,
           name: pic.meta!.name!,
@@ -206,6 +198,7 @@ class BldrsMediaMaker {
   /// VIDEO
 
   // --------------------
+  /// TASK : TEST_ME_NOW
   static Future<Map<String, MediaModel>?> makeVideo({
     required MediaOrigin mediaOrigin,
     required bool cropAfterPick,
@@ -224,7 +217,6 @@ class BldrsMediaMaker {
       _video = await VideoMaker.pickVideo(
         context: getMainContext(),
         langCode: Localizer.getCurrentLangCode(),
-        compressWithQuality: compressWithQuality,
         onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
         onError: onPickingError,
         name: name,
@@ -237,7 +229,6 @@ class BldrsMediaMaker {
       _video = await VideoMaker.shootVideo(
         context: getMainContext(),
         langCode: Localizer.getCurrentLangCode(),
-        compressWithQuality: compressWithQuality,
         onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
         onError: onPickingError,
         locale: Localizer.getCurrentLocale(),
@@ -280,7 +271,7 @@ class BldrsMediaMaker {
   /// EDIT
 
   // --------------------
-  ///
+  /// TASK : TEST_ME_NOW
   static Future<MediaModel?> _editVideo({
     required MediaModel? video,
   }) async {
@@ -294,7 +285,7 @@ class BldrsMediaMaker {
     return _output ?? video;
   }
   // --------------------
-  ///
+  /// TASK : TEST_ME_NOW
   static Future<MediaModel?> _createVideoCover({
     required MediaModel? video,
   }) async {

@@ -67,7 +67,7 @@ class AuthorsWrap extends StatelessWidget {
                 ),
                 child: AuthorPic(
                   size: picSize,
-                  authorPic: _author.picModel?.bytes ?? _author.picPath,
+                  authorPic: _author.picModel?.file ?? _author.picPath,
                 ),
               );
 

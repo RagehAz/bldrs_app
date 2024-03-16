@@ -577,7 +577,7 @@ class DraftUser {
           NeedModel.checkNeedsAreIdentical(draft1.need, draft2.need) == true &&
           draft1.name == draft2.name &&
           Lister.checkListsAreIdentical(list1: draft1.trigram, list2: draft2.trigram) == true &&
-          MediaModel.checkPicsAreIdentical(pic1: draft1.picModel, pic2: draft2.picModel) == true &&
+          MediaModel.checkMediaModelsAreIdenticalSync(model1: draft1.picModel, model2: draft2.picModel) == true &&
           draft1.title == draft2.title &&
           draft1.company == draft2.company &&
           draft1.gender == draft2.gender &&
@@ -620,7 +620,7 @@ class DraftUser {
     blog('  need: $need,');
     blog('  name: $name,');
     blog('  trigram: $trigram,');
-    blog('  picModel: ${picModel?.meta?.uploadPath} | ${picModel?.bytes?.length} bytes | ${picModel?.meta?.width} | ${picModel?.meta?.height} | ${picModel?.meta?.ownersIDs},');
+    blog('  picModel: ${picModel?.meta?.uploadPath} | ${picModel?.meta?.sizeMB} mb | ${picModel?.meta?.width} | ${picModel?.meta?.height} | ${picModel?.meta?.ownersIDs},');
     blog('  title: $title,');
     blog('  company: $company,');
     blog('  gender: $gender,');
@@ -672,7 +672,7 @@ class DraftUser {
       need: $need,
       name: $name,
       trigram: $trigram,
-      picModel: ${picModel?.meta?.uploadPath} | ${picModel?.bytes?.length} bytes | ${picModel?.meta?.width} x
+      picModel: ${picModel?.meta?.uploadPath} | ${picModel?.meta?.sizeMB} Mb | ${picModel?.meta?.width} x
        ${picModel?.meta?.height} | ${picModel?.meta?.ownersIDs},
       title: $title,
       company: $company,

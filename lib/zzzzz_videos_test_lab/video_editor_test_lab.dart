@@ -8,6 +8,7 @@ import 'package:basics/components/super_box/super_box.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/files/file_size_unit.dart';
 import 'package:basics/helpers/files/filers.dart';
+import 'package:basics/helpers/files/x_filers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/space/scale.dart';
@@ -95,9 +96,8 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
 
         if (widget.video != null){
 
-          final File? _file = await Filers.getFileFromUint8List(
-              uInt8List: widget.video!.bytes,
-              fileName: widget.video?.meta?.name,
+          final File? _file = XFiler.createFileFromXFile(
+              xFile: widget.video!.file,
           );
 
           await _setVideo(_file);
@@ -191,12 +191,10 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
       ownersIDs: [],
       uploadPath: '',
       name: Numeric.createUniqueID().toString(), /// dont_keep_naming_files_when_picking_a_video
-      compressWithQuality: 100,
     );
 
-    final File? _file = await Filers.getFileFromUint8List(
-        uInt8List: _videoMap?.bytes,
-        fileName: _videoMap?.meta?.name,
+    final File? _file = XFiler.createFileFromXFile(
+      xFile: _videoMap?.file,
     );
 
     await _setVideo(_file);
@@ -215,15 +213,13 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
       langCode: Localizer.getCurrentLangCode(),
       onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
       onError: BldrsMediaMaker.onPickingError,
-      compressWithQuality: 100,
       ownersIDs: [],
       uploadPath: '',
       name: Numeric.createUniqueID().toString(),
     );
 
-    final File? _file = await Filers.getFileFromUint8List(
-      uInt8List: _videoMap?.bytes,
-      fileName: _videoMap?.meta?.name,
+    final File? _file = XFiler.createFileFromXFile(
+      xFile: _videoMap?.file,
     );
 
     await _setVideo(_file);
@@ -387,7 +383,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                     },
                   ),
 
-                  /// EXPORT COVER
+                  /// TASK : TEST_ME_NOW ! EXPORT COVER
                   BottomDialog.wideButton(
                     verse: Verse.plain('Export cover'),
                     icon: Icons.import_export,
@@ -419,8 +415,8 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
 
                           final Dimensions? _dims = await Dimensions.superDimensions(_file);
 
-                          await PicFullScreen.goToImageFullScreenByBytes(
-                            bytes: _file.readAsBytesSync(),
+                          await PicFullScreen.openFile(
+                            file: _file,
                             title: _file.path,
                             dims: _dims!,
                           );
@@ -603,12 +599,11 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                         onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
                         onError: BldrsMediaMaker.onPickingError,
                         name: 'x',
-                        compressWithQuality: 100,
                         uploadPath: '',
                         ownersIDs: [],
                       );
 
-                      final Dimensions? _dims = await Dimensions.superDimensions(_videoMap?.bytes);
+                      final Dimensions? _dims = await Dimensions.superDimensions(_videoMap?.file);
 
                       _dims?.blogDimensions(invoker: 'zz');
 
@@ -634,9 +629,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
 
                       if (_bigPic != null){
 
-                        final Dimensions? _dims = await VideoOps.getVideoBytesDimensions(
-                          bytes: _bigPic.bytes,
-                        );
+                        final Dimensions? _dims = await Dimensions.superDimensions(_bigPic.file);
 
                         _dims?.blogDimensions(invoker: 'zz');
 

@@ -1,8 +1,7 @@
-import 'dart:typed_data';
-
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/colors/colorizer.dart';
+import 'package:basics/helpers/files/x_filers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/nums/numeric.dart';
@@ -20,6 +19,7 @@ import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
+import 'package:cross_file/cross_file.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -306,7 +306,7 @@ class GtaModel {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TASK : TEST_ME_NOW
   static Future<DraftFlyer?> createDraftFlyerByGtaProduct({
     required BuildContext context,
     required GtaModel? gtaModel,
@@ -454,7 +454,7 @@ class GtaModel {
   }
    */
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST_ME_NOW
   static Future<List<DraftSlide>> createDraftSlidesByGtaProduct({
     required GtaModel? product,
   }) async {
@@ -503,7 +503,7 @@ class GtaModel {
               backPic: _backPic,
               headline: i == 0 ? product.title : null,
               description: null,
-              midColor: await Colorizer.getAverageColor(_bigPic.bytes),
+              midColor: await Colorizer.getAverageColorFromXFile(_bigPic.file),
               backColor: null,
               opacity: 1,
               matrix: Matrix4.identity(),
@@ -523,7 +523,7 @@ class GtaModel {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST_ME_NOW
   static Future<MediaModel?> createPicModelByGtaUrl({
     required String? picName,
     required String? url,
@@ -535,16 +535,17 @@ class GtaModel {
 
     if (_userID != null && ObjectCheck.isAbsoluteURL(url) == true) {
 
-      final Uint8List? _bytes = await Storage.readBytesByURL(
-        url: url,
+      final XFile? _file = await XFiler.createXFileFromURL(
+          url: url,
+          fileName: picName,
       );
 
-      if (_bytes != null && _bytes.isNotEmpty){
-        _output = await MediaModel.combinePicModel(
-          bytes: _bytes,
+      if (_file != null){
+
+        _output = await MediaModel.combineMediaModel(
+          file: _file,
           fileType: FileType.jpeg,
           mediaOrigin: MediaOrigin.generated,
-          compressWithQuality: SlidePicMaker.getSlidePicCompressionQuality(type),
           uploadPath: null,
           ownersIDs: [_userID],
           name: picName ?? '',

@@ -88,9 +88,8 @@ class BlurPanelButton extends StatelessWidget {
           height: _size,
           width: _size,
           corners: _size / 2,
-          icon: draftSlide?.smallPic?.bytes ??
-                draftSlide?.medPic?.bytes ??
-                draftSlide?.bigPic?.bytes,
+          /// TASK : TEST_ME_NOW
+          icon: draftSlide?.smallPic ?? draftSlide?.medPic ?? draftSlide?.bigPic,
           onTap: onTap,
         ),
       ),

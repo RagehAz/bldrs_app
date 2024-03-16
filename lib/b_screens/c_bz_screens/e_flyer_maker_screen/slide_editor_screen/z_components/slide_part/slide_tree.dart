@@ -1,4 +1,5 @@
 import 'package:basics/components/animators/matrix_animator.dart';
+import 'package:basics/components/super_image/super_image.dart';
 import 'package:basics/helpers/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_transformer.dart';
@@ -78,8 +79,13 @@ class SlideTree extends StatelessWidget {
         replayOnRebuild: true,
         repeat: false,
         onAnimationEnds: onAnimationEnds,
-        child: slide?.medPic?.bytes == null ? Container() : Image.memory(
-          slide!.medPic!.bytes!,
+        child: slide?.medPic == null ?
+        Container()
+            :
+        /// TASK : TEST_ME_NOW
+        SuperImage(
+          pic: slide!.medPic!,
+          loading: false,
           key: const ValueKey<String>('SuperImage_slide_draft'),
           width: flyerBoxWidth,
           height: flyerBoxHeight,

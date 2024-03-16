@@ -139,7 +139,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                       BldrsImage(
                         width: _flyerBoxWidth,
                         height: _flyerBoxHeight,
-                        pic: _slide?.backPic?.bytes,
+                        pic: _slide?.backPic,
                         // loading: false,
                         // corners: FlyerDim.flyerCorners(_flyerBoxWidth),
                       ),

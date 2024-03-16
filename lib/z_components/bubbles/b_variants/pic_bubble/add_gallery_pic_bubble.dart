@@ -2,11 +2,10 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/files/file_size_unit.dart';
-import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/mediator/models/media_model.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/g_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/z_components/balloons/balloons.dart';
@@ -242,7 +241,7 @@ class _FilePicSplitter extends StatelessWidget {
     dynamic _output;
 
     if (pic != null && pic.meta?.uploadPath != Iconz.anonymousUser){
-      _output = pic.bytes ?? pic.meta?.uploadPath;
+      _output = pic.file ?? pic.meta?.uploadPath;
     }
 
     return _output;
@@ -346,14 +345,15 @@ class _PlusIconLayer extends StatelessWidget {
     else {
 
       /// SIZE IS NULL
-      if (picModel?.bytes == null){
+      if (picModel?.file == null){
         return const SizedBox();
       }
 
       /// SIZE
       else {
 
-        final bool _isExceedingMaxSize = (picModel?.bytes?.length ?? 0) > (3 * 1024 * 1024);
+        final double _sizeMB = picModel?.meta?.sizeMB ?? 0;
+        final bool _isExceedingMaxSize = _sizeMB > Standards.maxFileSizeLimit;
 
         return SizedBox(
           width: AddImagePicBubble.picWidth,
@@ -366,7 +366,7 @@ class _PlusIconLayer extends StatelessWidget {
 
               BldrsText(
                 width: AddImagePicBubble.picWidth * 0.6,
-                verse: Verse.plain('${Filers.calculateSize(picModel?.bytes?.length, FileSizeUnit.megaByte)} Mb'),
+                verse: Verse.plain('$_sizeMB Mb'),
                 size: 1,
                 shadow: true,
                 labelColor: _isExceedingMaxSize ? Colorz.red255 : Colorz.black150,

@@ -133,7 +133,8 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                   BldrsImage(
                     width: DraftShelfSlide.flyerBoxWidth,
                     height: _flyerBoxHeight,
-                    pic: widget.draftSlide?.backPic?.bytes,
+                    /// TASK : TEST_ME_NOW
+                    pic: widget.draftSlide?.backPic,
                     // loading: false,
                   ),
 
@@ -176,8 +177,8 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                     child: SuperFilteredImage(
                       width: DraftShelfSlide.flyerBoxWidth,
                       height: _flyerBoxHeight,
-                      // bytes: widget.draftSlide.picModel.bytes,
-                      pic: widget.draftSlide?.bigPic?.bytes,
+                      /// TASK : TEST_ME_NOW
+                      pic: widget.draftSlide?.bigPic,
                       boxFit: BoxFit.fitWidth,
                       loading: false,
                     ),

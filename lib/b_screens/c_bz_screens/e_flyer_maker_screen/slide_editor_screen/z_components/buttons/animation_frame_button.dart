@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/components/super_image/super_image.dart';
 import 'package:basics/helpers/space/trinity.dart';
 import 'package:basics/components/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
@@ -83,15 +84,15 @@ class AnimationFrameButton extends StatelessWidget {
                         return Stack(
                           children: <Widget>[
 
-                            /// BACKGROUND PIC
-                            if (draftSlide?.backPic?.bytes != null)
-                            Image.memory(
-                              draftSlide!.backPic!.bytes!,
-                              key: const ValueKey<String>('SuperImage_slide_back'),
-                              width: _microFlyerWidth,
-                              height: _microFlyerHeight,
-                              fit: BoxFit.cover,
-                            ),
+                            /// TASK : TEST_ME_NOW - /// BACKGROUND PIC
+                            if (draftSlide?.backPic != null)
+                              SuperImage(
+                                loading: false,
+                                pic: draftSlide!.backPic!,
+                                key: const ValueKey<String>('SuperImage_slide_back'),
+                                width: _microFlyerWidth,
+                                height: _microFlyerHeight,
+                              ),
 
                             /// BACKGROUND COLOR
                             if (draftSlide?.backColor != null)
@@ -122,8 +123,11 @@ class AnimationFrameButton extends StatelessWidget {
                                       );
 
                                       },
-                                    child: Image.memory(
-                                      draftSlide!.medPic!.bytes!,
+
+                                    /// TASK : TEST_ME_NOW
+                                    child: SuperImage(
+                                      loading: false,
+                                      pic: draftSlide!.medPic!,
                                       key: const ValueKey<String>('SuperImage_slide_draft'),
                                       width: _microFlyerWidth,
                                       height: _microFlyerHeight,

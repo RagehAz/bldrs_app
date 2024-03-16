@@ -1402,7 +1402,7 @@ class Dialogs {
               child: SuperImage(
                 width: _width,
                 height: _height,
-                pic: _pic.bytes,
+                pic: _pic.file,
                 loading: false,
                 corners: _height * 0.1,
               ),
@@ -1478,9 +1478,9 @@ class Dialogs {
       ),
       boolDialog: false,
       picsHeights: 120,
-      pics: await MediaModel.createPicsFromLocalAssets(
+      pics: await MediaModel.createMediaModelsFromLocalAssets(
         // width: 300,
-        assets: [
+        localAssets: <String>[
           Iconz.mailJunkScreenshot,
           Iconz.mailSpamScreenshot,
         ],

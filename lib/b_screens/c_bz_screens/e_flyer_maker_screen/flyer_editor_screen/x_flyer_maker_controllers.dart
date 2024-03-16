@@ -533,9 +533,9 @@ Future<void> onPosterChanged({
   required bool mounted,
 }) async {
 
-  final bool _identical = MediaModel.checkPicsAreIdentical(
-      pic1: poster,
-      pic2: draftNotifier.value?.poster,
+  final bool _identical = await MediaModel.checkMediaModelsAreIdentical(
+    model1: poster,
+    model2: draftNotifier.value?.poster,
   );
 
   if (poster != null && draftNotifier.value != null && _identical == false){

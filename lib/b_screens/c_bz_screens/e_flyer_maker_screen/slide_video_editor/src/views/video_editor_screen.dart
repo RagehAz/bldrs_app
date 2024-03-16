@@ -51,9 +51,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
         if (widget.video != null){
 
-          final File? _file = await Filers.getFileFromUint8List(
-            uInt8List: widget.video!.bytes,
-            fileName: widget.video?.meta?.name,
+          final File? _file = XFiler.createFileFromXFile(
+            xFile: widget.video?.file,
           );
 
           await _setVideo(_file);
@@ -287,8 +286,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
                   final Dimensions? _dims = await Dimensions.superDimensions(_file);
 
-                  await PicFullScreen.goToImageFullScreenByBytes(
-                    bytes: _file.readAsBytesSync(),
+                  await PicFullScreen.openFile(
+                    file: _file,
                     title: _file.path,
                     dims: _dims!,
                   );
@@ -471,12 +470,11 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                 onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
                 onError: BldrsMediaMaker.onPickingError,
                 name: 'x',
-                compressWithQuality: 100,
                 uploadPath: '',
                 ownersIDs: [],
               );
 
-              final Dimensions? _dims = await Dimensions.superDimensions(_videoMap?.bytes);
+              final Dimensions? _dims = await Dimensions.superDimensions(_videoMap?.file);
 
               _dims?.blogDimensions(invoker: 'zz');
 
@@ -502,10 +500,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
               if (_bigPic != null){
 
-                final Dimensions? _dims = await VideoOps.getVideoBytesDimensions(
-                  bytes: _bigPic.bytes,
-                );
-
+                final Dimensions? _dims = await Dimensions.superDimensions(_bigPic.file);
                 _dims?.blogDimensions(invoker: 'zz');
 
               }

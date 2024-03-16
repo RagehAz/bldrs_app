@@ -1,4 +1,5 @@
 import 'package:basics/components/animators/neo.dart';
+import 'package:basics/components/super_image/super_image.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
@@ -146,8 +147,9 @@ class SlideTransformer extends StatelessWidget {
           child: imageMemory,
         );
       },
-      child: Image.memory(
-        slide!.medPic!.bytes!,
+      child: SuperImage(
+        loading: false,
+        pic: slide!.medPic,
         key: const ValueKey<String>('SuperImage_slide_draft'),
         width: flyerBoxWidth,
         height: FlyerDim.flyerHeightByFlyerWidth(

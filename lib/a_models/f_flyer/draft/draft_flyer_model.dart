@@ -894,7 +894,8 @@ class DraftFlyer{
       if (PDFModel.checkPDFModelsAreIdentical(pdf1: draft1.pdfModel, pdf2: draft2.pdfModel) == false){
         blog('pdfs are not identical');
       }
-      if (MediaModel.checkPicsAreIdentical(pic1: draft1.poster, pic2: draft2.poster) == false){
+      /// TASK : TEST_ME_NOW
+      if (MediaModel.checkMediaModelsAreIdenticalSync(model1: draft1.poster, model2: draft2.poster) == false){
         blog('posters are not identical');
       }
       if (BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == false){
@@ -999,7 +1000,7 @@ class DraftFlyer{
     return _maxLength <= (draftFlyer?.draftSlides?.length ?? 0);
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST_ME_NOW
   static Future<bool> checkPosterHasChanged({
     required DraftFlyer? draft,
     required FlyerModel? oldFlyer,
@@ -1025,7 +1026,9 @@ class DraftFlyer{
       }
       else {
 
-        _hasChanged = !MediaModel.checkPicsAreIdentical(pic1: draft?.poster, pic2: _poster);
+         final bool _identicalPics = await MediaModel.checkMediaModelsAreIdentical(model1: draft?.poster, model2: _poster);
+
+         _hasChanged = !_identicalPics;
 
         if (_hasChanged == false){
 
@@ -1035,11 +1038,13 @@ class DraftFlyer{
             type: SlidePicType.small,
           );
 
-          /// [identical = true] => [hasChanged = false] ya zaki
-          _hasChanged = !MediaModel.checkPicsListsAreIdentical(
-            list1: _draftPics,
-            list2: _oldPics,
+          final bool _identical = await MediaModel.checkMediaModelsListsAreIdentical(
+            models1: _draftPics,
+            models2: _oldPics,
           );
+
+          /// [identical = true] => [hasChanged = false] ya zaki
+          _hasChanged = !_identical;
 
         }
 
@@ -1091,7 +1096,7 @@ class DraftFlyer{
           draft1.isAmazonFlyer == draft2.isAmazonFlyer &&
           draft1.score == draft2.score &&
           PDFModel.checkPDFModelsAreIdentical(pdf1: draft1.pdfModel, pdf2: draft2.pdfModel) == true &&
-          MediaModel.checkPicsAreIdentical(pic1: draft1.poster, pic2: draft2.poster) == true &&
+          MediaModel.checkMediaModelsAreIdenticalSync(model1: draft1.poster, model2: draft2.poster) == true &&
           BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == true &&
           draft1.affiliateLink == draft2.affiliateLink &&
           draft1.gtaLink == draft2.gtaLink &&

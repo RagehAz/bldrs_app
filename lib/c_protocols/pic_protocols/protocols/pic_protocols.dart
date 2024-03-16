@@ -1,8 +1,7 @@
-import 'dart:typed_data';
 import 'dart:ui' as ui;
-
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/files/floaters.dart';
+import 'package:basics/helpers/files/x_filers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper_ss.dart';
 import 'package:basics/helpers/strings/text_check.dart';
@@ -16,7 +15,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/storage/pic_storage_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:fire/super_fire.dart';
+import 'package:cross_file/cross_file.dart';
 
 /// => TAMAM
 class PicProtocols {
@@ -137,7 +136,7 @@ class PicProtocols {
       else {
 
         final MediaModel? _picModel = await PicProtocols.fetchPic(path);
-        _theImage = await Floaters.getUiImageFromUint8List(_picModel?.bytes);
+        _theImage = await Floaters.getUiImageFromXFile(_picModel?.file);
 
         /// PRO-CACHE IF POSSIBLE
         if (_theImage != null){
@@ -323,13 +322,13 @@ class PicProtocols {
     required MediaModel? oldPic,
   }) async {
 
-    // blog('1 - reno.vatePic : picModel : $picModel');
+    // blog('1 - renovatePic : picModel : $picModel');
 
     if (newPic != null){
 
-      final bool _areIdentical = MediaModel.checkPicsAreIdentical(
-          pic1: oldPic,
-          pic2: newPic,
+      final bool _areIdentical = await MediaModel.checkMediaModelsAreIdentical(
+        model1: oldPic,
+        model2: newPic,
       );
 
       // blog('2 - renovate.Pic : _areIdentical : $_areIdentical');
@@ -409,7 +408,7 @@ class PicProtocols {
   /// STEALING
 
   // --------------------
-  ///
+  /// TASK : TEST_ME_NOW
   static Future<MediaModel?> stealInternetPic({
     required String? url,
     required List<String> ownersIDs,
@@ -418,20 +417,20 @@ class PicProtocols {
   }) async {
     MediaModel? _output;
 
-    final Uint8List? _bytes = await Storage.readBytesByURL(
+    final XFile? _file = await XFiler.createXFileFromURL(
       url: url,
+      fileName: picName,
     );
 
-    if (_bytes != null){
+    if (_file != null){
 
-      MediaModel? _pic = await MediaModel.combinePicModel(
-        bytes: _bytes,
+      MediaModel? _pic = await MediaModel.combineMediaModel(
+        file: _file,
         fileType: FileType.jpeg,
         ownersIDs: ownersIDs,
         name: picName,
         uploadPath: uploadPath,
         mediaOrigin: MediaOrigin.downloaded,
-        compressWithQuality: 100,
       );
 
       if (_pic != null){

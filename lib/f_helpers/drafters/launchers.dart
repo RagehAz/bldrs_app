@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:basics/components/dialogs/center_dialog.dart';
 import 'package:basics/helpers/checks/device_checker.dart';
 import 'package:basics/helpers/checks/tracers.dart';
+import 'package:basics/helpers/files/x_filers.dart';
 import 'package:basics/helpers/strings/linker.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/components/drawing/spacing.dart';
@@ -393,18 +394,19 @@ class Launcher {
   /// FILE SHARING
 
   // --------------------
-  /// TASK : TEST ME
+  /// TASK : TEST_ME_NOW
   static Future<void> shareFile({
     required File? file,
     required String? subject,
   }) async {
 
-    if (file == null){
+    final XFile? _xFile = XFiler.createXFileFromFile(file: file);
+
+    if (_xFile == null){
 
     }
 
     else {
-      final XFile _xFile = XFile(file.path);
       final RenderBox? _box = getMainContext().findRenderObject() as RenderBox;
       final ShareResult _result = await Share.shareXFiles(
         <XFile>[_xFile],

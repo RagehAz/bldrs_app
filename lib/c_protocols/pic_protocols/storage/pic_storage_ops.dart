@@ -1,14 +1,10 @@
 import 'dart:typed_data';
-
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/files/file_size_unit.dart';
-import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/helpers/files/floaters.dart';
+import 'package:basics/helpers/files/x_filers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
-import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/models/media_meta_model.dart';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:fire/super_fire.dart';
@@ -23,13 +19,13 @@ class PicStorageOps {
   /// CREATE
 
   // --------------------
-  /// TESTED: WORKS PERFECT
+  /// TASK : TEST_ME_NOW
   static Future<MediaModel?> createPic(MediaModel? picModel) async {
 
-    MediaModel.assertIsUploadable(picModel);
+    await MediaModel.assertIsUploadable(picModel);
 
     final String? _url = await Storage.uploadBytesAndGetURL(
-      bytes: picModel?.bytes,
+      bytes: await picModel?.getBytes(),
       storageMetaModel: picModel?.meta,
     );
 
@@ -47,7 +43,7 @@ class PicStorageOps {
   /// READ
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST_ME_NOW
   static Future<MediaModel?> readPic({
     required String? path,
   }) async {
@@ -79,28 +75,34 @@ class PicStorageOps {
         }
 
         else if (_pathIsURL == true){
-          final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
-          final double? _mega = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
-          _meta = MediaMetaModel(
-            fileType: FileType.jpeg,
-            ownersIDs: const ['non'],
-            name: Filers.getFileNameFromFilePath(
-              filePath: path,
-              withExtension: true,
-            ),
-            uploadPath: path,
-            height: _dims?.height,
-            width: _dims?.width,
-            sizeMB: _mega,
+          _meta = await Storage.readMetaByURL(
+            url: path,
           );
+          // final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
+          // final double? _mega = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
+          // _meta = MediaMetaModel(
+          //   fileType: FileType.jpeg,
+          //   ownersIDs: const ['non'],
+          //   name: Filers.getFileNameFromFilePath(
+          //     filePath: path,
+          //     withExtension: true,
+          //   ),
+          //   uploadPath: path,
+          //   height: _dims?.height,
+          //   width: _dims?.width,
+          //   sizeMB: _mega,
+          // );
         }
 
         _picModel = MediaModel(
+          file: await XFiler.createXFileFromBytes(
             bytes: _bytes,
-            meta: _meta?.copyWith(
-              uploadPath: path,
-            ),
-          );
+            fileName: _meta?.name,
+          ),
+          meta: _meta?.copyWith(
+            uploadPath: path,
+          ),
+        );
 
       }
 

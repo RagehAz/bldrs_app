@@ -236,7 +236,7 @@ class FlyerDeck extends StatelessWidget {
     return _scale;
   }
   // -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST_ME_NOW
   Future<FlyerModel?> _transformDraft({
     required BuildContext context,
     required DraftFlyer? draft,
@@ -260,8 +260,8 @@ class FlyerDeck extends StatelessWidget {
       if (_slide.frontImage == null){
 
         final DraftSlide? _draft = draft?.draftSlides?.firstWhere((element) => element.slideIndex == _slide.slideIndex);
-        final ui.Image? _front = await Floaters.getUiImageFromUint8List(_draft?.smallPic?.bytes);
-        final ui.Image? _back = await Floaters.getUiImageFromUint8List(_draft?.backPic?.bytes);
+        final ui.Image? _front = await Floaters.getUiImageFromXFile(_draft?.smallPic?.file);
+        final ui.Image? _back = await Floaters.getUiImageFromXFile(_draft?.backPic?.file);
         final SlideModel _updatedSlide = _slide.copyWith(
           frontImage: _front,
           backImage: _back,

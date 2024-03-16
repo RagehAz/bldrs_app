@@ -1,5 +1,4 @@
-import 'dart:typed_data';
-
+import 'dart:io';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
@@ -69,7 +68,7 @@ class PicFullScreen extends StatelessWidget {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST_ME_NOW
   static Future<void> openPicModel({
     required MediaModel? pic,
     required String? title,
@@ -77,7 +76,7 @@ class PicFullScreen extends StatelessWidget {
 
     await BldrsNav.goToNewScreen(
       screen: PicFullScreen(
-        image: pic?.bytes,
+        image: pic?.file,
         imageSize: Dimensions(
           width: pic?.meta?.width,
           height: pic?.meta?.height,
@@ -90,15 +89,15 @@ class PicFullScreen extends StatelessWidget {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> goToImageFullScreenByBytes({
-    required Uint8List bytes,
+  static Future<void> openFile({
+    required File? file,
     required Dimensions dims,
     required String? title,
   }) async {
 
     await BldrsNav.goToNewScreen(
       screen: PicFullScreen(
-        image: bytes,
+        image: file,
         imageSize: dims,
         filter: ImageFilterModel.noFilter(),
         title: Verse.plain(title),

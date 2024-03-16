@@ -29,7 +29,7 @@ class SlideBlurredBackgroundWidget extends StatelessWidget {
           SuperImage(
             width: width,
             height: _height,
-            pic: bigPic.bytes,
+            pic: bigPic,
             loading: false,
           ),
 
