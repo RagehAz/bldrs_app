@@ -76,10 +76,6 @@ class SlidePicMaker {
 
         if (_slideID != null && _slidePath != null){
 
-          await _output.renameFile(
-            newName: _slideID,
-          );
-
           final String? _source = slidePic.meta?.data?['source'];
           final MediaOrigin _type = _source == null ? MediaOrigin.generated
               :
@@ -91,6 +87,7 @@ class SlidePicMaker {
             mediaOrigin: _type,
             uploadPath: _slidePath,
             ownersIDs: slidePic.meta!.ownersIDs,
+            renameFile: _slideID,
           );
 
           // blog('4.compressSlideBigPicTo : _output $_output');

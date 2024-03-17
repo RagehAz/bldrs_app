@@ -94,7 +94,7 @@ class PicFullScreen extends StatelessWidget {
     required String? title,
   }) async {
 
-    final Dimensions? _dims = await DimensionsGetter.getFileDims(
+    final Dimensions? _dims = await DimensionsGetter.fromFile(
       file: file,
     );
 

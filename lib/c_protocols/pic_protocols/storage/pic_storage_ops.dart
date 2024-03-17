@@ -95,7 +95,7 @@ class PicStorageOps {
         }
 
         _picModel = MediaModel(
-          file: await XFiler.createXFileFromBytes(
+          file: await XFilers.createXFileFromBytes(
             bytes: _bytes,
             fileName: _meta?.name,
           ),

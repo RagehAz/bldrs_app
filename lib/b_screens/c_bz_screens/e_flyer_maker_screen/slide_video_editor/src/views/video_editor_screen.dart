@@ -51,7 +51,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
         if (widget.video != null){
 
-          final File? _file = XFiler.createFileFromXFile(
+          final File? _file = XFilers.createFileFromXFile(
             xFile: widget.video?.file,
           );
 
@@ -471,7 +471,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                 ownersIDs: [],
               );
 
-              final Dimensions? _dims = await DimensionsGetter.getMediaModelDims(
+              final Dimensions? _dims = await DimensionsGetter.fromMediaModel(
                   mediaModel: _videoMap,
               );
 
@@ -499,7 +499,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
               if (_bigPic != null){
 
-                final Dimensions? _dims = await DimensionsGetter.getMediaModelDims(
+                final Dimensions? _dims = await DimensionsGetter.fromMediaModel(
                     mediaModel: _bigPic,
                 );
                 _dims?.blogDimensions(invoker: 'zz');

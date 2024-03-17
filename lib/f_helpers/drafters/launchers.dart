@@ -400,7 +400,7 @@ class Launcher {
     required String? subject,
   }) async {
 
-    final XFile? _xFile = XFiler.createXFileFromFile(file: file);
+    final XFile? _xFile = XFilers.createXFileFromFile(file: file);
 
     if (_xFile == null){
 

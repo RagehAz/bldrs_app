@@ -93,7 +93,7 @@ class _VideoDialogState extends State<VideoDialog> {
   // --------------------------------------------------------------------------
   Future<void> _getSetDimensions() async {
 
-    final Dimensions? _dims = await DimensionsGetter.getFileDims(
+    final Dimensions? _dims = await DimensionsGetter.fromFile(
       file: widget.video,
     );
 

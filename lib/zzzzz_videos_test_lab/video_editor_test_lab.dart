@@ -96,7 +96,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
 
         if (widget.video != null){
 
-          final File? _file = XFiler.createFileFromXFile(
+          final File? _file = XFilers.createFileFromXFile(
               xFile: widget.video!.file,
           );
 
@@ -193,7 +193,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
       name: Numeric.createUniqueID().toString(), /// dont_keep_naming_files_when_picking_a_video
     );
 
-    final File? _file = XFiler.createFileFromXFile(
+    final File? _file = XFilers.createFileFromXFile(
       xFile: _videoMap?.file,
     );
 
@@ -218,7 +218,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
       name: Numeric.createUniqueID().toString(),
     );
 
-    final File? _file = XFiler.createFileFromXFile(
+    final File? _file = XFilers.createFileFromXFile(
       xFile: _videoMap?.file,
     );
 
@@ -600,7 +600,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                         ownersIDs: [],
                       );
 
-                      final Dimensions? _dims = await DimensionsGetter.getMediaModelDims(
+                      final Dimensions? _dims = await DimensionsGetter.fromMediaModel(
                           mediaModel: _video,
                       );
 
@@ -628,7 +628,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
 
                       if (_bigPic != null){
 
-                        final Dimensions? _dims = await DimensionsGetter.getMediaModelDims(
+                        final Dimensions? _dims = await DimensionsGetter.fromMediaModel(
                           mediaModel: _bigPic,
                         );
 
