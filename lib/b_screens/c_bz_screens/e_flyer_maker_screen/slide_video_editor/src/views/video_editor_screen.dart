@@ -51,7 +51,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
         if (widget.video != null){
 
-          final File? _file = XFiler.createFileFromXFile(
+          final File? _file = Filer.createFromXFile(
             xFile: widget.video?.file,
           );
 
