@@ -1,9 +1,7 @@
 import 'dart:ui' as ui;
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/files/floaters.dart';
-import 'package:basics/helpers/files/x_filers.dart';
 import 'package:basics/helpers/maps/lister.dart';
-import 'package:basics/helpers/maps/mapper_ss.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/mediator/models/file_typer.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -15,7 +13,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/storage/pic_storage_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:cross_file/cross_file.dart';
 
 /// => TAMAM
 class PicProtocols {
@@ -417,40 +414,17 @@ class PicProtocols {
   }) async {
     MediaModel? _output;
 
-    final XFile? _file = await XFiler.createXFileFromURL(
-      url: url,
-      fileName: picName,
-    );
+    if (url != null){
 
-    if (_file != null){
-
-      MediaModel? _pic = await MediaModel.combineMediaModel(
-        file: _file,
-        fileType: FileType.jpeg,
+      _output = await MediaModelCreator.fromURL(
+        url: url,
+        fileType: FileType.jpeg, /// TASK: DETECT_FILE_TYPE
         ownersIDs: ownersIDs,
-        name: picName,
+        fileName: picName,
         uploadPath: uploadPath,
-        mediaOrigin: MediaOrigin.downloaded,
       );
 
-      if (_pic != null){
-
-        _pic = _pic.copyWith(
-          meta: _pic.meta?.copyWith(
-            data: MapperSS.insertPairInMapWithStringValue(
-                map: _pic.meta?.data,
-                key: 'original_url',
-                value: url!,
-                overrideExisting: true,
-            ),
-          ),
-        );
-
-        await composePic(_pic);
-
-        _output = _pic;
-
-      }
+      await composePic(_output);
 
     }
 

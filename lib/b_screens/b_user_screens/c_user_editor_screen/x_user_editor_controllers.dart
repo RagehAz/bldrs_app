@@ -16,6 +16,7 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_media_maker.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -119,7 +120,7 @@ Future<void> takeUserPicture({
       resizeToWidth: Standards.userPicWidth,
       uploadPath: StoragePath.users_userID_pic(draft.value?.id)!,
       ownersIDs: [draft.value!.id!],
-      name: 'user_pic',
+      fileName: 'user_pic_${Authing.getUserID()}',
     );
 
     /// IF DID NOT PIC ANY IMAGE

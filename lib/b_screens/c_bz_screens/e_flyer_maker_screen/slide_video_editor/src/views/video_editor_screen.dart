@@ -284,12 +284,9 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
                 if (_file != null){
 
-                  final Dimensions? _dims = await Dimensions.superDimensions(_file);
-
                   await PicFullScreen.openFile(
                     file: _file,
                     title: _file.path,
-                    dims: _dims!,
                   );
 
                 }
@@ -474,7 +471,9 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                 ownersIDs: [],
               );
 
-              final Dimensions? _dims = await Dimensions.superDimensions(_videoMap?.file);
+              final Dimensions? _dims = await DimensionsGetter.getMediaModelDims(
+                  mediaModel: _videoMap,
+              );
 
               _dims?.blogDimensions(invoker: 'zz');
 
@@ -493,14 +492,16 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                 compressWithQuality: Standards.slideBigQuality,
                 resizeToWidth: Standards.slideBigWidth,
                 uploadPath: 'storage:bldrs/bjo',
-                name: 'bjo',
+                fileName: 'bjo',
                 mediaOrigin: MediaOrigin.galleryImage,
                 ownersIDs: ['x'],
               );
 
               if (_bigPic != null){
 
-                final Dimensions? _dims = await Dimensions.superDimensions(_bigPic.file);
+                final Dimensions? _dims = await DimensionsGetter.getMediaModelDims(
+                    mediaModel: _bigPic,
+                );
                 _dims?.blogDimensions(invoker: 'zz');
 
               }

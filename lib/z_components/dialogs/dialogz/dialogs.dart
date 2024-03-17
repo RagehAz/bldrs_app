@@ -1478,8 +1478,7 @@ class Dialogs {
       ),
       boolDialog: false,
       picsHeights: 120,
-      pics: await MediaModel.createMediaModelsFromLocalAssets(
-        // width: 300,
+      pics: await MediaModelCreator.fromLocalAssets(
         localAssets: <String>[
           Iconz.mailJunkScreenshot,
           Iconz.mailSpamScreenshot,

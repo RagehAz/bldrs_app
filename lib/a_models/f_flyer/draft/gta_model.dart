@@ -1,7 +1,6 @@
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/colors/colorizer.dart';
-import 'package:basics/helpers/files/x_filers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/nums/numeric.dart';
@@ -19,7 +18,6 @@ import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
-import 'package:cross_file/cross_file.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -535,23 +533,13 @@ class GtaModel {
 
     if (_userID != null && ObjectCheck.isAbsoluteURL(url) == true) {
 
-      final XFile? _file = await XFiler.createXFileFromURL(
+        _output = await MediaModelCreator.fromURL(
           url: url,
-          fileName: picName,
-      );
-
-      if (_file != null){
-
-        _output = await MediaModel.combineMediaModel(
-          file: _file,
           fileType: FileType.jpeg,
-          mediaOrigin: MediaOrigin.generated,
-          uploadPath: null,
+          // uploadPath: null,
           ownersIDs: [_userID],
-          name: picName ?? '',
+          fileName: picName,
         );
-
-      }
 
     }
 

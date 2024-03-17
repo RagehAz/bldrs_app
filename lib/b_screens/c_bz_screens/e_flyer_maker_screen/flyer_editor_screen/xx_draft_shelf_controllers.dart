@@ -118,7 +118,7 @@ Future<void> _addGalleryImagesToNewFlyer({
       aspectRatio: FlyerDim.flyerAspectRatio(),
       compressWithQuality: Standards.slideBigQuality,
       resizeToWidth: Standards.slideBigWidth,
-      uploadPath: (int index) => StoragePath.flyers_flyerID_index_big(
+      uploadPathGenerator: (int index) => StoragePath.flyers_flyerID_index_big(
         flyerID: draftFlyer.value!.id,
         slideIndex: index,
       )!,
@@ -195,7 +195,7 @@ Future<void> _addCameraImageToNewFlyer({
         flyerID: draftFlyer.value!.id,
         slideIndex: 0,
       )!,
-      name: SlideModel.generateSlideID(
+      fileName: SlideModel.generateSlideID(
         flyerID: draftFlyer.value!.id,
         slideIndex: 0,
         type: SlidePicType.big,

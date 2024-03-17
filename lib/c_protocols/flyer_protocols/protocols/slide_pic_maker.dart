@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-import 'package:basics/helpers/files/x_filers.dart';
 import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
@@ -77,18 +76,21 @@ class SlidePicMaker {
 
         if (_slideID != null && _slidePath != null){
 
+          await _output.renameFile(
+            newName: _slideID,
+          );
+
           final String? _source = slidePic.meta?.data?['source'];
           final MediaOrigin _type = _source == null ? MediaOrigin.generated
               :
           MediaModel.decipherMediaOrigin(_source) ?? MediaOrigin.generated;
 
-          _output = await MediaModel.combineMediaModel(
+          _output = await MediaModelCreator.fromXFile(
             fileType: FileType.jpeg,
             file: _output.file,
             mediaOrigin: _type,
             uploadPath: _slidePath,
             ownersIDs: slidePic.meta!.ownersIDs,
-            name: _slideID,
           );
 
           // blog('4.compressSlideBigPicTo : _output $_output');
@@ -195,16 +197,13 @@ class SlidePicMaker {
       );
 
       if (_uploadPath != null && _slideID != null){
-        _output = await MediaModel.combineMediaModel(
-          fileType: FileType.jpeg,
-          file: await XFiler.createXFileFromBytes(
-            bytes: _bytes,
-            fileName: _slideID,
-          ),
+        _output = await MediaModelCreator.fromBytes(
+          fileType: FileType.jpeg, /// TASK: DETECT_FILE_TYPE
+          bytes: _bytes,
           mediaOrigin: MediaOrigin.generated,
           uploadPath: _uploadPath,
           ownersIDs: ownersIDs,
-          name: _slideID,
+          fileName: _slideID,
         );
       }
 

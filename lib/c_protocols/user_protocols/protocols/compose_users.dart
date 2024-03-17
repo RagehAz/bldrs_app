@@ -1,14 +1,5 @@
 import 'dart:async';
-import 'dart:typed_data';
-
-import 'package:basics/helpers/files/file_size_unit.dart';
-import 'package:basics/helpers/files/filers.dart';
-import 'package:basics/helpers/files/x_filers.dart';
-import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
-import 'package:basics/mediator/models/file_typer.dart';
-import 'package:basics/mediator/models/media_meta_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
@@ -19,7 +10,6 @@ import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
-import 'package:share_plus/share_plus.dart';
 
 /// => TAMAM
 class ComposeUserProtocols {
@@ -96,45 +86,19 @@ class ComposeUserProtocols {
 
     if (TextCheck.isEmpty(picURL) == false && TextCheck.isEmpty(userID) == false){
 
-      final Uint8List? _bytes = await Storage.readBytesByURL(
-        url: picURL,
-      );
-
-      if (Lister.checkCanLoop(_bytes) == true){
-
-        final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
-        final String? _picPath = StoragePath.users_userID_pic(userID);
-        final double? _mega = Filers.calculateSize(_bytes!.length, FileSizeUnit.megaByte);
-        final String _fileName = '${userID}_pic';
-        final FileType _fileType = FileTyper.getFileTypeByBytes(
-            bytes: _bytes,
-        ) ?? FileType.jpeg;
-
-        final XFile? _file = await XFiler.createXFileFromBytes(
-            bytes: _bytes,
-            fileName: _fileName,
+        final MediaModel? _mediaModel = await MediaModelCreator.fromURL(
+          url: picURL,
+          fileName: '${userID}_pic',
+          ownersIDs: userID == null ? [] : [userID],
+          uploadPath: StoragePath.users_userID_pic(userID),
+          // fileType: _fileType, /// TASK: DETECT_FILE_TYPE
         );
 
-        await PicProtocols.composePic(
-            MediaModel(
-              file: _file,
-              meta: MediaMetaModel(
-                fileType: _fileType,
-                sizeMB: _mega,
-                ownersIDs: userID == null ? [] : [userID],
-                width: _dims?.width,
-                height: _dims?.height,
-                uploadPath: _picPath,
-                name: _fileName,
-              ),
-            )
-        );
+        await PicProtocols.composePic(_mediaModel);
 
         _output = _output?.copyWith(
-          picPath: _picPath,
+          picPath: _mediaModel?.meta?.uploadPath,
         );
-
-      }
 
     }
 

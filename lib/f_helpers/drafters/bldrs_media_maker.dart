@@ -1,7 +1,5 @@
-import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/permissions/permits.dart';
-import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:basics/mediator/video_maker/video_maker.dart';
@@ -49,7 +47,7 @@ class BldrsMediaMaker {
     required double? resizeToWidth,
     required String uploadPath,
     required List<String> ownersIDs,
-    required String name,
+    required String? fileName,
   }) async {
     MediaModel? _output;
 
@@ -65,6 +63,9 @@ class BldrsMediaMaker {
         compressWithQuality: compressWithQuality,
         onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
         onError: onPickingError,
+        ownersIDs: ownersIDs,
+        uploadPath: uploadPath,
+        fileName: fileName,
         // selectedAsset: selectedAsset,
       );
     }
@@ -81,20 +82,11 @@ class BldrsMediaMaker {
         confirmText: getWord('phid_continue'),
         onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
         onError: onPickingError,
-      );
-    }
-
-    if (_output != null){
-
-      _output = await MediaModel.combineMediaModel(
-        fileType: FileType.jpeg,
         ownersIDs: ownersIDs,
-        name: name,
-        file: _output.file,
-        mediaOrigin: mediaOrigin,
         uploadPath: uploadPath,
+        locale: Localizer.getCurrentLocale(),
+        fileName: fileName,
       );
-
     }
 
     return _output;
@@ -106,15 +98,13 @@ class BldrsMediaMaker {
     required double aspectRatio,
     required int compressWithQuality,
     required double resizeToWidth,
-    required String Function(int index) uploadPath,
+    required String? Function(int index)? uploadPathGenerator,
     required List<String> ownersIDs,
-    required String Function(int index) picNameGenerator,
+    required String? Function(int index)? picNameGenerator,
     required int maxAssets,
   }) async {
 
-    final List<MediaModel> _output = [];
-
-    final List<MediaModel> _models = await PicMaker.pickAndCropMultiplePics(
+    final List<MediaModel> _output = await PicMaker.pickAndCropMultiplePics(
       context: getMainContext(),
       cropAfterPick: cropAfterPick,
       aspectRatio: aspectRatio,
@@ -126,31 +116,11 @@ class BldrsMediaMaker {
       compressWithQuality: compressWithQuality,
       onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
       onError: onPickingError,
+      uploadPathGenerator: uploadPathGenerator,
+      picNameGenerator: picNameGenerator,
+      ownersIDs: ownersIDs,
       // selectedAssets: selectedAssets,
     );
-
-    if (Lister.checkCanLoop(_models) == true){
-
-      for (int i = 0; i < _models.length; i++){
-
-        final MediaModel _model = _models[i];
-
-        final MediaModel? _picModel = await MediaModel.combineMediaModel(
-          fileType: FileType.jpeg,
-          ownersIDs: ownersIDs,
-          name: picNameGenerator(i),
-          file: _model.file,
-          mediaOrigin: MediaOrigin.galleryImage,
-          uploadPath: uploadPath(i),
-        );
-
-        if (_picModel != null){
-          _output.add(_picModel);
-        }
-
-      }
-
-    }
 
     return _output;
   }
@@ -164,30 +134,17 @@ class BldrsMediaMaker {
     required MediaModel? pic,
     required double aspectRatio,
   }) async {
-    MediaModel? _output;
+    MediaModel? _output = pic;
 
     if (pic != null && pic.meta?.uploadPath != null && pic.meta != null && pic.meta?.name != null){
 
-      final MediaModel? _model = await PicMaker.cropPic(
+      _output = await PicMaker.cropPic(
         context: getMainContext(),
         mediaModel: pic,
         confirmText: getWord('phid_continue'),
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
         aspectRatio: aspectRatio,
       );
-
-      if (_model != null){
-
-        _output = await MediaModel.combineMediaModel(
-          fileType: pic.meta!.fileType!,
-          file: _model.file,
-          mediaOrigin: MediaModel.decipherMediaOrigin(pic.meta!.data!['source'])!,
-          uploadPath: pic.meta?.uploadPath,
-          ownersIDs: pic.meta!.ownersIDs,
-          name: pic.meta!.name!,
-        );
-
-      }
 
     }
 

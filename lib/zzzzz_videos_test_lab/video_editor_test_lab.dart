@@ -413,12 +413,9 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
 
                         if (_file != null){
 
-                          final Dimensions? _dims = await Dimensions.superDimensions(_file);
-
                           await PicFullScreen.openFile(
                             file: _file,
                             title: _file.path,
-                            dims: _dims!,
                           );
 
                         }
@@ -593,7 +590,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                     icon: Icons.aspect_ratio_outlined,
                     onTap: () async {
 
-                      final MediaModel? _videoMap = await VideoMaker.pickVideo(
+                      final MediaModel? _video = await VideoMaker.pickVideo(
                         context: context,
                         langCode: Localizer.getCurrentLangCode(),
                         onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
@@ -603,7 +600,9 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                         ownersIDs: [],
                       );
 
-                      final Dimensions? _dims = await Dimensions.superDimensions(_videoMap?.file);
+                      final Dimensions? _dims = await DimensionsGetter.getMediaModelDims(
+                          mediaModel: _video,
+                      );
 
                       _dims?.blogDimensions(invoker: 'zz');
 
@@ -622,14 +621,16 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                         compressWithQuality: Standards.slideBigQuality,
                         resizeToWidth: Standards.slideBigWidth,
                         uploadPath: 'storage:bldrs/bjo',
-                        name: 'bjo',
+                        fileName: 'bjo',
                         mediaOrigin: MediaOrigin.galleryImage,
                         ownersIDs: ['x'],
                       );
 
                       if (_bigPic != null){
 
-                        final Dimensions? _dims = await Dimensions.superDimensions(_bigPic.file);
+                        final Dimensions? _dims = await DimensionsGetter.getMediaModelDims(
+                          mediaModel: _bigPic,
+                        );
 
                         _dims?.blogDimensions(invoker: 'zz');
 

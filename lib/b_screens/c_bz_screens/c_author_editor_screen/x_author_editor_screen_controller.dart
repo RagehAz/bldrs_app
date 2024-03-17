@@ -156,7 +156,11 @@ Future<void> takeAuthorImage({
 
   if (canPickImage.value  == true) {
 
-    final String? _path = StoragePath.bzz_bzID_authorID(bzID: bzModel?.id, authorID: author.value?.userID);
+    final String? _authorID = author.value?.userID;
+    final String? _path = StoragePath.bzz_bzID_authorID(
+        bzID: bzModel?.id,
+        authorID: _authorID,
+    );
     final List<String>? _ownersIDs = AuthorModel.getAuthorPicOwnersIDs(
       bzModel: bzModel,
       authorModel: author.value,
@@ -178,7 +182,7 @@ Future<void> takeAuthorImage({
         resizeToWidth: Standards.authorPicWidth,
         uploadPath: _path,
         ownersIDs: _ownersIDs,
-        name: 'author_pic',
+        fileName: 'author_pic_$_authorID',
       );
 
       /// IF DID NOT PIC ANY IMAGE

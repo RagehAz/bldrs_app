@@ -5,7 +5,6 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/checks/error_helpers.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/files/x_filers.dart';
 import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -23,7 +22,6 @@ import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:cross_file/cross_file.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -109,19 +107,12 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
               delay: const Duration(milliseconds: 1000),
             );
 
-            final String _fileName = '${widget.draft!.id}_poster';
-
-            final XFile? _file = await XFiler.createXFileFromBytes(
+            _pic = await MediaModelCreator.fromBytes(
               bytes: _bytes,
-              fileName: _fileName,
-            );
-
-            _pic = await MediaModel.combineMediaModel(
-              file: _file,
               fileType: FileType.jpeg,
               mediaOrigin: MediaOrigin.generated,
               uploadPath: _uploadPath,
-              name: _fileName,
+              fileName: '${widget.draft!.id}_poster',
               ownersIDs: await FlyerModel.generateFlyerOwners(
                 bzID: widget.draft!.bzID,
               ),

@@ -363,7 +363,8 @@ Future<void> onChangeBzLogo({
 
   if (draftNotifier.value != null && Mapper.boolIsTrue(draftNotifier.value?.canPickImage) == true) {
 
-    final String? _path = StoragePath.bzz_bzID_logo(draftNotifier.value?.id);
+    final String? _bzID = draftNotifier.value?.id;
+    final String? _path = StoragePath.bzz_bzID_logo(_bzID);
     // draftNotifier.value!.getLogoPath();
     final List<String>? _ownersIDs = draftNotifier.value?.getLogoOwners();
 
@@ -392,7 +393,7 @@ Future<void> onChangeBzLogo({
           resizeToWidth: Standards.bzLogoPicWidth,
           uploadPath: _path,
           ownersIDs: _ownersIDs,
-          name: 'bz_logo',
+          fileName: 'bz_logo_$_bzID',
         );
 
         /// IF DID NOT PIC ANY IMAGE

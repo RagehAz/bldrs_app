@@ -233,10 +233,6 @@ class InstaProfileBubble extends StatelessWidget {
                                   url: _post?.mediaURL,
                                 );
 
-                                // final File? _file = await Filers.getFileFromUint8List(
-                                //     uInt8List: _bytes,
-                                //     fileName: _post?.id
-                                // );
                                 final double? _size = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
 
                                 UiProvider.proSetLoadingVerse(verse: Verse.plain('Uploading ..'));

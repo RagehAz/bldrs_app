@@ -16,14 +16,14 @@ class PicFullScreen extends StatelessWidget {
   // --------------------------------------------------------------------------
   const PicFullScreen({
     required this.image,
-    required this.imageSize,
+    required this.dimensions,
     required this.filter,
     this.title,
     super.key
   });
   // --------------------
   final dynamic image;
-  final Dimensions imageSize;
+  final Dimensions? dimensions;
   final Verse? title;
   final ImageFilterModel? filter;
   // --------------------------------------------------------------------------
@@ -36,7 +36,7 @@ class PicFullScreen extends StatelessWidget {
     await BldrsNav.goToNewScreen(
       screen: PicFullScreen(
         image: url,
-        imageSize:
+        dimensions:
         const Dimensions(
           width: 0, //_pic?.meta?.width,
           height: 0, //_pic?.meta?.height,
@@ -77,7 +77,7 @@ class PicFullScreen extends StatelessWidget {
     await BldrsNav.goToNewScreen(
       screen: PicFullScreen(
         image: pic?.file,
-        imageSize: Dimensions(
+        dimensions: Dimensions(
           width: pic?.meta?.width,
           height: pic?.meta?.height,
         ),
@@ -91,14 +91,18 @@ class PicFullScreen extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   static Future<void> openFile({
     required File? file,
-    required Dimensions dims,
     required String? title,
   }) async {
+
+    final Dimensions? _dims = await DimensionsGetter.getFileDims(
+      file: file,
+    );
+
 
     await BldrsNav.goToNewScreen(
       screen: PicFullScreen(
         image: file,
-        imageSize: dims,
+        dimensions: _dims,
         filter: ImageFilterModel.noFilter(),
         title: Verse.plain(title),
       ),
@@ -150,8 +154,8 @@ class PicFullScreen extends StatelessWidget {
             fit: Dimensions.concludeBoxFit(
               viewWidth: _screenWidth,
               viewHeight: _screenHeight,
-              picWidth: imageSize.width ?? 0,
-              picHeight: imageSize.height ?? 0,
+              picWidth: dimensions?.width ?? 0,
+              picHeight: dimensions?.height ?? 0,
             ),
             width: Scale.screenWidth(context),
             height: Scale.screenHeight(context),

@@ -39,7 +39,9 @@ class _CoverResultPopupState extends State<CoverResultPopup> {
 
   Future<void> _getSetDimensions() async {
 
-    final Dimensions? _dims = await Dimensions.superDimensions(widget.cover);
+    final Dimensions? _dims = await DimensionsGetter.getFileDims(
+        file: widget.cover,
+    );
 
     if (_dims != null){
 
