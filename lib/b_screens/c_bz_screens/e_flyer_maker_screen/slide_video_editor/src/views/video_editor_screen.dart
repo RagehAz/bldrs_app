@@ -51,7 +51,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
         if (widget.video != null){
 
-          final File? _file = XFilers.createFileFromXFile(
+          final File? _file = XFiler.createFileFromXFile(
             xFile: widget.video?.file,
           );
 
@@ -268,7 +268,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
                 final File? _file = await VideoOps.exportCover(
                     videoEditorController: _videoEditorController,
-                    fileName: TextMod.idifyString(Filers.getFileNameFromFile(file: _videoEditorController!.file, withExtension: false)),
+                    fileName: TextMod.idifyString(FilePathing.getFileNameFromFile(file: _videoEditorController!.file, withExtension: false)),
                     onProgress: (Statistics progress, CoverFFmpegVideoEditorConfig config){
                       final double _progress = config.getFFmpegProgress(progress.getTime().toInt());
                       final String _percent = '${(_progress * 100).ceil()}%';
@@ -278,7 +278,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
                 blog('got back the file aho $_file');
 
-                Filers.blogFile(file: _file, invoker: 'the Cover');
+                Filer.blogFile(file: _file, invoker: 'the Cover');
 
                 await WaitDialog.closeWaitDialog();
 
@@ -320,8 +320,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                     }
                 );
 
-                Filers.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
-                Filers.blogFile(file: _file, invoker: 'the new');
+                Filer.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
+                Filer.blogFile(file: _file, invoker: 'the new');
 
                 await WaitDialog.closeWaitDialog();
 
@@ -358,8 +358,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                     }
                 );
 
-                Filers.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
-                Filers.blogFile(file: _file, invoker: 'the new');
+                Filer.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
+                Filer.blogFile(file: _file, invoker: 'the new');
 
                 await WaitDialog.closeWaitDialog();
 
@@ -396,8 +396,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                     }
                 );
 
-                Filers.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
-                Filers.blogFile(file: _file, invoker: 'the new');
+                Filer.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
+                Filer.blogFile(file: _file, invoker: 'the new');
 
                 await WaitDialog.closeWaitDialog();
 

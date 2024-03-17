@@ -74,7 +74,7 @@ class VideoEditorPlayBar extends StatelessWidget {
                 final int duration = videoEditorController!.videoDuration.inSeconds;
                 final double pos = videoEditorController!.trimPosition * duration;
                 final String _current = VideoOps.formatDuration(Duration(seconds: pos.toInt()));
-                final double? _size = Filers.getFileSizeWithUnit(
+                final double? _size = FileSizer.getFileSizeWithUnit(
                   file: videoEditorController!.file,
                   unit: FileSizeUnit.megaByte,
                 );

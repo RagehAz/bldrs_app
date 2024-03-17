@@ -2,9 +2,9 @@
 
 import 'dart:ui' as ui;
 
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/animators/animators.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/files/floaters.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/components/drawing/super_positioned.dart';
@@ -260,8 +260,8 @@ class FlyerDeck extends StatelessWidget {
       if (_slide.frontImage == null){
 
         final DraftSlide? _draft = draft?.draftSlides?.firstWhere((element) => element.slideIndex == _slide.slideIndex);
-        final ui.Image? _front = await Floaters.getUiImageFromXFile(_draft?.smallPic?.file);
-        final ui.Image? _back = await Floaters.getUiImageFromXFile(_draft?.backPic?.file);
+        final ui.Image? _front = await Imager.getUiImageFromXFile(_draft?.smallPic?.file);
+        final ui.Image? _back = await Imager.getUiImageFromXFile(_draft?.backPic?.file);
         final SlideModel _updatedSlide = _slide.copyWith(
           frontImage: _front,
           backImage: _back,

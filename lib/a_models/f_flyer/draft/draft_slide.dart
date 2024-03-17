@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/colors/colorizer.dart';
-import 'package:basics/helpers/files/floaters.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
@@ -264,8 +264,8 @@ class DraftSlide {
         matrix: draft.matrix,
         matrixFrom: draft.matrixFrom,
         animationCurve: draft.animationCurve,
-        frontImage: await Floaters.getUiImageFromXFile(_picModel?.file),
-        backImage: await Floaters.getUiImageFromXFile(_backPic?.file),
+        frontImage: await Imager.getUiImageFromXFile(_picModel?.file),
+        backImage: await Imager.getUiImageFromXFile(_backPic?.file),
         frontPicPath: _picModel?.meta?.uploadPath,
       );
 

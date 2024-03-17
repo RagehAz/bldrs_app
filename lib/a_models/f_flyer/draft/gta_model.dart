@@ -1,3 +1,4 @@
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/colors/colorizer.dart';
@@ -7,7 +8,6 @@ import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/strings/stringer.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
-import 'package:basics/mediator/models/file_typer.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
@@ -535,7 +535,7 @@ class GtaModel {
 
         _output = await MediaModelCreator.fromURL(
           url: url,
-          fileType: FileType.jpeg,
+          fileExt: FileExt.jpeg,
           // uploadPath: null,
           ownersIDs: [_userID],
           fileName: picName,

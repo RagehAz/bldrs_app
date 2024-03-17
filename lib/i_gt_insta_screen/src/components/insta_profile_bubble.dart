@@ -4,15 +4,13 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/components/drawing/spacing.dart';
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/files/file_size_unit.dart';
-import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/helpers/strings/pathing.dart';
 import 'package:basics/helpers/strings/text_check.dart';
-import 'package:basics/mediator/models/file_typer.dart';
 import 'package:basics/mediator/models/media_meta_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -233,7 +231,7 @@ class InstaProfileBubble extends StatelessWidget {
                                   url: _post?.mediaURL,
                                 );
 
-                                final double? _size = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
+                                final double? _size = FileSizer.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
 
                                 UiProvider.proSetLoadingVerse(verse: Verse.plain('Uploading ..'));
 
@@ -244,7 +242,7 @@ class InstaProfileBubble extends StatelessWidget {
                                       ownersIDs: const [BldrsKeys.ragehID],
                                       name: 'test_video',
                                       sizeMB: _size,
-                                      fileType: FileType.mp4,
+                                      fileExt: FileExt.mp4,
                                     ),
                                 );
 

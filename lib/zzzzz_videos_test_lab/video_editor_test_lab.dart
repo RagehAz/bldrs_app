@@ -5,10 +5,8 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/animators/widget_fader.dart';
 import 'package:basics/components/drawing/expander.dart';
 import 'package:basics/components/super_box/super_box.dart';
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/files/file_size_unit.dart';
-import 'package:basics/helpers/files/filers.dart';
-import 'package:basics/helpers/files/x_filers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/space/scale.dart';
@@ -96,7 +94,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
 
         if (widget.video != null){
 
-          final File? _file = XFilers.createFileFromXFile(
+          final File? _file = XFiler.createFileFromXFile(
               xFile: widget.video!.file,
           );
 
@@ -193,7 +191,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
       name: Numeric.createUniqueID().toString(), /// dont_keep_naming_files_when_picking_a_video
     );
 
-    final File? _file = XFilers.createFileFromXFile(
+    final File? _file = XFiler.createFileFromXFile(
       xFile: _videoMap?.file,
     );
 
@@ -218,7 +216,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
       name: Numeric.createUniqueID().toString(),
     );
 
-    final File? _file = XFilers.createFileFromXFile(
+    final File? _file = XFiler.createFileFromXFile(
       xFile: _videoMap?.file,
     );
 
@@ -397,7 +395,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
 
                         final File? _file = await VideoOps.exportCover(
                             videoEditorController: _videoEditorController,
-                            fileName: TextMod.idifyString(Filers.getFileNameFromFile(file: _videoEditorController!.file, withExtension: false)),
+                            fileName: TextMod.idifyString(FilePathing.getFileNameFromFile(file: _videoEditorController!.file, withExtension: false)),
                             onProgress: (Statistics progress, CoverFFmpegVideoEditorConfig config){
                               final double _progress = config.getFFmpegProgress(progress.getTime().toInt());
                               final String _percent = '${(_progress * 100).ceil()}%';
@@ -407,7 +405,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
 
                         blog('got back the file aho $_file');
 
-                        Filers.blogFile(file: _file, invoker: 'the Cover');
+                        Filer.blogFile(file: _file, invoker: 'the Cover');
 
                         await WaitDialog.closeWaitDialog();
 
@@ -449,8 +447,8 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                             }
                         );
 
-                        Filers.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
-                        Filers.blogFile(file: _file, invoker: 'the new');
+                        Filer.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
+                        Filer.blogFile(file: _file, invoker: 'the new');
 
                         await WaitDialog.closeWaitDialog();
 
@@ -487,8 +485,8 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                             }
                         );
 
-                        Filers.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
-                        Filers.blogFile(file: _file, invoker: 'the new');
+                        Filer.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
+                        Filer.blogFile(file: _file, invoker: 'the new');
 
                         await WaitDialog.closeWaitDialog();
 
@@ -525,8 +523,8 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                             }
                         );
 
-                        Filers.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
-                        Filers.blogFile(file: _file, invoker: 'the new');
+                        Filer.blogFile(file: _videoEditorController!.file, invoker: 'the Original');
+                        Filer.blogFile(file: _file, invoker: 'the new');
 
                         await WaitDialog.closeWaitDialog();
 
@@ -743,7 +741,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                             final int duration = _videoEditorController!.videoDuration.inSeconds;
                             final double pos = _videoEditorController!.trimPosition * duration;
                             final String _current = VideoOps.formatDuration(Duration(seconds: pos.toInt()));
-                            final double? _size = Filers.getFileSizeWithUnit(
+                            final double? _size = FileSizer.getFileSizeWithUnit(
                                 file: _videoEditorController!.file,
                                 unit: FileSizeUnit.megaByte,
                             );

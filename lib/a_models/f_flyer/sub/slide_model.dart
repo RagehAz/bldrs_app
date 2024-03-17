@@ -1,9 +1,9 @@
 import 'dart:ui' as ui;
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/colors/colorizer.dart';
-import 'package:basics/helpers/files/floaters.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/nums/numeric.dart';
@@ -279,10 +279,10 @@ class SlideModel {
     if (slide1?.flyerID != slide2?.flyerID){
       blog('slide1.flyerID != slide2.flyerID');
     }
-    if (Floaters.checkUiImagesAreIdentical(slide1?.frontImage, slide2?.frontImage) == false){
+    if (Imager.checkUiImagesAreIdentical(slide1?.frontImage, slide2?.frontImage) == false){
       blog('slide1.frontPic != slide2.frontPic');
     }
-    if (Floaters.checkUiImagesAreIdentical(slide1?.backImage, slide2?.backImage) == false){
+    if (Imager.checkUiImagesAreIdentical(slide1?.backImage, slide2?.backImage) == false){
       blog('slide1.backPic != slide2.backPic');
     }
     if (slide1?.frontPicPath != slide2?.frontPicPath){
@@ -704,8 +704,8 @@ class SlideModel {
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&
           Colorizer.checkColorsAreIdentical(slide1.backColor, slide2.backColor) == true &&
           slide1.flyerID == slide2.flyerID &&
-          Floaters.checkUiImagesAreIdentical(slide1.frontImage, slide2.frontImage) == true &&
-          Floaters.checkUiImagesAreIdentical(slide1.backImage, slide2.backImage) == true &&
+          Imager.checkUiImagesAreIdentical(slide1.frontImage, slide2.frontImage) == true &&
+          Imager.checkUiImagesAreIdentical(slide1.backImage, slide2.backImage) == true &&
           slide1.frontPicPath == slide2.frontPicPath
       ){
         _identical = true;

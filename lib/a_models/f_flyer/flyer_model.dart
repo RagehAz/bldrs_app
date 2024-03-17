@@ -1,8 +1,8 @@
 import 'dart:ui' as ui;
 
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/files/floaters.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/space/atlas.dart';
@@ -1156,8 +1156,8 @@ class FlyerModel {
           PriceModel.checkPricesAreIdentical(price1: flyer1.price, price2: flyer2.price) == true &&
           flyer1.affiliateLink == flyer2.affiliateLink &&
           flyer1.gtaLink == flyer2.gtaLink &&
-          Floaters.checkUiImagesAreIdentical(flyer1.bzLogoImage, flyer2.bzLogoImage) == true &&
-          Floaters.checkUiImagesAreIdentical(flyer1.authorImage, flyer2.authorImage) == true
+          Imager.checkUiImagesAreIdentical(flyer1.bzLogoImage, flyer2.bzLogoImage) == true &&
+          Imager.checkUiImagesAreIdentical(flyer1.authorImage, flyer2.authorImage) == true
           // && flyer1.score == flyer2.score
       ){
         _areIdentical = true;

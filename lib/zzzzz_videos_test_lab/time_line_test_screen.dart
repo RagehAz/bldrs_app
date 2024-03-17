@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/files/x_filers.dart';
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/mediator/models/media_model.dart';
@@ -60,7 +60,7 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
 
     if (_video != null){
 
-      final File? file = XFilers.createFileFromXFile(
+      final File? file = XFiler.createFileFromXFile(
           xFile: _video.file,
       );
 

@@ -1,9 +1,8 @@
 import 'dart:ui' as ui;
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/files/floaters.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
-import 'package:basics/mediator/models/file_typer.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:basics/mediator/models/media_model.dart';
@@ -133,7 +132,7 @@ class PicProtocols {
       else {
 
         final MediaModel? _picModel = await PicProtocols.fetchPic(path);
-        _theImage = await Floaters.getUiImageFromXFile(_picModel?.file);
+        _theImage = await Imager.getUiImageFromXFile(_picModel?.file);
 
         /// PRO-CACHE IF POSSIBLE
         if (_theImage != null){
@@ -418,7 +417,7 @@ class PicProtocols {
 
       _output = await MediaModelCreator.fromURL(
         url: url,
-        fileType: FileType.jpeg, /// TASK: DETECT_FILE_TYPE
+        fileExt: FileExt.jpeg, /// TASK: DETECT_FILE_TYPE
         ownersIDs: ownersIDs,
         fileName: picName,
         uploadPath: uploadPath,

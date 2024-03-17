@@ -327,7 +327,7 @@ class FrameModel {
   // --------------------
   @override
   String toString(){
-    double? _kb = Filers.calculateSize(pic?.length, FileSizeUnit.kiloByte);
+    double? _kb = FileSizer.calculateSize(pic?.length, FileSizeUnit.kiloByte);
     _kb = Numeric.removeFractions(number: _kb);
     String _x = Numeric.stringifyDouble(_kb);
     _x = _x == '' ? '...' : '${_x}kb';

@@ -1,8 +1,7 @@
 import 'dart:typed_data';
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/files/floaters.dart';
-import 'package:basics/helpers/files/x_filers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/mediator/models/media_meta_model.dart';
@@ -57,7 +56,7 @@ class PicStorageOps {
 
       /// GET BYTES
       if (_pathIsURL == true){
-        _bytes = await Floaters.getBytesFromURL(path);
+        _bytes = await Byter.fromURL(path);
       }
       else {
         _bytes = await Storage.readBytesByPath(
@@ -95,7 +94,7 @@ class PicStorageOps {
         }
 
         _picModel = MediaModel(
-          file: await XFilers.createXFileFromBytes(
+          file: await XFiler.createXFileFromBytes(
             bytes: _bytes,
             fileName: _meta?.name,
           ),

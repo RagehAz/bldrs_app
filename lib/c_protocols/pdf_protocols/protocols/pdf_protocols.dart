@@ -1,6 +1,6 @@
+// import 'package:basics/filing/filing.dart';
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/files/file_size_unit.dart';
-import 'package:basics/helpers/files/filers.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -70,7 +70,7 @@ class PDFProtocols {
             text: _platformFile.name,
             specialCharacter: '.',
         ),
-        sizeMB: Filers.calculateSize(_platformFile.bytes?.length, FileSizeUnit.megaByte),
+        sizeMB: FileSizer.calculateSize(_platformFile.bytes?.length, FileSizeUnit.megaByte),
         ownersIDs: await FlyerModel.generateFlyerOwners(bzID: bzID),
       );
 

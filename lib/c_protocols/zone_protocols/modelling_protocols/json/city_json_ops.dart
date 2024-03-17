@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/assets/planet/paths.dart';
-import 'package:basics/helpers/files/filers.dart';
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/models/phrase_model.dart';
@@ -210,7 +210,7 @@ class CityJsonOps{
 
     if (countryID != null){
 
-      _output = await Filers.readLocalJSON(
+      _output = await LocalJSON.read(
         path: WorldZoningPaths.getCountryCitiesJsonFilePath(countryID),
       );
 
@@ -297,14 +297,14 @@ class CityJsonOps{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>?> readCitiesPopulationsJson() async {
-    return Filers.readLocalJSON(
+    return LocalJSON.read(
       path: WorldZoningPaths.populationsFilePath,
     );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>?> readCitiesPositionsJson() async {
-    return Filers.readLocalJSON(
+    return LocalJSON.read(
         path: WorldZoningPaths.positionsFilePath,
     );
   }

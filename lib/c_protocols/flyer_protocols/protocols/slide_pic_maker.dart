@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-import 'package:basics/mediator/models/file_typer.dart';
+import 'package:basics/filing/filing.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:basics/mediator/models/media_model.dart';
@@ -82,7 +82,7 @@ class SlidePicMaker {
           MediaModel.decipherMediaOrigin(_source) ?? MediaOrigin.generated;
 
           _output = await MediaModelCreator.fromXFile(
-            fileType: FileType.jpeg,
+            fileExt: FileExt.jpeg,
             file: _output.file,
             mediaOrigin: _type,
             uploadPath: _slidePath,
@@ -195,7 +195,7 @@ class SlidePicMaker {
 
       if (_uploadPath != null && _slideID != null){
         _output = await MediaModelCreator.fromBytes(
-          fileType: FileType.jpeg, /// TASK: DETECT_FILE_TYPE
+          fileExt: FileExt.jpeg, /// TASK: DETECT_FILE_TYPE
           bytes: _bytes,
           mediaOrigin: MediaOrigin.generated,
           uploadPath: _uploadPath,

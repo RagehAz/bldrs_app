@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:basics/components/dialogs/center_dialog.dart';
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/device_checker.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/files/x_filers.dart';
 import 'package:basics/helpers/strings/linker.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/components/drawing/spacing.dart';
@@ -400,7 +400,7 @@ class Launcher {
     required String? subject,
   }) async {
 
-    final XFile? _xFile = XFilers.createXFileFromFile(file: file);
+    final XFile? _xFile = XFiler.createXFileFromFile(file: file);
 
     if (_xFile == null){
 

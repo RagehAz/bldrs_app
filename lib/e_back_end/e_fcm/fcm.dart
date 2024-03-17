@@ -3,11 +3,11 @@ import 'dart:io';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/device_checker.dart';
 import 'package:basics/helpers/checks/error_helpers.dart';
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/helpers/files/floaters.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/nums/numeric.dart';
@@ -1251,7 +1251,7 @@ class FCM {
     AndroidBitmap<Object>? _largeIcon;
 
     if (file != null) {
-      final String? _base64 = await Floaters.getBase64FromFileOrURL(file);
+      final String? _base64 = await Byter.base64FromFileOrURL(file);
       if (_base64 != null) {
         _largeIcon = ByteArrayAndroidBitmap.fromBase64String(_base64);
       }

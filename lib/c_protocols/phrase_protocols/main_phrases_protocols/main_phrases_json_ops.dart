@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/langs.dart';
-import 'package:basics/helpers/files/filers.dart';
+import 'package:basics/filing/filing.dart';
 import 'package:basics/models/phrase_model.dart';
 /// => TAMAM
 class MainPhrasesJsonOps {
@@ -36,7 +36,7 @@ class MainPhrasesJsonOps {
 
     if (_langFilePath != null){
 
-      final Map<String, dynamic>? _mappedJson = await Filers.readLocalJSON(
+      final Map<String, dynamic>? _mappedJson = await LocalJSON.read(
         path: _langFilePath,
       );
 
