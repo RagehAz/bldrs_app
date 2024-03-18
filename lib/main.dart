@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/animators/app_scroll_behavior.dart';
 import 'package:basics/helpers/checks/tracers.dart';

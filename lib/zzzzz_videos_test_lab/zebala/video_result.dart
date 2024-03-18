@@ -20,7 +20,7 @@ class CoverResultPopup extends StatefulWidget {
 
 class _CoverResultPopupState extends State<CoverResultPopup> {
 
-  late final Uint8List _imagebytes = widget.cover.readAsBytesSync();
+  Uint8List? _imagebytes;
 
   Size? _fileDimension;
   late String _fileMbSize;
@@ -28,6 +28,8 @@ class _CoverResultPopupState extends State<CoverResultPopup> {
   @override
   void initState() {
     super.initState();
+
+    _imagebytes = widget.cover.readAsBytesSync();
 
     _getSetDimensions();
 
@@ -62,7 +64,8 @@ class _CoverResultPopupState extends State<CoverResultPopup> {
         child: Stack(
           children: [
 
-            Image.memory(_imagebytes),
+            if (_imagebytes != null)
+            Image.memory(_imagebytes!),
 
             Positioned(
               bottom: 0,
