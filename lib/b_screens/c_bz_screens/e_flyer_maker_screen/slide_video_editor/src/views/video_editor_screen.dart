@@ -268,7 +268,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
                 final File? _file = await VideoOps.exportCover(
                     videoEditorController: _videoEditorController,
-                    fileName: TextMod.idifyString(FilePathing.getFileNameFromFile(file: _videoEditorController!.file, withExtension: false)),
+                    fileName: TextMod.idifyString(FilePathing.getNameFromFile(file: _videoEditorController!.file, withExtension: false)),
                     onProgress: (Statistics progress, CoverFFmpegVideoEditorConfig config){
                       final double _progress = config.getFFmpegProgress(progress.getTime().toInt());
                       final String _percent = '${(_progress * 100).ceil()}%';
