@@ -19,7 +19,7 @@ class _CacheCleanerState extends State<CacheCleaner> {
 
   @override
   void dispose() {
-    unawaited(CacheOps.wipeCaches());
+    unawaited(ImageCacheOps.wipeCaches());
     super.dispose();
   }
 
