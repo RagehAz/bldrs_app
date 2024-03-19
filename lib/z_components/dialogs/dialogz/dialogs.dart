@@ -1612,8 +1612,6 @@ class Dialogs {
   }) async {
     String? _output;
 
-    final BuildContext context = getMainContext();
-
     await BottomDialog.showButtonsBottomDialog(
       // buttonHeight: 40,
       numberOfWidgets: strings.length + 1,
@@ -1624,16 +1622,24 @@ class Dialogs {
 
           ...List.generate(strings.length, (index){
 
-            final String _phid = strings[index];
+            final String _text = strings[index];
 
-            return BottomDialog.wideButton(
-              verse: Verse.plain(_phid),
-              height: 50,
+            return BldrsText(
+              maxLines: 100,
+              width: BottomDialog.clearWidth(),
+              verse: Verse.plain(_text),
+              size: 1,
+              centered: false,
+              labelColor: Colorz.black150,
+              // margin: const EdgeInsets.symmetric(vertical: 1),
+              weight: VerseWeight.regular,
+              leadingDot: true,
               onTap: () async {
 
-                _output = _phid;
+                // _output = _text;
+                // await Nav.goBack(context: context);
 
-                await Nav.goBack(context: context);
+                await Keyboard.copyToClipboardAndNotify(copy: _text);
 
                 },
             );

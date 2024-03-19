@@ -60,7 +60,7 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
 
     if (_video != null){
 
-      final File? file = Filer.createFromXFile(
+      final File? file = Filer.readXFile(
           xFile: _video.file,
       );
 

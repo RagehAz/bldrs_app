@@ -8,7 +8,6 @@ import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/e_back_end/h_caching/cache_ops.dart';
 import 'package:flutter/material.dart';
 
 class CachePreviewBubble extends StatelessWidget {

@@ -94,7 +94,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
 
         if (widget.video != null){
 
-          final File? _file = Filer.createFromXFile(
+          final File? _file = Filer.readXFile(
               xFile: widget.video!.file,
           );
 
@@ -191,7 +191,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
       name: Numeric.createUniqueID().toString(), /// dont_keep_naming_files_when_picking_a_video
     );
 
-    final File? _file = Filer.createFromXFile(
+    final File? _file = Filer.readXFile(
       xFile: _videoMap?.file,
     );
 
@@ -216,7 +216,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
       name: Numeric.createUniqueID().toString(),
     );
 
-    final File? _file = Filer.createFromXFile(
+    final File? _file = Filer.readXFile(
       xFile: _videoMap?.file,
     );
 
