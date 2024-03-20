@@ -6,6 +6,7 @@ import 'package:basics/components/drawing/dot_separator.dart';
 import 'package:basics/components/drawing/spacing.dart';
 import 'package:basics/components/drawing/super_positioned.dart';
 import 'package:basics/components/super_image/super_image.dart';
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
@@ -56,6 +57,7 @@ import 'package:bldrs/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/z_components/poster/variants/aa_bz_poster.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter/material.dart';
 
 class Dialogs {
@@ -1361,7 +1363,7 @@ class Dialogs {
   /// TESTED : WORKS PERFECT
   static Future<bool> picsDialog({
     required List<MediaModel> pics,
-    required Verse titleVerse,
+    Verse? titleVerse,
     Verse? bodyVerse,
     Verse? confirmButtonVerse,
     bool boolDialog = true,
@@ -1416,6 +1418,43 @@ class Dialogs {
 
     return _result;
 
+  }
+// --------------------
+  static Future<bool> picDialogByXFile({
+    required XFile? xFile,
+    Verse? titleVerse,
+    Verse? bodyVerse,
+    Verse? confirmButtonVerse,
+    bool boolDialog = true,
+    bool invertButtons = false,
+    double? picsHeights,
+  }) async {
+    bool _output = false;
+
+    final MediaModel? _pic = await MediaModelCreator.fromXFile(
+        file: xFile,
+        mediaOrigin: MediaOrigin.generated,
+        fileExt: FileExt.jpeg,
+        uploadPath: null,
+        ownersIDs: [],
+        renameFile: null,
+    );
+
+    if (_pic != null){
+
+      _output = await picsDialog(
+        titleVerse: titleVerse,
+        pics: [_pic],
+        bodyVerse: bodyVerse,
+        boolDialog: boolDialog,
+        confirmButtonVerse: confirmButtonVerse,
+        invertButtons: invertButtons,
+        picsHeights: picsHeights,
+      );
+
+    }
+
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
