@@ -77,30 +77,14 @@ class PicStorageOps {
           _meta = await Storage.readMetaByURL(
             url: path,
           );
-          // final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
-          // final double? _mega = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
-          // _meta = MediaMetaModel(
-          //   fileType: FileType.jpeg,
-          //   ownersIDs: const ['non'],
-          //   name: Filers.getFileNameFromFilePath(
-          //     filePath: path,
-          //     withExtension: true,
-          //   ),
-          //   uploadPath: path,
-          //   height: _dims?.height,
-          //   width: _dims?.width,
-          //   sizeMB: _mega,
-          // );
         }
 
-        _picModel = MediaModel(
-          file: await XFiler.createFromBytes(
-            bytes: _bytes,
-            fileName: _meta?.name,
-          ),
-          meta: _meta?.copyWith(
-            uploadPath: path,
-          ),
+        _picModel = await MediaModelCreator.fromBytes(
+          bytes: _bytes,
+          fileName: _meta?.name,
+          uploadPath: _meta?.uploadPath,
+          ownersIDs: _meta?.ownersIDs,
+          mediaOrigin: _meta?.getMediaOrigin(),
         );
 
       }

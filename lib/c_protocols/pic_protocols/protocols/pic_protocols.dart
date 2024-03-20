@@ -74,6 +74,9 @@ class PicProtocols {
       _picModel = await PicStorageOps.readPic(path: path);
 
       if (_picModel != null){
+
+        // _picModel.blogPic(invoker: 'the fucking pic');
+
         await PicLDBOps.insertPic(_picModel);
       }
 
