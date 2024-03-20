@@ -242,7 +242,7 @@ class InstaProfileBubble extends StatelessWidget {
                                       ownersIDs: const [BldrsKeys.ragehID],
                                       name: 'test_video',
                                       sizeMB: _size,
-                                      fileExt: FileExt.mp4,
+                                      fileExt: FileExtType.mp4,
                                     ),
                                 );
 

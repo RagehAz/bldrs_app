@@ -6,7 +6,6 @@ import 'package:basics/components/drawing/dot_separator.dart';
 import 'package:basics/components/drawing/spacing.dart';
 import 'package:basics/components/drawing/super_positioned.dart';
 import 'package:basics/components/super_image/super_image.dart';
-import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
@@ -1434,7 +1433,6 @@ class Dialogs {
     final MediaModel? _pic = await MediaModelCreator.fromXFile(
         file: xFile,
         mediaOrigin: MediaOrigin.generated,
-        fileExt: FileExt.jpeg,
         uploadPath: null,
         ownersIDs: [],
         renameFile: null,

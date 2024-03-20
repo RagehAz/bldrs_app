@@ -123,7 +123,7 @@ class PDFModel {
       ownersIDs: ownersIDs ?? [],
       name: name,
       sizeMB: sizeMB,
-      fileExt: FileExt.pdf,
+      fileExt: FileExtType.pdf,
       uploadPath: path,
       data: MapperSS.combineStringStringMap(
         baseMap: {},

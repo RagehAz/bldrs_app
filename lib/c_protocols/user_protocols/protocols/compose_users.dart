@@ -91,7 +91,6 @@ class ComposeUserProtocols {
           fileName: '${userID}_pic',
           ownersIDs: userID == null ? [] : [userID],
           uploadPath: StoragePath.users_userID_pic(userID),
-          // fileType: _fileType, /// TASK: DETECT_FILE_TYPE
         );
 
         await PicProtocols.composePic(_mediaModel);

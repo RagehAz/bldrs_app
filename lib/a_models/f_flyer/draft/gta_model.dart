@@ -1,4 +1,3 @@
-import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/colors/colorizer.dart';
@@ -535,7 +534,6 @@ class GtaModel {
 
         _output = await MediaModelCreator.fromURL(
           url: url,
-          fileExt: FileExt.jpeg,
           // uploadPath: null,
           ownersIDs: [_userID],
           fileName: picName,

@@ -417,7 +417,6 @@ class PicProtocols {
 
       _output = await MediaModelCreator.fromURL(
         url: url,
-        fileExt: FileExt.jpeg, /// TASK: DETECT_FILE_TYPE
         ownersIDs: ownersIDs,
         fileName: picName,
         uploadPath: uploadPath,

@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
-import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/error_helpers.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
@@ -109,7 +108,6 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
 
             _pic = await MediaModelCreator.fromBytes(
               bytes: _bytes,
-              fileExt: FileExt.jpeg,
               mediaOrigin: MediaOrigin.generated,
               uploadPath: _uploadPath,
               fileName: '${widget.draft!.id}_poster',
