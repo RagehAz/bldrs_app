@@ -662,6 +662,192 @@ class FishModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// G SHEET
+
+  // --------------------
+  static const List<String> gSheetColumns = [
+    'bzID',
+
+    'Industry Type',
+    'Company Type',
+    'Logo',
+    'Name',
+    'Country',
+    'Bio',
+
+    'phone',
+    'email',
+    'website',
+    'facebook',
+    'linkedIn',
+    'youtube',
+    'instagram',
+    'pinterest',
+    'tiktok',
+    'twitter',
+    'snapchat',
+    'map',
+    'appStore',
+    'googlePlay',
+    'appGallery',
+
+    'Email fails',
+    'countryID',
+    'pic path',
+    'logo url',
+  ];
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Map<String, dynamic>>> createGSheetRows({
+    required List<FishModel> fishes,
+    required Function(int index, FishModel fish) onMapCreated,
+  }) async {
+    final List<Map<String, dynamic>> _output = [];
+
+    if (Lister.checkCanLoop(fishes) == true){
+
+      for (int i = 0; i < fishes.length; i++){
+
+        final FishModel fish = fishes[i];
+
+        onMapCreated(i, fish);
+
+        final Map<String, dynamic> _map = await _createFishGSheetMap(
+          fish: fish,
+          rowNumber: i + 2,
+        );
+
+        _output.add(_map);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>> _createFishGSheetMap({
+    required FishModel fish,
+    required int rowNumber,
+  }) async {
+    Map<String, dynamic> _output = {};
+
+    const String _emptyCell = '.';
+
+    /// bzID
+    _output = Mapper.insertPairInMap(map: _output, key: 'bzID', value: fish.id, overrideExisting: true);
+
+    /// Industry Type
+    final BzSection? _section = fish.type == null ? null : BzTyper.concludeBzSectionByBzTypes([fish.type!]);
+    final String _sectionString = BzTyper.cipherBzSection(_section) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'Industry Type', value: _sectionString, overrideExisting: true);
+
+    /// Company Type
+    final String _bzTypeString = BzTyper.cipherBzType(fish.type) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'Company Type', value: _bzTypeString, overrideExisting: true);
+
+    /// Logo
+    String? _url = ObjectCheck.isAbsoluteURL(fish.imageURL) == true ? fish.imageURL : null;
+    _url ??= ObjectCheck.objectIsFireStoragePicPath(fish.imageURL) == true ? await Storage.createURLByPath(path: fish.imageURL) : null;
+    _url ??= _emptyCell;
+    final String _formatted = _url == _emptyCell ? _emptyCell : '=Image(\$Z$rowNumber)';
+    _output = Mapper.insertPairInMap(map: _output, key: 'Logo', value: _formatted, overrideExisting: true);
+
+    /// Name
+    _output = Mapper.insertPairInMap(map: _output, key: 'Name', value: fish.name ?? _emptyCell, overrideExisting: true);
+
+    /// Country
+    String? _countryName = CountryModel.translateCountry(
+      countryID: fish.countryID,
+      langCode: 'en',
+    );
+    _countryName ??= _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'Country', value: _countryName, overrideExisting: true);
+
+    /// Bio
+    _output = Mapper.insertPairInMap(map: _output, key: 'Bio', value: fish.bio ?? _emptyCell, overrideExisting: true);
+
+    /// phone
+    final String _phone = ContactModel.getValueFromContacts(contacts: fish.contacts, contactType: ContactType.phone) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'phone', value: _phone, overrideExisting: true);
+
+    /// email
+    final String _email = ContactModel.getValueFromContacts(contacts: fish.contacts, contactType: ContactType.email) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'email', value: _email, overrideExisting: true);
+
+    /// website
+    final String _website = ContactModel.getValueFromContacts(contacts: fish.contacts, contactType: ContactType.website) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'website', value: _website, overrideExisting: true);
+
+    /// facebook
+    final String _facebook = ContactModel.getValueFromContacts(contacts: fish.contacts, contactType: ContactType.facebook) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'facebook', value: _facebook, overrideExisting: true);
+
+    /// linkedIn
+    final String _linkedIn = ContactModel.getValueFromContacts(contacts: fish.contacts, contactType: ContactType.linkedIn) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'linkedIn', value: _linkedIn, overrideExisting: true);
+
+    /// youtube
+    final String _youtube = ContactModel.getValueFromContacts(contacts: fish.contacts, contactType: ContactType.youtube) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'youtube', value: _youtube, overrideExisting: true);
+
+    /// instagram
+    final String _instagram = ContactModel.getValueFromContacts(contacts: fish.contacts, contactType: ContactType.instagram) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'instagram', value: _instagram, overrideExisting: true);
+
+    /// pinterest
+    final String _pinterest = ContactModel.getValueFromContacts(contacts: fish.contacts, contactType: ContactType.pinterest) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'pinterest', value: _pinterest, overrideExisting: true);
+
+    /// tiktok
+    final String _tiktok = ContactModel.getValueFromContacts(contacts: fish.contacts, contactType: ContactType.tiktok) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'tiktok', value: _tiktok, overrideExisting: true);
+
+    /// twitter
+    final String _twitter = ContactModel.getValueFromContacts(contacts: fish.contacts, contactType: ContactType.twitter) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'twitter', value: _twitter, overrideExisting: true);
+
+    /// snapchat
+    final String _snapchat = ContactModel.getValueFromContacts(contacts: fish.contacts, contactType: ContactType.snapchat) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'snapchat', value: _snapchat, overrideExisting: true);
+
+    /// map
+    final String _map = ContactModel.getValueFromContacts(contacts: fish.contacts, contactType: ContactType.map) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'map', value: _map, overrideExisting: true);
+
+    /// appStore
+    final String _appStore = ContactModel.getValueFromContacts(contacts: fish.contacts, contactType: ContactType.appStore) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'appStore', value: _appStore, overrideExisting: true);
+
+    /// googlePlay
+    final String _googlePlay = ContactModel.getValueFromContacts(contacts: fish.contacts, contactType: ContactType.googlePlay) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'googlePlay', value: _googlePlay, overrideExisting: true);
+
+    /// appGallery
+    final String _appGallery = ContactModel.getValueFromContacts(contacts: fish.contacts, contactType: ContactType.appGallery) ?? _emptyCell;
+    _output = Mapper.insertPairInMap(map: _output, key: 'appGallery', value: _appGallery, overrideExisting: true);
+
+    /// Email fails
+    _output = Mapper.insertPairInMap(map: _output, key: 'Email fails', value: fish.emailIsFailing, overrideExisting: true);
+
+    /// countryID
+    _output = Mapper.insertPairInMap(map: _output, key: 'countryID', value: fish.countryID ?? _emptyCell, overrideExisting: true);
+
+    /// pic path
+    _output = Mapper.insertPairInMap(map: _output, key: 'pic path', value: fish.imageURL ?? _emptyCell, overrideExisting: true);
+
+    /// logo url
+    _output = Mapper.insertPairInMap(map: _output, key: 'logo url', value: _url , overrideExisting: true);
+
+    if (_output == {}){
+      blog('Its empty');
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
   /// EQUALITY
 
   // --------------------
