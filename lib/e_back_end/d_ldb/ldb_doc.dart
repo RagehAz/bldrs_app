@@ -31,7 +31,7 @@ class LDBDoc {
   static const String flyers = 'flyers';
   static const String bzz = 'bzz';
   static const String notes = 'notes';
-  static const String pics = 'pics';
+  static const String media = 'media';
   static const String pdfs = 'pdfs';
   // --------------------
   /// USER
@@ -92,7 +92,7 @@ class LDBDoc {
       case LDBDoc.flyers: return 'id';
       case LDBDoc.bzz: return 'id';
       case LDBDoc.notes: return 'id';
-      case LDBDoc.pics: return 'path';
+      case LDBDoc.media: return 'id';
       case LDBDoc.pdfs: return 'path';
       // -------------
       /// USER
@@ -148,7 +148,7 @@ class LDBDoc {
     flyers,
     bzz,
     notes,
-    pics,
+    media,
     pdfs,
 
     'headline :User',
@@ -206,7 +206,7 @@ class LDBDoc {
     required bool flyers,
     required bool bzz,
     required bool notes,
-    required bool pics,
+    required bool media,
     required bool pdfs,
     required bool keywords,
     required bool zonePhids,
@@ -254,7 +254,7 @@ class LDBDoc {
     if (flyers == true) {_docs.add(LDBDoc.flyers);}
     if (bzz == true) {_docs.add(LDBDoc.bzz);}
     if (notes == true) {_docs.add(LDBDoc.notes);}
-    if (pics == true) {_docs.add(LDBDoc.pics);}
+    if (media == true) {_docs.add(LDBDoc.media);}
     if (pdfs == true) {_docs.add(LDBDoc.pdfs);}
     /// KEYWORDS
     if (keywords == true) {_docs.add(LDBDoc.keywords);}
@@ -311,7 +311,7 @@ class LDBDoc {
       flyers: true,
       bzz: true,
       notes: true,
-      pics: true,
+      media: true,
       pdfs: true,
       users: true,
       pickers: true,
@@ -354,7 +354,7 @@ class LDBDoc {
       flyers: true,
       bzz: true,
       notes: true,
-      pics: true,
+      media: true,
       pdfs: true,
       users: true,
       pickers: true,

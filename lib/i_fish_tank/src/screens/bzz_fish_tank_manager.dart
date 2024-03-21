@@ -1046,7 +1046,7 @@ class _BzzFishTankManagerState extends State<BzzFishTankManager> {
 
                   if (TextCheck.isEmpty(_image) == false && fish.id != null){
 
-                    final bool _isStoragePath = ObjectCheck.objectIsPicPath(_image);
+                    final bool _isStoragePath = ObjectCheck.objectIsFireStoragePicPath(_image);
                     final bool _isURL = ObjectCheck.isAbsoluteURL(_image);
 
                     if (_isStoragePath == false && _isURL == true){

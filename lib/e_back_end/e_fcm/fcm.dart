@@ -379,7 +379,7 @@ class FCM {
       }
 
       /// IS PIC PATH
-      else if (ObjectCheck.objectIsPicPath(urlOrPath) == true) {
+      else if (ObjectCheck.objectIsFireStoragePicPath(urlOrPath) == true) {
         _url = await Storage.createURLByPath(
           path: urlOrPath,
         );

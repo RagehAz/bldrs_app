@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:bldrs/a_models/x_ui/ui_image_cache_model.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -401,90 +400,90 @@ class UiProvider extends ChangeNotifier {
   /// IMAGES
 
   // --------------------
-  List<Cacher> _cachers = const <Cacher>[];
-  List<Cacher> get cacher => _cachers;
+  // List<Cacher> _cachers = const <Cacher>[];
+  // List<Cacher> get cacher => _cachers;
+  // --------------------
+  // ///
+  // Cacher? getCacher(String cacherID){
+  //   return Cacher.getCacherFromCachers(
+  //       cachers: _cachers,
+  //       cacherID: cacherID
+  //   );
+  // }
+  // --------------------
+  // ///
+  // void storeCacher({
+  //   required Cacher cacher,
+  //   required bool notify,
+  // }){
+  //
+  //   _cachers = Cacher.addCacherToCachers(
+  //     cachers: _cachers,
+  //     cacher: cacher,
+  //     overrideExisting: false,
+  //   );
+  //
+  //   if (notify == true){
+  //     notifyListeners();
+  //   }
+  //
+  // }
+  // --------------------
+//   ///
+//   void _disposeCacher({
+//     required String cacherID,
+//     required bool notify,
+// }){
+//
+//     _cachers = Cacher.disposeCacherInCachers(
+//       cachers: _cachers,
+//       cacherID: cacherID,
+//     );
+//
+//     if (notify == true){
+//       notifyListeners();
+//     }
+//
+//   }
+  // --------------------
+  // /
+  // static Cacher? proGetCacher({
+  //   required bool listen,
+  //   required String cacherID,
+  // }){
+  //   return null;
+  //   // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
+  //   // return _uiProvider._getCacher(cacherID);
+  // }
   // --------------------
   ///
-  Cacher? getCacher(String cacherID){
-    return Cacher.getCacherFromCachers(
-        cachers: _cachers,
-        cacherID: cacherID
-    );
-  }
-  // --------------------
-  ///
-  void storeCacher({
-    required Cacher cacher,
-    required bool notify,
-  }){
-
-    _cachers = Cacher.addCacherToCachers(
-      cachers: _cachers,
-      cacher: cacher,
-      overrideExisting: false,
-    );
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-  // --------------------
-  ///
-  void _disposeCacher({
-    required String cacherID,
-    required bool notify,
-}){
-
-    _cachers = Cacher.disposeCacherInCachers(
-      cachers: _cachers,
-      cacherID: cacherID,
-    );
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-  // --------------------
-  ///
-  static Cacher? proGetCacher({
-    required bool listen,
-    required String cacherID,
-  }){
-    return null;
-    // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
-    // return _uiProvider._getCacher(cacherID);
-  }
-  // --------------------
-  ///
-  static void proStoreCacher({
-    required Cacher cacher,
-    required bool notify,
-  }){
+  // static void proStoreCacher({
+  //   required Cacher cacher,
+  //   required bool notify,
+  // }){
       // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
       // _uiProvider._storeCacher(
       //   cacher: cacher,
       //   notify: notify,
       // );
-    }
+    // }
   // --------------------
-  ///
-  static void proDisposeCacher({
-    required String cacherID,
-    required bool notify,
-  }){
-
-    final UiProvider _uiProvider = Provider.of<UiProvider>(
-      getMainContext(),
-      listen: false,
-    );
-
-    _uiProvider._disposeCacher(
-      cacherID: cacherID,
-      notify: notify,
-    );
-  }
+  // ///
+  // static void proDisposeCacher({
+  //   required String cacherID,
+  //   required bool notify,
+  // }){
+  //
+  //   final UiProvider _uiProvider = Provider.of<UiProvider>(
+  //     getMainContext(),
+  //     listen: false,
+  //   );
+  //
+  //   _uiProvider._disposeCacher(
+  //     cacherID: cacherID,
+  //     notify: notify,
+  //   );
+  // }
   // -----------------------------------------------------------------------------
   //
   // /// CURRENT LANGUAGE : USED TO LIVE LISTEN TO CHANGES IN LOADING SCREEN

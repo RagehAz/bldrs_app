@@ -188,7 +188,7 @@ class BldrsBox extends StatelessWidget {
     /// WITH ICON
     else {
 
-      final bool isPicPath = ObjectCheck.objectIsPicPath(icon);
+      final bool isPicPath = ObjectCheck.objectIsFireStoragePicPath(icon);
       final String? _rootIcon = FlyerTyper.getRootIcon(icon);
       // final bool isURL = ObjectCheck.isAbsoluteURL(icon);
       // final bool isRaster = ObjectCheck.objectIsJPGorPNG(icon);

@@ -178,7 +178,7 @@ class _AdminListeners {
     final String? _bzName = _bzModel?.name;
     final List<String> _phids = getWords(flyerModel.phids ?? []);
     String? _keywords = Pathing.combinePathNodes(_phids);
-    _keywords = TextMod.modifyAllCharactersWith(characterToReplace: '/', replacement: ', ', input: _keywords);
+    _keywords = TextMod.replaceAllCharacters(characterToReplace: '/', replacement: ', ', input: _keywords);
 
     final NoteModel _note = NoteModel(
       id: Numeric.createUniqueID().toString(),

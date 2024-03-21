@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -78,8 +77,12 @@ class WipeBzProtocols {
           path: StoragePath.bzz_bzID(bzModel.id),
         ),
         /// DELETE BZ LOGO & AUTHORS PICS
-        PicLDBOps.deletePic(bzModel.logoPath),
-        PicLDBOps.deletePics(AuthorModel.getAuthorsPicsPaths(bzModel.authors)),
+        PicLDBOps.deleteMediaByFireStoragePath(
+          path: bzModel.logoPath,
+        ),
+        PicLDBOps.deleteMediasByFireStoragePaths(
+          paths: AuthorModel.getAuthorsPicsPaths(bzModel.authors),
+        ),
         /// CENSUS
         CensusListener.onWipeBz(bzModel),
 

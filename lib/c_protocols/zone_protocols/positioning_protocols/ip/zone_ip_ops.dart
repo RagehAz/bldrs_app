@@ -131,7 +131,7 @@ class ZoneIPOps {
             if (_countryData != null) {
 
               final String? _countryISO = _countryData['location']['country']['code']; // "US"
-              final String? _stateCode = TextMod.modifyAllCharactersWith(
+              final String? _stateCode = TextMod.replaceAllCharacters(
                       characterToReplace: '-',
                       replacement: '_',
                       input: _countryData['location']['region']['code']?.toLowerCase(), // "US-GA"

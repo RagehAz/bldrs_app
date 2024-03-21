@@ -3,7 +3,7 @@ import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
-import 'package:basics/helpers/strings/text_check.dart';
+import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/mediator/models/media_meta_model.dart';
 import 'package:basics/mediator/models/media_model.dart';
 import 'package:fire/super_fire.dart';
@@ -44,54 +44,77 @@ class PicStorageOps {
   // --------------------
   /// TASK : TEST_ME_NOW
   static Future<MediaModel?> readPic({
-    required String? path,
+    required String? firePathOrUrl,
   }) async {
     MediaModel? _picModel;
 
-    if (TextCheck.isEmpty(path) == false){
-
-      final bool _pathIsURL = ObjectCheck.isAbsoluteURL(path);
-      Uint8List? _bytes;
-      MediaMetaModel? _meta;
-
-      /// GET BYTES
-      if (_pathIsURL == true){
-        _bytes = await Byter.fromURL(path);
-      }
-      else {
-        _bytes = await Storage.readBytesByPath(
-          path: path,
-        );
-      }
-
-      if (Lister.checkCanLoop(_bytes) == true){
-
-        /// GET META DATA
-        if (_pathIsURL == false){
-          _meta = await Storage.readMetaByPath(
-            path: path,
-          );
-        }
-
-        else if (_pathIsURL == true){
-          _meta = await Storage.readMetaByURL(
-            url: path,
-          );
-        }
-
-        _picModel = await MediaModelCreator.fromBytes(
-          bytes: _bytes,
-          fileName: _meta?.name,
-          uploadPath: _meta?.uploadPath,
-          ownersIDs: _meta?.ownersIDs,
-          mediaOrigin: _meta?.getMediaOrigin(),
-        );
-
-      }
-
+    if (ObjectCheck.objectIsFireStoragePicPath(firePathOrUrl) == true){
+      _picModel = await _readFireStoragePath(
+        path: firePathOrUrl!,
+      );
+    }
+    else if (ObjectCheck.isAbsoluteURL(firePathOrUrl) == true){
+      _picModel = await _readUrl(
+        url: firePathOrUrl!,
+      );
     }
 
     return _picModel;
+  }
+  // --------------------
+  /// TASK : TEST_ME_NOW
+  static Future<MediaModel?> _readFireStoragePath({
+    required String path,
+  }) async {
+    MediaModel? _output;
+
+    if (ObjectCheck.objectIsFireStoragePicPath(path) == true){
+
+      final MediaMetaModel? _meta = await Storage.readMetaByPath(
+        path: path,
+      );
+
+      final Uint8List? _bytes = await Storage.readBytesByPath(
+        path: path,
+      );
+
+      _output = await MediaModelCreator.fromBytes(
+        bytes: _bytes,
+        ownersIDs: _meta?.ownersIDs,
+        uploadPath: _meta?.uploadPath,
+        mediaOrigin: _meta?.getMediaOrigin(),
+        fileName: FilePathing.createFileNameFromFireStoragePath(
+          fireStoragePath: path,
+        ),
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST_ME_NOW
+  static Future<MediaModel?> _readUrl({
+    required String url,
+  }) async {
+    MediaModel? _output;
+
+    if (ObjectCheck.isAbsoluteURL(url) == true){
+
+      final MediaMetaModel? _meta = await Storage.readMetaByURL(
+        url: url,
+      );
+
+      _output = await MediaModelCreator.fromURL(
+        url: url,
+        fileName: _meta?.name ?? TextMod.idifyString(url),
+        ownersIDs: _meta?.ownersIDs,
+        uploadPath: _meta?.uploadPath,
+      );
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

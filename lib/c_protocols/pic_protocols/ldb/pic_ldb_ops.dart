@@ -1,3 +1,4 @@
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
@@ -15,15 +16,17 @@ class PicLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> insertPic(MediaModel? picModel) async {
+  static Future<void> insertMedia({
+    required MediaModel? media,
+  }) async {
 
-    if (picModel != null){
+    if (media != null){
 
       await LDBOps.insertMap(
         // allowDuplicateIDs: false,
-        docName: LDBDoc.pics,
-        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pics),
-        input: MediaModel.cipherToLDB(picModel),
+        docName: LDBDoc.media,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.media),
+        input: MediaModel.cipherToLDB(media),
       );
 
     }
@@ -35,15 +38,17 @@ class PicLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<MediaModel?> readPic(String? path) async {
+  static Future<MediaModel?> readMedia({
+    required String? fileName,
+  }) async {
     MediaModel? _picModel;
 
-    if (TextCheck.isEmpty(path) == false){
+    if (TextCheck.isEmpty(fileName) == false){
 
       final List<Map<String, dynamic>> maps = await LDBOps.readMaps(
-        docName: LDBDoc.pics,
-        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pics),
-        ids: [path!],
+        docName: LDBDoc.media,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.media),
+        ids: [fileName!],
       );
 
       if (Lister.checkCanLoop(maps) == true){
@@ -54,32 +59,81 @@ class PicLDBOps {
 
     return _picModel;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<MediaModel?> readMediaByFireStoragePath({
+    required String? path,
+  }) async {
+
+    final String? _fileName = FilePathing.createFileNameFromFireStoragePath(
+      fireStoragePath: path,
+    );
+
+    return readMedia(
+      fileName: _fileName,
+    );
+
+  }
   // -----------------------------------------------------------------------------
 
   /// DELETE
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> deletePic(String? path) async {
-    if (TextCheck.isEmpty(path) == false) {
+  static Future<void> _deleteMedia({
+    required String? fileName,
+  }) async {
+    if (TextCheck.isEmpty(fileName) == false) {
       await LDBOps.deleteMap(
-        docName: LDBDoc.pics,
-        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pics),
-        objectID: path,
+        docName: LDBDoc.media,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.media),
+        objectID: fileName,
       );
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> deletePics(List<String> paths) async {
+  static Future<void> deleteMediaByFireStoragePath({
+    required String? path,
+  }) async {
 
-    if (Lister.checkCanLoop(paths) == true){
+    final String? _fileName = FilePathing.createFileNameFromFireStoragePath(
+        fireStoragePath: path,
+    );
+
+    await _deleteMedia(
+      fileName: _fileName,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _deleteMedias({
+    required List<String> filesNames,
+  }) async {
+
+    if (Lister.checkCanLoop(filesNames) == true){
       await LDBOps.deleteMaps(
-        docName: LDBDoc.pics,
-        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pics),
-        ids: paths,
+        docName: LDBDoc.media,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.media),
+        ids: filesNames,
       );
     }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> deleteMediasByFireStoragePaths({
+    required List<String> paths,
+  }) async {
+
+    final List<String> _filesNames = FilePathing.createFilesNamesFromFireStoragePaths(
+      paths: paths,
+    );
+
+    await _deleteMedias(
+      filesNames: _filesNames,
+    );
 
   }
   // --------------------
@@ -87,7 +141,7 @@ class PicLDBOps {
   static Future<void> deleteAll() async {
 
     await LDBOps.deleteAllMapsAtOnce(
-      docName: LDBDoc.pics,
+      docName: LDBDoc.media,
     );
 
   }
@@ -97,21 +151,38 @@ class PicLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<bool> checkExists(String path) async {
+  static Future<bool> checkExists({
+    required String? fileName,
+  }) async {
 
     bool _exists = false;
 
-    if (TextCheck.isEmpty(path) == false){
+    if (TextCheck.isEmpty(fileName) == false){
 
       _exists = await LDBOps.checkMapExists(
-        id: path,
-        docName: LDBDoc.pics,
-        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pics),
+        id: fileName,
+        docName: LDBDoc.media,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.media),
       );
 
     }
 
     return _exists;
     }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> checkExistsByFireStoragePath({
+    required String? path,
+  }) async {
+
+    final String? _fileName = FilePathing.createFileNameFromFireStoragePath(
+      fireStoragePath: path,
+    );
+
+    return checkExists(
+      fileName: _fileName,
+    );
+
+  }
   // -----------------------------------------------------------------------------
 }

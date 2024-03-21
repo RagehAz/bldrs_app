@@ -668,17 +668,17 @@ class GtaModel {
 
       _output = text;
 
-      _output = TextMod.modifyAllCharactersWith(
+      _output = TextMod.replaceAllCharacters(
         input: _output,
         characterToReplace: ',',
         replacement: '',
       );
-      _output = TextMod.modifyAllCharactersWith(
+      _output = TextMod.replaceAllCharacters(
         input: _output,
         characterToReplace: ' ',
         replacement: '',
       );
-      _output = TextMod.modifyAllCharactersWith(
+      _output = TextMod.replaceAllCharacters(
         input: _output,
         characterToReplace: "'",
         replacement: '',
@@ -721,13 +721,13 @@ class GtaModel {
       // Replace the pattern with an empty string
       _output = aboutItemString?.replaceAll(pattern, '');
 
-      _output = TextMod.modifyAllCharactersWith(
+      _output = TextMod.replaceAllCharacters(
           input: _output,
           characterToReplace: '\n',
           replacement: '\n\n',
       );
 
-      _output = TextMod.modifyAllCharactersWith(
+      _output = TextMod.replaceAllCharacters(
           input: _output,
           characterToReplace: '. ',
           replacement: '\n\n',

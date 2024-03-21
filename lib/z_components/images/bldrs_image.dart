@@ -2,7 +2,6 @@ import 'dart:ui' as ui;
 
 import 'package:basics/components/super_image/super_image.dart';
 import 'package:basics/helpers/checks/object_check.dart';
-import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/z_components/images/bldrs_image_path_to_ui_image.dart';
 import 'package:flutter/material.dart';
 
@@ -78,87 +77,39 @@ class BldrsImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    /// WITHOUT ICON
-    if (pic == null) {
-      return getChild(
-        context: context,
-        isLoading: loading,
-        theIcon: null,
+    final bool isPicPath = ObjectCheck.objectIsFireStoragePicPath(pic);
+
+    /// PIC PATH
+    if (isPicPath == true) {
+      return BldrsImagePathToUiImage(
+        imagePath: pic,
+        builder: (bool pathIsLoading, ui.Image? uiImage) {
+
+          return SuperImage(
+            loading: pathIsLoading || loading,
+            width: width,
+            height: height,
+            fit: fit,
+            scale: scale,
+            backgroundColor: backgroundColor,
+            corners: corners,
+            greyscale: greyscale,
+            pic: uiImage,
+            iconColor: iconColor,
+          );
+
+        },
       );
     }
 
-    /// WITH ICON
+    /// OTHER WISE
     else {
-
-      final bool isPicPath = ObjectCheck.objectIsPicPath(pic);
-      // final bool isURL = ObjectCheck.isAbsoluteURL(pic);
-      // final bool isRaster = ObjectCheck.objectIsJPGorPNG(pic);
-      // final bool isSVG = ObjectCheck.objectIsSVG(pic);
-      // final bool isFile = ObjectCheck.objectIsFile(pic);
-      // final bool isPicModel = pic is PicModel;
-      // final bool _isBytes = ObjectCheck.objectIsUint8List(pic);
-      // final bool _isBase64 = ObjectCheck.isBase64(pic);
-      // final bool _isUiImage = ObjectCheck.objectIsUiImage(pic);
-      // final bool _isImgImage = ObjectCheck.objectIsImgImage(pic);
-
-      /// PIC PATH
-      if (isPicPath == true) {
-        return BldrsImagePathToUiImage(
-          imagePath: pic,
-          builder: (bool pathIsLoading, ui.Image? uiImage) {
-
-            return SuperImage(
-              loading: pathIsLoading || loading,
-              width: width,
-              height: height,
-              fit: fit,
-              scale: scale,
-              backgroundColor: backgroundColor,
-              corners: corners,
-              greyscale: greyscale,
-              pic: uiImage,
-              iconColor: iconColor,
-            );
-
-          },
-        );
-      }
-
-      /// IS PIC MODEL
-      else if (pic is MediaModel){
-        final MediaModel _picModel = pic;
-        return getChild(
-            context: context,
-            theIcon: _picModel.file,
-            isLoading: loading
-        );
-      }
-
-      // /// CAN VIEW
-      // if (isURL ||
-      //     isRaster ||
-      //     isSVG ||
-      //     isFile ||
-      //     _isBytes ||
-      //     _isBase64 ||
-      //     _isUiImage ||
-      //     _isImgImage ||
-      //     isPicModel) {
-      //   return getChild(
-      //     context: context,
-      //     theIcon: pic,
-      //   );
-      // }
-
-      else {
-        return getChild(
+      return getChild(
           context: context,
           theIcon: pic,
-          isLoading: loading,
-        );
-      }
+          isLoading: loading
+      );
     }
-
 
   }
 // -----------------------------------------------------------------------------

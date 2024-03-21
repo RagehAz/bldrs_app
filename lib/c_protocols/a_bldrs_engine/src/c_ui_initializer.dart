@@ -137,7 +137,7 @@ class UiInitializer {
         flyers: true, /// flyers are updated frequently
         bzz: true, /// bzz might be updated frequently
         notes: false, // I do not think we need to refresh notes everyday
-        pics: true, /// pics of logos - users - flyers might change over time
+        media: true, /// pics of logos - users - flyers might change over time
         pdfs: false, // i do not think that fetched pdfs are changed frequently by authors,
         /// USER
         users: true, // users might change their profile info

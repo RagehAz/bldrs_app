@@ -75,11 +75,26 @@ class WipeFlyerProtocols {
         ),
 
         /// DELETE LDB SLIDES AND POSTER PICS + PDF
-        PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.big)),
-        PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.med)),
-        PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.small)),
-        PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.back)),
-        PicLDBOps.deletePic(StoragePath.flyers_flyerID_poster(flyerModel.id)),
+        PicLDBOps.deleteMediasByFireStoragePaths(
+          paths: FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.big),
+        ),
+
+        PicLDBOps.deleteMediasByFireStoragePaths(
+          paths: FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.med),
+        ),
+
+        PicLDBOps.deleteMediasByFireStoragePaths(
+          paths: FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.small),
+        ),
+
+        PicLDBOps.deleteMediasByFireStoragePaths(
+          paths: FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.back),
+        ),
+
+        PicLDBOps.deleteMediaByFireStoragePath(
+          path: StoragePath.flyers_flyerID_poster(flyerModel.id),
+        ),
+
         PDFLDBOps.delete(flyerModel.pdfPath),
 
         /// CENSUS
@@ -172,11 +187,21 @@ class WipeFlyerProtocols {
               ),
 
               /// DELETE LDB SLIDES AND POSTER PICS + PDF
-              PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.big)),
-              PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.med)),
-              PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.small)),
-              PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.back)),
-              PicLDBOps.deletePic(StoragePath.flyers_flyerID_poster(_flyerModel.id)),
+              PicLDBOps.deleteMediasByFireStoragePaths(
+                paths: FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.big),
+              ),
+              PicLDBOps.deleteMediasByFireStoragePaths(
+                paths: FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.med),
+              ),
+              PicLDBOps.deleteMediasByFireStoragePaths(
+                paths: FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.small),
+              ),
+              PicLDBOps.deleteMediasByFireStoragePaths(
+                paths: FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.back),
+              ),
+              PicLDBOps.deleteMediaByFireStoragePath(
+                path: StoragePath.flyers_flyerID_poster(_flyerModel.id),
+              ),
               PDFLDBOps.delete(_flyerModel.pdfPath),
 
               /// CENSUS
