@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:basics/mediator/models/media_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
@@ -10,7 +9,7 @@ import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/components/super_image/super_image.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 
 class PicFullScreen extends StatelessWidget {
   // --------------------------------------------------------------------------

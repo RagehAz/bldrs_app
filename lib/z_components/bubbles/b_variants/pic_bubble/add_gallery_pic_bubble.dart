@@ -4,7 +4,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/borderers.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/g_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';

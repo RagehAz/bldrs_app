@@ -4,8 +4,7 @@ import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_mod.dart';
-import 'package:basics/mediator/models/media_meta_model.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:fire/super_fire.dart';
 /// => TAMAM
 class PicStorageOps {

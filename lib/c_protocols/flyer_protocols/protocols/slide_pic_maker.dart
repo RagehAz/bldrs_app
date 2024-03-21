@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/slide_background/slide_blurred_background_widget.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/slide_background/slide_colored_background_widget.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';

@@ -6,7 +6,7 @@ import 'package:basics/helpers/colors/colorizer.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';

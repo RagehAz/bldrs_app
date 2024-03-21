@@ -11,7 +11,7 @@ import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/helpers/strings/pathing.dart';
 import 'package:basics/helpers/strings/text_check.dart';
-import 'package:basics/mediator/models/media_meta_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';

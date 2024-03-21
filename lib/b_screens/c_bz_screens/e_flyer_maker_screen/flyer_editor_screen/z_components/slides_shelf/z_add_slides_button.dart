@@ -3,7 +3,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/components/super_box/super_box.dart';
 import 'package:basics/helpers/space/scale.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/z_new_slide_image_picker_button.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';

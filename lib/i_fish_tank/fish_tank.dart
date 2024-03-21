@@ -28,7 +28,7 @@ import 'package:basics/models/america.dart';
 import 'package:basics/models/flag_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_screens/d_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_screens/g_search_screen/z_components/building_blocks/filter_bool_tile.dart';

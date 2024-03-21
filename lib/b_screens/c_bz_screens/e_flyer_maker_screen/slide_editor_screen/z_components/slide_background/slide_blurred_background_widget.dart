@@ -1,5 +1,5 @@
 import 'package:basics/components/super_image/super_image.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:basics/components/layers/blur_layer.dart';
 import 'package:flutter/material.dart';

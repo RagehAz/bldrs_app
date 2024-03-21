@@ -1,5 +1,5 @@
 import 'package:basics/helpers/maps/mapper.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/a_models/g_statistics/records/record_type.dart';
 import 'package:flutter/material.dart';
 

@@ -7,7 +7,7 @@ import 'package:basics/components/super_box/super_box.dart';
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:basics/mediator/video_maker/video_ops.dart';
 import 'package:bldrs/zzzzz_videos_test_lab/zebala/video_result.dart';

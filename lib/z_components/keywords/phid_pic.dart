@@ -3,7 +3,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/c_keywords/keyworder.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';

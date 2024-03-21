@@ -10,7 +10,7 @@ import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/f_flyer/publication_model.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';

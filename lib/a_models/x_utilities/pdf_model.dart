@@ -3,7 +3,7 @@ import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper_ss.dart';
-import 'package:basics/mediator/models/media_meta_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:basics/helpers/maps/mapper.dart';

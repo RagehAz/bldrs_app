@@ -1,6 +1,6 @@
 import 'package:basics/helpers/checks/device_checker.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/bldrs_keys.dart';
 
 class Standards {

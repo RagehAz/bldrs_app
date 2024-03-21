@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:basics/models/flag_model.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';

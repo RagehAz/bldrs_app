@@ -1,7 +1,7 @@
 import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/permissions/permits.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:basics/mediator/video_maker/video_maker.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_video_editor/slide_video_editor.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';

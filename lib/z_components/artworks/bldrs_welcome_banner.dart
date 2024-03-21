@@ -2,7 +2,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/space/borderers.dart';
 import 'package:bldrs/z_components/images/bldrs_image.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 
 class BldrsWelcomeBanner extends StatelessWidget {
   /// --------------------------------------------------------------------------

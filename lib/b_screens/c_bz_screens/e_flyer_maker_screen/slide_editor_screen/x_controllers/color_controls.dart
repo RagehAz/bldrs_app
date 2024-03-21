@@ -2,7 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/x_controllers/main_controls.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:flutter/material.dart';

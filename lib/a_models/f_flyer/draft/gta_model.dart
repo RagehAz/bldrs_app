@@ -15,7 +15,7 @@ import 'package:bldrs/a_models/f_flyer/publication_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/price_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';

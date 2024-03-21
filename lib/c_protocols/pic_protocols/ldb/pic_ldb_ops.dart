@@ -2,7 +2,7 @@ import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 /// => TAMAM
 class PicLDBOps {

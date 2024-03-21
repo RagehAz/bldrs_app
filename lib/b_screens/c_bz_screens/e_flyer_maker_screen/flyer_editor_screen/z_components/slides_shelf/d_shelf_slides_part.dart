@@ -4,7 +4,7 @@ import 'package:basics/components/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/layouts/views/floating_list.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/flyer_editor_screen/z_components/slides_shelf/e_draft_shelf_slide.dart';

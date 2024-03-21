@@ -1,5 +1,5 @@
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/mediator/models/media_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM

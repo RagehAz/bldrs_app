@@ -1,8 +1,7 @@
 import 'dart:typed_data';
-
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/strings/text_check.dart';
-import 'package:basics/mediator/models/media_meta_model.dart';
+import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:fire/super_fire.dart';
 
