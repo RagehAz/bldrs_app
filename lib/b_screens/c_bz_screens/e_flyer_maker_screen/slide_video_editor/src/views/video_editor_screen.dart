@@ -51,8 +51,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
         if (widget.video != null){
 
-          final File? _file = Filer.readXFile(
-            xFile: widget.video?.file,
+          final File? _file = await Filer.createFromSuperFile(
+            file: widget.video?.file,
           );
 
           await _setVideo(_file);

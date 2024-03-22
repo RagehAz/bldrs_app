@@ -123,8 +123,7 @@ class PicProtocols {
 
       final MediaModel? _picModel = await PicProtocols.fetchPic(path);
 
-      _theImage = await Imager.getUiImageFromXFile(_picModel?.file);
-
+      _theImage = await Imager.getUiImageFromSuperFile(_picModel?.file);
 
     }
 

@@ -288,14 +288,16 @@ class ZoneModel {
 
         _text = '$_inn $_countryName';
 
-        if (showCity == true && (zoneModel.cityModel != null || zoneModel.cityName != null)){
+        if (showCity == true){
 
           final String? _cityName = zoneModel.cityName ?? CityModel.translateCity(
             city: zoneModel.cityModel,
             langCode: Localizer.getCurrentLangCode(),
           );
 
-          _text = '$_inn $_cityName, $_countryName';
+          if (TextCheck.isEmpty(_cityName) == false){
+            _text = '$_inn $_cityName, $_countryName';
+          }
 
         }
 

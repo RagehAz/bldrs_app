@@ -6,6 +6,7 @@ import 'package:basics/components/drawing/dot_separator.dart';
 import 'package:basics/components/drawing/spacing.dart';
 import 'package:basics/components/drawing/super_positioned.dart';
 import 'package:basics/components/super_image/super_image.dart';
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
@@ -1417,7 +1418,7 @@ class Dialogs {
     return _result;
 
   }
-// --------------------
+  // --------------------
   static Future<bool> picDialogByXFile({
     required XFile? xFile,
     Verse? titleVerse,
@@ -1435,6 +1436,42 @@ class Dialogs {
         uploadPath: null,
         ownersIDs: [],
         renameFile: null,
+    );
+
+    if (_pic != null){
+
+      _output = await picsDialog(
+        titleVerse: titleVerse,
+        pics: [_pic],
+        bodyVerse: bodyVerse,
+        boolDialog: boolDialog,
+        confirmButtonVerse: confirmButtonVerse,
+        invertButtons: invertButtons,
+        picsHeights: picsHeights,
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  static Future<bool> picDialogBySuperFile({
+    required SuperFile? file,
+    Verse? titleVerse,
+    Verse? bodyVerse,
+    Verse? confirmButtonVerse,
+    bool boolDialog = true,
+    bool invertButtons = false,
+    double? picsHeights,
+  }) async {
+    bool _output = false;
+
+    final MediaModel? _pic = await MediaModelCreator.fromSuperFile(
+      file: file,
+      mediaOrigin: MediaOrigin.generated,
+      // uploadPath: null,
+      ownersIDs: [],
+      // rename: null,
     );
 
     if (_pic != null){

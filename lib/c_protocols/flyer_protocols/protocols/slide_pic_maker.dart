@@ -80,12 +80,12 @@ class SlidePicMaker {
               :
           MediaModel.decipherMediaOrigin(_source) ?? MediaOrigin.generated;
 
-          _output = await MediaModelCreator.fromXFile(
+          _output = await MediaModelCreator.fromSuperFile(
             file: _output.file,
             mediaOrigin: _type,
             uploadPath: _slidePath,
             ownersIDs: slidePic.meta!.ownersIDs,
-            renameFile: _slideID,
+            rename: _slideID,
           );
 
           // blog('4.compressSlideBigPicTo : _output $_output');

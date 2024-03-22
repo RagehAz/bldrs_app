@@ -1,7 +1,7 @@
 // ignore_for_file: always_put_control_body_on_new_line
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/keywords_phrases_protocols/keywords_phrases_ldb_ops.dart';
-
+import 'package:basics/filing/filing.dart';
 /*
 
 WHEN YOU ADD NEW LDB DOC
@@ -33,6 +33,7 @@ class LDBDoc {
   static const String notes = 'notes';
   static const String media = 'media';
   static const String pdfs = 'pdfs';
+  static const String superFiles = SuperFile.folderName;
   // --------------------
   /// USER
   static const String users = 'users';
@@ -94,6 +95,7 @@ class LDBDoc {
       case LDBDoc.notes: return 'id';
       case LDBDoc.media: return 'id';
       case LDBDoc.pdfs: return 'path';
+      case LDBDoc.superFiles: return SuperFile.primaryKey;
       // -------------
       /// USER
       case LDBDoc.users: return 'id';
@@ -150,6 +152,7 @@ class LDBDoc {
     notes,
     media,
     pdfs,
+    superFiles,
 
     'headline :User',
     users,
@@ -208,6 +211,7 @@ class LDBDoc {
     required bool notes,
     required bool media,
     required bool pdfs,
+    required bool superFiles,
     required bool keywords,
     required bool zonePhids,
     /// USER
@@ -256,6 +260,7 @@ class LDBDoc {
     if (notes == true) {_docs.add(LDBDoc.notes);}
     if (media == true) {_docs.add(LDBDoc.media);}
     if (pdfs == true) {_docs.add(LDBDoc.pdfs);}
+    if (superFiles == true) {_docs.add(LDBDoc.superFiles);}
     /// KEYWORDS
     if (keywords == true) {_docs.add(LDBDoc.keywords);}
     if (zonePhids == true) {_docs.add(LDBDoc.zonePhids);}
@@ -313,6 +318,7 @@ class LDBDoc {
       notes: true,
       media: true,
       pdfs: true,
+      superFiles: false, // keep those bulky bytes
       users: true,
       pickers: true,
       countries: true,
@@ -356,6 +362,7 @@ class LDBDoc {
       notes: true,
       media: true,
       pdfs: true,
+      superFiles: true,
       users: true,
       pickers: true,
       countries: true,
@@ -375,7 +382,6 @@ class LDBDoc {
       authModel: true,
       accounts: true,
       langCode: true,
-      // langMaps: true,
       userEditor: true,
       bzEditor: true,
       authorEditor: true,

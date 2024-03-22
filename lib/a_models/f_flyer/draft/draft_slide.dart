@@ -10,7 +10,6 @@ import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:cross_file/cross_file.dart';
 import 'package:flutter/material.dart';
 
 /// => TAMAM
@@ -114,7 +113,7 @@ class DraftSlide {
 
       final int _newIndex = existingDrafts.length;
 
-      final Uint8List? _coverBytes = await cover.file?.readAsBytes();
+      final Uint8List? _coverBytes = await Byter.fromSuperFile(cover.file);
       final Color? _midColor = await Colorizer.getAverageColor(_coverBytes);
       // final MediaModel? _medPic = await SlidePicMaker.compressSlideBigPicTo(
       //   slidePic: bigPic,
@@ -183,7 +182,7 @@ class DraftSlide {
 
     if (bigPic != null){
 
-      final Uint8List? _bigPicBytes = await bigPic.file?.readAsBytes();
+      final Uint8List? _bigPicBytes = await Byter.fromSuperFile(bigPic.file);
       final Color? _midColor = await Colorizer.getAverageColor(_bigPicBytes);
       final MediaModel? _medPic = await SlidePicMaker.compressSlideBigPicTo(
         slidePic: bigPic,
@@ -264,8 +263,8 @@ class DraftSlide {
         matrix: draft.matrix,
         matrixFrom: draft.matrixFrom,
         animationCurve: draft.animationCurve,
-        frontImage: await Imager.getUiImageFromXFile(_picModel?.file),
-        backImage: await Imager.getUiImageFromXFile(_backPic?.file),
+        frontImage: await Imager.getUiImageFromSuperFile(_picModel?.file),
+        backImage: await Imager.getUiImageFromSuperFile(_backPic?.file),
         frontPicPath: _picModel?.meta?.uploadPath,
       );
 
@@ -565,12 +564,12 @@ class DraftSlide {
   }
   // --------------------
   /// TASK : TEST_ME_NOW
-  static List<XFile> getFilesFromDraftSlides({
+  static List<SuperFile> getFilesFromDraftSlides({
     required List<DraftSlide> drafts,
     required SlidePicType slidePicType,
   }) {
 
-    final List<XFile> _output = <XFile>[];
+    final List<SuperFile> _output = <SuperFile>[];
 
     for (final DraftSlide draft in drafts) {
 

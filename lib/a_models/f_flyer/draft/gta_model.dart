@@ -500,7 +500,7 @@ class GtaModel {
               backPic: _backPic,
               headline: i == 0 ? product.title : null,
               description: null,
-              midColor: await Colorizer.getAverageColorFromXFile(_bigPic.file),
+              midColor: await Colorizer.getAverageColorFromSuperFile(_bigPic.file),
               backColor: null,
               opacity: 1,
               matrix: Matrix4.identity(),

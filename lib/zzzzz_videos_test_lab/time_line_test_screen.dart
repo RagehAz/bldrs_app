@@ -46,7 +46,7 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
   // --------------------------------------------------------------------------
   Future<void> _pickVideo() async {
 
-    final String _fileName = Numeric.createUniqueID().toString();
+    // final String _fileName = Numeric.createUniqueID().toString();
 
     final MediaModel? _video = await VideoMaker.pickVideo(
       context: context,
@@ -55,13 +55,13 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
       onPermissionPermanentlyDenied: (t){},
       uploadPath: 'a/s',
       ownersIDs: ['x'],
-      name: _fileName,
+      name: null,
     );
 
     if (_video != null){
 
-      final File? file = Filer.readXFile(
-          xFile: _video.file,
+      final File? file = await Filer.createFromSuperFile(
+        file: _video.file,
       );
 
       _videoEditorController = await VideoOps.initializeVideoEditorController(

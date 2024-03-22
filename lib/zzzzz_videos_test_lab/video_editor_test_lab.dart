@@ -93,8 +93,8 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
 
         if (widget.video != null){
 
-          final File? _file = Filer.readXFile(
-              xFile: widget.video!.file,
+          final File? _file = await Filer.createFromSuperFile(
+              file: widget.video!.file,
           );
 
           await _setVideo(_file);
@@ -190,8 +190,8 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
       name: Numeric.createUniqueID().toString(), /// dont_keep_naming_files_when_picking_a_video
     );
 
-    final File? _file = Filer.readXFile(
-      xFile: _videoMap?.file,
+    final File? _file = await Filer.createFromSuperFile(
+      file: _videoMap?.file,
     );
 
     await _setVideo(_file);
@@ -215,8 +215,8 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
       name: Numeric.createUniqueID().toString(),
     );
 
-    final File? _file = Filer.readXFile(
-      xFile: _videoMap?.file,
+    final File? _file = await Filer.createFromSuperFile(
+      file: _videoMap?.file,
     );
 
     await _setVideo(_file);

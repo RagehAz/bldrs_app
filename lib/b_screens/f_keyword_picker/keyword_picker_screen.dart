@@ -384,7 +384,10 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
               width: Scale.screenWidth(context),
               height: Scale.screenHeight(context),
               boxAlignment: Alignment.topCenter,
-              padding: Stratosphere.getStratosphereSandwich(context: context, appBarType: AppBarType.search),
+              padding: Stratosphere.getStratosphereSandwich(
+                  context: context,
+                  appBarType: AppBarType.search,
+              ),
               columnChildren: <Widget>[
 
                 /// BROWSING : MAP TREE

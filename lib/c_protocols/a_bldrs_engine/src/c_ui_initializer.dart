@@ -132,52 +132,61 @@ class UiInitializer {
 
     if (_shouldRefresh == true){
 
-      await LDBDoc.wipeOutLDBDocs(
-        /// MAIN
-        flyers: true, /// flyers are updated frequently
-        bzz: true, /// bzz might be updated frequently
-        notes: false, // I do not think we need to refresh notes everyday
-        media: true, /// pics of logos - users - flyers might change over time
-        pdfs: false, // i do not think that fetched pdfs are changed frequently by authors,
-        /// USER
-        users: true, // users might change their profile info
-        authModel: false, // need my authModel to prevent re-auth everyday
-        accounts: false, // keep accounts until user decides to not "remember me trigger"
-        searches: false,
-        /// CHAIN
-        bldrsChains: false, // keep the chains man, if chains updated - appState protocols handles this
-        pickers: false, // same as chains
-        /// ZONES
-        countries: true, // countries include staging info, so lets refresh that daily
-        cities: false, // cities do not change often
-        staging: true, // staging info changes frequently
-        census: true, // might need faster refresh aslan
-        /// PHRASES
-        allKeywordsPhrasesInAllLangs: false,
-        keywords: false,
-        zonePhids: true,// yes should be refreshed frequently to listen to new flyers
-        countriesPhrases: false,
-        /// EDITORS
-        userEditor: false, // keep this for user to find later anytime
-        bzEditor: false, // keep this as well
-        authorEditor: false, // keep
-        flyerMaker: false, // keep
-        reviewEditor: false, // keep
-        /// SETTINGS
-        theLastWipe: false, // no need to wipe
-        appState: true,
-        langCode: false, // no need to wipe
-        // langMaps: false, // no need to wipe
-        onboarding: false,
-        /// DASHBOARD
-        gta: false, // this is for dashboard
-        webpages: false, // this is for dashboard
-        noteCampaigns: false, // dashboard
-        /// COUNTERS
-        bzzCounters: true, // this stays for 10 minutes anyways
-        flyersCounters: true, // this stays for 10 minutes anyways
-        usersCounters: true, // this stays for 10 minutes anyways
-      );
+      await Future.wait(<Future>[
+
+        Director.wipeAllDirectoriesAndCaches(),
+
+        LDBDoc.wipeOutLDBDocs(
+          /// MAIN
+          flyers: true, /// flyers are updated frequently
+          bzz: true, /// bzz might be updated frequently
+          notes: false, // I do not think we need to refresh notes everyday
+          media: true, /// pics of logos - users - flyers might change over time
+          pdfs: false, // i do not think that fetched pdfs are changed frequently by authors,
+          superFiles: true,
+          /// USER
+          users: true, // users might change their profile info
+          authModel: false, // need my authModel to prevent re-auth everyday
+          accounts: false, // keep accounts until user decides to not "remember me trigger"
+          searches: false,
+          /// CHAIN
+          bldrsChains: false, // keep the chains man, if chains updated - appState protocols handles this
+          pickers: false, // same as chains
+          /// ZONES
+          countries: true, // countries include staging info, so lets refresh that daily
+          cities: false, // cities do not change often
+          staging: true, // staging info changes frequently
+          census: true, // might need faster refresh aslan
+          /// PHRASES
+          allKeywordsPhrasesInAllLangs: false,
+          keywords: false,
+          zonePhids: true,// yes should be refreshed frequently to listen to new flyers
+          countriesPhrases: false,
+          /// EDITORS
+          userEditor: false, // keep this for user to find later anytime
+          bzEditor: false, // keep this as well
+          authorEditor: false, // keep
+          flyerMaker: false, // keep
+          reviewEditor: false, // keep
+          /// SETTINGS
+          theLastWipe: false, // no need to wipe
+          appState: true,
+          langCode: false, // no need to wipe
+          // langMaps: false, // no need to wipe
+          onboarding: false,
+          /// DASHBOARD
+          gta: false, // this is for dashboard
+          webpages: false, // this is for dashboard
+          noteCampaigns: false, // dashboard
+          /// COUNTERS
+          bzzCounters: true, // this stays for 10 minutes anyways
+          flyersCounters: true, // this stays for 10 minutes anyways
+          usersCounters: true, // this stays for 10 minutes anyways
+        ),
+
+      ]);
+
+
 
     }
 
