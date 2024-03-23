@@ -111,6 +111,8 @@ Future<void> _addGalleryImagesToNewFlyer({
   required double flyerBoxWidth,
 }) async {
 
+  final int _startingIndex = draftFlyer.value?.draftSlides?.length ?? 0;
+
   if(mounted == true && draftFlyer.value?.id != null && draftFlyer.value?.bzID != null){
 
     final List<MediaModel> _bigPics = await BldrsMediaMaker.makePics(
@@ -120,7 +122,7 @@ Future<void> _addGalleryImagesToNewFlyer({
       resizeToWidth: Standards.slideBigWidth,
       uploadPathGenerator: (int index) => StoragePath.flyers_flyerID_index_big(
         flyerID: draftFlyer.value!.id,
-        slideIndex: index,
+        slideIndex: index+_startingIndex,
       )!,
       ownersIDs: await FlyerModel.generateFlyerOwners(
         bzID: draftFlyer.value?.bzID,
@@ -128,7 +130,7 @@ Future<void> _addGalleryImagesToNewFlyer({
       picNameGenerator: (int index){
         return SlideModel.generateSlideID(
             flyerID: draftFlyer.value!.id,
-            slideIndex: index,
+            slideIndex: index+_startingIndex,
             type: SlidePicType.big,
         )!;
       },
@@ -184,6 +186,8 @@ Future<void> _addCameraImageToNewFlyer({
   required double flyerBoxWidth,
 }) async {
 
+  final int _startingIndex = draftFlyer.value?.draftSlides?.length ?? 0;
+
   if(mounted == true && draftFlyer.value?.id != null && draftFlyer.value?.bzID != null){
 
     final MediaModel? _bigPic = await BldrsMediaMaker.makePic(
@@ -193,11 +197,11 @@ Future<void> _addCameraImageToNewFlyer({
       resizeToWidth: Standards.slideBigWidth,
       uploadPath: StoragePath.flyers_flyerID_index_big(
         flyerID: draftFlyer.value!.id,
-        slideIndex: 0,
+        slideIndex: _startingIndex,
       )!,
       fileName: SlideModel.generateSlideID(
         flyerID: draftFlyer.value!.id,
-        slideIndex: 0,
+        slideIndex: _startingIndex,
         type: SlidePicType.big,
       )!,
       mediaOrigin: MediaOrigin.cameraImage,
@@ -253,6 +257,8 @@ Future<void> _addGalleryVideoToNewFlyer({
 
   blog('should implement : _addGalleryVideoToNewFlyer');
 
+  final int _startingIndex = draftFlyer.value?.draftSlides?.length ?? 0;
+
   if(mounted == true && draftFlyer.value?.id != null && draftFlyer.value?.bzID != null){
 
     final Map<String, MediaModel>? _videoMap = await BldrsMediaMaker.makeVideo(
@@ -262,11 +268,11 @@ Future<void> _addGalleryVideoToNewFlyer({
       resizeToWidth: Standards.slideBigWidth,
       uploadPath: StoragePath.flyers_flyerID_index_big(
         flyerID: draftFlyer.value!.id,
-        slideIndex: 0,
+        slideIndex: _startingIndex,
       )!,
       name: SlideModel.generateSlideID(
         flyerID: draftFlyer.value!.id,
-        slideIndex: 0,
+        slideIndex: _startingIndex,
         type: SlidePicType.big,
       )!,
       mediaOrigin: MediaOrigin.galleryVideo,

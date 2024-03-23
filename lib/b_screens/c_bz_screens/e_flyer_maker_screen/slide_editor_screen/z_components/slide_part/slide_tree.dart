@@ -88,6 +88,7 @@ class SlideTree extends StatelessWidget {
           key: const ValueKey<String>('SuperImage_slide_draft'),
           width: flyerBoxWidth,
           height: flyerBoxHeight,
+          // fit: BoxFit.contain,
         ),
       ),
     );

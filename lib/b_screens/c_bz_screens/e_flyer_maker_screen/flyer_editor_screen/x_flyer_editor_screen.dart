@@ -481,7 +481,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                 //   curve: Curves.easeInOutExpo,
                 // );
                 //
-                // _draftNotifier.value?.blogDraft(invoker: 'current');
+                _draftNotifier.value?.blogDraft(invoker: 'current');
 
 
 

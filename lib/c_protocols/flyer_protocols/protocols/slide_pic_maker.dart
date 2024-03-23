@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:basics/filing/filing.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:basics/mediator/models/media_models.dart';
@@ -45,6 +46,26 @@ class SlidePicMaker {
 
     if (flyerID != null && slideIndex != null && slidePic != null && slidePic.meta?.data != null){
 
+      final String? _slideID = SlideModel.generateSlideID(
+        flyerID: flyerID,
+        slideIndex: slideIndex,
+        type: type,
+      );
+
+      final String? _slidePath = SlideModel.generateSlidePicPath(
+        flyerID: flyerID,
+        slideIndex: slideIndex,
+        type: type,
+      );
+
+      _output = await MediaModelCreator.fromBytes(
+        bytes: await Byter.fromSuperFile(slidePic.file),
+        fileName: _slideID,
+        ownersIDs: slidePic.meta?.ownersIDs,
+        uploadPath: _slidePath,
+        mediaOrigin: slidePic.getMediaOrigin(),
+      );
+
       _output = await PicMaker.resizePic(
           mediaModel: slidePic,
           resizeToWidth: getSlidePicWidth(type),
@@ -55,44 +76,7 @@ class SlidePicMaker {
         quality: getSlidePicCompressionQuality(type),
       );
 
-      // blog('2.compressSlideBigPicTo : _bytes ${_bytes?.length}');
-
-      if (_output != null){
-
-        final String? _slideID = SlideModel.generateSlideID(
-          flyerID: flyerID,
-          slideIndex: slideIndex,
-          type: type,
-        );
-
-        final String? _slidePath = SlideModel.generateSlidePicPath(
-          flyerID: flyerID,
-          slideIndex: slideIndex,
-          type: type,
-        );
-
-        // blog('3.compressSlideBigPicTo : _slideID $_slideID : $_slidePath');
-
-        if (_slideID != null && _slidePath != null){
-
-          final String? _source = slidePic.meta?.data?['source'];
-          final MediaOrigin _type = _source == null ? MediaOrigin.generated
-              :
-          MediaModel.decipherMediaOrigin(_source) ?? MediaOrigin.generated;
-
-          _output = await MediaModelCreator.fromSuperFile(
-            file: _output.file,
-            mediaOrigin: _type,
-            uploadPath: _slidePath,
-            ownersIDs: slidePic.meta!.ownersIDs,
-            rename: _slideID,
-          );
-
-          // blog('4.compressSlideBigPicTo : _output $_output');
-
-        }
-
-      }
+      // blog('2.compressSlideBigPicTo : _output $_output');
 
     }
 
@@ -192,6 +176,7 @@ class SlidePicMaker {
       );
 
       if (_uploadPath != null && _slideID != null){
+
         _output = await MediaModelCreator.fromBytes(
           bytes: _bytes,
           mediaOrigin: MediaOrigin.generated,
@@ -199,9 +184,6 @@ class SlidePicMaker {
           ownersIDs: ownersIDs,
           fileName: _slideID,
         );
-      }
-
-      if (_output != null){
 
         _output = await PicMaker.resizePic(
           mediaModel: _output,

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/components/bubbles/bubble/bubble.dart';
+import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/error_helpers.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/mediator/models/media_models.dart';
@@ -13,6 +14,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
+import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/images/bldrs_image.dart';
 import 'package:bldrs/z_components/poster/structure/poster_switcher.dart';
 import 'package:bldrs/z_components/poster/structure/x_note_poster_box.dart';
@@ -90,6 +92,7 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
 
         if (_loading == false){
           setState(() {
+            _poster = null;
             _loading = true;
           });
         }
@@ -99,6 +102,11 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
         await tryAndCatch(
           invoker: 'Load poster',
           functions: () async {
+
+            await Future.delayed(Duration(
+                milliseconds: (widget.draft?.draftSlides?.length ?? 1) * 800,
+            )
+            );
 
             _bytes = await _cont.capture(
               /// this fixes white lines issue
@@ -110,7 +118,7 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
               bytes: _bytes,
               mediaOrigin: MediaOrigin.generated,
               uploadPath: _uploadPath,
-              fileName: '${widget.draft!.id}_poster',
+              fileName: '${widget.draft!.id}_posterX',
               ownersIDs: await FlyerModel.generateFlyerOwners(
                 bzID: widget.draft!.bzID,
               ),
@@ -151,10 +159,6 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
   /// TESTED : WORKS PERFECT
   Future<void> _reloadPoster() async {
 
-    setState(() {
-      _poster = null;
-    });
-
     await _loadPoster();
 
   }
@@ -175,6 +179,14 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
         leadingIcon: Iconz.check,
         leadingIconSizeFactor: 0.6,
         loading: _poster == null,
+        // onLeadingIconTap: () async {
+        //
+        //   final MediaModel? _x = await MediaModelCreator.fromLocalAsset(localAsset: Iconz.redAlert);
+        //
+        //   setState(() {
+        //     _poster = _poster == null ? _x : null;
+        //   });
+        // }
         // switchValue: true,//draft.showsAuthor,
         // hasSwitch: true,
         // onSwitchTap: (bool value) => testPoster(

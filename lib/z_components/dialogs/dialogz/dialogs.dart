@@ -1406,6 +1406,7 @@ class Dialogs {
                 pic: _pic.file,
                 loading: false,
                 corners: _height * 0.1,
+                // fit: BoxFit.contain,
               ),
             );
 

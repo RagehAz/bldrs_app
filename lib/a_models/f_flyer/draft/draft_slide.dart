@@ -182,26 +182,38 @@ class DraftSlide {
 
     if (bigPic != null){
 
+      // /// ---> BIG
+      // await Dialogs.picDialogBySuperFile(file: bigPic.file, titleVerse: Verse.plain('BIG'));
+
+      /// MID COLOR
       final Uint8List? _bigPicBytes = await Byter.fromSuperFile(bigPic.file);
       final Color? _midColor = await Colorizer.getAverageColor(_bigPicBytes);
+      /// MED PIC
       final MediaModel? _medPic = await SlidePicMaker.compressSlideBigPicTo(
         slidePic: bigPic,
         flyerID: flyerID,
         slideIndex: index,
         type: SlidePicType.med,
       );
+      // /// ---> MED
+      // await Dialogs.picDialogBySuperFile(file: _medPic?.file, titleVerse: Verse.plain('MED'));
+      /// SMALL PIC
       final MediaModel? _smallPic = await SlidePicMaker.compressSlideBigPicTo(
         slidePic: bigPic,
         flyerID: flyerID,
         slideIndex: index,
         type: SlidePicType.small,
       );
+      // /// ---> SMALL
+      // await Dialogs.picDialogBySuperFile(file: _smallPic?.file, titleVerse: Verse.plain('small'));
       final MediaModel? _backPic = await SlidePicMaker.createSlideBackground(
         bigPic: bigPic,
         flyerID: flyerID,
         slideIndex: index,
         overrideSolidColor: overrideSolidColor,
       );
+      // /// ---> BACK PIC
+      // await Dialogs.picDialogBySuperFile(file: _backPic?.file, titleVerse: Verse.plain('Back'));
 
       _slide = DraftSlide(
         flyerID: flyerID,

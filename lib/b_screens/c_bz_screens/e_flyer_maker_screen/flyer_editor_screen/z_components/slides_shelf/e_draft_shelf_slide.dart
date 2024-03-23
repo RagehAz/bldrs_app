@@ -173,11 +173,11 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                       }
 
                     },
-                    child: SuperFilteredImage(
+                    child: SuperImage(
                       width: DraftShelfSlide.flyerBoxWidth,
                       height: _flyerBoxHeight,
                       pic: widget.draftSlide?.bigPic,
-                      boxFit: BoxFit.fitWidth,
+                      // fit: BoxFit.contain,
                       loading: false,
                     ),
                   ),
