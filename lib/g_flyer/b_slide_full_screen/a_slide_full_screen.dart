@@ -67,7 +67,7 @@ class PicFullScreen extends StatelessWidget {
 
   }
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<void> openPicModel({
     required MediaModel? pic,
     required String? title,

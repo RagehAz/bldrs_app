@@ -82,7 +82,6 @@ class SlideTree extends StatelessWidget {
         child: slide?.medPic == null ?
         Container()
             :
-        /// TASK : TEST_ME_NOW
         SuperImage(
           pic: slide!.medPic!,
           loading: false,

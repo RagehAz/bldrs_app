@@ -501,7 +501,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
           valueListenable: draftNotifier,
           builder: (_, DraftBz? draft, Widget? child){
 
-            /// TASK : TEST_ME_NOW
             return AppBarButton(
             icon: draft?.logoPicModel,
             bigIcon: true,

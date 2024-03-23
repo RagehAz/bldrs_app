@@ -394,7 +394,7 @@ class Launcher {
   /// FILE SHARING
 
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<void> shareFile({
     required File? file,
     required String? subject,

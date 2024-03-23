@@ -17,7 +17,7 @@ class FireStorageOps {
   /// CREATE
 
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<MediaModel?> createMedia(MediaModel? media) async {
 
     await MediaModel.assertIsUploadable(media);
@@ -41,7 +41,7 @@ class FireStorageOps {
   /// READ
 
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<MediaModel?> readMedia({
     required String? firePathOrUrl,
   }) async {
@@ -61,7 +61,7 @@ class FireStorageOps {
     return _output;
   }
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<MediaModel?> _readFireStoragePath({
     required String path,
   }) async {
@@ -78,12 +78,12 @@ class FireStorageOps {
       );
 
       /// FILE NAME
-      String? _fileName = FilePathing.getNameFromFilePath(
-        filePath: _meta?.uploadPath,
+      String? _fileName = FilePathing.getNameFromPath(
+        path: _meta?.uploadPath,
         withExtension: false,
       );
       _fileName ??= _meta?.name;
-      _fileName ??= FilePathing.createFileNameFromFireStoragePath(fireStoragePath: path);
+      _fileName ??= FilePathing.idifyFireStoragePath(fireStoragePath: path);
 
       _output = await MediaModelCreator.fromBytes(
         bytes: _bytes,
@@ -98,7 +98,7 @@ class FireStorageOps {
     return _output;
   }
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<MediaModel?> _readUrl({
     required String url,
   }) async {
@@ -111,8 +111,8 @@ class FireStorageOps {
       );
 
       /// FILE NAME
-      String? _fileName = FilePathing.getNameFromFilePath(
-          filePath: _meta?.uploadPath,
+      String? _fileName = FilePathing.getNameFromPath(
+          path: _meta?.uploadPath,
           withExtension: false,
       );
       _fileName ??= _meta?.name;

@@ -236,7 +236,7 @@ class FlyerDeck extends StatelessWidget {
     return _scale;
   }
   // -----------------------------------------------------------------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   Future<FlyerModel?> _transformDraft({
     required BuildContext context,
     required DraftFlyer? draft,

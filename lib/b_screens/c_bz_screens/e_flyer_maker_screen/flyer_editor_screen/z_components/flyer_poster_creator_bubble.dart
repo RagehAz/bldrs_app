@@ -77,7 +77,7 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   Future<void> _loadPoster() async {
 
     if (widget.draft?.id != null){

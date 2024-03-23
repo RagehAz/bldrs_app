@@ -32,7 +32,7 @@ class SlidePicMaker {
   /// SLIDES CREATORS
 
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<MediaModel?> compressSlideBigPicTo({
     required MediaModel? slidePic,
     required String? flyerID,
@@ -159,7 +159,7 @@ class SlidePicMaker {
     return _output;
   }
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<MediaModel?> _backgroundPicCreator({
     required String? flyerID,
     required int? slideIndex,

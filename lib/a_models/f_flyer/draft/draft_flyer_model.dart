@@ -894,7 +894,6 @@ class DraftFlyer{
       if (PDFModel.checkPDFModelsAreIdentical(pdf1: draft1.pdfModel, pdf2: draft2.pdfModel) == false){
         blog('pdfs are not identical');
       }
-      /// TASK : TEST_ME_NOW
       if (MediaModel.checkMediaModelsAreIdenticalSync(model1: draft1.poster, model2: draft2.poster) == false){
         blog('posters are not identical');
       }
@@ -1000,7 +999,7 @@ class DraftFlyer{
     return _maxLength <= (draftFlyer?.draftSlides?.length ?? 0);
   }
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<bool> checkPosterHasChanged({
     required DraftFlyer? draft,
     required FlyerModel? oldFlyer,

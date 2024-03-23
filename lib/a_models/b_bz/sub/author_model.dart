@@ -1325,7 +1325,7 @@ class AuthorModel {
     return _output;
   }
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static bool checkAuthorsAreIdentical({
     required AuthorModel? author1,
     required AuthorModel? author2,

@@ -126,17 +126,17 @@ class FetchFlyerProtocols {
 
         FlyerLDBOps.deleteFlyers(<String>[flyerID]),
 
-        MediaProtocols.refetchMedia(FlyerModel.getPicsPaths(
+        MediaProtocols.refetchMedias(FlyerModel.getPicsPaths(
           flyer: _flyerModel,
           type: SlidePicType.med,
         )),
 
-        MediaProtocols.refetchMedia(FlyerModel.getPicsPaths(
+        MediaProtocols.refetchMedias(FlyerModel.getPicsPaths(
           flyer: _flyerModel,
           type: SlidePicType.small,
         )),
 
-        MediaProtocols.refetchMedia(FlyerModel.getPicsPaths(
+        MediaProtocols.refetchMedias(FlyerModel.getPicsPaths(
           flyer: _flyerModel,
           type: SlidePicType.back,
         )),

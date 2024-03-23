@@ -144,7 +144,7 @@ class Formers {
   /// PIC VALIDATION
 
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static String? picValidator({
     required dynamic pic,
     required bool? canValidate,

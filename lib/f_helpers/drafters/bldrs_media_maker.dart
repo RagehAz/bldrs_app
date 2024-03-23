@@ -38,7 +38,7 @@ class BldrsMediaMaker {
   /// MAKERS
 
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<MediaModel?> makePic({
     required MediaOrigin mediaOrigin,
     required bool cropAfterPick,
@@ -92,7 +92,7 @@ class BldrsMediaMaker {
     return _output;
   }
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<List<MediaModel>> makePics({
     required bool cropAfterPick,
     required double aspectRatio,
@@ -129,7 +129,7 @@ class BldrsMediaMaker {
   /// CROPPERS
 
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<MediaModel?> cropPic({
     required MediaModel? pic,
     required double aspectRatio,
@@ -155,7 +155,7 @@ class BldrsMediaMaker {
   /// VIDEO
 
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, MediaModel>?> makeVideo({
     required MediaOrigin mediaOrigin,
     required bool cropAfterPick,
@@ -228,7 +228,7 @@ class BldrsMediaMaker {
   /// EDIT
 
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<MediaModel?> _editVideo({
     required MediaModel? video,
   }) async {
@@ -242,7 +242,7 @@ class BldrsMediaMaker {
     return _output ?? video;
   }
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<MediaModel?> _createVideoCover({
     required MediaModel? video,
   }) async {

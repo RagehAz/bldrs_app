@@ -303,7 +303,7 @@ class GtaModel {
     return _output;
   }
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<DraftFlyer?> createDraftFlyerByGtaProduct({
     required BuildContext context,
     required GtaModel? gtaModel,
@@ -451,7 +451,7 @@ class GtaModel {
   }
    */
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<List<DraftSlide>> createDraftSlidesByGtaProduct({
     required GtaModel? product,
   }) async {
@@ -520,7 +520,7 @@ class GtaModel {
     return _output;
   }
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<MediaModel?> createPicModelByGtaUrl({
     required String? picName,
     required String? url,

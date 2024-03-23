@@ -84,7 +84,7 @@ class AnimationFrameButton extends StatelessWidget {
                         return Stack(
                           children: <Widget>[
 
-                            /// TASK : TEST_ME_NOW - /// BACKGROUND PIC
+                            /// BACKGROUND PIC
                             if (draftSlide?.backPic != null)
                               SuperImage(
                                 loading: false,
@@ -124,7 +124,7 @@ class AnimationFrameButton extends StatelessWidget {
 
                                       },
 
-                                    /// TASK : TEST_ME_NOW
+
                                     child: SuperImage(
                                       loading: false,
                                       pic: draftSlide!.medPic!,

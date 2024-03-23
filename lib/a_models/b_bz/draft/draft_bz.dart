@@ -704,7 +704,6 @@ class DraftBz {
           draft1.bzForm == draft2.bzForm &&
           Lister.checkListsAreIdentical(list1: draft1.inactiveBzForms, list2: draft2.inactiveBzForms) == true &&
           ScopeModel.checkScopesAreIdentical(scope1: draft1.scopes, scope2: draft2.scopes) == true &&
-          /// TASK : TEST_ME_NOW
           MediaModel.checkMediaModelsAreIdenticalSync(model1: draft1.logoPicModel, model2: draft2.logoPicModel) == true &&
           draft1.hasNewLogo == draft2.hasNewLogo &&
           draft1.canPickImage == draft2.canPickImage &&

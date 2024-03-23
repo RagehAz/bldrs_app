@@ -563,7 +563,7 @@ class DraftSlide {
     return _output;
   }
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static List<SuperFile> getFilesFromDraftSlides({
     required List<DraftSlide> drafts,
     required SlidePicType slidePicType,
@@ -1003,7 +1003,7 @@ class DraftSlide {
   /// EQUALITY
 
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static bool checkSlidesAreIdentical({
     required DraftSlide? slide1,
     required DraftSlide? slide2,

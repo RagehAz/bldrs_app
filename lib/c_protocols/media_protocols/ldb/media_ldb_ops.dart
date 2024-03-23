@@ -1,5 +1,6 @@
 import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/maps/lister.dart';
+import 'package:basics/helpers/maps/mapper.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:basics/mediator/models/media_models.dart';
@@ -65,8 +66,8 @@ class MediaLDBOps {
     required String? path,
   }) async {
 
-    final String? _fileName = FilePathing.getNameFromFilePath(
-      filePath: path,
+    final String? _fileName = FilePathing.getNameFromPath(
+      path: path,
       withExtension: false,
     );
 
@@ -98,13 +99,25 @@ class MediaLDBOps {
     required String? path,
   }) async {
 
-    final String? _fileName = FilePathing.createFileNameFromFireStoragePath(
-        fireStoragePath: path,
+    final String? _fileName = FilePathing.getNameFromPath(
+      path: path,
+      withExtension: false,
     );
 
-    await _deleteMedia(
+    final MediaModel? _model = await readMedia(
       fileName: _fileName,
     );
+
+
+    await Future.wait(<Future>[
+
+      if (_model?.file != null)
+        _model!.file!.delete(),
+      _deleteMedia(
+        fileName: _fileName,
+      ),
+
+    ]);
 
   }
   // --------------------
@@ -128,13 +141,16 @@ class MediaLDBOps {
     required List<String> paths,
   }) async {
 
-    final List<String> _filesNames = FilePathing.createFilesNamesFromFireStoragePaths(
+    final List<String>? _filesNames = await FilePathing.getNamesFromPaths(
       paths: paths,
+      withExtension: false,
     );
 
-    await _deleteMedias(
-      filesNames: _filesNames,
-    );
+    if (Lister.checkCanLoop(_filesNames) == true){
+      await _deleteMedias(
+        filesNames: _filesNames!,
+      );
+    }
 
   }
   // --------------------
@@ -176,13 +192,18 @@ class MediaLDBOps {
     required String? path,
   }) async {
 
-    final String? _fileName = FilePathing.createFileNameFromFireStoragePath(
-      fireStoragePath: path,
+    final String? _fileName = FilePathing.getNameFromPath(
+      path: path,
+      withExtension: false,
     );
 
-    return checkExists(
-      fileNameWithoutExtension: _fileName,
+    final MediaModel? _media = await readMedia(
+        fileName: _fileName,
     );
+
+    final bool? _imageExists = await _media?.file?.exists();
+
+    return Mapper.boolIsTrue(_imageExists);
 
   }
   // -----------------------------------------------------------------------------

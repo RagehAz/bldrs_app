@@ -10,7 +10,6 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart
 import 'package:bldrs/c_protocols/media_protocols/ldb/media_ldb_ops.dart';
 import 'package:bldrs/c_protocols/media_protocols/fire/fire_storage_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-
 /// => TAMAM
 class MediaProtocols {
   // -----------------------------------------------------------------------------
@@ -69,7 +68,9 @@ class MediaProtocols {
       path: path,
     );
 
-    if (_picModel == null){
+    final bool? _exists = await _picModel?.file?.exists();
+
+    if (_picModel == null || _exists == null || _exists == false){
 
       _picModel = await FireStorageOps.readMedia(firePathOrUrl: path);
 
@@ -83,7 +84,6 @@ class MediaProtocols {
     }
 
     return _picModel;
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -131,7 +131,7 @@ class MediaProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<MediaModel>> refetchMedia(List<String> paths) async {
+  static Future<List<MediaModel>> refetchMedias(List<String> paths) async {
 
     List<MediaModel> _output = <MediaModel>[];
 
@@ -313,8 +313,6 @@ class MediaProtocols {
 
       if (_areIdentical == false){
 
-        await wipeMedia(oldMedia?.meta?.uploadPath);
-
         await composeMedia(newMedia);
 
       }
@@ -361,10 +359,6 @@ class MediaProtocols {
 
         FireStorageOps.deleteMedia(path!),
 
-        XFiler.deleteFileByName(
-          name: FilePathing.createFileNameFromFireStoragePath(fireStoragePath: path),
-        ),
-
       ]);
 
     }
@@ -384,9 +378,12 @@ class MediaProtocols {
 
         FireStorageOps.deletePics(paths),
 
-        XFiler.deleteFiledByNames(
-          names: FilePathing.createFilesNamesFromFireStoragePaths(paths: paths),
-        ),
+        // XFiler.deleteFiledByNames(
+        //   names: FilePathing.getNamesFromPaths(
+        //     paths: paths,
+        //     withExtension: false,
+        //   ),
+        // ),
 
       ]);
 
@@ -398,7 +395,7 @@ class MediaProtocols {
   /// STEALING
 
   // --------------------
-  /// TASK : TEST_ME_NOW
+  /// TESTED : WORKS PERFECT
   static Future<MediaModel?> stealInternetPic({
     required String? url,
     required List<String> ownersIDs,

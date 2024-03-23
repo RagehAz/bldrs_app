@@ -380,7 +380,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                     },
                   ),
 
-                  /// TASK : TEST_ME_NOW ! EXPORT COVER
+                  /// EXPORT COVER
                   BottomDialog.wideButton(
                     verse: Verse.plain('Export cover'),
                     icon: Icons.import_export,
