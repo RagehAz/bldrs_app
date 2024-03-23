@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:bldrs/bldrs_keys.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/images/bldrs_image.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
@@ -53,10 +53,10 @@ class PicFullScreen extends StatelessWidget {
     required String? title,
   }) async {
 
-    final MediaModel? _pic = await PicProtocols.stealInternetPic(
+    final MediaModel? _pic = await MediaProtocols.stealInternetPic(
       url: url,
       ownersIDs: [BldrsKeys.ragehID],
-      picName: '$url',
+      fileName: '$url',
       uploadPath: 'x',
     );
 
@@ -115,7 +115,7 @@ class PicFullScreen extends StatelessWidget {
     required String? title,
   }) async {
 
-    final MediaModel? _pic = await PicProtocols.fetchPic(path);
+    final MediaModel? _pic = await MediaProtocols.fetchMedia(path);
 
     await openPicModel(
       pic: _pic,

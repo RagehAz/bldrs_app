@@ -37,7 +37,7 @@ import 'package:bldrs/b_screens/g_search_screen/z_components/building_blocks/fil
 import 'package:bldrs/b_screens/g_search_screen/z_components/filters_tiles/countries_filter_tile.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';

@@ -11,9 +11,9 @@ import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/media_protocols/ldb/media_ldb_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/records_protocols/recorder_protocols.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
@@ -77,10 +77,10 @@ class WipeBzProtocols {
           path: StoragePath.bzz_bzID(bzModel.id),
         ),
         /// DELETE BZ LOGO & AUTHORS PICS
-        PicLDBOps.deleteMediaByFireStoragePath(
+        MediaLDBOps.deleteMediaByFireStoragePath(
           path: bzModel.logoPath,
         ),
-        PicLDBOps.deleteMediasByFireStoragePaths(
+        MediaLDBOps.deleteMediasByFireStoragePaths(
           paths: AuthorModel.getAuthorsPicsPaths(bzModel.authors),
         ),
         /// CENSUS

@@ -12,7 +12,7 @@ import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
@@ -81,7 +81,7 @@ class ComposeBzProtocols {
         BzFireOps.update(_bzModel),
 
         /// UPLOAD BZ LOGO
-        PicProtocols.composePic(_draftWithID?.logoPicModel),
+        MediaProtocols.composeMedia(_draftWithID?.logoPicModel),
 
         /// UPLOAD AUTHOR PIC
         _duplicateUserPicAsAuthorPic(
@@ -190,7 +190,7 @@ class ComposeBzProtocols {
 
     if (userModel != null && bzID != null){
 
-      final MediaModel? _picModel = await PicProtocols.fetchPic(userModel.picPath);
+      final MediaModel? _picModel = await MediaProtocols.fetchMedia(userModel.picPath);
 
       final MediaModel? _authorModel = _picModel?.overrideUploadPath(
         uploadPath: StoragePath.bzz_bzID_authorID(
@@ -201,7 +201,7 @@ class ComposeBzProtocols {
 
       _authorModel?.blogPic(invoker: '_duplicateUserPicAsAuthorPic');
 
-      await PicProtocols.composePic(_authorModel);
+      await MediaProtocols.composeMedia(_authorModel);
 
     }
 

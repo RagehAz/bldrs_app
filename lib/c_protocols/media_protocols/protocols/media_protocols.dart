@@ -7,15 +7,15 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
-import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
-import 'package:bldrs/c_protocols/pic_protocols/storage/pic_storage_ops.dart';
+import 'package:bldrs/c_protocols/media_protocols/ldb/media_ldb_ops.dart';
+import 'package:bldrs/c_protocols/media_protocols/fire/fire_storage_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 
 /// => TAMAM
-class PicProtocols {
+class MediaProtocols {
   // -----------------------------------------------------------------------------
 
-  const PicProtocols();
+  const MediaProtocols();
 
   // -----------------------------------------------------------------------------
 
@@ -23,15 +23,15 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> composePic(MediaModel? picModel) async {
+  static Future<void> composeMedia(MediaModel? media) async {
 
-    if (picModel != null){
+    if (media != null){
 
       await Future.wait(<Future>[
 
-        PicStorageOps.createPic(picModel),
+        FireStorageOps.createMedia(media),
 
-        PicLDBOps.insertMedia(media: picModel),
+        MediaLDBOps.insertMedia(media: media),
 
       ]);
 
@@ -40,15 +40,15 @@ class PicProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> composePics(List<MediaModel> pics) async {
+  static Future<void> composeMedias(List<MediaModel> medias) async {
 
-    if (Lister.checkCanLoop(pics) == true){
+    if (Lister.checkCanLoop(medias) == true){
 
       await Future.wait(<Future>[
 
-        ...List.generate(pics.length, (index){
+        ...List.generate(medias.length, (index){
 
-          return composePic(pics[index]);
+          return composeMedia(medias[index]);
 
         }),
 
@@ -63,19 +63,19 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<MediaModel?> fetchPic(String? path) async {
+  static Future<MediaModel?> fetchMedia(String? path) async {
 
-    MediaModel? _picModel = await PicLDBOps.readMediaByFireStoragePath(
+    MediaModel? _picModel = await MediaLDBOps.readMediaByFireStoragePath(
       path: path,
     );
 
     if (_picModel == null){
 
-      _picModel = await PicStorageOps.readPic(firePathOrUrl: path);
+      _picModel = await FireStorageOps.readMedia(firePathOrUrl: path);
 
       if (_picModel != null){
 
-        await PicLDBOps.insertMedia(
+        await MediaLDBOps.insertMedia(
           media: _picModel,
         );
       }
@@ -87,7 +87,7 @@ class PicProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<MediaModel>> fetchPics(List<String>? paths) async {
+  static Future<List<MediaModel>> fetchMedias(List<String>? paths) async {
     final List<MediaModel> _output = <MediaModel>[];
 
     if (Lister.checkCanLoop(paths) == true){
@@ -96,7 +96,7 @@ class PicProtocols {
 
         ...List.generate(paths!.length, (index){
 
-          return fetchPic(paths[index]).then((MediaModel? pic){
+          return fetchMedia(paths[index]).then((MediaModel? pic){
 
             if (pic != null){
               _output.add(pic);
@@ -121,7 +121,7 @@ class PicProtocols {
 
     if (path != null){
 
-      final MediaModel? _picModel = await PicProtocols.fetchPic(path);
+      final MediaModel? _picModel = await MediaProtocols.fetchMedia(path);
 
       _theImage = await Imager.getUiImageFromSuperFile(_picModel?.file);
 
@@ -131,17 +131,17 @@ class PicProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<MediaModel>> refetchPics(List<String> paths) async {
+  static Future<List<MediaModel>> refetchMedia(List<String> paths) async {
 
     List<MediaModel> _output = <MediaModel>[];
 
     if (Lister.checkCanLoop(paths) == true){
 
-      await PicLDBOps.deleteMediasByFireStoragePaths(
+      await MediaLDBOps.deleteMediasByFireStoragePaths(
         paths: paths,
       );
 
-      _output = await fetchPics(paths);
+      _output = await fetchMedias(paths);
 
     }
 
@@ -164,7 +164,7 @@ class PicProtocols {
         type: type
     );
 
-    return fetchPic(_path);
+    return fetchMedia(_path);
 
   }
   // --------------------
@@ -177,7 +177,7 @@ class PicProtocols {
     final String? _path = StoragePath.flyers_flyerID_poster(flyerID);
 
     if (_path != null){
-      _output = await fetchPic(_path);
+      _output = await fetchMedia(_path);
     }
 
     return _output;
@@ -227,7 +227,7 @@ class PicProtocols {
         slides: flyerModel.slides,
         type: type,
       );
-      _output = await PicProtocols.fetchPics(_slidesPicsPaths);
+      _output = await MediaProtocols.fetchMedias(_slidesPicsPaths);
 
     }
 
@@ -239,11 +239,11 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> downloadPic(String path) async {
+  static Future<void> downloadMedia(String path) async {
 
     if (TextCheck.isEmpty(path) == false){
 
-      final bool _existsInLDB = await PicLDBOps.checkExistsByFireStoragePath(
+      final bool _existsInLDB = await MediaLDBOps.checkExistsByFireStoragePath(
         path: path,
       );
 
@@ -251,11 +251,11 @@ class PicProtocols {
 
         // blog('downloadPic : Downloading pic : $path');
 
-        final MediaModel? _picModel = await PicStorageOps.readPic(firePathOrUrl: path);
+        final MediaModel? _picModel = await FireStorageOps.readMedia(firePathOrUrl: path);
 
         // blog('downloadPic : Downloaded pic : $path');
 
-        await PicLDBOps.insertMedia(media: _picModel);
+        await MediaLDBOps.insertMedia(media: _picModel);
 
         // blog('downloadPic : inserted in LDB : $path');
 
@@ -269,7 +269,7 @@ class PicProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> downloadPics(List<String> paths) async {
+  static Future<void> downloadMedias(List<String> paths) async {
 
     if (Lister.checkCanLoop(paths) == true){
 
@@ -279,7 +279,7 @@ class PicProtocols {
 
           final String path = paths[index];
 
-          return downloadPic(path);
+          return downloadMedia(path);
 
         }),
 
@@ -294,28 +294,28 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> renovatePic({
-    required MediaModel? newPic,
+  static Future<void> renovateMedia({
+    required MediaModel? newMedia,
     /// USE THIS IN CASE YOU WANT TO WIPE THE OLD PATH BEFORE INSERTING A NEW WITH DIFFERENT PATH
-    required MediaModel? oldPic,
+    required MediaModel? oldMedia,
   }) async {
 
     // blog('1 - renovatePic : picModel : $picModel');
 
-    if (newPic != null){
+    if (newMedia != null){
 
       final bool _areIdentical = await MediaModel.checkMediaModelsAreIdentical(
-        model1: oldPic,
-        model2: newPic,
+        model1: oldMedia,
+        model2: newMedia,
       );
 
       // blog('2 - renovate.Pic : _areIdentical : $_areIdentical');
 
       if (_areIdentical == false){
 
-        await wipePic(oldPic?.meta?.uploadPath);
+        await wipeMedia(oldMedia?.meta?.uploadPath);
 
-        await composePic(newPic);
+        await composeMedia(newMedia);
 
       }
 
@@ -325,16 +325,16 @@ class PicProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> renovatePics(List<MediaModel> picModels) async {
+  static Future<void> renovateMedias(List<MediaModel> medias) async {
 
-    if (Lister.checkCanLoop(picModels) == true){
+    if (Lister.checkCanLoop(medias) == true){
 
       await Future.wait(<Future>[
 
-        ...List.generate(picModels.length, (index){
-          return renovatePic(
-            newPic: picModels[index],
-            oldPic: null,
+        ...List.generate(medias.length, (index){
+          return renovateMedia(
+            newMedia: medias[index],
+            oldMedia: null,
           );
         }),
 
@@ -349,17 +349,17 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> wipePic(String? path) async {
+  static Future<void> wipeMedia(String? path) async {
 
     if (TextCheck.isEmpty(path) == false){
 
       await Future.wait(<Future>[
 
-        PicLDBOps.deleteMediaByFireStoragePath(
+        MediaLDBOps.deleteMediaByFireStoragePath(
           path: path,
         ),
 
-        PicStorageOps.deletePic(path!),
+        FireStorageOps.deleteMedia(path!),
 
         XFiler.deleteFileByName(
           name: FilePathing.createFileNameFromFireStoragePath(fireStoragePath: path),
@@ -372,17 +372,17 @@ class PicProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> wipePics(List<String> paths) async {
+  static Future<void> wipeMedias(List<String> paths) async {
 
     if (Lister.checkCanLoop(paths) == true){
 
       await Future.wait(<Future>[
 
-        PicLDBOps.deleteMediasByFireStoragePaths(
+        MediaLDBOps.deleteMediasByFireStoragePaths(
           paths: paths
         ),
 
-        PicStorageOps.deletePics(paths),
+        FireStorageOps.deletePics(paths),
 
         XFiler.deleteFiledByNames(
           names: FilePathing.createFilesNamesFromFireStoragePaths(paths: paths),
@@ -402,7 +402,7 @@ class PicProtocols {
   static Future<MediaModel?> stealInternetPic({
     required String? url,
     required List<String> ownersIDs,
-    required String picName,
+    required String fileName,
     required String uploadPath,
   }) async {
     MediaModel? _output;
@@ -412,11 +412,11 @@ class PicProtocols {
       _output = await MediaModelCreator.fromURL(
         url: url,
         ownersIDs: ownersIDs,
-        fileName: picName,
+        fileName: fileName,
         uploadPath: uploadPath,
       );
 
-      await composePic(_output);
+      await composeMedia(_output);
 
     }
 

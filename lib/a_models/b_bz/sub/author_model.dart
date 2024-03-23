@@ -10,7 +10,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +51,7 @@ class AuthorModel {
   }) async {
 
     final AuthorModel? _tempAuthor = oldAuthor?.copyWith(
-      picModel: await PicProtocols.fetchPic(oldAuthor.picPath),
+      picModel: await MediaProtocols.fetchMedia(oldAuthor.picPath),
       contacts: ContactModel.prepareContactsForEditing(
         contacts: oldAuthor.contacts,
         countryID: bzModel?.zone?.countryID,
@@ -114,7 +114,7 @@ class AuthorModel {
 
     if (userModel != null) {
 
-      final MediaModel? _userPic = await PicProtocols.fetchPic(
+      final MediaModel? _userPic = await MediaProtocols.fetchMedia(
           StoragePath.users_userID_pic(userModel.id)
       );
 

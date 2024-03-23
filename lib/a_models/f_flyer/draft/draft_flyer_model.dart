@@ -20,7 +20,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart
 import 'package:bldrs/c_protocols/main_providers/home_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -228,7 +228,7 @@ class DraftFlyer{
         firstTimer: false,
         formKey: GlobalKey<FormState>(),
         canPickImage: true,
-        poster: await PicProtocols.fetchFlyerPoster(flyerID: flyer.id),
+        poster: await MediaProtocols.fetchFlyerPoster(flyerID: flyer.id),
         affiliateLink: flyer.affiliateLink,
         gtaLink: flyer.gtaLink,
         price: flyer.price,
@@ -295,13 +295,13 @@ class DraftFlyer{
           affiliateLink: draft.affiliateLink,
           gtaLink: draft.gtaLink,
           bzModel: _bzModel,
-          authorImage: await PicProtocols.fetchPicUiImage(
+          authorImage: await MediaProtocols.fetchPicUiImage(
             path: StoragePath.bzz_bzID_authorID(
               bzID: draft.bzID,
               authorID: draft.authorID,
             ),
           ),
-          bzLogoImage: await PicProtocols.fetchPicUiImage(
+          bzLogoImage: await MediaProtocols.fetchPicUiImage(
             path: StoragePath.bzz_bzID_logo(draft.bzID),
           ),
           price: draft.price,
@@ -1019,7 +1019,7 @@ class DraftFlyer{
     }
     else {
 
-      final MediaModel? _poster = await PicProtocols.fetchFlyerPoster(flyerID: oldFlyer?.id);
+      final MediaModel? _poster = await MediaProtocols.fetchFlyerPoster(flyerID: oldFlyer?.id);
 
       if (_poster == null){
         _hasChanged = true;
@@ -1033,7 +1033,7 @@ class DraftFlyer{
         if (_hasChanged == false){
 
           final List<MediaModel> _draftPics = getPics(draft);
-          final List<MediaModel> _oldPics = await PicProtocols.fetchFlyerPics(
+          final List<MediaModel> _oldPics = await MediaProtocols.fetchFlyerPics(
             flyerModel: oldFlyer,
             type: SlidePicType.small,
           );

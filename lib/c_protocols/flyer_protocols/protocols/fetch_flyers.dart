@@ -9,7 +9,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 
 /// => TAMAM
@@ -126,17 +126,17 @@ class FetchFlyerProtocols {
 
         FlyerLDBOps.deleteFlyers(<String>[flyerID]),
 
-        PicProtocols.refetchPics(FlyerModel.getPicsPaths(
+        MediaProtocols.refetchMedia(FlyerModel.getPicsPaths(
           flyer: _flyerModel,
           type: SlidePicType.med,
         )),
 
-        PicProtocols.refetchPics(FlyerModel.getPicsPaths(
+        MediaProtocols.refetchMedia(FlyerModel.getPicsPaths(
           flyer: _flyerModel,
           type: SlidePicType.small,
         )),
 
-        PicProtocols.refetchPics(FlyerModel.getPicsPaths(
+        MediaProtocols.refetchMedia(FlyerModel.getPicsPaths(
           flyer: _flyerModel,
           type: SlidePicType.back,
         )),

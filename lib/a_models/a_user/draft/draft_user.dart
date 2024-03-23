@@ -12,7 +12,7 @@ import 'package:bldrs/a_models/d_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -197,7 +197,7 @@ class DraftUser {
       // }
       //
       // if (_shouldFetch == true){
-        _output = await PicProtocols.fetchPic(userModel.picPath);
+        _output = await MediaProtocols.fetchMedia(userModel.picPath);
       // }
 
     }

@@ -1,6 +1,6 @@
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/mediator/models/media_models.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:flutter/material.dart';
 
 class BldrsImagePathToPicModel extends StatefulWidget {
@@ -49,7 +49,7 @@ class _BldrsImagePathToPicModelState extends State<BldrsImagePathToPicModel> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        final MediaModel? _image = await PicProtocols.fetchPic(
+        final MediaModel? _image = await MediaProtocols.fetchMedia(
           widget.imagePath,
         );
 

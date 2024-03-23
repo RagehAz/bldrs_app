@@ -27,7 +27,7 @@ import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/b_screens/a_home_screen/pages/c_user_pages/e_my_settings_page/password_screen.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/future_model_builders/bz_poster_flyer_builder.dart';
@@ -1503,7 +1503,7 @@ class Dialogs {
   }) async {
     bool _continue = false;
 
-    final List<MediaModel> _posters = await PicProtocols.fetchFlyersPosters(
+    final List<MediaModel> _posters = await MediaProtocols.fetchFlyersPosters(
       flyersIDs: flyersIDs,
     );
 

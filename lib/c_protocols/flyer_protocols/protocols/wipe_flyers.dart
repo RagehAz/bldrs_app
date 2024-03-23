@@ -13,8 +13,8 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/media_protocols/ldb/media_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/ldb/pdf_ldb_ops.dart';
-import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/records_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
 import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_protocols.dart';
@@ -75,23 +75,23 @@ class WipeFlyerProtocols {
         ),
 
         /// DELETE LDB SLIDES AND POSTER PICS + PDF
-        PicLDBOps.deleteMediasByFireStoragePaths(
+        MediaLDBOps.deleteMediasByFireStoragePaths(
           paths: FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.big),
         ),
 
-        PicLDBOps.deleteMediasByFireStoragePaths(
+        MediaLDBOps.deleteMediasByFireStoragePaths(
           paths: FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.med),
         ),
 
-        PicLDBOps.deleteMediasByFireStoragePaths(
+        MediaLDBOps.deleteMediasByFireStoragePaths(
           paths: FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.small),
         ),
 
-        PicLDBOps.deleteMediasByFireStoragePaths(
+        MediaLDBOps.deleteMediasByFireStoragePaths(
           paths: FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.back),
         ),
 
-        PicLDBOps.deleteMediaByFireStoragePath(
+        MediaLDBOps.deleteMediaByFireStoragePath(
           path: StoragePath.flyers_flyerID_poster(flyerModel.id),
         ),
 
@@ -187,19 +187,19 @@ class WipeFlyerProtocols {
               ),
 
               /// DELETE LDB SLIDES AND POSTER PICS + PDF
-              PicLDBOps.deleteMediasByFireStoragePaths(
+              MediaLDBOps.deleteMediasByFireStoragePaths(
                 paths: FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.big),
               ),
-              PicLDBOps.deleteMediasByFireStoragePaths(
+              MediaLDBOps.deleteMediasByFireStoragePaths(
                 paths: FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.med),
               ),
-              PicLDBOps.deleteMediasByFireStoragePaths(
+              MediaLDBOps.deleteMediasByFireStoragePaths(
                 paths: FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.small),
               ),
-              PicLDBOps.deleteMediasByFireStoragePaths(
+              MediaLDBOps.deleteMediasByFireStoragePaths(
                 paths: FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.back),
               ),
-              PicLDBOps.deleteMediaByFireStoragePath(
+              MediaLDBOps.deleteMediaByFireStoragePath(
                 path: StoragePath.flyers_flyerID_poster(_flyerModel.id),
               ),
               PDFLDBOps.delete(_flyerModel.pdfPath),

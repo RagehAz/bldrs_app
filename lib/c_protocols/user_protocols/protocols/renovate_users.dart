@@ -11,7 +11,7 @@ import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:bldrs/c_protocols/records_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
@@ -67,9 +67,9 @@ class RenovateUserProtocols {
 
           /// STORAGE RENOVATE PIC
           if (newPic != null)
-          PicProtocols.renovatePic(
-            newPic: newPic,
-            oldPic: null,
+          MediaProtocols.renovateMedia(
+            newMedia: newPic,
+            oldMedia: null,
           ),
 
         ]);

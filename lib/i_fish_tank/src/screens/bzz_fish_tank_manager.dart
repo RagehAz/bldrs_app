@@ -1051,10 +1051,10 @@ class _BzzFishTankManagerState extends State<BzzFishTankManager> {
 
                     if (_isStoragePath == false && _isURL == true){
 
-                      final MediaModel? _picModel = await PicProtocols.stealInternetPic(
+                      final MediaModel? _picModel = await MediaProtocols.stealInternetPic(
                         url: _image,
                         ownersIDs: [BldrsKeys.ragehID],
-                        picName: fish.id!,
+                        fileName: fish.id!,
                         uploadPath: 'storage/fishes/${fish.id}',
                       );
 

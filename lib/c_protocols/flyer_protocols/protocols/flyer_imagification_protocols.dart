@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:basics/helpers/maps/mapper.dart';
 
@@ -296,7 +296,7 @@ class ImagifyFlyerProtocols {
           /// FRON IMAGE
           ui.Image? _front = _firstSlide.frontImage;
           if (_firstSlide.frontImage == null){
-            _front = await PicProtocols.fetchPicUiImage(
+            _front = await MediaProtocols.fetchPicUiImage(
               path: _frontPicPath,
             );
           }
@@ -304,7 +304,7 @@ class ImagifyFlyerProtocols {
           /// BACK IMAGE
           ui.Image? _back = _firstSlide.backImage;
           if (_firstSlide.backImage == null && _firstSlide.backColor == null){
-            _back = await PicProtocols.fetchPicUiImage(
+            _back = await MediaProtocols.fetchPicUiImage(
               path: SlideModel.generateSlidePicPath(
                 flyerID: flyerModel.id,
                 slideIndex: 0,
@@ -369,13 +369,13 @@ class ImagifyFlyerProtocols {
           /// UI IMAGE IS MISSING
           if (_slide.frontImage == null || _slide.frontPicPath != _newPicPath){
 
-            final ui.Image? _front = await PicProtocols.fetchPicUiImage(
+            final ui.Image? _front = await MediaProtocols.fetchPicUiImage(
               path: _newPicPath,
             );
 
             ui.Image? _back;
             if (_slide.backImage == null && _slide.backColor == null){
-              _back = await PicProtocols.fetchPicUiImage(
+              _back = await MediaProtocols.fetchPicUiImage(
                 path: SlideModel.generateSlidePicPath(
                   flyerID: _slide.flyerID,
                   slideIndex: _slide.slideIndex,
@@ -431,7 +431,7 @@ class ImagifyFlyerProtocols {
 
       if (flyerModel.bzLogoImage == null){
 
-        final ui.Image? _logoImage = await PicProtocols.fetchPicUiImage(
+        final ui.Image? _logoImage = await MediaProtocols.fetchPicUiImage(
           path: StoragePath.bzz_bzID_logo(flyerModel.bzID),
         );
 
@@ -462,7 +462,7 @@ class ImagifyFlyerProtocols {
 
       if (flyerModel.authorImage == null){
 
-        final ui.Image? _authorImage = await PicProtocols.fetchPicUiImage(
+        final ui.Image? _authorImage = await MediaProtocols.fetchPicUiImage(
           path: StoragePath.bzz_bzID_authorID(
             authorID: flyerModel.authorID,
             bzID: flyerModel.bzID,

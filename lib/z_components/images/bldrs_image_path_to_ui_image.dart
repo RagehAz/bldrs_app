@@ -1,6 +1,6 @@
 import 'dart:ui' as ui;
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:flutter/material.dart';
 
 class BldrsImagePathToUiImage extends StatefulWidget {
@@ -44,7 +44,7 @@ class _BldrsImagePathToUiImageState extends State<BldrsImagePathToUiImage> {
           });
         }
 
-        final ui.Image? _image = await PicProtocols.fetchPicUiImage(
+        final ui.Image? _image = await MediaProtocols.fetchPicUiImage(
           path: widget.imagePath,
         );
 

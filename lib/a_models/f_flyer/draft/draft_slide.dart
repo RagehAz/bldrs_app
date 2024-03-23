@@ -9,7 +9,7 @@ import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:flutter/material.dart';
 
 /// => TAMAM
@@ -308,11 +308,11 @@ class DraftSlide {
       _draft = DraftSlide(
         flyerID: slide.flyerID,
         slideIndex: slide.slideIndex,
-        bigPic: await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.big),
-        medPic: await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.med),
-        smallPic: await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.small),
+        bigPic: await MediaProtocols.fetchSlidePic(slide: slide, type: SlidePicType.big),
+        medPic: await MediaProtocols.fetchSlidePic(slide: slide, type: SlidePicType.med),
+        smallPic: await MediaProtocols.fetchSlidePic(slide: slide, type: SlidePicType.small),
         backPic: slide.backColor == null ?
-        await PicProtocols.fetchSlidePic(slide: slide, type: SlidePicType.back)
+        await MediaProtocols.fetchSlidePic(slide: slide, type: SlidePicType.back)
             :
         null,
         headline: slide.headline,

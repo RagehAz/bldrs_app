@@ -7,10 +7,10 @@ import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/mediator/models/media_models.dart';
 import 'package:fire/super_fire.dart';
 /// => TAMAM
-class PicStorageOps {
+class FireStorageOps {
   // -----------------------------------------------------------------------------
 
-  const PicStorageOps();
+  const FireStorageOps();
 
   // -----------------------------------------------------------------------------
 
@@ -18,13 +18,13 @@ class PicStorageOps {
 
   // --------------------
   /// TASK : TEST_ME_NOW
-  static Future<MediaModel?> createPic(MediaModel? picModel) async {
+  static Future<MediaModel?> createMedia(MediaModel? media) async {
 
-    await MediaModel.assertIsUploadable(picModel);
+    await MediaModel.assertIsUploadable(media);
 
     final String? _url = await Storage.uploadBytesAndGetURL(
-      bytes: await picModel?.getBytes(),
-      storageMetaModel: picModel?.meta,
+      bytes: await media?.getBytes(),
+      storageMetaModel: media?.meta,
     );
 
     if (_url == null){
@@ -32,7 +32,7 @@ class PicStorageOps {
     }
 
     else {
-      return picModel;
+      return media;
     }
 
   }
@@ -42,23 +42,23 @@ class PicStorageOps {
 
   // --------------------
   /// TASK : TEST_ME_NOW
-  static Future<MediaModel?> readPic({
+  static Future<MediaModel?> readMedia({
     required String? firePathOrUrl,
   }) async {
-    MediaModel? _picModel;
+    MediaModel? _output;
 
     if (ObjectCheck.objectIsFireStoragePicPath(firePathOrUrl) == true){
-      _picModel = await _readFireStoragePath(
+      _output = await _readFireStoragePath(
         path: firePathOrUrl!,
       );
     }
     else if (ObjectCheck.isAbsoluteURL(firePathOrUrl) == true){
-      _picModel = await _readUrl(
+      _output = await _readUrl(
         url: firePathOrUrl!,
       );
     }
 
-    return _picModel;
+    return _output;
   }
   // --------------------
   /// TASK : TEST_ME_NOW
@@ -121,11 +121,11 @@ class PicStorageOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<MediaModel?> updatePic({
-    required MediaModel? picModel,
+  static Future<MediaModel?> updateMedia({
+    required MediaModel? media,
   }) async {
 
-    final MediaModel? _uploaded = await createPic(picModel);
+    final MediaModel? _uploaded = await createMedia(media);
 
     return _uploaded;
   }
@@ -135,7 +135,7 @@ class PicStorageOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> deletePic(String? path) async {
+  static Future<void> deleteMedia(String? path) async {
     blog('deletePic : START');
 
     if (path != null && Authing.getUserID() != null){

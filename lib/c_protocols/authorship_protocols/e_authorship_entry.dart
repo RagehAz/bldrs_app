@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 /// => TAMAM
@@ -70,7 +70,7 @@ class AuthorshipEntryProtocols {
         authors: _newBz?.authors,
         authorID: _uploadedUser?.id,
     );
-    await PicProtocols.composePic(_author?.picModel);
+    await MediaProtocols.composeMedia(_author?.picModel);
 
     _newBz = PendingAuthor.removePendingAuthorFromBz(
         bzModel: _newBz,

@@ -14,7 +14,7 @@ import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_secondary/scope_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
@@ -238,7 +238,7 @@ class DraftBz {
       bzForm: bzModel.bzForm,
       inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes(bzModel.bzTypes),
       scopes: bzModel.scopes,
-      logoPicModel: await PicProtocols.fetchPic(StoragePath.bzz_bzID_logo(bzModel.id)),
+      logoPicModel: await MediaProtocols.fetchMedia(StoragePath.bzz_bzID_logo(bzModel.id)),
       hasNewLogo: false,
       canPickImage: true,
       canValidate: false,

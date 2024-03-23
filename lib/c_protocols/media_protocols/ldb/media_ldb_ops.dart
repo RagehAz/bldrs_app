@@ -5,10 +5,10 @@ import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:basics/mediator/models/media_models.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 /// => TAMAM
-class PicLDBOps {
+class MediaLDBOps {
   // -----------------------------------------------------------------------------
 
-  const PicLDBOps();
+  const MediaLDBOps();
 
   // -----------------------------------------------------------------------------
 
@@ -41,7 +41,7 @@ class PicLDBOps {
   static Future<MediaModel?> readMedia({
     required String? fileName,
   }) async {
-    MediaModel? _picModel;
+    MediaModel? _output;
 
     if (TextCheck.isEmpty(fileName) == false){
 
@@ -52,12 +52,12 @@ class PicLDBOps {
       );
 
       if (Lister.checkCanLoop(maps) == true){
-        _picModel = MediaModel.decipherFromLDB(maps.first);
+        _output = MediaModel.decipherFromLDB(maps.first);
       }
 
     }
 
-    return _picModel;
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -152,15 +152,15 @@ class PicLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkExists({
-    required String? fileName,
+    required String? fileNameWithoutExtension,
   }) async {
 
     bool _exists = false;
 
-    if (TextCheck.isEmpty(fileName) == false){
+    if (TextCheck.isEmpty(fileNameWithoutExtension) == false){
 
       _exists = await LDBOps.checkMapExists(
-        id: fileName,
+        id: fileNameWithoutExtension,
         docName: LDBDoc.media,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.media),
       );
@@ -180,7 +180,7 @@ class PicLDBOps {
     );
 
     return checkExists(
-      fileName: _fileName,
+      fileNameWithoutExtension: _fileName,
     );
 
   }

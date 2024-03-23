@@ -13,7 +13,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/slide_pic_maker.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:bldrs/c_protocols/records_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
@@ -64,7 +64,7 @@ class ComposeFlyerProtocols {
         if (_draftWithID != null && _flyerToPublish != null){
 
           /// CREATE FLYER POSTER
-          await PicProtocols.composePic(_draftWithID.poster);
+          await MediaProtocols.composeMedia(_draftWithID.poster);
 
           /// CREATE SHARE LINK
           _flyerToPublish = _flyerToPublish.copyWith(
@@ -81,19 +81,19 @@ class ComposeFlyerProtocols {
             FlyerFireOps.updateFlyerDoc(_flyerToPublish),
 
             /// UPLOAD SLIDES PICS
-            PicProtocols.composePics(DraftSlide.getPicModels(
+            MediaProtocols.composeMedias(DraftSlide.getPicModels(
               drafts: _draftWithID.draftSlides,
               slidePicType: SlidePicType.big,
             )),
-            PicProtocols.composePics(DraftSlide.getPicModels(
+            MediaProtocols.composeMedias(DraftSlide.getPicModels(
               drafts: _draftWithID.draftSlides,
               slidePicType: SlidePicType.med,
             )),
-            PicProtocols.composePics(DraftSlide.getPicModels(
+            MediaProtocols.composeMedias(DraftSlide.getPicModels(
               drafts: _draftWithID.draftSlides,
               slidePicType: SlidePicType.small,
             )),
-            PicProtocols.composePics(DraftSlide.getPicModels(
+            MediaProtocols.composeMedias(DraftSlide.getPicModels(
               drafts: _draftWithID.draftSlides,
               slidePicType: SlidePicType.back,
             )),
