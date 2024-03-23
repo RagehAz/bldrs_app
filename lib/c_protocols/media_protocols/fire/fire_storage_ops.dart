@@ -77,14 +77,20 @@ class FireStorageOps {
         path: path,
       );
 
+      /// FILE NAME
+      String? _fileName = FilePathing.getNameFromFilePath(
+        filePath: _meta?.uploadPath,
+        withExtension: false,
+      );
+      _fileName ??= _meta?.name;
+      _fileName ??= FilePathing.createFileNameFromFireStoragePath(fireStoragePath: path);
+
       _output = await MediaModelCreator.fromBytes(
         bytes: _bytes,
         ownersIDs: _meta?.ownersIDs,
         uploadPath: _meta?.uploadPath,
         mediaOrigin: _meta?.getMediaOrigin(),
-        fileName: FilePathing.createFileNameFromFireStoragePath(
-          fireStoragePath: path,
-        ),
+        fileName: _fileName,
       );
 
     }
@@ -104,9 +110,17 @@ class FireStorageOps {
         url: url,
       );
 
+      /// FILE NAME
+      String? _fileName = FilePathing.getNameFromFilePath(
+          filePath: _meta?.uploadPath,
+          withExtension: false,
+      );
+      _fileName ??= _meta?.name;
+      _fileName ??= TextMod.idifyString(url);
+
       _output = await MediaModelCreator.fromURL(
         url: url,
-        fileName: _meta?.name ?? TextMod.idifyString(url),
+        fileName: _fileName,
         ownersIDs: _meta?.ownersIDs,
         uploadPath: _meta?.uploadPath,
       );

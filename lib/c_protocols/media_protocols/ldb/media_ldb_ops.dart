@@ -65,8 +65,9 @@ class MediaLDBOps {
     required String? path,
   }) async {
 
-    final String? _fileName = FilePathing.createFileNameFromFireStoragePath(
-      fireStoragePath: path,
+    final String? _fileName = FilePathing.getNameFromFilePath(
+      filePath: path,
+      withExtension: false,
     );
 
     return readMedia(
