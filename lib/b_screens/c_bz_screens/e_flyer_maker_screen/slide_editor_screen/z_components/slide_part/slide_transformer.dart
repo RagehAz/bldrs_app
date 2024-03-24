@@ -155,7 +155,7 @@ class SlideTransformer extends StatelessWidget {
         height: FlyerDim.flyerHeightByFlyerWidth(
           flyerBoxWidth: flyerBoxWidth,
         ),
-        // fit: BoxFit.contain,
+        fit: BoxFit.contain,
       ),
     );
 

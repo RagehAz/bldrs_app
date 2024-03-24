@@ -177,7 +177,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                       width: DraftShelfSlide.flyerBoxWidth,
                       height: _flyerBoxHeight,
                       pic: widget.draftSlide?.bigPic,
-                      // fit: BoxFit.contain,
+                      fit: BoxFit.contain,
                       loading: false,
                     ),
                   ),
