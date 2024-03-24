@@ -500,7 +500,7 @@ class GtaModel {
               backPic: _backPic,
               headline: i == 0 ? product.title : null,
               description: null,
-              midColor: await Colorizer.getAverageColorFromSuperFile(_bigPic.file),
+              midColor: await Colorizer.getAverageColor(_bigPic.bytes),
               backColor: null,
               opacity: 1,
               matrix: Matrix4.identity(),
@@ -534,9 +534,8 @@ class GtaModel {
 
         _output = await MediaModelCreator.fromURL(
           url: url,
-          // uploadPath: null,
           ownersIDs: [_userID],
-          fileName: picName,
+          uploadPath: 'storage/gta/$picName',
         );
 
     }

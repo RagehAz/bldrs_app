@@ -8,6 +8,7 @@ import 'package:basics/mediator/models/media_models.dart';
 import 'package:basics/mediator/video_maker/video_maker.dart';
 import 'package:basics/mediator/video_maker/video_ops.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_video_editor/src/components/panels/super_timeline/super_time_line.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
@@ -53,15 +54,16 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
       langCode: 'en',
       onError: (t){},
       onPermissionPermanentlyDenied: (t){},
-      uploadPath: 'a/s',
       ownersIDs: ['x'],
-      name: null,
+      uploadPathMaker: (String? title){
+        return StoragePath.entities_title(title) ?? Numeric.createRandomIndex().toString();
+      },
     );
 
     if (_video != null){
 
-      final File? file = await Filer.createFromSuperFile(
-        file: _video.file,
+      final File? file = await Filer.createFromMediaModel(
+        mediaModel: _video,
       );
 
       _videoEditorController = await VideoOps.initializeVideoEditorController(

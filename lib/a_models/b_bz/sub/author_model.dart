@@ -1355,7 +1355,7 @@ class AuthorModel {
             contacts1: author1.contacts,
             contacts2: author2.contacts,
           ) == true &&
-          MediaModel.checkMediaModelsAreIdenticalSync(
+          MediaModel.checkMediaModelsAreIdentical(
               model1: author1.picModel,
               model2: author2.picModel
           ) == true

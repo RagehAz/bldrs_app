@@ -1,4 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
+import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 /// => TAMAM
 class StoragePath {
@@ -214,6 +215,32 @@ class StoragePath {
       return '${StorageColl.flyers}/$flyerID/pdf';
     }
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// ENTITIES
+
+  // --------------------
+  static String? entities_title(String? title){
+    if (title == null){
+      return null;
+    }
+    else {
+      return '${StorageColl.entities}/${TextMod.idifyString(title)}';
+    }
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DOWNLOADS
+
+  // --------------------
+  static String? downloads_url(String? url){
+    if (url == null){
+      return null;
+    }
+    else {
+      return '${StorageColl.downloads}/${TextMod.idifyString(url)}';
+    }
   }
   // -----------------------------------------------------------------------------
 }

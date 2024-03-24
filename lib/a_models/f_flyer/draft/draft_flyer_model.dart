@@ -894,7 +894,7 @@ class DraftFlyer{
       if (PDFModel.checkPDFModelsAreIdentical(pdf1: draft1.pdfModel, pdf2: draft2.pdfModel) == false){
         blog('pdfs are not identical');
       }
-      if (MediaModel.checkMediaModelsAreIdenticalSync(model1: draft1.poster, model2: draft2.poster) == false){
+      if (MediaModel.checkMediaModelsAreIdentical(model1: draft1.poster, model2: draft2.poster) == false){
         blog('posters are not identical');
       }
       if (BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == false){
@@ -1025,7 +1025,7 @@ class DraftFlyer{
       }
       else {
 
-         final bool _identicalPics = await MediaModel.checkMediaModelsAreIdentical(model1: draft?.poster, model2: _poster);
+         final bool _identicalPics = MediaModel.checkMediaModelsAreIdentical(model1: draft?.poster, model2: _poster);
 
          _hasChanged = !_identicalPics;
 
@@ -1037,7 +1037,7 @@ class DraftFlyer{
             type: SlidePicType.small,
           );
 
-          final bool _identical = await MediaModel.checkMediaModelsListsAreIdentical(
+          final bool _identical = MediaModel.checkMediaModelsListsAreIdentical(
             models1: _draftPics,
             models2: _oldPics,
           );
@@ -1095,7 +1095,7 @@ class DraftFlyer{
           draft1.isAmazonFlyer == draft2.isAmazonFlyer &&
           draft1.score == draft2.score &&
           PDFModel.checkPDFModelsAreIdentical(pdf1: draft1.pdfModel, pdf2: draft2.pdfModel) == true &&
-          MediaModel.checkMediaModelsAreIdenticalSync(model1: draft1.poster, model2: draft2.poster) == true &&
+          MediaModel.checkMediaModelsAreIdentical(model1: draft1.poster, model2: draft2.poster) == true &&
           BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == true &&
           draft1.affiliateLink == draft2.affiliateLink &&
           draft1.gtaLink == draft2.gtaLink &&

@@ -120,20 +120,13 @@ Future<void> _addGalleryImagesToNewFlyer({
       aspectRatio: FlyerDim.flyerAspectRatio(),
       compressWithQuality: Standards.slideBigQuality,
       resizeToWidth: Standards.slideBigWidth,
-      uploadPathGenerator: (int index) => StoragePath.flyers_flyerID_index_big(
+      uploadPathGenerator: (int index, String? title) => StoragePath.flyers_flyerID_index_big(
         flyerID: draftFlyer.value!.id,
         slideIndex: index+_startingIndex,
       )!,
       ownersIDs: await FlyerModel.generateFlyerOwners(
         bzID: draftFlyer.value?.bzID,
       ),
-      picNameGenerator: (int index){
-        return SlideModel.generateSlideID(
-            flyerID: draftFlyer.value!.id,
-            slideIndex: index+_startingIndex,
-            type: SlidePicType.big,
-        )!;
-      },
       maxAssets: DraftFlyer.concludeMaxAssetsPossibleWhilePickingPhotos(
         draft: draftFlyer.value,
       ),
@@ -195,14 +188,9 @@ Future<void> _addCameraImageToNewFlyer({
       aspectRatio: FlyerDim.flyerAspectRatio(),
       compressWithQuality: Standards.slideBigQuality,
       resizeToWidth: Standards.slideBigWidth,
-      uploadPath: StoragePath.flyers_flyerID_index_big(
+      uploadPathMaker: (String? title) => StoragePath.flyers_flyerID_index_big(
         flyerID: draftFlyer.value!.id,
         slideIndex: _startingIndex,
-      )!,
-      fileName: SlideModel.generateSlideID(
-        flyerID: draftFlyer.value!.id,
-        slideIndex: _startingIndex,
-        type: SlidePicType.big,
       )!,
       mediaOrigin: MediaOrigin.cameraImage,
       ownersIDs: await FlyerModel.generateFlyerOwners(
@@ -266,14 +254,9 @@ Future<void> _addGalleryVideoToNewFlyer({
       aspectRatio: FlyerDim.flyerAspectRatio(),
       compressWithQuality: Standards.slideBigQuality,
       resizeToWidth: Standards.slideBigWidth,
-      uploadPath: StoragePath.flyers_flyerID_index_big(
+      uploadPathMaker: (String? title) => StoragePath.flyers_flyerID_index_big(
         flyerID: draftFlyer.value!.id,
         slideIndex: _startingIndex,
-      )!,
-      name: SlideModel.generateSlideID(
-        flyerID: draftFlyer.value!.id,
-        slideIndex: _startingIndex,
-        type: SlidePicType.big,
       )!,
       mediaOrigin: MediaOrigin.galleryVideo,
       ownersIDs: await FlyerModel.generateFlyerOwners(

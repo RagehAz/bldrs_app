@@ -88,9 +88,8 @@ class ComposeUserProtocols {
 
         final MediaModel? _mediaModel = await MediaModelCreator.fromURL(
           url: picURL,
-          fileName: '${userID}_pic',
           ownersIDs: userID == null ? [] : [userID],
-          uploadPath: StoragePath.users_userID_pic(userID),
+          uploadPath: StoragePath.users_userID_pic(userID)!,
         );
 
         await MediaProtocols.composeMedia(_mediaModel);

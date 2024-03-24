@@ -10,6 +10,7 @@ import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
 import 'package:basics/helpers/maps/mapper.dart';
+import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/space/borderers.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/helpers/strings/text_check.dart';
@@ -1403,7 +1404,7 @@ class Dialogs {
               child: SuperImage(
                 width: _width,
                 height: _height,
-                pic: _pic.file,
+                pic: _pic,
                 loading: false,
                 corners: _height * 0.1,
                 fit: BoxFit.contain,
@@ -1434,9 +1435,8 @@ class Dialogs {
     final MediaModel? _pic = await MediaModelCreator.fromXFile(
         file: xFile,
         mediaOrigin: MediaOrigin.generated,
-        uploadPath: null,
+        uploadPath: StoragePath.entities_title(xFile?.fileName) ?? Numeric.createRandomIndex().toString(),
         ownersIDs: [],
-        renameFile: null,
     );
 
     if (_pic != null){
@@ -1470,7 +1470,7 @@ class Dialogs {
     final MediaModel? _pic = await MediaModelCreator.fromSuperFile(
       file: file,
       mediaOrigin: MediaOrigin.generated,
-      // uploadPath: null,
+      uploadPath: StoragePath.entities_title(file?.getFileName(withExtension: true)) ?? Numeric.createRandomIndex().toString(),
       ownersIDs: [],
       // rename: null,
     );

@@ -115,7 +115,6 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
               bytes: _bytes,
               mediaOrigin: MediaOrigin.generated,
               uploadPath: _uploadPath,
-              fileName: '${widget.draft!.id}_posterX',
               ownersIDs: await FlyerModel.generateFlyerOwners(
                 bzID: widget.draft!.bzID,
               ),

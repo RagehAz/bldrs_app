@@ -577,7 +577,7 @@ class DraftUser {
           NeedModel.checkNeedsAreIdentical(draft1.need, draft2.need) == true &&
           draft1.name == draft2.name &&
           Lister.checkListsAreIdentical(list1: draft1.trigram, list2: draft2.trigram) == true &&
-          MediaModel.checkMediaModelsAreIdenticalSync(model1: draft1.picModel, model2: draft2.picModel) == true &&
+          MediaModel.checkMediaModelsAreIdentical(model1: draft1.picModel, model2: draft2.picModel) == true &&
           draft1.title == draft2.title &&
           draft1.company == draft2.company &&
           draft1.gender == draft2.gender &&

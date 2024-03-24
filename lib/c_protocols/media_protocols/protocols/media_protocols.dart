@@ -64,11 +64,11 @@ class MediaProtocols {
   /// TESTED : WORKS PERFECT
   static Future<MediaModel?> fetchMedia(String? path) async {
 
-    MediaModel? _picModel = await MediaLDBOps.readMediaByFireStoragePath(
+    MediaModel? _picModel = await MediaLDBOps.readMedia(
       path: path,
     );
 
-    final bool? _exists = await _picModel?.file?.exists();
+    final bool? _exists = _picModel?.bytes != null;
 
     if (_picModel == null || _exists == null || _exists == false){
 
@@ -123,7 +123,7 @@ class MediaProtocols {
 
       final MediaModel? _picModel = await MediaProtocols.fetchMedia(path);
 
-      _theImage = await Imager.getUiImageFromSuperFile(_picModel?.file);
+      _theImage = await Imager.getUiImageFromBytes(_picModel?.bytes);
 
     }
 
@@ -137,7 +137,7 @@ class MediaProtocols {
 
     if (Lister.checkCanLoop(paths) == true){
 
-      await MediaLDBOps.deleteMediasByFireStoragePaths(
+      await MediaLDBOps.deleteMedias(
         paths: paths,
       );
 
@@ -243,7 +243,7 @@ class MediaProtocols {
 
     if (TextCheck.isEmpty(path) == false){
 
-      final bool _existsInLDB = await MediaLDBOps.checkExistsByFireStoragePath(
+      final bool _existsInLDB = await MediaLDBOps.checkExists(
         path: path,
       );
 
@@ -304,7 +304,7 @@ class MediaProtocols {
 
     if (newMedia != null){
 
-      final bool _areIdentical = await MediaModel.checkMediaModelsAreIdentical(
+      final bool _areIdentical = MediaModel.checkMediaModelsAreIdentical(
         model1: oldMedia,
         model2: newMedia,
       );
@@ -353,7 +353,7 @@ class MediaProtocols {
 
       await Future.wait(<Future>[
 
-        MediaLDBOps.deleteMediaByFireStoragePath(
+        MediaLDBOps.deleteMedia(
           path: path,
         ),
 
@@ -372,7 +372,7 @@ class MediaProtocols {
 
       await Future.wait(<Future>[
 
-        MediaLDBOps.deleteMediasByFireStoragePaths(
+        MediaLDBOps.deleteMedias(
           paths: paths
         ),
 
@@ -395,25 +395,33 @@ class MediaProtocols {
   /// STEALING
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST_ME_NOW
   static Future<MediaModel?> stealInternetPic({
     required String? url,
     required List<String> ownersIDs,
-    required String fileName,
-    required String uploadPath,
+    String? uploadPath,
   }) async {
     MediaModel? _output;
 
     if (url != null){
 
-      _output = await MediaModelCreator.fromURL(
-        url: url,
-        ownersIDs: ownersIDs,
-        fileName: fileName,
-        uploadPath: uploadPath,
-      );
+      _output = await MediaLDBOps.readStolenURL(url: url);
 
-      await composeMedia(_output);
+      _output ??= await MediaLDBOps.readMedia(path: uploadPath);
+
+      if (_output == null){
+
+        final String _path = uploadPath ?? StoragePath.downloads_url(url)!;
+
+        _output = await MediaModelCreator.fromURL(
+          url: url,
+          ownersIDs: ownersIDs,
+          uploadPath: _path,
+        );
+
+        await composeMedia(_output);
+
+      }
 
     }
 

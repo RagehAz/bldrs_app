@@ -45,9 +45,8 @@ class BldrsMediaMaker {
     required double aspectRatio,
     required int? compressWithQuality,
     required double? resizeToWidth,
-    required String uploadPath,
+    required String Function (String? title) uploadPathMaker,
     required List<String> ownersIDs,
-    required String? fileName,
   }) async {
     MediaModel? _output;
 
@@ -64,8 +63,7 @@ class BldrsMediaMaker {
         onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
         onError: onPickingError,
         ownersIDs: ownersIDs,
-        uploadPath: uploadPath,
-        fileName: fileName,
+        uploadPathMaker: uploadPathMaker,
         // selectedAsset: selectedAsset,
       );
     }
@@ -83,9 +81,8 @@ class BldrsMediaMaker {
         onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
         onError: onPickingError,
         ownersIDs: ownersIDs,
-        uploadPath: uploadPath,
+        uploadPathMaker: uploadPathMaker,
         locale: Localizer.getCurrentLocale(),
-        fileName: fileName,
       );
     }
 
@@ -98,9 +95,8 @@ class BldrsMediaMaker {
     required double aspectRatio,
     required int compressWithQuality,
     required double resizeToWidth,
-    required String? Function(int index)? uploadPathGenerator,
+    required String Function(int index, String? title) uploadPathGenerator,
     required List<String> ownersIDs,
-    required String? Function(int index)? picNameGenerator,
     required int maxAssets,
   }) async {
 
@@ -117,7 +113,6 @@ class BldrsMediaMaker {
       onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
       onError: onPickingError,
       uploadPathGenerator: uploadPathGenerator,
-      picNameGenerator: picNameGenerator,
       ownersIDs: ownersIDs,
       // selectedAssets: selectedAssets,
     );
@@ -162,9 +157,8 @@ class BldrsMediaMaker {
     required double aspectRatio,
     required double? resizeToWidth,
     required int? compressWithQuality,
-    required String uploadPath,
+    required String Function (String? title) uploadPathMaker,
     required List<String> ownersIDs,
-    required String name,
     required bool createCover,
   }) async {
     MediaModel? _video;
@@ -176,8 +170,7 @@ class BldrsMediaMaker {
         langCode: Localizer.getCurrentLangCode(),
         onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
         onError: onPickingError,
-        name: name,
-        uploadPath: uploadPath,
+        uploadPathMaker: uploadPathMaker,
         ownersIDs: ownersIDs,
       );
     }
@@ -189,8 +182,7 @@ class BldrsMediaMaker {
         onPermissionPermanentlyDenied: onPermissionPermanentlyDenied,
         onError: onPickingError,
         locale: Localizer.getCurrentLocale(),
-        name: name,
-        uploadPath: uploadPath,
+        uploadPathMaker: uploadPathMaker,
         ownersIDs: ownersIDs,
       );
     }

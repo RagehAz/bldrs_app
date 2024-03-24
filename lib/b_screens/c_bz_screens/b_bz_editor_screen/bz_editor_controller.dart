@@ -391,9 +391,8 @@ Future<void> onChangeBzLogo({
           aspectRatio: 1,
           compressWithQuality: Standards.bzLogoPicQuality,
           resizeToWidth: Standards.bzLogoPicWidth,
-          uploadPath: _path,
+          uploadPathMaker: (String? title) => _path,
           ownersIDs: _ownersIDs,
-          fileName: 'bz_logo_$_bzID',
         );
 
         /// IF DID NOT PIC ANY IMAGE

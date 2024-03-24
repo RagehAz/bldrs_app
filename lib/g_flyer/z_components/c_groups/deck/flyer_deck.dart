@@ -260,8 +260,8 @@ class FlyerDeck extends StatelessWidget {
       if (_slide.frontImage == null){
 
         final DraftSlide? _draft = draft?.draftSlides?.firstWhere((element) => element.slideIndex == _slide.slideIndex);
-        final ui.Image? _front = await Imager.getUiImageFromSuperFile(_draft?.smallPic?.file);
-        final ui.Image? _back = await Imager.getUiImageFromSuperFile(_draft?.backPic?.file);
+        final ui.Image? _front = await Imager.getUiImageFromBytes(_draft?.smallPic?.bytes);
+        final ui.Image? _back = await Imager.getUiImageFromBytes(_draft?.backPic?.bytes);
         final SlideModel _updatedSlide = _slide.copyWith(
           frontImage: _front,
           backImage: _back,

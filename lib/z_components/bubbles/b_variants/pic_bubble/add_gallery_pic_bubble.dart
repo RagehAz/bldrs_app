@@ -241,7 +241,7 @@ class _FilePicSplitter extends StatelessWidget {
     dynamic _output;
 
     if (pic != null && pic.meta?.uploadPath != Iconz.anonymousUser){
-      _output = pic.file ?? pic.meta?.uploadPath;
+      _output = pic.bytes ?? pic.meta?.uploadPath;
     }
 
     return _output;
@@ -345,7 +345,7 @@ class _PlusIconLayer extends StatelessWidget {
     else {
 
       /// SIZE IS NULL
-      if (picModel?.file == null){
+      if (picModel?.bytes == null){
         return const SizedBox();
       }
 

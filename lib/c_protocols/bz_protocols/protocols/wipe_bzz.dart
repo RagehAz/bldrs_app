@@ -77,10 +77,10 @@ class WipeBzProtocols {
           path: StoragePath.bzz_bzID(bzModel.id),
         ),
         /// DELETE BZ LOGO & AUTHORS PICS
-        MediaLDBOps.deleteMediaByFireStoragePath(
+        MediaLDBOps.deleteMedia(
           path: bzModel.logoPath,
         ),
-        MediaLDBOps.deleteMediasByFireStoragePaths(
+        MediaLDBOps.deleteMedias(
           paths: AuthorModel.getAuthorsPicsPaths(bzModel.authors),
         ),
         /// CENSUS

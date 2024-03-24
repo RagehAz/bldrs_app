@@ -113,7 +113,7 @@ class DraftSlide {
 
       final int _newIndex = existingDrafts.length;
 
-      final Uint8List? _coverBytes = await Byter.fromSuperFile(cover.file);
+      final Uint8List? _coverBytes = cover.bytes;
       final Color? _midColor = await Colorizer.getAverageColor(_coverBytes);
       // final MediaModel? _medPic = await SlidePicMaker.compressSlideBigPicTo(
       //   slidePic: bigPic,
@@ -186,7 +186,7 @@ class DraftSlide {
       // await Dialogs.picDialogBySuperFile(file: bigPic.file, titleVerse: Verse.plain('BIG'));
 
       /// MID COLOR
-      final Uint8List? _bigPicBytes = await Byter.fromSuperFile(bigPic.file);
+      final Uint8List? _bigPicBytes = bigPic.bytes;
       final Color? _midColor = await Colorizer.getAverageColor(_bigPicBytes);
       /// MED PIC
       final MediaModel? _medPic = await SlidePicMaker.compressSlideBigPicTo(
@@ -275,8 +275,8 @@ class DraftSlide {
         matrix: draft.matrix,
         matrixFrom: draft.matrixFrom,
         animationCurve: draft.animationCurve,
-        frontImage: await Imager.getUiImageFromSuperFile(_picModel?.file),
-        backImage: await Imager.getUiImageFromSuperFile(_backPic?.file),
+        frontImage: await Imager.getUiImageFromBytes(_picModel?.bytes),
+        backImage: await Imager.getUiImageFromBytes(_backPic?.bytes),
         frontPicPath: _picModel?.meta?.uploadPath,
       );
 
@@ -576,35 +576,35 @@ class DraftSlide {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<SuperFile> getFilesFromDraftSlides({
+  static List<Uint8List> getBytezzFromDraftSlides({
     required List<DraftSlide> drafts,
     required SlidePicType slidePicType,
   }) {
 
-    final List<SuperFile> _output = <SuperFile>[];
+    final List<Uint8List> _output = <Uint8List>[];
 
     for (final DraftSlide draft in drafts) {
 
       switch (slidePicType){
 
         case SlidePicType.big:
-          if (draft.bigPic?.file != null) {
-            _output.add(draft.bigPic!.file!);
+          if (draft.bigPic?.bytes != null) {
+            _output.add(draft.bigPic!.bytes!);
           } break;
 
         case SlidePicType.med:
-          if (draft.medPic?.file != null) {
-            _output.add(draft.medPic!.file!);
+          if (draft.medPic?.bytes != null) {
+            _output.add(draft.medPic!.bytes!);
           } break;
 
         case SlidePicType.small:
-          if (draft.smallPic?.file != null) {
-            _output.add(draft.smallPic!.file!);
+          if (draft.smallPic?.bytes != null) {
+            _output.add(draft.smallPic!.bytes!);
           } break;
 
         case SlidePicType.back:
-          if (draft.backPic?.file != null) {
-            _output.add(draft.backPic!.file!);
+          if (draft.backPic?.bytes != null) {
+            _output.add(draft.backPic!.bytes!);
           } break;
 
       }
@@ -973,16 +973,16 @@ class DraftSlide {
     if (slide1?.slideIndex != slide2?.slideIndex){
       blog('MutableSlidesDifferences : slideIndexes are not Identical');
     }
-    if (MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1?.bigPic, model2: slide2?.bigPic) == false){
+    if (MediaModel.checkMediaModelsAreIdentical(model1: slide1?.bigPic, model2: slide2?.bigPic) == false){
       blog('MutableSlidesDifferences : bigPics are not Identical');
     }
-    if (MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1?.medPic, model2: slide2?.medPic) == false){
+    if (MediaModel.checkMediaModelsAreIdentical(model1: slide1?.medPic, model2: slide2?.medPic) == false){
       blog('MutableSlidesDifferences : medPics are not Identical');
     }
-    if (MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1?.smallPic, model2: slide2?.smallPic) == false){
+    if (MediaModel.checkMediaModelsAreIdentical(model1: slide1?.smallPic, model2: slide2?.smallPic) == false){
       blog('MutableSlidesDifferences : smallPics are not Identical');
     }
-    if (MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1?.backPic, model2: slide2?.backPic) == false){
+    if (MediaModel.checkMediaModelsAreIdentical(model1: slide1?.backPic, model2: slide2?.backPic) == false){
       blog('MutableSlidesDifferences : backPics are not Identical');
     }
     if (slide1?.headline != slide2?.headline){
@@ -1034,10 +1034,10 @@ class DraftSlide {
       if (
           slide1.flyerID == slide2.flyerID &&
           slide1.slideIndex == slide2.slideIndex &&
-          MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1.bigPic, model2: slide2.bigPic) == true &&
-          MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1.medPic, model2: slide2.medPic) == true &&
-          MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1.smallPic, model2: slide2.smallPic) == true &&
-          MediaModel.checkMediaModelsAreIdenticalSync(model1: slide1.backPic, model2: slide2.backPic) == true &&
+          MediaModel.checkMediaModelsAreIdentical(model1: slide1.bigPic, model2: slide2.bigPic) == true &&
+          MediaModel.checkMediaModelsAreIdentical(model1: slide1.medPic, model2: slide2.medPic) == true &&
+          MediaModel.checkMediaModelsAreIdentical(model1: slide1.smallPic, model2: slide2.smallPic) == true &&
+          MediaModel.checkMediaModelsAreIdentical(model1: slide1.backPic, model2: slide2.backPic) == true &&
           slide1.headline == slide2.headline &&
           slide1.description == slide2.description &&
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&

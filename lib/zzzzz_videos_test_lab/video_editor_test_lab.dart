@@ -18,6 +18,7 @@ import 'package:basics/mediator/video_maker/video_maker.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/panel_circle_button.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_video_editor/src/components/panels/super_timeline/super_time_line.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_media_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -93,8 +94,8 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
 
         if (widget.video != null){
 
-          final File? _file = await Filer.createFromSuperFile(
-              file: widget.video!.file,
+          final File? _file = await Filer.createFromMediaModel(
+            mediaModel: widget.video,
           );
 
           await _setVideo(_file);
@@ -180,18 +181,19 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
   // --------------------
   Future<void> _picVideoFromGallery() async {
 
-    final MediaModel? _videoMap = await VideoMaker.pickVideo(
+    final MediaModel? _video = await VideoMaker.pickVideo(
       context: context,
       langCode: Localizer.getCurrentLangCode(),
       onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
       onError: BldrsMediaMaker.onPickingError,
       ownersIDs: [],
-      uploadPath: '',
-      name: Numeric.createUniqueID().toString(), /// dont_keep_naming_files_when_picking_a_video
+      uploadPathMaker: (String? title){
+        return StoragePath.entities_title(title) ?? Numeric.createRandomIndex().toString();
+      },
     );
 
-    final File? _file = await Filer.createFromSuperFile(
-      file: _videoMap?.file,
+    final File? _file = await Filer.createFromMediaModel(
+      mediaModel: _video,
     );
 
     await _setVideo(_file);
@@ -211,12 +213,13 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
       onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
       onError: BldrsMediaMaker.onPickingError,
       ownersIDs: [],
-      uploadPath: '',
-      name: Numeric.createUniqueID().toString(),
+      uploadPathMaker: (String? title){
+        return StoragePath.entities_title(title) ?? Numeric.createRandomIndex().toString();
+      },
     );
 
-    final File? _file = await Filer.createFromSuperFile(
-      file: _videoMap?.file,
+    final File? _file = await Filer.createFromMediaModel(
+      mediaModel: _videoMap,
     );
 
     await _setVideo(_file);
@@ -592,9 +595,10 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                         langCode: Localizer.getCurrentLangCode(),
                         onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
                         onError: BldrsMediaMaker.onPickingError,
-                        name: 'x',
-                        uploadPath: '',
                         ownersIDs: [],
+                        uploadPathMaker: (String? title){
+                          return StoragePath.entities_title(title) ?? Numeric.createRandomIndex().toString();
+                        },
                       );
 
                       final Dimensions? _dims = await DimensionsGetter.fromMediaModel(
@@ -617,8 +621,9 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                         aspectRatio: FlyerDim.flyerAspectRatio(),
                         compressWithQuality: Standards.slideBigQuality,
                         resizeToWidth: Standards.slideBigWidth,
-                        uploadPath: 'storage:bldrs/bjo',
-                        fileName: 'bjo',
+                        uploadPathMaker: (String? title){
+                          return StoragePath.entities_title(title) ?? Numeric.createRandomIndex().toString();
+                        },
                         mediaOrigin: MediaOrigin.galleryImage,
                         ownersIDs: ['x'],
                       );

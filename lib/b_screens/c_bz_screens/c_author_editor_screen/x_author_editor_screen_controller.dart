@@ -180,9 +180,8 @@ Future<void> takeAuthorImage({
         aspectRatio: 1,
         compressWithQuality: Standards.authorPicQuality,
         resizeToWidth: Standards.authorPicWidth,
-        uploadPath: _path,
+        uploadPathMaker: (String? title) => _path,
         ownersIDs: _ownersIDs,
-        fileName: 'author_pic_$_authorID',
       );
 
       /// IF DID NOT PIC ANY IMAGE

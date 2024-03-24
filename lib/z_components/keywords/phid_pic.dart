@@ -97,7 +97,7 @@ class _PhidPicState extends State<PhidPic> {
       iconSizeFactor: Keyworder.checkIsPhid(widget.phid) ? 1 : 0.7,
       bubble: false,
       loading: _picModel == null && _loading == true,
-      icon: _rootIcon ?? _picModel?.file ?? Iconz.circleDot,
+      icon: _rootIcon ?? _picModel?.bytes ?? Iconz.circleDot,
     );
     // --------------------
   }

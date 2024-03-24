@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:bldrs/bldrs_keys.dart';
+import 'package:bldrs/c_protocols/media_protocols/ldb/media_ldb_ops.dart';
 import 'package:bldrs/c_protocols/media_protocols/protocols/media_protocols.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/images/bldrs_image.dart';
@@ -53,11 +54,14 @@ class PicFullScreen extends StatelessWidget {
     required String? title,
   }) async {
 
-    final MediaModel? _pic = await MediaProtocols.stealInternetPic(
+    MediaModel? _pic = await MediaLDBOps.readStolenURL(
+      url: url,
+    );
+
+    _pic = await MediaProtocols.stealInternetPic(
       url: url,
       ownersIDs: [BldrsKeys.ragehID],
-      fileName: '$url',
-      uploadPath: 'x',
+      // uploadPath: null,
     );
 
     await openPicModel(
@@ -75,7 +79,7 @@ class PicFullScreen extends StatelessWidget {
 
     await BldrsNav.goToNewScreen(
       screen: PicFullScreen(
-        image: pic?.file,
+        image: pic,
         dimensions: Dimensions(
           width: pic?.meta?.width,
           height: pic?.meta?.height,

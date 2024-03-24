@@ -1,9 +1,8 @@
 import 'dart:typed_data';
-import 'package:basics/filing/filing.dart';
+
 import 'package:basics/helpers/checks/object_check.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/lister.dart';
-import 'package:basics/helpers/strings/text_mod.dart';
 import 'package:basics/mediator/models/media_models.dart';
 import 'package:fire/super_fire.dart';
 /// => TAMAM
@@ -23,7 +22,7 @@ class FireStorageOps {
     await MediaModel.assertIsUploadable(media);
 
     final String? _url = await Storage.uploadBytesAndGetURL(
-      bytes: await media?.getBytes(),
+      bytes: media?.bytes,
       storageMetaModel: media?.meta,
     );
 
@@ -73,25 +72,20 @@ class FireStorageOps {
         path: path,
       );
 
-      final Uint8List? _bytes = await Storage.readBytesByPath(
-        path: path,
-      );
+      if (_meta?.uploadPath != null){
 
-      /// FILE NAME
-      String? _fileName = FilePathing.getNameFromPath(
-        path: _meta?.uploadPath,
-        withExtension: false,
-      );
-      _fileName ??= _meta?.name;
-      _fileName ??= FilePathing.idifyFireStoragePath(fireStoragePath: path);
+        final Uint8List? _bytes = await Storage.readBytesByPath(
+          path: path,
+        );
 
-      _output = await MediaModelCreator.fromBytes(
-        bytes: _bytes,
-        ownersIDs: _meta?.ownersIDs,
-        uploadPath: _meta?.uploadPath,
-        mediaOrigin: _meta?.getMediaOrigin(),
-        fileName: _fileName,
-      );
+        _output = await MediaModelCreator.fromBytes(
+          bytes: _bytes,
+          ownersIDs: _meta!.ownersIDs,
+          uploadPath: _meta.uploadPath!,
+          mediaOrigin: _meta.getMediaOrigin(),
+        );
+
+      }
 
     }
 
@@ -110,20 +104,16 @@ class FireStorageOps {
         url: url,
       );
 
-      /// FILE NAME
-      String? _fileName = FilePathing.getNameFromPath(
-          path: _meta?.uploadPath,
-          withExtension: false,
-      );
-      _fileName ??= _meta?.name;
-      _fileName ??= TextMod.idifyString(url);
+      if (_meta?.uploadPath != null){
 
-      _output = await MediaModelCreator.fromURL(
-        url: url,
-        fileName: _fileName,
-        ownersIDs: _meta?.ownersIDs,
-        uploadPath: _meta?.uploadPath,
-      );
+        _output = await MediaModelCreator.fromURL(
+          url: url,
+          ownersIDs: _meta!.ownersIDs,
+          uploadPath: _meta.uploadPath!,
+        );
+
+      }
+
 
     }
 

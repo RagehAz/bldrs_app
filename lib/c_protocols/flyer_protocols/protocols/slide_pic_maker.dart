@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-import 'package:basics/filing/filing.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:basics/mediator/models/media_models.dart';
@@ -46,11 +45,11 @@ class SlidePicMaker {
 
     if (flyerID != null && slideIndex != null && slidePic != null && slidePic.meta?.data != null){
 
-      final String? _slideID = SlideModel.generateSlideID(
-        flyerID: flyerID,
-        slideIndex: slideIndex,
-        type: type,
-      );
+      // final String? _slideID = SlideModel.generateSlideID(
+      //   flyerID: flyerID,
+      //   slideIndex: slideIndex,
+      //   type: type,
+      // );
 
       final String? _slidePath = SlideModel.generateSlidePicPath(
         flyerID: flyerID,
@@ -58,23 +57,26 @@ class SlidePicMaker {
         type: type,
       );
 
-      _output = await MediaModelCreator.fromBytes(
-        bytes: await Byter.fromSuperFile(slidePic.file),
-        fileName: _slideID,
-        ownersIDs: slidePic.meta?.ownersIDs,
-        uploadPath: _slidePath,
-        mediaOrigin: slidePic.getMediaOrigin(),
-      );
+      if (_slidePath != null){
 
-      _output = await PicMaker.resizePic(
+        _output = await MediaModelCreator.fromBytes(
+          bytes: slidePic.bytes,
+          ownersIDs: slidePic.meta?.ownersIDs,
+          uploadPath: _slidePath,
+          mediaOrigin: slidePic.getMediaOrigin(),
+        );
+
+        _output = await PicMaker.resizePic(
           mediaModel: slidePic,
           resizeToWidth: getSlidePicWidth(type),
-      );
+        );
 
-      _output = await PicMaker.compressPic(
-        mediaModel: _output,
-        quality: getSlidePicCompressionQuality(type),
-      );
+        _output = await PicMaker.compressPic(
+          mediaModel: _output,
+          quality: getSlidePicCompressionQuality(type),
+        );
+
+      }
 
       // blog('2.compressSlideBigPicTo : _output $_output');
 
@@ -163,11 +165,11 @@ class SlidePicMaker {
 
     if (_bytes.isNotEmpty == true){
 
-      final String? _slideID = SlideModel.generateSlideID(
-        flyerID: flyerID,
-        slideIndex: slideIndex,
-        type: SlidePicType.back,
-      );
+      // final String? _slideID = SlideModel.generateSlideID(
+      //   flyerID: flyerID,
+      //   slideIndex: slideIndex,
+      //   type: SlidePicType.back,
+      // );
 
       final String? _uploadPath = SlideModel.generateSlidePicPath(
         flyerID: flyerID,
@@ -175,14 +177,13 @@ class SlidePicMaker {
         type: SlidePicType.back,
       );
 
-      if (_uploadPath != null && _slideID != null){
+      if (_uploadPath != null){
 
         _output = await MediaModelCreator.fromBytes(
           bytes: _bytes,
           mediaOrigin: MediaOrigin.generated,
           uploadPath: _uploadPath,
           ownersIDs: ownersIDs,
-          fileName: _slideID,
         );
 
         _output = await PicMaker.resizePic(

@@ -69,5 +69,8 @@ abstract class StorageColl{
   static const String flyers        = 'storage/flyers';
   static const String users         = 'storage/users';
   static const String phids         = 'storage/phids';
+
+  static const String entities      = 'storage/entities';
+  static const String downloads     = 'storage/downloads';
   // --------------------
 }

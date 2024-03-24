@@ -75,23 +75,23 @@ class WipeFlyerProtocols {
         ),
 
         /// DELETE LDB SLIDES AND POSTER PICS + PDF
-        MediaLDBOps.deleteMediasByFireStoragePaths(
+        MediaLDBOps.deleteMedias(
           paths: FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.big),
         ),
 
-        MediaLDBOps.deleteMediasByFireStoragePaths(
+        MediaLDBOps.deleteMedias(
           paths: FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.med),
         ),
 
-        MediaLDBOps.deleteMediasByFireStoragePaths(
+        MediaLDBOps.deleteMedias(
           paths: FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.small),
         ),
 
-        MediaLDBOps.deleteMediasByFireStoragePaths(
+        MediaLDBOps.deleteMedias(
           paths: FlyerModel.getPicsPaths(flyer: flyerModel,type: SlidePicType.back),
         ),
 
-        MediaLDBOps.deleteMediaByFireStoragePath(
+        MediaLDBOps.deleteMedia(
           path: StoragePath.flyers_flyerID_poster(flyerModel.id),
         ),
 
@@ -187,19 +187,19 @@ class WipeFlyerProtocols {
               ),
 
               /// DELETE LDB SLIDES AND POSTER PICS + PDF
-              MediaLDBOps.deleteMediasByFireStoragePaths(
+              MediaLDBOps.deleteMedias(
                 paths: FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.big),
               ),
-              MediaLDBOps.deleteMediasByFireStoragePaths(
+              MediaLDBOps.deleteMedias(
                 paths: FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.med),
               ),
-              MediaLDBOps.deleteMediasByFireStoragePaths(
+              MediaLDBOps.deleteMedias(
                 paths: FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.small),
               ),
-              MediaLDBOps.deleteMediasByFireStoragePaths(
+              MediaLDBOps.deleteMedias(
                 paths: FlyerModel.getPicsPaths(flyer: _flyerModel, type: SlidePicType.back),
               ),
-              MediaLDBOps.deleteMediaByFireStoragePath(
+              MediaLDBOps.deleteMedia(
                 path: StoragePath.flyers_flyerID_poster(_flyerModel.id),
               ),
               PDFLDBOps.delete(_flyerModel.pdfPath),

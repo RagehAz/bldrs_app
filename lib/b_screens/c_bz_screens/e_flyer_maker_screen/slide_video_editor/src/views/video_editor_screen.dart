@@ -51,8 +51,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
         if (widget.video != null){
 
-          final File? _file = await Filer.createFromSuperFile(
-            file: widget.video?.file,
+          final File? _file = await Filer.createFromMediaModel(
+            mediaModel: widget.video,
           );
 
           await _setVideo(_file);
@@ -466,9 +466,10 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                 langCode: Localizer.getCurrentLangCode(),
                 onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
                 onError: BldrsMediaMaker.onPickingError,
-                name: 'x',
-                uploadPath: '',
                 ownersIDs: [],
+                uploadPathMaker: (String? title){
+                  return StoragePath.entities_title(title ?? Numeric.createRandomIndex().toString())!;
+                }
               );
 
               final Dimensions? _dims = await DimensionsGetter.fromMediaModel(
@@ -491,8 +492,9 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                 aspectRatio: FlyerDim.flyerAspectRatio(),
                 compressWithQuality: Standards.slideBigQuality,
                 resizeToWidth: Standards.slideBigWidth,
-                uploadPath: 'storage:bldrs/bjo',
-                fileName: 'bjo',
+                uploadPathMaker: (String? title) {
+                  return StoragePath.entities_title(title ?? 'pic')!;
+                },
                 mediaOrigin: MediaOrigin.galleryImage,
                 ownersIDs: ['x'],
               );
