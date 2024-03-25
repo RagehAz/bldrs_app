@@ -72,7 +72,7 @@ class FireStorageOps {
         path: path,
       );
 
-      if (_meta?.uploadPath != null){
+      if (_meta != null){
 
         final Uint8List? _bytes = await Storage.readBytesByPath(
           path: path,
@@ -80,8 +80,8 @@ class FireStorageOps {
 
         _output = await MediaModelCreator.fromBytes(
           bytes: _bytes,
-          ownersIDs: _meta!.ownersIDs,
-          uploadPath: _meta.uploadPath!,
+          ownersIDs: _meta.ownersIDs,
+          uploadPath: path,
           mediaOrigin: _meta.getMediaOrigin(),
         );
 

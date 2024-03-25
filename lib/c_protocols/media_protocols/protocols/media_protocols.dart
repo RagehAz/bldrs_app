@@ -68,9 +68,7 @@ class MediaProtocols {
       path: path,
     );
 
-    final bool? _exists = _picModel?.bytes != null;
-
-    if (_picModel == null || _exists == null || _exists == false){
+    if (_picModel == null){
 
       _picModel = await FireStorageOps.readMedia(firePathOrUrl: path);
 
@@ -82,6 +80,8 @@ class MediaProtocols {
       }
 
     }
+
+    // blog('fetchMedia : path : $path : _picModel : $_picModel');
 
     return _picModel;
   }

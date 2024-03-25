@@ -100,15 +100,12 @@ class _FlyerPosterCreatorBubbleState extends State<FlyerPosterCreatorBubble> {
           invoker: 'Load poster',
           functions: () async {
 
-            await Future.delayed(Duration(
-                milliseconds: (widget.draft?.draftSlides?.length ?? 1) * 800,
-            )
-            );
+            await Future.delayed(Duration(milliseconds: (widget.draft?.draftSlides?.length ?? 1) * 100));
 
             _bytes = await _cont.capture(
               /// this fixes white lines issue
               pixelRatio: MediaQuery.of(context).devicePixelRatio,
-              delay: const Duration(milliseconds: 1000),
+              delay: const Duration(milliseconds: 500),
             );
 
             _pic = await MediaModelCreator.fromBytes(
