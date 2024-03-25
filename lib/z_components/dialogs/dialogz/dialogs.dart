@@ -1421,6 +1421,34 @@ class Dialogs {
 
   }
   // --------------------
+  static Future<bool> picDialogByMediaModel({
+    required MediaModel? mediaModel,
+    Verse? titleVerse,
+    Verse? bodyVerse,
+    Verse? confirmButtonVerse,
+    bool boolDialog = true,
+    bool invertButtons = false,
+    double? picsHeights,
+  }) async {
+    bool _output = false;
+
+    if (mediaModel != null){
+
+      _output = await picsDialog(
+        titleVerse: titleVerse,
+        pics: [mediaModel],
+        bodyVerse: bodyVerse,
+        boolDialog: boolDialog,
+        confirmButtonVerse: confirmButtonVerse,
+        invertButtons: invertButtons,
+        picsHeights: picsHeights,
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
   static Future<bool> picDialogByXFile({
     required XFile? xFile,
     Verse? titleVerse,
