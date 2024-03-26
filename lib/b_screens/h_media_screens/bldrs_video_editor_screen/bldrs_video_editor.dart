@@ -19,6 +19,7 @@ import 'package:bldrs/b_screens/h_media_screens/editor_nab_button/editor_nav_but
 import 'package:bldrs/b_screens/h_media_screens/editor_scale.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_media_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -46,11 +47,7 @@ import 'package:bldrs/z_components/sizing/stratosphere.dart';
 part 'src/components/panels/video_editor_panel_switcher.dart';
 part 'src/components/video_zone/video_editor_video_zone.dart';
 part 'src/components/play_bar/video_editor_play_bar.dart';
-
 part 'src/components/nav_bar/video_editor_nav_bar.dart';
-
-/// CONTROLLERS
-part 'src/controllers/video_editor_scales.dart';
 
 /// VIEWS
 part 'src/views/video_cover_creator_screen.dart';

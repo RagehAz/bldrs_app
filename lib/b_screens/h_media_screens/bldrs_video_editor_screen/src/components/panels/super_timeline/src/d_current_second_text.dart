@@ -36,7 +36,7 @@ class CurrentSecondText extends StatelessWidget {
             return Align(
               alignment: Alignment.bottomCenter,
               child: BldrsBox(
-                height: 15,
+                height: 20,
                 verse: Verse.plain('${_second}s'),
                 color: Colorz.black255,
                 verseScaleFactor: 1.2,

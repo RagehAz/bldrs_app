@@ -49,7 +49,7 @@ class EditorNavButton extends StatelessWidget {
     );
 
     return SizedBox(
-      width: size + (2 * Ratioz.appBarMargin),
+      width: size + (2 * Ratioz.appBarPadding),
       height: size + _verseZoneHeight,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +61,7 @@ class EditorNavButton extends StatelessWidget {
             height: size,
             icon: icon,
             iconSizeFactor: 0.6,
-            margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+            margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
             isDisabled: isDisabled,
             color: isSelected == true ? Colorz.yellow20 : Colorz.white20,
             borderColor: isSelected == true ? Colorz.yellow255 : null,
@@ -71,7 +71,7 @@ class EditorNavButton extends StatelessWidget {
 
           /// TEXT
           BldrsText(
-            width: size + (2 * Ratioz.appBarMargin),
+            width: size + (2 * Ratioz.appBarPadding),
             height: _verseZoneHeight,
             verse: verse,
             weight: VerseWeight.thin,

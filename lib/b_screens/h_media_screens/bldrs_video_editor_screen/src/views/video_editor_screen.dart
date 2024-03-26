@@ -86,7 +86,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     super.dispose();
   }
   // --------------------
-  String? _selectedButton;
+  String? _selectedButton = VideoEditorNavBar.trimButtonID;
   // --------------------
   void _setActiveButton(String? button){
 
@@ -551,7 +551,16 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
             scrollController: _timelineScrollController,
             secondPixelLength: _secondPixelLength,
             onHandleChanged: (double startSecond, double endSecond){
-              blog('start-end are : s $startSecond : e $endSecond');
+
+              final int _durationMs = _videoEditorController?.videoDuration.inMilliseconds ?? 0;
+              final int _startMs = (startSecond * 1000).toInt();
+              final int _endMs = (endSecond * 1000).toInt();
+
+              final double _min = _startMs / _durationMs;
+              final double _max = _endMs / _durationMs;
+
+              _videoEditorController?.updateTrim(_min, _max);
+
             },
             onTimeChanged: (double currentSecond){
               blog('current second is : $currentSecond');

@@ -62,7 +62,7 @@ class EditorScale {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double subPanelHeight = 15;
+  static double subPanelHeight = 40;
   // -----------------------------------------------------------------------------
 
   /// MEDIA ZONE
