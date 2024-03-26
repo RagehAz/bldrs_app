@@ -1,7 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/pixels/pixel_color_picker.dart';
-import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:basics/mediator/models/media_models.dart';
@@ -11,9 +10,9 @@ import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_s
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/x_controllers/navigation_controls.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/control_panels/slide_editor_main_control_panel.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_editor_slide_part.dart';
+import 'package:bldrs/b_screens/h_media_screens/editor_scale.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboard.dart';
 import 'package:flutter/material.dart';
 
@@ -36,24 +35,8 @@ class PicSlideEditorScreen extends StatefulWidget {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double getSlideZoneHeight(){
-    final BuildContext context = getMainContext();
-    final double _screenHeight = Scale.screenHeight(context);
-    final double _slideZoneHeight = SlideEditorSlidePart.getSlideZoneHeight(context, _screenHeight);
-    return  _slideZoneHeight;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static double getColorPanelHeight(){
-    final BuildContext context = getMainContext();
-    final double _screenHeight = Scale.screenHeight(context);
-    final double _controlPanelHeight = SlideEditorMainControlPanel.getControlPanelHeight(context, _screenHeight);
-    return _controlPanelHeight;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
   static double getFlyerBoxWidth(){
-    final double _slideZoneHeight = getSlideZoneHeight();
+    final double _slideZoneHeight = EditorScale.mediaZoneHeight(panelIsOn: false);
     final double _flyerBoxWidth = SlideEditorSlidePart.getFlyerZoneWidth(_slideZoneHeight);
     return _flyerBoxWidth;
   }
@@ -194,8 +177,6 @@ class _PicSlideEditorScreenState extends State<PicSlideEditorScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _slideZoneHeight = PicSlideEditorScreen.getSlideZoneHeight();
-    final double _controlPanelHeight = PicSlideEditorScreen.getColorPanelHeight();
     final double _flyerBoxWidth = PicSlideEditorScreen.getFlyerBoxWidth();
     final double _flyerBoxHeight = PicSlideEditorScreen.getFlyerBoxHeight();
     // --------------------
@@ -219,7 +200,6 @@ class _PicSlideEditorScreenState extends State<PicSlideEditorScreen> {
               authorID: widget.draftFlyerNotifier.value!.authorID!,
               draftFlyer: widget.draftFlyerNotifier,
               appBarType: AppBarType.non,
-              height: _slideZoneHeight,
               draftSlide: _draftSlideNotifier,
               matrixNotifier: _matrixNotifier,
               matrixFromNotifier: _matrixFromNotifier,
@@ -333,7 +313,6 @@ class _PicSlideEditorScreenState extends State<PicSlideEditorScreen> {
 
             /// MAIN CONTROL PANEL
             SlideEditorMainControlPanel(
-              height: _controlPanelHeight,
               draftSlideNotifier: _draftSlideNotifier,
               draftFlyerNotifier: widget.draftFlyerNotifier,
               showAnimationPanel: _showAnimationPanel,
@@ -405,11 +384,10 @@ class _PicSlideEditorScreenState extends State<PicSlideEditorScreen> {
             ),
 
           ],
-
         ),
       ),
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

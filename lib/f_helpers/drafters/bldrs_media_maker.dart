@@ -4,6 +4,7 @@ import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:basics/mediator/models/media_models.dart';
 import 'package:basics/mediator/video_maker/video_maker.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_video_editor/slide_video_editor.dart';
+import 'package:bldrs/b_screens/h_media_screens/bldrs_cropping_screen/bldrs_cropping_screen.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
@@ -64,6 +65,10 @@ class BldrsMediaMaker {
         onError: onPickingError,
         ownersIDs: ownersIDs,
         uploadPathMaker: uploadPathMaker,
+        onCrop: (MediaModel? media) => BldrsCroppingScreen.onCropSinglePic(
+          media: media,
+          aspectRatio: aspectRatio,
+        ),
         // selectedAsset: selectedAsset,
       );
     }
@@ -83,6 +88,10 @@ class BldrsMediaMaker {
         ownersIDs: ownersIDs,
         uploadPathMaker: uploadPathMaker,
         locale: Localizer.getCurrentLocale(),
+        onCrop: (List<MediaModel> medias) => BldrsCroppingScreen.onCropMultiplePics(
+          medias: medias,
+          aspectRatio: aspectRatio,
+        ),
       );
     }
 
@@ -114,34 +123,12 @@ class BldrsMediaMaker {
       onError: onPickingError,
       uploadPathGenerator: uploadPathGenerator,
       ownersIDs: ownersIDs,
+      onCrop: (List<MediaModel> medias) => BldrsCroppingScreen.onCropMultiplePics(
+        medias: medias,
+        aspectRatio: aspectRatio,
+      ),
       // selectedAssets: selectedAssets,
     );
-
-    return _output;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// CROPPERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<MediaModel?> cropPic({
-    required MediaModel? pic,
-    required double aspectRatio,
-  }) async {
-    MediaModel? _output = pic;
-
-    if (pic != null && pic.meta?.uploadPath != null && pic.meta != null && pic.meta?.name != null){
-
-      _output = await PicMaker.cropPic(
-        context: getMainContext(),
-        mediaModel: pic,
-        confirmText: getWord('phid_continue'),
-        appIsLTR: UiProvider.checkAppIsLeftToRight(),
-        aspectRatio: aspectRatio,
-      );
-
-    }
 
     return _output;
   }

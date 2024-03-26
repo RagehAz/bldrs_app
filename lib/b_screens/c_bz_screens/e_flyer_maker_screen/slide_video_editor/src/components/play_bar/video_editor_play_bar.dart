@@ -11,11 +11,13 @@ class VideoEditorPlayBar extends StatelessWidget {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    blog('haa');
     // --------------------
-    return Container(
+    return SizedBox(
       width: Scale.screenWidth(context),
       height: VideoEditorScales.editorPlayBarHeight,
-      color: Colorz.bloodTest,
+      // color: Colorz.bloodTest,
       child: videoEditorController == null ? const SizedBox() : Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -28,14 +30,15 @@ class VideoEditorPlayBar extends StatelessWidget {
               ]),
               builder: (_, __) {
 
-                final String _start = VideoOps.formatDuration(videoEditorController!.startTrim);
-                final String _end = VideoOps.formatDuration(videoEditorController!.endTrim);
+                final String _start = VideoOps.formatDurationToSeconds(videoEditorController!.startTrim);
+                final String _end = VideoOps.formatDurationToSeconds(videoEditorController!.endTrim);
 
                 return BldrsText(
                   verse: Verse.plain('$_start/$_end'),
                   maxLines: 3,
-                  labelColor: Colorz.black125,
+                  labelColor: Colorz.white20,
                   weight: VerseWeight.thin,
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
                 );
 
               }
@@ -82,8 +85,9 @@ class VideoEditorPlayBar extends StatelessWidget {
                 return BldrsText(
                   verse: Verse.plain('$_current .. $_size Mb'),
                   maxLines: 3,
-                  labelColor: Colorz.black125,
+                  labelColor: Colorz.white20,
                   weight: VerseWeight.thin,
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
                 );
 
               }

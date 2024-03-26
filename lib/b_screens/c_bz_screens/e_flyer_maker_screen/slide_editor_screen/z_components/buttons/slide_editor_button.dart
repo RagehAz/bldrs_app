@@ -14,6 +14,7 @@ class SlideEditorButton extends StatelessWidget {
     required this.onTap,
     this.isDisabled,
     this.isSelected = false,
+    this.loading = false,
     super.key
   });
   // --------------------
@@ -23,6 +24,7 @@ class SlideEditorButton extends StatelessWidget {
   final Function onTap;
   final bool? isDisabled;
   final bool isSelected;
+  final bool loading;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static double getVerseZoneHeight({
@@ -64,6 +66,7 @@ class SlideEditorButton extends StatelessWidget {
             color: isSelected == true ? Colorz.yellow20 : Colorz.white20,
             borderColor: isSelected == true ? Colorz.yellow255 : null,
             onTap: onTap,
+            loading: loading,
           ),
 
           /// TEXT

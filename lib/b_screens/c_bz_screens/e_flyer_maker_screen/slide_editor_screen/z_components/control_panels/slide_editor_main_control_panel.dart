@@ -4,7 +4,7 @@ import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/slide_editor_button.dart';
-import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_editor_slide_part.dart';
+import 'package:bldrs/b_screens/h_media_screens/editor_scale.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 class SlideEditorMainControlPanel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorMainControlPanel({
-    required this.height,
     required this.draftSlideNotifier,
     required this.onTriggerAnimationPanel,
     required this.onTriggerColorPanel,
@@ -26,7 +25,6 @@ class SlideEditorMainControlPanel extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final double height;
   final ValueNotifier<DraftSlide?> draftSlideNotifier;
   final ValueNotifier<DraftFlyer?> draftFlyerNotifier;
   final Function onTriggerAnimationPanel;
@@ -37,23 +35,6 @@ class SlideEditorMainControlPanel extends StatelessWidget {
   final ValueNotifier<bool> showColorPanel;
   final Function onTriggerColorPanel;
   final ValueNotifier<bool> showAnimationPanel;
-  // -----------------------------------------------------------------------------
-
-  /// SCALING
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static double getControlPanelHeight(BuildContext context, double screenHeight){
-    final double _slideZoneHeight = SlideEditorSlidePart.getSlideZoneHeight(context, screenHeight);
-    final double _controlPanelHeight = screenHeight - _slideZoneHeight;
-    return _controlPanelHeight;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static double getButtonSize(double controlPanelHeight){
-    final double _buttonSize = controlPanelHeight * 0.6;
-    return _buttonSize;
-  }
   // -----------------------------------------------------------------------------
 
   /// FUNCTIONS
@@ -107,8 +88,8 @@ class SlideEditorMainControlPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
-    final double _controlPanelHeight = height;
-    final double _buttonSize = getButtonSize(_controlPanelHeight);
+    final double _controlPanelHeight = EditorScale.navZoneHeight();
+    final double _buttonSize = EditorScale.navButtonSize();
     // --------------------
     return FloatingList(
       width: _screenWidth,

@@ -78,6 +78,7 @@ dependencies:
   another_flushbar: ^1.12.30
   intl: ^0.18.0
   cross_file: ^0.3.3+5
+  crop_your_image: ^0.7.5
   # ------------------------------------
   pdfx:
     git:

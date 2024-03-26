@@ -13,6 +13,7 @@ import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_s
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/footprints/top_button_footprint.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_editor_headline_text_field.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/slide_part/slide_tree.dart';
+import 'package:bldrs/b_screens/h_media_screens/editor_scale.dart';
 import 'package:bldrs/g_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
 import 'package:bldrs/g_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
 import 'package:bldrs/g_flyer/z_components/d_variants/a_flyer_box.dart';
@@ -26,7 +27,6 @@ class SlideEditorSlidePart extends StatelessWidget {
   const SlideEditorSlidePart({
     required this.draftSlide,
     required this.draftFlyer,
-    required this.height,
     required this.onSlideTap,
     required this.isTransforming,
     required this.matrixNotifier,
@@ -60,7 +60,6 @@ class SlideEditorSlidePart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final ValueNotifier<DraftSlide?> draftSlide;
   final ValueNotifier<DraftFlyer?> draftFlyer;
-  final double height;
   final Function? onSlideTap;
   final Function? onSlideDoubleTap;
   final ValueNotifier<bool> isPlayingAnimation;
@@ -91,12 +90,6 @@ class SlideEditorSlidePart extends StatelessWidget {
   final ValueNotifier<bool> loadingColorPicker;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double getSlideZoneHeight(BuildContext context, double screenHeight){
-    final double _slideZoneHeight = screenHeight * 0.85;
-    return _slideZoneHeight;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
   static double getFlyerZoneWidth(double zoneHeight){
     final double _flyerBoxHeight = zoneHeight - (2 * Ratioz.appBarMargin);
     final double _flyerBoxWidth = FlyerDim.flyerWidthByFlyerHeight(
@@ -109,7 +102,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
-    final double _slideZoneHeight = height;
+    final double _slideZoneHeight = EditorScale.mediaZoneHeight(panelIsOn: false);
     final double _flyerBoxWidth = getFlyerZoneWidth(_slideZoneHeight);
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
       flyerBoxWidth:_flyerBoxWidth,

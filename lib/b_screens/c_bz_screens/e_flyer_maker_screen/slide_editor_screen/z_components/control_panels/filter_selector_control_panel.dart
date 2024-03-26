@@ -2,7 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/slide_editor_button.dart';
-import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/control_panels/slide_editor_main_control_panel.dart';
+import 'package:bldrs/b_screens/h_media_screens/editor_scale.dart';
 import 'package:bldrs/g_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/g_flyer/z_components/d_variants/a_flyer_box.dart';
@@ -41,7 +41,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
     final double _sliderZoneHeight = _controlPanelHeight * 0.15;
     final double _buttonsZoneHeight = _controlPanelHeight - _sliderZoneHeight;
     // --------------------
-    final double _buttonSize = SlideEditorMainControlPanel.getButtonSize(_buttonsZoneHeight);
+    final double _buttonSize = EditorScale.navButtonSize();
     final double _boxHeight = SlideEditorButton.getBoxHeight(buttonSize: _buttonSize);
     final double _boxWidth = FlyerDim.flyerWidthByFlyerHeight(
       flyerBoxHeight: _boxHeight,
