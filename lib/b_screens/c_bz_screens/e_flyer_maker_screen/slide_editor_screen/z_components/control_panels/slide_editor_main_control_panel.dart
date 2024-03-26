@@ -3,7 +3,7 @@ import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
-import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/slide_editor_button.dart';
+import 'package:bldrs/b_screens/h_media_screens/editor_nab_button/editor_nav_button.dart';
 import 'package:bldrs/b_screens/h_media_screens/editor_scale.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
@@ -110,7 +110,7 @@ class SlideEditorMainControlPanel extends StatelessWidget {
                   final int _slideIndex = draftSlide?.slideIndex ?? 0;
                   final bool _isFirst = _slideIndex == 0;
 
-                return SlideEditorButton(
+                return EditorNavButton(
                   size: _buttonSize,
                   icon: _isFirst == true ? Iconz.exit : Iconizer.superYellowArrowENLeft(context),
                   verse: Verse(
@@ -134,7 +134,7 @@ class SlideEditorMainControlPanel extends StatelessWidget {
             valueListenable: showColorPanel,
             builder: (_, bool showPanel, Widget? child){
 
-              return SlideEditorButton(
+              return EditorNavButton(
                 size: _buttonSize,
                 icon: Iconz.colors,
                 verse: const Verse(
@@ -158,7 +158,7 @@ class SlideEditorMainControlPanel extends StatelessWidget {
 
                   final bool _hasAnimation = draftSlide?.animationCurve != null;
 
-                  return SlideEditorButton(
+                  return EditorNavButton(
                     size: _buttonSize,
                     icon: _hasAnimation ? Iconz.flyerScale : Iconz.flyer,
                     verse: const Verse(
@@ -186,7 +186,7 @@ class SlideEditorMainControlPanel extends StatelessWidget {
                     final int _numberOfSlides = draftFlyer?.draftSlides?.length ?? 0;
                     final bool _isLast = _slideIndex + 1 == _numberOfSlides;
 
-                    return SlideEditorButton(
+                    return EditorNavButton(
                       size: _buttonSize,
                       icon: _isLast == true ? Iconz.check : Iconizer.superYellowArrowENRight(context),
                       verse: Verse(

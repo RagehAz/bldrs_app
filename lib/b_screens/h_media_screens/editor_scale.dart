@@ -1,5 +1,3 @@
-
-
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -60,8 +58,11 @@ class EditorScale {
     required bool isOn,
   }){
     final double _screenHeight = Scale.screenHeight(getMainContext());
-    return _screenHeight * _panelHeightRatio;
+    return (_screenHeight * _panelHeightRatio) - subPanelHeight;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double subPanelHeight = 15;
   // -----------------------------------------------------------------------------
 
   /// MEDIA ZONE
@@ -73,6 +74,15 @@ class EditorScale {
   }){
     final double _screenHeight = Scale.screenHeight(getMainContext());
     return _screenHeight * _mediaHeightRatio(hasPanel: panelIsOn);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double mediaHeight({
+    required bool panelIsOn,
+  }){
+    final double _videoZoneHeight =  mediaZoneHeight(panelIsOn: panelIsOn);
+    final double _videoHeight = _videoZoneHeight - (10 * 2);
+    return _videoHeight;
   }
   // -----------------------------------------------------------------------------
 }

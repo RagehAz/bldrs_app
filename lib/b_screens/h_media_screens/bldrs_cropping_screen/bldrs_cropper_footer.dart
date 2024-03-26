@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/layouts/views/floating_list.dart';
-import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/slide_editor_button.dart';
+import 'package:bldrs/b_screens/h_media_screens/editor_nab_button/editor_nav_button.dart';
 import 'package:bldrs/b_screens/h_media_screens/editor_scale.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class BldrsCropperFooter extends StatelessWidget {
         columnChildren: <Widget>[
 
           /// BACK
-          SlideEditorButton(
+          EditorNavButton(
             size: _navButtonSize,
             icon: Iconz.exit,
             verse: const Verse(id: 'phid_exit', translate: true),
@@ -52,7 +52,7 @@ class BldrsCropperFooter extends StatelessWidget {
               valueListenable: loading,
               builder: (_, bool loading, Widget? child) {
 
-                return SlideEditorButton(
+                return EditorNavButton(
                   size: _navButtonSize,
                   verse: const Verse(id: 'phid_crop', translate: true),
                   onTap: onCropImages,

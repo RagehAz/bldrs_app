@@ -1,4 +1,4 @@
-part of slide_video_editor;
+part of bldrs_video_editor;
 
 class VideoEditorNavBar extends StatelessWidget {
   // --------------------------------------------------------------------------
@@ -23,14 +23,19 @@ class VideoEditorNavBar extends StatelessWidget {
   final bool isMuted;
   final String? selectedButton;
   // --------------------------------------------------------------------------
+  static const String trimButtonID = 'trim';
+  static const String cropButtonID = 'crop';
+  static const String coverButtonID = 'cover';
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
+    final double _navButtonSize = EditorScale.navButtonSize();
     // --------------------
     return FloatingList(
       width: _screenWidth,
-      height: VideoEditorScales.navBarHeight,
+      height: EditorScale.navZoneHeight(),
       // boxColor: Colorz.blue20,
       scrollDirection: Axis.horizontal,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -38,70 +43,52 @@ class VideoEditorNavBar extends StatelessWidget {
       columnChildren: <Widget>[
 
         /// GO BACK
-        PanelCircleButton(
-          size: VideoEditorScales.navBarButtonSize,
-          icon: Iconz.arrowWhiteLeft,
-          verse: Verse.plain('Back'),
-          isSelected: false,
+        EditorNavButton(
+          size: _navButtonSize,
+          icon: Iconz.exit,
+          verse: const Verse(id: 'phid_exit', translate: true),
           onTap: onBack,
         ),
 
-        const Spacing(size: 5),
-
         /// TRIM
-        PanelCircleButton(
-          size: VideoEditorScales.navBarButtonSize,
+        EditorNavButton(
+          size: _navButtonSize,
           icon: Icons.cut,
-          iconSizeFactor: 0.65,
-          verse: Verse.plain('Trim'),
-          isSelected: selectedButton == VideoEditorScales.trimButtonID,
+          verse: const Verse(id: 'phid_trim', translate: true),
+          isSelected: selectedButton == VideoEditorNavBar.trimButtonID,
           onTap: onTrim,
         ),
 
-        const Spacing(size: 5),
-
         /// CROP
-        PanelCircleButton(
-          size: VideoEditorScales.navBarButtonSize,
+        EditorNavButton(
+          size: _navButtonSize,
           icon: Iconz.crop,
-          iconSizeFactor: 0.65,
-          verse: Verse.plain('Crop'),
-          isSelected: selectedButton == VideoEditorScales.cropButtonID,
+          verse: const Verse(id: 'phid_crop', translate: true),
+          isSelected: selectedButton == VideoEditorNavBar.cropButtonID,
           onTap: onCrop,
         ),
 
-        const Spacing(size: 5),
-
         /// ROTATE
-        PanelCircleButton(
-          size: VideoEditorScales.navBarButtonSize,
+        EditorNavButton(
+          size: _navButtonSize,
           icon: Icons.rotate_left,
-          iconSizeFactor: 0.7,
-          verse: Verse.plain('Rotate'),
-          isSelected: false,
+          verse: const Verse(id: 'phid_rotate', translate: true),
           onTap: onRotate,
         ),
 
-        const Spacing(size: 5),
-
         /// MUTE
-        PanelCircleButton(
-          size: VideoEditorScales.navBarButtonSize,
+        EditorNavButton(
+          size: _navButtonSize,
           icon: isMuted ? Icons.volume_off : Icons.volume_up,
-          iconSizeFactor: 0.7,
-          verse: Verse.plain('Mute'),
-          isSelected: false,
+          verse: Verse(id: isMuted ? 'phid_un_mute' : 'phid_mute', translate: true),
           onTap: onMute,
         ),
 
-        const Spacing(size: 5),
-
         /// CONFIRM
-        PanelCircleButton(
-          size: VideoEditorScales.navBarButtonSize,
+        EditorNavButton(
+          size: _navButtonSize,
           icon: Iconz.arrowWhiteRight,
-          verse: Verse.plain('Confirm'),
-          isSelected: false,
+          verse: const Verse(id: 'phid_confirm', translate: true),
           onTap: onForward,
         ),
 

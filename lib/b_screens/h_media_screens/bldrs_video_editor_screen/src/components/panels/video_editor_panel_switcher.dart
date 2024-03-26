@@ -1,4 +1,4 @@
-part of slide_video_editor;
+part of bldrs_video_editor;
 
 class VideoEditorPanelSwitcher extends StatelessWidget {
   // --------------------------------------------------------------------------
@@ -27,7 +27,7 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
     final bool _isInitialized = Mapper.boolIsTrue(videoEditorController?.initialized);
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
-    const double _panelHeight = VideoEditorScales.editorPanelHeight;
+    final double _panelHeight = EditorScale.panelZoneHeight(isOn: true);
     // --------------------
     return SizedBox(
       width: _screenWidth,
@@ -36,7 +36,7 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
         builder: (_){
 
           /// TRIM BAR
-          if (_isInitialized == true && selectedButton == VideoEditorScales.trimButtonID){
+          if (_isInitialized == true && selectedButton == VideoEditorNavBar.trimButtonID){
             return SuperTimeLine(
               videoEditorController: videoEditorController!,
               scrollController: scrollController,
@@ -50,7 +50,7 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
           }
 
           /// CROP BAR
-          else if (_isInitialized == true && selectedButton == VideoEditorScales.cropButtonID){
+          else if (_isInitialized == true && selectedButton == VideoEditorNavBar.cropButtonID){
             return FloatingList(
               width: _screenWidth,
               height: _panelHeight,
@@ -103,7 +103,7 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
           }
 
           /// COVERS SELECTION BAR
-          else if (_isInitialized == true && selectedButton == VideoEditorScales.coverButtonID){
+          else if (_isInitialized == true && selectedButton == VideoEditorNavBar.coverButtonID){
             return FloatingList(
               width: _screenWidth,
               height: _panelHeight,

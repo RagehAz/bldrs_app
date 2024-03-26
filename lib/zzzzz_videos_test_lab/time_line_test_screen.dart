@@ -7,7 +7,6 @@ import 'package:basics/helpers/space/scale.dart';
 import 'package:basics/mediator/models/media_models.dart';
 import 'package:basics/mediator/video_maker/video_maker.dart';
 import 'package:basics/mediator/video_maker/video_ops.dart';
-import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_video_editor/src/components/panels/super_timeline/super_time_line.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/dialogs/dialogz/dialogs.dart';
@@ -16,6 +15,8 @@ import 'package:bldrs/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 import 'package:video_editor/video_editor.dart';
+
+import '../b_screens/h_media_screens/bldrs_video_editor_screen/src/components/panels/super_timeline/super_time_line.dart';
 
 class SuperTimeLineScreen extends StatefulWidget {
   // --------------------------------------------------------------------------
@@ -196,4 +197,5 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
     );
     // --------------------
   }
+  // --------------------------------------------------------------------------
 }

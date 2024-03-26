@@ -1,9 +1,8 @@
-library slide_video_editor;
+library bldrs_video_editor;
 
 import 'dart:io';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/components/drawing/spacing.dart';
 import 'package:basics/filing/filing.dart';
 import 'package:basics/helpers/checks/tracers.dart';
 import 'package:basics/helpers/maps/mapper.dart';
@@ -15,8 +14,9 @@ import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/mediator/models/media_models.dart';
 import 'package:basics/mediator/video_maker/video_maker.dart';
 import 'package:basics/mediator/video_maker/video_ops.dart';
-import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_editor_screen/z_components/buttons/panel_circle_button.dart';
-import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_video_editor/src/components/panels/super_timeline/super_time_line.dart';
+import 'package:bldrs/b_screens/h_media_screens/bldrs_video_editor_screen/src/components/panels/super_timeline/super_time_line.dart';
+import 'package:bldrs/b_screens/h_media_screens/editor_nab_button/editor_nav_button.dart';
+import 'package:bldrs/b_screens/h_media_screens/editor_scale.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_media_maker.dart';

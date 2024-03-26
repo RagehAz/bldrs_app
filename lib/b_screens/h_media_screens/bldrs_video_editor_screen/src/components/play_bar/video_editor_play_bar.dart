@@ -1,4 +1,4 @@
-part of slide_video_editor;
+part of bldrs_video_editor;
 
 class VideoEditorPlayBar extends StatelessWidget {
   // --------------------------------------------------------------------------
@@ -11,12 +11,10 @@ class VideoEditorPlayBar extends StatelessWidget {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    blog('haa');
     // --------------------
     return SizedBox(
       width: Scale.screenWidth(context),
-      height: VideoEditorScales.editorPlayBarHeight,
+      height: EditorScale.subPanelHeight,
       // color: Colorz.bloodTest,
       child: videoEditorController == null ? const SizedBox() : Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,7 +50,7 @@ class VideoEditorPlayBar extends StatelessWidget {
                 final bool _isPlaying = Mapper.boolIsTrue(videoEditorController?.isPlaying);
 
               return BldrsBox(
-                height: VideoEditorScales.editorPlayBarHeight,
+                height: EditorScale.subPanelHeight,
                 icon: _isPlaying? Iconz.pause : Iconz.play,
                 onTap: () async {
                   if (_isPlaying == true){

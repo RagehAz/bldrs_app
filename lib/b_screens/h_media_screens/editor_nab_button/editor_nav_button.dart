@@ -5,9 +5,9 @@ import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
-class SlideEditorButton extends StatelessWidget {
+class EditorNavButton extends StatelessWidget {
   // --------------------------------------------------------------------------
-  const SlideEditorButton({
+  const EditorNavButton({
     required this.size,
     required this.icon,
     required this.verse,
@@ -19,7 +19,7 @@ class SlideEditorButton extends StatelessWidget {
   });
   // --------------------
   final double size;
-  final String icon;
+  final dynamic icon;
   final Verse verse;
   final Function onTap;
   final bool? isDisabled;
@@ -83,5 +83,5 @@ class SlideEditorButton extends StatelessWidget {
     );
 
   }
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 }

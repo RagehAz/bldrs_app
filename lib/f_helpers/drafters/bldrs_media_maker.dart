@@ -3,7 +3,6 @@ import 'package:basics/helpers/permissions/permits.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:basics/mediator/models/media_models.dart';
 import 'package:basics/mediator/video_maker/video_maker.dart';
-import 'package:bldrs/b_screens/c_bz_screens/e_flyer_maker_screen/slide_video_editor/slide_video_editor.dart';
 import 'package:bldrs/b_screens/h_media_screens/bldrs_cropping_screen/bldrs_cropping_screen.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
 import 'package:bldrs/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -12,6 +11,8 @@ import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/debuggers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+
+import '../../b_screens/h_media_screens/bldrs_video_editor_screen/bldrs_video_editor.dart';
 
 // -----------------------------------------------------------------------------
 /*

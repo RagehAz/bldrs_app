@@ -1,4 +1,4 @@
-part of slide_video_editor;
+part of bldrs_video_editor;
 
 class VideoEditorScreen extends StatefulWidget {
   // --------------------------------------------------------------------------
@@ -542,7 +542,6 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
           /// PLAY BAR
           VideoEditorPlayBar(
             videoEditorController: _videoEditorController,
-
           ),
 
           /// PANEL
@@ -572,11 +571,11 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
           VideoEditorNavBar(
             onBack: () => Nav.goBack(context: context),
             isMuted: _isMuted,
-            onCrop: () => _setActiveButton(VideoEditorScales.cropButtonID),
+            onCrop: () => _setActiveButton(VideoEditorNavBar.cropButtonID),
             onForward: onConfirm,
             onMute: muteVideo,
             onRotate: _onRotateVideo,
-            onTrim: () => _setActiveButton(VideoEditorScales.trimButtonID),
+            onTrim: () => _setActiveButton(VideoEditorNavBar.trimButtonID),
             selectedButton: _selectedButton,
           ),
 

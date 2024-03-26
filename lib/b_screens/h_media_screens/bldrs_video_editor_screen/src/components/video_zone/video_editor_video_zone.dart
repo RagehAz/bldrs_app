@@ -1,4 +1,4 @@
-part of slide_video_editor;
+part of bldrs_video_editor;
 
 class VideoEditorVideoZone extends StatelessWidget {
   // --------------------------------------------------------------------------
@@ -15,8 +15,8 @@ class VideoEditorVideoZone extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
-    final double _videoZoneHeight =  VideoEditorScales.getVideoZoneHeight();
-    final double _videoHeight = VideoEditorScales.getVideoBoxHeight();
+    final double _videoZoneHeight =  EditorScale.mediaZoneHeight(panelIsOn: true);
+    final double _videoHeight = EditorScale.mediaHeight(panelIsOn: true);
     // --------------------
     final bool _isInitialized = Mapper.boolIsTrue(videoEditorController?.initialized);
     // --------------------
@@ -44,7 +44,7 @@ class VideoEditorVideoZone extends StatelessWidget {
                   // ),
 
                   /// VIEWING
-                  if (selectedButton != VideoEditorScales.cropButtonID && selectedButton != VideoEditorScales.coverButtonID)
+                  if (selectedButton != VideoEditorNavBar.cropButtonID && selectedButton != VideoEditorNavBar.coverButtonID)
                     SizedBox(
                       height: _videoHeight,
                       child: CropGridViewer.preview(
@@ -53,7 +53,7 @@ class VideoEditorVideoZone extends StatelessWidget {
                     ),
 
                   /// CROPPING
-                  if (selectedButton == VideoEditorScales.cropButtonID)
+                  if (selectedButton == VideoEditorNavBar.cropButtonID)
                     SizedBox(
                       height: _videoHeight,
                       child: CropGridViewer.edit(
@@ -63,7 +63,7 @@ class VideoEditorVideoZone extends StatelessWidget {
                     ),
 
                   /// COVER
-                  if (selectedButton == VideoEditorScales.coverButtonID)
+                  if (selectedButton == VideoEditorNavBar.coverButtonID)
                     SizedBox(
                       height: _videoHeight,
                       child: CoverViewer(controller: videoEditorController!),

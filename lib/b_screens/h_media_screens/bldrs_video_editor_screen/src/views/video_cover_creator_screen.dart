@@ -1,4 +1,4 @@
-part of slide_video_editor;
+part of bldrs_video_editor;
 
 class VideoCoverCreatorScreen extends StatefulWidget {
   // --------------------------------------------------------------------------
