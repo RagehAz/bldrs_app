@@ -66,6 +66,7 @@ class Standards {
   static const int maxFlyerSlidesFreeAccount = 3;
   static const int maxFlyerSlidesPremiumAccount = 5;
   static const int maxFlyerSlidesFreeSuper = 7;
+  static const int maxVideoDurationS = 10;
   // --------------------
   static const int flyerMaxDaysToUpdate = 3; // 3 days to update flyer
   // --------------------

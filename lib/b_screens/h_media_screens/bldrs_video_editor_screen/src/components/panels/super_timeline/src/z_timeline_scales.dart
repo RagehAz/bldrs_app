@@ -164,15 +164,10 @@ class TimelineScale {
     required ScrollController controller,
   }) async {
 
-    blog('allah ? : $secondPixelLength');
-
     final double _endPixel = TimelineScale.getPixelsBySeconds(
       seconds: toSecond,
       secondPixelLength: secondPixelLength,
     );
-
-    blog('_endPixel : $_endPixel');
-
 
     jumpToSecond(
       second: fromSecond,
@@ -181,7 +176,6 @@ class TimelineScale {
     );
 
     final int _milliseconds = ((toSecond - fromSecond) * 1000).toInt();
-    blog('_milliseconds $_milliseconds');
 
     await Sliders.scrollTo(
       controller: controller,
@@ -189,8 +183,6 @@ class TimelineScale {
       duration: Duration(milliseconds: _milliseconds),
       curve: Curves.linear,
     );
-
-    blog('haaa');
 
   }
   // --------------------

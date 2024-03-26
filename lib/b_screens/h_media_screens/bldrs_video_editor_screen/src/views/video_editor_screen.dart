@@ -110,6 +110,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
     _videoEditorController = await VideoOps.initializeVideoEditorController(
       file: file,
+      maxDurationMs: Standards.maxVideoDurationS * 1000,
       onError: (String error) async {
         await Dialogs.errorDialog(
           titleVerse: Verse.plain(error),
@@ -522,6 +523,79 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   Future<void> onConfirm() async {
     blog('should confirm now');
   }
+  // --------------------
+  Future<void> _onPlay() async {
+
+
+    if (_videoEditorController != null){
+
+      final bool _isPlaying = Mapper.boolIsTrue(_videoEditorController!.isPlaying);
+
+      /// PAUSE
+      if (_isPlaying == true){
+        await _videoEditorController?.video.pause();
+      }
+
+      /// PLAY
+      else {
+
+        final double _startSecond = VideoOps.getTrimTimeMinS(
+          controller: _videoEditorController,
+        );
+        final double _endSecond = VideoOps.getTrimTimeMaxS(
+          controller: _videoEditorController,
+        );
+
+        await VideoOps.snapVideoToStartingTrim(
+          controller: _videoEditorController,
+        );
+
+        blog('a7aaaaaaaaaaaaasssaxx!');
+
+        await Future.wait(<Future>[
+
+          _videoEditorController!.video.play(),
+
+          TimelineScale.scrollFromTo(
+            controller: _timelineScrollController,
+            secondPixelLength: _secondPixelLength.value,
+            fromSecond: _startSecond,
+            toSecond: _endSecond,
+          ),
+
+        ]);
+
+        await _videoEditorController?.video.pause();
+
+      }
+
+    }
+
+
+
+  }
+  // --------------------
+  void _onHandleChanged(double startSecond, double endSecond){
+
+    final int _durationMs = _videoEditorController?.videoDuration.inMilliseconds ?? 0;
+    final int _startMs = (startSecond * 1000).toInt();
+    final int _endMs = (endSecond * 1000).toInt();
+
+    final double _min = _startMs / _durationMs;
+    final double _max = _endMs / _durationMs;
+
+    _videoEditorController?.updateTrim(_min, _max);
+
+  }
+  // --------------------
+  Future<void> _onCurrentTimeChanged(double currentSecond) async {
+
+    await VideoOps.snapVideoToSecond(
+      controller: _videoEditorController,
+      second: currentSecond,
+    );
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -542,6 +616,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
           /// PLAY BAR
           VideoEditorPlayBar(
             videoEditorController: _videoEditorController,
+            onPlay: _onPlay,
           ),
 
           /// PANEL
@@ -550,21 +625,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
             videoEditorController: _videoEditorController,
             scrollController: _timelineScrollController,
             secondPixelLength: _secondPixelLength,
-            onHandleChanged: (double startSecond, double endSecond){
-
-              final int _durationMs = _videoEditorController?.videoDuration.inMilliseconds ?? 0;
-              final int _startMs = (startSecond * 1000).toInt();
-              final int _endMs = (endSecond * 1000).toInt();
-
-              final double _min = _startMs / _durationMs;
-              final double _max = _endMs / _durationMs;
-
-              _videoEditorController?.updateTrim(_min, _max);
-
-            },
-            onTimeChanged: (double currentSecond){
-              blog('current second is : $currentSecond');
-            },
+            onHandleChanged: _onHandleChanged,
+            onTimeChanged: _onCurrentTimeChanged,
             onConfirmCrop: (){
 
               _videoEditorController?.applyCacheCrop();

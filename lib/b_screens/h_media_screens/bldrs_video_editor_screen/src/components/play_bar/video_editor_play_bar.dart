@@ -4,10 +4,12 @@ class VideoEditorPlayBar extends StatelessWidget {
   // --------------------------------------------------------------------------
   const VideoEditorPlayBar({
     required this.videoEditorController,
+    required this.onPlay,
     super.key
   });
   // --------------------
   final VideoEditorController? videoEditorController;
+  final Function onPlay;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -67,14 +69,7 @@ class VideoEditorPlayBar extends StatelessWidget {
                 height: EditorScale.subPanelHeight,
                 icon: _isPlaying? Iconz.pause : Iconz.play,
                 iconSizeFactor: 0.7,
-                onTap: () async {
-                  if (_isPlaying == true){
-                    await videoEditorController?.video.pause();
-                  }
-                  else {
-                    await videoEditorController?.video.play();
-                  }
-                },
+                onTap: onPlay,
               );
             }
           ),
@@ -91,18 +86,33 @@ class VideoEditorPlayBar extends StatelessWidget {
                 ]),
                 builder: (_, __) {
 
-                  // final int duration = videoEditorController!.videoDuration.inSeconds;
-                  // final double pos = videoEditorController!.trimPosition * duration;
-                  // final String _current = VideoOps.formatDuration(Duration(seconds: pos.toInt()));
-                  final double? _size = FileSizer.getFileSizeWithUnit(
-                    file: videoEditorController!.file,
-                    unit: FileSizeUnit.megaByte,
+                  final double _trimmedDuration = VideoOps.getClearTrimDurationS(
+                    controller: videoEditorController,
                   );
+                  String _duration = Numeric.formatDoubleWithinDigits(
+                    value: _trimmedDuration,
+                    digits: 1,
+                    addPlus: false,
+                  )!;
+                  _duration = '${_duration}s';
+
+                  final bool _maxDurationReached = _trimmedDuration > Standards.maxVideoDurationS;
+
+                  final double _durationS = videoEditorController!.videoDuration.inMilliseconds / 100;
+                  final double _trimmedRatio = _trimmedDuration / _durationS;
+                  int _length = videoEditorController!.file.lengthSync();
+                  _length = (_length * _trimmedRatio).toInt();
+                  final double? _size = FileSizer.calculateSize(_length, FileSizeUnit.megaByte);
+                  final String _sizeStringified = Numeric.formatDoubleWithinDigits(
+                    value: _size,
+                    digits: 2,
+                    addPlus: false,
+                  )!;
 
                   return BldrsText(
-                    verse: Verse.plain('$_size MB'),
+                    verse: Verse.plain('$_duration ~ $_sizeStringified MB'),
                     size: 1,
-                    labelColor: Colorz.white20,
+                    labelColor: _maxDurationReached == true ? Colorz.bloodTest : Colorz.white20,
                     weight: VerseWeight.thin,
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                   );

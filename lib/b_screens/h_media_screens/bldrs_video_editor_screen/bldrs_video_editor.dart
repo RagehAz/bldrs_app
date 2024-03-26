@@ -1,5 +1,6 @@
 library bldrs_video_editor;
 
+import 'dart:async';
 import 'dart:io';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
