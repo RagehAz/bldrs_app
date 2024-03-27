@@ -86,26 +86,11 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     super.dispose();
   }
   // --------------------
-  String? _selectedButton = VideoEditorNavBar.trimButtonID;
-  // --------------------
-  void _setActiveButton(String? button){
 
-    if (_selectedButton == button){
-      if (_selectedButton != null){
-        setState(() {
-          _selectedButton = null;
-        });
-      }
-    }
+  /// INITIALIZATION & CONFIRMATION
 
-    else {
-      setState(() {
-        _selectedButton = button;
-      });
-    }
-
-  }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _setVideo(File? file) async {
 
     _videoEditorController = await VideoOps.initializeVideoEditorController(
@@ -126,6 +111,40 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
   }
   // --------------------
+  /// TASK : DO_ME
+  Future<void> onConfirm() async {
+    blog('should confirm now');
+  }
+  // --------------------
+
+  /// PANEL SELECTION
+
+  // -----------------------------------------------------------------------------
+  String? _selectedButton = VideoEditorNavBar.trimButtonID;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _setActiveButton(String? button){
+
+    if (_selectedButton == button){
+      if (_selectedButton != null){
+        setState(() {
+          _selectedButton = null;
+        });
+      }
+    }
+
+    else {
+      setState(() {
+        _selectedButton = button;
+      });
+    }
+
+  }
+  // --------------------
+
+  /// ROTATION CONTROL
+
+  // -----------------------------------------------------------------------------
   Future<void> _onRotateVideo() async {
 
     _setActiveButton(null);
@@ -133,11 +152,12 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
   }
   // --------------------
-  Future<void> resizeVideo() async {}
-  // --------------------
-  Future<void> compressVideo() async {}
-  // --------------------
+
+  /// SOUND CONTROL
+
+  // -----------------------------------------------------------------------------
   bool _isMuted = false;
+  // --------------------
   Future<void> muteVideo() async {
 
     if (_isMuted == true){
@@ -151,6 +171,159 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     });
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// TRIM CONTROLS
+
+  // --------------------
+  void _onHandleChanged(double startSecond, double endSecond){
+
+    final int _durationMs = _videoEditorController?.videoDuration.inMilliseconds ?? 0;
+    final int _startMs = (startSecond * 1000).toInt();
+    final int _endMs = (endSecond * 1000).toInt();
+
+    final double _min = _startMs / _durationMs;
+    final double _max = _endMs / _durationMs;
+
+    _videoEditorController?.updateTrim(_min, _max);
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// VIEWING CONTROLS
+
+  // --------------------
+  Future<void> _onCurrentTimeChanged(double currentSecond) async {
+
+    if (_isPlaying == false){
+      await VideoOps.snapVideoToSecond(
+        controller: _videoEditorController,
+        second: currentSecond,
+      );
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// PLAYING
+
+  // --------------------
+  bool _isPlaying = false;
+  // --------------------
+  void _setIsPlaying(bool setTo){
+    if (mounted == true){
+      setState(() {
+        _isPlaying = setTo;
+      });
+    }
+  }
+  // --------------------
+  Future<void> _onPlayButtonTap() async {
+
+    blog('_videoEditorController!.isPlaying : ${_videoEditorController!.isPlaying}');
+
+    if (_videoEditorController != null){
+
+      /// PAUSE
+      if (_isPlaying == true){
+        await _pauseVideo();
+      }
+
+      /// PLAY
+      else {
+        await _playVideo();
+      }
+
+    }
+
+  }
+  // --------------------
+  Future<void> _pauseVideo() async {
+    await _videoEditorController?.video.pause();
+    TimelineScale.jumpToSecond(
+      scrollController: _timelineScrollController,
+      secondPixelLength: _secondPixelLength.value,
+      second: _videoEditorController!.videoPosition.inMilliseconds / 1000,
+    );
+    _setIsPlaying(false);
+  }
+  // --------------------
+  Future<void> _playVideo() async {
+    _setIsPlaying(true);
+
+    int _startFromMs = _videoEditorController!.videoPosition.inMilliseconds;
+
+    final int _minMs = VideoOps.getTrimTimeMinMs(
+      controller: _videoEditorController,
+    );
+    final int _maxMs = VideoOps.getTrimTimeMaxMs(
+      controller: _videoEditorController,
+    );
+
+    final bool _isOutOfRange = VideoOps.checkCurrentTimeIsOutOfTrimRange(
+      controller: _videoEditorController!,
+    );
+    final bool _isCloseToStart = VideoOps.checkCurrentTimeIsCloseToStart(
+      controller: _videoEditorController!,
+      snapThresholdMs: 100,
+    );
+    final bool _isCloseToEnd = VideoOps.checkCurrentTimeIsCloseToEnd(
+      controller: _videoEditorController!,
+      snapThresholdMs: 100,
+    );
+
+    final String _x = _isOutOfRange ? 'xxxxxx' : '.';
+    Mapper.blogMap({
+      'times' : '[$_minMs] --> $_x [$_startFromMs] $_x --> [$_maxMs]',
+      'isCloseToStart' : _isCloseToStart,
+      'isCloseToEnd' : _isCloseToEnd,
+    });
+
+    /// OUT OF RANGE
+    if (_isOutOfRange || _isCloseToStart || _isCloseToEnd){
+      _startFromMs = _minMs;
+      await VideoOps.snapVideoToSecond(
+        controller: _videoEditorController,
+        second: _startFromMs / 1000,
+      );
+    }
+
+    await Future.wait(<Future>[
+
+      /// PLAY VIDEO
+      _videoEditorController!.video.play(),
+
+      /// AUTO SCROLL TIMELINE
+      TimelineScale.scrollFromTo(
+        controller: _timelineScrollController,
+        secondPixelLength: _secondPixelLength.value,
+        fromSecond: _startFromMs / 1000,
+        toSecond: _maxMs / 1000,
+      ),
+
+    ]);
+
+    // /// CORRECT VIDEO POSITION
+    // if (_isPlaying == true){
+    //   await VideoOps.snapVideoToSecond(
+    //     controller: _videoEditorController,
+    //     second: _endSecond,
+    //   );
+    // }
+
+    /// PAUSE VIDEO
+    if (_isPlaying == true){
+      await _videoEditorController?.video.pause();
+    }
+
+    /// SWITCH OFF IS PLAYING
+    _setIsPlaying(false);
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// REMOVE_ME_WHEN_DONE
+
   // --------------------
   /// REMOVE_ME_WHEN_DONE
   Future<void> more() async {
@@ -463,18 +636,18 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
             onTap: () async {
 
               final MediaModel? _videoMap = await VideoMaker.pickVideo(
-                context: context,
-                langCode: Localizer.getCurrentLangCode(),
-                onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
-                onError: BldrsMediaMaker.onPickingError,
-                ownersIDs: [],
-                uploadPathMaker: (String? title){
-                  return StoragePath.entities_title(title ?? Numeric.createRandomIndex().toString())!;
-                }
+                  context: context,
+                  langCode: Localizer.getCurrentLangCode(),
+                  onPermissionPermanentlyDenied: BldrsMediaMaker.onPermissionPermanentlyDenied,
+                  onError: BldrsMediaMaker.onPickingError,
+                  ownersIDs: [],
+                  uploadPathMaker: (String? title){
+                    return StoragePath.entities_title(title ?? Numeric.createRandomIndex().toString())!;
+                  }
               );
 
               final Dimensions? _dims = await DimensionsGetter.fromMediaModel(
-                  mediaModel: _videoMap,
+                mediaModel: _videoMap,
               );
 
               _dims?.blogDimensions(invoker: 'zz');
@@ -503,7 +676,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
               if (_bigPic != null){
 
                 final Dimensions? _dims = await DimensionsGetter.fromMediaModel(
-                    mediaModel: _bigPic,
+                  mediaModel: _bigPic,
                 );
                 _dims?.blogDimensions(invoker: 'zz');
 
@@ -516,116 +689,6 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
         ];
 
       },
-    );
-
-  }
-  // --------------------
-  Future<void> onConfirm() async {
-    blog('should confirm now');
-  }
-  // --------------------
-  bool _isPlaying = false;
-  // --------------------
-  void _setIsPlaying(bool setTo){
-    if (mounted == true){
-      setState(() {
-        _isPlaying = setTo;
-      });
-    }
-  }
-  // --------------------
-  Future<void> _onPlay() async {
-
-    blog('_videoEditorController!.isPlaying : ${_videoEditorController!.isPlaying}');
-
-    if (_videoEditorController != null){
-
-      /// PAUSE
-      if (_isPlaying == true){
-        _setIsPlaying(false);
-        await _videoEditorController?.video.pause();
-        TimelineScale.jumpToSecond(
-          scrollController: _timelineScrollController,
-          secondPixelLength: _secondPixelLength.value,
-          second: _videoEditorController!.videoPosition.inMilliseconds / 1000,
-        );
-      }
-
-      /// PLAY
-      else {
-        _setIsPlaying(true);
-        final double _currentSecond = _videoEditorController!.videoPosition.inMilliseconds / 1000;
-
-        final double _startSecond = VideoOps.getTrimTimeMinS(
-          controller: _videoEditorController,
-        );
-        final double _endSecond = VideoOps.getTrimTimeMaxS(
-          controller: _videoEditorController,
-        );
-
-        double _startFromS = _currentSecond;
-        /// OUT OF RANGE
-        if (
-            Numeric.roundFractions(_currentSecond, 2)! <= Numeric.roundFractions(_startSecond, 2)!
-            ||
-            Numeric.roundFractions(_currentSecond, 2)! >= Numeric.roundFractions(_endSecond, 2)!
-        ){
-          _startFromS = _startSecond;
-          await VideoOps.snapVideoToSecond(
-            controller: _videoEditorController,
-            second: _startFromS,
-          );
-        }
-        /// WITHIN RANGE
-        else {
-          _startFromS = _currentSecond;
-        }
-
-
-        blog('=====> start play');
-
-
-        await Future.wait(<Future>[
-
-          _videoEditorController!.video.play(),
-
-          TimelineScale.scrollFromTo(
-            controller: _timelineScrollController,
-            secondPixelLength: _secondPixelLength.value,
-            fromSecond: _startFromS,
-            toSecond: _endSecond,
-          ),
-
-        ]);
-
-        // blog('=====> pause now');
-        await _videoEditorController?.video.pause();
-        _setIsPlaying(false);
-
-      }
-
-    }
-
-  }
-  // --------------------
-  void _onHandleChanged(double startSecond, double endSecond){
-
-    final int _durationMs = _videoEditorController?.videoDuration.inMilliseconds ?? 0;
-    final int _startMs = (startSecond * 1000).toInt();
-    final int _endMs = (endSecond * 1000).toInt();
-
-    final double _min = _startMs / _durationMs;
-    final double _max = _endMs / _durationMs;
-
-    _videoEditorController?.updateTrim(_min, _max);
-
-  }
-  // --------------------
-  Future<void> _onCurrentTimeChanged(double currentSecond) async {
-
-    await VideoOps.snapVideoToSecond(
-      controller: _videoEditorController,
-      second: currentSecond,
     );
 
   }
@@ -650,7 +713,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
           VideoEditorPlayBar(
             videoEditorController: _videoEditorController,
             isPlaying: _isPlaying,
-            onPlay: _onPlay,
+            onPlay: _onPlayButtonTap,
           ),
 
           /// PANEL

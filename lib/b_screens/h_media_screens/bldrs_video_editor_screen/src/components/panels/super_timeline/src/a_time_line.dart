@@ -112,17 +112,17 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
   // --------------------
   void _listenToScroll(){
 
-    blog('wtf');
-
     /// fix_the_play_glitch
-    /// when u switch this off,, the playing plays perfectly
+    // if (widget.videoEditorController?.isPlaying == false){
 
-    final double _currentSecond = TimelineScale.getSecondsByPixel(
-      secondPixelLength: widget.secondPixelLength.value,
-      pixels: widget.scrollController.position.pixels,
-    );
+      final double _currentSecond = TimelineScale.getSecondsByPixel(
+        secondPixelLength: widget.secondPixelLength.value,
+        pixels: widget.scrollController.position.pixels,
+      );
 
-    widget.onTimeChanged(_currentSecond.clamp(0, _totalSeconds));
+      widget.onTimeChanged(_currentSecond.clamp(0, _totalSeconds));
+
+    // }
 
   }
   // --------------------

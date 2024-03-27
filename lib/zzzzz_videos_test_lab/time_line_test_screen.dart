@@ -110,10 +110,13 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
             scrollController: _scrollController,
             secondPixelLength: _secondPixelLength,
             onTimeChanged: (double current){
-              if (mounted){
-                setState(() {
-                  _currentSecond = current;
-                });
+
+              if (_videoEditorController?.isPlaying == false){
+                if (mounted){
+                  setState(() {
+                    _currentSecond = current;
+                  });
+                }
               }
             },
             onHandleChanged: (double start, double end){
