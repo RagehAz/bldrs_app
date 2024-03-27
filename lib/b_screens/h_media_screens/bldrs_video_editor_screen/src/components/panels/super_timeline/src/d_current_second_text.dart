@@ -29,7 +29,7 @@ class CurrentSecondText extends StatelessWidget {
 
             final String _second = Numeric.formatDoubleWithinDigits(
               value: _milliSeconds / 1000,
-              digits: 2,
+              digits: 1,
               addPlus: false,
             )!;
 

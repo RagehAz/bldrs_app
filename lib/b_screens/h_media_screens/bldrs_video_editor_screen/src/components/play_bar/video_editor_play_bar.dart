@@ -10,7 +10,7 @@ class VideoEditorPlayBar extends StatelessWidget {
   });
   // --------------------
   final VideoEditorController? videoEditorController;
-  final bool isPlaying;
+  final ValueNotifier<bool> isPlaying;
   final Function onPlay;
   // --------------------------------------------------------------------------
   @override
@@ -61,15 +61,13 @@ class VideoEditorPlayBar extends StatelessWidget {
           ),
 
           /// PLAY BUTTON
-          AnimatedBuilder(
-              animation: videoEditorController!.video,
-              builder: (_, __) {
-
-                // final bool _isPlaying = Mapper.boolIsTrue(videoEditorController?.isPlaying);
+          ValueListenableBuilder(
+              valueListenable: isPlaying,
+              builder: (_, bool playing, Widget? child) {
 
               return BldrsBox(
                 height: EditorScale.subPanelHeight,
-                icon: isPlaying? Iconz.pause : Iconz.play,
+                icon: playing == true ? Iconz.pause : Iconz.play,
                 iconSizeFactor: 0.7,
                 onTap: onPlay,
               );

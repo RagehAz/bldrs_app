@@ -44,7 +44,7 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
 
     _defineTotalSeconds();
 
-    widget.scrollController.addListener(_listenToScroll);
+    // widget.scrollController.addListener(_listenToScroll);
   }
   // --------------------
   /*
@@ -76,7 +76,7 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
 
     if (_filesAreIdentical == false) {
 
-      widget.scrollController.removeListener(_listenToScroll);
+      // widget.scrollController.removeListener(_listenToScroll);
 
       setState(() {
         _defineTotalSeconds();
@@ -88,7 +88,7 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
         milliseconds: 0,
       );
 
-      widget.scrollController.addListener(_listenToScroll);
+      // widget.scrollController.addListener(_listenToScroll);
 
     }
 
@@ -96,7 +96,7 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
   // --------------------
   @override
   void dispose() {
-    widget.scrollController.removeListener(_listenToScroll);
+    // widget.scrollController.removeListener(_listenToScroll);
     _scale.dispose();
     _previousScale.dispose();
     _accumulatedScale.dispose();
@@ -109,9 +109,9 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
     _endMs = _totalMss;
   }
   // --------------------
+  /*
   void _listenToScroll(){
 
-    /// fix_the_play_glitch
     // if (widget.videoEditorController?.isPlaying == false){
 
       final int _currentMs = TimelineScale.getMssByPixel(
@@ -124,6 +124,7 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
     // }
 
   }
+   */
   // --------------------
   void _onScaleUpdate(ScaleUpdateDetails details){
 

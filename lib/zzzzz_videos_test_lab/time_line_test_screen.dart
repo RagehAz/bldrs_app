@@ -18,17 +18,17 @@ import 'package:video_editor/video_editor.dart';
 
 import '../b_screens/h_media_screens/bldrs_video_editor_screen/src/components/panels/super_timeline/super_time_line.dart';
 
-class SuperTimeLineScreen extends StatefulWidget {
+class SuperTimeLineTestScreen extends StatefulWidget {
   // --------------------------------------------------------------------------
-  const SuperTimeLineScreen({
+  const SuperTimeLineTestScreen({
     super.key
   });
 
   @override
-  State<SuperTimeLineScreen> createState() => _SuperTimeLineScreenState();
+  State<SuperTimeLineTestScreen> createState() => _SuperTimeLineTestScreenState();
 }
 
-class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
+class _SuperTimeLineTestScreenState extends State<SuperTimeLineTestScreen> {
   // --------------------------------------------------------------------------
   int _startMs = 0;
   int _endMs = 0;

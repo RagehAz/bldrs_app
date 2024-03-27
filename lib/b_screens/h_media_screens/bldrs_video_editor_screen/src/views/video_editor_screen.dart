@@ -31,6 +31,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   final ScrollController _timelineScrollController = ScrollController();
   final ValueNotifier<double> _msPixelLength = ValueNotifier(TimelineScale.initialMsPixelLength);
   final ValueNotifier<int> _currentMs = ValueNotifier(0);
+  final ValueNotifier<bool> _isPlaying = ValueNotifier(false);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -80,10 +81,12 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   // --------------------
   @override
   void dispose() {
+    _timelineScrollController.removeListener(_listenToScroll);
     _loading.dispose();
     _videoEditorController?.dispose();
     _timelineScrollController.dispose();
     _msPixelLength.dispose();
+    _isPlaying.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -94,6 +97,10 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _setVideo(File? file) async {
 
+    if (_videoEditorController != null){
+      _timelineScrollController.removeListener(_listenToScroll);
+    }
+
     _videoEditorController = await VideoOps.initializeVideoEditorController(
       file: file,
       maxDurationMs: Standards.maxVideoDurationMs,
@@ -103,8 +110,9 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
         );
         // await Nav.goBack(context: context);
       },
-
     );
+
+    _timelineScrollController.addListener(_listenToScroll);
 
     setState(() {
       //   _videoFile = file;
@@ -115,6 +123,32 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   /// TASK : DO_ME
   Future<void> onConfirm() async {
     blog('should confirm now');
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _listenToScroll(){
+
+      final int _totalMss = _videoEditorController?.videoDuration.inMilliseconds ?? 0;
+
+      final int _ms = TimelineScale.getMssByPixel(
+        msPixelLength: _msPixelLength.value,
+        pixels: _timelineScrollController.position.pixels,
+      );
+
+      setNotifier(
+        notifier: _currentMs,
+        mounted: mounted,
+        value: _ms.clamp(0, _totalMss),
+      );
+
+      /// SNAP VIDEO
+      if (_isPlaying.value == false){
+        VideoOps.snapVideoToMs(
+          controller: _videoEditorController,
+          milliSecond: _ms.clamp(0, _totalMss),
+        );
+      }
+
   }
   // -----------------------------------------------------------------------------
 
@@ -195,32 +229,10 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   /// VIEWING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onCurrentTimeChanged(int timelineMs) async {
 
-    /// PAUSE VIDEO
-    if (_isPlaying == true){
-      await _pauseVideo();
-    }
-
-    /// SET CURRENT TIMES
-    else {
-
-      /// SET CURRENT MS
-      setNotifier(
-        notifier: _currentMs,
-        mounted: mounted,
-        value: timelineMs,
-      );
-
-      /// SNAP VIDEO
-      if (mounted == true){
-        await VideoOps.snapVideoToMs(
-          controller: _videoEditorController,
-          milliSecond: timelineMs,
-        );
-      }
-
-    }
+    await _pauseVideo();
 
   }
   // -----------------------------------------------------------------------------
@@ -228,16 +240,12 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   /// PLAYING
 
   // --------------------
-  bool _isPlaying = false;
-  // --------------------
+  /// TESTED : WORKS PERFECT
   void _setIsPlaying(bool setTo){
-    if (mounted == true){
-      setState(() {
-        _isPlaying = setTo;
-      });
-    }
+    setNotifier(notifier: _isPlaying, mounted: mounted, value: setTo);
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onPlayButtonTap() async {
 
     blog('_videoEditorController!.isPlaying : ${_videoEditorController!.isPlaying}');
@@ -245,7 +253,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     if (_videoEditorController != null){
 
       /// PAUSE
-      if (_isPlaying == true){
+      if (_isPlaying.value == true){
         await _pauseVideo();
       }
 
@@ -258,86 +266,111 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _pauseVideo() async {
-    await _videoEditorController?.video.pause();
+
+    if (_isPlaying.value == true){
+
+      /// STOP VIDEO
+      await _videoEditorController?.video.pause();
+
+      /// STOP TIMELINE
+      TimelineScale.jumpToMs(
+        scrollController: _timelineScrollController,
+        msPixelLength: _msPixelLength.value,
+        milliseconds: _currentMs.value,
+      );
+
+      // await _snapToMs(_currentMs.value);
+
+      _setIsPlaying(false);
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _playVideo() async {
+
+    if (_isPlaying.value == false){
+
+      _setIsPlaying(true);
+
+      int _startFromMs = _currentMs.value;
+
+      final int _minMs = VideoOps.getTrimTimeMinMs(
+        controller: _videoEditorController,
+      );
+      final int _maxMs = VideoOps.getTrimTimeMaxMs(
+        controller: _videoEditorController,
+      );
+
+      final bool _isOutOfRange = VideoOps.checkCurrentTimeIsOutOfTrimRange(
+        controller: _videoEditorController!,
+        currentMs: _currentMs.value,
+      );
+      final bool _isCloseToStart = VideoOps.checkCurrentTimeIsCloseToStart(
+        currentMs: _currentMs.value,
+        controller: _videoEditorController!,
+        snapThresholdMs: 100,
+      );
+      final bool _isCloseToEnd = VideoOps.checkCurrentTimeIsCloseToEnd(
+        currentMs: _currentMs.value,
+        controller: _videoEditorController!,
+        snapThresholdMs: 100,
+      );
+
+      final String _x = _isOutOfRange ? 'xxxxxx' : '.';
+      Mapper.blogMap({
+        'times' : '[$_minMs] --> $_x [$_startFromMs] $_x --> [$_maxMs]',
+        'isCloseToStart' : _isCloseToStart,
+        'isCloseToEnd' : _isCloseToEnd,
+      });
+
+      /// SNAP TO START IF OUT OF RANGE
+      if (_isOutOfRange || _isCloseToStart || _isCloseToEnd){
+        _startFromMs = _minMs;
+        await _snapToMs(_startFromMs);
+      }
+
+      /// PLAY
+      await Future.wait(<Future>[
+
+        /// PLAY VIDEO
+        _videoEditorController!.video.play(),
+
+        /// AUTO SCROLL TIMELINE
+        TimelineScale.scrollFromTo(
+          controller: _timelineScrollController,
+          msPixelLength: _msPixelLength.value,
+          fromMs: _startFromMs,
+          toMs: _maxMs,
+        ),
+
+      ]);
+
+      /// PAUSE VIDEO
+      await _pauseVideo();
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _snapToMs(int ms) async {
+
+    /// SNAP TIMELINE
     TimelineScale.jumpToMs(
       scrollController: _timelineScrollController,
       msPixelLength: _msPixelLength.value,
-      milliseconds: _currentMs.value,
+      milliseconds: ms,
     );
-    _setIsPlaying(false);
-  }
-  // --------------------
-  Future<void> _playVideo() async {
-    _setIsPlaying(true);
 
-    int _startFromMs = _currentMs.value;
-
-    final int _minMs = VideoOps.getTrimTimeMinMs(
+    /// SNAP VIDEO
+    await VideoOps.snapVideoToMs(
       controller: _videoEditorController,
+      milliSecond: ms,
     );
-    final int _maxMs = VideoOps.getTrimTimeMaxMs(
-      controller: _videoEditorController,
-    );
-
-    final bool _isOutOfRange = VideoOps.checkCurrentTimeIsOutOfTrimRange(
-      controller: _videoEditorController!,
-    );
-    final bool _isCloseToStart = VideoOps.checkCurrentTimeIsCloseToStart(
-      controller: _videoEditorController!,
-      snapThresholdMs: 100,
-    );
-    final bool _isCloseToEnd = VideoOps.checkCurrentTimeIsCloseToEnd(
-      controller: _videoEditorController!,
-      snapThresholdMs: 100,
-    );
-
-    final String _x = _isOutOfRange ? 'xxxxxx' : '.';
-    Mapper.blogMap({
-      'times' : '[$_minMs] --> $_x [$_startFromMs] $_x --> [$_maxMs]',
-      'isCloseToStart' : _isCloseToStart,
-      'isCloseToEnd' : _isCloseToEnd,
-    });
-
-    /// OUT OF RANGE
-    if (_isOutOfRange || _isCloseToStart || _isCloseToEnd){
-      _startFromMs = _minMs;
-      await VideoOps.snapVideoToMs(
-        controller: _videoEditorController,
-        milliSecond: _startFromMs,
-      );
-    }
-
-    await Future.wait(<Future>[
-
-      /// PLAY VIDEO
-      _videoEditorController!.video.play(),
-
-      /// AUTO SCROLL TIMELINE
-      TimelineScale.scrollFromTo(
-        controller: _timelineScrollController,
-        msPixelLength: _msPixelLength.value,
-        fromMs: _startFromMs,
-        toMs: _maxMs,
-      ),
-
-    ]);
-
-    // /// CORRECT VIDEO POSITION
-    // if (_isPlaying == true){
-    //   await VideoOps.snapVideoToSecond(
-    //     controller: _videoEditorController,
-    //     second: _endSecond,
-    //   );
-    // }
-
-    /// PAUSE VIDEO
-    if (_isPlaying == true){
-      await _videoEditorController?.video.pause();
-    }
-
-    /// SWITCH OFF IS PLAYING
-    _setIsPlaying(false);
 
   }
   // -----------------------------------------------------------------------------
