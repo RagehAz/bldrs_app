@@ -4,14 +4,14 @@ class CurrentSecondText extends StatelessWidget {
   // --------------------------------------------------------------------------
   const CurrentSecondText({
     required this.scrollController,
-    required this.totalSeconds,
-    required this.secondPixelLength,
+    required this.totalMss,
+    required this.msPixelLength,
     super.key
   });
   // --------------------
   final ScrollController scrollController;
-  final double totalSeconds;
-  final ValueNotifier<double> secondPixelLength;
+  final int totalMss;
+  final ValueNotifier<double> msPixelLength;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -21,14 +21,14 @@ class CurrentSecondText extends StatelessWidget {
           animation: scrollController,
           builder: (_, __) {
 
-            double _s = TimelineScale.getSecondsByPixel(
-              secondPixelLength: secondPixelLength.value,
+            int _milliSeconds = TimelineScale.getMssByPixel(
+              msPixelLength: msPixelLength.value,
               pixels: scrollController.position.pixels,
             );
-            _s = _s.clamp(0, totalSeconds);
+            _milliSeconds = _milliSeconds.clamp(0, totalMss);
 
             final String _second = Numeric.formatDoubleWithinDigits(
-              value: _s,
+              value: _milliSeconds / 1000,
               digits: 2,
               addPlus: false,
             )!;

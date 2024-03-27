@@ -30,18 +30,18 @@ class SuperTimeLineScreen extends StatefulWidget {
 
 class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
   // --------------------------------------------------------------------------
-  double _startSecond = 0;
-  double _endSecond = 0;
-  double _currentSecond = 0;
+  int _startMs = 0;
+  int _endMs = 0;
+  int _currentMs = 0;
   // --------------------------------------------------------------------------
   VideoEditorController? _videoEditorController;
   final ScrollController _scrollController = ScrollController();
-  final ValueNotifier<double> _secondPixelLength = ValueNotifier(TimelineScale.initialSecondPixelLength);
+  final ValueNotifier<double> _msPixelLength = ValueNotifier(TimelineScale.initialMsPixelLength);
   // --------------------
   @override
   void dispose() {
     _videoEditorController?.dispose();
-    _secondPixelLength.dispose();
+    _msPixelLength.dispose();
     _scrollController.dispose();
     super.dispose();
   }
@@ -108,22 +108,22 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
             // limitScrollingBetweenHandles: false,
             videoEditorController: _videoEditorController,
             scrollController: _scrollController,
-            secondPixelLength: _secondPixelLength,
-            onTimeChanged: (double current){
+            msPixelLength: _msPixelLength,
+            onTimeChanged: (int currentMs){
 
               if (_videoEditorController?.isPlaying == false){
                 if (mounted){
                   setState(() {
-                    _currentSecond = current;
+                    _currentMs = currentMs;
                   });
                 }
               }
             },
-            onHandleChanged: (double start, double end){
+            onHandleChanged: (int startMs, int endMs){
               if (mounted){
                 setState(() {
-                  _startSecond = start;
-                  _endSecond = end;
+                  _startMs = startMs;
+                  _endMs = endMs;
                 });
               }
             },
@@ -134,19 +134,19 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
             builder: (context) {
 
               final String _start = Numeric.formatDoubleWithinDigits(
-                value: _startSecond,
+                value: _startMs / 1000,
                 digits: 2,
                 addPlus: false,
               )!;
 
               final String _end = Numeric.formatDoubleWithinDigits(
-                value: _endSecond,
+                value: _endMs / 1000,
                 digits: 2,
                 addPlus: false,
               )!;
 
               final String _current = Numeric.formatDoubleWithinDigits(
-                value: _currentSecond,
+                value: _currentMs / 1000,
                 digits: 2,
                 addPlus: false,
               )!;
@@ -165,12 +165,10 @@ class _SuperTimeLineScreenState extends State<SuperTimeLineScreen> {
 
                   await TimelineScale.scrollFromTo(
                     controller: _scrollController,
-                    secondPixelLength: _secondPixelLength.value,
-                    fromSecond: _startSecond,
-                    toSecond: _endSecond,
+                    msPixelLength: _msPixelLength.value,
+                    fromMs: _startMs,
+                    toMs: _endMs,
                   );
-
-
 
                 },
               );

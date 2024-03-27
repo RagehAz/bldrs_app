@@ -4,29 +4,29 @@ class Ruler extends StatelessWidget {
   // --------------------------------------------------------------------------
   const Ruler({
     required this.height,
-    required this.totalSeconds,
-    required this.secondPixelLength,
+    required this.totalMss,
+    required this.msPixelLength,
     this.lineColor = Colorz.white80,
     super.key
   });
   // --------------------
   final double height;
-  final double totalSeconds;
+  final int totalMss;
   final Color lineColor;
-  final double secondPixelLength;
+  final double msPixelLength;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     final double _totalAvailableWidth = TimelineScale.totalAvailableWidth(
-      totalSeconds: totalSeconds,
-      secondPixelLength: secondPixelLength,
+      totalMss: totalMss,
+      msPixelLength: msPixelLength,
     );
     final double _tenthWidth = TimelineScale.tenthPixelLength(
-      secondPixelLength: secondPixelLength,
+      msPixelLength: msPixelLength,
     );
     final int _totalTenths = TimelineScale.getTotalTenths(
-      totalSeconds: totalSeconds,
+      totalMss: totalMss,
     );
     final double _blankWidth = TimelineScale.blankZoneWidth();
     final double _voidThickness = _tenthWidth - TimelineScale.rulerLineThickness;

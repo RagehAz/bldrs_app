@@ -4,18 +4,18 @@ class TimelineSelector extends StatefulWidget {
   // --------------------------------------------------------------------------
   const TimelineSelector({
     required this.height,
-    required this.totalSeconds,
-    required this.secondPixelLength,
+    required this.totalMss,
+    required this.msPixelLength,
     required this.onHandleChanged,
-    this.minimumDurationInSeconds = 0.1,
+    this.minimumDurationMs = 100,
     super.key
   });
   // --------------------
   final double height;
-  final double secondPixelLength;
-  final double totalSeconds;
-  final Function(double start, double end) onHandleChanged;
-  final double minimumDurationInSeconds;
+  final double msPixelLength;
+  final int totalMss;
+  final Function(int startMs, int endMs) onHandleChanged;
+  final int minimumDurationMs;
   // --------------------
   @override
   _TimelineSelectorState createState() => _TimelineSelectorState();
@@ -30,13 +30,13 @@ class _TimelineSelectorState extends State<TimelineSelector> {
   double _leftPixels = 0;
   double _rightPixels = 0;
   // --------------------
-  double _secondPixelLength = TimelineScale.initialSecondPixelLength;
+  double _msPixelLength = TimelineScale.initialMsPixelLength;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
 
-    _secondPixelLength = widget.secondPixelLength;
+    _msPixelLength = widget.msPixelLength;
 
     _min = _getTheMostMinPixels();
     _max = _getTheMostMaxPixels();
@@ -69,34 +69,34 @@ class _TimelineSelectorState extends State<TimelineSelector> {
 
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.secondPixelLength != widget.secondPixelLength) {
+    if (oldWidget.msPixelLength != widget.msPixelLength) {
 
-      final double _oldLeftSeconds = TimelineScale.getSecondsByPixel(
-        secondPixelLength: _secondPixelLength,
+      final int _oldLeftMss = TimelineScale.getMssByPixel(
+        msPixelLength: _msPixelLength,
         pixels: _leftPixels,
       );
 
-      final double _oldRightSeconds = TimelineScale.getSecondsByPixel(
-        secondPixelLength: _secondPixelLength,
+      final int _oldRightMss = TimelineScale.getMssByPixel(
+        msPixelLength: _msPixelLength,
         pixels: _rightPixels,
       );
 
       setState(() {
-        _secondPixelLength = widget.secondPixelLength;
-        _leftPixels = TimelineScale.getPixelsBySeconds(
-          seconds: _oldLeftSeconds,
-          secondPixelLength: _secondPixelLength,
+        _msPixelLength = widget.msPixelLength;
+        _leftPixels = TimelineScale.getPixelsByMss(
+          milliSeconds: _oldLeftMss,
+          msPixelLength: _msPixelLength,
         );
-        _rightPixels = TimelineScale.getPixelsBySeconds(
-          seconds: _oldRightSeconds,
-          secondPixelLength: _secondPixelLength,
+        _rightPixels = TimelineScale.getPixelsByMss(
+          milliSeconds: _oldRightMss,
+          msPixelLength: _msPixelLength,
         );
         _max = _getTheMostMaxPixels();
       });
 
     }
 
-    if (oldWidget.totalSeconds != widget.totalSeconds){
+    if (oldWidget.totalMss != widget.totalMss){
       setState(() {
         _min = _getTheMostMinPixels();
         _max = _getTheMostMaxPixels();
@@ -119,9 +119,9 @@ class _TimelineSelectorState extends State<TimelineSelector> {
   // --------------------
   double _getTheMostMaxPixels(){
 
-    final double _totalSecondsLength = TimelineScale.totalSecondsPixelLength(
-      totalSeconds: widget.totalSeconds,
-      secondPixelLength: _secondPixelLength,
+    final double _totalSecondsLength = TimelineScale.totalMssPixelLength(
+      totalMilliSeconds: widget.totalMss,
+      msPixelLength: _msPixelLength,
     );
 
     return _totalSecondsLength;
@@ -129,8 +129,8 @@ class _TimelineSelectorState extends State<TimelineSelector> {
   // --------------------
   void _onRightHandleDragUpdate({
     required DragUpdateDetails details,
-    required double rightSeconds,
-    required double leftSeconds,
+    required int rightMs,
+    required int leftMs,
     required double minimumDurationInPixels,
   }){
 
@@ -147,7 +147,7 @@ class _TimelineSelectorState extends State<TimelineSelector> {
       _rightPixels = newPosition;
     });
 
-    widget.onHandleChanged(leftSeconds, rightSeconds);
+    widget.onHandleChanged(leftMs, rightMs);
 
   }
   // --------------------
@@ -155,7 +155,7 @@ class _TimelineSelectorState extends State<TimelineSelector> {
 
     final double? _correction = await TimelineScale.correctHandlePixels(
       pixels: _rightPixels,
-      secondPixelLength: _secondPixelLength,
+      msPixelLength: _msPixelLength,
     );
 
     if (_correction != null){
@@ -168,8 +168,8 @@ class _TimelineSelectorState extends State<TimelineSelector> {
   // --------------------
   void _onLeftHandleDragUpdate({
     required DragUpdateDetails details,
-    required double rightSeconds,
-    required double leftSeconds,
+    required int rightMs,
+    required int leftMs,
     required double minimumDurationInPixels,
   }) {
 
@@ -186,7 +186,7 @@ class _TimelineSelectorState extends State<TimelineSelector> {
       _leftPixels = newPosition;
     });
 
-    widget.onHandleChanged(leftSeconds, rightSeconds);
+    widget.onHandleChanged(leftMs, rightMs);
 
   }
   // --------------------
@@ -194,7 +194,7 @@ class _TimelineSelectorState extends State<TimelineSelector> {
 
     final double? _correction = await TimelineScale.correctHandlePixels(
       pixels: _leftPixels,
-      secondPixelLength: _secondPixelLength,
+      msPixelLength: _msPixelLength,
     );
 
     if (_correction != null){
@@ -208,30 +208,30 @@ class _TimelineSelectorState extends State<TimelineSelector> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _minimumDurationInPixels = TimelineScale.getPixelsBySeconds(
-        seconds: widget.minimumDurationInSeconds,
-        secondPixelLength: _secondPixelLength,
+    final double _minimumDurationInPixels = TimelineScale.getPixelsByMss(
+        milliSeconds: widget.minimumDurationMs,
+        msPixelLength: _msPixelLength,
       );
     // --------------------
     final double _blankWidth = TimelineScale.blankZoneWidth() - TimelineScale.handleWidth;
     // --------------------
     final double _totalAvailableWidth = TimelineScale.totalAvailableWidth(
-      totalSeconds: widget.totalSeconds,
-      secondPixelLength: _secondPixelLength,
+      totalMss: widget.totalMss,
+      msPixelLength: _msPixelLength,
     );
     // --------------------
     final double _selectorInnerWidth = TimelineScale.getSelectorInnerWidth(
-      totalSeconds: widget.totalSeconds,
-      secondPixelLength: _secondPixelLength,
+      totalMss: widget.totalMss,
+      msPixelLength: _msPixelLength,
     );
     // --------------------
-    final double _rightSeconds = TimelineScale.getSecondsByPixel(
-      secondPixelLength: _secondPixelLength,
+    final int _rightMs = TimelineScale.getMssByPixel(
+      msPixelLength: _msPixelLength,
       pixels: _rightPixels,
     );
     // --------------------
-    final double _leftSeconds = TimelineScale.getSecondsByPixel(
-      secondPixelLength: _secondPixelLength,
+    final int _leftMs = TimelineScale.getMssByPixel(
+      msPixelLength: _msPixelLength,
       pixels: _leftPixels,
     );
     // --------------------
@@ -275,8 +275,8 @@ class _TimelineSelectorState extends State<TimelineSelector> {
                   onHorizontalDragEnd: _onLeftHandleDragEnd,
                   onHorizontalDragUpdate: (details) => _onLeftHandleDragUpdate(
                     details: details,
-                    leftSeconds: _leftSeconds,
-                    rightSeconds: _rightSeconds,
+                    leftMs: _leftMs,
+                    rightMs: _rightMs,
                     minimumDurationInPixels: _minimumDurationInPixels,
                   ),
                 ),
@@ -288,8 +288,8 @@ class _TimelineSelectorState extends State<TimelineSelector> {
                   onHorizontalDragEnd: _onRightHandleDragEnd,
                   onHorizontalDragUpdate: (details) => _onRightHandleDragUpdate(
                     details: details,
-                    leftSeconds: _leftSeconds,
-                    rightSeconds: _rightSeconds,
+                    leftMs: _leftMs,
+                    rightMs: _rightMs,
                     minimumDurationInPixels: _minimumDurationInPixels,
                   ),
                 ),

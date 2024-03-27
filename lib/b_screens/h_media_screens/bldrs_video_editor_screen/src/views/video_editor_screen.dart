@@ -29,7 +29,8 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   // -----------------------------------------------------------------------------
   VideoEditorController? _videoEditorController;
   final ScrollController _timelineScrollController = ScrollController();
-  final ValueNotifier<double> _secondPixelLength = ValueNotifier(TimelineScale.initialSecondPixelLength);
+  final ValueNotifier<double> _msPixelLength = ValueNotifier(TimelineScale.initialMsPixelLength);
+  final ValueNotifier<int> _currentMs = ValueNotifier(0);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -82,20 +83,20 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     _loading.dispose();
     _videoEditorController?.dispose();
     _timelineScrollController.dispose();
-    _secondPixelLength.dispose();
+    _msPixelLength.dispose();
     super.dispose();
   }
-  // --------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION & CONFIRMATION
 
-  // -----------------------------------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _setVideo(File? file) async {
 
     _videoEditorController = await VideoOps.initializeVideoEditorController(
       file: file,
-      maxDurationMs: Standards.maxVideoDurationS * 1000,
+      maxDurationMs: Standards.maxVideoDurationMs,
       onError: (String error) async {
         await Dialogs.errorDialog(
           titleVerse: Verse.plain(error),
@@ -115,11 +116,11 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   Future<void> onConfirm() async {
     blog('should confirm now');
   }
-  // --------------------
+  // -----------------------------------------------------------------------------
 
   /// PANEL SELECTION
 
-  // -----------------------------------------------------------------------------
+  // --------------------
   String? _selectedButton = VideoEditorNavBar.trimButtonID;
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -140,24 +141,26 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     }
 
   }
-  // --------------------
-
-  /// ROTATION CONTROL
-
   // -----------------------------------------------------------------------------
+
+  /// ROTATION
+
+  // --------------------
+  /// TASK : DO_ME
   Future<void> _onRotateVideo() async {
 
     _setActiveButton(null);
     _videoEditorController?.rotate90Degrees(RotateDirection.left);
 
   }
-  // --------------------
-
-  /// SOUND CONTROL
-
   // -----------------------------------------------------------------------------
+
+  /// SOUND
+
+  // --------------------
   bool _isMuted = false;
   // --------------------
+  /// TASK : DO_ME
   Future<void> muteVideo() async {
 
     if (_isMuted == true){
@@ -173,33 +176,50 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   }
   // -----------------------------------------------------------------------------
 
-  /// TRIM CONTROLS
+  /// TRIMMING
 
   // --------------------
-  void _onHandleChanged(double startSecond, double endSecond){
+  /// TESTED : WORKS PERFECT
+  void _onHandleChanged(int startMs, int endMs){
 
     final int _durationMs = _videoEditorController?.videoDuration.inMilliseconds ?? 0;
-    final int _startMs = (startSecond * 1000).toInt();
-    final int _endMs = (endSecond * 1000).toInt();
 
-    final double _min = _startMs / _durationMs;
-    final double _max = _endMs / _durationMs;
+    final double _min = startMs / _durationMs;
+    final double _max = endMs / _durationMs;
 
     _videoEditorController?.updateTrim(_min, _max);
 
   }
   // -----------------------------------------------------------------------------
 
-  /// VIEWING CONTROLS
+  /// VIEWING
 
   // --------------------
-  Future<void> _onCurrentTimeChanged(double currentSecond) async {
+  Future<void> _onCurrentTimeChanged(int timelineMs) async {
 
-    if (_isPlaying == false){
-      await VideoOps.snapVideoToSecond(
-        controller: _videoEditorController,
-        second: currentSecond,
+    /// PAUSE VIDEO
+    if (_isPlaying == true){
+      await _pauseVideo();
+    }
+
+    /// SET CURRENT TIMES
+    else {
+
+      /// SET CURRENT MS
+      setNotifier(
+        notifier: _currentMs,
+        mounted: mounted,
+        value: timelineMs,
       );
+
+      /// SNAP VIDEO
+      if (mounted == true){
+        await VideoOps.snapVideoToMs(
+          controller: _videoEditorController,
+          milliSecond: timelineMs,
+        );
+      }
+
     }
 
   }
@@ -240,10 +260,10 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   // --------------------
   Future<void> _pauseVideo() async {
     await _videoEditorController?.video.pause();
-    TimelineScale.jumpToSecond(
+    TimelineScale.jumpToMs(
       scrollController: _timelineScrollController,
-      secondPixelLength: _secondPixelLength.value,
-      second: _videoEditorController!.videoPosition.inMilliseconds / 1000,
+      msPixelLength: _msPixelLength.value,
+      milliseconds: _currentMs.value,
     );
     _setIsPlaying(false);
   }
@@ -251,7 +271,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   Future<void> _playVideo() async {
     _setIsPlaying(true);
 
-    int _startFromMs = _videoEditorController!.videoPosition.inMilliseconds;
+    int _startFromMs = _currentMs.value;
 
     final int _minMs = VideoOps.getTrimTimeMinMs(
       controller: _videoEditorController,
@@ -282,9 +302,9 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     /// OUT OF RANGE
     if (_isOutOfRange || _isCloseToStart || _isCloseToEnd){
       _startFromMs = _minMs;
-      await VideoOps.snapVideoToSecond(
+      await VideoOps.snapVideoToMs(
         controller: _videoEditorController,
-        second: _startFromMs / 1000,
+        milliSecond: _startFromMs,
       );
     }
 
@@ -296,9 +316,9 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
       /// AUTO SCROLL TIMELINE
       TimelineScale.scrollFromTo(
         controller: _timelineScrollController,
-        secondPixelLength: _secondPixelLength.value,
-        fromSecond: _startFromMs / 1000,
-        toSecond: _maxMs / 1000,
+        msPixelLength: _msPixelLength.value,
+        fromMs: _startFromMs,
+        toMs: _maxMs,
       ),
 
     ]);
@@ -721,7 +741,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
             selectedButton: _selectedButton,
             videoEditorController: _videoEditorController,
             scrollController: _timelineScrollController,
-            secondPixelLength: _secondPixelLength,
+            msPixelLength: _msPixelLength,
             onHandleChanged: _onHandleChanged,
             onTimeChanged: _onCurrentTimeChanged,
             onConfirmCrop: (){

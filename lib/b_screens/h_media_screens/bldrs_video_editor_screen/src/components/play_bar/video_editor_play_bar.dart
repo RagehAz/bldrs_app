@@ -15,7 +15,7 @@ class VideoEditorPlayBar extends StatelessWidget {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.screenWidth(context);
     final double _sideWidth = (_screenWidth - EditorScale.subPanelHeight) / 2;
     // --------------------
@@ -98,7 +98,7 @@ class VideoEditorPlayBar extends StatelessWidget {
                   )!;
                   _duration = '${_duration}s';
 
-                  final bool _maxDurationReached = _trimmedDuration > Standards.maxVideoDurationS;
+                  final bool _maxDurationReached = _trimmedDuration > (Standards.maxVideoDurationMs * 1000);
 
                   final double _durationS = videoEditorController!.videoDuration.inMilliseconds / 100;
                   final double _trimmedRatio = _trimmedDuration / _durationS;

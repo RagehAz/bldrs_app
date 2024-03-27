@@ -71,7 +71,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
   // -----------------------------------------------------------------------------
   VideoEditorController? _videoEditorController;
   final ScrollController _timeLineScrollController = ScrollController();
-  final ValueNotifier<double> _timelineSecondPixelLength = ValueNotifier(TimelineScale.initialSecondPixelLength);
+  final ValueNotifier<double> _timelineMsPixelLength = ValueNotifier(TimelineScale.initialMsPixelLength);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -125,7 +125,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
     _loading.dispose();
     _videoEditorController?.dispose();
     _timeLineScrollController.dispose();
-    _timelineSecondPixelLength.dispose();
+    _timelineMsPixelLength.dispose();
     super.dispose();
   }
   // --------------------
@@ -781,12 +781,12 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
               height: _editorBarHeight,
               videoEditorController: _videoEditorController,
               scrollController: _timeLineScrollController,
-              secondPixelLength: _timelineSecondPixelLength,
+              msPixelLength: _timelineMsPixelLength,
               // limitScrollingBetweenHandles: false,
-              onHandleChanged: (double leftSecond, double rightSecond){
+              onHandleChanged: (int leftMs, int rightMs){
 
               },
-              onTimeChanged: (double currentSecond) async {
+              onTimeChanged: (int currentMs) async {
 
                 if (_videoEditorController != null){
 
@@ -795,9 +795,7 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                   }
 
                   await _videoEditorController?.video.seekTo(
-                      Duration(
-                        milliseconds: (currentSecond * 1000).ceil(),
-                      )
+                      Duration(milliseconds: currentMs)
                   );
 
                 }

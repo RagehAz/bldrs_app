@@ -9,19 +9,19 @@ class SuperTimeLine extends StatefulWidget {
     required this.onHandleChanged,
     required this.videoEditorController,
     required this.scrollController,
-    required this.secondPixelLength,
+    required this.msPixelLength,
     this.limitScrollingBetweenHandles = false,
     super.key,
   });
   // --------------------
   final double totalWidth;
   final double height;
-  final Function(double current) onTimeChanged;
-  final Function(double start, double end) onHandleChanged;
+  final Function(int currentMs) onTimeChanged;
+  final Function(int minMs, int maxMs) onHandleChanged;
   final bool limitScrollingBetweenHandles;
   final VideoEditorController? videoEditorController;
   final ScrollController scrollController;
-  final ValueNotifier<double> secondPixelLength;
+  final ValueNotifier<double> msPixelLength;
   // --------------------
   @override
   _SuperTimeLineState createState() => _SuperTimeLineState();
@@ -33,10 +33,10 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
   final ValueNotifier<double> _scale = ValueNotifier(1);
   final ValueNotifier<double> _previousScale = ValueNotifier(1);
   final ValueNotifier<double> _accumulatedScale = ValueNotifier(0);
-  double _totalSeconds = 0;
+  int _totalMss = 0;
   // --------------------
-  double _startTime = 0;
-  double _endTime = 0;
+  int _startMs = 0;
+  int _endMs = 0;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -82,10 +82,10 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
         _defineTotalSeconds();
       });
 
-      TimelineScale.jumpToSecond(
-        secondPixelLength: widget.secondPixelLength.value,
+      TimelineScale.jumpToMs(
+        msPixelLength: widget.msPixelLength.value,
         scrollController: widget.scrollController,
-        second: 0,
+        milliseconds: 0,
       );
 
       widget.scrollController.addListener(_listenToScroll);
@@ -104,10 +104,9 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
   }
   // -----------------------------------------------------------------------------
   void _defineTotalSeconds(){
-    final int _ms = widget.videoEditorController?.videoDuration.inMilliseconds ?? 0;
-    _totalSeconds = _ms / 1000;
-    _startTime = 0;
-    _endTime = _totalSeconds;
+    _totalMss = widget.videoEditorController?.videoDuration.inMilliseconds ?? 0;
+    _startMs = 0;
+    _endMs = _totalMss;
   }
   // --------------------
   void _listenToScroll(){
@@ -115,12 +114,12 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
     /// fix_the_play_glitch
     // if (widget.videoEditorController?.isPlaying == false){
 
-      final double _currentSecond = TimelineScale.getSecondsByPixel(
-        secondPixelLength: widget.secondPixelLength.value,
+      final int _currentMs = TimelineScale.getMssByPixel(
+        msPixelLength: widget.msPixelLength.value,
         pixels: widget.scrollController.position.pixels,
       );
 
-      widget.onTimeChanged(_currentSecond.clamp(0, _totalSeconds));
+      widget.onTimeChanged(_currentMs.clamp(0, _totalMss));
 
     // }
 
@@ -132,7 +131,7 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
       TimelineScale.scaleTimeline(
         details: details,
         scrollController: widget.scrollController,
-        secondPixelLength: widget.secondPixelLength,
+        msPixelLength: widget.msPixelLength,
         mounted: mounted,
         accumulatedScale: _accumulatedScale,
         previousScale: _previousScale,
@@ -144,9 +143,9 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
       TimelineScale.scrollManually(
         scrollController: widget.scrollController,
         details: details,
-        startTime: _startTime,
-        endTime: _endTime,
-        secondPixelLength: widget.secondPixelLength.value,
+        startMs: _startMs,
+        endMs: _endMs,
+        msPixelLength: widget.msPixelLength.value,
         scrollingIsLimitedBetweenHandles: widget.limitScrollingBetweenHandles,
       );
     }
@@ -169,25 +168,25 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
             TimelineBar(
               height: widget.height,
               width: widget.totalWidth,
-              secondPixelLength: widget.secondPixelLength,
-              totalSeconds: _totalSeconds,
+              msPixelLength: widget.msPixelLength,
+              totalMss: _totalMss,
               scrollController: widget.scrollController,
               videoEditorController: widget.videoEditorController,
-              onHandleChanged: (double startS, double endS){
+              onHandleChanged: (int startMs, int endMs){
 
                 if (widget.limitScrollingBetweenHandles == true){
                   TimelineScale.handlePushCurrentTime(
-                    secondPixelLength: widget.secondPixelLength.value,
+                    msPixelLength:  widget.msPixelLength.value,
                     scrollController: widget.scrollController,
-                    endS: endS,
-                    startS: startS,
+                    endMs: endMs,
+                    startMs: startMs,
                   );
                 }
 
-                _startTime = startS;
-                _endTime = endS;
+                _startMs = startMs;
+                _endMs = endMs;
 
-                widget.onHandleChanged(startS, endS);
+                widget.onHandleChanged(startMs, endMs);
               },
             ),
 
@@ -200,8 +199,8 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
 
             /// CURRENT SECOND
             CurrentSecondText(
-              totalSeconds: _totalSeconds,
-              secondPixelLength: widget.secondPixelLength,
+              totalMss: _totalMss,
+              msPixelLength: widget.msPixelLength,
               scrollController: widget.scrollController,
             ),
 

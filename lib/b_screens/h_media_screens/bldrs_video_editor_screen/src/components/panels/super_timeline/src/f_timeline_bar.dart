@@ -6,8 +6,8 @@ class TimelineBar extends StatelessWidget {
     required this.width,
     required this.height,
     required this.scrollController,
-    required this.secondPixelLength,
-    required this.totalSeconds,
+    required this.msPixelLength,
+    required this.totalMss,
     required this.onHandleChanged,
     required this.videoEditorController,
     super.key
@@ -16,9 +16,9 @@ class TimelineBar extends StatelessWidget {
   final double width;
   final double height;
   final ScrollController scrollController;
-  final ValueNotifier<double> secondPixelLength;
-  final double totalSeconds;
-  final Function(double start, double end) onHandleChanged;
+  final ValueNotifier<double> msPixelLength;
+  final int totalMss;
+  final Function(int startMs, int endMs) onHandleChanged;
   final VideoEditorController? videoEditorController;
   // --------------------------------------------------------------------------
   @override
@@ -36,12 +36,12 @@ class TimelineBar extends StatelessWidget {
       columnChildren: <Widget>[
 
         ValueListenableBuilder(
-            valueListenable: secondPixelLength,
-            builder: (context, double _secondPixelLength, Widget? blankSpace) {
+            valueListenable: msPixelLength,
+            builder: (context, double _msPixelLength, Widget? blankSpace) {
 
               final double _totalAvailableWidth = TimelineScale.totalAvailableWidth(
-                totalSeconds: totalSeconds,
-                secondPixelLength: _secondPixelLength,
+                totalMss: totalMss,
+                msPixelLength: _msPixelLength,
               );
 
               return SizedBox(
@@ -54,23 +54,23 @@ class TimelineBar extends StatelessWidget {
                     /// SECONDS BOXES
                     SecondsBoxes(
                       height: height,
-                      secondPixelLength: _secondPixelLength,
-                      totalSeconds: totalSeconds,
+                      msPixelLength: _msPixelLength,
+                      totalMss: totalMss,
                       videoEditorController: videoEditorController,
                     ),
 
                     /// RULER
                     Ruler(
                       height: _timelineStripHeight,
-                      totalSeconds: totalSeconds,
-                      secondPixelLength: _secondPixelLength,
+                      totalMss: totalMss,
+                      msPixelLength: _msPixelLength,
                     ),
 
                     /// SELECTOR
                     TimelineSelector(
                       height: _timelineStripHeight,
-                      secondPixelLength: _secondPixelLength,
-                      totalSeconds: totalSeconds,
+                      msPixelLength: _msPixelLength,
+                      totalMss: totalMss,
                       onHandleChanged: onHandleChanged,
                     ),
 

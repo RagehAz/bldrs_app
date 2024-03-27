@@ -5,7 +5,7 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
   const VideoEditorPanelSwitcher({
     required this.videoEditorController,
     required this.scrollController,
-    required this.secondPixelLength,
+    required this.msPixelLength,
     required this.selectedButton,
     required this.onConfirmCrop,
     required this.onTimeChanged,
@@ -15,11 +15,11 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
   // --------------------
   final VideoEditorController? videoEditorController;
   final ScrollController scrollController;
-  final ValueNotifier<double> secondPixelLength;
+  final ValueNotifier<double> msPixelLength;
   final String? selectedButton;
   final Function onConfirmCrop;
-  final Function(double currentSecond) onTimeChanged;
-  final Function(double start, double edn) onHandleChanged;
+  final Function(int currentMs) onTimeChanged;
+  final Function(int minMs, int maxMs) onHandleChanged;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
               totalWidth: _screenWidth,
               height: _panelHeight,
               // limitScrollingBetweenHandles: false,
-              secondPixelLength: secondPixelLength,
+              msPixelLength: msPixelLength,
               onTimeChanged: onTimeChanged,
               onHandleChanged: onHandleChanged,
             );
