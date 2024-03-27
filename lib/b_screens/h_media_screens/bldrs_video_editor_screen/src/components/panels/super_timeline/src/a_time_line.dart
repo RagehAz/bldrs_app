@@ -112,6 +112,11 @@ class _SuperTimeLineState extends State<SuperTimeLine> {
   // --------------------
   void _listenToScroll(){
 
+    blog('wtf');
+
+    /// fix_the_play_glitch
+    /// when u switch this off,, the playing plays perfectly
+
     final double _currentSecond = TimelineScale.getSecondsByPixel(
       secondPixelLength: widget.secondPixelLength.value,
       pixels: widget.scrollController.position.pixels,

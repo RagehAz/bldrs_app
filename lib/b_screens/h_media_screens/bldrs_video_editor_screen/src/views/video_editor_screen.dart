@@ -524,20 +524,37 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     blog('should confirm now');
   }
   // --------------------
+  bool _isPlaying = false;
+  // --------------------
+  void _setIsPlaying(bool setTo){
+    if (mounted == true){
+      setState(() {
+        _isPlaying = setTo;
+      });
+    }
+  }
+  // --------------------
   Future<void> _onPlay() async {
 
+    blog('_videoEditorController!.isPlaying : ${_videoEditorController!.isPlaying}');
 
     if (_videoEditorController != null){
 
-      final bool _isPlaying = Mapper.boolIsTrue(_videoEditorController!.isPlaying);
-
       /// PAUSE
       if (_isPlaying == true){
+        _setIsPlaying(false);
         await _videoEditorController?.video.pause();
+        TimelineScale.jumpToSecond(
+          scrollController: _timelineScrollController,
+          secondPixelLength: _secondPixelLength.value,
+          second: _videoEditorController!.videoPosition.inMilliseconds / 1000,
+        );
       }
 
       /// PLAY
       else {
+        _setIsPlaying(true);
+        final double _currentSecond = _videoEditorController!.videoPosition.inMilliseconds / 1000;
 
         final double _startSecond = VideoOps.getTrimTimeMinS(
           controller: _videoEditorController,
@@ -546,11 +563,27 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
           controller: _videoEditorController,
         );
 
-        await VideoOps.snapVideoToStartingTrim(
-          controller: _videoEditorController,
-        );
+        double _startFromS = _currentSecond;
+        /// OUT OF RANGE
+        if (
+            Numeric.roundFractions(_currentSecond, 2)! <= Numeric.roundFractions(_startSecond, 2)!
+            ||
+            Numeric.roundFractions(_currentSecond, 2)! >= Numeric.roundFractions(_endSecond, 2)!
+        ){
+          _startFromS = _startSecond;
+          await VideoOps.snapVideoToSecond(
+            controller: _videoEditorController,
+            second: _startFromS,
+          );
+        }
+        /// WITHIN RANGE
+        else {
+          _startFromS = _currentSecond;
+        }
 
-        blog('a7aaaaaaaaaaaaasssaxx!');
+
+        blog('=====> start play');
+
 
         await Future.wait(<Future>[
 
@@ -559,19 +592,19 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
           TimelineScale.scrollFromTo(
             controller: _timelineScrollController,
             secondPixelLength: _secondPixelLength.value,
-            fromSecond: _startSecond,
+            fromSecond: _startFromS,
             toSecond: _endSecond,
           ),
 
         ]);
 
+        // blog('=====> pause now');
         await _videoEditorController?.video.pause();
+        _setIsPlaying(false);
 
       }
 
     }
-
-
 
   }
   // --------------------
@@ -616,6 +649,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
           /// PLAY BAR
           VideoEditorPlayBar(
             videoEditorController: _videoEditorController,
+            isPlaying: _isPlaying,
             onPlay: _onPlay,
           ),
 

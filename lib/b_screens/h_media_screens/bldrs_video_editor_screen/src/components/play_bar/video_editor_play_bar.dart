@@ -4,11 +4,13 @@ class VideoEditorPlayBar extends StatelessWidget {
   // --------------------------------------------------------------------------
   const VideoEditorPlayBar({
     required this.videoEditorController,
+    required this.isPlaying,
     required this.onPlay,
     super.key
   });
   // --------------------
   final VideoEditorController? videoEditorController;
+  final bool isPlaying;
   final Function onPlay;
   // --------------------------------------------------------------------------
   @override
@@ -63,11 +65,11 @@ class VideoEditorPlayBar extends StatelessWidget {
               animation: videoEditorController!.video,
               builder: (_, __) {
 
-                final bool _isPlaying = Mapper.boolIsTrue(videoEditorController?.isPlaying);
+                // final bool _isPlaying = Mapper.boolIsTrue(videoEditorController?.isPlaying);
 
               return BldrsBox(
                 height: EditorScale.subPanelHeight,
-                icon: _isPlaying? Iconz.pause : Iconz.play,
+                icon: isPlaying? Iconz.pause : Iconz.play,
                 iconSizeFactor: 0.7,
                 onTap: onPlay,
               );
