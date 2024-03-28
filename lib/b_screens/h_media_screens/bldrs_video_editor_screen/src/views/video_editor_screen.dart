@@ -760,6 +760,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
           VideoEditorVideoZone(
             videoEditorController: _videoEditorController,
             selectedButton: _selectedButton,
+            currentMs: _currentMs,
           ),
 
           /// PLAY BAR
@@ -780,7 +781,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
             onSetAspectRatio: (double? ratio){
               blog('the ratio is ahoooo : $ratio');
 
-              // videoEditorController?.cropAspectRatio(ratio);
+              _videoEditorController?.cropAspectRatio(ratio);
 
             },
             onConfirmCrop: (){

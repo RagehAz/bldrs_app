@@ -1,4 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/components/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
+import 'package:basics/components/super_box/super_box.dart';
 import 'package:bldrs/g_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/z_components/buttons/general_buttons/bldrs_box.dart';
 import 'package:bldrs/z_components/texting/super_verse/super_verse.dart';
@@ -31,54 +33,61 @@ class VideoAspectRatioButton extends StatelessWidget {
         children: <Widget>[
 
           /// FOOT PRINT
-          BldrsBox(
+          TapLayer(
             height: _size,
             width: _size,
-            color: Colorz.white20,
+            boxColor: Colorz.white20,
             borderColor: Colorz.white50,
-            bubble: false,
+            corners: SuperBoxController.boxCorners(
+              context: context,
+              cornersOverride: null,
+            ),
+            // bubble: false,
             onTap: onTap,
           ),
 
-          SizedBox(
-            height: _size,
-            width: _size,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
+          /// ICON & TEXT
+          IgnorePointer(
+            child: SizedBox(
+              height: _size,
+              width: _size,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
 
-                /// RATIO ICON
-                FlyerBox(
-                  flyerBoxWidth: _ratioIconWidth,
-                  boxColor: Colorz.black255,
-                  stackWidgets: [
+                  /// RATIO ICON
+                  FlyerBox(
+                    flyerBoxWidth: _ratioIconWidth,
+                    boxColor: Colorz.black255,
+                    stackWidgets: [
 
-                    if (aspectRatio != null)
-                    Align(
-                      child: BldrsBox(
-                        height: _ratioIconWidth / aspectRatio!,
-                        width: _ratioIconWidth,
-                        color: Colorz.white255,
-                        borderColor: Colorz.black150,
-                        corners: _ratioIconWidth * 0.05,
-                        bubble: false,
+                      if (aspectRatio != null)
+                      Align(
+                        child: BldrsBox(
+                          height: _ratioIconWidth / aspectRatio!,
+                          width: _ratioIconWidth,
+                          color: Colorz.white255,
+                          borderColor: Colorz.black150,
+                          corners: _ratioIconWidth * 0.05,
+                          bubble: false,
+                        ),
                       ),
-                    ),
 
-                  ],
-                ),
+                    ],
+                  ),
 
-                /// TEXT
-                BldrsText(
-                  height: _size * 0.3,
-                  width: _size,
-                  weight: VerseWeight.thin,
-                  italic: true,
-                  verse: verse,
-                  size: 1,
-                ),
+                  /// TEXT
+                  BldrsText(
+                    height: _size * 0.3,
+                    width: _size,
+                    weight: VerseWeight.thin,
+                    italic: true,
+                    verse: verse,
+                    size: 1,
+                  ),
 
-              ],
+                ],
+              ),
             ),
           ),
 

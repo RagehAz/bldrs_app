@@ -32,21 +32,30 @@ class VideoCropPanel extends StatelessWidget {
 
         /// FLYER
         VideoAspectRatioButton(
-          verse: Verse.plain('Flyer'),
+          verse: const Verse(
+            id: 'phid_flyer',
+            translate: true,
+          ),
           aspectRatio: _flyerRatio,
           onTap: () => onSetAspectRatio(_flyerRatio),
         ),
 
         /// SQUARE
         VideoAspectRatioButton(
-          verse: Verse.plain('Square'),
+          verse: const Verse(
+            id: 'phid_square',
+            translate: true,
+          ),
           aspectRatio: 1,
           onTap: () => onSetAspectRatio(1),
         ),
 
         /// FREE
         VideoAspectRatioButton(
-          verse: Verse.plain('Free'),
+          verse: const Verse(
+            id: 'phid_free',
+            translate: true,
+          ),
           aspectRatio: null,
           onTap: () => onSetAspectRatio(null),
         ),

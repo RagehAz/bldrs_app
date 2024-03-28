@@ -96,6 +96,7 @@ class BldrsCropperPages extends StatelessWidget {
 
             else {
 
+              /// the_smart_crop_work_around
               return KeepAlivePage(
                 child: Container(
                   key: PageStorageKey<String>('image_$index'),
