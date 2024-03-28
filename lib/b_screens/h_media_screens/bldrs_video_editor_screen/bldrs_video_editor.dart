@@ -15,6 +15,7 @@ import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/mediator/models/media_models.dart';
 import 'package:basics/mediator/video_maker/video_maker.dart';
 import 'package:basics/mediator/video_maker/video_ops.dart';
+import 'package:bldrs/b_screens/h_media_screens/bldrs_video_editor_screen/src/components/panels/crop_panel/video_crop_panel.dart';
 import 'package:bldrs/b_screens/h_media_screens/bldrs_video_editor_screen/src/components/panels/super_timeline/super_time_line.dart';
 import 'package:bldrs/b_screens/h_media_screens/editor_nab_button/editor_nav_button.dart';
 import 'package:bldrs/b_screens/h_media_screens/editor_scale.dart';

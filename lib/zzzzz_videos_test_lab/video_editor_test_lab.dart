@@ -740,11 +740,20 @@ class _VideoEditorTestLabState extends State<VideoEditorTestLab> {
                             ]),
                             builder: (_, __) {
 
-                            final String _start = VideoOps.formatDuration(_videoEditorController!.startTrim);
-                            final String _end = VideoOps.formatDuration(_videoEditorController!.endTrim);
+                            final String _start = VideoOps.formatDurationToSeconds(
+                              duration: _videoEditorController!.startTrim,
+                              factions: 1,
+                            );
+                            final String _end = VideoOps.formatDurationToSeconds(
+                              duration: _videoEditorController!.endTrim,
+                              factions: 1,
+                            );
                             final int duration = _videoEditorController!.videoDuration.inSeconds;
                             final double pos = _videoEditorController!.trimPosition * duration;
-                            final String _current = VideoOps.formatDuration(Duration(seconds: pos.toInt()));
+                            final String _current = VideoOps.formatDurationToSeconds(
+                              duration: Duration(seconds: pos.toInt()),
+                              factions: 1,
+                            );
                             final double? _size = FileSizer.getFileSizeWithUnit(
                                 file: _videoEditorController!.file,
                                 unit: FileSizeUnit.megaByte,

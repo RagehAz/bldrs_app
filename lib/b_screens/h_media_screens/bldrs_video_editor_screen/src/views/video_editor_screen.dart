@@ -777,6 +777,12 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
             msPixelLength: _msPixelLength,
             onHandleChanged: _onHandleChanged,
             onTimeChanged: _onCurrentTimeChanged,
+            onSetAspectRatio: (double? ratio){
+              blog('the ratio is ahoooo : $ratio');
+
+              // videoEditorController?.cropAspectRatio(ratio);
+
+            },
             onConfirmCrop: (){
 
               _videoEditorController?.applyCacheCrop();

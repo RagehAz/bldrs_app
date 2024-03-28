@@ -10,6 +10,7 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
     required this.onConfirmCrop,
     required this.onTimeChanged,
     required this.onHandleChanged,
+    required this.onSetAspectRatio,
     super.key
   });
   // --------------------
@@ -18,6 +19,7 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
   final ValueNotifier<double> msPixelLength;
   final String? selectedButton;
   final Function onConfirmCrop;
+  final Function(double? aspectRatio) onSetAspectRatio;
   final Function(int currentMs) onTimeChanged;
   final Function(int minMs, int maxMs) onHandleChanged;
   // --------------------------------------------------------------------------
@@ -51,54 +53,9 @@ class VideoEditorPanelSwitcher extends StatelessWidget {
 
           /// CROP BAR
           else if (_isInitialized == true && selectedButton == VideoEditorNavBar.cropButtonID){
-            return FloatingList(
-              width: _screenWidth,
-              height: _panelHeight,
-              boxColor: Colorz.bloodTest,
-              scrollDirection: Axis.horizontal,
-              columnChildren: [
-
-                /// FREE
-                BldrsBox(
-                  height: _panelHeight - 10,
-                  width: 100,
-                  verse: Verse.plain('Free'),
-                  onTap: (){
-                    videoEditorController?.cropAspectRatio(null);
-                  },
-                ),
-
-                /// 1 / 1
-                BldrsBox(
-                  height: _panelHeight - 10,
-                  width: 100,
-                  verse: Verse.plain('1/1'),
-                  onTap: (){
-                    videoEditorController?.cropAspectRatio(1);
-                  },
-                ),
-
-                /// 16 / 9
-                BldrsBox(
-                  height: _panelHeight - 10,
-                  width: 100,
-                  verse: Verse.plain('16/9'),
-                  // bubble: true,
-                  onTap: (){
-                    videoEditorController?.cropAspectRatio(16/9);
-                  },
-                ),
-
-                /// CONFIRM CROP
-                BldrsBox(
-                  height: _panelHeight - 10,
-                  width: 100,
-                  verse: Verse.plain('Crop'),
-                  // bubble: true,
-                  onTap: onConfirmCrop,
-                ),
-
-              ],
+            return VideoCropPanel(
+              onConfirmCrop: onConfirmCrop,
+              onSetAspectRatio: onSetAspectRatio,
             );
           }
 
